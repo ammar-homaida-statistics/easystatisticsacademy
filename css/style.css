@@ -67,7 +67,7 @@ a:hover{ text-decoration: underline; }
 
 .nav{
   display: flex;
-  gap: 14px;
+  gap: 12px;
   align-items: center;
   justify-content: flex-end;
 }
