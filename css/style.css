@@ -66,17 +66,19 @@ a:hover{ text-decoration: underline; }
 
 .nav{
   display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
+  flex-wrap: nowrap;        /* keep single row */
+  gap: 16px;
   align-items: center;
   justify-content: flex-end;
+  white-space: nowrap;
 }
 
 .nav a{
   color: var(--text);
   font-weight: 600;
-  padding: 8px 10px;
+  padding: 6px 8px;   /* tighter */
   border-radius: 10px;
+  font-size: 15px;
 }
 
 .nav a:hover{
@@ -183,4 +185,11 @@ a:hover{ text-decoration: underline; }
 @media (max-width: 520px){
   .col-3{ grid-column: span 12; }
   .nav{ gap: 8px; }
+}
+
+@media (max-width: 980px){
+  .nav{
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }
