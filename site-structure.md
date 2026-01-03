@@ -1,48 +1,43 @@
-# EasyStatisticsAcademy — General Site Structure (Master Level)
+# EasyStatisticsAcademy — Master Knowledge Structure (Final)
 
-This file defines the permanent, top-level structure of EasyStatisticsAcademy.
-All future content must belong to exactly one of these sections.
+This file defines the permanent, top-level knowledge structure of EasyStatisticsAcademy.
+It is designed for long-term academic growth and should not be changed casually.
 
-This structure is intentionally general and stable.
-Subsections, lessons, and tools will be added later under each section.
+All content, tools, and learning paths must belong to one of these sections.
 
 ---
 
-## 1. Foundations of Statistics
-Core ideas that define statistics as a discipline.
+## 1. Statistical Foundations
+The conceptual and philosophical basis of statistics.
 
 Includes:
 - What statistics is and why it exists
 - Data, variables, and measurement
-- Populations and samples
-- Statistical thinking and uncertainty
+- Populations, samples, and uncertainty
+- Statistical reasoning and thinking
 
 Folder:
-/
-or
 /foundations/
 
 ---
 
 ## 2. Probability Theory
-Mathematical language of uncertainty.
+The mathematical language of randomness and uncertainty.
 
 Includes:
 - Probability concepts
 - Random variables
-- Distributions
-- Expectation and variance
+- Probability distributions
+- Expectation, variance, and moments
 - Stochastic thinking
 
 Folder:
-/
-or
 /probability/
 
 ---
 
 ## 3. Mathematical Statistics
-Theoretical backbone of statistical inference.
+The theoretical framework for inference.
 
 Includes:
 - Estimation theory
@@ -52,95 +47,83 @@ Includes:
 - Asymptotic theory
 
 Folder:
-/
-or
 /mathematical-statistics/
 
 ---
 
 ## 4. Descriptive & Exploratory Statistics
-Understanding data before modeling.
+Understanding data before inference or modeling.
 
 Includes:
-- Summaries and measures
-- Visualization
-- Exploratory data analysis (EDA)
-- Data description and interpretation
+- Numerical summaries
+- Data visualization
+- Exploratory Data Analysis (EDA)
+- Distributional understanding
 
 Folder:
-/
-or
 /descriptive/
 
 ---
 
 ## 5. Statistical Inference
-Decision-making based on data.
+Formal decision-making based on data.
 
 Includes:
 - Confidence intervals
 - Hypothesis testing
 - Parametric and nonparametric methods
-- Error types and power
+- Errors, power, and robustness
 
 Folder:
-/
-or
 /inference/
 
 ---
 
 ## 6. Statistical Modeling
-Explaining relationships and structure.
+Explaining relationships and structure in data.
 
 Includes:
 - Regression models
-- Linear and nonlinear models
-- Assumptions and diagnostics
-- Interpretation of models
+- Linear and nonlinear modeling
+- Model assumptions and diagnostics
+- Interpretation and validation
 
 Folder:
-/
-or
 /modeling/
 
 ---
 
-## 7. Data Analysis & Applied Statistics
-Statistics as used in real research and practice.
+## 7. Applied Statistics & Data Analysis
+Statistics as used in real-world research and practice.
 
 Includes:
 - Applied data analysis
 - Survey analysis
 - Experimental design
-- Case studies
+- Case studies across fields
 
 Folder:
-/
-or
 /applied-statistics/
 
 ---
 
 ## 8. Statistical Computing & Software
-Implementation of statistics using tools.
+Implementation of statistics using computational tools.
 
 Includes:
 - SPSS
 - R
 - Python
 - Excel
-- Reproducible analysis
+- Reproducible statistical workflows
 
 Folder:
-/
-or
 /software/
 
 ---
 
 ## 9. Data Mining
-Pattern discovery in large datasets.
+Pattern discovery in large and complex datasets.
 
 Includes:
 - Clustering
@@ -149,65 +132,56 @@ Includes:
 - Exploratory pattern analysis
 
 Folder:
-/
-or
 /data-mining/
 
 ---
 
 ## 10. Machine Learning & Statistical Learning
-Models that learn from data.
+Models that learn from data with statistical foundations.
 
 Includes:
 - Supervised learning
 - Unsupervised learning
 - Bias–variance tradeoff
-- Model evaluation
+- Model evaluation and selection
 - Statistical learning theory
 
 Folder:
-/
-or
 /machine-learning/
 
 ---
 
-## 11. AI & Intelligent Data Analysis
-Advanced data-driven intelligence.
+## 11. Artificial Intelligence & Intelligent Systems
+Advanced data-driven intelligence built on statistics.
 
 Includes:
 - AI concepts related to statistics
 - Probabilistic AI
 - Decision systems
-- Integration of statistics and AI
+- Integration of statistics, ML, and AI
 
 Folder:
-/
-or
 /artificial-intelligence/
 
 ---
 
 ## 12. Learning Paths & Education
-Guided learning experiences.
+Structured guidance for different audiences.
 
 Includes:
-- Beginner paths
-- Researcher paths
-- Business & applied paths
-- AI & data science paths
+- Beginner pathways
+- Researcher pathways
+- Business and applied pathways
+- Data science and AI pathways
 
 Folder:
-/
-or
 /learning-paths/
 
 ---
 
-## Rule (Non-Negotiable)
-- This file defines the knowledge map of the site.
-- No page is created without belonging to one section.
-- Sections do NOT change names.
-- Growth happens only inside sections.
+## Structural Rules (Non-Negotiable)
 
-This guarantees long-term clarity and academic integrity.
+- Top-level sections are permanent.
+- Growth happens only inside sections.
+- No content exists without a clear section.
+- This structure guarantees long-term clarity and academic integrity.
