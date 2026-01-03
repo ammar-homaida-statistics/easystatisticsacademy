@@ -44,6 +44,7 @@ a:hover{ text-decoration: underline; }
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+  padding 10px 0;
 }
 
 .brand{
@@ -58,7 +59,7 @@ a:hover{ text-decoration: underline; }
 .brand:hover{ text-decoration: none; }
 
 .brand img{
-  height: 34px;
+  height: 26px;
   width: auto;
   display: block;
 }
