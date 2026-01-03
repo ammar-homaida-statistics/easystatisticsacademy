@@ -6,6 +6,7 @@ title: About
 
 description: About EasyStatisticsAcademy, its mission, scope, and academic orientation.
 
+permalink: /about.html
 ---
 
 \# About EasyStatisticsAcademy
