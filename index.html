@@ -1,113 +1,88 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>EasyStatisticsAcademy | Simple Statistics for Beginners</title>
-  <meta name="description" content="Learn statistics the easy way with clear explanations and practical examples using SPSS, R, Python, and Excel.">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <style>
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background-color: #f5f7fa;
-      margin: 0;
-      padding: 0;
-      color: #222;
-    }
-
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 40px 20px;
-      background: #ffffff;
-    }
-
-    header {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-
-    header h1 {
-      font-size: 2.5em;
-      margin-bottom: 10px;
-    }
-
-    header p {
-      font-size: 1.1em;
-      color: #555;
-    }
-
-    h2 {
-      margin-top: 40px;
-      color: #003366;
-    }
-
-    ul {
-      line-height: 1.8;
-    }
-
-    .button {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 12px 20px;
-      background-color: #003366;
-      color: white;
-      text-decoration: none;
-      border-radius: 4px;
-      font-weight: bold;
-    }
-
-    .button:hover {
-      background-color: #0055aa;
-    }
-
-    footer {
-      margin-top: 60px;
-      padding-top: 20px;
-      border-top: 1px solid #ddd;
-      font-size: 0.9em;
-      color: #666;
-      text-align: center;
-    }
-  </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EasyStatisticsAcademy</title>
+  <meta name="description" content="EasyStatisticsAcademy: clear, rigorous, beginner-friendly statistics with practical tools (SPSS, R, Python, Excel) and modern data science." />
+  <link rel="stylesheet" href="/css/style.css" />
 </head>
 
 <body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <span>EasyStatisticsAcademy</span>
+      </div>
 
-  <div class="container">
+      <nav class="nav">
+        <a href="/">Home</a>
+        <a href="/foundations/">Statistics</a>
+        <a href="/probability/">Probability & Theory</a>
+        <a href="/data-mining/">Data Science & AI</a>
+        <a href="/software/">Software</a>
+        <a href="/learning-paths/">Learning Paths</a>
+        <a href="/about.html">About</a>
+      </nav>
+    </div>
+  </header>
 
-    <header>
-      <h1>EasyStatisticsAcademy</h1>
+  <main class="container">
+    <section class="hero">
+      <div class="hero-card">
+        <h1>Learn Statistics the Clear and Practical Way</h1>
+        <p>
+          EasyStatisticsAcademy is a long-term educational platform for beginners, researchers, and applied users.
+          Concepts are explained simply, but correctly—then implemented in SPSS, R, Python, and Excel.
+        </p>
+        <a class="btn" href="/learning-paths/">Start Learning</a>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="card col-6">
+        <h2>Statistics</h2>
+        <p>Foundations, descriptive analysis, inference, modeling, and applied statistics.</p>
+      </div>
+
+      <div class="card col-6">
+        <h2>Probability & Theory</h2>
+        <p>Probability theory and mathematical statistics—the backbone of modern inference.</p>
+      </div>
+
+      <div class="card col-4">
+        <h2>Data Science & AI</h2>
+        <p>Data mining, machine learning, and AI—built on statistical thinking and evaluation.</p>
+      </div>
+
+      <div class="card col-4">
+        <h2>Software</h2>
+        <p>Practical tutorials and reproducible workflows in SPSS, R, Python, and Excel.</p>
+      </div>
+
+      <div class="card col-4">
+        <h2>Learning Paths</h2>
+        <p>Structured tracks for beginners, researchers, business, and data science learners.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Featured starting point</h2>
       <p>
-        An educational platform designed to teach statistics in a simple,
-        intuitive, and practical way.
+        When the first lesson is published, it will appear here as the official entry point.
       </p>
-    </header>
+    </section>
+  </main>
 
-    <p>
-      The content is aimed at beginners, applied researchers, and non-statisticians
-      who want to understand statistics correctly and use it with software such as
-      SPSS, R, Python, and Excel.
-    </p>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>© <span id="y"></span> EasyStatisticsAcademy</div>
+      <div>Educational content • Academic orientation • Long-term project</div>
+    </div>
+  </footer>
 
-    <h2>What You Will Learn</h2>
-    <ul>
-      <li>Basic statistical concepts and intuition</li>
-      <li>Probability and random variables</li>
-      <li>Descriptive statistics</li>
-      <li>Statistical inference</li>
-      <li>Regression and applied modeling</li>
-    </ul>
-
-    <a class="button" href="/basics/what-is-statistics.html">
-      Start Learning: What is Statistics?
-    </a>
-
-    <footer>
-      EasyStatisticsAcademy © 2025 — Simple statistics with practical examples.
-    </footer>
-
-  </div>
-
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
