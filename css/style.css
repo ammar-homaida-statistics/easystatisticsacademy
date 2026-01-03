@@ -255,3 +255,24 @@ a:hover{ text-decoration: underline; }
 .inline-link:hover{
   border-bottom-style: solid;
 }
+
+.site-search {
+  margin-left: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.site-search input[type="search"] {
+  width: 180px;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  border: 1px solid #d0d5dd;
+  background: #fff;
+}
+
+.site-search input[type="search"]:focus {
+  outline: none;
+  border-color: #1e40af;
+}
+
