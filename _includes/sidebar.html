@@ -1,20 +1,55 @@
 <aside class="sidebar">
-  <div class="sidebar-inner">
+  <div class="sidebar-card">
     <div class="sidebar-title">Navigation</div>
 
-    {% for group in site.data.navigation %}
-      <div class="sidebar-group">
-        <div class="sidebar-group-title">{{ group.section }}</div>
-        <ul class="sidebar-list">
-          {% for item in group.items %}
-            <li>
-              <a class="sidebar-link {% if page.url == item.url %}active{% endif %}" href="{{ item.url }}">
-                {{ item.title }}
-              </a>
-            </li>
-          {% endfor %}
-        </ul>
-      </div>
-    {% endfor %}
+    <details class="nav-group" open>
+      <summary>Foundations</summary>
+      <nav class="nav-list">
+        <a href="/foundations/">Statistics Foundations</a>
+        <a href="/foundations/what-is-statistics.html">What is Statistics?</a>
+        <a href="/foundations/population-vs-sample.html">Population vs Sample</a>
+        <a href="/foundations/types-of-data.html">Types of Data</a>
+        <a href="/foundations/variables-and-scales.html">Variables and Scales</a>
+      </nav>
+    </details>
+
+    <details class="nav-group">
+      <summary>Probability & Theory</summary>
+      <nav class="nav-list">
+        <a href="/probability/">Probability & Theory</a>
+        <a href="/probability/probability-basics.html">Probability Basics</a>
+        <a href="/probability/random-variables.html">Random Variables</a>
+        <a href="/probability/distributions.html">Distributions</a>
+      </nav>
+    </details>
+
+    <details class="nav-group">
+      <summary>Inference</summary>
+      <nav class="nav-list">
+        <a href="/inference/">Statistical Inference</a>
+        <a href="/inference/confidence-intervals.html">Confidence Intervals</a>
+        <a href="/inference/hypothesis-testing.html">Hypothesis Testing</a>
+      </nav>
+    </details>
+
+    <details class="nav-group">
+      <summary>Modeling</summary>
+      <nav class="nav-list">
+        <a href="/modeling/">Statistical Modeling</a>
+        <a href="/modeling/linear-regression.html">Linear Regression</a>
+      </nav>
+    </details>
+
+    <details class="nav-group">
+      <summary>Software</summary>
+      <nav class="nav-list">
+        <a href="/software/">Software</a>
+        <a href="/software/spss.html">SPSS</a>
+        <a href="/software/r.html">R</a>
+        <a href="/software/python.html">Python</a>
+        <a href="/software/excel.html">Excel</a>
+      </nav>
+    </details>
+
   </div>
 </aside>
