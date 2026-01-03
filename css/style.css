@@ -55,6 +55,14 @@ a:hover{ text-decoration: underline; }
   letter-spacing: 0.2px;
 }
 
+.brand:hover{ text-decoration: none; }
+
+.brand img{
+  height: 34px;
+  width: auto;
+  display: block;
+}
+
 .nav{
   display: flex;
   flex-wrap: wrap;
