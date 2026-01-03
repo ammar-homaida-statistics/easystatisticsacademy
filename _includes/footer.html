@@ -4,3 +4,29 @@
     <div>Educational content • Academic orientation • Long-term project</div>
   </div>
 </footer>
+
+
+<script>
+  (function () {
+    // Store last visited lesson (only if current page is marked as a lesson in Jekyll front matter)
+    var isLesson = {{ page.is_lesson | default: false | jsonify }};
+    if (isLesson) {
+      try {
+        localStorage.setItem("esa:lastLesson", window.location.pathname);
+        localStorage.setItem("esa:lastSeen", new Date().toISOString());
+      } catch (e) {}
+    }
+
+    // Show "Continue Learning" button if we have a saved lesson
+    try {
+      var last = localStorage.getItem("esa:lastLesson");
+      if (last) {
+        var btn = document.getElementById("continueBtn");
+        if (btn) {
+          btn.href = last;
+          btn.style.display = "inline-block";
+        }
+      }
+    } catch (e) {}
+  })();
+</script>

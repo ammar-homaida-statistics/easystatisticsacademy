@@ -1,0 +1,20 @@
+<aside class="sidebar">
+  <div class="sidebar-inner">
+    <div class="sidebar-title">Navigation</div>
+
+    {% for group in site.data.navigation %}
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">{{ group.section }}</div>
+        <ul class="sidebar-list">
+          {% for item in group.items %}
+            <li>
+              <a class="sidebar-link {% if page.url == item.url %}active{% endif %}" href="{{ item.url }}">
+                {{ item.title }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endfor %}
+  </div>
+</aside>

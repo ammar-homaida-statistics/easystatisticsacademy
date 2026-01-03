@@ -1,0 +1,31 @@
+- section: "Foundations"
+  key: "foundations"
+  items:
+    - title: "Statistics Foundations"
+      url: "/foundations/"
+    - title: "What is Statistics?"
+      url: "/foundations/what-is-statistics/"
+
+- section: "Probability & Theory"
+  key: "probability"
+  items:
+    - title: "Probability & Theory"
+      url: "/probability/"
+    - title: "Probability Basics"
+      url: "/probability/probability-basics/"
+
+- section: "Inference"
+  key: "inference"
+  items:
+    - title: "Statistical Inference"
+      url: "/inference/"
+    - title: "Hypothesis Testing"
+      url: "/inference/hypothesis-testing/"
+
+- section: "Modeling"
+  key: "modeling"
+  items:
+    - title: "Statistical Modeling"
+      url: "/modeling/"
+    - title: "Linear Regression"
+      url: "/modeling/linear-regression/"

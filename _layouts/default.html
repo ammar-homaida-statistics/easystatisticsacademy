@@ -10,9 +10,19 @@
 <body>
   {% include header.html %}
 
+  {% if page.sidebar %}
+  <div class="container layout-two-col">
+    {% include sidebar.html %}
+    <main class="content">
+      {{ content }}
+    </main>
+  </div>
+{% else %}
   <main class="container">
     {{ content }}
   </main>
+{% endif %}
+
 
   {% include footer.html %}
 
