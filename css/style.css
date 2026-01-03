@@ -67,11 +67,9 @@ a:hover{ text-decoration: underline; }
 
 .nav{
   display: flex;
-  flex-wrap: nowrap;        /* keep single row */
-  gap: 16px;
+  gap: 14px;
   align-items: center;
   justify-content: flex-end;
-  white-space: nowrap;
 }
 
 .nav a{
