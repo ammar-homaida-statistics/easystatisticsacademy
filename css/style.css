@@ -466,3 +466,52 @@ a:hover{ text-decoration: underline; }
 #search-results li a:hover {
   background: rgba(0,0,0,0.05);
 }
+
+
+.search-results{
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  width: min(520px, 92vw);
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.12);
+  border-radius: 14px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.10);
+  overflow: hidden;
+  z-index: 9999;
+}
+
+.header-search{
+  position: relative;
+}
+
+.search-item{
+  display: block;
+  padding: 10px 12px;
+  text-decoration: none;
+  color: var(--text);
+  border-top: 1px solid rgba(0,0,0,0.06);
+}
+
+.search-item:first-child{
+  border-top: none;
+}
+
+.search-item:hover{
+  background: rgba(0,0,0,0.04);
+}
+
+.search-title{
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.search-snippet{
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.search-empty{
+  padding: 12px;
+  color: var(--muted);
+}
