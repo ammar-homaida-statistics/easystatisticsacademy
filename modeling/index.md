@@ -3,6 +3,7 @@ layout: default
 title: Statistical Modeling
 description: Regression, model assumptions, interpretation, diagnostics, and practical modeling strategies.
 permalink: /modeling/
+sidebar: true
 ---
 
 <section class="hero">

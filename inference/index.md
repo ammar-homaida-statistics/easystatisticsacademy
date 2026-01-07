@@ -3,6 +3,7 @@ layout: default
 title: Statistical Inference
 description: Confidence intervals, hypothesis testing, p-values, and inference workflow for real studies.
 permalink: /inference/
+sidebar: true
 ---
 
 <section class="hero">

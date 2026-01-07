@@ -3,6 +3,7 @@ layout: default
 title: Data Mining
 description: Pattern discovery, clustering, association rules, and large-scale exploratory analysis.
 permalink: /data-mining/
+sidebar: true
 ---
 
 <section class="hero">

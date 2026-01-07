@@ -3,6 +3,7 @@ layout: default
 title: Statistics Foundations
 description: Core concepts: data types, variables, populations vs samples, and the basic logic behind statistical reasoning.
 permalink: /foundations/
+sidebar: true
 ---
 
 <section class="hero">
