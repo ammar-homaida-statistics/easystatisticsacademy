@@ -16,3 +16,12 @@ sidebar: true
     <a class="btn" href="/foundations/">Start with Foundations</a>
   </div>
 </section>
+
+<section class="card">
+  <h2>Available paths</h2>
+  <ul>
+    <li>Statistics for beginners *(coming soon)*</li>
+    <li>Statistics for researchers *(coming soon)*</li>
+    <li>Applied statistics *(coming soon)*</li>
+  </ul>
+</section>

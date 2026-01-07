@@ -15,3 +15,12 @@ permalink: /modeling/
     <a class="btn" href="/learning-paths/">Start with a learning path</a>
   </div>
 </section>
+
+<section class="card">
+  <h2>Lessons</h2>
+  <ul>
+    <li>Simple regression *(coming soon)*</li>
+    <li>Multiple regression *(coming soon)*</li>
+    <li>Model diagnostics *(coming soon)*</li>
+  </ul>
+</section>

@@ -15,3 +15,12 @@ permalink: /machine-learning/
     <a class="btn" href="/learning-paths/">Start with a learning path</a>
   </div>
 </section>
+
+<section class="card">
+  <h2>Topics</h2>
+  <ul>
+    <li>Supervised learning *(coming soon)*</li>
+    <li>Unsupervised learning *(coming soon)*</li>
+    <li>Model evaluation *(coming soon)*</li>
+  </ul>
+</section>

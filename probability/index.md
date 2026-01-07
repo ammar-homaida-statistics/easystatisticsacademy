@@ -15,3 +15,14 @@ permalink: /probability/
     <a class="btn" href="/learning-paths/">Start with a learning path</a>
   </div>
 </section>
+
+<section class="card">
+  <h2>Lessons</h2>
+  <ul>
+    <li>Probability basics *(coming soon)*</li>
+    <li>Random variables *(coming soon)*</li>
+    <li>Common distributions *(coming soon)*</li>
+    <li>Expectation and variance *(coming soon)*</li>
+    <li>Law of Large Numbers &amp; CLT *(coming soon)*</li>
+  </ul>
+</section>

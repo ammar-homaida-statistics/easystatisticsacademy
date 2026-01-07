@@ -15,3 +15,12 @@ permalink: /inference/
     <a class="btn" href="/learning-paths/">Start with a learning path</a>
   </div>
 </section>
+
+<section class="card">
+  <h2>Lessons</h2>
+  <ul>
+    <li>Confidence intervals *(coming soon)*</li>
+    <li>Hypothesis testing *(coming soon)*</li>
+    <li>p-values and interpretation *(coming soon)*</li>
+  </ul>
+</section>

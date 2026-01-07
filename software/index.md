@@ -15,3 +15,13 @@ permalink: /software/
     <a class="btn" href="/learning-paths/">Start with a learning path</a>
   </div>
 </section>
+
+<section class="card">
+  <h2>Tools</h2>
+  <ul>
+    <li>SPSS *(coming soon)*</li>
+    <li>R *(coming soon)*</li>
+    <li>Python *(coming soon)*</li>
+    <li>Excel *(coming soon)*</li>
+  </ul>
+</section>

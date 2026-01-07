@@ -15,3 +15,13 @@ permalink: /descriptive/
     <a class="btn" href="/learning-paths/">Start with a learning path</a>
   </div>
 </section>
+
+<section class="card">
+  <h2>Lessons</h2>
+  <ul>
+    <li>Measures of center *(coming soon)*</li>
+    <li>Measures of spread *(coming soon)*</li>
+    <li>Tables and graphs *(coming soon)*</li>
+    <li>Exploratory data analysis *(coming soon)*</li>
+  </ul>
+</section>

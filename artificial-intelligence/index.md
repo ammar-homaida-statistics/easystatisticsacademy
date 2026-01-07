@@ -15,3 +15,12 @@ permalink: /artificial-intelligence/
     <a class="btn" href="/learning-paths/">Start with a learning path</a>
   </div>
 </section>
+
+<section class="card">
+  <h2>Topics</h2>
+  <ul>
+    <li>Probabilistic AI *(coming soon)*</li>
+    <li>Decision systems *(coming soon)*</li>
+    <li>AI and statistics *(coming soon)*</li>
+  </ul>
+</section>
