@@ -42,5 +42,16 @@
     });
   }
 </script>
+<script src="/js/simple-jekyll-search.min.js"></script>
+<script>
+  SimpleJekyllSearch({
+    searchInput: document.getElementById('site-search'),
+    resultsContainer: document.getElementById('search-results'),
+    json: '/search.json',
+    searchResultTemplate: '<li><a href="{url}">{title}</a></li>',
+    noResultsText: '<li>No results found</li>',
+    limit: 8
+  });
+</script>
 </body>
 </html>

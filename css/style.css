@@ -443,3 +443,26 @@ a:hover{ text-decoration: underline; }
   gap: 14px;
   flex-wrap: wrap;
 }
+
+#search-results {
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 6px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.12);
+  border-radius: 10px;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+#search-results li a {
+  display: block;
+  padding: 8px 10px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--text);
+}
+
+#search-results li a:hover {
+  background: rgba(0,0,0,0.05);
+}
