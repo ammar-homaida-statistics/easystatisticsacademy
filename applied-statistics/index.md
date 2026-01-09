@@ -3,7 +3,6 @@ layout: default
 title: Applied Statistics & Data Analysis
 description: Real-world statistical analysis, surveys, experiments, and applied case studies.
 permalink: /applied-statistics/
-sidebar: true
 ---
 
 <section class="hero">

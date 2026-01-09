@@ -3,7 +3,6 @@ layout: default
 title: Statistical Software
 description: Step-by-step implementations in SPSS, R, Python, and Excel.
 permalink: /software/
-sidebar: true
 ---
 
 <section class="hero">

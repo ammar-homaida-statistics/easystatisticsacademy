@@ -3,7 +3,6 @@ layout: default
 title: Artificial Intelligence & Intelligent Systems
 description: AI systems built on probabilistic reasoning, statistical decision-making, and learning models.
 permalink: /artificial-intelligence/
-sidebar: true
 ---
 
 <section class="hero">

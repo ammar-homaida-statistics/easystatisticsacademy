@@ -3,7 +3,6 @@ layout: default
 title: Probability & Theory
 description: Probability basics, random variables, distributions, and theory needed for inference and ML.
 permalink: /probability/
-sidebar: true
 ---
 
 <section class="hero">

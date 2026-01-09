@@ -3,7 +3,6 @@ layout: default
 title: Mathematical Statistics
 description: Estimation, likelihood, sampling distributions, and theoretical foundations for inference.
 permalink: /mathematical-statistics/
-sidebar: true
 ---
 
 <section class="hero">

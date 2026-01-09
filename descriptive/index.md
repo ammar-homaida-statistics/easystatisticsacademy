@@ -3,7 +3,6 @@ layout: default
 title: Descriptive Statistics
 description: Summaries, visualizations, and exploratory analysis to understand data clearly.
 permalink: /descriptive/
-sidebar: true
 ---
 
 <section class="hero">

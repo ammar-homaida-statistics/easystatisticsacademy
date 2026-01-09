@@ -3,7 +3,6 @@ layout: default
 title: Machine Learning
 description: Supervised and unsupervised learning explained with statistical intuition and practical workflows.
 permalink: /machine-learning/
-sidebar: true
 ---
 
 <section class="hero">
