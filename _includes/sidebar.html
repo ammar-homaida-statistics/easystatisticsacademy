@@ -4,52 +4,61 @@
 
     <details class="nav-group" open>
       <summary>Foundations</summary>
-      <nav class="nav-list">
-        <a href="/foundations/">Statistics Foundations</a>
-        <a href="/foundations/what-is-statistics.html">What is Statistics?</a>
-        <a href="/foundations/population-vs-sample.html">Population vs Sample</a>
-        <a href="/foundations/types-of-data.html">Types of Data</a>
-        <a href="/foundations/variables-and-scales.html">Variables and Scales</a>
-      </nav>
+      <div class="nav-list">
+        <a class="nav-link" href="/foundations/">Statistics Foundations</a>
+        <a class="nav-link" href="/foundations/what-is-statistics.html">What is Statistics?</a>
+        <a class="nav-link" href="/foundations/population-vs-sample.html">Population vs Sample</a>
+        <a class="nav-link" href="/foundations/types-of-data.html">Types of Data</a>
+      </div>
     </details>
 
     <details class="nav-group">
-      <summary>Probability & Theory</summary>
-      <nav class="nav-list">
-        <a href="/probability/">Probability & Theory</a>
-        <a href="/probability/probability-basics.html">Probability Basics</a>
-        <a href="/probability/random-variables.html">Random Variables</a>
-        <a href="/probability/distributions.html">Distributions</a>
-      </nav>
+      <summary>Probability</summary>
+      <div class="nav-list">
+        <a class="nav-link" href="/probability/">Probability &amp; Theory</a>
+        <a class="nav-link" href="#">Probability basics (coming soon)</a>
+        <a class="nav-link" href="#">Random variables (coming soon)</a>
+      </div>
     </details>
 
     <details class="nav-group">
       <summary>Inference</summary>
-      <nav class="nav-list">
-        <a href="/inference/">Statistical Inference</a>
-        <a href="/inference/confidence-intervals.html">Confidence Intervals</a>
-        <a href="/inference/hypothesis-testing.html">Hypothesis Testing</a>
-      </nav>
+      <div class="nav-list">
+        <a class="nav-link" href="/inference/">Statistical Inference</a>
+        <a class="nav-link" href="#">Hypothesis testing (coming soon)</a>
+      </div>
     </details>
 
     <details class="nav-group">
       <summary>Modeling</summary>
-      <nav class="nav-list">
-        <a href="/modeling/">Statistical Modeling</a>
-        <a href="/modeling/linear-regression.html">Linear Regression</a>
-      </nav>
+      <div class="nav-list">
+        <a class="nav-link" href="/modeling/">Regression &amp; Modeling</a>
+        <a class="nav-link" href="#">Linear regression (coming soon)</a>
+      </div>
     </details>
 
     <details class="nav-group">
-      <summary>Software</summary>
-      <nav class="nav-list">
-        <a href="/software/">Software</a>
-        <a href="/software/spss.html">SPSS</a>
-        <a href="/software/r.html">R</a>
-        <a href="/software/python.html">Python</a>
-        <a href="/software/excel.html">Excel</a>
-      </nav>
+      <summary>Learning Paths</summary>
+      <div class="nav-list">
+        <a class="nav-link" href="/learning-paths/">Learning Paths</a>
+        <a class="nav-link" href="#">Beginner path (coming soon)</a>
+      </div>
     </details>
-
   </div>
 </aside>
+
+<script>
+  // Active link highlight
+  (function () {
+    const current = window.location.pathname.replace(/\/$/, "");
+    document.querySelectorAll(".nav-link").forEach(a => {
+      const href = (a.getAttribute("href") || "").replace(/\/$/, "");
+      if (href && href !== "#" && href === current) {
+        a.classList.add("active");
+        // expand the accordion group that contains the active link
+        const details = a.closest("details");
+        if (details) details.open = true;
+      }
+    });
+  })();
+</script>

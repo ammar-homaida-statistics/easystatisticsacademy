@@ -19,8 +19,17 @@
   </div>
 {% else %}
   <main class="container">
+  {% if page.sidebar %}
+    <div class="layout-two-col">
+      {% include sidebar.html %}
+      <div class="content">
+        {{ content }}
+      </div>
+    </div>
+  {% else %}
     {{ content }}
-  </main>
+  {% endif %}
+</main>
 {% endif %}
 
 
