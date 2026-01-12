@@ -1,12 +1,8 @@
 ---
-
 layout: default
-
 title: About
-
-description: About EasyStatisticsAcademy, its mission, scope, and academic orientation.
-
-permalink: /about.html
+description: About EasyStatisticsAcademy.
+permalink: /about/
 ---
 
 \# About EasyStatisticsAcademy
