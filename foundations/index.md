@@ -1,96 +1,101 @@
-<section class="section-layout">
-  <!-- LEFT: manual lesson list -->
-  <aside class="section-sidebar" aria-label="Foundations lessons">
-    <div class="sidebar-box">
-      <div class="sidebar-title">Foundations</div>
-      <div class="sidebar-note">Lessons will appear here as they are published.</div>
+---
+layout: default
+title: Statistics Foundations
+description: Core concepts: data types, variables, populations vs samples, and the basic logic behind statistical reasoning.
+permalink: /foundations/
+sidebar: true
+---
 
-      <nav class="sidebar-nav">
-        <!-- Published lessons (real links) -->
-        <!-- Example:
-        <a class="sidebar-link" href="/foundations/what-is-statistics/">What is Statistics?</a>
-        -->
+<section class="hero hero-section">
+  <div class="hero-card hero-split">
+    <div class="hero-copy">
+      <div class="badge-row">
+        <span class="badge">Start here</span>
+        <span class="badge">Beginner-friendly</span>
+        <span class="badge">Correct theory</span>
+      </div>
 
-        <!-- Coming soon (not clickable) -->
-        <span class="sidebar-link is-soon">What is Statistics?</span>
-        <span class="sidebar-link is-soon">Population vs Sample</span>
-        <span class="sidebar-link is-soon">Types of Data</span>
-        <span class="sidebar-link is-soon">Variables and Scales</span>
-      </nav>
+      <h1>Statistics Foundations</h1>
+      <p class="lead">
+        Core concepts: data types, variables, populations vs samples, and the basic logic behind
+        statistical reasoning.
+      </p>
 
-      <div class="sidebar-divider"></div>
+      <div class="hero-actions">
+        <a class="btn" href="/learning-paths/">View learning paths</a>
+        <a class="btn btn-outline" href="/descriptive/">Next: Descriptive</a>
+      </div>
 
-      <div class="sidebar-subtitle">Suggested order</div>
-      <ol class="sidebar-ol">
-        <li>What is Statistics?</li>
-        <li>Population vs Sample</li>
-        <li>Types of Data</li>
-      </ol>
+      <p class="muted-mini">
+        Lessons will appear here as they are published. For now, you can follow the suggested order below.
+      </p>
     </div>
-  </aside>
 
-  <!-- RIGHT: your normal page content -->
-  <main class="section-main">
-    <section class="hero">
-      <div class="hero-card">
-        <h1>Statistics Foundations</h1>
-        <p>
-          Core concepts: data types, variables, populations vs samples, and the basic
-          logic behind statistical reasoning.
-        </p>
-        <div class="hero-actions">
-          <a class="btn" href="/learning-paths/">View learning paths</a>
-          <a class="btn btn-outline" href="#lessons">Next: Descriptive</a>
-        </div>
-
-        <div class="subnote">
-          Lessons will appear here as they are published. For now, you can follow the suggested order.
-        </div>
-
-        <h2 class="mini-title">Suggested order</h2>
-        <ol class="mini-list">
-          <li><a href="#" class="inline-link">What is Statistics?</a> <em>(coming soon)</em></li>
-          <li><a href="#" class="inline-link">Population vs Sample</a> <em>(coming soon)</em></li>
-          <li><a href="#" class="inline-link">Types of Data</a> <em>(coming soon)</em></li>
+    <div class="hero-panel">
+      <div class="panel-card">
+        <h2 class="panel-title">Suggested order</h2>
+        <ol class="quickstart">
+          <li><a href="#lessons">What is Statistics?</a><span class="meta">Definition and purpose</span></li>
+          <li><a href="#lessons">Population vs Sample</a><span class="meta">Inference starts here</span></li>
+          <li><a href="#lessons">Types of Data</a><span class="meta">Categories and measurement</span></li>
         </ol>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
 
-    <section class="card" id="lessons">
-      <h2>Lessons</h2>
+<section class="section" id="lessons">
+  <div class="section-head">
+    <h2>Lessons</h2>
+    <p>These pages will be activated one by one. For now they are placeholders.</p>
+  </div>
 
-      <div class="lesson-grid">
-        <div class="lesson-card">
-          <h3>What is Statistics?</h3>
-          <p>What statistical work is, what it is not, and why the logic matters.</p>
-          <div class="lesson-meta">Coming soon</div>
-        </div>
+  <div class="grid grid-2">
+    <div class="card lesson-card is-soon">
+      <h3>What is Statistics?</h3>
+      <p>What statistics is, what it is not, and why the logic matters.</p>
+      <span class="pill">Coming soon</span>
+    </div>
 
-        <div class="lesson-card">
-          <h3>Population vs Sample</h3>
-          <p>How sampling connects data to real-world conclusions.</p>
-          <div class="lesson-meta">Coming soon</div>
-        </div>
+    <div class="card lesson-card is-soon">
+      <h3>Population vs Sample</h3>
+      <p>How sampling connects data to real-world conclusions.</p>
+      <span class="pill">Coming soon</span>
+    </div>
 
-        <div class="lesson-card">
-          <h3>Types of Data</h3>
-          <p>Qualitative vs quantitative, discrete vs continuous, and common mistakes.</p>
-          <div class="lesson-meta">Coming soon</div>
-        </div>
+    <div class="card lesson-card is-soon">
+      <h3>Types of Data</h3>
+      <p>Qualitative vs quantitative, discrete vs continuous, and common mistakes.</p>
+      <span class="pill">Coming soon</span>
+    </div>
 
-        <div class="lesson-card">
-          <h3>Variables and Scales</h3>
-          <p>Measurement scales and why they control which methods you can use.</p>
-          <div class="lesson-meta">Coming soon</div>
-        </div>
-      </div>
+    <div class="card lesson-card is-soon">
+      <h3>Variables and Scales</h3>
+      <p>Measurement scales and why they control which methods you can use.</p>
+      <span class="pill">Coming soon</span>
+    </div>
+  </div>
+</section>
 
-      <h3 class="mini-title">Goal of this section</h3>
-      <ul class="mini-list">
+<section class="section section-slim">
+  <div class="callout">
+    <div class="callout-copy">
+      <h2>Goal of this section</h2>
+      <ul class="bullets">
         <li>Understand the language of statistics</li>
-        <li>Know what “data type” means for analysis</li>
+        <li>Know what data types imply for analysis</li>
         <li>Avoid beginner mistakes that break conclusions</li>
       </ul>
-    </section>
-  </main>
+    </div>
+    <div class="callout-side">
+      <div class="mini">
+        <div class="mini-title">Next step</div>
+        <div class="mini-body">After Foundations, continue to <strong>Descriptive Statistics</strong>.</div>
+      </div>
+      <div class="mini">
+        <div class="mini-title">Implementations</div>
+        <div class="mini-body">When lessons go live, they will include SPSS/R/Python/Excel examples.</div>
+      </div>
+    </div>
+  </div>
 </section>
