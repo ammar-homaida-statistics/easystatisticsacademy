@@ -799,3 +799,50 @@ a:hover{ text-decoration: underline; }
   .callout{ grid-template-columns: 1fr; }
   .grid-3{ grid-template-columns: 1fr; }
 }
+
+/* ===== Section pages polish ===== */
+
+.hero-section .hero-card { padding: 24px; }
+
+.muted-mini{
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.grid-2{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.lesson-card h3{
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+
+.lesson-card p{
+  margin: 0;
+  color: var(--muted);
+}
+
+.pill{
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,0.10);
+  background: rgba(246,248,251,0.85);
+  color: rgba(0,0,0,0.65);
+}
+
+.is-soon{
+  opacity: 0.95;
+}
+
+@media (max-width: 980px){
+  .grid-2{ grid-template-columns: 1fr; }
+}
+
