@@ -12,51 +12,23 @@
     </button>
 
     <nav id="site-nav" class="nav" aria-label="Primary">
-      {% assign is_ar = page.lang == "ar" %}
-
-      <a href="{% if is_ar %}/ar/{% else %}/{% endif %}">
-        {% if is_ar %}الرئيسية{% else %}Home{% endif %}
-      </a>
-
-      <a href="{% if is_ar %}/ar/foundations/{% else %}/foundations/{% endif %}">
-        {% if is_ar %}الأساسيات{% else %}Statistics{% endif %}
-      </a>
-
-      <a href="{% if is_ar %}/ar/probability/{% else %}/probability/{% endif %}">
-        {% if is_ar %}الاحتمالات{% else %}Probability &amp; Theory{% endif %}
-      </a>
-
-      <a href="{% if is_ar %}/ar/data-mining/{% else %}/data-mining/{% endif %}">
-        {% if is_ar %}علم البيانات والذكاء الاصطناعي{% else %}Data Science &amp; AI{% endif %}
-      </a>
-
-      <a href="{% if is_ar %}/ar/software/{% else %}/software/{% endif %}">
-        {% if is_ar %}البرامج{% else %}Software{% endif %}
-      </a>
-
-      <a href="{% if is_ar %}/ar/learning-paths/{% else %}/learning-paths/{% endif %}">
-        {% if is_ar %}مسارات التعلم{% else %}Learning Paths{% endif %}
-      </a>
-
-      <a href="{% if is_ar %}/ar/about/{% else %}/about/{% endif %}">
-        {% if is_ar %}حول{% else %}About{% endif %}
-      </a>
+      <a href="/">Home</a>
+      <a href="/foundations/">Statistics</a>
+      <a href="/probability/">Probability &amp; Theory</a>
+      <a href="/data-mining/">Data Science &amp; AI</a>
+      <a href="/software/">Software</a>
+      <a href="/learning-paths/">Learning Paths</a>
+      <a href="/about/">About</a>
     </nav>
 
-    <div class="header-search">
-      <input
-        id="site-search"
-        type="search"
-        placeholder="{% if is_ar %}بحث…{% else %}Search…{% endif %}"
-        autocomplete="off"
-      />
-      <div id="search-results" class="search-results" hidden></div>
-    </div>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+/>
 
-    <div class="lang-switch" aria-label="Language switch">
-      <a class="lang-link" href="/">EN</a>
-      <span class="lang-sep">|</span>
-      <a class="lang-link" href="/ar/">AR</a>
+    <div class="header-search">
+      <input id="site-search" type="search" placeholder="Search…" autocomplete="off" />
+      <div id="search-results" class="search-results" hidden></div>
     </div>
   </div>
 </header>
