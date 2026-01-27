@@ -72,6 +72,16 @@ sidebar: true
   <a class="pill" href="/foundations/what-is-statistics/">Open lesson</a>
 </div>
 
+<div class="grid grid-2">
+  <div class="card lesson-card">
+    <h3>
+      <a href="/foundations/what-statistics-is-not/">What Statistics Is Not</a>
+    </h3>
+    <p>Understanding the limits of statistics and common misconceptions.</p>
+    <a class="pill" href="/foundations/what-statistics-is-not/">Open lesson</a>
+  </div>
+</div>
+
     <div class="card lesson-card is-soon">
       <h3>Population vs Sample</h3>
       <p>How sampling connects data to real-world conclusions.</p>
