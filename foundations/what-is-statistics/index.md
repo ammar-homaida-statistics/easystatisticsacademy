@@ -199,3 +199,18 @@ lesson_order: 1
     </p>
   </div>
 </section>
+
+<section class="section section-next">
+  <div class="content-narrow">
+    <h2>Next lesson</h2>
+
+    <p>
+      Continue to the next lesson to understand the common misunderstandings
+      and limits of statistical reasoning.
+    </p>
+
+    <a class="btn btn-primary" href="/foundations/what-statistics-is-not/">
+      Next: What Statistics Is Not
+    </a>
+  </div>
+</section>
