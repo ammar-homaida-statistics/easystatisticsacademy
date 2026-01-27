@@ -7,6 +7,10 @@ section: foundations
 lesson_order: 1
 ---
 
+<meta name="esa-section" content="foundations">
+<meta name="esa-lesson-title" content="What Is Statistics?">
+<meta name="esa-lesson-url" content="/foundations/what-is-statistics/">
+
 <section class="hero hero-lesson">
   <div class="hero-card">
     <h1>What Is Statistics?</h1>

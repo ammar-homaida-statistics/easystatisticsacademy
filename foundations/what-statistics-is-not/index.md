@@ -7,6 +7,10 @@ section: foundations
 lesson_order: 2
 ---
 
+<meta name="esa-section" content="foundations">
+<meta name="esa-lesson-title" content="What Statistics Is Not">
+<meta name="esa-lesson-url" content="/foundations/what-statistics-is-not/">
+
 <a class="btn btn-primary" href="/foundations/what-is-statistics/">
   Previous: What Is Statistics?
 </a>

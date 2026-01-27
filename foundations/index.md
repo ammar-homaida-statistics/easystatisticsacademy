@@ -57,6 +57,8 @@ sidebar: true
   </div>
 </section>
 
+<div id="continue-reading" style="display:none;"></div>
+
 <section class="section" id="lessons">
   <div class="section-head">
     <h2>Lessons</h2>
