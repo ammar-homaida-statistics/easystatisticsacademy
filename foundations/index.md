@@ -51,11 +51,13 @@ sidebar: true
   </div>
 
   <div class="grid grid-2">
-    <div class="card lesson-card is-soon">
-      <h3>What is Statistics?</h3>
-      <p>What statistics is, what it is not, and why the logic matters.</p>
-      <span class="pill">Coming soon</span>
-    </div>
+    <div class="card lesson-card">
+  <h3>
+    <a href="/foundations/what-is-statistics/">What is Statistics?</a>
+  </h3>
+  <p>What statistics is, what it is not, and why the logic matters.</p>
+  <a class="pill" href="/foundations/what-is-statistics/">Open lesson</a>
+</div>
 
     <div class="card lesson-card is-soon">
       <h3>Population vs Sample</h3>
