@@ -32,15 +32,28 @@ sidebar: true
     </div>
 
     <div class="hero-panel">
-      <div class="panel-card">
-        <h2 class="panel-title">Suggested order</h2>
-        <ol class="quickstart">
-          <li><a href="#lessons">What is Statistics?</a><span class="meta">Definition and purpose</span></li>
-          <li><a href="#lessons">Population vs Sample</a><span class="meta">Inference starts here</span></li>
-          <li><a href="#lessons">Types of Data</a><span class="meta">Categories and measurement</span></li>
-        </ol>
-      </div>
-    </div>
+  <div class="panel-card">
+    <h2 class="panel-title">Suggested order</h2>
+
+    <ol class="quickstart">
+      <li>
+        <a href="/foundations/what-is-statistics/">What Is Statistics?</a>
+        <span class="meta">Definition and purpose</span>
+      </li>
+
+      <li>
+        <a href="/foundations/what-statistics-is-not/">What Statistics Is Not</a>
+        <span class="meta">Limits and misconceptions</span>
+      </li>
+
+      <li>
+        <span class="is-soon">Population vs Sample</span>
+        <span class="meta">Inference starts here</span>
+      </li>
+    </ol>
+  </div>
+</div>
+
   </div>
 </section>
 
