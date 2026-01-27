@@ -98,7 +98,6 @@ sidebar: true
       <p>Measurement scales and why they control which methods you can use.</p>
       <span class="pill">Coming soon</span>
     </div>
-  </div>
 </section>
 
 <section class="section section-slim">
