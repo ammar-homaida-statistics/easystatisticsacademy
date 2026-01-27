@@ -7,6 +7,14 @@ section: foundations
 lesson_order: 2
 ---
 
+<section class="section section-soft">
+  <div class="content-narrow">
+    <a class="btn btn-outline" href="/foundations/what-is-statistics/">
+      Previous: What Is Statistics?
+    </a>
+  </div>
+</section>
+
 <section class="hero hero-lesson">
   <div class="hero-card">
     <h1>What Statistics Is Not</h1>
@@ -164,6 +172,34 @@ lesson_order: 2
     <p>
       Statistics is a tool for careful reasoning, not a source of guaranteed truth.
       Its strength lies in acknowledging uncertainty, not hiding it.
+    </p>
+  </div>
+</section>
+
+<section class="section section-soft">
+  <div class="content-narrow">
+    <h2>Short video explanation</h2>
+
+    <div class="video-container">
+      <iframe
+        src="https://www.youtube.com/embed/8IiGCEq7J2c"
+        title="What Statistics Is Not – Video Explanation"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<section class="section section-next">
+  <div class="content-narrow">
+    <h2>Simple summary</h2>
+
+    <p>
+      Statistics does not give perfect or guaranteed answers.
+      It helps us think carefully using data, while accepting uncertainty
+      and limitations.
     </p>
   </div>
 </section>
