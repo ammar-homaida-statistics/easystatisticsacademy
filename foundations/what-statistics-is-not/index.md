@@ -7,13 +7,9 @@ section: foundations
 lesson_order: 2
 ---
 
-<section class="section section-soft">
-  <div class="content-narrow">
-    <a class="btn btn-outline" href="/foundations/what-is-statistics/">
-      Previous: What Is Statistics?
-    </a>
-  </div>
-</section>
+<a class="btn btn-primary" href="/foundations/what-is-statistics/">
+  Previous: What Is Statistics?
+</a>
 
 <section class="hero hero-lesson">
   <div class="hero-card">
