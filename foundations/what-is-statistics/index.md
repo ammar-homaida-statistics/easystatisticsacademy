@@ -1,14 +1,9 @@
 ---
 layout: default
-
 title: What Is Statistics?
-
 description: A clear explanation of what statistics is, what it is not, and why statistical reasoning matters.
-
 permalink: /foundations/what-is-statistics/
-
 section: foundations
-
 lesson_order: 1
 ---
 
@@ -153,6 +148,19 @@ lesson_order: 1
   </div>
 </section>
 
+<section class="section">
+  <div class="content-narrow">
+    <h2>Real-life examples</h2>
+
+    <ul class="bullets">
+      <li>Estimating the average income of a country using data from a sample of households.</li>
+      <li>Testing whether a new medicine works better than an existing treatment.</li>
+      <li>Predicting future product demand based on past sales data.</li>
+      <li>Comparing exam results to understand differences in student performance.</li>
+    </ul>
+  </div>
+</section>
+
 <section class="section section-soft">
   <div class="content-narrow">
     <h2>Key idea to remember</h2>
@@ -164,4 +172,30 @@ lesson_order: 1
   </div>
 </section>
 
+<section class="section section-soft">
+  <div class="content-narrow">
+    <h2>Short video explanation</h2>
 
+    <div class="video-container">
+      <iframe
+        src="https://www.youtube.com/embed/uIH29yojL4U"
+        title="What Is Statistics – Video Explanation"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<section class="section section-next">
+  <div class="content-narrow">
+    <h2>Simple summary</h2>
+
+    <p>
+      Statistics helps us understand data and make better decisions when we do not
+      have complete information. It does not give perfect answers, but it helps us
+      reason carefully using evidence.
+    </p>
+  </div>
+</section>
