@@ -7,6 +7,10 @@ section: foundations
 lesson_order: 3
 ---
 
+<meta name="esa-section" content="foundations">
+<meta name="esa-lesson-title" content="Statistical Thinking vs Deterministic Thinking">
+<meta name="esa-lesson-url" content="/foundations/statistical-thinking-vs-deterministic-thinking/">
+
 <a class="btn btn-primary" href="/foundations/what-statistics-is-not/">
   Previous: What Statistics Is Not
 </a>
