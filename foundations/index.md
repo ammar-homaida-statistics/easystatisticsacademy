@@ -93,6 +93,21 @@ sidebar: true
   <p>Deterministic vs random systems, why variability is unavoidable, and why one number is never enough.</p>
   <a class="pill" href="/foundations/statistical-thinking-vs-deterministic-thinking/">Open lesson</a>
 </div>
+
+<div class="card lesson-card">
+  <h3>
+    <a href="/foundations/statistical-questions/">
+      Statistical Questions
+    </a>
+  </h3>
+  <p>
+    What makes a question statistical, why data and uncertainty are required,
+    and how to recognize non-statistical questions.
+  </p>
+  <a class="pill" href="/foundations/statistical-questions/">
+    Open lesson
+  </a>
+</div>
 </div>
 
     <div class="card lesson-card is-soon">
