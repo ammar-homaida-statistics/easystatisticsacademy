@@ -199,8 +199,8 @@ lesson_order: 4
       data collection methods matter.
     </p>
 
-    <a class="btn btn-primary" href="/foundations/how-data-are-collected/">
-      Next: How Data Are Collected
+    <a class="btn btn-primary" href="/foundations/what-is-data/">
+      Next: What Is Data?
     </a>
   </div>
 </section>
