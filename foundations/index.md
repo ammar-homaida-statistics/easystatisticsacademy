@@ -83,6 +83,16 @@ sidebar: true
     <p>Understanding the limits of statistics and common misconceptions.</p>
     <a class="pill" href="/foundations/what-statistics-is-not/">Open lesson</a>
   </div>
+
+  <div class="card lesson-card">
+  <h3>
+    <a href="/foundations/statistical-thinking-vs-deterministic-thinking/">
+      Statistical Thinking vs Deterministic Thinking
+    </a>
+  </h3>
+  <p>Deterministic vs random systems, why variability is unavoidable, and why one number is never enough.</p>
+  <a class="pill" href="/foundations/statistical-thinking-vs-deterministic-thinking/">Open lesson</a>
+</div>
 </div>
 
     <div class="card lesson-card is-soon">
