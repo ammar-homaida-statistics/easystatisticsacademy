@@ -7,6 +7,10 @@ section: foundations
 lesson_order: 3
 ---
 
+<a class="btn btn-primary" href="/foundations/what-statistics-is-not/">
+  Previous: What Statistics Is Not
+</a>
+
 <section class="hero hero-lesson">
   <div class="hero-card">
     <h1>Statistical Thinking vs Deterministic Thinking</h1>
