@@ -110,21 +110,9 @@ lesson\_order: 4
 
 &nbsp;     It begins with asking the right kind of question.
 
-&nbsp;   </p>
-
-
-
-&nbsp;   <p>
-
 &nbsp;     Many errors in data analysis occur because a question that is not statistical
 
 &nbsp;     is treated as if it were.
-
-&nbsp;   </p>
-
-
-
-&nbsp;   <p>
 
 &nbsp;     Understanding statistical questions helps clarify when statistics is needed
 
