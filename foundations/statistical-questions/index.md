@@ -106,17 +106,17 @@ lesson\_order: 4
 
 &nbsp;   <p>
 
-&nbsp;     Statistics does not begin with formulas or calculations.
+&nbsp;     Statistics does not begin with formulas or calculations. \\\\
 
-&nbsp;     It begins with asking the right kind of question.
+&nbsp;     It begins with asking the right kind of question. \\\\
 
 &nbsp;     Many errors in data analysis occur because a question that is not statistical
 
-&nbsp;     is treated as if it were.
+&nbsp;     is treated as if it were.\\\\
 
 &nbsp;     Understanding statistical questions helps clarify when statistics is needed
 
-&nbsp;     and when it is not.
+&nbsp;     and when it is not.\\\\
 
 &nbsp;   </p>
 
