@@ -46,15 +46,13 @@ lesson\_order: 4
 
 &nbsp;   <h1>Statistical Questions</h1>
 
-
-
 &nbsp;   <p class="lead">
 
-&nbsp;     This lesson explains what makes a question statistical and why some questions require data, variability, and uncertainty to be answered.
+&nbsp;     This lesson explains what makes a question statistical and why some questions require data,
+
+&nbsp;     variability, and uncertainty to be answered.
 
 &nbsp;   </p>
-
-
 
 &nbsp;   <p class="muted-mini">
 
@@ -73,8 +71,6 @@ lesson\_order: 4
 &nbsp; <div class="content-narrow">
 
 &nbsp;   <h2>What you will learn</h2>
-
-
 
 &nbsp;   <ul class="bullets">
 
@@ -102,21 +98,13 @@ lesson\_order: 4
 
 &nbsp;   <h2>Why this topic matters</h2>
 
-
-
 &nbsp;   <p>
 
-&nbsp;     Statistics does not begin with formulas or calculations. \\\\
+&nbsp;     Statistics does not begin with formulas or calculations. It begins with asking the right kind of question.
 
-&nbsp;     It begins with asking the right kind of question. \\\\
+&nbsp;     Many errors in data analysis occur because a question that is not statistical is treated as if it were.
 
-&nbsp;     Many errors in data analysis occur because a question that is not statistical
-
-&nbsp;     is treated as if it were.\\\\
-
-&nbsp;     Understanding statistical questions helps clarify when statistics is needed
-
-&nbsp;     and when it is not.\\\\
+&nbsp;     Understanding statistical questions helps clarify when statistics is needed and when it is not.
 
 &nbsp;   </p>
 
@@ -132,33 +120,13 @@ lesson\_order: 4
 
 &nbsp;   <h2>What makes a question statistical?</h2>
 
-
-
 &nbsp;   <p>
 
-&nbsp;     A statistical question is one that cannot be answered with a single,
+&nbsp;     A statistical question cannot be answered with a single fixed value. It anticipates variability and
 
-&nbsp;     fixed value.
+&nbsp;     requires multiple observations to answer. For this reason, statistical questions focus on patterns,
 
-&nbsp;   </p>
-
-
-
-&nbsp;   <p>
-
-&nbsp;     It anticipates variability in the data and requires multiple observations
-
-&nbsp;     to be answered.
-
-&nbsp;   </p>
-
-
-
-&nbsp;   <p>
-
-&nbsp;     Statistical questions are concerned with patterns, distributions,
-
-&nbsp;     and uncertainty rather than exact outcomes.
+&nbsp;     distributions, and uncertainty rather than exact outcomes.
 
 &nbsp;   </p>
 
@@ -174,27 +142,11 @@ lesson\_order: 4
 
 &nbsp;   <h2>Questions that require data</h2>
 
-
-
 &nbsp;   <p>
 
-&nbsp;     Statistical questions require data because the answer is not known in advance.
+&nbsp;     Statistical questions require data because the answer is not known in advance. Data must be collected,
 
-&nbsp;   </p>
-
-
-
-&nbsp;   <p>
-
-&nbsp;     Data must be collected, observed, or measured to understand how outcomes vary.
-
-&nbsp;   </p>
-
-
-
-&nbsp;   <p>
-
-&nbsp;     Without data, statistical reasoning cannot take place.
+&nbsp;     observed, or measured to understand how outcomes vary. Without data, statistical reasoning cannot take place.
 
 &nbsp;   </p>
 
@@ -210,29 +162,13 @@ lesson\_order: 4
 
 &nbsp;   <h2>Questions that require uncertainty</h2>
 
-
-
 &nbsp;   <p>
 
-&nbsp;     A key feature of statistical questions is uncertainty.
+&nbsp;     A key feature of statistical questions is uncertainty. Even after data are collected, the answer is usually
 
-&nbsp;   </p>
+&nbsp;     expressed with some degree of uncertainty. Statistical thinking accepts uncertainty instead of trying to
 
-
-
-&nbsp;   <p>
-
-&nbsp;     Even after data are collected, the answer is typically expressed
-
-&nbsp;     with some degree of uncertainty.
-
-&nbsp;   </p>
-
-
-
-&nbsp;   <p>
-
-&nbsp;     Statistical thinking accepts uncertainty instead of trying to eliminate it.
+&nbsp;     eliminate it.
 
 &nbsp;   </p>
 
@@ -248,31 +184,13 @@ lesson\_order: 4
 
 &nbsp;   <h2>Non-statistical questions disguised as statistical</h2>
 
-
-
 &nbsp;   <p>
 
-&nbsp;     Some questions appear statistical but are actually deterministic.
+&nbsp;     Some questions appear statistical but are actually deterministic. Questions with a single correct answer,
 
-&nbsp;   </p>
+&nbsp;     known in advance, do not require statistical analysis. Treating such questions as statistical can lead to
 
-
-
-&nbsp;   <p>
-
-&nbsp;     Questions with a single correct answer, known in advance,
-
-&nbsp;     do not require statistical analysis.
-
-&nbsp;   </p>
-
-
-
-&nbsp;   <p>
-
-&nbsp;     Treating such questions as statistical can lead to confusion
-
-&nbsp;     and unnecessary analysis.
+&nbsp;     confusion and unnecessary analysis.
 
 &nbsp;   </p>
 
@@ -288,8 +206,6 @@ lesson\_order: 4
 
 &nbsp;   <h2>Examples of statistical questions</h2>
 
-
-
 &nbsp;   <ul class="bullets">
 
 &nbsp;     <li>What is the average response time of a website under normal usage?</li>
@@ -302,13 +218,9 @@ lesson\_order: 4
 
 &nbsp;   </ul>
 
-
-
 &nbsp;   <p>
 
-&nbsp;     These questions cannot be answered with a single observation
-
-&nbsp;     and require data collected over multiple cases.
+&nbsp;     These questions cannot be answered with a single observation and require data collected over multiple cases.
 
 &nbsp;   </p>
 
@@ -324,13 +236,11 @@ lesson\_order: 4
 
 &nbsp;   <h2>Key idea to remember</h2>
 
-
-
 &nbsp;   <p>
 
-&nbsp;     Statistical questions are defined by variability and uncertainty.
+&nbsp;     Statistical questions are defined by variability and uncertainty. If a question has a single fixed answer,
 
-&nbsp;     If a question has a single fixed answer, statistics is not required.
+&nbsp;     statistics is not required.
 
 &nbsp;   </p>
 
@@ -345,8 +255,6 @@ lesson\_order: 4
 &nbsp; <div class="content-narrow">
 
 &nbsp;   <h2>Short video explanation</h2>
-
-
 
 &nbsp;   <div class="video-container">
 
@@ -378,15 +286,11 @@ lesson\_order: 4
 
 &nbsp;   <h2>Simple summary</h2>
 
-
-
 &nbsp;   <p>
 
-&nbsp;     Statistics is used when questions involve data, variation,
+&nbsp;     Statistics is used when questions involve data, variation, and uncertainty. Asking the right type of question
 
-&nbsp;     and uncertainty. Asking the right type of question is the
-
-&nbsp;     first step in statistical reasoning.
+&nbsp;     is the first step in statistical reasoning.
 
 &nbsp;   </p>
 
