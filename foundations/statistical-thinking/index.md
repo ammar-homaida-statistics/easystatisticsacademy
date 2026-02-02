@@ -194,22 +194,6 @@ lesson_order: 3
   </div>
 </section>
 
-<section class="section section-soft">
-  <div class="content-narrow">
-    <h2>Short video explanation</h2>
-
-    <div class="video-container">
-      <iframe
-        src="https://www.youtube.com/embed/NPu4JN6bfJ0"
-        title="Statistical Thinking vs Deterministic Thinking – Video Explanation"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen>
-      </iframe>
-    </div>
-  </div>
-</section>
-
 <section class="section section-next">
   <div class="content-narrow">
     <h2>Simple summary</h2>
