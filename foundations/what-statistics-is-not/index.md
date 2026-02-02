@@ -213,7 +213,7 @@ lesson_order: 2
       that allows statistics to be used responsibly and effectively.
     </p>
 
-    <a class="btn btn-primary" href="/foundations/statistical-thinking/">
+    <a class="btn btn-primary" href="/foundations/statistical-thinking-vs-deterministic-thinking/">
       Next: Statistical Thinking
     </a>
   </div>
