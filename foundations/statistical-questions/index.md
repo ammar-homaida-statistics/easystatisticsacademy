@@ -24,11 +24,15 @@ lesson\_order: 4
 
 
 
-<a class="btn btn-primary" href="/foundations/statistical-thinking-vs-deterministic-thinking/">
+<div class="content-narrow">
 
-&nbsp; Previous: Statistical Thinking vs Deterministic Thinking
+&nbsp; <a class="btn btn-primary" href="/foundations/statistical-thinking-vs-deterministic-thinking/">
 
-</a>
+&nbsp;   Previous: Statistical Thinking vs Deterministic Thinking
+
+&nbsp; </a>
+
+</div>
 
 
 
