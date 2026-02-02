@@ -221,3 +221,11 @@ lesson_order: 3
     </p>
   </div>
 </section>
+
+<section class="section section-next">
+  <div class="content-narrow">
+    <a class="btn btn-primary" href="/foundations/statistical-questions/">
+      Next: Statistical Questions
+    </a>
+  </div>
+</section>
