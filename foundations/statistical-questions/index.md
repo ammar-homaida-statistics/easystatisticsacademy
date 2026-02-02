@@ -24,15 +24,19 @@ lesson\_order: 4
 
 
 
-<div class="content-narrow">
+<section class="section section-soft">
 
-&nbsp; <a class="btn btn-primary" href="/foundations/statistical-thinking-vs-deterministic-thinking/">
+&nbsp; <div class="content-narrow">
 
-&nbsp;   Previous: Statistical Thinking vs Deterministic Thinking
+&nbsp;   <a class="btn btn-primary" href="/foundations/statistical-thinking-vs-deterministic-thinking/">
 
-&nbsp; </a>
+&nbsp;     Previous: Statistical Thinking vs Deterministic Thinking
 
-</div>
+&nbsp;   </a>
+
+&nbsp; </div>
+
+</section>
 
 
 
@@ -46,9 +50,7 @@ lesson\_order: 4
 
 &nbsp;   <p class="lead">
 
-&nbsp;     This lesson explains what makes a question statistical and why some questions
-
-&nbsp;     require data, variability, and uncertainty to be answered.
+&nbsp;     This lesson explains what makes a question statistical and why some questions require data, variability, and uncertainty to be answered.
 
 &nbsp;   </p>
 
