@@ -47,8 +47,10 @@ sidebar: true
       </li>
 
       <li>
-        <span class="is-soon">Population vs Sample</span>
-        <span class="meta">Inference starts here</span>
+        <a href="/foundations/statistical-thinking-vs-deterministic-thinking/">
+          Statistical Thinking vs Deterministic Thinking
+        </a>
+        <span class="meta">Variability and uncertainty</span>
       </li>
     </ol>
   </div>
