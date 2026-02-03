@@ -148,10 +148,15 @@ lesson_order: 5
 <section class="section section-next">
   <div class="content-narrow">
     <h2>What comes next</h2>
+
     <p>
-      The next lesson introduces types of data and why classification matters for analysis.
+      The next lesson introduces <strong>observational units</strong>—what they are,
+      how they are defined, and why correctly identifying the unit matters for analysis.
     </p>
-    <a class="btn btn-primary" href="/foundations/types-of-data/">Next: Types of Data</a>
+
+    <a class="btn btn-primary" href="/foundations/observational-units/">
+      Next: Observational Units
+    </a>
   </div>
 </section>
 
