@@ -126,6 +126,23 @@ sidebar: true
   </a>
 </div>
 
+<div class="card lesson-card">
+  <h3>
+    <a href="/foundations/observational-units/">
+      Observational Units
+    </a>
+  </h3>
+
+  <p>
+    What an observational unit is, common types of units,
+    and why defining the unit matters for correct analysis.
+  </p>
+
+  <a class="pill" href="/foundations/observational-units/">
+    Open lesson
+  </a>
+</div>
+
 </div>
 
     <div class="card lesson-card is-soon">
