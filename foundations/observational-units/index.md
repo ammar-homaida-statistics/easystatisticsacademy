@@ -167,12 +167,12 @@ lesson_order: 6
     <h2>What comes next</h2>
 
     <p>
-      The next lesson introduces <strong>variables</strong>—what is measured on each observational unit
-      and why variable types matter for analysis.
+      The next lesson introduces <strong>variables</strong>—what a variable is,
+      how variables differ from constants, and why variables are choices rather than facts.
     </p>
 
-    <a class="btn btn-primary" href="/foundations/variables-and-measurements/">
-      Next: Variables and Measurements
+    <a class="btn btn-primary" href="/foundations/variables/">
+      Next: Variables
     </a>
   </div>
 </section>
