@@ -2,15 +2,15 @@
 
 layout: default
 
-title: {{TITLE}}
+title: What Is Data?
 
-description: {{DESCRIPTION}}
+description: A clear introduction to data as recorded information, how it differs from information and knowledge, and why data is always an imperfect representation of reality.
 
-permalink: /foundations/{{SLUG}}/
+permalink: /foundations/what-is-data/
 
 section: foundations
 
-lesson\_order: {{LESSON\_NUMBER}}
+lesson\_order: 5
 
 ---
 
@@ -18,9 +18,17 @@ lesson\_order: {{LESSON\_NUMBER}}
 
 <meta name="esa-section" content="foundations">
 
-<meta name="esa-lesson-title" content="{{TITLE}}">
+<meta name="esa-lesson-title" content="What Is Data?">
 
-<meta name="esa-lesson-url" content="/foundations/{{SLUG}}/">
+<meta name="esa-lesson-url" content="/foundations/what-is-data/">
+
+
+
+<a class="btn btn-primary" href="/foundations/statistical-thinking-vs-deterministic-thinking/">
+
+&nbsp; Previous: Statistical Thinking
+
+</a>
 
 
 
@@ -28,15 +36,15 @@ lesson\_order: {{LESSON\_NUMBER}}
 
 &nbsp; <div class="hero-card">
 
-&nbsp;   <h1>{{TITLE}}</h1>
+&nbsp;   <h1>What Is Data?</h1>
 
 
 
 &nbsp;   <p class="lead">
 
-&nbsp;     {{LEAD\_PARAGRAPH\_LINE\_1}}
+&nbsp;     This lesson explains what data is, how it differs from information and knowledge,
 
-&nbsp;     {{LEAD\_PARAGRAPH\_LINE\_2}}
+&nbsp;     and why data should be treated as an imperfect record of reality.
 
 &nbsp;   </p>
 
@@ -44,7 +52,7 @@ lesson\_order: {{LESSON\_NUMBER}}
 
 &nbsp;   <p class="muted-mini">
 
-&nbsp;     Section: <strong>Statistics Foundations</strong> • Lesson {{LESSON\_NUMBER}}
+&nbsp;     Section: <strong>Statistics Foundations</strong> • Lesson 5
 
 &nbsp;   </p>
 
@@ -64,13 +72,13 @@ lesson\_order: {{LESSON\_NUMBER}}
 
 &nbsp;   <ul class="bullets">
 
-&nbsp;     <li>{{LEARN\_1}}</li>
+&nbsp;     <li>What data is: recorded traces of events, measurements, and choices.</li>
 
-&nbsp;     <li>{{LEARN\_2}}</li>
+&nbsp;     <li>The difference between data, information, and knowledge.</li>
 
-&nbsp;     <li>{{LEARN\_3}}</li>
+&nbsp;     <li>How raw data differs from processed data.</li>
 
-&nbsp;     <li>{{LEARN\_4}}</li>
+&nbsp;     <li>Why data is always an imperfect representation of reality.</li>
 
 &nbsp;   </ul>
 
@@ -90,7 +98,11 @@ lesson\_order: {{LESSON\_NUMBER}}
 
 &nbsp;   <p>
 
-&nbsp;     {{MATTERS\_P1}}
+&nbsp;     Statistics begins with data, but many mistakes happen before analysis even starts.
+
+&nbsp;     People often treat data as “the truth” rather than a limited record created by
+
+&nbsp;     measurement, logging, and decisions about what to capture.
 
 &nbsp;   </p>
 
@@ -98,7 +110,9 @@ lesson\_order: {{LESSON\_NUMBER}}
 
 &nbsp;   <p>
 
-&nbsp;     {{MATTERS\_P2}}
+&nbsp;     If you misunderstand what data is, you may trust it too much, clean it incorrectly,
+
+&nbsp;     or draw conclusions that the data cannot support.
 
 &nbsp;   </p>
 
@@ -106,7 +120,9 @@ lesson\_order: {{LESSON\_NUMBER}}
 
 &nbsp;   <p>
 
-&nbsp;     {{MATTERS\_P3}}
+&nbsp;     Understanding data as a representation—rather than reality itself—helps you avoid
+
+&nbsp;     false certainty and encourages careful, responsible reasoning.
 
 &nbsp;   </p>
 
@@ -120,13 +136,15 @@ lesson\_order: {{LESSON\_NUMBER}}
 
 &nbsp; <div class="content-narrow">
 
-&nbsp;   <h2>{{H2\_1}}</h2>
+&nbsp;   <h2>Data as recorded information</h2>
 
 
 
 &nbsp;   <p>
 
-&nbsp;     {{S1\_P1}}
+&nbsp;     Data is recorded information about something: an observation, a measurement,
+
+&nbsp;     a response, a transaction, or a sensor reading.
 
 &nbsp;   </p>
 
@@ -134,7 +152,11 @@ lesson\_order: {{LESSON\_NUMBER}}
 
 &nbsp;   <p>
 
-&nbsp;     {{S1\_P2}}
+&nbsp;     The key idea is that data is not the event itself. It is a record produced by
+
+&nbsp;     a process—someone measured something, a device logged something, or a system
+
+&nbsp;     stored something.
 
 &nbsp;   </p>
 
@@ -142,43 +164,9 @@ lesson\_order: {{LESSON\_NUMBER}}
 
 &nbsp;   <p>
 
-&nbsp;     {{S1\_P3}}
+&nbsp;     Because recording depends on tools, definitions, and context, data always reflects
 
-&nbsp;   </p>
-
-&nbsp; </div>
-
-</section>
-
-
-
-<section class="section">
-
-&nbsp; <div class="content-narrow">
-
-&nbsp;   <h2>{{H2\_2}}</h2>
-
-
-
-&nbsp;   <p>
-
-&nbsp;     {{S2\_P1}}
-
-&nbsp;   </p>
-
-
-
-&nbsp;   <p>
-
-&nbsp;     {{S2\_P2}}
-
-&nbsp;   </p>
-
-
-
-&nbsp;   <p>
-
-&nbsp;     {{S2\_P3}}
+&nbsp;     the limitations and choices involved in how it was collected.
 
 &nbsp;   </p>
 
@@ -192,13 +180,13 @@ lesson\_order: {{LESSON\_NUMBER}}
 
 &nbsp; <div class="content-narrow">
 
-&nbsp;   <h2>{{H2\_3}}</h2>
+&nbsp;   <h2>Data vs information vs knowledge</h2>
 
 
 
 &nbsp;   <p>
 
-&nbsp;     {{S3\_P1}}
+&nbsp;     These terms are often used interchangeably, but they are not the same.
 
 &nbsp;   </p>
 
@@ -206,7 +194,9 @@ lesson\_order: {{LESSON\_NUMBER}}
 
 &nbsp;   <p>
 
-&nbsp;     {{S3\_P2}}
+&nbsp;     <strong>Data</strong> is recorded values or entries: numbers, categories, timestamps,
+
+&nbsp;     text, images, or any stored observations.
 
 &nbsp;   </p>
 
@@ -214,27 +204,9 @@ lesson\_order: {{LESSON\_NUMBER}}
 
 &nbsp;   <p>
 
-&nbsp;     {{S3\_P3}}
+&nbsp;     <strong>Information</strong> is data organized in a way that adds meaning—for example,
 
-&nbsp;   </p>
-
-&nbsp; </div>
-
-</section>
-
-
-
-<section class="section">
-
-&nbsp; <div class="content-narrow">
-
-&nbsp;   <h2>{{H2\_4}}</h2>
-
-
-
-&nbsp;   <p>
-
-&nbsp;     {{S4\_P1}}
+&nbsp;     summaries, tables, comparisons, or patterns that help answer a question.
 
 &nbsp;   </p>
 
@@ -242,7 +214,9 @@ lesson\_order: {{LESSON\_NUMBER}}
 
 &nbsp;   <p>
 
-&nbsp;     {{S4\_P2}}
+&nbsp;     <strong>Knowledge</strong> is what you conclude and retain after interpreting information
+
+&nbsp;     in context. Knowledge depends on judgment, evidence quality, and assumptions.
 
 &nbsp;   </p>
 
@@ -250,7 +224,9 @@ lesson\_order: {{LESSON\_NUMBER}}
 
 &nbsp;   <p>
 
-&nbsp;     {{S4\_P3}}
+&nbsp;     Statistics helps move from data to information and supports the formation of knowledge,
+
+&nbsp;     but it cannot guarantee that the knowledge is correct if the data is limited or misleading.
 
 &nbsp;   </p>
 
@@ -264,13 +240,15 @@ lesson\_order: {{LESSON\_NUMBER}}
 
 &nbsp; <div class="content-narrow">
 
-&nbsp;   <h2>{{H2\_5}}</h2>
+&nbsp;   <h2>Raw data vs processed data</h2>
 
 
 
 &nbsp;   <p>
 
-&nbsp;     {{S5\_P1}}
+&nbsp;     <strong>Raw data</strong> is the closest form of the recorded observations—before major
+
+&nbsp;     cleaning, summarizing, or transformation.
 
 &nbsp;   </p>
 
@@ -278,7 +256,9 @@ lesson\_order: {{LESSON\_NUMBER}}
 
 &nbsp;   <p>
 
-&nbsp;     {{S5\_P2}}
+&nbsp;     <strong>Processed data</strong> is data after changes such as filtering, formatting,
+
+&nbsp;     removing outliers, filling missing values, combining sources, or creating new variables.
 
 &nbsp;   </p>
 
@@ -286,7 +266,19 @@ lesson\_order: {{LESSON\_NUMBER}}
 
 &nbsp;   <p>
 
-&nbsp;     {{S5\_P3}}
+&nbsp;     Processing is often necessary, but it also introduces decisions. Each decision can affect
+
+&nbsp;     what the data seems to say, and different reasonable choices can produce different results.
+
+&nbsp;   </p>
+
+
+
+&nbsp;   <p>
+
+&nbsp;     That is why good analysis documents how data was processed and avoids treating the final dataset
+
+&nbsp;     as if it appeared naturally or objectively.
 
 &nbsp;   </p>
 
@@ -300,21 +292,47 @@ lesson\_order: {{LESSON\_NUMBER}}
 
 &nbsp; <div class="content-narrow">
 
-&nbsp;   <h2>{{H2\_6}}</h2>
+&nbsp;   <h2>Data as imperfect representations of reality</h2>
 
 
 
-&nbsp;   <ul class="bullets">
+&nbsp;   <p>
 
-&nbsp;     <li>{{EX\_1}}</li>
+&nbsp;     Data does not capture reality completely. It captures what was measured and recorded.
 
-&nbsp;     <li>{{EX\_2}}</li>
+&nbsp;     That gap matters.
 
-&nbsp;     <li>{{EX\_3}}</li>
+&nbsp;   </p>
 
-&nbsp;     <li>{{EX\_4}}</li>
 
-&nbsp;   </ul>
+
+&nbsp;   <p>
+
+&nbsp;     Measurements can be noisy, categories can be too simple, and important context can be missing.
+
+&nbsp;     Sometimes the most important thing is not recorded at all.
+
+&nbsp;   </p>
+
+
+
+&nbsp;   <p>
+
+&nbsp;     Even when data is accurate, it may not be relevant to your question. And even when it is relevant,
+
+&nbsp;     it may reflect biases in what was observed, who was included, or how things were defined.
+
+&nbsp;   </p>
+
+
+
+&nbsp;   <p>
+
+&nbsp;     Responsible statistical work begins by acknowledging that data is a model of reality—not reality itself.
+
+&nbsp;     The goal is not to pretend data is perfect, but to understand its limits clearly.
+
+&nbsp;   </p>
 
 &nbsp; </div>
 
@@ -332,7 +350,9 @@ lesson\_order: {{LESSON\_NUMBER}}
 
 &nbsp;   <p>
 
-&nbsp;     {{KEY\_IDEA}}
+&nbsp;     Data is recorded information produced by measurement and choices.
+
+&nbsp;     It can be useful, but it is never a complete or perfectly objective copy of reality.
 
 &nbsp;   </p>
 
@@ -352,7 +372,11 @@ lesson\_order: {{LESSON\_NUMBER}}
 
 &nbsp;   <p>
 
-&nbsp;     {{SUMMARY}}
+&nbsp;     Data is stored observations about the world. Information is data organized to add meaning,
+
+&nbsp;     and knowledge is what we conclude after interpretation. Raw data is closer to original records,
+
+&nbsp;     while processed data reflects decisions. All data is an imperfect representation of reality.
 
 &nbsp;   </p>
 
@@ -366,21 +390,23 @@ lesson\_order: {{LESSON\_NUMBER}}
 
 &nbsp; <div class="content-narrow">
 
-&nbsp;   <h2>Next lesson</h2>
+&nbsp;   <h2>What comes next</h2>
 
 
 
 &nbsp;   <p>
 
-&nbsp;     {{NEXT\_LESSON\_INTRO}}
+&nbsp;     The next lesson explains common ways to describe and classify data, including
+
+&nbsp;     different types of variables and why types matter for analysis.
 
 &nbsp;   </p>
 
 
 
-&nbsp;   <a class="btn btn-primary" href="/foundations/{{NEXT\_SLUG}}/">
+&nbsp;   <a class="btn btn-primary" href="/foundations/types-of-data/">
 
-&nbsp;     Next: {{NEXT\_TITLE}}
+&nbsp;     Next: Types of Data
 
 &nbsp;   </a>
 
