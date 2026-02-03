@@ -38,7 +38,7 @@ lesson\_order: 5
 
 &nbsp;   <p>
 
-&nbsp;     This lesson explains what data is and why it should be treated as a recorded trace, not perfect truth. 8:51 PM 2/3/2026You will               learn how data differs from information and knowledge, and why every dataset is an imperfect representation of reality.
+&nbsp;     This lesson explains what data is and why it should be treated as a recorded trace, not perfect truth. You will learn how data differs from information and knowledge, and why every dataset is an imperfect representation of reality.
 
 &nbsp;   </p>
 
