@@ -108,6 +108,24 @@ sidebar: true
     Open lesson
   </a>
 </div>
+
+<div class="card lesson-card">
+  <h3>
+    <a href="/foundations/what-is-data/">
+      What Is Data?
+    </a>
+  </h3>
+
+  <p>
+    What data is, how it differs from information and knowledge,
+    and why data is always an imperfect representation of reality.
+  </p>
+
+  <a class="pill" href="/foundations/what-is-data/">
+    Open lesson
+  </a>
+</div>
+
 </div>
 
     <div class="card lesson-card is-soon">
