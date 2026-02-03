@@ -4,7 +4,7 @@ layout: default
 
 title: What Is Data?
 
-description: A clear introduction to data as recorded information, how it differs from information and knowledge, and why data is always an imperfect representation of reality.
+description: A clear introduction to data as recorded information, how it differs from information and knowledge, and why data is an imperfect representation of reality.
 
 permalink: /foundations/what-is-data/
 
@@ -44,7 +44,7 @@ lesson\_order: 5
 
 &nbsp;     This lesson explains what data is, how it differs from information and knowledge,
 
-&nbsp;     and why data should be treated as an imperfect record of reality.
+&nbsp;     and why data should be treated as a limited record rather than perfect truth.
 
 &nbsp;   </p>
 
@@ -72,11 +72,11 @@ lesson\_order: 5
 
 &nbsp;   <ul class="bullets">
 
-&nbsp;     <li>What data is: recorded traces of events, measurements, and choices.</li>
+&nbsp;     <li>What data is and how it is created through recording.</li>
 
 &nbsp;     <li>The difference between data, information, and knowledge.</li>
 
-&nbsp;     <li>How raw data differs from processed data.</li>
+&nbsp;     <li>The difference between raw data and processed data.</li>
 
 &nbsp;     <li>Why data is always an imperfect representation of reality.</li>
 
@@ -98,11 +98,11 @@ lesson\_order: 5
 
 &nbsp;   <p>
 
-&nbsp;     Statistics begins with data, but many mistakes happen before analysis even starts.
+&nbsp;     Statistics begins with data, but many errors happen before analysis even starts.
 
-&nbsp;     People often treat data as “the truth” rather than a limited record created by
+&nbsp;     People often treat data as “the truth” rather than a record produced by measurement
 
-&nbsp;     measurement, logging, and decisions about what to capture.
+&nbsp;     and human decisions.
 
 &nbsp;   </p>
 
@@ -112,7 +112,7 @@ lesson\_order: 5
 
 &nbsp;     If you misunderstand what data is, you may trust it too much, clean it incorrectly,
 
-&nbsp;     or draw conclusions that the data cannot support.
+&nbsp;     or draw conclusions that the data was never able to support.
 
 &nbsp;   </p>
 
@@ -122,7 +122,7 @@ lesson\_order: 5
 
 &nbsp;     Understanding data as a representation—rather than reality itself—helps you avoid
 
-&nbsp;     false certainty and encourages careful, responsible reasoning.
+&nbsp;     false confidence and encourages responsible interpretation.
 
 &nbsp;   </p>
 
@@ -142,9 +142,9 @@ lesson\_order: 5
 
 &nbsp;   <p>
 
-&nbsp;     Data is recorded information about something: an observation, a measurement,
+&nbsp;     Data is recorded information about something: a measurement, a response, a transaction,
 
-&nbsp;     a response, a transaction, or a sensor reading.
+&nbsp;     a log entry, a sensor reading, or a category assignment.
 
 &nbsp;   </p>
 
@@ -152,11 +152,9 @@ lesson\_order: 5
 
 &nbsp;   <p>
 
-&nbsp;     The key idea is that data is not the event itself. It is a record produced by
+&nbsp;     The key point is that data is not the event itself. Data is what a system or person
 
-&nbsp;     a process—someone measured something, a device logged something, or a system
-
-&nbsp;     stored something.
+&nbsp;     chose to record about that event.
 
 &nbsp;   </p>
 
@@ -166,7 +164,7 @@ lesson\_order: 5
 
 &nbsp;     Because recording depends on tools, definitions, and context, data always reflects
 
-&nbsp;     the limitations and choices involved in how it was collected.
+&nbsp;     the limitations and choices involved in collection.
 
 &nbsp;   </p>
 
@@ -186,7 +184,7 @@ lesson\_order: 5
 
 &nbsp;   <p>
 
-&nbsp;     These terms are often used interchangeably, but they are not the same.
+&nbsp;     These words are often used as if they mean the same thing, but they represent different stages.
 
 &nbsp;   </p>
 
@@ -194,19 +192,9 @@ lesson\_order: 5
 
 &nbsp;   <p>
 
-&nbsp;     <strong>Data</strong> is recorded values or entries: numbers, categories, timestamps,
+&nbsp;     <strong>Data</strong> is recorded values or entries: numbers, labels, dates, text, images,
 
-&nbsp;     text, images, or any stored observations.
-
-&nbsp;   </p>
-
-
-
-&nbsp;   <p>
-
-&nbsp;     <strong>Information</strong> is data organized in a way that adds meaning—for example,
-
-&nbsp;     summaries, tables, comparisons, or patterns that help answer a question.
+&nbsp;     or any stored observations.
 
 &nbsp;   </p>
 
@@ -214,9 +202,9 @@ lesson\_order: 5
 
 &nbsp;   <p>
 
-&nbsp;     <strong>Knowledge</strong> is what you conclude and retain after interpreting information
+&nbsp;     <strong>Information</strong> is data organized to create meaning—for example, summaries,
 
-&nbsp;     in context. Knowledge depends on judgment, evidence quality, and assumptions.
+&nbsp;     comparisons, patterns, or relationships that help answer a question.
 
 &nbsp;   </p>
 
@@ -224,9 +212,19 @@ lesson\_order: 5
 
 &nbsp;   <p>
 
-&nbsp;     Statistics helps move from data to information and supports the formation of knowledge,
+&nbsp;     <strong>Knowledge</strong> is what you believe and retain after interpreting information
 
-&nbsp;     but it cannot guarantee that the knowledge is correct if the data is limited or misleading.
+&nbsp;     in context. Knowledge depends on assumptions, evidence quality, and judgment.
+
+&nbsp;   </p>
+
+
+
+&nbsp;   <p>
+
+&nbsp;     Statistics helps transform data into information and supports knowledge-building,
+
+&nbsp;     but it cannot guarantee correct knowledge if the inputs or interpretation are weak.
 
 &nbsp;   </p>
 
@@ -246,19 +244,9 @@ lesson\_order: 5
 
 &nbsp;   <p>
 
-&nbsp;     <strong>Raw data</strong> is the closest form of the recorded observations—before major
+&nbsp;     <strong>Raw data</strong> is the closest form of the recorded observations before major
 
-&nbsp;     cleaning, summarizing, or transformation.
-
-&nbsp;   </p>
-
-
-
-&nbsp;   <p>
-
-&nbsp;     <strong>Processed data</strong> is data after changes such as filtering, formatting,
-
-&nbsp;     removing outliers, filling missing values, combining sources, or creating new variables.
+&nbsp;     cleaning, filtering, summarizing, or transformation.
 
 &nbsp;   </p>
 
@@ -266,9 +254,9 @@ lesson\_order: 5
 
 &nbsp;   <p>
 
-&nbsp;     Processing is often necessary, but it also introduces decisions. Each decision can affect
+&nbsp;     <strong>Processed data</strong> is data after changes such as formatting, removing errors,
 
-&nbsp;     what the data seems to say, and different reasonable choices can produce different results.
+&nbsp;     handling missing values, combining sources, or creating new variables.
 
 &nbsp;   </p>
 
@@ -276,9 +264,19 @@ lesson\_order: 5
 
 &nbsp;   <p>
 
-&nbsp;     That is why good analysis documents how data was processed and avoids treating the final dataset
+&nbsp;     Processing is often necessary, but it always involves choices. Different reasonable choices
 
-&nbsp;     as if it appeared naturally or objectively.
+&nbsp;     can lead to different results and different conclusions.
+
+&nbsp;   </p>
+
+
+
+&nbsp;   <p>
+
+&nbsp;     This is why good analysis documents how data was processed and avoids treating the final dataset
+
+&nbsp;     as if it is purely objective or automatic.
 
 &nbsp;   </p>
 
@@ -298,19 +296,9 @@ lesson\_order: 5
 
 &nbsp;   <p>
 
-&nbsp;     Data does not capture reality completely. It captures what was measured and recorded.
+&nbsp;     Data never captures reality completely. It captures what was measured and recorded—and
 
-&nbsp;     That gap matters.
-
-&nbsp;   </p>
-
-
-
-&nbsp;   <p>
-
-&nbsp;     Measurements can be noisy, categories can be too simple, and important context can be missing.
-
-&nbsp;     Sometimes the most important thing is not recorded at all.
+&nbsp;     that gap matters.
 
 &nbsp;   </p>
 
@@ -318,9 +306,9 @@ lesson\_order: 5
 
 &nbsp;   <p>
 
-&nbsp;     Even when data is accurate, it may not be relevant to your question. And even when it is relevant,
+&nbsp;     Measurements can be noisy, categories can oversimplify, and important context can be missing.
 
-&nbsp;     it may reflect biases in what was observed, who was included, or how things were defined.
+&nbsp;     Sometimes the most important factor is not recorded at all.
 
 &nbsp;   </p>
 
@@ -328,9 +316,19 @@ lesson\_order: 5
 
 &nbsp;   <p>
 
-&nbsp;     Responsible statistical work begins by acknowledging that data is a model of reality—not reality itself.
+&nbsp;     Even when the data is accurate, it may not be relevant to your question. And even when it is relevant,
 
-&nbsp;     The goal is not to pretend data is perfect, but to understand its limits clearly.
+&nbsp;     it may reflect bias in what was observed, who was included, or how things were defined.
+
+&nbsp;   </p>
+
+
+
+&nbsp;   <p>
+
+&nbsp;     Responsible statistical work begins by treating data as a model of reality—not reality itself.
+
+&nbsp;     The goal is to understand limitations clearly before making claims.
 
 &nbsp;   </p>
 
@@ -350,7 +348,7 @@ lesson\_order: 5
 
 &nbsp;   <p>
 
-&nbsp;     Data is recorded information produced by measurement and choices.
+&nbsp;     Data is recorded information created by measurement and decisions.
 
 &nbsp;     It can be useful, but it is never a complete or perfectly objective copy of reality.
 
@@ -396,9 +394,9 @@ lesson\_order: 5
 
 &nbsp;   <p>
 
-&nbsp;     The next lesson explains common ways to describe and classify data, including
+&nbsp;     The next lesson introduces common ways to describe and classify data, including
 
-&nbsp;     different types of variables and why types matter for analysis.
+&nbsp;     variable types and why they matter for analysis.
 
 &nbsp;   </p>
 
@@ -413,6 +411,18 @@ lesson\_order: 5
 &nbsp; </div>
 
 </section>
+
+
+
+<script>
+
+&nbsp; try {
+
+&nbsp;   localStorage.setItem("esa:lastLesson", window.location.pathname);
+
+&nbsp; } catch (e) {}
+
+</script>
 
 
 
