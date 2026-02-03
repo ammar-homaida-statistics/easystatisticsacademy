@@ -42,9 +42,9 @@ lesson\_order: 5
 
 &nbsp;   <p class="lead">
 
-&nbsp;     This lesson explains what data are, how data differ from information
+&nbsp;     This lesson explains what data are, how data differ from information and knowledge,
 
-&nbsp;     and knowledge, and why data never perfectly represent reality.
+&nbsp;     and why data never perfectly represent reality.
 
 &nbsp;   </p>
 
@@ -98,27 +98,7 @@ lesson\_order: 5
 
 &nbsp;   <p>
 
-&nbsp;     Statistics is built on data, yet data are often treated as objective facts.
-
-&nbsp;   </p>
-
-
-
-&nbsp;   <p>
-
-&nbsp;     When data are assumed to perfectly reflect reality,
-
-&nbsp;     their limitations are ignored.
-
-&nbsp;   </p>
-
-
-
-&nbsp;   <p>
-
-&nbsp;     Understanding what data are helps prevent overconfidence
-
-&nbsp;     and misinterpretation in statistical analysis.
+&nbsp;     Statistics is built on data, yet data are often treated as objective facts. When data are assumed to perfectly reflect reality, their limitations are ignored. Understanding what data are helps prevent overconfidence and misinterpretation in statistical analysis.
 
 &nbsp;   </p>
 
@@ -138,27 +118,7 @@ lesson\_order: 5
 
 &nbsp;   <p>
 
-&nbsp;     Data are recorded values obtained through observation,
-
-&nbsp;     measurement, or collection.
-
-&nbsp;   </p>
-
-
-
-&nbsp;   <p>
-
-&nbsp;     They are created through specific processes that involve
-
-&nbsp;     choices about what to record and how to record it.
-
-&nbsp;   </p>
-
-
-
-&nbsp;   <p>
-
-&nbsp;     Data reflect how reality was observed, not reality itself.
+&nbsp;     Data are recorded values obtained through observation, measurement, or collection. They are created through specific processes that involve choices about what to record and how to record it. Data reflect how reality was observed, not reality itself.
 
 &nbsp;   </p>
 
@@ -178,29 +138,7 @@ lesson\_order: 5
 
 &nbsp;   <p>
 
-&nbsp;     Data are raw recorded values.
-
-&nbsp;     By themselves, they carry limited meaning.
-
-&nbsp;   </p>
-
-
-
-&nbsp;   <p>
-
-&nbsp;     Information is created when data are organized,
-
-&nbsp;     summarized, or placed in context.
-
-&nbsp;   </p>
-
-
-
-&nbsp;   <p>
-
-&nbsp;     Knowledge emerges when information is interpreted
-
-&nbsp;     using reasoning and understanding.
+&nbsp;     Data are raw recorded values and by themselves carry limited meaning. Information is created when data are organized, summarized, or placed in context. Knowledge emerges when information is interpreted using reasoning and understanding.
 
 &nbsp;   </p>
 
@@ -220,29 +158,7 @@ lesson\_order: 5
 
 &nbsp;   <p>
 
-&nbsp;     Raw data are the original recorded observations.
-
-&nbsp;     They may be messy, incomplete, or inconsistent.
-
-&nbsp;   </p>
-
-
-
-&nbsp;   <p>
-
-&nbsp;     Processed data result from cleaning, transforming,
-
-&nbsp;     or summarizing raw data.
-
-&nbsp;   </p>
-
-
-
-&nbsp;   <p>
-
-&nbsp;     Processing makes data usable but also introduces
-
-&nbsp;     decisions that affect interpretation.
+&nbsp;     Raw data are the original recorded observations and may be messy, incomplete, or inconsistent. Processed data result from cleaning, transforming, or summarizing raw data. Processing makes data usable but also introduces decisions that affect interpretation.
 
 &nbsp;   </p>
 
@@ -262,29 +178,7 @@ lesson\_order: 5
 
 &nbsp;   <p>
 
-&nbsp;     No dataset captures reality perfectly.
-
-&nbsp;     Measurement error and missing information are unavoidable.
-
-&nbsp;   </p>
-
-
-
-&nbsp;   <p>
-
-&nbsp;     Data record only what was measured,
-
-&nbsp;     not everything that may matter.
-
-&nbsp;   </p>
-
-
-
-&nbsp;   <p>
-
-&nbsp;     Treating data as exact truth ignores uncertainty
-
-&nbsp;     and can lead to incorrect conclusions.
+&nbsp;     No dataset captures reality perfectly. Measurement error and missing information are unavoidable, and data record only what was measured, not everything that may matter. Treating data as exact truth ignores uncertainty and can lead to incorrect conclusions.
 
 &nbsp;   </p>
 
@@ -304,9 +198,7 @@ lesson\_order: 5
 
 &nbsp;   <p>
 
-&nbsp;     Data are recorded observations, not reality itself.
-
-&nbsp;     They must always be interpreted with care.
+&nbsp;     Data are recorded observations, not reality itself. They must always be interpreted with care.
 
 &nbsp;   </p>
 
@@ -326,11 +218,7 @@ lesson\_order: 5
 
 &nbsp;   <p>
 
-&nbsp;     Data are recorded values created through measurement.
-
-&nbsp;     They differ from information and knowledge and never
-
-&nbsp;     perfectly represent the real world.
+&nbsp;     Data are recorded values created through measurement. They differ from information and knowledge and never perfectly represent the real world.
 
 &nbsp;   </p>
 
