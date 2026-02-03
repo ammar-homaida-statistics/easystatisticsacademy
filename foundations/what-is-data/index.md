@@ -16,11 +16,19 @@ lesson\_order: 5
 
 
 
-<meta name="esa-section" content="{{ page.section }}">
+<meta name="esa-section" content="foundations">
 
-<meta name="esa-lesson-title" content="{{ page.title }}">
+<meta name="esa-lesson-title" content="What Is Data?">
 
-<meta name="esa-lesson-url" content="{{ page.url }}">
+<meta name="esa-lesson-url" content="/foundations/what-is-data/">
+
+
+
+<a class="btn btn-primary" href="/foundations/statistical-questions/">
+
+&nbsp; Previous: Statistical Questions
+
+</a>
 
 
 
@@ -28,21 +36,13 @@ lesson\_order: 5
 
 &nbsp; <div class="hero-card">
 
-&nbsp;   <nav class="lesson-nav-top">
-
-&nbsp;     <a class="text-link" href="/foundations/statistical-questions/">← Previous: Statistical Questions</a>
-
-&nbsp;   </nav>
-
-&nbsp;   
-
-&nbsp;   <h1>{{ page.title }}</h1>
+&nbsp;   <h1>What Is Data?</h1>
 
 
 
 &nbsp;   <p class="lead">
 
-&nbsp;     This lesson explains what data are, how data differ from information and knowledge, 
+&nbsp;     This lesson explains what data are, how data differ from information and knowledge,
 
 &nbsp;     and why data never perfectly represent reality.
 
@@ -68,13 +68,15 @@ lesson\_order: 5
 
 &nbsp;   <h2>What you will learn</h2>
 
+
+
 &nbsp;   <ul class="bullets">
 
-&nbsp;     <li>What data are and how they are created through recording.</li>
+&nbsp;     <li>What data are and how they are recorded.</li>
 
-&nbsp;     <li>The difference between <strong>data, information, and knowledge.</strong></li>
+&nbsp;     <li>How data differ from information and knowledge.</li>
 
-&nbsp;     <li>The trade-offs between <strong>raw</strong> and <strong>processed</strong> data.</li>
+&nbsp;     <li>The difference between raw data and processed data.</li>
 
 &nbsp;     <li>Why data are imperfect representations of reality.</li>
 
@@ -90,67 +92,31 @@ lesson\_order: 5
 
 &nbsp; <div class="content-narrow">
 
-&nbsp;   <h2>The DIK Hierarchy</h2>
+&nbsp;   <h2>Why this topic matters</h2>
 
-&nbsp;   <p>Understanding data requires distinguishing it from what we eventually do with it.</p>
 
-&nbsp;   
 
-&nbsp;   <div class="table-container">
+&nbsp;   <p>
 
-&nbsp;     <table class="data-table">
+&nbsp;     Statistics depends on data, yet data are often treated as objective facts. This assumption leads to misunderstanding and misuse.
 
-&nbsp;       <thead>
+&nbsp;   </p>
 
-&nbsp;         <tr>
 
-&nbsp;           <th>Level</th>
 
-&nbsp;           <th>Description</th>
+&nbsp;   <p>
 
-&nbsp;           <th>Example</th>
+&nbsp;     Data are produced through measurement and recording, and each step introduces limitations, choices, and possible errors.
 
-&nbsp;         </tr>
+&nbsp;   </p>
 
-&nbsp;       </thead>
 
-&nbsp;       <tbody>
 
-&nbsp;         <tr>
+&nbsp;   <p>
 
-&nbsp;           <td><strong>Data</strong></td>
+&nbsp;     Understanding what data are helps prevent overconfidence and improves interpretation in statistical analysis.
 
-&nbsp;           <td>Raw symbols/numbers.</td>
-
-&nbsp;           <td>"38.5, 39.1, 37.8"</td>
-
-&nbsp;         </tr>
-
-&nbsp;         <tr>
-
-&nbsp;           <td><strong>Information</strong></td>
-
-&nbsp;           <td>Data with context.</td>
-
-&nbsp;           <td>"These are body temperatures in Celsius."</td>
-
-&nbsp;         </tr>
-
-&nbsp;         <tr>
-
-&nbsp;           <td><strong>Knowledge</strong></td>
-
-&nbsp;           <td>Applied understanding.</td>
-
-&nbsp;           <td>"The patient has a high fever and needs care."</td>
-
-&nbsp;         </tr>
-
-&nbsp;       </tbody>
-
-&nbsp;     </table>
-
-&nbsp;   </div>
+&nbsp;   </p>
 
 &nbsp; </div>
 
@@ -162,17 +128,31 @@ lesson\_order: 5
 
 &nbsp; <div class="content-narrow">
 
-&nbsp;   <h2>Raw vs. Processed Data</h2>
+&nbsp;   <h2>Data as recorded information</h2>
 
-&nbsp;   <p>Raw data are the original observations. They are often messy or incomplete. Processed data have been cleaned or transformed to be useful.</p>
 
-&nbsp;   
 
-&nbsp;   <blockquote class="note-box">
+&nbsp;   <p>
 
-&nbsp;     <strong>Pro-Tip:</strong> Always keep a copy of your <em>raw</em> data. Processing involves choices (like how to handle missing values) that can accidentally introduce bias or hide important details.
+&nbsp;     Data are recorded values obtained through observation, measurement, or collection.
 
-&nbsp;   </blockquote>
+&nbsp;   </p>
+
+
+
+&nbsp;   <p>
+
+&nbsp;     They are created through processes that involve choices about what to record, how to record it, and when to record it.
+
+&nbsp;   </p>
+
+
+
+&nbsp;   <p>
+
+&nbsp;     Data reflect how reality was observed, not reality itself.
+
+&nbsp;   </p>
 
 &nbsp; </div>
 
@@ -184,19 +164,103 @@ lesson\_order: 5
 
 &nbsp; <div class="content-narrow">
 
-&nbsp;   <h2>An Imperfect Map</h2>
+&nbsp;   <h2>Data, information, and knowledge</h2>
 
-&nbsp;   <p>No dataset captures reality perfectly. Consider a map: a 1:1 scale map would be the size of the city itself and useless. Data, like maps, are <strong>simplifications</strong>.</p>
 
-&nbsp;   <ul class="bullets">
 
-&nbsp;     <li><strong>Measurement Error:</strong> Tools have limits.</li>
+&nbsp;   <p>
 
-&nbsp;     <li><strong>Missing Values:</strong> Some things weren't recorded.</li>
+&nbsp;     Data are raw recorded values. By themselves, they have limited meaning.
 
-&nbsp;     <li><strong>Proxy Variables:</strong> We often measure what we <em>can</em> (like test scores) instead of what we <em>want</em> (like intelligence).</li>
+&nbsp;   </p>
 
-&nbsp;   </ul>
+
+
+&nbsp;   <p>
+
+&nbsp;     Information is created when data are organized, summarized, or placed in context so they describe something interpretable.
+
+&nbsp;   </p>
+
+
+
+&nbsp;   <p>
+
+&nbsp;     Knowledge emerges when information is interpreted using reasoning, experience, and understanding.
+
+&nbsp;   </p>
+
+&nbsp; </div>
+
+</section>
+
+
+
+<section class="section">
+
+&nbsp; <div class="content-narrow">
+
+&nbsp;   <h2>Raw data vs processed data</h2>
+
+
+
+&nbsp;   <p>
+
+&nbsp;     Raw data are the original recorded observations, and they may be messy, incomplete, or inconsistent.
+
+&nbsp;   </p>
+
+
+
+&nbsp;   <p>
+
+&nbsp;     Processed data result from cleaning, transforming, or summarizing raw data.
+
+&nbsp;   </p>
+
+
+
+&nbsp;   <p>
+
+&nbsp;     Processing can make analysis possible, but it also introduces decisions that affect interpretation.
+
+&nbsp;   </p>
+
+&nbsp; </div>
+
+</section>
+
+
+
+<section class="section">
+
+&nbsp; <div class="content-narrow">
+
+&nbsp;   <h2>Data as imperfect representations of reality</h2>
+
+
+
+&nbsp;   <p>
+
+&nbsp;     No dataset captures reality perfectly. Measurement error, missing values, and simplifications are unavoidable.
+
+&nbsp;   </p>
+
+
+
+&nbsp;   <p>
+
+&nbsp;     Data record only what was measured, not everything that may matter.
+
+&nbsp;   </p>
+
+
+
+&nbsp;   <p>
+
+&nbsp;     Treating data as exact truth ignores these limitations and can lead to incorrect conclusions.
+
+&nbsp;   </p>
 
 &nbsp; </div>
 
@@ -206,21 +270,17 @@ lesson\_order: 5
 
 <section class="section section-soft">
 
-&nbsp; <div class="content-narrow text-center">
+&nbsp; <div class="content-narrow">
 
-&nbsp;   <h2>Quick Check</h2>
+&nbsp;   <h2>Key idea to remember</h2>
 
-&nbsp;   <p><em>Which of the following best describes "Data"?</em></p>
 
-&nbsp;   <div class="quiz-options">
 
-&nbsp;     <button class="btn btn-outline" onclick="alert('Not quite! That is Knowledge.')">Universal Truth</button>
+&nbsp;   <p>
 
-&nbsp;     <button class="btn btn-outline" onclick="alert('Correct! It is a recording of an observation.')">Recorded Observations</button>
+&nbsp;     Data are recorded observations, not reality itself. They must always be interpreted with care.
 
-&nbsp;     <button class="btn btn-outline" onclick="alert('Not quite! That is Information.')">Summarized Insights</button>
-
-&nbsp;   </div>
+&nbsp;   </p>
 
 &nbsp; </div>
 
@@ -232,9 +292,15 @@ lesson\_order: 5
 
 &nbsp; <div class="content-narrow">
 
-&nbsp;   <h2>Key idea to remember</h2>
+&nbsp;   <h2>Simple summary</h2>
 
-&nbsp;   <p><strong>Data reflect how reality was observed, not reality itself.</strong> They are snapshots taken through a specific lens, at a specific time, using specific tools.</p>
+
+
+&nbsp;   <p>
+
+&nbsp;     Data are recorded values created through measurement. They differ from information and knowledge and never perfectly represent the real world.
+
+&nbsp;   </p>
 
 &nbsp; </div>
 
@@ -248,17 +314,25 @@ lesson\_order: 5
 
 &nbsp;   <h2>Next lesson</h2>
 
-&nbsp;   <p>Learn how the <em>way</em> we collect these snapshots dictates which conclusions we can actually trust.</p>
+
+
+&nbsp;   <p>
+
+&nbsp;     Continue to the next lesson to understand how data are collected and why the collection process affects what conclusions can be trusted.
+
+&nbsp;   </p>
 
 
 
 &nbsp;   <a class="btn btn-primary" href="/foundations/how-data-are-collected/">
 
-&nbsp;     Next: How Data Are Collected →
+&nbsp;     Next: How Data Are Collected
 
 &nbsp;   </a>
 
 &nbsp; </div>
 
 </section>
+
+
 
