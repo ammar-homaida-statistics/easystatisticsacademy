@@ -24,6 +24,14 @@ lesson\_order: 5
 
 
 
+<a class="btn btn-primary" href="/foundations/statistical-questions/">
+
+&nbsp; Previous: Statistical Questions
+
+</a>
+
+
+
 <section class="hero hero-lesson">
 
 &nbsp; <div class="hero-card">
@@ -264,42 +272,6 @@ lesson\_order: 5
 
 &nbsp; <div class="content-narrow">
 
-&nbsp;   <h2>What good analysts do with data</h2>
-
-
-
-&nbsp;   <p>
-
-&nbsp;     Good analysts ask how the data was created: who recorded it, what definitions were used, and what was excluded.
-
-&nbsp;   </p>
-
-
-
-&nbsp;   <p>
-
-&nbsp;     They check for missingness, measurement error, bias, and whether the data actually matches the question being asked.
-
-&nbsp;   </p>
-
-
-
-&nbsp;   <p>
-
-&nbsp;     They treat results as evidence with uncertainty, not as guaranteed truth, and they document every important decision.
-
-&nbsp;   </p>
-
-&nbsp; </div>
-
-</section>
-
-
-
-<section class="section">
-
-&nbsp; <div class="content-narrow">
-
 &nbsp;   <h2>Common public misconceptions</h2>
 
 
@@ -366,13 +338,13 @@ lesson\_order: 5
 
 &nbsp; <div class="content-narrow">
 
-&nbsp;   <h2>Next lesson</h2>
+&nbsp;   <h2>What comes next</h2>
 
 
 
 &nbsp;   <p>
 
-&nbsp;     Next, you will learn how to classify data into types of variables and why those types matter for correct analysis.
+&nbsp;     The next lesson introduces <strong>types of data</strong>—how variables are classified and why types matter for correct analysis.
 
 &nbsp;   </p>
 
@@ -387,6 +359,18 @@ lesson\_order: 5
 &nbsp; </div>
 
 </section>
+
+
+
+<script>
+
+&nbsp; try {
+
+&nbsp;   localStorage.setItem("esa:lastLesson", window.location.pathname);
+
+&nbsp; } catch (e) {}
+
+</script>
 
 
 
