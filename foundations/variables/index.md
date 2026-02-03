@@ -103,6 +103,28 @@ lesson_order: 7
 
 <section class="section">
   <div class="content-narrow">
+    <h3>Simple example</h3>
+
+    <p>
+      Imagine a class of students taking the same exam.
+    </p>
+
+    <p>
+      The <strong>exam score</strong> is a <strong>variable</strong> because it differs from one student to another.
+    </p>
+
+    <p>
+      The <strong>exam date</strong> is a <strong>constant</strong> because every student took the exam on the same day.
+    </p>
+
+    <p>
+      The exam date provides context, but it does not help explain differences in scores because it does not vary.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="content-narrow">
     <h2>Independent and dependent (conceptual)</h2>
 
     <p>
@@ -117,6 +139,28 @@ lesson_order: 7
 
     <p>
       These roles are conceptual and depend on the question being asked, not on the data alone.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="content-narrow">
+    <h3>Simple example</h3>
+
+    <p>
+      Suppose a teacher wants to understand why some students score higher than others.
+    </p>
+
+    <p>
+      <strong>Hours studied</strong> is treated as the <strong>independent variable</strong> because it is considered a possible explanation.
+    </p>
+
+    <p>
+      <strong>Exam score</strong> is treated as the <strong>dependent variable</strong> because it is the outcome of interest.
+    </p>
+
+    <p>
+      These roles depend on the question being asked and are not fixed properties of the variables themselves.
     </p>
   </div>
 </section>
