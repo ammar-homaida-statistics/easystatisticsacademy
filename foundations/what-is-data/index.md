@@ -4,7 +4,7 @@ layout: default
 
 title: What Is Data?
 
-description: Understanding what data are, how they differ from information and knowledge, and why data are imperfect representations of reality.
+description: A clear explanation of what data are, how they differ from information and knowledge, and why data are imperfect representations of reality.
 
 permalink: /foundations/what-is-data/
 
@@ -24,6 +24,14 @@ lesson\_order: 5
 
 
 
+<a class="btn btn-primary" href="/foundations/statistical-questions/">
+
+&nbsp; Previous: Statistical Questions
+
+</a>
+
+
+
 <section class="hero hero-lesson">
 
 &nbsp; <div class="hero-card">
@@ -34,9 +42,9 @@ lesson\_order: 5
 
 &nbsp;   <p class="lead">
 
-&nbsp;     This lesson explains what data are and how they are created through observation and recording.
+&nbsp;     This lesson explains what data are, how they are created through observation
 
-&nbsp;     It also clarifies how data differ from information and knowledge, and why data never perfectly represent reality.
+&nbsp;     and recording, and why data should not be confused with reality itself.
 
 &nbsp;   </p>
 
@@ -68,7 +76,7 @@ lesson\_order: 5
 
 &nbsp;     <li>The difference between data, information, and knowledge.</li>
 
-&nbsp;     <li>The distinction between raw data and processed data.</li>
+&nbsp;     <li>The difference between raw data and processed data.</li>
 
 &nbsp;     <li>Why data are imperfect representations of reality.</li>
 
@@ -90,7 +98,9 @@ lesson\_order: 5
 
 &nbsp;   <p>
 
-&nbsp;     Statistics relies on data, yet data are often treated as objective facts rather than recorded observations.
+&nbsp;     Statistics is built on data, yet data are often treated as objective facts
+
+&nbsp;     rather than recorded observations.
 
 &nbsp;   </p>
 
@@ -98,7 +108,9 @@ lesson\_order: 5
 
 &nbsp;   <p>
 
-&nbsp;     When data are assumed to perfectly reflect reality, their limitations are ignored and conclusions become overstated.
+&nbsp;     When data are assumed to perfectly reflect reality, their limitations
+
+&nbsp;     are ignored and conclusions become overstated.
 
 &nbsp;   </p>
 
@@ -106,7 +118,9 @@ lesson\_order: 5
 
 &nbsp;   <p>
 
-&nbsp;     Understanding what data are helps prevent misuse, overconfidence, and incorrect interpretation in statistical analysis.
+&nbsp;     Understanding what data are helps prevent misuse, false confidence,
+
+&nbsp;     and incorrect interpretation in statistical analysis.
 
 &nbsp;   </p>
 
@@ -126,7 +140,9 @@ lesson\_order: 5
 
 &nbsp;   <p>
 
-&nbsp;     Data are recorded values obtained through observation, measurement, or collection.
+&nbsp;     Data are recorded values obtained through observation, measurement,
+
+&nbsp;     or collection.
 
 &nbsp;   </p>
 
@@ -134,7 +150,9 @@ lesson\_order: 5
 
 &nbsp;   <p>
 
-&nbsp;     They are created through specific processes that determine what is recorded and how it is recorded.
+&nbsp;     They are created through specific processes that determine what is
+
+&nbsp;     recorded and how it is recorded.
 
 &nbsp;   </p>
 
@@ -156,13 +174,13 @@ lesson\_order: 5
 
 &nbsp; <div class="content-narrow">
 
-&nbsp;   <h2>Data, information, and knowledge</h2>
+&nbsp;   <h2>Data vs information vs knowledge</h2>
 
 
 
 &nbsp;   <p>
 
-&nbsp;     Data are raw recorded values and by themselves have limited meaning.
+&nbsp;     Data are raw recorded values that carry limited meaning on their own.
 
 &nbsp;   </p>
 
@@ -170,7 +188,9 @@ lesson\_order: 5
 
 &nbsp;   <p>
 
-&nbsp;     Information arises when data are organized, summarized, or placed in context.
+&nbsp;     Information emerges when data are organized, summarized,
+
+&nbsp;     or placed in context.
 
 &nbsp;   </p>
 
@@ -178,7 +198,9 @@ lesson\_order: 5
 
 &nbsp;   <p>
 
-&nbsp;     Knowledge emerges when information is interpreted using reasoning and understanding.
+&nbsp;     Knowledge arises when information is interpreted using reasoning,
+
+&nbsp;     experience, and understanding.
 
 &nbsp;   </p>
 
@@ -198,7 +220,9 @@ lesson\_order: 5
 
 &nbsp;   <p>
 
-&nbsp;     Raw data are the original recorded observations and may be messy, incomplete, or inconsistent.
+&nbsp;     Raw data are the original recorded observations and may be messy,
+
+&nbsp;     incomplete, or inconsistent.
 
 &nbsp;   </p>
 
@@ -206,7 +230,9 @@ lesson\_order: 5
 
 &nbsp;   <p>
 
-&nbsp;     Processed data result from cleaning, transforming, or summarizing raw data to make analysis possible.
+&nbsp;     Processed data result from cleaning, transforming, or summarizing
+
+&nbsp;     raw data to make analysis possible.
 
 &nbsp;   </p>
 
@@ -214,7 +240,9 @@ lesson\_order: 5
 
 &nbsp;   <p>
 
-&nbsp;     Processing improves usability but also introduces decisions that affect interpretation.
+&nbsp;     Processing improves usability but also introduces decisions
+
+&nbsp;     that affect interpretation.
 
 &nbsp;   </p>
 
@@ -236,13 +264,7 @@ lesson\_order: 5
 
 &nbsp;     No dataset captures reality perfectly.
 
-&nbsp;   </p>
-
-
-
-&nbsp;   <p>
-
-&nbsp;     Measurement error, missing values, and simplifications are unavoidable in real data.
+&nbsp;     Measurement error and missing values are unavoidable.
 
 &nbsp;   </p>
 
@@ -250,35 +272,19 @@ lesson\_order: 5
 
 &nbsp;   <p>
 
-&nbsp;     Treating data as exact truth ignores uncertainty and can lead to false conclusions.
+&nbsp;     Data record only what was measured, not everything that may matter.
 
 &nbsp;   </p>
 
-&nbsp; </div>
-
-</section>
 
 
+&nbsp;   <p>
 
-<section class="section">
+&nbsp;     Treating data as exact truth ignores uncertainty
 
-&nbsp; <div class="content-narrow">
+&nbsp;     and can lead to incorrect conclusions.
 
-&nbsp;   <h2>Examples</h2>
-
-
-
-&nbsp;   <ul class="bullets">
-
-&nbsp;     <li>A recorded temperature is an approximation of true environmental conditions.</li>
-
-&nbsp;     <li>A survey response reflects a person’s answer, not their full beliefs.</li>
-
-&nbsp;     <li>Transaction data capture purchases, not intent or satisfaction.</li>
-
-&nbsp;     <li>Sensor data record signals, not the full underlying process.</li>
-
-&nbsp;   </ul>
+&nbsp;   </p>
 
 &nbsp; </div>
 
@@ -296,7 +302,9 @@ lesson\_order: 5
 
 &nbsp;   <p>
 
-&nbsp;     Data are recorded observations, not objective reality.
+&nbsp;     Data are recorded observations, not reality itself.
+
+&nbsp;     They must always be interpreted with care.
 
 &nbsp;   </p>
 
@@ -316,7 +324,11 @@ lesson\_order: 5
 
 &nbsp;   <p>
 
-&nbsp;     Data are recorded values created through observation and measurement. They differ from information and knowledge and never perfectly represent the real world.
+&nbsp;     Data are recorded values created through observation and measurement.
+
+&nbsp;     They differ from information and knowledge and never perfectly
+
+&nbsp;     represent the real world.
 
 &nbsp;   </p>
 
@@ -330,13 +342,15 @@ lesson\_order: 5
 
 &nbsp; <div class="content-narrow">
 
-&nbsp;   <h2>Next lesson</h2>
+&nbsp;   <h2>What comes next</h2>
 
 
 
 &nbsp;   <p>
 
-&nbsp;     Continue to the next lesson to understand what an observational unit is and why defining it correctly is essential for valid analysis.
+&nbsp;     The next lesson introduces <strong>observational units</strong>—what they are,
+
+&nbsp;     how to define them correctly, and why they matter for valid analysis.
 
 &nbsp;   </p>
 
