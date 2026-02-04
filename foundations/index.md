@@ -143,6 +143,23 @@ sidebar: true
   </a>
 </div>
 
+<div class="card lesson-card">
+  <h3>
+    <a href="/foundations/datasets-as-structures/">
+      Datasets as Structures
+    </a>
+  </h3>
+
+  <p>
+    How datasets are organized using rows and columns, why structure is a conceptual
+    choice, and how it determines what analyses are possible.
+  </p>
+
+  <a class="pill" href="/foundations/datasets-as-structures/">
+    Open lesson
+  </a>
+</div>
+
 </div>
 
     <div class="card lesson-card is-soon">
