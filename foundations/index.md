@@ -223,6 +223,22 @@ sidebar: true
     Open lesson
   </a>
 </div>
+<div class="card lesson-card">
+  <h3>
+    <a href="/foundations/measurement-scales/">
+      Measurement Scales
+    </a>
+  </h3>
+
+  <p>
+    Nominal, ordinal, interval, and ratio scales, their historical origins,
+    and why measurement scale determines which operations are valid.
+  </p>
+
+  <a class="pill" href="/foundations/measurement-scales/">
+    Open lesson
+  </a>
+</div>
 </div>
 
     <div class="card lesson-card is-soon">
