@@ -271,6 +271,22 @@ sidebar: true
     Open lesson
   </a>
 </div>
+<div class="card lesson-card">
+  <h3>
+    <a href="/foundations/samples/">
+      Samples
+    </a>
+  </h3>
+
+  <p>
+    What a sample is, why samples are necessary, how samples approximate
+    populations, and intuitive ideas about sample size.
+  </p>
+
+  <a class="pill" href="/foundations/samples/">
+    Open lesson
+  </a>
+</div>
 </div>
 
     <div class="card lesson-card is-soon">
