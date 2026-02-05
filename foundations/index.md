@@ -255,6 +255,22 @@ sidebar: true
     Open lesson
   </a>
 </div>
+<div class="card lesson-card">
+  <h3>
+    <a href="/foundations/populations/">
+      Populations
+    </a>
+  </h3>
+
+  <p>
+    What a population is in statistics, finite versus conceptual populations,
+    target versus accessible populations, and why populations are usually unreachable.
+  </p>
+
+  <a class="pill" href="/foundations/populations/">
+    Open lesson
+  </a>
+</div>
 </div>
 
     <div class="card lesson-card is-soon">
