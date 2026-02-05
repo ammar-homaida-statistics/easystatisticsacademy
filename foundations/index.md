@@ -289,23 +289,7 @@ sidebar: true
 </div>
 </div>
 
-    <div class="card lesson-card is-soon">
-      <h3>Population vs Sample</h3>
-      <p>How sampling connects data to real-world conclusions.</p>
-      <span class="pill">Coming soon</span>
-    </div>
-
-    <div class="card lesson-card is-soon">
-      <h3>Types of Data</h3>
-      <p>Qualitative vs quantitative, discrete vs continuous, and common mistakes.</p>
-      <span class="pill">Coming soon</span>
-    </div>
-
-    <div class="card lesson-card is-soon">
-      <h3>Variables and Scales</h3>
-      <p>Measurement scales and why they control which methods you can use.</p>
-      <span class="pill">Coming soon</span>
-    </div>
+    
 </section>
 
 <section class="section section-slim">
