@@ -175,6 +175,22 @@ sidebar: true
     Open lesson
   </a>
 </div>
+<div class="card lesson-card">
+  <h3>
+    <a href="/foundations/discrete-vs-continuous-data/">
+      Discrete vs Continuous Data
+    </a>
+  </h3>
+
+  <p>
+    The difference between discrete and continuous data, how measurement
+    differs from conceptual continuity, and why this matters for later methods.
+  </p>
+
+  <a class="pill" href="/foundations/discrete-vs-continuous-data/">
+    Open lesson
+  </a>
+</div>
 </div>
 
     <div class="card lesson-card is-soon">
