@@ -239,6 +239,22 @@ sidebar: true
     Open lesson
   </a>
 </div>
+<div class="card lesson-card">
+  <h3>
+    <a href="/foundations/what-you-can-and-cannot-do-with-each-scale/">
+      What You Can and Cannot Do With Each Scale
+    </a>
+  </h3>
+
+  <p>
+    Valid comparisons, invalid operations, why software allows misuse,
+    and real-world examples of incorrect analysis.
+  </p>
+
+  <a class="pill" href="/foundations/what-you-can-and-cannot-do-with-each-scale/">
+    Open lesson
+  </a>
+</div>
 </div>
 
     <div class="card lesson-card is-soon">
