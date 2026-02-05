@@ -191,6 +191,22 @@ sidebar: true
     Open lesson
   </a>
 </div>
+<div class="card lesson-card">
+  <h3>
+    <a href="/foundations/binary-data/">
+      Binary Data
+    </a>
+  </h3>
+
+  <p>
+    Binary variables as a special case, why binary data are not as simple
+    as they appear, and common mistakes in analysis.
+  </p>
+
+  <a class="pill" href="/foundations/binary-data/">
+    Open lesson
+  </a>
+</div>
 </div>
 
     <div class="card lesson-card is-soon">
