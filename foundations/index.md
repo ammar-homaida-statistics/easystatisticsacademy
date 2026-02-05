@@ -142,7 +142,23 @@ sidebar: true
     Open lesson
   </a>
 </div>
+<div class="card lesson-card">
+  <h3>
+    <a href="/foundations/variables/">
+      Variables
+    </a>
+  </h3>
 
+  <p>
+    What variables are, how they differ from constants, conceptual distinctions
+    between independent and dependent variables, and why variables are choices,
+    not facts.
+  </p>
+
+  <a class="pill" href="/foundations/variables/">
+    Open lesson
+  </a>
+</div>
 <div class="card lesson-card">
   <h3>
     <a href="/foundations/datasets-as-structures/">
