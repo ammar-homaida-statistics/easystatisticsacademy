@@ -159,7 +159,22 @@ sidebar: true
     Open lesson
   </a>
 </div>
+<div class="card lesson-card">
+  <h3>
+    <a href="/foundations/types-of-data/">
+      Types of Data
+    </a>
+  </h3>
 
+  <p>
+    An introduction to qualitative and quantitative data, why this distinction
+    is fundamental, and common errors caused by misclassification.
+  </p>
+
+  <a class="pill" href="/foundations/types-of-data/">
+    Open lesson
+  </a>
+</div>
 </div>
 
     <div class="card lesson-card is-soon">
