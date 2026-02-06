@@ -287,6 +287,22 @@ sidebar: true
     Open lesson
   </a>
 </div>
+<div class="card lesson-card">
+  <h3>
+    <a href="/foundations/sampling-variability/">
+      Sampling Variability
+    </a>
+  </h3>
+
+  <p>
+    Why different samples give different results, how randomness differs
+    from error, and intuitive examples of sampling variability.
+  </p>
+
+  <a class="pill" href="/foundations/sampling-variability/">
+    Open lesson
+  </a>
+</div>
 </div>
 
     
