@@ -319,6 +319,22 @@ sidebar: true
     Open lesson
   </a>
 </div>
+<div class="card lesson-card">
+  <h3>
+    <a href="/foundations/statistics/">
+      Statistics
+    </a>
+  </h3>
+
+  <p>
+    What statistics are, why they vary from sample to sample,
+    and how sample summaries relate to population truths.
+  </p>
+
+  <a class="pill" href="/foundations/statistics/">
+    Open lesson
+  </a>
+</div>
 </div>
 
     
