@@ -384,6 +384,22 @@ sidebar: true
     Open lesson
   </a>
 </div>
+<div class="card lesson-card">
+  <h3>
+    <a href="/foundations/observational-studies/">
+      Observational Studies
+    </a>
+  </h3>
+
+  <p>
+    Passive data collection, lack of control, the difference between
+    association and causation, and typical real-world use cases.
+  </p>
+
+  <a class="pill" href="/foundations/observational-studies/">
+    Open lesson
+  </a>
+</div>
 </div>
 
     
