@@ -335,6 +335,22 @@ sidebar: true
     Open lesson
   </a>
 </div>
+<div class="card lesson-card">
+  <h3>
+    <a href="/foundations/parameters-vs-statistics/">
+      Parameters vs Statistics
+    </a>
+  </h3>
+
+  <p>
+    A direct comparison of parameters and statistics, common student errors,
+    and why confusing them breaks statistical inference.
+  </p>
+
+  <a class="pill" href="/foundations/parameters-vs-statistics/">
+    Open lesson
+  </a>
+</div>
 </div>
 
     
