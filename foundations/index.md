@@ -367,6 +367,23 @@ sidebar: true
     Open lesson
   </a>
 </div>
+<div class="card lesson-card">
+  <h3>
+    <a href="/foundations/surveys/">
+      Surveys
+    </a>
+  </h3>
+
+  <p>
+    What surveys are, why question wording matters,
+    an introduction to response bias, and the concept
+    of sampling frames.
+  </p>
+
+  <a class="pill" href="/foundations/surveys/">
+    Open lesson
+  </a>
+</div>
 </div>
 
     
