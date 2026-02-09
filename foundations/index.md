@@ -351,6 +351,22 @@ sidebar: true
     Open lesson
   </a>
 </div>
+<div class="card lesson-card">
+  <h3>
+    <a href="/foundations/data-collection-vs-data-analysis/">
+      Data Collection vs Data Analysis
+    </a>
+  </h3>
+
+  <p>
+    Why data collection comes before analysis, why analysis cannot fix
+    bad data, and examples of irreparable data flaws.
+  </p>
+
+  <a class="pill" href="/foundations/data-collection-vs-data-analysis/">
+    Open lesson
+  </a>
+</div>
 </div>
 
     
