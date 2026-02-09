@@ -303,6 +303,22 @@ sidebar: true
     Open lesson
   </a>
 </div>
+<div class="card lesson-card">
+  <h3>
+    <a href="/foundations/parameters/">
+      Parameters
+    </a>
+  </h3>
+
+  <p>
+    What parameters are, why they are fixed but unknown,
+    common examples, and why parameters cannot be directly observed.
+  </p>
+
+  <a class="pill" href="/foundations/parameters/">
+    Open lesson
+  </a>
+</div>
 </div>
 
     
