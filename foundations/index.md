@@ -417,6 +417,22 @@ sidebar: true
     Open lesson
   </a>
 </div>
+<div class="card lesson-card">
+  <h3>
+    <a href="/foundations/ethical-considerations-in-data-collection/">
+      Ethical Considerations in Data Collection
+    </a>
+  </h3>
+
+  <p>
+    Consent, privacy, data misuse, and why ethics is
+    a fundamental issue in statistical practice.
+  </p>
+
+  <a class="pill" href="/foundations/ethical-considerations-in-data-collection/">
+    Open lesson
+  </a>
+</div>
 </div>
 
     
