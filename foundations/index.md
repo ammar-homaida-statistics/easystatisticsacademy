@@ -465,6 +465,22 @@ sidebar: true
     Open lesson
   </a>
 </div>
+<div class="card lesson-card">
+  <h3>
+    <a href="/foundations/missing-data/">
+      Missing Data
+    </a>
+  </h3>
+
+  <p>
+    Why data are missing, the consequences of ignoring missingness,
+    and why naive fixes often fail.
+  </p>
+
+  <a class="pill" href="/foundations/missing-data/">
+    Open lesson
+  </a>
+</div>
 </div>
 
     
