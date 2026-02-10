@@ -481,6 +481,22 @@ sidebar: true
     Open lesson
   </a>
 </div>
+<div class="card lesson-card">
+  <h3>
+    <a href="/foundations/outliers-conceptual-introduction/">
+      Outliers
+    </a>
+  </h3>
+
+  <p>
+    What outliers are, the difference between natural and erroneous outliers,
+    why deleting data is dangerous, and when outliers matter.
+  </p>
+
+  <a class="pill" href="/foundations/outliers-conceptual-introduction/">
+    Open lesson
+  </a>
+</div>
 </div>
 
     
