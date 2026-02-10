@@ -433,6 +433,22 @@ sidebar: true
     Open lesson
   </a>
 </div>
+<div class="card lesson-card">
+  <h3>
+    <a href="/foundations/bias/">
+      Bias
+    </a>
+  </h3>
+
+  <p>
+    What bias is, common forms such as sampling, measurement,
+    and selection bias, and why bias is systematic rather than random.
+  </p>
+
+  <a class="pill" href="/foundations/bias/">
+    Open lesson
+  </a>
+</div>
 </div>
 
     
