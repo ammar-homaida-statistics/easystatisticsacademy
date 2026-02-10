@@ -400,6 +400,23 @@ sidebar: true
     Open lesson
   </a>
 </div>
+<div class="card lesson-card">
+  <h3>
+    <a href="/foundations/experiments/">
+      Experiments
+    </a>
+  </h3>
+
+  <p>
+    Manipulation and control, treatments and outcomes,
+    the idea of random assignment, and why experiments
+    provide strong evidence.
+  </p>
+
+  <a class="pill" href="/foundations/experiments/">
+    Open lesson
+  </a>
+</div>
 </div>
 
     
