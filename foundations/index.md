@@ -449,6 +449,22 @@ sidebar: true
     Open lesson
   </a>
 </div>
+<div class="card lesson-card">
+  <h3>
+    <a href="/foundations/random-error-vs-systematic-error/">
+      Random Error vs Systematic Error
+    </a>
+  </h3>
+
+  <p>
+    Noise versus bias, why increasing sample size reduces random error
+    but not systematic error, and clear conceptual examples.
+  </p>
+
+  <a class="pill" href="/foundations/random-error-vs-systematic-error/">
+    Open lesson
+  </a>
+</div>
 </div>
 
     
