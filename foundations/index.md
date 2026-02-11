@@ -577,6 +577,22 @@ sidebar: true
     Open lesson
   </a>
 </div>
+<div class="card lesson-card">
+  <h3>
+    <a href="/foundations/how-all-of-this-fits-together/">
+      How All of This Fits Together
+    </a>
+  </h3>
+
+  <p>
+    A big-picture mental model of statistical reasoning,
+    from data to conclusions, and where mistakes usually occur.
+  </p>
+
+  <a class="pill" href="/foundations/how-all-of-this-fits-together/">
+    Open lesson
+  </a>
+</div>
 </div>
 
     
