@@ -497,6 +497,22 @@ sidebar: true
     Open lesson
   </a>
 </div>
+<div class="card lesson-card">
+  <h3>
+    <a href="/foundations/descriptive-statistics-conceptual-overview/">
+      Descriptive Statistics
+    </a>
+  </h3>
+
+  <p>
+    The purpose of description, summarization versus explanation,
+    and what descriptive statistics cannot do.
+  </p>
+
+  <a class="pill" href="/foundations/descriptive-statistics-conceptual-overview/">
+    Open lesson
+  </a>
+</div>
 </div>
 
     
