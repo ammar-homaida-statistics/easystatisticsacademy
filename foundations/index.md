@@ -627,7 +627,10 @@ sidebar: true
     <div class="callout-side">
       <div class="mini">
         <div class="mini-title">Next step</div>
-        <div class="mini-body">After Foundations, continue to <strong>Descriptive Statistics</strong>.</div>
+        <div class="mini-body">
+          After Foundations, continue to 
+          <a href="/descriptive-statistics/"><strong>Descriptive Statistics</strong></a>.
+        </div>
       </div>
       <div class="mini">
         <div class="mini-title">Implementations</div>
