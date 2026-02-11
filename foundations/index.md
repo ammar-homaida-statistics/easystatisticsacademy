@@ -513,6 +513,22 @@ sidebar: true
     Open lesson
   </a>
 </div>
+<div class="card lesson-card">
+  <h3>
+    <a href="/foundations/inferential-statistics-conceptual-overview/">
+      Inferential Statistics
+    </a>
+  </h3>
+
+  <p>
+    Why inference is needed, how we move from sample to population,
+    and why uncertainty is a feature rather than a flaw.
+  </p>
+
+  <a class="pill" href="/foundations/inferential-statistics-conceptual-overview/">
+    Open lesson
+  </a>
+</div>
 </div>
 
     
