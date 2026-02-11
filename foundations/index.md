@@ -64,7 +64,6 @@ sidebar: true
 <section class="section" id="lessons">
   <div class="section-head">
     <h2>Lessons</h2>
-    <p>These pages will be activated one by one. For now they are placeholders.</p>
   </div>
 
   <div class="grid grid-2">
