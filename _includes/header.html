@@ -23,11 +23,12 @@
 
     <!-- Language switch (no 404 fallback) -->
     <nav class="lang-switch" aria-label="Language switch">
-      <a class="lang-link" href="{{ page.url }}" data-lang="en" aria-current="true">EN</a>
-      <span class="lang-sep" aria-hidden="true">|</span>
-      <a class="lang-link" href="/ar{{ page.url }}" data-lang="ar">العربية</a>
-    </nav>
+  <a class="lang-link" href="{{ page.url }}" data-lang="en" aria-current="true">EN</a>
+  <span class="lang-sep" aria-hidden="true">|</span>
 
+  <!-- Safe default goes to /ar/ (never 404), JS may redirect to exact page -->
+  <a class="lang-link" href="/ar/" data-lang="ar" data-target="/ar{{ page.url }}">العربية</a>
+</nav>
     <!-- NOTE: This CSS link is better in <head> (layout), but keeping it here won't break anything. -->
     <link
       rel="stylesheet"
