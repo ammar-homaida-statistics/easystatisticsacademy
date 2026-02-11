@@ -561,6 +561,22 @@ sidebar: true
     Open lesson
   </a>
 </div>
+<div class="card lesson-card">
+  <h3>
+    <a href="/foundations/why-statistical-literacy-matters/">
+      Why Statistical Literacy Matters
+    </a>
+  </h3>
+
+  <p>
+    Consequences of misuse, the role of statistics in policy,
+    medicine and AI, and the responsibility of the analyst.
+  </p>
+
+  <a class="pill" href="/foundations/why-statistical-literacy-matters/">
+    Open lesson
+  </a>
+</div>
 </div>
 
     
