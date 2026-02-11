@@ -545,6 +545,22 @@ sidebar: true
     Open lesson
   </a>
 </div>
+<div class="card lesson-card">
+  <h3>
+    <a href="/foundations/common-statistical-misconceptions/">
+      Common Statistical Misconceptions
+    </a>
+  </h3>
+
+  <p>
+    Large samples and bias, correlation versus causation,
+    software limitations, and why one method cannot fit all data.
+  </p>
+
+  <a class="pill" href="/foundations/common-statistical-misconceptions/">
+    Open lesson
+  </a>
+</div>
 </div>
 
     
