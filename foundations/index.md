@@ -26,9 +26,6 @@ sidebar: true
         <a class="btn btn-outline" href="/descriptive/">Next: Descriptive</a>
       </div>
 
-      <p class="muted-mini">
-        Lessons will appear here as they are published. For now, you can follow the suggested order below.
-      </p>
     </div>
 
     <div class="hero-panel">
