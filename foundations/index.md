@@ -593,6 +593,22 @@ sidebar: true
     Open lesson
   </a>
 </div>
+<div class="card lesson-card">
+  <h3>
+    <a href="/foundations/what-comes-next-descriptive-statistics/">
+      What Comes Next: Descriptive Statistics
+    </a>
+  </h3>
+
+  <p>
+    What the next section will introduce, what knowledge is assumed,
+    and how these foundations support everything that follows.
+  </p>
+
+  <a class="pill" href="/foundations/what-comes-next-descriptive-statistics/">
+    Open lesson
+  </a>
+</div>
 </div>
 
     
