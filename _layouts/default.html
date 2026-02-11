@@ -10,61 +10,92 @@
   <link rel="stylesheet" href="/css/style.css?v=5" />
   {% include schema-org.html %}
 </head>
+
 <body>
   {% include header.html %}
 
   {% if page.sidebar %}
-  <div class="container layout-two-col">
-    {% include sidebar.html %}
-    <main class="content">
-      {{ content }}
-    </main>
-  </div>
-{% else %}
-  <main class="container">
-  {% if page.sidebar %}
-    <div class="layout-two-col">
+    <div class="container layout-two-col">
       {% include sidebar.html %}
-      <div class="content">
+      <main class="content">
         {{ content }}
-      </div>
+      </main>
     </div>
   {% else %}
-    {{ content }}
+    <main class="container">
+      {{ content }}
+    </main>
   {% endif %}
-</main>
-{% endif %}
-
 
   {% include footer.html %}
 
   <script>
-  // Footer year
-  const y = document.getElementById("y");
-  if (y) y.textContent = new Date().getFullYear();
+    // Footer year
+    const y = document.getElementById("y");
+    if (y) y.textContent = new Date().getFullYear();
 
-  // Mobile nav toggle
-  const header = document.querySelector(".site-header");
-  const toggle = document.querySelector(".nav-toggle");
+    // Mobile nav toggle
+    const header = document.querySelector(".site-header");
+    const toggle = document.querySelector(".nav-toggle");
 
-  if (header && toggle) {
-    toggle.addEventListener("click", () => {
-      const isOpen = header.classList.toggle("nav-open");
-      toggle.setAttribute("aria-expanded", String(isOpen));
+    if (header && toggle) {
+      toggle.addEventListener("click", () => {
+        const isOpen = header.classList.toggle("nav-open");
+        toggle.setAttribute("aria-expanded", String(isOpen));
+      });
+    }
+  </script>
+
+  <script src="/js/search.js"></script>
+  <script>
+    SimpleJekyllSearch({
+      searchInput: document.getElementById('site-search'),
+      resultsContainer: document.getElementById('search-results'),
+      json: '/search.json',
+      searchResultTemplate: '<li><a href="{url}">{title}</a></li>',
+      noResultsText: '<li>No results found</li>',
+      limit: 8
     });
-  }
-</script>
-<script src="/js/search.js"></script>
-<script>
-  SimpleJekyllSearch({
-    searchInput: document.getElementById('site-search'),
-    resultsContainer: document.getElementById('search-results'),
-    json: '/search.json',
-    searchResultTemplate: '<li><a href="{url}">{title}</a></li>',
-    noResultsText: '<li>No results found</li>',
-    limit: 8
-  });
-</script>
-<script src="/js/js/site.js"></script>
+  </script>
+
+  <script src="/js/js/site.js"></script>
+
+  <script>
+  (function () {
+    const arLink = document.querySelector('.lang-switch a[data-lang="ar"]');
+    const enLink = document.querySelector('.lang-switch a[data-lang="en"]');
+    if (!arLink || !enLink) return;
+
+    const path = window.location.pathname || "/";
+    const isArabic = path === "/ar/" || path.startsWith("/ar/");
+
+    enLink.setAttribute("aria-current", isArabic ? "false" : "true");
+    arLink.setAttribute("aria-current", isArabic ? "true" : "false");
+
+    // If already on Arabic, EN should remove /ar prefix
+    if (isArabic) {
+      enLink.href = path.replace(/^\/ar(\/|$)/, "/");
+      arLink.href = path;
+      return;
+    }
+
+    // From English → Arabic: try same page if it exists, else go to /ar/
+    arLink.addEventListener("click", async function (e) {
+      e.preventDefault();
+
+      const target = arLink.getAttribute("data-target");
+      const fallback = "/ar/";
+
+      try {
+        const res = await fetch(target, { method: "GET" });
+        if (res.ok) window.location.href = target;
+        else window.location.href = fallback;
+      } catch (err) {
+        window.location.href = fallback;
+      }
+    });
+  })();
+  </script>
+
 </body>
 </html>
