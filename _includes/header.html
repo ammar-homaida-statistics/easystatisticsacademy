@@ -21,19 +21,10 @@
       <a href="/about/">About</a>
     </nav>
 
-    <!-- Language switch (no 404 fallback) -->
-    <nav class="lang-switch" aria-label="Language switch">
-  <a class="lang-link" href="{{ page.url }}" data-lang="en" aria-current="true">EN</a>
-  <span class="lang-sep" aria-hidden="true">|</span>
-
-  <!-- Safe default goes to /ar/ (never 404), JS may redirect to exact page -->
-  <a class="lang-link" href="/ar/" data-lang="ar" data-target="/ar{{ page.url }}">العربية</a>
-</nav>
-    <!-- NOTE: This CSS link is better in <head> (layout), but keeping it here won't break anything. -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    />
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+/>
 
     <div class="header-search">
       <input id="site-search" type="search" placeholder="Search…" autocomplete="off" />
@@ -41,49 +32,3 @@
     </div>
   </div>
 </header>
-
-<script>
-(function () {
-  const arLink = document.querySelector('.lang-switch a[data-lang="ar"]');
-  const enLink = document.querySelector('.lang-switch a[data-lang="en"]');
-  if (!arLink || !enLink) return;
-
-  // Mark current language
-  const path = window.location.pathname || "/";
-  const isArabic = path === "/ar/" || path.startsWith("/ar/");
-  enLink.setAttribute("aria-current", isArabic ? "false" : "true");
-  arLink.setAttribute("aria-current", isArabic ? "true" : "false");
-
-  // If user is already on Arabic, make EN go back to same page without /ar prefix
-  if (isArabic) {
-    enLink.href = path.replace(/^\/ar(\/|$)/, "/");
-    arLink.href = path; // stay on Arabic
-  }
-
-  // No-404 fallback when going to Arabic from English:
-  // Check if /ar + current page exists; otherwise go to /ar/
-  if (!isArabic) {
-    arLink.addEventListener("click", async function (e) {
-      e.preventDefault();
-
-      const target = arLink.getAttribute("href");
-      const fallback = "/ar/";
-
-      try {
-        // Some hosts may not support HEAD reliably; if it fails, it will fallback safely.
-        const res = await fetch(target, { method: "HEAD" });
-
-        if (res.ok) {
-          window.location.href = target;
-        } else {
-          window.location.href = fallback;
-        }
-      } catch (err) {
-        // If HEAD causes trouble on your host, replace the fetch line above with:
-        // const res = await fetch(target, { method: "GET" });
-        window.location.href = fallback;
-      }
-    });
-  }
-})();
-</script>
