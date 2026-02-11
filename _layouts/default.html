@@ -66,5 +66,40 @@
   });
 </script>
 <script src="/js/js/site.js"></script>
+<script>
+(function () {
+  const arLink = document.querySelector('.lang-switch a[data-lang="ar"]');
+  const enLink = document.querySelector('.lang-switch a[data-lang="en"]');
+  if (!arLink || !enLink) return;
+
+  const path = window.location.pathname || "/";
+  const isArabic = path === "/ar/" || path.startsWith("/ar/");
+
+  enLink.setAttribute("aria-current", isArabic ? "false" : "true");
+  arLink.setAttribute("aria-current", isArabic ? "true" : "false");
+
+  // If already on Arabic: EN = same path without /ar
+  if (isArabic) {
+    enLink.href = path.replace(/^\/ar(\/|$)/, "/");
+    arLink.href = path;
+    return;
+  }
+
+  // From English → Arabic: try mirrored page; if missing, go /ar/
+  arLink.addEventListener("click", async function (e) {
+    e.preventDefault();
+
+    const target = arLink.getAttribute("data-target");
+    const fallback = "/ar/";
+
+    try {
+      const res = await fetch(target, { method: "GET" }); // reliable on GitHub Pages
+      window.location.href = res.ok ? target : fallback;
+    } catch (_) {
+      window.location.href = fallback;
+    }
+  });
+})();
+</script>
 </body>
 </html>
