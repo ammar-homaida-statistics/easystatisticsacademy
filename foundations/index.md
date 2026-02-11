@@ -629,7 +629,7 @@ sidebar: true
         <div class="mini-title">Next step</div>
         <div class="mini-body">
           After Foundations, continue to 
-          <a href="/descriptive-statistics/"><strong>Descriptive Statistics</strong></a>.
+          <a href="/descriptive/"><strong>Descriptive Statistics</strong></a>.
         </div>
       </div>
       <div class="mini">
