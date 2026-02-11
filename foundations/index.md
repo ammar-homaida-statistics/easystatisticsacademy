@@ -529,6 +529,22 @@ sidebar: true
     Open lesson
   </a>
 </div>
+<div class="card lesson-card">
+  <h3>
+    <a href="/foundations/why-probability-is-needed/">
+      Why Probability Is Needed
+    </a>
+  </h3>
+
+  <p>
+    Probability as the language of uncertainty, why inference
+    requires probability, and the conceptual bridge to formal methods.
+  </p>
+
+  <a class="pill" href="/foundations/why-probability-is-needed/">
+    Open lesson
+  </a>
+</div>
 </div>
 
     
