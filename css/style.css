@@ -940,39 +940,3 @@ a:hover{ text-decoration: underline; }
 @media (max-width: 980px){
   .lesson-grid{ grid-template-columns: 1fr; }
 }
-
-.lang-switch{
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-left: 12px;
-  white-space: nowrap;
-  font-size: 14px;
-}
-
-.lang-switch .lang-link{
-  color: var(--text);
-  text-decoration: none;
-  font-weight: 700;
-  padding: 6px 8px;
-  border-radius: 10px;
-  opacity: 0.86;
-}
-
-.lang-switch .lang-link:hover{
-  background: #eef2ff;
-  text-decoration: none;
-  opacity: 1;
-}
-
-.lang-switch .lang-link[aria-current="true"]{ opacity: 1; }
-.lang-switch .lang-sep{ opacity: 0.45; }
-
-.lang-switch .lang-link[data-lang="ar"]{
-  direction: rtl;
-  unicode-bidi: isolate;
-}
-
-@media (max-width: 900px){
-  .lang-switch{ margin-left: auto; }
-}
