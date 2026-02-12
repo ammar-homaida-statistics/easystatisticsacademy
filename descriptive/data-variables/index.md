@@ -6,6 +6,21 @@ permalink: /descriptive/data-variables/
 sidebar: false
 ---
 
+<!-- UNDER CONSTRUCTION NOTICE -->
+<section class="section section-slim">
+  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
+    <div class="callout-copy">
+      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
+        🚧 This Section Is Under Construction
+      </h2>
+      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
+        This block is currently being developed. Lessons will be published in a fixed pedagogical order
+        as part of the Descriptive Statistics unit.
+      </p>
+    </div>
+  </div>
+</section>
+
 <section class="hero hero-section">
   <div class="hero-card hero-split">
     <div class="hero-copy">
@@ -73,67 +88,83 @@ sidebar: false
   <div class="section-head">
     <h2>Lessons (Version 0)</h2>
     <p>
-      Complete these lessons in order. They define the rules that determine which tables, plots, and numerical
-      summaries are valid for each kind of data.
+      Work through these lessons in order. Each lesson page is active (even if still being developed),
+      so you can navigate the full structure now.
     </p>
   </div>
 
   <div class="grid grid-2">
 
     <!-- Lesson 1 -->
-    <div class="card lesson-card is-soon">
+    <div class="card lesson-card">
       <h3><a href="/descriptive/data-variables/what-does-it-mean-to-describe-data/">1. What Does It Mean to “Describe” Data?</a></h3>
       <p>Descriptive vs inferential, description ≠ explanation, and why poor description leads to wrong conclusions.</p>
-      <div class="pill-row"><span class="pill">Under construction</span></div>
+      <div class="pill-row">
+        <a class="btn btn-outline" href="/descriptive/data-variables/what-does-it-mean-to-describe-data/">Open lesson</a>
+      </div>
     </div>
 
     <!-- Lesson 2 -->
-    <div class="card lesson-card is-soon">
+    <div class="card lesson-card">
       <h3><a href="/descriptive/data-variables/units-observations-and-variables/">2. Units, Observations &amp; Variables</a></h3>
       <p>Observational units, variables vs values, how datasets represent real-world entities, and common confusion points.</p>
-      <div class="pill-row"><span class="pill">Under construction</span></div>
+      <div class="pill-row">
+        <a class="btn btn-outline" href="/descriptive/data-variables/units-observations-and-variables/">Open lesson</a>
+      </div>
     </div>
 
     <!-- Lesson 3 -->
-    <div class="card lesson-card is-soon">
+    <div class="card lesson-card">
       <h3><a href="/descriptive/data-variables/categorical-vs-numerical/">3. Categorical vs Numerical Variables</a></h3>
       <p>Core distinction that determines valid tables, plots, and summary measures—with practical examples.</p>
-      <div class="pill-row"><span class="pill">Under construction</span></div>
+      <div class="pill-row">
+        <a class="btn btn-outline" href="/descriptive/data-variables/categorical-vs-numerical/">Open lesson</a>
+      </div>
     </div>
 
     <!-- Lesson 4 -->
-    <div class="card lesson-card is-soon">
+    <div class="card lesson-card">
       <h3><a href="/descriptive/data-variables/nominal-vs-ordinal/">4. Nominal vs Ordinal Variables</a></h3>
       <p>Ordered vs unordered categories, what “order” really means, and why ordinal is not truly numerical.</p>
-      <div class="pill-row"><span class="pill">Under construction</span></div>
+      <div class="pill-row">
+        <a class="btn btn-outline" href="/descriptive/data-variables/nominal-vs-ordinal/">Open lesson</a>
+      </div>
     </div>
 
     <!-- Lesson 5 -->
-    <div class="card lesson-card is-soon">
+    <div class="card lesson-card">
       <h3><a href="/descriptive/data-variables/discrete-vs-continuous/">5. Discrete vs Continuous Variables</a></h3>
       <p>Counts vs measurements, boundaries, and why histogram/binning logic belongs to continuous data.</p>
-      <div class="pill-row"><span class="pill">Under construction</span></div>
+      <div class="pill-row">
+        <a class="btn btn-outline" href="/descriptive/data-variables/discrete-vs-continuous/">Open lesson</a>
+      </div>
     </div>
 
     <!-- Lesson 6 -->
-    <div class="card lesson-card is-soon">
+    <div class="card lesson-card">
       <h3><a href="/descriptive/data-variables/data-structure-and-datasets/">6. Data Structure &amp; Datasets</a></h3>
       <p>Rows vs columns, cross-sectional vs time-series, structured vs messy data, and how structure affects analysis.</p>
-      <div class="pill-row"><span class="pill">Under construction</span></div>
+      <div class="pill-row">
+        <a class="btn btn-outline" href="/descriptive/data-variables/data-structure-and-datasets/">Open lesson</a>
+      </div>
     </div>
 
     <!-- Lesson 7 -->
-    <div class="card lesson-card is-soon">
+    <div class="card lesson-card">
       <h3><a href="/descriptive/data-variables/measurement-scales/">7. Measurement Scales (Nominal, Ordinal, Interval, Ratio)</a></h3>
       <p>What each scale allows, what operations are valid, and why some summaries are invalid for some scales.</p>
-      <div class="pill-row"><span class="pill">Under construction</span></div>
+      <div class="pill-row">
+        <a class="btn btn-outline" href="/descriptive/data-variables/measurement-scales/">Open lesson</a>
+      </div>
     </div>
 
     <!-- Lesson 8 -->
-    <div class="card lesson-card is-soon">
+    <div class="card lesson-card">
       <h3><a href="/descriptive/data-variables/valid-vs-invalid-operations/">8. Valid vs Invalid Operations on Data</a></h3>
       <p>When averages make sense (and when they don’t), common scale errors, and how to avoid misleading summaries.</p>
-      <div class="pill-row"><span class="pill">Under construction</span></div>
+      <div class="pill-row">
+        <a class="btn btn-outline" href="/descriptive/data-variables/valid-vs-invalid-operations/">Open lesson</a>
+      </div>
     </div>
 
   </div>
@@ -147,13 +178,15 @@ sidebar: false
         <li>Correctly identify variable type and measurement scale</li>
         <li>Understand dataset structure (units, rows/columns, variables/values)</li>
         <li>Avoid invalid summaries and misleading plots caused by type/scale confusion</li>
-        <li>Be ready for Block 2 (Tabular Summaries) and Block 3 (Visualization)</li>
+        <li>Be ready for Block 2 (Tabular Summaries)</li>
       </ul>
     </div>
     <div class="callout-side">
-      <div class="mini">
-        <div class="mini-title">Next</div>
-        <div class="mini-body">After finishing this block, move to <strong>Block 2 — Tabular Summaries</strong>.</div>
+      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
+        <div class="mini-title" style="color:#1a73e8;">Next block</div>
+        <div class="mini-body">
+          Continue to <a href="/descriptive/tables/" style="color:#1a73e8; text-decoration:underline;"><strong>Block 2 — Tabular Summaries</strong></a>.
+        </div>
       </div>
     </div>
   </div>
