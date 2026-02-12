@@ -1,15 +1,15 @@
 ---
 layout: default
-title: "Discrete vs Continuous Variables"
-description: "Understanding count data vs measurement data and why the distinction affects summaries and graphs."
-permalink: /descriptive/data-variables/discrete-vs-continuous/
+title: "Data Structure & Datasets"
+description: "Understanding rows, columns, observational units, and dataset organization."
+permalink: /descriptive/data-variables/data-structure-datasets/
 sidebar: false
 ---
 
 <!-- Previous Button -->
 <section class="section section-slim">
-  <a class="btn btn-outline" href="/descriptive/data-variables/nominal-vs-ordinal/">
-    ← Previous Lesson: Nominal vs Ordinal Variables
+  <a class="btn btn-outline" href="/descriptive/data-variables/discrete-vs-continuous/">
+    ← Previous Lesson: Discrete vs Continuous Variables
   </a>
 </section>
 
@@ -21,7 +21,7 @@ sidebar: false
         🚧 Lesson Under Construction
       </h2>
       <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        This lesson is being expanded. Structure is stable; examples and visuals will be refined.
+        This lesson structure is fixed. Examples and software demonstrations will be added later.
       </p>
     </div>
   </div>
@@ -30,158 +30,166 @@ sidebar: false
 <section class="section">
 
   <div class="section-head">
-    <h1>Discrete vs Continuous Variables</h1>
+    <h1>Data Structure & Datasets</h1>
     <p>
-      Both are numerical variables — but they behave differently.
-      The distinction affects how we summarize, visualize, and model data.
+      Before calculating anything, you must understand how data are organized.
+      Most statistical errors begin with structural confusion.
     </p>
   </div>
 
-  <h2>1. Discrete Variables</h2>
+  <h2>1. What Is a Dataset?</h2>
 
   <p>
-    A <strong>discrete variable</strong> takes separate, countable values.
-    There are gaps between possible values.
+    A dataset is a structured collection of observations and variables.
+  </p>
+
+  <p>
+    In most statistical software and spreadsheets:
+  </p>
+
+  <ul>
+    <li>Each <strong>row</strong> represents one observational unit.</li>
+    <li>Each <strong>column</strong> represents one variable.</li>
+  </ul>
+
+  <hr>
+
+  <h2>2. Observational Units</h2>
+
+  <p>
+    The observational unit is the entity being measured.
   </p>
 
   <h3>Examples:</h3>
   <ul>
-    <li>Number of students in a class</li>
-    <li>Number of hospital visits</li>
-    <li>Number of defects in a product</li>
-    <li>Number of children in a family</li>
+    <li>One student</li>
+    <li>One patient</li>
+    <li>One company</li>
+    <li>One country</li>
+    <li>One time point</li>
   </ul>
 
   <p>
-    You cannot have 2.5 students.
+    All variables in a dataset must refer to the same observational unit.
   </p>
 
-  <h3>Key idea:</h3>
   <p>
-    Discrete data usually arise from <strong>counting</strong>.
+    Mixing units creates invalid data.
   </p>
 
   <hr>
 
-  <h2>2. Continuous Variables</h2>
+  <h2>3. Variables vs Values</h2>
 
   <p>
-    A <strong>continuous variable</strong> can take any value within a range.
-  </p>
-
-  <h3>Examples:</h3>
-  <ul>
-    <li>Height</li>
-    <li>Weight</li>
-    <li>Time</li>
-    <li>Temperature</li>
-    <li>Blood pressure</li>
-  </ul>
-
-  <p>
-    Between 170 cm and 171 cm, infinitely many values exist.
-  </p>
-
-  <h3>Key idea:</h3>
-  <p>
-    Continuous data arise from <strong>measurement</strong>.
-  </p>
-
-  <hr>
-
-  <h2>3. Why This Distinction Matters</h2>
-
-  <h3>Graphs</h3>
-  <ul>
-    <li>Discrete → Bar chart (sometimes histogram)</li>
-    <li>Continuous → Histogram, density plot</li>
-  </ul>
-
-  <h3>Mathematics</h3>
-  <ul>
-    <li>Discrete → Probability mass functions</li>
-    <li>Continuous → Probability density functions</li>
-  </ul>
-
-  <h3>Interpretation</h3>
-  <p>
-    Treating discrete counts as continuous may distort interpretation,
-    especially when sample size is small.
-  </p>
-
-  <hr>
-
-  <h2>4. Borderline Cases</h2>
-
-  <p>
-    Age can be discrete (in years) or continuous (exact age in days).
+    A <strong>variable</strong> is a column.
   </p>
 
   <p>
-    Income may be recorded as whole numbers,
-    but conceptually it is continuous.
+    A <strong>value</strong> is the specific entry for one observation.
   </p>
 
-  <p>
-    In practice, context determines classification.
-  </p>
-
-  <hr>
-
-  <h2>5. Summary Table</h2>
+  <h3>Example Table:</h3>
 
   <table class="table">
     <thead>
       <tr>
-        <th>Feature</th>
-        <th>Discrete</th>
-        <th>Continuous</th>
+        <th>ID</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Exam Score</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td>Source</td>
-        <td>Counting</td>
-        <td>Measurement</td>
+        <td>1</td>
+        <td>20</td>
+        <td>Female</td>
+        <td>78</td>
       </tr>
       <tr>
-        <td>Possible Values</td>
-        <td>Separate integers</td>
-        <td>Infinite within interval</td>
-      </tr>
-      <tr>
-        <td>Typical Graph</td>
-        <td>Bar chart</td>
-        <td>Histogram</td>
-      </tr>
-      <tr>
-        <td>Examples</td>
-        <td>Number of visits</td>
-        <td>Height, weight</td>
+        <td>2</td>
+        <td>22</td>
+        <td>Male</td>
+        <td>85</td>
       </tr>
     </tbody>
   </table>
 
+  <p>
+    Age is a variable.  
+    20 is a value.
+  </p>
+
   <hr>
 
-  <h2>6. Common Mistakes</h2>
+  <h2>4. Cross-Sectional vs Time-Series Data</h2>
 
+  <h3>Cross-Sectional</h3>
+  <p>
+    Different units measured at the same time.
+  </p>
+
+  <p>Example: 100 patients measured today.</p>
+
+  <h3>Time-Series</h3>
+  <p>
+    One unit measured repeatedly over time.
+  </p>
+
+  <p>Example: Daily stock price for one company.</p>
+
+  <hr>
+
+  <h2>5. Structured vs Messy Data</h2>
+
+  <h3>Structured Data</h3>
   <ul>
-    <li>Using histograms for very small discrete counts</li>
-    <li>Forgetting that recorded discrete values may represent underlying continuous variables</li>
-    <li>Ignoring measurement precision limits</li>
+    <li>One row = one unit</li>
+    <li>One column = one variable</li>
+    <li>No merged cells</li>
+    <li>No multiple variables in one column</li>
+  </ul>
+
+  <h3>Messy Data Problems</h3>
+  <ul>
+    <li>Names and age in the same column</li>
+    <li>Multiple time points in one row</li>
+    <li>Missing identifiers</li>
+    <li>Inconsistent coding</li>
   </ul>
 
   <p>
-    Clear variable classification is foundational for correct descriptive statistics.
+    Good descriptive statistics require clean structure first.
   </p>
+
+  <hr>
+
+  <h2>6. Why Structure Matters</h2>
+
+  <ul>
+    <li>Determines valid summaries</li>
+    <li>Determines valid graphs</li>
+    <li>Determines valid modeling</li>
+    <li>Prevents logical contradictions</li>
+  </ul>
+
+  <p>
+    Before describing data, always check:
+  </p>
+
+  <ul>
+    <li>What is the unit?</li>
+    <li>What are the variables?</li>
+    <li>Is the structure consistent?</li>
+  </ul>
 
 </section>
 
 <!-- Next Button -->
 <section class="section section-slim">
-  <a class="btn" href="/descriptive/data-variables/data-structure-datasets/">
-    Next Lesson → Data Structure & Datasets
+  <a class="btn" href="/descriptive/data-variables/measurement-scales/">
+    Next Lesson → Measurement Scales
   </a>
 </section>
 
@@ -190,8 +198,8 @@ sidebar: false
     var KEY = "esa_continue_descriptive_data_variables_lesson_v0";
 
     localStorage.setItem(KEY, JSON.stringify({
-      url: "/descriptive/data-variables/discrete-vs-continuous/",
-      label: "Lesson 5 — Discrete vs Continuous Variables",
+      url: "/descriptive/data-variables/data-structure-datasets/",
+      label: "Lesson 6 — Data Structure & Datasets",
       ts: Date.now()
     }));
   })();
