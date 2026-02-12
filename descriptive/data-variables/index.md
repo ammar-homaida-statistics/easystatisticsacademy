@@ -192,8 +192,9 @@ sidebar: false
 
 <script>
   (function () {
-    // Block-level continue reading: last opened lesson inside Block 1
-    var KEY = "esa_continue_descriptive_data_variables_lesson";
+    // ✅ Unique key for Block 1 lessons only (isolated from everything else)
+    var KEY = "esa_continue_descriptive_data_variables_lesson_v0";
+
     var raw = localStorage.getItem(KEY);
     if (!raw) return;
 
