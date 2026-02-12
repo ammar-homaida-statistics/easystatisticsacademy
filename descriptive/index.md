@@ -94,12 +94,16 @@ sidebar: false
 </div>
     <!-- Block 2 -->
 <div class="card lesson-card">
-  <h3><a href="/descriptive/tabular-summaries/">Block 2 — Tabular Summaries</a></h3>
+  <h3>
+    <a href="/descriptive/tabular-summaries/">Block 2 — Tabular Summaries</a>
+  </h3>
+
   <p>
-    Convert raw data into clear tables: frequency and relative frequency, cumulative counts, grouped tables,
-    and contingency tables with correct percentage interpretation.
+    Convert raw data into structured summaries: frequency tables, relative frequencies,
+    cumulative distributions, grouped tables, and contingency tables with correct percentage interpretation.
   </p>
-  <div style="margin-top:.75rem;">
+
+  <div class="pill-row">
     <a class="btn btn-outline" href="/descriptive/tabular-summaries/">Open block</a>
   </div>
 </div>
