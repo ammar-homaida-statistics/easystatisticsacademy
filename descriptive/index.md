@@ -75,8 +75,8 @@ sidebar: false
 
   <div class="grid grid-2">
 
-<div id="continue-reading" style="display:none; margin-top:0.75rem;"></div>
-
+<div id="continue-reading-descriptive" style="display:none; margin-top:0.75rem;">
+</div>
     <!-- Block 1 -->
 <div class="card lesson-card">
   <h3>
@@ -202,8 +202,8 @@ sidebar: false
   </div>
  <script>
   (function () {
-    var KEY = "esa_continue_descriptive_block";  // ✅ Descriptive-only key
-    var container = document.getElementById("continue-reading");
+    var KEY = "esa_continue_descriptive_block"; // ✅ unique key
+    var container = document.getElementById("continue-reading-descriptive"); // ✅ unique container
     if (!container) return;
 
     var dataRaw = localStorage.getItem(KEY);
@@ -214,8 +214,9 @@ sidebar: false
       if (!data || !data.url || !data.label) return;
 
       container.innerHTML =
-        '<a class="btn" href="' + data.url + '">Continue</a>' +
-        ' <span class="muted-mini" style="margin-left:0.5rem;">You last visited: <strong>' + data.label + '</strong></span>';
+        '<h3 style="margin:0 0 .25rem 0;">Continue reading</h3>' +
+        '<p class="muted-mini" style="margin:0 0 .75rem 0;">You last visited: <strong>' + data.label + '</strong></p>' +
+        '<a class="btn" href="' + data.url + '">Continue</a>';
 
       container.style.display = "block";
     } catch (e) {}
