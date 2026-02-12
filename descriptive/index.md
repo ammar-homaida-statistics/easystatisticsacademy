@@ -76,18 +76,21 @@ sidebar: false
   <div class="grid grid-2">
 
     <!-- Block 1 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/data-variables/">Block 1 — Data &amp; Variables</a></h3>
-      <p>
-        Define what you are describing: variable types, measurement scales, dataset structure, units, coding,
-        and the rules that determine valid summaries and plots.
-      </p>
-      <div class="pill-row">
-        <span class="pill">Active</span>
-        <span class="pill">Lessons: coming soon</span>
-      </div>
-    </div>
+<div class="card lesson-card">
+  <h3>
+    <a href="/descriptive/data-variables/">Block 1 — Data &amp; Variables</a>
+  </h3>
 
+  <p>
+    Define what you are describing: variable types, measurement scales, dataset structure, units, coding,
+    and the rules that determine valid summaries and plots.
+  </p>
+
+  <div class="pill-row">
+    <a class="btn btn-outline" href="/descriptive/data-variables/">Open block</a>
+    <span class="pill">Lessons: coming soon</span>
+  </div>
+</div>
     <!-- Block 2 -->
     <div class="card lesson-card">
       <h3><a href="/descriptive/tables/">Block 2 — Tabular Summaries</a></h3>
