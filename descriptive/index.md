@@ -200,9 +200,9 @@ sidebar: false
       </div>
     </div>
   </div>
-<script>
+ <script>
   (function () {
-    var KEY = "esa_continue_descriptive_block";
+    var KEY = "esa_continue_descriptive_block";  // ✅ Descriptive-only key
     var container = document.getElementById("continue-reading");
     if (!container) return;
 
@@ -214,13 +214,11 @@ sidebar: false
       if (!data || !data.url || !data.label) return;
 
       container.innerHTML =
-        '<a class="btn" href="' + data.url + '">Continue reading</a>' +
-        ' <span class="muted-mini" style="margin-left:0.5rem;">Last opened: <strong>' + data.label + '</strong></span>';
+        '<a class="btn" href="' + data.url + '">Continue</a>' +
+        ' <span class="muted-mini" style="margin-left:0.5rem;">You last visited: <strong>' + data.label + '</strong></span>';
 
       container.style.display = "block";
-    } catch (e) {
-      // If stored value is corrupted, ignore silently
-    }
+    } catch (e) {}
   })();
 </script>
 </section>
