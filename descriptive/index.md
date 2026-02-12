@@ -93,18 +93,20 @@ sidebar: false
   </div>
 </div>
     <!-- Block 2 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/tables/">Block 2 — Tabular Summaries</a></h3>
-      <p>
-        Convert raw data into clear tables: frequency and relative frequency, cumulative counts, grouped tables,
-        and contingency tables with correct percentage interpretation.
-      </p>
-      <div class="pill-row">
-        <span class="pill">Active</span>
-        <span class="pill">Lessons: coming soon</span>
-      </div>
-    </div>
-
+<div class="card lesson-card">
+  <h3><a href="/descriptive/tabular-summaries/">Block 2 — Tabular Summaries</a></h3>
+  <p>
+    Convert raw data into clear tables: frequency and relative frequency, cumulative counts, grouped tables,
+    and contingency tables with correct percentage interpretation.
+  </p>
+  <div class="pill-row">
+    <span class="pill">Active</span>
+    <span class="pill">Lessons: in progress</span>
+  </div>
+  <div style="margin-top:.75rem;">
+    <a class="btn btn-outline" href="/descriptive/tabular-summaries/">Open block</a>
+  </div>
+</div>
     <!-- Block 3 -->
     <div class="card lesson-card">
       <h3><a href="/descriptive/visualization/">Block 3 — Visualization</a></h3>
