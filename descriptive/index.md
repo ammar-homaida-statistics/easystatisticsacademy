@@ -8,16 +8,19 @@ sidebar: false
 
 <!-- UNDER CONSTRUCTION NOTICE -->
 <section class="section section-slim">
-  <div class="callout">
+  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:1.5rem; border-radius:10px;">
     <div class="callout-copy">
-      <h2>Under construction</h2>
-      <p class="muted-mini" style="margin:0;">
-        This section is currently under construction. Pages and lessons are being added in a fixed order until the full unit is complete.
+      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
+        🚧 This Section Is Under Construction
+      </h2>
+      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
+        The Descriptive Statistics unit is currently being developed in a structured, block-by-block format.
+        Pages and lessons are being published in a fixed pedagogical order to ensure clarity, stability,
+        and long-term academic consistency.
       </p>
     </div>
   </div>
 </section>
-
 <section class="hero hero-section">
   <div class="hero-card hero-split">
     <div class="hero-copy">
