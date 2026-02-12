@@ -88,7 +88,6 @@ sidebar: false
 
   <div class="pill-row">
     <a class="btn btn-outline" href="/descriptive/data-variables/">Open block</a>
-    <span class="pill">Lessons: coming soon</span>
   </div>
 </div>
     <!-- Block 2 -->
