@@ -99,10 +99,6 @@ sidebar: false
     Convert raw data into clear tables: frequency and relative frequency, cumulative counts, grouped tables,
     and contingency tables with correct percentage interpretation.
   </p>
-  <div class="pill-row">
-    <span class="pill">Active</span>
-    <span class="pill">Lessons: in progress</span>
-  </div>
   <div style="margin-top:.75rem;">
     <a class="btn btn-outline" href="/descriptive/tabular-summaries/">Open block</a>
   </div>
