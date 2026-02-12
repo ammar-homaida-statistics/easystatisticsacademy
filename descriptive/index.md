@@ -200,4 +200,27 @@ sidebar: false
       </div>
     </div>
   </div>
+<script>
+  (function () {
+    var KEY = "esa_continue_descriptive_block";
+    var container = document.getElementById("continue-reading");
+    if (!container) return;
+
+    var dataRaw = localStorage.getItem(KEY);
+    if (!dataRaw) return;
+
+    try {
+      var data = JSON.parse(dataRaw);
+      if (!data || !data.url || !data.label) return;
+
+      container.innerHTML =
+        '<a class="btn" href="' + data.url + '">Continue reading</a>' +
+        ' <span class="muted-mini" style="margin-left:0.5rem;">Last opened: <strong>' + data.label + '</strong></span>';
+
+      container.style.display = "block";
+    } catch (e) {
+      // If stored value is corrupted, ignore silently
+    }
+  })();
+</script>
 </section>
