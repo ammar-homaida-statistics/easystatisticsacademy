@@ -75,6 +75,8 @@ sidebar: false
 
   <div class="grid grid-2">
 
+<div id="continue-reading" style="display:none; margin-top:0.75rem;"></div>
+
     <!-- Block 1 -->
 <div class="card lesson-card">
   <h3>
