@@ -1,15 +1,13 @@
 <script>
   (function () {
-    var KEY = "esa_continue_descriptive_block"; // ✅ same Descriptive-only key
-    var payload = {
+    var KEY = "esa_continue_descriptive_block";
+    localStorage.setItem(KEY, JSON.stringify({
       url: "/descriptive/data-variables/",
       label: "Block 1 — Data & Variables",
       ts: Date.now()
-    };
-    localStorage.setItem(KEY, JSON.stringify(payload));
+    }));
   })();
 </script>
-
 
 <section class="section section-slim">
   <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
