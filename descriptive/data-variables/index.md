@@ -73,7 +73,6 @@ sidebar: false
   </div>
 </section>
 
-<!-- Continue Reading (Block 1: last opened lesson) -->
 <section class="section" id="continue-reading-block1" style="display:none;">
   <div class="callout">
     <div class="callout-copy">
@@ -83,7 +82,6 @@ sidebar: false
     </div>
   </div>
 </section>
-
 <section class="section" id="lessons">
   <div class="section-head">
     <h2>Lessons (Version 0)</h2>
