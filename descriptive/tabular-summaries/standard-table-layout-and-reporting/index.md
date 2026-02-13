@@ -188,14 +188,21 @@ sidebar: false
   </a>
 </section>
 
-<script>
+<<script>
   (function () {
     var KEY = "esa_continue_descriptive_tabular_summaries_lesson_v0";
-
-    localStorage.setItem(KEY, JSON.stringify({
+    var payload = {
       url: "/descriptive/tabular-summaries/standard-table-layout-and-reporting/",
       label: "Lesson 9 — Standard Table Layout & Reporting",
       ts: Date.now()
-    }));
+    };
+
+    try {
+      localStorage.setItem(KEY, JSON.stringify(payload));
+      // Debug (optional): open DevTools Console to confirm
+      console.log("[ESA] Continue-reading saved:", KEY, payload);
+    } catch (e) {
+      console.warn("[ESA] localStorage failed:", e);
+    }
   })();
 </script>
