@@ -20,6 +20,17 @@ sidebar: false
     </div>
   </div>
 </section>
+<script>
+  (function () {
+    var KEY = "esa_continue_descriptive_last_block_v0";
+
+    localStorage.setItem(KEY, JSON.stringify({
+      url: "/descriptive/tabular-summaries/",
+      label: "Block 2 — Tabular Summaries",
+      ts: Date.now()
+    }));
+  })();
+</script>
 
 <section class="hero hero-section">
   <div class="hero-card hero-split">
