@@ -192,24 +192,12 @@ sidebar: false
 
 <script>
   (function () {
-    // ✅ Unique key for Block 1 lessons only (isolated from everything else)
-    var KEY = "esa_continue_descriptive_data_variables_lesson_v0";
+    var KEY = "esa_continue_descriptive_last_block_v0";
 
-    var raw = localStorage.getItem(KEY);
-    if (!raw) return;
-
-    try {
-      var data = JSON.parse(raw);
-      if (!data || !data.url || !data.label) return;
-
-      var wrap = document.getElementById("continue-reading-block1");
-      var label = document.getElementById("continue-reading-block1-label");
-      var btn = document.getElementById("continue-reading-block1-btn");
-      if (!wrap || !label || !btn) return;
-
-      label.innerHTML = 'You last visited: <strong>' + data.label + '</strong>';
-      btn.href = data.url;
-      wrap.style.display = "block";
-    } catch (e) {}
+    localStorage.setItem(KEY, JSON.stringify({
+      url: "/descriptive/data-variables/",
+      label: "Block 1 — Data & Variables",
+      ts: Date.now()
+    }));
   })();
 </script>
