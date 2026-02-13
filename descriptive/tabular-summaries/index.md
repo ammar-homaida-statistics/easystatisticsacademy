@@ -20,6 +20,8 @@ sidebar: false
     </div>
   </div>
 </section>
+
+<!-- ✅ Update "last visited block" for Descriptive home -->
 <script>
   (function () {
     var KEY = "esa_continue_descriptive_last_block_v0";
@@ -216,7 +218,10 @@ sidebar: false
       <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
         <div class="mini-title" style="color:#1a73e8;">Next block</div>
         <div class="mini-body">
-          Continue to <a href="/descriptive/visualization/" style="color:#1a73e8; text-decoration:underline;"><strong>Block 3 — Visualization</strong></a>.
+          Continue to
+          <a href="/descriptive/visualization/" style="color:#1a73e8; text-decoration:underline;">
+            <strong>Block 3 — Visualization</strong>
+          </a>.
         </div>
       </div>
     </div>
