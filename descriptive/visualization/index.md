@@ -137,7 +137,7 @@ sidebar: false
 
     <!-- 4 -->
     <div class="card lesson-card">
-      <h3><a href="/descriptive/visualization/pie-charts/">4. Pie Charts (Limits & Use Cases)</a></h3>
+      <h3><a href="/descriptive/visualization/pie-charts/">4. Pie Charts (Limits &amp; Use Cases)</a></h3>
       <p>When pie charts clarify—and when they mislead.</p>
       <div class="pill-row">
         <a class="btn btn-outline" href="/descriptive/visualization/pie-charts/">Open lesson</a>
@@ -164,7 +164,7 @@ sidebar: false
 
     <!-- 7 -->
     <div class="card lesson-card">
-      <h3><a href="/descriptive/visualization/boxplots/">7. Boxplots & Outliers</a></h3>
+      <h3><a href="/descriptive/visualization/boxplots/">7. Boxplots &amp; Outliers</a></h3>
       <p>Five-number summary, IQR logic, and group comparison.</p>
       <div class="pill-row">
         <a class="btn btn-outline" href="/descriptive/visualization/boxplots/">Open lesson</a>
@@ -182,16 +182,25 @@ sidebar: false
 
     <!-- 9 -->
     <div class="card lesson-card">
-      <h3><a href="/descriptive/visualization/misleading-graphs/">9. Misleading Graphs & Visual Manipulation</a></h3>
+      <h3><a href="/descriptive/visualization/time-series-line-charts/">9. Line Charts &amp; Time Series Plots</a></h3>
+      <p>When lines are valid (time/order), how to avoid false trends, and correct interpretation.</p>
+      <div class="pill-row">
+        <a class="btn btn-outline" href="/descriptive/visualization/time-series-line-charts/">Open lesson</a>
+      </div>
+    </div>
+
+    <!-- 10 -->
+    <div class="card lesson-card">
+      <h3><a href="/descriptive/visualization/misleading-graphs/">10. Misleading Graphs &amp; Visual Manipulation</a></h3>
       <p>Truncated axes, 3D distortion, scaling tricks, and ethical visualization.</p>
       <div class="pill-row">
         <a class="btn btn-outline" href="/descriptive/visualization/misleading-graphs/">Open lesson</a>
       </div>
     </div>
 
-    <!-- 10 -->
+    <!-- 11 -->
     <div class="card lesson-card">
-      <h3><a href="/descriptive/visualization/choosing-the-right-graph/">10. Choosing the Right Graph (Decision Framework)</a></h3>
+      <h3><a href="/descriptive/visualization/choosing-the-right-graph/">11. Choosing the Right Graph (Decision Framework)</a></h3>
       <p>A final synthesis: how to choose the correct visualization every time.</p>
       <div class="pill-row">
         <a class="btn btn-outline" href="/descriptive/visualization/choosing-the-right-graph/">Open lesson</a>
@@ -210,8 +219,17 @@ sidebar: false
         <li>Interpret distribution shape responsibly</li>
         <li>Compare groups visually without distortion</li>
         <li>Avoid misleading or unethical visualization practices</li>
-        <li>Be ready for Measures of Center & Spread</li>
+        <li>Be ready for Measures of Center (Block 4)</li>
       </ul>
+    </div>
+
+    <div class="callout-side">
+      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
+        <div class="mini-title" style="color:#1a73e8;">Next block</div>
+        <div class="mini-body">
+          Continue to <a href="/descriptive/center/" style="color:#1a73e8; text-decoration:underline;"><strong>Block 4 — Measures of Center</strong></a>.
+        </div>
+      </div>
     </div>
   </div>
 </section>
