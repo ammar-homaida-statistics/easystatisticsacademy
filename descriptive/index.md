@@ -204,24 +204,22 @@ sidebar: false
   </div>
  <script>
   (function () {
-    var KEY = "esa_continue_descriptive_block"; // ✅ unique key
-    var container = document.getElementById("continue-reading-descriptive"); // ✅ unique container
-    if (!container) return;
-
-    var dataRaw = localStorage.getItem(KEY);
-    if (!dataRaw) return;
+    var KEY = "esa_continue_descriptive_last_block_v0";
+    var raw = localStorage.getItem(KEY);
+    if (!raw) return;
 
     try {
-      var data = JSON.parse(dataRaw);
+      var data = JSON.parse(raw);
       if (!data || !data.url || !data.label) return;
 
-      container.innerHTML =
-        '<h3 style="margin:0 0 .25rem 0;">Continue reading</h3>' +
-        '<p class="muted-mini" style="margin:0 0 .75rem 0;">You last visited: <strong>' + data.label + '</strong></p>' +
-        '<a class="btn" href="' + data.url + '">Continue</a>';
+      var wrap = document.getElementById("continue-reading");
+      var label = document.getElementById("continue-reading-label");
+      var btn = document.getElementById("continue-reading-btn");
+      if (!wrap || !label || !btn) return;
 
-      container.style.display = "block";
+      label.innerHTML = 'You last visited: <strong>' + data.label + '</strong>';
+      btn.href = data.url;
+      wrap.style.display = "block";
     } catch (e) {}
   })();
 </script>
-</section>
