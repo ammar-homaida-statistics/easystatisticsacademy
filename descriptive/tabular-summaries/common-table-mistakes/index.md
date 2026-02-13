@@ -1,15 +1,15 @@
 ---
 layout: default
-title: "Choosing the Right Percentage (Row vs Column vs Total)"
-description: "The most common cross-tab error: wrong denominator. Learn what row %, column %, and total % mean."
-permalink: /descriptive/tabular-summaries/choosing-the-right-percentage/
+title: "Common Mistakes in Tabular Summaries"
+description: "Frequent errors in frequency tables, percentages, grouping, and interpretation—and how to avoid them."
+permalink: /descriptive/tabular-summaries/common-table-mistakes/
 sidebar: false
 ---
 
 <!-- Previous Button -->
 <section class="section section-slim">
-  <a class="btn btn-outline" href="/descriptive/tabular-summaries/contingency-tables/">
-    ← Previous Lesson: Contingency Tables (Cross-tabs)
+  <a class="btn btn-outline" href="/descriptive/tabular-summaries/standard-table-layout-and-reporting/">
+    ← Previous Lesson: Standard Table Layout & Reporting
   </a>
 </section>
 
@@ -21,7 +21,7 @@ sidebar: false
         🚧 Lesson Under Construction
       </h2>
       <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Additional applied case studies and reporting examples will be added later.
+        Real datasets, software examples (SPSS, R, Python, Excel), and correction exercises will be added in future updates.
       </p>
     </div>
   </div>
@@ -29,145 +29,151 @@ sidebar: false
 
 <section class="section">
   <div class="section-head">
-    <h1>Choosing the Right Percentage</h1>
+    <h1>Common Mistakes in Tabular Summaries</h1>
     <p>
-      In contingency tables, the most common mistake is using the wrong denominator.
-      Raw counts are not enough. Percentages must match the research question.
+      Well-constructed tables clarify data. Poorly constructed tables mislead—even when calculations are correct.
+      This lesson helps you identify and avoid the most common tabular errors.
     </p>
   </div>
 
-  <h2>1. Three Types of Percentages</h2>
+  <h2>1. Mixing Row % and Column % Without Indication</h2>
+
+  <p>
+    One of the most frequent mistakes is reporting percentages without specifying the denominator.
+  </p>
+
+  <p><strong>Wrong:</strong> “60% prefer group study.” (60% of what?)</p>
+  <p><strong>Correct:</strong> “60% of male students prefer group study (row percentage).”</p>
 
   <ul>
-    <li><strong>Row percentage</strong> → Within each row</li>
-    <li><strong>Column percentage</strong> → Within each column</li>
-    <li><strong>Total percentage</strong> → Out of the entire sample</li>
-  </ul>
-
-  <p>
-    Each answers a different question.
-  </p>
-
-  <hr>
-
-  <h2>2. Example Table (Counts)</h2>
-
-  <table class="table">
-    <thead>
-      <tr>
-        <th></th>
-        <th>Group Study</th>
-        <th>Individual Study</th>
-        <th>Total</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Male</td>
-        <td>8</td>
-        <td>12</td>
-        <td>20</td>
-      </tr>
-      <tr>
-        <td>Female</td>
-        <td>14</td>
-        <td>6</td>
-        <td>20</td>
-      </tr>
-      <tr>
-        <td><strong>Total</strong></td>
-        <td><strong>22</strong></td>
-        <td><strong>18</strong></td>
-        <td><strong>40</strong></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <hr>
-
-  <h2>3. Row Percentages (Within Gender)</h2>
-
-  <p>
-    Question: Among males, what percent prefer group study?
-  </p>
-
-  <ul>
-    <li>Male group study = 8 / 20 = 40%</li>
-    <li>Female group study = 14 / 20 = 70%</li>
-  </ul>
-
-  <p>
-    Use row % when the row variable defines the group you want to compare.
-  </p>
-
-  <hr>
-
-  <h2>4. Column Percentages (Within Study Method)</h2>
-
-  <p>
-    Question: Among students who prefer group study, what percent are female?
-  </p>
-
-  <ul>
-    <li>Female group study = 14 / 22 ≈ 64%</li>
-    <li>Male group study = 8 / 22 ≈ 36%</li>
-  </ul>
-
-  <p>
-    Use column % when the column variable defines the group of interest.
-  </p>
-
-  <hr>
-
-  <h2>5. Total Percentages</h2>
-
-  <p>
-    Total % uses the grand total (40).
-  </p>
-
-  <ul>
-    <li>Female group study = 14 / 40 = 35%</li>
-  </ul>
-
-  <p>
-    Total % answers: “What fraction of the entire sample is in this cell?”
-  </p>
-
-  <hr>
-
-  <h2>6. The Core Principle</h2>
-
-  <p>
-    The denominator must match the question.
-  </p>
-
-  <ul>
-    <li>If asking “within males?” → row %</li>
-    <li>If asking “within group study?” → column %</li>
-    <li>If asking “out of entire sample?” → total %</li>
+    <li>Row percentages</li>
+    <li>Column percentages</li>
+    <li>Overall percentages</li>
   </ul>
 
   <hr>
 
-  <h2>7. Common Errors</h2>
+  <h2>2. Percentages That Do Not Sum Properly</h2>
 
   <ul>
-    <li>Comparing raw counts when group sizes differ</li>
-    <li>Reporting percentages without stating which type</li>
-    <li>Mixing row and column percentages in the same conclusion</li>
-    <li>Using total % when the question is conditional (within group)</li>
+    <li>Rounding errors not acknowledged</li>
+    <li>Percentages exceeding 100%</li>
+    <li>Missing categories</li>
   </ul>
 
   <p>
-    Always state the denominator clearly (row/column/total).
+    Totals allow readers to audit the table and verify denominators.
   </p>
+
+  <hr>
+
+  <h2>3. Missing Totals</h2>
+
+  <p>
+    A table without row totals, column totals, or a grand total makes verification impossible.
+  </p>
+
+  <p>
+    Totals increase transparency and credibility.
+  </p>
+
+  <hr>
+
+  <h2>4. Inconsistent Class Intervals</h2>
+
+  <p>
+    Grouped frequency tables must use consistent class widths.
+  </p>
+
+  <p><strong>Incorrect Example:</strong></p>
+
+  <ul>
+    <li>0–10</li>
+    <li>10–20</li>
+    <li>20–50</li>
+  </ul>
+
+  <p>
+    Unequal intervals distort interpretation and may mislead readers.
+  </p>
+
+  <hr>
+
+  <h2>5. Overcrowded Tables</h2>
+
+  <ul>
+    <li>Too many categories reduce readability</li>
+    <li>Too many decimal places create noise</li>
+    <li>Irrelevant details distract from the main pattern</li>
+  </ul>
+
+  <p>
+    Keep tables focused on the research question.
+  </p>
+
+  <hr>
+
+  <h2>6. Reporting Percentages for Very Small Samples</h2>
+
+  <p>
+    Percentages can exaggerate differences in small samples.
+  </p>
+
+  <p>
+    If 2 out of 3 students prefer A, reporting “67% prefer A” may sound stronger than the raw count justifies.
+  </p>
+
+  <p>
+    In small samples, report both counts and percentages.
+  </p>
+
+  <hr>
+
+  <h2>7. Interpreting Tables Without Context</h2>
+
+  <p>
+    Tables describe data. They do not establish causality.
+  </p>
+
+  <ul>
+    <li>Avoid: “Group study causes better outcomes.”</li>
+    <li>Unless supported by appropriate research design.</li>
+  </ul>
+
+  <hr>
+
+  <h2>8. Ignoring the Research Question</h2>
+
+  <p>
+    A table must serve a purpose.
+  </p>
+
+  <ul>
+    <li>What question does this table answer?</li>
+    <li>Is the structure aligned with that question?</li>
+  </ul>
+
+  <hr>
+
+  <h2>Summary</h2>
+
+  <p>
+    A correct table is not just mathematically accurate—it is conceptually clear, transparent, and aligned with the research objective.
+  </p>
+
+  <ul>
+    <li>Always specify denominators</li>
+    <li>Include totals</li>
+    <li>Keep structure consistent</li>
+    <li>Interpret responsibly</li>
+  </ul>
 
 </section>
 
-<!-- ✅ Next Button (Fixed) -->
+<!-- Return to Descriptive Home -->
 <section class="section section-slim">
-  <a class="btn" href="/descriptive/tabular-summaries/standard-table-layout-and-reporting/">
-    Next Lesson → Standard Table Layout & Reporting
+  <a class="btn" href="/descriptive/">
+    Back to Descriptive Statistics →
   </a>
 </section>
 
@@ -176,8 +182,8 @@ sidebar: false
     var KEY = "esa_continue_descriptive_tabular_summaries_lesson_v0";
 
     localStorage.setItem(KEY, JSON.stringify({
-      url: "/descriptive/tabular-summaries/choosing-the-right-percentage/",
-      label: "Lesson 8 — Choosing the Right Percentage",
+      url: "/descriptive/tabular-summaries/common-table-mistakes/",
+      label: "Lesson 8 — Common Mistakes in Tabular Summaries",
       ts: Date.now()
     }));
   })();
