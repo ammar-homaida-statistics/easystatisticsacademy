@@ -25,16 +25,17 @@ sidebar: false
   </div>
 </section>
 
-<!-- Last lesson: go to next block -->
+<!-- Return to Descriptive Home -->
 <section class="section section-slim">
-  <a class="btn" href="/descriptive/center/">
-    Next Block → Measures of Center
+  <a class="btn" href="/descriptive/">
+    Back to Descriptive Statistics →
   </a>
 </section>
 
 <script>
   (function () {
     var KEY = "esa_continue_descriptive_visualization_lesson_v0";
+
     localStorage.setItem(KEY, JSON.stringify({
       url: "/descriptive/visualization/choosing-the-right-graph/",
       label: "Lesson 11 — Choosing the Right Graph (Decision Framework)",
