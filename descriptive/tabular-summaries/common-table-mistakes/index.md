@@ -183,7 +183,7 @@ sidebar: false
 
     localStorage.setItem(KEY, JSON.stringify({
       url: "/descriptive/tabular-summaries/common-table-mistakes/",
-      label: "Lesson 8 — Common Mistakes in Tabular Summaries",
+      label: "Lesson 10 — Common Mistakes in Tabular Summaries",
       ts: Date.now()
     }));
   })();
