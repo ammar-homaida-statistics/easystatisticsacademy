@@ -177,6 +177,7 @@ sidebar: false
   </a>
 </section>
 
+
 <script>
   (function () {
     var KEY = "esa_continue_descriptive_tabular_summaries_lesson_v0";
