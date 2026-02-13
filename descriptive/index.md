@@ -21,6 +21,7 @@ sidebar: false
     </div>
   </div>
 </section>
+
 <section class="hero hero-section">
   <div class="hero-card hero-split">
     <div class="hero-copy">
@@ -73,40 +74,51 @@ sidebar: false
     </p>
   </div>
 
+  <!-- ✅ Continue reading (Descriptive home → last visited BLOCK) -->
+  <div id="continue-reading-descriptive" style="display:none; margin-top:0.75rem;">
+    <div class="callout">
+      <div class="callout-copy">
+        <h2>Continue reading</h2>
+        <p class="muted-mini" id="continue-reading-descriptive-label" style="margin:0 0 .75rem 0;"></p>
+        <a class="btn" id="continue-reading-descriptive-btn" href="#">Continue</a>
+      </div>
+    </div>
+  </div>
+
   <div class="grid grid-2">
 
-<div id="continue-reading-descriptive" style="display:none; margin-top:0.75rem;">
-</div>
     <!-- Block 1 -->
-<div class="card lesson-card">
-  <h3>
-    <a href="/descriptive/data-variables/">Block 1 — Data &amp; Variables</a>
-  </h3>
+    <div class="card lesson-card">
+      <h3>
+        <a href="/descriptive/data-variables/">Block 1 — Data &amp; Variables</a>
+      </h3>
 
-  <p>
-    Define what you are describing: variable types, measurement scales, dataset structure, units, coding,
-    and the rules that determine valid summaries and plots.
-  </p>
+      <p>
+        Define what you are describing: variable types, measurement scales, dataset structure, units, coding,
+        and the rules that determine valid summaries and plots.
+      </p>
 
-  <div class="pill-row">
-    <a class="btn btn-outline" href="/descriptive/data-variables/">Open block</a>
-  </div>
-</div>
+      <div class="pill-row">
+        <a class="btn btn-outline" href="/descriptive/data-variables/">Open block</a>
+      </div>
+    </div>
+
     <!-- Block 2 -->
-<div class="card lesson-card">
-  <h3>
-    <a href="/descriptive/tabular-summaries/">Block 2 — Tabular Summaries</a>
-  </h3>
+    <div class="card lesson-card">
+      <h3>
+        <a href="/descriptive/tabular-summaries/">Block 2 — Tabular Summaries</a>
+      </h3>
 
-  <p>
-    Convert raw data into structured summaries: frequency tables, relative frequencies,
-    cumulative distributions, grouped tables, and contingency tables with correct percentage interpretation.
-  </p>
+      <p>
+        Convert raw data into structured summaries: frequency tables, relative frequencies,
+        cumulative distributions, grouped tables, and contingency tables with correct percentage interpretation.
+      </p>
 
-  <div class="pill-row">
-    <a class="btn btn-outline" href="/descriptive/tabular-summaries/">Open block</a>
-  </div>
-</div>
+      <div class="pill-row">
+        <a class="btn btn-outline" href="/descriptive/tabular-summaries/">Open block</a>
+      </div>
+    </div>
+
     <!-- Block 3 -->
     <div class="card lesson-card">
       <h3><a href="/descriptive/visualization/">Block 3 — Visualization</a></h3>
@@ -202,8 +214,11 @@ sidebar: false
       </div>
     </div>
   </div>
- <script>
+</section>
+
+<script>
   (function () {
+    // ✅ Descriptive HOME continues the last visited BLOCK (not lessons)
     var KEY = "esa_continue_descriptive_last_block_v0";
     var raw = localStorage.getItem(KEY);
     if (!raw) return;
@@ -212,9 +227,9 @@ sidebar: false
       var data = JSON.parse(raw);
       if (!data || !data.url || !data.label) return;
 
-      var wrap = document.getElementById("continue-reading");
-      var label = document.getElementById("continue-reading-label");
-      var btn = document.getElementById("continue-reading-btn");
+      var wrap = document.getElementById("continue-reading-descriptive");
+      var label = document.getElementById("continue-reading-descriptive-label");
+      var btn = document.getElementById("continue-reading-descriptive-btn");
       if (!wrap || !label || !btn) return;
 
       label.innerHTML = 'You last visited: <strong>' + data.label + '</strong>';
