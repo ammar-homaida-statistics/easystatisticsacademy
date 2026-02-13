@@ -120,17 +120,20 @@ sidebar: false
     </div>
 
     <!-- Block 3 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/visualization/">Block 3 — Visualization</a></h3>
-      <p>
-        Choose and interpret graphs responsibly: bar charts, histograms, density plots, boxplots, and scatterplots,
-        with a strong focus on avoiding misleading graphics.
-      </p>
-      <div class="pill-row">
-        <span class="pill">Active</span>
-        <span class="pill">Lessons: coming soon</span>
-      </div>
-    </div>
+<div class="card lesson-card">
+  <h3>
+    <a href="/descriptive/visualization/">Block 3 — Visualization</a>
+  </h3>
+
+  <p>
+    Choose and interpret graphs responsibly: bar charts, histograms, density plots, boxplots, and scatterplots
+    — with a strong focus on avoiding misleading graphics.
+  </p>
+
+  <div class="pill-row">
+    <a class="btn btn-outline" href="/descriptive/visualization/">Open block</a>
+  </div>
+</div>
 
     <!-- Block 4 -->
     <div class="card lesson-card">
