@@ -21,6 +21,19 @@ sidebar: false
   </div>
 </section>
 
+<!-- ✅ Update "last visited block" for Descriptive home -->
+<script>
+  (function () {
+    var KEY = "esa_continue_descriptive_last_block_v0";
+
+    localStorage.setItem(KEY, JSON.stringify({
+      url: "/descriptive/data-variables/",
+      label: "Block 1 — Data & Variables",
+      ts: Date.now()
+    }));
+  })();
+</script>
+
 <section class="hero hero-section">
   <div class="hero-card hero-split">
     <div class="hero-copy">
@@ -50,24 +63,8 @@ sidebar: false
     <div class="hero-panel">
       <div class="panel-card">
         <h2 class="panel-title">What this block covers</h2>
-        <ul class="quickstart" style="list-style:none; padding-left:0; margin:0;">
-          <li style="margin-bottom:.6rem;">
-            <strong>Meaning of “describe”</strong><br>
-            <span class="meta">Description vs explanation; descriptive vs inferential</span>
-          </li>
-          <li style="margin-bottom:.6rem;">
-            <strong>Units &amp; variables</strong><br>
-            <span class="meta">Observational units, variables, values, coding</span>
-          </li>
-          <li style="margin-bottom:.6rem;">
-            <strong>Variable types</strong><br>
-            <span class="meta">Categorical vs numerical; nominal/ordinal; discrete/continuous</span>
-          </li>
-          <li>
-            <strong>Scales &amp; validity</strong><br>
-            <span class="meta">Nominal/ordinal/interval/ratio; what summaries are valid</span>
-          </li>
-        </ul>
+        <ul class="quickstart" style="list-style:none; paddingz��
+        <>
       </div>
     </div>
   </div>
@@ -82,6 +79,7 @@ sidebar: false
     </div>
   </div>
 </section>
+
 <section class="section" id="lessons">
   <div class="section-head">
     <h2>Lessons (Version 0)</h2>
@@ -183,7 +181,10 @@ sidebar: false
       <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
         <div class="mini-title" style="color:#1a73e8;">Next block</div>
         <div class="mini-body">
-          Continue to <a href="/descriptive/tables/" style="color:#1a73e8; text-decoration:underline;"><strong>Block 2 — Tabular Summaries</strong></a>.
+          Continue to
+          <a href="/descriptive/tabular-summaries/" style="color:#1a73e8; text-decoration:underline;">
+            <strong>Block 2 — Tabular Summaries</strong>
+          </a>.
         </div>
       </div>
     </div>
@@ -192,12 +193,24 @@ sidebar: false
 
 <script>
   (function () {
-    var KEY = "esa_continue_descriptive_last_block_v0";
+    // ✅ Unique key for Block 1 lessons only (isolated from everything else)
+    var KEY = "esa_continue_descriptive_data_variables_lesson_v0";
 
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/descriptive/data-variables/",
-      label: "Block 1 — Data & Variables",
-      ts: Date.now()
-    }));
+    var raw = localStorage.getItem(KEY);
+    if (!raw) return;
+
+    try {
+      var data = JSON.parse(raw);
+      if (!data || !data.url || !data.label) return;
+
+      var wrap = document.getElementById("continue-reading-block1");
+      var label = document.getElementById("continue-reading-block1-label");
+      var btn = document.getElementById("continue-reading-block1-btn");
+      if (!wrap || !label || !btn) return;
+
+      label.innerHTML = 'You last visited: <strong>' + data.label + '</strong>';
+      btn.href = data.url;
+      wrap.style.display = "block";
+    } catch (e) {}
   })();
 </script>
