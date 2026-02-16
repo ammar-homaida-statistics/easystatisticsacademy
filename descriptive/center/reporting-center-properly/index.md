@@ -174,8 +174,8 @@ sidebar: false
 </section>
 
 <section class="section section-slim">
-  <a class="btn" href="/descriptive/spread/">
-    Next Block → Measures of Spread
+  <a class="btn" href="/descriptive/">
+    Back to Descriptive Statistics →
   </a>
 </section>
 
