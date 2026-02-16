@@ -12,6 +12,20 @@ sidebar: false
   </a>
 </section>
 
+<!-- UNDER CONSTRUCTION NOTICE -->
+<section class="section section-slim">
+  <div class="callout" style="background:#fff4e5;border:2px solid #ff9800;padding:2rem;border-radius:12px;">
+    <div class="callout-copy">
+      <h2 style="margin-top:0;color:#e65100;font-size:1.8rem;">
+        🚧 Lesson Under Construction
+      </h2>
+      <p style="margin:0;font-size:1.05rem;color:#5d4037;line-height:1.6;">
+        This lesson content is being expanded. Examples, graphs, and software demonstrations will be added in future updates.
+      </p>
+    </div>
+  </div>
+</section>
+
 <section class="section">
   <div class="section-head">
     <h1>What Is “Center”?</h1>
@@ -26,13 +40,12 @@ sidebar: false
   <h2>1. What Do We Mean by “Typical”?</h2>
 
   <p>
-    When we summarize data, we often want to answer:
+    When summarizing data, we often ask:
   </p>
 
   <ul>
-    <li>What is a typical value?</li>
     <li>What value represents the dataset?</li>
-    <li>If I pick one number to summarize everything, what should it be?</li>
+    <li>If we report one number, what should it be?</li>
   </ul>
 
   <p>
@@ -44,16 +57,7 @@ sidebar: false
   <h2>2. “Average” Is Not a Technical Term</h2>
 
   <p>
-    In everyday language, people say:
-  </p>
-
-  <ul>
-    <li>“The average salary is…”</li>
-    <li>“The average student scored…”</li>
-  </ul>
-
-  <p>
-    But mathematically, there are multiple measures of center:
+    In everyday language, “average” may refer to different mathematical concepts:
   </p>
 
   <ul>
@@ -63,21 +67,17 @@ sidebar: false
   </ul>
 
   <p>
-    Saying “average” without specifying which measure is ambiguous.
+    Therefore, using “average” without clarification is ambiguous.
   </p>
 
   <hr>
 
   <h2>3. Example: When the Mean Misleads</h2>
 
-  <p>
-    Consider the incomes of five individuals:
-  </p>
-
   <p><strong>Data:</strong> 2000, 2200, 2500, 2700, 50,000</p>
 
   <p>
-    The arithmetic mean is:
+    Arithmetic mean:
   </p>
 
   <p>
@@ -85,38 +85,34 @@ sidebar: false
   </p>
 
   <p>
-    But does 11,080 represent a “typical” income here?
+    The mean suggests a “typical” income of 11,080.
   </p>
 
   <p>
-    Clearly not. One extreme value (50,000) pulls the mean upward.
+    However, the median is 2,500 — which better represents most individuals.
   </p>
 
   <p>
-    The <strong>median</strong> is 2,500 — which better reflects the center of most observations.
+    A single extreme value shifted the mean dramatically.
   </p>
 
   <hr>
 
   <h2>4. Center Depends on Distribution Shape</h2>
 
-  <p>
-    The appropriate measure of center depends on:
-  </p>
-
   <ul>
     <li>Variable type (categorical, ordinal, numerical)</li>
     <li>Presence of outliers</li>
-    <li>Symmetry or skewness of distribution</li>
+    <li>Symmetry or skewness</li>
   </ul>
 
   <p>
-    There is no single “best” center for all situations.
+    There is no universal “best” measure of center.
   </p>
 
   <hr>
 
-  <h2>5. Center Is a Summary — Not the Whole Story</h2>
+  <h2>5. Center Is Not Enough</h2>
 
   <p>
     A single number cannot describe:
@@ -124,12 +120,12 @@ sidebar: false
 
   <ul>
     <li>Variability</li>
-    <li>Outliers</li>
+    <li>Spread</li>
     <li>Distribution shape</li>
   </ul>
 
   <p>
-    Measures of center must always be interpreted together with measures of spread and graphical summaries.
+    Measures of center must always be interpreted alongside measures of spread and visualization.
   </p>
 
   <hr>
@@ -138,9 +134,9 @@ sidebar: false
 
   <ul>
     <li>Measures of center describe a typical value.</li>
-    <li>“Average” is ambiguous and must be specified.</li>
+    <li>“Average” must be specified.</li>
     <li>Mean, median, and mode serve different purposes.</li>
-    <li>The correct choice depends on data type and distribution shape.</li>
+    <li>The correct choice depends on the data structure.</li>
   </ul>
 
 </section>
