@@ -81,11 +81,11 @@ sidebar: false
   </p>
 
   <p>
-    (2000 + 2200 + 2500 + 2700 + 50000) / 5 = 11,080
+    (2000 + 2200 + 2500 + 2700 + 50000) / 5 = 11,880
   </p>
 
   <p>
-    The mean suggests a “typical” income of 11,080.
+    The mean suggests a “typical” income of 11,880.
   </p>
 
   <p>
