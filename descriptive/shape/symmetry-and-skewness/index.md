@@ -169,7 +169,7 @@ sidebar: false
 })();
 </script>
 
-<<section class="section section-slim">
+<section class="section section-slim">
   <a class="btn" href="/descriptive/shape/skewness-and-center-choice/">
     Next Lesson → Skewness and Choosing Mean vs Median
   </a>
