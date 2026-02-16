@@ -167,8 +167,8 @@ sidebar: false
 </section>
 
 <section class="section section-slim">
-  <a class="btn" href="/descriptive/center/weighted-mean/">
-    Next Lesson → Weighted Mean
+  <a class="btn" href="/descriptive/center/mean-vs-median/">
+    Next Lesson → Mean vs Median (Skewness, Outliers, and Choice Rules)
   </a>
 </section>
 
