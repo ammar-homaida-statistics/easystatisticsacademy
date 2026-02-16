@@ -192,10 +192,10 @@ sidebar: false
 
     <!-- 10 -->
     <div class="card lesson-card">
-      <h3><a href="/descriptive/center/reporting-center/">10. Reporting Center Properly (With Context)</a></h3>
+      <h3><a href="/descriptive/center/reporting-center-properly/">10. Reporting Center Properly (With Context)</a></h3>
       <p>How to write center in reports: include units, sample size, distribution context, and avoid overclaiming.</p>
       <div class="pill-row">
-        <a class="btn btn-outline" href="/descriptive/center/reporting-center/">Open lesson</a>
+        <a class="btn btn-outline" href="/descriptive/center/reporting-center-properly/">Open lesson</a>
       </div>
     </div>
 
