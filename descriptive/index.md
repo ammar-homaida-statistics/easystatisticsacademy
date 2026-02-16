@@ -152,17 +152,20 @@ sidebar: false
 </div>
 
     <!-- Block 5 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/spread/">Block 5 — Measures of Spread</a></h3>
-      <p>
-        Quantify variability: range, IQR, variance, standard deviation, and coefficient of variation—what each
-        measure captures and how to interpret spread in real datasets.
-      </p>
-      <div class="pill-row">
-        <span class="pill">Active</span>
-        <span class="pill">Lessons: coming soon</span>
-      </div>
-    </div>
+<div class="card lesson-card">
+  <h3>
+    <a href="/descriptive/spread/">Block 5 — Measures of Spread</a>
+  </h3>
+
+  <p>
+    Quantify variability correctly: range, interquartile range (IQR), variance, standard deviation,
+    coefficient of variation, and robust spread measures — and understand how spread complements center.
+  </p>
+
+  <div class="pill-row">
+    <a class="btn btn-outline" href="/descriptive/spread/">Open block</a>
+  </div>
+</div>
 
     <!-- Block 6 -->
     <div class="card lesson-card">
