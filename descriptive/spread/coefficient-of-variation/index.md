@@ -155,8 +155,8 @@ sidebar: false
 </section>
 
 <section class="section section-slim">
-  <a class="btn" href="/descriptive/spread/robust-vs-non-robust-spread/">
-    Next Lesson → Robust vs Non-Robust Measures of Spread
+  <a class="btn" href="/descriptive/spread/reporting-spread-properly/">
+    Next Lesson → Reporting Spread Properly
   </a>
 </section>
 
