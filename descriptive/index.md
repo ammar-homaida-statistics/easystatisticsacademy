@@ -136,17 +136,20 @@ sidebar: false
 </div>
 
     <!-- Block 4 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/center/">Block 4 — Measures of Center</a></h3>
-      <p>
-        Describe typical values: mean, median, mode, and weighted mean—how they work, how they differ,
-        and which one is appropriate for each data type and distribution.
-      </p>
-      <div class="pill-row">
-        <span class="pill">Active</span>
-        <span class="pill">Lessons: coming soon</span>
-      </div>
-    </div>
+<div class="card lesson-card">
+  <h3>
+    <a href="/descriptive/center/">Block 4 — Measures of Center</a>
+  </h3>
+
+  <p>
+    Describe typical values correctly: mean, median, mode, weighted mean, and trimmed mean —
+    and understand when each measure is valid, misleading, or statistically inappropriate.
+  </p>
+
+  <div class="pill-row">
+    <a class="btn btn-outline" href="/descriptive/center/">Open block</a>
+  </div>
+</div>
 
     <!-- Block 5 -->
     <div class="card lesson-card">
