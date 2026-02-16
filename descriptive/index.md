@@ -168,17 +168,20 @@ sidebar: false
 </div>
 
     <!-- Block 6 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/shape/">Block 6 — Distribution Shape &amp; Standardization</a></h3>
-      <p>
-        Understand distribution behavior: skewness, tail behavior (kurtosis conceptually), the empirical rule,
-        and z-scores as a bridge toward probability and statistical inference.
-      </p>
-      <div class="pill-row">
-        <span class="pill">Active</span>
-        <span class="pill">Lessons: coming soon</span>
-      </div>
-    </div>
+<div class="card lesson-card">
+  <h3>
+    <a href="/descriptive/shape-standardization/">Block 6 — Distribution Shape & Standardization</a>
+  </h3>
+
+  <p>
+    Understand how distributions behave: skewness, symmetry, kurtosis, normal distribution,
+    z-scores, and standardization — and how shape affects interpretation of center and spread.
+  </p>
+
+  <div class="pill-row">
+    <a class="btn btn-outline" href="/descriptive/shape-standardization/">Open block</a>
+  </div>
+</div>
 
     <!-- Block 7 -->
     <div class="card lesson-card">
