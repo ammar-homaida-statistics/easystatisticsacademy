@@ -62,7 +62,7 @@ sidebar: false
   <h2>2. Formula</h2>
 
   <p>
-    If values are \( x_i \) and weights are \( w_i \), the weighted mean is:
+    If values are x<sub>i</sub> and weights are w<sub>i</sub>, the weighted mean is:
   </p>
 
   <p style="font-weight:bold;">
