@@ -186,7 +186,7 @@ sidebar: false
       <h3><a href="/descriptive/center/center-for-ordinal-data/">9. Center for Ordinal Data (What Is Valid?)</a></h3>
       <p>Median and mode as valid summaries; why mean can be invalid for ordinal scales.</p>
       <div class="pill-row">
-        <a class="btn btn-outline" href="/descriptive/center/center-for-ordinal/">Open lesson</a>
+        <a class="btn btn-outline" href="/descriptive/center/center-for-ordinal-data/">Open lesson</a>
       </div>
     </div>
 
