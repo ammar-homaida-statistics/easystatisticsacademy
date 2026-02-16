@@ -170,16 +170,16 @@ sidebar: false
     <!-- Block 6 -->
 <div class="card lesson-card">
   <h3>
-    <a href="/descriptive/shape-standardization/">Block 6 — Distribution Shape & Standardization</a>
+    <a href="/descriptive/shape/">Block 6 — Distribution Shape & Standardization</a>
   </h3>
 
   <p>
     Understand how distributions behave: skewness, symmetry, kurtosis, normal distribution,
-    z-scores, and standardization — and how shape affects interpretation of center and spread.
+    z-scores, and standardization — and how distribution shape affects interpretation of center and spread.
   </p>
 
   <div class="pill-row">
-    <a class="btn btn-outline" href="/descriptive/shape-standardization/">Open block</a>
+    <a class="btn btn-outline" href="/descriptive/shape/">Open block</a>
   </div>
 </div>
 
