@@ -186,8 +186,8 @@ sidebar: false
 </section>
 
 <section class="section section-slim">
-  <a class="btn" href="/descriptive/center/comparing-mean-median-mode/">
-    Next Lesson → Comparing Mean, Median & Mode
+  <a class="btn" href="/descriptive/center/trimmed-mean/">
+    Next Lesson → Trimmed Mean
   </a>
 </section>
 
