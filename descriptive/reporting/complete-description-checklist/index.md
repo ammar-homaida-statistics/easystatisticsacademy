@@ -119,7 +119,7 @@ sidebar: false
 </section>
 
 <section class="section section-slim">
-  <a class="btn" href="/descriptive/reporting/writing-summary-paragraph/">
+  <a class="btn" href="/descriptive/reporting/how-to-write-a-summary-paragraph/">
     Next Lesson → Writing a Summary Paragraph (Templates)
   </a>
 </section>
