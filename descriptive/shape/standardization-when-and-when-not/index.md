@@ -140,8 +140,8 @@ sidebar: false
 </section>
 
 <section class="section section-slim">
-  <a class="btn" href="/descriptive/">
-    Back to Descriptive Statistics →
+  <a class="btn" href="/descriptive/shape/shape-in-reporting/">
+    Next Lesson → Reporting Shape Properly
   </a>
 </section>
 
