@@ -184,17 +184,21 @@ sidebar: false
 </div>
 
     <!-- Block 7 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/reporting/">Block 7 — Reporting &amp; Practical Integration</a></h3>
-      <p>
-        Put descriptive statistics into practice: how to describe a variable completely, compare groups without
-        causal language, and report results clearly in academic and applied settings.
-      </p>
-      <div class="pill-row">
-        <span class="pill">Active</span>
-        <span class="pill">Lessons: coming soon</span>
-      </div>
-    </div>
+<div class="card lesson-card">
+  <h3>
+    <a href="/descriptive/reporting/">Block 7 — Reporting & Practical Integration</a>
+  </h3>
+
+  <p>
+    Integrate descriptive statistics properly: combine center, spread, and shape;
+    compare groups responsibly; avoid causal language; and communicate results
+    clearly in academic, research, and applied settings.
+  </p>
+
+  <div class="pill-row">
+    <a class="btn btn-outline" href="/descriptive/reporting/">Open block</a>
+  </div>
+</div>
 
   </div>
 </section>
