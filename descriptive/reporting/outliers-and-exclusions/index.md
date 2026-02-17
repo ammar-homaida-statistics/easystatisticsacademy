@@ -12,12 +12,26 @@ sidebar: false
   </a>
 </section>
 
+<!-- UNDER CONSTRUCTION NOTICE -->
+<section class="section section-slim">
+  <div class="callout" style="background:#fff4e5;border:2px solid #ff9800;padding:2rem;border-radius:12px;">
+    <div class="callout-copy">
+      <h2 style="margin-top:0;color:#e65100;font-size:1.8rem;">
+        🚧 Lesson Under Construction
+      </h2>
+      <p style="margin:0;font-size:1.05rem;color:#5d4037;line-height:1.6;">
+        Examples, visuals, and software demonstrations (SPSS, R, Python, Excel) will be added later.
+      </p>
+    </div>
+  </div>
+</section>
+
 <section class="section">
   <div class="section-head">
     <h1>Outliers, Exclusions, and Transparency</h1>
     <p class="lead">
-      Outliers are not mistakes by default.  
-      Excluding data is a serious decision.  
+      Outliers are not mistakes by default.
+      Excluding data is a serious decision.
       Transparency determines credibility.
     </p>
   </div>
@@ -25,15 +39,11 @@ sidebar: false
   <hr>
 
   <h2>1. What Is an Outlier?</h2>
-
   <p>
     An outlier is an observation that lies unusually far from the rest of the data.
   </p>
 
-  <p>
-    It may be:
-  </p>
-
+  <p>It may be:</p>
   <ul>
     <li>A measurement error</li>
     <li>A data entry mistake</li>
@@ -48,11 +58,7 @@ sidebar: false
   <hr>
 
   <h2>2. When Is Exclusion Justified?</h2>
-
-  <p>
-    Excluding data may be justified only when:
-  </p>
-
+  <p>Excluding data may be justified only when:</p>
   <ul>
     <li>The value is clearly a recording or typing error</li>
     <li>The value is impossible (e.g., age = 250)</li>
@@ -67,11 +73,7 @@ sidebar: false
   <hr>
 
   <h2>3. When Should Outliers Be Kept?</h2>
-
-  <p>
-    Keep the value if:
-  </p>
-
+  <p>Keep the value if:</p>
   <ul>
     <li>It is valid and correctly measured</li>
     <li>It reflects natural variability</li>
@@ -85,34 +87,23 @@ sidebar: false
   <hr>
 
   <h2>4. Always Report What You Did</h2>
-
-  <p>
-    If exclusions occur, you must clearly state:
-  </p>
-
+  <p>If exclusions occur, you must clearly state:</p>
   <ul>
     <li>How many values were excluded</li>
     <li>Why they were excluded</li>
     <li>How exclusion changed the results</li>
   </ul>
 
-  <p>
-    Example:
-  </p>
-
+  <p>Example:</p>
   <blockquote>
-    Two observations were excluded due to confirmed data entry errors.  
+    Two observations were excluded due to confirmed data entry errors.
     Results are reported after exclusion; including them does not change the overall conclusion.
   </blockquote>
 
   <hr>
 
   <h2>5. Sensitivity Analysis (Best Practice)</h2>
-
-  <p>
-    A strong reporting practice is to show results:
-  </p>
-
+  <p>A strong reporting practice is to show results:</p>
   <ul>
     <li>With outliers included</li>
     <li>With outliers excluded</li>
@@ -125,15 +116,9 @@ sidebar: false
   <hr>
 
   <h2>6. Ethical Principle</h2>
+  <p>Statistical credibility depends on transparency.</p>
 
-  <p>
-    Statistical credibility depends on transparency.
-  </p>
-
-  <p>
-    Data cleaning decisions must be:
-  </p>
-
+  <p>Data cleaning decisions must be:</p>
   <ul>
     <li>Predefined when possible</li>
     <li>Objectively justified</li>
@@ -143,7 +128,6 @@ sidebar: false
   <hr>
 
   <h2>7. Summary</h2>
-
   <ul>
     <li>Outliers are signals, not automatic errors.</li>
     <li>Exclusion must be justified.</li>
@@ -151,7 +135,6 @@ sidebar: false
     <li>Always report what you excluded and why.</li>
     <li>Transparency builds trust.</li>
   </ul>
-
 </section>
 
 <section class="section section-slim">
