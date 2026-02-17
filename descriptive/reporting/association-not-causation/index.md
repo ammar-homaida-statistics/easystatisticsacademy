@@ -155,11 +155,10 @@ sidebar: false
 </section>
 
 <section class="section section-slim">
-  <a class="btn" href="/descriptive/reporting/common-reporting-mistakes/">
-    Next Lesson → Common Reporting Mistakes
+  <a class="btn" href="/descriptive/reporting/outliers-and-exclusions/">
+    Next Lesson → Outliers, Exclusions, and Transparency
   </a>
 </section>
-
 <script>
 (function(){
   var KEY="esa_continue_descriptive_reporting_lesson_v0";
