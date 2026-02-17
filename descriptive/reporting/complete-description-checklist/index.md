@@ -119,8 +119,8 @@ sidebar: false
 </section>
 
 <section class="section section-slim">
-  <a class="btn" href="/descriptive/reporting/common-reporting-mistakes/">
-    Next Lesson → Common Reporting Mistakes
+  <a class="btn" href="/descriptive/reporting/writing-summary-paragraph/">
+    Next Lesson → Writing a Summary Paragraph (Templates)
   </a>
 </section>
 
