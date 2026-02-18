@@ -177,6 +177,10 @@ sidebar: false
       </p>
     </div>
   </div>
+
+  <p class="muted-mini" style="margin-top:.75rem;">
+    We will revisit these ideas in Block 4 when we study variance algebra, covariance, and correlation.
+  </p>
 </section>
 
 <section class="section">
@@ -191,6 +195,16 @@ sidebar: false
       <li>Variance is always non-negative.</li>
     </ul>
   </div>
+
+  <div class="callout" style="margin-top:1rem;">
+    <div class="callout-copy">
+      <h2>Units warning</h2>
+      <p style="margin:0;">
+        Variance is in <strong>squared units</strong>. Standard deviation is in the <strong>original units</strong>,
+        which is why SD is usually the more interpretable measure.
+      </p>
+    </div>
+  </div>
 </section>
 
 <section class="section section-slim">
@@ -199,8 +213,8 @@ sidebar: false
       <h2>Common mistakes</h2>
       <ul class="bullets">
         <li>Confusing variance with standard deviation</li>
-        <li>Forgetting to square deviations</li>
-        <li>Ignoring independence when adding variances</li>
+        <li>Forgetting that variance uses squared deviations</li>
+        <li>Mixing up <strong>Var(X+Y)</strong> with <strong>Var(X)+Var(Y)</strong> without checking independence</li>
         <li>Thinking variance measures center instead of spread</li>
       </ul>
     </div>
@@ -210,12 +224,12 @@ sidebar: false
 <section class="section section-slim">
   <div class="callout">
     <div class="callout-copy">
-      <h2>Outcome of Block 3</h2>
+      <h2>Outcome of this lesson</h2>
       <ul class="bullets">
-        <li>Understand random variables formally</li>
-        <li>Work with PMF, PDF, and CDF</li>
-        <li>Compute expectation and variance</li>
-        <li>Be ready for Probability Distributions (Block 4)</li>
+        <li>Define <strong>Var(X)=E[(X-μ)^2]</strong> and compute it using <strong>E[X²] − (E[X])²</strong></li>
+        <li>Compute variance for discrete and continuous random variables</li>
+        <li>Interpret SD as spread in the original units</li>
+        <li>Understand key variance properties (scaling, sums under independence)</li>
       </ul>
     </div>
   </div>
@@ -226,17 +240,16 @@ sidebar: false
     <div class="callout-copy">
       <h2>Next block</h2>
       <p style="margin:0;">
-        Continue to expectation, variance, covariance, and deeper structural properties of random variables.
+        Next, we go deeper into expectation and variability: linearity, variance algebra, covariance, correlation,
+        and tools like indicator variables.
       </p>
 
       <div class="pill-row" style="margin-top:1rem;">
         <a class="btn" href="/probability/expectation-variability/">
-          Block 4 — Expectation & Variability →
+          Block 4 — Expectation &amp; Variability →
         </a>
       </div>
     </div>
-  </div>
-</section>
 
     <div class="callout-side">
       <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
