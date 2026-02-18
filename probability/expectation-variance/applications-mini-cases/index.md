@@ -2,7 +2,7 @@
 layout: default
 title: "6. Applications (Mini Cases)"
 description: "Short applied cases that combine expectation, variance, covariance, and correlation to model uncertainty correctly."
-permalink: /probability/expectation-variability/applications-mini-cases/
+permalink: /probability/expectation-variance/applications-mini-cases/
 sidebar: false
 ---
 
