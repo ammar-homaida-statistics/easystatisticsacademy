@@ -2,7 +2,7 @@
 layout: default
 title: "2. Variance Rules & Sums"
 description: "How variance transforms under scaling and shifting, and how variance behaves for sums (with and without independence)."
-permalink: /probability/expectation-variability/variance-rules-and-sums/
+permalink: /probability/expectation-variance/variance-rules-and-sums/
 sidebar: false
 ---
 
