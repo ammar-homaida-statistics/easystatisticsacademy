@@ -245,7 +245,7 @@ sidebar: false
       </p>
 
       <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/probability/expectation-variability/">
+        <a class="btn" href="/probability/expectation-variance/">
           Block 4 — Expectation &amp; Variability →
         </a>
       </div>
