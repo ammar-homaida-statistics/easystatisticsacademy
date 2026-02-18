@@ -226,15 +226,17 @@ sidebar: false
     <div class="callout-copy">
       <h2>Next block</h2>
       <p style="margin:0;">
-        Continue to probability distributions.
+        Continue to expectation, variance, covariance, and deeper structural properties of random variables.
       </p>
 
       <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/probability/distributions/">
-          Block 4 — Probability Distributions →
+        <a class="btn" href="/probability/expectation-variability/">
+          Block 4 — Expectation & Variability →
         </a>
       </div>
     </div>
+  </div>
+</section>
 
     <div class="callout-side">
       <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
