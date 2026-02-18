@@ -2,7 +2,7 @@
 layout: default
 title: "3. Covariance"
 description: "Covariance measures joint variability and explains why Var(X+Y) is not always Var(X)+Var(Y)."
-permalink: /probability/expectation-variability/covariance/
+permalink: /probability/expectation-variance/covariance/
 sidebar: false
 ---
 
