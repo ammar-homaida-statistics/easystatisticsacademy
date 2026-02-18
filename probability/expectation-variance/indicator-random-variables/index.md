@@ -2,7 +2,7 @@
 layout: default
 title: "5. Indicator Random Variables"
 description: "A powerful modeling tool: define 0–1 indicators to compute expectations easily (especially counts) using linearity."
-permalink: /probability/expectation-variability/indicator-random-variables/
+permalink: /probability/expectation-variance/indicator-random-variables/
 sidebar: false
 ---
 
