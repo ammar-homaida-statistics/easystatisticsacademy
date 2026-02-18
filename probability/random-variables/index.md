@@ -164,23 +164,22 @@ sidebar: false
         <li>Work with PMF, PDF, and CDF correctly</li>
         <li>Compute expectation and variance</li>
         <li>Understand how probability distributions summarize uncertainty</li>
-        <li>Be ready for Named Distributions (Block 4)</li>
+        <li>Be ready for deeper work on expectation, variability, and linearity (Block 4)</li>
       </ul>
     </div>
     <div class="callout-side">
       <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
         <div class="mini-title" style="color:#1a73e8;">Next block</div>
-<div class="mini-body">
-  Continue to
-  <a href="/probability/expectation-variability/" style="color:#1a73e8; text-decoration:underline;">
-    <strong>Block 4 — Expectation & Variability</strong>
-  </a>.
-</div>
+        <div class="mini-body">
+          Continue to
+          <a href="/probability/expectation-variability/" style="color:#1a73e8; text-decoration:underline;">
+            <strong>Block 4 — Expectation & Variability</strong>
+          </a>.
+        </div>
       </div>
     </div>
   </div>
 </section>
-
 <script>
   (function () {
     var KEY = "esa_continue_probability_random_variables_lesson_v0";
