@@ -233,12 +233,13 @@ sidebar: false
     <div class="callout-copy">
       <h2>Next step</h2>
       <p style="margin:0;">
-        Now we define numerical summaries of distributions: expectation and variance.
+        Next, we define <strong>expectation</strong>: the long-run average value of a random variable under its distribution.
       </p>
 
+      <!-- ✅ FIXED: matches your folder name "expectation" -->
       <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/probability/random-variables/expectation-and-variance/">
-          Next lesson: 5. Expectation & Variance →
+        <a class="btn" href="/probability/random-variables/expectation/">
+          Next lesson: 5. Expectation →
         </a>
       </div>
     </div>
