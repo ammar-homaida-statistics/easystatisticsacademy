@@ -189,6 +189,67 @@ lesson_order: 2
     <p>
       More data improves precision—not validity.
     </p>
+    <div style="margin:28px 0; text-align:center;">
+  <svg width="100%" height="320" viewBox="0 0 980 320" xmlns="http://www.w3.org/2000/svg">
+
+    <!-- Titles -->
+    <text x="245" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#1c1c1c">
+      Random Error (Unbiased, Noisy)
+    </text>
+    <text x="735" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#1c1c1c">
+      Bias (Systematic Error)
+    </text>
+
+    <!-- Targets -->
+    <circle cx="245" cy="175" r="110" fill="#ffffff" stroke="#333" stroke-width="2"/>
+    <circle cx="245" cy="175" r="75" fill="none" stroke="#666" stroke-width="1.5"/>
+    <circle cx="245" cy="175" r="40" fill="none" stroke="#666" stroke-width="1.5"/>
+    <circle cx="245" cy="175" r="8" fill="#333"/>
+
+    <circle cx="735" cy="175" r="110" fill="#ffffff" stroke="#333" stroke-width="2"/>
+    <circle cx="735" cy="175" r="75" fill="none" stroke="#666" stroke-width="1.5"/>
+    <circle cx="735" cy="175" r="40" fill="none" stroke="#666" stroke-width="1.5"/>
+    <circle cx="735" cy="175" r="8" fill="#333"/>
+
+    <!-- Random error points (scattered around center) -->
+    <circle cx="205" cy="150" r="6" fill="#3b5bdb"/>
+    <circle cx="275" cy="135" r="6" fill="#3b5bdb"/>
+    <circle cx="235" cy="210" r="6" fill="#3b5bdb"/>
+    <circle cx="300" cy="185" r="6" fill="#3b5bdb"/>
+    <circle cx="190" cy="195" r="6" fill="#3b5bdb"/>
+    <circle cx="250" cy="165" r="6" fill="#3b5bdb"/>
+    <circle cx="230" cy="140" r="6" fill="#3b5bdb"/>
+    <circle cx="260" cy="215" r="6" fill="#3b5bdb"/>
+    <circle cx="215" cy="175" r="6" fill="#3b5bdb"/>
+
+    <!-- Bias points (cluster away from center) -->
+    <circle cx="790" cy="210" r="6" fill="#c92a2a"/>
+    <circle cx="805" cy="195" r="6" fill="#c92a2a"/>
+    <circle cx="775" cy="190" r="6" fill="#c92a2a"/>
+    <circle cx="795" cy="175" r="6" fill="#c92a2a"/>
+    <circle cx="815" cy="175" r="6" fill="#c92a2a"/>
+    <circle cx="785" cy="165" r="6" fill="#c92a2a"/>
+    <circle cx="805" cy="160" r="6" fill="#c92a2a"/>
+    <circle cx="820" cy="190" r="6" fill="#c92a2a"/>
+
+    <!-- Labels under each target -->
+    <rect x="95" y="255" width="300" height="45" rx="10" fill="#eef2ff" stroke="#3b5bdb" stroke-width="1.5"/>
+    <text x="245" y="282" text-anchor="middle" font-size="14" fill="#1c1c1c">
+      More data → points tighten around center (higher precision)
+    </text>
+
+    <rect x="585" y="255" width="300" height="45" rx="10" fill="#ffe3e3" stroke="#c92a2a" stroke-width="1.5"/>
+    <text x="735" y="282" text-anchor="middle" font-size="14" fill="#1c1c1c">
+      More data → tight cluster stays off-center (wrong, but confident)
+    </text>
+
+  </svg>
+
+  <p style="font-size:14px; color:#666; margin-top:10px;">
+    Figure. Random error decreases with larger samples, but bias is systematic and does not disappear by collecting more of the same biased data.
+  </p>
+</div>
+
   </div>
 </section>
 
