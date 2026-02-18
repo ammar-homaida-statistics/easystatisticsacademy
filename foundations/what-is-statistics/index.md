@@ -15,6 +15,11 @@ lesson_order: 1
   <div class="hero-card">
     <h1>What Is Statistics?</h1>
 
+    <div style="background:#fff3cd; border:1px solid #ffeeba; padding:12px 14px; margin:14px 0; border-radius:8px;">
+      <strong>🚧 Under Construction</strong> — This lesson is being expanded with clearer visuals, numerical examples,
+      and software demonstrations (SPSS/R/Python/Excel). The lesson is usable now and will be improved progressively.
+    </div>
+
     <p class="lead">
       This lesson explains what statistics really is, why it exists, and how it differs
       from mathematics, data science, and everyday data use.
@@ -34,6 +39,7 @@ lesson_order: 1
       <li>What statistics is and why it exists as a discipline.</li>
       <li>How statistics differs from mathematics, data science, and simple data reporting.</li>
       <li>What kinds of problems statistics is designed to address—and what it cannot do.</li>
+      <li>Why uncertainty and variability are central to real data (not optional details).</li>
     </ul>
   </div>
 </section>
@@ -44,7 +50,7 @@ lesson_order: 1
 
     <p>
       Statistics is one of the most widely used—and most misunderstood—fields in science,
-      business, and everyday decision-making.
+      business, medicine, and everyday decision-making.
     </p>
 
     <p>
@@ -54,10 +60,9 @@ lesson_order: 1
     </p>
 
     <p>
-      Before learning statistical methods, calculations, or tools, it is essential to
-      understand what statistics is actually designed to do. This understanding shapes
-      how data are interpreted, how conclusions are drawn, and how much confidence we
-      should place in results.
+      Before learning statistical methods, calculations, or tools, it is essential to understand
+      what statistics is designed to do. This understanding shapes how data are interpreted,
+      how conclusions are drawn, and how much confidence we should place in results.
     </p>
   </div>
 </section>
@@ -67,9 +72,19 @@ lesson_order: 1
     <h2>What is statistics?</h2>
 
     <p>
-      Statistics is a discipline concerned with collecting, describing, analyzing,
-      and interpreting data in the presence of uncertainty.
+      <strong>Statistics</strong> is the discipline of collecting, describing, analyzing, and interpreting data
+      <strong>in the presence of variability and uncertainty</strong>.
     </p>
+
+    <p>
+      A useful way to summarize statistical reasoning is:
+    </p>
+
+    <ul class="bullets">
+      <li><strong>Data</strong> are an imperfect snapshot of reality.</li>
+      <li><strong>Variability</strong> means results change across individuals, places, and time (even under similar conditions).</li>
+      <li><strong>Inference</strong> is the structured way we learn from the snapshot and generalize—while quantifying uncertainty.</li>
+    </ul>
 
     <p>
       The central purpose of statistics is not to produce exact answers, but to support
@@ -77,9 +92,47 @@ lesson_order: 1
     </p>
 
     <p>
-      Because real-world data are variable and imperfect, statistical conclusions are
-      always accompanied by uncertainty. Recognizing and managing this uncertainty is
-      a defining feature of statistical thinking.
+      Because real-world data are variable and imperfect, statistical conclusions are always accompanied by uncertainty.
+      Recognizing and managing this uncertainty is a defining feature of statistical thinking.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="content-narrow">
+    <h2>Statistics is and is not</h2>
+
+    <div style="overflow-x:auto;">
+      <table style="width:100%; border-collapse:collapse;">
+        <thead>
+          <tr>
+            <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Statistics is…</th>
+            <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Statistics is not…</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:10px; border-bottom:1px solid #eee;">A framework for learning from data under uncertainty</td>
+            <td style="padding:10px; border-bottom:1px solid #eee;">A tool that produces guaranteed truth</td>
+          </tr>
+          <tr>
+            <td style="padding:10px; border-bottom:1px solid #eee;">A way to quantify variability (sampling error, measurement noise)</td>
+            <td style="padding:10px; border-bottom:1px solid #eee;">Just formulas, charts, or “software output”</td>
+          </tr>
+          <tr>
+            <td style="padding:10px; border-bottom:1px solid #eee;">A method to generalize from samples to populations</td>
+            <td style="padding:10px; border-bottom:1px solid #eee;">A replacement for good data collection</td>
+          </tr>
+          <tr>
+            <td style="padding:10px; border-bottom:1px solid #eee;">A discipline that depends on assumptions and context</td>
+            <td style="padding:10px; border-bottom:1px solid #eee;">Pure mathematics with certainty from axioms alone</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="muted-mini">
+      This distinction is practical: many statistical mistakes come from treating uncertainty as a nuisance rather than a core feature.
     </p>
   </div>
 </section>
@@ -90,20 +143,92 @@ lesson_order: 1
 
     <p>
       In most real situations, it is impossible to observe everything of interest.
-      Measurements may be costly, time-consuming, or ethically constrained.
+      Measurements may be costly, time-consuming, logistically difficult, or ethically constrained.
     </p>
 
     <p>
-      Even when data are available, they are rarely identical across observations.
-      Differences arise due to natural variation, measurement limitations, and external
-      influences.
+      Even when data are available, observations are rarely identical across individuals or repeated measurements.
+      Differences arise due to natural variation, measurement limitations, and external influences.
     </p>
 
     <p>
       Statistics exists to help us make informed decisions despite these limitations.
-      It provides structured ways to summarize data, assess variability, and draw
-      conclusions while acknowledging uncertainty.
+      It provides structured ways to summarize data, assess variability, and draw conclusions while acknowledging uncertainty.
     </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="content-narrow">
+    <h2>Mini example: why results vary (even without mistakes)</h2>
+
+    <p>
+      Suppose we want the average exam score of all students in a university. We cannot measure everyone, so we take a sample.
+      Two different random samples can give different averages.
+    </p>
+
+    <div style="overflow-x:auto;">
+      <table style="width:100%; border-collapse:collapse;">
+        <thead>
+          <tr>
+            <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Sample</th>
+            <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Scores</th>
+            <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Sample mean</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:10px; border-bottom:1px solid #eee;">A</td>
+            <td style="padding:10px; border-bottom:1px solid #eee;">70, 75, 80, 85, 90</td>
+            <td style="padding:10px; border-bottom:1px solid #eee;">80</td>
+          </tr>
+          <tr>
+            <td style="padding:10px; border-bottom:1px solid #eee;">B</td>
+            <td style="padding:10px; border-bottom:1px solid #eee;">60, 65, 70, 75, 80</td>
+            <td style="padding:10px; border-bottom:1px solid #eee;">70</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      The difference (80 vs 70) is <strong>sampling variability</strong>. Statistics provides tools (like confidence intervals and hypothesis tests)
+      to quantify this uncertainty and avoid overconfident conclusions.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="content-narrow">
+    <h2>Software mini-demo (optional)</h2>
+
+    <p>
+      Software can compute summaries instantly, but the statistical meaning comes from interpretation (variability, uncertainty, assumptions),
+      not from the button you click.
+    </p>
+
+    <h3>R</h3>
+    <pre><code>sample_A &lt;- c(70, 75, 80, 85, 90)
+sample_B &lt;- c(60, 65, 70, 75, 80)
+mean(sample_A); mean(sample_B)</code></pre>
+
+    <h3>Python</h3>
+    <pre><code>import numpy as np
+sample_A = np.array([70, 75, 80, 85, 90])
+sample_B = np.array([60, 65, 70, 75, 80])
+sample_A.mean(), sample_B.mean()</code></pre>
+
+    <h3>Excel</h3>
+    <ul class="bullets">
+      <li>Enter sample A scores in cells A2:A6 and compute: <strong>=AVERAGE(A2:A6)</strong></li>
+      <li>Enter sample B scores in cells B2:B6 and compute: <strong>=AVERAGE(B2:B6)</strong></li>
+    </ul>
+
+    <h3>SPSS</h3>
+    <ul class="bullets">
+      <li>Enter scores in one variable (e.g., <strong>score</strong>) and add a variable (e.g., <strong>sample</strong>: A/B).</li>
+      <li>Go to: <strong>Analyze → Descriptive Statistics → Descriptives…</strong> and request the mean by sample.</li>
+    </ul>
   </div>
 </section>
 
@@ -118,8 +243,7 @@ lesson_order: 1
 
     <p>
       Statistics, in contrast, is grounded in real data. Its conclusions depend on the
-      quality of data, the presence of variability, and the assumptions made about how
-      the data were generated.
+      quality of data, the presence of variability, study design, and the assumptions made about how the data were generated.
     </p>
 
     <p>
@@ -146,8 +270,7 @@ lesson_order: 1
 
     <p>
       Statistics is a core foundation of data science, but the two are not identical.
-      Sound statistical reasoning remains essential even in large-scale, automated
-      data-driven systems.
+      Sound statistical reasoning remains essential even in large-scale, automated data-driven systems.
     </p>
   </div>
 </section>
@@ -159,8 +282,21 @@ lesson_order: 1
     <ul class="bullets">
       <li>Estimating the average income of a country using data from a sample of households.</li>
       <li>Testing whether a new medicine works better than an existing treatment.</li>
-      <li>Predicting future product demand based on past sales data.</li>
+      <li>Predicting future product demand based on past sales data (with uncertainty around forecasts).</li>
       <li>Comparing exam results to understand differences in student performance.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section">
+  <div class="content-narrow">
+    <h2>Common mistakes</h2>
+
+    <ul class="bullets">
+      <li><strong>Confusing “statistically significant” with “important”</strong> (significance is not the same as practical impact).</li>
+      <li><strong>Ignoring study design</strong> (bad sampling or measurement can invalidate the best analysis).</li>
+      <li><strong>Treating software output as truth</strong> (numbers require assumptions and interpretation).</li>
+      <li><strong>Believing “more data” fixes everything</strong> (large samples reduce random error, but not systematic bias).</li>
     </ul>
   </div>
 </section>
@@ -171,7 +307,7 @@ lesson_order: 1
 
     <p>
       Statistics is not about producing exact answers. It is about making informed,
-      responsible judgments when data are incomplete and variable.
+      responsible judgments when data are incomplete and variable—by quantifying uncertainty and reasoning from evidence.
     </p>
   </div>
 </section>
@@ -181,9 +317,8 @@ lesson_order: 1
     <h2>Simple summary</h2>
 
     <p>
-      Statistics helps us understand data and make better decisions when we do not
-      have complete information. It does not give perfect answers, but it helps us
-      reason carefully using evidence.
+      Statistics helps us learn from data when we cannot observe everything and when results naturally vary.
+      It does not give perfect answers, but it provides tools to make careful conclusions and communicate uncertainty honestly.
     </p>
   </div>
 </section>
