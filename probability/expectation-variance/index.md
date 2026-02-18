@@ -2,7 +2,7 @@
 layout: default
 title: Block 4 — Expectation & Variability
 description: Deeper tools for summarizing random variables: expectation, variance, covariance, correlation, linearity, and indicator variables—core building blocks for inference and modeling.
-permalink: /probability/expectation-variability/
+permalink: /probability/expectation-variance/
 sidebar: false
 ---
 
@@ -28,7 +28,7 @@ sidebar: false
     var KEY = "esa_continue_probability_last_block_v0";
 
     localStorage.setItem(KEY, JSON.stringify({
-      url: "/probability/expectation-variability/",
+      url: "/probability/expectation-variance/",
       label: "Block 4 — Expectation & Variability",
       ts: Date.now()
     }));
@@ -101,55 +101,55 @@ sidebar: false
 
     <!-- Lesson 1 -->
     <div class="card lesson-card">
-      <h3><a href="/probability/expectation-variability/linearity-of-expectation/">1. Linearity of Expectation</a></h3>
+      <h3><a href="/probability/expectation-variance/linearity-of-expectation/">1. Linearity of Expectation</a></h3>
       <p>The most important rule: how expectations combine, even without independence.</p>
       <div class="pill-row">
-        <a class="btn btn-outline" href="/probability/expectation-variability/linearity-of-expectation/">Open lesson</a>
+        <a class="btn btn-outline" href="/probability/expectation-variance/linearity-of-expectation/">Open lesson</a>
       </div>
     </div>
 
     <!-- Lesson 2 -->
     <div class="card lesson-card">
-      <h3><a href="/probability/expectation-variability/variance-rules-and-sums/">2. Variance Rules & Sums of Variables</a></h3>
+      <h3><a href="/probability/expectation-variance/variance-rules-and-sums/">2. Variance Rules & Sums of Variables</a></h3>
       <p>Scaling and shifting; why Var(X+Y) needs covariance; when variances add.</p>
       <div class="pill-row">
-        <a class="btn btn-outline" href="/probability/expectation-variability/variance-rules-and-sums/">Open lesson</a>
+        <a class="btn btn-outline" href="/probability/expectation-variance/variance-rules-and-sums/">Open lesson</a>
       </div>
     </div>
 
     <!-- Lesson 3 -->
     <div class="card lesson-card">
-      <h3><a href="/probability/expectation-variability/covariance/">3. Covariance</a></h3>
+      <h3><a href="/probability/expectation-variance/covariance/">3. Covariance</a></h3>
       <p>Definition, interpretation, and role in Var(X+Y) and dependence structure.</p>
       <div class="pill-row">
-        <a class="btn btn-outline" href="/probability/expectation-variability/covariance/">Open lesson</a>
+        <a class="btn btn-outline" href="/probability/expectation-variance/covariance/">Open lesson</a>
       </div>
     </div>
 
     <!-- Lesson 4 -->
     <div class="card lesson-card">
-      <h3><a href="/probability/expectation-variability/correlation/">4. Correlation</a></h3>
+      <h3><a href="/probability/expectation-variance/correlation/">4. Correlation</a></h3>
       <p>Standardized covariance; interpretation; limitations; correlation ≠ causation.</p>
       <div class="pill-row">
-        <a class="btn btn-outline" href="/probability/expectation-variability/correlation/">Open lesson</a>
+        <a class="btn btn-outline" href="/probability/expectation-variance/correlation/">Open lesson</a>
       </div>
     </div>
 
     <!-- Lesson 5 -->
     <div class="card lesson-card">
-      <h3><a href="/probability/expectation-variability/indicator-random-variables/">5. Indicator Random Variables</a></h3>
+      <h3><a href="/probability/expectation-variance/indicator-random-variables/">5. Indicator Random Variables</a></h3>
       <p>Convert events to algebra; powerful technique for counting and expectation.</p>
       <div class="pill-row">
-        <a class="btn btn-outline" href="/probability/expectation-variability/indicator-random-variables/">Open lesson</a>
+        <a class="btn btn-outline" href="/probability/expectation-variance/indicator-random-variables/">Open lesson</a>
       </div>
     </div>
 
     <!-- Lesson 6 -->
     <div class="card lesson-card">
-      <h3><a href="/probability/expectation-variability/applications-mini-cases/">6. Applications: Mini Cases</a></h3>
+      <h3><a href="/probability/expectation-variance/applications-mini-cases/">6. Applications: Mini Cases</a></h3>
       <p>Combine expectation, variance, and dependence tools in realistic modeling scenarios.</p>
       <div class="pill-row">
-        <a class="btn btn-outline" href="/probability/expectation-variability/applications-mini-cases/">Open lesson</a>
+        <a class="btn btn-outline" href="/probability/expectation-variance/applications-mini-cases/">Open lesson</a>
       </div>
     </div>
 
