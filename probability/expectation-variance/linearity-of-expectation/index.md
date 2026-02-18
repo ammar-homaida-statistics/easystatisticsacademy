@@ -2,7 +2,7 @@
 layout: default
 title: "1. Linearity of Expectation"
 description: "A core rule that makes expectations easy: E[aX+b]=aE[X]+b and E[X+Y]=E[X]+E[Y] (no independence required)."
-permalink: /probability/expectation-variability/linearity-of-expectation/
+permalink: /probability/expectation-variance/linearity-of-expectation/
 sidebar: false
 ---
 
