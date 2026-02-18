@@ -21,6 +21,12 @@ sidebar: true
         statistical reasoning.
       </p>
 
+<div style="background:#fff3cd; border:1px solid #ffeeba; padding:12px 14px; margin:14px 0; border-radius:8px;">
+  <strong>🚧 Under Construction</strong> — This section is being expanded lesson-by-lesson with deeper explanations,
+  real examples, visual illustrations, and software demonstrations (SPSS/R/Python/Excel).
+  The lesson structure and links are stable; content will be improved progressively.
+</div>
+
       <div class="hero-actions">
         <a class="btn" href="/learning-paths/">View learning paths</a>
         <a class="btn btn-outline" href="/descriptive/">Next: Descriptive</a>
