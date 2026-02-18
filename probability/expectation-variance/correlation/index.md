@@ -2,7 +2,7 @@
 layout: default
 title: "4. Correlation"
 description: "Correlation rescales covariance into a unitless measure in [-1,1] and clarifies what 'strength of linear association' means."
-permalink: /probability/expectation-variability/correlation/
+permalink: /probability/expectation-variance/correlation/
 sidebar: false
 ---
 
