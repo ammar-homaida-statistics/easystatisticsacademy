@@ -170,12 +170,12 @@ sidebar: false
     <div class="callout-side">
       <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
         <div class="mini-title" style="color:#1a73e8;">Next block</div>
-        <div class="mini-body">
-          Continue to
-          <a href="/probability/distributions/" style="color:#1a73e8; text-decoration:underline;">
-            <strong>Block 4 — Important Probability Distributions</strong>
-          </a>.
-        </div>
+<div class="mini-body">
+  Continue to
+  <a href="/probability/expectation-variability/" style="color:#1a73e8; text-decoration:underline;">
+    <strong>Block 4 — Expectation & Variability</strong>
+  </a>.
+</div>
       </div>
     </div>
   </div>
