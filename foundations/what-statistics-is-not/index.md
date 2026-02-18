@@ -19,6 +19,11 @@ lesson_order: 2
   <div class="hero-card">
     <h1>What Statistics Is Not</h1>
 
+    <div style="background:#fff3cd; border:1px solid #ffeeba; padding:12px 14px; margin:14px 0; border-radius:8px;">
+      <strong>🚧 Under Construction</strong> — This lesson is being expanded with examples, diagrams,
+      and practical demonstrations to clarify common misconceptions about statistics.
+    </div>
+
     <p class="lead">
       This lesson clarifies the limits of statistics and addresses common misconceptions
       that lead to misuse, overconfidence, and incorrect conclusions.
@@ -39,6 +44,7 @@ lesson_order: 2
       <li>Why statistical results do not guarantee prediction certainty.</li>
       <li>Why statistics cannot be reduced to automation or software output.</li>
       <li>How common misconceptions arise in media, business, and AI contexts.</li>
+      <li>Why large datasets do not eliminate bias or bad design.</li>
     </ul>
   </div>
 </section>
@@ -48,19 +54,18 @@ lesson_order: 2
     <h2>Why this topic matters</h2>
 
     <p>
-      Statistics is often trusted too much or used incorrectly because its limitations
-      are not clearly understood.
+      Statistics is often either over-trusted or completely misunderstood.
+      Both extremes are dangerous.
     </p>
 
     <p>
       When statistical results are treated as exact truth or automatic answers,
-      decisions based on them can be misleading or harmful.
+      decisions based on them can be misleading, costly, or harmful.
     </p>
 
     <p>
-      Understanding what statistics <em>cannot</em> do is just as important as
-      understanding what it <em>can</em> do. This lesson helps prevent misuse,
-      false confidence, and misinterpretation.
+      Understanding what statistics <em>cannot</em> do prevents misuse,
+      false confidence, and exaggerated claims.
     </p>
   </div>
 </section>
@@ -70,18 +75,38 @@ lesson_order: 2
     <h2>Statistics is not exact truth</h2>
 
     <p>
-      Statistical conclusions are based on data, and data are always limited.
-      Measurements may be incomplete, noisy, or imperfect.
+      Statistical conclusions are based on limited data.
+      Data may be incomplete, noisy, biased, or influenced by external factors.
     </p>
 
     <p>
       For this reason, statistical results are not statements of absolute truth.
-      They are informed judgments based on available evidence.
+      They are probabilistic conclusions based on available evidence.
     </p>
 
     <p>
-      Treating statistical outcomes as exact facts ignores uncertainty and
-      undermines responsible interpretation.
+      Ignoring uncertainty leads to overconfidence and poor decisions.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="content-narrow">
+    <h2>Mini example: overconfidence trap</h2>
+
+    <p>
+      Suppose a survey of 100 people finds that 60% prefer Product A.
+      This does not mean exactly 60% of the entire population prefers Product A.
+    </p>
+
+    <p>
+      If we repeated the survey with a different random sample, the result might be 55% or 63%.
+      The estimate varies because sampling varies.
+    </p>
+
+    <p>
+      Statistics provides tools (like confidence intervals) to express this uncertainty.
+      It does not claim perfect precision.
     </p>
   </div>
 </section>
@@ -91,18 +116,16 @@ lesson_order: 2
     <h2>Statistics is not prediction certainty</h2>
 
     <p>
-      Statistical models can help estimate future outcomes, but they do not
-      guarantee correct predictions.
+      Statistical models can estimate likely outcomes,
+      but they cannot guarantee what will happen.
     </p>
 
     <p>
-      Real-world systems change, assumptions may fail, and random variation
-      always remains present.
+      Real systems evolve. Assumptions fail. Random variation persists.
     </p>
 
     <p>
-      Statistics supports probabilistic reasoning, not certainty about what
-      will happen next.
+      Statistics supports probabilistic forecasting—not certainty.
     </p>
   </div>
 </section>
@@ -112,17 +135,14 @@ lesson_order: 2
     <h2>Statistics is not automation</h2>
 
     <p>
-      Statistics cannot be fully automated without human judgment.
-      Choices about data, assumptions, and interpretation always matter.
+      Statistical reasoning cannot be fully automated.
+      Human judgment is required in choosing variables, checking assumptions,
+      and interpreting results.
     </p>
 
     <p>
-      Automated pipelines may produce results, but they cannot evaluate
-      whether those results are meaningful, appropriate, or valid.
-    </p>
-
-    <p>
-      Statistical reasoning requires understanding context, not just running procedures.
+      Automated systems can compute quickly, but they cannot determine whether
+      the question was appropriate or whether the design was flawed.
     </p>
   </div>
 </section>
@@ -132,17 +152,42 @@ lesson_order: 2
     <h2>Statistics is not software output</h2>
 
     <p>
-      Statistical software performs calculations, but it does not understand data.
+      Software performs calculations. It does not understand context.
     </p>
 
     <p>
-      Software will often return results even when assumptions are violated
-      or methods are misapplied.
+      Most statistical software will produce output even when:
+    </p>
+
+    <ul class="bullets">
+      <li>Assumptions are violated</li>
+      <li>The wrong method is chosen</li>
+      <li>The data are biased</li>
+      <li>The research question is poorly defined</li>
+    </ul>
+
+    <p>
+      Interpretation remains the responsibility of the analyst.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="content-narrow">
+    <h2>Large data does not remove bias</h2>
+
+    <p>
+      A very large dataset reduces random error,
+      but it does not eliminate systematic bias.
     </p>
 
     <p>
-      Correct statistical analysis depends on the analyst, not the tool.
-      Software supports reasoning—it does not replace it.
+      If data collection is flawed, collecting more of the same flawed data
+      only increases confidence in a wrong conclusion.
+    </p>
+
+    <p>
+      More data improves precision—not validity.
     </p>
   </div>
 </section>
@@ -154,8 +199,9 @@ lesson_order: 2
     <ul class="bullets">
       <li>Statistics always produces objective and correct answers.</li>
       <li>Large datasets eliminate uncertainty.</li>
-      <li>Algorithms and AI make statistics unnecessary.</li>
+      <li>Algorithms and AI make statistical reasoning unnecessary.</li>
       <li>Any numerical result is meaningful.</li>
+      <li>A statistically significant result proves causation.</li>
     </ul>
 
     <p>
@@ -165,13 +211,49 @@ lesson_order: 2
   </div>
 </section>
 
+<section class="section">
+  <div class="content-narrow">
+    <h2>Limits summarized</h2>
+
+    <div style="overflow-x:auto;">
+      <table style="width:100%; border-collapse:collapse;">
+        <thead>
+          <tr>
+            <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Misconception</th>
+            <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Reality</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:10px; border-bottom:1px solid #eee;">Statistics gives exact truth</td>
+            <td style="padding:10px; border-bottom:1px solid #eee;">Statistics provides probabilistic evidence</td>
+          </tr>
+          <tr>
+            <td style="padding:10px; border-bottom:1px solid #eee;">Big data removes uncertainty</td>
+            <td style="padding:10px; border-bottom:1px solid #eee;">Big data reduces random error, not bias</td>
+          </tr>
+          <tr>
+            <td style="padding:10px; border-bottom:1px solid #eee;">Software guarantees correctness</td>
+            <td style="padding:10px; border-bottom:1px solid #eee;">Interpretation determines correctness</td>
+          </tr>
+          <tr>
+            <td style="padding:10px; border-bottom:1px solid #eee;">Statistical significance proves causation</td>
+            <td style="padding:10px; border-bottom:1px solid #eee;">Design determines causal validity</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
 <section class="section section-soft">
   <div class="content-narrow">
     <h2>Key idea to remember</h2>
 
     <p>
-      Statistics is a tool for careful reasoning, not a source of guaranteed truth.
-      Its strength lies in acknowledging uncertainty, not hiding it.
+      Statistics is powerful precisely because it acknowledges uncertainty.
+      Its weakness begins when uncertainty is ignored or hidden.
     </p>
   </div>
 </section>
@@ -182,8 +264,8 @@ lesson_order: 2
 
     <p>
       Statistics does not give perfect or guaranteed answers.
-      It helps us think carefully using data, while accepting uncertainty
-      and limitations.
+      It helps us think carefully using data—while respecting uncertainty,
+      assumptions, and limitations.
     </p>
   </div>
 </section>
