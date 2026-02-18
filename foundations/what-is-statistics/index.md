@@ -91,6 +91,47 @@ lesson_order: 1
       reasoned judgment when complete information is unavailable.
     </p>
 
+    <div style="margin:30px 0; text-align:center;">
+<svg width="100%" height="220" viewBox="0 0 900 220" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Boxes -->
+  <rect x="40" y="60" width="180" height="80" rx="12" fill="#eef2ff" stroke="#3b5bdb" stroke-width="2"/>
+  <rect x="260" y="60" width="180" height="80" rx="12" fill="#e6fcf5" stroke="#099268" stroke-width="2"/>
+  <rect x="480" y="60" width="180" height="80" rx="12" fill="#fff3bf" stroke="#f08c00" stroke-width="2"/>
+  <rect x="700" y="60" width="180" height="80" rx="12" fill="#ffe3e3" stroke="#c92a2a" stroke-width="2"/>
+
+  <!-- Text -->
+  <text x="130" y="95" text-anchor="middle" font-size="18" font-weight="600" fill="#1c1c1c">Population</text>
+  <text x="130" y="115" text-anchor="middle" font-size="14" fill="#333">Entire group of interest</text>
+
+  <text x="350" y="95" text-anchor="middle" font-size="18" font-weight="600" fill="#1c1c1c">Sample</text>
+  <text x="350" y="115" text-anchor="middle" font-size="14" fill="#333">Subset observed</text>
+
+  <text x="570" y="95" text-anchor="middle" font-size="18" font-weight="600" fill="#1c1c1c">Statistic</text>
+  <text x="570" y="115" text-anchor="middle" font-size="14" fill="#333">Numerical summary</text>
+
+  <text x="790" y="95" text-anchor="middle" font-size="18" font-weight="600" fill="#1c1c1c">Inference</text>
+  <text x="790" y="115" text-anchor="middle" font-size="14" fill="#333">Conclusion with uncertainty</text>
+
+  <!-- Arrows -->
+  <line x1="220" y1="100" x2="260" y2="100" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="440" y1="100" x2="480" y2="100" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="660" y1="100" x2="700" y2="100" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Arrowhead Definition -->
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#555" />
+    </marker>
+  </defs>
+
+</svg>
+
+<p style="font-size:14px; color:#666; margin-top:10px;">
+  Figure 1. Statistical reasoning: learning about a population using a sample and summarizing with a statistic to make an inference.
+</p>
+</div>
+
     <p>
       Because real-world data are variable and imperfect, statistical conclusions are always accompanied by uncertainty.
       Recognizing and managing this uncertainty is a defining feature of statistical thinking.
