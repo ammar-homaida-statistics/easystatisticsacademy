@@ -78,6 +78,7 @@ sidebar: false
   </div>
 </section>
 
+<!-- ✅ Continue Reading -->
 <section class="section" id="continue-reading-block4" style="display:none;">
   <div class="callout">
     <div class="callout-copy">
@@ -99,7 +100,6 @@ sidebar: false
 
   <div class="grid grid-2">
 
-    <!-- Lesson 1 -->
     <div class="card lesson-card">
       <h3><a href="/probability/expectation-variance/linearity-of-expectation/">1. Linearity of Expectation</a></h3>
       <p>The most important rule: how expectations combine, even without independence.</p>
@@ -108,7 +108,6 @@ sidebar: false
       </div>
     </div>
 
-    <!-- Lesson 2 -->
     <div class="card lesson-card">
       <h3><a href="/probability/expectation-variance/variance-rules-and-sums/">2. Variance Rules & Sums of Variables</a></h3>
       <p>Scaling and shifting; why Var(X+Y) needs covariance; when variances add.</p>
@@ -117,7 +116,6 @@ sidebar: false
       </div>
     </div>
 
-    <!-- Lesson 3 -->
     <div class="card lesson-card">
       <h3><a href="/probability/expectation-variance/covariance/">3. Covariance</a></h3>
       <p>Definition, interpretation, and role in Var(X+Y) and dependence structure.</p>
@@ -126,7 +124,6 @@ sidebar: false
       </div>
     </div>
 
-    <!-- Lesson 4 -->
     <div class="card lesson-card">
       <h3><a href="/probability/expectation-variance/correlation/">4. Correlation</a></h3>
       <p>Standardized covariance; interpretation; limitations; correlation ≠ causation.</p>
@@ -135,7 +132,6 @@ sidebar: false
       </div>
     </div>
 
-    <!-- Lesson 5 -->
     <div class="card lesson-card">
       <h3><a href="/probability/expectation-variance/indicator-random-variables/">5. Indicator Random Variables</a></h3>
       <p>Convert events to algebra; powerful technique for counting and expectation.</p>
@@ -144,7 +140,6 @@ sidebar: false
       </div>
     </div>
 
-    <!-- Lesson 6 -->
     <div class="card lesson-card">
       <h3><a href="/probability/expectation-variance/applications-mini-cases/">6. Applications: Mini Cases</a></h3>
       <p>Combine expectation, variance, and dependence tools in realistic modeling scenarios.</p>
@@ -163,11 +158,12 @@ sidebar: false
       <ul class="bullets">
         <li>Use linearity of expectation confidently (even without independence)</li>
         <li>Apply variance rules correctly and understand when variances add</li>
-        <li>Interpret covariance and correlation and avoid common misreadings</li>
-        <li>Use indicator variables to simplify counting and expectation problems</li>
+        <li>Interpret covariance and correlation correctly</li>
+        <li>Use indicator variables to simplify counting problems</li>
         <li>Be ready for Named Distributions (Block 5)</li>
       </ul>
     </div>
+
     <div class="callout-side">
       <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
         <div class="mini-title" style="color:#1a73e8;">Next block</div>
@@ -182,9 +178,10 @@ sidebar: false
   </div>
 </section>
 
+<!-- ✅ Continue Reading Script (FIXED KEY) -->
 <script>
   (function () {
-    var KEY = "esa_continue_probability_expectation_variability_lesson_v0";
+    var KEY = "esa_continue_probability_expectation_variance_lesson_v0";
 
     var raw = localStorage.getItem(KEY);
     if (!raw) return;
