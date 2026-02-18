@@ -1,8 +1,8 @@
 ---
 layout: default
-title: "1. What Is Conditional Probability?"
-description: "Understand how conditioning changes the sample space and how to compute conditional probability correctly."
-permalink: /probability/conditional/what-is-conditional-probability/
+title: "7. Probability Language Traps (Common Mistakes)"
+description: "Identify and avoid common probability errors caused by ambiguous language and hidden assumptions."
+permalink: /probability/basics/conditional-language-traps/
 sidebar: false
 ---
 
@@ -10,24 +10,24 @@ sidebar: false
 <section class="section section-slim">
   <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
     <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
+      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem;">
         🚧 Lesson Under Construction
       </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 establishes the correct conceptual foundation. Visual diagrams,
-        simulations, and applied examples will be added later.
+      <p style="margin:0; font-size:1.05rem; line-height:1.6;">
+        Version 0 focuses on reasoning clarity. Numerical examples,
+        diagrams, and simulations will be added later.
       </p>
     </div>
   </div>
 </section>
 
-<!-- ✅ Update last visited lesson (conditional block key) -->
+<!-- ✅ Update last visited lesson for basics block -->
 <script>
   (function () {
-    var KEY = "esa_continue_probability_conditional_lesson_v0";
+    var KEY = "esa_continue_probability_basics_lesson_v0";
     localStorage.setItem(KEY, JSON.stringify({
-      url: "/probability/conditional/what-is-conditional-probability/",
-      label: "Conditional Lesson 1 — What Is Conditional Probability?",
+      url: "/probability/basics/conditional-language-traps/",
+      label: "Lesson 7 — Probability Language Traps",
       ts: Date.now()
     }));
   })();
@@ -38,30 +38,29 @@ sidebar: false
     <div class="hero-copy">
 
       <div class="badge-row">
-        <span class="badge">Block 2</span>
-        <span class="badge">Lesson 1</span>
-        <span class="badge">Conditioning</span>
-        <span class="badge">Core concept</span>
+        <span class="badge">Block 1</span>
+        <span class="badge">Lesson 7</span>
+        <span class="badge">Reasoning</span>
       </div>
 
-      <h1>1. What Is Conditional Probability?</h1>
+      <h1>7. Probability Language Traps</h1>
 
       <p class="lead">
-        Conditional probability measures how probabilities change
-        when new information becomes available.
+        Many probability mistakes come from ambiguous wording,
+        not from mathematics. This lesson strengthens logical translation skills.
       </p>
 
       <div class="hero-actions">
-        <a class="btn btn-outline" href="/probability/basics/">
-          ← Previous Block: Probability Basics
+        <a class="btn btn-outline" href="/probability/basics/independence-vs-disjointness/">
+          ← Previous lesson: 6. Independence vs Disjointness
         </a>
-        <a class="btn btn-outline" href="/probability/conditional/">
-          Back to Conditional Block
+        <a class="btn btn-outline" href="/probability/basics/">
+          Back to Block 1
         </a>
       </div>
 
       <p class="muted-mini">
-        Conditioning changes the sample space.
+        Clear definitions prevent wrong answers.
       </p>
 
     </div>
@@ -74,93 +73,82 @@ sidebar: false
   </div>
 
   <ul class="bullets">
-    <li>Understand how conditioning restricts the sample space</li>
-    <li>Define conditional probability formally</li>
-    <li>Compute conditional probability correctly</li>
+    <li>Translate ambiguous phrases into precise events</li>
+    <li>Recognize hidden modeling assumptions</li>
+    <li>Avoid common logical fallacies</li>
   </ul>
 </section>
 
 <section class="section">
   <div class="section-head">
-    <h2>1) Intuition: Updating with information</h2>
+    <h2>1) “At least one”</h2>
   </div>
 
   <div class="card">
     <p>
-      Suppose you roll a fair die.
+      “At least one” means one or more.
     </p>
 
-    <p>
-      Probability of rolling a 4:
-    </p>
-
-    <p><strong>P(4) = 1/6</strong></p>
+    <p><strong>P(at least one) = 1 − P(none)</strong></p>
 
     <p>
-      Now suppose you are told the result is even.
-    </p>
-
-    <p>
-      The possible outcomes are now {2,4,6}.
-    </p>
-
-    <p>
-      The probability of 4 changes:
-    </p>
-
-    <p><strong>P(4 | even) = 1/3</strong></p>
-  </div>
-
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Key insight</h2>
-      <p style="margin:0;">
-        Conditioning shrinks the sample space.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>2) Formal Definition</h2>
-  </div>
-
-  <div class="card">
-    <p>
-      If P(B) > 0, then:
-    </p>
-
-    <p><strong>P(A | B) = P(A ∩ B) / P(B)</strong></p>
-
-    <p>
-      Read as:
-      “Probability of A given B”
-    </p>
-  </div>
-
-  <div class="card">
-    <h3>Interpretation</h3>
-    <p>
-      Among cases where B occurs,
-      what fraction also satisfy A?
+      Using the complement is often simpler and safer.
     </p>
   </div>
 </section>
 
 <section class="section">
   <div class="section-head">
-    <h2>3) Why this formula makes sense</h2>
+    <h2>2) “Exactly one”</h2>
   </div>
 
   <div class="card">
     <p>
-      If we restrict attention only to B,
-      the total probability mass becomes P(B).
+      Exactly one means:
     </p>
 
     <p>
-      We then rescale probabilities within that restricted universe.
+      (A ∩ Bᶜ) ∪ (Aᶜ ∩ B)
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>3) “Either A or B”</h2>
+  </div>
+
+  <div class="card">
+    <p>
+      In probability, “or” is inclusive unless explicitly stated.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>4) “Given” — the conditioning signal</h2>
+  </div>
+
+  <div class="card">
+    <p>
+      The word “given” indicates conditional probability.
+    </p>
+
+    <p>
+      Conditioning restricts the sample space.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>5) Hidden independence assumptions</h2>
+  </div>
+
+  <div class="card">
+    <p>
+      Do not multiply probabilities unless independence is justified.
     </p>
   </div>
 </section>
@@ -168,10 +156,12 @@ sidebar: false
 <section class="section section-slim">
   <div class="callout">
     <div class="callout-copy">
-      <h2>Common mistakes</h2>
+      <h2>Common mistakes checklist</h2>
       <ul class="bullets">
-        <li>Forgetting to divide by P(B)</li>
-        <li>Ignoring that P(B) must be positive</li>
+        <li>Misreading “at least”</li>
+        <li>Ignoring complement strategy</li>
+        <li>Using exclusive OR without justification</li>
+        <li>Multiplying without checking independence</li>
         <li>Confusing P(A|B) with P(B|A)</li>
       </ul>
     </div>
@@ -183,9 +173,9 @@ sidebar: false
     <div class="callout-copy">
       <h2>Outcome of this lesson</h2>
       <ul class="bullets">
-        <li>Understand how new information changes probability</li>
-        <li>Use the conditional probability formula correctly</li>
-        <li>Prepare for multiplication rule next</li>
+        <li>Translate ambiguous phrases correctly</li>
+        <li>Recognize conditional language</li>
+        <li>Avoid silent modeling assumptions</li>
       </ul>
     </div>
   </div>
@@ -196,12 +186,12 @@ sidebar: false
     <div class="callout-copy">
       <h2>Next lesson</h2>
       <p style="margin:0;">
-        Now we derive the multiplication rule from conditional probability.
+        We conclude Block 1 by applying all concepts in small modeling cases.
       </p>
 
       <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/probability/conditional/multiplication-rule/">
-          Next lesson: 2. The Multiplication Rule →
+        <a class="btn" href="/probability/basics/modeling-randomness-mini-cases/">
+          Next lesson: 8. Modeling Randomness: Mini Cases →
         </a>
       </div>
     </div>
