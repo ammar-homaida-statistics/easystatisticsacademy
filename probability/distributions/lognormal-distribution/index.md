@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "11. Lognormal Distribution"
+title: "12. Lognormal Distribution"
 description: "The Lognormal distribution: modeling positive skewed data, exponential growth, and multiplicative processes derived from the Normal distribution."
 permalink: /probability/distributions/lognormal-distribution/
 sidebar: false
@@ -25,7 +25,7 @@ sidebar: false
     var KEY = "esa_continue_probability_distributions_lesson_v0";
     localStorage.setItem(KEY, JSON.stringify({
       url: "/probability/distributions/lognormal-distribution/",
-      label: "Lesson 11 — Lognormal Distribution",
+      label: "Lesson 12 — Lognormal Distribution",
       ts: Date.now()
     }));
   })();
@@ -36,12 +36,12 @@ sidebar: false
     <div class="hero-copy">
       <div class="badge-row">
         <span class="badge">Block 5</span>
-        <span class="badge">Lesson 11</span>
+        <span class="badge">Lesson 12</span>
         <span class="badge">Continuous</span>
         <span class="badge">Positive Support</span>
       </div>
 
-      <h1>11. Lognormal Distribution</h1>
+      <h1>12. Lognormal Distribution</h1>
 
       <p class="lead">
         A random variable is lognormally distributed if its logarithm is normally distributed.
@@ -55,7 +55,27 @@ sidebar: false
       </div>
 
       <p class="muted-mini">
-        If ln(X) is Normal, then X is Lognormal.
+        If $$\ln(X)$$ is Normal, then $$X$$ is Lognormal.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>Learning objective</h2>
+    <p>
+      By the end of this lesson, you should be able to define the Lognormal distribution using a Normal
+      transformation, write its PDF, and interpret how parameters control location and skewness.
+    </p>
+  </div>
+
+  <div class="callout" style="margin-top:1rem;">
+    <div class="callout-copy">
+      <h2>Key idea</h2>
+      <p style="margin:0;">
+        <strong>Lognormal = exponentiated Normal:</strong>
+        if $$Y\sim \mathcal{N}(\mu,\sigma^2)$$ then $$X=\exp(Y)$$ is Lognormal.
       </p>
     </div>
   </div>
@@ -67,61 +87,65 @@ sidebar: false
   </div>
 
   <div class="card">
-    <p>
-      A random variable X follows a Lognormal distribution if:
-    </p>
-
-    <p style="font-size:1.1rem;">
+    <p style="margin:0;">
+      A random variable $$X$$ is <strong>Lognormal</strong> if:
       $$
-      Y = \ln(X) \sim N(\mu, \sigma^2)
+      Y=\ln(X)\sim \mathcal{N}(\mu,\sigma^2).
       $$
     </p>
 
-    <p class="muted-mini">
-      Notation: X ~ Lognormal(μ, σ²)
+    <p class="muted-mini" style="margin-top:.75rem;">
+      Notation (common): $$X\sim \mathrm{Lognormal}(\mu,\sigma^2).$$
+      Here $$\mu$$ and $$\sigma^2$$ are parameters of $$\ln(X)$$ (not of $$X$$ directly).
     </p>
   </div>
 </section>
 
 <section class="section">
   <div class="section-head">
-    <h2>2) Probability Density Function</h2>
+    <h2>2) Support and density (PDF)</h2>
   </div>
 
   <div class="card">
-    <p style="font-size:1.1rem;">
+    <p style="margin:0;">
+      Support:
       $$
-      f(x) =
-      \frac{1}{x \sigma \sqrt{2\pi}}
-      \exp\!\left(
-        -\frac{(\ln x - \mu)^2}{2\sigma^2}
-      \right),
-      \quad x > 0
+      x>0.
       $$
     </p>
   </div>
 
-  <p class="muted-mini" style="margin-top:.75rem;">
-    Notice: the density is defined only for positive x.
-  </p>
+  <div class="card" style="margin-top:1rem;">
+    <p style="margin:0; font-size:1.1rem;">
+      $$
+      f(x)=
+      \frac{1}{x\,\sigma\sqrt{2\pi}}
+      \exp\!\left(-\frac{(\ln x-\mu)^2}{2\sigma^2}\right),
+      \quad x>0.
+      $$
+    </p>
+
+    <p class="muted-mini" style="margin-top:.75rem;">
+      The extra $$1/x$$ factor comes from the change-of-variables when moving from $$Y=\ln(X)$$ to $$X=\exp(Y)$$.
+    </p>
+  </div>
 </section>
 
 <section class="section">
   <div class="section-head">
-    <h2>3) Key Properties</h2>
+    <h2>3) Key properties</h2>
   </div>
 
   <div class="grid grid-2">
-
     <div class="card">
-      <h3>Support</h3>
+      <h3>Median</h3>
       <p style="margin:0;">
         $$
-        X > 0
+        \mathrm{Median}(X)=e^{\mu}.
         $$
       </p>
-      <p class="muted-mini">
-        The distribution is strictly positive.
+      <p class="muted-mini" style="margin-top:.5rem;">
+        Because $$\ln(X)$$ is symmetric around $$\mu$$.
       </p>
     </div>
 
@@ -129,8 +153,11 @@ sidebar: false
       <h3>Mean</h3>
       <p style="margin:0;">
         $$
-        E[X] = e^{\mu + \sigma^2/2}
+        \mathbb{E}[X]=e^{\mu+\sigma^2/2}.
         $$
+      </p>
+      <p class="muted-mini" style="margin-top:.5rem;">
+        Mean is larger than the median when $$\sigma>0$$ (right skew).
       </p>
     </div>
 
@@ -138,36 +165,33 @@ sidebar: false
       <h3>Variance</h3>
       <p style="margin:0;">
         $$
-        Var(X) =
-        \left(e^{\sigma^2} - 1\right)
-        e^{2\mu + \sigma^2}
+        \mathrm{Var}(X)=\left(e^{\sigma^2}-1\right)e^{2\mu+\sigma^2}.
         $$
       </p>
     </div>
 
     <div class="card">
-      <h3>Median</h3>
-      <p style="margin:0;">
-        $$
-        \text{Median} = e^{\mu}
-        $$
-      </p>
+      <h3>Interpretation of parameters</h3>
+      <ul class="bullets">
+        <li>$$\mu$$ controls the typical scale (median).</li>
+        <li>$$\sigma$$ controls spread and skewness.</li>
+        <li>Larger $$\sigma$$ ⇒ heavier right tail.</li>
+      </ul>
     </div>
-
   </div>
 </section>
 
 <section class="section">
   <div class="section-head">
-    <h2>4) Shape & Interpretation</h2>
+    <h2>4) Shape and intuition</h2>
   </div>
 
   <div class="card">
     <ul class="bullets">
-      <li>Right-skewed (long right tail)</li>
-      <li>Strictly positive</li>
-      <li>Skewness increases as σ increases</li>
-      <li>Mean &gt; Median (due to right skew)</li>
+      <li>Strictly positive (no mass at 0 or below).</li>
+      <li>Right-skewed (long right tail).</li>
+      <li>Often fits data generated by <strong>multiplicative</strong> effects.</li>
+      <li>Typical relationship: $$\mathbb{E}[X]>\mathrm{Median}(X).$$</li>
     </ul>
   </div>
 
@@ -175,8 +199,9 @@ sidebar: false
     <div class="callout-copy">
       <h2>Modeling meaning</h2>
       <p style="margin:0;">
-        Lognormal distributions arise when growth is multiplicative,
-        not additive (e.g., compound returns).
+        If a quantity grows by multiplying random factors (compound growth),
+        its logarithm becomes a sum of random terms — which often looks Normal.
+        Then the original quantity becomes Lognormal.
       </p>
     </div>
   </div>
@@ -184,19 +209,31 @@ sidebar: false
 
 <section class="section">
   <div class="section-head">
-    <h2>5) Relationship to Normal Distribution</h2>
+    <h2>5) Normal vs Lognormal (quick comparison)</h2>
   </div>
 
-  <div class="card">
-    <ul class="bullets">
-      <li>If X is Lognormal → ln(X) is Normal</li>
-      <li>If Y is Normal → exp(Y) is Lognormal</li>
-      <li>Transformation creates skewness</li>
-    </ul>
+  <div class="grid grid-2">
+    <div class="card">
+      <h3>Normal</h3>
+      <ul class="bullets">
+        <li>Support: $$(-\infty,\infty)$$</li>
+        <li>Symmetric</li>
+        <li>Additive noise model</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Lognormal</h3>
+      <ul class="bullets">
+        <li>Support: $$(0,\infty)$$</li>
+        <li>Right-skewed</li>
+        <li>Multiplicative growth model</li>
+      </ul>
+    </div>
   </div>
 
   <p class="muted-mini" style="margin-top:.75rem;">
-    This link explains why log-transforming data often stabilizes variance.
+    This is why a log-transform is often used to “normalize” skewed positive data.
   </p>
 </section>
 
@@ -205,28 +242,28 @@ sidebar: false
     <div class="callout-copy">
       <h2>Outcome of this lesson</h2>
       <ul class="bullets">
-        <li>Define the Lognormal distribution formally</li>
-        <li>Understand its relationship to Normal</li>
-        <li>Compute mean and variance</li>
-        <li>Recognize multiplicative growth modeling</li>
+        <li>Define Lognormal via $$\ln(X)\sim \mathcal{N}(\mu,\sigma^2)$$</li>
+        <li>Use the Lognormal PDF correctly</li>
+        <li>Compute mean, variance, and median</li>
+        <li>Recognize when multiplicative processes suggest a Lognormal model</li>
       </ul>
     </div>
   </div>
 </section>
 
-<!-- ✅ Next navigation -->
+<!-- ✅ Final navigation for Block 5 (no next lesson) -->
 <section class="section section-slim">
   <div class="callout">
     <div class="callout-copy">
       <h2>Next step</h2>
       <p style="margin:0;">
-        Next, we study the Chi-Square distribution,
-        which plays a central role in inference and hypothesis testing.
+        This is the last lesson in Block 5 (Version 0).
+        Next, we move forward to the next Probability block in the unit structure.
       </p>
 
       <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/probability/distributions/chi-square-distribution/">
-          Next lesson: 12. Chi-Square Distribution →
+        <a class="btn" href="/probability/">
+          Back to Probability home →
         </a>
       </div>
     </div>
@@ -236,7 +273,7 @@ sidebar: false
         <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
         <div class="mini-body">
           <a href="/probability/distributions/normal-distribution/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 10 — Normal Distribution
+            Lesson 11 — Normal Distribution
           </a>
         </div>
       </div>
