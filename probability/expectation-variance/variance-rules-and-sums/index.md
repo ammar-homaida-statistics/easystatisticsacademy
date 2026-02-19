@@ -288,38 +288,6 @@ sidebar: false
 <section class="section section-slim">
   <div class="callout">
     <div class="callout-copy">
-      <h2>✅ To-Do List (Save on Phone) — Block 4, Lesson 2</h2>
-
-      <h3 style="margin-top:.75rem;">📊 Visuals To Add Later</h3>
-      <ul class="bullets">
-        <li>Side-by-side plots: X vs X+b (same spread) and X vs aX (scaled spread)</li>
-        <li>Illustration: Var(X+Y) includes covariance “extra term”</li>
-        <li>Three scenarios: positive covariance / zero covariance / negative covariance</li>
-        <li>Simple diagram showing why the “2” appears (algebra expansion)</li>
-      </ul>
-
-      <h3 style="margin-top:.75rem;">🧠 Content Enhancements</h3>
-      <ul class="bullets">
-        <li>Add one numeric example with independent variables (covariance = 0)</li>
-        <li>Add one numeric example with positive covariance (same-direction movement)</li>
-        <li>Add one numeric example with negative covariance (hedging / opposite movement)</li>
-        <li>Add short note: zero covariance ≠ independence (preview only)</li>
-      </ul>
-
-      <h3 style="margin-top:.75rem;">💻 Software Additions</h3>
-      <ul class="bullets">
-        <li>Excel: simulate two columns and compute sample variance and covariance</li>
-        <li>R: var(), cov(), and checking Var(X+Y) formula with simulated data</li>
-        <li>Python: numpy var/cov and simulation verification</li>
-        <li>SPSS: compute variance/covariance via Descriptives + Correlate</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
       <h2>Next step</h2>
       <p style="margin:0;">
         Next, we define <strong>covariance</strong> carefully and interpret it as the key measure of joint movement
