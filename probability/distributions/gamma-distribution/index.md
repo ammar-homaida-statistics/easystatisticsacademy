@@ -167,13 +167,13 @@ sidebar: false
     <div class="callout-copy">
       <h2>Next step</h2>
       <p style="margin:0;">
-        Next, we study the most important distribution in statistics:
-        the Normal distribution.
+        Next, we study the <strong>Beta distribution</strong>, a flexible model on the interval
+        <strong>[0, 1]</strong> that is widely used for probabilities and proportions.
       </p>
 
       <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/probability/distributions/normal-distribution/">
-          Next lesson: 10. Normal Distribution →
+        <a class="btn" href="/probability/distributions/beta-distribution/">
+          Next lesson: 10. Beta Distribution →
         </a>
       </div>
     </div>
