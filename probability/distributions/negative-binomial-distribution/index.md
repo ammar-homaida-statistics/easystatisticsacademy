@@ -249,13 +249,14 @@ sidebar: false
     <div class="callout-copy">
       <h2>Next step</h2>
       <p style="margin:0;">
-        Next, we move to a continuous waiting-time model:
-        the <strong>Exponential distribution</strong>.
+        Next, we move from counting trials until r successes
+        to counting events occurring over time or space
+        with a constant rate.
       </p>
 
       <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/probability/distributions/exponential-distribution/">
-          Next lesson: 5. Exponential Distribution →
+        <a class="btn" href="/probability/distributions/poisson-distribution/">
+          Next lesson: 5. Poisson Distribution →
         </a>
       </div>
     </div>
