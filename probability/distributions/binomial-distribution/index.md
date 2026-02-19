@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "2. Binomial Distribution"
-description: "Binomial(n,p) models the number of successes in n independent Bernoulli trials and connects directly to counting and proportions."
+description: "Binomial(n,p) models the number of successes in n independent Bernoulli trials; PMF, mean/variance, and core interpretations."
 permalink: /probability/distributions/binomial-distribution/
 sidebar: false
 ---
@@ -43,9 +43,8 @@ sidebar: false
 
       <h1>2. Binomial Distribution</h1>
       <p class="lead">
-        The Binomial distribution counts how many successes occur in
-        <strong>n independent Bernoulli trials</strong>, each with success probability <strong>p</strong>.
-        It is the standard model for repeated yes/no experiments.
+        The binomial distribution models the number of successes in a fixed number of independent trials.
+        It is the natural extension of the Bernoulli distribution from <strong>one</strong> trial to <strong>n</strong> trials.
       </p>
 
       <div class="hero-actions">
@@ -54,7 +53,7 @@ sidebar: false
       </div>
 
       <p class="muted-mini">
-        Key message: Binomial = sum of n Bernoulli(p) trials.
+        Think: repeated yes/no trials → count the successes.
       </p>
     </div>
   </div>
@@ -64,8 +63,8 @@ sidebar: false
   <div class="section-head">
     <h2>Learning objective</h2>
     <p>
-      By the end of this lesson, you should be able to define Binomial(n,p),
-      state its assumptions, write the PMF, and use its mean and variance.
+      By the end of this lesson, you should be able to recognize binomial settings, define
+      <strong>Binomial(n,p)</strong>, write its PMF, and use its mean and variance correctly.
     </p>
   </div>
 
@@ -73,8 +72,8 @@ sidebar: false
     <div class="callout-copy">
       <h2>Key idea</h2>
       <p style="margin:0;">
-        <strong>X ~ Binomial(n,p)</strong> counts the number of successes in n trials.
-        Each trial is Bernoulli(p), and trials are independent.
+        <strong>Binomial counts successes.</strong> It applies only when you have a fixed number of trials,
+        identical success probability, and independence between trials.
       </p>
     </div>
   </div>
@@ -82,70 +81,91 @@ sidebar: false
 
 <section class="section">
   <div class="section-head">
-    <h2>1) Definition and assumptions</h2>
+    <h2>1) When do we use a binomial model?</h2>
     <p>
-      A random variable X follows a Binomial distribution if:
+      A random variable <strong>X</strong> is binomial if it counts successes in repeated trials under these conditions:
     </p>
   </div>
 
   <div class="card">
     <ul class="bullets">
-      <li>There are a fixed number of trials: <strong>n</strong>.</li>
-      <li>Each trial has two outcomes (success/failure).</li>
-      <li>Success probability is constant: <strong>P(success)=p</strong>.</li>
-      <li>Trials are <strong>independent</strong>.</li>
-      <li>X counts successes: <strong>X ∈ {0,1,2,...,n}</strong>.</li>
+      <li><strong>Fixed number of trials:</strong> n is known and constant</li>
+      <li><strong>Two outcomes per trial:</strong> success/failure (coded 1/0)</li>
+      <li><strong>Constant success probability:</strong> P(success) = p in each trial</li>
+      <li><strong>Independence:</strong> outcomes of trials do not affect each other</li>
     </ul>
   </div>
 
   <p class="muted-mini" style="margin-top:.75rem;">
-    If independence or constant p fails, Binomial may not be appropriate (see Hypergeometric later).
+    If any of these fail (especially independence or constant p), the binomial model may be inappropriate.
   </p>
 </section>
 
 <section class="section">
   <div class="section-head">
-    <h2>2) PMF (probability mass function)</h2>
+    <h2>2) Definition</h2>
     <p>
-      For X ~ Binomial(n,p), the probability of exactly k successes is:
+      Let <strong>X</strong> be the number of successes in <strong>n</strong> independent Bernoulli trials with success probability <strong>p</strong>.
+      Then:
     </p>
   </div>
 
   <div class="card">
     <p style="margin:0; font-size:1.1rem;">
-      <strong>P(X = k) = C(n,k) p^k (1-p)^{n-k}, &nbsp; k=0,1,...,n</strong>
-    </p>
-  </div>
-
-  <div class="card" style="margin-top:1rem;">
-    <h3>What each piece means</h3>
-    <ul class="bullets">
-      <li><strong>C(n,k)</strong> counts how many ways to place k successes among n trials.</li>
-      <li><strong>p^k</strong> is the probability of those k successes.</li>
-      <li><strong>(1-p)^{n-k}</strong> is the probability of the remaining failures.</li>
-    </ul>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>3) Connection to Bernoulli</h2>
-    <p>
-      If X₁,...,Xₙ are independent Bernoulli(p), then:
-    </p>
-  </div>
-
-  <div class="card">
-    <p style="margin:0; font-size:1.1rem;">
-      <strong>X = X₁ + X₂ + ... + Xₙ  ~  Binomial(n,p)</strong>
+      \[
+      X \sim \operatorname{Binomial}(n,p).
+      \]
     </p>
   </div>
 
   <div class="callout" style="margin-top:1rem;">
     <div class="callout-copy">
-      <h2>Modeling translation</h2>
+      <h2>Connection to Bernoulli</h2>
       <p style="margin:0;">
-        “Number of successes” is literally a sum of 0/1 indicators.
+        If \(X_i \sim \operatorname{Bernoulli}(p)\) and trials are independent, then
+        \[
+        X=\sum_{i=1}^{n} X_i \sim \operatorname{Binomial}(n,p).
+        \]
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>3) PMF (probability mass function)</h2>
+    <p>
+      The probability of observing exactly <strong>k</strong> successes is:
+    </p>
+  </div>
+
+  <div class="card">
+    <p style="margin:0; font-size:1.1rem;">
+      \[
+      \Pr(X=k)=\binom{n}{k}p^{k}(1-p)^{\,n-k}, \qquad k=0,1,2,\ldots,n.
+      \]
+    </p>
+  </div>
+
+  <div class="grid grid-2" style="margin-top:1rem;">
+    <div class="card">
+      <h3>What each term means</h3>
+      <ul class="bullets">
+        <li>\(\binom{n}{k}\): number of ways to choose which k trials are successes</li>
+        <li>\(p^{k}\): probability of k successes (for a fixed pattern)</li>
+        <li>\((1-p)^{n-k}\): probability of n−k failures (for the same pattern)</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Binomial coefficient</h3>
+      <p style="margin:0;">
+        \[
+        \binom{n}{k}=\frac{n!}{k!(n-k)!}.
+        \]
+      </p>
+      <p class="muted-mini" style="margin-top:.5rem;">
+        Counts combinations (order does not matter).
       </p>
     </div>
   </div>
@@ -155,24 +175,42 @@ sidebar: false
   <div class="section-head">
     <h2>4) Mean and variance</h2>
     <p>
-      For X ~ Binomial(n,p):
+      For \(X \sim \operatorname{Binomial}(n,p)\):
     </p>
   </div>
 
   <div class="grid grid-2">
     <div class="card">
-      <h3>Mean</h3>
-      <p style="margin:0;"><strong>E[X] = np</strong></p>
+      <h3>Expectation</h3>
+      <p style="margin:0; font-size:1.1rem;">
+        \[
+        \mathbb{E}[X]=np.
+        \]
+      </p>
       <p class="muted-mini" style="margin-top:.5rem;">
-        Expected successes = trials × success probability.
+        Expected number of successes = trials × success probability.
       </p>
     </div>
 
     <div class="card">
       <h3>Variance</h3>
-      <p style="margin:0;"><strong>Var(X) = np(1-p)</strong></p>
+      <p style="margin:0; font-size:1.1rem;">
+        \[
+        \operatorname{Var}(X)=np(1-p).
+        \]
+      </p>
       <p class="muted-mini" style="margin-top:.5rem;">
-        Variability grows with n and is largest near p=0.5.
+        Variability grows with n and is largest near \(p=0.5\).
+      </p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:1rem;">
+    <div class="callout-copy">
+      <h2>Why these formulas make sense</h2>
+      <p style="margin:0;">
+        Since \(X=\sum_{i=1}^{n}X_i\) with \(X_i\sim\operatorname{Bernoulli}(p)\), linearity gives
+        \(\mathbb{E}[X]=\sum \mathbb{E}[X_i]=np\), and (with independence) variances add to give \(np(1-p)\).
       </p>
     </div>
   </div>
@@ -180,26 +218,28 @@ sidebar: false
 
 <section class="section">
   <div class="section-head">
-    <h2>5) When to use Binomial (and when not)</h2>
+    <h2>5) Interpretation and quick checks</h2>
+    <p>
+      Before using a binomial model, verify the story matches the assumptions.
+    </p>
   </div>
 
   <div class="grid grid-2">
     <div class="card">
-      <h3>Use Binomial when</h3>
+      <h3>Good binomial examples</h3>
       <ul class="bullets">
-        <li>Fixed n</li>
-        <li>Independent trials</li>
-        <li>Same p each trial</li>
-        <li>Counting successes</li>
+        <li>Number of heads in n coin tosses (fair coin: \(p=0.5\))</li>
+        <li>Number of defective items in n independent inspections</li>
+        <li>Number of patients responding to treatment in n trials (if assumptions hold)</li>
       </ul>
     </div>
 
     <div class="card">
-      <h3>Do NOT use Binomial when</h3>
+      <h3>Not binomial (common)</h3>
       <ul class="bullets">
-        <li>Sampling without replacement from a finite population (Hypergeometric)</li>
-        <li>p changes across trials (needs a different model)</li>
-        <li>Trials are dependent (variance changes)</li>
+        <li>Sampling <strong>without replacement</strong> from a finite population (often hypergeometric)</li>
+        <li>Changing probability over time (non-constant p)</li>
+        <li>Dependence between trials (clustered outcomes)</li>
       </ul>
     </div>
   </div>
@@ -210,10 +250,10 @@ sidebar: false
     <div class="callout-copy">
       <h2>Common mistakes</h2>
       <ul class="bullets">
-        <li>Forgetting independence (especially in sampling without replacement)</li>
-        <li>Using Binomial when n is not fixed</li>
-        <li>Mixing up “exactly k” with “at least k” (needs summation)</li>
-        <li>Confusing Binomial with Geometric (which counts trials until first success)</li>
+        <li>Using binomial when trials are not independent</li>
+        <li>Forgetting k must be between 0 and n</li>
+        <li>Confusing “exactly k” with “at least k” (requires summation)</li>
+        <li>Using binomial for sampling without replacement (often hypergeometric)</li>
       </ul>
     </div>
   </div>
@@ -224,10 +264,10 @@ sidebar: false
     <div class="callout-copy">
       <h2>Outcome of this lesson</h2>
       <ul class="bullets">
-        <li>State Binomial(n,p) assumptions clearly</li>
-        <li>Use P(X=k)=C(n,k)p^k(1-p)^{n-k}</li>
-        <li>Use E[X]=np and Var(X)=np(1-p)</li>
-        <li>Be ready for Geometric as “waiting time” to success</li>
+        <li>Recognize when Binomial(n,p) is appropriate</li>
+        <li>Use the PMF \(\Pr(X=k)=\binom{n}{k}p^k(1-p)^{n-k}\)</li>
+        <li>Use \(\mathbb{E}[X]=np\) and \(\operatorname{Var}(X)=np(1-p)\)</li>
+        <li>Prepare for Geometric distribution (waiting time until first success)</li>
       </ul>
     </div>
   </div>
@@ -238,8 +278,9 @@ sidebar: false
     <div class="callout-copy">
       <h2>Next step</h2>
       <p style="margin:0;">
-        Next, we move from “counting successes in n trials” to “waiting for the first success”:
-        the <strong>Geometric distribution</strong>.
+        Next, we change the question:
+        instead of “How many successes in n trials?”, we ask
+        “How many trials until the first success?” — the <strong>Geometric distribution</strong>.
       </p>
 
       <div class="pill-row" style="margin-top:1rem;">
