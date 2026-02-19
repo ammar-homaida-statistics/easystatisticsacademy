@@ -214,19 +214,18 @@ sidebar: false
   </div>
 </section>
 
-<!-- ✅ Next navigation (Block 6) -->
+<!-- ✅ Next block navigation -->
 <section class="section section-slim">
   <div class="callout">
     <div class="callout-copy">
       <h2>Next block</h2>
       <p style="margin:0;">
-        Continue to Block 6, where we build inference-ready distributions (Chi-square, t, F)
-        and connect them directly to estimation and hypothesis testing.
+        Continue to Block 6 — Law of Large Numbers & CLT.
       </p>
 
       <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/probability/inference-distributions/">
-          Block 6 — Inference Distributions →
+        <a class="btn" href="/probability/lln-clt/">
+          Block 6 — Law of Large Numbers & CLT →
         </a>
       </div>
     </div>
