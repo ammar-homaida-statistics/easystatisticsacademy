@@ -195,18 +195,19 @@ sidebar: false
   </div>
 </section>
 
+<!-- ✅ FIXED: Next lesson goes to Lognormal -->
 <section class="section section-slim">
   <div class="callout">
     <div class="callout-copy">
       <h2>Next step</h2>
       <p style="margin:0;">
-        Next, we study the Chi-Square distribution,
-        which builds directly from the Normal.
+        Next, we study the Lognormal distribution, which models positive-valued quantities
+        created by exponentiating a Normal variable.
       </p>
 
       <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/probability/distributions/chi-square-distribution/">
-          Next lesson: 11. Chi-Square Distribution →
+        <a class="btn" href="/probability/distributions/lognormal-distribution/">
+          Next lesson: 11. Lognormal Distribution →
         </a>
       </div>
     </div>
