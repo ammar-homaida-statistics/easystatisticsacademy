@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "10. Normal Distribution"
+title: "11. Normal Distribution"
 description: "The Normal distribution: bell-shaped symmetry, mean and variance, standardization, and why it dominates statistical theory."
 permalink: /probability/distributions/normal-distribution/
 sidebar: false
@@ -25,7 +25,7 @@ sidebar: false
     var KEY = "esa_continue_probability_distributions_lesson_v0";
     localStorage.setItem(KEY, JSON.stringify({
       url: "/probability/distributions/normal-distribution/",
-      label: "Lesson 10 — Normal Distribution",
+      label: "Lesson 11 — Normal Distribution",
       ts: Date.now()
     }));
   })();
@@ -36,16 +36,17 @@ sidebar: false
     <div class="hero-copy">
       <div class="badge-row">
         <span class="badge">Block 5</span>
-        <span class="badge">Lesson 10</span>
+        <span class="badge">Lesson 11</span>
         <span class="badge">Continuous</span>
         <span class="badge">Bell Curve</span>
       </div>
 
-      <h1>10. Normal Distribution</h1>
+      <h1>11. Normal Distribution</h1>
 
       <p class="lead">
         The Normal distribution is the most important continuous distribution in statistics.
-        It models natural variation, measurement error, and arises from the Central Limit Theorem.
+        It models natural variation, measurement error, and appears everywhere through the
+        Central Limit Theorem.
       </p>
 
       <div class="hero-actions">
@@ -67,53 +68,51 @@ sidebar: false
 
   <div class="card">
     <p>
-      A random variable X follows a Normal distribution with mean μ and variance σ² if:
+      A random variable <strong>X</strong> follows a Normal distribution with mean <strong>&mu;</strong> and variance
+      <strong>&sigma;²</strong> if its probability density function is:
     </p>
 
-    <p style="font-size:1.1rem;">
+    <p style="font-size:1.1rem; margin:0;">
       $$
-      f(x) =
-      \frac{1}{\sigma \sqrt{2\pi}}
-      \exp\!\left(
-        -\frac{(x-\mu)^2}{2\sigma^2}
-      \right),
-      \quad x \in (-\infty, \infty)
+      f(x)=\frac{1}{\sigma\sqrt{2\pi}}
+      \exp\!\left(-\frac{(x-\mu)^2}{2\sigma^2}\right),
+      \quad -\infty<x<\infty.
       $$
     </p>
 
-    <p class="muted-mini">
-      Notation: X ~ N(μ, σ²)
+    <p class="muted-mini" style="margin-top:.75rem;">
+      Notation: $$X\sim \mathcal{N}(\mu,\sigma^2).$$
     </p>
   </div>
 </section>
 
 <section class="section">
   <div class="section-head">
-    <h2>2) Key Properties</h2>
+    <h2>2) Key properties</h2>
   </div>
 
   <div class="grid grid-2">
     <div class="card">
-      <h3>Mean and Variance</h3>
+      <h3>Mean and variance</h3>
       <p style="margin:0;">
         $$
-        E[X] = \mu
+        \mathbb{E}[X]=\mu,
+        \qquad
+        \mathrm{Var}(X)=\sigma^2.
         $$
       </p>
-      <p style="margin-top:.5rem;">
-        $$
-        Var(X) = \sigma^2
-        $$
+      <p class="muted-mini" style="margin-top:.5rem;">
+        &mu; shifts the center. &sigma; controls spread.
       </p>
     </div>
 
     <div class="card">
-      <h3>Shape</h3>
+      <h3>Shape facts</h3>
       <ul class="bullets">
-        <li>Symmetric around μ</li>
-        <li>Bell-shaped curve</li>
-        <li>Mean = Median = Mode</li>
-        <li>Tails extend infinitely</li>
+        <li>Symmetric around &mu;</li>
+        <li>Mean = median = mode = &mu;</li>
+        <li>Tails extend to &plusmn;&infin; (but probability mass stays 1)</li>
+        <li>Always unimodal (single peak)</li>
       </ul>
     </div>
   </div>
@@ -121,63 +120,79 @@ sidebar: false
 
 <section class="section">
   <div class="section-head">
-    <h2>3) Standard Normal Distribution</h2>
+    <h2>3) Standard normal and standardization</h2>
   </div>
 
   <div class="card">
-    <p>
-      The standard normal distribution has:
-    </p>
     <p style="margin:0;">
+      The <strong>standard normal</strong> distribution is:
       $$
-      Z \sim N(0,1)
+      Z\sim \mathcal{N}(0,1).
       $$
     </p>
   </div>
 
   <div class="card" style="margin-top:1rem;">
-    <h3>Standardization (Z-score)</h3>
+    <h3>Z-score (standardization)</h3>
     <p style="margin:0;">
+      If $$X\sim \mathcal{N}(\mu,\sigma^2),$$ then
       $$
-      Z = \frac{X - \mu}{\sigma}
+      Z=\frac{X-\mu}{\sigma}\sim \mathcal{N}(0,1).
       $$
     </p>
     <p class="muted-mini" style="margin-top:.5rem;">
-      Converts any normal variable to standard normal.
+      This is how we compute Normal probabilities using standard normal tables (or software).
     </p>
   </div>
 </section>
 
 <section class="section">
   <div class="section-head">
-    <h2>4) The 68–95–99.7 Rule</h2>
+    <h2>4) The 68–95–99.7 rule (empirical rule)</h2>
+    <p>
+      For a Normal distribution, most probability mass lies within a few standard deviations of the mean.
+    </p>
   </div>
 
   <div class="card">
     <ul class="bullets">
-      <li>≈ 68% within μ ± 1σ</li>
-      <li>≈ 95% within μ ± 2σ</li>
-      <li>≈ 99.7% within μ ± 3σ</li>
+      <li>About <strong>68%</strong> of values lie in $$[\mu-\sigma,\ \mu+\sigma]$$</li>
+      <li>About <strong>95%</strong> of values lie in $$[\mu-2\sigma,\ \mu+2\sigma]$$</li>
+      <li>About <strong>99.7%</strong> of values lie in $$[\mu-3\sigma,\ \mu+3\sigma]$$</li>
     </ul>
   </div>
 
   <p class="muted-mini" style="margin-top:.75rem;">
-    This empirical rule explains why normal distributions appear stable and predictable.
+    These are approximations, but very useful for quick checks and intuition.
   </p>
 </section>
 
 <section class="section">
   <div class="section-head">
-    <h2>5) Why Normal Is So Important</h2>
+    <h2>5) Why the Normal distribution dominates statistics</h2>
   </div>
 
-  <div class="card">
-    <ul class="bullets">
-      <li>Central Limit Theorem</li>
-      <li>Measurement errors</li>
-      <li>Sampling distributions</li>
-      <li>Foundation of confidence intervals and hypothesis testing</li>
-    </ul>
+  <div class="grid grid-2">
+    <div class="card">
+      <h3>Central Limit Theorem (preview)</h3>
+      <p>
+        Sums/averages of many small independent effects often become approximately Normal,
+        even if the original variables are not Normal.
+      </p>
+      <p class="muted-mini" style="margin-top:.5rem;">
+        This explains why Normal-based inference works so often.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Modeling and inference</h3>
+      <ul class="bullets">
+        <li>Measurement and instrument noise</li>
+        <li>Sampling distributions of estimators</li>
+        <li>Confidence intervals and hypothesis tests</li>
+        <li>Regression errors (classical linear model)</li>
+      </ul>
+    </div>
   </div>
 </section>
 
@@ -186,28 +201,28 @@ sidebar: false
     <div class="callout-copy">
       <h2>Outcome of this lesson</h2>
       <ul class="bullets">
-        <li>Define the Normal distribution formally</li>
-        <li>Understand μ and σ² roles</li>
-        <li>Standardize using Z-scores</li>
-        <li>Recognize why normal dominates inference</li>
+        <li>Define $$\mathcal{N}(\mu,\sigma^2)$$ formally</li>
+        <li>Interpret the roles of &mu; and &sigma;</li>
+        <li>Standardize using $$Z=(X-\mu)/\sigma$$</li>
+        <li>Use the 68–95–99.7 rule as a quick diagnostic</li>
       </ul>
     </div>
   </div>
 </section>
 
-<!-- ✅ FIXED: Next lesson goes to Lognormal -->
+<!-- ✅ Next lesson placeholder: Lognormal -->
 <section class="section section-slim">
   <div class="callout">
     <div class="callout-copy">
       <h2>Next step</h2>
       <p style="margin:0;">
-        Next, we study the Lognormal distribution, which models positive-valued quantities
+        Next, we study the <strong>Lognormal distribution</strong>, which models positive-valued quantities
         created by exponentiating a Normal variable.
       </p>
 
       <div class="pill-row" style="margin-top:1rem;">
         <a class="btn" href="/probability/distributions/lognormal-distribution/">
-          Next lesson: 11. Lognormal Distribution →
+          Next lesson: 12. Lognormal Distribution →
         </a>
       </div>
     </div>
@@ -216,8 +231,8 @@ sidebar: false
       <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
         <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
         <div class="mini-body">
-          <a href="/probability/distributions/gamma-distribution/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 9 — Gamma Distribution
+          <a href="/probability/distributions/beta-distribution/" style="color:#1a73e8; text-decoration:underline;">
+            Lesson 10 — Beta Distribution
           </a>
         </div>
       </div>
