@@ -218,16 +218,16 @@ sidebar: false
   </div>
 
   <div class="card">
-    <p style="margin:0;">
-      <strong>
-        Var\Big(\sum_{i=1}^n X_i\Big)
-        =
-        \sum_{i=1}^n Var(X_i)
-        +
-        2\sum_{i&lt;j} Cov(X_i, X_j)
-      </strong>
-    </p>
-  </div>
+  <p style="margin:0;">
+    $$ 
+    \mathrm{Var}\!\left(\sum_{i=1}^{n} X_i\right)
+    =
+    \sum_{i=1}^{n} \mathrm{Var}(X_i)
+    +
+    2\sum_{i<j} \mathrm{Cov}(X_i, X_j)
+    $$
+  </p>
+</div>
 
   <div class="callout" style="margin-top:1rem;">
     <div class="callout-copy">
