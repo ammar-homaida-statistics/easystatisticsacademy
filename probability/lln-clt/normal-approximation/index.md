@@ -205,7 +205,7 @@ sidebar: false
       </p>
 
       <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/probability/lln-clt/why-inference-works/">
+        <a class="btn" href="/probability/lln-clt/inference-bridge/">
           Next lesson: 6. Why Inference Works →
         </a>
       </div>
