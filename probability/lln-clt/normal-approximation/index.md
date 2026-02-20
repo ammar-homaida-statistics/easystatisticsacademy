@@ -200,21 +200,22 @@ sidebar: false
     <div class="callout-copy">
       <h2>Next step</h2>
       <p style="margin:0;">
-        Block 6 is complete.
-        Next, we move to <strong>Sampling Distributions & Estimation</strong>.
+        We now connect convergence theory to statistical inference:
+        confidence intervals and hypothesis testing.
       </p>
 
       <div class="pill-row" style="margin-top:1rem;">
-  <a class="btn" href="/probability/lln-clt/why-inference-works/">
-    Next lesson: 6. Why Inference Works →
-  </a>
-</div>
+        <a class="btn" href="/probability/lln-clt/why-inference-works/">
+          Next lesson: 6. Why Inference Works →
+        </a>
+      </div>
+    </div>
 
     <div class="callout-side">
-      <div class="mini">
-        <div class="mini-title">Previous lesson</div>
+      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
+        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
         <div class="mini-body">
-          <a href="/probability/lln-clt/central-limit-theorem/">
+          <a href="/probability/lln-clt/central-limit-theorem/" style="color:#1a73e8; text-decoration:underline;">
             Lesson 4 — Central Limit Theorem
           </a>
         </div>
