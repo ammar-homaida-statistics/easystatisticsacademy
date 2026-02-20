@@ -212,7 +212,7 @@ sidebar: false
       </p>
 
       <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/probability/sampling-distributions/f-distribution-and-anova/">
+        <a class="btn" href="/probability/sampling-distributions/f-distribution-and-anova-perview/">
           Next lesson: 6. F-Distribution & ANOVA →
         </a>
       </div>
