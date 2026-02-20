@@ -176,8 +176,8 @@ sidebar: false
         <div class="mini-title" style="color:#1a73e8;">Next block</div>
         <div class="mini-body">
           Continue to
-          <a href="/probability/inference/" style="color:#1a73e8; text-decoration:underline;">
-            <strong>Next block — Statistical Inference (Coming)</strong>
+          <a href="/inference/" style="color:#1a73e8; text-decoration:underline;">
+            <strong>Next block — Statistical Inference</strong>
           </a>.
         </div>
       </div>
