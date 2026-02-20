@@ -293,13 +293,13 @@ sidebar: false
     <div class="callout-copy">
       <h2>Next step</h2>
       <p style="margin:0;">
-        Next, we study the sampling distribution of the <strong>sample mean</strong> in detail:
-        exact Normal results and the link to standardization.
+        Now we standardize estimators and build confidence intervals using the
+        <strong>z-statistic</strong> under Normal assumptions.
       </p>
 
       <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/probability/sampling-distributions/sampling-distribution-of-the-mean/">
-          Next lesson: 3. Sampling Distribution of the Mean →
+        <a class="btn" href="/probability/sampling-distributions/z-statistic-and-ci/">
+          Next lesson: 3. z-Statistic &amp; Confidence Intervals →
         </a>
       </div>
     </div>
