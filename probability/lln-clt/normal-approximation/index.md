@@ -205,11 +205,10 @@ sidebar: false
       </p>
 
       <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/probability/sampling-distributions/">
-          Next block →
-        </a>
-      </div>
-    </div>
+  <a class="btn" href="/probability/lln-clt/why-inference-works/">
+    Next lesson: 6. Why Inference Works →
+  </a>
+</div>
 
     <div class="callout-side">
       <div class="mini">
