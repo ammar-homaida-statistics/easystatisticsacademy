@@ -210,29 +210,31 @@ lesson_order: 1
       Two different random samples can give different averages.
     </p>
 
-    <div style="overflow-x:auto;">
-      <table style="width:100%; border-collapse:collapse;">
-        <thead>
-          <tr>
-            <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Sample</th>
-            <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Scores</th>
-            <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Sample mean</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style="padding:10px; border-bottom:1px solid #eee;">A</td>
-            <td style="padding:10px; border-bottom:1px solid #eee;">70, 75, 80, 85, 90</td>
-            <td style="padding:10px; border-bottom:1px solid #eee;">80</td>
-          </tr>
-          <tr>
-            <td style="padding:10px; border-bottom:1px solid #eee;">B</td>
-            <td style="padding:10px; border-bottom:1px solid #eee;">60, 65, 70, 75, 80</td>
-            <td style="padding:10px; border-bottom:1px solid #eee;">70</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <div style="margin:24px 0;">
+  <div style="max-width:850px; margin:auto; overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; background:#ffffff; border-radius:10px; overflow:hidden; box-shadow:0 4px 10px rgba(0,0,0,0.05);">
+      <thead style="background:#f1f3f5;">
+        <tr>
+          <th style="padding:14px 16px; text-align:left; font-weight:600;">Sample</th>
+          <th style="padding:14px 16px; text-align:left; font-weight:600;">Scores</th>
+          <th style="padding:14px 16px; text-align:left; font-weight:600;">Sample mean</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-top:1px solid #e9ecef;">
+          <td style="padding:12px 16px;">A</td>
+          <td style="padding:12px 16px;">70, 75, 80, 85, 90</td>
+          <td style="padding:12px 16px;">80</td>
+        </tr>
+        <tr style="border-top:1px solid #e9ecef;">
+          <td style="padding:12px 16px;">B</td>
+          <td style="padding:12px 16px;">60, 65, 70, 75, 80</td>
+          <td style="padding:12px 16px;">70</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
     <p>
       The difference (80 vs 70) is <strong>sampling variability</strong>. Statistics provides tools (like confidence intervals and hypothesis tests)
