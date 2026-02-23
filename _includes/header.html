@@ -1,4 +1,5 @@
 <header class="site-header">
+  <!-- Row 1: brand + search + toggle -->
   <div class="container header-top">
     <a class="brand" href="/">
       <img src="/images/brand/logo.png?v=2" alt="EasyStatisticsAcademy" />
@@ -17,17 +18,28 @@
     </button>
   </div>
 
+  <!-- Row 2: centered nav with More dropdown -->
   <div class="container header-bottom">
     <nav id="site-nav" class="nav" aria-label="Primary">
-      <a href="/">Home</a>
-      <a href="/foundations/">Statistics</a>
-      <a href="/descriptive/">Descriptive</a>
-      <a href="/probability/">Probability Theory</a>
-      <a href="/inference/">Statistical Inference</a>
-      <a href="/data-mining/">Data Science &amp; AI</a>
-      <a href="/software/">Software</a>
-      <a href="/learning-paths/">Learning Paths</a>
-      <a href="/about/">About</a>
+      <div class="nav-main">
+        <a href="/">Home</a>
+        <a href="/foundations/">Statistics</a>
+        <a href="/descriptive/">Descriptive</a>
+        <a href="/probability/">Probability Theory</a>
+        <a href="/inference/">Statistical Inference</a>
+
+        <div class="nav-more" role="none">
+          <button class="nav-more-btn" type="button" aria-expanded="false">
+            More <span aria-hidden="true">▾</span>
+          </button>
+          <div class="nav-more-menu" role="menu">
+            <a role="menuitem" href="/data-mining/">Data Science &amp; AI</a>
+            <a role="menuitem" href="/software/">Software</a>
+            <a role="menuitem" href="/learning-paths/">Learning Paths</a>
+            <a role="menuitem" href="/about/">About</a>
+          </div>
+        </div>
+      </div>
     </nav>
   </div>
 </header>
