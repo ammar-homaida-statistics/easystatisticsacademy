@@ -113,34 +113,36 @@ lesson_order: 3
   <div class="content-narrow">
     <h2>Deterministic vs Statistical Thinking</h2>
 
-    <div style="overflow-x:auto;">
-      <table style="width:100%; border-collapse:collapse;">
-        <thead>
-          <tr>
-            <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Deterministic Thinking</th>
-            <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Statistical Thinking</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style="padding:10px; border-bottom:1px solid #eee;">Same input → same output</td>
-            <td style="padding:10px; border-bottom:1px solid #eee;">Same input → distribution of possible outcomes</td>
-          </tr>
-          <tr>
-            <td style="padding:10px; border-bottom:1px solid #eee;">Focus on exact results</td>
-            <td style="padding:10px; border-bottom:1px solid #eee;">Focus on patterns and variability</td>
-          </tr>
-          <tr>
-            <td style="padding:10px; border-bottom:1px solid #eee;">Single observation may suffice</td>
-            <td style="padding:10px; border-bottom:1px solid #eee;">Multiple observations required</td>
-          </tr>
-          <tr>
-            <td style="padding:10px; border-bottom:1px solid #eee;">Certainty expected</td>
-            <td style="padding:10px; border-bottom:1px solid #eee;">Uncertainty quantified</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <div style="margin:24px 0;">
+  <div style="max-width:850px; margin:auto; overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; background:#ffffff; border-radius:10px; overflow:hidden; box-shadow:0 4px 10px rgba(0,0,0,0.05);">
+      <thead style="background:#f1f3f5;">
+        <tr>
+          <th style="padding:14px 16px; text-align:left; font-weight:600;">Deterministic Thinking</th>
+          <th style="padding:14px 16px; text-align:left; font-weight:600;">Statistical Thinking</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-top:1px solid #e9ecef;">
+          <td style="padding:12px 16px;">Same input → same output</td>
+          <td style="padding:12px 16px;">Same input → distribution of possible outcomes</td>
+        </tr>
+        <tr style="border-top:1px solid #e9ecef;">
+          <td style="padding:12px 16px;">Focus on exact results</td>
+          <td style="padding:12px 16px;">Focus on patterns and variability</td>
+        </tr>
+        <tr style="border-top:1px solid #e9ecef;">
+          <td style="padding:12px 16px;">Single observation may suffice</td>
+          <td style="padding:12px 16px;">Multiple observations required</td>
+        </tr>
+        <tr style="border-top:1px solid #e9ecef;">
+          <td style="padding:12px 16px;">Certainty expected</td>
+          <td style="padding:12px 16px;">Uncertainty quantified</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
   </div>
 </section>
 
@@ -152,26 +154,28 @@ lesson_order: 3
       Two datasets can have the same average but behave very differently.
     </p>
 
-    <div style="overflow-x:auto;">
-      <table style="width:100%; border-collapse:collapse;">
-        <thead>
-          <tr>
-            <th style="padding:10px; border-bottom:1px solid #ddd;">Dataset A</th>
-            <th style="padding:10px; border-bottom:1px solid #ddd;">Dataset B</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style="padding:10px; border-bottom:1px solid #eee;">8, 9, 10, 11, 12</td>
-            <td style="padding:10px; border-bottom:1px solid #eee;">2, 5, 10, 15, 18</td>
-          </tr>
-          <tr>
-            <td style="padding:10px;">Mean = 10</td>
-            <td style="padding:10px;">Mean = 10</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <div style="margin:24px 0;">
+  <div style="max-width:850px; margin:auto; overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; background:#ffffff; border-radius:10px; overflow:hidden; box-shadow:0 4px 10px rgba(0,0,0,0.05);">
+      <thead style="background:#f1f3f5;">
+        <tr>
+          <th style="padding:14px 16px; text-align:left; font-weight:600;">Dataset A</th>
+          <th style="padding:14px 16px; text-align:left; font-weight:600;">Dataset B</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-top:1px solid #e9ecef;">
+          <td style="padding:12px 16px;">8, 9, 10, 11, 12</td>
+          <td style="padding:12px 16px;">2, 5, 10, 15, 18</td>
+        </tr>
+        <tr style="border-top:1px solid #e9ecef;">
+          <td style="padding:12px 16px;">Mean = 10</td>
+          <td style="padding:12px 16px;">Mean = 10</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
     <p>
       Although both averages equal 10, Dataset B shows much greater variability.
