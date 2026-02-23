@@ -95,22 +95,122 @@ sidebar: false
   <div class="section-head">
     <h2>Lessons (Version 0)</h2>
     <p>
-      This block will be expanded lesson-by-lesson. Links will appear when lessons are published.
-      The order will remain stable.
+      This block will be expanded lesson-by-lesson. Lessons are published in order to keep the inference toolkit coherent.
+      The list below is the permanent structure for this block.
     </p>
   </div>
 
   <div class="grid grid-2">
 
+    <!-- Lesson 1 -->
     <div class="card lesson-card">
-      <h3>Lesson placeholders</h3>
-      <p>Coming soon. This area will contain the permanent lesson list for this block.</p>
+      <h3>1. What Is Statistical Inference?</h3>
+      <p>Inference as reasoning under uncertainty: why we generalize from samples and what “uncertainty” means.</p>
       <div class="pill-row"><span class="badge">Coming soon</span></div>
     </div>
 
+    <!-- Lesson 2 -->
     <div class="card lesson-card">
-      <h3>Software examples later</h3>
-      <p>SPSS / R / Python / Excel will be added after the conceptual core is stable.</p>
+      <h3>2. Populations, Parameters, and the Target of Estimation</h3>
+      <p>What a parameter is, why it is fixed (not random), and what “unknown” really means.</p>
+      <div class="pill-row"><span class="badge">Coming soon</span></div>
+    </div>
+
+    <!-- Lesson 3 -->
+    <div class="card lesson-card">
+      <h3>3. Statistics as Random Variables</h3>
+      <p>Why statistics have distributions: repeated sampling logic and the core idea behind standard error.</p>
+      <div class="pill-row"><span class="badge">Coming soon</span></div>
+    </div>
+
+    <!-- Lesson 4 -->
+    <div class="card lesson-card">
+      <h3>4. Estimators vs Estimates</h3>
+      <p>Distinguish the rule (estimator) from the realized number (estimate), and why the distinction matters.</p>
+      <div class="pill-row"><span class="badge">Coming soon</span></div>
+    </div>
+
+    <!-- Lesson 5 -->
+    <div class="card lesson-card">
+      <h3>5. Sampling Distributions (Bridge From Probability)</h3>
+      <p>Sampling distribution of the mean/proportion: where inference starts and why “n” stabilizes estimates.</p>
+      <div class="pill-row"><span class="badge">Coming soon</span></div>
+    </div>
+
+    <!-- Lesson 6 -->
+    <div class="card lesson-card">
+      <h3>6. Standard Error: The Unit of Uncertainty</h3>
+      <p>What SE measures, how it differs from SD, and why it scales with sample size.</p>
+      <div class="pill-row"><span class="badge">Coming soon</span></div>
+    </div>
+
+    <!-- Lesson 7 -->
+    <div class="card lesson-card">
+      <h3>7. Standard Deviation vs Standard Error (Common Confusion)</h3>
+      <p>Two different ideas: variability in data vs variability of an estimator; when each is used.</p>
+      <div class="pill-row"><span class="badge">Coming soon</span></div>
+    </div>
+
+    <!-- Lesson 8 -->
+    <div class="card lesson-card">
+      <h3>8. Bias and Variance (Intuition First)</h3>
+      <p>Accuracy vs stability: bias, variance, and why tradeoffs appear in real estimation problems.</p>
+      <div class="pill-row"><span class="badge">Coming soon</span></div>
+    </div>
+
+    <!-- Lesson 9 -->
+    <div class="card lesson-card">
+      <h3>9. What Makes a “Good” Estimator?</h3>
+      <p>Unbiasedness, consistency, efficiency (high-level), and what we actually care about in practice.</p>
+      <div class="pill-row"><span class="badge">Coming soon</span></div>
+    </div>
+
+    <!-- Lesson 10 -->
+    <div class="card lesson-card">
+      <h3>10. The Estimator → SE → CI/Test Pipeline</h3>
+      <p>The inference workflow: estimate a parameter, quantify uncertainty, then form intervals or decisions.</p>
+      <div class="pill-row"><span class="badge">Coming soon</span></div>
+    </div>
+
+    <!-- Lesson 11 -->
+    <div class="card lesson-card">
+      <h3>11. Point Estimation vs Interval Estimation</h3>
+      <p>Why a single number is incomplete, and why intervals are the natural output of inference.</p>
+      <div class="pill-row"><span class="badge">Coming soon</span></div>
+    </div>
+
+    <!-- Lesson 12 -->
+    <div class="card lesson-card">
+      <h3>12. Confidence Level and Significance Level (Preview)</h3>
+      <p>High-level meaning of 95% confidence and \(\alpha\): what these control and what they do not.</p>
+      <div class="pill-row"><span class="badge">Coming soon</span></div>
+    </div>
+
+    <!-- Lesson 13 -->
+    <div class="card lesson-card">
+      <h3>13. Independence and Random Sampling (Why Inference Works)</h3>
+      <p>The role of random sampling/assignment, dependence, and why design matters more than formulas.</p>
+      <div class="pill-row"><span class="badge">Coming soon</span></div>
+    </div>
+
+    <!-- Lesson 14 -->
+    <div class="card lesson-card">
+      <h3>14. Sampling Bias vs Statistical Bias</h3>
+      <p>Two different “bias” words: biased samples vs biased estimators; why confusing them ruins conclusions.</p>
+      <div class="pill-row"><span class="badge">Coming soon</span></div>
+    </div>
+
+    <!-- Lesson 15 -->
+    <div class="card lesson-card">
+      <h3>15. Practical Inference Thinking: What Can We Claim?</h3>
+      <p>Scope of generalization, uncertainty language, and avoiding over-claims (a bridge to reporting).</p>
+      <div class="pill-row"><span class="badge">Coming soon</span></div>
+    </div>
+
+    <!-- Lesson 16 -->
+    <div class="card lesson-card">
+      <h3>16. Software Examples Later</h3>
+      <p>SPSS / R / Python / Excel workflows will be added after the conceptual core is stable.</p>
       <div class="pill-row"><span class="badge">Planned</span></div>
     </div>
 
