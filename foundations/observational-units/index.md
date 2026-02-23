@@ -142,29 +142,35 @@ lesson_order: 6
   <div class="content-narrow">
     <h2>Example: identifying the unit</h2>
 
-    <div style="overflow-x:auto;">
-      <table style="width:100%; border-collapse:collapse;">
-        <thead>
-          <tr>
-            <th style="padding:10px; border-bottom:1px solid #ddd;">Student ID</th>
-            <th style="padding:10px; border-bottom:1px solid #ddd;">Age</th>
-            <th style="padding:10px; border-bottom:1px solid #ddd;">Exam Score</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style="padding:10px; border-bottom:1px solid #eee;">001</td>
-            <td style="padding:10px; border-bottom:1px solid #eee;">20</td>
-            <td style="padding:10px; border-bottom:1px solid #eee;">85</td>
-          </tr>
-          <tr>
-            <td style="padding:10px; border-bottom:1px solid #eee;">002</td>
-            <td style="padding:10px; border-bottom:1px solid #eee;">21</td>
-            <td style="padding:10px; border-bottom:1px solid #eee;">90</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <div style="margin:20px 0;">
+  <div style="max-width:650px; margin:auto; overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; background:#ffffff; border-radius:10px; overflow:hidden; box-shadow:0 4px 10px rgba(0,0,0,0.05);">
+
+      <thead style="background:#f1f3f5;">
+        <tr>
+          <th style="padding:14px 16px; text-align:left; font-weight:600;">Student ID</th>
+          <th style="padding:14px 16px; text-align:left; font-weight:600;">Age</th>
+          <th style="padding:14px 16px; text-align:left; font-weight:600;">Exam Score</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr style="border-top:1px solid #e9ecef;">
+          <td style="padding:12px 16px;">001</td>
+          <td style="padding:12px 16px;">20</td>
+          <td style="padding:12px 16px;">85</td>
+        </tr>
+
+        <tr style="border-top:1px solid #e9ecef;">
+          <td style="padding:12px 16px;">002</td>
+          <td style="padding:12px 16px;">21</td>
+          <td style="padding:12px 16px;">90</td>
+        </tr>
+      </tbody>
+
+    </table>
+  </div>
+</div>
 
     <p>
       Here, each row represents one <strong>student</strong>.
