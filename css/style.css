@@ -940,3 +940,132 @@ a:hover{ text-decoration: underline; }
 @media (max-width: 980px){
   .lesson-grid{ grid-template-columns: 1fr; }
 }
+
+/* ===== Header: 2-row layout ===== */
+.site-header {
+  position: sticky; /* change to "relative" if you don't want sticky */
+  top: 0;
+  z-index: 1000;
+  background: #fff;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+/* Row 1 */
+.header-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 0;
+}
+
+.brand img {
+  display: block;
+  height: 34px;   /* adjust if needed */
+  width: auto;
+}
+
+/* Search (row 1, right side) */
+.header-search {
+  margin-left: auto;
+  position: relative;
+  flex: 0 1 360px; /* search has a max-like width */
+}
+
+.header-search input[type="search"] {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid rgba(0,0,0,0.15);
+  border-radius: 10px;
+  outline: none;
+}
+
+/* Row 2 */
+.header-bottom {
+  padding: 8px 0 10px;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+}
+
+.nav::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+.nav a {
+  white-space: nowrap;
+  text-decoration: none;
+  padding: 6px 0;
+}
+
+/* ===== Mobile behavior ===== */
+.nav-toggle {
+  display: none;
+  margin-left: 8px;
+  width: 42px;
+  height: 38px;
+  border: 1px solid rgba(0,0,0,0.15);
+  border-radius: 10px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.nav-toggle-bar {
+  display: block;
+  height: 2px;
+  margin: 6px 10px;
+  background: rgba(0,0,0,0.75);
+}
+
+/* Screen-reader only helper (if you don't already have it) */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 900px) {
+  .header-search {
+    flex: 1 1 auto;
+    max-width: none;
+  }
+}
+
+@media (max-width: 720px) {
+  /* Show hamburger */
+  .nav-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Collapse nav by default on small screens */
+  .header-bottom {
+    padding-top: 0;
+  }
+
+  .nav {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 0;
+    overflow: visible;
+  }
+
+  .site-header.is-open .nav {
+    display: flex;
+  }
+}
