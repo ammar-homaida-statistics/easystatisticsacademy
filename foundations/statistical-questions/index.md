@@ -19,6 +19,10 @@ lesson_order: 4
   <div class="hero-card">
     <h1>Statistical Questions</h1>
 
+    <div style="background:#fff3cd; border:1px solid #ffeeba; padding:12px 14px; margin:14px 0; border-radius:8px;">
+      <strong>🚧 Under Construction</strong> — This lesson is being refined with structured examples and practical diagnostic tools for identifying statistical questions.
+    </div>
+
     <p class="lead">
       This lesson explains what makes a question statistical and how statistical
       questions differ from deterministic or purely factual ones.
@@ -49,40 +53,117 @@ lesson_order: 4
     <h2>Why this topic matters</h2>
 
     <p>
-      Statistics begins with questions, not with formulas or software.
-      Asking the wrong type of question leads to inappropriate methods
-      and misleading conclusions.
+      Statistics does not begin with formulas—it begins with well-formed questions.
     </p>
 
     <p>
-      Many errors in data analysis occur because a question that is
-      non-statistical is treated as if statistics can answer it.
+      When a non-statistical question is treated as statistical,
+      inappropriate methods may be applied, leading to confusion or misleading results.
     </p>
 
     <p>
-      Learning to identify statistical questions is a foundational skill
-      for responsible data analysis.
+      Learning to distinguish statistical from non-statistical questions
+      is a foundational skill in responsible data analysis.
     </p>
   </div>
 </section>
 
 <section class="section">
   <div class="content-narrow">
-    <h2>What makes a question statistical</h2>
+    <h2>Formal definition</h2>
 
     <p>
-      A statistical question is one that expects variability in the answer.
-      It does not have a single fixed outcome.
+      A <strong>statistical question</strong> is a question that:
+    </p>
+
+    <ul class="bullets">
+      <li>Anticipates variability in the answer,</li>
+      <li>Requires data to answer, and</li>
+      <li>Produces an answer expressed with uncertainty.</li>
+    </ul>
+
+    <p>
+      If a question has a single fixed answer that does not vary across individuals,
+      time, or context, it is not statistical.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="content-narrow">
+    <h2>The 3-part diagnostic test</h2>
+
+    <p>
+      To determine whether a question is statistical, ask:
+    </p>
+
+    <ul class="bullets">
+      <li><strong>Variation:</strong> Would different observations likely give different results?</li>
+      <li><strong>Data:</strong> Do we need collected data rather than pure logic to answer it?</li>
+      <li><strong>Uncertainty:</strong> Will the answer involve ranges, probabilities, or confidence rather than exact certainty?</li>
+    </ul>
+
+    <p>
+      If the answer to all three is yes, the question is statistical.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="content-narrow">
+    <h2>Comparison: Statistical vs Non-Statistical Questions</h2>
+
+    <div style="overflow-x:auto;">
+      <table style="width:100%; border-collapse:collapse;">
+        <thead>
+          <tr>
+            <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Statistical Question</th>
+            <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Non-Statistical Question</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:10px; border-bottom:1px solid #eee;">What is the average income in this city?</td>
+            <td style="padding:10px; border-bottom:1px solid #eee;">What is the official minimum wage?</td>
+          </tr>
+          <tr>
+            <td style="padding:10px; border-bottom:1px solid #eee;">How does customer satisfaction vary across stores?</td>
+            <td style="padding:10px; border-bottom:1px solid #eee;">What is the store’s address?</td>
+          </tr>
+          <tr>
+            <td style="padding:10px;">How long does the commute usually take?</td>
+            <td style="padding:10px;">How long is the road in kilometers?</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<section class="section">
+  <div class="content-narrow">
+    <h2>Transforming a question</h2>
+
+    <p>
+      Consider the question:
+    </p>
+
+    <p><strong>“What is the height of students in this class?”</strong></p>
+
+    <p>
+      If the question expects a single measurement from one person,
+      it is not statistical.
     </p>
 
     <p>
-      Instead, the answer depends on data that may vary across individuals,
-      time, locations, or conditions.
+      If it asks:
+      <strong>“What is the average height of students in this class, and how much does it vary?”</strong>
+      it becomes statistical.
     </p>
 
     <p>
-      The goal of a statistical question is to understand patterns,
-      tendencies, or uncertainty within that variation.
+      The key shift is from a single value to a pattern across multiple observations.
     </p>
   </div>
 </section>
@@ -93,17 +174,16 @@ lesson_order: 4
 
     <p>
       Statistical questions cannot be answered by logic alone.
-      They require data collection or observation.
+      They require collected or observed data.
     </p>
 
     <p>
-      Without data, there is no basis for estimation, comparison,
-      or inference.
+      Without data, there is no basis for estimation, comparison, or inference.
     </p>
 
     <p>
       The quality of the answer depends directly on the quality,
-      relevance, and limitations of the data used.
+      relevance, and limitations of the data.
     </p>
   </div>
 </section>
@@ -113,58 +193,30 @@ lesson_order: 4
     <h2>Questions that involve uncertainty</h2>
 
     <p>
-      Uncertainty is a defining feature of statistical questions.
       Even with large datasets, some level of uncertainty remains.
     </p>
 
     <p>
-      Statistical answers are expressed in terms of probabilities,
-      ranges, or confidence rather than exact values.
+      Statistical answers are expressed using probabilities,
+      ranges, confidence intervals, or margins of error.
     </p>
 
     <p>
-      Ignoring uncertainty turns a statistical question into a
-      misleading one.
+      Ignoring uncertainty turns a statistical question into a misleading one.
     </p>
   </div>
 </section>
 
 <section class="section">
   <div class="content-narrow">
-    <h2>Non-statistical questions disguised as statistical</h2>
-
-    <p>
-      Some questions include numbers or data-like language but are
-      not statistical in nature.
-    </p>
-
-    <p>
-      Questions with fixed, known answers do not involve variability
-      and therefore do not require statistics.
-    </p>
-
-    <p>
-      Treating such questions statistically adds unnecessary complexity
-      without improving understanding.
-    </p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Examples from research, business, and daily life</h2>
+    <h2>Common mistakes</h2>
 
     <ul class="bullets">
-      <li>Research: What is the average effect of a treatment across patients?</li>
-      <li>Business: How does customer satisfaction vary across regions?</li>
-      <li>Daily life: How long does a commute usually take under normal conditions?</li>
-      <li>Non-statistical: What is the capital city of a country?</li>
+      <li>Assuming that any question involving numbers is statistical.</li>
+      <li>Ignoring variability when forming the question.</li>
+      <li>Expecting exact certainty from inherently variable systems.</li>
+      <li>Using statistical tools for questions that do not require them.</li>
     </ul>
-
-    <p>
-      The first three questions involve variability and uncertainty.
-      The last does not.
-    </p>
   </div>
 </section>
 
@@ -173,8 +225,8 @@ lesson_order: 4
     <h2>Key idea to remember</h2>
 
     <p>
-      Statistics is used to answer questions where variation and
-      uncertainty are unavoidable.
+      A statistical question anticipates variation, requires data,
+      and produces answers expressed with uncertainty.
     </p>
   </div>
 </section>
@@ -184,7 +236,8 @@ lesson_order: 4
     <h2>Simple summary</h2>
 
     <p>
-      A statistical question requires data and accepts uncertainty.
+      Statistics is used when answers vary across observations and
+      cannot be determined with absolute certainty.
       If a question has a single fixed answer, statistics is not needed.
     </p>
   </div>
@@ -195,8 +248,8 @@ lesson_order: 4
     <h2>What comes next</h2>
 
     <p>
-      The next lesson explains how data are produced and why
-      data collection methods matter.
+      The next lesson explains how data are defined and structured,
+      which determines how statistical questions can be answered.
     </p>
 
     <a class="btn btn-primary" href="/foundations/what-is-data/">
