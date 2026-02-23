@@ -107,34 +107,36 @@ lesson_order: 5
   <div class="content-narrow">
     <h2>Data vs Information vs Knowledge</h2>
 
-    <div style="overflow-x:auto;">
-      <table style="width:100%; border-collapse:collapse;">
-        <thead>
-          <tr>
-            <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Level</th>
-            <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Description</th>
-            <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Example</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style="padding:10px; border-bottom:1px solid #eee;"><strong>Data</strong></td>
-            <td style="padding:10px; border-bottom:1px solid #eee;">Raw recorded values</td>
-            <td style="padding:10px; border-bottom:1px solid #eee;">"120", "Yes", "15.2°C"</td>
-          </tr>
-          <tr>
-            <td style="padding:10px; border-bottom:1px solid #eee;"><strong>Information</strong></td>
-            <td style="padding:10px; border-bottom:1px solid #eee;">Organized data with structure or summary</td>
-            <td style="padding:10px; border-bottom:1px solid #eee;">Average temperature = 14.8°C</td>
-          </tr>
-          <tr>
-            <td style="padding:10px;"><strong>Knowledge</strong></td>
-            <td style="padding:10px;">Interpreted understanding using context</td>
-            <td style="padding:10px;">Temperature pattern indicates seasonal change</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <div style="margin:24px 0;">
+  <div style="max-width:950px; margin:auto; overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; background:#ffffff; border-radius:10px; overflow:hidden; box-shadow:0 4px 10px rgba(0,0,0,0.05);">
+      <thead style="background:#f1f3f5;">
+        <tr>
+          <th style="padding:14px 16px; text-align:left; font-weight:600;">Level</th>
+          <th style="padding:14px 16px; text-align:left; font-weight:600;">Description</th>
+          <th style="padding:14px 16px; text-align:left; font-weight:600;">Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-top:1px solid #e9ecef;">
+          <td style="padding:12px 16px;"><strong>Data</strong></td>
+          <td style="padding:12px 16px;">Raw recorded values</td>
+          <td style="padding:12px 16px;">"120", "Yes", "15.2°C"</td>
+        </tr>
+        <tr style="border-top:1px solid #e9ecef;">
+          <td style="padding:12px 16px;"><strong>Information</strong></td>
+          <td style="padding:12px 16px;">Organized data with structure or summary</td>
+          <td style="padding:12px 16px;">Average temperature = 14.8°C</td>
+        </tr>
+        <tr style="border-top:1px solid #e9ecef;">
+          <td style="padding:12px 16px;"><strong>Knowledge</strong></td>
+          <td style="padding:12px 16px;">Interpreted understanding using context</td>
+          <td style="padding:12px 16px;">Temperature pattern indicates seasonal change</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
   </div>
 </section>
