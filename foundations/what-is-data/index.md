@@ -17,8 +17,12 @@ lesson_order: 5
   <div class="hero-card">
     <h1>What Is Data?</h1>
 
+    <div style="background:#fff3cd; border:1px solid #ffeeba; padding:12px 14px; margin:14px 0; border-radius:8px;">
+      <strong>🚧 Under Construction</strong> — This lesson is being refined with structured examples and clearer illustrations of how data is created and interpreted.
+    </div>
+
     <p class="lead">
-      This lesson explains what data is and why it should be treated as a recorded trace, not perfect truth.<br>
+      This lesson explains what data is and why it should be treated as a recorded trace—not perfect truth.
       You will learn how data differs from information and knowledge, and why every dataset is an imperfect representation of reality.
     </p>
 
@@ -35,7 +39,8 @@ lesson_order: 5
       <li>What data is: recorded values created by measurement and logging.</li>
       <li>The difference between data, information, and knowledge.</li>
       <li>The difference between raw data and processed data.</li>
-      <li>Why data is always incomplete, biased, or imperfect.</li>
+      <li>Why data is always incomplete, selective, or imperfect.</li>
+      <li>Why understanding data generation is essential for analysis.</li>
     </ul>
   </div>
 </section>
@@ -44,13 +49,35 @@ lesson_order: 5
   <div class="content-narrow">
     <h2>Why this topic matters</h2>
     <p>
-      Statistics begins with data, but many mistakes happen before analysis starts—during collection, definition, and recording.
+      Statistics begins with data—but errors often occur before analysis even starts.
+      Problems in collection, measurement, or recording cannot be fully repaired later.
     </p>
     <p>
-      Data is often treated as truth, but it is only what a system or person managed to record about reality.
+      Data is often treated as objective truth. In reality, it is a record produced
+      through tools, definitions, and decisions.
     </p>
     <p>
-      Understanding what data really is leads to more careful interpretation and better decisions.
+      Understanding what data really is leads to more cautious interpretation
+      and better reasoning.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="content-narrow">
+    <h2>Formal definition</h2>
+    <p>
+      <strong>Data</strong> consists of recorded observations about entities, events,
+      or processes. These observations are produced through measurement,
+      classification, or logging systems.
+    </p>
+    <p>
+      Data is not the event itself. It is a structured trace of that event,
+      shaped by the method of recording.
+    </p>
+    <p>
+      Every dataset reflects what was measured, how it was measured,
+      and what was excluded.
     </p>
   </div>
 </section>
@@ -59,43 +86,102 @@ lesson_order: 5
   <div class="content-narrow">
     <h2>Data as recorded information</h2>
     <p>
-      Data is recorded information about something: a measurement, response, transaction, log entry, or sensor reading.
+      Examples of data include:
     </p>
+
+    <ul class="bullets">
+      <li>A blood pressure reading from a medical device</li>
+      <li>A survey response (Yes/No)</li>
+      <li>A timestamp of an online purchase</li>
+      <li>A temperature recorded by a weather sensor</li>
+    </ul>
+
     <p>
-      Data is not the event itself. It is a record produced by a process and shaped by choices.
-    </p>
-    <p>
-      Because recording depends on tools and definitions, data always reflects collection limits.
+      These are not reality itself—they are measurements or classifications
+      created under specific conditions.
     </p>
   </div>
 </section>
 
 <section class="section">
   <div class="content-narrow">
-    <h2>Data vs information vs knowledge</h2>
+    <h2>Data vs Information vs Knowledge</h2>
+
+    <div style="overflow-x:auto;">
+      <table style="width:100%; border-collapse:collapse;">
+        <thead>
+          <tr>
+            <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Level</th>
+            <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Description</th>
+            <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:10px; border-bottom:1px solid #eee;"><strong>Data</strong></td>
+            <td style="padding:10px; border-bottom:1px solid #eee;">Raw recorded values</td>
+            <td style="padding:10px; border-bottom:1px solid #eee;">"120", "Yes", "15.2°C"</td>
+          </tr>
+          <tr>
+            <td style="padding:10px; border-bottom:1px solid #eee;"><strong>Information</strong></td>
+            <td style="padding:10px; border-bottom:1px solid #eee;">Organized data with structure or summary</td>
+            <td style="padding:10px; border-bottom:1px solid #eee;">Average temperature = 14.8°C</td>
+          </tr>
+          <tr>
+            <td style="padding:10px;"><strong>Knowledge</strong></td>
+            <td style="padding:10px;">Interpreted understanding using context</td>
+            <td style="padding:10px;">Temperature pattern indicates seasonal change</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<section class="section">
+  <div class="content-narrow">
+    <h2>Raw data vs Processed data</h2>
+
     <p>
-      Data consists of raw values such as numbers, labels, timestamps, text, or images.
+      <strong>Raw data</strong> is the closest available form of recorded observation.
+      It may contain errors, missing values, or inconsistencies.
     </p>
+
     <p>
-      Information is data organized to add meaning through summaries, comparisons, or patterns.
+      <strong>Processed data</strong> has been cleaned, filtered, transformed,
+      categorized, or merged.
     </p>
+
     <p>
-      Knowledge is what we conclude after interpreting information using judgment and context.
+      Every processing step involves choices:
+      which observations to keep, how to define categories,
+      how to treat missing values.
+    </p>
+
+    <p>
+      These choices influence conclusions.
     </p>
   </div>
 </section>
 
 <section class="section">
   <div class="content-narrow">
-    <h2>Raw data vs processed data</h2>
+    <h2>The data generation process</h2>
+
     <p>
-      Raw data is the closest form of recorded observations before cleaning or transformation.
+      Data does not appear automatically. It is generated through a process:
     </p>
+
+    <ul class="bullets">
+      <li>Define what to measure</li>
+      <li>Choose measurement tools or survey questions</li>
+      <li>Record responses or readings</li>
+      <li>Store and structure the observations</li>
+    </ul>
+
     <p>
-      Processed data has been cleaned, filtered, merged, or transformed.
-    </p>
-    <p>
-      Every processing step involves choices that can affect conclusions.
+      Any weakness in this chain affects the final dataset.
     </p>
   </div>
 </section>
@@ -104,13 +190,16 @@ lesson_order: 5
   <div class="content-narrow">
     <h2>Data as imperfect representations of reality</h2>
     <p>
-      Data never captures reality completely; it captures what was measured and recorded.
+      Data never captures reality completely.
+      It captures only what was defined and recorded.
     </p>
     <p>
-      Measurements can be noisy, categories simplified, and context missing.
+      Measurements may be noisy, categories simplified,
+      and important context omitted.
     </p>
     <p>
-      Even accurate data can still be biased by how and what is recorded.
+      Even highly accurate instruments cannot capture
+      every relevant influence.
     </p>
   </div>
 </section>
@@ -119,10 +208,11 @@ lesson_order: 5
   <div class="content-narrow">
     <h2>Common public misconceptions</h2>
     <ul class="bullets">
-      <li>Data is the same as truth.</li>
-      <li>More data always means better conclusions.</li>
-      <li>Data cleaning does not affect results.</li>
+      <li>Data is identical to truth.</li>
+      <li>More data automatically means better conclusions.</li>
+      <li>Data cleaning does not change results.</li>
       <li>Stored data must be reliable.</li>
+      <li>Digital data is objective.</li>
     </ul>
   </div>
 </section>
@@ -131,7 +221,8 @@ lesson_order: 5
   <div class="content-narrow">
     <h2>Key idea to remember</h2>
     <p>
-      Data is recorded information created through measurement and choices. It is useful, but never a perfect copy of reality.
+      Data is recorded information produced by measurement and decisions.
+      It is useful—but always partial and shaped by its collection process.
     </p>
   </div>
 </section>
@@ -140,7 +231,10 @@ lesson_order: 5
   <div class="content-narrow">
     <h2>Simple summary</h2>
     <p>
-      Data is stored observations. Information adds meaning. Knowledge comes from interpretation. All data is imperfect.
+      Data consists of stored observations.
+      Information organizes data.
+      Knowledge interprets information.
+      All data is incomplete and shaped by how it was created.
     </p>
   </div>
 </section>
