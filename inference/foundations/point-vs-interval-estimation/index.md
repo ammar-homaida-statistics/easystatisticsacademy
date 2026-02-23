@@ -283,7 +283,7 @@ sidebar: false
       </p>
 
       <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/foundations/confidence-level-and-significance-level/">
+        <a class="btn" href="/inference/foundations/confidence-vs-significance-preview/">
           Next lesson →
         </a>
       </div>
