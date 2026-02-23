@@ -283,7 +283,7 @@ sidebar: false
       </p>
 
       <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/confidence-intervals/ci-for-proportion/">
+        <a class="btn" href="/inference/confidence-intervals/condition-normal-clt-independence/">
           Next lesson: 6. CI for a Proportion →
         </a>
       </div>
