@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "6. CI for a Proportion: z Interval"
+title: "7. CI for a Proportion: z Interval"
 description: "Construct and interpret a confidence interval for a population proportion using the normal approximation."
 permalink: /inference/confidence-intervals/ci-for-proportion/
 sidebar: false
@@ -25,7 +25,7 @@ sidebar: false
     var KEY = "esa_continue_inference_confidence_intervals_lesson_v0";
     localStorage.setItem(KEY, JSON.stringify({
       url: "/inference/confidence-intervals/ci-for-proportion/",
-      label: "Lesson 6 — CI for a Proportion",
+      label: "Lesson 7 — CI for a Proportion",
       ts: Date.now()
     }));
 
