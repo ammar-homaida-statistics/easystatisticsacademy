@@ -283,7 +283,7 @@ sidebar: false
       </p>
 
       <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/confidence-intervals/condition-normality-clt-independence/">
+        <a class="btn" href="/inference/confidence-intervals/conditions-normality-clt-independence/">
           Next lesson: 6. Conditions for Valid Confidence intervals→
         </a>
       </div>
