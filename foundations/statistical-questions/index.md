@@ -113,30 +113,32 @@ lesson_order: 4
   <div class="content-narrow">
     <h2>Comparison: Statistical vs Non-Statistical Questions</h2>
 
-    <div style="overflow-x:auto;">
-      <table style="width:100%; border-collapse:collapse;">
-        <thead>
-          <tr>
-            <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Statistical Question</th>
-            <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Non-Statistical Question</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style="padding:10px; border-bottom:1px solid #eee;">What is the average income in this city?</td>
-            <td style="padding:10px; border-bottom:1px solid #eee;">What is the official minimum wage?</td>
-          </tr>
-          <tr>
-            <td style="padding:10px; border-bottom:1px solid #eee;">How does customer satisfaction vary across stores?</td>
-            <td style="padding:10px; border-bottom:1px solid #eee;">What is the store’s address?</td>
-          </tr>
-          <tr>
-            <td style="padding:10px;">How long does the commute usually take?</td>
-            <td style="padding:10px;">How long is the road in kilometers?</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <div style="margin:24px 0;">
+  <div style="max-width:950px; margin:auto; overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; background:#ffffff; border-radius:10px; overflow:hidden; box-shadow:0 4px 10px rgba(0,0,0,0.05);">
+      <thead style="background:#f1f3f5;">
+        <tr>
+          <th style="padding:14px 16px; text-align:left; font-weight:600;">Statistical Question</th>
+          <th style="padding:14px 16px; text-align:left; font-weight:600;">Non-Statistical Question</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-top:1px solid #e9ecef;">
+          <td style="padding:12px 16px;">What is the average income in this city?</td>
+          <td style="padding:12px 16px;">What is the official minimum wage?</td>
+        </tr>
+        <tr style="border-top:1px solid #e9ecef;">
+          <td style="padding:12px 16px;">How does customer satisfaction vary across stores?</td>
+          <td style="padding:12px 16px;">What is the store’s address?</td>
+        </tr>
+        <tr style="border-top:1px solid #e9ecef;">
+          <td style="padding:12px 16px;">How long does the commute usually take?</td>
+          <td style="padding:12px 16px;">How long is the road in kilometers?</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
   </div>
 </section>
