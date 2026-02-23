@@ -204,34 +204,42 @@ lesson_order: 6
   <div class="content-narrow">
     <h2>Common types of observational units</h2>
 
-    <div style="overflow-x:auto;">
-      <table style="width:100%; border-collapse:collapse;">
-        <thead>
-          <tr>
-            <th style="padding:10px; border-bottom:1px solid #ddd;">Type</th>
-            <th style="padding:10px; border-bottom:1px solid #ddd;">Example</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style="padding:10px; border-bottom:1px solid #eee;">Individual</td>
-            <td style="padding:10px; border-bottom:1px solid #eee;">Patient, customer, student</td>
-          </tr>
-          <tr>
-            <td style="padding:10px; border-bottom:1px solid #eee;">Object</td>
-            <td style="padding:10px; border-bottom:1px solid #eee;">Machine, product, device</td>
-          </tr>
-          <tr>
-            <td style="padding:10px; border-bottom:1px solid #eee;">Event</td>
-            <td style="padding:10px; border-bottom:1px solid #eee;">Purchase, accident, experiment trial</td>
-          </tr>
-          <tr>
-            <td style="padding:10px;">Time Point</td>
-            <td style="padding:10px;">Day, month, hourly reading</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <div style="margin:24px 0;">
+  <div style="max-width:650px; margin:auto; overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; background:#ffffff; border-radius:10px; overflow:hidden; box-shadow:0 4px 10px rgba(0,0,0,0.05);">
+
+      <thead style="background:#f1f3f5;">
+        <tr>
+          <th style="padding:14px 16px; text-align:left; font-weight:600;">Type</th>
+          <th style="padding:14px 16px; text-align:left; font-weight:600;">Example</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr style="border-top:1px solid #e9ecef;">
+          <td style="padding:12px 16px;">Individual</td>
+          <td style="padding:12px 16px;">Patient, customer, student</td>
+        </tr>
+
+        <tr style="border-top:1px solid #e9ecef;">
+          <td style="padding:12px 16px;">Object</td>
+          <td style="padding:12px 16px;">Machine, product, device</td>
+        </tr>
+
+        <tr style="border-top:1px solid #e9ecef;">
+          <td style="padding:12px 16px;">Event</td>
+          <td style="padding:12px 16px;">Purchase, accident, experiment trial</td>
+        </tr>
+
+        <tr style="border-top:1px solid #e9ecef;">
+          <td style="padding:12px 16px;">Time Point</td>
+          <td style="padding:12px 16px;">Day, month, hourly reading</td>
+        </tr>
+      </tbody>
+
+    </table>
+  </div>
+</div>
 
   </div>
 </section>
