@@ -284,7 +284,7 @@ sidebar: false
 
       <div class="pill-row" style="margin-top:1rem;">
         <a class="btn" href="/inference/confidence-intervals/condition-normal-clt-independence/">
-          Next lesson: 6. CI for a Proportion →
+          Next lesson: 6. Conditions for Valid Confidence intervals→
         </a>
       </div>
     </div>
