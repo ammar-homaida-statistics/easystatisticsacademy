@@ -273,7 +273,7 @@ sidebar: false
       </p>
 
       <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/foundations/practical-inference-thinking/">
+        <a class="btn" href="/inference/foundations/practical-inference-what-can-we-claim/">
           Next lesson →
         </a>
       </div>
