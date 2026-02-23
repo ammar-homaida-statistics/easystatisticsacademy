@@ -217,34 +217,36 @@ lesson_order: 2
   <div class="content-narrow">
     <h2>Limits summarized</h2>
 
-    <div style="overflow-x:auto;">
-      <table style="width:100%; border-collapse:collapse;">
-        <thead>
-          <tr>
-            <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Misconception</th>
-            <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Reality</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style="padding:10px; border-bottom:1px solid #eee;">Statistics gives exact truth</td>
-            <td style="padding:10px; border-bottom:1px solid #eee;">Statistics provides probabilistic evidence</td>
-          </tr>
-          <tr>
-            <td style="padding:10px; border-bottom:1px solid #eee;">Big data removes uncertainty</td>
-            <td style="padding:10px; border-bottom:1px solid #eee;">Big data reduces random error, not bias</td>
-          </tr>
-          <tr>
-            <td style="padding:10px; border-bottom:1px solid #eee;">Software guarantees correctness</td>
-            <td style="padding:10px; border-bottom:1px solid #eee;">Interpretation determines correctness</td>
-          </tr>
-          <tr>
-            <td style="padding:10px; border-bottom:1px solid #eee;">Statistical significance proves causation</td>
-            <td style="padding:10px; border-bottom:1px solid #eee;">Design determines causal validity</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <div style="margin:24px 0;">
+  <div style="max-width:850px; margin:auto; overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; background:#ffffff; border-radius:10px; overflow:hidden; box-shadow:0 4px 10px rgba(0,0,0,0.05);">
+      <thead style="background:#f1f3f5;">
+        <tr>
+          <th style="padding:14px 16px; text-align:left; font-weight:600;">Misconception</th>
+          <th style="padding:14px 16px; text-align:left; font-weight:600;">Reality</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-top:1px solid #e9ecef;">
+          <td style="padding:12px 16px;">Statistics gives exact truth</td>
+          <td style="padding:12px 16px;">Statistics provides probabilistic evidence</td>
+        </tr>
+        <tr style="border-top:1px solid #e9ecef;">
+          <td style="padding:12px 16px;">Big data removes uncertainty</td>
+          <td style="padding:12px 16px;">Big data reduces random error, not bias</td>
+        </tr>
+        <tr style="border-top:1px solid #e9ecef;">
+          <td style="padding:12px 16px;">Software guarantees correctness</td>
+          <td style="padding:12px 16px;">Interpretation determines correctness</td>
+        </tr>
+        <tr style="border-top:1px solid #e9ecef;">
+          <td style="padding:12px 16px;">Statistical significance proves causation</td>
+          <td style="padding:12px 16px;">Design determines causal validity</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
   </div>
 </section>
