@@ -19,6 +19,10 @@ lesson_order: 3
   <div class="hero-card">
     <h1>Statistical Thinking vs Deterministic Thinking</h1>
 
+    <div style="background:#fff3cd; border:1px solid #ffeeba; padding:12px 14px; margin:14px 0; border-radius:8px;">
+      <strong>🚧 Under Construction</strong> — This lesson is being expanded with numerical examples and visual illustrations to clarify how variability changes the way we reason.
+    </div>
+
     <p class="lead">
       This lesson explains the difference between deterministic and statistical thinking,
       and why statistics is necessary in a world with variability and uncertainty.
@@ -35,7 +39,7 @@ lesson_order: 3
     <h2>What you will learn</h2>
 
     <ul class="bullets">
-      <li>The difference between deterministic and random systems.</li>
+      <li>The difference between deterministic and variable systems.</li>
       <li>Why variability is unavoidable in real-world data.</li>
       <li>Why averages alone are not enough.</li>
       <li>Why replication and multiple observations matter.</li>
@@ -49,18 +53,18 @@ lesson_order: 3
     <h2>Why this topic matters</h2>
 
     <p>
-      Many mistakes in data analysis come from thinking about uncertain systems
+      Many errors in reasoning occur when uncertain systems are treated
       as if they were deterministic.
     </p>
 
     <p>
-      When people expect exact repetition, perfect prediction, or single-number
-      summaries to be sufficient, they misunderstand the nature of real data.
+      Expecting exact repetition, perfect prediction, or single-number summaries
+      leads to overconfidence and flawed decisions.
     </p>
 
     <p>
-      Statistical thinking provides a framework for reasoning correctly when
-      outcomes vary and certainty is impossible.
+      Statistical thinking provides a disciplined way to reason
+      when outcomes vary and certainty is impossible.
     </p>
   </div>
 </section>
@@ -71,12 +75,12 @@ lesson_order: 3
 
     <p>
       In a deterministic system, the same input always produces the same output.
-      There is no randomness or variation.
+      There is no randomness or unexplained variation.
     </p>
 
     <p>
-      Mathematical formulas, physical laws under controlled conditions,
-      and computer algorithms are typical examples of deterministic systems.
+      Examples include mathematical equations, certain physical laws under controlled conditions,
+      and computer algorithms with fixed instructions.
     </p>
 
     <p>
@@ -90,37 +94,53 @@ lesson_order: 3
     <h2>Random and variable systems</h2>
 
     <p>
-      In many real-world situations, outcomes vary even when conditions appear similar.
+      In many real-world systems, outcomes vary even when conditions appear similar.
     </p>
 
     <p>
-      Human behavior, biological processes, measurements, and social phenomena
-      all involve randomness or uncontrolled influences.
+      Human behavior, biological responses, economic markets, and measurements
+      all involve uncontrolled influences.
     </p>
 
     <p>
-      These systems are not fully predictable, and repeated observations
-      do not produce identical results.
+      Repeated observations do not produce identical results.
+      This variability is not a mistake—it is a feature of the system.
     </p>
   </div>
 </section>
 
 <section class="section">
   <div class="content-narrow">
-    <h2>Why variability is unavoidable</h2>
+    <h2>Deterministic vs Statistical Thinking</h2>
 
-    <p>
-      Variability arises from natural differences, measurement limitations,
-      environmental factors, and unknown influences.
-    </p>
-
-    <p>
-      Even carefully designed experiments cannot eliminate all sources of variation.
-    </p>
-
-    <p>
-      Statistical thinking begins by accepting variability rather than ignoring it.
-    </p>
+    <div style="overflow-x:auto;">
+      <table style="width:100%; border-collapse:collapse;">
+        <thead>
+          <tr>
+            <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Deterministic Thinking</th>
+            <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Statistical Thinking</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:10px; border-bottom:1px solid #eee;">Same input → same output</td>
+            <td style="padding:10px; border-bottom:1px solid #eee;">Same input → distribution of possible outcomes</td>
+          </tr>
+          <tr>
+            <td style="padding:10px; border-bottom:1px solid #eee;">Focus on exact results</td>
+            <td style="padding:10px; border-bottom:1px solid #eee;">Focus on patterns and variability</td>
+          </tr>
+          <tr>
+            <td style="padding:10px; border-bottom:1px solid #eee;">Single observation may suffice</td>
+            <td style="padding:10px; border-bottom:1px solid #eee;">Multiple observations required</td>
+          </tr>
+          <tr>
+            <td style="padding:10px; border-bottom:1px solid #eee;">Certainty expected</td>
+            <td style="padding:10px; border-bottom:1px solid #eee;">Uncertainty quantified</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </section>
 
@@ -129,15 +149,51 @@ lesson_order: 3
     <h2>Why averages alone are insufficient</h2>
 
     <p>
-      Averages summarize data, but they hide how individual values are distributed.
+      Two datasets can have the same average but behave very differently.
+    </p>
+
+    <div style="overflow-x:auto;">
+      <table style="width:100%; border-collapse:collapse;">
+        <thead>
+          <tr>
+            <th style="padding:10px; border-bottom:1px solid #ddd;">Dataset A</th>
+            <th style="padding:10px; border-bottom:1px solid #ddd;">Dataset B</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:10px; border-bottom:1px solid #eee;">8, 9, 10, 11, 12</td>
+            <td style="padding:10px; border-bottom:1px solid #eee;">2, 5, 10, 15, 18</td>
+          </tr>
+          <tr>
+            <td style="padding:10px;">Mean = 10</td>
+            <td style="padding:10px;">Mean = 10</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      Although both averages equal 10, Dataset B shows much greater variability.
+      Statistical thinking asks not only “What is the average?” but also
+      “How spread out are the values?”
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="content-narrow">
+    <h2>Real-world illustration</h2>
+
+    <p>
+      Consider measuring a patient’s blood pressure.
+      Even if the underlying health condition is stable,
+      repeated measurements will vary slightly.
     </p>
 
     <p>
-      Different datasets can have the same average while behaving very differently.
-    </p>
-
-    <p>
-      Without understanding variability, an average can be misleading.
+      Deterministic thinking expects identical results.
+      Statistical thinking expects a range and evaluates the pattern.
     </p>
   </div>
 </section>
@@ -147,17 +203,17 @@ lesson_order: 3
     <h2>Why replication matters</h2>
 
     <p>
-      Single observations provide limited information.
+      A single observation can be misleading.
     </p>
 
     <p>
-      Repeating measurements or experiments allows us to observe patterns,
-      assess variability, and reduce the influence of random fluctuations.
+      Replication allows patterns to emerge and reduces the influence
+      of random fluctuations.
     </p>
 
     <p>
-      Statistical conclusions rely on patterns across many observations,
-      not isolated results.
+      Statistical conclusions rely on repeated evidence,
+      not isolated outcomes.
     </p>
   </div>
 </section>
@@ -171,13 +227,12 @@ lesson_order: 3
     </p>
 
     <p>
-      Understanding a dataset requires multiple summaries, context,
+      Sound reasoning requires multiple summaries, context,
       and awareness of uncertainty.
     </p>
 
     <p>
-      Statistical thinking resists oversimplification and emphasizes
-      careful interpretation.
+      Statistical thinking resists oversimplification.
     </p>
   </div>
 </section>
@@ -187,7 +242,7 @@ lesson_order: 3
     <h2>Key idea to remember</h2>
 
     <p>
-      Deterministic thinking seeks certainty.
+      Deterministic thinking seeks certainty and exact repetition.
       Statistical thinking accepts variability and reasons carefully
       in the presence of uncertainty.
     </p>
@@ -199,9 +254,9 @@ lesson_order: 3
     <h2>Simple summary</h2>
 
     <p>
-      Many real-world systems are not predictable in an exact way.
-      Statistics helps us understand patterns and uncertainty
-      instead of expecting perfect repetition.
+      Many real-world systems do not behave in perfectly predictable ways.
+      Statistics provides a framework for understanding patterns,
+      variability, and uncertainty instead of expecting exact outcomes.
     </p>
   </div>
 </section>
