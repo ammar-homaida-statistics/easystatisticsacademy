@@ -236,7 +236,7 @@ sidebar: false
       </p>
 
       <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/confidence-intervals/ci-for-mean/">
+        <a class="btn" href="/inference/confidence-intervals/ci-for-mean-sigma-known-z/">
           Next lesson: 4. CI for a Mean →
         </a>
       </div>
