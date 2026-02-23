@@ -143,34 +143,36 @@ lesson_order: 1
   <div class="content-narrow">
     <h2>Statistics is and is not</h2>
 
-    <div style="overflow-x:auto;">
-      <table style="width:100%; border-collapse:collapse;">
-        <thead>
-          <tr>
-            <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Statistics is…</th>
-            <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Statistics is not…</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style="padding:10px; border-bottom:1px solid #eee;">A framework for learning from data under uncertainty</td>
-            <td style="padding:10px; border-bottom:1px solid #eee;">A tool that produces guaranteed truth</td>
-          </tr>
-          <tr>
-            <td style="padding:10px; border-bottom:1px solid #eee;">A way to quantify variability (sampling error, measurement noise)</td>
-            <td style="padding:10px; border-bottom:1px solid #eee;">Just formulas, charts, or “software output”</td>
-          </tr>
-          <tr>
-            <td style="padding:10px; border-bottom:1px solid #eee;">A method to generalize from samples to populations</td>
-            <td style="padding:10px; border-bottom:1px solid #eee;">A replacement for good data collection</td>
-          </tr>
-          <tr>
-            <td style="padding:10px; border-bottom:1px solid #eee;">A discipline that depends on assumptions and context</td>
-            <td style="padding:10px; border-bottom:1px solid #eee;">Pure mathematics with certainty from axioms alone</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <div style="margin:24px 0;">
+  <div style="max-width:850px; margin:auto; overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; background:#ffffff; border-radius:10px; overflow:hidden; box-shadow:0 4px 10px rgba(0,0,0,0.05);">
+      <thead style="background:#f1f3f5;">
+        <tr>
+          <th style="padding:14px 16px; text-align:left; font-weight:600;">Statistics is…</th>
+          <th style="padding:14px 16px; text-align:left; font-weight:600;">Statistics is not…</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-top:1px solid #e9ecef;">
+          <td style="padding:12px 16px;">A framework for learning from data under uncertainty</td>
+          <td style="padding:12px 16px;">A tool that produces guaranteed truth</td>
+        </tr>
+        <tr style="border-top:1px solid #e9ecef;">
+          <td style="padding:12px 16px;">A way to quantify variability (sampling error, measurement noise)</td>
+          <td style="padding:12px 16px;">Just formulas, charts, or “software output”</td>
+        </tr>
+        <tr style="border-top:1px solid #e9ecef;">
+          <td style="padding:12px 16px;">A method to generalize from samples to populations</td>
+          <td style="padding:12px 16px;">A replacement for good data collection</td>
+        </tr>
+        <tr style="border-top:1px solid #e9ecef;">
+          <td style="padding:12px 16px;">A discipline that depends on assumptions and context</td>
+          <td style="padding:12px 16px;">Pure mathematics with certainty from axioms alone</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
     <p class="muted-mini">
       This distinction is practical: many statistical mistakes come from treating uncertainty as a nuisance rather than a core feature.
