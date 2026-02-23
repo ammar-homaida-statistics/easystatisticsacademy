@@ -271,7 +271,7 @@ sidebar: false
       </p>
 
       <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/foundations/estimator-se-ci-test-pipeline/">
+        <a class="btn" href="/inference/foundations/inference-pipeline-estimator-se-ci-test/">
           Next lesson: 10. The Estimator → SE → CI/Test Pipeline →
         </a>
       </div>
