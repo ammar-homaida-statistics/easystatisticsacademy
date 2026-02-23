@@ -313,7 +313,7 @@ sidebar: false
       </p>
 
       <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/foundations/what-makes-a-good-estimator/">
+        <a class="btn" href="/inference/foundations/what-makes-good-estimator/">
           Next lesson: 9. What Makes a “Good” Estimator? →
         </a>
       </div>
