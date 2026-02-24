@@ -5,7 +5,7 @@ File: /inference/hypothesis-testing/index.md
 ---
 layout: default
 title: Block 3 — Hypothesis Testing
-description: Learn how statistical decisions are made using null hypotheses, test statistics, p-values, significance levels, and error control.
+description: Learn the logic of hypothesis testing: null models, test statistics, p-values, Type I and II errors, power, and decision-making under uncertainty.
 permalink: /inference/hypothesis-testing/
 sidebar: false
 ---
@@ -18,15 +18,15 @@ sidebar: false
         🚧 This Block Is Under Construction
       </h2>
       <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        This block develops <strong>hypothesis testing</strong> as a structured decision procedure:
-        defining null and alternative hypotheses, computing test statistics,
-        interpreting p-values, and controlling error rates.
+        This block develops <strong>hypothesis testing</strong> from first principles:
+        null models, test statistics, p-values, error types, and statistical power.
+        The goal is conceptual clarity before formulas.
       </p>
     </div>
   </div>
 </section>
 
-<!-- ✅ Update "last visited block" -->
+<!-- ✅ Update last visited block -->
 <script>
   (function () {
     var KEY = "esa_continue_inference_last_block_v0";
@@ -44,15 +44,16 @@ sidebar: false
       <div class="badge-row">
         <span class="badge">Block 3</span>
         <span class="badge">Testing</span>
-        <span class="badge">p-values</span>
-        <span class="badge">Decision rules</span>
+        <span class="badge">p-value</span>
+        <span class="badge">Decision</span>
       </div>
 
       <h1>Block 3 — Hypothesis Testing</h1>
+
       <p class="lead">
-        Hypothesis testing formalizes statistical decision-making.
-        This block teaches how to test claims about population parameters
-        using structured logic, test statistics, and controlled error rates.
+        Hypothesis testing formalizes decision-making under uncertainty.
+        We compare observed data to a null model and quantify
+        how surprising the data would be if that model were true.
       </p>
 
       <div class="hero-actions">
@@ -61,7 +62,7 @@ sidebar: false
       </div>
 
       <p class="muted-mini">
-        Version 0: decision logic first. Computation and software added later.
+        Version 0: conceptual structure locked. Lessons expand without changing order.
       </p>
     </div>
 
@@ -69,19 +70,19 @@ sidebar: false
       <div class="panel-card">
         <h2 class="panel-title">What this block covers</h2>
         <ul class="quickstart" style="list-style:none; padding-left:0; margin:0;">
-          <li style="margin:.35rem 0;"><strong>Null & alternative</strong><span class="meta">Formal claim structure</span></li>
-          <li style="margin:.35rem 0;"><strong>Test statistic</strong><span class="meta">Standardization logic</span></li>
+          <li style="margin:.35rem 0;"><strong>Null hypothesis</strong><span class="meta">Reference model</span></li>
+          <li style="margin:.35rem 0;"><strong>Test statistic</strong><span class="meta">Signal measured in SE units</span></li>
           <li style="margin:.35rem 0;"><strong>p-value</strong><span class="meta">Tail probability under H₀</span></li>
-          <li style="margin:.35rem 0;"><strong>α level</strong><span class="meta">Type I error control</span></li>
-          <li style="margin:.35rem 0;"><strong>Error types</strong><span class="meta">Type I & Type II</span></li>
-          <li style="margin:.35rem 0;"><strong>Connection to CIs</strong><span class="meta">Equivalence logic</span></li>
+          <li style="margin:.35rem 0;"><strong>Error types</strong><span class="meta">Type I and Type II</span></li>
+          <li style="margin:.35rem 0;"><strong>Power</strong><span class="meta">Detecting real effects</span></li>
+          <li style="margin:.35rem 0;"><strong>CI–Test link</strong><span class="meta">Two sides of same logic</span></li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Continue Reading -->
+<!-- Continue Reading placeholder -->
 <section class="section" id="continue-reading-block3" style="display:none;">
   <div class="callout">
     <div class="callout-copy">
@@ -96,100 +97,99 @@ sidebar: false
   <div class="section-head">
     <h2>Lessons (Version 0)</h2>
     <p>
-      Lessons are ordered to build decision logic gradually.
-      The structure below is permanent for this block.
+      The order below follows the logical structure of hypothesis testing.
     </p>
   </div>
 
   <div class="grid grid-2">
 
-    <!-- 1 -->
+    <!-- Lesson 1 -->
     <div class="card lesson-card">
       <h3><a href="/inference/hypothesis-testing/what-is-a-hypothesis-test/">1. What Is a Hypothesis Test?</a></h3>
-      <p>Decision-making under uncertainty: from interval estimation to formal testing.</p>
+      <p>Testing as a structured decision rule under uncertainty.</p>
       <div class="pill-row">
         <a class="btn btn-outline" href="/inference/hypothesis-testing/what-is-a-hypothesis-test/">Open lesson</a>
       </div>
     </div>
 
-    <!-- 2 -->
+    <!-- Lesson 2 -->
     <div class="card lesson-card">
-      <h3><a href="/inference/hypothesis-testing/null-and-alternative-hypotheses/">2. Null and Alternative Hypotheses</a></h3>
-      <p>Equality in H₀, direction in H₁, and one- vs two-sided logic.</p>
+      <h3><a href="/inference/hypothesis-testing/null-and-alternative/">2. Null and Alternative Hypotheses</a></h3>
+      <p>Equality in H₀, directional vs non-directional alternatives.</p>
       <div class="pill-row">
-        <a class="btn btn-outline" href="/inference/hypothesis-testing/null-and-alternative-hypotheses/">Open lesson</a>
+        <a class="btn btn-outline" href="/inference/hypothesis-testing/null-and-alternative/">Open lesson</a>
       </div>
     </div>
 
-    <!-- 3 -->
+    <!-- Lesson 3 -->
     <div class="card lesson-card">
-      <h3><a href="/inference/hypothesis-testing/test-statistics-and-standardization/">3. Test Statistics and Standardization</a></h3>
-      <p>Transforming an estimate into a standardized score.</p>
+      <h3><a href="/inference/hypothesis-testing/test-statistic-standardization/">3. Test Statistics and Standardization</a></h3>
+      <p>Signal measured in standard error units.</p>
       <div class="pill-row">
-        <a class="btn btn-outline" href="/inference/hypothesis-testing/test-statistics-and-standardization/">Open lesson</a>
+        <a class="btn btn-outline" href="/inference/hypothesis-testing/test-statistic-standardization/">Open lesson</a>
       </div>
     </div>
 
-    <!-- 4 -->
+    <!-- Lesson 4 -->
     <div class="card lesson-card">
-      <h3><a href="/inference/hypothesis-testing/p-value-meaning-and-logic/">4. The p-Value: Meaning and Logic</a></h3>
-      <p>Probability of observing data at least as extreme under H₀.</p>
+      <h3><a href="/inference/hypothesis-testing/p-value-meaning/">4. The p-Value: Meaning and Misinterpretation</a></h3>
+      <p>What a p-value is — and what it is not.</p>
       <div class="pill-row">
-        <a class="btn btn-outline" href="/inference/hypothesis-testing/p-value-meaning-and-logic/">Open lesson</a>
+        <a class="btn btn-outline" href="/inference/hypothesis-testing/p-value-meaning/">Open lesson</a>
       </div>
     </div>
 
-    <!-- 5 -->
+    <!-- Lesson 5 -->
     <div class="card lesson-card">
-      <h3><a href="/inference/hypothesis-testing/significance-level-and-decision-rule/">5. Significance Level (α) and Decision Rule</a></h3>
-      <p>Reject vs fail to reject; critical region logic.</p>
+      <h3><a href="/inference/hypothesis-testing/significance-level-alpha/">5. Significance Level (α) and Decision Rules</a></h3>
+      <p>Pre-specifying risk of false positives.</p>
       <div class="pill-row">
-        <a class="btn btn-outline" href="/inference/hypothesis-testing/significance-level-and-decision-rule/">Open lesson</a>
+        <a class="btn btn-outline" href="/inference/hypothesis-testing/significance-level-alpha/">Open lesson</a>
       </div>
     </div>
 
-    <!-- 6 -->
+    <!-- Lesson 6 -->
     <div class="card lesson-card">
-      <h3><a href="/inference/hypothesis-testing/type-i-and-type-ii-errors/">6. Type I and Type II Errors</a></h3>
-      <p>Error probabilities, power, and trade-offs.</p>
+      <h3><a href="/inference/hypothesis-testing/type1-type2-errors/">6. Type I and Type II Errors</a></h3>
+      <p>False positives, false negatives, and trade-offs.</p>
       <div class="pill-row">
-        <a class="btn btn-outline" href="/inference/hypothesis-testing/type-i-and-type-ii-errors/">Open lesson</a>
+        <a class="btn btn-outline" href="/inference/hypothesis-testing/type1-type2-errors/">Open lesson</a>
       </div>
     </div>
 
-    <!-- 7 -->
+    <!-- Lesson 7 -->
     <div class="card lesson-card">
-      <h3><a href="/inference/hypothesis-testing/one-sample-tests-mean-and-proportion/">7. One-Sample Tests (Mean & Proportion)</a></h3>
-      <p>z and t tests for μ and z tests for p.</p>
+      <h3><a href="/inference/hypothesis-testing/power-and-effect-size/">7. Power and Effect Size</a></h3>
+      <p>Probability of detecting real effects.</p>
       <div class="pill-row">
-        <a class="btn btn-outline" href="/inference/hypothesis-testing/one-sample-tests-mean-and-proportion/">Open lesson</a>
+        <a class="btn btn-outline" href="/inference/hypothesis-testing/power-and-effect-size/">Open lesson</a>
       </div>
     </div>
 
-    <!-- 8 -->
+    <!-- Lesson 8 -->
     <div class="card lesson-card">
-      <h3><a href="/inference/hypothesis-testing/two-sample-tests-independent/">8. Two-Sample Tests (Independent)</a></h3>
-      <p>Testing differences of means and proportions.</p>
+      <h3><a href="/inference/hypothesis-testing/one-sided-vs-two-sided/">8. One-Sided vs Two-Sided Tests</a></h3>
+      <p>Directional hypotheses and tail areas.</p>
       <div class="pill-row">
-        <a class="btn btn-outline" href="/inference/hypothesis-testing/two-sample-tests-independent/">Open lesson</a>
+        <a class="btn btn-outline" href="/inference/hypothesis-testing/one-sided-vs-two-sided/">Open lesson</a>
       </div>
     </div>
 
-    <!-- 9 -->
+    <!-- Lesson 9 -->
     <div class="card lesson-card">
-      <h3><a href="/inference/hypothesis-testing/paired-tests/">9. Paired Tests</a></h3>
-      <p>Dependent designs and testing the mean difference.</p>
+      <h3><a href="/inference/hypothesis-testing/ci-and-test-connection/">9. Connection Between CIs and Tests</a></h3>
+      <p>Why exclusion of 0 corresponds to rejection of H₀.</p>
       <div class="pill-row">
-        <a class="btn btn-outline" href="/inference/hypothesis-testing/paired-tests/">Open lesson</a>
+        <a class="btn btn-outline" href="/inference/hypothesis-testing/ci-and-test-connection/">Open lesson</a>
       </div>
     </div>
 
-    <!-- 10 -->
+    <!-- Lesson 10 -->
     <div class="card lesson-card">
-      <h3><a href="/inference/hypothesis-testing/connection-between-ci-and-tests/">10. Connection Between Confidence Intervals and Tests</a></h3>
-      <p>Why 95% CI excluding 0 corresponds to α = 0.05 rejection.</p>
+      <h3><a href="/inference/hypothesis-testing/practical-significance/">10. Statistical vs Practical Significance</a></h3>
+      <p>Small p-values vs meaningful effects.</p>
       <div class="pill-row">
-        <a class="btn btn-outline" href="/inference/hypothesis-testing/connection-between-ci-and-tests/">Open lesson</a>
+        <a class="btn btn-outline" href="/inference/hypothesis-testing/practical-significance/">Open lesson</a>
       </div>
     </div>
 
@@ -201,10 +201,10 @@ sidebar: false
     <div class="callout-copy">
       <h2>Outcome of Block 3</h2>
       <ul class="bullets">
-        <li>Formulate correct null and alternative hypotheses</li>
-        <li>Compute and interpret test statistics and p-values</li>
-        <li>Understand Type I and Type II errors</li>
-        <li>Connect hypothesis tests to confidence intervals</li>
+        <li>Understand hypothesis testing logic from first principles</li>
+        <li>Interpret p-values correctly</li>
+        <li>Explain error types and power</li>
+        <li>Connect tests to confidence intervals</li>
       </ul>
     </div>
 
@@ -213,8 +213,8 @@ sidebar: false
         <div class="mini-title" style="color:#1a73e8;">Next block</div>
         <div class="mini-body">
           Continue to
-          <a href="/inference/applied-inference/" style="color:#1a73e8; text-decoration:underline;">
-            <strong>Block 4 — Applied Inference</strong>
+          <a href="/inference/classical-tests/" style="color:#1a73e8; text-decoration:underline;">
+            <strong>Block 4 — Classical Tests</strong>
           </a>.
         </div>
       </div>
