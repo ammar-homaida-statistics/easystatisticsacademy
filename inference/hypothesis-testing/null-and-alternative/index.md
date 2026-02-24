@@ -46,8 +46,8 @@ sidebar: false
       <div class="badge-row">
         <span class="badge">Block 3</span>
         <span class="badge">Lesson 2</span>
-        <span class="badge">H0</span>
-        <span class="badge">H1</span>
+        <span class="badge">H<sub>0</sub></span>
+        <span class="badge">H<sub>1</sub></span>
       </div>
 
       <h1>2. Null and Alternative Hypotheses</h1>
@@ -64,7 +64,7 @@ sidebar: false
       </div>
 
       <p class="muted-mini">
-        The structure of H0 and H1 determines the entire logic of the test.
+        The structure of H<sub>0</sub> and H<sub>1</sub> determines the entire logic of the test.
       </p>
     </div>
   </div>
@@ -74,7 +74,7 @@ sidebar: false
   <div class="section-head">
     <h2>Learning objective</h2>
     <p>
-      Precisely formulate null and alternative hypotheses, understand why equality belongs in H0,
+      Precisely formulate null and alternative hypotheses, understand why equality belongs in H<sub>0</sub>,
       and distinguish between two-sided and one-sided alternatives.
     </p>
   </div>
@@ -92,7 +92,7 @@ sidebar: false
 
 <section class="section">
   <div class="section-head">
-    <h2>1) The Null Hypothesis (H0)</h2>
+    <h2>1) The null hypothesis (H<sub>0</sub>)</h2>
     <p>
       The null hypothesis represents the baseline claim.
       It typically states that a parameter equals a specific value.
@@ -103,7 +103,7 @@ sidebar: false
     <p style="margin:0;">
       General form:
       <br><br>
-      <strong>H0: parameter = reference value</strong>
+      <strong>H<sub>0</sub>: parameter = reference value</strong>
     </p>
   </div>
 
@@ -111,43 +111,51 @@ sidebar: false
     <div class="card">
       <h3>Mean example</h3>
       <p style="margin:0;">
-        H0: mu = mu0
+        \[
+        H_0:\ \mu = \mu_0
+        \]
       </p>
     </div>
 
     <div class="card">
       <h3>Proportion example</h3>
       <p style="margin:0;">
-        H0: p = p0
+        \[
+        H_0:\ p = p_0
+        \]
       </p>
     </div>
 
     <div class="card">
       <h3>Difference example</h3>
       <p style="margin:0;">
-        H0: mu1 − mu2 = 0
+        \[
+        H_0:\ \mu_1 - \mu_2 = 0
+        \]
       </p>
     </div>
 
     <div class="card">
       <h3>Regression example</h3>
       <p style="margin:0;">
-        H0: beta = 0
+        \[
+        H_0:\ \beta = 0
+        \]
       </p>
     </div>
   </div>
 
   <p class="muted-mini" style="margin-top:.75rem;">
-    Equality is placed in H0 because we need a precise distribution under the null model.
+    Equality is placed in H<sub>0</sub> because we need a precise distribution under the null model.
   </p>
 </section>
 
 <section class="section">
   <div class="section-head">
-    <h2>2) Why equality is in H0</h2>
+    <h2>2) Why equality is in H<sub>0</sub></h2>
     <p>
-      Hypothesis testing requires a fully specified probability model.
-      Equality provides the exact parameter value needed to compute the sampling distribution.
+      Hypothesis testing requires a fully specified probability model under the null.
+      Equality provides the exact parameter value needed to compute the sampling distribution of the test statistic.
     </p>
   </div>
 
@@ -155,19 +163,23 @@ sidebar: false
     <div class="callout-copy">
       <h2>Important reasoning</h2>
       <p style="margin:0;">
-        If H0 were written with inequality (for example, mu ≥ mu0),
-        the distribution of the test statistic would not be uniquely determined.
-        Therefore, equality belongs in H0.
+        If H<sub>0</sub> were written with an inequality (for example, \(\mu \ge \mu_0\)),
+        then the null would include many possible values of \(\mu\),
+        and the distribution of the test statistic would not be uniquely determined.
       </p>
     </div>
   </div>
+
+  <p class="muted-mini" style="margin-top:.75rem;">
+    In most introductory tests, H<sub>0</sub> is treated as a <strong>simple hypothesis</strong> (one exact value).
+  </p>
 </section>
 
 <section class="section">
   <div class="section-head">
-    <h2>3) The Alternative Hypothesis (H1 or Ha)</h2>
+    <h2>3) The alternative hypothesis (H<sub>1</sub> or H<sub>a</sub>)</h2>
     <p>
-      The alternative hypothesis defines the direction or type of departure from H0.
+      The alternative hypothesis defines the direction or type of departure from H<sub>0</sub>.
       It expresses what we are prepared to detect.
     </p>
   </div>
@@ -175,38 +187,45 @@ sidebar: false
   <div class="grid grid-2">
     <div class="card">
       <h3>Two-sided alternative</h3>
-      <p>
-        H1: parameter ≠ reference value
+      <p style="margin:0;">
+        \[
+        H_1:\ \text{parameter} \ne \text{reference value}
+        \]
       </p>
-      <p class="muted-mini">
+      <p class="muted-mini" style="margin-top:.5rem;">
         Detects any difference (larger or smaller).
       </p>
     </div>
 
     <div class="card">
       <h3>One-sided alternative (greater)</h3>
-      <p>
-        H1: parameter &gt; reference value
+      <p style="margin:0;">
+        \[
+        H_1:\ \text{parameter} > \text{reference value}
+        \]
       </p>
-      <p class="muted-mini">
+      <p class="muted-mini" style="margin-top:.5rem;">
         Detects increases only.
       </p>
     </div>
 
     <div class="card">
       <h3>One-sided alternative (smaller)</h3>
-      <p>
-        H1: parameter &lt; reference value
+      <p style="margin:0;">
+        \[
+        H_1:\ \text{parameter} < \text{reference value}
+        \]
       </p>
-      <p class="muted-mini">
+      <p class="muted-mini" style="margin-top:.5rem;">
         Detects decreases only.
       </p>
     </div>
 
     <div class="card">
       <h3>Directional commitment</h3>
-      <p>
-        The direction must be chosen before seeing the data.
+      <p style="margin:0;">
+        The direction must be chosen <strong>before</strong> looking at the data.
+        Otherwise, the stated error rates no longer match reality.
       </p>
     </div>
   </div>
@@ -216,32 +235,126 @@ sidebar: false
   <div class="section-head">
     <h2>4) Choosing one-sided vs two-sided</h2>
     <p>
-      The choice affects the rejection region and the p-value calculation.
-      A one-sided test concentrates all probability in one tail.
+      The choice affects the rejection region and p-value calculation.
+      A one-sided test concentrates the rejection region in one tail.
       A two-sided test splits it across both tails.
     </p>
   </div>
 
-  <div class="card">
-    <strong>Two-sided test:</strong> more conservative, detects any deviation.<br>
-    <strong>One-sided test:</strong> more powerful in one direction, but blind to the opposite direction.
+  <div class="grid grid-2">
+    <div class="card">
+      <h3>Two-sided test</h3>
+      <ul class="bullets">
+        <li>Use when deviations in both directions matter</li>
+        <li>Standard default when direction is not justified</li>
+        <li>More conservative for directional claims</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>One-sided test</h3>
+      <ul class="bullets">
+        <li>Use only when direction is scientifically justified</li>
+        <li>More power in the chosen direction</li>
+        <li>Blind to effects in the opposite direction</li>
+      </ul>
+    </div>
   </div>
 
   <p class="muted-mini" style="margin-top:.75rem;">
-    The decision must be justified by the research question, not by the observed data.
+    Do not choose “one-sided” because the observed effect went in that direction.
   </p>
 </section>
 
 <section class="section">
   <div class="section-head">
-    <h2>5) Logical structure of testing</h2>
+    <h2>5) A compact template (ready to reuse)</h2>
+    <p>
+      Most classical tests can be written using one of these three templates.
+    </p>
   </div>
 
-  <div class="card">
-    Step 1: Assume H0 is true.<br>
-    Step 2: Compute a test statistic from the data.<br>
-    Step 3: Measure how extreme the statistic is under H0.<br>
-    Step 4: Decide whether the evidence contradicts H0.
+  <div class="grid grid-2">
+    <div class="card">
+      <h3>Two-sided</h3>
+      <p style="margin:0;">
+        \[
+        H_0:\ \theta = \theta_0
+        \qquad\text{vs}\qquad
+        H_1:\ \theta \ne \theta_0
+        \]
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>One-sided (greater)</h3>
+      <p style="margin:0;">
+        \[
+        H_0:\ \theta = \theta_0
+        \qquad\text{vs}\qquad
+        H_1:\ \theta > \theta_0
+        \]
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>One-sided (smaller)</h3>
+      <p style="margin:0;">
+        \[
+        H_0:\ \theta = \theta_0
+        \qquad\text{vs}\qquad
+        H_1:\ \theta < \theta_0
+        \]
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Meaning of \(\theta\)</h3>
+      <p style="margin:0;">
+        \(\theta\) can be \(\mu\), \(p\), \(\mu_1-\mu_2\), \(\beta\), \(\sigma^2\), etc.
+        The structure stays the same.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>6) Common traps (and how to avoid them)</h2>
+    <p>
+      Bad hypotheses create bad tests.
+      Most errors are conceptual (not computational).
+    </p>
+  </div>
+
+  <div class="grid grid-2">
+    <div class="card">
+      <h3>Trap A: Putting equality in H<sub>1</sub></h3>
+      <p style="margin:0;">
+        The reference distribution is built under H<sub>0</sub>, so equality belongs there.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Trap B: One-sided after seeing data</h3>
+      <p style="margin:0;">
+        This inflates false positives because you quietly change the rule.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Trap C: Vague H<sub>0</sub></h3>
+      <p style="margin:0;">
+        “No difference” must be written as a specific parameter value (usually 0).
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Trap D: Testing the wrong parameter</h3>
+      <p style="margin:0;">
+        Always confirm what parameter your statistic targets (mean, proportion, difference, slope, etc.).
+      </p>
+    </div>
   </div>
 </section>
 
@@ -250,10 +363,10 @@ sidebar: false
     <div class="callout-copy">
       <h2>Outcome of this lesson</h2>
       <ul class="bullets">
-        <li>Formulate null hypotheses using equality</li>
-        <li>Specify two-sided and one-sided alternatives correctly</li>
-        <li>Understand how hypothesis structure affects the test</li>
-        <li>Avoid post-hoc directional changes</li>
+        <li>Formulate H<sub>0</sub> with equality and a specific reference value</li>
+        <li>Write correct two-sided and one-sided alternatives</li>
+        <li>Understand how hypothesis form determines the rejection region</li>
+        <li>Avoid post-hoc directional choices</li>
       </ul>
     </div>
   </div>
@@ -264,7 +377,8 @@ sidebar: false
     <div class="callout-copy">
       <h2>Next step</h2>
       <p style="margin:0;">
-        Now we formalize how evidence is measured using standardized test statistics.
+        Next, we define how evidence is measured using a <strong>test statistic</strong>
+        and why standardization puts results on a universal scale.
       </p>
 
       <div class="pill-row" style="margin-top:1rem;">
