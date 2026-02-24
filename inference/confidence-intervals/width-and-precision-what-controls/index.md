@@ -1,8 +1,8 @@
 ---
 layout: default
-title: "10. CI for Paired Mean Difference"
-description: "Construct and interpret a confidence interval for the mean difference in paired or matched samples."
-permalink: /inference/confidence-intervals/ci-for-paired-mean-difference/
+title: "11. Width and Precision: What Controls It"
+description: "Understand what determines confidence interval width and statistical precision: sample size, variability, and confidence level."
+permalink: /inference/confidence-intervals/width-and-precision-what-controls/
 sidebar: false
 ---
 
@@ -14,8 +14,8 @@ sidebar: false
         🚧 Lesson Under Construction
       </h2>
       <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 establishes the paired-sample framework.
-        Extensions and software examples will be added later.
+        Version 0 explains the structural determinants of interval width.
+        Numeric examples and visual simulations will be added later.
       </p>
     </div>
   </div>
@@ -25,8 +25,8 @@ sidebar: false
   (function () {
     var KEY = "esa_continue_inference_confidence_intervals_lesson_v0";
     localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/confidence-intervals/ci-for-paired-mean-difference/",
-      label: "Lesson 10 — CI for Paired Mean Difference",
+      url: "/inference/confidence-intervals/width-and-precision-what-controls/",
+      label: "Lesson 11 — Width and Precision",
       ts: Date.now()
     }));
 
@@ -43,16 +43,17 @@ sidebar: false
     <div class="hero-copy">
       <div class="badge-row">
         <span class="badge">Block 2</span>
-        <span class="badge">Lesson 10</span>
-        <span class="badge">Paired</span>
-        <span class="badge">Dependent Samples</span>
+        <span class="badge">Lesson 11</span>
+        <span class="badge">Precision</span>
+        <span class="badge">Sample Size</span>
       </div>
 
-      <h1>10. CI for Paired Mean Difference</h1>
+      <h1>11. Width and Precision: What Controls It</h1>
 
       <p class="lead">
-        When observations are naturally paired (before–after, matched units),
-        we analyze the differences within pairs — not the groups separately.
+        Confidence intervals differ in width.
+        Understanding what controls width is essential for study design
+        and for interpreting statistical precision.
       </p>
 
       <div class="hero-actions">
@@ -61,7 +62,7 @@ sidebar: false
       </div>
 
       <p class="muted-mini">
-        The paired problem is a one-sample problem in disguise.
+        Precision is not random — it is structurally determined.
       </p>
     </div>
   </div>
@@ -71,7 +72,8 @@ sidebar: false
   <div class="section-head">
     <h2>Learning objective</h2>
     <p>
-      Construct and interpret a confidence interval for the mean of paired differences.
+      Identify and explain the three core factors that determine
+      confidence interval width.
     </p>
   </div>
 
@@ -79,9 +81,10 @@ sidebar: false
     <div class="callout-copy">
       <h2>Key idea</h2>
       <p style="margin:0;">
-        Convert paired data into a single variable:
-        the difference \( D = X_1 - X_2 \).
-        Then perform a one-sample t interval on D.
+        Interval width depends on:
+        (1) variability,
+        (2) sample size,
+        (3) confidence level.
       </p>
     </div>
   </div>
@@ -89,102 +92,84 @@ sidebar: false
 
 <section class="section">
   <div class="section-head">
-    <h2>1) Define the differences</h2>
+    <h2>1) General structure</h2>
   </div>
 
   <div class="card">
     \[
-    D_i = X_{1i} - X_{2i}
+    \text{CI Width} \propto
+    \text{Critical Value}
+    \times
+    \text{Standard Error}
     \]
   </div>
 
   <p class="muted-mini">
-    Target parameter: \( \mu_D \)
+    Since SE typically equals (variability) / √n,
+    the structure becomes clear.
   </p>
 </section>
 
 <section class="section">
   <div class="section-head">
-    <h2>2) Estimator</h2>
+    <h2>2) Sample size (n)</h2>
   </div>
 
   <div class="card">
     \[
-    \bar{D} = \frac{1}{n}\sum D_i
-    \]
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>3) Standard error</h2>
-  </div>
-
-  <div class="card">
-    \[
-    SE =
-    \frac{S_D}{\sqrt{n}}
+    SE \propto \frac{1}{\sqrt{n}}
     \]
   </div>
 
-  <p class="muted-mini">
-    Where \( S_D \) is the sample standard deviation of the differences.
+  <p>
+    Increasing sample size reduces width.
+    But the reduction follows a square-root law —
+    doubling n does not cut width in half.
   </p>
 </section>
 
 <section class="section">
   <div class="section-head">
-    <h2>4) Confidence interval formula</h2>
+    <h2>3) Variability</h2>
   </div>
 
   <div class="card">
-    <strong>
-    \[
-    \bar{D}
-    \pm
-    t_{\alpha/2,\,n-1}
-    \cdot
-    \frac{S_D}{\sqrt{n}}
-    \]
-    </strong>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>5) Conditions</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Paired design</h3>
-      <p>Observations are meaningfully linked.</p>
-    </div>
-
-    <div class="card">
-      <h3>Independence of pairs</h3>
-      <p>Pairs independent of each other.</p>
-    </div>
-
-    <div class="card">
-      <h3>Normality of differences</h3>
-      <p>Differences approximately normal or n large.</p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>6) Interpretation</h2>
-  </div>
-
-  <div class="card">
-    A 95% CI for \( \mu_D \) gives plausible values
-    for the true average paired difference.
+    Higher variability → larger standard error → wider interval.
   </div>
 
   <p class="muted-mini">
-    If 0 lies in the interval, the data are consistent with no average change.
+    Study design can sometimes reduce variability
+    (e.g., paired designs).
+  </p>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>4) Confidence level</h2>
+  </div>
+
+  <div class="card">
+    Higher confidence level → larger critical value → wider interval.
+  </div>
+
+  <p>
+    99% intervals are wider than 95% intervals,
+    which are wider than 90% intervals.
+  </p>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>5) Precision vs accuracy</h2>
+  </div>
+
+  <div class="card">
+    Narrow intervals reflect precision,
+    not necessarily correctness.
+  </div>
+
+  <p class="muted-mini">
+    Biased sampling can produce narrow but misleading intervals.
   </p>
 </section>
 
@@ -193,10 +178,10 @@ sidebar: false
     <div class="callout-copy">
       <h2>Outcome of this lesson</h2>
       <ul class="bullets">
-        <li>Transform paired data into differences</li>
-        <li>Use one-sample t interval on differences</li>
-        <li>Check assumptions properly</li>
-        <li>Interpret inclusion of 0</li>
+        <li>Explain how n affects width</li>
+        <li>Explain role of variability</li>
+        <li>Explain effect of confidence level</li>
+        <li>Distinguish precision from validity</li>
       </ul>
     </div>
   </div>
@@ -207,12 +192,13 @@ sidebar: false
     <div class="callout-copy">
       <h2>Next step</h2>
       <p style="margin:0;">
-        Now we analyze what determines interval width and statistical precision.
+        Now we address the most common interpretation errors
+        in confidence intervals.
       </p>
 
       <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/confidence-intervals/width-and-precision-what-controls/">
-          Next lesson: 11. Width & Precision: What Controls It →
+        <a class="btn" href="/inference/confidence-intervals/common-mistakes-and-interpretation/">
+          Next lesson: 12. Common Mistakes & Interpretation →
         </a>
       </div>
     </div>
@@ -221,8 +207,8 @@ sidebar: false
       <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
         <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
         <div class="mini-body">
-          <a href="/inference/confidence-intervals/ci-for-difference-of-proportions/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 9: CI for Difference of Proportions
+          <a href="/inference/confidence-intervals/ci-for-paired-mean-difference/" style="color:#1a73e8; text-decoration:underline;">
+            Lesson 10: CI for Paired Mean Difference
           </a>
         </div>
       </div>
