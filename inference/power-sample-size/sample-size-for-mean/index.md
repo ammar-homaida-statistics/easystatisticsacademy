@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "4. Sample Size for a Mean"
-description: "Derive and interpret the required sample size for detecting a mean difference with specified power and significance level."
+description: "Derive and interpret the required sample size for detecting a mean difference with specified alpha and power."
 permalink: /inference/power-sample-size/sample-size-for-mean/
 sidebar: false
 ---
@@ -14,8 +14,9 @@ sidebar: false
         🚧 Lesson Under Construction
       </h2>
       <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 derives the classical sample size formula for detecting a mean difference.
-        Extensions to two-sample designs and software tools will be added later.
+        Version 0 derives the core sample size formula for a mean under
+        normal approximation. Extensions to two-sample cases and software
+        implementation will be added later.
       </p>
     </div>
   </div>
@@ -53,8 +54,8 @@ sidebar: false
       <h1>4. Sample Size for a Mean</h1>
 
       <p class="lead">
-        Before collecting data, we must determine how large a sample is needed
-        to detect a meaningful difference in a population mean
+        Before collecting data, we must determine how many observations
+        are required to detect a meaningful difference in the population mean
         with specified power and significance level.
       </p>
 
@@ -64,7 +65,7 @@ sidebar: false
       </div>
 
       <p class="muted-mini">
-        Planning prevents underpowered studies.
+        Sample size planning connects effect size, alpha, and power.
       </p>
     </div>
   </div>
@@ -74,9 +75,8 @@ sidebar: false
   <div class="section-head">
     <h2>Learning objective</h2>
     <p>
-      Derive and interpret the required sample size
-      for detecting a specified mean difference
-      under given alpha and power.
+      Derive and interpret the required sample size for detecting
+      a specified mean difference with chosen alpha and power.
     </p>
   </div>
 
@@ -84,9 +84,10 @@ sidebar: false
     <div class="callout-copy">
       <h2>Planning question</h2>
       <p style="margin:0;">
-        What sample size ensures at least
-        a chosen power (1 − beta)
-        for detecting a meaningful difference delta?
+        What sample size n ensures:
+        \[
+        P(\text{Reject } H_0 \mid \mu = \mu_0 + \Delta) = 1 - \beta ?
+        \]
       </p>
     </div>
   </div>
@@ -98,69 +99,81 @@ sidebar: false
   </div>
 
   <div class="card">
-    Hypotheses:
+    Test:
     \[
     H_0: \mu = \mu_0
-    \]
-    \[
-    H_1: \mu = \mu_0 + \delta
+    \qquad
+    H_1: \mu \neq \mu_0
     \]
   </div>
 
-  <p>
-    Assume known population standard deviation sigma
-    (normal approximation).
+  <div class="card" style="margin-top:1rem;">
+    Standardized test statistic:
+    \[
+    Z =
+    \frac{\bar{X} - \mu_0}{\sigma / \sqrt{n}}
+    \]
+  </div>
+
+  <p class="muted-mini">
+    Assume σ known and normal approximation.
   </p>
 </section>
 
 <section class="section">
   <div class="section-head">
-    <h2>2) Test statistic under H1</h2>
+    <h2>2) Detectable difference</h2>
   </div>
 
   <div class="card">
-    Standard error:
+    Let
     \[
-    SE = \frac{\sigma}{\sqrt{n}}
+    \Delta = |\mu - \mu_0|
     \]
+    denote the smallest meaningful difference.
   </div>
 
-  <div class="card" style="margin-top:1rem;">
-    Standardized effect:
+  <p>
+    Under the alternative,
+    the standardized mean shift equals:
     \[
-    \frac{\delta}{SE}
+    \frac{\Delta}{\sigma/\sqrt{n}}
     =
-    \frac{\delta \sqrt{n}}{\sigma}
+    \frac{\Delta \sqrt{n}}{\sigma}
     \]
-  </div>
+  </p>
 </section>
 
 <section class="section">
   <div class="section-head">
-    <h2>3) Required sample size formula</h2>
+    <h2>3) Sample size formula (two-sided test)</h2>
   </div>
 
   <div class="card">
-    For a two-sided test:
+    Required sample size:
     \[
     n =
     \left(
-    \frac{
-    z_{\alpha/2} + z_{\beta}
-    }{
-    \delta / \sigma
-    }
+    \frac{ z_{\alpha/2} + z_{\beta} }{\Delta / \sigma}
     \right)^2
+    \]
+  </div>
+
+  <div class="card" style="margin-top:1rem;">
+    Equivalent form:
+    \[
+    n =
+    \frac{ (z_{\alpha/2} + z_{\beta})^2 \sigma^2 }
+         { \Delta^2 }
     \]
   </div>
 
   <p class="muted-mini">
     Where:
     <br>
-    • z_{alpha/2} controls Type I error  
-    • z_beta ensures desired power  
-    • delta is the smallest meaningful difference  
-    • sigma is population standard deviation  
+    • \(z_{\alpha/2}\) controls Type I error  
+    • \(z_{\beta}\) controls power  
+    • \(\Delta\) is the smallest effect of interest  
   </p>
 </section>
 
@@ -170,52 +183,34 @@ sidebar: false
   </div>
 
   <div class="card">
-    Larger required power → larger n  
-    Smaller alpha → larger n  
-    Smaller detectable delta → much larger n  
-    Larger variability sigma → larger n  
+    Larger required n when:
+    <br><br>
+    • Desired power increases  
+    • Significance level decreases  
+    • Variability increases  
+    • Detectable effect size decreases  
   </div>
 
   <p>
-    Detecting very small effects requires
-    disproportionately large samples.
+    Small meaningful differences require large samples.
   </p>
 </section>
 
 <section class="section">
   <div class="section-head">
-    <h2>5) Practical considerations</h2>
+    <h2>5) Practical workflow</h2>
   </div>
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Choose meaningful delta</h3>
-      <p>
-        Define smallest practically important difference,
-        not smallest statistically detectable difference.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Estimate sigma carefully</h3>
-      <p>
-        Use pilot studies or prior research.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Account for dropouts</h3>
-      <p>
-        Increase calculated n if attrition is expected.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Two-sample extension</h3>
-      <p>
-        Similar formula with group allocation adjustment.
-      </p>
-    </div>
+  <div class="card">
+    Step 1: Choose alpha (e.g., 0.05)  
+    <br>
+    Step 2: Choose desired power (e.g., 0.80 or 0.90)  
+    <br>
+    Step 3: Specify smallest meaningful difference Δ  
+    <br>
+    Step 4: Estimate population standard deviation σ  
+    <br>
+    Step 5: Compute required n  
   </div>
 </section>
 
@@ -224,10 +219,10 @@ sidebar: false
     <div class="callout-copy">
       <h2>Outcome of this lesson</h2>
       <ul class="bullets">
-        <li>Derive classical sample size formula</li>
-        <li>Interpret role of alpha and beta</li>
-        <li>Understand impact of variability and effect size</li>
-        <li>Plan studies responsibly</li>
+        <li>Derive sample size formula for a mean</li>
+        <li>Interpret roles of alpha and beta</li>
+        <li>Understand impact of variability</li>
+        <li>Plan studies based on meaningful differences</li>
       </ul>
     </div>
   </div>
@@ -238,8 +233,8 @@ sidebar: false
     <div class="callout-copy">
       <h2>Next lesson</h2>
       <p style="margin:0;">
-        We now derive required sample size
-        for estimating and testing proportions.
+        We now derive required sample size for detecting
+        a difference in proportions.
       </p>
 
       <div class="pill-row" style="margin-top:1rem;">
