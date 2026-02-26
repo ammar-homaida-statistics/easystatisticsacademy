@@ -77,6 +77,17 @@ sidebar: false
     </p>
   </div>
 
+  <!-- ✅ Continue reading (Mathematical Statistics home → last visited BLOCK) -->
+  <div id="continue-reading-ms" style="display:none; margin-top:0.75rem;">
+    <div class="callout">
+      <div class="callout-copy">
+        <h2>Continue reading</h2>
+        <p class="muted-mini" id="continue-reading-ms-label" style="margin:0 0 .75rem 0;"></p>
+        <a class="btn" id="continue-reading-ms-btn" href="#">Continue</a>
+      </div>
+    </div>
+  </div>
+
   <div class="grid grid-2">
 
     <!-- Block 1 -->
@@ -87,7 +98,6 @@ sidebar: false
       <p>
         Define statistical models rigorously: parametric families,
         parameter spaces, identifiability, and modeling assumptions.
-        Establish the formal framework for estimation.
       </p>
       <div class="pill-row">
         <a class="btn btn-outline" href="/mathematical-statistics/statistical-models/">Open block</a>
@@ -100,9 +110,8 @@ sidebar: false
         <a href="/mathematical-statistics/likelihood-and-log-likelihood/">Block 2 — Likelihood & Log-Likelihood</a>
       </h3>
       <p>
-        Develop the likelihood function, log-likelihood, score function,
-        and information concepts. Understand why likelihood is central
-        to estimation theory.
+        Develop likelihood, log-likelihood, score function,
+        and information concepts central to estimation.
       </p>
       <div class="pill-row">
         <a class="btn btn-outline" href="/mathematical-statistics/likelihood-and-log-likelihood/">Open block</a>
@@ -115,8 +124,7 @@ sidebar: false
         <a href="/mathematical-statistics/maximum-likelihood-estimation/">Block 3 — Maximum Likelihood Estimation</a>
       </h3>
       <p>
-        Construct estimators using likelihood equations.
-        Study existence, uniqueness, invariance, and classical examples.
+        Construct estimators using likelihood equations and study their properties.
       </p>
       <div class="pill-row">
         <a class="btn btn-outline" href="/mathematical-statistics/maximum-likelihood-estimation/">Open block</a>
@@ -129,8 +137,7 @@ sidebar: false
         <a href="/mathematical-statistics/estimator-properties/">Block 4 — Estimator Properties</a>
       </h3>
       <p>
-        Evaluate estimators using bias, variance, mean squared error,
-        consistency, and efficiency. Learn how estimators are compared formally.
+        Evaluate estimators using bias, variance, MSE, consistency, and efficiency.
       </p>
       <div class="pill-row">
         <a class="btn btn-outline" href="/mathematical-statistics/estimator-properties/">Open block</a>
@@ -143,8 +150,7 @@ sidebar: false
         <a href="/mathematical-statistics/fisher-information-and-efficiency/">Block 5 — Fisher Information & Efficiency</a>
       </h3>
       <p>
-        Study Fisher information, Cramér–Rao lower bound,
-        and the concept of efficiency. Understand the limits of precision.
+        Study Fisher information, Cramér–Rao lower bound, and efficiency.
       </p>
       <div class="pill-row">
         <a class="btn btn-outline" href="/mathematical-statistics/fisher-information-and-efficiency/">Open block</a>
@@ -157,8 +163,7 @@ sidebar: false
         <a href="/mathematical-statistics/asymptotic-theory/">Block 6 — Asymptotic Theory</a>
       </h3>
       <p>
-        Analyze large-sample behavior: consistency, asymptotic normality,
-        Taylor expansions, Slutsky’s theorem, and the delta method.
+        Analyze consistency, asymptotic normality, Slutsky’s theorem, and delta method.
       </p>
       <div class="pill-row">
         <a class="btn btn-outline" href="/mathematical-statistics/asymptotic-theory/">Open block</a>
@@ -171,8 +176,7 @@ sidebar: false
         <a href="/mathematical-statistics/alternative-estimation-methods/">Block 7 — Alternative Estimation Methods</a>
       </h3>
       <p>
-        Explore method of moments and other estimation frameworks
-        that extend beyond maximum likelihood.
+        Explore method of moments and alternative estimation frameworks.
       </p>
       <div class="pill-row">
         <a class="btn btn-outline" href="/mathematical-statistics/alternative-estimation-methods/">Open block</a>
@@ -194,20 +198,27 @@ sidebar: false
         <li>Prepare cleanly for Statistical Inference</li>
       </ul>
     </div>
-
-    <div class="callout-side">
-      <div class="mini">
-        <div class="mini-title">Prerequisite</div>
-        <div class="mini-body">Probability theory (random variables, expectation, CLT).</div>
-      </div>
-      <div class="mini">
-        <div class="mini-title">Next section</div>
-        <div class="mini-body">Statistical Inference — confidence intervals and hypothesis testing.</div>
-      </div>
-      <div class="mini">
-        <div class="mini-title">Scope</div>
-        <div class="mini-body">This unit focuses on theory. Applications follow in Inference and Modeling.</div>
-      </div>
-    </div>
   </div>
 </section>
+
+<script>
+  (function () {
+    var KEY = "esa_continue_ms_last_block_v0";
+    var raw = localStorage.getItem(KEY);
+    if (!raw) return;
+
+    try {
+      var data = JSON.parse(raw);
+      if (!data || !data.url || !data.label) return;
+
+      var wrap = document.getElementById("continue-reading-ms");
+      var label = document.getElementById("continue-reading-ms-label");
+      var btn = document.getElementById("continue-reading-ms-btn");
+      if (!wrap || !label || !btn) return;
+
+      label.innerHTML = 'You last visited: <strong>' + data.label + '</strong>';
+      btn.href = data.url;
+      wrap.style.display = "block";
+    } catch (e) {}
+  })();
+</script>
