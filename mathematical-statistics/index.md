@@ -1,112 +1,212 @@
 ---
 layout: default
 title: Mathematical Statistics
-description: Key theory behind estimation and inference—likelihood, estimators, properties, and asymptotics.
+description: The theory of estimation: statistical models, likelihood, estimator properties, Fisher information, and asymptotic results.
 permalink: /mathematical-statistics/
 sidebar: false
 ---
+
+<!-- UNDER CONSTRUCTION NOTICE -->
+<section class="section section-slim">
+  <div class="callout" style="background:#eef5ff; border:2px solid #3f51b5; padding:1.5rem; border-radius:10px;">
+    <div class="callout-copy">
+      <h2 style="margin-top:0; color:#1a237e; font-size:1.8rem; letter-spacing:0.5px;">
+        📐 Mathematical Statistics — Theory of Estimation
+      </h2>
+      <p style="margin:0; font-size:1.05rem; color:#283593; line-height:1.6;">
+        This unit develops the formal theory behind statistical estimation.
+        We move from statistical models to likelihood, study properties of estimators,
+        and derive asymptotic results that power modern inference and machine learning.
+      </p>
+    </div>
+  </div>
+</section>
 
 <section class="hero hero-section">
   <div class="hero-card hero-split">
     <div class="hero-copy">
       <div class="badge-row">
+        <span class="badge">Estimation theory</span>
         <span class="badge">Likelihood</span>
-        <span class="badge">Estimators</span>
+        <span class="badge">Fisher information</span>
         <span class="badge">Asymptotics</span>
       </div>
 
       <h1>Mathematical Statistics</h1>
       <p class="lead">
-        The theory behind estimation and inference: likelihood, estimator properties,
-        and asymptotic results—explained clearly.
+        Learn how estimators are constructed, evaluated, and justified.
+        Understand likelihood, efficiency, and asymptotic normality —
+        the theoretical backbone of statistical inference.
       </p>
 
       <div class="hero-actions">
         <a class="btn" href="/probability/">Prerequisite: Probability</a>
-        <a class="btn btn-outline" href="/inference/">Next: Inference</a>
+        <a class="btn btn-outline" href="/statistical-inference/">Next: Statistical Inference</a>
       </div>
 
       <p class="muted-mini">
-        Lessons will be activated as they are published. The order below is the recommended path.
+        This unit focuses strictly on estimation theory.
+        Hypothesis testing and confidence intervals are developed in the Inference section.
       </p>
     </div>
 
     <div class="hero-panel">
       <div class="panel-card">
-        <h2 class="panel-title">Suggested order</h2>
+        <h2 class="panel-title">Suggested learning order</h2>
         <ol class="quickstart">
-          <li><a href="#lessons">Likelihood</a><span class="meta">Core tool for estimation</span></li>
-          <li><a href="#lessons">Estimator properties</a><span class="meta">Bias, variance, consistency</span></li>
-          <li><a href="#lessons">Asymptotics</a><span class="meta">CLT-based reasoning</span></li>
+          <li><a href="#blocks">Statistical models</a><span class="meta">Parametric structure</span></li>
+          <li><a href="#blocks">Likelihood framework</a><span class="meta">Core estimation engine</span></li>
+          <li><a href="#blocks">Maximum likelihood</a><span class="meta">Constructing estimators</span></li>
+          <li><a href="#blocks">Estimator properties</a><span class="meta">Bias, variance, MSE</span></li>
+          <li><a href="#blocks">Fisher information</a><span class="meta">Efficiency bounds</span></li>
+          <li><a href="#blocks">Asymptotic theory</a><span class="meta">Large-sample behavior</span></li>
+          <li><a href="#blocks">Extensions</a><span class="meta">Alternative estimators</span></li>
         </ol>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section" id="lessons">
+<section class="section" id="blocks">
   <div class="section-head">
-    <h2>Lessons</h2>
-    <p>Placeholders for now. These will become clickable when lessons are published.</p>
+    <h2>Blocks (Unit Structure)</h2>
+    <p>
+      Mathematical Statistics is organized into seven structured blocks.
+      Each block builds formally on the previous one and prepares you
+      for full statistical inference.
+    </p>
   </div>
 
   <div class="grid grid-2">
-    <div class="card lesson-card is-soon">
-      <h3>Likelihood and log-likelihood</h3>
-      <p>Likelihood as a function, and why it is central for estimation.</p>
-      <span class="pill">Coming soon</span>
+
+    <!-- Block 1 -->
+    <div class="card lesson-card">
+      <h3>
+        <a href="/mathematical-statistics/models/">Block 1 — Statistical Models</a>
+      </h3>
+      <p>
+        Define statistical models rigorously: parametric families,
+        parameter spaces, identifiability, and modeling assumptions.
+        Establish the formal framework for estimation.
+      </p>
+      <div class="pill-row">
+        <a class="btn btn-outline" href="/mathematical-statistics/models/">Open block</a>
+      </div>
     </div>
 
-    <div class="card lesson-card is-soon">
-      <h3>Maximum likelihood estimation</h3>
-      <p>How MLE works, and how to interpret it correctly.</p>
-      <span class="pill">Coming soon</span>
+    <!-- Block 2 -->
+    <div class="card lesson-card">
+      <h3>
+        <a href="/mathematical-statistics/likelihood/">Block 2 — Likelihood & Log-Likelihood</a>
+      </h3>
+      <p>
+        Develop the likelihood function, log-likelihood, score function,
+        and information concepts. Understand why likelihood is central
+        to estimation theory.
+      </p>
+      <div class="pill-row">
+        <a class="btn btn-outline" href="/mathematical-statistics/likelihood/">Open block</a>
+      </div>
     </div>
 
-    <div class="card lesson-card is-soon">
-      <h3>Bias and variance of estimators</h3>
-      <p>What makes an estimator “good”, and trade-offs you must understand.</p>
-      <span class="pill">Coming soon</span>
+    <!-- Block 3 -->
+    <div class="card lesson-card">
+      <h3>
+        <a href="/mathematical-statistics/mle/">Block 3 — Maximum Likelihood Estimation</a>
+      </h3>
+      <p>
+        Construct estimators using likelihood equations.
+        Study existence, uniqueness, invariance, and classical examples.
+      </p>
+      <div class="pill-row">
+        <a class="btn btn-outline" href="/mathematical-statistics/mle/">Open block</a>
+      </div>
     </div>
 
-    <div class="card lesson-card is-soon">
-      <h3>Consistency and efficiency</h3>
-      <p>Large-sample behavior and why it matters for real data analysis.</p>
-      <span class="pill">Coming soon</span>
+    <!-- Block 4 -->
+    <div class="card lesson-card">
+      <h3>
+        <a href="/mathematical-statistics/estimator-properties/">Block 4 — Finite-Sample Properties</a>
+      </h3>
+      <p>
+        Evaluate estimators using bias, variance, mean squared error,
+        consistency, and efficiency. Learn how estimators are compared formally.
+      </p>
+      <div class="pill-row">
+        <a class="btn btn-outline" href="/mathematical-statistics/estimator-properties/">Open block</a>
+      </div>
     </div>
 
-    <div class="card lesson-card is-soon">
-      <h3>Fisher information</h3>
-      <p>Information, lower bounds, and intuition for estimator precision.</p>
-      <span class="pill">Coming soon</span>
+    <!-- Block 5 -->
+    <div class="card lesson-card">
+      <h3>
+        <a href="/mathematical-statistics/information/">Block 5 — Fisher Information & Efficiency</a>
+      </h3>
+      <p>
+        Study Fisher information, Cramér–Rao lower bound,
+        and the concept of efficiency. Understand the limits of precision.
+      </p>
+      <div class="pill-row">
+        <a class="btn btn-outline" href="/mathematical-statistics/information/">Open block</a>
+      </div>
     </div>
 
-    <div class="card lesson-card is-soon">
-      <h3>Asymptotic normality</h3>
-      <p>Why many estimators become normal and how that supports inference.</p>
-      <span class="pill">Coming soon</span>
+    <!-- Block 6 -->
+    <div class="card lesson-card">
+      <h3>
+        <a href="/mathematical-statistics/asymptotics/">Block 6 — Asymptotic Theory</a>
+      </h3>
+      <p>
+        Analyze large-sample behavior: consistency, asymptotic normality,
+        Taylor expansions, Slutsky’s theorem, and the delta method.
+      </p>
+      <div class="pill-row">
+        <a class="btn btn-outline" href="/mathematical-statistics/asymptotics/">Open block</a>
+      </div>
     </div>
+
+    <!-- Block 7 -->
+    <div class="card lesson-card">
+      <h3>
+        <a href="/mathematical-statistics/extensions/">Block 7 — Extensions & Alternative Estimation</a>
+      </h3>
+      <p>
+        Explore method of moments, shrinkage intuition,
+        and other estimation frameworks that extend beyond MLE.
+      </p>
+      <div class="pill-row">
+        <a class="btn btn-outline" href="/mathematical-statistics/extensions/">Open block</a>
+      </div>
+    </div>
+
   </div>
 </section>
 
 <section class="section section-slim">
   <div class="callout">
     <div class="callout-copy">
-      <h2>Goal of this section</h2>
+      <h2>Goal of this unit</h2>
       <ul class="bullets">
-        <li>Understand estimation as a principled process</li>
-        <li>Learn the properties that justify inference procedures</li>
-        <li>Build a solid bridge to advanced inference and modeling</li>
+        <li>Formalize statistical models and parameters</li>
+        <li>Understand likelihood as the core estimation principle</li>
+        <li>Evaluate estimators using rigorous criteria</li>
+        <li>Derive asymptotic results that justify inference procedures</li>
+        <li>Prepare cleanly for Statistical Inference</li>
       </ul>
     </div>
+
     <div class="callout-side">
       <div class="mini">
-        <div class="mini-title">Next step</div>
-        <div class="mini-body">Apply concepts in <strong>Statistical Inference</strong>.</div>
+        <div class="mini-title">Prerequisite</div>
+        <div class="mini-body">Probability theory (random variables, expectation, CLT).</div>
       </div>
       <div class="mini">
-        <div class="mini-title">Note</div>
-        <div class="mini-body">We will keep proofs light and emphasize meaning and use.</div>
+        <div class="mini-title">Next section</div>
+        <div class="mini-body">Statistical Inference — confidence intervals and hypothesis testing.</div>
+      </div>
+      <div class="mini">
+        <div class="mini-title">Scope</div>
+        <div class="mini-body">This unit focuses on theory. Applications follow in Inference and Modeling.</div>
       </div>
     </div>
   </div>
