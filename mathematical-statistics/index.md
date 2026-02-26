@@ -56,11 +56,11 @@ sidebar: false
         <ol class="quickstart">
           <li><a href="#blocks">Statistical models</a><span class="meta">Parametric structure</span></li>
           <li><a href="#blocks">Likelihood framework</a><span class="meta">Core estimation engine</span></li>
-          <li><a href="#blocks">Maximum likelihood</a><span class="meta">Constructing estimators</span></li>
+          <li><a href="#blocks">Maximum likelihood estimation</a><span class="meta">Constructing estimators</span></li>
           <li><a href="#blocks">Estimator properties</a><span class="meta">Bias, variance, MSE</span></li>
-          <li><a href="#blocks">Fisher information</a><span class="meta">Efficiency bounds</span></li>
+          <li><a href="#blocks">Fisher information & efficiency</a><span class="meta">Efficiency bounds</span></li>
           <li><a href="#blocks">Asymptotic theory</a><span class="meta">Large-sample behavior</span></li>
-          <li><a href="#blocks">Extensions</a><span class="meta">Alternative estimators</span></li>
+          <li><a href="#blocks">Alternative estimation methods</a><span class="meta">Beyond MLE</span></li>
         </ol>
       </div>
     </div>
@@ -82,7 +82,7 @@ sidebar: false
     <!-- Block 1 -->
     <div class="card lesson-card">
       <h3>
-        <a href="/mathematical-statistics/models/">Block 1 — Statistical Models</a>
+        <a href="/mathematical-statistics/statistical-models/">Block 1 — Statistical Models</a>
       </h3>
       <p>
         Define statistical models rigorously: parametric families,
@@ -90,14 +90,14 @@ sidebar: false
         Establish the formal framework for estimation.
       </p>
       <div class="pill-row">
-        <a class="btn btn-outline" href="/mathematical-statistics/models/">Open block</a>
+        <a class="btn btn-outline" href="/mathematical-statistics/statistical-models/">Open block</a>
       </div>
     </div>
 
     <!-- Block 2 -->
     <div class="card lesson-card">
       <h3>
-        <a href="/mathematical-statistics/likelihood/">Block 2 — Likelihood & Log-Likelihood</a>
+        <a href="/mathematical-statistics/likelihood-and-log-likelihood/">Block 2 — Likelihood & Log-Likelihood</a>
       </h3>
       <p>
         Develop the likelihood function, log-likelihood, score function,
@@ -105,28 +105,28 @@ sidebar: false
         to estimation theory.
       </p>
       <div class="pill-row">
-        <a class="btn btn-outline" href="/mathematical-statistics/likelihood/">Open block</a>
+        <a class="btn btn-outline" href="/mathematical-statistics/likelihood-and-log-likelihood/">Open block</a>
       </div>
     </div>
 
     <!-- Block 3 -->
     <div class="card lesson-card">
       <h3>
-        <a href="/mathematical-statistics/mle/">Block 3 — Maximum Likelihood Estimation</a>
+        <a href="/mathematical-statistics/maximum-likelihood-estimation/">Block 3 — Maximum Likelihood Estimation</a>
       </h3>
       <p>
         Construct estimators using likelihood equations.
         Study existence, uniqueness, invariance, and classical examples.
       </p>
       <div class="pill-row">
-        <a class="btn btn-outline" href="/mathematical-statistics/mle/">Open block</a>
+        <a class="btn btn-outline" href="/mathematical-statistics/maximum-likelihood-estimation/">Open block</a>
       </div>
     </div>
 
     <!-- Block 4 -->
     <div class="card lesson-card">
       <h3>
-        <a href="/mathematical-statistics/estimator-properties/">Block 4 — Finite-Sample Properties</a>
+        <a href="/mathematical-statistics/estimator-properties/">Block 4 — Estimator Properties</a>
       </h3>
       <p>
         Evaluate estimators using bias, variance, mean squared error,
@@ -140,42 +140,42 @@ sidebar: false
     <!-- Block 5 -->
     <div class="card lesson-card">
       <h3>
-        <a href="/mathematical-statistics/information/">Block 5 — Fisher Information & Efficiency</a>
+        <a href="/mathematical-statistics/fisher-information-and-efficiency/">Block 5 — Fisher Information & Efficiency</a>
       </h3>
       <p>
         Study Fisher information, Cramér–Rao lower bound,
         and the concept of efficiency. Understand the limits of precision.
       </p>
       <div class="pill-row">
-        <a class="btn btn-outline" href="/mathematical-statistics/information/">Open block</a>
+        <a class="btn btn-outline" href="/mathematical-statistics/fisher-information-and-efficiency/">Open block</a>
       </div>
     </div>
 
     <!-- Block 6 -->
     <div class="card lesson-card">
       <h3>
-        <a href="/mathematical-statistics/asymptotics/">Block 6 — Asymptotic Theory</a>
+        <a href="/mathematical-statistics/asymptotic-theory/">Block 6 — Asymptotic Theory</a>
       </h3>
       <p>
         Analyze large-sample behavior: consistency, asymptotic normality,
         Taylor expansions, Slutsky’s theorem, and the delta method.
       </p>
       <div class="pill-row">
-        <a class="btn btn-outline" href="/mathematical-statistics/asymptotics/">Open block</a>
+        <a class="btn btn-outline" href="/mathematical-statistics/asymptotic-theory/">Open block</a>
       </div>
     </div>
 
     <!-- Block 7 -->
     <div class="card lesson-card">
       <h3>
-        <a href="/mathematical-statistics/extensions/">Block 7 — Extensions & Alternative Estimation</a>
+        <a href="/mathematical-statistics/alternative-estimation-methods/">Block 7 — Alternative Estimation Methods</a>
       </h3>
       <p>
-        Explore method of moments, shrinkage intuition,
-        and other estimation frameworks that extend beyond MLE.
+        Explore method of moments and other estimation frameworks
+        that extend beyond maximum likelihood.
       </p>
       <div class="pill-row">
-        <a class="btn btn-outline" href="/mathematical-statistics/extensions/">Open block</a>
+        <a class="btn btn-outline" href="/mathematical-statistics/alternative-estimation-methods/">Open block</a>
       </div>
     </div>
 
