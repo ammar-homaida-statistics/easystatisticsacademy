@@ -40,7 +40,7 @@ sidebar: false
 
       <div class="hero-actions">
         <a class="btn" href="/descriptive/">Prerequisite: Descriptive</a>
-        <a class="btn btn-outline" href="/inference/">Next: Statistical Inference</a>
+        <a class="btn btn-outline" href="/mathematical-statistics/">Next: Mathematical Statistics</a>
       </div>
 
       <p class="muted-mini">
@@ -221,7 +221,7 @@ sidebar: false
       </div>
       <div class="mini">
         <div class="mini-title">Next section</div>
-        <div class="mini-body">Continue to <strong>Statistical Inference</strong> after completing this unit.</div>
+        <div class="mini-body">Continue to <strong>Mathematical Statistics</strong> after completing this unit.</div>
       </div>
       <div class="mini">
         <div class="mini-title">Software later</div>
