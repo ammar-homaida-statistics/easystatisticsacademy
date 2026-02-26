@@ -22,7 +22,7 @@ sidebar: false
       </p>
 
       <div class="hero-actions">
-        <a class="btn" href="/learning-paths/">View learning paths</a>
+        <a class="btn" href="/probability/">Prerequisite: Probability</a>
         <a class="btn btn-outline" href="/inference/">Next: Inference</a>
       </div>
 
