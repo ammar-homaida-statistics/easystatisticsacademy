@@ -37,6 +37,10 @@ sidebar: false
         <a class="btn btn-outline" href="/mathematical-statistics/">Back: Mathematical Statistics</a>
         <a class="btn" href="/mathematical-statistics/likelihood-and-log-likelihood/">Next block: Likelihood</a>
       </div>
+
+      <p class="muted-mini">
+        Lessons are published in order. You can open any lesson page at any time (even if marked “Coming soon”).
+      </p>
     </div>
 
     <div class="hero-panel">
@@ -58,7 +62,7 @@ sidebar: false
   <div class="section-head">
     <h2>Lessons</h2>
     <p>
-      Lessons will become clickable as they are published. The “Continue reading” box resumes your last visited lesson in this block.
+      Lessons are clickable. The “Continue reading” box resumes your last visited lesson in this block.
     </p>
   </div>
 
@@ -74,41 +78,48 @@ sidebar: false
   </div>
 
   <div class="grid grid-2">
+
+    <!-- Lesson 1 -->
     <div class="card lesson-card">
       <h3><a href="/mathematical-statistics/statistical-models/what-is-a-statistical-model/">What is a statistical model?</a></h3>
       <p>Define a model as a family of distributions indexed by a parameter.</p>
       <div class="pill-row"><span class="badge">Coming soon</span></div>
     </div>
 
+    <!-- Lesson 2 -->
     <div class="card lesson-card">
       <h3><a href="/mathematical-statistics/statistical-models/parameter-space-and-identifiability/">Parameter space & identifiability</a></h3>
       <p>When do different parameters produce different distributions?</p>
       <div class="pill-row"><span class="badge">Coming soon</span></div>
     </div>
 
+    <!-- Lesson 3 -->
     <div class="card lesson-card">
       <h3><a href="/mathematical-statistics/statistical-models/iid-and-modeling-assumptions/">IID and modeling assumptions</a></h3>
       <p>What IID means, what it doesn’t, and why assumptions drive inference quality.</p>
       <div class="pill-row"><span class="badge">Coming soon</span></div>
     </div>
 
+    <!-- Lesson 4 -->
     <div class="card lesson-card">
       <h3><a href="/mathematical-statistics/statistical-models/examples-of-parametric-models/">Examples of parametric models</a></h3>
       <p>Bernoulli, Poisson, Normal families—model form and parameter meaning.</p>
       <div class="pill-row"><span class="badge">Coming soon</span></div>
     </div>
 
+    <!-- Lesson 5 -->
     <div class="card lesson-card">
       <h3><a href="/mathematical-statistics/statistical-models/likelihood-preview-why-models-matter/">Likelihood preview: why models matter</a></h3>
       <p>How model choice defines likelihood and makes estimation meaningful.</p>
       <div class="pill-row"><span class="badge">Coming soon</span></div>
     </div>
+
   </div>
 </section>
 
 <script>
   (function () {
-    // ✅ Save last visited BLOCK for MS home
+    // ✅ Save last visited BLOCK for Mathematical Statistics HOME
     try {
       localStorage.setItem("esa_continue_ms_last_block_v0", JSON.stringify({
         label: "Block 1 — Statistical Models",
@@ -116,7 +127,7 @@ sidebar: false
       }));
     } catch (e) {}
 
-    // ✅ Block continues last visited LESSON
+    // ✅ Block continues last visited LESSON (inside this block)
     var KEY = "esa_continue_ms_statistical_models_last_lesson_v0";
     var raw = localStorage.getItem(KEY);
     if (!raw) return;
