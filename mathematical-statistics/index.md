@@ -41,7 +41,7 @@ sidebar: false
 
       <div class="hero-actions">
         <a class="btn" href="/probability/">Prerequisite: Probability</a>
-        <a class="btn btn-outline" href="/statistical-inference/">Next: Statistical Inference</a>
+        <a class="btn btn-outline" href="/inference/">Next: Statistical Inference</a>
       </div>
 
       <p class="muted-mini">
