@@ -1,8 +1,8 @@
 ---
 layout: default
-title: "4. Independence and Dependence"
-description: "Understand why independence is central to inference, how dependence arises, and how it distorts standard errors and conclusions."
-permalink: /inference/assumptions-robustness/independence-and-dependence/
+title: "5. Heteroscedasticity and Variance Issues"
+description: "Understand heteroscedasticity, why unequal variances matter for inference, and how to diagnose and correct variance-related problems."
+permalink: /inference/assumptions-robustness/heteroscedasticity-variance-issues/
 sidebar: false
 ---
 
@@ -14,8 +14,8 @@ sidebar: false
         🚧 Lesson Under Construction
       </h2>
       <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 establishes why independence is one of the most critical assumptions
-        in classical inference and what happens when it fails.
+        Version 0 explains heteroscedasticity, how it affects standard errors,
+        and how robust methods can correct inference without changing estimates.
       </p>
     </div>
   </div>
@@ -27,8 +27,8 @@ sidebar: false
     var KEY = "esa_continue_inference_assumptions_robustness_lesson_v0";
 
     localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/assumptions-robustness/independence-and-dependence/",
-      label: "Lesson 4 — Independence and Dependence",
+      url: "/inference/assumptions-robustness/heteroscedasticity-variance-issues/",
+      label: "Lesson 5 — Heteroscedasticity and Variance Issues",
       ts: Date.now()
     }));
 
@@ -45,17 +45,17 @@ sidebar: false
     <div class="hero-copy">
       <div class="badge-row">
         <span class="badge">Block 7</span>
-        <span class="badge">Lesson 4</span>
-        <span class="badge">Independence</span>
-        <span class="badge">Dependence</span>
+        <span class="badge">Lesson 5</span>
+        <span class="badge">Variance</span>
+        <span class="badge">Robust SE</span>
       </div>
 
-      <h1>4. Independence and Dependence</h1>
+      <h1>5. Heteroscedasticity and Variance Issues</h1>
 
       <p class="lead">
-        Independence underlies the validity of standard errors,
-        confidence intervals, and hypothesis tests.
-        When independence fails, inference can collapse.
+        Many classical methods assume constant variance.
+        When variance changes across observations,
+        standard errors — not coefficients — are usually the first casualty.
       </p>
 
       <div class="hero-actions">
@@ -64,7 +64,7 @@ sidebar: false
       </div>
 
       <p class="muted-mini">
-        Violations of independence often cause more damage than mild non-normality.
+        Unequal variance primarily distorts uncertainty, not point estimates.
       </p>
     </div>
   </div>
@@ -74,8 +74,8 @@ sidebar: false
   <div class="section-head">
     <h2>Learning objective</h2>
     <p>
-      Understand what independence formally means, how dependence arises,
-      and why it typically biases standard errors and test results.
+      Understand what heteroscedasticity is, why it matters,
+      and how to detect and correct it in practice.
     </p>
   </div>
 
@@ -83,8 +83,8 @@ sidebar: false
     <div class="callout-copy">
       <h2>Core idea</h2>
       <p style="margin:0;">
-        Independence ensures that information accumulates linearly with sample size.
-        Dependence inflates or deflates effective sample size.
+        Heteroscedasticity means that the variance of the error term
+        is not constant across observations.
       </p>
     </div>
   </div>
@@ -92,110 +92,117 @@ sidebar: false
 
 <section class="section">
   <div class="section-head">
-    <h2>1) What is independence?</h2>
+    <h2>1) Constant vs non-constant variance</h2>
   </div>
 
   <div class="card">
-    Two observations are independent if:
+    Homoscedasticity:
     \[
-    P(X_i, X_j) = P(X_i)P(X_j)
-    \quad \text{for } i \ne j
+    Var(\varepsilon_i) = \sigma^2
+    \]
+  </div>
+
+  <div class="card" style="margin-top:1rem;">
+    Heteroscedasticity:
+    \[
+    Var(\varepsilon_i) = \sigma_i^2
     \]
   </div>
 
   <p>
-    In practice, independence means one observation does not influence another.
+    The variance differs across levels of X or across groups.
   </p>
 </section>
 
 <section class="section">
   <div class="section-head">
-    <h2>2) Why independence matters</h2>
+    <h2>2) Why it matters</h2>
   </div>
 
   <div class="card">
-    Standard error of the mean:
+    In linear regression:
     \[
-    SE(\bar{X}) = \frac{\sigma}{\sqrt{n}}
+    Var(\hat{\beta}) = \sigma^2 (X'X)^{-1}
     \]
   </div>
 
   <p>
-    This formula assumes independence.
-    If observations are positively correlated,
-    the true standard error is larger.
+    This formula assumes constant variance.
+    If variance is unequal, standard errors become biased.
   </p>
 
   <div class="card" style="margin-top:1rem;">
-    With correlation ρ:
-    \[
-    Var(\bar{X}) = \frac{\sigma^2}{n}
-    \left( 1 + (n-1)\rho \right)
-    \]
+    Consequences:
+    <br><br>
+    • Incorrect confidence intervals  
+    • Distorted p-values  
+    • Inflated or deflated Type I error  
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>3) Detecting heteroscedasticity</h2>
+  </div>
+
+  <div class="card">
+    Graphical diagnostics:
+    <br><br>
+    • Residuals vs fitted values plot  
+    • Spread increasing with predictor  
+  </div>
+
+  <div class="card" style="margin-top:1rem;">
+    Formal tests:
+    <br><br>
+    • Breusch–Pagan test  
+    • White test  
   </div>
 
   <p class="muted-mini">
-    Positive correlation inflates variance dramatically.
+    Visual inspection is often more informative than formal testing.
   </p>
 </section>
 
 <section class="section">
   <div class="section-head">
-    <h2>3) Common sources of dependence</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Clustered data</h3>
-      <p>Students within schools, patients within hospitals.</p>
-    </div>
-
-    <div class="card">
-      <h3>Repeated measures</h3>
-      <p>Same subject measured multiple times.</p>
-    </div>
-
-    <div class="card">
-      <h3>Time series</h3>
-      <p>Autocorrelation across time.</p>
-    </div>
-
-    <div class="card">
-      <h3>Social networks</h3>
-      <p>Connected individuals influence each other.</p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>4) Consequences of ignoring dependence</h2>
+    <h2>4) What does not change</h2>
   </div>
 
   <div class="card">
-    • Standard errors too small  
-    • p-values too optimistic  
-    • Type I error inflated  
-    • False confidence in results  
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>5) What to do</h2>
-  </div>
-
-  <div class="card">
-    Possible remedies:
+    Under standard assumptions:
     <br><br>
-    • Use paired or repeated-measures models  
-    • Apply cluster-robust standard errors  
-    • Use mixed-effects models  
-    • Model autocorrelation explicitly  
+    OLS estimates remain unbiased even under heteroscedasticity.
+  </div>
+
+  <p>
+    The issue is efficiency and correct inference,
+    not bias of coefficients.
+  </p>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>5) Remedies</h2>
+  </div>
+
+  <div class="card">
+    Common solutions:
+    <br><br>
+    • Heteroscedasticity-robust standard errors  
+    • Transformations (log scale)  
+    • Weighted least squares  
+  </div>
+
+  <div class="card" style="margin-top:1rem;">
+    Robust variance estimator:
+    \[
+    \widehat{Var}(\hat{\beta})_{\text{robust}}
+    \]
   </div>
 
   <p class="muted-mini">
-    Adjusting the model is often required when dependence exists.
+    Robust SE adjusts uncertainty without changing coefficients.
   </p>
 </section>
 
@@ -204,10 +211,10 @@ sidebar: false
     <div class="callout-copy">
       <h2>Outcome of this lesson</h2>
       <ul class="bullets">
-        <li>Understand formal independence</li>
-        <li>Recognize dependence patterns</li>
-        <li>See how correlation inflates variance</li>
-        <li>Know corrective strategies</li>
+        <li>Define heteroscedasticity precisely</li>
+        <li>Understand its effect on standard errors</li>
+        <li>Diagnose variance patterns graphically</li>
+        <li>Apply robust inference when necessary</li>
       </ul>
     </div>
   </div>
@@ -218,13 +225,13 @@ sidebar: false
     <div class="callout-copy">
       <h2>Next lesson</h2>
       <p style="margin:0;">
-        We now examine unequal variances —
-        heteroscedasticity and its consequences.
+        We now examine outliers and influential observations —
+        when a few points control the entire conclusion.
       </p>
 
       <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/assumptions-robustness/heteroscedasticity-variance-issues/">
-          Next lesson: 5. Heteroscedasticity and Variance Issues →
+        <a class="btn" href="/inference/assumptions-robustness/outliers-and-influence/">
+          Next lesson: 6. Outliers and Influence →
         </a>
       </div>
     </div>
@@ -233,8 +240,8 @@ sidebar: false
       <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
         <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
         <div class="mini-body">
-          <a href="/inference/assumptions-robustness/checking-normality-what-and-why/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 3: Checking Normality
+          <a href="/inference/assumptions-robustness/independence-and-dependence/" style="color:#1a73e8; text-decoration:underline;">
+            Lesson 4: Independence and Dependence
           </a>
         </div>
       </div>
