@@ -39,7 +39,7 @@ sidebar: false
       </div>
 
       <p class="muted-mini">
-        Lessons are published in order. You can open any lesson page at any time (even if marked “Coming soon”).
+        Lessons are clickable. Open any lesson page at any time—even if it is still being written.
       </p>
     </div>
 
@@ -83,35 +83,35 @@ sidebar: false
     <div class="card lesson-card">
       <h3><a href="/mathematical-statistics/statistical-models/what-is-a-statistical-model/">What is a statistical model?</a></h3>
       <p>Define a model as a family of distributions indexed by a parameter.</p>
-      <div class="pill-row"><span class="badge">Coming soon</span></div>
+      <div class="pill-row"><span class="badge">Active — open lesson</span></div>
     </div>
 
     <!-- Lesson 2 -->
     <div class="card lesson-card">
       <h3><a href="/mathematical-statistics/statistical-models/parameter-space-and-identifiability/">Parameter space & identifiability</a></h3>
       <p>When do different parameters produce different distributions?</p>
-      <div class="pill-row"><span class="badge">Coming soon</span></div>
+      <div class="pill-row"><span class="badge">Active — open lesson</span></div>
     </div>
 
     <!-- Lesson 3 -->
     <div class="card lesson-card">
       <h3><a href="/mathematical-statistics/statistical-models/iid-and-modeling-assumptions/">IID and modeling assumptions</a></h3>
       <p>What IID means, what it doesn’t, and why assumptions drive inference quality.</p>
-      <div class="pill-row"><span class="badge">Coming soon</span></div>
+      <div class="pill-row"><span class="badge">Active — open lesson</span></div>
     </div>
 
     <!-- Lesson 4 -->
     <div class="card lesson-card">
       <h3><a href="/mathematical-statistics/statistical-models/examples-of-parametric-models/">Examples of parametric models</a></h3>
       <p>Bernoulli, Poisson, Normal families—model form and parameter meaning.</p>
-      <div class="pill-row"><span class="badge">Coming soon</span></div>
+      <div class="pill-row"><span class="badge">Active — open lesson</span></div>
     </div>
 
     <!-- Lesson 5 -->
     <div class="card lesson-card">
       <h3><a href="/mathematical-statistics/statistical-models/likelihood-preview-why-models-matter/">Likelihood preview: why models matter</a></h3>
       <p>How model choice defines likelihood and makes estimation meaningful.</p>
-      <div class="pill-row"><span class="badge">Coming soon</span></div>
+      <div class="pill-row"><span class="badge">Active — open lesson</span></div>
     </div>
 
   </div>
