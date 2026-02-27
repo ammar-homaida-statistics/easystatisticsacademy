@@ -19,10 +19,13 @@ lesson_order: 19
   <div class="hero-card">
     <h1>Parameters vs Statistics</h1>
 
+    <div style="background:#fff3cd; border:1px solid #ffeeba; padding:12px 14px; margin:14px 0; border-radius:8px;">
+      <strong>🚧 Under Construction</strong> — Visual comparison diagram will be added.
+    </div>
+
     <p class="lead">
-      This lesson directly compares parameters and statistics, explains
-      common sources of confusion, and shows why mixing them up
-      breaks statistical inference.
+      Parameters and statistics are fundamentally different concepts.
+      Confusing them removes uncertainty and breaks statistical inference.
     </p>
 
     <p class="muted-mini">
@@ -31,122 +34,162 @@ lesson_order: 19
   </div>
 </section>
 
+
+
 <section class="section">
   <div class="content-narrow">
     <h2>What you will learn</h2>
 
     <ul class="bullets">
       <li>The conceptual difference between parameters and statistics.</li>
-      <li>Common student errors when distinguishing the two.</li>
-      <li>Why confusing them leads to incorrect inference.</li>
-      <li>How this distinction connects to estimation.</li>
+      <li>Why one is fixed and the other varies.</li>
+      <li>Common student errors when distinguishing them.</li>
+      <li>Why inference depends on keeping them separate.</li>
     </ul>
   </div>
 </section>
 
+
+
 <section class="section">
   <div class="content-narrow">
-    <h2>Why this topic matters</h2>
+    <h2>The core distinction</h2>
 
-    <p>
-      Many misunderstandings in statistics stem from failing
-      to distinguish between parameters and statistics.
-    </p>
+    <div style="margin:24px 0;">
+      <div style="max-width:900px; margin:auto; overflow-x:auto;">
+        <table style="width:100%; border-collapse:collapse; background:#ffffff; border-radius:10px; overflow:hidden; box-shadow:0 4px 10px rgba(0,0,0,0.05); font-size:14px;">
+          <thead style="background:#f1f3f5;">
+            <tr>
+              <th style="padding:14px 16px; text-align:left; font-weight:600;">Parameter</th>
+              <th style="padding:14px 16px; text-align:left; font-weight:600;">Statistic</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-top:1px solid #e9ecef;">
+              <td style="padding:12px 16px;">Describes a population</td>
+              <td style="padding:12px 16px;">Describes a sample</td>
+            </tr>
+            <tr style="border-top:1px solid #e9ecef;">
+              <td style="padding:12px 16px;">Fixed (given the population)</td>
+              <td style="padding:12px 16px;">Random (depends on the sample)</td>
+            </tr>
+            <tr style="border-top:1px solid #e9ecef;">
+              <td style="padding:12px 16px;">Usually unknown</td>
+              <td style="padding:12px 16px;">Observed and computable</td>
+            </tr>
+            <tr style="border-top:1px solid #e9ecef;">
+              <td style="padding:12px 16px;">Target of inference</td>
+              <td style="padding:12px 16px;">Tool used for inference</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
-    <p>
-      Treating sample results as population truths
-      leads to overconfidence and incorrect conclusions.
-    </p>
-
-    <p>
-      This distinction is the foundation of all inferential reasoning.
+    <p style="font-weight:600;">
+      Parameter → Fixed but unknown  
+      Statistic → Variable but observable
     </p>
   </div>
 </section>
 
+
+
 <section class="section">
   <div class="content-narrow">
-    <h2>Direct comparison</h2>
+    <h2>Why students confuse them</h2>
+
+    <ul class="bullets">
+      <li>Both are numerical summaries.</li>
+      <li>Both may use similar formulas.</li>
+      <li>Notation sometimes looks similar.</li>
+      <li>Textbooks often move quickly between the two.</li>
+    </ul>
 
     <p>
-      Parameters describe populations.
-      Statistics describe samples.
-    </p>
-
-    <p>
-      Parameters are fixed but unknown,
-      while statistics are observable but variable.
-    </p>
-
-    <p>
-      Statistics are used to learn about parameters,
-      not to replace them.
+      Because the numbers may look similar,
+      the conceptual difference is often overlooked.
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
     <h2>Common student errors</h2>
 
     <p>
-      A common error is referring to a sample mean
-      as “the true average.”
+      Referring to a sample mean as “the true average.”
     </p>
 
     <p>
-      Another is assuming that a single statistic
-      perfectly represents the population.
+      Believing that one statistic equals the parameter exactly.
     </p>
 
     <p>
-      These mistakes ignore sampling variability
-      and uncertainty.
+      Ignoring sampling variability when interpreting results.
+    </p>
+
+    <p>
+      Assuming larger samples remove all uncertainty.
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
     <h2>Why confusing them breaks inference</h2>
 
     <p>
-      Statistical inference relies on recognizing
-      that statistics are imperfect evidence.
+      Statistical inference depends on uncertainty.
     </p>
 
     <p>
-      If statistics are treated as parameters,
+      If a statistic is treated as if it were the parameter,
       uncertainty disappears incorrectly.
     </p>
 
     <p>
-      This leads to false certainty
-      and invalid conclusions.
+      Without recognizing variability,
+      concepts such as confidence intervals
+      and hypothesis testing lose meaning.
+    </p>
+
+    <p>
+      Inference exists precisely because
+      statistics are not parameters.
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
-    <h2>Conceptual bridge to estimation</h2>
+    <h2>The logic of inference</h2>
 
     <p>
-      Estimation is the process of using statistics
-      to approximate parameters.
+      We observe a statistic.
     </p>
 
     <p>
-      The goal is not to find the exact parameter,
-      but to quantify uncertainty around it.
+      We acknowledge it varies.
     </p>
 
     <p>
-      Understanding the parameter–statistic distinction
-      is essential before learning estimation methods.
+      We use probability to describe its variability.
+    </p>
+
+    <p>
+      We draw conclusions about the fixed parameter.
     </p>
   </div>
 </section>
+
+
 
 <section class="section section-soft">
   <div class="content-narrow">
@@ -155,21 +198,27 @@ lesson_order: 19
     <p>
       Parameters are population truths.
       Statistics are sample-based evidence.
+      Inference connects the two.
     </p>
   </div>
 </section>
+
+
 
 <section class="section section-next">
   <div class="content-narrow">
     <h2>Simple summary</h2>
 
     <p>
-      Parameters describe populations and are unknown.
-      Statistics describe samples and vary.
-      Confusing the two undermines statistical inference.
+      A parameter is fixed but unknown.
+      A statistic is observable but variable.
+      Confusing the two eliminates uncertainty
+      and undermines statistical reasoning.
     </p>
   </div>
 </section>
+
+
 
 <section class="section section-next">
   <div class="content-narrow">
