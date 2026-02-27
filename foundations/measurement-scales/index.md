@@ -19,10 +19,14 @@ lesson_order: 12
   <div class="hero-card">
     <h1>Measurement Scales</h1>
 
+    <div style="background:#fff3cd; border:1px solid #ffeeba; padding:12px 14px; margin:14px 0; border-radius:8px;">
+      <strong>🚧 Under Construction</strong> — Additional applied examples and visual summaries will be added.
+    </div>
+
     <p class="lead">
-      This lesson introduces the main levels of measurement—nominal, ordinal,
-      interval, and ratio—and explains why the measurement scale determines
-      which statistical operations are valid.
+      The level of measurement determines which statistical operations are meaningful.
+      Nominal, ordinal, interval, and ratio scales differ not in appearance,
+      but in the type of comparisons they allow.
     </p>
 
     <p class="muted-mini">
@@ -31,38 +35,77 @@ lesson_order: 12
   </div>
 </section>
 
+
+
 <section class="section">
   <div class="content-narrow">
     <h2>What you will learn</h2>
 
     <ul class="bullets">
       <li>The four main levels of measurement.</li>
-      <li>How nominal, ordinal, interval, and ratio scales differ.</li>
-      <li>The historical origin of measurement scales.</li>
-      <li>Why scale determines which operations are meaningful.</li>
+      <li>How the scales differ conceptually.</li>
+      <li>Which comparisons and operations are valid for each scale.</li>
+      <li>Why misunderstanding scale leads to invalid conclusions.</li>
     </ul>
   </div>
 </section>
 
+
+
 <section class="section">
   <div class="content-narrow">
-    <h2>Why this topic matters</h2>
+    <h2>The four levels at a glance</h2>
 
-    <p>
-      Statistical methods assume specific types of measurement.
-    </p>
+    <div style="margin:24px 0;">
+      <div style="max-width:1000px; margin:auto; overflow-x:auto;">
+        <table style="width:100%; border-collapse:collapse; background:#ffffff; border-radius:10px; overflow:hidden; box-shadow:0 4px 10px rgba(0,0,0,0.05); font-size:14px;">
+          <thead style="background:#f1f3f5;">
+            <tr>
+              <th style="padding:14px 16px; text-align:left; font-weight:600;">Scale</th>
+              <th style="padding:14px 16px; text-align:left; font-weight:600;">Order?</th>
+              <th style="padding:14px 16px; text-align:left; font-weight:600;">Equal Intervals?</th>
+              <th style="padding:14px 16px; text-align:left; font-weight:600;">True Zero?</th>
+              <th style="padding:14px 16px; text-align:left; font-weight:600;">Example</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-top:1px solid #e9ecef;">
+              <td style="padding:12px 16px;"><strong>Nominal</strong></td>
+              <td style="padding:12px 16px;">No</td>
+              <td style="padding:12px 16px;">No</td>
+              <td style="padding:12px 16px;">No</td>
+              <td style="padding:12px 16px;">Blood type, country</td>
+            </tr>
+            <tr style="border-top:1px solid #e9ecef;">
+              <td style="padding:12px 16px;"><strong>Ordinal</strong></td>
+              <td style="padding:12px 16px;">Yes</td>
+              <td style="padding:12px 16px;">No</td>
+              <td style="padding:12px 16px;">No</td>
+              <td style="padding:12px 16px;">Rankings, satisfaction levels</td>
+            </tr>
+            <tr style="border-top:1px solid #e9ecef;">
+              <td style="padding:12px 16px;"><strong>Interval</strong></td>
+              <td style="padding:12px 16px;">Yes</td>
+              <td style="padding:12px 16px;">Yes</td>
+              <td style="padding:12px 16px;">No</td>
+              <td style="padding:12px 16px;">Temperature (°C, °F)</td>
+            </tr>
+            <tr style="border-top:1px solid #e9ecef;">
+              <td style="padding:12px 16px;"><strong>Ratio</strong></td>
+              <td style="padding:12px 16px;">Yes</td>
+              <td style="padding:12px 16px;">Yes</td>
+              <td style="padding:12px 16px;">Yes</td>
+              <td style="padding:12px 16px;">Height, income, duration</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
-    <p>
-      Applying operations that are not appropriate for a given scale
-      can lead to meaningless or misleading results.
-    </p>
-
-    <p>
-      Understanding measurement scales helps prevent invalid analysis
-      even when software produces numerical output.
-    </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
@@ -70,142 +113,148 @@ lesson_order: 12
 
     <p>
       The nominal scale classifies observations into distinct categories
-      with no inherent order.
+      without order.
     </p>
 
     <p>
-      Categories are labels only, such as blood type, country,
-      or product category.
-    </p>
-
-    <p>
-      Numerical coding does not make nominal data quantitative.
+      Numbers may be assigned as labels, but arithmetic operations
+      have no meaning.
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
     <h2>Ordinal scale</h2>
 
     <p>
-      The ordinal scale represents categories with a meaningful order.
+      Ordinal data have meaningful order,
+      but differences between categories are not measurable.
     </p>
 
     <p>
-      Rankings such as education level, satisfaction ratings,
-      or competition placement are ordinal.
-    </p>
-
-    <p>
-      Differences between ranks are not necessarily equal or measurable.
+      For example, the gap between “low” and “medium”
+      may not equal the gap between “medium” and “high.”
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
     <h2>Interval scale</h2>
 
     <p>
-      Interval data have ordered values with meaningful differences
-      between observations.
+      Interval data have ordered values with equal intervals.
     </p>
 
     <p>
-      However, the zero point is arbitrary and does not represent
+      However, zero is arbitrary and does not represent
       the absence of the quantity.
     </p>
 
     <p>
-      Temperature measured in Celsius or Fahrenheit is a common example.
+      Ratios (e.g., “twice as hot”) are not meaningful
+      on interval scales.
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
     <h2>Ratio scale</h2>
 
     <p>
-      Ratio data have ordered values, equal intervals,
-      and a meaningful zero point.
+      Ratio data include all properties of interval data,
+      plus a true zero point.
     </p>
 
     <p>
-      The zero indicates the absence of the quantity being measured.
-    </p>
-
-    <p>
-      Examples include height, weight, income, and duration.
+      Because zero represents absence,
+      ratios such as “twice as much” are meaningful.
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
     <h2>Historical context</h2>
 
     <p>
-      The concept of measurement scales was formalized by
-      psychologist Stanley Smith Stevens.
+      The classification of measurement scales was formalized
+      by psychologist <strong>Stanley Smith Stevens (1946)</strong>.
     </p>
 
     <p>
-      His framework clarified which statistical operations
-      are meaningful for different types of data.
+      His framework linked permissible statistical operations
+      to the properties of measurement.
     </p>
 
     <p>
-      Despite criticism and debate, the framework remains
-      widely used in statistics education.
+      While debated and refined, the framework remains foundational
+      in statistics education.
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
     <h2>Why scale determines allowed operations</h2>
 
-    <p>
-      Each measurement scale supports only certain comparisons
-      and calculations.
-    </p>
+    <ul class="bullets">
+      <li>Nominal → counting and proportions.</li>
+      <li>Ordinal → ranking and median.</li>
+      <li>Interval → addition and subtraction.</li>
+      <li>Ratio → full arithmetic, including ratios.</li>
+    </ul>
 
     <p>
-      Some operations, such as averaging or taking ratios,
-      are only meaningful for specific scales.
-    </p>
-
-    <p>
-      Statistical software may allow invalid operations,
-      but mathematical output does not guarantee meaningful results.
+      Software may allow any calculation,
+      but meaningful interpretation depends on scale.
     </p>
   </div>
 </section>
+
+
 
 <section class="section section-soft">
   <div class="content-narrow">
     <h2>Key idea to remember</h2>
 
     <p>
-      Measurement scales determine what can and cannot be done
-      with data in a meaningful way.
+      Measurement scales define what comparisons and operations
+      are conceptually valid.
+      Statistical correctness depends on respecting these limits.
     </p>
   </div>
 </section>
+
+
 
 <section class="section section-next">
   <div class="content-narrow">
     <h2>Simple summary</h2>
 
     <p>
-      Nominal, ordinal, interval, and ratio scales describe
-      different kinds of data. Choosing valid operations
-      depends on understanding the measurement scale.
+      Nominal classifies.
+      Ordinal ranks.
+      Interval measures differences.
+      Ratio measures with a true zero.
+      The scale determines valid statistical operations.
     </p>
   </div>
 </section>
+
+
 
 <section class="section section-next">
   <div class="content-narrow">
@@ -213,8 +262,8 @@ lesson_order: 12
 
     <p>
       The next lesson explains what you can and cannot do
-      with each measurement scale, including common misuse
-      and real-world examples of invalid analysis.
+      with each scale, including common misuse
+      and practical examples of invalid analysis.
     </p>
 
     <a class="btn btn-primary" href="/foundations/what-you-can-and-cannot-do-with-each-scale/">
