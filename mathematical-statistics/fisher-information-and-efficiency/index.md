@@ -6,6 +6,7 @@ permalink: /mathematical-statistics/fisher-information-and-efficiency/
 sidebar: false
 ---
 
+<!-- UNDER CONSTRUCTION NOTICE -->
 <section class="section section-slim">
   <div class="callout" style="background:#f3f6ff; border:2px solid #3f51b5; padding:1.5rem; border-radius:10px;">
     <div class="callout-copy">
@@ -61,9 +62,10 @@ sidebar: false
 <section class="section" id="lessons">
   <div class="section-head">
     <h2>Lessons</h2>
-    <p>Lessons will become clickable as they are published. “Continue reading” resumes your last visited lesson in this block.</p>
+    <p>“Continue reading” resumes your last visited lesson in this block.</p>
   </div>
 
+  <!-- Continue reading -->
   <div id="continue-reading-ms-b5" style="display:none; margin-top:0.75rem;">
     <div class="callout">
       <div class="callout-copy">
@@ -75,40 +77,63 @@ sidebar: false
   </div>
 
   <div class="grid grid-2">
+
     <div class="card lesson-card">
       <h3><a href="/mathematical-statistics/fisher-information-and-efficiency/fisher-information-definition/">Fisher information (definition)</a></h3>
       <p>Define information via expected curvature or score variance and interpret it.</p>
-      <div class="pill-row"><span class="badge">Coming soon</span></div>
+      <div class="pill-row">
+        <a class="btn btn-outline"
+           href="/mathematical-statistics/fisher-information-and-efficiency/fisher-information-definition/"
+           style="border-color:#111; color:#111;">Open lesson</a>
+      </div>
     </div>
 
     <div class="card lesson-card">
       <h3><a href="/mathematical-statistics/fisher-information-and-efficiency/cramer-rao-lower-bound/">Cramér–Rao lower bound</a></h3>
       <p>Derive and interpret the fundamental variance bound for unbiased estimators.</p>
-      <div class="pill-row"><span class="badge">Coming soon</span></div>
+      <div class="pill-row">
+        <a class="btn btn-outline"
+           href="/mathematical-statistics/fisher-information-and-efficiency/cramer-rao-lower-bound/"
+           style="border-color:#111; color:#111;">Open lesson</a>
+      </div>
     </div>
 
     <div class="card lesson-card">
       <h3><a href="/mathematical-statistics/fisher-information-and-efficiency/efficiency-and-achieving-the-bound/">Efficiency and achieving the bound</a></h3>
       <p>What it means to be efficient and when the bound can be attained.</p>
-      <div class="pill-row"><span class="badge">Coming soon</span></div>
+      <div class="pill-row">
+        <a class="btn btn-outline"
+           href="/mathematical-statistics/fisher-information-and-efficiency/efficiency-and-achieving-the-bound/"
+           style="border-color:#111; color:#111;">Open lesson</a>
+      </div>
     </div>
 
     <div class="card lesson-card">
       <h3><a href="/mathematical-statistics/fisher-information-and-efficiency/information-additivity-and-iid/">Information additivity and IID</a></h3>
       <p>Why information typically scales with sample size under independence.</p>
-      <div class="pill-row"><span class="badge">Coming soon</span></div>
+      <div class="pill-row">
+        <a class="btn btn-outline"
+           href="/mathematical-statistics/fisher-information-and-efficiency/information-additivity-and-iid/"
+           style="border-color:#111; color:#111;">Open lesson</a>
+      </div>
     </div>
 
     <div class="card lesson-card">
       <h3><a href="/mathematical-statistics/fisher-information-and-efficiency/information-and-mle-connection-preview/">Information and MLE connection (preview)</a></h3>
       <p>Preview why MLE variance is linked to information asymptotically.</p>
-      <div class="pill-row"><span class="badge">Coming soon</span></div>
+      <div class="pill-row">
+        <a class="btn btn-outline"
+           href="/mathematical-statistics/fisher-information-and-efficiency/information-and-mle-connection-preview/"
+           style="border-color:#111; color:#111;">Open lesson</a>
+      </div>
     </div>
+
   </div>
 </section>
 
 <script>
   (function () {
+
     try {
       localStorage.setItem("esa_continue_ms_last_block_v0", JSON.stringify({
         label: "Block 5 — Fisher Information & Efficiency",
@@ -127,11 +152,13 @@ sidebar: false
       var wrap = document.getElementById("continue-reading-ms-b5");
       var label = document.getElementById("continue-reading-ms-b5-label");
       var btn = document.getElementById("continue-reading-ms-b5-btn");
+
       if (!wrap || !label || !btn) return;
 
       label.innerHTML = 'You last visited: <strong>' + data.label + '</strong>';
       btn.href = data.url;
       wrap.style.display = "block";
     } catch (e) {}
+
   })();
 </script>
