@@ -70,35 +70,57 @@ sidebar: false
   </div>
 
   <div class="grid grid-2">
+
     <div class="card lesson-card">
       <h3><a href="/mathematical-statistics/maximum-likelihood-estimation/definition-of-mle/">Definition of MLE</a></h3>
       <p>MLE as an argmax of likelihood; interpretation and objective.</p>
-      <div class="pill-row"><span class="badge">Coming soon</span></div>
+      <div class="pill-row">
+        <a class="btn btn-outline"
+           href="/mathematical-statistics/maximum-likelihood-estimation/definition-of-mle/"
+           style="border-color:#111; color:#111;">Open lesson</a>
+      </div>
     </div>
 
     <div class="card lesson-card">
       <h3><a href="/mathematical-statistics/maximum-likelihood-estimation/finding-mle-by-optimization/">Finding MLE by optimization</a></h3>
       <p>Likelihood equations, derivatives, and numerical optimization.</p>
-      <div class="pill-row"><span class="badge">Coming soon</span></div>
+      <div class="pill-row">
+        <a class="btn btn-outline"
+           href="/mathematical-statistics/maximum-likelihood-estimation/finding-mle-by-optimization/"
+           style="border-color:#111; color:#111;">Open lesson</a>
+      </div>
     </div>
 
     <div class="card lesson-card">
       <h3><a href="/mathematical-statistics/maximum-likelihood-estimation/invariance-property-of-mle/">Invariance property of MLE</a></h3>
       <p>How transformations behave under MLE and why it matters.</p>
-      <div class="pill-row"><span class="badge">Coming soon</span></div>
+      <div class="pill-row">
+        <a class="btn btn-outline"
+           href="/mathematical-statistics/maximum-likelihood-estimation/invariance-property-of-mle/"
+           style="border-color:#111; color:#111;">Open lesson</a>
+      </div>
     </div>
 
     <div class="card lesson-card">
       <h3><a href="/mathematical-statistics/maximum-likelihood-estimation/existence-and-uniqueness/">Existence and uniqueness</a></h3>
       <p>Multiple maxima, boundary solutions, and non-regular cases.</p>
-      <div class="pill-row"><span class="badge">Coming soon</span></div>
+      <div class="pill-row">
+        <a class="btn btn-outline"
+           href="/mathematical-statistics/maximum-likelihood-estimation/existence-and-uniqueness/"
+           style="border-color:#111; color:#111;">Open lesson</a>
+      </div>
     </div>
 
     <div class="card lesson-card">
       <h3><a href="/mathematical-statistics/maximum-likelihood-estimation/mle-examples-bernoulli-poisson-normal/">MLE examples (Bernoulli, Poisson, Normal)</a></h3>
       <p>Compute MLEs and interpret them in standard parametric families.</p>
-      <div class="pill-row"><span class="badge">Coming soon</span></div>
+      <div class="pill-row">
+        <a class="btn btn-outline"
+           href="/mathematical-statistics/maximum-likelihood-estimation/mle-examples-bernoulli-poisson-normal/"
+           style="border-color:#111; color:#111;">Open lesson</a>
+      </div>
     </div>
+
   </div>
 </section>
 
