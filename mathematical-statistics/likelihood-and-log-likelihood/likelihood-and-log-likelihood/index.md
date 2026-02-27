@@ -225,6 +225,7 @@ sidebar: false
   </div>
 </section>
 
+<!-- ✅ Next + Previous navigation (matches your site style) -->
 <section class="section section-slim">
   <div class="callout">
     <div class="callout-copy">
@@ -240,5 +241,17 @@ sidebar: false
         </a>
       </div>
     </div>
+
+    <div class="callout-side">
+      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
+        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
+        <div class="mini-body">
+          <a href="/mathematical-statistics/likelihood-and-log-likelihood/probability-vs-likelihood/" style="color:#1a73e8; text-decoration:underline;">
+            Lesson 1: Probability vs Likelihood
+          </a>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
