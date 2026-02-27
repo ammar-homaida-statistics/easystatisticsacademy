@@ -19,9 +19,14 @@ lesson_order: 18
   <div class="hero-card">
     <h1>Statistics</h1>
 
+    <div style="background:#fff3cd; border:1px solid #ffeeba; padding:12px 14px; margin:14px 0; border-radius:8px;">
+      <strong>🚧 Under Construction</strong> — Repeated sampling demonstrations will be added.
+    </div>
+
     <p class="lead">
-      This lesson explains what statistics are, why they vary from sample
-      to sample, and how sample summaries relate to population truths.
+      A statistic is a numerical summary computed from a sample.
+      Because samples vary, statistics vary.
+      They provide evidence about population parameters.
     </p>
 
     <p class="muted-mini">
@@ -30,6 +35,8 @@ lesson_order: 18
   </div>
 </section>
 
+
+
 <section class="section">
   <div class="content-narrow">
     <h2>What you will learn</h2>
@@ -37,136 +44,206 @@ lesson_order: 18
     <ul class="bullets">
       <li>What statistics represent in statistical reasoning.</li>
       <li>Why statistics are random rather than fixed.</li>
-      <li>Why statistics vary from sample to sample.</li>
-      <li>The difference between sample summaries and population truths.</li>
+      <li>How statistics relate to population parameters.</li>
+      <li>Why statistics provide evidence, not certainty.</li>
     </ul>
   </div>
 </section>
 
-<section class="section">
-  <div class="content-narrow">
-    <h2>Why this topic matters</h2>
 
-    <p>
-      Statistical analysis relies on statistics computed from samples.
-    </p>
-
-    <p>
-      Treating statistics as exact or permanent values
-      leads to misunderstanding and false certainty.
-    </p>
-
-    <p>
-      Understanding what statistics are clarifies
-      why uncertainty is unavoidable in inference.
-    </p>
-  </div>
-</section>
 
 <section class="section">
   <div class="content-narrow">
-    <h2>What statistics are</h2>
+    <h2>What a statistic is</h2>
 
     <p>
-      A statistic is a numerical summary computed from a sample.
+      A <strong>statistic</strong> is a numerical summary
+      calculated from sample data.
     </p>
 
     <p>
-      Statistics describe observed data,
+      It describes what is observed in the sample,
       not the entire population.
     </p>
 
     <p>
-      Examples include the sample mean,
-      sample proportion, and sample variance.
+      Common examples include:
     </p>
+
+    <ul class="bullets">
+      <li>Sample mean</li>
+      <li>Sample proportion</li>
+      <li>Sample variance</li>
+      <li>Sample correlation</li>
+    </ul>
   </div>
 </section>
 
+
+
 <section class="section">
   <div class="content-narrow">
-    <h2>Statistics as random variables</h2>
+    <h2>Statistics are random</h2>
 
     <p>
-      Statistics depend on which observations
+      A statistic depends on which observations
       happen to be included in the sample.
     </p>
 
     <p>
-      Because samples vary,
-      statistics vary as well.
+      If we draw a different sample,
+      we compute a different statistic.
+    </p>
+
+    <p style="font-weight:600;">
+      Different sample → Different statistic.
     </p>
 
     <p>
-      For this reason, statistics are treated
-      conceptually as random variables.
+      For this reason, statistics are treated conceptually
+      as random variables.
     </p>
   </div>
 </section>
+
+
+
+<section class="section">
+  <div class="content-narrow">
+    <h2>Statistic vs estimate</h2>
+
+    <p>
+      The <strong>statistic</strong> is the rule or formula applied to data
+      (for example, the sample mean formula).
+    </p>
+
+    <p>
+      The <strong>estimate</strong> is the numerical value obtained
+      from a particular sample.
+    </p>
+
+    <p>
+      In practice, people often use the word “statistic”
+      to refer to both the rule and the computed value.
+    </p>
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="content-narrow">
+    <h2>Statistics vs parameters</h2>
+
+    <div style="margin:24px 0;">
+      <div style="max-width:900px; margin:auto; overflow-x:auto;">
+        <table style="width:100%; border-collapse:collapse; background:#ffffff; border-radius:10px; overflow:hidden; box-shadow:0 4px 10px rgba(0,0,0,0.05); font-size:14px;">
+          <thead style="background:#f1f3f5;">
+            <tr>
+              <th style="padding:14px 16px; text-align:left; font-weight:600;">Parameter</th>
+              <th style="padding:14px 16px; text-align:left; font-weight:600;">Statistic</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-top:1px solid #e9ecef;">
+              <td style="padding:12px 16px;">Describes a population</td>
+              <td style="padding:12px 16px;">Describes a sample</td>
+            </tr>
+            <tr style="border-top:1px solid #e9ecef;">
+              <td style="padding:12px 16px;">Fixed (but unknown)</td>
+              <td style="padding:12px 16px;">Varies from sample to sample</td>
+            </tr>
+            <tr style="border-top:1px solid #e9ecef;">
+              <td style="padding:12px 16px;">Target of inference</td>
+              <td style="padding:12px 16px;">Tool for estimation</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <p>
+      Inference uses statistics to learn about parameters.
+    </p>
+  </div>
+</section>
+
+
 
 <section class="section">
   <div class="content-narrow">
     <h2>Why statistics vary</h2>
 
     <p>
-      Different samples include different units
-      from the same population.
+      Each sample contains slightly different observations.
     </p>
 
     <p>
-      These differences lead to changes
-      in calculated summaries.
+      As a result, calculated summaries change.
     </p>
 
     <p>
-      Variation in statistics reflects
-      sampling variability, not error.
+      This variation is called <strong>sampling variability</strong>.
+    </p>
+
+    <p>
+      It reflects natural uncertainty,
+      not methodological error.
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
-    <h2>Sample summaries vs population truths</h2>
+    <h2>Statistics provide evidence</h2>
 
     <p>
-      Statistics summarize what is observed in a sample.
+      A statistic does not equal the parameter.
     </p>
 
     <p>
-      Parameters describe true characteristics
-      of the population.
+      It provides evidence about the parameter.
     </p>
 
     <p>
-      Statistics provide indirect evidence
-      about parameters, not exact values.
+      The reliability of that evidence depends on
+      sample size, sampling design, and variability.
     </p>
   </div>
 </section>
+
+
 
 <section class="section section-soft">
   <div class="content-narrow">
     <h2>Key idea to remember</h2>
 
     <p>
-      Statistics are data-based summaries.
-      They are variable and uncertain.
+      Statistics are sample-based summaries.
+      They vary because samples vary.
+      They are tools for estimating unknown parameters.
     </p>
   </div>
 </section>
+
+
 
 <section class="section section-next">
   <div class="content-narrow">
     <h2>Simple summary</h2>
 
     <p>
-      Statistics are numerical summaries computed from samples.
-      Because samples vary, statistics vary as well.
-      They provide evidence, not population truth.
+      A statistic is a numerical summary computed from a sample.
+      Because different samples produce different values,
+      statistics are inherently variable.
+      They provide indirect evidence about population parameters.
     </p>
   </div>
 </section>
+
+
 
 <section class="section section-next">
   <div class="content-narrow">
@@ -174,8 +251,8 @@ lesson_order: 18
 
     <p>
       The next lesson directly compares <strong>parameters and statistics</strong>,
-      explains common student errors, and shows why confusing the two
-      breaks statistical inference.
+      clarifies common student confusions, and shows why mixing the two
+      breaks statistical reasoning.
     </p>
 
     <a class="btn btn-primary" href="/foundations/parameters-vs-statistics/">
