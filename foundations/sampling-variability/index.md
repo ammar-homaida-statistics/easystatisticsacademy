@@ -19,10 +19,14 @@ lesson_order: 16
   <div class="hero-card">
     <h1>Sampling Variability</h1>
 
+    <div style="background:#fff3cd; border:1px solid #ffeeba; padding:12px 14px; margin:14px 0; border-radius:8px;">
+      <strong>🚧 Under Construction</strong> — Simulation visualizations will be added to demonstrate repeated sampling.
+    </div>
+
     <p class="lead">
-      This lesson explains why different samples from the same population
-      produce different results, how randomness differs from error,
-      and why variability is unavoidable in sampling.
+      When we draw different samples from the same population,
+      we obtain different results.
+      This variation is natural, expected, and unavoidable.
     </p>
 
     <p class="muted-mini">
@@ -31,6 +35,8 @@ lesson_order: 16
   </div>
 </section>
 
+
+
 <section class="section">
   <div class="content-narrow">
     <h2>What you will learn</h2>
@@ -38,11 +44,13 @@ lesson_order: 16
     <ul class="bullets">
       <li>Why different samples give different results.</li>
       <li>The difference between randomness and error.</li>
-      <li>Why results change from sample to sample.</li>
-      <li>Intuitive examples of sampling variability.</li>
+      <li>Why sample statistics change from sample to sample.</li>
+      <li>An intuitive idea of a sampling distribution.</li>
     </ul>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
@@ -53,36 +61,40 @@ lesson_order: 16
     </p>
 
     <p>
-      When results differ, this is often interpreted as a mistake
-      rather than a natural consequence of sampling.
+      When results differ, this is often interpreted as a flaw
+      rather than a fundamental property of sampling.
     </p>
 
     <p>
-      Understanding sampling variability is essential
-      for interpreting statistical results correctly.
+      Understanding sampling variability prevents misinterpretation,
+      overconfidence, and false accusations of error.
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
     <h2>Why samples differ</h2>
 
     <p>
-      Each sample includes only a subset of the population.
+      A sample includes only part of the population.
     </p>
 
     <p>
-      Different samples include different units,
-      even when drawn in the same way.
+      When a different subset is selected,
+      the values observed are slightly different.
     </p>
 
     <p>
-      These differences cause sample results
-      to vary from one sample to another.
+      As a result, statistics such as means, proportions,
+      and correlations change from one sample to another.
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
@@ -90,62 +102,111 @@ lesson_order: 16
 
     <p>
       Sampling variability arises from randomness,
-      not from mistakes or poor measurement.
+      not from mistakes.
     </p>
 
     <p>
       Error implies something went wrong.
-      Randomness reflects natural variation.
+      Randomness reflects the natural uncertainty
+      of selecting a subset.
     </p>
 
     <p>
-      Even perfectly designed sampling procedures
-      produce variable results.
+      Even perfectly designed random samples
+      produce varying results.
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
-    <h2>Why results change from sample to sample</h2>
+    <h2>Statistics are random</h2>
 
     <p>
-      Sample statistics depend on which observations
-      happen to be included.
+      A population parameter is fixed (though unknown).
     </p>
 
     <p>
-      Changing the sample changes the data,
-      and therefore changes the results.
+      A sample statistic is not fixed.
+      It depends on which units happen to be selected.
     </p>
 
-    <p>
-      This does not mean the method is unreliable;
-      it reflects the uncertainty inherent in sampling.
+    <p style="font-weight:600;">
+      Different samples → Different statistics.
     </p>
   </div>
 </section>
+
+
+
+<section class="section">
+  <div class="content-narrow">
+    <h2>An intuitive idea: repeated sampling</h2>
+
+    <p>
+      Imagine repeatedly drawing samples of the same size
+      from one population.
+    </p>
+
+    <p>
+      Each sample produces a different value of the statistic.
+    </p>
+
+    <p>
+      The collection of those values forms
+      what is called a <strong>sampling distribution</strong>.
+    </p>
+
+    <p>
+      The spread of that distribution reflects sampling variability.
+    </p>
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="content-narrow">
+    <h2>Sampling variability vs bias</h2>
+
+    <p>
+      Sampling variability occurs even with fair,
+      unbiased random sampling.
+    </p>
+
+    <p>
+      Bias occurs when the sampling method
+      systematically favors certain outcomes.
+    </p>
+
+    <p>
+      Variability is unavoidable.
+      Bias is avoidable.
+    </p>
+  </div>
+</section>
+
+
 
 <section class="section">
   <div class="content-narrow">
     <h2>Intuitive examples</h2>
 
-    <p>
-      Tasting a spoonful of soup does not always taste
-      exactly the same, even from the same pot.
-    </p>
+    <ul class="bullets">
+      <li>Two polls of 1,000 voters rarely give identical percentages.</li>
+      <li>Different classrooms sampled from a school may have slightly different averages.</li>
+      <li>Repeated quality checks on production batches vary slightly.</li>
+    </ul>
 
     <p>
-      Surveying different groups of voters
-      produces slightly different percentages.
-    </p>
-
-    <p>
-      These differences illustrate sampling variability,
-      not error or inconsistency.
+      These differences reflect natural sampling variation.
     </p>
   </div>
 </section>
+
+
 
 <section class="section section-soft">
   <div class="content-narrow">
@@ -153,10 +214,12 @@ lesson_order: 16
 
     <p>
       Variation across samples is expected.
-      It is a feature of sampling, not a flaw.
+      It is a feature of sampling—not a flaw.
     </p>
   </div>
 </section>
+
+
 
 <section class="section section-next">
   <div class="content-narrow">
@@ -164,11 +227,14 @@ lesson_order: 16
 
     <p>
       Different samples from the same population
-      produce different results. This variability
-      arises from randomness and is unavoidable.
+      produce different statistics.
+      This variability arises from randomness
+      and is fundamental to statistical inference.
     </p>
   </div>
 </section>
+
+
 
 <section class="section section-next">
   <div class="content-narrow">
@@ -176,8 +242,8 @@ lesson_order: 16
 
     <p>
       The next lesson introduces <strong>parameters</strong>,
-      explaining what parameters are, why they are fixed
-      but unknown, and why they cannot be directly observed.
+      explaining why population quantities are fixed but unknown,
+      and how inference aims to estimate them.
     </p>
 
     <a class="btn btn-primary" href="/foundations/parameters/">
