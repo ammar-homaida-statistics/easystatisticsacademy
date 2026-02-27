@@ -19,10 +19,14 @@ lesson_order: 13
   <div class="hero-card">
     <h1>What You Can and Cannot Do With Each Scale</h1>
 
+    <div style="background:#fff3cd; border:1px solid #ffeeba; padding:12px 14px; margin:14px 0; border-radius:8px;">
+      <strong>🚧 Under Construction</strong> — Applied case studies and interactive examples will be added.
+    </div>
+
     <p class="lead">
-      This lesson explains which comparisons and operations are valid for each
-      measurement scale, why invalid operations are common, and how misuse
-      appears in real-world analysis.
+      Measurement scales define which statistical operations are meaningful.
+      Many analytical errors arise not from incorrect formulas,
+      but from applying valid mathematics to invalid scales.
     </p>
 
     <p class="muted-mini">
@@ -31,147 +35,173 @@ lesson_order: 13
   </div>
 </section>
 
+
+
 <section class="section">
   <div class="content-narrow">
     <h2>What you will learn</h2>
 
     <ul class="bullets">
-      <li>What comparisons are valid for each measurement scale.</li>
+      <li>Which comparisons are valid for each scale.</li>
       <li>Which operations are invalid and why.</li>
-      <li>Why statistical software allows invalid operations.</li>
-      <li>Common real-world examples of misuse.</li>
+      <li>Why software does not protect against misuse.</li>
+      <li>Common real-world analytical mistakes.</li>
     </ul>
   </div>
 </section>
 
+
+
 <section class="section">
   <div class="content-narrow">
-    <h2>Why this topic matters</h2>
+    <h2>Allowed vs not allowed operations</h2>
 
+    <div style="margin:24px 0;">
+      <div style="max-width:1100px; margin:auto; overflow-x:auto;">
+        <table style="width:100%; border-collapse:collapse; background:#ffffff; border-radius:10px; overflow:hidden; box-shadow:0 4px 10px rgba(0,0,0,0.05); font-size:14px;">
+          <thead style="background:#f1f3f5;">
+            <tr>
+              <th style="padding:14px 16px; text-align:left; font-weight:600;">Scale</th>
+              <th style="padding:14px 16px; text-align:left; font-weight:600;">Valid Operations</th>
+              <th style="padding:14px 16px; text-align:left; font-weight:600;">Invalid Operations</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-top:1px solid #e9ecef;">
+              <td style="padding:12px 16px;"><strong>Nominal</strong></td>
+              <td style="padding:12px 16px;">Equality, frequency, proportions</td>
+              <td style="padding:12px 16px;">Averaging, ordering, ratios</td>
+            </tr>
+            <tr style="border-top:1px solid #e9ecef;">
+              <td style="padding:12px 16px;"><strong>Ordinal</strong></td>
+              <td style="padding:12px 16px;">Ranking, median, percentiles</td>
+              <td style="padding:12px 16px;">Meaningful differences, ratios</td>
+            </tr>
+            <tr style="border-top:1px solid #e9ecef;">
+              <td style="padding:12px 16px;"><strong>Interval</strong></td>
+              <td style="padding:12px 16px;">Addition, subtraction, mean</td>
+              <td style="padding:12px 16px;">Meaningful ratios</td>
+            </tr>
+            <tr style="border-top:1px solid #e9ecef;">
+              <td style="padding:12px 16px;"><strong>Ratio</strong></td>
+              <td style="padding:12px 16px;">All arithmetic operations</td>
+              <td style="padding:12px 16px;">—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="content-narrow">
+    <h2>Common invalid examples</h2>
+
+    <h3>1. Averaging category codes</h3>
     <p>
-      Measurement scales determine what can be meaningfully compared or calculated.
+      Suppose job categories are coded as:
+      1 = Teacher, 2 = Engineer, 3 = Doctor.
+    </p>
+    <p>
+      The mean of these codes has no meaningful interpretation.
     </p>
 
+    <h3>2. Averaging ordinal satisfaction scores</h3>
     <p>
-      Many statistical errors occur not because calculations are incorrect,
-      but because inappropriate operations are applied to the data.
+      Satisfaction levels (1–5) are ordinal.
+      The difference between 1 and 2 may not equal the difference between 4 and 5.
+    </p>
+    <p>
+      Means are often used, but interpretation must be cautious.
     </p>
 
+    <h3>3. Ratio interpretation of temperature</h3>
     <p>
-      Understanding these limits helps prevent false conclusions
-      even when results appear numerical and precise.
+      20°C is not “twice as hot” as 10°C,
+      because Celsius is an interval scale with arbitrary zero.
     </p>
   </div>
 </section>
 
+
+
 <section class="section">
   <div class="content-narrow">
-    <h2>Valid comparisons</h2>
+    <h2>Why software allows misuse</h2>
 
     <p>
-      Each measurement scale supports specific types of comparisons.
+      Statistical software performs numerical operations
+      without understanding scale meaning.
     </p>
 
     <p>
-      Nominal data allow equality or difference only,
-      ordinal data allow ranking,
-      interval data allow comparison of differences,
-      and ratio data allow comparison of ratios.
+      If ordinal values are stored as numbers,
+      software will calculate means and correlations automatically.
     </p>
 
     <p>
-      Using comparisons outside these limits removes
-      the meaning of the results.
+      Valid interpretation depends on the analyst,
+      not on the tool.
     </p>
   </div>
 </section>
 
+
+
 <section class="section">
   <div class="content-narrow">
-    <h2>Invalid operations</h2>
+    <h2>Conceptual principle</h2>
 
     <p>
-      Some operations are mathematically possible
-      but statistically meaningless.
+      The rule is simple:
+    </p>
+
+    <p style="font-weight:600;">
+      Mathematical possibility does not guarantee meaningful interpretation.
     </p>
 
     <p>
-      Examples include averaging category codes,
-      taking ratios of interval data,
-      or interpreting rank differences as equal distances.
-    </p>
-
-    <p>
-      Invalid operations produce numbers
-      that have no real-world interpretation.
+      Statistical reasoning requires understanding
+      what numbers represent before operating on them.
     </p>
   </div>
 </section>
 
-<section class="section">
-  <div class="content-narrow">
-    <h2>Why software allows invalid operations</h2>
 
-    <p>
-      Statistical software operates on numbers,
-      not on the meaning of data.
-    </p>
-
-    <p>
-      If values are stored numerically,
-      software will often perform any requested calculation.
-    </p>
-
-    <p>
-      Responsibility for validity therefore lies with the analyst,
-      not the tool.
-    </p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Real-world examples of misuse</h2>
-
-    <p>
-      Common examples include averaging satisfaction ratings,
-      correlating ID numbers, or comparing temperature ratios.
-    </p>
-
-    <p>
-      These practices are widespread in reports,
-      dashboards, and automated analyses.
-    </p>
-
-    <p>
-      Recognizing misuse requires understanding
-      what the scale actually represents.
-    </p>
-  </div>
-</section>
 
 <section class="section section-soft">
   <div class="content-narrow">
     <h2>Key idea to remember</h2>
 
     <p>
-      Not everything that can be calculated
-      should be calculated.
+      Not every numerical calculation is meaningful.
+      Measurement scale determines what comparisons and operations
+      are valid.
     </p>
   </div>
 </section>
+
+
 
 <section class="section section-next">
   <div class="content-narrow">
     <h2>Simple summary</h2>
 
     <p>
-      Measurement scales determine which comparisons
-      and operations are meaningful.
-      Ignoring these limits leads to invalid analysis.
+      Nominal allows classification.
+      Ordinal allows ranking.
+      Interval allows meaningful differences.
+      Ratio allows meaningful ratios.
+      Violating these limits leads to invalid analysis.
     </p>
   </div>
 </section>
+
+
 
 <section class="section section-next">
   <div class="content-narrow">
@@ -179,8 +209,8 @@ lesson_order: 13
 
     <p>
       The next lesson introduces <strong>populations</strong>,
-      explaining what a population is, why populations are usually
-      unreachable, and how this shapes statistical reasoning.
+      explaining why the population is often conceptual,
+      rarely fully observed, and central to statistical inference.
     </p>
 
     <a class="btn btn-primary" href="/foundations/populations/">
