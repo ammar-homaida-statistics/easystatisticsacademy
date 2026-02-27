@@ -19,9 +19,14 @@ lesson_order: 9
   <div class="hero-card">
     <h1>Types of Data</h1>
 
+    <div style="background:#fff3cd; border:1px solid #ffeeba; padding:12px 14px; margin:14px 0; border-radius:8px;">
+      <strong>🚧 Under Construction</strong> — This lesson will later include visual summaries and classification diagrams.
+    </div>
+
     <p class="lead">
-      This lesson introduces the two fundamental types of data—qualitative and quantitative—
-      and explains why distinguishing between them is essential for correct analysis.
+      Every variable must be classified correctly before analysis.
+      The most fundamental distinction is between qualitative (categorical)
+      and quantitative (numerical) data.
     </p>
 
     <p class="muted-mini">
@@ -30,6 +35,8 @@ lesson_order: 9
   </div>
 </section>
 
+
+
 <section class="section">
   <div class="content-narrow">
     <h2>What you will learn</h2>
@@ -37,135 +44,172 @@ lesson_order: 9
     <ul class="bullets">
       <li>What qualitative (categorical) data are.</li>
       <li>What quantitative (numerical) data are.</li>
-      <li>Why this distinction is fundamental in statistics.</li>
-      <li>Common errors caused by misclassifying data.</li>
+      <li>Subtypes within each category.</li>
+      <li>Why misclassification leads to invalid analysis.</li>
     </ul>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
     <h2>Why this topic matters</h2>
 
     <p>
-      Every statistical analysis depends on the type of data being analyzed.
+      Statistical methods are not interchangeable.
+      The type of data determines what operations are meaningful.
     </p>
 
     <p>
-      Using methods designed for one type of data on another can produce
-      misleading or meaningless results.
+      Averages, differences, correlations, and regressions require numerical meaning.
+      Frequency tables and proportions are appropriate for categorical meaning.
     </p>
 
     <p>
-      Understanding data types early prevents errors that are difficult
-      to correct later in analysis.
+      If data are misclassified, conclusions can be mathematically correct
+      but conceptually meaningless.
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
-    <h2>Qualitative (categorical) data</h2>
+    <h2>The two fundamental types</h2>
 
-    <p>
-      Qualitative data describe categories or labels rather than numerical quantities.
-    </p>
+    <div style="margin:24px 0;">
+      <div style="max-width:900px; margin:auto; overflow-x:auto;">
+        <table style="width:100%; border-collapse:collapse; background:#ffffff; border-radius:10px; overflow:hidden; box-shadow:0 4px 10px rgba(0,0,0,0.05);">
+          <thead style="background:#f1f3f5;">
+            <tr>
+              <th style="padding:14px 16px; text-align:left; font-weight:600;">Qualitative (Categorical)</th>
+              <th style="padding:14px 16px; text-align:left; font-weight:600;">Quantitative (Numerical)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-top:1px solid #e9ecef;">
+              <td style="padding:12px 16px;">Represents categories or labels</td>
+              <td style="padding:12px 16px;">Represents numerical quantities</td>
+            </tr>
+            <tr style="border-top:1px solid #e9ecef;">
+              <td style="padding:12px 16px;">Describes type or group membership</td>
+              <td style="padding:12px 16px;">Describes magnitude or amount</td>
+            </tr>
+            <tr style="border-top:1px solid #e9ecef;">
+              <td style="padding:12px 16px;">Cannot be meaningfully averaged</td>
+              <td style="padding:12px 16px;">Arithmetic operations are meaningful</td>
+            </tr>
+            <tr style="border-top:1px solid #e9ecef;">
+              <td style="padding:12px 16px;">Examples: country, color, gender</td>
+              <td style="padding:12px 16px;">Examples: age, income, height</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
-    <p>
-      They indicate group membership, type, or classification,
-      not magnitude or amount.
-    </p>
-
-    <p>
-      Examples include colors, countries, job titles,
-      or survey responses such as “yes” and “no.”
-    </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
-    <h2>Quantitative (numerical) data</h2>
+    <h2>Qualitative data (categorical)</h2>
 
     <p>
-      Quantitative data represent numerical measurements or counts.
+      Qualitative data classify observations into groups.
+      They answer the question: <em>What type?</em>
     </p>
 
-    <p>
-      They express how much, how many, or how often something occurs.
-    </p>
+    <h3>Two common subtypes</h3>
+
+    <ul class="bullets">
+      <li><strong>Nominal:</strong> Categories with no natural order (e.g., blood type, country).</li>
+      <li><strong>Ordinal:</strong> Categories with an order but no measurable distance (e.g., low, medium, high).</li>
+    </ul>
 
     <p>
-      Examples include height, age, income, number of purchases,
-      or test scores.
+      Even when ordinal categories are coded with numbers,
+      the numbers represent order—not quantity.
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
-    <h2>Why the distinction is fundamental</h2>
+    <h2>Quantitative data (numerical)</h2>
 
     <p>
-      Qualitative and quantitative data require different types
-      of summaries, visualizations, and statistical methods.
+      Quantitative data measure amount or magnitude.
+      They answer the question: <em>How much? How many?</em>
     </p>
 
     <p>
-      Operations like averaging or calculating differences
-      only make sense for quantitative data.
+      Numerical values allow arithmetic operations such as
+      addition, subtraction, and averaging.
     </p>
 
     <p>
-      Treating categorical data as numerical can lead
-      to invalid conclusions.
+      Quantitative data can be further divided into discrete and continuous types,
+      which will be discussed in the next lesson.
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
-    <h2>Misclassification pitfalls</h2>
+    <h2>Common misclassification errors</h2>
+
+    <ul class="bullets">
+      <li>Using averages for coded categories (e.g., averaging satisfaction scores 1–5 without caution).</li>
+      <li>Treating identification numbers as numerical measurements.</li>
+      <li>Confusing order with quantity in ordinal data.</li>
+      <li>Ignoring the meaning behind how numbers are assigned.</li>
+    </ul>
 
     <p>
-      Some data appear numerical but are actually categorical,
-      such as identification numbers or coded labels.
-    </p>
-
-    <p>
-      For example, using averages on postal codes or ID numbers
-      has no meaningful interpretation.
-    </p>
-
-    <p>
-      Correct classification depends on the meaning of the data,
-      not how they are stored.
+      The key principle:
+      <strong>Classification depends on meaning, not on how data are stored.</strong>
     </p>
   </div>
 </section>
+
+
 
 <section class="section section-soft">
   <div class="content-narrow">
     <h2>Key idea to remember</h2>
 
     <p>
-      The type of data determines what statistical operations
-      and conclusions are valid.
+      The type of data determines which statistical summaries and methods are valid.
+      Correct classification is a conceptual decision, not a formatting detail.
     </p>
   </div>
 </section>
+
+
 
 <section class="section section-next">
   <div class="content-narrow">
     <h2>Simple summary</h2>
 
     <p>
-      Data can be qualitative or quantitative.
-      Distinguishing between them is essential for choosing
-      appropriate statistical methods.
+      Data are either categorical or numerical.
+      Categorical data describe types.
+      Numerical data describe amounts.
+      Misclassifying them leads to invalid conclusions.
     </p>
   </div>
 </section>
+
+
 
 <section class="section section-next">
   <div class="content-narrow">
@@ -173,8 +217,8 @@ lesson_order: 9
 
     <p>
       The next lesson explores <strong>discrete and continuous data</strong>,
-      clarifying how numerical data can differ in structure
-      and why this matters for later statistical methods.
+      clarifying how numerical variables differ in structure
+      and why this distinction matters for statistical modeling.
     </p>
 
     <a class="btn btn-primary" href="/foundations/discrete-vs-continuous-data/">
