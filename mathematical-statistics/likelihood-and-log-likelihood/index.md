@@ -70,35 +70,57 @@ sidebar: false
   </div>
 
   <div class="grid grid-2">
+
     <div class="card lesson-card">
       <h3><a href="/mathematical-statistics/likelihood-and-log-likelihood/probability-vs-likelihood/">Probability vs likelihood</a></h3>
       <p>Fix the core conceptual confusion: what is random, what is fixed, what changes.</p>
-      <div class="pill-row"><span class="badge">Coming soon</span></div>
+      <div class="pill-row">
+        <a class="btn btn-outline"
+           href="/mathematical-statistics/likelihood-and-log-likelihood/probability-vs-likelihood/"
+           style="border-color:#111; color:#111;">Open lesson</a>
+      </div>
     </div>
 
     <div class="card lesson-card">
       <h3><a href="/mathematical-statistics/likelihood-and-log-likelihood/likelihood-and-log-likelihood/">Likelihood and log-likelihood</a></h3>
       <p>Why we work with logs; interpretation via shape and curvature.</p>
-      <div class="pill-row"><span class="badge">Coming soon</span></div>
+      <div class="pill-row">
+        <a class="btn btn-outline"
+           href="/mathematical-statistics/likelihood-and-log-likelihood/likelihood-and-log-likelihood/"
+           style="border-color:#111; color:#111;">Open lesson</a>
+      </div>
     </div>
 
     <div class="card lesson-card">
       <h3><a href="/mathematical-statistics/likelihood-and-log-likelihood/score-function/">Score function</a></h3>
       <p>Derivative of log-likelihood and its role in estimation.</p>
-      <div class="pill-row"><span class="badge">Coming soon</span></div>
+      <div class="pill-row">
+        <a class="btn btn-outline"
+           href="/mathematical-statistics/likelihood-and-log-likelihood/score-function/"
+           style="border-color:#111; color:#111;">Open lesson</a>
+      </div>
     </div>
 
     <div class="card lesson-card">
       <h3><a href="/mathematical-statistics/likelihood-and-log-likelihood/observed-vs-expected-information/">Observed vs expected information</a></h3>
       <p>Curvature, precision, and the link to Fisher information.</p>
-      <div class="pill-row"><span class="badge">Coming soon</span></div>
+      <div class="pill-row">
+        <a class="btn btn-outline"
+           href="/mathematical-statistics/likelihood-and-log-likelihood/observed-vs-expected-information/"
+           style="border-color:#111; color:#111;">Open lesson</a>
+      </div>
     </div>
 
     <div class="card lesson-card">
       <h3><a href="/mathematical-statistics/likelihood-and-log-likelihood/regularity-conditions-preview/">Regularity conditions (preview)</a></h3>
       <p>Why theorems need assumptions; where things break.</p>
-      <div class="pill-row"><span class="badge">Coming soon</span></div>
+      <div class="pill-row">
+        <a class="btn btn-outline"
+           href="/mathematical-statistics/likelihood-and-log-likelihood/regularity-conditions-preview/"
+           style="border-color:#111; color:#111;">Open lesson</a>
+      </div>
     </div>
+
   </div>
 </section>
 
