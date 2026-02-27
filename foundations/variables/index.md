@@ -17,8 +17,12 @@ lesson_order: 7
   <div class="hero-card">
     <h1>Variables</h1>
 
+    <div style="background:#fff3cd; border:1px solid #ffeeba; padding:12px 14px; margin:14px 0; border-radius:8px;">
+      <strong>🚧 Under Construction</strong> — This lesson is being expanded with more examples, table-based comparisons, and a simple diagram that links units → variables → values.
+    </div>
+
     <p class="lead">
-      Variables describe what is measured on each observational unit.<br>
+      Variables describe what is measured on each observational unit.
       This lesson explains what variables are, how they are defined, and why they are analytical choices rather than facts.
     </p>
 
@@ -35,7 +39,8 @@ lesson_order: 7
     <ul class="bullets">
       <li>What a variable is in statistics.</li>
       <li>The difference between a variable and a constant.</li>
-      <li>Conceptual roles such as independent and dependent variables.</li>
+      <li>How variables relate to observational units (rows) and measurements (columns).</li>
+      <li>Conceptual roles such as predictors/outcomes and independent/dependent variables.</li>
       <li>Why variables are defined by choices, not discovered as facts.</li>
     </ul>
   </div>
@@ -46,17 +51,20 @@ lesson_order: 7
     <h2>Why this topic matters</h2>
 
     <p>
-      Once the observational unit is defined, the next question is what is measured on that unit.
-      The answer to that question defines the variables.
+      Once the observational unit is defined, the next question is:
+      <strong>What is measured on each unit?</strong>
+      The answer defines the variables.
     </p>
 
     <p>
-      Many disagreements in analysis come from different variable definitions, not from different calculations.
-      Two analysts can use the same data but define variables differently.
+      Many disagreements in analysis come from different variable definitions,
+      not from different calculations. Two analysts can use the same raw records,
+      but operationalize the concepts differently.
     </p>
 
     <p>
-      Understanding variables as choices helps prevent false certainty and clarifies what conclusions actually mean.
+      Treating variables as choices reduces false certainty and clarifies what
+      conclusions actually mean.
     </p>
   </div>
 </section>
@@ -66,18 +74,64 @@ lesson_order: 7
     <h2>What a variable is</h2>
 
     <p>
-      A variable is a characteristic that can take different values across observational units.
-      Each variable records one type of information for each unit.
+      A <strong>variable</strong> is a characteristic that can take different values across observational units.
+      In a dataset, a variable typically appears as a <strong>column</strong>, and each row is the value of that variable
+      for one unit.
     </p>
 
     <p>
-      For example, age, income, temperature, category labels, and test scores are all variables
+      Age, income, temperature, category labels, and test scores are all variables
       if they vary across observations.
     </p>
 
     <p>
-      Variables describe variation. Without variation, statistical analysis is not possible.
+      Statistics exists because of variation. If there is no variation, many statistical
+      questions become meaningless.
     </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="content-narrow">
+    <h2>Units → Variables → Values (mental model)</h2>
+
+    <div style="margin:22px 0; text-align:center;">
+      <svg width="100%" height="260" viewBox="0 0 980 260" xmlns="http://www.w3.org/2000/svg">
+        <text x="490" y="28" text-anchor="middle" font-size="18" font-weight="700" fill="#1c1c1c">
+          How Variables Appear in a Dataset
+        </text>
+
+        <rect x="50" y="60" width="260" height="70" rx="12" fill="#e6fcf5" stroke="#099268" stroke-width="2"/>
+        <text x="180" y="92" text-anchor="middle" font-size="16" font-weight="700" fill="#1c1c1c">Observational Units</text>
+        <text x="180" y="112" text-anchor="middle" font-size="13" fill="#333">Rows (e.g., students)</text>
+
+        <rect x="360" y="60" width="260" height="70" rx="12" fill="#fff3bf" stroke="#f08c00" stroke-width="2"/>
+        <text x="490" y="92" text-anchor="middle" font-size="16" font-weight="700" fill="#1c1c1c">Variables</text>
+        <text x="490" y="112" text-anchor="middle" font-size="13" fill="#333">Columns (e.g., age)</text>
+
+        <rect x="670" y="60" width="260" height="70" rx="12" fill="#eef2ff" stroke="#3b5bdb" stroke-width="2"/>
+        <text x="800" y="92" text-anchor="middle" font-size="16" font-weight="700" fill="#1c1c1c">Values</text>
+        <text x="800" y="112" text-anchor="middle" font-size="13" fill="#333">Entries (e.g., 20, 21, 22)</text>
+
+        <line x1="310" y1="95" x2="360" y2="95" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+        <line x1="620" y1="95" x2="670" y2="95" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+
+        <rect x="210" y="160" width="560" height="80" rx="12" fill="#f8f9fa" stroke="#333" stroke-width="2"/>
+        <text x="490" y="188" text-anchor="middle" font-size="16" font-weight="700" fill="#1c1c1c">Dataset</text>
+        <text x="490" y="210" text-anchor="middle" font-size="13" fill="#333">Rows = units • Columns = variables • Cells = values</text>
+
+        <defs>
+          <marker id="arrow" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L9,3 z" fill="#555" />
+          </marker>
+        </defs>
+      </svg>
+
+      <p style="font-size:14px; color:#666; margin-top:10px;">
+        Figure. A variable is a rule that assigns a value to each observational unit.
+      </p>
+    </div>
+
   </div>
 </section>
 
@@ -86,101 +140,126 @@ lesson_order: 7
     <h2>Variable vs constant</h2>
 
     <p>
-      A variable changes across observational units.
-      A constant does not.
+      A <strong>variable</strong> changes across observational units.
+      A <strong>constant</strong> does not.
     </p>
 
     <p>
-      Constants may be important context, but they do not contribute information for statistical analysis
+      Constants may be important context, but they do not explain differences across units
       because they show no variation.
     </p>
 
+    <div style="margin:24px 0;">
+      <div style="max-width:850px; margin:auto; overflow-x:auto;">
+        <table style="width:100%; border-collapse:collapse; background:#ffffff; border-radius:10px; overflow:hidden; box-shadow:0 4px 10px rgba(0,0,0,0.05);">
+          <thead style="background:#f1f3f5;">
+            <tr>
+              <th style="padding:14px 16px; text-align:left; font-weight:600;">Variable</th>
+              <th style="padding:14px 16px; text-align:left; font-weight:600;">Constant</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-top:1px solid #e9ecef;">
+              <td style="padding:12px 16px;">Differs across units</td>
+              <td style="padding:12px 16px;">Same for all units (in this dataset)</td>
+            </tr>
+            <tr style="border-top:1px solid #e9ecef;">
+              <td style="padding:12px 16px;">Can explain differences</td>
+              <td style="padding:12px 16px;">Provides context but not variation</td>
+            </tr>
+            <tr style="border-top:1px solid #e9ecef;">
+              <td style="padding:12px 16px;">Age, score, blood pressure</td>
+              <td style="padding:12px 16px;">Exam date (same for all students)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
     <p>
-      Confusing constants with variables can lead to meaningless summaries or unnecessary calculations.
+      A “constant” can become a variable if the unit changes.
+      For example, exam date is constant within one class (one exam session),
+      but becomes a variable if your units are multiple exam sessions across a semester.
     </p>
   </div>
 </section>
 
 <section class="section">
   <div class="content-narrow">
-    <h3>Simple example</h3>
+    <h2>Simple example</h2>
 
     <p>
       Imagine a class of students taking the same exam.
     </p>
 
     <p>
-      The <strong>exam score</strong> is a <strong>variable</strong> because it differs from one student to another.
+      The <strong>exam score</strong> is a <strong>variable</strong> because it differs from student to student.
+      The <strong>exam date</strong> is a <strong>constant</strong> because everyone took it on the same day.
     </p>
 
     <p>
-      The <strong>exam date</strong> is a <strong>constant</strong> because every student took the exam on the same day.
-    </p>
-
-    <p>
-      The exam date provides context, but it does not help explain differences in scores because it does not vary.
+      The exam date provides context, but it does not help explain why some students scored higher
+      because it does not vary across students.
     </p>
   </div>
 </section>
 
 <section class="section">
   <div class="content-narrow">
-    <h2>Independent and dependent (conceptual)</h2>
+    <h2>Variable roles depend on the question</h2>
 
     <p>
-      In many discussions, variables are described using roles such as independent and dependent.
-      These terms describe how variables are thought about, not how they are mathematically modeled.
+      Variables are often described using roles such as
+      <strong>predictor/outcome</strong> or <strong>independent/dependent</strong>.
+      These roles are not fixed properties of the variable; they depend on the question being asked.
     </p>
 
     <p>
-      An independent variable is typically viewed as an input or explanatory factor,
-      while a dependent variable is viewed as an outcome or response.
+      The same variable can be an outcome in one analysis and a predictor in another.
     </p>
 
-    <p>
-      These roles are conceptual and depend on the question being asked, not on the data alone.
-    </p>
+    <div style="margin:24px 0;">
+      <div style="max-width:850px; margin:auto; overflow-x:auto;">
+        <table style="width:100%; border-collapse:collapse; background:#ffffff; border-radius:10px; overflow:hidden; box-shadow:0 4px 10px rgba(0,0,0,0.05);">
+          <thead style="background:#f1f3f5;">
+            <tr>
+              <th style="padding:14px 16px; text-align:left; font-weight:600;">Role language</th>
+              <th style="padding:14px 16px; text-align:left; font-weight:600;">Meaning (conceptual)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-top:1px solid #e9ecef;">
+              <td style="padding:12px 16px;"><strong>Outcome / Response / Dependent</strong></td>
+              <td style="padding:12px 16px;">What you want to explain or predict</td>
+            </tr>
+            <tr style="border-top:1px solid #e9ecef;">
+              <td style="padding:12px 16px;"><strong>Predictor / Explanatory / Independent</strong></td>
+              <td style="padding:12px 16px;">What you think is related to changes in the outcome</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
   </div>
 </section>
 
 <section class="section">
   <div class="content-narrow">
-    <h3>Simple example</h3>
+    <h2>Simple example of roles</h2>
 
     <p>
       Suppose a teacher wants to understand why some students score higher than others.
     </p>
 
     <p>
-      <strong>Hours studied</strong> is treated as the <strong>independent variable</strong> because it is considered a possible explanation.
+      <strong>Hours studied</strong> may be treated as a <strong>predictor</strong> (independent variable),
+      and <strong>exam score</strong> as the <strong>outcome</strong> (dependent variable).
     </p>
 
     <p>
-      <strong>Exam score</strong> is treated as the <strong>dependent variable</strong> because it is the outcome of interest.
-    </p>
-
-    <p>
-      These roles depend on the question being asked and are not fixed properties of the variables themselves.
-    </p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Predictors and outcomes</h2>
-
-    <p>
-      In practice, analysts often use terms like predictors and outcomes instead of independent and dependent variables.
-      This language emphasizes interpretation rather than formal modeling.
-    </p>
-
-    <p>
-      A predictor is a variable used to help understand or explain variation in another variable.
-      An outcome is the variable of primary interest.
-    </p>
-
-    <p>
-      The same variable can be a predictor in one analysis and an outcome in another.
+      If the question changes—for example, “Does exam difficulty change study time?”—then
+      the roles can change as well.
     </p>
   </div>
 </section>
@@ -191,15 +270,18 @@ lesson_order: 7
 
     <p>
       Variables do not exist independently of measurement and definition.
-      Analysts decide how concepts are turned into variables.
+      Analysts decide how concepts are turned into recorded variables.
     </p>
 
     <p>
-      Choices about definitions, categories, scales, and transformations all affect what a variable represents.
+      For example, the concept “health” could be operationalized as blood pressure,
+      BMI, a symptom score, a diagnosis category, or a composite index.
+      Each choice produces a different variable and supports different conclusions.
     </p>
 
     <p>
-      Treating variables as choices encourages transparency and reminds us that results depend on how variables are defined.
+      Choices about definitions, categories, scales, units, and transformations
+      directly affect results. Treating variables as choices encourages transparency.
     </p>
   </div>
 </section>
@@ -220,8 +302,9 @@ lesson_order: 7
     <h2>Simple summary</h2>
 
     <p>
-      A variable is a characteristic that varies across observations.
-      Variables differ from constants, play different conceptual roles, and are shaped by how we choose to measure and define them.
+      A variable is a characteristic that varies across observational units.
+      Variables differ from constants, their roles depend on the question,
+      and their meaning depends on how we choose to define and measure them.
     </p>
   </div>
 </section>
