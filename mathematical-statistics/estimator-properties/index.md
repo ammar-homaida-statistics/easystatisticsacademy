@@ -62,10 +62,10 @@ sidebar: false
 <section class="section" id="lessons">
   <div class="section-head">
     <h2>Lessons</h2>
-    <p>Lessons will become clickable as they are published. “Continue reading” resumes your last visited lesson in this block.</p>
+    <p>“Continue reading” resumes your last visited lesson in this block.</p>
   </div>
 
-  <!-- ✅ Continue reading (Block → last visited LESSON) -->
+  <!-- ✅ Continue reading -->
   <div id="continue-reading-ms-b4" style="display:none; margin-top:0.75rem;">
     <div class="callout">
       <div class="callout-copy">
@@ -77,41 +77,63 @@ sidebar: false
   </div>
 
   <div class="grid grid-2">
+
     <div class="card lesson-card">
       <h3><a href="/mathematical-statistics/estimator-properties/bias-variance-and-mse/">Bias, variance, and MSE</a></h3>
       <p>Decompose error and understand trade-offs between systematic and random error.</p>
-      <div class="pill-row"><span class="badge">Coming soon</span></div>
+      <div class="pill-row">
+        <a class="btn btn-outline"
+           href="/mathematical-statistics/estimator-properties/bias-variance-and-mse/"
+           style="border-color:#111; color:#111;">Open lesson</a>
+      </div>
     </div>
 
     <div class="card lesson-card">
       <h3><a href="/mathematical-statistics/estimator-properties/unbiasedness-and-bias-correction/">Unbiasedness and bias correction</a></h3>
       <p>When unbiasedness is useful, when it is misleading, and how bias correction works.</p>
-      <div class="pill-row"><span class="badge">Coming soon</span></div>
+      <div class="pill-row">
+        <a class="btn btn-outline"
+           href="/mathematical-statistics/estimator-properties/unbiasedness-and-bias-correction/"
+           style="border-color:#111; color:#111;">Open lesson</a>
+      </div>
     </div>
 
     <div class="card lesson-card">
       <h3><a href="/mathematical-statistics/estimator-properties/consistency-basic-idea/">Consistency (basic idea)</a></h3>
       <p>Why “converging to the truth” is the key large-n requirement for estimation.</p>
-      <div class="pill-row"><span class="badge">Coming soon</span></div>
+      <div class="pill-row">
+        <a class="btn btn-outline"
+           href="/mathematical-statistics/estimator-properties/consistency-basic-idea/"
+           style="border-color:#111; color:#111;">Open lesson</a>
+      </div>
     </div>
 
     <div class="card lesson-card">
       <h3><a href="/mathematical-statistics/estimator-properties/efficiency-and-comparing-estimators/">Efficiency and comparing estimators</a></h3>
       <p>How to compare estimators using variance/MSE and formal efficiency notions.</p>
-      <div class="pill-row"><span class="badge">Coming soon</span></div>
+      <div class="pill-row">
+        <a class="btn btn-outline"
+           href="/mathematical-statistics/estimator-properties/efficiency-and-comparing-estimators/"
+           style="border-color:#111; color:#111;">Open lesson</a>
+      </div>
     </div>
 
     <div class="card lesson-card">
       <h3><a href="/mathematical-statistics/estimator-properties/sufficiency-preview/">Sufficiency (preview)</a></h3>
       <p>Why some statistics preserve all information about the parameter (preview only).</p>
-      <div class="pill-row"><span class="badge">Coming soon</span></div>
+      <div class="pill-row">
+        <a class="btn btn-outline"
+           href="/mathematical-statistics/estimator-properties/sufficiency-preview/"
+           style="border-color:#111; color:#111;">Open lesson</a>
+      </div>
     </div>
+
   </div>
 </section>
 
 <script>
   (function () {
-    // ✅ Save last visited BLOCK for MS home
+
     try {
       localStorage.setItem("esa_continue_ms_last_block_v0", JSON.stringify({
         label: "Block 4 — Estimator Properties",
@@ -119,7 +141,6 @@ sidebar: false
       }));
     } catch (e) {}
 
-    // ✅ Block continues last visited LESSON
     var KEY = "esa_continue_ms_properties_last_lesson_v0";
     var raw = localStorage.getItem(KEY);
     if (!raw) return;
@@ -131,11 +152,13 @@ sidebar: false
       var wrap = document.getElementById("continue-reading-ms-b4");
       var label = document.getElementById("continue-reading-ms-b4-label");
       var btn = document.getElementById("continue-reading-ms-b4-btn");
+
       if (!wrap || !label || !btn) return;
 
       label.innerHTML = 'You last visited: <strong>' + data.label + '</strong>';
       btn.href = data.url;
       wrap.style.display = "block";
     } catch (e) {}
+
   })();
 </script>
