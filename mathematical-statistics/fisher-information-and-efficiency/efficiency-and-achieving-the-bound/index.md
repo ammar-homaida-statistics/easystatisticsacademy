@@ -1,8 +1,8 @@
 ---
 layout: default
-title: "2. Cramér–Rao Lower Bound"
-description: "Derive and interpret the Cramér–Rao lower bound for unbiased estimators."
-permalink: /mathematical-statistics/fisher-information-and-efficiency/cramer-rao-lower-bound/
+title: "3. Efficiency and Achieving the Bound"
+description: "Define efficiency and understand when an unbiased estimator attains the Cramér–Rao lower bound."
+permalink: /mathematical-statistics/fisher-information-and-efficiency/efficiency-and-achieving-the-bound/
 sidebar: false
 ---
 
@@ -14,8 +14,8 @@ sidebar: false
         🚧 Lesson Under Construction
       </h2>
       <p style="margin:0; font-size:1.05rem; color:#283593; line-height:1.6;">
-        Version 0 derives the scalar Cramér–Rao lower bound (CRLB).
-        Later versions will include the multivariate matrix form.
+        Version 0 defines efficiency and explains what it means to achieve the CRLB.
+        Later versions will include equality conditions and exponential-family examples.
       </p>
     </div>
   </div>
@@ -28,8 +28,8 @@ sidebar: false
     localStorage.setItem(
       "esa_continue_ms_information_last_lesson_v0",
       JSON.stringify({
-        url: "/mathematical-statistics/fisher-information-and-efficiency/cramer-rao-lower-bound/",
-        label: "Lesson 2 — Cramér–Rao Lower Bound",
+        url: "/mathematical-statistics/fisher-information-and-efficiency/efficiency-and-achieving-the-bound/",
+        label: "Lesson 3 — Efficiency and Achieving the Bound",
         ts: Date.now()
       })
     );
@@ -52,16 +52,16 @@ sidebar: false
 
       <div class="badge-row">
         <span class="badge">Block 5</span>
-        <span class="badge">Lesson 2</span>
+        <span class="badge">Lesson 3</span>
+        <span class="badge">Efficiency</span>
         <span class="badge">CRLB</span>
-        <span class="badge">Variance Bound</span>
       </div>
 
-      <h1>2. Cramér–Rao Lower Bound</h1>
+      <h1>3. Efficiency and Achieving the Bound</h1>
 
       <p class="lead">
-        The Cramér–Rao lower bound gives a fundamental lower limit
-        on the variance of unbiased estimators.
+        Efficiency measures how close an estimator’s variance is to the theoretical minimum
+        given by the Cramér–Rao lower bound.
       </p>
 
       <div class="hero-actions">
@@ -70,7 +70,7 @@ sidebar: false
       </div>
 
       <p class="muted-mini">
-        No unbiased estimator can beat this bound.
+        Efficient estimators attain the CRLB.
       </p>
     </div>
   </div>
@@ -80,20 +80,19 @@ sidebar: false
   <div class="section-head">
     <h2>Learning objective</h2>
     <p>
-      Derive the Cramér–Rao lower bound and understand its interpretation
-      as a theoretical precision limit.
+      Define efficiency for unbiased estimators and understand what it means
+      to achieve the Cramér–Rao lower bound.
     </p>
   </div>
 </section>
 
 <section class="section">
   <div class="section-head">
-    <h2>1) Statement of the bound</h2>
+    <h2>1) Efficiency definition</h2>
   </div>
 
   <div class="card">
-    If \(\hat{\theta}\) is an unbiased estimator of \(\theta\),
-    then
+    For an unbiased estimator \(\hat{\theta}\), the CRLB states:
     \[
     \text{Var}(\hat{\theta})
     \ge
@@ -101,105 +100,115 @@ sidebar: false
     \]
   </div>
 
-  <p class="muted-mini">
-    \(I(\theta)\) is the Fisher information.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>2) Idea of the proof</h2>
-  </div>
-
   <div class="card">
-    Start from the score:
+    Efficiency is defined as
     \[
-    U(\theta)
+    e(\hat{\theta})
     =
-    \frac{\partial}{\partial \theta}\ell(\theta).
+    \frac{\frac{1}{I(\theta)}}{\text{Var}(\hat{\theta})}
+    \in (0,1].
     \]
-  </div>
-
-  <div class="card">
-    Under regularity conditions:
-    \[
-    \mathbb{E}[U(\theta)] = 0.
-    \]
-  </div>
-
-  <div class="card">
-    Use covariance and Cauchy–Schwarz inequality
-    to derive the variance bound.
   </div>
 
   <p class="muted-mini">
-    The proof relies on orthogonality between estimator error and score.
+    Efficiency equals 1 if the estimator attains the bound.
   </p>
 </section>
 
 <section class="section">
   <div class="section-head">
-    <h2>3) Interpretation</h2>
+    <h2>2) What does it mean to achieve the CRLB?</h2>
+  </div>
+
+  <div class="card">
+    An unbiased estimator \(\hat{\theta}\) is called efficient if
+    \[
+    \text{Var}(\hat{\theta}) = \frac{1}{I(\theta)}.
+    \]
+  </div>
+
+  <p style="margin-top:.75rem;">
+    This means no unbiased estimator can have smaller variance.
+  </p>
+
+  <p class="muted-mini">
+    Efficient estimators are “best possible” within unbiased estimators.
+  </p>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>3) Equality case (preview)</h2>
+  </div>
+
+  <div class="card">
+    In the proof of CRLB, equality happens when the estimator error is
+    perfectly aligned with the score function:
+    \[
+    \hat{\theta}-\theta = a(\theta)\,U(\theta)
+    \quad \text{for some } a(\theta).
+    \]
+  </div>
+
+  <p class="muted-mini">
+    This is a strong condition and does not always hold.
+  </p>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>4) Example: Bernoulli proportion</h2>
+  </div>
+
+  <div class="card">
+    For \(X_i \sim \text{Bernoulli}(p)\),
+    the sample proportion
+    \[
+    \hat{p}=\bar{X}
+    \]
+    is unbiased and has variance
+    \[
+    \text{Var}(\hat{p}) = \frac{p(1-p)}{n}.
+    \]
+  </div>
+
+  <div class="card">
+    The CRLB is
+    \[
+    \frac{1}{I(p)} = \frac{p(1-p)}{n}.
+    \]
+  </div>
+
+  <p class="muted-mini">
+    So \(\hat{p}\) is efficient.
+  </p>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>5) Important limitation</h2>
   </div>
 
   <div class="grid grid-2">
 
     <div class="card">
-      <h3>Precision limit</h3>
+      <h3>Bound applies to unbiased estimators</h3>
       <p style="margin:0;">
-        Variance cannot be smaller than \(1/I(\theta)\).
+        Biased estimators can have smaller MSE than any unbiased estimator.
       </p>
     </div>
 
     <div class="card">
-      <h3>Model-dependent</h3>
+      <h3>Not always attainable</h3>
       <p style="margin:0;">
-        The bound depends on the statistical model.
+        Some models do not admit any unbiased estimator achieving CRLB.
       </p>
     </div>
 
-    <div class="card">
-      <h3>Sample size effect</h3>
-      <p style="margin:0;">
-        For IID data, bound shrinks as \(n\) increases.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Unbiasedness requirement</h3>
-      <p style="margin:0;">
-        The bound applies to unbiased estimators.
-      </p>
-    </div>
-
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>4) Example: Bernoulli model</h2>
-  </div>
-
-  <div class="card">
-    For \(X_i \sim \text{Bernoulli}(p)\):
-    \[
-    I(p)
-    =
-    \frac{n}{p(1-p)}.
-    \]
-  </div>
-
-  <div class="card">
-    Therefore,
-    \[
-    \text{Var}(\hat{p})
-    \ge
-    \frac{p(1-p)}{n}.
-    \]
   </div>
 
   <p class="muted-mini">
-    The sample proportion achieves this bound.
+    CRLB is a benchmark, not a guarantee.
   </p>
 </section>
 
@@ -208,10 +217,10 @@ sidebar: false
     <div class="callout-copy">
       <h2>Outcome of this lesson</h2>
       <ul class="bullets">
-        <li>State the Cramér–Rao bound</li>
-        <li>Understand its proof idea</li>
-        <li>Interpret it as a precision limit</li>
-        <li>Prepare for efficiency concept</li>
+        <li>Define efficiency using the CRLB</li>
+        <li>Understand what “attaining the bound” means</li>
+        <li>See an efficient estimator example</li>
+        <li>Prepare for information additivity</li>
       </ul>
     </div>
   </div>
@@ -223,13 +232,13 @@ sidebar: false
     <div class="callout-copy">
       <h2>Next lesson</h2>
       <p style="margin:0;">
-        We now define efficiency and examine when
-        the Cramér–Rao bound can be achieved.
+        We now study how Fisher information scales with sample size
+        under independence (additivity and IID).
       </p>
 
       <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/mathematical-statistics/fisher-information-and-efficiency/efficiency-and-achieving-the-bound/">
-          Continue to Lesson 3 →
+        <a class="btn" href="/mathematical-statistics/fisher-information-and-efficiency/information-additivity-and-iid/">
+          Continue to Lesson 4 →
         </a>
       </div>
     </div>
@@ -238,8 +247,8 @@ sidebar: false
       <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
         <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
         <div class="mini-body">
-          <a href="/mathematical-statistics/fisher-information-and-efficiency/fisher-information-definition/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 1: Fisher Information
+          <a href="/mathematical-statistics/fisher-information-and-efficiency/cramer-rao-lower-bound/" style="color:#1a73e8; text-decoration:underline;">
+            Lesson 2: Cramér–Rao Lower Bound
           </a>
         </div>
       </div>
