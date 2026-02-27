@@ -19,10 +19,14 @@ lesson_order: 15
   <div class="hero-card">
     <h1>Samples</h1>
 
+    <div style="background:#fff3cd; border:1px solid #ffeeba; padding:12px 14px; margin:14px 0; border-radius:8px;">
+      <strong>🚧 Under Construction</strong> — Visual illustrations and simulation examples will be added.
+    </div>
+
     <p class="lead">
-      This lesson explains what a sample is in statistics, why samples are
-      necessary, how samples relate to populations, and how sample size
-      affects reliability in an intuitive way.
+      Because populations are usually unreachable,
+      statistical reasoning relies on samples.
+      A sample is not the population—it is an approximation.
     </p>
 
     <p class="muted-mini">
@@ -31,79 +35,110 @@ lesson_order: 15
   </div>
 </section>
 
+
+
 <section class="section">
   <div class="content-narrow">
     <h2>What you will learn</h2>
 
     <ul class="bullets">
       <li>What a sample is in statistical reasoning.</li>
-      <li>Why samples are necessary in practice.</li>
-      <li>How samples approximate populations.</li>
-      <li>How to think about sample size intuitively.</li>
+      <li>Why sampling is necessary in practice.</li>
+      <li>How samples relate to populations.</li>
+      <li>How to think intuitively about sample size.</li>
     </ul>
   </div>
 </section>
 
-<section class="section">
-  <div class="content-narrow">
-    <h2>Why this topic matters</h2>
 
-    <p>
-      Most statistical analyses are based on samples, not full populations.
-    </p>
-
-    <p>
-      Confusing samples with populations can lead to overconfidence
-      and incorrect conclusions.
-    </p>
-
-    <p>
-      Understanding the role of samples clarifies what statistical
-      results can and cannot tell us.
-    </p>
-  </div>
-</section>
 
 <section class="section">
   <div class="content-narrow">
     <h2>Definition of a sample</h2>
 
     <p>
-      A sample is a subset of a population that is actually observed.
+      A <strong>sample</strong> is a subset of a population
+      that is actually observed and measured.
     </p>
 
     <p>
-      Samples are used to learn about populations
-      when full observation is impractical or impossible.
+      It is the data we have access to,
+      used to learn about a broader population.
     </p>
 
     <p>
-      Every sample is connected to a population,
-      even if that population is conceptual.
+      Every sample is linked to a population,
+      whether that population is finite or conceptual.
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
     <h2>Why samples are necessary</h2>
 
+    <ul class="bullets">
+      <li>Full population measurement is often too costly.</li>
+      <li>Some populations are extremely large or infinite.</li>
+      <li>Populations may change over time.</li>
+      <li>Ethical or practical limits may restrict access.</li>
+    </ul>
+
     <p>
-      Measuring entire populations is often too costly,
-      time-consuming, or infeasible.
+      Sampling allows us to make informed conclusions
+      without observing every unit.
     </p>
 
     <p>
-      Some populations are extremely large, infinite,
-      or constantly changing.
-    </p>
-
-    <p>
-      Sampling makes statistical investigation possible
-      despite these limitations.
+      Statistics exists because complete observation
+      is usually impossible.
     </p>
   </div>
 </section>
+
+
+
+<section class="section">
+  <div class="content-narrow">
+    <h2>Samples vs populations</h2>
+
+    <div style="margin:24px 0;">
+      <div style="max-width:900px; margin:auto; overflow-x:auto;">
+        <table style="width:100%; border-collapse:collapse; background:#ffffff; border-radius:10px; overflow:hidden; box-shadow:0 4px 10px rgba(0,0,0,0.05); font-size:14px;">
+          <thead style="background:#f1f3f5;">
+            <tr>
+              <th style="padding:14px 16px; text-align:left; font-weight:600;">Population</th>
+              <th style="padding:14px 16px; text-align:left; font-weight:600;">Sample</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-top:1px solid #e9ecef;">
+              <td style="padding:12px 16px;">Entire set of units of interest</td>
+              <td style="padding:12px 16px;">Subset that is observed</td>
+            </tr>
+            <tr style="border-top:1px solid #e9ecef;">
+              <td style="padding:12px 16px;">Described by parameters</td>
+              <td style="padding:12px 16px;">Described by statistics</td>
+            </tr>
+            <tr style="border-top:1px solid #e9ecef;">
+              <td style="padding:12px 16px;">Usually unknown</td>
+              <td style="padding:12px 16px;">Observed and measurable</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <p>
+      A <strong>parameter</strong> describes a population.
+      A <strong>statistic</strong> describes a sample.
+    </p>
+  </div>
+</section>
+
+
 
 <section class="section">
   <div class="content-narrow">
@@ -111,63 +146,95 @@ lesson_order: 15
 
     <p>
       A sample does not reproduce a population perfectly.
+      Instead, it provides an estimate.
     </p>
 
     <p>
-      Instead, it provides an approximation that reflects
-      some aspects of the population.
+      Differences between sample results and population values
+      are expected and unavoidable.
     </p>
 
     <p>
-      Differences between the sample and the population
-      are unavoidable and expected.
+      This difference is called <strong>sampling error</strong>,
+      and it arises naturally from using a subset instead of the full population.
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
-    <h2>Sample size intuition</h2>
+    <h2>Intuition about sample size</h2>
 
     <p>
-      Larger samples tend to provide more stable
-      and reliable summaries than smaller samples.
+      Larger samples tend to produce more stable estimates.
     </p>
 
     <p>
-      Small samples are more sensitive to random variation
-      and may look very different from the population.
+      Small samples fluctuate more due to random variation.
     </p>
 
     <p>
-      Sample size improves reliability, but it does not
-      eliminate uncertainty entirely.
+      However, increasing sample size reduces variability
+      but never removes uncertainty entirely.
+    </p>
+
+    <p style="font-weight:600;">
+      Larger samples increase reliability, not certainty.
     </p>
   </div>
 </section>
+
+
+
+<section class="section">
+  <div class="content-narrow">
+    <h2>Representativeness</h2>
+
+    <p>
+      Sample size alone is not enough.
+      A large but biased sample can still produce misleading conclusions.
+    </p>
+
+    <p>
+      How the sample is selected matters as much as how large it is.
+    </p>
+
+    <p>
+      Representativeness is central to reliable inference.
+    </p>
+  </div>
+</section>
+
+
 
 <section class="section section-soft">
   <div class="content-narrow">
     <h2>Key idea to remember</h2>
 
     <p>
-      Samples are necessary approximations of populations,
-      not perfect representations.
+      A sample is a necessary approximation of a population.
+      It introduces uncertainty, but makes inference possible.
     </p>
   </div>
 </section>
+
+
 
 <section class="section section-next">
   <div class="content-narrow">
     <h2>Simple summary</h2>
 
     <p>
-      A sample is a subset of a population used to learn
-      about the population. Sampling introduces uncertainty,
-      but it makes statistical analysis possible.
+      Samples are subsets of populations used for learning.
+      They provide estimates of unknown population parameters.
+      Sampling introduces variability but enables statistical reasoning.
     </p>
   </div>
 </section>
+
+
 
 <section class="section section-next">
   <div class="content-narrow">
@@ -175,7 +242,7 @@ lesson_order: 15
 
     <p>
       The next lesson introduces <strong>sampling variability</strong>,
-      explaining why different samples give different results
+      explaining why different samples produce different results
       and how randomness differs from error.
     </p>
 
