@@ -19,10 +19,14 @@ lesson_order: 14
   <div class="hero-card">
     <h1>Populations</h1>
 
+    <div style="background:#fff3cd; border:1px solid #ffeeba; padding:12px 14px; margin:14px 0; border-radius:8px;">
+      <strong>🚧 Under Construction</strong> — Conceptual examples and diagrams will be added.
+    </div>
+
     <p class="lead">
-      This lesson explains what a population is in statistics, the difference
-      between finite and conceptual populations, and why populations are
-      usually impossible to fully observe.
+      In statistics, the ultimate goal is to learn about populations.
+      However, populations are rarely fully observable.
+      Statistical reasoning exists because complete knowledge is usually impossible.
     </p>
 
     <p class="muted-mini">
@@ -31,6 +35,8 @@ lesson_order: 14
   </div>
 </section>
 
+
+
 <section class="section">
   <div class="content-narrow">
     <h2>What you will learn</h2>
@@ -38,137 +44,194 @@ lesson_order: 14
     <ul class="bullets">
       <li>What a population means in statistical reasoning.</li>
       <li>The difference between finite and conceptual populations.</li>
-      <li>Target populations versus accessible populations.</li>
+      <li>The distinction between target and accessible populations.</li>
       <li>Why populations are usually unreachable in practice.</li>
     </ul>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
     <h2>Why this topic matters</h2>
 
     <p>
-      Statistics is ultimately concerned with learning about populations,
-      not just the data we happen to observe.
+      Statistical conclusions are never about just the data we observe.
+      They are about a broader population from which the data arise.
     </p>
 
     <p>
-      Confusing populations with datasets or samples
-      leads to incorrect interpretation and overconfidence.
+      Confusing a dataset with a population leads to overconfidence,
+      incorrect generalization, and flawed decision-making.
     </p>
 
     <p>
-      Understanding populations clarifies what conclusions
-      statistical results are actually meant to support.
+      Understanding populations clarifies what statistical inference
+      is trying to achieve.
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
     <h2>Definition of a population</h2>
 
     <p>
-      A population is the complete set of individuals, objects,
-      events, or measurements of interest.
+      A population is the complete set of units of interest
+      in a statistical investigation.
     </p>
 
     <p>
-      It is defined conceptually, not by what is observed.
+      These units may be individuals, objects, events,
+      time points, or measurements.
     </p>
 
     <p>
-      Populations exist whether or not we can fully measure them.
+      A population is defined conceptually by the research question,
+      not by what has been observed.
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
     <h2>Finite vs conceptual populations</h2>
 
-    <p>
-      Some populations are finite, such as all students enrolled
-      in a specific school this year.
-    </p>
+    <div style="margin:24px 0;">
+      <div style="max-width:900px; margin:auto; overflow-x:auto;">
+        <table style="width:100%; border-collapse:collapse; background:#ffffff; border-radius:10px; overflow:hidden; box-shadow:0 4px 10px rgba(0,0,0,0.05); font-size:14px;">
+          <thead style="background:#f1f3f5;">
+            <tr>
+              <th style="padding:14px 16px; text-align:left; font-weight:600;">Finite Population</th>
+              <th style="padding:14px 16px; text-align:left; font-weight:600;">Conceptual Population</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-top:1px solid #e9ecef;">
+              <td style="padding:12px 16px;">Fixed, countable set</td>
+              <td style="padding:12px 16px;">Potentially infinite or theoretical set</td>
+            </tr>
+            <tr style="border-top:1px solid #e9ecef;">
+              <td style="padding:12px 16px;">Example: All students in a school this year</td>
+              <td style="padding:12px 16px;">Example: All possible future exam scores</td>
+            </tr>
+            <tr style="border-top:1px solid #e9ecef;">
+              <td style="padding:12px 16px;">May be fully enumerated (rarely practical)</td>
+              <td style="padding:12px 16px;">Cannot be fully observed by definition</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
     <p>
-      Other populations are conceptual, such as all future measurements
-      that could be taken under similar conditions.
-    </p>
-
-    <p>
-      Conceptual populations are central to statistical reasoning,
-      even though they cannot be fully enumerated.
+      Conceptual populations are central to probability and inference.
+      Even when we study a finite group, we often reason about broader,
+      underlying processes.
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
-    <h2>Target population vs accessible population</h2>
+    <h2>Target vs accessible population</h2>
 
     <p>
-      The target population is the population about which
-      we want to draw conclusions.
+      The <strong>target population</strong> is the group we want
+      to draw conclusions about.
     </p>
 
     <p>
-      The accessible population is the portion of that population
-      we can realistically observe or sample from.
+      The <strong>accessible population</strong> is the portion
+      we can realistically reach or sample from.
     </p>
 
     <p>
-      Differences between these two affect how far results
-      can be generalized.
+      When these differ, generalization becomes limited.
+      Statistical conclusions must reflect this limitation.
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
     <h2>Why populations are usually unreachable</h2>
 
+    <ul class="bullets">
+      <li>Cost and time constraints.</li>
+      <li>Geographic or practical limitations.</li>
+      <li>Ethical restrictions.</li>
+      <li>Conceptual infinity (e.g., future outcomes).</li>
+    </ul>
+
     <p>
-      Measuring every unit in a population is often impossible
-      due to cost, time, or practical constraints.
+      Statistics exists precisely because complete observation
+      of populations is rarely possible.
     </p>
 
     <p>
-      Some populations are infinite or constantly changing,
-      making complete observation impossible in principle.
-    </p>
-
-    <p>
-      Statistics exists precisely because populations
-      cannot usually be fully observed.
+      Instead, we rely on samples to learn about populations.
     </p>
   </div>
 </section>
+
+
+
+<section class="section">
+  <div class="content-narrow">
+    <h2>Conceptual principle</h2>
+
+    <p style="font-weight:600;">
+      Data are observed.  
+      Populations are inferred.
+    </p>
+
+    <p>
+      Statistical reasoning bridges the gap
+      between limited data and broader populations.
+    </p>
+  </div>
+</section>
+
+
 
 <section class="section section-soft">
   <div class="content-narrow">
     <h2>Key idea to remember</h2>
 
     <p>
-      Populations are the objects of interest in statistics,
-      even though they are rarely fully observed.
+      A population is the full set of units of interest.
+      Because populations are usually unreachable,
+      statistics relies on indirect evidence.
     </p>
   </div>
 </section>
+
+
 
 <section class="section section-next">
   <div class="content-narrow">
     <h2>Simple summary</h2>
 
     <p>
-      A population is the full set of units we want to understand.
-      Because populations are usually unreachable, statistics
-      relies on indirect evidence.
+      Populations define what we want to understand.
+      They may be finite or conceptual.
+      Since they are rarely fully observed,
+      statistical inference becomes necessary.
     </p>
   </div>
 </section>
+
+
 
 <section class="section section-next">
   <div class="content-narrow">
@@ -176,8 +239,8 @@ lesson_order: 14
 
     <p>
       The next lesson introduces <strong>samples</strong>,
-      explaining why samples are necessary, how they approximate
-      populations, and how sample size affects reliability.
+      explaining how samples approximate populations
+      and why sampling design determines reliability.
     </p>
 
     <a class="btn btn-primary" href="/foundations/samples/">
