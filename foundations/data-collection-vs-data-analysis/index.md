@@ -19,10 +19,14 @@ lesson_order: 20
   <div class="hero-card">
     <h1>Data Collection vs Data Analysis</h1>
 
+    <div style="background:#fff3cd; border:1px solid #ffeeba; padding:12px 14px; margin:14px 0; border-radius:8px;">
+      <strong>🚧 Under Construction</strong> — Real-world case examples will be added.
+    </div>
+
     <p class="lead">
-      This lesson explains the fundamental difference between data collection
-      and data analysis, why collection must come first, and why poor data
-      cannot be repaired by analysis.
+      Statistical analysis is powerful.
+      But it can only work with the data that were collected.
+      If collection is flawed, analysis cannot repair it.
     </p>
 
     <p class="muted-mini">
@@ -31,6 +35,8 @@ lesson_order: 20
   </div>
 </section>
 
+
+
 <section class="section">
   <div class="content-narrow">
     <h2>What you will learn</h2>
@@ -38,94 +44,130 @@ lesson_order: 20
     <ul class="bullets">
       <li>The difference between data collection and data analysis.</li>
       <li>Why data collection logically precedes analysis.</li>
-      <li>Why analysis cannot fix fundamentally flawed data.</li>
+      <li>Why flawed data cannot be corrected by advanced methods.</li>
       <li>Examples of irreparable problems in collected data.</li>
     </ul>
   </div>
 </section>
 
+
+
 <section class="section">
   <div class="content-narrow">
-    <h2>Why this topic matters</h2>
+    <h2>The fundamental difference</h2>
 
     <p>
-      Modern tools make data analysis fast and accessible,
-      often hiding problems in how data were collected.
+      <strong>Data collection</strong> determines what information exists.
     </p>
 
     <p>
-      When conclusions are wrong, the cause is frequently
-      poor data collection rather than poor analysis.
+      <strong>Data analysis</strong> summarizes and models that information.
     </p>
 
     <p>
-      Understanding this distinction prevents misplaced
-      trust in analytical results.
+      Collection creates the raw material.
+      Analysis works with what has already been created.
     </p>
   </div>
 </section>
 
+
+
 <section class="section">
   <div class="content-narrow">
-    <h2>Why data collection precedes analysis</h2>
+    <h2>Why collection comes first</h2>
 
     <p>
-      Data analysis operates on what has already been observed.
+      Before any analysis begins, decisions must be made about:
     </p>
 
-    <p>
-      Decisions about what to measure, whom to observe,
-      and how to measure are made during data collection.
-    </p>
+    <ul class="bullets">
+      <li>Who or what will be observed.</li>
+      <li>How units will be selected.</li>
+      <li>What variables will be measured.</li>
+      <li>How measurement will be performed.</li>
+    </ul>
 
     <p>
-      These decisions determine what analysis is possible
+      These decisions define what the dataset contains
       and what questions can be answered.
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
     <h2>Why analysis cannot fix bad data</h2>
 
     <p>
-      Analysis can summarize or model data,
-      but it cannot add missing information.
+      Statistical methods can reduce random noise.
+      They cannot remove systematic flaws.
     </p>
 
     <p>
-      If data are biased, incomplete, or mismeasured,
-      analysis will reflect those flaws.
+      If key groups are missing from the data,
+      no formula can reconstruct them.
     </p>
 
     <p>
-      More complex methods do not compensate
-      for poor data quality.
+      If measurements were poorly defined,
+      no model can reinterpret them correctly.
+    </p>
+
+    <p style="font-weight:600;">
+      Analysis reveals structure.  
+      It does not create missing truth.
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
-    <h2>Examples of irreparable flaws</h2>
+    <h2>Irreparable data flaws</h2>
+
+    <ul class="bullets">
+      <li>Ambiguous or leading survey questions.</li>
+      <li>Non-representative sampling frames.</li>
+      <li>Missing entire subpopulations.</li>
+      <li>Incorrect variable definitions.</li>
+      <li>Measurement instruments with systematic bias.</li>
+    </ul>
 
     <p>
-      Survey questions that are ambiguous or leading
-      cannot be corrected after responses are collected.
-    </p>
-
-    <p>
-      Missing entire segments of a population
-      cannot be fixed through computation.
-    </p>
-
-    <p>
-      Incorrectly defined variables
-      limit interpretation permanently.
+      Once data are collected under these conditions,
+      their limitations cannot be removed afterward.
     </p>
   </div>
 </section>
+
+
+
+<section class="section">
+  <div class="content-narrow">
+    <h2>Complexity does not equal correction</h2>
+
+    <p>
+      More advanced statistical models
+      do not automatically improve flawed data.
+    </p>
+
+    <p>
+      Complex analysis applied to biased data
+      simply produces more sophisticated bias.
+    </p>
+
+    <p>
+      Good data quality must be built into
+      the collection process itself.
+    </p>
+  </div>
+</section>
+
+
 
 <section class="section section-soft">
   <div class="content-narrow">
@@ -133,22 +175,26 @@ lesson_order: 20
 
     <p>
       Good analysis cannot rescue bad data.
-      Quality must be built in at collection.
+      Data quality is determined at collection.
     </p>
   </div>
 </section>
+
+
 
 <section class="section section-next">
   <div class="content-narrow">
     <h2>Simple summary</h2>
 
     <p>
-      Data collection determines what data exist.
-      Data analysis works only with what is collected.
-      Errors in collection cannot be undone.
+      Data collection determines what information exists.
+      Data analysis works only with what has been collected.
+      Fundamental collection flaws cannot be undone.
     </p>
   </div>
 </section>
+
+
 
 <section class="section section-next">
   <div class="content-narrow">
@@ -156,8 +202,8 @@ lesson_order: 20
 
     <p>
       The next lesson introduces <strong>surveys</strong>,
-      explaining how surveys work, common wording problems,
-      response bias, and the idea of sampling frames.
+      explaining how survey design, wording, sampling frames,
+      and response behavior affect data quality.
     </p>
 
     <a class="btn btn-primary" href="/foundations/surveys/">
