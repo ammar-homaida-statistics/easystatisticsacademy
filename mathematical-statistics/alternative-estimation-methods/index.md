@@ -61,7 +61,7 @@ sidebar: false
 <section class="section" id="lessons">
   <div class="section-head">
     <h2>Lessons</h2>
-    <p>Lessons will become clickable as they are published. “Continue reading” resumes your last visited lesson in this block.</p>
+    <p>Lessons are clickable. “Continue reading” resumes your last visited lesson in this block.</p>
   </div>
 
   <div id="continue-reading-ms-b7" style="display:none; margin-top:0.75rem;">
@@ -75,35 +75,47 @@ sidebar: false
   </div>
 
   <div class="grid grid-2">
+
     <div class="card lesson-card">
       <h3><a href="/mathematical-statistics/alternative-estimation-methods/method-of-moments/">Method of moments</a></h3>
       <p>Construct estimators by matching theoretical and sample moments.</p>
-      <div class="pill-row"><span class="badge">Coming soon</span></div>
+      <div class="pill-row">
+        <a class="btn btn-outline" href="/mathematical-statistics/alternative-estimation-methods/method-of-moments/">Open lesson</a>
+      </div>
     </div>
 
     <div class="card lesson-card">
       <h3><a href="/mathematical-statistics/alternative-estimation-methods/estimating-equations-preview/">Estimating equations (preview)</a></h3>
       <p>Generalize estimation via equations; motivation and examples preview.</p>
-      <div class="pill-row"><span class="badge">Coming soon</span></div>
+      <div class="pill-row">
+        <a class="btn btn-outline" href="/mathematical-statistics/alternative-estimation-methods/estimating-equations-preview/">Open lesson</a>
+      </div>
     </div>
 
     <div class="card lesson-card">
       <h3><a href="/mathematical-statistics/alternative-estimation-methods/bayesian-point-estimation-preview/">Bayesian point estimation (preview)</a></h3>
       <p>MAP and posterior mean as estimation targets (conceptual preview).</p>
-      <div class="pill-row"><span class="badge">Coming soon</span></div>
+      <div class="pill-row">
+        <a class="btn btn-outline" href="/mathematical-statistics/alternative-estimation-methods/bayesian-point-estimation-preview/">Open lesson</a>
+      </div>
     </div>
 
     <div class="card lesson-card">
       <h3><a href="/mathematical-statistics/alternative-estimation-methods/shrinkage-intuition-preview/">Shrinkage intuition (preview)</a></h3>
       <p>Why adding bias can reduce MSE; high-level preview for later modeling.</p>
-      <div class="pill-row"><span class="badge">Coming soon</span></div>
+      <div class="pill-row">
+        <a class="btn btn-outline" href="/mathematical-statistics/alternative-estimation-methods/shrinkage-intuition-preview/">Open lesson</a>
+      </div>
     </div>
 
     <div class="card lesson-card">
       <h3><a href="/mathematical-statistics/alternative-estimation-methods/robustness-preview/">Robustness (preview)</a></h3>
       <p>What happens when assumptions are violated and why robustness matters.</p>
-      <div class="pill-row"><span class="badge">Coming soon</span></div>
+      <div class="pill-row">
+        <a class="btn btn-outline" href="/mathematical-statistics/alternative-estimation-methods/robustness-preview/">Open lesson</a>
+      </div>
     </div>
+
   </div>
 </section>
 
