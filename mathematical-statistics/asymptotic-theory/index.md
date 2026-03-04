@@ -1,182 +1,321 @@
 ---
 layout: default
-title: Asymptotic Theory
-description: Consistency, asymptotic normality, Slutsky’s theorem, and the delta method.
-permalink: /mathematical-statistics/asymptotic-theory/
+title: "1. Modes of Convergence (Review)"
+description: "Review convergence in probability, distribution, and almost sure convergence and understand how they differ."
+permalink: /mathematical-statistics/asymptotic-theory/modes-of-convergence-review/
 sidebar: false
 ---
 
+<!-- UNDER CONSTRUCTION NOTICE -->
 <section class="section section-slim">
-  <div class="callout" style="background:#f3f6ff; border:2px solid #3f51b5; padding:1.5rem; border-radius:10px;">
+  <div class="callout" style="background:#eef5ff; border:2px solid #3f51b5; padding:2rem; border-radius:12px;">
     <div class="callout-copy">
-      <h2 style="margin-top:0; color:#1a237e; font-size:1.6rem;">🚧 This Block Is Under Construction</h2>
-      <p style="margin:0; color:#283593; line-height:1.6;">
-        This block develops large-sample theory used throughout mathematical statistics:
-        convergence, asymptotic distributions, and approximation tools.
+      <h2 style="margin-top:0; color:#1a237e; font-size:1.8rem; letter-spacing:0.5px;">
+        🚧 Lesson Under Construction
+      </h2>
+      <p style="margin:0; font-size:1.05rem; color:#283593; line-height:1.6;">
+        Version 0 reviews the main convergence concepts used in asymptotic statistics.
+        Later versions will include formal proofs and graphical illustrations.
       </p>
     </div>
   </div>
 </section>
 
-<section class="hero hero-lesson">
-  <div class="hero-card hero-split">
+<!-- Continue-reading tracking -->
+<script>
+(function(){
+
+  localStorage.setItem(
+    "esa_continue_ms_asymptotics_last_lesson_v0",
+    JSON.stringify({
+      url:"/mathematical-statistics/asymptotic-theory/modes-of-convergence-review/",
+      label:"Lesson 1 — Modes of Convergence",
+      ts:Date.now()
+    })
+  );
+
+  localStorage.setItem(
+    "esa_continue_ms_last_block_v0",
+    JSON.stringify({
+      url:"/mathematical-statistics/asymptotic-theory/",
+      label:"Block 6 — Asymptotic Theory",
+      ts:Date.now()
+    })
+  );
+
+})();
+</script>
+
+<section class="hero hero-section">
+  <div class="hero-card">
     <div class="hero-copy">
 
       <div class="badge-row">
+        <span class="badge">Block 6</span>
+        <span class="badge">Lesson 1</span>
         <span class="badge">Convergence</span>
-        <span class="badge">Asymptotic normality</span>
-        <span class="badge">Slutsky</span>
-        <span class="badge">Delta method</span>
+        <span class="badge">Probability Theory</span>
       </div>
 
-      <h1>Block 6 — Asymptotic Theory</h1>
+      <h1>1. Modes of Convergence</h1>
 
       <p class="lead">
-        Learn the rigorous tools that justify approximation in inference:
-        convergence, limiting distributions, and transformations.
+        Asymptotic theory studies how random quantities behave as sample size grows.
+        Convergence concepts formalize what it means for estimators to approach
+        the true parameter.
       </p>
 
       <div class="hero-actions">
-        <a class="btn btn-outline" href="/mathematical-statistics/">Back: Mathematical Statistics</a>
-        <a class="btn" href="/mathematical-statistics/alternative-estimation-methods/">Next block: Alternative Methods</a>
+        <a class="btn btn-outline" href="/mathematical-statistics/asymptotic-theory/">Back to Block 6</a>
+        <a class="btn btn-outline" href="/mathematical-statistics/">Mathematical Statistics home</a>
       </div>
 
       <p class="muted-mini">
-        This block is the bridge between estimation theory and practical inference approximations.
+        Different convergence types capture different asymptotic behaviors.
       </p>
 
     </div>
-
-    <div class="hero-panel">
-      <div class="panel-card">
-
-        <h2 class="panel-title">Recommended lesson order</h2>
-
-        <ol class="quickstart">
-          <li><a href="#lessons">Modes of convergence (review)</a><span class="meta">Probability tools</span></li>
-          <li><a href="#lessons">Consistency of MLE (idea)</a><span class="meta">Why MLE converges</span></li>
-          <li><a href="#lessons">Asymptotic normality of MLE</a><span class="meta">Main result</span></li>
-          <li><a href="#lessons">Slutsky & mapping theorems</a><span class="meta">Combining limits</span></li>
-          <li><a href="#lessons">Delta method</a><span class="meta">Transformations</span></li>
-        </ol>
-
-      </div>
-    </div>
   </div>
 </section>
 
-<section class="section" id="lessons">
-
+<section class="section">
   <div class="section-head">
-    <h2>Lessons</h2>
-    <p>“Continue reading” resumes your last visited lesson in this block.</p>
-  </div>
-
-  <div id="continue-reading-ms-b6" style="display:none; margin-top:0.75rem;">
-    <div class="callout">
-      <div class="callout-copy">
-        <h2>Continue reading</h2>
-        <p class="muted-mini" id="continue-reading-ms-b6-label" style="margin:0 0 .75rem 0;"></p>
-        <a class="btn" id="continue-reading-ms-b6-btn" href="#">Continue</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="grid grid-2">
-
-    <div class="card lesson-card">
-      <h3>
-        <a href="/mathematical-statistics/asymptotic-theory/modes-of-convergence-review/">
-          Modes of convergence (review)
-        </a>
-      </h3>
-      <p>Convergence in probability, distribution, almost sure; when each is used.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/mathematical-statistics/asymptotic-theory/modes-of-convergence-review/">Open lesson</a>
-      </div>
-    </div>
-
-    <div class="card lesson-card">
-      <h3>
-        <a href="/mathematical-statistics/asymptotic-theory/consistency-of-mle-idea/">
-          Consistency of MLE (idea)
-        </a>
-      </h3>
-      <p>Why maximizing likelihood tends to recover the true parameter under regularity.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/mathematical-statistics/asymptotic-theory/consistency-of-mle-idea/">Open lesson</a>
-      </div>
-    </div>
-
-    <div class="card lesson-card">
-      <h3>
-        <a href="/mathematical-statistics/asymptotic-theory/asymptotic-normality-of-mle/">
-          Asymptotic normality of MLE
-        </a>
-      </h3>
-      <p>The key approximation result behind standard errors and Wald intervals.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/mathematical-statistics/asymptotic-theory/asymptotic-normality-of-mle/">Open lesson</a>
-      </div>
-    </div>
-
-    <div class="card lesson-card">
-      <h3>
-        <a href="/mathematical-statistics/asymptotic-theory/slutsky-theorem-and-continuous-mapping/">
-          Slutsky theorem and continuous mapping
-        </a>
-      </h3>
-      <p>How limiting distributions combine and transform under smooth functions.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/mathematical-statistics/asymptotic-theory/slutsky-theorem-and-continuous-mapping/">Open lesson</a>
-      </div>
-    </div>
-
-    <div class="card lesson-card">
-      <h3>
-        <a href="/mathematical-statistics/asymptotic-theory/delta-method/">
-          Delta method
-        </a>
-      </h3>
-      <p>Approximate the distribution of transformations of estimators using Taylor expansion.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/mathematical-statistics/asymptotic-theory/delta-method/">Open lesson</a>
-      </div>
-    </div>
-
+    <h2>Learning objective</h2>
+    <p>
+      Review the main convergence concepts used throughout asymptotic statistics
+      and understand their relationships.
+    </p>
   </div>
 </section>
 
-<script>
-  (function () {
+<section class="section">
+<div class="section-head">
+<h2>1) Convergence in probability</h2>
+</div>
 
-    try {
-      localStorage.setItem("esa_continue_ms_last_block_v0", JSON.stringify({
-        label: "Block 6 — Asymptotic Theory",
-        url: "/mathematical-statistics/asymptotic-theory/"
-      }));
-    } catch (e) {}
+<div class="card">
 
-    var KEY = "esa_continue_ms_asymptotics_last_lesson_v0";
-    var raw = localStorage.getItem(KEY);
-    if (!raw) return;
+A sequence of random variables \(X_n\) converges in probability to \(X\) if
 
-    try {
+\[
+P(|X_n - X| > \varepsilon) \to 0
+\quad \text{for every } \varepsilon>0.
+\]
 
-      var data = JSON.parse(raw);
-      if (!data || !data.url || !data.label) return;
+</div>
 
-      var wrap = document.getElementById("continue-reading-ms-b6");
-      var label = document.getElementById("continue-reading-ms-b6-label");
-      var btn = document.getElementById("continue-reading-ms-b6-btn");
+<p style="margin-top:.75rem;">
+The probability of large deviations goes to zero.
+</p>
 
-      if (!wrap || !label || !btn) return;
+<p class="muted-mini">
+Consistency of estimators is defined using convergence in probability.
+</p>
 
-      label.innerHTML = 'You last visited: <strong>' + data.label + '</strong>';
-      btn.href = data.url;
-      wrap.style.display = "block";
+</section>
 
-    } catch (e) {}
+<section class="section">
+<div class="section-head">
+<h2>2) Convergence in distribution</h2>
+</div>
 
-  })();
-</script>
+<div class="card">
+
+We say
+
+\[
+X_n \xrightarrow{d} X
+\]
+
+if the cumulative distribution functions converge:
+
+\[
+F_{X_n}(x) \to F_X(x)
+\]
+
+at all continuity points of \(F_X\).
+
+</div>
+
+<p class="muted-mini">
+Asymptotic normality is expressed using convergence in distribution.
+</p>
+
+</section>
+
+<section class="section">
+<div class="section-head">
+<h2>3) Almost sure convergence</h2>
+</div>
+
+<div class="card">
+
+Almost sure convergence means
+
+\[
+P\left(
+\lim_{n\to\infty} X_n = X
+\right) = 1.
+\]
+
+</div>
+
+<p style="margin-top:.75rem;">
+This is the strongest commonly used convergence concept.
+</p>
+
+<p class="muted-mini">
+The Strong Law of Large Numbers is stated using almost sure convergence.
+</p>
+
+</section>
+
+<section class="section">
+<div class="section-head">
+<h2>4) Relationship between convergence types</h2>
+</div>
+
+<div class="grid grid-2">
+
+<div class="card">
+<h3>Strongest</h3>
+<p style="margin:0;">
+Almost sure convergence
+</p>
+</div>
+
+<div class="card">
+<h3>Intermediate</h3>
+<p style="margin:0;">
+Convergence in probability
+</p>
+</div>
+
+<div class="card">
+<h3>Weakest</h3>
+<p style="margin:0;">
+Convergence in distribution
+</p>
+</div>
+
+<div class="card">
+<h3>Implication chain</h3>
+
+\[
+X_n \xrightarrow{a.s.} X
+\Rightarrow
+X_n \xrightarrow{p} X
+\Rightarrow
+X_n \xrightarrow{d} X
+\]
+
+</div>
+
+</div>
+
+<p class="muted-mini">
+The reverse implications do not generally hold.
+</p>
+
+</section>
+
+<section class="section">
+<div class="section-head">
+<h2>5) Why convergence matters in statistics</h2>
+</div>
+
+<div class="grid grid-2">
+
+<div class="card">
+<h3>Consistency</h3>
+<p style="margin:0;">
+Estimator converges to the true parameter.
+</p>
+</div>
+
+<div class="card">
+<h3>Asymptotic normality</h3>
+<p style="margin:0;">
+Distribution of estimator approaches a normal distribution.
+</p>
+</div>
+
+<div class="card">
+<h3>Large-sample inference</h3>
+<p style="margin:0;">
+Confidence intervals and tests rely on asymptotic approximations.
+</p>
+</div>
+
+<div class="card">
+<h3>Approximation tools</h3>
+<p style="margin:0;">
+Slutsky and delta method rely on convergence concepts.
+</p>
+</div>
+
+</div>
+
+</section>
+
+<section class="section section-slim">
+<div class="callout">
+<div class="callout-copy">
+
+<h2>Outcome of this lesson</h2>
+
+<ul class="bullets">
+<li>Define convergence in probability</li>
+<li>Define convergence in distribution</li>
+<li>Define almost sure convergence</li>
+<li>Understand their relationships</li>
+</ul>
+
+</div>
+</div>
+</section>
+
+<!-- Next + Previous navigation -->
+
+<section class="section section-slim">
+
+<div class="callout">
+
+<div class="callout-copy">
+
+<h2>Next lesson</h2>
+
+<p style="margin:0;">
+We now apply convergence concepts to estimation and explain
+why the maximum likelihood estimator is consistent.
+</p>
+
+<div class="pill-row" style="margin-top:1rem;">
+<a class="btn" href="/mathematical-statistics/asymptotic-theory/consistency-of-mle-idea/">
+Continue to Lesson 2 →
+</a>
+</div>
+
+</div>
+
+<div class="callout-side">
+
+<div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
+
+<div class="mini-title" style="color:#1a73e8;">
+Previous block
+</div>
+
+<div class="mini-body">
+<a href="/mathematical-statistics/fisher-information-and-efficiency/" style="color:#1a73e8;text-decoration:underline;">
+Block 5 — Fisher Information & Efficiency
+</a>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
