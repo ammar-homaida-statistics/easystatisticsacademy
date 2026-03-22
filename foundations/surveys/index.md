@@ -19,10 +19,14 @@ lesson_order: 21
   <div class="hero-card">
     <h1>Surveys</h1>
 
+    <div style="background:#fff3cd; border:1px solid #ffeeba; padding:12px 14px; margin:14px 0; border-radius:8px;">
+      <strong>🚧 Under Construction</strong> — More real survey examples and visuals will be added.
+    </div>
+
     <p class="lead">
-      This lesson introduces surveys as a data collection method,
-      explains common problems with question wording, introduces
-      response bias, and explains the idea of sampling frames.
+      Surveys collect self-reported data by asking questions.
+      The quality of the results depends on how questions are written,
+      who is asked, and how people respond.
     </p>
 
     <p class="muted-mini">
@@ -31,146 +35,227 @@ lesson_order: 21
   </div>
 </section>
 
+
+
 <section class="section">
   <div class="content-narrow">
     <h2>What you will learn</h2>
 
     <ul class="bullets">
-      <li>What surveys are and how they are used.</li>
-      <li>Why question wording matters.</li>
-      <li>What response bias means at an introductory level.</li>
-      <li>What a sampling frame is and why it matters.</li>
+      <li>What surveys are and when they are used.</li>
+      <li>How question wording affects responses.</li>
+      <li>What response bias is and why it occurs.</li>
+      <li>What a sampling frame is and why it limits generalization.</li>
     </ul>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
     <h2>Why this topic matters</h2>
 
     <p>
-      Surveys are one of the most common ways data are collected
-      in social science, business, and public research.
+      Surveys are widely used in business, research, politics, and media.
+      Many decisions are based on survey results.
     </p>
 
     <p>
-      Poorly designed surveys can produce misleading results
-      even when many responses are collected.
+      However, surveys are highly sensitive to design choices.
+      Poorly designed surveys can produce misleading conclusions,
+      even with large sample sizes.
     </p>
 
     <p>
-      Understanding survey limitations helps interpret results
-      with appropriate caution.
+      Understanding survey limitations helps you evaluate results critically
+      rather than accepting them at face value.
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
     <h2>What surveys are</h2>
 
     <p>
-      A survey is a method of collecting data by asking
-      questions to a group of individuals.
+      A survey is a method of collecting data by asking questions
+      to a group of individuals.
     </p>
 
     <p>
-      Surveys rely on self-reported information
-      rather than direct measurement.
+      Unlike direct measurement, surveys rely on
+      <strong>self-reported information</strong>.
     </p>
 
     <p>
-      They are commonly used to measure opinions,
-      behaviors, experiences, and preferences.
+      Surveys are commonly used to measure:
     </p>
+
+    <ul class="bullets">
+      <li>Opinions (e.g., political preferences)</li>
+      <li>Behaviors (e.g., purchasing habits)</li>
+      <li>Experiences (e.g., satisfaction)</li>
+      <li>Beliefs and attitudes</li>
+    </ul>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
-    <h2>Question wording issues</h2>
+    <h2>Question wording matters</h2>
 
     <p>
-      The way a question is phrased
-      strongly influences how people respond.
+      The wording of a question can strongly influence responses.
     </p>
 
     <p>
-      Ambiguous, leading, or emotionally loaded wording
-      can distort survey results.
+      Small changes in phrasing can lead to different answers,
+      even when asking about the same topic.
+    </p>
+
+    <h3>Example</h3>
+
+    <p><strong>Neutral:</strong> “Do you support the policy?”</p>
+
+    <p><strong>Leading:</strong> “Do you support the harmful policy?”</p>
+
+    <p>
+      The second question introduces bias through wording.
     </p>
 
     <p>
-      Small wording changes can produce
-      large differences in responses.
+      Good survey design aims to make questions:
     </p>
+
+    <ul class="bullets">
+      <li>Clear</li>
+      <li>Neutral</li>
+      <li>Unambiguous</li>
+      <li>Consistent in interpretation</li>
+    </ul>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
     <h2>Response bias</h2>
 
     <p>
-      Response bias occurs when survey answers
-      differ systematically from the truth.
+      Response bias occurs when answers differ systematically
+      from the true values or beliefs.
     </p>
 
     <p>
-      People may answer in socially desirable ways,
-      misunderstand questions, or decline to respond.
+      It arises from how people interpret questions
+      or choose to respond.
     </p>
 
+    <h3>Common sources of response bias</h3>
+
+    <ul class="bullets">
+      <li><strong>Social desirability:</strong> answering in a way that looks acceptable.</li>
+      <li><strong>Nonresponse:</strong> certain people choose not to respond.</li>
+      <li><strong>Misunderstanding:</strong> respondents interpret questions differently.</li>
+      <li><strong>Recall error:</strong> people do not remember accurately.</li>
+    </ul>
+
     <p>
-      These effects introduce bias that analysis
-      cannot fully correct.
+      These biases introduce systematic distortion
+      that cannot be fully corrected during analysis.
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
     <h2>Sampling frames</h2>
 
     <p>
-      A sampling frame is the list or mechanism
-      used to identify who can be surveyed.
+      A sampling frame is the list or mechanism used
+      to identify who can be included in a survey.
     </p>
 
     <p>
-      It defines the accessible population
-      for the survey.
+      It defines the <strong>accessible population</strong>.
+    </p>
+
+    <h3>Example</h3>
+
+    <p>
+      A survey conducted through a mobile app
+      includes only people who use that app.
     </p>
 
     <p>
-      If the sampling frame excludes relevant groups,
-      survey results may not generalize.
+      People without access to the app are excluded,
+      even if they are part of the target population.
+    </p>
+
+    <p>
+      If the sampling frame is incomplete,
+      results may not generalize to the full population.
     </p>
   </div>
 </section>
+
+
+
+<section class="section">
+  <div class="content-narrow">
+    <h2>Common survey pitfalls</h2>
+
+    <ul class="bullets">
+      <li>Leading or emotionally loaded questions.</li>
+      <li>Unclear or ambiguous wording.</li>
+      <li>Excluding parts of the population.</li>
+      <li>Low or uneven response rates.</li>
+      <li>Overinterpreting small or biased samples.</li>
+    </ul>
+
+    <p>
+      These issues affect data quality before analysis begins.
+    </p>
+  </div>
+</section>
+
+
 
 <section class="section section-soft">
   <div class="content-narrow">
     <h2>Key idea to remember</h2>
 
     <p>
-      Survey results depend as much on design
-      as on the number of responses.
+      Survey results depend on design choices—
+      not just the number of responses.
     </p>
   </div>
 </section>
+
+
 
 <section class="section section-next">
   <div class="content-narrow">
     <h2>Simple summary</h2>
 
     <p>
-      Surveys collect self-reported data through questions.
-      Wording, response behavior, and sampling frames
-      strongly influence the quality of results.
+      Surveys collect self-reported data.
+      Question wording, response behavior,
+      and sampling frames determine how reliable
+      the results are.
     </p>
   </div>
 </section>
+
+
 
 <section class="section section-next">
   <div class="content-narrow">
@@ -187,3 +272,9 @@ lesson_order: 21
     </a>
   </div>
 </section>
+
+<script>
+  try {
+    localStorage.setItem("esa:lastLesson", window.location.pathname);
+  } catch (e) {}
+</script>
