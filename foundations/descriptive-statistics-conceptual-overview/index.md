@@ -19,10 +19,14 @@ lesson_order: 29
   <div class="hero-card">
     <h1>Descriptive Statistics</h1>
 
+    <div style="background:#fff3cd; border:1px solid #ffeeba; padding:12px 14px; margin:14px 0; border-radius:8px;">
+      <strong>🚧 Under Construction</strong> — Formal measures (mean, median, variance) will be introduced in later lessons.
+    </div>
+
     <p class="lead">
-      This lesson provides a conceptual overview of descriptive statistics,
-      explains their purpose, clarifies the difference between summarization
-      and explanation, and discusses their limitations.
+      Descriptive statistics summarize data to make it understandable.
+      They simplify complex datasets, but in doing so,
+      they inevitably hide information.
     </p>
 
     <p class="muted-mini">
@@ -31,6 +35,8 @@ lesson_order: 29
   </div>
 </section>
 
+
+
 <section class="section">
   <div class="content-narrow">
     <h2>What you will learn</h2>
@@ -38,11 +44,13 @@ lesson_order: 29
     <ul class="bullets">
       <li>The purpose of descriptive statistics.</li>
       <li>How summarization differs from explanation.</li>
-      <li>What descriptive statistics can do.</li>
-      <li>What descriptive statistics cannot do.</li>
+      <li>What descriptive statistics can reveal.</li>
+      <li>What descriptive statistics necessarily hide.</li>
     </ul>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
@@ -54,15 +62,18 @@ lesson_order: 29
     </p>
 
     <p>
-      They help organize and summarize information
-      before deeper analysis.
+      They provide a simplified view of data,
+      which makes patterns easier to see.
     </p>
 
     <p>
-      Understanding their limits prevents overinterpretation.
+      However, simplification comes at a cost.
+      Important details may be lost.
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
@@ -74,57 +85,111 @@ lesson_order: 29
     </p>
 
     <p>
-      They provide measures such as averages,
-      variability, and distributions.
+      They include measures of central tendency,
+      variability, and distribution.
     </p>
 
     <p>
-      Their goal is clarity,
-      not explanation.
+      Their purpose is to organize and communicate,
+      not to explain or predict.
     </p>
   </div>
 </section>
+
+
+
+<section class="section">
+  <div class="content-narrow">
+    <h2>Summaries are simplifications</h2>
+
+    <p>
+      Any summary reduces many data points
+      into a smaller set of values.
+    </p>
+
+    <p>
+      This reduction makes data easier to understand,
+      but it removes detail.
+    </p>
+
+    <p style="font-weight:600;">
+      A summary is not the data.
+      It is a compressed representation of the data.
+    </p>
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="content-narrow">
+    <h2>Same summary, different data</h2>
+
+    <p>
+      Different datasets can produce
+      identical summary statistics.
+    </p>
+
+    <p>
+      For example, two datasets may have the same average
+      but very different distributions.
+    </p>
+
+    <p>
+      One dataset may be tightly clustered,
+      while another is widely spread with extreme values.
+    </p>
+
+    <p style="font-weight:600;">
+      Identical summaries do not imply identical data.
+    </p>
+  </div>
+</section>
+
+
 
 <section class="section">
   <div class="content-narrow">
     <h2>Summarization vs explanation</h2>
 
     <p>
-      Summarization organizes and condenses data.
+      Summarization describes what is observed.
     </p>
 
     <p>
-      Explanation seeks to understand
-      relationships or causes.
+      Explanation seeks to understand why patterns exist.
     </p>
 
     <p>
-      Descriptive statistics describe patterns,
-      but they do not explain why patterns exist.
+      Descriptive statistics reveal patterns,
+      but they do not explain their causes.
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
     <h2>What descriptive statistics can do</h2>
 
     <p>
-      They can highlight central tendencies,
+      They can highlight central values,
       variability, and unusual observations.
     </p>
 
     <p>
-      They support clear communication
-      of data characteristics.
+      They make complex data easier to communicate
+      and compare.
     </p>
 
     <p>
-      They provide a foundation
-      for further analysis.
+      They provide a foundation for further analysis.
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
@@ -135,39 +200,73 @@ lesson_order: 29
     </p>
 
     <p>
-      They cannot generalize from a sample
-      to a population on their own.
+      They cannot generalize beyond the observed data.
     </p>
 
     <p>
-      They cannot quantify uncertainty
-      about unobserved values.
+      They cannot quantify uncertainty about
+      unobserved values.
+    </p>
+
+    <p style="font-weight:600;">
+      Descriptive statistics describe data.
+      They do not extend beyond it.
     </p>
   </div>
 </section>
+
+
+
+<section class="section">
+  <div class="content-narrow">
+    <h2>Conceptual example</h2>
+
+    <p>
+      Suppose two classes have the same average exam score.
+    </p>
+
+    <p>
+      In one class, all students score similarly.
+      In the other, some students score very high
+      while others score very low.
+    </p>
+
+    <p>
+      The average is identical,
+      but the situations are very different.
+    </p>
+  </div>
+</section>
+
+
 
 <section class="section section-soft">
   <div class="content-narrow">
     <h2>Key idea to remember</h2>
 
     <p>
-      Descriptive statistics summarize data.
-      They do not explain or generalize beyond it.
+      Descriptive statistics simplify data.
+      What they reveal is useful,
+      but what they hide also matters.
     </p>
   </div>
 </section>
+
+
 
 <section class="section section-next">
   <div class="content-narrow">
     <h2>Simple summary</h2>
 
     <p>
-      Descriptive statistics organize and summarize
-      the main features of data,
-      but they do not answer inferential questions.
+      Descriptive statistics summarize the main features of data.
+      They help us see patterns,
+      but they do not explain causes or generalize beyond what is observed.
     </p>
   </div>
 </section>
+
+
 
 <section class="section section-next">
   <div class="content-narrow">
@@ -175,8 +274,8 @@ lesson_order: 29
 
     <p>
       The next lesson introduces <strong>inferential statistics</strong>,
-      explaining why inference is needed and how uncertainty
-      connects samples to populations.
+      explaining how we move from describing data
+      to reasoning about populations under uncertainty.
     </p>
 
     <a class="btn btn-primary" href="/foundations/inferential-statistics-conceptual-overview/">
@@ -184,3 +283,9 @@ lesson_order: 29
     </a>
   </div>
 </section>
+
+<script>
+  try {
+    localStorage.setItem("esa:lastLesson", window.location.pathname);
+  } catch (e) {}
+</script>
