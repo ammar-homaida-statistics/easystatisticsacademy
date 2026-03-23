@@ -41,8 +41,8 @@ sidebar: false
       </p>
 
       <div class="hero-actions">
-        <a class="btn" href="/applied-statistics/">Prerequisite: Applied Statistics</a>
-        <a class="btn btn-outline" href="/machine-learning/">Next: Machine Learning</a>
+        <a class="btn" href="/inference/">Prerequisite: Statistical inference</a>
+        <a class="btn btn-outline" href="/applied-statistics/">Next: Applied Statistics</a>
       </div>
 
       <p class="muted-mini">
