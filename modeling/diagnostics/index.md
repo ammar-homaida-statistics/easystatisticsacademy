@@ -1,20 +1,23 @@
 ---
 layout: default
-title: Diagnostics
+title: Model Diagnostics
 permalink: /modeling/diagnostics/
+sidebar: false
 ---
 
 <section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800;">
-    <h2>🚧 Under Construction</h2>
-    <p>Diagnostic tools will be added step by step.</p>
+  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:1.5rem; border-radius:10px;">
+    <h2 style="color:#e65100;">🚧 This Block Is Under Construction</h2>
+    <p>Diagnostics lessons will be added.</p>
   </div>
 </section>
 
 <section class="hero hero-section">
   <div class="hero-card">
     <h1>Model Diagnostics</h1>
-    <p class="lead">Evaluate whether your model is valid and trustworthy.</p>
+    <p class="lead">
+      Evaluate whether your model is valid and trustworthy.
+    </p>
   </div>
 </section>
 
@@ -38,10 +41,11 @@ permalink: /modeling/diagnostics/
 
   try {
     var data = JSON.parse(raw);
-    if (!data.url || !data.label) return;
+    if (!data || !data.url) return;
 
     document.getElementById("continue-reading-diagnostics-label").innerHTML =
-      'You last visited: <strong>' + data.label + '</strong>';
+      'You last visited: <strong>' + (data.label || "lesson") + '</strong>';
+
     document.getElementById("continue-reading-diagnostics-btn").href = data.url;
     document.getElementById("continue-reading-diagnostics").style.display = "block";
   } catch (e) {}
