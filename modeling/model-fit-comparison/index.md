@@ -2,19 +2,22 @@
 layout: default
 title: Model Fit & Comparison
 permalink: /modeling/model-fit-comparison/
+sidebar: false
 ---
 
 <section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800;">
-    <h2>🚧 Under Construction</h2>
-    <p>Evaluation methods will be added.</p>
+  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:1.5rem; border-radius:10px;">
+    <h2 style="color:#e65100;">🚧 This Block Is Under Construction</h2>
+    <p>Model evaluation lessons will be added.</p>
   </div>
 </section>
 
 <section class="hero hero-section">
   <div class="hero-card">
     <h1>Model Fit & Comparison</h1>
-    <p class="lead">Compare models and understand performance vs complexity.</p>
+    <p class="lead">
+      Compare models and understand performance vs complexity.
+    </p>
   </div>
 </section>
 
@@ -38,10 +41,11 @@ permalink: /modeling/model-fit-comparison/
 
   try {
     var data = JSON.parse(raw);
-    if (!data.url || !data.label) return;
+    if (!data || !data.url) return;
 
     document.getElementById("continue-reading-fit-label").innerHTML =
-      'You last visited: <strong>' + data.label + '</strong>';
+      'You last visited: <strong>' + (data.label || "lesson") + '</strong>';
+
     document.getElementById("continue-reading-fit-btn").href = data.url;
     document.getElementById("continue-reading-fit").style.display = "block";
   } catch (e) {}
