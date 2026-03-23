@@ -210,7 +210,7 @@ sidebar: false
       </div>
       <div class="mini">
         <div class="mini-title">Prerequisite</div>
-        <div class="mini-body">Complete <strong>Applied Statistics</strong> and <strong>Inference</strong>.</div>
+        <div class="mini-body">Complete <strong>Inference</strong>.</div>
       </div>
       <div class="mini">
         <div class="mini-title">Software later</div>
