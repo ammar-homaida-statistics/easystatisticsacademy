@@ -1069,3 +1069,10 @@ a:hover{ text-decoration: underline; }
     display: flex;
   }
 }
+
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
