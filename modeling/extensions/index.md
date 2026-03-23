@@ -2,19 +2,22 @@
 layout: default
 title: Extensions
 permalink: /modeling/extensions/
+sidebar: false
 ---
 
 <section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800;">
-    <h2>🚧 Under Construction</h2>
-    <p>Advanced models will be introduced gradually.</p>
+  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:1.5rem; border-radius:10px;">
+    <h2 style="color:#e65100;">🚧 This Block Is Under Construction</h2>
+    <p>Advanced modeling topics will be introduced gradually.</p>
   </div>
 </section>
 
 <section class="hero hero-section">
   <div class="hero-card">
     <h1>Extensions</h1>
-    <p class="lead">Go beyond linear models toward generalized modeling approaches.</p>
+    <p class="lead">
+      Go beyond linear models toward generalized modeling approaches.
+    </p>
   </div>
 </section>
 
@@ -38,10 +41,11 @@ permalink: /modeling/extensions/
 
   try {
     var data = JSON.parse(raw);
-    if (!data.url || !data.label) return;
+    if (!data || !data.url) return;
 
     document.getElementById("continue-reading-extensions-label").innerHTML =
-      'You last visited: <strong>' + data.label + '</strong>';
+      'You last visited: <strong>' + (data.label || "lesson") + '</strong>';
+
     document.getElementById("continue-reading-extensions-btn").href = data.url;
     document.getElementById("continue-reading-extensions").style.display = "block";
   } catch (e) {}
