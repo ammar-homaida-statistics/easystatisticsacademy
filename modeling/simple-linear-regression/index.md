@@ -2,12 +2,13 @@
 layout: default
 title: Simple Linear Regression
 permalink: /modeling/simple-linear-regression/
+sidebar: false
 ---
 
 <section class="section section-slim">
   <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:1.5rem; border-radius:10px;">
-    <h2 style="color:#e65100;">🚧 Under Construction</h2>
-    <p>Lessons will be added progressively.</p>
+    <h2 style="color:#e65100;">🚧 This Block Is Under Construction</h2>
+    <p>Lessons will be published progressively.</p>
   </div>
 </section>
 
@@ -15,7 +16,7 @@ permalink: /modeling/simple-linear-regression/
   <div class="hero-card">
     <h1>Simple Linear Regression</h1>
     <p class="lead">
-      Learn the simplest statistical model connecting one predictor to an outcome.
+      Learn how a single predictor explains variation in an outcome using a linear model.
     </p>
   </div>
 </section>
@@ -40,10 +41,11 @@ permalink: /modeling/simple-linear-regression/
 
   try {
     var data = JSON.parse(raw);
-    if (!data.url || !data.label) return;
+    if (!data || !data.url) return;
 
     document.getElementById("continue-reading-slr-label").innerHTML =
-      'You last visited: <strong>' + data.label + '</strong>';
+      'You last visited: <strong>' + (data.label || "lesson") + '</strong>';
+
     document.getElementById("continue-reading-slr-btn").href = data.url;
     document.getElementById("continue-reading-slr").style.display = "block";
   } catch (e) {}
