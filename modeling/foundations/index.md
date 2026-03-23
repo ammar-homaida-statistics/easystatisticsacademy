@@ -2,12 +2,17 @@
 layout: default
 title: Modeling Foundations
 permalink: /modeling/foundations/
+sidebar: false
 ---
 
 <section class="section section-slim">
   <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:1.5rem; border-radius:10px;">
-    <h2 style="margin-top:0; color:#e65100;">🚧 Under Construction</h2>
-    <p>This block is being developed carefully. Lessons will be published in order.</p>
+    <div class="callout-copy">
+      <h2 style="margin-top:0; color:#e65100;">🚧 This Block Is Under Construction</h2>
+      <p>
+        The Modeling Foundations block is being developed in a structured, lesson-by-lesson format.
+      </p>
+    </div>
   </div>
 </section>
 
@@ -20,11 +25,13 @@ permalink: /modeling/foundations/
   </div>
 </section>
 
-<div id="continue-reading-foundations" style="display:none;">
+<div id="continue-reading-foundations" style="display:none; margin-top:0.75rem;">
   <div class="callout">
-    <h2>Continue reading</h2>
-    <p id="continue-reading-foundations-label"></p>
-    <a class="btn" id="continue-reading-foundations-btn">Continue</a>
+    <div class="callout-copy">
+      <h2>Continue reading</h2>
+      <p id="continue-reading-foundations-label"></p>
+      <a class="btn" id="continue-reading-foundations-btn" href="#">Continue</a>
+    </div>
   </div>
 </div>
 
@@ -40,10 +47,11 @@ permalink: /modeling/foundations/
 
   try {
     var data = JSON.parse(raw);
-    if (!data.url || !data.label) return;
+    if (!data || !data.url) return;
 
     document.getElementById("continue-reading-foundations-label").innerHTML =
-      'You last visited: <strong>' + data.label + '</strong>';
+      'You last visited: <strong>' + (data.label || "lesson") + '</strong>';
+
     document.getElementById("continue-reading-foundations-btn").href = data.url;
     document.getElementById("continue-reading-foundations").style.display = "block";
   } catch (e) {}
