@@ -242,3 +242,25 @@ sidebar: false
     } catch (e) {}
   })();
 </script>
+
+<script>
+(function () {
+  var KEY = "esa_continue_modeling_last_block_v0";
+
+  var links = document.querySelectorAll('a[href^="/modeling/"]');
+
+  links.forEach(function(link) {
+    link.addEventListener("click", function () {
+      var label = link.textContent.trim();
+      var url = link.getAttribute("href");
+
+      var data = {
+        url: url,
+        label: label
+      };
+
+      localStorage.setItem(KEY, JSON.stringify(data));
+    });
+  });
+})();
+</script>
