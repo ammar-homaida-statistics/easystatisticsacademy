@@ -203,8 +203,8 @@ sidebar: false
         <div class="mini-title" style="color:#1a73e8;">Next section</div>
         <div class="mini-body">
           Continue to
-          <a href="/machine-learning/" style="color:#1a73e8; text-decoration:underline;">
-            <strong>Machine Learning</strong>
+          <a href="/applied-statistics/" style="color:#1a73e8; text-decoration:underline;">
+            <strong>Applied Statistics</strong>
           </a>.
         </div>
       </div>
