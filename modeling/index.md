@@ -248,18 +248,17 @@ sidebar: false
 (function () {
   var KEY = "esa_continue_modeling_last_block_v0";
 
-  var cards = document.querySelectorAll('.lesson-card');
+  // Select ONLY block title links
+  var links = document.querySelectorAll('.lesson-card h3 a');
 
-  cards.forEach(function(card) {
-    var link = card.querySelector('h3 a');
-    if (!link) return;
-
-    link.addEventListener("click", function () {
+  links.forEach(function(link) {
+    link.onclick = function () {
+      // Write immediately BEFORE navigation
       localStorage.setItem(KEY, JSON.stringify({
         url: link.getAttribute("href"),
         label: link.textContent.trim()
       }));
-    });
+    };
   });
 })();
 </script>
