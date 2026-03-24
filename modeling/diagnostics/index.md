@@ -203,8 +203,8 @@ sidebar: false
         <div class="mini-title" style="color:#1a73e8;">Next block</div>
         <div class="mini-body">
           Continue to
-          <a href="/modeling/extensions/" style="color:#1a73e8; text-decoration:underline;">
-            <strong>Block 6 — Model Extensions</strong>
+          <a href="/modeling/model-fit-comparison/" style="color:#1a73e8; text-decoration:underline;">
+            <strong>Block 6 — Model Fit & Comparison</strong>
           </a>.
         </div>
       </div>
