@@ -20,9 +20,10 @@ lesson_order: 32
     <h1>Common Statistical Misconceptions</h1>
 
     <p class="lead">
-      This lesson reviews widespread misconceptions about statistics,
-      including misunderstandings about sample size, causation,
-      software reliability, and universal methods.
+      Many errors in statistical reasoning are not technical,
+      but conceptual.
+      This lesson identifies common misconceptions
+      and replaces them with correct principles.
     </p>
 
     <p class="muted-mini">
@@ -31,146 +32,184 @@ lesson_order: 32
   </div>
 </section>
 
+
+
 <section class="section">
   <div class="content-narrow">
     <h2>What you will learn</h2>
 
     <ul class="bullets">
-      <li>Why large samples do not guarantee truth.</li>
+      <li>Why large samples do not guarantee correctness.</li>
       <li>Why correlation does not imply causation.</li>
-      <li>Why software does not ensure correctness.</li>
-      <li>Why one analysis cannot fit all datasets.</li>
+      <li>Why software does not ensure valid conclusions.</li>
+      <li>Why statistical methods must match the data.</li>
     </ul>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
     <h2>Why this topic matters</h2>
 
     <p>
-      Misconceptions about statistics are widespread
-      in media, business, and public discourse.
+      Statistical results are often accepted
+      without questioning how they were produced.
     </p>
 
     <p>
-      These misunderstandings often lead to
-      overconfidence and incorrect decisions.
+      Misconceptions lead to overconfidence,
+      misuse of methods, and incorrect conclusions.
     </p>
 
     <p>
-      Recognizing common errors strengthens
-      critical statistical thinking.
+      Correcting these misunderstandings
+      is essential for reliable reasoning.
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
     <h2>“Large samples guarantee truth”</h2>
 
     <p>
-      Larger samples reduce random error,
-      but they do not eliminate bias.
+      Larger samples reduce random variability,
+      but they do not remove bias.
     </p>
 
     <p>
-      Systematic flaws remain,
-      regardless of size.
+      If the data are systematically flawed,
+      increasing the sample size only reinforces the error.
     </p>
 
-    <p>
-      Size improves precision,
-      not validity.
+    <p style="font-weight:600;">
+      Large samples improve precision, not validity.
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
     <h2>“Correlation implies causation”</h2>
 
     <p>
-      Correlation measures association,
-      not cause and effect.
+      Correlation describes association,
+      not cause-and-effect relationships.
     </p>
 
     <p>
-      Confounding variables
-      may explain observed relationships.
+      Observed relationships may be driven
+      by confounding variables or coincidence.
     </p>
 
-    <p>
-      Establishing causation requires
-      stronger study designs.
+    <p style="font-weight:600;">
+      Association alone is not evidence of causation.
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
     <h2>“Software gives correct answers”</h2>
 
     <p>
-      Statistical software performs calculations,
-      not reasoning.
+      Statistical software executes computations
+      based on inputs and assumptions.
     </p>
 
     <p>
-      Incorrect assumptions or flawed data
-      still produce outputs.
+      Incorrect data, wrong models, or invalid assumptions
+      still produce numerical results.
     </p>
 
-    <p>
-      Responsibility lies with the analyst,
-      not the tool.
+    <p style="font-weight:600;">
+      Software computes results.  
+      It does not verify their validity.
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
-    <h2>“One analysis fits all data”</h2>
+    <h2>“One method fits all data”</h2>
 
     <p>
-      Different datasets require
-      different methods.
+      Statistical methods are designed
+      for specific types of data and questions.
     </p>
 
     <p>
-      Method choice depends on scale,
-      structure, and study design.
+      Applying a method without considering context
+      can lead to misleading conclusions.
     </p>
 
-    <p>
-      Applying a single template blindly
-      leads to error.
+    <p style="font-weight:600;">
+      Method choice must match the data and the goal.
     </p>
   </div>
 </section>
+
+
+
+<section class="section">
+  <div class="content-narrow">
+    <h2>A unifying principle</h2>
+
+    <p>
+      These misconceptions share a common pattern:
+      they replace reasoning with shortcuts.
+    </p>
+
+    <p>
+      Statistical thinking requires understanding
+      data, assumptions, and limitations.
+    </p>
+
+    <p style="font-weight:600;">
+      There are no universal shortcuts in statistics.
+    </p>
+  </div>
+</section>
+
+
 
 <section class="section section-soft">
   <div class="content-narrow">
     <h2>Key idea to remember</h2>
 
     <p>
-      Statistical misunderstandings create
-      false confidence and flawed conclusions.
+      Misconceptions create false confidence.
+      Good statistical reasoning requires questioning results,
+      not just computing them.
     </p>
   </div>
 </section>
+
+
 
 <section class="section section-next">
   <div class="content-narrow">
     <h2>Simple summary</h2>
 
     <p>
-      Common misconceptions about size, causation,
-      software, and methods distort statistical reasoning.
-      Critical thinking is essential.
+      Large samples, correlations, software, and standard methods
+      can all be misused.
+      Correct interpretation depends on understanding their limits.
     </p>
   </div>
 </section>
+
+
 
 <section class="section section-next">
   <div class="content-narrow">
@@ -178,7 +217,8 @@ lesson_order: 32
 
     <p>
       The next lesson explains <strong>why statistical literacy matters</strong>,
-      especially in policy, medicine, and modern AI systems.
+      and how these concepts affect decisions in science,
+      policy, business, and modern AI systems.
     </p>
 
     <a class="btn btn-primary" href="/foundations/why-statistical-literacy-matters/">
@@ -186,3 +226,9 @@ lesson_order: 32
     </a>
   </div>
 </section>
+
+<script>
+  try {
+    localStorage.setItem("esa:lastLesson", window.location.pathname);
+  } catch (e) {}
+</script>
