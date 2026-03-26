@@ -19,10 +19,14 @@ lesson_order: 34
   <div class="hero-card">
     <h1>How All of This Fits Together</h1>
 
+    <div style="background:#fff3cd; border:1px solid #ffeeba; padding:12px 14px; margin:14px 0; border-radius:8px;">
+      <strong>🚧 Under Construction</strong> — A visual diagram of the full statistical process will be added.
+    </div>
+
     <p class="lead">
-      This lesson presents a big-picture view of statistical reasoning,
-      connecting data collection, variability, inference, and interpretation
-      into a single coherent framework.
+      Statistical reasoning is not a collection of isolated ideas.
+      It is a structured process that connects questions,
+      data, variability, and uncertainty into coherent conclusions.
     </p>
 
     <p class="muted-mini">
@@ -31,130 +35,205 @@ lesson_order: 34
   </div>
 </section>
 
+
+
 <section class="section">
   <div class="content-narrow">
     <h2>What you will learn</h2>
 
     <ul class="bullets">
-      <li>A big-picture mental model of statistical reasoning.</li>
-      <li>How we move from data to conclusions.</li>
-      <li>Where mistakes usually occur.</li>
+      <li>A unified mental model of statistical reasoning.</li>
+      <li>How we move from questions to conclusions.</li>
+      <li>Where errors most commonly occur.</li>
       <li>How foundational concepts connect.</li>
     </ul>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
     <h2>Why this topic matters</h2>
 
     <p>
-      Statistics can appear fragmented
-      when concepts are learned separately.
+      Individual statistical concepts can feel disconnected
+      when learned separately.
     </p>
 
     <p>
-      A unified mental model clarifies
-      how each piece contributes to reasoning.
+      A unified framework shows how each idea
+      contributes to the overall reasoning process.
     </p>
 
     <p>
-      Seeing the full structure reduces
-      conceptual confusion.
+      Understanding this structure reduces confusion
+      and improves decision-making.
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
-    <h2>The big-picture model</h2>
+    <h2>The statistical reasoning pipeline</h2>
 
     <p>
-      Statistical reasoning begins with a question.
+      Statistical reasoning follows a sequence of steps:
     </p>
 
-    <p>
-      Data are collected under specific conditions,
-      influenced by design and measurement choices.
-    </p>
+    <ul class="bullets">
+      <li>Define a question about a population.</li>
+      <li>Collect data through a specific design.</li>
+      <li>Summarize the observed data.</li>
+      <li>Account for variability and uncertainty.</li>
+      <li>Draw conclusions with appropriate caution.</li>
+    </ul>
 
-    <p>
-      Analysis summarizes and interprets those data
-      under uncertainty.
+    <p style="font-weight:600;">
+      Each step depends on the quality of the previous one.
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
     <h2>From data to conclusions</h2>
 
     <p>
-      Observations form a dataset.
+      Data collection determines what information exists.
     </p>
 
     <p>
-      Descriptive statistics summarize
-      key features.
+      Descriptive statistics organize
+      and summarize what is observed.
     </p>
 
     <p>
-      Inferential methods connect sample results
-      to broader conclusions.
+      Inferential statistics extends beyond the data,
+      using probability to reason about uncertainty.
     </p>
   </div>
 </section>
+
+
+
+<section class="section">
+  <div class="content-narrow">
+    <h2>The role of variability</h2>
+
+    <p>
+      Data vary because of natural differences
+      and sampling processes.
+    </p>
+
+    <p>
+      This variability creates uncertainty
+      in all conclusions.
+    </p>
+
+    <p>
+      Probability provides the framework
+      for understanding this variation.
+    </p>
+  </div>
+</section>
+
+
 
 <section class="section">
   <div class="content-narrow">
     <h2>Where mistakes usually occur</h2>
 
     <p>
-      Errors often arise in data collection,
-      not only in analysis.
+      Many errors originate in data collection,
+      including biased samples or poor measurement.
     </p>
 
     <p>
-      Confusing correlation with causation
-      leads to incorrect claims.
+      Others arise from incorrect interpretation,
+      such as confusing correlation with causation.
     </p>
 
     <p>
-      Ignoring bias or uncertainty
-      produces false confidence.
+      Ignoring uncertainty leads to overconfidence
+      and misleading conclusions.
+    </p>
+
+    <p style="font-weight:600;">
+      Errors compound across stages,
+      not just within a single step.
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
     <h2>Connecting all foundations</h2>
 
     <p>
-      Data structure influences possible analyses.
+      Variables define what is measured.
     </p>
 
     <p>
-      Variability introduces uncertainty.
+      Data collection determines what is observed.
     </p>
 
     <p>
-      Probability provides the formal language
-      linking variability to inference.
+      Statistics summarize samples.
+    </p>
+
+    <p>
+      Probability links variability to uncertainty.
+    </p>
+
+    <p>
+      Inference connects samples to populations.
     </p>
   </div>
 </section>
+
+
+
+<section class="section">
+  <div class="content-narrow">
+    <h2>A guiding principle</h2>
+
+    <p>
+      Statistical reasoning is not about producing numbers.
+    </p>
+
+    <p>
+      It is about understanding what those numbers represent,
+      how they were produced,
+      and how reliable they are.
+    </p>
+
+    <p style="font-weight:600;">
+      Good statistics is careful reasoning under uncertainty.
+    </p>
+  </div>
+</section>
+
+
 
 <section class="section section-soft">
   <div class="content-narrow">
     <h2>Key idea to remember</h2>
 
     <p>
-      Statistical reasoning is a structured process,
-      not a collection of isolated tools.
+      Statistical reasoning is a connected process.
+      Each step influences the validity of the final conclusion.
     </p>
   </div>
 </section>
+
+
 
 <section class="section section-next">
   <div class="content-narrow">
@@ -162,20 +241,23 @@ lesson_order: 34
 
     <p>
       From question to data to conclusions,
-      statistical reasoning follows a coherent framework.
-      Understanding the structure prevents common errors.
+      statistical reasoning follows a structured pipeline.
+      Understanding this structure prevents common errors
+      and supports reliable decisions.
     </p>
   </div>
 </section>
+
+
 
 <section class="section section-next">
   <div class="content-narrow">
     <h2>What comes next</h2>
 
     <p>
-      The next lesson explains what the upcoming section
-      on descriptive statistics will cover and how
-      these foundations support everything that follows.
+      The next lesson introduces the formal study of
+      <strong>descriptive statistics</strong>,
+      building on these foundations with specific methods and measures.
     </p>
 
     <a class="btn btn-primary" href="/foundations/what-comes-next-descriptive-statistics/">
@@ -183,3 +265,9 @@ lesson_order: 34
     </a>
   </div>
 </section>
+
+<script>
+  try {
+    localStorage.setItem("esa:lastLesson", window.location.pathname);
+  } catch (e) {}
+</script>
