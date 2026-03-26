@@ -19,10 +19,13 @@ lesson_order: 31
   <div class="hero-card">
     <h1>Why Probability Is Needed</h1>
 
+    <div style="background:#fff3cd; border:1px solid #ffeeba; padding:12px 14px; margin:14px 0; border-radius:8px;">
+      <strong>🚧 Under Construction</strong> — Formal probability rules and distributions will be introduced in the next section.
+    </div>
+
     <p class="lead">
-      This lesson explains why probability serves as the language of uncertainty,
-      why statistical inference depends on probability, and how it forms a bridge
-      to the next section of study.
+      Inferential statistics requires reasoning under uncertainty.
+      Probability provides the formal language that makes this reasoning possible.
     </p>
 
     <p class="muted-mini">
@@ -31,6 +34,8 @@ lesson_order: 31
   </div>
 </section>
 
+
+
 <section class="section">
   <div class="content-narrow">
     <h2>What you will learn</h2>
@@ -38,142 +43,213 @@ lesson_order: 31
     <ul class="bullets">
       <li>Why probability is essential for statistical reasoning.</li>
       <li>How probability expresses uncertainty formally.</li>
-      <li>Why inference requires probabilistic thinking.</li>
-      <li>How probability connects foundations to methods.</li>
+      <li>Why inference depends on probabilistic thinking.</li>
+      <li>What breaks when probability is ignored.</li>
     </ul>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
     <h2>Why this topic matters</h2>
 
     <p>
-      Inferential statistics operates under uncertainty.
+      Inference allows us to move from samples
+      to conclusions about populations.
     </p>
 
     <p>
-      Probability provides the framework for quantifying
-      and reasoning about that uncertainty.
+      But samples vary,
+      and this variability creates uncertainty.
     </p>
 
     <p>
-      Without probability, statistical inference
-      lacks formal structure.
+      Probability is the tool that allows us
+      to describe and reason about that uncertainty.
     </p>
   </div>
 </section>
+
+
+
+<section class="section">
+  <div class="content-narrow">
+    <h2>The core problem</h2>
+
+    <p>
+      Different samples from the same population
+      produce different results.
+    </p>
+
+    <p>
+      This means that any conclusion based on a sample
+      is inherently uncertain.
+    </p>
+
+    <p style="font-weight:600;">
+      Without a way to measure this uncertainty,
+      inference has no foundation.
+    </p>
+  </div>
+</section>
+
+
 
 <section class="section">
   <div class="content-narrow">
     <h2>Probability as the language of uncertainty</h2>
 
     <p>
-      Probability describes how likely different outcomes are.
+      Probability assigns numerical values
+      to how likely different outcomes are.
     </p>
 
     <p>
-      It translates variability into measurable terms.
+      It translates variability into quantities
+      that can be analyzed and compared.
     </p>
 
     <p>
-      This allows uncertainty to be expressed
-      in a consistent and logical way.
+      This makes uncertainty measurable
+      rather than vague.
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
     <h2>Why inference requires probability</h2>
 
     <p>
-      Samples vary from one to another.
+      Inference relies on understanding
+      how statistics behave across possible samples.
     </p>
 
     <p>
-      Probability models this variation
+      Probability models this behavior.
+    </p>
+
+    <p>
+      It allows us to answer questions such as:
+    </p>
+
+    <ul class="bullets">
+      <li>How much might this statistic vary?</li>
+      <li>How surprising is this result?</li>
+      <li>How confident can we be in this conclusion?</li>
+    </ul>
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="content-narrow">
+    <h2>What breaks without probability</h2>
+
+    <p>
+      Without probability, there is no way
+      to quantify uncertainty.
+    </p>
+
+    <p>
+      Conclusions become either overconfident
+      or purely subjective.
+    </p>
+
+    <p style="font-weight:600;">
+      Without probability, inference becomes guesswork.
+    </p>
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="content-narrow">
+    <h2>Conceptual example</h2>
+
+    <p>
+      Suppose a sample shows that 60% of individuals
+      prefer a product.
+    </p>
+
+    <p>
+      Is this strong evidence about the population,
+      or could it be due to sampling variability?
+    </p>
+
+    <p>
+      Probability provides the framework
+      for answering that question.
+    </p>
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="content-narrow">
+    <h2>From variability to probability</h2>
+
+    <p>
+      Earlier lessons showed that statistics vary
+      from sample to sample.
+    </p>
+
+    <p>
+      Probability formalizes this variation
       across possible samples.
     </p>
 
     <p>
-      Inferential methods rely on these models
-      to draw conclusions about populations.
+      This connection turns intuition
+      into structured reasoning.
     </p>
   </div>
 </section>
 
-<section class="section">
-  <div class="content-narrow">
-    <h2>Connecting variability to reasoning</h2>
 
-    <p>
-      Probability connects sampling variability
-      to uncertainty about parameters.
-    </p>
-
-    <p>
-      It provides rules for evaluating
-      how surprising observed results are.
-    </p>
-
-    <p>
-      This connection is central
-      to estimation and hypothesis testing.
-    </p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Conceptual bridge to the next section</h2>
-
-    <p>
-      Understanding probability prepares us
-      to study formal statistical methods.
-    </p>
-
-    <p>
-      It shifts reasoning from intuition
-      to structured quantitative thinking.
-    </p>
-
-    <p>
-      Probability forms the foundation
-      of modern statistical analysis.
-    </p>
-  </div>
-</section>
 
 <section class="section section-soft">
   <div class="content-narrow">
     <h2>Key idea to remember</h2>
 
     <p>
-      Probability gives statistical inference
-      its formal language of uncertainty.
+      Probability makes uncertainty measurable.
+      Without it, statistical inference cannot function.
     </p>
   </div>
 </section>
+
+
 
 <section class="section section-next">
   <div class="content-narrow">
     <h2>Simple summary</h2>
 
     <p>
-      Probability allows us to reason formally about uncertainty.
-      It underlies all inferential statistical methods.
+      Probability provides the mathematical language
+      needed to reason about uncertainty.
+      It underlies all methods of statistical inference.
     </p>
   </div>
 </section>
+
+
 
 <section class="section section-next">
   <div class="content-narrow">
     <h2>What comes next</h2>
 
     <p>
-      The next lesson reviews <strong>common statistical misconceptions</strong>
-      that lead to overconfidence and misuse of data.
+      The next lesson examines <strong>common statistical misconceptions</strong>,
+      showing how misunderstanding uncertainty
+      leads to incorrect conclusions.
     </p>
 
     <a class="btn btn-primary" href="/foundations/common-statistical-misconceptions/">
@@ -181,3 +257,9 @@ lesson_order: 31
     </a>
   </div>
 </section>
+
+<script>
+  try {
+    localStorage.setItem("esa:lastLesson", window.location.pathname);
+  } catch (e) {}
+</script>
