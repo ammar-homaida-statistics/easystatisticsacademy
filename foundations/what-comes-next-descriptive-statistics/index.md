@@ -19,10 +19,14 @@ lesson_order: 35
   <div class="hero-card">
     <h1>What Comes Next: Descriptive Statistics</h1>
 
+    <div style="background:#fff3cd; border:1px solid #ffeeba; padding:12px 14px; margin:14px 0; border-radius:8px;">
+      <strong>🚧 Under Construction</strong> — Preview examples and practice guidance will be added.
+    </div>
+
     <p class="lead">
-      This lesson explains what the next section will cover,
-      what knowledge is assumed, and how the foundations
-      support all future statistical methods.
+      The next section introduces formal tools for summarizing data.
+      These tools build directly on the conceptual foundations
+      you have developed.
     </p>
 
     <p class="muted-mini">
@@ -30,6 +34,8 @@ lesson_order: 35
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
@@ -44,47 +50,53 @@ lesson_order: 35
   </div>
 </section>
 
+
+
 <section class="section">
   <div class="content-narrow">
     <h2>Why this transition matters</h2>
 
     <p>
-      Foundations establish the principles of reasoning,
-      data structure, variability, and uncertainty.
+      The foundations section focused on
+      how statistical reasoning works.
     </p>
 
     <p>
-      Without these concepts, statistical formulas
-      become mechanical procedures.
+      The next section focuses on
+      how that reasoning is implemented in practice.
     </p>
 
-    <p>
-      Understanding structure first prevents
-      superficial learning later.
+    <p style="font-weight:600;">
+      Without conceptual understanding,
+      statistical methods become mechanical procedures.
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
     <h2>What the next section will do</h2>
 
     <p>
-      The descriptive statistics section will introduce
+      The descriptive statistics section introduces
       concrete tools for summarizing data.
     </p>
 
     <p>
-      Measures of center, variability, and graphical summaries
-      will be studied formally.
+      You will study measures of center,
+      variability, and graphical representations.
     </p>
 
     <p>
-      These tools operationalize the concepts
-      introduced in this section.
+      These tools turn conceptual ideas
+      into practical analysis.
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
@@ -99,42 +111,94 @@ lesson_order: 35
     </p>
 
     <p>
-      Recognition of the difference between
-      description and inference.
+      Recognition that statistics summarize data,
+      while inference extends beyond it.
     </p>
   </div>
 </section>
+
+
+
+<section class="section">
+  <div class="content-narrow">
+    <h2>From concepts to tools</h2>
+
+    <p>
+      Earlier lessons explained what data represent
+      and why they vary.
+    </p>
+
+    <p>
+      The next section introduces methods
+      that quantify those ideas.
+    </p>
+
+    <p style="font-weight:600;">
+      Concepts provide meaning.
+      Methods provide implementation.
+    </p>
+  </div>
+</section>
+
+
 
 <section class="section">
   <div class="content-narrow">
     <h2>How foundations support everything later</h2>
 
     <p>
-      Every statistical method rests on assumptions
-      about data structure and variability.
+      Every statistical method relies on assumptions
+      about data, variability, and uncertainty.
     </p>
 
     <p>
-      Foundations provide the conceptual framework
-      that prevents misuse of formulas.
+      Foundations ensure those assumptions
+      are understood rather than ignored.
     </p>
 
     <p>
-      Strong fundamentals lead to sound analysis.
+      Strong fundamentals prevent misuse
+      of otherwise correct formulas.
     </p>
   </div>
 </section>
+
+
+
+<section class="section">
+  <div class="content-narrow">
+    <h2>A final perspective</h2>
+
+    <p>
+      Statistics is not about memorizing formulas.
+    </p>
+
+    <p>
+      It is about understanding how data are generated,
+      how they vary, and what conclusions are justified.
+    </p>
+
+    <p style="font-weight:600;">
+      The tools you learn next are only as reliable
+      as the reasoning behind them.
+    </p>
+  </div>
+</section>
+
+
 
 <section class="section section-soft">
   <div class="content-narrow">
     <h2>Key idea to remember</h2>
 
     <p>
-      Foundations are not introductory formalities.
-      They are the structure that supports all statistical reasoning.
+      Foundations are the structure behind all methods.
+      Without them, statistical tools lose meaning.
     </p>
   </div>
 </section>
+
+
 
 <section class="section section-next">
   <div class="content-narrow">
@@ -142,11 +206,13 @@ lesson_order: 35
 
     <p>
       The next section introduces formal descriptive tools.
-      The concepts learned here ensure those tools
-      are used correctly and responsibly.
+      The concepts you have learned ensure those tools
+      are used correctly and interpreted properly.
     </p>
   </div>
 </section>
+
+
 
 <section class="section section-next">
   <div class="content-narrow">
@@ -154,8 +220,17 @@ lesson_order: 35
 
     <p>
       You have completed the Foundations section.
-      Return to the main Foundations overview
-      to review or continue your learning path.
+    </p>
+
+    <p>
+      You now understand how statistical reasoning works,
+      including data, variability, uncertainty,
+      and the limits of conclusions.
+    </p>
+
+    <p style="font-weight:600;">
+      You are now prepared to learn statistical methods
+      with understanding, not memorization.
     </p>
 
     <a class="btn btn-primary" href="/foundations/">
@@ -163,3 +238,9 @@ lesson_order: 35
     </a>
   </div>
 </section>
+
+<script>
+  try {
+    localStorage.setItem("esa:lastLesson", window.location.pathname);
+  } catch (e) {}
+</script>
