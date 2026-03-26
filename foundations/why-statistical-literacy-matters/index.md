@@ -19,10 +19,15 @@ lesson_order: 33
   <div class="hero-card">
     <h1>Why Statistical Literacy Matters</h1>
 
+    <div style="background:#fff3cd; border:1px solid #ffeeba; padding:12px 14px; margin:14px 0; border-radius:8px;">
+      <strong>🚧 Under Construction</strong> — Real-world case studies and examples will be added.
+    </div>
+
     <p class="lead">
-      This lesson explains why statistical literacy is essential in modern society,
-      examines the consequences of misuse, and emphasizes the responsibility
-      of analysts working with data.
+      Statistics shapes decisions in modern society.
+      Understanding how statistical reasoning works
+      is essential for interpreting evidence responsibly
+      and avoiding misleading conclusions.
     </p>
 
     <p class="muted-mini">
@@ -30,6 +35,8 @@ lesson_order: 33
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
@@ -39,113 +46,150 @@ lesson_order: 33
       <li>Why statistical literacy is important.</li>
       <li>The consequences of statistical misuse.</li>
       <li>The role of statistics in policy, medicine, and AI.</li>
-      <li>The responsibility of the analyst.</li>
+      <li>The responsibility of the analyst and the reader.</li>
     </ul>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
     <h2>Why this topic matters</h2>
 
     <p>
-      Statistics influences decisions that affect
-      health, economics, technology, and public policy.
+      Statistical evidence influences decisions
+      in health, economics, technology, and public policy.
     </p>
 
     <p>
-      Misinterpretation or misuse can lead to
-      serious real-world consequences.
+      These decisions affect individuals and societies,
+      often with significant consequences.
     </p>
 
     <p>
-      Statistical literacy enables responsible
-      evaluation of evidence.
+      Understanding statistics allows us
+      to evaluate evidence critically rather than accept it blindly.
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
     <h2>Consequences of misuse</h2>
 
     <p>
-      Misleading conclusions can distort public debate.
+      Misinterpreted statistics can distort public understanding
+      and influence decisions in harmful ways.
     </p>
 
     <p>
-      Poor statistical reasoning can result in
-      ineffective or harmful policies.
+      Policies based on flawed analysis
+      may be ineffective or damaging.
     </p>
 
-    <p>
-      Overconfidence in flawed analysis
-      amplifies risk.
+    <p style="font-weight:600;">
+      Incorrect statistical reasoning does not stay abstract.
+      It produces real-world consequences.
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
-    <h2>Statistics in policy, medicine, and AI</h2>
+    <h2>Statistics in key domains</h2>
 
     <p>
-      Policy decisions often rely on statistical evidence.
+      In policy, statistical evidence guides decisions
+      about resources, regulations, and interventions.
     </p>
 
     <p>
-      Medical treatments are evaluated
-      through statistical studies.
+      In medicine, treatments are evaluated
+      using statistical studies and clinical trials.
     </p>
 
     <p>
-      AI systems depend on statistical models
-      trained on data.
+      In AI, models are built from data
+      and rely on statistical principles.
     </p>
   </div>
 </section>
+
+
 
 <section class="section">
   <div class="content-narrow">
     <h2>Responsibility of the analyst</h2>
 
     <p>
-      Analysts must choose appropriate methods
-      and question assumptions.
+      Analysts must select appropriate methods
+      and question their assumptions.
     </p>
 
     <p>
-      Transparency about limitations
-      is essential.
+      They must communicate uncertainty clearly
+      rather than presenting results as certainty.
     </p>
 
-    <p>
-      Ethical and careful reasoning
-      strengthens public trust.
+    <p style="font-weight:600;">
+      Statistical responsibility includes both correctness
+      and honesty about limitations.
     </p>
   </div>
 </section>
 
+
+
 <section class="section">
   <div class="content-narrow">
-    <h2>Statistical literacy for everyone</h2>
+    <h2>Responsibility of the reader</h2>
 
     <p>
       Statistical literacy is not limited
-      to professional statisticians.
+      to professional analysts.
     </p>
 
     <p>
-      Citizens, journalists, and decision-makers
-      benefit from understanding basic principles.
+      Readers must question how data were collected,
+      analyzed, and interpreted.
+    </p>
+
+    <p style="font-weight:600;">
+      Understanding statistics enables informed judgment,
+      not passive acceptance.
+    </p>
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="content-narrow">
+    <h2>A broader perspective</h2>
+
+    <p>
+      Statistics is not just a technical discipline.
+      It is a way of thinking about evidence and uncertainty.
     </p>
 
     <p>
       A statistically literate society
-      makes better decisions.
+      is better equipped to make rational decisions.
+    </p>
+
+    <p style="font-weight:600;">
+      Statistical literacy supports better reasoning,
+      not just better calculation.
     </p>
   </div>
 </section>
+
+
 
 <section class="section section-soft">
   <div class="content-narrow">
@@ -153,22 +197,26 @@ lesson_order: 33
 
     <p>
       Statistical literacy protects against misuse
-      and supports responsible decision-making.
+      and enables responsible interpretation of evidence.
     </p>
   </div>
 </section>
+
+
 
 <section class="section section-next">
   <div class="content-narrow">
     <h2>Simple summary</h2>
 
     <p>
-      Statistics shapes important decisions.
-      Understanding its principles reduces misuse
-      and strengthens public reasoning.
+      Statistics influences important decisions.
+      Understanding its principles helps prevent misuse
+      and supports better reasoning in real-world contexts.
     </p>
   </div>
 </section>
+
+
 
 <section class="section section-next">
   <div class="content-narrow">
@@ -176,7 +224,7 @@ lesson_order: 33
 
     <p>
       The next lesson brings all foundational ideas together,
-      presenting a big-picture model of how statistical reasoning works.
+      showing how statistical reasoning forms a coherent framework.
     </p>
 
     <a class="btn btn-primary" href="/foundations/how-all-of-this-fits-together/">
@@ -184,3 +232,9 @@ lesson_order: 33
     </a>
   </div>
 </section>
+
+<script>
+  try {
+    localStorage.setItem("esa:lastLesson", window.location.pathname);
+  } catch (e) {}
+</script>
