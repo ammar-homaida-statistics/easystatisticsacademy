@@ -172,7 +172,7 @@ sidebar: false
       We now visualize residuals using residual plots,
       the most important diagnostic tool in regression.
     </p>
-    <a class="btn" href="/modeling/diagnostics/residual-plot/">
+    <a class="btn" href="/modeling/diagnostics/residual-plots/">
       Next lesson: Residual Plots →
     </a>
   </div>
