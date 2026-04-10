@@ -1,7 +1,7 @@
 ---
 layout: default
 title: 2. Residual Plots
-permalink: /modeling/diagnostics/residual-plot/
+permalink: /modeling/diagnostics/residual-plots/
 sidebar: false
 ---
 
