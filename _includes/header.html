@@ -1,70 +1,37 @@
 <header class="site-header">
 
-  <!-- TOP ROW -->
-  <div class="container header-top">
+  <div class="container header-row">
 
-    <!-- BRAND -->
+    <!-- LEFT: BRAND -->
     <a class="brand" href="/">
       <img src="/images/brand/logo.png?v=2" alt="EasyStatisticsAcademy" />
       <span class="brand-text">EasyStatisticsAcademy</span>
     </a>
 
-    <!-- SEARCH -->
+    <!-- CENTER: NAV -->
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="/">Home</a>
+      <a href="/foundations/">Statistics</a>
+      <a href="/descriptive/">Descriptive</a>
+      <a href="/probability/">Probability</a>
+      <a href="/inference/">Inference</a>
+      <a href="/modeling/">Modeling</a>
+      <a href="/data-mining/">Data Science & AI</a>
+      <a href="/software/">Software</a>
+      <a href="/learning-paths/">Paths</a>
+      <a href="/about/">About</a>
+    </nav>
+
+    <!-- RIGHT: SEARCH -->
     <div class="header-search">
       <input 
-        id="site-search" 
-        type="search" 
-        placeholder="Search topics…" 
-        autocomplete="off" 
-        aria-label="Search"
+        id="site-search"
+        type="search"
+        placeholder="Search topics…"
+        autocomplete="off"
       />
       <div id="search-results" class="search-results" hidden></div>
     </div>
-
-    <!-- MOBILE MENU BUTTON -->
-    <button 
-      class="nav-toggle" 
-      type="button" 
-      aria-expanded="false" 
-      aria-controls="site-nav"
-    >
-      <span class="sr-only">Toggle navigation</span>
-      <span class="nav-toggle-bar"></span>
-      <span class="nav-toggle-bar"></span>
-      <span class="nav-toggle-bar"></span>
-    </button>
-
-  </div>
-
-  <!-- NAVIGATION -->
-  <div class="container header-bottom">
-
-    <nav id="site-nav" class="nav" aria-label="Primary navigation">
-
-      <!-- MAIN LEARNING -->
-      <div class="nav-group">
-        <a href="/">Home</a>
-        <a href="/foundations/">Statistics</a>
-        <a href="/descriptive/">Descriptive</a>
-        <a href="/probability/">Probability</a>
-        <a href="/inference/">Inference</a>
-        <a href="/modeling/">Modeling</a>
-      </div>
-
-      <!-- ADVANCED -->
-      <div class="nav-group">
-        <a href="/mathematical-statistics/">Mathematical</a>
-        <a href="/data-mining/">Data Science &amp; AI</a>
-        <a href="/software/">Software</a>
-      </div>
-
-      <!-- SECONDARY -->
-      <div class="nav-group nav-secondary">
-        <a href="/learning-paths/">Learning Paths</a>
-        <a href="/about/">About</a>
-      </div>
-
-    </nav>
 
   </div>
 
