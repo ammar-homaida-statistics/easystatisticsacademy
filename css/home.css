@@ -143,3 +143,13 @@
     padding: 22px;
   }
 } 
+
+.home-page {
+  --bg-soft: #f8fafc;
+  --card-soft: #ffffff;
+}
+
+/* soften sections */
+.home-page .section-soft {
+  background: #f4f7fb;
+}
