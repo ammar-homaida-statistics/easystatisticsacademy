@@ -76,6 +76,10 @@
   font-size: 15px;
 }
 
+.home-page .section-head h2 {
+  color: #0b3b74;
+}
+
 /* Video container (important fix) */
 .home-page .video-container {
   position: relative;
@@ -218,4 +222,34 @@
   height: 100%;
   left: 0;
   top: 0;
+}
+
+.home-page .section-soft {
+  background: linear-gradient(135deg, #ffffff 0%, #f4f8ff 100%);
+  padding: 40px;
+  border-radius: 20px;
+}
+
+
+:root {
+  --primary: #0b3b74;
+  --primary-soft: #edf4ff;
+  --accent: #0f62fe;
+}
+
+.home-page .card:hover {
+  border-color: rgba(15,98,254,0.25);
+}
+
+.home-page .section {
+  margin-top: 50px;
+}
+
+.home-page .card {
+  transition: all 0.25s ease;
+}
+
+.home-page .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.08);
 }
