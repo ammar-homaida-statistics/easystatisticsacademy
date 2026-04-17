@@ -200,4 +200,22 @@
   transform: translateY(-1px);
 }
 
+/* VIDEO SECTION FIX */
+.home-page .video-container {
+  max-width: 900px;
+  margin: 24px auto 0; /* center it */
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+}
 
+.home-page .video-container iframe {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
