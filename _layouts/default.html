@@ -3,71 +3,81 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <title>{{ page.title }} | EasyStatisticsAcademy</title>
   <meta name="description" content="{{ page.description | default: site.description }}" />
+
+  <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ site.url }}{{ page.url }}">
-  <link rel="stylesheet" href="/css/style.css?v=5" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/style.css?v=6" />
+  <link rel="stylesheet" href="/css/home.css?v=1" />
+
   {% include schema-org.html %}
 
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <!-- Load MathJax ONLY if needed -->
+  {% if page.math %}
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  {% endif %}
 
 </head>
+
 <body>
+
   {% include header.html %}
 
-  {% if page.sidebar %}
-  <div class="container layout-two-col">
-    {% include sidebar.html %}
-    <main class="content">
-      {{ content }}
-    </main>
-  </div>
-{% else %}
+  <!-- MAIN CONTENT -->
   <main class="container">
-  {% if page.sidebar %}
-    <div class="layout-two-col">
-      {% include sidebar.html %}
-      <div class="content">
-        {{ content }}
-      </div>
-    </div>
-  {% else %}
-    {{ content }}
-  {% endif %}
-</main>
-{% endif %}
 
+    {% if page.sidebar %}
+      <div class="layout-two-col">
+        {% include sidebar.html %}
+        <div class="content">
+          {{ content }}
+        </div>
+      </div>
+    {% else %}
+      {{ content }}
+    {% endif %}
+
+  </main>
 
   {% include footer.html %}
 
+  <!-- MOBILE NAV -->
   <script>
-  // Footer year
-  const y = document.getElementById("y");
-  if (y) y.textContent = new Date().getFullYear();
+    const header = document.querySelector(".site-header");
+    const toggle = document.querySelector(".nav-toggle");
 
-  // Mobile nav toggle
-  const header = document.querySelector(".site-header");
-  const toggle = document.querySelector(".nav-toggle");
+    if (header && toggle) {
+      toggle.addEventListener("click", () => {
+        const isOpen = header.classList.toggle("nav-open");
+        toggle.setAttribute("aria-expanded", String(isOpen));
+      });
+    }
+  </script>
 
-  if (header && toggle) {
-    toggle.addEventListener("click", () => {
-      const isOpen = header.classList.toggle("nav-open");
-      toggle.setAttribute("aria-expanded", String(isOpen));
-    });
-  }
-</script>
-<script src="/js/search.js"></script>
-<script>
-  SimpleJekyllSearch({
-    searchInput: document.getElementById('site-search'),
-    resultsContainer: document.getElementById('search-results'),
-    json: '/search.json',
-    searchResultTemplate: '<li><a href="{url}">{title}</a></li>',
-    noResultsText: '<li>No results found</li>',
-    limit: 8
-  });
-</script>
-<script src="/js/js/site.js"></script>
+  <!-- SEARCH -->
+  <script src="/js/search.js"></script>
+  <script>
+    const searchInput = document.getElementById('site-search');
+    const resultsContainer = document.getElementById('search-results');
+
+    if (searchInput && resultsContainer) {
+      SimpleJekyllSearch({
+        searchInput: searchInput,
+        resultsContainer: resultsContainer,
+        json: '/search.json',
+        searchResultTemplate: '<li><a href="{url}">{title}</a></li>',
+        noResultsText: '<li>No results found</li>',
+        limit: 8
+      });
+    }
+  </script>
+
+  <script src="/js/js/site.js"></script>
+
 </body>
 </html>
