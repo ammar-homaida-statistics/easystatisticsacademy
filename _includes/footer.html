@@ -1,25 +1,33 @@
 <footer class="site-footer">
   <div class="container footer-inner">
-    <div>© <span id="y"></span> EasyStatisticsAcademy</div>
-    <div>Educational content • Academic orientation • Long-term project</div>
+
+    <div class="footer-left">
+      © <span id="y"></span> EasyStatisticsAcademy
+    </div>
+
+    <div class="footer-center">
+      Educational content • Academic orientation • Long-term project
+    </div>
+
+    <div class="footer-social">
+      <a href="https://www.youtube.com/@EasyStatisticsAcademy" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+        <i class="fab fa-youtube"></i>
+      </a>
+      <a href="https://www.linkedin.com/company/easystatisticsacademy" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <i class="fab fa-linkedin"></i>
+      </a>
+      <a href="https://www.facebook.com/profile.php?id=61586090026121" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+        <i class="fab fa-facebook"></i>
+      </a>
+    </div>
+
   </div>
 </footer>
 
-<div class="footer-social">
-  <a href="https://www.youtube.com/@EasyStatisticsAcademy" target="_blank" aria-label="YouTube">
-    <i class="fab fa-youtube"></i>
-  </a>
-  <a href="https://www.linkedin.com/company/easystatisticsacademy" target="_blank" aria-label="LinkedIn">
-    <i class="fab fa-linkedin"></i>
-  </a>
-  <a href="https://www.facebook.com/profile.php?id=61586090026121" target="_blank" aria-label="Facebook">
-    <i class="fab fa-facebook"></i>
-  </a>
-</div>
-
 <script>
+  document.getElementById("y").textContent = new Date().getFullYear();
+
   (function () {
-    // Store last visited lesson (only if current page is marked as a lesson in Jekyll front matter)
     var isLesson = {{ page.is_lesson | default: false | jsonify }};
     if (isLesson) {
       try {
@@ -28,7 +36,6 @@
       } catch (e) {}
     }
 
-    // Show "Continue Learning" button if we have a saved lesson
     try {
       var last = localStorage.getItem("esa:lastLesson");
       if (last) {
