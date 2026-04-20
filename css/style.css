@@ -1125,3 +1125,65 @@ a:hover{ text-decoration: underline; }
 .nav-item > a {
   margin-right: 18px;
 }
+
+
+/* NAV LAYOUT */
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+/* NAV LINKS */
+.nav a {
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+}
+
+/* NAV ITEM (for dropdown) */
+.nav-item {
+  position: relative;
+}
+
+/* DROPDOWN BOX */
+.nav-item .dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+
+  background: #ffffff;
+  min-width: 220px;
+
+  padding: 8px 0;
+  border-radius: 10px;
+
+  box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+  z-index: 1000;
+}
+
+/* SHOW DROPDOWN */
+.nav-item:hover .dropdown {
+  display: block;
+}
+
+/* DROPDOWN LINKS */
+.dropdown a {
+  display: block;
+  padding: 10px 16px;
+  font-size: 14px;
+  color: #333;
+  white-space: nowrap;
+}
+
+/* HOVER EFFECT */
+.dropdown a:hover {
+  background: #f5f7fa;
+}
+
+/* OPTIONAL: ARROW */
+.nav-item > a::after {
+  content: " ▾";
+  font-size: 12px;
+}
