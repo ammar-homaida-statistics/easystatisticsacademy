@@ -5,13 +5,24 @@ permalink: /applied-statistics/study-design/
 sidebar: false
 ---
 
+<!-- UNDER CONSTRUCTION -->
 <section class="section section-slim">
   <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <h2 style="margin-top:0; color:#e65100;">🚧 This Block Is Under Construction</h2>
-    <p>Understanding how data is generated is essential for correct statistical conclusions.</p>
+    <div class="callout-copy">
+      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem;">
+        🚧 This Block Is Under Construction
+      </h2>
+      <p style="margin:0; font-size:1.05rem; line-height:1.6;">
+        This block explains how study design shapes statistical conclusions.
+        It introduces the main ways data is generated, the difference between
+        observational and experimental settings, and why design determines what
+        conclusions are justified.
+      </p>
+    </div>
   </div>
 </section>
 
+<!-- ✅ Update last visited block -->
 <script>
 (function () {
   localStorage.setItem("esa_continue_applied_last_block_v0", JSON.stringify({
@@ -22,101 +33,59 @@ sidebar: false
 })();
 </script>
 
+<!-- HERO -->
 <section class="hero hero-section">
   <div class="hero-card hero-split">
+
     <div class="hero-copy">
+
       <div class="badge-row">
         <span class="badge">Block 2</span>
         <span class="badge">Design</span>
-        <span class="badge">Data</span>
+        <span class="badge">Studies</span>
+        <span class="badge">Context</span>
       </div>
 
       <h1>Block 2 — Study Design & Data Context</h1>
 
       <p class="lead">
-        Statistical results depend on how data is collected.
-        This block explains study designs and their implications.
+        Applied statistics depends on how data is collected.
+        This block shows why study design matters, how different designs answer different questions,
+        and why valid interpretation starts before analysis begins.
       </p>
 
       <div class="hero-actions">
-        <a class="btn btn-outline" href="/applied-statistics/">Back</a>
+        <a class="btn btn-outline" href="/applied-statistics/">Back to Applied Statistics</a>
         <a class="btn" href="#lessons">Open structure</a>
       </div>
+
+      <p class="muted-mini">
+        Version 0: structure is locked. Content will expand without changing URLs.
+      </p>
+
     </div>
 
     <div class="hero-panel">
       <div class="panel-card">
-        <h2>What this block covers</h2>
-        <ul class="quickstart">
-          <li>Experimental vs observational</li>
-          <li>Sampling methods</li>
-          <li>Bias and confounding</li>
+        <h2 class="panel-title">What this block covers</h2>
+        <ul class="quickstart" style="list-style:none; padding-left:0;">
+
+          <li><strong>Study types</strong><span class="meta">Experimental vs observational logic</span></li>
+          <li><strong>Sampling</strong><span class="meta">How samples connect to populations</span></li>
+          <li><strong>Bias</strong><span class="meta">Systematic errors in data collection</span></li>
+          <li><strong>Confounding</strong><span class="meta">Hidden influences on relationships</span></li>
+          <li><strong>Interpretation limits</strong><span class="meta">What the design allows you to claim</span></li>
+
         </ul>
       </div>
     </div>
+
   </div>
 </section>
 
-<section id="continue-reading-study-design" style="display:none;" class="section">
+<!-- ✅ Continue Reading -->
+<section class="section" id="continue-reading-study-design" style="display:none;">
   <div class="callout">
-    <h2>Continue reading</h2>
-    <p id="continue-reading-study-design-label"></p>
-    <a id="continue-reading-study-design-btn" class="btn">Continue</a>
-  </div>
-</section>
-
-<section class="section" id="lessons">
-  <div class="grid grid-2">
-
-    <div class="card lesson-card">
-      <h3><a href="/applied-statistics/study-design/experimental-vs-observational/">1. Experimental vs Observational</a></h3>
-      <p>Understand causal vs non-causal designs.</p>
-    </div>
-
-    <div class="card lesson-card">
-      <h3><a href="/applied-statistics/study-design/sampling/">2. Sampling Methods</a></h3>
-      <p>How samples represent populations.</p>
-    </div>
-
-    <div class="card lesson-card">
-      <h3><a href="/applied-statistics/study-design/bias/">3. Bias in Studies</a></h3>
-      <p>Selection, measurement, and survivorship bias.</p>
-    </div>
-
-    <div class="card lesson-card">
-      <h3><a href="/applied-statistics/study-design/confounding/">4. Confounding Variables</a></h3>
-      <p>Hidden variables affecting results.</p>
-    </div>
-
-    <div class="card lesson-card">
-      <h3><a href="/applied-statistics/study-design/design-interpretation/">5. Design and Interpretation</a></h3>
-      <p>Why design determines validity.</p>
-    </div>
-
-  </div>
-</section>
-
-<section class="section section-slim">
-  <div class="callout">
-    <h2>Outcome</h2>
-    <ul class="bullets">
-      <li>Understand study types</li>
-      <li>Recognize bias and confounding</li>
-      <li>Interpret results in context</li>
-    </ul>
-  </div>
-</section>
-
-<script>
-(function () {
-  var KEY = "esa_continue_applied_study-design_lesson_v0";
-  var raw = localStorage.getItem(KEY);
-  if (!raw) return;
-
-  var data = JSON.parse(raw);
-  document.getElementById("continue-reading-study-design-label").innerHTML =
-    'You last visited: <strong>' + data.label + '</strong>';
-  document.getElementById("continue-reading-study-design-btn").href = data.url;
-  document.getElementById("continue-reading-study-design").style.display = "block";
-})();
-</script>
+    <div class="callout-copy">
+      <h2>Continue reading</h2>
+      <p class="
