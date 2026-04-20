@@ -40,8 +40,8 @@ sidebar: false
       </p>
 
       <div class="hero-actions">
-        <a class="btn" href="/inference/">Prerequisite: Statistical Inference</a>
-        <a class="btn btn-outline" href="/modeling/">Next: Statistical Modeling</a>
+        <a class="btn" href="/modeling/">Prerequisite: Statistical Modeling</a>
+        <a class="btn btn-outline" href="/data-mining/">Next: Data mining</a>
       </div>
 
       <p class="muted-mini">
@@ -209,7 +209,7 @@ sidebar: false
       </div>
       <div class="mini">
         <div class="mini-title">Prerequisite</div>
-        <div class="mini-body">Complete <strong>Inference</strong>.</div>
+        <div class="mini-body">Complete <strong>Modeling</strong>.</div>
       </div>
       <div class="mini">
         <div class="mini-title">Software later</div>
