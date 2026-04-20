@@ -1,50 +1,36 @@
-<footer class="site-footer">
-  <div class="container footer-inner">
-
-    <div class="footer-left">
-      © <span id="y"></span> EasyStatisticsAcademy
-    </div>
-
-    <div class="footer-center">
-      Educational content • Academic orientation • Long-term project
-    </div>
-
-    <div class="footer-social">
-      <a href="https://www.youtube.com/@EasyStatisticsAcademy" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-        <i class="fab fa-youtube"></i>
-      </a>
-      <a href="https://www.linkedin.com/company/easystatisticsacademy" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-        <i class="fab fa-linkedin"></i>
-      </a>
-      <a href="https://www.facebook.com/profile.php?id=61586090026121" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-        <i class="fab fa-facebook"></i>
-      </a>
-    </div>
-
-  </div>
-</footer>
-
 <script>
+  // Set current year
   document.getElementById("y").textContent = new Date().getFullYear();
 
   (function () {
-    var isLesson = {{ page.is_lesson | default: false | jsonify }};
-    if (isLesson) {
-      try {
-        localStorage.setItem("esa:lastLesson", window.location.pathname);
-        localStorage.setItem("esa:lastSeen", new Date().toISOString());
-      } catch (e) {}
-    }
-
     try {
-      var last = localStorage.getItem("esa:lastLesson");
-      if (last) {
-        var btn = document.getElementById("continueBtn");
-        if (btn) {
-          btn.href = last;
-          btn.style.display = "inline-block";
-        }
+      const path = window.location.pathname;
+
+      // Pages we DON'T want to track
+      const ignorePaths = [
+        "/",
+        "/about/",
+        "/contact/",
+        "/learning-paths/"
+      ];
+
+      // Save last meaningful page
+      if (!ignorePaths.includes(path)) {
+        localStorage.setItem("esa:lastPage", path);
+        localStorage.setItem("esa:lastSeen", new Date().toISOString());
       }
-    } catch (e) {}
+
+      // Attach "Continue Learning" button
+      const last = localStorage.getItem("esa:lastPage");
+      const btn = document.getElementById("continueBtn");
+
+      if (last && btn) {
+        btn.href = last;
+        btn.style.display = "inline-block";
+      }
+
+    } catch (e) {
+      // Fail silently (important for robustness)
+    }
   })();
 </script>
