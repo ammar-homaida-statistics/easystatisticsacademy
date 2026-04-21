@@ -1,321 +1,254 @@
 ---
 layout: default
 title: Observational Units
-description: A clear explanation of what an observational unit is, common types of units, why defining the unit matters, and the most common unit confusion errors.
+description: Understand what observational units are and how they define the structure of your data.
 permalink: /foundations/observational-units/
-section: foundations
-lesson_order: 6
+sidebar: false
 ---
 
-<meta name="esa-section" content="foundations">
-<meta name="esa-lesson-title" content="Observational Units">
-<meta name="esa-lesson-url" content="/foundations/observational-units/">
-
-<a class="btn btn-primary" href="/foundations/what-is-data/">Previous: What Is Data?</a>
-
-<section class="hero hero-lesson">
+<!-- HERO -->
+<section class="hero hero-section">
   <div class="hero-card">
-    <h1>Observational Units</h1>
 
-    <div style="background:#fff3cd; border:1px solid #ffeeba; padding:12px 14px; margin:14px 0; border-radius:8px;">
-      <strong>🚧 Under Construction</strong> — This lesson is being expanded with structured examples and visual clarifications to prevent unit confusion.
+    <div class="badge-row">
+      <span class="badge">Foundations</span>
+      <span class="badge">Data structure</span>
+      <span class="badge">Core concept</span>
     </div>
 
+    <h1>Observational Units</h1>
+
     <p class="lead">
-      An observational unit defines what each data record represents.
-      This lesson shows how to identify the correct unit and why unit confusion leads to major analysis errors.
+      Learn what observational units are and how they define what each row in your dataset represents.
     </p>
 
-    <p class="muted-mini">
-      Section: <strong>Statistics Foundations</strong> • Lesson 6
-    </p>
+    <div class="hero-actions">
+      <a class="btn" href="#content">Start lesson</a>
+      <a class="btn btn-outline" href="/foundations/">Back to Foundations</a>
+    </div>
+
   </div>
 </section>
 
-<section class="section">
-  <div class="content-narrow">
-    <h2>What you will learn</h2>
+<!-- CONTENT -->
+<section class="section" id="content">
+
+  <!-- DEFINITION -->
+  <div class="section-block">
+    <h2>What Is an Observational Unit?</h2>
+
+    <p>
+      An observational unit is the entity (object, person, event, or item)
+      on which data is collected.
+    </p>
+
+    <p>
+      In simple terms:
+      <strong>it is "what each row represents" in your dataset.</strong>
+    </p>
+  </div>
+
+  <!-- SIMPLE EXAMPLES -->
+  <div class="section-block">
+    <h2>Examples</h2>
 
     <ul class="bullets">
-      <li>What an observational unit is in statistics.</li>
-      <li>Common types of units: individuals, objects, events, and time points.</li>
-      <li>Why clearly defining the unit matters for correct analysis.</li>
-      <li>The difference between units and variables.</li>
-      <li>Common errors caused by unit confusion.</li>
+      <li>Students → if you collect exam scores</li>
+      <li>Patients → if you collect medical data</li>
+      <li>Products → if you analyze sales</li>
+      <li>Days → if you record temperature</li>
     </ul>
-  </div>
-</section>
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Formal definition</h2>
 
     <p>
-      An <strong>observational unit</strong> is the entity about which data are collected and recorded.
-      In most datasets, each row corresponds to one observational unit.
-    </p>
-
-    <p>
-      The unit answers a fundamental question:
-      <strong>What does one row represent?</strong>
-    </p>
-
-    <p>
-      If the unit changes, the meaning of the dataset changes.
-      Statistical conclusions are valid only relative to the defined unit.
+      Each of these becomes one row in your dataset.
     </p>
   </div>
-</section>
 
-<div style="margin:28px 0; text-align:center;">
-  <svg width="100%" height="320" viewBox="0 0 980 320" xmlns="http://www.w3.org/2000/svg">
+  <!-- TABLE EXAMPLE -->
+  <div class="section-block">
+    <h2>Dataset Example</h2>
 
-    <!-- Title -->
-    <text x="490" y="28" text-anchor="middle" font-size="18" font-weight="700" fill="#1c1c1c">
-      From Observational Units to a Dataset
-    </text>
-
-    <!-- Population box -->
-    <rect x="40" y="60" width="240" height="70" rx="12" fill="#eef2ff" stroke="#3b5bdb" stroke-width="2"/>
-    <text x="160" y="92" text-anchor="middle" font-size="16" font-weight="700" fill="#1c1c1c">Population / System</text>
-    <text x="160" y="112" text-anchor="middle" font-size="13" fill="#333">Where units come from</text>
-
-    <!-- Units box -->
-    <rect x="330" y="60" width="260" height="70" rx="12" fill="#e6fcf5" stroke="#099268" stroke-width="2"/>
-    <text x="460" y="92" text-anchor="middle" font-size="16" font-weight="700" fill="#1c1c1c">Observational Units</text>
-    <text x="460" y="112" text-anchor="middle" font-size="13" fill="#333">Each row = one unit</text>
-
-    <!-- Variables box -->
-    <rect x="640" y="60" width="300" height="70" rx="12" fill="#fff3bf" stroke="#f08c00" stroke-width="2"/>
-    <text x="790" y="92" text-anchor="middle" font-size="16" font-weight="700" fill="#1c1c1c">Variables Measured</text>
-    <text x="790" y="112" text-anchor="middle" font-size="13" fill="#333">Columns describe each unit</text>
-
-    <!-- Arrows (top row) -->
-    <line x1="280" y1="95" x2="330" y2="95" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
-    <line x1="590" y1="95" x2="640" y2="95" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
-
-    <!-- Dataset matrix -->
-    <rect x="250" y="170" width="480" height="120" rx="14" fill="#f8f9fa" stroke="#333" stroke-width="2"/>
-    <text x="490" y="196" text-anchor="middle" font-size="16" font-weight="700" fill="#1c1c1c">Dataset (rows × columns)</text>
-
-    <!-- Matrix header -->
-    <line x1="250" y1="210" x2="730" y2="210" stroke="#aaa" stroke-width="1"/>
-    <line x1="360" y1="170" x2="360" y2="290" stroke="#ddd" stroke-width="1"/>
-    <line x1="480" y1="170" x2="480" y2="290" stroke="#ddd" stroke-width="1"/>
-    <line x1="600" y1="170" x2="600" y2="290" stroke="#ddd" stroke-width="1"/>
-
-    <!-- Column labels -->
-    <text x="305" y="232" text-anchor="middle" font-size="13" font-weight="700" fill="#333">Unit ID</text>
-    <text x="420" y="232" text-anchor="middle" font-size="13" font-weight="700" fill="#333">Variable 1</text>
-    <text x="540" y="232" text-anchor="middle" font-size="13" font-weight="700" fill="#333">Variable 2</text>
-    <text x="665" y="232" text-anchor="middle" font-size="13" font-weight="700" fill="#333">Variable 3</text>
-
-    <!-- Sample rows -->
-    <text x="305" y="255" text-anchor="middle" font-size="13" fill="#333">001</text>
-    <text x="420" y="255" text-anchor="middle" font-size="13" fill="#333">…</text>
-    <text x="540" y="255" text-anchor="middle" font-size="13" fill="#333">…</text>
-    <text x="665" y="255" text-anchor="middle" font-size="13" fill="#333">…</text>
-
-    <text x="305" y="278" text-anchor="middle" font-size="13" fill="#333">002</text>
-    <text x="420" y="278" text-anchor="middle" font-size="13" fill="#333">…</text>
-    <text x="540" y="278" text-anchor="middle" font-size="13" fill="#333">…</text>
-    <text x="665" y="278" text-anchor="middle" font-size="13" fill="#333">…</text>
-
-    <!-- Arrow from Units to Dataset -->
-    <line x1="460" y1="130" x2="460" y2="170" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
-
-    <!-- Arrowhead definition -->
-    <defs>
-      <marker id="arrow" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
-        <path d="M0,0 L0,6 L9,3 z" fill="#555" />
-      </marker>
-    </defs>
-
-  </svg>
-
-  <p style="font-size:14px; color:#666; margin-top:10px;">
-    Figure. A dataset is created by selecting observational units (rows) and recording variables on each unit (columns).
-  </p>
-</div>
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Example: identifying the unit</h2>
-
-    <div style="margin:20px 0;">
-  <div style="max-width:650px; margin:auto; overflow-x:auto;">
-    <table style="width:100%; border-collapse:collapse; background:#ffffff; border-radius:10px; overflow:hidden; box-shadow:0 4px 10px rgba(0,0,0,0.05);">
-
-      <thead style="background:#f1f3f5;">
-        <tr>
-          <th style="padding:14px 16px; text-align:left; font-weight:600;">Student ID</th>
-          <th style="padding:14px 16px; text-align:left; font-weight:600;">Age</th>
-          <th style="padding:14px 16px; text-align:left; font-weight:600;">Exam Score</th>
+    <table style="width:100%; border-collapse:collapse; margin-top:10px;">
+      <thead>
+        <tr style="background:#f3f4f6;">
+          <th style="padding:10px; border:1px solid #ddd;">Student</th>
+          <th style="padding:10px; border:1px solid #ddd;">Height</th>
+          <th style="padding:10px; border:1px solid #ddd;">Score</th>
         </tr>
       </thead>
-
       <tbody>
-        <tr style="border-top:1px solid #e9ecef;">
-          <td style="padding:12px 16px;">001</td>
-          <td style="padding:12px 16px;">20</td>
-          <td style="padding:12px 16px;">85</td>
-        </tr>
-
-        <tr style="border-top:1px solid #e9ecef;">
-          <td style="padding:12px 16px;">002</td>
-          <td style="padding:12px 16px;">21</td>
-          <td style="padding:12px 16px;">90</td>
-        </tr>
-      </tbody>
-
-    </table>
-  </div>
-</div>
-
-    <p>
-      Here, each row represents one <strong>student</strong>.
-      The student is the observational unit.
-      Age and exam score are <strong>variables</strong> measured on that unit.
-    </p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Unit vs Variable</h2>
-
-    <p>
-      The observational unit is what is being observed.
-      A <strong>variable</strong> is a characteristic measured on that unit.
-    </p>
-
-    <ul class="bullets">
-      <li>Unit: Student</li>
-      <li>Variables: Age, Score, Gender</li>
-    </ul>
-
-    <p>
-      Confusing units with variables leads to structural errors in analysis.
-    </p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Common types of observational units</h2>
-
-    <div style="margin:24px 0;">
-  <div style="max-width:650px; margin:auto; overflow-x:auto;">
-    <table style="width:100%; border-collapse:collapse; background:#ffffff; border-radius:10px; overflow:hidden; box-shadow:0 4px 10px rgba(0,0,0,0.05);">
-
-      <thead style="background:#f1f3f5;">
         <tr>
-          <th style="padding:14px 16px; text-align:left; font-weight:600;">Type</th>
-          <th style="padding:14px 16px; text-align:left; font-weight:600;">Example</th>
+          <td style="padding:10px; border:1px solid #ddd;">A</td>
+          <td style="padding:10px; border:1px solid #ddd;">170</td>
+          <td style="padding:10px; border:1px solid #ddd;">75</td>
         </tr>
-      </thead>
-
-      <tbody>
-        <tr style="border-top:1px solid #e9ecef;">
-          <td style="padding:12px 16px;">Individual</td>
-          <td style="padding:12px 16px;">Patient, customer, student</td>
-        </tr>
-
-        <tr style="border-top:1px solid #e9ecef;">
-          <td style="padding:12px 16px;">Object</td>
-          <td style="padding:12px 16px;">Machine, product, device</td>
-        </tr>
-
-        <tr style="border-top:1px solid #e9ecef;">
-          <td style="padding:12px 16px;">Event</td>
-          <td style="padding:12px 16px;">Purchase, accident, experiment trial</td>
-        </tr>
-
-        <tr style="border-top:1px solid #e9ecef;">
-          <td style="padding:12px 16px;">Time Point</td>
-          <td style="padding:12px 16px;">Day, month, hourly reading</td>
+        <tr>
+          <td style="padding:10px; border:1px solid #ddd;">B</td>
+          <td style="padding:10px; border:1px solid #ddd;">165</td>
+          <td style="padding:10px; border:1px solid #ddd;">80</td>
         </tr>
       </tbody>
-
     </table>
-  </div>
-</div>
-
-  </div>
-</section>
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Why defining the unit matters</h2>
 
     <p>
-      Statistical methods assume that observations represent comparable units.
-      If units are mixed or unclear, averages and comparisons become misleading.
+      Here:
     </p>
-
-    <p>
-      Many problems blamed on "bad statistics" are actually problems of unclear or inconsistent units.
-    </p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Common unit confusion errors</h2>
 
     <ul class="bullets">
-      <li><strong>Pseudoreplication:</strong> Treating repeated measurements on the same individual as independent observations.</li>
-      <li><strong>Ecological fallacy:</strong> Drawing conclusions about individuals from aggregated group data.</li>
-      <li><strong>Mixed units:</strong> Combining individual-level data with group summaries in one analysis.</li>
-      <li><strong>Time dependence ignored:</strong> Treating time-series data as independent observations.</li>
+      <li>Observational unit = <strong>Student</strong></li>
+      <li>Each row = one student</li>
+    </ul>
+  </div>
+
+  <!-- IMPORTANT INSIGHT -->
+  <div class="section-block">
+    <h2>Key Insight</h2>
+
+    <p>
+      The observational unit determines:
+    </p>
+
+    <ul class="bullets">
+      <li>What your dataset represents</li>
+      <li>What conclusions you can make</li>
+      <li>What statistical methods are valid</li>
     </ul>
 
     <p>
-      Unit confusion can artificially inflate sample size, distort variability,
-      and produce false confidence in results.
+      If you misunderstand the unit, your entire analysis can be wrong.
     </p>
   </div>
-</section>
 
-<section class="section section-soft">
-  <div class="content-narrow">
-    <h2>Key idea to remember</h2>
+  <!-- DIFFERENT LEVELS -->
+  <div class="section-block">
+    <h2>Same Data, Different Units</h2>
 
     <p>
-      The observational unit defines what one data point represents.
-      Statistical interpretation is impossible until the unit is clearly defined.
+      The same real-world situation can be analyzed using different units.
     </p>
-  </div>
-</section>
 
-<section class="section section-next">
-  <div class="content-narrow">
-    <h2>Simple summary</h2>
+    <p><strong>Example: School data</strong></p>
+
+    <ul class="bullets">
+      <li>Students → individual-level data</li>
+      <li>Classes → group-level data</li>
+      <li>Schools → aggregated data</li>
+    </ul>
 
     <p>
-      An observational unit is the entity being observed—such as a person, object, event, or time point.
-      Correct analysis depends on correctly identifying and maintaining the unit throughout the study.
+      Changing the unit changes the meaning of the analysis.
     </p>
   </div>
-</section>
 
-<section class="section section-next">
-  <div class="content-narrow">
-    <h2>What comes next</h2>
+  <!-- COMMON MISTAKES -->
+  <div class="section-block">
+    <h2>Common Mistakes</h2>
+
+    <ul class="bullets">
+      <li>Confusing variables with observational units ❌</li>
+      <li>Mixing multiple units in the same dataset ❌</li>
+      <li>Not clearly defining what each row represents ❌</li>
+    </ul>
 
     <p>
-      The next lesson introduces <strong>variables</strong>—what a variable is,
-      how variables differ from constants, and why variables are conceptual choices.
+      Example mistake:
     </p>
 
-    <a class="btn btn-primary" href="/foundations/variables/">
-      Next: Variables
-    </a>
+    <ul class="bullets">
+      <li>Rows represent both students and schools → incorrect structure</li>
+    </ul>
   </div>
+
+  <!-- NUMERICAL EXAMPLE -->
+  <div class="section-block">
+    <h2>Numerical Example</h2>
+
+    <p>
+      Suppose we record daily temperatures:
+    </p>
+
+    <p><strong>22, 24, 19, 21</strong></p>
+
+    <p>
+      What is the observational unit?
+    </p>
+
+    <ul class="bullets">
+      <li>Each <strong>day</strong> is an observational unit</li>
+    </ul>
+
+    <p>
+      Not the temperature itself — but the entity being measured.
+    </p>
+  </div>
+
+  <!-- WHY IMPORTANT -->
+  <div class="section-block">
+    <h2>Why This Matters</h2>
+
+    <p>
+      Observational units define the structure of your dataset.
+    </p>
+
+    <p>
+      Without this clarity:
+    </p>
+
+    <ul class="bullets">
+      <li>analysis becomes inconsistent</li>
+      <li>results become misleading</li>
+      <li>interpretation becomes wrong</li>
+    </ul>
+
+    <p>
+      Good statistical practice always starts with:
+      <strong>clearly identifying the observational unit.</strong>
+    </p>
+  </div>
+
+  <!-- CONNECTION -->
+  <div class="section-block">
+    <h2>What Comes Next?</h2>
+
+    <p>
+      Once we know the observational unit, the next question is:
+    </p>
+
+    <ul class="bullets">
+      <li>What are we measuring about each unit?</li>
+    </ul>
+
+    <p>
+      These measurements are called <strong>variables</strong>.
+    </p>
+  </div>
+
 </section>
 
-<script>
-  try {
-    localStorage.setItem("esa:lastLesson", window.location.pathname);
-  } catch (e) {}
-</script>
+<!-- NAVIGATION -->
+<section class="section section-slim">
+  <div class="callout">
+
+    <div class="callout-copy">
+      <h2>Next steps</h2>
+
+      <div class="hero-actions">
+
+        <a class="btn btn-outline" href="/foundations/what-is-data/">
+          ← Previous: What Is Data
+        </a>
+
+        <a class="btn btn-outline" href="/foundations/">
+          Foundations Home
+        </a>
+
+        <a class="btn" href="/foundations/variables/">
+          Next: Variables →
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
