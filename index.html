@@ -24,12 +24,18 @@ permalink: /
       </p>
 
       <p class="micro">
-        Structured like a course, but free and continuously growing.
+        Structured like a course — but free and continuously growing.
       </p>
 
       <div class="hero-actions">
         <a class="btn" href="/learning-paths/beginner/">Start Learning</a>
         <a class="btn btn-outline" href="/learning-paths/">View All Paths</a>
+      </div>
+
+      <!-- ✅ CONTINUE LEARNING (CORRECT PLACEMENT) -->
+      <div id="continue-home" style="display:none; margin-top:12px;">
+        <a id="continueBtn" class="btn btn-outline">Continue Learning</a>
+        <div id="continueLabel" class="muted-mini" style="margin-top:6px;"></div>
       </div>
 
       <div class="hero-notes">
@@ -63,11 +69,7 @@ permalink: /
   </div>
 </section>
 
-<a id="continueBtn" class="btn btn-outline" style="display:none;">
-  Continue Learning
-</a>
-
-<!-- LEARNING PATHS (CORE ENTRY POINT) -->
+<!-- LEARNING PATHS -->
 <section class="section">
   <div class="section-head">
     <h2>Start Here</h2>
@@ -89,17 +91,17 @@ permalink: /
 
     <a class="card card-link" href="/learning-paths/advanced/">
       <h3>Advanced</h3>
-      <p>Deep dive into theory, machine learning, and advanced methods.</p>
+      <p>Deep dive into theory, ML, and advanced methods.</p>
       <span class="card-foot">Explore →</span>
     </a>
   </div>
 </section>
 
-<!-- MAIN TOPICS -->
+<!-- CORE STRUCTURE -->
 <section class="section section-soft">
   <div class="section-head">
-    <h2>Main Topics</h2>
-    <p>The core areas of statistics you need to master.</p>
+    <h2>Core Learning Structure</h2>
+    <p>The complete statistical journey — from basics to advanced modeling.</p>
   </div>
 
   <div class="grid grid-3">
@@ -109,78 +111,53 @@ permalink: /
     </a>
 
     <a class="card card-link" href="/descriptive/">
-      <h3>Descriptive Statistics</h3>
-      <p>Summarizing and exploring data.</p>
+      <h3>Descriptive</h3>
+      <p>Summarize and explore data.</p>
     </a>
 
     <a class="card card-link" href="/probability/">
       <h3>Probability</h3>
-      <p>Distributions, expectation, and theory.</p>
+      <p>Model uncertainty and distributions.</p>
     </a>
 
     <a class="card card-link" href="/inference/">
-      <h3>Statistical Inference</h3>
-      <p>Confidence intervals and hypothesis testing.</p>
+      <h3>Inference</h3>
+      <p>Draw conclusions from data.</p>
     </a>
 
     <a class="card card-link" href="/modeling/">
-      <h3>Modeling & Regression</h3>
-      <p>Regression models and interpretation.</p>
+      <h3>Modeling</h3>
+      <p>Regression and relationships.</p>
     </a>
 
-    <a class="card card-muted">
-      <h3>More coming</h3>
-      <p>Content is continuously expanding with new topics.</p>
+    <a class="card card-link" href="/software/">
+      <h3>Software</h3>
+      <p>Apply everything in practice.</p>
     </a>
   </div>
 </section>
 
-<!-- APPLICATIONS -->
+<!-- ADVANCED + DATA SCIENCE -->
 <section class="section">
   <div class="section-head">
-    <h2>Applications & Data Science</h2>
-    <p>Apply statistics in real-world data analysis and machine learning.</p>
+    <h2>Advanced & Data Science</h2>
+    <p>Extend your knowledge into theory and modern data analysis.</p>
   </div>
 
   <div class="grid grid-3">
+    <a class="card card-link" href="/mathematical-statistics/">
+      <h3>Mathematical Statistics</h3>
+      <p>Theoretical foundations of estimation.</p>
+    </a>
+
     <a class="card card-link" href="/machine-learning/">
       <h3>Machine Learning</h3>
-      <p>Supervised and unsupervised methods from a statistical perspective.</p>
+      <p>Prediction, validation, and evaluation.</p>
     </a>
 
     <a class="card card-link" href="/data-mining/">
       <h3>Data Mining</h3>
-      <p>Data preprocessing and pattern discovery.</p>
-    </a>
-
-    <a class="card card-link" href="/artificial-intelligence/">
-      <h3>Artificial Intelligence</h3>
-      <p>AI concepts connected to statistics and data science.</p>
-    </a>
-  </div>
-</section>
-
-<!-- SOFTWARE -->
-<section class="section section-soft">
-  <div class="section-head">
-    <h2>Software Implementation</h2>
-    <p>Apply concepts using real tools.</p>
-  </div>
-
-  <div class="grid grid-3">
-    <a class="card card-link" href="/software/">
-      <h3>SPSS</h3>
-      <p>Step-by-step statistical analysis.</p>
-    </a>
-
-    <a class="card card-link" href="/software/">
-      <h3>R</h3>
-      <p>Statistical programming and analysis.</p>
-    </a>
-
-    <a class="card card-link" href="/software/">
-      <h3>Python</h3>
-      <p>Data science and machine learning workflows.</p>
+      <p>Pattern discovery and exploration.</p>
     </a>
   </div>
 </section>
@@ -191,7 +168,7 @@ permalink: /
     <div class="callout-copy">
       <h2>What you’ll get</h2>
       <ul class="bullets">
-        <li>Clear explanations without losing mathematical correctness</li>
+        <li>Clear explanations without losing correctness</li>
         <li>Real examples and common mistakes explained</li>
         <li>Hands-on implementation in SPSS, R, Python, and Excel</li>
         <li>Structured learning paths for different goals</li>
@@ -209,8 +186,6 @@ permalink: /
   </div>
 </section>
 
-
-
 <!-- VIDEO -->
 <section class="section section-soft">
   <div class="content-narrow">
@@ -226,3 +201,28 @@ permalink: /
     </div>
   </div>
 </section>
+
+<!-- CONTINUE LEARNING SCRIPT -->
+<script>
+(function () {
+  try {
+    const last = localStorage.getItem("esa:lastPage");
+    const btn = document.getElementById("continueBtn");
+    const wrap = document.getElementById("continue-home");
+    const label = document.getElementById("continueLabel");
+
+    if (!last || !btn || !wrap) return;
+
+    const name = last
+      .replace(/\//g, "")
+      .replace(/-/g, " ")
+      .replace(/\b\w/g, c => c.toUpperCase());
+
+    btn.href = last;
+    label.textContent = "Continue where you left: " + name;
+
+    wrap.style.display = "block";
+
+  } catch (e) {}
+})();
+</script>
