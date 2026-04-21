@@ -1,208 +1,288 @@
 ---
 layout: default
 title: Discrete vs Continuous Data
-description: Understanding the difference between discrete and continuous data, how measurement differs from conceptual continuity, and why this matters for statistical methods.
+description: Understand the difference between discrete and continuous data and why it matters for probability, modeling, and analysis.
 permalink: /foundations/discrete-vs-continuous-data/
-section: foundations
-lesson_order: 10
+sidebar: false
 ---
 
-<meta name="esa-section" content="foundations">
-<meta name="esa-lesson-title" content="Discrete vs Continuous Data">
-<meta name="esa-lesson-url" content="/foundations/discrete-vs-continuous-data/">
-
-<a class="btn btn-primary" href="/foundations/types-of-data/">
-  Previous: Types of Data
-</a>
-
-<section class="hero hero-lesson">
+<!-- HERO -->
+<section class="hero hero-section">
   <div class="hero-card">
+
+    <div class="badge-row">
+      <span class="badge">Foundations</span>
+      <span class="badge">Numerical data</span>
+      <span class="badge">Very important</span>
+    </div>
+
     <h1>Discrete vs Continuous Data</h1>
 
-    <div style="background:#fff3cd; border:1px solid #ffeeba; padding:12px 14px; margin:14px 0; border-radius:8px;">
-      <strong>🚧 Under Construction</strong> — Visual illustrations and applied examples will be added.
-    </div>
-
     <p class="lead">
-      Numerical variables can behave in fundamentally different ways.
-      Some arise from counting. Others arise from measurement.
-      This distinction affects modeling, visualization, and interpretation.
+      Learn the difference between countable and measurable data —
+      a key distinction for probability, distributions, and modeling.
     </p>
 
-    <p class="muted-mini">
-      Section: <strong>Statistics Foundations</strong> • Lesson 10
-    </p>
+    <div class="hero-actions">
+      <a class="btn" href="#content">Start lesson</a>
+      <a class="btn btn-outline" href="/foundations/">Back to Foundations</a>
+    </div>
+
   </div>
 </section>
 
+<!-- CONTENT -->
+<section class="section" id="content">
 
-<section class="section">
-  <div class="content-narrow">
-    <h2>What you will learn</h2>
+  <!-- CORE IDEA -->
+  <div class="section-block">
+    <h2>The Core Idea</h2>
+
+    <p>
+      Numerical data comes in two fundamentally different forms:
+    </p>
 
     <ul class="bullets">
-      <li>What discrete data are and how they arise.</li>
-      <li>What continuous data are and how they differ conceptually.</li>
-      <li>Why rounding does not make continuous data discrete.</li>
-      <li>Why statistical methods depend on this distinction.</li>
+      <li><strong>Discrete</strong> → countable values</li>
+      <li><strong>Continuous</strong> → measurable values</li>
+    </ul>
+
+    <p>
+      This distinction determines:
+    </p>
+
+    <ul class="bullets">
+      <li>which probability models are valid</li>
+      <li>how data is visualized</li>
+      <li>what statistical methods can be used</li>
     </ul>
   </div>
+
+  <!-- DISCRETE -->
+  <div class="section-block">
+    <h2>Discrete Data</h2>
+
+    <p>
+      Discrete data consists of <strong>separate, countable values</strong>.
+    </p>
+
+    <p>
+      There are gaps between possible values.
+    </p>
+
+    <p><strong>Examples:</strong></p>
+
+    <ul class="bullets">
+      <li>Number of students (20, 21, 22)</li>
+      <li>Number of errors (0, 1, 2, 3)</li>
+      <li>Number of cars in a parking lot</li>
+    </ul>
+
+    <p><strong>Key property:</strong></p>
+
+    <ul class="bullets">
+      <li>You cannot have fractions between values</li>
+    </ul>
+
+    <p>
+      Example: 2.5 students ❌
+    </p>
+  </div>
+
+  <!-- CONTINUOUS -->
+  <div class="section-block">
+    <h2>Continuous Data</h2>
+
+    <p>
+      Continuous data consists of <strong>measurable values</strong>.
+    </p>
+
+    <p>
+      Values can take any number within a range.
+    </p>
+
+    <p><strong>Examples:</strong></p>
+
+    <ul class="bullets">
+      <li>Height (170.2 cm, 170.25 cm, 170.251 cm)</li>
+      <li>Weight (65.3 kg)</li>
+      <li>Time (2.5 seconds)</li>
+    </ul>
+
+    <p><strong>Key property:</strong></p>
+
+    <ul class="bullets">
+      <li>Infinite possible values between any two points</li>
+    </ul>
+  </div>
+
+  <!-- VISUAL DIFFERENCE -->
+  <div class="section-block">
+    <h2>Conceptual Difference</h2>
+
+    <p>
+      Think of it this way:
+    </p>
+
+    <ul class="bullets">
+      <li><strong>Discrete:</strong> points on a number line</li>
+      <li><strong>Continuous:</strong> a full line with no gaps</li>
+    </ul>
+
+    <p>
+      Discrete = counting  
+      Continuous = measuring
+    </p>
+  </div>
+
+  <!-- IMPORTANT INSIGHT -->
+  <div class="section-block">
+    <h2>Important Insight</h2>
+
+    <p>
+      The difference is not about decimals.
+    </p>
+
+    <p><strong>Example:</strong></p>
+
+    <ul class="bullets">
+      <li>Age = 25 → looks discrete</li>
+      <li>But real age = 25.3, 25.31, 25.312 → continuous</li>
+    </ul>
+
+    <p>
+      Many variables that look discrete are actually continuous,
+      but are recorded in rounded form.
+    </p>
+  </div>
+
+  <!-- TABLE -->
+  <div class="section-block">
+    <h2>Comparison Table</h2>
+
+    <table style="width:100%; border-collapse:collapse;">
+      <thead>
+        <tr style="background:#f3f4f6;">
+          <th style="padding:10px; border:1px solid #ddd;">Feature</th>
+          <th style="padding:10px; border:1px solid #ddd;">Discrete</th>
+          <th style="padding:10px; border:1px solid #ddd;">Continuous</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding:10px; border:1px solid #ddd;">Nature</td>
+          <td style="padding:10px; border:1px solid #ddd;">Countable</td>
+          <td style="padding:10px; border:1px solid #ddd;">Measurable</td>
+        </tr>
+        <tr>
+          <td style="padding:10px; border:1px solid #ddd;">Values</td>
+          <td style="padding:10px; border:1px solid #ddd;">Separate</td>
+          <td style="padding:10px; border:1px solid #ddd;">Continuous range</td>
+        </tr>
+        <tr>
+          <td style="padding:10px; border:1px solid #ddd;">Example</td>
+          <td style="padding:10px; border:1px solid #ddd;">Number of students</td>
+          <td style="padding:10px; border:1px solid #ddd;">Height</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- WHY IT MATTERS -->
+  <div class="section-block">
+    <h2>Why This Matters</h2>
+
+    <p>
+      This distinction affects:
+    </p>
+
+    <ul class="bullets">
+      <li>Probability models (Binomial vs Normal)</li>
+      <li>Graphs (bar chart vs histogram)</li>
+      <li>Statistical methods</li>
+    </ul>
+
+    <p>
+      Using the wrong type leads to incorrect analysis.
+    </p>
+  </div>
+
+  <!-- NUMERICAL EXAMPLE -->
+  <div class="section-block">
+    <h2>Example</h2>
+
+    <p><strong>Dataset:</strong></p>
+
+    <ul class="bullets">
+      <li>Number of children: 0, 1, 2, 3 → discrete</li>
+      <li>Weight: 60.2, 61.8, 59.5 → continuous</li>
+    </ul>
+
+    <p>
+      These require completely different modeling approaches.
+    </p>
+  </div>
+
+  <!-- KEY INSIGHT -->
+  <div class="section-block">
+    <h2>Key Insight</h2>
+
+    <p>
+      Always ask:
+    </p>
+
+    <ul class="bullets">
+      <li>Am I counting or measuring?</li>
+    </ul>
+
+    <p>
+      That single question determines the correct classification.
+    </p>
+  </div>
+
+  <!-- NEXT -->
+  <div class="section-block">
+    <h2>What Comes Next?</h2>
+
+    <p>
+      Next, we study a very special case of data:
+    </p>
+
+    <ul class="bullets">
+      <li>Binary data (yes/no, success/failure)</li>
+    </ul>
+
+    <p>
+      This type is extremely important in statistics and machine learning.
+    </p>
+  </div>
+
 </section>
 
+<!-- NAVIGATION -->
+<section class="section section-slim">
+  <div class="callout">
 
-<section class="section">
-  <div class="content-narrow">
-    <h2>The core distinction</h2>
+    <div class="callout-copy">
+      <h2>Next steps</h2>
 
-    <div style="margin:24px 0;">
-      <div style="max-width:900px; margin:auto; overflow-x:auto;">
-        <table style="width:100%; border-collapse:collapse; background:#ffffff; border-radius:10px; overflow:hidden; box-shadow:0 4px 10px rgba(0,0,0,0.05);">
-          <thead style="background:#f1f3f5;">
-            <tr>
-              <th style="padding:14px 16px; text-align:left; font-weight:600;">Discrete Data</th>
-              <th style="padding:14px 16px; text-align:left; font-weight:600;">Continuous Data</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr style="border-top:1px solid #e9ecef;">
-              <td style="padding:12px 16px;">Arise from counting</td>
-              <td style="padding:12px 16px;">Arise from measurement</td>
-            </tr>
-            <tr style="border-top:1px solid #e9ecef;">
-              <td style="padding:12px 16px;">Take separate, distinct values</td>
-              <td style="padding:12px 16px;">Can take any value within a range</td>
-            </tr>
-            <tr style="border-top:1px solid #e9ecef;">
-              <td style="padding:12px 16px;">Gaps exist between possible values</td>
-              <td style="padding:12px 16px;">No conceptual gaps between values</td>
-            </tr>
-            <tr style="border-top:1px solid #e9ecef;">
-              <td style="padding:12px 16px;">Example: number of customers</td>
-              <td style="padding:12px 16px;">Example: height, time, temperature</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="hero-actions">
+
+        <a class="btn btn-outline" href="/foundations/types-of-data/">
+          ← Previous: Types of Data
+        </a>
+
+        <a class="btn btn-outline" href="/foundations/">
+          Foundations Home
+        </a>
+
+        <a class="btn" href="/foundations/binary-data/">
+          Next: Binary Data →
+        </a>
+
       </div>
+
     </div>
 
-  </div>
-</section>
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Visual intuition</h2>
-
-    <div style="margin:20px 0; text-align:center;">
-      <svg width="100%" height="260" viewBox="0 0 900 260" xmlns="http://www.w3.org/2000/svg">
-
-        <text x="220" y="30" text-anchor="middle" font-size="18" font-weight="700">
-          Discrete
-        </text>
-
-        <line x1="60" y1="150" x2="380" y2="150" stroke="#333" stroke-width="2"/>
-
-        <circle cx="120" cy="150" r="6" fill="#1c7ed6"/>
-        <circle cx="200" cy="150" r="6" fill="#1c7ed6"/>
-        <circle cx="280" cy="150" r="6" fill="#1c7ed6"/>
-
-        <text x="680" y="30" text-anchor="middle" font-size="18" font-weight="700">
-          Continuous
-        </text>
-
-        <line x1="520" y1="150" x2="840" y2="150" stroke="#f08c00" stroke-width="4"/>
-
-      </svg>
-
-      <p style="font-size:14px; color:#666; margin-top:10px;">
-        Discrete values appear as separate points.
-        Continuous values form an unbroken line.
-      </p>
-    </div>
-
-  </div>
-</section>
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Measurement vs rounding</h2>
-
-    <p>
-      Continuous variables are often recorded with limited precision.
-      For example, height may be recorded as 172 cm.
-    </p>
-
-    <p>
-      However, rounding does not make the underlying variable discrete.
-      Height remains conceptually continuous.
-    </p>
-
-    <p>
-      The distinction depends on the nature of the phenomenon,
-      not on how many decimal places are recorded.
-    </p>
-  </div>
-</section>
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Why this matters for statistical methods</h2>
-
-    <ul class="bullets">
-      <li>Count data often use probability models like Binomial or Poisson.</li>
-      <li>Continuous data often use Normal-based models.</li>
-      <li>Visualization differs (bar charts vs histograms).</li>
-      <li>Interpretation differs (counts vs measured magnitudes).</li>
-    </ul>
-
-    <p>
-      Choosing a method that does not match the data type
-      can produce misleading conclusions even if calculations are correct.
-    </p>
-  </div>
-</section>
-
-
-<section class="section section-soft">
-  <div class="content-narrow">
-    <h2>Key idea to remember</h2>
-
-    <p>
-      Discrete data arise from counting.
-      Continuous data arise from measurement.
-      The distinction is conceptual and determines valid analysis methods.
-    </p>
-  </div>
-</section>
-
-
-<section class="section section-next">
-  <div class="content-narrow">
-    <h2>Simple summary</h2>
-
-    <p>
-      Discrete values are separate and countable.
-      Continuous values form an unbroken range.
-      Understanding this difference is essential for statistical modeling.
-    </p>
-  </div>
-</section>
-
-
-<section class="section section-next">
-  <div class="content-narrow">
-    <h2>What comes next</h2>
-
-    <p>
-      The next lesson focuses on <strong>binary data</strong>,
-      explaining why binary variables are a special case
-      and how they are treated in statistical analysis.
-    </p>
-
-    <a class="btn btn-primary" href="/foundations/binary-data/">
-      Next: Binary Data
-    </a>
   </div>
 </section>
