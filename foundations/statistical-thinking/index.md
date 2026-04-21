@@ -1,274 +1,255 @@
 ---
 layout: default
 title: Statistical Thinking vs Deterministic Thinking
-description: Understanding the difference between deterministic and statistical thinking, and why variability and uncertainty matter.
+description: Understand the difference between deterministic and statistical thinking, and why uncertainty is central to statistics.
 permalink: /foundations/statistical-thinking-vs-deterministic-thinking/
-section: foundations
-lesson_order: 3
+sidebar: false
 ---
 
-<meta name="esa-section" content="foundations">
-<meta name="esa-lesson-title" content="Statistical Thinking vs Deterministic Thinking">
-<meta name="esa-lesson-url" content="/foundations/statistical-thinking-vs-deterministic-thinking/">
-
-<a class="btn btn-primary" href="/foundations/what-statistics-is-not/">
-  Previous: What Statistics Is Not
-</a>
-
-<section class="hero hero-lesson">
+<!-- HERO -->
+<section class="hero hero-section">
   <div class="hero-card">
-    <h1>Statistical Thinking vs Deterministic Thinking</h1>
 
-    <div style="background:#fff3cd; border:1px solid #ffeeba; padding:12px 14px; margin:14px 0; border-radius:8px;">
-      <strong>🚧 Under Construction</strong> — This lesson is being expanded with numerical examples and visual illustrations to clarify how variability changes the way we reason.
+    <div class="badge-row">
+      <span class="badge">Foundations</span>
+      <span class="badge">Thinking</span>
+      <span class="badge">Core concept</span>
     </div>
 
+    <h1>Statistical Thinking vs Deterministic Thinking</h1>
+
     <p class="lead">
-      This lesson explains the difference between deterministic and statistical thinking,
-      and why statistics is necessary in a world with variability and uncertainty.
+      Learn the key difference between exact reasoning and reasoning under uncertainty — 
+      the foundation of all statistical methods.
     </p>
 
-    <p class="muted-mini">
-      Section: <strong>Statistics Foundations</strong> • Lesson 3
-    </p>
+    <div class="hero-actions">
+      <a class="btn" href="#content">Start lesson</a>
+      <a class="btn btn-outline" href="/foundations/">Back to Foundations</a>
+    </div>
+
   </div>
 </section>
 
-<section class="section">
-  <div class="content-narrow">
-    <h2>What you will learn</h2>
+<!-- CONTENT -->
+<section class="section" id="content">
+
+  <!-- INTUITION -->
+  <div class="section-block">
+    <h2>The Core Idea</h2>
+
+    <p>
+      There are two fundamentally different ways to think about the world:
+    </p>
 
     <ul class="bullets">
-      <li>The difference between deterministic and variable systems.</li>
-      <li>Why variability is unavoidable in real-world data.</li>
-      <li>Why averages alone are not enough.</li>
-      <li>Why replication and multiple observations matter.</li>
-      <li>Why relying on a single number can be misleading.</li>
+      <li><strong>Deterministic thinking</strong> → outcomes are exact and predictable</li>
+      <li><strong>Statistical thinking</strong> → outcomes involve uncertainty and variability</li>
     </ul>
-  </div>
-</section>
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Why this topic matters</h2>
 
     <p>
-      Many errors in reasoning occur when uncertain systems are treated
-      as if they were deterministic.
-    </p>
-
-    <p>
-      Expecting exact repetition, perfect prediction, or single-number summaries
-      leads to overconfidence and flawed decisions.
-    </p>
-
-    <p>
-      Statistical thinking provides a disciplined way to reason
-      when outcomes vary and certainty is impossible.
+      Statistics exists because the real world is not perfectly predictable.
     </p>
   </div>
-</section>
 
-<section class="section">
-  <div class="content-narrow">
-    <h2>Deterministic systems</h2>
+  <!-- DETERMINISTIC -->
+  <div class="section-block">
+    <h2>Deterministic Thinking</h2>
 
     <p>
-      In a deterministic system, the same input always produces the same output.
-      There is no randomness or unexplained variation.
+      In deterministic systems, the same input always produces the same output.
     </p>
 
     <p>
-      Examples include mathematical equations, certain physical laws under controlled conditions,
-      and computer algorithms with fixed instructions.
+      Example:
     </p>
 
-    <p>
-      If all conditions are known, the outcome can be predicted exactly.
-    </p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Random and variable systems</h2>
+    <ul class="bullets">
+      <li>2 + 3 = 5</li>
+      <li>Area of a square = side²</li>
+      <li>Physics formula under ideal conditions</li>
+    </ul>
 
     <p>
-      In many real-world systems, outcomes vary even when conditions appear similar.
+      There is:
     </p>
 
-    <p>
-      Human behavior, biological responses, economic markets, and measurements
-      all involve uncontrolled influences.
-    </p>
+    <ul class="bullets">
+      <li>No randomness</li>
+      <li>No uncertainty</li>
+      <li>No variation</li>
+    </ul>
 
     <p>
-      Repeated observations do not produce identical results.
-      This variability is not a mistake—it is a feature of the system.
+      This is the world of mathematics and exact laws.
     </p>
   </div>
-</section>
 
-<section class="section">
-  <div class="content-narrow">
-    <h2>Deterministic vs Statistical Thinking</h2>
+  <!-- STATISTICAL -->
+  <div class="section-block">
+    <h2>Statistical Thinking</h2>
 
-    <div style="margin:24px 0;">
-  <div style="max-width:850px; margin:auto; overflow-x:auto;">
-    <table style="width:100%; border-collapse:collapse; background:#ffffff; border-radius:10px; overflow:hidden; box-shadow:0 4px 10px rgba(0,0,0,0.05);">
-      <thead style="background:#f1f3f5;">
-        <tr>
-          <th style="padding:14px 16px; text-align:left; font-weight:600;">Deterministic Thinking</th>
-          <th style="padding:14px 16px; text-align:left; font-weight:600;">Statistical Thinking</th>
+    <p>
+      In statistical systems, the same input can produce different outcomes.
+    </p>
+
+    <p>
+      Example:
+    </p>
+
+    <ul class="bullets">
+      <li>Two students study the same amount → different exam scores</li>
+      <li>Patients receive the same treatment → different responses</li>
+      <li>Daily temperature fluctuates even under similar conditions</li>
+    </ul>
+
+    <p>
+      This happens because of:
+    </p>
+
+    <ul class="bullets">
+      <li>Random variation</li>
+      <li>Unobserved factors</li>
+      <li>Measurement noise</li>
+    </ul>
+
+    <p>
+      Statistical thinking focuses on:
+      <strong>patterns, tendencies, and distributions — not exact outcomes.</strong>
+    </p>
+  </div>
+
+  <!-- NUMERICAL EXAMPLE -->
+  <div class="section-block">
+    <h2>Numerical Example</h2>
+
+    <p>
+      Suppose we measure the height of 5 people:
+    </p>
+
+    <p>
+      170, 172, 168, 175, 169
+    </p>
+
+    <p>
+      Deterministic thinking asks:
+      <strong>“What is the exact height?”</strong>
+    </p>
+
+    <p>
+      Statistical thinking asks:
+    </p>
+
+    <ul class="bullets">
+      <li>What is the average height?</li>
+      <li>How much do heights vary?</li>
+      <li>What is the distribution?</li>
+    </ul>
+
+    <p>
+      Instead of one exact answer, we describe the data as a whole.
+    </p>
+  </div>
+
+  <!-- KEY DIFFERENCES -->
+  <div class="section-block">
+    <h2>Key Differences</h2>
+
+    <table style="width:100%; border-collapse:collapse; margin-top:10px;">
+      <thead>
+        <tr style="background:#f3f4f6;">
+          <th style="padding:10px; border:1px solid #ddd;">Deterministic Thinking</th>
+          <th style="padding:10px; border:1px solid #ddd;">Statistical Thinking</th>
         </tr>
       </thead>
       <tbody>
-        <tr style="border-top:1px solid #e9ecef;">
-          <td style="padding:12px 16px;">Same input → same output</td>
-          <td style="padding:12px 16px;">Same input → distribution of possible outcomes</td>
+        <tr>
+          <td style="padding:10px; border:1px solid #ddd;">Exact answers</td>
+          <td style="padding:10px; border:1px solid #ddd;">Approximate answers</td>
         </tr>
-        <tr style="border-top:1px solid #e9ecef;">
-          <td style="padding:12px 16px;">Focus on exact results</td>
-          <td style="padding:12px 16px;">Focus on patterns and variability</td>
+        <tr>
+          <td style="padding:10px; border:1px solid #ddd;">No uncertainty</td>
+          <td style="padding:10px; border:1px solid #ddd;">Uncertainty is central</td>
         </tr>
-        <tr style="border-top:1px solid #e9ecef;">
-          <td style="padding:12px 16px;">Single observation may suffice</td>
-          <td style="padding:12px 16px;">Multiple observations required</td>
+        <tr>
+          <td style="padding:10px; border:1px solid #ddd;">Single outcome</td>
+          <td style="padding:10px; border:1px solid #ddd;">Range of outcomes</td>
         </tr>
-        <tr style="border-top:1px solid #e9ecef;">
-          <td style="padding:12px 16px;">Certainty expected</td>
-          <td style="padding:12px 16px;">Uncertainty quantified</td>
+        <tr>
+          <td style="padding:10px; border:1px solid #ddd;">Predictable</td>
+          <td style="padding:10px; border:1px solid #ddd;">Variable</td>
         </tr>
       </tbody>
     </table>
   </div>
-</div>
+
+  <!-- WHY IMPORTANT -->
+  <div class="section-block">
+    <h2>Why This Matters</h2>
+
+    <p>
+      Many beginners make a critical mistake:
+      they try to apply deterministic thinking to statistical problems.
+    </p>
+
+    <p>
+      This leads to:
+    </p>
+
+    <ul class="bullets">
+      <li>expecting exact answers</li>
+      <li>misinterpreting results</li>
+      <li>misunderstanding uncertainty</li>
+    </ul>
+
+    <p>
+      Correct statistical thinking accepts that:
+      <strong>variation is normal, not an error.</strong>
+    </p>
   </div>
+
+  <!-- CONNECTION -->
+  <div class="section-block">
+    <h2>Connection to Future Topics</h2>
+
+    <p>
+      This idea is the foundation of:
+    </p>
+
+    <ul class="bullets">
+      <li>Probability (modeling uncertainty)</li>
+      <li>Inference (drawing conclusions from samples)</li>
+      <li>Machine Learning (predicting with imperfect data)</li>
+    </ul>
+
+  </div>
+
 </section>
 
-<section class="section">
-  <div class="content-narrow">
-    <h2>Why averages alone are insufficient</h2>
+<!-- NAVIGATION -->
+<section class="section section-slim">
+  <div class="callout">
 
-    <p>
-      Two datasets can have the same average but behave very differently.
-    </p>
+    <div class="callout-copy">
+      <h2>Next steps</h2>
 
-    <div style="margin:24px 0;">
-  <div style="max-width:850px; margin:auto; overflow-x:auto;">
-    <table style="width:100%; border-collapse:collapse; background:#ffffff; border-radius:10px; overflow:hidden; box-shadow:0 4px 10px rgba(0,0,0,0.05);">
-      <thead style="background:#f1f3f5;">
-        <tr>
-          <th style="padding:14px 16px; text-align:left; font-weight:600;">Dataset A</th>
-          <th style="padding:14px 16px; text-align:left; font-weight:600;">Dataset B</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr style="border-top:1px solid #e9ecef;">
-          <td style="padding:12px 16px;">8, 9, 10, 11, 12</td>
-          <td style="padding:12px 16px;">2, 5, 10, 15, 18</td>
-        </tr>
-        <tr style="border-top:1px solid #e9ecef;">
-          <td style="padding:12px 16px;">Mean = 10</td>
-          <td style="padding:12px 16px;">Mean = 10</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
+      <div class="hero-actions">
 
-    <p>
-      Although both averages equal 10, Dataset B shows much greater variability.
-      Statistical thinking asks not only “What is the average?” but also
-      “How spread out are the values?”
-    </p>
-  </div>
-</section>
+        <a class="btn btn-outline" href="/foundations/what-statistics-is-not/">
+          ← Previous: What Statistics Is Not
+        </a>
 
-<section class="section">
-  <div class="content-narrow">
-    <h2>Real-world illustration</h2>
+        <a class="btn btn-outline" href="/foundations/">
+          Foundations Home
+        </a>
 
-    <p>
-      Consider measuring a patient’s blood pressure.
-      Even if the underlying health condition is stable,
-      repeated measurements will vary slightly.
-    </p>
+        <a class="btn" href="/foundations/statistical-questions/">
+          Next: Statistical Questions →
+        </a>
 
-    <p>
-      Deterministic thinking expects identical results.
-      Statistical thinking expects a range and evaluates the pattern.
-    </p>
-  </div>
-</section>
+      </div>
 
-<section class="section">
-  <div class="content-narrow">
-    <h2>Why replication matters</h2>
+    </div>
 
-    <p>
-      A single observation can be misleading.
-    </p>
-
-    <p>
-      Replication allows patterns to emerge and reduces the influence
-      of random fluctuations.
-    </p>
-
-    <p>
-      Statistical conclusions rely on repeated evidence,
-      not isolated outcomes.
-    </p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Why one number is never enough</h2>
-
-    <p>
-      Real data cannot be fully described by a single value.
-    </p>
-
-    <p>
-      Sound reasoning requires multiple summaries, context,
-      and awareness of uncertainty.
-    </p>
-
-    <p>
-      Statistical thinking resists oversimplification.
-    </p>
-  </div>
-</section>
-
-<section class="section section-soft">
-  <div class="content-narrow">
-    <h2>Key idea to remember</h2>
-
-    <p>
-      Deterministic thinking seeks certainty and exact repetition.
-      Statistical thinking accepts variability and reasons carefully
-      in the presence of uncertainty.
-    </p>
-  </div>
-</section>
-
-<section class="section section-next">
-  <div class="content-narrow">
-    <h2>Simple summary</h2>
-
-    <p>
-      Many real-world systems do not behave in perfectly predictable ways.
-      Statistics provides a framework for understanding patterns,
-      variability, and uncertainty instead of expecting exact outcomes.
-    </p>
-  </div>
-</section>
-
-<section class="section section-next">
-  <div class="content-narrow">
-    <a class="btn btn-primary" href="/foundations/statistical-questions/">
-      Next: Statistical Questions
-    </a>
   </div>
 </section>
