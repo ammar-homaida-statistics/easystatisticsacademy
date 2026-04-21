@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Binary Data
-description: Understand binary data (yes/no, success/failure) and why it is fundamental in statistics, probability, and machine learning.
-permalink: /foundations/binary-data/
+title: Discrete vs Continuous Data
+description: Understand the difference between discrete and continuous data and why it matters for probability, modeling, and analysis.
+permalink: /foundations/discrete-vs-continuous-data/
 sidebar: false
 ---
 
@@ -12,15 +12,15 @@ sidebar: false
 
     <div class="badge-row">
       <span class="badge">Foundations</span>
-      <span class="badge">Special case</span>
+      <span class="badge">Numerical data</span>
       <span class="badge">Very important</span>
     </div>
 
-    <h1>Binary Data</h1>
+    <h1>Discrete vs Continuous Data</h1>
 
     <p class="lead">
-      Learn how yes/no data works — one of the most important data types in statistics,
-      probability, and machine learning.
+      Learn the difference between countable and measurable data —
+      a key distinction for probability, distributions, and modeling.
     </p>
 
     <div class="hero-actions">
@@ -39,150 +39,188 @@ sidebar: false
     <h2>The Core Idea</h2>
 
     <p>
-      Binary data is a special type of data with only two possible outcomes.
+      Numerical data comes in two fundamentally different forms:
     </p>
 
     <ul class="bullets">
-      <li>Yes / No</li>
-      <li>Success / Failure</li>
-      <li>True / False</li>
-      <li>0 / 1</li>
+      <li><strong>Discrete</strong> → countable values</li>
+      <li><strong>Continuous</strong> → measurable values</li>
     </ul>
 
     <p>
-      Even though it often uses numbers (0 and 1), it is fundamentally
-      <strong>categorical data</strong>.
-    </p>
-  </div>
-
-  <!-- EXAMPLES -->
-  <div class="section-block">
-    <h2>Examples of Binary Data</h2>
-
-    <ul class="bullets">
-      <li>Passed exam: Yes / No</li>
-      <li>Has disease: Yes / No</li>
-      <li>Clicked ad: Yes / No</li>
-      <li>Customer churn: Stayed / Left</li>
-    </ul>
-
-    <p>
-      Binary variables appear everywhere in real-world data.
-    </p>
-  </div>
-
-  <!-- CODING -->
-  <div class="section-block">
-    <h2>Numerical Coding (0 and 1)</h2>
-
-    <p>
-      Binary data is often coded as:
+      This distinction determines:
     </p>
 
     <ul class="bullets">
-      <li>1 = Yes / Success</li>
-      <li>0 = No / Failure</li>
+      <li>which probability models are valid</li>
+      <li>how data is visualized</li>
+      <li>what statistical methods can be used</li>
+    </ul>
+  </div>
+
+  <!-- DISCRETE -->
+  <div class="section-block">
+    <h2>Discrete Data</h2>
+
+    <p>
+      Discrete data consists of <strong>separate, countable values</strong>.
+    </p>
+
+    <p>
+      There are gaps between possible values.
+    </p>
+
+    <p><strong>Examples:</strong></p>
+
+    <ul class="bullets">
+      <li>Number of students (20, 21, 22)</li>
+      <li>Number of errors (0, 1, 2, 3)</li>
+      <li>Number of cars in a parking lot</li>
+    </ul>
+
+    <p><strong>Key property:</strong></p>
+
+    <ul class="bullets">
+      <li>You cannot have fractions between values</li>
     </ul>
 
     <p>
-      This allows mathematical operations — but does not change the type.
-    </p>
-
-    <p>
-      It is still <strong>categorical</strong>, not continuous.
+      Example: 2.5 students ❌
     </p>
   </div>
 
-  <!-- IMPORTANT PROPERTY -->
+  <!-- CONTINUOUS -->
   <div class="section-block">
-    <h2>Important Property</h2>
+    <h2>Continuous Data</h2>
 
     <p>
-      The mean of binary data has a special interpretation.
-    </p>
-
-    <p><strong>Example:</strong></p>
-
-    <p>
-      Data: 1, 0, 1, 1, 0
+      Continuous data consists of <strong>measurable values</strong>.
     </p>
 
     <p>
-      Mean = (1 + 0 + 1 + 1 + 0) / 5 = 0.6
+      Values can take any number within a range.
     </p>
 
+    <p><strong>Examples:</strong></p>
+
+    <ul class="bullets">
+      <li>Height (170.2 cm, 170.25 cm, 170.251 cm)</li>
+      <li>Weight (65.3 kg)</li>
+      <li>Time (2.5 seconds)</li>
+    </ul>
+
+    <p><strong>Key property:</strong></p>
+
+    <ul class="bullets">
+      <li>Infinite possible values between any two points</li>
+    </ul>
+  </div>
+
+  <!-- VISUAL DIFFERENCE -->
+  <div class="section-block">
+    <h2>Conceptual Difference</h2>
+
     <p>
-      This means:
+      Think of it this way:
     </p>
 
     <ul class="bullets">
-      <li>60% of observations are “success”</li>
+      <li><strong>Discrete:</strong> points on a number line</li>
+      <li><strong>Continuous:</strong> a full line with no gaps</li>
     </ul>
 
     <p>
-      So the mean of binary data = <strong>proportion</strong>.
+      Discrete = counting  
+      Continuous = measuring
     </p>
   </div>
 
-  <!-- LINK TO PROBABILITY -->
+  <!-- IMPORTANT INSIGHT -->
   <div class="section-block">
-    <h2>Connection to Probability</h2>
+    <h2>Important Insight</h2>
 
     <p>
-      Binary data is the foundation of probability models.
-    </p>
-
-    <ul class="bullets">
-      <li>Single trial → Bernoulli distribution</li>
-      <li>Multiple trials → Binomial distribution</li>
-    </ul>
-
-    <p>
-      This is why binary data is central to statistics.
-    </p>
-  </div>
-
-  <!-- LINK TO ML -->
-  <div class="section-block">
-    <h2>Connection to Machine Learning</h2>
-
-    <p>
-      Many machine learning problems are binary:
-    </p>
-
-    <ul class="bullets">
-      <li>Spam vs Not spam</li>
-      <li>Fraud vs Not fraud</li>
-      <li>Disease vs Healthy</li>
-    </ul>
-
-    <p>
-      These are called <strong>binary classification problems</strong>.
-    </p>
-  </div>
-
-  <!-- COMMON MISTAKE -->
-  <div class="section-block">
-    <h2>Common Mistake</h2>
-
-    <p>
-      Treating binary data as continuous.
+      The difference is not about decimals.
     </p>
 
     <p><strong>Example:</strong></p>
 
     <ul class="bullets">
-      <li>Using methods designed for continuous data ❌</li>
-      <li>Ignoring its categorical nature ❌</li>
+      <li>Age = 25 → looks discrete</li>
+      <li>But real age = 25.3, 25.31, 25.312 → continuous</li>
     </ul>
 
     <p>
-      Always remember:
+      Many variables that look discrete are actually continuous,
+      but are recorded in rounded form.
+    </p>
+  </div>
+
+  <!-- TABLE -->
+  <div class="section-block">
+    <h2>Comparison Table</h2>
+
+    <table style="width:100%; border-collapse:collapse;">
+      <thead>
+        <tr style="background:#f3f4f6;">
+          <th style="padding:10px; border:1px solid #ddd;">Feature</th>
+          <th style="padding:10px; border:1px solid #ddd;">Discrete</th>
+          <th style="padding:10px; border:1px solid #ddd;">Continuous</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding:10px; border:1px solid #ddd;">Nature</td>
+          <td style="padding:10px; border:1px solid #ddd;">Countable</td>
+          <td style="padding:10px; border:1px solid #ddd;">Measurable</td>
+        </tr>
+        <tr>
+          <td style="padding:10px; border:1px solid #ddd;">Values</td>
+          <td style="padding:10px; border:1px solid #ddd;">Separate</td>
+          <td style="padding:10px; border:1px solid #ddd;">Continuous range</td>
+        </tr>
+        <tr>
+          <td style="padding:10px; border:1px solid #ddd;">Example</td>
+          <td style="padding:10px; border:1px solid #ddd;">Number of students</td>
+          <td style="padding:10px; border:1px solid #ddd;">Height</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- WHY IT MATTERS -->
+  <div class="section-block">
+    <h2>Why This Matters</h2>
+
+    <p>
+      This distinction affects:
     </p>
 
     <ul class="bullets">
-      <li>Binary = categorical with two levels</li>
+      <li>Probability models (Binomial vs Normal)</li>
+      <li>Graphs (bar chart vs histogram)</li>
+      <li>Statistical methods</li>
     </ul>
+
+    <p>
+      Using the wrong type leads to incorrect analysis.
+    </p>
+  </div>
+
+  <!-- NUMERICAL EXAMPLE -->
+  <div class="section-block">
+    <h2>Example</h2>
+
+    <p><strong>Dataset:</strong></p>
+
+    <ul class="bullets">
+      <li>Number of children: 0, 1, 2, 3 → discrete</li>
+      <li>Weight: 60.2, 61.8, 59.5 → continuous</li>
+    </ul>
+
+    <p>
+      These require completely different modeling approaches.
+    </p>
   </div>
 
   <!-- KEY INSIGHT -->
@@ -190,15 +228,15 @@ sidebar: false
     <h2>Key Insight</h2>
 
     <p>
-      Binary data is simple — but extremely powerful.
+      Always ask:
     </p>
 
     <ul class="bullets">
-      <li>It connects data → probability → inference → machine learning</li>
+      <li>Am I counting or measuring?</li>
     </ul>
 
     <p>
-      Many advanced methods are built on this simple idea.
+      That single question determines the correct classification.
     </p>
   </div>
 
@@ -207,15 +245,15 @@ sidebar: false
     <h2>What Comes Next?</h2>
 
     <p>
-      Now we move to a deeper concept:
+      Next, we study a very special case of data:
     </p>
 
     <ul class="bullets">
-      <li>Measurement scales</li>
+      <li>Binary data (yes/no, success/failure)</li>
     </ul>
 
     <p>
-      This will determine what operations and analyses are valid.
+      This type is extremely important in statistics and machine learning.
     </p>
   </div>
 
@@ -230,16 +268,16 @@ sidebar: false
 
       <div class="hero-actions">
 
-        <a class="btn btn-outline" href="/foundations/discrete-vs-continuous-data/">
-          ← Previous: Discrete vs Continuous
+        <a class="btn btn-outline" href="/foundations/types-of-data/">
+          ← Previous: Types of Data
         </a>
 
         <a class="btn btn-outline" href="/foundations/">
           Foundations Home
         </a>
 
-        <a class="btn" href="/foundations/measurement-scales/">
-          Next: Measurement Scales →
+        <a class="btn" href="/foundations/binary-data/">
+          Next: Binary Data →
         </a>
 
       </div>
