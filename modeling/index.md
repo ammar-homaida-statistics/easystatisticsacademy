@@ -32,9 +32,16 @@ sidebar: false
       </p>
 
       <div class="hero-actions">
-        <a class="btn" href="#blocks">Start Learning</a>
-        <a class="btn btn-outline" href="/software/">Next: Software</a>
-      </div>
+  <a class="btn" href="#blocks">Start Learning</a>
+
+  <a class="btn btn-outline" href="/software/">
+    Next (Beginner): Software
+  </a>
+
+  <a class="btn btn-outline" href="/applied-statistics/">
+    Next (Intermediate): Applied Statistics
+  </a>
+</div>
 
       <div style="background:#fff3cd; border:1px solid #ffeeba; padding:12px 14px; margin:14px 0; border-radius:8px;">
         <strong>🚧 Under Construction</strong> — This unit is being developed block-by-block
