@@ -1,37 +1,53 @@
 <header class="site-header">
 
-  <div class="container header-row">
+  <div class="container">
 
-    <!-- LEFT: BRAND -->
-    <a class="brand" href="/">
-      <img src="/images/brand/logo.png?v=2" alt="EasyStatisticsAcademy" />
-      <span class="brand-text">EasyStatisticsAcademy</span>
-    </a>
+    <!-- ===== TOP ROW ===== -->
+    <div class="header-top">
 
-    <!-- CENTER: NAV -->
-    <nav class="nav" aria-label="Primary navigation">
+      <!-- BRAND -->
+      <a class="brand" href="/">
+        <img src="/images/brand/logo.png?v=2" alt="EasyStatisticsAcademy" />
+        <span class="brand-text">EasyStatisticsAcademy</span>
+      </a>
 
-      <a href="/">Home</a>
+      <!-- SEARCH -->
+      <div class="header-search">
+        <input 
+          id="site-search"
+          type="search"
+          placeholder="Search topics…"
+          autocomplete="off"
+        />
+        <div id="search-results" class="search-results" hidden></div>
+      </div>
 
-      <a href="/learning-paths/beginner/">Beginner</a>
-      <a href="/learning-paths/intermediate/">Intermediate</a>
-      <a href="/learning-paths/advanced/">Advanced</a>
+      <!-- MOBILE TOGGLE -->
+      <button class="nav-toggle" aria-label="Toggle menu">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
 
-      <a href="/learning-paths/">Paths</a>
+    </div>
 
-      <a href="/about/">About</a>
+    <!-- ===== BOTTOM ROW ===== -->
+    <div class="header-bottom">
 
-    </nav>
+      <nav class="nav" aria-label="Primary navigation">
 
-    <!-- RIGHT: SEARCH -->
-    <div class="header-search">
-      <input 
-        id="site-search"
-        type="search"
-        placeholder="Search topics…"
-        autocomplete="off"
-      />
-      <div id="search-results" class="search-results" hidden></div>
+        <a href="/">Home</a>
+
+        <a href="/learning-paths/beginner/">Beginner</a>
+        <a href="/learning-paths/intermediate/">Intermediate</a>
+        <a href="/learning-paths/advanced/">Advanced</a>
+
+        <a href="/learning-paths/">Paths</a>
+
+        <a href="/about/">About</a>
+
+      </nav>
+
     </div>
 
   </div>
