@@ -1,250 +1,286 @@
 ---
 layout: default
 title: Populations
-description: Understanding what a population is, different types of populations, and why populations are usually unreachable in practice.
+description: Understand what a population is in statistics, including target vs accessible populations and why populations are usually unreachable.
 permalink: /foundations/populations/
-section: foundations
-lesson_order: 14
+sidebar: false
 ---
 
-<meta name="esa-section" content="foundations">
-<meta name="esa-lesson-title" content="Populations">
-<meta name="esa-lesson-url" content="/foundations/populations/">
-
-<a class="btn btn-primary" href="/foundations/what-you-can-and-cannot-do-with-each-scale/">
-  Previous: What You Can and Cannot Do With Each Scale
-</a>
-
-<section class="hero hero-lesson">
+<!-- HERO -->
+<section class="hero hero-section">
   <div class="hero-card">
+
+    <div class="badge-row">
+      <span class="badge">Foundations</span>
+      <span class="badge">Core concept</span>
+      <span class="badge">Inference base</span>
+    </div>
+
     <h1>Populations</h1>
 
-    <div style="background:#fff3cd; border:1px solid #ffeeba; padding:12px 14px; margin:14px 0; border-radius:8px;">
-      <strong>🚧 Under Construction</strong> — Conceptual examples and diagrams will be added.
-    </div>
-
     <p class="lead">
-      In statistics, the ultimate goal is to learn about populations.
-      However, populations are rarely fully observable.
-      Statistical reasoning exists because complete knowledge is usually impossible.
+      Learn what a population is in statistics — the complete set of units we want to understand,
+      and why we almost never observe it fully.
     </p>
 
-    <p class="muted-mini">
-      Section: <strong>Statistics Foundations</strong> • Lesson 14
-    </p>
-  </div>
-</section>
-
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>What you will learn</h2>
-
-    <ul class="bullets">
-      <li>What a population means in statistical reasoning.</li>
-      <li>The difference between finite and conceptual populations.</li>
-      <li>The distinction between target and accessible populations.</li>
-      <li>Why populations are usually unreachable in practice.</li>
-    </ul>
-  </div>
-</section>
-
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Why this topic matters</h2>
-
-    <p>
-      Statistical conclusions are never about just the data we observe.
-      They are about a broader population from which the data arise.
-    </p>
-
-    <p>
-      Confusing a dataset with a population leads to overconfidence,
-      incorrect generalization, and flawed decision-making.
-    </p>
-
-    <p>
-      Understanding populations clarifies what statistical inference
-      is trying to achieve.
-    </p>
-  </div>
-</section>
-
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Definition of a population</h2>
-
-    <p>
-      A population is the complete set of units of interest
-      in a statistical investigation.
-    </p>
-
-    <p>
-      These units may be individuals, objects, events,
-      time points, or measurements.
-    </p>
-
-    <p>
-      A population is defined conceptually by the research question,
-      not by what has been observed.
-    </p>
-  </div>
-</section>
-
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Finite vs conceptual populations</h2>
-
-    <div style="margin:24px 0;">
-      <div style="max-width:900px; margin:auto; overflow-x:auto;">
-        <table style="width:100%; border-collapse:collapse; background:#ffffff; border-radius:10px; overflow:hidden; box-shadow:0 4px 10px rgba(0,0,0,0.05); font-size:14px;">
-          <thead style="background:#f1f3f5;">
-            <tr>
-              <th style="padding:14px 16px; text-align:left; font-weight:600;">Finite Population</th>
-              <th style="padding:14px 16px; text-align:left; font-weight:600;">Conceptual Population</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr style="border-top:1px solid #e9ecef;">
-              <td style="padding:12px 16px;">Fixed, countable set</td>
-              <td style="padding:12px 16px;">Potentially infinite or theoretical set</td>
-            </tr>
-            <tr style="border-top:1px solid #e9ecef;">
-              <td style="padding:12px 16px;">Example: All students in a school this year</td>
-              <td style="padding:12px 16px;">Example: All possible future exam scores</td>
-            </tr>
-            <tr style="border-top:1px solid #e9ecef;">
-              <td style="padding:12px 16px;">May be fully enumerated (rarely practical)</td>
-              <td style="padding:12px 16px;">Cannot be fully observed by definition</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+    <div class="hero-actions">
+      <a class="btn" href="#content">Start lesson</a>
+      <a class="btn btn-outline" href="/foundations/">Back to Foundations</a>
     </div>
 
-    <p>
-      Conceptual populations are central to probability and inference.
-      Even when we study a finite group, we often reason about broader,
-      underlying processes.
-    </p>
   </div>
 </section>
 
+<!-- CONTENT -->
+<section class="section" id="content">
 
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Target vs accessible population</h2>
+  <!-- CORE IDEA -->
+  <div class="section-block">
+    <h2>The Core Idea</h2>
 
     <p>
-      The <strong>target population</strong> is the group we want
-      to draw conclusions about.
+      A <strong>population</strong> is the complete set of all units we want to study.
     </p>
 
     <p>
-      The <strong>accessible population</strong> is the portion
-      we can realistically reach or sample from.
+      It answers the question:
     </p>
-
-    <p>
-      When these differ, generalization becomes limited.
-      Statistical conclusions must reflect this limitation.
-    </p>
-  </div>
-</section>
-
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Why populations are usually unreachable</h2>
 
     <ul class="bullets">
-      <li>Cost and time constraints.</li>
-      <li>Geographic or practical limitations.</li>
-      <li>Ethical restrictions.</li>
-      <li>Conceptual infinity (e.g., future outcomes).</li>
+      <li>What is the full group we care about?</li>
     </ul>
 
     <p>
-      Statistics exists precisely because complete observation
-      of populations is rarely possible.
-    </p>
-
-    <p>
-      Instead, we rely on samples to learn about populations.
+      Statistics is always about learning something about a population.
     </p>
   </div>
-</section>
 
+  <!-- EXAMPLES -->
+  <div class="section-block">
+    <h2>Examples of Populations</h2>
 
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Conceptual principle</h2>
-
-    <p style="font-weight:600;">
-      Data are observed.  
-      Populations are inferred.
-    </p>
+    <ul class="bullets">
+      <li>All students in a university</li>
+      <li>All voters in a country</li>
+      <li>All patients with a disease</li>
+      <li>All transactions in a system</li>
+    </ul>
 
     <p>
-      Statistical reasoning bridges the gap
-      between limited data and broader populations.
+      The population depends on the research question.
     </p>
   </div>
-</section>
 
-
-
-<section class="section section-soft">
-  <div class="content-narrow">
-    <h2>Key idea to remember</h2>
+  <!-- IMPORTANT INSIGHT -->
+  <div class="section-block">
+    <h2>Important Insight</h2>
 
     <p>
-      A population is the full set of units of interest.
-      Because populations are usually unreachable,
-      statistics relies on indirect evidence.
+      Populations are often:
+    </p>
+
+    <ul class="bullets">
+      <li>Too large</li>
+      <li>Too expensive to observe</li>
+      <li>Sometimes impossible to access</li>
+    </ul>
+
+    <p>
+      That is why we use <strong>samples</strong> (next lesson).
     </p>
   </div>
-</section>
 
+  <!-- TYPES -->
+  <div class="section-block">
+    <h2>Types of Populations</h2>
 
-
-<section class="section section-next">
-  <div class="content-narrow">
-    <h2>Simple summary</h2>
+    <h3>1. Finite Population</h3>
 
     <p>
-      Populations define what we want to understand.
-      They may be finite or conceptual.
-      Since they are rarely fully observed,
-      statistical inference becomes necessary.
+      A population with a fixed number of units.
+    </p>
+
+    <p><strong>Example:</strong></p>
+
+    <ul class="bullets">
+      <li>All students in a classroom</li>
+    </ul>
+
+    <hr style="margin:20px 0;">
+
+    <h3>2. Infinite (Conceptual) Population</h3>
+
+    <p>
+      A population that is not physically limited or is defined theoretically.
+    </p>
+
+    <p><strong>Example:</strong></p>
+
+    <ul class="bullets">
+      <li>All possible coin toss outcomes</li>
+      <li>All future measurements of a process</li>
+    </ul>
+
+    <p>
+      These are common in probability and modeling.
     </p>
   </div>
-</section>
 
+  <!-- TARGET VS ACCESSIBLE -->
+  <div class="section-block">
+    <h2>Target vs Accessible Population</h2>
 
-
-<section class="section section-next">
-  <div class="content-narrow">
-    <h2>What comes next</h2>
+    <h3>Target Population</h3>
 
     <p>
-      The next lesson introduces <strong>samples</strong>,
-      explaining how samples approximate populations
-      and why sampling design determines reliability.
+      The full group you want to study.
     </p>
 
-    <a class="btn btn-primary" href="/foundations/samples/">
-      Next: Samples
-    </a>
+    <p><strong>Example:</strong></p>
+
+    <ul class="bullets">
+      <li>All adults in a country</li>
+    </ul>
+
+    <h3>Accessible Population</h3>
+
+    <p>
+      The part of the population you can actually reach.
+    </p>
+
+    <p><strong>Example:</strong></p>
+
+    <ul class="bullets">
+      <li>People reachable by your survey</li>
+    </ul>
+
+    <p>
+      These are often not the same — and this creates bias.
+    </p>
+  </div>
+
+  <!-- NUMERICAL EXAMPLE -->
+  <div class="section-block">
+    <h2>Example</h2>
+
+    <p>
+      Suppose we want to study:
+    </p>
+
+    <ul class="bullets">
+      <li>Average height of all university students</li>
+    </ul>
+
+    <p>
+      Population:
+    </p>
+
+    <ul class="bullets">
+      <li>All students in the university</li>
+    </ul>
+
+    <p>
+      In practice:
+    </p>
+
+    <ul class="bullets">
+      <li>We cannot measure everyone</li>
+    </ul>
+
+    <p>
+      So we take a sample (next lesson).
+    </p>
+  </div>
+
+  <!-- WHY IMPORTANT -->
+  <div class="section-block">
+    <h2>Why This Matters</h2>
+
+    <p>
+      Everything in statistics is about populations:
+    </p>
+
+    <ul class="bullets">
+      <li>We estimate population values</li>
+      <li>We test hypotheses about populations</li>
+      <li>We build models for populations</li>
+    </ul>
+
+    <p>
+      If you misunderstand the population, your conclusions will be wrong.
+    </p>
+  </div>
+
+  <!-- COMMON MISTAKE -->
+  <div class="section-block">
+    <h2>Common Mistake</h2>
+
+    <p>
+      Confusing the sample with the population.
+    </p>
+
+    <p>
+      Data ≠ population  
+      Data = only a part of the population
+    </p>
+  </div>
+
+  <!-- KEY INSIGHT -->
+  <div class="section-block">
+    <h2>Key Insight</h2>
+
+    <p>
+      Statistics is not about the data you have.
+    </p>
+
+    <p>
+      It is about the population you want to understand.
+    </p>
+  </div>
+
+  <!-- NEXT -->
+  <div class="section-block">
+    <h2>What Comes Next?</h2>
+
+    <p>
+      Now we study:
+    </p>
+
+    <ul class="bullets">
+      <li>Samples</li>
+    </ul>
+
+    <p>
+      This is how we actually study populations in practice.
+    </p>
+  </div>
+
+</section>
+
+<!-- NAVIGATION -->
+<section class="section section-slim">
+  <div class="callout">
+
+    <div class="callout-copy">
+      <h2>Next steps</h2>
+
+      <div class="hero-actions">
+
+        <a class="btn btn-outline" href="/foundations/measurement-scales/">
+          ← Previous: Measurement Scales
+        </a>
+
+        <a class="btn btn-outline" href="/foundations/">
+          Foundations Home
+        </a>
+
+        <a class="btn" href="/foundations/samples/">
+          Next: Samples →
+        </a>
+
+      </div>
+
+    </div>
+
   </div>
 </section>
