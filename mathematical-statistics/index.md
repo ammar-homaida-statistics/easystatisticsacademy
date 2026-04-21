@@ -28,17 +28,18 @@ sidebar: false
       </p>
 
       <p class="muted-mini">
-        7 structured blocks • Theory-focused • Bridge to inference
+        7 structured blocks • Theory-focused • Advanced track
       </p>
 
       <div class="hero-actions">
         <a class="btn" href="#blocks">Start Learning</a>
         <a class="btn btn-outline" href="/inference/">Next: Statistical Inference</a>
+        <a class="btn btn-outline" href="/machine-learning/">Next (Advanced): Machine Learning</a>
       </div>
 
       <div style="background:#eef5ff; border:1px solid #c5cae9; padding:12px 14px; margin:14px 0; border-radius:8px;">
         <strong>📐 Advanced Track</strong> — This unit is mathematically rigorous.
-        It focuses on theory, derivations, and formal justification of estimation methods.
+        It focuses on formal derivations, proofs, and theoretical justification of estimation methods.
       </div>
 
     </div>
@@ -93,7 +94,7 @@ sidebar: false
       <h3><a href="/mathematical-statistics/statistical-models/">Block 1 — Statistical Models</a></h3>
       <p>
         Formalize parametric models, parameter spaces, identifiability,
-        and the assumptions that define a statistical experiment.
+        and assumptions defining statistical experiments.
       </p>
       <a class="btn btn-outline" href="/mathematical-statistics/statistical-models/">Open block</a>
     </div>
@@ -102,7 +103,7 @@ sidebar: false
     <div class="card lesson-card">
       <h3><a href="/mathematical-statistics/likelihood-and-log-likelihood/">Block 2 — Likelihood Framework</a></h3>
       <p>
-        Define likelihood, log-likelihood, score functions,
+        Develop likelihood, log-likelihood, score functions,
         and information as the core structure of estimation.
       </p>
       <a class="btn btn-outline" href="/mathematical-statistics/likelihood-and-log-likelihood/">Open block</a>
@@ -112,7 +113,7 @@ sidebar: false
     <div class="card lesson-card">
       <h3><a href="/mathematical-statistics/maximum-likelihood-estimation/">Block 3 — Maximum Likelihood Estimation</a></h3>
       <p>
-        Derive estimators via likelihood equations and study their theoretical properties.
+        Derive estimators via likelihood equations and analyze their properties.
       </p>
       <a class="btn btn-outline" href="/mathematical-statistics/maximum-likelihood-estimation/">Open block</a>
     </div>
@@ -121,8 +122,7 @@ sidebar: false
     <div class="card lesson-card">
       <h3><a href="/mathematical-statistics/estimator-properties/">Block 4 — Estimator Properties</a></h3>
       <p>
-        Analyze bias, variance, mean squared error, consistency,
-        and efficiency of estimators.
+        Study bias, variance, MSE, consistency, and efficiency.
       </p>
       <a class="btn btn-outline" href="/mathematical-statistics/estimator-properties/">Open block</a>
     </div>
@@ -131,8 +131,7 @@ sidebar: false
     <div class="card lesson-card">
       <h3><a href="/mathematical-statistics/fisher-information-and-efficiency/">Block 5 — Fisher Information & Efficiency</a></h3>
       <p>
-        Study Fisher information and the Cramér–Rao lower bound
-        as limits of estimator performance.
+        Analyze Fisher information and the Cramér–Rao lower bound.
       </p>
       <a class="btn btn-outline" href="/mathematical-statistics/fisher-information-and-efficiency/">Open block</a>
     </div>
@@ -141,8 +140,7 @@ sidebar: false
     <div class="card lesson-card">
       <h3><a href="/mathematical-statistics/asymptotic-theory/">Block 6 — Asymptotic Theory</a></h3>
       <p>
-        Develop large-sample results: consistency, asymptotic normality,
-        Slutsky’s theorem, and the delta method.
+        Develop consistency, asymptotic normality, and delta method.
       </p>
       <a class="btn btn-outline" href="/mathematical-statistics/asymptotic-theory/">Open block</a>
     </div>
@@ -151,7 +149,7 @@ sidebar: false
     <div class="card lesson-card">
       <h3><a href="/mathematical-statistics/alternative-estimation-methods/">Block 7 — Alternative Estimation Methods</a></h3>
       <p>
-        Explore method of moments and alternative approaches to estimation.
+        Explore method of moments and alternative estimation approaches.
       </p>
       <a class="btn btn-outline" href="/mathematical-statistics/alternative-estimation-methods/">Open block</a>
     </div>
@@ -167,10 +165,10 @@ sidebar: false
       <h2>Goal of this unit</h2>
       <ul class="bullets">
         <li>Formalize statistical models and parameter spaces</li>
-        <li>Understand likelihood as the core estimation principle</li>
-        <li>Evaluate estimators using rigorous criteria</li>
-        <li>Derive asymptotic results that justify inference</li>
-        <li>Prepare for advanced inference and research work</li>
+        <li>Understand likelihood as the foundation of estimation</li>
+        <li>Evaluate estimators rigorously</li>
+        <li>Develop asymptotic reasoning</li>
+        <li>Prepare for advanced inference and machine learning</li>
       </ul>
     </div>
 
@@ -178,13 +176,13 @@ sidebar: false
       <div class="mini">
         <div class="mini-title">Prerequisite</div>
         <div class="mini-body">
-          Strong understanding of <strong>Probability</strong>
+          Strong foundation in <strong>Probability</strong>
         </div>
       </div>
       <div class="mini">
         <div class="mini-title">Next</div>
         <div class="mini-body">
-          Continue to <strong>Statistical Inference</strong>
+          Continue to <strong>Inference</strong> or <strong>Machine Learning</strong>
         </div>
       </div>
     </div>
@@ -192,7 +190,7 @@ sidebar: false
   </div>
 </section>
 
-<!-- CONTINUE SCRIPT -->
+<!-- CONTINUE READING SCRIPT -->
 <script>
 (function () {
   try {
@@ -214,5 +212,23 @@ sidebar: false
     wrap.style.display = "block";
 
   } catch (e) {}
+})();
+</script>
+
+<!-- SAVE LAST BLOCK -->
+<script>
+(function () {
+  const KEY = "esa_continue_ms_last_block_v0";
+
+  const links = document.querySelectorAll('.lesson-card h3 a');
+
+  links.forEach(function(link) {
+    link.addEventListener("click", function () {
+      localStorage.setItem(KEY, JSON.stringify({
+        url: link.getAttribute("href"),
+        label: link.textContent.trim()
+      }));
+    });
+  });
 })();
 </script>
