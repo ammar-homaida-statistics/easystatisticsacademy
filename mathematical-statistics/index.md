@@ -6,25 +6,12 @@ permalink: /mathematical-statistics/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#eef5ff; border:2px solid #3f51b5; padding:1.5rem; border-radius:10px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#1a237e; font-size:1.8rem; letter-spacing:0.5px;">
-        📐 Mathematical Statistics — Theory of Estimation
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#283593; line-height:1.6;">
-        This unit develops the formal theory behind statistical estimation.
-        We move from statistical models to likelihood, study properties of estimators,
-        and derive asymptotic results that power modern inference and machine learning.
-      </p>
-    </div>
-  </div>
-</section>
-
+<!-- HERO -->
 <section class="hero hero-section">
   <div class="hero-card hero-split">
+
     <div class="hero-copy">
+
       <div class="badge-row">
         <span class="badge">Estimation theory</span>
         <span class="badge">Likelihood</span>
@@ -33,56 +20,67 @@ sidebar: false
       </div>
 
       <h1>Mathematical Statistics</h1>
+
       <p class="lead">
-        Learn how estimators are constructed, evaluated, and justified.
-        Understand likelihood, efficiency, and asymptotic normality —
-        the theoretical backbone of statistical inference.
+        Develop the formal theory behind statistical estimation.
+        Learn how estimators are constructed, evaluated, and justified
+        through likelihood, efficiency, and asymptotic arguments.
+      </p>
+
+      <p class="muted-mini">
+        7 structured blocks • Theory-focused • Bridge to inference
       </p>
 
       <div class="hero-actions">
-        <a class="btn" href="/probability/">Prerequisite: Probability</a>
+        <a class="btn" href="#blocks">Start Learning</a>
         <a class="btn btn-outline" href="/inference/">Next: Statistical Inference</a>
       </div>
 
-      <p class="muted-mini">
-        This unit focuses strictly on estimation theory.
-        Hypothesis testing and confidence intervals are developed in the Inference section.
-      </p>
+      <div style="background:#eef5ff; border:1px solid #c5cae9; padding:12px 14px; margin:14px 0; border-radius:8px;">
+        <strong>📐 Advanced Track</strong> — This unit is mathematically rigorous.
+        It focuses on theory, derivations, and formal justification of estimation methods.
+      </div>
+
     </div>
 
     <div class="hero-panel">
       <div class="panel-card">
+
         <h2 class="panel-title">Suggested learning order</h2>
+
         <ol class="quickstart">
-          <li><a href="#blocks">Statistical models</a><span class="meta">Parametric structure</span></li>
-          <li><a href="#blocks">Likelihood framework</a><span class="meta">Core estimation engine</span></li>
-          <li><a href="#blocks">Maximum likelihood estimation</a><span class="meta">Constructing estimators</span></li>
-          <li><a href="#blocks">Estimator properties</a><span class="meta">Bias, variance, MSE</span></li>
-          <li><a href="#blocks">Fisher information & efficiency</a><span class="meta">Efficiency bounds</span></li>
-          <li><a href="#blocks">Asymptotic theory</a><span class="meta">Large-sample behavior</span></li>
-          <li><a href="#blocks">Alternative estimation methods</a><span class="meta">Beyond MLE</span></li>
+          <li>Statistical models</li>
+          <li>Likelihood framework</li>
+          <li>Maximum likelihood estimation</li>
+          <li>Estimator properties</li>
+          <li>Fisher information</li>
+          <li>Asymptotic theory</li>
+          <li>Alternative estimators</li>
         </ol>
+
       </div>
     </div>
+
   </div>
 </section>
 
+<!-- BLOCKS -->
 <section class="section" id="blocks">
+
   <div class="section-head">
     <h2>Blocks (Unit Structure)</h2>
     <p>
-      Mathematical Statistics is organized into seven structured blocks.
-      Each block builds formally on the previous one and prepares you
-      for full statistical inference.
+      This unit builds the theoretical foundation of statistical inference.
+      Each block develops formal tools used to justify estimation procedures.
     </p>
   </div>
 
-  <!-- ✅ Continue reading (Mathematical Statistics home → last visited BLOCK) -->
-  <div id="continue-reading-ms" style="display:none; margin-top:0.75rem;">
+  <!-- CONTINUE READING -->
+  <div id="continue-reading-ms" style="display:none; margin-bottom:20px;">
     <div class="callout">
       <div class="callout-copy">
         <h2>Continue reading</h2>
-        <p class="muted-mini" id="continue-reading-ms-label" style="margin:0 0 .75rem 0;"></p>
+        <p id="continue-reading-ms-label" class="muted-mini"></p>
         <a class="btn" id="continue-reading-ms-btn" href="#">Continue</a>
       </div>
     </div>
@@ -90,135 +88,131 @@ sidebar: false
 
   <div class="grid grid-2">
 
-    <!-- Block 1 -->
+    <!-- BLOCK 1 -->
     <div class="card lesson-card">
-      <h3>
-        <a href="/mathematical-statistics/statistical-models/">Block 1 — Statistical Models</a>
-      </h3>
+      <h3><a href="/mathematical-statistics/statistical-models/">Block 1 — Statistical Models</a></h3>
       <p>
-        Define statistical models rigorously: parametric families,
-        parameter spaces, identifiability, and modeling assumptions.
+        Formalize parametric models, parameter spaces, identifiability,
+        and the assumptions that define a statistical experiment.
       </p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/mathematical-statistics/statistical-models/">Open block</a>
-      </div>
+      <a class="btn btn-outline" href="/mathematical-statistics/statistical-models/">Open block</a>
     </div>
 
-    <!-- Block 2 -->
+    <!-- BLOCK 2 -->
     <div class="card lesson-card">
-      <h3>
-        <a href="/mathematical-statistics/likelihood-and-log-likelihood/">Block 2 — Likelihood & Log-Likelihood</a>
-      </h3>
+      <h3><a href="/mathematical-statistics/likelihood-and-log-likelihood/">Block 2 — Likelihood Framework</a></h3>
       <p>
-        Develop likelihood, log-likelihood, score function,
-        and information concepts central to estimation.
+        Define likelihood, log-likelihood, score functions,
+        and information as the core structure of estimation.
       </p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/mathematical-statistics/likelihood-and-log-likelihood/">Open block</a>
-      </div>
+      <a class="btn btn-outline" href="/mathematical-statistics/likelihood-and-log-likelihood/">Open block</a>
     </div>
 
-    <!-- Block 3 -->
+    <!-- BLOCK 3 -->
     <div class="card lesson-card">
-      <h3>
-        <a href="/mathematical-statistics/maximum-likelihood-estimation/">Block 3 — Maximum Likelihood Estimation</a>
-      </h3>
+      <h3><a href="/mathematical-statistics/maximum-likelihood-estimation/">Block 3 — Maximum Likelihood Estimation</a></h3>
       <p>
-        Construct estimators using likelihood equations and study their properties.
+        Derive estimators via likelihood equations and study their theoretical properties.
       </p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/mathematical-statistics/maximum-likelihood-estimation/">Open block</a>
-      </div>
+      <a class="btn btn-outline" href="/mathematical-statistics/maximum-likelihood-estimation/">Open block</a>
     </div>
 
-    <!-- Block 4 -->
+    <!-- BLOCK 4 -->
     <div class="card lesson-card">
-      <h3>
-        <a href="/mathematical-statistics/estimator-properties/">Block 4 — Estimator Properties</a>
-      </h3>
+      <h3><a href="/mathematical-statistics/estimator-properties/">Block 4 — Estimator Properties</a></h3>
       <p>
-        Evaluate estimators using bias, variance, MSE, consistency, and efficiency.
+        Analyze bias, variance, mean squared error, consistency,
+        and efficiency of estimators.
       </p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/mathematical-statistics/estimator-properties/">Open block</a>
-      </div>
+      <a class="btn btn-outline" href="/mathematical-statistics/estimator-properties/">Open block</a>
     </div>
 
-    <!-- Block 5 -->
+    <!-- BLOCK 5 -->
     <div class="card lesson-card">
-      <h3>
-        <a href="/mathematical-statistics/fisher-information-and-efficiency/">Block 5 — Fisher Information & Efficiency</a>
-      </h3>
+      <h3><a href="/mathematical-statistics/fisher-information-and-efficiency/">Block 5 — Fisher Information & Efficiency</a></h3>
       <p>
-        Study Fisher information, Cramér–Rao lower bound, and efficiency.
+        Study Fisher information and the Cramér–Rao lower bound
+        as limits of estimator performance.
       </p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/mathematical-statistics/fisher-information-and-efficiency/">Open block</a>
-      </div>
+      <a class="btn btn-outline" href="/mathematical-statistics/fisher-information-and-efficiency/">Open block</a>
     </div>
 
-    <!-- Block 6 -->
+    <!-- BLOCK 6 -->
     <div class="card lesson-card">
-      <h3>
-        <a href="/mathematical-statistics/asymptotic-theory/">Block 6 — Asymptotic Theory</a>
-      </h3>
+      <h3><a href="/mathematical-statistics/asymptotic-theory/">Block 6 — Asymptotic Theory</a></h3>
       <p>
-        Analyze consistency, asymptotic normality, Slutsky’s theorem, and delta method.
+        Develop large-sample results: consistency, asymptotic normality,
+        Slutsky’s theorem, and the delta method.
       </p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/mathematical-statistics/asymptotic-theory/">Open block</a>
-      </div>
+      <a class="btn btn-outline" href="/mathematical-statistics/asymptotic-theory/">Open block</a>
     </div>
 
-    <!-- Block 7 -->
+    <!-- BLOCK 7 -->
     <div class="card lesson-card">
-      <h3>
-        <a href="/mathematical-statistics/alternative-estimation-methods/">Block 7 — Alternative Estimation Methods</a>
-      </h3>
+      <h3><a href="/mathematical-statistics/alternative-estimation-methods/">Block 7 — Alternative Estimation Methods</a></h3>
       <p>
-        Explore method of moments and alternative estimation frameworks.
+        Explore method of moments and alternative approaches to estimation.
       </p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/mathematical-statistics/alternative-estimation-methods/">Open block</a>
-      </div>
+      <a class="btn btn-outline" href="/mathematical-statistics/alternative-estimation-methods/">Open block</a>
     </div>
 
   </div>
 </section>
 
+<!-- GOAL -->
 <section class="section section-slim">
   <div class="callout">
+
     <div class="callout-copy">
       <h2>Goal of this unit</h2>
       <ul class="bullets">
-        <li>Formalize statistical models and parameters</li>
+        <li>Formalize statistical models and parameter spaces</li>
         <li>Understand likelihood as the core estimation principle</li>
         <li>Evaluate estimators using rigorous criteria</li>
-        <li>Derive asymptotic results that justify inference procedures</li>
-        <li>Prepare cleanly for Statistical Inference</li>
+        <li>Derive asymptotic results that justify inference</li>
+        <li>Prepare for advanced inference and research work</li>
       </ul>
     </div>
+
+    <div class="callout-side">
+      <div class="mini">
+        <div class="mini-title">Prerequisite</div>
+        <div class="mini-body">
+          Strong understanding of <strong>Probability</strong>
+        </div>
+      </div>
+      <div class="mini">
+        <div class="mini-title">Next</div>
+        <div class="mini-body">
+          Continue to <strong>Statistical Inference</strong>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
+<!-- CONTINUE SCRIPT -->
 <script>
-  (function () {
-    var KEY = "esa_continue_ms_last_block_v0";
-    var raw = localStorage.getItem(KEY);
+(function () {
+  try {
+    const KEY = "esa_continue_ms_last_block_v0";
+    const raw = localStorage.getItem(KEY);
     if (!raw) return;
 
-    try {
-      var data = JSON.parse(raw);
-      if (!data || !data.url || !data.label) return;
+    const data = JSON.parse(raw);
+    if (!data || !data.url || !data.label) return;
 
-      var wrap = document.getElementById("continue-reading-ms");
-      var label = document.getElementById("continue-reading-ms-label");
-      var btn = document.getElementById("continue-reading-ms-btn");
-      if (!wrap || !label || !btn) return;
+    const wrap = document.getElementById("continue-reading-ms");
+    const label = document.getElementById("continue-reading-ms-label");
+    const btn = document.getElementById("continue-reading-ms-btn");
 
-      label.innerHTML = 'You last visited: <strong>' + data.label + '</strong>';
-      btn.href = data.url;
-      wrap.style.display = "block";
-    } catch (e) {}
-  })();
+    if (!wrap || !label || !btn) return;
+
+    label.innerHTML = "You last visited: <strong>" + data.label + "</strong>";
+    btn.href = data.url;
+    wrap.style.display = "block";
+
+  } catch (e) {}
+})();
 </script>
