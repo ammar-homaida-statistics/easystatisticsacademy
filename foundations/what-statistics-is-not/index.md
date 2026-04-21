@@ -1,290 +1,247 @@
 ---
 layout: default
 title: What Statistics Is Not
-description: A clear explanation of the limits of statistics and the most common misconceptions that lead to misuse and overconfidence.
+description: Clarify common misconceptions about statistics and understand what statistics cannot do.
 permalink: /foundations/what-statistics-is-not/
-section: foundations
-lesson_order: 2
+sidebar: false
 ---
 
-<meta name="esa-section" content="foundations">
-<meta name="esa-lesson-title" content="What Statistics Is Not">
-<meta name="esa-lesson-url" content="/foundations/what-statistics-is-not/">
-
-<a class="btn btn-primary" href="/foundations/what-is-statistics/">
-  Previous: What Is Statistics?
-</a>
-
-<section class="hero hero-lesson">
+<!-- HERO -->
+<section class="hero hero-section">
   <div class="hero-card">
-    <h1>What Statistics Is Not</h1>
 
-    <div style="background:#fff3cd; border:1px solid #ffeeba; padding:12px 14px; margin:14px 0; border-radius:8px;">
-      <strong>🚧 Under Construction</strong> — This lesson is being expanded with examples, diagrams,
-      and practical demonstrations to clarify common misconceptions about statistics.
+    <div class="badge-row">
+      <span class="badge">Foundations</span>
+      <span class="badge">Misconceptions</span>
+      <span class="badge">Critical thinking</span>
     </div>
 
+    <h1>What Statistics Is Not</h1>
+
     <p class="lead">
-      This lesson clarifies the limits of statistics and addresses common misconceptions
-      that lead to misuse, overconfidence, and incorrect conclusions.
+      Statistics is often misunderstood. Knowing what it is not is essential to using it correctly.
     </p>
 
-    <p class="muted-mini">
-      Section: <strong>Statistics Foundations</strong> • Lesson 2
-    </p>
+    <div class="hero-actions">
+      <a class="btn" href="#content">Start lesson</a>
+      <a class="btn btn-outline" href="/foundations/">Back to Foundations</a>
+    </div>
+
   </div>
 </section>
 
-<section class="section">
-  <div class="content-narrow">
-    <h2>What you will learn</h2>
+<!-- MAIN CONTENT -->
+<section class="section" id="content">
 
-    <ul class="bullets">
-      <li>Why statistics does not provide exact or absolute truth.</li>
-      <li>Why statistical results do not guarantee prediction certainty.</li>
-      <li>Why statistics cannot be reduced to automation or software output.</li>
-      <li>How common misconceptions arise in media, business, and AI contexts.</li>
-      <li>Why large datasets do not eliminate bias or bad design.</li>
-    </ul>
-  </div>
-</section>
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Why this topic matters</h2>
+  <!-- INTUITION -->
+  <div class="section-block">
+    <h2>Why This Lesson Matters</h2>
 
     <p>
-      Statistics is often either over-trusted or completely misunderstood.
-      Both extremes are dangerous.
+      Many errors in statistics do not come from difficult mathematics — they come from misunderstanding what statistics actually does.
     </p>
 
     <p>
-      When statistical results are treated as exact truth or automatic answers,
-      decisions based on them can be misleading, costly, or harmful.
-    </p>
-
-    <p>
-      Understanding what statistics <em>cannot</em> do prevents misuse,
-      false confidence, and exaggerated claims.
-    </p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Statistics is not exact truth</h2>
-
-    <p>
-      Statistical conclusions are based on limited data.
-      Data may be incomplete, noisy, biased, or influenced by external factors.
-    </p>
-
-    <p>
-      For this reason, statistical results are not statements of absolute truth.
-      They are probabilistic conclusions based on available evidence.
-    </p>
-
-    <p>
-      Ignoring uncertainty leads to overconfidence and poor decisions.
-    </p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Mini example: overconfidence trap</h2>
-
-    <p>
-      Suppose a survey of 100 people finds that 60% prefer Product A.
-      This does not mean exactly 60% of the entire population prefers Product A.
-    </p>
-
-    <p>
-      If we repeated the survey with a different random sample, the result might be 55% or 63%.
-      The estimate varies because sampling varies.
-    </p>
-
-    <p>
-      Statistics provides tools (like confidence intervals) to express this uncertainty.
-      It does not claim perfect precision.
-    </p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Statistics is not prediction certainty</h2>
-
-    <p>
-      Statistical models can estimate likely outcomes,
-      but they cannot guarantee what will happen.
-    </p>
-
-    <p>
-      Real systems evolve. Assumptions fail. Random variation persists.
-    </p>
-
-    <p>
-      Statistics supports probabilistic forecasting—not certainty.
-    </p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Statistics is not automation</h2>
-
-    <p>
-      Statistical reasoning cannot be fully automated.
-      Human judgment is required in choosing variables, checking assumptions,
-      and interpreting results.
-    </p>
-
-    <p>
-      Automated systems can compute quickly, but they cannot determine whether
-      the question was appropriate or whether the design was flawed.
-    </p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Statistics is not software output</h2>
-
-    <p>
-      Software performs calculations. It does not understand context.
-    </p>
-
-    <p>
-      Most statistical software will produce output even when:
+      People often expect statistics to:
     </p>
 
     <ul class="bullets">
-      <li>Assumptions are violated</li>
-      <li>The wrong method is chosen</li>
-      <li>The data are biased</li>
-      <li>The research question is poorly defined</li>
+      <li>give exact answers</li>
+      <li>prove things with certainty</li>
+      <li>automatically produce truth from data</li>
     </ul>
 
     <p>
-      Interpretation remains the responsibility of the analyst.
+      These expectations are incorrect and lead to serious mistakes.
     </p>
   </div>
-</section>
 
-<section class="section">
-  <div class="content-narrow">
-    <h2>Large data does not remove bias</h2>
+  <!-- NOT EXACT -->
+  <div class="section-block">
+    <h2>Statistics Is Not Exact Truth</h2>
 
     <p>
-      A very large dataset reduces random error,
-      but it does not eliminate systematic bias.
+      Statistics does not give exact answers about reality.
     </p>
 
     <p>
-      If data collection is flawed, collecting more of the same flawed data
-      only increases confidence in a wrong conclusion.
+      It provides <strong>estimates</strong> and <strong>probabilistic conclusions</strong>.
     </p>
 
     <p>
-      More data improves precision—not validity.
+      For example:
     </p>
-    
 
+    <p>
+      If we estimate an average height as 173 cm, this does not mean the true value is exactly 173.
+    </p>
+
+    <p>
+      It means:
+      <strong>based on the data, 173 is our best estimate — but it could be different.</strong>
+    </p>
   </div>
-</section>
 
-<section class="section">
-  <div class="content-narrow">
-    <h2>Common public misconceptions</h2>
+  <!-- NOT CERTAINTY -->
+  <div class="section-block">
+    <h2>Statistics Is Not Certainty</h2>
+
+    <p>
+      Statistics does not prove things in the way mathematics does.
+    </p>
+
+    <p>
+      Instead, it works with uncertainty.
+    </p>
+
+    <p>
+      For example:
+    </p>
 
     <ul class="bullets">
-      <li>Statistics always produces objective and correct answers.</li>
-      <li>Large datasets eliminate uncertainty.</li>
-      <li>Algorithms and AI make statistical reasoning unnecessary.</li>
-      <li>Any numerical result is meaningful.</li>
-      <li>A statistically significant result proves causation.</li>
+      <li>We do not say “this is true”</li>
+      <li>We say “this is likely given the data”</li>
     </ul>
 
     <p>
-      These misconceptions are common in media reporting, business analytics,
-      and discussions around artificial intelligence.
+      This distinction is fundamental.
     </p>
   </div>
-</section>
 
-<section class="section">
-  <div class="content-narrow">
-    <h2>Limits summarized</h2>
-
-    <div style="margin:24px 0;">
-  <div style="max-width:850px; margin:auto; overflow-x:auto;">
-    <table style="width:100%; border-collapse:collapse; background:#ffffff; border-radius:10px; overflow:hidden; box-shadow:0 4px 10px rgba(0,0,0,0.05);">
-      <thead style="background:#f1f3f5;">
-        <tr>
-          <th style="padding:14px 16px; text-align:left; font-weight:600;">Misconception</th>
-          <th style="padding:14px 16px; text-align:left; font-weight:600;">Reality</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr style="border-top:1px solid #e9ecef;">
-          <td style="padding:12px 16px;">Statistics gives exact truth</td>
-          <td style="padding:12px 16px;">Statistics provides probabilistic evidence</td>
-        </tr>
-        <tr style="border-top:1px solid #e9ecef;">
-          <td style="padding:12px 16px;">Big data removes uncertainty</td>
-          <td style="padding:12px 16px;">Big data reduces random error, not bias</td>
-        </tr>
-        <tr style="border-top:1px solid #e9ecef;">
-          <td style="padding:12px 16px;">Software guarantees correctness</td>
-          <td style="padding:12px 16px;">Interpretation determines correctness</td>
-        </tr>
-        <tr style="border-top:1px solid #e9ecef;">
-          <td style="padding:12px 16px;">Statistical significance proves causation</td>
-          <td style="padding:12px 16px;">Design determines causal validity</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-  </div>
-</section>
-
-<section class="section section-soft">
-  <div class="content-narrow">
-    <h2>Key idea to remember</h2>
+  <!-- NOT JUST FORMULAS -->
+  <div class="section-block">
+    <h2>Statistics Is Not Just Formulas</h2>
 
     <p>
-      Statistics is powerful precisely because it acknowledges uncertainty.
-      Its weakness begins when uncertainty is ignored or hidden.
+      Many people think statistics is just applying formulas or pressing buttons in software.
     </p>
-  </div>
-</section>
-
-<section class="section section-next">
-  <div class="content-narrow">
-    <h2>Simple summary</h2>
 
     <p>
-      Statistics does not give perfect or guaranteed answers.
-      It helps us think carefully using data—while respecting uncertainty,
-      assumptions, and limitations.
+      This is incorrect.
     </p>
-  </div>
-</section>
-
-<section class="section section-next">
-  <div class="content-narrow">
-    <h2>What comes next</h2>
 
     <p>
-      The next lesson introduces <strong>statistical thinking</strong>—the mindset
-      that allows statistics to be used responsibly and effectively.
+      Statistics requires:
     </p>
 
-    <a class="btn btn-primary" href="/foundations/statistical-thinking-vs-deterministic-thinking/">
-      Next: Statistical Thinking
-    </a>
+    <ul class="bullets">
+      <li>understanding the data</li>
+      <li>choosing the correct method</li>
+      <li>interpreting results properly</li>
+    </ul>
+
+    <p>
+      Two people can use the same formula and reach completely different conclusions.
+    </p>
+  </div>
+
+  <!-- NOT IMMUNE TO BAD DATA -->
+  <div class="section-block">
+    <h2>Statistics Cannot Fix Bad Data</h2>
+
+    <p>
+      If the data is biased, incomplete, or poorly collected,
+      statistical methods cannot correct it.
+    </p>
+
+    <p>
+      Example:
+    </p>
+
+    <p>
+      If you survey only athletes and conclude that all people are physically fit,
+      the conclusion is wrong — even if the analysis is correct.
+    </p>
+
+    <p>
+      This is because the problem is in the data, not the method.
+    </p>
+  </div>
+
+  <!-- NOT CAUSATION -->
+  <div class="section-block">
+    <h2>Statistics Does Not Automatically Show Causation</h2>
+
+    <p>
+      Finding a relationship between two variables does not mean one causes the other.
+    </p>
+
+    <p>
+      Example:
+    </p>
+
+    <ul class="bullets">
+      <li>Ice cream sales increase</li>
+      <li>Drowning incidents increase</li>
+    </ul>
+
+    <p>
+      This does not mean ice cream causes drowning.
+    </p>
+
+    <p>
+      The hidden factor is temperature (summer).
+    </p>
+  </div>
+
+  <!-- COMMON MISCONCEPTIONS -->
+  <div class="section-block">
+    <h2>Common Misconceptions</h2>
+
+    <ul class="bullets">
+      <li>Statistics gives exact answers → ❌ It gives estimates</li>
+      <li>Statistics proves things → ❌ It supports conclusions with uncertainty</li>
+      <li>More data guarantees correctness → ❌ Bias can remain</li>
+      <li>Software does statistics → ❌ Humans must interpret results</li>
+      <li>Correlation means causation → ❌ Often false</li>
+    </ul>
+  </div>
+
+  <!-- WHY IT MATTERS -->
+  <div class="section-block">
+    <h2>Why This Matters</h2>
+
+    <p>
+      Misunderstanding statistics leads to:
+    </p>
+
+    <ul class="bullets">
+      <li>incorrect conclusions</li>
+      <li>misleading reports</li>
+      <li>bad decisions in science, business, and policy</li>
+    </ul>
+
+    <p>
+      Knowing what statistics cannot do is essential for using it correctly.
+    </p>
+  </div>
+
+</section>
+
+<!-- NAVIGATION -->
+<section class="section section-slim">
+  <div class="callout">
+
+    <div class="callout-copy">
+      <h2>Next steps</h2>
+
+      <div class="hero-actions">
+
+        <a class="btn btn-outline" href="/foundations/what-is-statistics/">
+          ← Previous: What Is Statistics?
+        </a>
+
+        <a class="btn btn-outline" href="/foundations/">
+          Foundations Home
+        </a>
+
+        <a class="btn" href="/foundations/statistical-thinking-vs-deterministic-thinking/">
+          Next: Statistical vs Deterministic Thinking →
+        </a>
+
+      </div>
+
+    </div>
+
   </div>
 </section>
