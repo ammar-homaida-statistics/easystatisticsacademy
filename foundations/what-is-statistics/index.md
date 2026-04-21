@@ -3,7 +3,7 @@ layout: default
 title: What Is Statistics?
 description: Understand what statistics is, why it exists, and how it differs from simple data description or calculation.
 permalink: /foundations/what-is-statistics/
-sidebar: true
+sidebar: false
 ---
 
 <!-- HERO -->
