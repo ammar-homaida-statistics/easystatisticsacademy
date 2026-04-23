@@ -70,6 +70,11 @@ lesson_order: 15
       Every sample is linked to a population,
       whether that population is finite or conceptual.
     </p>
+
+    <p>
+  The goal of sampling is to use <strong>sample statistics</strong>
+  to estimate <strong>population parameters</strong>.
+</p>
   </div>
 </section>
 
@@ -135,6 +140,10 @@ lesson_order: 15
       A <strong>parameter</strong> describes a population.
       A <strong>statistic</strong> describes a sample.
     </p>
+
+    <p>
+  In practice, we use statistics to make inferences about parameters.
+</p>
   </div>
 </section>
 
@@ -145,22 +154,52 @@ lesson_order: 15
     <h2>Samples as approximations</h2>
 
     <p>
-      A sample does not reproduce a population perfectly.
-      Instead, it provides an estimate.
+      A sample does not reproduce a population exactly.
+      Instead, it provides an estimate of population values.
     </p>
 
     <p>
-      Differences between sample results and population values
-      are expected and unavoidable.
+      If we take different samples from the same population,
+      we will get different results.
     </p>
 
     <p>
-      This difference is called <strong>sampling error</strong>,
-      and it arises naturally from using a subset instead of the full population.
+      This natural variation is called <strong>sampling error</strong>.
+      It is not a mistake — it is an inherent part of using samples.
     </p>
   </div>
 </section>
 
+<section class="section">
+  <div class="content-narrow">
+    <h2>Example</h2>
+
+    <p>
+      Suppose the true average height of all students in a university is unknown.
+    </p>
+
+    <p>
+      We take a sample of 50 students and compute:
+    </p>
+
+    <ul class="bullets">
+      <li>Sample mean = 168 cm</li>
+    </ul>
+
+    <p>
+      If we take another sample, we might get:
+    </p>
+
+    <ul class="bullets">
+      <li>Sample mean = 171 cm</li>
+    </ul>
+
+    <p>
+      Both are estimates of the same population value,
+      but they differ due to sampling variability.
+    </p>
+  </div>
+</section>
 
 
 <section class="section">
@@ -181,8 +220,8 @@ lesson_order: 15
     </p>
 
     <p style="font-weight:600;">
-      Larger samples increase reliability, not certainty.
-    </p>
+  Larger samples reduce variability, but do not eliminate uncertainty.
+</p>
   </div>
 </section>
 
@@ -204,6 +243,11 @@ lesson_order: 15
     <p>
       Representativeness is central to reliable inference.
     </p>
+
+    <p>
+  A biased sample leads to <strong>systematic error</strong>,
+  which cannot be fixed by increasing sample size.
+</p>
   </div>
 </section>
 
