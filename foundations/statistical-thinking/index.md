@@ -67,7 +67,7 @@ sidebar: false
     <ul class="bullets">
       <li>2 + 3 = 5</li>
       <li>Area of a square = side²</li>
-      <li>Physics formula under ideal conditions</li>
+      <li>Physical laws under idealized conditions</li>
     </ul>
 
     <p>
@@ -141,9 +141,9 @@ sidebar: false
     </p>
 
     <ul class="bullets">
-      <li>What is the average height?</li>
-      <li>How much do heights vary?</li>
-      <li>What is the distribution?</li>
+      <li>What is the average height? “Mean ≈ 170.8 cm”</li>
+      <li>How much do heights vary? “Range: 168 to 175 cm”</li>
+      <li>What is the distribution? “Standard deviation ≈ 2.8 cm”</li>
     </ul>
 
     <p>
