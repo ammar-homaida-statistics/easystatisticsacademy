@@ -1,280 +1,238 @@
 ---
 layout: default
 title: Surveys
-description: Understanding what surveys are, common question wording issues, introductory response bias, and the concept of sampling frames.
+description: Learn how surveys collect data, why question design matters, and how bias can affect results.
 permalink: /foundations/surveys/
-section: foundations
-lesson_order: 21
+sidebar: false
 ---
 
-<meta name="esa-section" content="foundations">
-<meta name="esa-lesson-title" content="Surveys">
-<meta name="esa-lesson-url" content="/foundations/surveys/">
-
-<a class="btn btn-primary" href="/foundations/data-collection-vs-data-analysis/">
-  Previous: Data Collection vs Data Analysis
-</a>
-
-<section class="hero hero-lesson">
+<!-- HERO -->
+<section class="hero hero-section">
   <div class="hero-card">
-    <h1>Surveys</h1>
 
-    <div style="background:#fff3cd; border:1px solid #ffeeba; padding:12px 14px; margin:14px 0; border-radius:8px;">
-      <strong>🚧 Under Construction</strong> — More real survey examples and visuals will be added.
+    <div class="badge-row">
+      <span class="badge">Data collection</span>
+      <span class="badge">Real-world</span>
+      <span class="badge">Bias risk</span>
     </div>
 
+    <h1>Surveys</h1>
+
     <p class="lead">
-      Surveys collect self-reported data by asking questions.
-      The quality of the results depends on how questions are written,
-      who is asked, and how people respond.
+      Surveys are one of the most common ways to collect data — but they are also one of the easiest ways to introduce bias and error.
     </p>
 
-    <p class="muted-mini">
-      Section: <strong>Statistics Foundations</strong> • Lesson 21
-    </p>
+    <div class="hero-actions">
+      <a class="btn" href="#content">Start lesson</a>
+      <a class="btn btn-outline" href="/foundations/">Back to Foundations</a>
+    </div>
+
   </div>
 </section>
 
+<!-- CONTENT -->
+<section class="section" id="content">
 
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>What you will learn</h2>
-
-    <ul class="bullets">
-      <li>What surveys are and when they are used.</li>
-      <li>How question wording affects responses.</li>
-      <li>What response bias is and why it occurs.</li>
-      <li>What a sampling frame is and why it limits generalization.</li>
-    </ul>
-  </div>
-</section>
-
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Why this topic matters</h2>
+  <!-- WHAT IS A SURVEY -->
+  <div class="section-block">
+    <h2>What Is a Survey?</h2>
 
     <p>
-      Surveys are widely used in business, research, politics, and media.
-      Many decisions are based on survey results.
-    </p>
-
-    <p>
-      However, surveys are highly sensitive to design choices.
-      Poorly designed surveys can produce misleading conclusions,
-      even with large sample sizes.
-    </p>
-
-    <p>
-      Understanding survey limitations helps you evaluate results critically
-      rather than accepting them at face value.
-    </p>
-  </div>
-</section>
-
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>What surveys are</h2>
-
-    <p>
-      A survey is a method of collecting data by asking questions
-      to a group of individuals.
-    </p>
-
-    <p>
-      Unlike direct measurement, surveys rely on
-      <strong>self-reported information</strong>.
-    </p>
-
-    <p>
-      Surveys are commonly used to measure:
+      A survey is a method of collecting data by asking questions to individuals.
     </p>
 
     <ul class="bullets">
-      <li>Opinions (e.g., political preferences)</li>
-      <li>Behaviors (e.g., purchasing habits)</li>
-      <li>Experiences (e.g., satisfaction)</li>
-      <li>Beliefs and attitudes</li>
+      <li>Questionnaires</li>
+      <li>Interviews</li>
+      <li>Online forms</li>
+      <li>Phone surveys</li>
     </ul>
-  </div>
-</section>
-
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Question wording matters</h2>
 
     <p>
-      The wording of a question can strongly influence responses.
-    </p>
-
-    <p>
-      Small changes in phrasing can lead to different answers,
-      even when asking about the same topic.
-    </p>
-
-    <h3>Example</h3>
-
-    <p><strong>Neutral:</strong> “Do you support the policy?”</p>
-
-    <p><strong>Leading:</strong> “Do you support the harmful policy?”</p>
-
-    <p>
-      The second question introduces bias through wording.
-    </p>
-
-    <p>
-      Good survey design aims to make questions:
+      Surveys are widely used in:
     </p>
 
     <ul class="bullets">
-      <li>Clear</li>
-      <li>Neutral</li>
-      <li>Unambiguous</li>
-      <li>Consistent in interpretation</li>
+      <li>Research</li>
+      <li>Business</li>
+      <li>Public opinion</li>
+      <li>Healthcare</li>
     </ul>
   </div>
-</section>
 
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Response bias</h2>
-
-    <p>
-      Response bias occurs when answers differ systematically
-      from the true values or beliefs.
-    </p>
-
-    <p>
-      It arises from how people interpret questions
-      or choose to respond.
-    </p>
-
-    <h3>Common sources of response bias</h3>
+  <!-- WHY USED -->
+  <div class="section-block">
+    <h2>Why Use Surveys?</h2>
 
     <ul class="bullets">
-      <li><strong>Social desirability:</strong> answering in a way that looks acceptable.</li>
-      <li><strong>Nonresponse:</strong> certain people choose not to respond.</li>
-      <li><strong>Misunderstanding:</strong> respondents interpret questions differently.</li>
-      <li><strong>Recall error:</strong> people do not remember accurately.</li>
+      <li>Populations are often too large to observe directly</li>
+      <li>Surveys are faster and cheaper than full data collection</li>
+      <li>They allow collection of opinions, attitudes, and behaviors</li>
     </ul>
-
-    <p>
-      These biases introduce systematic distortion
-      that cannot be fully corrected during analysis.
-    </p>
   </div>
-</section>
 
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Sampling frames</h2>
+  <!-- CORE PROBLEM -->
+  <div class="section-block">
+    <h2>The Core Problem</h2>
 
     <p>
-      A sampling frame is the list or mechanism used
-      to identify who can be included in a survey.
+      Surveys do not measure reality directly.
     </p>
 
     <p>
-      It defines the <strong>accessible population</strong>.
+      They depend on:
     </p>
-
-    <h3>Example</h3>
-
-    <p>
-      A survey conducted through a mobile app
-      includes only people who use that app.
-    </p>
-
-    <p>
-      People without access to the app are excluded,
-      even if they are part of the target population.
-    </p>
-
-    <p>
-      If the sampling frame is incomplete,
-      results may not generalize to the full population.
-    </p>
-  </div>
-</section>
-
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Common survey pitfalls</h2>
 
     <ul class="bullets">
-      <li>Leading or emotionally loaded questions.</li>
-      <li>Unclear or ambiguous wording.</li>
-      <li>Excluding parts of the population.</li>
-      <li>Low or uneven response rates.</li>
-      <li>Overinterpreting small or biased samples.</li>
+      <li>How questions are asked</li>
+      <li>Who responds</li>
+      <li>How responses are interpreted</li>
     </ul>
 
     <p>
-      These issues affect data quality before analysis begins.
+      This makes surveys highly vulnerable to bias.
     </p>
   </div>
-</section>
 
+  <!-- TYPES OF BIAS -->
+  <div class="section-block">
+    <h2>Common Types of Survey Bias</h2>
 
+    <p><strong>1. Sampling Bias</strong></p>
+    <ul class="bullets">
+      <li>The sample does not represent the population</li>
+      <li>Example: online survey excludes people without internet</li>
+    </ul>
 
-<section class="section section-soft">
-  <div class="content-narrow">
-    <h2>Key idea to remember</h2>
+    <p><strong>2. Response Bias</strong></p>
+    <ul class="bullets">
+      <li>People give inaccurate answers</li>
+      <li>Example: sensitive questions (income, behavior)</li>
+    </ul>
+
+    <p><strong>3. Nonresponse Bias</strong></p>
+    <ul class="bullets">
+      <li>People who respond differ from those who do not</li>
+    </ul>
+
+    <p><strong>4. Question Wording Bias</strong></p>
+    <ul class="bullets">
+      <li>The wording influences answers</li>
+    </ul>
+  </div>
+
+  <!-- EXAMPLE -->
+  <div class="section-block">
+    <h2>Example: Bad Question</h2>
 
     <p>
-      Survey results depend on design choices—
-      not just the number of responses.
+      “Do you agree that this excellent policy should be supported?”
     </p>
-  </div>
-</section>
-
-
-
-<section class="section section-next">
-  <div class="content-narrow">
-    <h2>Simple summary</h2>
 
     <p>
-      Surveys collect self-reported data.
-      Question wording, response behavior,
-      and sampling frames determine how reliable
-      the results are.
+      Problem:
     </p>
+
+    <ul class="bullets">
+      <li>Leading language (“excellent”)</li>
+      <li>Pushes respondents toward a specific answer</li>
+    </ul>
   </div>
-</section>
 
+  <!-- GOOD PRACTICE -->
+  <div class="section-block">
+    <h2>Good Survey Design</h2>
 
+    <ul class="bullets">
+      <li>Use neutral wording</li>
+      <li>Ensure representative sampling</li>
+      <li>Avoid ambiguous questions</li>
+      <li>Test the survey before use</li>
+    </ul>
+  </div>
 
-<section class="section section-next">
-  <div class="content-narrow">
-    <h2>What comes next</h2>
+  <!-- LIMITATION -->
+  <div class="section-block">
+    <h2>Key Limitation</h2>
 
     <p>
-      The next lesson introduces <strong>observational studies</strong>,
-      explaining passive data collection, lack of control,
-      and the difference between association and causation.
+      Even well-designed surveys contain error.
     </p>
 
-    <a class="btn btn-primary" href="/foundations/observational-studies/">
-      Next: Observational Studies
-    </a>
+    <p>
+      Increasing sample size:
+    </p>
+
+    <ul class="bullets">
+      <li>Reduces random error</li>
+      <li>Does NOT fix bias</li>
+    </ul>
   </div>
+
+  <!-- BIG PICTURE -->
+  <div class="section-block">
+    <h2>The Big Picture</h2>
+
+    <p>
+      Surveys are useful — but fragile.
+    </p>
+
+    <p>
+      Poor design leads to:
+    </p>
+
+    <ul class="bullets">
+      <li>Misleading conclusions</li>
+      <li>False generalizations</li>
+      <li>Invalid statistical inference</li>
+    </ul>
+  </div>
+
+  <!-- NEXT -->
+  <div class="section-block">
+    <h2>What Comes Next?</h2>
+
+    <p>
+      Surveys are one type of data collection.
+    </p>
+
+    <p>
+      Next, we study:
+    </p>
+
+    <ul class="bullets">
+      <li>Observational studies</li>
+      <li>Passive data collection</li>
+      <li>Association vs causation</li>
+    </ul>
+  </div>
+
 </section>
 
-<script>
-  try {
-    localStorage.setItem("esa:lastLesson", window.location.pathname);
-  } catch (e) {}
-</script>
+<!-- NAVIGATION -->
+<section class="section section-slim">
+  <div class="callout">
+
+    <div class="callout-copy">
+      <h2>Next steps</h2>
+
+      <div class="hero-actions">
+
+        <a class="btn btn-outline" href="/foundations/parameters-vs-statistics/">
+          ← Previous: Parameters vs Statistics
+        </a>
+
+        <a class="btn btn-outline" href="/foundations/">
+          Foundations Home
+        </a>
+
+        <a class="btn" href="/foundations/observational-studies/">
+          Next: Observational Studies →
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
