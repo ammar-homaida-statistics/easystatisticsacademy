@@ -180,38 +180,39 @@ sidebar: false
 </p>
   </div>
 
-  <!-- NUMERICAL EXAMPLE -->
-  <div class="section-block">
-    <h2>Example</h2>
+  <!-- EXAMPLE -->
+<div class="section-block">
+  <h2>Example</h2>
 
-    <p>
-      Suppose we want to study:
-    </p>
+  <p>
+    Suppose we want to answer the question:
+  </p>
 
-    <ul class="bullets">
-      <li>Average height of all university students</li>
-    </ul>
+  <ul class="bullets">
+    <li>What is the average height of university students?</li>
+  </ul>
 
-    <p>
-      Population:
-    </p>
+  <p>
+    The <strong>population</strong> is:
+  </p>
 
-    <ul class="bullets">
-      <li>All students in the university</li>
-    </ul>
+  <ul class="bullets">
+    <li>All students in the university</li>
+  </ul>
 
-    <p>
-      In practice:
-    </p>
+  <p>
+    The challenge:
+  </p>
 
-    <ul class="bullets">
-      <li>We cannot measure everyone</li>
-    </ul>
+  <ul class="bullets">
+    <li>Measuring every student is impractical</li>
+  </ul>
 
-    <p>
-      So we take a sample (next lesson).
-    </p>
-  </div>
+  <p>
+    So instead, we collect data from a <strong>sample</strong>
+    and use it to estimate the population average.
+  </p>
+</div>
 
 <div class="section-block">
   <h2>Population vs Sample (Preview)</h2>
