@@ -19,7 +19,7 @@ sidebar: false
     <h1>What Is Statistics?</h1>
 
     <p class="lead">
-      Statistics is the science of learning from data under uncertainty.
+      Statistics is the science of learning from data in the presence of uncertainty.
     </p>
 
     <div class="hero-actions">
@@ -126,8 +126,16 @@ sidebar: false
     </p>
 
     <p>
-      Mean ≈ 173 cm
+      Mean = 173 cm
     </p>
+
+    <p>
+      We could also quantify uncertainty, for example using a confidence interval.
+    <p>
+
+    <p>
+      For example, a 95% confidence interval might be: 170 cm to 176 cm.
+    <p>
 
     <p>
       But this is not the exact truth — it is an <strong>estimate</strong>.
