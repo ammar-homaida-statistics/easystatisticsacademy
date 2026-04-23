@@ -131,11 +131,11 @@ sidebar: false
 
     <p>
       We could also quantify uncertainty, for example using a confidence interval.
-    <p>
+    </p>
 
     <p>
       For example, a 95% confidence interval might be: 170 cm to 176 cm.
-    <p>
+    </p>
 
     <p>
       But this is not the exact truth — it is an <strong>estimate</strong>.
