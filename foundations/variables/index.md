@@ -100,7 +100,7 @@ sidebar: false
     </ul>
 
     <p>
-      Each column (except identifiers) is a variable.
+      Each column (except identifiers or IDs) represents a variable.
     </p>
   </div>
 
@@ -122,6 +122,10 @@ sidebar: false
     <p>
       Only variables provide useful information for statistical analysis.
     </p>
+
+    <p>
+      A variable must vary across units to be informative.
+    </p>
   </div>
 
   <!-- TYPES INTRO -->
@@ -136,6 +140,10 @@ sidebar: false
       <li><strong>Numerical variables</strong> → numbers (height, age, income)</li>
       <li><strong>Categorical variables</strong> → labels or groups (gender, color)</li>
     </ul>
+
+    <p>
+      Numerical variables have meaningful arithmetic operations (e.g., averages), while categorical variables represent groups without numeric meaning.
+    </p>
 
     <p>
       This distinction is fundamental and will be studied in detail later.
