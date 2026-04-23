@@ -98,6 +98,10 @@ sidebar: false
       <li>Observational unit = <strong>Student</strong></li>
       <li>Each row = one student</li>
     </ul>
+
+    <p> 
+      Each column (height, score) represents a variable measured on each student.
+    </p>
   </div>
 
   <!-- IMPORTANT INSIGHT -->
@@ -138,6 +142,10 @@ sidebar: false
     <p>
       Changing the unit changes the meaning of the analysis.
     </p>
+
+    <p>
+      This can lead to different conclusions even from the same underlying data.
+    </p>
   </div>
 
   <!-- COMMON MISTAKES -->
@@ -155,7 +163,7 @@ sidebar: false
     </p>
 
     <ul class="bullets">
-      <li>Rows represent both students and schools → incorrect structure</li>
+      <li>Mixing different units in the same dataset leads to invalid analysis</li>
     </ul>
   </div>
 
