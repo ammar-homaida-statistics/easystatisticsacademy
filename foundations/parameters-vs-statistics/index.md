@@ -1,237 +1,260 @@
 ---
 layout: default
 title: Parameters vs Statistics
-description: A clear comparison between parameters and statistics, common student errors, and why confusing them breaks statistical inference.
+description: Understand the difference between population parameters and sample statistics, and why this distinction is central to statistical inference.
 permalink: /foundations/parameters-vs-statistics/
-section: foundations
-lesson_order: 19
+sidebar: false
 ---
 
-<meta name="esa-section" content="foundations">
-<meta name="esa-lesson-title" content="Parameters vs Statistics">
-<meta name="esa-lesson-url" content="/foundations/parameters-vs-statistics/">
-
-<a class="btn btn-primary" href="/foundations/statistics/">
-  Previous: Statistics
-</a>
-
-<section class="hero hero-lesson">
+<!-- HERO -->
+<section class="hero hero-section">
   <div class="hero-card">
+
+    <div class="badge-row">
+      <span class="badge">Foundations</span>
+      <span class="badge">Core concept</span>
+      <span class="badge">Inference bridge</span>
+    </div>
+
     <h1>Parameters vs Statistics</h1>
 
-    <div style="background:#fff3cd; border:1px solid #ffeeba; padding:12px 14px; margin:14px 0; border-radius:8px;">
-      <strong>🚧 Under Construction</strong> — Visual comparison diagram will be added.
-    </div>
-
     <p class="lead">
-      Parameters and statistics are fundamentally different concepts.
-      Confusing them removes uncertainty and breaks statistical inference.
+      Learn the fundamental distinction between population values and sample estimates —
+      and why this difference defines statistical inference.
     </p>
 
-    <p class="muted-mini">
-      Section: <strong>Statistics Foundations</strong> • Lesson 19
-    </p>
-  </div>
-</section>
-
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>What you will learn</h2>
-
-    <ul class="bullets">
-      <li>The conceptual difference between parameters and statistics.</li>
-      <li>Why one is fixed and the other varies.</li>
-      <li>Common student errors when distinguishing them.</li>
-      <li>Why inference depends on keeping them separate.</li>
-    </ul>
-  </div>
-</section>
-
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>The core distinction</h2>
-
-    <div style="margin:24px 0;">
-      <div style="max-width:900px; margin:auto; overflow-x:auto;">
-        <table style="width:100%; border-collapse:collapse; background:#ffffff; border-radius:10px; overflow:hidden; box-shadow:0 4px 10px rgba(0,0,0,0.05); font-size:14px;">
-          <thead style="background:#f1f3f5;">
-            <tr>
-              <th style="padding:14px 16px; text-align:left; font-weight:600;">Parameter</th>
-              <th style="padding:14px 16px; text-align:left; font-weight:600;">Statistic</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr style="border-top:1px solid #e9ecef;">
-              <td style="padding:12px 16px;">Describes a population</td>
-              <td style="padding:12px 16px;">Describes a sample</td>
-            </tr>
-            <tr style="border-top:1px solid #e9ecef;">
-              <td style="padding:12px 16px;">Fixed (given the population)</td>
-              <td style="padding:12px 16px;">Random (depends on the sample)</td>
-            </tr>
-            <tr style="border-top:1px solid #e9ecef;">
-              <td style="padding:12px 16px;">Usually unknown</td>
-              <td style="padding:12px 16px;">Observed and computable</td>
-            </tr>
-            <tr style="border-top:1px solid #e9ecef;">
-              <td style="padding:12px 16px;">Target of inference</td>
-              <td style="padding:12px 16px;">Tool used for inference</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+    <div class="hero-actions">
+      <a class="btn" href="#content">Start lesson</a>
+      <a class="btn btn-outline" href="/foundations/">Back to Foundations</a>
     </div>
 
-    <p style="font-weight:600;">
-      Parameter → Fixed but unknown  
-      Statistic → Variable but observable
-    </p>
   </div>
 </section>
 
+<!-- CONTENT -->
+<section class="section" id="content">
 
+  <!-- CORE IDEA -->
+  <div class="section-block">
+    <h2>The Core Idea</h2>
 
-<section class="section">
-  <div class="content-narrow">
-    <h2>Why students confuse them</h2>
+    <p>
+      Statistics is built on one key distinction:
+    </p>
 
     <ul class="bullets">
-      <li>Both are numerical summaries.</li>
-      <li>Both may use similar formulas.</li>
-      <li>Notation sometimes looks similar.</li>
-      <li>Textbooks often move quickly between the two.</li>
+      <li><strong>Population → Parameter</strong></li>
+      <li><strong>Sample → Statistic</strong></li>
     </ul>
 
     <p>
-      Because the numbers may look similar,
-      the conceptual difference is often overlooked.
+      Understanding this difference is essential for all statistical reasoning.
     </p>
   </div>
-</section>
 
+  <!-- DEFINITIONS -->
+  <div class="section-block">
+    <h2>Definitions</h2>
 
+    <p><strong>Parameter:</strong></p>
+    <ul class="bullets">
+      <li>A numerical value describing a population</li>
+      <li>Fixed but usually unknown</li>
+    </ul>
 
-<section class="section">
-  <div class="content-narrow">
-    <h2>Common student errors</h2>
+    <p><strong>Statistic:</strong></p>
+    <ul class="bullets">
+      <li>A numerical value calculated from a sample</li>
+      <li>Varies from sample to sample</li>
+    </ul>
+  </div>
+
+  <!-- EXAMPLE -->
+  <div class="section-block">
+    <h2>Simple Example</h2>
 
     <p>
-      Referring to a sample mean as “the true average.”
+      Suppose we want to know the average income of all adults in a country.
     </p>
 
-    <p>
-      Believing that one statistic equals the parameter exactly.
-    </p>
+    <ul class="bullets">
+      <li>True average (unknown) → <strong>parameter</strong></li>
+      <li>Sample average → <strong>statistic</strong></li>
+    </ul>
 
     <p>
-      Ignoring sampling variability when interpreting results.
-    </p>
-
-    <p>
-      Assuming larger samples remove all uncertainty.
+      The statistic is used to estimate the parameter.
     </p>
   </div>
-</section>
 
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Why confusing them breaks inference</h2>
+  <!-- NOTATION -->
+  <div class="section-block">
+    <h2>Common Notation</h2>
 
     <p>
-      Statistical inference depends on uncertainty.
+      In statistics, we use different symbols:
     </p>
 
-    <p>
-      If a statistic is treated as if it were the parameter,
-      uncertainty disappears incorrectly.
-    </p>
+    <ul class="bullets">
+      <li>Population mean → μ (mu)</li>
+      <li>Sample mean → x̄ (x-bar)</li>
+      <li>Population proportion → p</li>
+      <li>Sample proportion → p̂ (p-hat)</li>
+    </ul>
 
     <p>
-      Without recognizing variability,
-      concepts such as confidence intervals
-      and hypothesis testing lose meaning.
-    </p>
-
-    <p>
-      Inference exists precisely because
-      statistics are not parameters.
+      This notation helps distinguish what is known vs estimated.
     </p>
   </div>
-</section>
 
+  <!-- KEY DIFFERENCE -->
+  <div class="section-block">
+    <h2>Key Differences</h2>
 
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>The logic of inference</h2>
+    <ul class="bullets">
+      <li>Parameter → fixed but unknown</li>
+      <li>Statistic → random and variable</li>
+    </ul>
 
     <p>
-      We observe a statistic.
+      Different samples produce different statistics.
     </p>
 
     <p>
-      We acknowledge it varies.
-    </p>
-
-    <p>
-      We use probability to describe its variability.
-    </p>
-
-    <p>
-      We draw conclusions about the fixed parameter.
+      This connects directly to <strong>sampling variability</strong>.
     </p>
   </div>
-</section>
 
-
-
-<section class="section section-soft">
-  <div class="content-narrow">
-    <h2>Key idea to remember</h2>
+  <!-- NUMERICAL EXAMPLE -->
+  <div class="section-block">
+    <h2>Numerical Example</h2>
 
     <p>
-      Parameters are population truths.
-      Statistics are sample-based evidence.
-      Inference connects the two.
+      Population (unknown mean):
+    </p>
+
+    <ul class="bullets">
+      <li>Mean = 170 (true but unknown to us)</li>
+    </ul>
+
+    <p>
+      Sample 1 → mean = 168  
+      Sample 2 → mean = 172
+    </p>
+
+    <p>
+      Both are statistics — neither equals the true parameter exactly.
     </p>
   </div>
-</section>
 
-
-
-<section class="section section-next">
-  <div class="content-narrow">
-    <h2>Simple summary</h2>
+  <!-- WHY IMPORTANT -->
+  <div class="section-block">
+    <h2>Why This Matters</h2>
 
     <p>
-      A parameter is fixed but unknown.
-      A statistic is observable but variable.
-      Confusing the two eliminates uncertainty
-      and undermines statistical reasoning.
+      The goal of statistics is:
+    </p>
+
+    <ul class="bullets">
+      <li>Use statistics (sample data)</li>
+      <li>To learn about parameters (population)</li>
+    </ul>
+
+    <p>
+      This process is called:
+    </p>
+
+    <ul class="bullets">
+      <li><strong>Statistical inference</strong></li>
+    </ul>
+  </div>
+
+  <!-- COMMON MISTAKE -->
+  <div class="section-block">
+    <h2>Common Mistake</h2>
+
+    <p>
+      Treating a statistic as if it were the true value.
+    </p>
+
+    <p>
+      Reality:
+    </p>
+
+    <ul class="bullets">
+      <li>Statistics are estimates</li>
+      <li>They contain uncertainty</li>
+    </ul>
+  </div>
+
+  <!-- BIG PICTURE -->
+  <div class="section-block">
+    <h2>The Big Picture</h2>
+
+    <p>
+      We never observe the entire population.
+    </p>
+
+    <p>
+      So we:
+    </p>
+
+    <ul class="bullets">
+      <li>Collect a sample</li>
+      <li>Compute statistics</li>
+      <li>Estimate parameters</li>
+    </ul>
+
+    <p>
+      This is the foundation of all statistical methods.
     </p>
   </div>
-</section>
 
-
-
-<section class="section section-next">
-  <div class="content-narrow">
-    <h2>What comes next</h2>
+  <!-- NEXT -->
+  <div class="section-block">
+    <h2>What Comes Next?</h2>
 
     <p>
-      The next lesson explains the difference between
-      <strong>data collection</strong> and <strong>data analysis</strong>,
-      and why poor data collection cannot be fixed by analysis.
+      Now we explore how data is collected in practice.
     </p>
 
-    <a class="btn btn-primary" href="/foundations/data-collection-vs-data-analysis/">
-      Next: Data Collection vs Data Analysis
-    </a>
+    <p>
+      This leads to:
+    </p>
+
+    <ul class="bullets">
+      <li>Surveys</li>
+      <li>Sampling methods</li>
+      <li>Data collection quality</li>
+    </ul>
+  </div>
+
+</section>
+
+<!-- NAVIGATION -->
+<section class="section section-slim">
+  <div class="callout">
+
+    <div class="callout-copy">
+      <h2>Next steps</h2>
+
+      <div class="hero-actions">
+
+        <a class="btn btn-outline" href="/foundations/sampling-variability/">
+          ← Previous: Sampling Variability
+        </a>
+
+        <a class="btn btn-outline" href="/foundations/">
+          Foundations Home
+        </a>
+
+        <a class="btn" href="/foundations/surveys/">
+          Next: Surveys →
+        </a>
+
+      </div>
+
+    </div>
+
   </div>
 </section>
