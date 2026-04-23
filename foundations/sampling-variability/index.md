@@ -1,253 +1,287 @@
 ---
 layout: default
 title: Sampling Variability
-description: Understanding why samples differ, the role of randomness, and why results change from sample to sample.
+description: Understand why different samples give different results and why variability is fundamental to statistical inference.
 permalink: /foundations/sampling-variability/
-section: foundations
-lesson_order: 16
+sidebar: false
 ---
 
-<meta name="esa-section" content="foundations">
-<meta name="esa-lesson-title" content="Sampling Variability">
-<meta name="esa-lesson-url" content="/foundations/sampling-variability/">
-
-<a class="btn btn-primary" href="/foundations/samples/">
-  Previous: Samples
-</a>
-
-<section class="hero hero-lesson">
+<!-- HERO -->
+<section class="hero hero-section">
   <div class="hero-card">
-    <h1>Sampling Variability</h1>
 
-    <div style="background:#fff3cd; border:1px solid #ffeeba; padding:12px 14px; margin:14px 0; border-radius:8px;">
-      <strong>🚧 Under Construction</strong> — Simulation visualizations will be added to demonstrate repeated sampling.
+    <div class="badge-row">
+      <span class="badge">Foundations</span>
+      <span class="badge">Core concept</span>
+      <span class="badge">Critical insight</span>
     </div>
 
+    <h1>Sampling Variability</h1>
+
     <p class="lead">
-      When we draw different samples from the same population,
-      we obtain different results.
-      This variation is natural, expected, and unavoidable.
+      Learn why different samples produce different results — and why this variability
+      is the foundation of statistical inference.
     </p>
 
-    <p class="muted-mini">
-      Section: <strong>Statistics Foundations</strong> • Lesson 16
-    </p>
+    <div class="hero-actions">
+      <a class="btn" href="#content">Start lesson</a>
+      <a class="btn btn-outline" href="/foundations/">Back to Foundations</a>
+    </div>
+
   </div>
 </section>
 
+<!-- CONTENT -->
+<section class="section" id="content">
 
+  <!-- CORE IDEA -->
+  <div class="section-block">
+    <h2>The Core Idea</h2>
 
-<section class="section">
-  <div class="content-narrow">
-    <h2>What you will learn</h2>
+    <p>
+      If we take multiple samples from the same population,
+      we will get different results.
+    </p>
+
+    <p>
+      This natural variation is called:
+    </p>
 
     <ul class="bullets">
-      <li>Why different samples give different results.</li>
-      <li>The difference between randomness and error.</li>
-      <li>Why sample statistics change from sample to sample.</li>
-      <li>An intuitive idea of a sampling distribution.</li>
-    </ul>
-  </div>
-</section>
-
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Why this topic matters</h2>
-
-    <p>
-      Many people expect repeated studies to produce identical results.
-    </p>
-
-    <p>
-      When results differ, this is often interpreted as a flaw
-      rather than a fundamental property of sampling.
-    </p>
-
-    <p>
-      Understanding sampling variability prevents misinterpretation,
-      overconfidence, and false accusations of error.
-    </p>
-  </div>
-</section>
-
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Why samples differ</h2>
-
-    <p>
-      A sample includes only part of the population.
-    </p>
-
-    <p>
-      When a different subset is selected,
-      the values observed are slightly different.
-    </p>
-
-    <p>
-      As a result, statistics such as means, proportions,
-      and correlations change from one sample to another.
-    </p>
-  </div>
-</section>
-
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Randomness vs error</h2>
-
-    <p>
-      Sampling variability arises from randomness,
-      not from mistakes.
-    </p>
-
-    <p>
-      Error implies something went wrong.
-      Randomness reflects the natural uncertainty
-      of selecting a subset.
-    </p>
-
-    <p>
-      Even perfectly designed random samples
-      produce varying results.
-    </p>
-  </div>
-</section>
-
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Statistics are random</h2>
-
-    <p>
-      A population parameter is fixed (though unknown).
-    </p>
-
-    <p>
-      A sample statistic is not fixed.
-      It depends on which units happen to be selected.
-    </p>
-
-    <p style="font-weight:600;">
-      Different samples → Different statistics.
-    </p>
-  </div>
-</section>
-
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>An intuitive idea: repeated sampling</h2>
-
-    <p>
-      Imagine repeatedly drawing samples of the same size
-      from one population.
-    </p>
-
-    <p>
-      Each sample produces a different value of the statistic.
-    </p>
-
-    <p>
-      The collection of those values forms
-      what is called a <strong>sampling distribution</strong>.
-    </p>
-
-    <p>
-      The spread of that distribution reflects sampling variability.
-    </p>
-  </div>
-</section>
-
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Sampling variability vs bias</h2>
-
-    <p>
-      Sampling variability occurs even with fair,
-      unbiased random sampling.
-    </p>
-
-    <p>
-      Bias occurs when the sampling method
-      systematically favors certain outcomes.
-    </p>
-
-    <p>
-      Variability is unavoidable.
-      Bias is avoidable.
-    </p>
-  </div>
-</section>
-
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Intuitive examples</h2>
-
-    <ul class="bullets">
-      <li>Two polls of 1,000 voters rarely give identical percentages.</li>
-      <li>Different classrooms sampled from a school may have slightly different averages.</li>
-      <li>Repeated quality checks on production batches vary slightly.</li>
+      <li><strong>Sampling variability</strong></li>
     </ul>
 
     <p>
-      These differences reflect natural sampling variation.
+      It is not a mistake — it is a fundamental property of data.
     </p>
   </div>
-</section>
 
-
-
-<section class="section section-soft">
-  <div class="content-narrow">
-    <h2>Key idea to remember</h2>
+  <!-- SIMPLE EXAMPLE -->
+  <div class="section-block">
+    <h2>Simple Example</h2>
 
     <p>
-      Variation across samples is expected.
-      It is a feature of sampling—not a flaw.
+      Suppose the true population average height is unknown.
+    </p>
+
+    <p>
+      We take three samples:
+    </p>
+
+    <ul class="bullets">
+      <li>Sample 1 → mean = 170</li>
+      <li>Sample 2 → mean = 168</li>
+      <li>Sample 3 → mean = 172</li>
+    </ul>
+
+    <p>
+      All are different — even though they come from the same population.
     </p>
   </div>
-</section>
 
-
-
-<section class="section section-next">
-  <div class="content-narrow">
-    <h2>Simple summary</h2>
+  <!-- WHY IT HAPPENS -->
+  <div class="section-block">
+    <h2>Why Does This Happen?</h2>
 
     <p>
-      Different samples from the same population
-      produce different statistics.
-      This variability arises from randomness
-      and is fundamental to statistical inference.
+      Because each sample contains different observations.
+    </p>
+
+    <p>
+      Even with random sampling:
+    </p>
+
+    <ul class="bullets">
+      <li>Some samples include higher values</li>
+      <li>Some include lower values</li>
+    </ul>
+
+    <p>
+      This creates variation in results.
     </p>
   </div>
-</section>
 
-
-
-<section class="section section-next">
-  <div class="content-narrow">
-    <h2>What comes next</h2>
+  <!-- NOT AN ERROR -->
+  <div class="section-block">
+    <h2>Important Insight</h2>
 
     <p>
-      The next lesson introduces <strong>parameters</strong>,
-      explaining why population quantities are fixed but unknown,
-      and how inference aims to estimate them.
+      Sampling variability is not an error.
     </p>
 
-    <a class="btn btn-primary" href="/foundations/parameters/">
-      Next: Parameters
-    </a>
+    <p>
+      It exists even when:
+    </p>
+
+    <ul class="bullets">
+      <li>The sample is perfectly random</li>
+      <li>There is no bias</li>
+    </ul>
+
+    <p>
+      It is unavoidable.
+    </p>
+  </div>
+
+  <!-- VISUAL THINKING -->
+  <div class="section-block">
+    <h2>Conceptual Understanding</h2>
+
+    <p>
+      Think of the population as a large distribution.
+    </p>
+
+    <p>
+      Each sample is like taking a small portion of it.
+    </p>
+
+    <p>
+      Different portions → different results.
+    </p>
+  </div>
+
+  <!-- SAMPLE SIZE -->
+  <div class="section-block">
+    <h2>Effect of Sample Size</h2>
+
+    <p>
+      Larger samples reduce variability.
+    </p>
+
+    <p><strong>Small sample:</strong></p>
+
+    <ul class="bullets">
+      <li>More variation</li>
+      <li>Less stable results</li>
+    </ul>
+
+    <p><strong>Large sample:</strong></p>
+
+    <ul class="bullets">
+      <li>Less variation</li>
+      <li>More stable results</li>
+    </ul>
+
+    <p>
+      But variability never disappears completely.
+    </p>
+  </div>
+
+  <!-- NUMERICAL EXAMPLE -->
+  <div class="section-block">
+    <h2>Numerical Example</h2>
+
+    <p>
+      Population values (unknown to us):
+    </p>
+
+    <ul class="bullets">
+      <li>160, 165, 170, 175, 180</li>
+    </ul>
+
+    <p>
+      Sample A: 160, 165 → mean = 162.5  
+      Sample B: 175, 180 → mean = 177.5
+    </p>
+
+    <p>
+      Same population — very different results.
+    </p>
+  </div>
+
+  <!-- WHY IMPORTANT -->
+  <div class="section-block">
+    <h2>Why This Matters</h2>
+
+    <p>
+      Sampling variability explains:
+    </p>
+
+    <ul class="bullets">
+      <li>Why results are uncertain</li>
+      <li>Why estimates are not exact</li>
+      <li>Why we need probability</li>
+    </ul>
+
+    <p>
+      It is the reason statistical inference exists.
+    </p>
+  </div>
+
+  <!-- COMMON MISTAKE -->
+  <div class="section-block">
+    <h2>Common Mistake</h2>
+
+    <p>
+      Assuming one sample gives the true answer.
+    </p>
+
+    <p>
+      Reality:
+    </p>
+
+    <ul class="bullets">
+      <li>Every sample is only an approximation</li>
+    </ul>
+  </div>
+
+  <!-- KEY INSIGHT -->
+  <div class="section-block">
+    <h2>Key Insight</h2>
+
+    <p>
+      Variability is not noise to ignore.
+    </p>
+
+    <p>
+      It is the central object of statistical reasoning.
+    </p>
+  </div>
+
+  <!-- NEXT -->
+  <div class="section-block">
+    <h2>What Comes Next?</h2>
+
+    <p>
+      Now we connect everything:
+    </p>
+
+    <ul class="bullets">
+      <li>Parameters (population values)</li>
+      <li>Statistics (sample values)</li>
+    </ul>
+
+    <p>
+      This distinction is essential for inference.
+    </p>
+  </div>
+
+</section>
+
+<!-- NAVIGATION -->
+<section class="section section-slim">
+  <div class="callout">
+
+    <div class="callout-copy">
+      <h2>Next steps</h2>
+
+      <div class="hero-actions">
+
+        <a class="btn btn-outline" href="/foundations/samples/">
+          ← Previous: Samples
+        </a>
+
+        <a class="btn btn-outline" href="/foundations/">
+          Foundations Home
+        </a>
+
+        <a class="btn" href="/foundations/parameters-vs-statistics/">
+          Next: Parameters vs Statistics →
+        </a>
+
+      </div>
+
+    </div>
+
   </div>
 </section>
