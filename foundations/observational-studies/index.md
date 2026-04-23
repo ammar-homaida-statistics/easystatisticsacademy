@@ -1,301 +1,244 @@
 ---
 layout: default
 title: Observational Studies
-description: Understanding observational studies, passive data collection, lack of control, and the difference between association and causation.
+description: Understand observational studies, passive data collection, and why correlation does not imply causation.
 permalink: /foundations/observational-studies/
-section: foundations
-lesson_order: 22
+sidebar: false
 ---
 
-<meta name="esa-section" content="foundations">
-<meta name="esa-lesson-title" content="Observational Studies">
-<meta name="esa-lesson-url" content="/foundations/observational-studies/">
-
-<a class="btn btn-primary" href="/foundations/surveys/">
-  Previous: Surveys
-</a>
-
-<section class="hero hero-lesson">
+<!-- HERO -->
+<section class="hero hero-section">
   <div class="hero-card">
-    <h1>Observational Studies</h1>
 
-    <div style="background:#fff3cd; border:1px solid #ffeeba; padding:12px 14px; margin:14px 0; border-radius:8px;">
-      <strong>🚧 Under Construction</strong> — Real-world causal vs non-causal examples will be added.
+    <div class="badge-row">
+      <span class="badge">Data collection</span>
+      <span class="badge">Association</span>
+      <span class="badge">Causation limits</span>
     </div>
 
+    <h1>Observational Studies</h1>
+
     <p class="lead">
-      Observational studies collect data without intervention.
-      They are powerful for discovering patterns,
-      but they cannot by themselves establish causation.
+      Observational studies collect data without intervention — revealing patterns and relationships, but not causation.
     </p>
 
-    <p class="muted-mini">
-      Section: <strong>Statistics Foundations</strong> • Lesson 22
-    </p>
+    <div class="hero-actions">
+      <a class="btn" href="#content">Start lesson</a>
+      <a class="btn btn-outline" href="/foundations/">Back to Foundations</a>
+    </div>
+
   </div>
 </section>
 
+<!-- CONTENT -->
+<section class="section" id="content">
 
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>What you will learn</h2>
-
-    <ul class="bullets">
-      <li>What observational studies are.</li>
-      <li>What passive data collection means.</li>
-      <li>Why lack of control limits conclusions.</li>
-      <li>The critical difference between association and causation.</li>
-    </ul>
-  </div>
-</section>
-
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Why this topic matters</h2>
+  <!-- WHAT IS -->
+  <div class="section-block">
+    <h2>What Is an Observational Study?</h2>
 
     <p>
-      Many real-world datasets come from observational studies,
-      not controlled experiments.
+      An observational study is a method of collecting data where researchers do not control or manipulate variables.
     </p>
 
     <p>
-      These data are often used to make claims about causes,
-      even when the study design does not support such conclusions.
-    </p>
-
-    <p>
-      Misinterpreting observational results is one of the most common
-      and serious errors in statistics.
-    </p>
-  </div>
-</section>
-
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>What observational studies are</h2>
-
-    <p>
-      An observational study collects data
-      without actively controlling or assigning conditions.
-    </p>
-
-    <p>
-      Researchers observe what naturally occurs,
-      rather than manipulating variables.
-    </p>
-
-    <p>
-      The goal is to identify patterns,
-      relationships, and differences in real-world data.
-    </p>
-  </div>
-</section>
-
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Passive data collection</h2>
-
-    <p>
-      Observational studies rely on <strong>passive data collection</strong>.
-    </p>
-
-    <p>
-      This means the researcher does not control:
+      Instead, they observe what naturally occurs.
     </p>
 
     <ul class="bullets">
-      <li>Who receives which condition</li>
-      <li>Which factors influence outcomes</li>
-      <li>How variables interact in the real world</li>
+      <li>No intervention</li>
+      <li>No controlled assignment</li>
+      <li>Data comes from real-world conditions</li>
     </ul>
-
-    <p>
-      Data may come from surveys, records, logs,
-      or naturally occurring processes.
-    </p>
   </div>
-</section>
 
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Lack of control and confounding</h2>
-
-    <p>
-      Because conditions are not controlled,
-      many factors may influence the observed relationship.
-    </p>
-
-    <p>
-      These are called <strong>confounding variables</strong>—
-      variables that affect both the predictor and the outcome.
-    </p>
-
-    <h3>Example</h3>
-
-    <p>
-      Ice cream sales and drowning incidents
-      may increase at the same time.
-    </p>
-
-    <p>
-      The confounding variable is temperature,
-      not a causal link between the two.
-    </p>
-
-    <p>
-      Without control, these effects cannot be separated clearly.
-    </p>
-  </div>
-</section>
-
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Association vs causation</h2>
-
-    <p>
-      Observational studies can identify <strong>associations</strong>—
-      patterns or relationships between variables.
-    </p>
-
-    <p>
-      However, association does not imply causation.
-    </p>
-
-    <h3>Key distinction</h3>
+  <!-- EXAMPLES -->
+  <div class="section-block">
+    <h2>Examples</h2>
 
     <ul class="bullets">
-      <li><strong>Association:</strong> variables move together.</li>
-      <li><strong>Causation:</strong> one variable directly affects another.</li>
+      <li>Studying the relationship between smoking and lung disease</li>
+      <li>Analyzing income and education levels</li>
+      <li>Observing exercise habits and health outcomes</li>
     </ul>
 
     <p>
-      Observational data alone cannot rule out:
+      In all cases, researchers do not assign behavior — they only observe it.
+    </p>
+  </div>
+
+  <!-- KEY FEATURE -->
+  <div class="section-block">
+    <h2>Key Feature: No Control</h2>
+
+    <p>
+      The defining characteristic of observational studies is lack of control.
+    </p>
+
+    <p>
+      This means:
     </p>
 
     <ul class="bullets">
-      <li>Confounding variables</li>
-      <li>Reverse causation</li>
-      <li>Coincidental relationships</li>
+      <li>Variables may be influenced by hidden factors</li>
+      <li>Relationships may be misleading</li>
     </ul>
-
-    <p style="font-weight:600;">
-      Observational studies suggest relationships.  
-      They do not prove causes.
-    </p>
   </div>
-</section>
 
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>When observational studies are useful</h2>
+  <!-- ASSOCIATION -->
+  <div class="section-block">
+    <h2>Association vs Causation</h2>
 
     <p>
-      Observational studies are essential when experiments
-      are not possible.
-    </p>
-
-    <p>
-      This includes situations where experiments would be:
+      Observational studies can show:
     </p>
 
     <ul class="bullets">
-      <li>Unethical (e.g., harmful exposures)</li>
-      <li>Impractical (e.g., large populations)</li>
-      <li>Too expensive or time-consuming</li>
+      <li><strong>Association</strong> → variables move together</li>
     </ul>
 
     <p>
-      They are valuable for:
+      But they cannot prove:
     </p>
 
     <ul class="bullets">
-      <li>Describing patterns</li>
-      <li>Identifying associations</li>
-      <li>Generating hypotheses</li>
+      <li><strong>Causation</strong> → one variable causes another</li>
     </ul>
   </div>
-</section>
 
+  <!-- CLASSIC EXAMPLE -->
+  <div class="section-block">
+    <h2>Classic Example</h2>
 
+    <p>
+      Ice cream sales and drowning incidents both increase in summer.
+    </p>
 
-<section class="section">
-  <div class="content-narrow">
-    <h2>Common misuse</h2>
+    <p>
+      Does ice cream cause drowning?
+    </p>
+
+    <p>
+      No — a third variable explains both:
+    </p>
 
     <ul class="bullets">
-      <li>Claiming causation from correlation.</li>
-      <li>Ignoring confounding variables.</li>
-      <li>Overgeneralizing results.</li>
-      <li>Treating observational results as experimental evidence.</li>
+      <li>Hot weather increases both swimming and ice cream consumption</li>
+    </ul>
+  </div>
+
+  <!-- CONFOUNDING -->
+  <div class="section-block">
+    <h2>Confounding Variables</h2>
+
+    <p>
+      A confounding variable is a hidden factor that affects both variables being studied.
+    </p>
+
+    <ul class="bullets">
+      <li>Creates misleading relationships</li>
+      <li>Makes causation unclear</li>
     </ul>
 
     <p>
-      These mistakes are common in media, reports,
-      and automated analyses.
+      Example:
     </p>
+
+    <ul class="bullets">
+      <li>Coffee consumption and heart disease</li>
+      <li>Confounder: smoking</li>
+    </ul>
   </div>
-</section>
 
+  <!-- WHY USED -->
+  <div class="section-block">
+    <h2>Why Use Observational Studies?</h2>
 
+    <ul class="bullets">
+      <li>Experiments may be unethical or impossible</li>
+      <li>Useful for large-scale real-world data</li>
+      <li>Often the only available approach</li>
+    </ul>
+  </div>
 
-<section class="section section-soft">
-  <div class="content-narrow">
-    <h2>Key idea to remember</h2>
+  <!-- LIMITATIONS -->
+  <div class="section-block">
+    <h2>Limitations</h2>
+
+    <ul class="bullets">
+      <li>Cannot establish causation</li>
+      <li>Vulnerable to confounding</li>
+      <li>May contain bias</li>
+    </ul>
+  </div>
+
+  <!-- BIG IDEA -->
+  <div class="section-block">
+    <h2>The Big Idea</h2>
 
     <p>
-      Observational studies reveal patterns,
-      but they do not establish causation.
+      Observational studies are powerful for discovering patterns —
+      but dangerous if interpreted incorrectly.
     </p>
-  </div>
-</section>
-
-
-
-<section class="section section-next">
-  <div class="content-narrow">
-    <h2>Simple summary</h2>
 
     <p>
-      Observational studies collect data without intervention.
-      They are useful for identifying relationships,
-      but they cannot determine cause-and-effect on their own.
+      Always ask:
     </p>
+
+    <ul class="bullets">
+      <li>Is this causal?</li>
+      <li>Or just association?</li>
+    </ul>
   </div>
-</section>
 
-
-
-<section class="section section-next">
-  <div class="content-narrow">
-    <h2>What comes next</h2>
+  <!-- NEXT -->
+  <div class="section-block">
+    <h2>What Comes Next?</h2>
 
     <p>
-      The next lesson introduces <strong>experiments</strong>,
-      explaining manipulation, control, random assignment,
-      and why experiments provide stronger causal evidence.
+      To establish causation, we need:
     </p>
 
-    <a class="btn btn-primary" href="/foundations/experiments/">
-      Next: Experiments
-    </a>
+    <ul class="bullets">
+      <li>Controlled experiments</li>
+      <li>Random assignment</li>
+    </ul>
+
+    <p>
+      This leads to:
+    </p>
+
+    <ul class="bullets">
+      <li>Experiments</li>
+    </ul>
   </div>
+
 </section>
 
-<script>
-  try {
-    localStorage.setItem("esa:lastLesson", window.location.pathname);
-  } catch (e) {}
-</script>
+<!-- NAVIGATION -->
+<section class="section section-slim">
+  <div class="callout">
+
+    <div class="callout-copy">
+      <h2>Next steps</h2>
+
+      <div class="hero-actions">
+
+        <a class="btn btn-outline" href="/foundations/surveys/">
+          ← Previous: Surveys
+        </a>
+
+        <a class="btn btn-outline" href="/foundations/">
+          Foundations Home
+        </a>
+
+        <a class="btn" href="/foundations/experiments/">
+          Next: Experiments →
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
