@@ -134,6 +134,10 @@ sidebar: false
     <p>
       Each structure answers different questions.
     </p>
+
+    <p>
+      Choosing the wrong structure can hide important patterns or create misleading results.
+    </p>
   </div>
 
   <!-- LONG VS WIDE (IMPORTANT) -->
@@ -165,6 +169,10 @@ sidebar: false
       <li>visualization</li>
       <li>machine learning</li>
     </ul>
+
+    <p>
+      Long format is typically preferred for analysis and visualization, while wide format is often used for data entry or reporting.
+      </p>
   </div>
 
   <!-- KEY INSIGHT -->
@@ -172,7 +180,7 @@ sidebar: false
     <h2>Key Insight</h2>
 
     <p>
-      A dataset is not just data — it is a design.
+      A dataset is not just data — it is a structured design.
     </p>
 
     <p>
