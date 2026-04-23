@@ -89,8 +89,8 @@ sidebar: false
     </p>
 
     <ul class="bullets">
-      <li>Arithmetic operations are meaningful</li>
-      <li>Values represent magnitude</li>
+      <li>Arithmetic operations are meaningful (e.g., calculating averages or differences produces meaningful interpretations)</li>
+      <li>Values represent measurable quantities</li>
     </ul>
 
     <p><strong>Examples:</strong></p>
