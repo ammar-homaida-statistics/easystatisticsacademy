@@ -53,6 +53,15 @@ sidebar: false
     <p>
       Statistics is always about learning something about a population.
     </p>
+
+<p>
+  In statistics, we are usually interested in <strong>population parameters</strong> —
+  values that describe the population (such as the mean or proportion).
+</p>
+
+<p>
+  These are typically unknown, which is why we use data to estimate them.
+</p>    
   </div>
 
   <!-- EXAMPLES -->
@@ -66,9 +75,16 @@ sidebar: false
       <li>All transactions in a system</li>
     </ul>
 
-    <p>
-      The population depends on the research question.
-    </p>
+    <p><strong>Important:</strong></p>
+
+<p>
+  The same real-world situation can define different populations depending on the question.
+</p>
+
+<ul class="bullets">
+  <li>All students in one university</li>
+  <li>All students in a country</li>
+</ul>
   </div>
 
   <!-- IMPORTANT INSIGHT -->
@@ -86,7 +102,7 @@ sidebar: false
     </ul>
 
     <p>
-      That is why we use <strong>samples</strong> (next lesson).
+      That is why we use <strong>samples</strong> — to learn about the population without observing it (next lesson).
     </p>
   </div>
 
@@ -157,6 +173,11 @@ sidebar: false
     <p>
       These are often not the same — and this creates bias.
     </p>
+
+    <p>
+  If your accessible population differs systematically from your target population,
+  your results may not generalize correctly.
+</p>
   </div>
 
   <!-- NUMERICAL EXAMPLE -->
@@ -192,6 +213,32 @@ sidebar: false
     </p>
   </div>
 
+<div class="section-block">
+  <h2>Population vs Sample (Preview)</h2>
+
+  <p>
+    In statistics, we distinguish between:
+  </p>
+
+  <ul class="bullets">
+    <li><strong>Population parameter</strong> → true value (unknown)</li>
+    <li><strong>Sample statistic</strong> → estimate from data</li>
+  </ul>
+
+  <p>
+    Example:
+  </p>
+
+  <ul class="bullets">
+    <li>Population mean height → unknown</li>
+    <li>Sample mean height → calculated from data</li>
+  </ul>
+
+  <p>
+    This distinction is the foundation of statistical inference.
+  </p>
+</div>
+
   <!-- WHY IMPORTANT -->
   <div class="section-block">
     <h2>Why This Matters</h2>
@@ -220,9 +267,12 @@ sidebar: false
     </p>
 
     <p>
-      Data ≠ population  
-      Data = only a part of the population
-    </p>
+  Data is not the population.
+</p>
+
+<p>
+  Data is a <strong>sample</strong> drawn from the population.
+</p>
   </div>
 
   <!-- KEY INSIGHT -->
