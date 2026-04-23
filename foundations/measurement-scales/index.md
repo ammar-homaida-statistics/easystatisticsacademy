@@ -129,7 +129,7 @@ sidebar: false
 
     <ul class="bullets">
       <li>Assume equal differences ❌</li>
-      <li>Interpret averages meaningfully ❌ (in many cases)</li>
+      <li>Averages may be misleading because distances between levels are not equal.</li>
     </ul>
   </div>
 
@@ -158,7 +158,7 @@ sidebar: false
     <p><strong>What you cannot do:</strong></p>
 
     <ul class="bullets">
-      <li>Interpret ratios ❌</li>
+      <li>Ratios are not meaningful (e.g., 20°C is not ‘twice’ 10°C)</li>
     </ul>
 
     <p>
@@ -261,7 +261,7 @@ sidebar: false
     <h2>Key Insight</h2>
 
     <p>
-      Measurement scale determines valid analysis.
+      Measurement scale determines which operations, summaries, and models are valid.
     </p>
 
     <ul class="bullets">
