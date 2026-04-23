@@ -81,7 +81,7 @@ sidebar: false
     <p><strong>Key property:</strong></p>
 
     <ul class="bullets">
-      <li>You cannot have fractions between values</li>
+      <li>Values typically occur as whole, separate counts (fractions usually do not make sense in context).</li>
     </ul>
 
     <p>
@@ -112,7 +112,7 @@ sidebar: false
     <p><strong>Key property:</strong></p>
 
     <ul class="bullets">
-      <li>Infinite possible values between any two points</li>
+      <li>Infinite possible values between any two points. In practice, measurements are often rounded, but the underlying variable is still continuous.</li>
     </ul>
   </div>
 
@@ -130,8 +130,8 @@ sidebar: false
     </ul>
 
     <p>
-      Discrete = counting  
-      Continuous = measuring
+      Discrete = counting individual units  
+      Continuous = measuring quantities
     </p>
   </div>
 
