@@ -1,292 +1,234 @@
 ---
 layout: default
 title: Experiments
-description: Understanding experiments, manipulation and control, treatments and outcomes, random assignment, and why experiments provide strong causal evidence.
+description: Learn how experiments establish causation using control, treatments, and random assignment.
 permalink: /foundations/experiments/
-section: foundations
-lesson_order: 23
+sidebar: false
 ---
 
-<meta name="esa-section" content="foundations">
-<meta name="esa-lesson-title" content="Experiments">
-<meta name="esa-lesson-url" content="/foundations/experiments/">
-
-<a class="btn btn-primary" href="/foundations/observational-studies/">
-  Previous: Observational Studies
-</a>
-
-<section class="hero hero-lesson">
+<!-- HERO -->
+<section class="hero hero-section">
   <div class="hero-card">
-    <h1>Experiments</h1>
 
-    <div style="background:#fff3cd; border:1px solid #ffeeba; padding:12px 14px; margin:14px 0; border-radius:8px;">
-      <strong>🚧 Under Construction</strong> — Real-world randomized experiments and A/B testing examples will be added.
+    <div class="badge-row">
+      <span class="badge">Causation</span>
+      <span class="badge">Control</span>
+      <span class="badge">Randomization</span>
     </div>
 
+    <h1>Experiments</h1>
+
     <p class="lead">
-      Experiments are designed to identify cause-and-effect relationships.
-      By actively controlling conditions and using random assignment,
-      they provide stronger evidence than observational studies.
+      Experiments allow us to establish causation by controlling conditions and using random assignment.
     </p>
 
-    <p class="muted-mini">
-      Section: <strong>Statistics Foundations</strong> • Lesson 23
-    </p>
+    <div class="hero-actions">
+      <a class="btn" href="#content">Start lesson</a>
+      <a class="btn btn-outline" href="/foundations/">Back to Foundations</a>
+    </div>
+
   </div>
 </section>
 
+<!-- CONTENT -->
+<section class="section" id="content">
 
+  <!-- WHAT IS -->
+  <div class="section-block">
+    <h2>What Is an Experiment?</h2>
 
-<section class="section">
-  <div class="content-narrow">
-    <h2>What you will learn</h2>
+    <p>
+      An experiment is a study where researchers actively control and manipulate variables.
+    </p>
 
     <ul class="bullets">
-      <li>What defines an experiment in statistics.</li>
-      <li>The role of manipulation and control.</li>
-      <li>What treatments and outcomes are.</li>
-      <li>Why random assignment is essential.</li>
-      <li>Why experiments provide strong causal evidence.</li>
+      <li>Introduce a treatment</li>
+      <li>Control conditions</li>
+      <li>Observe outcomes</li>
     </ul>
-  </div>
-</section>
-
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Why this topic matters</h2>
-
-    <p>
-      Many important questions involve cause and effect:
-      Does a treatment work? Does a policy change behavior?
-    </p>
-
-    <p>
-      Observational data alone cannot answer these questions reliably.
-    </p>
-
-    <p>
-      Experiments provide a structured way to isolate causes
-      and produce more credible conclusions.
-    </p>
-  </div>
-</section>
-
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>What defines an experiment</h2>
-
-    <p>
-      An experiment is a study in which researchers actively
-      assign conditions to observational units.
-    </p>
 
     <p>
       Unlike observational studies, experiments involve intervention.
     </p>
-
-    <p>
-      The goal is to create conditions where differences in outcomes
-      can be attributed to the treatment itself.
-    </p>
   </div>
-</section>
 
+  <!-- KEY COMPONENTS -->
+  <div class="section-block">
+    <h2>Key Components</h2>
 
+    <p><strong>1. Treatment</strong></p>
+    <ul class="bullets">
+      <li>The condition applied (e.g., drug, method, intervention)</li>
+    </ul>
 
-<section class="section">
-  <div class="content-narrow">
-    <h2>Manipulation and control</h2>
+    <p><strong>2. Control Group</strong></p>
+    <ul class="bullets">
+      <li>Group that does not receive the treatment</li>
+    </ul>
 
-    <p>
-      Experiments involve <strong>manipulation</strong>:
-      researchers decide which treatment each unit receives.
-    </p>
+    <p><strong>3. Experimental Group</strong></p>
+    <ul class="bullets">
+      <li>Group that receives the treatment</li>
+    </ul>
 
-    <p>
-      They also involve <strong>control</strong>:
-      keeping other factors as similar as possible across groups.
-    </p>
-
-    <p>
-      This combination reduces the influence of confounding variables
-      that are common in observational studies.
-    </p>
+    <p><strong>4. Outcome Variable</strong></p>
+    <ul class="bullets">
+      <li>The result being measured</li>
+    </ul>
   </div>
-</section>
 
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Treatments and outcomes</h2>
+  <!-- RANDOM ASSIGNMENT -->
+  <div class="section-block">
+    <h2>Random Assignment (Critical)</h2>
 
     <p>
-      A <strong>treatment</strong> is the condition applied
-      to an experimental unit.
-    </p>
-
-    <p>
-      An <strong>outcome</strong> is the response measured
-      after the treatment is applied.
-    </p>
-
-    <h3>Example</h3>
-
-    <p>
-      In a medical experiment:
+      Participants are randomly assigned to groups.
     </p>
 
     <ul class="bullets">
-      <li>Treatment: receiving a new drug vs a placebo</li>
-      <li>Outcome: improvement in health</li>
+      <li>Reduces bias</li>
+      <li>Balances hidden variables</li>
+      <li>Creates comparable groups</li>
     </ul>
 
     <p>
-      Experiments compare outcomes across treatment groups
-      to assess effects.
+      This is what allows causal conclusions.
     </p>
   </div>
-</section>
 
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Random assignment</h2>
+  <!-- EXAMPLE -->
+  <div class="section-block">
+    <h2>Example</h2>
 
     <p>
-      Random assignment means that units are assigned
-      to treatments by chance.
+      A new drug is tested:
     </p>
-
-    <p>
-      This ensures that, on average,
-      treatment groups are similar before the treatment is applied.
-    </p>
-
-    <p>
-      Both known and unknown factors
-      are balanced across groups.
-    </p>
-
-    <p style="font-weight:600;">
-      This is the key mechanism that allows causal interpretation.
-    </p>
-  </div>
-</section>
-
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Why experiments support causation</h2>
-
-    <p>
-      Because treatments are assigned and conditions are controlled,
-      differences in outcomes can be linked to the treatment.
-    </p>
-
-    <p>
-      Random assignment removes systematic differences
-      between groups.
-    </p>
-
-    <p>
-      This allows experiments to rule out many alternative explanations,
-      such as confounding or reverse causation.
-    </p>
-  </div>
-</section>
-
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Limitations of experiments</h2>
 
     <ul class="bullets">
-      <li>Some experiments are unethical (e.g., harmful exposures).</li>
-      <li>Some are impractical or too expensive.</li>
-      <li>Results may not generalize beyond the study setting.</li>
+      <li>Group A → receives drug</li>
+      <li>Group B → receives placebo</li>
     </ul>
 
     <p>
-      Even strong experimental results must be interpreted carefully.
+      If outcomes differ significantly:
     </p>
-  </div>
-</section>
-
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Common misunderstandings</h2>
 
     <ul class="bullets">
-      <li>Confusing random assignment with random sampling.</li>
-      <li>Assuming all experiments are perfectly controlled.</li>
-      <li>Believing experiments eliminate all uncertainty.</li>
+      <li>We can attribute the difference to the treatment</li>
+    </ul>
+  </div>
+
+  <!-- WHY CAUSATION -->
+  <div class="section-block">
+    <h2>Why Experiments Show Causation</h2>
+
+    <ul class="bullets">
+      <li>Control removes external influences</li>
+      <li>Randomization removes confounding</li>
+      <li>Comparison isolates the effect</li>
     </ul>
 
     <p>
-      Experiments improve causal inference,
-      but they do not produce absolute certainty.
+      This is why experiments are considered the gold standard.
     </p>
   </div>
-</section>
 
+  <!-- LIMITATIONS -->
+  <div class="section-block">
+    <h2>Limitations</h2>
 
+    <ul class="bullets">
+      <li>May be expensive</li>
+      <li>May be unethical (e.g., harmful exposure)</li>
+      <li>Sometimes not feasible</li>
+    </ul>
+  </div>
 
-<section class="section section-soft">
-  <div class="content-narrow">
-    <h2>Key idea to remember</h2>
+  <!-- OBSERVATIONAL VS EXPERIMENT -->
+  <div class="section-block">
+    <h2>Observational vs Experimental</h2>
+
+    <ul class="bullets">
+      <li>Observational → association only</li>
+      <li>Experimental → can establish causation</li>
+    </ul>
 
     <p>
-      Experiments support causal conclusions
-      because they combine control with random assignment.
+      Choosing the correct method is critical.
     </p>
   </div>
-</section>
 
-
-
-<section class="section section-next">
-  <div class="content-narrow">
-    <h2>Simple summary</h2>
+  <!-- COMMON MISTAKE -->
+  <div class="section-block">
+    <h2>Common Mistake</h2>
 
     <p>
-      Experiments manipulate conditions, assign treatments,
-      and measure outcomes.
-      By using random assignment, they provide strong evidence
-      about cause-and-effect relationships.
+      Assuming causation without an experiment.
     </p>
-  </div>
-</section>
-
-
-
-<section class="section section-next">
-  <div class="content-narrow">
-    <h2>What comes next</h2>
 
     <p>
-      The next lesson introduces <strong>ethical considerations</strong>,
-      explaining consent, privacy, and why ethical constraints
-      shape how data can be collected.
+      Many real-world claims are based only on observational data.
+    </p>
+  </div>
+
+  <!-- BIG IDEA -->
+  <div class="section-block">
+    <h2>The Big Idea</h2>
+
+    <p>
+      To claim causation, you must control the system.
     </p>
 
-    <a class="btn btn-primary" href="/foundations/ethical-considerations-in-data-collection/">
-      Next: Ethical Considerations in Data Collection
-    </a>
+    <p>
+      Without control, you only observe patterns.
+    </p>
   </div>
+
+  <!-- NEXT -->
+  <div class="section-block">
+    <h2>What Comes Next?</h2>
+
+    <p>
+      Even experiments are not perfect.
+    </p>
+
+    <p>
+      Next, we study:
+    </p>
+
+    <ul class="bullets">
+      <li>Bias</li>
+      <li>Systematic errors</li>
+      <li>Why results can still be wrong</li>
+    </ul>
+  </div>
+
 </section>
 
-<script>
-  try {
-    localStorage.setItem("esa:lastLesson", window.location.pathname);
-  } catch (e) {}
-</script>
+<!-- NAVIGATION -->
+<section class="section section-slim">
+  <div class="callout">
+
+    <div class="callout-copy">
+      <h2>Next steps</h2>
+
+      <div class="hero-actions">
+
+        <a class="btn btn-outline" href="/foundations/observational-studies/">
+          ← Previous: Observational Studies
+        </a>
+
+        <a class="btn btn-outline" href="/foundations/">
+          Foundations Home
+        </a>
+
+        <a class="btn" href="/foundations/bias/">
+          Next: Bias →
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
