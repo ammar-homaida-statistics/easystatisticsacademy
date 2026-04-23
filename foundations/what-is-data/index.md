@@ -47,6 +47,10 @@ sidebar: false
       In simple terms:
       <strong>data is recorded information about something we want to study.</strong>
     </p>
+
+    <p>
+      Data typically consists of observations (units) and variables (characteristics measured on those units).
+    </p>
   </div>
 
   <!-- EXAMPLES -->
@@ -62,7 +66,7 @@ sidebar: false
     </ul>
 
     <p>
-      These values are not random — they represent real-world observations.
+      These values are not arbitrary — they represent real-world observations.
     </p>
   </div>
 
