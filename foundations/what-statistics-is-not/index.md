@@ -83,7 +83,7 @@ sidebar: false
 
     <p>
       For example, the true value might reasonably lie between 170 and 176 depending on sampling variability.
-    <p>
+    </p>
   </div>
 
   <!-- NOT CERTAINTY -->
@@ -189,7 +189,7 @@ sidebar: false
 
     <p>
       This is called a confounding variable.
-    <p>
+    </p>
   </div>
 
   <!-- COMMON MISCONCEPTIONS -->
