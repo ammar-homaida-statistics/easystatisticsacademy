@@ -80,6 +80,10 @@ sidebar: false
       It means:
       <strong>based on the data, 173 is our best estimate — but it could be different.</strong>
     </p>
+
+    <p>
+      For example, the true value might reasonably lie between 170 and 176 depending on sampling variability.
+    <p>
   </div>
 
   <!-- NOT CERTAINTY -->
@@ -87,7 +91,7 @@ sidebar: false
     <h2>Statistics Is Not Certainty</h2>
 
     <p>
-      Statistics does not prove things in the way mathematics does.
+      Statistical conclusions are not proofs; they quantify uncertainty based on data.
     </p>
 
     <p>
@@ -182,6 +186,10 @@ sidebar: false
     <p>
       The hidden factor is temperature (summer).
     </p>
+
+    <p>
+      This is called a confounding variable.
+    <p>
   </div>
 
   <!-- COMMON MISCONCEPTIONS -->
