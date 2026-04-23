@@ -85,7 +85,7 @@ sidebar: false
     </ul>
 
     <p>
-      This allows mathematical operations — but does not change the type.
+      This allows certain mathematical operations (like computing proportions), but does not make the data truly numerical.
     </p>
 
     <p>
@@ -121,6 +121,10 @@ sidebar: false
 
     <p>
       So the mean of binary data = <strong>proportion</strong>.
+    </p>
+
+    <p>
+      This is why binary data is often modeled using probability (Bernoulli and Binomial distributions).
     </p>
   </div>
 
@@ -190,7 +194,7 @@ sidebar: false
     <h2>Key Insight</h2>
 
     <p>
-      Binary data is simple — but extremely powerful.
+      Binary data is simple — but forms the foundation of probability, statistical inference, and classification models.
     </p>
 
     <ul class="bullets">
