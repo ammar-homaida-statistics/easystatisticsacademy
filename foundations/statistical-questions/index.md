@@ -50,7 +50,7 @@ sidebar: false
 
     <p>
       In simple terms:
-      <strong>a statistical question does not have a single fixed answer.</strong>
+      <strong>a statistical question does not have a single fixed answer. Instead, it is answered with a range, a summary, or a probability.</strong>
     </p>
   </div>
 
@@ -143,9 +143,9 @@ sidebar: false
     </p>
 
     <ul class="bullets">
-      <li>What is the average score?</li>
-      <li>How spread out are the scores?</li>
-      <li>Are most students above 70?</li>
+      <li>What is the average score? “Mean = 75”</li>
+      <li>How spread out are the scores? “Range: 60 to 90”</li>
+      <li>Are most students above 70? “4 out of 5 students scored above 70”</li>
     </ul>
 
     <p>
