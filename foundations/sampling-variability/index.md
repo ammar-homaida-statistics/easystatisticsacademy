@@ -157,6 +157,8 @@ sidebar: false
     Think of the population as a full distribution of values.
   </p>
 
+  <img src="/assets/images/sampling-variability.png" alt="Sampling variability illustration" style="margin-top:15px;">
+
   <p>
     Each sample captures only a part of that distribution.
   </p>
@@ -226,6 +228,42 @@ sidebar: false
 </div>
 
 <div class="section-block">
+  <h2>Try It Yourself</h2>
+
+  <p>
+    You can observe sampling variability directly using simple tools.
+  </p>
+
+  <p><strong>SPSS:</strong></p>
+  <ul class="bullets">
+    <li>Go to Analyze → Descriptive Statistics → Explore</li>
+    <li>Run the analysis on different subsets of your data</li>
+    <li>Compare how the mean changes each time</li>
+  </ul>
+
+  <p><strong>Excel:</strong></p>
+  <ul class="bullets">
+    <li>Use =RANDBETWEEN(1,100) to generate values</li>
+    <li>Take the average of 10 numbers</li>
+    <li>Repeat several times — the result will vary</li>
+  </ul>
+
+  <p>
+
+    <p><strong>Python (optional):</strong></p>
+
+<pre><code>import numpy as np
+
+for _ in range(5):
+    sample = np.random.randint(1, 101, 10)
+    print(sample.mean())
+</code></pre>
+
+    Even with the same process, results change — this is sampling variability.
+  </p>
+</div>
+
+<div class="section-block">
   <h2>Thought Experiment</h2>
 
   <p>
@@ -255,16 +293,16 @@ sidebar: false
     </p>
 
     <ul class="bullets">
-      <li>Why results are uncertain</li>
-      <li>Why estimates are not exact</li>
-      <li>Why we need probability</li>
-    </ul>
+  <li>Why results are uncertain</li>
+  <li>Why estimates are not exact</li>
+  <li>Why we need probability</li>
+  <li>Why we cannot trust a single sample result</li>
+</ul>
 
     <p>
       It is the reason statistical inference exists.
     </p>
-
-    <li>Why we cannot trust a single sample result</li>
+    
   </div>
 
   <!-- COMMON MISTAKE -->
