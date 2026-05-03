@@ -60,6 +60,25 @@ sidebar: false
     </ul>
   </div>
 
+  <div class="section-block">
+  <h2>Survey vs Sampling</h2>
+
+  <p>
+    A survey is a method of <strong>collecting data</strong>,
+    but it is not the same as how the sample is selected.
+  </p>
+
+  <ul class="bullets">
+    <li><strong>Survey:</strong> how questions are asked</li>
+    <li><strong>Sampling:</strong> how individuals are chosen</li>
+  </ul>
+
+  <p>
+    A well-designed survey can still produce poor results
+    if the sampling process is biased.
+  </p>
+</div>
+
   <!-- WHY USED -->
   <div class="section-block">
     <h2>Why Use Surveys?</h2>
@@ -90,8 +109,8 @@ sidebar: false
     </ul>
 
     <p>
-      This makes surveys highly vulnerable to bias.
-    </p>
+  This makes survey results sensitive to both random error and systematic bias.
+</p>
   </div>
 
   <!-- TYPES OF BIAS -->
@@ -102,6 +121,7 @@ sidebar: false
     <ul class="bullets">
       <li>The sample does not represent the population</li>
       <li>Example: online survey excludes people without internet</li>
+      <li>Results cannot be generalized to the target population</li>
     </ul>
 
     <p><strong>2. Response Bias</strong></p>
@@ -113,6 +133,8 @@ sidebar: false
     <p><strong>3. Nonresponse Bias</strong></p>
     <ul class="bullets">
       <li>People who respond differ from those who do not</li>
+      <li>This creates systematic differences in the data</li>
+      <li>Includes social desirability and recall bias</li>
     </ul>
 
     <p><strong>4. Question Wording Bias</strong></p>
@@ -139,6 +161,61 @@ sidebar: false
     </ul>
   </div>
 
+  <div class="section-block">
+  <h2>Example: Simple Survey</h2>
+
+  <p>
+    A basic survey question might look like this:
+  </p>
+
+  <p>
+    “How satisfied are you with your job?”
+  </p>
+
+  <ul class="bullets">
+    <li>1 = Very dissatisfied</li>
+    <li>2 = Dissatisfied</li>
+    <li>3 = Neutral</li>
+    <li>4 = Satisfied</li>
+    <li>5 = Very satisfied</li>
+  </ul>
+
+  <p>
+    This type of question uses a structured response scale,
+    allowing answers to be compared across individuals.
+  </p>
+
+  <p>
+    However, even simple surveys can still be affected by bias.
+  </p>
+
+  <p>
+  These numeric responses allow survey data to be analyzed statistically.
+</p>
+</div>
+
+  <div class="section-block">
+  <h2>Example: Sampling Problem</h2>
+
+  <p>
+    Suppose a survey about job satisfaction is sent only to employees
+    who choose to respond voluntarily.
+  </p>
+
+  <p>
+    Problem:
+  </p>
+
+  <ul class="bullets">
+    <li>Highly dissatisfied or highly satisfied individuals are more likely to respond</li>
+    <li>The sample does not represent all employees</li>
+  </ul>
+
+  <p>
+    This leads to biased results.
+  </p>
+</div>
+
   <!-- GOOD PRACTICE -->
   <div class="section-block">
     <h2>Good Survey Design</h2>
@@ -154,6 +231,10 @@ sidebar: false
   <!-- LIMITATION -->
   <div class="section-block">
     <h2>Key Limitation</h2>
+
+    <p>
+  Bias introduces systematic error, which cannot be reduced by larger samples.
+</p>
 
     <p>
       Even well-designed surveys contain error.
@@ -174,8 +255,8 @@ sidebar: false
     <h2>The Big Picture</h2>
 
     <p>
-      Surveys are useful — but fragile.
-    </p>
+  Surveys are useful — but require careful design.
+</p>
 
     <p>
       Poor design leads to:
@@ -187,6 +268,15 @@ sidebar: false
       <li>Invalid statistical inference</li>
     </ul>
   </div>
+
+  <div class="section-block">
+  <h2>Key Insight</h2>
+
+  <p>
+    The quality of data depends more on how it is collected
+    than how much of it is collected.
+  </p>
+</div>
 
   <!-- NEXT -->
   <div class="section-block">
