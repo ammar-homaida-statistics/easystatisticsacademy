@@ -66,9 +66,21 @@ sidebar: false
     <ul class="bullets">
       <li>Take a sample</li>
       <li>Compute statistics</li>
-      <li>Use those statistics to estimate population parameters</li>
+      <li>Use those statistics, along with probability, to estimate population parameters</li>
     </ul>
   </div>
+
+  <div class="section-block">
+  <h2>Conceptual Flow</h2>
+
+  <ul class="bullets">
+    <li>Population → unknown parameter</li>
+    <li>Sample → observed data</li>
+    <li>Statistic → estimate</li>
+    <li>Sampling distribution → variability</li>
+    <li>Inference → conclusions with uncertainty</li>
+  </ul>
+</div>
 
   <!-- KEY CHALLENGE -->
   <div class="section-block">
@@ -91,6 +103,24 @@ sidebar: false
     </ul>
   </div>
 
+  <div class="section-block">
+  <h2>Sampling Distribution (Key Concept)</h2>
+
+  <p>
+    If we repeatedly take samples and compute a statistic (like the mean),
+    we obtain a distribution of those statistics.
+  </p>
+
+  <p>
+    This is called the <strong>sampling distribution</strong>.
+  </p>
+
+  <p>
+    It allows us to understand how sample results vary
+    and quantify uncertainty.
+  </p>
+</div>
+
   <!-- EXAMPLE -->
   <div class="section-block">
     <h2>Example</h2>
@@ -109,8 +139,9 @@ sidebar: false
     </p>
 
     <p>
-      Which one is correct?
-    </p>
+  Each sample gives a different estimate.
+  Inferential statistics helps us determine how close these estimates are likely to be to the true value.
+</p>
   </div>
 
   <!-- WHAT IT DOES -->
@@ -123,6 +154,19 @@ sidebar: false
       <li>Allows generalization from sample to population</li>
     </ul>
   </div>
+
+  <div class="section-block">
+  <h2>Estimate vs Truth</h2>
+
+  <p>
+    Sample statistics are estimates of population parameters,
+    not exact values.
+  </p>
+
+  <p>
+    The goal of inference is to quantify how close these estimates are to the truth.
+  </p>
+</div>
 
   <!-- MAIN TOOLS -->
   <div class="section-block">
@@ -153,6 +197,10 @@ sidebar: false
       We never know the population with certainty —
       we only estimate it with probability.
     </p>
+
+    <p>
+  Instead of certainty, we express results with levels of confidence.
+</p>
   </div>
 
   <!-- CONNECTION -->
@@ -163,12 +211,22 @@ sidebar: false
       <li>Sampling → creates variability</li>
       <li>Bias → distorts conclusions</li>
       <li>Missing data → affects reliability</li>
+      <li>Sampling variability → creates uncertainty</li>
     </ul>
 
     <p>
       All these affect inference.
     </p>
   </div>
+
+  <div class="section-block">
+  <h2>Key Insight</h2>
+
+  <p>
+    Statistical inference does not eliminate uncertainty —
+    it measures and manages it.
+  </p>
+</div>
 
   <!-- BIG IDEA -->
   <div class="section-block">
