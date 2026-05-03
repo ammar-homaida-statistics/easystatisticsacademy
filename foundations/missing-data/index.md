@@ -54,23 +54,24 @@ sidebar: false
 
   <!-- EXAMPLE -->
   <div class="section-block">
-    <h2>Simple Example</h2>
+  <h2>Simple Example</h2>
 
-    <p>
-      A dataset of incomes:
-    </p>
+  <p>
+    A dataset of incomes:
+  </p>
 
-    <ul class="bullets">
-      <li>50,000</li>
-      <li>62,000</li>
-      <li>Missing</li>
-      <li>71,000</li>
-    </ul>
+  <ul class="bullets">
+    <li>50,000</li>
+    <li>62,000</li>
+    <li>Missing</li>
+    <li>71,000</li>
+  </ul>
 
-    <p>
-      The missing value affects summary statistics like the mean.
-    </p>
-  </div>
+  <p>
+    If we ignore the missing value,
+    the calculated mean may not reflect the true average.
+  </p>
+</div>
 
   <!-- WHY IT MATTERS -->
   <div class="section-block">
@@ -85,6 +86,11 @@ sidebar: false
     <p>
       Ignoring missing data can lead to incorrect conclusions.
     </p>
+
+    <p>
+  When missingness is not random, it creates bias in estimates,
+  affecting statistical inference.
+</p>
   </div>
 
   <!-- TYPES -->
@@ -110,6 +116,33 @@ sidebar: false
     </ul>
   </div>
 
+  <div class="section-block">
+  <h2>Conceptual View</h2>
+
+  <p>
+    Think of missing data as removing part of the distribution.
+  </p>
+
+  <p>
+    If the removed part is random → little distortion  
+    If the removed part is systematic → biased results
+  </p>
+</div>
+
+  <div class="section-block">
+  <h2>Missing Data and Bias</h2>
+
+  <p>
+    Missing data can introduce bias depending on why values are missing.
+  </p>
+
+  <ul class="bullets">
+    <li>MCAR → usually does not introduce bias</li>
+    <li>MAR → may introduce bias if not handled correctly</li>
+    <li>MNAR → often leads to strong bias</li>
+  </ul>
+</div>
+
   <!-- KEY INSIGHT -->
   <div class="section-block">
     <h2>Key Insight</h2>
@@ -125,22 +158,44 @@ sidebar: false
 
   <!-- COMMON MISTAKE -->
   <div class="section-block">
-    <h2>Common Mistake</h2>
+  <h2>Common Mistake</h2>
 
-    <p>
-      Simply removing all rows with missing values.
-    </p>
+  <p>
+    Simply removing all rows with missing values (complete-case analysis).
+  </p>
 
-    <p>
-      Problem:
-    </p>
+  <p>
+    Problem:
+  </p>
 
-    <ul class="bullets">
-      <li>Reduces sample size</li>
-      <li>May introduce bias</li>
-      <li>Changes the structure of the data</li>
-    </ul>
-  </div>
+  <ul class="bullets">
+    <li>Reduces sample size</li>
+    <li>May introduce bias if missingness is not random</li>
+    <li>Changes the distribution of the data</li>
+  </ul>
+
+  <p>
+Example:
+</p>
+
+<ul class="bullets">
+  <li>Data: 50,000, 60,000, Missing, 100,000</li>
+</ul>
+
+<p>
+If we remove the missing value:
+</p>
+
+<ul class="bullets">
+  <li>New data: 50,000, 60,000, 100,000</li>
+</ul>
+
+<p>
+The average changes depending on what value was missing.
+If high values are more likely to be missing,
+the result becomes systematically biased.
+</p>
+</div>
 
   <!-- NAIVE FIXES -->
   <div class="section-block">
@@ -155,6 +210,14 @@ sidebar: false
     <p>
       These methods often distort relationships in the data.
     </p>
+
+    <p>
+  These approaches may reduce missingness but introduce distortion.
+</p>
+
+<p>
+Simple fixes may make the data look complete, but they can hide important bias.
+</p>
   </div>
 
   <!-- REAL WORLD -->
@@ -173,7 +236,25 @@ sidebar: false
     <p>
       This creates systematic bias.
     </p>
+
+    <p>
+  This is an example of Missing Not at Random (MNAR).
+</p>
   </div>
+
+  <div class="section-block">
+  <h2>Key Insight</h2>
+
+  <p>
+    Missing data is not just about missing values —
+    it is about missing information.
+  </p>
+
+  <p>
+    Understanding the mechanism of missingness is essential
+    for valid statistical conclusions.
+  </p>
+</div>
 
   <!-- BIG IDEA -->
   <div class="section-block">
