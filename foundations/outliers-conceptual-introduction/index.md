@@ -146,7 +146,7 @@ In later lessons, we use the interquartile range (IQR) to formally identify outl
     </p>
 
     <ul class="bullets">
-      <li>10, 11, 12, 12, 13 → mean ≈ 11.6</li>
+      <li>10, 11, 12, 12, 13 → mean = 11.6</li>
     </ul>
 
     <p>
@@ -154,7 +154,7 @@ In later lessons, we use the interquartile range (IQR) to formally identify outl
     </p>
 
     <ul class="bullets">
-      <li>10, 11, 12, 12, 13, 95 → mean ≈ 25.5</li>
+      <li>10, 11, 12, 12, 13, 95 → mean = 25.5</li>
     </ul>
 
     <p>
