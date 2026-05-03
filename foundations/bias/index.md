@@ -42,6 +42,10 @@ sidebar: false
     </p>
 
     <p>
+  In statistical terms, bias refers to the difference between the expected value of an estimate and the true population parameter.
+</p>
+
+    <p>
       It occurs when data collection, measurement, or analysis consistently pushes results in a particular direction.
     </p>
 
@@ -54,17 +58,21 @@ sidebar: false
 
   <!-- EXAMPLE -->
   <div class="section-block">
-    <h2>Simple Example</h2>
+  <h2>Simple Example</h2>
 
-    <p>
-      Suppose you estimate average height using only basketball players.
-    </p>
+  <p>
+    Suppose we estimate average height using only basketball players.
+  </p>
 
-    <ul class="bullets">
-      <li>Your estimate will be too high</li>
-      <li>The error is systematic → this is bias</li>
-    </ul>
-  </div>
+  <ul class="bullets">
+    <li>The sample is not representative of the population</li>
+    <li>The estimate will be consistently too high</li>
+  </ul>
+
+  <p>
+    This systematic overestimation is bias.
+  </p>
+</div>
 
   <!-- TYPES -->
   <div class="section-block">
@@ -108,6 +116,10 @@ sidebar: false
       <li>Small biased sample → wrong</li>
       <li>Large biased sample → still wrong</li>
     </ul>
+
+    <p>
+  Bias affects accuracy, not just precision.
+</p>
   </div>
 
   <!-- CONTRAST -->
@@ -127,6 +139,35 @@ sidebar: false
       Bias does not.
     </p>
   </div>
+
+  <div class="section-block">
+  <h2>Bias vs Random Error (Summary)</h2>
+
+  <ul class="bullets">
+    <li>Bias → systematic, directional</li>
+    <li>Random error → varies around the truth</li>
+    <li>Large samples reduce random error</li>
+    <li>Bias requires better design, not more data</li>
+  </ul>
+</div>
+
+  <div class="section-block">
+  <h2>Bias vs Variability</h2>
+
+  <p>
+    Two key sources of error in statistics:
+  </p>
+
+  <ul class="bullets">
+    <li><strong>Bias:</strong> shifts results in one direction</li>
+    <li><strong>Variability:</strong> causes results to fluctuate</li>
+  </ul>
+
+  <p>
+    Good statistical methods aim to reduce both,
+    but they require different solutions.
+  </p>
+</div>
 
   <!-- REAL WORLD -->
   <div class="section-block">
@@ -155,7 +196,21 @@ sidebar: false
       <li>Cannot be fixed later by analysis</li>
       <li>Often hidden and unnoticed</li>
     </ul>
+
+    <li>Can produce confident but misleading results</li>
   </div>
+
+  <div class="section-block">
+  <h2>Key Insight</h2>
+
+  <p>
+    More data does not fix bad data.
+  </p>
+
+  <p>
+    A large biased dataset can produce highly confident but incorrect conclusions.
+  </p>
+</div>
 
   <!-- BIG IDEA -->
   <div class="section-block">

@@ -44,6 +44,11 @@ sidebar: false
     <p>
       It does not follow the general pattern of the dataset.
     </p>
+
+    <p>
+  What counts as an outlier depends on the distribution of the data.
+  A value that is unusual in one context may be normal in another.
+</p>
   </div>
 
   <!-- EXAMPLE -->
@@ -63,6 +68,30 @@ sidebar: false
     </p>
   </div>
 
+  <div class="section-block">
+  <h2>Conceptual View</h2>
+
+  <p>
+    Most data points form a central cluster,
+    while outliers lie far from this central region.
+  </p>
+
+  <p>
+    These extreme values can disproportionately affect summaries.
+  </p>
+
+  <img src="{{ '/foundations/images/boxplot-outliers.png' | relative_url }}" 
+     alt="Boxplot showing outliers" 
+     style="margin-top:15px; max-width:100%; height:auto;">
+     <p>
+A boxplot summarizes the distribution and highlights potential outliers as points beyond the main range.
+</p>
+
+<p>
+In later lessons, we use the interquartile range (IQR) to formally identify outliers.
+</p>
+</div>
+
   <!-- TYPES -->
   <div class="section-block">
     <h2>Types of Outliers</h2>
@@ -79,6 +108,23 @@ sidebar: false
       <li>Example: data entry error (extra zero)</li>
     </ul>
   </div>
+
+  <div class="section-block">
+  <h2>Outliers vs Errors</h2>
+
+  <p>
+    Not all outliers are errors.
+  </p>
+
+  <ul class="bullets">
+    <li>Errors → should be corrected or removed</li>
+    <li>True outliers → may carry important information</li>
+  </ul>
+
+  <p>
+    Treating all outliers as mistakes leads to incorrect analysis.
+  </p>
+</div>
 
   <!-- WHY IMPORTANT -->
   <div class="section-block">
@@ -116,23 +162,41 @@ sidebar: false
     </p>
   </div>
 
+  <div class="section-block">
+  <h2>Robust vs Non-Robust Measures</h2>
+
+  <p>
+    Some statistical measures are more sensitive to outliers than others.
+  </p>
+
+  <ul class="bullets">
+    <li><strong>Mean:</strong> highly affected by outliers</li>
+    <li><strong>Median:</strong> more robust</li>
+  </ul>
+
+  <p>
+    Choosing appropriate summaries is important when outliers are present.
+  </p>
+</div>
+
   <!-- COMMON MISTAKE -->
   <div class="section-block">
-    <h2>Common Mistake</h2>
+  <h2>Common Mistake</h2>
 
-    <p>
-      Automatically removing outliers.
-    </p>
+  <p>
+    Automatically removing outliers without investigation.
+  </p>
 
-    <p>
-      Problem:
-    </p>
+  <p>
+    Problem:
+  </p>
 
-    <ul class="bullets">
-      <li>You may remove real and important data</li>
-      <li>You introduce bias</li>
-    </ul>
-  </div>
+  <ul class="bullets">
+    <li>You may remove valid observations</li>
+    <li>You introduce bias into the dataset</li>
+    <li>You distort the true distribution</li>
+  </ul>
+</div>
 
   <!-- CORRECT APPROACH -->
   <div class="section-block">
@@ -142,6 +206,7 @@ sidebar: false
       <li>Investigate the outlier</li>
       <li>Determine if it is an error or real</li>
       <li>Decide based on context — not rules</li>
+      <li>Consider how the outlier affects your analysis</li>
     </ul>
   </div>
 
@@ -169,6 +234,18 @@ sidebar: false
       <li>If it is part of the population of interest</li>
     </ul>
   </div>
+
+  <div class="section-block">
+  <h2>Key Insight</h2>
+
+  <p>
+    Outliers can influence conclusions, especially in small samples.
+  </p>
+
+  <p>
+    Understanding their origin is more important than simply removing them.
+  </p>
+</div>
 
   <!-- BIG IDEA -->
   <div class="section-block">
