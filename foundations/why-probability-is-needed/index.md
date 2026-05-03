@@ -68,6 +68,18 @@ sidebar: false
     </ul>
   </div>
 
+  <div class="section-block">
+  <h2>Conceptual Flow</h2>
+
+  <ul class="bullets">
+    <li>Population → unknown truth</li>
+    <li>Sample → observed data</li>
+    <li>Statistic → estimate</li>
+    <li>Sampling variability → uncertainty</li>
+    <li>Probability → quantifies uncertainty</li>
+  </ul>
+</div>
+
   <!-- WHY NOT DETERMINISTIC -->
   <div class="section-block">
     <h2>Why Deterministic Thinking Fails</h2>
@@ -102,6 +114,10 @@ sidebar: false
     </p>
 
     <p>
+  In statistics, probability is used to model the variability of sample statistics.
+</p>
+
+    <p>
       It allows us to:
     </p>
 
@@ -111,6 +127,22 @@ sidebar: false
       <li>Quantify uncertainty in estimates</li>
     </ul>
   </div>
+
+  <div class="section-block">
+  <h2>Probability Is Not Certainty</h2>
+
+  <p>
+    Probability does not tell us exactly what will happen.
+  </p>
+
+  <p>
+    It tells us how likely different outcomes are.
+  </p>
+
+  <p>
+    This allows us to make informed decisions under uncertainty.
+  </p>
+</div>
 
   <!-- EXAMPLE -->
   <div class="section-block">
@@ -137,7 +169,7 @@ sidebar: false
     </ul>
 
     <p>
-      That “likely” comes from probability.
+      That “likely” is quantified using probability.
     </p>
   </div>
 
@@ -150,25 +182,26 @@ sidebar: false
       <li>Hypothesis testing</li>
       <li>Error rates (Type I and II errors)</li>
       <li>Modeling randomness</li>
+      <li>Understanding sampling distributions</li>
     </ul>
   </div>
 
   <!-- CORE IDEA -->
   <div class="section-block">
-    <h2>The Core Idea</h2>
+  <h2>The Core Idea</h2>
 
-    <p>
-      Probability connects:
-    </p>
+  <p>
+    Probability connects:
+  </p>
 
-    <ul class="bullets">
-      <li>Data → uncertainty → conclusions</li>
-    </ul>
+  <ul class="bullets">
+    <li>Data → variability → uncertainty → conclusions</li>
+  </ul>
 
-    <p>
-      Without probability, inference is impossible.
-    </p>
-  </div>
+  <p>
+    Without probability, we cannot quantify uncertainty in inference.
+  </p>
+</div>
 
   <!-- MISCONCEPTION -->
   <div class="section-block">
@@ -187,6 +220,14 @@ sidebar: false
       <li>Uncertainty in conclusions</li>
     </ul>
   </div>
+
+  <div class="section-block">
+  <h2>Key Insight</h2>
+
+  <p>
+    Probability turns uncertainty into something we can measure and reason about.
+  </p>
+</div>
 
   <!-- BIG IDEA -->
   <div class="section-block">
