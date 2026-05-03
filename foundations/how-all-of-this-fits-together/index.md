@@ -1,7 +1,7 @@
 ---
 layout: default
 title: How All of This Fits Together
-description: A complete mental model of statistics: from data collection to inference, showing how all concepts connect.
+description: "A complete mental model of statistics: from data collection to inference, showing how all concepts connect."
 permalink: /foundations/how-all-of-this-fits-together/
 sidebar: false
 ---
