@@ -1,265 +1,242 @@
 ---
 layout: default
 title: Why Probability Is Needed
-description: Understanding why probability is the language of uncertainty and why statistical inference requires probabilistic reasoning.
+description: Understand why probability is essential in statistics and how it allows us to reason under uncertainty.
 permalink: /foundations/why-probability-is-needed/
-section: foundations
-lesson_order: 31
+sidebar: false
 ---
 
-<meta name="esa-section" content="foundations">
-<meta name="esa-lesson-title" content="Why Probability Is Needed">
-<meta name="esa-lesson-url" content="/foundations/why-probability-is-needed/">
-
-<a class="btn btn-primary" href="/foundations/inferential-statistics-conceptual-overview/">
-  Previous: Inferential Statistics
-</a>
-
-<section class="hero hero-lesson">
+<!-- HERO -->
+<section class="hero hero-section">
   <div class="hero-card">
-    <h1>Why Probability Is Needed</h1>
 
-    <div style="background:#fff3cd; border:1px solid #ffeeba; padding:12px 14px; margin:14px 0; border-radius:8px;">
-      <strong>🚧 Under Construction</strong> — Formal probability rules and distributions will be introduced in the next section.
+    <div class="badge-row">
+      <span class="badge">Probability</span>
+      <span class="badge">Uncertainty</span>
+      <span class="badge">Inference</span>
     </div>
 
+    <h1>Why Probability Is Needed</h1>
+
     <p class="lead">
-      Inferential statistics requires reasoning under uncertainty.
-      Probability provides the formal language that makes this reasoning possible.
+      Probability is not optional in statistics — it is the foundation that allows us to reason under uncertainty.
     </p>
 
-    <p class="muted-mini">
-      Section: <strong>Statistics Foundations</strong> • Lesson 31
-    </p>
+    <div class="hero-actions">
+      <a class="btn" href="#content">Start lesson</a>
+      <a class="btn btn-outline" href="/foundations/">Back to Foundations</a>
+    </div>
+
   </div>
 </section>
 
+<!-- CONTENT -->
+<section class="section" id="content">
 
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>What you will learn</h2>
-
-    <ul class="bullets">
-      <li>Why probability is essential for statistical reasoning.</li>
-      <li>How probability expresses uncertainty formally.</li>
-      <li>Why inference depends on probabilistic thinking.</li>
-      <li>What breaks when probability is ignored.</li>
-    </ul>
-  </div>
-</section>
-
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Why this topic matters</h2>
+  <!-- PROBLEM -->
+  <div class="section-block">
+    <h2>The Problem We Face</h2>
 
     <p>
-      Inference allows us to move from samples
-      to conclusions about populations.
+      In statistics, we rarely know the truth about a population.
     </p>
 
     <p>
-      But samples vary,
-      and this variability creates uncertainty.
+      Instead, we work with samples.
     </p>
 
     <p>
-      Probability is the tool that allows us
-      to describe and reason about that uncertainty.
+      But samples vary.
+    </p>
+
+    <p>
+      This creates uncertainty.
     </p>
   </div>
-</section>
 
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>The core problem</h2>
+  <!-- KEY QUESTION -->
+  <div class="section-block">
+    <h2>The Key Question</h2>
 
     <p>
-      Different samples from the same population
-      produce different results.
-    </p>
-
-    <p>
-      This means that any conclusion based on a sample
-      is inherently uncertain.
-    </p>
-
-    <p style="font-weight:600;">
-      Without a way to measure this uncertainty,
-      inference has no foundation.
-    </p>
-  </div>
-</section>
-
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Probability as the language of uncertainty</h2>
-
-    <p>
-      Probability assigns numerical values
-      to how likely different outcomes are.
-    </p>
-
-    <p>
-      It translates variability into quantities
-      that can be analyzed and compared.
-    </p>
-
-    <p>
-      This makes uncertainty measurable
-      rather than vague.
-    </p>
-  </div>
-</section>
-
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Why inference requires probability</h2>
-
-    <p>
-      Inference relies on understanding
-      how statistics behave across possible samples.
-    </p>
-
-    <p>
-      Probability models this behavior.
-    </p>
-
-    <p>
-      It allows us to answer questions such as:
+      If our data changes from sample to sample:
     </p>
 
     <ul class="bullets">
-      <li>How much might this statistic vary?</li>
-      <li>How surprising is this result?</li>
-      <li>How confident can we be in this conclusion?</li>
+      <li>How reliable are our conclusions?</li>
+      <li>How far might we be from the truth?</li>
     </ul>
   </div>
-</section>
 
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>What breaks without probability</h2>
+  <!-- WHY NOT DETERMINISTIC -->
+  <div class="section-block">
+    <h2>Why Deterministic Thinking Fails</h2>
 
     <p>
-      Without probability, there is no way
-      to quantify uncertainty.
+      In deterministic systems:
     </p>
+
+    <ul class="bullets">
+      <li>Same input → same output</li>
+    </ul>
 
     <p>
-      Conclusions become either overconfident
-      or purely subjective.
+      In statistics:
     </p>
 
-    <p style="font-weight:600;">
-      Without probability, inference becomes guesswork.
+    <ul class="bullets">
+      <li>Same population → different samples → different results</li>
+    </ul>
+
+    <p>
+      So we cannot rely on exact answers.
     </p>
   </div>
-</section>
 
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Conceptual example</h2>
+  <!-- SOLUTION -->
+  <div class="section-block">
+    <h2>The Solution: Probability</h2>
 
     <p>
-      Suppose a sample shows that 60% of individuals
-      prefer a product.
+      Probability gives us a way to describe uncertainty mathematically.
     </p>
 
     <p>
-      Is this strong evidence about the population,
-      or could it be due to sampling variability?
+      It allows us to:
+    </p>
+
+    <ul class="bullets">
+      <li>Measure how likely outcomes are</li>
+      <li>Model variation in data</li>
+      <li>Quantify uncertainty in estimates</li>
+    </ul>
+  </div>
+
+  <!-- EXAMPLE -->
+  <div class="section-block">
+    <h2>Example</h2>
+
+    <p>
+      Suppose we estimate the average height using a sample.
     </p>
 
     <p>
-      Probability provides the framework
-      for answering that question.
+      Instead of saying:
+    </p>
+
+    <ul class="bullets">
+      <li>“The true mean is exactly 170 cm” ❌</li>
+    </ul>
+
+    <p>
+      We say:
+    </p>
+
+    <ul class="bullets">
+      <li>“The true mean is likely between 165 and 175 cm” ✅</li>
+    </ul>
+
+    <p>
+      That “likely” comes from probability.
     </p>
   </div>
-</section>
 
+  <!-- WHAT PROBABILITY DOES -->
+  <div class="section-block">
+    <h2>What Probability Enables</h2>
 
+    <ul class="bullets">
+      <li>Confidence intervals</li>
+      <li>Hypothesis testing</li>
+      <li>Error rates (Type I and II errors)</li>
+      <li>Modeling randomness</li>
+    </ul>
+  </div>
 
-<section class="section">
-  <div class="content-narrow">
-    <h2>From variability to probability</h2>
+  <!-- CORE IDEA -->
+  <div class="section-block">
+    <h2>The Core Idea</h2>
 
     <p>
-      Earlier lessons showed that statistics vary
-      from sample to sample.
+      Probability connects:
     </p>
 
-    <p>
-      Probability formalizes this variation
-      across possible samples.
-    </p>
+    <ul class="bullets">
+      <li>Data → uncertainty → conclusions</li>
+    </ul>
 
     <p>
-      This connection turns intuition
-      into structured reasoning.
+      Without probability, inference is impossible.
     </p>
   </div>
-</section>
 
-
-
-<section class="section section-soft">
-  <div class="content-narrow">
-    <h2>Key idea to remember</h2>
+  <!-- MISCONCEPTION -->
+  <div class="section-block">
+    <h2>Common Misconception</h2>
 
     <p>
-      Probability makes uncertainty measurable.
-      Without it, statistical inference cannot function.
+      Probability is not just about games or randomness.
     </p>
-  </div>
-</section>
-
-
-
-<section class="section section-next">
-  <div class="content-narrow">
-    <h2>Simple summary</h2>
 
     <p>
-      Probability provides the mathematical language
-      needed to reason about uncertainty.
-      It underlies all methods of statistical inference.
+      In statistics, it is about:
     </p>
+
+    <ul class="bullets">
+      <li>Uncertainty in data</li>
+      <li>Uncertainty in conclusions</li>
+    </ul>
   </div>
-</section>
 
-
-
-<section class="section section-next">
-  <div class="content-narrow">
-    <h2>What comes next</h2>
+  <!-- BIG IDEA -->
+  <div class="section-block">
+    <h2>The Big Idea</h2>
 
     <p>
-      The next lesson examines <strong>common statistical misconceptions</strong>,
-      showing how misunderstanding uncertainty
-      leads to incorrect conclusions.
+      Statistics answers questions using data.
     </p>
 
-    <a class="btn btn-primary" href="/foundations/common-statistical-misconceptions/">
-      Next: Common Statistical Misconceptions
-    </a>
+    <p>
+      Probability makes those answers reliable.
+    </p>
   </div>
+
+  <!-- TRANSITION -->
+  <div class="section-block">
+    <h2>What Comes Next?</h2>
+
+    <p>
+      Now that we understand why probability is needed,
+      we can connect all ideas together into a complete picture.
+    </p>
+  </div>
+
 </section>
 
-<script>
-  try {
-    localStorage.setItem("esa:lastLesson", window.location.pathname);
-  } catch (e) {}
-</script>
+<!-- NAVIGATION -->
+<section class="section section-slim">
+  <div class="callout">
+
+    <div class="callout-copy">
+      <h2>Next steps</h2>
+
+      <div class="hero-actions">
+
+        <a class="btn btn-outline" href="/foundations/inferential-statistics-conceptual-overview/">
+          ← Previous: Inferential Statistics
+        </a>
+
+        <a class="btn btn-outline" href="/foundations/">
+          Foundations Home
+        </a>
+
+        <a class="btn" href="/foundations/how-all-of-this-fits-together/">
+          Next: How All of This Fits Together →
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
