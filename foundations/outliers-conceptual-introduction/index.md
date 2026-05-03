@@ -1,290 +1,229 @@
 ---
 layout: default
 title: Outliers
-description: A conceptual introduction to outliers, natural versus erroneous outliers, why deleting data is dangerous, and when outliers matter.
+description: Understand what outliers are, how they arise, and when they should be investigated, kept, or removed.
 permalink: /foundations/outliers-conceptual-introduction/
-section: foundations
-lesson_order: 28
+sidebar: false
 ---
 
-<meta name="esa-section" content="foundations">
-<meta name="esa-lesson-title" content="Outliers">
-<meta name="esa-lesson-url" content="/foundations/outliers-conceptual-introduction/">
-
-<a class="btn btn-primary" href="/foundations/missing-data/">
-  Previous: Missing Data
-</a>
-
-<section class="hero hero-lesson">
+<!-- HERO -->
+<section class="hero hero-section">
   <div class="hero-card">
-    <h1>Outliers</h1>
 
-    <div style="background:#fff3cd; border:1px solid #ffeeba; padding:12px 14px; margin:14px 0; border-radius:8px;">
-      <strong>🚧 Under Construction</strong> — Formal detection methods (IQR, z-scores) will be introduced later.
+    <div class="badge-row">
+      <span class="badge">Data quality</span>
+      <span class="badge">Extreme values</span>
+      <span class="badge">Interpretation</span>
     </div>
 
+    <h1>Outliers</h1>
+
     <p class="lead">
-      Outliers are extreme observations, but they are not automatically errors.
-      Removing them without understanding their origin can distort results
-      and hide important information.
+      Outliers are extreme observations — they can reveal important insights or serious data problems.
     </p>
 
-    <p class="muted-mini">
-      Section: <strong>Statistics Foundations</strong> • Lesson 28
-    </p>
+    <div class="hero-actions">
+      <a class="btn" href="#content">Start lesson</a>
+      <a class="btn btn-outline" href="/foundations/">Back to Foundations</a>
+    </div>
+
   </div>
 </section>
 
+<!-- CONTENT -->
+<section class="section" id="content">
 
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>What you will learn</h2>
-
-    <ul class="bullets">
-      <li>What outliers are in a dataset.</li>
-      <li>The difference between natural and erroneous outliers.</li>
-      <li>Why deleting outliers can be misleading.</li>
-      <li>How to think about outliers before taking action.</li>
-    </ul>
-  </div>
-</section>
-
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Why this topic matters</h2>
+  <!-- WHAT IS -->
+  <div class="section-block">
+    <h2>What Is an Outlier?</h2>
 
     <p>
-      Outliers often trigger immediate reactions during analysis.
+      An outlier is a data point that is unusually far from the rest of the data.
     </p>
 
     <p>
-      They can strongly influence results,
-      especially averages and statistical models.
-    </p>
-
-    <p>
-      Incorrect handling of outliers can lead
-      to misleading conclusions and false confidence.
+      It does not follow the general pattern of the dataset.
     </p>
   </div>
-</section>
 
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>What outliers are</h2>
+  <!-- EXAMPLE -->
+  <div class="section-block">
+    <h2>Simple Example</h2>
 
     <p>
-      An outlier is an observation that lies far from
-      the bulk of the data.
-    </p>
-
-    <p>
-      Outliers are defined relative to the dataset,
-      not by a universal numerical threshold.
-    </p>
-
-    <p>
-      What counts as an outlier depends on context,
-      variability, and measurement.
-    </p>
-  </div>
-</section>
-
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Outliers are not automatically errors</h2>
-
-    <p>
-      A common mistake is to assume that extreme values
-      must be incorrect.
-    </p>
-
-    <p>
-      In many cases, outliers represent real but rare events.
-    </p>
-
-    <p style="font-weight:600;">
-      Extreme does not mean wrong.
-    </p>
-  </div>
-</section>
-
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Natural vs erroneous outliers</h2>
-
-    <p>
-      <strong>Natural outliers</strong> reflect genuine variation
-      in the real world.
-    </p>
-
-    <p>
-      <strong>Erroneous outliers</strong> arise from mistakes,
-      such as data entry errors or faulty measurements.
-    </p>
-
-    <p>
-      Distinguishing between them requires
-      context and domain knowledge,
-      not just statistical rules.
-    </p>
-  </div>
-</section>
-
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Why deleting data is dangerous</h2>
-
-    <p>
-      Removing outliers changes the dataset
-      and therefore changes the conclusions.
-    </p>
-
-    <p>
-      Deletion may hide important variability
-      or remove meaningful rare events.
-    </p>
-
-    <p>
-      In some cases, removing outliers
-      removes exactly the phenomenon of interest.
-    </p>
-
-    <p style="font-weight:600;">
-      Deleting data is a modeling decision,
-      not a cleaning step.
-    </p>
-  </div>
-</section>
-
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Conceptual example</h2>
-
-    <p>
-      Suppose income data include a small number
-      of very high earners.
-    </p>
-
-    <p>
-      Removing these values may produce a more “stable” average,
-      but it no longer represents the true distribution.
-    </p>
-
-    <p>
-      The outliers are not errors.
-      They are part of the population.
-    </p>
-  </div>
-</section>
-
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>When outliers matter</h2>
-
-    <p>
-      Outliers can strongly influence means,
-      correlations, and regression models.
-    </p>
-
-    <p>
-      In risk analysis, finance, and safety studies,
-      extreme values may be the most important observations.
-    </p>
-
-    <p>
-      Whether outliers matter depends on
-      the question being asked.
-    </p>
-  </div>
-</section>
-
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>How to think before acting</h2>
-
-    <p>
-      Before removing an outlier, ask:
+      Consider the following values:
     </p>
 
     <ul class="bullets">
-      <li>Is this value plausible in the real world?</li>
-      <li>Could this be a measurement or recording error?</li>
-      <li>What happens to results if it is removed?</li>
-      <li>Does the research question require including extremes?</li>
+      <li>10, 12, 11, 13, 12, 95</li>
     </ul>
 
     <p>
-      These questions are more important
-      than any automatic rule.
+      The value <strong>95</strong> is much larger than the others — this is an outlier.
     </p>
   </div>
-</section>
 
+  <!-- TYPES -->
+  <div class="section-block">
+    <h2>Types of Outliers</h2>
 
+    <p><strong>1. Natural Outliers</strong></p>
+    <ul class="bullets">
+      <li>Genuine observations</li>
+      <li>Example: extremely high income</li>
+    </ul>
 
-<section class="section section-soft">
-  <div class="content-narrow">
-    <h2>Key idea to remember</h2>
+    <p><strong>2. Error Outliers</strong></p>
+    <ul class="bullets">
+      <li>Caused by mistakes</li>
+      <li>Example: data entry error (extra zero)</li>
+    </ul>
+  </div>
+
+  <!-- WHY IMPORTANT -->
+  <div class="section-block">
+    <h2>Why Outliers Matter</h2>
+
+    <ul class="bullets">
+      <li>Can strongly affect averages (mean)</li>
+      <li>Can distort statistical analysis</li>
+      <li>May indicate important real-world phenomena</li>
+    </ul>
+  </div>
+
+  <!-- EFFECT -->
+  <div class="section-block">
+    <h2>Effect on the Mean</h2>
 
     <p>
-      Outliers require explanation, not reflexive removal.
+      Without outlier:
     </p>
-  </div>
-</section>
 
-
-
-<section class="section section-next">
-  <div class="content-narrow">
-    <h2>Simple summary</h2>
+    <ul class="bullets">
+      <li>10, 11, 12, 12, 13 → mean ≈ 11.6</li>
+    </ul>
 
     <p>
-      Outliers are extreme observations that may represent
-      real variation or errors.
-      Removing them without understanding their origin
-      can distort analysis and conclusions.
+      With outlier:
     </p>
-  </div>
-</section>
 
-
-
-<section class="section section-next">
-  <div class="content-narrow">
-    <h2>What comes next</h2>
+    <ul class="bullets">
+      <li>10, 11, 12, 12, 13, 95 → mean ≈ 25.5</li>
+    </ul>
 
     <p>
-      The next lesson introduces <strong>descriptive statistics</strong>,
-      explaining what summaries like means and medians capture,
-      and what they fail to reveal.
+      The outlier drastically changes the result.
+    </p>
+  </div>
+
+  <!-- COMMON MISTAKE -->
+  <div class="section-block">
+    <h2>Common Mistake</h2>
+
+    <p>
+      Automatically removing outliers.
     </p>
 
-    <a class="btn btn-primary" href="/foundations/descriptive-statistics-conceptual-overview/">
-      Next: Descriptive Statistics
-    </a>
+    <p>
+      Problem:
+    </p>
+
+    <ul class="bullets">
+      <li>You may remove real and important data</li>
+      <li>You introduce bias</li>
+    </ul>
   </div>
+
+  <!-- CORRECT APPROACH -->
+  <div class="section-block">
+    <h2>Correct Approach</h2>
+
+    <ul class="bullets">
+      <li>Investigate the outlier</li>
+      <li>Determine if it is an error or real</li>
+      <li>Decide based on context — not rules</li>
+    </ul>
+  </div>
+
+  <!-- WHEN REMOVE -->
+  <div class="section-block">
+    <h2>When Should You Remove an Outlier?</h2>
+
+    <ul class="bullets">
+      <li>If it is clearly a measurement or data entry error</li>
+      <li>If it is impossible (physically or logically)</li>
+    </ul>
+
+    <p>
+      Otherwise, it should usually be kept.
+    </p>
+  </div>
+
+  <!-- WHEN KEEP -->
+  <div class="section-block">
+    <h2>When Should You Keep an Outlier?</h2>
+
+    <ul class="bullets">
+      <li>If it reflects real variation</li>
+      <li>If it provides important information</li>
+      <li>If it is part of the population of interest</li>
+    </ul>
+  </div>
+
+  <!-- BIG IDEA -->
+  <div class="section-block">
+    <h2>The Big Idea</h2>
+
+    <p>
+      Outliers are not just “bad data.”
+    </p>
+
+    <p>
+      They are signals that require investigation.
+    </p>
+  </div>
+
+  <!-- NEXT -->
+  <div class="section-block">
+    <h2>What Comes Next?</h2>
+
+    <p>
+      Now we move from data issues to summarizing data.
+    </p>
+
+    <ul class="bullets">
+      <li>Descriptive statistics</li>
+      <li>Summaries</li>
+      <li>Understanding patterns</li>
+    </ul>
+  </div>
+
 </section>
 
-<script>
-  try {
-    localStorage.setItem("esa:lastLesson", window.location.pathname);
-  } catch (e) {}
-</script>
+<!-- NAVIGATION -->
+<section class="section section-slim">
+  <div class="callout">
+
+    <div class="callout-copy">
+      <h2>Next steps</h2>
+
+      <div class="hero-actions">
+
+        <a class="btn btn-outline" href="/foundations/missing-data/">
+          ← Previous: Missing Data
+        </a>
+
+        <a class="btn btn-outline" href="/foundations/">
+          Foundations Home
+        </a>
+
+        <a class="btn" href="/foundations/descriptive-statistics-conceptual-overview/">
+          Next: Descriptive Statistics →
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
