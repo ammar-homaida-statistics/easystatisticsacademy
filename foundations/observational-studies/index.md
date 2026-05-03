@@ -72,8 +72,9 @@ sidebar: false
     <h2>Key Feature: No Control</h2>
 
     <p>
-      The defining characteristic of observational studies is lack of control.
-    </p>
+  The defining characteristic of observational studies is lack of control
+  over how variables are assigned.
+</p>
 
     <p>
       This means:
@@ -104,7 +105,26 @@ sidebar: false
     <ul class="bullets">
       <li><strong>Causation</strong> → one variable causes another</li>
     </ul>
+
+    <p>
+  Association alone does not reveal the direction or mechanism of a relationship.
+</p>
   </div>
+
+  <div class="section-block">
+  <h2>Important Clarification</h2>
+
+  <p>
+    Observational studies cannot establish causation directly,
+    but they can provide evidence toward causal relationships
+    when combined with strong assumptions and careful analysis.
+  </p>
+
+  <p>
+    However, without controlled experiments,
+    causal conclusions are always more uncertain.
+  </p>
+</div>
 
   <!-- CLASSIC EXAMPLE -->
   <div class="section-block">
@@ -127,6 +147,32 @@ sidebar: false
     </ul>
   </div>
 
+  <div class="section-block">
+  <h2>Real-World Example</h2>
+
+  <p>
+    Studies often find that people who exercise more have better health.
+  </p>
+
+  <p>
+    Does exercise cause better health?
+  </p>
+
+  <p>
+    Possible confounding factors:
+  </p>
+
+  <ul class="bullets">
+    <li>Diet</li>
+    <li>Income</li>
+    <li>Access to healthcare</li>
+  </ul>
+
+  <p>
+    Observational data alone cannot fully separate these effects.
+  </p>
+</div>
+
   <!-- CONFOUNDING -->
   <div class="section-block">
     <h2>Confounding Variables</h2>
@@ -148,6 +194,15 @@ sidebar: false
       <li>Coffee consumption and heart disease</li>
       <li>Confounder: smoking</li>
     </ul>
+
+    <p>
+  Another challenge is <strong>reverse causality</strong>,
+  where it is unclear which variable influences the other.
+</p>
+
+<ul class="bullets">
+  <li>Example: Does stress cause poor sleep, or does poor sleep cause stress?</li>
+</ul>
   </div>
 
   <!-- WHY USED -->
@@ -169,6 +224,7 @@ sidebar: false
       <li>Cannot establish causation</li>
       <li>Vulnerable to confounding</li>
       <li>May contain bias</li>
+      <li>Difficult to separate correlation from underlying mechanisms</li>
     </ul>
   </div>
 
@@ -177,9 +233,9 @@ sidebar: false
     <h2>The Big Idea</h2>
 
     <p>
-      Observational studies are powerful for discovering patterns —
-      but dangerous if interpreted incorrectly.
-    </p>
+  Observational studies reveal patterns in real-world data,
+  but interpreting them requires careful reasoning about causality.
+</p>
 
     <p>
       Always ask:
@@ -190,6 +246,15 @@ sidebar: false
       <li>Or just association?</li>
     </ul>
   </div>
+
+  <div class="section-block">
+  <h2>Key Insight</h2>
+
+  <p>
+    Observational data describes what happens —
+    not necessarily why it happens.
+  </p>
+</div>
 
   <!-- NEXT -->
   <div class="section-block">
