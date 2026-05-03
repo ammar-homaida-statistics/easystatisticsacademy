@@ -1,264 +1,231 @@
 ---
 layout: default
 title: Inferential Statistics
-description: A conceptual overview of inferential statistics, why inference is needed, how we move from sample to population, and why uncertainty is a feature rather than a flaw.
+description: Understand how inferential statistics allows us to draw conclusions about populations using sample data and probability.
 permalink: /foundations/inferential-statistics-conceptual-overview/
-section: foundations
-lesson_order: 30
+sidebar: false
 ---
 
-<meta name="esa-section" content="foundations">
-<meta name="esa-lesson-title" content="Inferential Statistics">
-<meta name="esa-lesson-url" content="/foundations/inferential-statistics-conceptual-overview/">
-
-<a class="btn btn-primary" href="/foundations/descriptive-statistics-conceptual-overview/">
-  Previous: Descriptive Statistics
-</a>
-
-<section class="hero hero-lesson">
+<!-- HERO -->
+<section class="hero hero-section">
   <div class="hero-card">
-    <h1>Inferential Statistics</h1>
 
-    <div style="background:#fff3cd; border:1px solid #ffeeba; padding:12px 14px; margin:14px 0; border-radius:8px;">
-      <strong>🚧 Under Construction</strong> — Formal tools (confidence intervals, hypothesis tests) will be introduced later.
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Uncertainty</span>
+      <span class="badge">Generalization</span>
     </div>
 
+    <h1>Inferential Statistics</h1>
+
     <p class="lead">
-      Inferential statistics allows us to learn about populations
-      using data from samples.
-      This process is inherently uncertain,
-      and managing that uncertainty is the central goal of inference.
+      Inferential statistics allows us to move beyond the data we observe and draw conclusions about a larger population.
     </p>
 
-    <p class="muted-mini">
-      Section: <strong>Statistics Foundations</strong> • Lesson 30
-    </p>
+    <div class="hero-actions">
+      <a class="btn" href="#content">Start lesson</a>
+      <a class="btn btn-outline" href="/foundations/">Back to Foundations</a>
+    </div>
+
   </div>
 </section>
 
+<!-- CONTENT -->
+<section class="section" id="content">
 
+  <!-- WHAT IS -->
+  <div class="section-block">
+    <h2>What Is Inferential Statistics?</h2>
 
-<section class="section">
-  <div class="content-narrow">
-    <h2>What you will learn</h2>
+    <p>
+      Inferential statistics is the branch of statistics that uses sample data to make conclusions about a population.
+    </p>
+
+    <p>
+      It answers:
+    </p>
 
     <ul class="bullets">
-      <li>Why inference is needed in statistics.</li>
-      <li>How we move from a sample to a population.</li>
-      <li>Why uncertainty is unavoidable.</li>
-      <li>Why uncertainty is a feature, not a flaw.</li>
+      <li>What can we say about the population?</li>
+      <li>How confident are we in our conclusions?</li>
     </ul>
   </div>
-</section>
 
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Why this topic matters</h2>
+  <!-- CORE IDEA -->
+  <div class="section-block">
+    <h2>The Core Idea</h2>
 
     <p>
-      In most real-world situations,
-      we do not have access to complete information.
+      We rarely observe an entire population.
     </p>
 
     <p>
-      We observe samples,
-      but we care about populations.
+      So we:
+    </p>
+
+    <ul class="bullets">
+      <li>Take a sample</li>
+      <li>Compute statistics</li>
+      <li>Use those statistics to estimate population parameters</li>
+    </ul>
+  </div>
+
+  <!-- KEY CHALLENGE -->
+  <div class="section-block">
+    <h2>The Key Challenge</h2>
+
+    <p>
+      Different samples give different results.
     </p>
 
     <p>
-      Inferential statistics provides a structured way
-      to move from what we observe
-      to what we want to understand.
+      This creates uncertainty.
+    </p>
+
+    <p>
+      The central problem:
+    </p>
+
+    <ul class="bullets">
+      <li>How reliable is our estimate?</li>
+    </ul>
+  </div>
+
+  <!-- EXAMPLE -->
+  <div class="section-block">
+    <h2>Example</h2>
+
+    <p>
+      Suppose we want the average height of all students.
+    </p>
+
+    <ul class="bullets">
+      <li>True mean → unknown parameter</li>
+      <li>Sample mean → statistic</li>
+    </ul>
+
+    <p>
+      If we take another sample, we may get a different mean.
+    </p>
+
+    <p>
+      Which one is correct?
     </p>
   </div>
-</section>
 
+  <!-- WHAT IT DOES -->
+  <div class="section-block">
+    <h2>What Inferential Statistics Does</h2>
 
+    <ul class="bullets">
+      <li>Quantifies uncertainty</li>
+      <li>Measures reliability of estimates</li>
+      <li>Allows generalization from sample to population</li>
+    </ul>
+  </div>
 
-<section class="section">
-  <div class="content-narrow">
-    <h2>The fundamental problem</h2>
+  <!-- MAIN TOOLS -->
+  <div class="section-block">
+    <h2>Main Tools</h2>
+
+    <p><strong>1. Estimation</strong></p>
+    <ul class="bullets">
+      <li>Estimate population parameters</li>
+      <li>Example: confidence intervals</li>
+    </ul>
+
+    <p><strong>2. Hypothesis Testing</strong></p>
+    <ul class="bullets">
+      <li>Test claims about populations</li>
+      <li>Example: p-values</li>
+    </ul>
+  </div>
+
+  <!-- LIMITATION -->
+  <div class="section-block">
+    <h2>Important Limitation</h2>
 
     <p>
-      We want to know properties of a population,
-      but we only observe a sample.
+      Inference is always uncertain.
     </p>
 
     <p>
-      The sample is incomplete
-      and may not perfectly represent the population.
-    </p>
-
-    <p style="font-weight:600;">
-      Inference is the process of reasoning across this gap.
+      We never know the population with certainty —
+      we only estimate it with probability.
     </p>
   </div>
-</section>
 
+  <!-- CONNECTION -->
+  <div class="section-block">
+    <h2>Connection to Previous Lessons</h2>
 
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>From sample to population</h2>
-
-    <p>
-      A sample provides observable statistics,
-      such as averages or proportions.
-    </p>
+    <ul class="bullets">
+      <li>Sampling → creates variability</li>
+      <li>Bias → distorts conclusions</li>
+      <li>Missing data → affects reliability</li>
+    </ul>
 
     <p>
-      The population has unknown parameters
-      that we cannot directly measure.
-    </p>
-
-    <p>
-      Inferential statistics uses the sample
-      as evidence about those unknown values.
+      All these affect inference.
     </p>
   </div>
-</section>
 
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Why uncertainty is unavoidable</h2>
+  <!-- BIG IDEA -->
+  <div class="section-block">
+    <h2>The Big Idea</h2>
 
     <p>
-      Different samples from the same population
-      produce different results.
+      Inferential statistics is about reasoning under uncertainty.
     </p>
 
     <p>
-      This variability means that conclusions
-      cannot be perfectly certain.
-    </p>
-
-    <p>
-      Even with large samples,
-      some uncertainty always remains.
+      It connects data to decisions.
     </p>
   </div>
+
+  <!-- NEXT -->
+  <div class="section-block">
+    <h2>What Comes Next?</h2>
+
+    <p>
+      To quantify uncertainty, we need a mathematical framework.
+    </p>
+
+    <p>
+      That framework is:
+    </p>
+
+    <ul class="bullets">
+      <li>Probability</li>
+    </ul>
+  </div>
+
 </section>
 
+<!-- NAVIGATION -->
+<section class="section section-slim">
+  <div class="callout">
 
+    <div class="callout-copy">
+      <h2>Next steps</h2>
 
-<section class="section">
-  <div class="content-narrow">
-    <h2>Inference is not certainty</h2>
+      <div class="hero-actions">
 
-    <p>
-      A common misconception is that statistical analysis
-      produces exact answers about populations.
-    </p>
+        <a class="btn btn-outline" href="/foundations/descriptive-statistics-conceptual-overview/">
+          ← Previous: Descriptive Statistics
+        </a>
 
-    <p>
-      In reality, inference provides
-      evidence with uncertainty.
-    </p>
+        <a class="btn btn-outline" href="/foundations/">
+          Foundations Home
+        </a>
 
-    <p style="font-weight:600;">
-      Statistical conclusions are statements of likelihood,
-      not guarantees.
-    </p>
+        <a class="btn" href="/foundations/why-probability-is-needed/">
+          Next: Why Probability Is Needed →
+        </a>
+
+      </div>
+
+    </div>
+
   </div>
 </section>
-
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Uncertainty as a feature</h2>
-
-    <p>
-      Uncertainty does not weaken statistical reasoning.
-    </p>
-
-    <p>
-      It reflects honesty about what is known
-      and what is not known.
-    </p>
-
-    <p>
-      Good statistical methods quantify uncertainty
-      rather than ignore it.
-    </p>
-  </div>
-</section>
-
-
-
-<section class="section">
-  <div class="content-narrow">
-    <h2>Conceptual example</h2>
-
-    <p>
-      Suppose a survey finds that 60% of respondents
-      prefer a product.
-    </p>
-
-    <p>
-      This value describes the sample,
-      not the entire population.
-    </p>
-
-    <p>
-      The true population proportion may be higher or lower.
-      Inference helps us reason about that uncertainty.
-    </p>
-  </div>
-</section>
-
-
-
-<section class="section section-soft">
-  <div class="content-narrow">
-    <h2>Key idea to remember</h2>
-
-    <p>
-      Inferential statistics uses sample data
-      to reason about populations under uncertainty.
-    </p>
-  </div>
-</section>
-
-
-
-<section class="section section-next">
-  <div class="content-narrow">
-    <h2>Simple summary</h2>
-
-    <p>
-      Inferential statistics allows us to generalize
-      from samples to populations.
-      Because samples vary,
-      all such conclusions involve uncertainty.
-    </p>
-  </div>
-</section>
-
-
-
-<section class="section section-next">
-  <div class="content-narrow">
-    <h2>What comes next</h2>
-
-    <p>
-      The next lesson explains <strong>why probability is needed</strong>,
-      and how probability provides the language
-      for describing uncertainty in inference.
-    </p>
-
-    <a class="btn btn-primary" href="/foundations/why-probability-is-needed/">
-      Next: Why Probability Is Needed
-    </a>
-  </div>
-</section>
-
-<script>
-  try {
-    localStorage.setItem("esa:lastLesson", window.location.pathname);
-  } catch (e) {}
-</script>
