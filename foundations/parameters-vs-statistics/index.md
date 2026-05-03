@@ -50,6 +50,11 @@ sidebar: false
     <p>
       Understanding this difference is essential for all statistical reasoning.
     </p>
+
+    <p>
+  Statistical inference is the process of using statistics
+  to draw conclusions about unknown parameters.
+</p>
   </div>
 
   <!-- DEFINITIONS -->
@@ -66,26 +71,28 @@ sidebar: false
     <ul class="bullets">
       <li>A numerical value calculated from a sample</li>
       <li>Varies from sample to sample</li>
+      <li>Can be viewed as a random variable</li>
     </ul>
   </div>
 
   <!-- EXAMPLE -->
   <div class="section-block">
-    <h2>Simple Example</h2>
+  <h2>Simple Example</h2>
 
-    <p>
-      Suppose we want to know the average income of all adults in a country.
-    </p>
+  <p>
+    Suppose we want to know the average income of all adults in a country.
+  </p>
 
-    <ul class="bullets">
-      <li>True average (unknown) → <strong>parameter</strong></li>
-      <li>Sample average → <strong>statistic</strong></li>
-    </ul>
+  <ul class="bullets">
+    <li>True average (unknown) → <strong>population parameter</strong></li>
+    <li>Sample average → <strong>sample statistic</strong></li>
+  </ul>
 
-    <p>
-      The statistic is used to estimate the parameter.
-    </p>
-  </div>
+  <p>
+    The statistic is used to estimate the parameter,
+    but it will not be exactly equal to it.
+  </p>
+</div>
 
   <!-- NOTATION -->
   <div class="section-block">
@@ -127,25 +134,25 @@ sidebar: false
 
   <!-- NUMERICAL EXAMPLE -->
   <div class="section-block">
-    <h2>Numerical Example</h2>
+  <h2>Numerical Example</h2>
 
-    <p>
-      Population (unknown mean):
-    </p>
+  <p>
+    Suppose the true population mean is unknown.
+  </p>
 
-    <ul class="bullets">
-      <li>Mean = 170 (true but unknown to us)</li>
-    </ul>
+  <p>
+    We take two samples:
+  </p>
 
-    <p>
-      Sample 1 → mean = 168  
-      Sample 2 → mean = 172
-    </p>
+  <ul class="bullets">
+    <li>Sample 1 → mean = 168</li>
+    <li>Sample 2 → mean = 172</li>
+  </ul>
 
-    <p>
-      Both are statistics — neither equals the true parameter exactly.
-    </p>
-  </div>
+  <p>
+    Both are statistics — different estimates of the same unknown parameter.
+  </p>
+</div>
 
   <!-- WHY IMPORTANT -->
   <div class="section-block">
@@ -161,6 +168,11 @@ sidebar: false
     </ul>
 
     <p>
+  Because statistics vary from sample to sample,
+  all conclusions include uncertainty.
+</p>
+
+    <p>
       This process is called:
     </p>
 
@@ -174,8 +186,8 @@ sidebar: false
     <h2>Common Mistake</h2>
 
     <p>
-      Treating a statistic as if it were the true value.
-    </p>
+  Treating a sample statistic as if it were the exact population parameter.
+</p>
 
     <p>
       Reality:
@@ -186,6 +198,24 @@ sidebar: false
       <li>They contain uncertainty</li>
     </ul>
   </div>
+
+  <div class="section-block">
+  <h2>Conceptual Flow</h2>
+
+  <p>
+    The logic of statistical inference:
+  </p>
+
+  <ul class="bullets">
+    <li>Population → unknown parameter</li>
+    <li>Sample → observed data</li>
+    <li>Statistic → estimate</li>
+  </ul>
+
+  <p>
+    The goal is to connect the sample back to the population.
+  </p>
+</div>
 
   <!-- BIG PICTURE -->
   <div class="section-block">
@@ -208,6 +238,10 @@ sidebar: false
     <p>
       This is the foundation of all statistical methods.
     </p>
+
+    <p>
+  The challenge is to quantify how close our statistics are to the true parameters.
+</p>
   </div>
 
   <!-- NEXT -->
