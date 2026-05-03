@@ -92,31 +92,89 @@ sidebar: false
     </ul>
 
     <p>
-      This is what allows causal conclusions.
-    </p>
+  This is what allows causal conclusions under proper experimental design.
+</p>
   </div>
 
-  <!-- EXAMPLE -->
   <div class="section-block">
-    <h2>Example</h2>
+  <h2>Random Assignment vs Random Sampling</h2>
 
-    <p>
-      A new drug is tested:
-    </p>
+  <p>
+    These are two different ideas:
+  </p>
 
-    <ul class="bullets">
-      <li>Group A → receives drug</li>
-      <li>Group B → receives placebo</li>
-    </ul>
+  <ul class="bullets">
+    <li><strong>Random sampling:</strong> how participants are selected</li>
+    <li><strong>Random assignment:</strong> how participants are placed into groups</li>
+  </ul>
 
-    <p>
-      If outcomes differ significantly:
-    </p>
+  <p>
+    Random assignment enables causal conclusions.
+    Random sampling enables generalization to a population.
+  </p>
+</div>
 
-    <ul class="bullets">
-      <li>We can attribute the difference to the treatment</li>
-    </ul>
-  </div>
+  <div class="section-block">
+  <h2>Example</h2>
+
+  <p>
+    A new drug is tested using an experiment:
+  </p>
+
+  <ul class="bullets">
+    <li>Participants are randomly assigned to two groups</li>
+    <li>Group A → receives the drug</li>
+    <li>Group B → receives a placebo</li>
+  </ul>
+
+  <p>
+    Because assignment is random, the groups are comparable.
+  </p>
+
+  <p>
+    If outcomes differ, we can attribute the difference
+    to the treatment rather than other factors.
+  </p>
+</div>
+
+<div class="section-block">
+  <h2>Example: A/B Test</h2>
+
+  <p>
+    A company wants to test two versions of a website:
+  </p>
+
+  <ul class="bullets">
+    <li>Group A → sees the original version</li>
+    <li>Group B → sees a new design</li>
+  </ul>
+
+  <p>
+    Users are randomly assigned to each version.
+  </p>
+
+  <p>
+    The company compares outcomes such as:
+  </p>
+
+  <ul class="bullets">
+    <li>Click rate</li>
+    <li>Purchase rate</li>
+  </ul>
+
+  <p>
+    Because assignment is random, differences in outcomes
+    can be attributed to the design change.
+  </p>
+</div>
+
+<img src="{{ '/foundations/images/experiment-random-assignment.png' | relative_url }}" 
+     alt="Random assignment diagram" 
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+     <p>
+Participants are randomly assigned to groups, ensuring comparability.
+</p>
 
   <!-- WHY CAUSATION -->
   <div class="section-block">
@@ -129,8 +187,8 @@ sidebar: false
     </ul>
 
     <p>
-      This is why experiments are considered the gold standard.
-    </p>
+  This is why well-designed experiments are considered the gold standard for causal inference.
+</p>
   </div>
 
   <!-- LIMITATIONS -->
@@ -141,22 +199,37 @@ sidebar: false
       <li>May be expensive</li>
       <li>May be unethical (e.g., harmful exposure)</li>
       <li>Sometimes not feasible</li>
+      <li>Results may not generalize beyond the study setting</li>
     </ul>
   </div>
+
+  <div class="section-block">
+  <h2>Internal vs External Validity</h2>
+
+  <p>
+    Experiments are strong in <strong>internal validity</strong>
+    (causal conclusions within the study).
+  </p>
+
+  <p>
+    But they may be weaker in <strong>external validity</strong>
+    (generalizing results to other populations or settings).
+  </p>
+</div>
 
   <!-- OBSERVATIONAL VS EXPERIMENT -->
   <div class="section-block">
-    <h2>Observational vs Experimental</h2>
+  <h2>Observational vs Experimental</h2>
 
-    <ul class="bullets">
-      <li>Observational → association only</li>
-      <li>Experimental → can establish causation</li>
-    </ul>
+  <ul class="bullets">
+    <li>Observational → identifies associations</li>
+    <li>Experimental → allows causal inference under proper design</li>
+  </ul>
 
-    <p>
-      Choosing the correct method is critical.
-    </p>
-  </div>
+  <p>
+    The choice depends on feasibility, ethics, and research goals.
+  </p>
+</div>
 
   <!-- COMMON MISTAKE -->
   <div class="section-block">
@@ -183,6 +256,18 @@ sidebar: false
       Without control, you only observe patterns.
     </p>
   </div>
+
+  <div class="section-block">
+  <h2>Key Insight</h2>
+
+  <p>
+    Causation requires careful design, not just data.
+  </p>
+
+  <p>
+    Without randomization, conclusions about cause and effect are uncertain.
+  </p>
+</div>
 
   <!-- NEXT -->
   <div class="section-block">
