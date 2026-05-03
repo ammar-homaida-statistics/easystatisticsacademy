@@ -157,7 +157,7 @@ sidebar: false
     Think of the population as a full distribution of values.
   </p>
 
-  <img src="/assets/images/sampling-variability.png" alt="Sampling variability illustration" style="margin-top:15px;">
+  <img src="/foundations/images/sampling-variability.png" alt="Sampling variability illustration" style="margin-top:15px;">
 
   <p>
     Each sample captures only a part of that distribution.
