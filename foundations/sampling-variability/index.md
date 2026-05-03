@@ -54,30 +54,38 @@ sidebar: false
     <p>
       It is not a mistake — it is a fundamental property of data.
     </p>
+
+    <p>
+  Because of this variability, we cannot rely on a single sample.
+  Instead, we use probability to understand how sample results behave.
+</p>
   </div>
 
-  <!-- SIMPLE EXAMPLE -->
   <div class="section-block">
-    <h2>Simple Example</h2>
+  <h2>Simple Example</h2>
 
-    <p>
-      Suppose the true population average height is unknown.
-    </p>
+  <p>
+    Suppose the true population average height is unknown.
+  </p>
 
-    <p>
-      We take three samples:
-    </p>
+  <p>
+    We take three different random samples:
+  </p>
 
-    <ul class="bullets">
-      <li>Sample 1 → mean = 170</li>
-      <li>Sample 2 → mean = 168</li>
-      <li>Sample 3 → mean = 172</li>
-    </ul>
+  <ul class="bullets">
+    <li>Sample 1 → mean = 170</li>
+    <li>Sample 2 → mean = 168</li>
+    <li>Sample 3 → mean = 172</li>
+  </ul>
 
-    <p>
-      All are different — even though they come from the same population.
-    </p>
-  </div>
+  <p>
+    Each sample gives a different estimate of the same population value.
+  </p>
+
+  <p>
+    This difference is not a mistake — it is sampling variability.
+  </p>
+</div>
 
   <!-- WHY IT HAPPENS -->
   <div class="section-block">
@@ -123,22 +131,41 @@ sidebar: false
     </p>
   </div>
 
+  <div class="section-block">
+  <h2>Random Variation vs Bias</h2>
+
+  <p>
+    Not all differences in results come from the same source.
+  </p>
+
+  <ul class="bullets">
+    <li><strong>Sampling variability:</strong> natural randomness between samples</li>
+    <li><strong>Bias:</strong> systematic error due to poor sampling</li>
+  </ul>
+
+  <p>
+    Increasing sample size reduces variability,
+    but it does not fix bias.
+  </p>
+</div>
+
   <!-- VISUAL THINKING -->
   <div class="section-block">
-    <h2>Conceptual Understanding</h2>
+  <h2>Conceptual Understanding</h2>
 
-    <p>
-      Think of the population as a large distribution.
-    </p>
+  <p>
+    Think of the population as a full distribution of values.
+  </p>
 
-    <p>
-      Each sample is like taking a small portion of it.
-    </p>
+  <p>
+    Each sample captures only a part of that distribution.
+  </p>
 
-    <p>
-      Different portions → different results.
-    </p>
-  </div>
+  <p>
+    Different samples capture different parts,
+    leading to different results.
+  </p>
+</div>
 
   <!-- SAMPLE SIZE -->
   <div class="section-block">
@@ -165,29 +192,59 @@ sidebar: false
     <p>
       But variability never disappears completely.
     </p>
+
+    <p>
+  Larger samples better represent the population distribution.
+</p>
   </div>
 
   <!-- NUMERICAL EXAMPLE -->
   <div class="section-block">
-    <h2>Numerical Example</h2>
+  <h2>Numerical Example</h2>
 
-    <p>
-      Population values (unknown to us):
-    </p>
+  <p>
+    Suppose a population contains:
+  </p>
 
-    <ul class="bullets">
-      <li>160, 165, 170, 175, 180</li>
-    </ul>
+  <ul class="bullets">
+    <li>160, 165, 170, 175, 180</li>
+  </ul>
 
-    <p>
-      Sample A: 160, 165 → mean = 162.5  
-      Sample B: 175, 180 → mean = 177.5
-    </p>
+  <p>
+    We take two different samples:
+  </p>
 
-    <p>
-      Same population — very different results.
-    </p>
-  </div>
+  <ul class="bullets">
+    <li>Sample A: 160, 165 → mean = 162.5</li>
+    <li>Sample B: 175, 180 → mean = 177.5</li>
+  </ul>
+
+  <p>
+    Both come from the same population,
+    but produce very different estimates.
+  </p>
+</div>
+
+<div class="section-block">
+  <h2>Thought Experiment</h2>
+
+  <p>
+    Imagine repeatedly taking samples of size 50 from the same population.
+  </p>
+
+  <p>
+    Each time, you compute the sample mean.
+  </p>
+
+  <p>
+    You would get a distribution of sample means,
+    not a single value.
+  </p>
+
+  <p>
+    This idea leads to the concept of the sampling distribution.
+  </p>
+</div>
 
   <!-- WHY IMPORTANT -->
   <div class="section-block">
@@ -206,6 +263,8 @@ sidebar: false
     <p>
       It is the reason statistical inference exists.
     </p>
+
+    <li>Why we cannot trust a single sample result</li>
   </div>
 
   <!-- COMMON MISTAKE -->
@@ -213,8 +272,8 @@ sidebar: false
     <h2>Common Mistake</h2>
 
     <p>
-      Assuming one sample gives the true answer.
-    </p>
+  Believing that one sample result represents the exact population value.
+</p>
 
     <p>
       Reality:
@@ -226,17 +285,17 @@ sidebar: false
   </div>
 
   <!-- KEY INSIGHT -->
-  <div class="section-block">
-    <h2>Key Insight</h2>
+<div class="section-block">
+  <h2>Key Insight</h2>
 
-    <p>
-      Variability is not noise to ignore.
-    </p>
+  <p>
+    Statistical inference is built on understanding variability.
+  </p>
 
-    <p>
-      It is the central object of statistical reasoning.
-    </p>
-  </div>
+  <p>
+    We do not eliminate variability — we model and quantify it.
+  </p>
+</div>
 
   <!-- NEXT -->
   <div class="section-block">
