@@ -49,6 +49,11 @@ sidebar: false
       <li>What does the data look like?</li>
       <li>What are its main features?</li>
     </ul>
+
+    <p>
+  It describes the <strong>distribution of the data</strong> —
+  how values are centered, spread, and structured.
+</p>
   </div>
 
   <!-- GOAL -->
@@ -63,6 +68,7 @@ sidebar: false
       <li>Reduce complexity</li>
       <li>Highlight patterns</li>
       <li>Support interpretation</li>
+      <li>Reveal the structure of the data</li>
     </ul>
   </div>
 
@@ -91,32 +97,55 @@ sidebar: false
     </ul>
   </div>
 
+  <div class="section-block">
+  <h2>Conceptual Visualization</h2>
+
+  <p>
+    Graphs such as histograms and boxplots help reveal patterns
+    that are not obvious from raw numbers.
+  </p>
+</div>
+
+  <div class="section-block">
+  <h2>Types of Summaries</h2>
+
+  <ul class="bullets">
+    <li><strong>Center:</strong> mean, median</li>
+    <li><strong>Spread:</strong> range, variance, standard deviation</li>
+    <li><strong>Shape:</strong> distribution patterns (skewness, symmetry)</li>
+  </ul>
+
+  <p>
+    These describe different aspects of the data distribution.
+  </p>
+</div>
+
   <!-- EXAMPLE -->
   <div class="section-block">
-    <h2>Simple Example</h2>
+  <h2>Simple Example</h2>
 
-    <p>
-      Data:
-    </p>
+  <p>
+    Data:
+  </p>
 
-    <ul class="bullets">
-      <li>5, 7, 8, 10, 10</li>
-    </ul>
+  <ul class="bullets">
+    <li>5, 7, 8, 10, 10</li>
+  </ul>
 
-    <p>
-      Descriptive summary:
-    </p>
+  <p>
+    Descriptive summary:
+  </p>
 
-    <ul class="bullets">
-      <li>Mean = 8</li>
-      <li>Median = 8</li>
-      <li>Range = 5</li>
-    </ul>
+  <ul class="bullets">
+    <li>Mean = 8 (center)</li>
+    <li>Median = 8 (center)</li>
+    <li>Range = 5 (spread)</li>
+  </ul>
 
-    <p>
-      Instead of raw numbers, we now have a clear summary.
-    </p>
-  </div>
+  <p>
+    These measures summarize different aspects of the data.
+  </p>
+</div>
 
   <!-- WHAT IT DOES NOT DO -->
   <div class="section-block">
@@ -126,6 +155,7 @@ sidebar: false
       <li>Does NOT make predictions</li>
       <li>Does NOT generalize to a population</li>
       <li>Does NOT establish causation</li>
+      <li>Does NOT quantify uncertainty about a population</li>
     </ul>
 
     <p>
@@ -156,12 +186,22 @@ sidebar: false
       <li>Data quality</li>
       <li>Missing data handling</li>
       <li>Outlier understanding</li>
+      <li>Sampling variability</li>
     </ul>
 
     <p>
       Poor data leads to misleading summaries.
     </p>
   </div>
+
+  <div class="section-block">
+  <h2>Key Insight</h2>
+
+  <p>
+    Descriptive statistics summarizes data,
+    but interpretation depends on context and data quality.
+  </p>
+</div>
 
   <!-- BIG IDEA -->
   <div class="section-block">
