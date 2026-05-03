@@ -53,22 +53,36 @@ sidebar: false
 
   <!-- FLOW -->
   <div class="section-block">
-    <h2>The Statistical Process</h2>
+  <h2>The Statistical Process</h2>
 
-    <p>
-      Here is the full structure you have learned:
-    </p>
+  <p>
+    Here is the full structure of statistical reasoning:
+  </p>
 
-    <ul class="bullets">
-      <li>Real-world problem</li>
-      <li>→ Define population</li>
-      <li>→ Select a sample</li>
-      <li>→ Collect data</li>
-      <li>→ Summarize data (descriptive statistics)</li>
-      <li>→ Use probability to model uncertainty</li>
-      <li>→ Draw conclusions (inference)</li>
-    </ul>
-  </div>
+  <ul class="bullets">
+    <li>Real-world problem</li>
+    <li>→ Define population</li>
+    <li>→ Select a sample</li>
+    <li>→ Collect data</li>
+    <li>→ Assess data quality (bias, missing data, outliers)</li>
+    <li>→ Summarize data (descriptive statistics)</li>
+    <li>→ Model variability using probability</li>
+    <li>→ Draw conclusions (inference)</li>
+  </ul>
+</div>
+
+  <div class="section-block">
+  <h2>The Full Pipeline</h2>
+
+  <ul class="bullets">
+    <li>Population → unknown truth</li>
+    <li>Sample → observed data</li>
+    <li>Statistic → estimate</li>
+    <li>Sampling variability → uncertainty</li>
+    <li>Probability → quantifies uncertainty</li>
+    <li>Inference → conclusions about the population</li>
+  </ul>
+</div>
 
   <!-- CORE COMPONENTS -->
   <div class="section-block">
@@ -122,6 +136,19 @@ sidebar: false
     </p>
   </div>
 
+  <div class="section-block">
+  <h2>The Role of Assumptions</h2>
+
+  <p>
+    Every statistical method relies on assumptions.
+  </p>
+
+  <p>
+    If these assumptions are violated,
+    conclusions may be misleading.
+  </p>
+</div>
+
   <!-- COMMON FAILURE -->
   <div class="section-block">
     <h2>Where Things Go Wrong</h2>
@@ -135,6 +162,7 @@ sidebar: false
       <li>Ignoring variability</li>
       <li>Misusing probability</li>
       <li>Over-interpreting results</li>
+      <li>Ignoring bias and data quality issues</li>
     </ul>
   </div>
 
@@ -152,8 +180,18 @@ sidebar: false
       <li>What data was collected?</li>
       <li>How much variability is there?</li>
       <li>What uncertainty exists?</li>
+      <li>What assumptions are being made?</li>
     </ul>
   </div>
+
+<div class="section-block">
+  <h2>One-Line Summary</h2>
+
+  <p>
+    Statistics uses data, variability, and probability
+    to make informed decisions under uncertainty.
+  </p>
+</div>
 
   <!-- TRANSITION -->
   <div class="section-block">
@@ -172,11 +210,25 @@ sidebar: false
       <li>Use tables and graphs</li>
       <li>Compute and interpret key measures</li>
     </ul>
-
-    <p>
-      This is the role of <strong>Descriptive Statistics</strong>.
-    </p>
+    
+      <p>
+  Next, we move deeper into statistical methods and tools
+  that allow us to apply these ideas in practice.
+</p>
   </div>
+
+  <div class="section-block">
+  <h2>Key Insight</h2>
+
+  <p>
+    Statistics is a chain of reasoning.
+  </p>
+
+  <p>
+    Weakness at any step — data, sampling, or assumptions —
+    leads to unreliable conclusions.
+  </p>
+</div>
 
   <!-- FINAL MESSAGE -->
   <div class="section-block">
