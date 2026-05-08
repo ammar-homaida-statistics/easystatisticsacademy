@@ -152,8 +152,6 @@ sidebar: false
     <!-- BLOCK 1 -->
     <div class="card lesson-card lesson-block-card">
 
-      <div class="lesson-block-number">01</div>
-
       <h3>
         <a href="/descriptive/data-variables/">
           Block 1 — Data & Variables
@@ -179,8 +177,6 @@ sidebar: false
 
     <!-- BLOCK 2 -->
     <div class="card lesson-card lesson-block-card">
-
-      <div class="lesson-block-number">02</div>
 
       <h3>
         <a href="/descriptive/tabular-summaries/">
@@ -208,8 +204,6 @@ sidebar: false
     <!-- BLOCK 3 -->
     <div class="card lesson-card lesson-block-card">
 
-      <div class="lesson-block-number">03</div>
-
       <h3>
         <a href="/descriptive/visualization/">
           Block 3 — Visualization
@@ -235,8 +229,6 @@ sidebar: false
 
     <!-- BLOCK 4 -->
     <div class="card lesson-card lesson-block-card">
-
-      <div class="lesson-block-number">04</div>
 
       <h3>
         <a href="/descriptive/center/">
@@ -264,8 +256,6 @@ sidebar: false
     <!-- BLOCK 5 -->
     <div class="card lesson-card lesson-block-card">
 
-      <div class="lesson-block-number">05</div>
-
       <h3>
         <a href="/descriptive/spread/">
           Block 5 — Measures of Spread
@@ -290,7 +280,6 @@ sidebar: false
     </div>
 
     <!-- BLOCK 6 -->
-    <div class="card lesson-card lesson-block-card">
 
       <div class="lesson-block-number">06</div>
 
@@ -319,8 +308,6 @@ sidebar: false
 
     <!-- BLOCK 7 -->
     <div class="card lesson-card lesson-block-card">
-
-      <div class="lesson-block-number">07</div>
 
       <h3>
         <a href="/descriptive/reporting/">
