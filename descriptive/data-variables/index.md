@@ -176,7 +176,7 @@ sidebar: false
 
   <div class="section-head">
 
-    <h2>Lessons (Version 0)</h2>
+    <h2>Lessons</h2>
 
     <p>
       Work through these lessons in order.
