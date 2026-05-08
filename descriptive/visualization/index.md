@@ -1,259 +1,616 @@
 ---
 layout: default
 title: Block 3 — Visualization
-description: Choose and interpret graphical summaries correctly: bar charts, histograms, boxplots, scatterplots, and ethical visualization principles.
+description: "Choose and interpret graphical summaries correctly: bar charts, histograms, boxplots, scatterplots, and ethical visualization principles."
 permalink: /descriptive/visualization/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 This Section Is Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        This block is currently being developed. Lessons will be published in a fixed pedagogical order
-        as part of the Descriptive Statistics unit.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update "last visited block" for Descriptive home -->
+<!-- SAVE LAST VISITED BLOCK -->
 <script>
-  (function () {
-    var KEY = "esa_continue_descriptive_last_block_v0";
+(function () {
 
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/descriptive/visualization/",
-      label: "Block 3 — Visualization",
-      ts: Date.now()
-    }));
-  })();
+  const KEY = "esa_continue_descriptive_last_block_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/descriptive/visualization/",
+    label: "Block 3 — Visualization",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
 <section class="hero hero-section">
+
   <div class="hero-card hero-split">
+
+    <!-- LEFT -->
     <div class="hero-copy">
+
       <div class="badge-row">
         <span class="badge">Block 3</span>
         <span class="badge">Graphs</span>
-        <span class="badge">Integrity</span>
+        <span class="badge">Visualization</span>
         <span class="badge">Interpretation</span>
+        <span class="badge">Integrity</span>
       </div>
 
       <h1>Block 3 — Visualization</h1>
+
       <p class="lead">
-        Visualization transforms tables into patterns. This block teaches how to select,
-        construct, and interpret graphs responsibly—without distortion or misleading presentation.
+        Visualization transforms raw numbers into visible patterns.
+      </p>
+
+      <p class="lead">
+        This block teaches how to select, construct, and interpret graphs correctly:
+        bar charts, histograms, boxplots, scatterplots, and other visual summaries —
+        while avoiding distortion and misleading presentation.
       </p>
 
       <div class="hero-actions">
-        <a class="btn btn-outline" href="/descriptive/">Back to Descriptive Statistics</a>
-        <a class="btn" href="#lessons">Open lessons</a>
+
+        <a class="btn" href="#lessons">
+          Start block
+        </a>
+
+        <a class="btn btn-outline" href="/descriptive/">
+          Descriptive home
+        </a>
+
       </div>
 
-      <p class="muted-mini">
-        Version 0: structure is locked. Lessons will be improved over time without changing the overall order.
-      </p>
+      <!-- BLOCK HIGHLIGHT -->
+      <div class="hero-highlight">
+
+        <div class="hero-highlight-icon">
+          📈
+        </div>
+
+        <div>
+
+          <strong>Why this block matters</strong>
+
+          <p>
+            Good visualizations reveal structure clearly.
+            Bad visualizations distort interpretation,
+            exaggerate differences, and create false conclusions.
+          </p>
+
+        </div>
+
+      </div>
+
     </div>
 
+    <!-- RIGHT -->
     <div class="hero-panel">
+
       <div class="panel-card">
-        <h2 class="panel-title">What this block covers</h2>
-        <ul class="quickstart" style="list-style:none; padding-left:0; margin:0;">
-          <li style="margin-bottom:.6rem;">
-            <strong>Graph selection rules</strong><br>
-            <span class="meta">Match graph to variable type</span>
-          </li>
-          <li style="margin-bottom:.6rem;">
-            <strong>Categorical graphs</strong><br>
-            <span class="meta">Bar charts, pie charts</span>
-          </li>
-          <li style="margin-bottom:.6rem;">
-            <strong>Numerical graphs</strong><br>
-            <span class="meta">Histograms, density curves, boxplots</span>
-          </li>
+
+        <h2 class="panel-title">
+          What this block covers
+        </h2>
+
+        <ul class="block-summary-list">
+
           <li>
-            <strong>Relationships & integrity</strong><br>
-            <span class="meta">Scatterplots, misleading graphs, ethical visualization</span>
+            Choosing the correct graph
           </li>
+
+          <li>
+            Bar charts and categorical summaries
+          </li>
+
+          <li>
+            Histograms and distribution shape
+          </li>
+
+          <li>
+            Density curves and smooth distributions
+          </li>
+
+          <li>
+            Boxplots and outliers
+          </li>
+
+          <li>
+            Scatterplots and relationships
+          </li>
+
+          <li>
+            Ethical visualization principles
+          </li>
+
         </ul>
+
+        <div class="panel-divider"></div>
+
+        <div class="mini-progress">
+
+          <div class="mini-progress-label">
+            Core skill
+          </div>
+
+          <div class="mini-progress-text">
+            Turning statistical summaries into interpretable visual patterns.
+          </div>
+
+          <div class="mini-progress-bar">
+            <span style="width:42%;"></span>
+          </div>
+
+          <div class="mini-progress-text">
+            Block 3 of 7 in Descriptive Statistics
+          </div>
+
+        </div>
+
       </div>
+
     </div>
+
   </div>
+
 </section>
 
-<!-- 🔁 Continue Reading (Block 3 lessons only) -->
-<section class="section" id="continue-reading-block3" style="display:none;">
+<!-- CONTINUE READING -->
+<section class="section"
+         id="continue-reading-block3"
+         style="display:none;">
+
   <div class="callout">
+
     <div class="callout-copy">
+
       <h2>Continue reading</h2>
-      <p class="muted-mini" id="continue-reading-block3-label" style="margin:0 0 .75rem 0;"></p>
-      <a class="btn" id="continue-reading-block3-btn" href="#">Continue</a>
+
+      <p class="muted-mini"
+         id="continue-reading-block3-label"
+         style="margin:0 0 .75rem 0;">
+      </p>
+
+      <a class="btn"
+         id="continue-reading-block3-btn"
+         href="#">
+         Continue
+      </a>
+
     </div>
+
   </div>
+
 </section>
 
+<!-- LESSONS -->
 <section class="section" id="lessons">
+
   <div class="section-head">
-    <h2>Lessons (Version 0)</h2>
+
+    <h2>Lessons</h2>
+
     <p>
-      Work through these lessons in order. Each lesson page is active (even if still being developed),
-      so you can navigate the full structure now.
+      Work through these lessons in order.
+      Each lesson builds visual intuition needed for later statistical interpretation.
     </p>
+
   </div>
 
   <div class="grid grid-2">
 
-    <!-- 1 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/visualization/why-visualization-matters/">1. Why Visualization Matters</a></h3>
-      <p>Why graphs help pattern detection—and when they distort interpretation.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/descriptive/visualization/why-visualization-matters/">Open lesson</a>
+    <!-- LESSON 1 -->
+    <div class="card lesson-card lesson-block-card">
+
+      <div class="lesson-block-number">01</div>
+
+      <h3>
+        <a href="/descriptive/visualization/why-visualization-matters/">
+          Why Visualization Matters
+        </a>
+      </h3>
+
+      <p>
+        Why graphs help humans detect patterns —
+        and why visual summaries can also mislead.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Foundations</span>
+        <span class="pill">Interpretation</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/descriptive/visualization/why-visualization-matters/">
+         Open lesson
+      </a>
+
     </div>
 
-    <!-- 2 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/visualization/matching-graph-to-variable-type/">2. Matching Graph Type to Variable Type</a></h3>
-      <p>The core rule: categorical vs numerical determines the correct graphical summary.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/descriptive/visualization/matching-graph-to-variable-type/">Open lesson</a>
+    <!-- LESSON 2 -->
+    <div class="card lesson-card lesson-block-card">
+
+      <div class="lesson-block-number">02</div>
+
+      <h3>
+        <a href="/descriptive/visualization/matching-graph-to-variable-type/">
+          Matching Graph Type to Variable Type
+        </a>
+      </h3>
+
+      <p>
+        Learn the central rule of visualization:
+        variable type determines graph type.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Variables</span>
+        <span class="pill">Decision rules</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/descriptive/visualization/matching-graph-to-variable-type/">
+         Open lesson
+      </a>
+
     </div>
 
-    <!-- 3 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/visualization/bar-charts/">3. Bar Charts</a></h3>
-      <p>Correct construction, labeling, scaling, and interpretation of categorical summaries.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/descriptive/visualization/bar-charts/">Open lesson</a>
+    <!-- LESSON 3 -->
+    <div class="card lesson-card lesson-block-card">
+
+      <div class="lesson-block-number">03</div>
+
+      <h3>
+        <a href="/descriptive/visualization/bar-charts/">
+          Bar Charts
+        </a>
+      </h3>
+
+      <p>
+        Correct construction, labeling,
+        ordering, and interpretation of categorical summaries.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Categorical data</span>
+        <span class="pill">Counts</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/descriptive/visualization/bar-charts/">
+         Open lesson
+      </a>
+
     </div>
 
-    <!-- 4 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/visualization/pie-charts/">4. Pie Charts (Limits &amp; Use Cases)</a></h3>
-      <p>When pie charts clarify—and when they mislead.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/descriptive/visualization/pie-charts/">Open lesson</a>
+    <!-- LESSON 4 -->
+    <div class="card lesson-card lesson-block-card">
+
+      <div class="lesson-block-number">04</div>
+
+      <h3>
+        <a href="/descriptive/visualization/pie-charts/">
+          Pie Charts (Limits & Use Cases)
+        </a>
+      </h3>
+
+      <p>
+        Understand when pie charts help —
+        and when they reduce clarity and comparison accuracy.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Pie charts</span>
+        <span class="pill">Interpretation</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/descriptive/visualization/pie-charts/">
+         Open lesson
+      </a>
+
     </div>
 
-    <!-- 5 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/visualization/histograms/">5. Histograms</a></h3>
-      <p>Continuous data, bin width, shape interpretation, and distribution insight.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/descriptive/visualization/histograms/">Open lesson</a>
+    <!-- LESSON 5 -->
+    <div class="card lesson-card lesson-block-card">
+
+      <div class="lesson-block-number">05</div>
+
+      <h3>
+        <a href="/descriptive/visualization/histograms/">
+          Histograms
+        </a>
+      </h3>
+
+      <p>
+        Learn how histograms display distribution shape,
+        spread, skewness, and grouping effects.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Continuous data</span>
+        <span class="pill">Distribution</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/descriptive/visualization/histograms/">
+         Open lesson
+      </a>
+
     </div>
 
-    <!-- 6 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/visualization/density-curves/">6. Density Curves (Conceptual)</a></h3>
-      <p>Smooth distribution representation and preparation for probability.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/descriptive/visualization/density-curves/">Open lesson</a>
+    <!-- LESSON 6 -->
+    <div class="card lesson-card lesson-block-card">
+
+      <div class="lesson-block-number">06</div>
+
+      <h3>
+        <a href="/descriptive/visualization/density-curves/">
+          Density Curves (Conceptual)
+        </a>
+      </h3>
+
+      <p>
+        Smooth representations of distributions
+        and preparation for probability concepts later.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Density</span>
+        <span class="pill">Probability bridge</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/descriptive/visualization/density-curves/">
+         Open lesson
+      </a>
+
     </div>
 
-    <!-- 7 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/visualization/boxplots/">7. Boxplots &amp; Outliers</a></h3>
-      <p>Five-number summary, IQR logic, and group comparison.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/descriptive/visualization/boxplots/">Open lesson</a>
+    <!-- LESSON 7 -->
+    <div class="card lesson-card lesson-block-card">
+
+      <div class="lesson-block-number">07</div>
+
+      <h3>
+        <a href="/descriptive/visualization/boxplots/">
+          Boxplots & Outliers
+        </a>
+      </h3>
+
+      <p>
+        Five-number summaries,
+        IQR logic, and visual comparison across groups.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Boxplots</span>
+        <span class="pill">Outliers</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/descriptive/visualization/boxplots/">
+         Open lesson
+      </a>
+
     </div>
 
-    <!-- 8 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/visualization/scatterplots/">8. Scatterplots</a></h3>
-      <p>Visualizing relationships between two numerical variables responsibly.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/descriptive/visualization/scatterplots/">Open lesson</a>
+    <!-- LESSON 8 -->
+    <div class="card lesson-card lesson-block-card">
+
+      <div class="lesson-block-number">08</div>
+
+      <h3>
+        <a href="/descriptive/visualization/scatterplots/">
+          Scatterplots
+        </a>
+      </h3>
+
+      <p>
+        Visualize relationships between two numerical variables
+        without confusing association and causation.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Relationships</span>
+        <span class="pill">Numerical variables</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/descriptive/visualization/scatterplots/">
+         Open lesson
+      </a>
+
     </div>
 
-    <!-- 9 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/visualization/time-series-line-charts/">9. Line Charts &amp; Time Series Plots</a></h3>
-      <p>When lines are valid (time/order), how to avoid false trends, and correct interpretation.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/descriptive/visualization/time-series-line-charts/">Open lesson</a>
+    <!-- LESSON 9 -->
+    <div class="card lesson-card lesson-block-card">
+
+      <div class="lesson-block-number">09</div>
+
+      <h3>
+        <a href="/descriptive/visualization/time-series-line-charts/">
+          Line Charts & Time Series Plots
+        </a>
+      </h3>
+
+      <p>
+        Understand when connecting points with lines is valid —
+        and how trends can be visually exaggerated.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Time series</span>
+        <span class="pill">Trend analysis</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/descriptive/visualization/time-series-line-charts/">
+         Open lesson
+      </a>
+
     </div>
 
-    <!-- 10 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/visualization/misleading-graphs/">10. Misleading Graphs &amp; Visual Manipulation</a></h3>
-      <p>Truncated axes, 3D distortion, scaling tricks, and ethical visualization.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/descriptive/visualization/misleading-graphs/">Open lesson</a>
+    <!-- LESSON 10 -->
+    <div class="card lesson-card lesson-block-card">
+
+      <div class="lesson-block-number">10</div>
+
+      <h3>
+        <a href="/descriptive/visualization/misleading-graphs/">
+          Misleading Graphs & Visual Manipulation
+        </a>
+      </h3>
+
+      <p>
+        Truncated axes, distorted scaling,
+        3D effects, and unethical presentation choices.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Ethics</span>
+        <span class="pill">Common mistakes</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/descriptive/visualization/misleading-graphs/">
+         Open lesson
+      </a>
+
     </div>
 
-    <!-- 11 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/visualization/choosing-the-right-graph/">11. Choosing the Right Graph (Decision Framework)</a></h3>
-      <p>A final synthesis: how to choose the correct visualization every time.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/descriptive/visualization/choosing-the-right-graph/">Open lesson</a>
+    <!-- LESSON 11 -->
+    <div class="card lesson-card lesson-block-card">
+
+      <div class="lesson-block-number">11</div>
+
+      <h3>
+        <a href="/descriptive/visualization/choosing-the-right-graph/">
+          Choosing the Right Graph (Decision Framework)
+        </a>
+      </h3>
+
+      <p>
+        A synthesis lesson:
+        how to choose the correct visualization every time.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Decision framework</span>
+        <span class="pill">Synthesis</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/descriptive/visualization/choosing-the-right-graph/">
+         Open lesson
+      </a>
+
     </div>
 
   </div>
+
 </section>
 
+<!-- OUTCOME -->
 <section class="section section-slim">
+
   <div class="callout">
+
     <div class="callout-copy">
+
       <h2>Outcome of Block 3</h2>
+
       <ul class="bullets">
-        <li>Select the correct graph based on variable type</li>
-        <li>Interpret distribution shape responsibly</li>
-        <li>Compare groups visually without distortion</li>
-        <li>Avoid misleading or unethical visualization practices</li>
-        <li>Be ready for Measures of Center (Block 4)</li>
+
+        <li>Select the correct graph for different variable types</li>
+
+        <li>Interpret distributions visually and responsibly</li>
+
+        <li>Understand spread, shape, skewness, and outliers</li>
+
+        <li>Visualize relationships between variables correctly</li>
+
+        <li>Recognize misleading and unethical visualization practices</li>
+
       </ul>
+
     </div>
 
     <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Next block</div>
-        <div class="mini-body">
-          Continue to <a href="/descriptive/center/" style="color:#1a73e8; text-decoration:underline;"><strong>Block 4 — Measures of Center</strong></a>.
+
+      <div class="mini">
+
+        <div class="mini-title">
+          Next block
         </div>
+
+        <div class="mini-body">
+
+          Continue to
+
+          <a href="/descriptive/center/">
+            <strong>Block 4 — Measures of Center</strong>
+          </a>
+
+        </div>
+
       </div>
+
+      <div class="mini">
+
+        <div class="mini-title">
+          Key principle
+        </div>
+
+        <div class="mini-body">
+          A graph should clarify the data —
+          not decorate it or exaggerate patterns.
+        </div>
+
+      </div>
+
     </div>
+
   </div>
+
 </section>
 
+<!-- CONTINUE READING -->
 <script>
-  (function () {
-    // ✅ Unique key for Block 3 lessons only
-    var KEY = "esa_continue_descriptive_visualization_lesson_v0";
+(function () {
 
-    var raw = localStorage.getItem(KEY);
+  try {
+
+    const KEY =
+      "esa_continue_descriptive_visualization_lesson_v0";
+
+    const raw = localStorage.getItem(KEY);
+
     if (!raw) return;
 
-    try {
-      var data = JSON.parse(raw);
-      if (!data || !data.url || !data.label) return;
+    const data = JSON.parse(raw);
 
-      var wrap = document.getElementById("continue-reading-block3");
-      var label = document.getElementById("continue-reading-block3-label");
-      var btn = document.getElementById("continue-reading-block3-btn");
-      if (!wrap || !label || !btn) return;
+    if (!data || !data.url || !data.label) return;
 
-      label.innerHTML = 'You last visited: <strong>' + data.label + '</strong>';
-      btn.href = data.url;
-      wrap.style.display = "block";
-    } catch (e) {}
-  })();
+    const wrap =
+      document.getElementById("continue-reading-block3");
+
+    const label =
+      document.getElementById("continue-reading-block3-label");
+
+    const btn =
+      document.getElementById("continue-reading-block3-btn");
+
+    if (!wrap || !label || !btn) return;
+
+    label.innerHTML =
+      'You last visited: <strong>' + data.label + '</strong>';
+
+    btn.href = data.url;
+
+    wrap.style.display = "block";
+
+  } catch (e) {}
+
+})();
 </script>
