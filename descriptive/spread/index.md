@@ -1,46 +1,40 @@
 ---
 layout: default
 title: Block 5 — Measures of Spread
-description: Quantify variability correctly: range, interquartile range (IQR), variance, standard deviation, coefficient of variation, and robust measures of dispersion.
+description: Learn how to quantify variability correctly using range, IQR, variance, standard deviation, and robust measures of spread.
 permalink: /descriptive/spread/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 This Section Is Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        This block is currently being developed. Lessons will be published in a fixed pedagogical order
-        as part of the Descriptive Statistics unit.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update "last visited block" for Descriptive home -->
+<!-- SAVE LAST VISITED BLOCK -->
 <script>
-  (function () {
-    var KEY = "esa_continue_descriptive_last_block_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/descriptive/spread/",
-      label: "Block 5 — Measures of Spread",
-      ts: Date.now()
-    }));
-  })();
+(function () {
+
+  const KEY = "esa_continue_descriptive_last_block_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/descriptive/spread/",
+    label: "Block 5 — Measures of Spread",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
 <section class="hero hero-section">
+
   <div class="hero-card hero-split">
+
+    <!-- LEFT -->
     <div class="hero-copy">
+
       <div class="badge-row">
         <span class="badge">Block 5</span>
         <span class="badge">Variability</span>
         <span class="badge">Dispersion</span>
-        <span class="badge">Interpretation</span>
+        <span class="badge">Standard deviation</span>
+        <span class="badge">Robustness</span>
       </div>
 
       <h1>Block 5 — Measures of Spread</h1>
@@ -48,174 +42,468 @@ sidebar: false
       <p class="lead">
         Measures of center describe typical values.
         Measures of spread describe variability.
-        This block explains how dispersed, stable, or volatile your data truly are.
+      </p>
+
+      <p class="lead">
+        This block explains how dispersed, stable, or volatile data really are —
+        using range, interquartile range (IQR), variance,
+        standard deviation, coefficient of variation,
+        and robust approaches to variability.
       </p>
 
       <div class="hero-actions">
-        <a class="btn btn-outline" href="/descriptive/">Back to Descriptive Statistics</a>
-        <a class="btn" href="#lessons">Open lessons</a>
+
+        <a class="btn" href="#lessons">
+          Start block
+        </a>
+
+        <a class="btn btn-outline" href="/descriptive/">
+          Descriptive home
+        </a>
+
       </div>
 
-      <p class="muted-mini">
-        Version 0: structure is locked. Lessons will be improved over time without changing the overall order.
-      </p>
+      <!-- BLOCK HIGHLIGHT -->
+      <div class="hero-highlight">
+
+        <div class="hero-highlight-icon">
+          📊
+        </div>
+
+        <div>
+
+          <strong>Why this block matters</strong>
+
+          <p>
+            Two datasets can have the same mean
+            but completely different behavior.
+            Spread reveals stability, consistency,
+            uncertainty, and risk.
+          </p>
+
+        </div>
+
+      </div>
+
     </div>
 
+    <!-- RIGHT -->
     <div class="hero-panel">
+
       <div class="panel-card">
-        <h2 class="panel-title">What this block covers</h2>
-        <ul class="quickstart" style="list-style:none; padding-left:0; margin:0;">
-          <li style="margin-bottom:.6rem;">
-            <strong>Basic dispersion</strong><br>
-            <span class="meta">Range and variability concept</span>
-          </li>
-          <li style="margin-bottom:.6rem;">
-            <strong>Robust spread</strong><br>
-            <span class="meta">Interquartile range (IQR)</span>
-          </li>
-          <li style="margin-bottom:.6rem;">
-            <strong>Variance & standard deviation</strong><br>
-            <span class="meta">Core statistical dispersion measures</span>
-          </li>
+
+        <h2 class="panel-title">
+          What this block covers
+        </h2>
+
+        <ul class="block-summary-list">
+
           <li>
-            <strong>Relative variability</strong><br>
-            <span class="meta">Coefficient of variation & interpretation</span>
+            Variability and dispersion
           </li>
+
+          <li>
+            Range and its limitations
+          </li>
+
+          <li>
+            Interquartile range (IQR)
+          </li>
+
+          <li>
+            Variance and squared deviations
+          </li>
+
+          <li>
+            Standard deviation
+          </li>
+
+          <li>
+            Relative variability
+          </li>
+
+          <li>
+            Reporting spread responsibly
+          </li>
+
         </ul>
+
+        <div class="panel-divider"></div>
+
+        <div class="mini-progress">
+
+          <div class="mini-progress-label">
+            Core skill
+          </div>
+
+          <div class="mini-progress-text">
+            Understanding how variable or stable a dataset truly is.
+          </div>
+
+          <div class="mini-progress-bar">
+            <span style="width:68%;"></span>
+          </div>
+
+          <div class="mini-progress-text">
+            Block 5 of 7 in Descriptive Statistics
+          </div>
+
+        </div>
+
       </div>
+
     </div>
+
   </div>
+
 </section>
 
-<!-- 🔁 Continue Reading (Block 5 lessons only) -->
-<section class="section" id="continue-reading-block5" style="display:none;">
+<!-- CONTINUE READING -->
+<section class="section"
+         id="continue-reading-block5"
+         style="display:none;">
+
   <div class="callout">
+
     <div class="callout-copy">
+
       <h2>Continue reading</h2>
-      <p class="muted-mini" id="continue-reading-block5-label" style="margin:0 0 .75rem 0;"></p>
-      <a class="btn" id="continue-reading-block5-btn" href="#">Continue</a>
+
+      <p class="muted-mini"
+         id="continue-reading-block5-label"
+         style="margin:0 0 .75rem 0;">
+      </p>
+
+      <a class="btn"
+         id="continue-reading-block5-btn"
+         href="#">
+         Continue
+      </a>
+
     </div>
+
   </div>
+
 </section>
 
+<!-- LESSONS -->
 <section class="section" id="lessons">
+
   <div class="section-head">
-    <h2>Lessons (Version 0)</h2>
+
+    <h2>Lessons</h2>
+
     <p>
-      Work through these lessons in order. Each lesson page will become active as the block develops.
+      Work through these lessons in order.
+      Each lesson develops deeper understanding of variability and dispersion.
     </p>
+
   </div>
 
   <div class="grid grid-2">
 
-    <!-- 1 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/spread/what-is-variability/">1. What Is Variability?</a></h3>
-      <p>Why two datasets with the same mean can behave completely differently.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/descriptive/spread/what-is-variability/">Open lesson</a>
+    <!-- LESSON 1 -->
+    <div class="card lesson-card lesson-block-card">
+
+      <div class="lesson-block-number">01</div>
+
+      <h3>
+        <a href="/descriptive/spread/what-is-variability/">
+          What Is Variability?
+        </a>
+      </h3>
+
+      <p>
+        Learn why variability matters and why identical averages
+        can hide completely different datasets.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Foundations</span>
+        <span class="pill">Interpretation</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/descriptive/spread/what-is-variability/">
+         Open lesson
+      </a>
+
     </div>
 
-    <!-- 2 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/spread/range/">2. Range</a></h3>
-      <p>The simplest dispersion measure — and why it is often insufficient.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/descriptive/spread/range/">Open lesson</a>
+    <!-- LESSON 2 -->
+    <div class="card lesson-card lesson-block-card">
+
+      <div class="lesson-block-number">02</div>
+
+      <h3>
+        <a href="/descriptive/spread/range/">
+          Range
+        </a>
+      </h3>
+
+      <p>
+        The simplest measure of spread —
+        useful for quick summaries but highly sensitive to extremes.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Range</span>
+        <span class="pill">Extremes</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/descriptive/spread/range/">
+         Open lesson
+      </a>
+
     </div>
 
-    <!-- 3 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/spread/interquartile-range/">3. Interquartile Range (IQR)</a></h3>
-      <p>Robust measure of spread resistant to extreme values.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/descriptive/spread/interquartile-range/">Open lesson</a>
+    <!-- LESSON 3 -->
+    <div class="card lesson-card lesson-block-card">
+
+      <div class="lesson-block-number">03</div>
+
+      <h3>
+        <a href="/descriptive/spread/interquartile-range/">
+          Interquartile Range (IQR)
+        </a>
+      </h3>
+
+      <p>
+        A robust measure of variability
+        resistant to outliers and skewed distributions.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">IQR</span>
+        <span class="pill">Robustness</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/descriptive/spread/interquartile-range/">
+         Open lesson
+      </a>
+
     </div>
 
-    <!-- 4 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/spread/variance/">4. Variance</a></h3>
-      <p>Squared deviations and the mathematical foundation of variability.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/descriptive/spread/variance/">Open lesson</a>
+    <!-- LESSON 4 -->
+    <div class="card lesson-card lesson-block-card">
+
+      <div class="lesson-block-number">04</div>
+
+      <h3>
+        <a href="/descriptive/spread/variance/">
+          Variance
+        </a>
+      </h3>
+
+      <p>
+        Understand squared deviations
+        and the mathematical foundation of statistical variability.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Variance</span>
+        <span class="pill">Theory</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/descriptive/spread/variance/">
+         Open lesson
+      </a>
+
     </div>
 
-    <!-- 5 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/spread/standard-deviation/">5. Standard Deviation</a></h3>
-      <p>The most widely used measure of spread and how to interpret it correctly.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/descriptive/spread/standard-deviation/">Open lesson</a>
+    <!-- LESSON 5 -->
+    <div class="card lesson-card lesson-block-card">
+
+      <div class="lesson-block-number">05</div>
+
+      <h3>
+        <a href="/descriptive/spread/standard-deviation/">
+          Standard Deviation
+        </a>
+      </h3>
+
+      <p>
+        Learn how standard deviation summarizes typical distance from the mean
+        and why it dominates statistical analysis.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Standard deviation</span>
+        <span class="pill">Interpretation</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/descriptive/spread/standard-deviation/">
+         Open lesson
+      </a>
+
     </div>
 
-    <!-- 6 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/spread/coefficient-of-variation/">6. Coefficient of Variation</a></h3>
-      <p>Comparing variability across different units or scales.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/descriptive/spread/coefficient-of-variation/">Open lesson</a>
+    <!-- LESSON 6 -->
+    <div class="card lesson-card lesson-block-card">
+
+      <div class="lesson-block-number">06</div>
+
+      <h3>
+        <a href="/descriptive/spread/coefficient-of-variation/">
+          Coefficient of Variation
+        </a>
+      </h3>
+
+      <p>
+        Compare variability across variables
+        with different units or scales.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Relative variability</span>
+        <span class="pill">Comparison</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/descriptive/spread/coefficient-of-variation/">
+         Open lesson
+      </a>
+
     </div>
 
-    <!-- 7 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/spread/reporting-spread-properly/">7. Reporting Spread Properly</a></h3>
-      <p>How to combine center and variability responsibly in reports.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/descriptive/spread/reporting-spread-properly/">Open lesson</a>
+    <!-- LESSON 7 -->
+    <div class="card lesson-card lesson-block-card">
+
+      <div class="lesson-block-number">07</div>
+
+      <h3>
+        <a href="/descriptive/spread/reporting-spread-properly/">
+          Reporting Spread Properly
+        </a>
+      </h3>
+
+      <p>
+        Learn how to combine measures of center and spread
+        for responsible statistical reporting.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Reporting</span>
+        <span class="pill">Communication</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/descriptive/spread/reporting-spread-properly/">
+         Open lesson
+      </a>
+
     </div>
 
   </div>
+
 </section>
 
+<!-- OUTCOME -->
 <section class="section section-slim">
+
   <div class="callout">
+
     <div class="callout-copy">
+
       <h2>Outcome of Block 5</h2>
+
       <ul class="bullets">
-        <li>Understand why variability is as important as center</li>
-        <li>Choose the correct measure of dispersion</li>
+
+        <li>Understand why variability is essential for interpreting data</li>
+
+        <li>Select appropriate measures of spread based on distribution shape</li>
+
         <li>Interpret variance and standard deviation correctly</li>
-        <li>Compare variability across different datasets responsibly</li>
+
+        <li>Use robust measures when outliers are present</li>
+
+        <li>Compare variability across datasets responsibly</li>
+
         <li>Prepare for Distribution Shape & Standardization (Block 6)</li>
+
       </ul>
+
     </div>
 
     <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Next block</div>
-        <div class="mini-body">
-          Continue to <a href="/descriptive/shape/" style="color:#1a73e8; text-decoration:underline;"><strong>Block 6 — Distribution Shape & Standardization</strong></a>.
+
+      <div class="mini">
+
+        <div class="mini-title">
+          Next block
         </div>
+
+        <div class="mini-body">
+
+          Continue to
+
+          <a href="/descriptive/shape/">
+            <strong>Block 6 — Distribution Shape & Standardization</strong>
+          </a>
+
+        </div>
+
       </div>
+
+      <div class="mini">
+
+        <div class="mini-title">
+          Key principle
+        </div>
+
+        <div class="mini-body">
+          Averages alone are incomplete —
+          variability determines how data actually behave.
+        </div>
+
+      </div>
+
     </div>
+
   </div>
+
 </section>
 
+<!-- CONTINUE READING -->
 <script>
-  (function () {
-    var KEY = "esa_continue_descriptive_spread_lesson_v0";
-    var raw = localStorage.getItem(KEY);
+(function () {
+
+  try {
+
+    const KEY =
+      "esa_continue_descriptive_spread_lesson_v0";
+
+    const raw = localStorage.getItem(KEY);
+
     if (!raw) return;
 
-    try {
-      var data = JSON.parse(raw);
-      if (!data || !data.url || !data.label) return;
+    const data = JSON.parse(raw);
 
-      var wrap = document.getElementById("continue-reading-block5");
-      var label = document.getElementById("continue-reading-block5-label");
-      var btn = document.getElementById("continue-reading-block5-btn");
-      if (!wrap || !label || !btn) return;
+    if (!data || !data.url || !data.label) return;
 
-      label.innerHTML = 'You last visited: <strong>' + data.label + '</strong>';
-      btn.href = data.url;
-      wrap.style.display = "block";
-    } catch (e) {}
-  })();
+    const wrap =
+      document.getElementById("continue-reading-block5");
+
+    const label =
+      document.getElementById("continue-reading-block5-label");
+
+    const btn =
+      document.getElementById("continue-reading-block5-btn");
+
+    if (!wrap || !label || !btn) return;
+
+    label.innerHTML =
+      'You last visited: <strong>' + data.label + '</strong>';
+
+    btn.href = data.url;
+
+    wrap.style.display = "block";
+
+  } catch (e) {}
+
+})();
 </script>
