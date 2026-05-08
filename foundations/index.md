@@ -28,11 +28,6 @@ sidebar: true
         ~30 lessons • Concept-first • No prerequisites
       </p>
 
-      <div style="background:#fff3cd; border:1px solid #ffeeba; padding:12px 14px; margin:14px 0; border-radius:8px;">
-        <strong>🚧 Under Construction</strong> — Lessons are being expanded with deeper explanations,
-        real examples, and software implementations.
-      </div>
-
       <div class="hero-actions">
         <a class="btn" href="#lessons">Start Foundations</a>
         <a class="btn btn-outline" href="/descriptive/">Next: Descriptive</a>
