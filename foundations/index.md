@@ -25,7 +25,7 @@ sidebar: true
       </p>
 
       <p class="muted-mini">
-        ~30 lessons • Concept-first • No prerequisites
+        26 lessons • Concept-first • No prerequisites
       </p>
 
       <div class="hero-actions">
