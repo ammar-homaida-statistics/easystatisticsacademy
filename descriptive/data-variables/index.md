@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Block 1 — Data & Variables
-description: Conceptual foundations for descriptive statistics: variables, datasets, data types, structure, and measurement scales.
+description: "Conceptual foundations for descriptive statistics: variables, datasets, data types, structure, and measurement scales."
 permalink: /descriptive/data-variables/
 sidebar: false
 ---
