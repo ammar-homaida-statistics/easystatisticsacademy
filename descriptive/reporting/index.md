@@ -1,241 +1,563 @@
 ---
 layout: default
 title: Block 7 — Reporting & Practical Integration
-description: Integrate descriptive statistics into clear reporting: combine center, spread, and shape; compare groups responsibly; avoid causal claims; and communicate results with tables, graphs, and short interpretations.
+description: Learn how to transform descriptive statistics into clear, responsible, and professional communication.
 permalink: /descriptive/reporting/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 This Section Is Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        This block is currently being developed. Lessons will be published in a fixed pedagogical order
-        as part of the Descriptive Statistics unit.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update "last visited block" for Descriptive home -->
+<!-- SAVE LAST VISITED BLOCK -->
 <script>
-  (function () {
-    var KEY = "esa_continue_descriptive_last_block_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/descriptive/reporting/",
-      label: "Block 7 — Reporting & Practical Integration",
-      ts: Date.now()
-    }));
-  })();
+(function () {
+
+  const KEY = "esa_continue_descriptive_last_block_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/descriptive/reporting/",
+    label: "Block 7 — Reporting & Practical Integration",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
 <section class="hero hero-section">
+
   <div class="hero-card hero-split">
+
+    <!-- LEFT -->
     <div class="hero-copy">
+
       <div class="badge-row">
         <span class="badge">Block 7</span>
         <span class="badge">Reporting</span>
-        <span class="badge">Integration</span>
-        <span class="badge">Clarity</span>
+        <span class="badge">Communication</span>
+        <span class="badge">Interpretation</span>
         <span class="badge">Ethics</span>
       </div>
 
       <h1>Block 7 — Reporting &amp; Practical Integration</h1>
 
       <p class="lead">
-        This block turns descriptive statistics into professional communication.
-        You will learn how to combine center, spread, and shape into a complete description,
-        compare groups without misleading language, and produce short, correct interpretations
-        supported by tables and graphs.
+        Statistics are only useful if they can be communicated correctly.
+      </p>
+
+      <p class="lead">
+        This block integrates everything from the Descriptive Statistics unit:
+        center, spread, shape, visualization, and interpretation —
+        turning raw summaries into professional communication
+        for research, business, dashboards, and real-world reporting.
       </p>
 
       <div class="hero-actions">
-        <a class="btn btn-outline" href="/descriptive/">Back to Descriptive Statistics</a>
-        <a class="btn" href="#lessons">Open lessons</a>
+
+        <a class="btn" href="#lessons">
+          Start block
+        </a>
+
+        <a class="btn btn-outline" href="/descriptive/">
+          Descriptive home
+        </a>
+
       </div>
 
-      <p class="muted-mini">
-        Version 0: structure is locked. Lessons will be improved over time without changing the overall order.
-      </p>
+      <!-- BLOCK HIGHLIGHT -->
+      <div class="hero-highlight">
+
+        <div class="hero-highlight-icon">
+          🧾
+        </div>
+
+        <div>
+
+          <strong>Why this block matters</strong>
+
+          <p>
+            Many statistical mistakes happen during communication —
+            not calculation.
+            Good reporting prevents misleading conclusions,
+            exaggerated claims, and poor decisions.
+          </p>
+
+        </div>
+
+      </div>
+
     </div>
 
+    <!-- RIGHT -->
     <div class="hero-panel">
+
       <div class="panel-card">
-        <h2 class="panel-title">What this block covers</h2>
-        <ul class="quickstart" style="list-style:none; padding-left:0; margin:0;">
-          <li style="margin-bottom:.6rem;">
-            <strong>Complete description</strong><br>
-            <span class="meta">Center + spread + shape + units + context</span>
-          </li>
-          <li style="margin-bottom:.6rem;">
-            <strong>Clear comparisons</strong><br>
-            <span class="meta">Compare groups responsibly; avoid “cause” language</span>
-          </li>
-          <li style="margin-bottom:.6rem;">
-            <strong>Tables &amp; visuals in reporting</strong><br>
-            <span class="meta">What to show, what to hide, and how to label correctly</span>
-          </li>
+
+        <h2 class="panel-title">
+          What this block covers
+        </h2>
+
+        <ul class="block-summary-list">
+
           <li>
-            <strong>Practical templates</strong><br>
-            <span class="meta">Short report-ready paragraphs for business & research</span>
+            From numbers to interpretation
           </li>
+
+          <li>
+            Complete descriptive summaries
+          </li>
+
+          <li>
+            Reporting tables and graphs
+          </li>
+
+          <li>
+            Comparing groups responsibly
+          </li>
+
+          <li>
+            Association vs causation
+          </li>
+
+          <li>
+            Transparency and exclusions
+          </li>
+
+          <li>
+            End-to-end descriptive reporting
+          </li>
+
         </ul>
+
+        <div class="panel-divider"></div>
+
+        <div class="mini-progress">
+
+          <div class="mini-progress-label">
+            Core skill
+          </div>
+
+          <div class="mini-progress-text">
+            Converting descriptive statistics into correct professional communication.
+          </div>
+
+          <div class="mini-progress-bar">
+            <span style="width:100%;"></span>
+          </div>
+
+          <div class="mini-progress-text">
+            Final block in Descriptive Statistics
+          </div>
+
+        </div>
+
       </div>
+
     </div>
+
   </div>
+
 </section>
 
-<!-- 🔁 Continue Reading (Block 7 lessons only) -->
-<section class="section" id="continue-reading-block7" style="display:none;">
+<!-- CONTINUE READING -->
+<section class="section"
+         id="continue-reading-block7"
+         style="display:none;">
+
   <div class="callout">
+
     <div class="callout-copy">
+
       <h2>Continue reading</h2>
-      <p class="muted-mini" id="continue-reading-block7-label" style="margin:0 0 .75rem 0;"></p>
-      <a class="btn" id="continue-reading-block7-btn" href="#">Continue</a>
+
+      <p class="muted-mini"
+         id="continue-reading-block7-label"
+         style="margin:0 0 .75rem 0;">
+      </p>
+
+      <a class="btn"
+         id="continue-reading-block7-btn"
+         href="#">
+         Continue
+      </a>
+
     </div>
+
   </div>
+
 </section>
 
+<!-- LESSONS -->
 <section class="section" id="lessons">
+
   <div class="section-head">
-    <h2>Lessons (Version 0)</h2>
+
+    <h2>Lessons</h2>
+
     <p>
-      Work through these lessons in order. Each lesson page will become active as the block develops.
+      Work through these lessons in order.
+      This block synthesizes all descriptive concepts into practical reporting.
     </p>
+
   </div>
 
   <div class="grid grid-2">
 
-    <!-- 1 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/reporting/from-numbers-to-message/">1. From Numbers to Message (What Reporting Really Is)</a></h3>
-      <p>How to transform descriptive outputs into a clear, decision-ready statement.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/descriptive/reporting/from-numbers-to-message/">Open lesson</a>
+    <!-- LESSON 1 -->
+    <div class="card lesson-card lesson-block-card">
+
+      <div class="lesson-block-number">01</div>
+
+      <h3>
+        <a href="/descriptive/reporting/from-numbers-to-message/">
+          From Numbers to Message
+        </a>
+      </h3>
+
+      <p>
+        Learn how descriptive statistics become
+        clear, decision-ready communication.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Interpretation</span>
+        <span class="pill">Communication</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/descriptive/reporting/from-numbers-to-message/">
+         Open lesson
+      </a>
+
     </div>
 
-    <!-- 2 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/reporting/complete-description-checklist/">2. Complete Description Checklist</a></h3>
-      <p>The full checklist: unit, n, missingness, center, spread, shape, and context.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/descriptive/reporting/complete-description-checklist/">Open lesson</a>
+    <!-- LESSON 2 -->
+    <div class="card lesson-card lesson-block-card">
+
+      <div class="lesson-block-number">02</div>
+
+      <h3>
+        <a href="/descriptive/reporting/complete-description-checklist/">
+          Complete Description Checklist
+        </a>
+      </h3>
+
+      <p>
+        Build complete descriptive summaries:
+        units, n, center, spread, shape, and context.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Checklist</span>
+        <span class="pill">Structure</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/descriptive/reporting/complete-description-checklist/">
+         Open lesson
+      </a>
+
     </div>
 
-    <!-- 3 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/reporting/how-to-write-a-summary-paragraph/">3. Writing a Summary Paragraph (Templates)</a></h3>
-      <p>Report-ready paragraph templates for academic writing and business dashboards.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/descriptive/reporting/how-to-write-a-summary-paragraph/">Open lesson</a>
+    <!-- LESSON 3 -->
+    <div class="card lesson-card lesson-block-card">
+
+      <div class="lesson-block-number">03</div>
+
+      <h3>
+        <a href="/descriptive/reporting/how-to-write-a-summary-paragraph/">
+          Writing a Summary Paragraph
+        </a>
+      </h3>
+
+      <p>
+        Report-ready templates for academic reports,
+        dashboards, and business summaries.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Writing</span>
+        <span class="pill">Templates</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/descriptive/reporting/how-to-write-a-summary-paragraph/">
+         Open lesson
+      </a>
+
     </div>
 
-    <!-- 4 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/reporting/reporting-tables-properly/">4. Reporting Tables Properly</a></h3>
-      <p>Titles, denominators, totals, rounding, and what must always be explicit.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/descriptive/reporting/reporting-tables-properly/">Open lesson</a>
+    <!-- LESSON 4 -->
+    <div class="card lesson-card lesson-block-card">
+
+      <div class="lesson-block-number">04</div>
+
+      <h3>
+        <a href="/descriptive/reporting/reporting-tables-properly/">
+          Reporting Tables Properly
+        </a>
+      </h3>
+
+      <p>
+        Learn titles, denominators, totals, rounding,
+        and essential table design principles.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Tables</span>
+        <span class="pill">Formatting</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/descriptive/reporting/reporting-tables-properly/">
+         Open lesson
+      </a>
+
     </div>
 
-    <!-- 5 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/reporting/reporting-graphs-properly/">5. Reporting Graphs Properly</a></h3>
-      <p>Correct labels, scales, captions, and how to avoid accidental visual manipulation.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/descriptive/reporting/reporting-graphs-properly/">Open lesson</a>
+    <!-- LESSON 5 -->
+    <div class="card lesson-card lesson-block-card">
+
+      <div class="lesson-block-number">05</div>
+
+      <h3>
+        <a href="/descriptive/reporting/reporting-graphs-properly/">
+          Reporting Graphs Properly
+        </a>
+      </h3>
+
+      <p>
+        Correct labels, captions, scales,
+        and avoiding accidental visual manipulation.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Graphs</span>
+        <span class="pill">Ethics</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/descriptive/reporting/reporting-graphs-properly/">
+         Open lesson
+      </a>
+
     </div>
 
-    <!-- 6 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/reporting/comparing-groups-responsibly/">6. Comparing Groups Responsibly</a></h3>
-      <p>Compare with context: matched denominators, spread and shape, and clear language.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/descriptive/reporting/comparing-groups-responsibly/">Open lesson</a>
+    <!-- LESSON 6 -->
+    <div class="card lesson-card lesson-block-card">
+
+      <div class="lesson-block-number">06</div>
+
+      <h3>
+        <a href="/descriptive/reporting/comparing-groups-responsibly/">
+          Comparing Groups Responsibly
+        </a>
+      </h3>
+
+      <p>
+        Learn how to compare groups fairly
+        using matched context and careful wording.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Comparisons</span>
+        <span class="pill">Interpretation</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/descriptive/reporting/comparing-groups-responsibly/">
+         Open lesson
+      </a>
+
     </div>
 
-    <!-- 7 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/reporting/association-not-causation/">7. Association ≠ Causation (Safe Interpretation)</a></h3>
-      <p>How to describe patterns without causal claims and avoid common wording errors.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/descriptive/reporting/association-not-causation/">Open lesson</a>
+    <!-- LESSON 7 -->
+    <div class="card lesson-card lesson-block-card">
+
+      <div class="lesson-block-number">07</div>
+
+      <h3>
+        <a href="/descriptive/reporting/association-not-causation/">
+          Association ≠ Causation
+        </a>
+      </h3>
+
+      <p>
+        Avoid dangerous causal claims
+        when descriptive statistics only show associations.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Causation</span>
+        <span class="pill">Interpretation</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/descriptive/reporting/association-not-causation/">
+         Open lesson
+      </a>
+
     </div>
 
-    <!-- 8 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/reporting/outliers-and-exclusions/">8. Outliers, Exclusions, and Transparency</a></h3>
-      <p>When you may exclude values, how to justify it, and how to report it ethically.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/descriptive/reporting/outliers-and-exclusions/">Open lesson</a>
+    <!-- LESSON 8 -->
+    <div class="card lesson-card lesson-block-card">
+
+      <div class="lesson-block-number">08</div>
+
+      <h3>
+        <a href="/descriptive/reporting/outliers-and-exclusions/">
+          Outliers, Exclusions, and Transparency
+        </a>
+      </h3>
+
+      <p>
+        Learn when exclusions may be justified
+        and how to report them ethically.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Transparency</span>
+        <span class="pill">Outliers</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/descriptive/reporting/outliers-and-exclusions/">
+         Open lesson
+      </a>
+
     </div>
 
-    <!-- 9 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/reporting/mini-case-study-end-to-end/">9. Mini Case Study (End-to-End Descriptive Report)</a></h3>
-      <p>An end-to-end workflow: dataset → tables/graphs → short interpretation.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/descriptive/reporting/mini-case-study-end-to-end/">Open lesson</a>
+    <!-- LESSON 9 -->
+    <div class="card lesson-card lesson-block-card">
+
+      <div class="lesson-block-number">09</div>
+
+      <h3>
+        <a href="/descriptive/reporting/mini-case-study-end-to-end/">
+          Mini Case Study (End-to-End Report)
+        </a>
+      </h3>
+
+      <p>
+        Complete descriptive workflow:
+        dataset → tables/graphs → interpretation → reporting.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Case study</span>
+        <span class="pill">Integration</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/descriptive/reporting/mini-case-study-end-to-end/">
+         Open lesson
+      </a>
+
     </div>
 
   </div>
+
 </section>
 
+<!-- OUTCOME -->
 <section class="section section-slim">
+
   <div class="callout">
+
     <div class="callout-copy">
+
       <h2>Outcome of Block 7</h2>
+
       <ul class="bullets">
-        <li>Write clear, report-ready summaries using correct statistical language</li>
-        <li>Combine center, spread, and shape into a complete descriptive message</li>
-        <li>Compare groups responsibly without misleading denominators or claims</li>
-        <li>Report tables and graphs with proper labels, captions, and transparency</li>
-        <li>Be ready for the next unit or practical projects</li>
+
+        <li>Write clear and statistically correct summaries</li>
+
+        <li>Combine center, spread, and shape into complete interpretation</li>
+
+        <li>Report tables and graphs professionally</li>
+
+        <li>Avoid misleading comparisons and causal wording</li>
+
+        <li>Communicate descriptive results responsibly and ethically</li>
+
+        <li>Finish the Descriptive Statistics unit with practical reporting skills</li>
+
       </ul>
+
     </div>
 
     <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Next step</div>
-        <div class="mini-body">
-          Return to <a href="/descriptive/" style="color:#1a73e8; text-decoration:underline;"><strong>Descriptive Statistics</strong></a> to review blocks and continue learning.
+
+      <div class="mini">
+
+        <div class="mini-title">
+          Next step
         </div>
+
+        <div class="mini-body">
+
+          Continue to
+
+          <a href="/probability/">
+            <strong>Probability & Theory</strong>
+          </a>
+
+        </div>
+
       </div>
+
+      <div class="mini">
+
+        <div class="mini-title">
+          Final principle
+        </div>
+
+        <div class="mini-body">
+          Statistics are not complete until they are interpreted and communicated correctly.
+        </div>
+
+      </div>
+
     </div>
+
   </div>
+
 </section>
 
+<!-- CONTINUE READING -->
 <script>
-  (function () {
-    var KEY = "esa_continue_descriptive_reporting_lesson_v0";
-    var raw = localStorage.getItem(KEY);
+(function () {
+
+  try {
+
+    const KEY =
+      "esa_continue_descriptive_reporting_lesson_v0";
+
+    const raw = localStorage.getItem(KEY);
+
     if (!raw) return;
 
-    try {
-      var data = JSON.parse(raw);
-      if (!data || !data.url || !data.label) return;
+    const data = JSON.parse(raw);
 
-      var wrap = document.getElementById("continue-reading-block7");
-      var label = document.getElementById("continue-reading-block7-label");
-      var btn = document.getElementById("continue-reading-block7-btn");
-      if (!wrap || !label || !btn) return;
+    if (!data || !data.url || !data.label) return;
 
-      label.innerHTML = 'You last visited: <strong>' + data.label + '</strong>';
-      btn.href = data.url;
-      wrap.style.display = "block";
-    } catch (e) {}
-  })();
+    const wrap =
+      document.getElementById("continue-reading-block7");
+
+    const label =
+      document.getElementById("continue-reading-block7-label");
+
+    const btn =
+      document.getElementById("continue-reading-block7-btn");
+
+    if (!wrap || !label || !btn) return;
+
+    label.innerHTML =
+      'You last visited: <strong>' + data.label + '</strong>';
+
+    btn.href = data.url;
+
+    wrap.style.display = "block";
+
+  } catch (e) {}
+
+})();
 </script>
