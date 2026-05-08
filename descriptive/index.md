@@ -281,7 +281,7 @@ sidebar: false
 
     <!-- BLOCK 6 -->
 
-      <div class="lesson-block-number">06</div>
+      <div class="card lesson-card lesson-block-card">
 
       <h3>
         <a href="/descriptive/shape/">
