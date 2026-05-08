@@ -1,251 +1,588 @@
 ---
 layout: default
 title: Block 4 — Measures of Center
-description: Learn how to describe “typical values” correctly using mean, median, mode, weighted and trimmed means, and how distribution shape and outliers change interpretation.
+description: Learn how to describe typical values correctly using mean, median, mode, weighted means, and robust measures of center.
 permalink: /descriptive/center/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 This Section Is Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        This block is currently being developed. Lessons will be published in a fixed pedagogical order
-        as part of the Descriptive Statistics unit.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update "last visited block" for Descriptive home -->
+<!-- SAVE LAST VISITED BLOCK -->
 <script>
-  (function () {
-    var KEY = "esa_continue_descriptive_last_block_v0";
+(function () {
 
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/descriptive/center/",
-      label: "Block 4 — Measures of Center",
-      ts: Date.now()
-    }));
-  })();
+  const KEY = "esa_continue_descriptive_last_block_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/descriptive/center/",
+    label: "Block 4 — Measures of Center",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
 <section class="hero hero-section">
+
   <div class="hero-card hero-split">
+
+    <!-- LEFT -->
     <div class="hero-copy">
+
       <div class="badge-row">
         <span class="badge">Block 4</span>
-        <span class="badge">Center</span>
+        <span class="badge">Mean</span>
+        <span class="badge">Median</span>
         <span class="badge">Robustness</span>
         <span class="badge">Interpretation</span>
       </div>
 
       <h1>Block 4 — Measures of Center</h1>
+
       <p class="lead">
-        Measures of center describe a “typical” value, but the correct choice depends on the variable type,
-        distribution shape, and presence of outliers. This block teaches mean, median, mode, weighted and trimmed means,
-        and how to report center responsibly.
+        Measures of center attempt to describe a “typical” value in a dataset.
+      </p>
+
+      <p class="lead">
+        This block teaches how to choose and interpret the correct measure of center:
+        mean, median, mode, weighted mean, trimmed mean, and robust alternatives —
+        while understanding how skewness and outliers change interpretation.
       </p>
 
       <div class="hero-actions">
-        <a class="btn btn-outline" href="/descriptive/">Back to Descriptive Statistics</a>
-        <a class="btn" href="#lessons">Open lessons</a>
+
+        <a class="btn" href="#lessons">
+          Start block
+        </a>
+
+        <a class="btn btn-outline" href="/descriptive/">
+          Descriptive home
+        </a>
+
       </div>
 
-      <p class="muted-mini">
-        Version 0: structure is locked. Lessons will be improved over time without changing the overall order.
-      </p>
+      <!-- BLOCK HIGHLIGHT -->
+      <div class="hero-highlight">
+
+        <div class="hero-highlight-icon">
+          📍
+        </div>
+
+        <div>
+
+          <strong>Why this block matters</strong>
+
+          <p>
+            “Average” is one of the most misunderstood ideas in statistics.
+            Different measures of center can tell completely different stories
+            about the same data.
+          </p>
+
+        </div>
+
+      </div>
+
     </div>
 
+    <!-- RIGHT -->
     <div class="hero-panel">
+
       <div class="panel-card">
-        <h2 class="panel-title">What this block covers</h2>
-        <ul class="quickstart" style="list-style:none; padding-left:0; margin:0;">
-          <li style="margin-bottom:.6rem;">
-            <strong>Meaning of “center”</strong><br>
-            <span class="meta">Typical value vs average; when “average” is misleading</span>
-          </li>
-          <li style="margin-bottom:.6rem;">
-            <strong>Mean, median, mode</strong><br>
-            <span class="meta">Definitions, strengths, and correct use cases</span>
-          </li>
-          <li style="margin-bottom:.6rem;">
-            <strong>Robust alternatives</strong><br>
-            <span class="meta">Trimmed mean, winsorization, weighted mean</span>
-          </li>
+
+        <h2 class="panel-title">
+          What this block covers
+        </h2>
+
+        <ul class="block-summary-list">
+
           <li>
-            <strong>Reporting</strong><br>
-            <span class="meta">Choosing the right center + short interpretation</span>
+            Meaning of “center”
           </li>
+
+          <li>
+            Mean, median, and mode
+          </li>
+
+          <li>
+            Skewness and outlier effects
+          </li>
+
+          <li>
+            Weighted and trimmed means
+          </li>
+
+          <li>
+            Winsorized means
+          </li>
+
+          <li>
+            Center for ordinal variables
+          </li>
+
+          <li>
+            Correct reporting and interpretation
+          </li>
+
         </ul>
+
+        <div class="panel-divider"></div>
+
+        <div class="mini-progress">
+
+          <div class="mini-progress-label">
+            Core skill
+          </div>
+
+          <div class="mini-progress-text">
+            Selecting and interpreting the correct “typical value” for data.
+          </div>
+
+          <div class="mini-progress-bar">
+            <span style="width:56%;"></span>
+          </div>
+
+          <div class="mini-progress-text">
+            Block 4 of 7 in Descriptive Statistics
+          </div>
+
+        </div>
+
       </div>
+
     </div>
+
   </div>
+
 </section>
 
-<!-- 🔁 Continue Reading (Block 4 lessons only) -->
-<section class="section" id="continue-reading-block4" style="display:none;">
+<!-- CONTINUE READING -->
+<section class="section"
+         id="continue-reading-block4"
+         style="display:none;">
+
   <div class="callout">
+
     <div class="callout-copy">
+
       <h2>Continue reading</h2>
-      <p class="muted-mini" id="continue-reading-block4-label" style="margin:0 0 .75rem 0;"></p>
-      <a class="btn" id="continue-reading-block4-btn" href="#">Continue</a>
+
+      <p class="muted-mini"
+         id="continue-reading-block4-label"
+         style="margin:0 0 .75rem 0;">
+      </p>
+
+      <a class="btn"
+         id="continue-reading-block4-btn"
+         href="#">
+         Continue
+      </a>
+
     </div>
+
   </div>
+
 </section>
 
+<!-- LESSONS -->
 <section class="section" id="lessons">
+
   <div class="section-head">
-    <h2>Lessons (Version 0)</h2>
+
+    <h2>Lessons</h2>
+
     <p>
-      Work through these lessons in order. Each lesson page is active (even if still being developed),
-      so you can navigate the full structure now.
+      Work through these lessons in order.
+      Each lesson builds intuition for selecting and interpreting center responsibly.
     </p>
+
   </div>
 
   <div class="grid grid-2">
 
-    <!-- 1 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/center/what-is-center/">1. What Is “Center” and Why “Average” Can Mislead</a></h3>
-      <p>What we mean by “typical value”, and why the word “average” is often used incorrectly.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/descriptive/center/what-is-center/">Open lesson</a>
+    <!-- LESSON 1 -->
+    <div class="card lesson-card lesson-block-card">
+
+      <div class="lesson-block-number">01</div>
+
+      <h3>
+        <a href="/descriptive/center/what-is-center/">
+          What Is “Center” and Why “Average” Can Mislead
+        </a>
+      </h3>
+
+      <p>
+        Learn what statisticians mean by “typical value”
+        and why “average” is often used incorrectly.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Foundations</span>
+        <span class="pill">Interpretation</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/descriptive/center/what-is-center/">
+         Open lesson
+      </a>
+
     </div>
 
-    <!-- 2 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/center/arithmetic-mean/">2. Arithmetic Mean (When It Works — When It Fails)</a></h3>
-      <p>Mean definition and interpretation, sensitivity to outliers, and correct contexts for use.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/descriptive/center/arithmetic-mean/">Open lesson</a>
+    <!-- LESSON 2 -->
+    <div class="card lesson-card lesson-block-card">
+
+      <div class="lesson-block-number">02</div>
+
+      <h3>
+        <a href="/descriptive/center/arithmetic-mean/">
+          Arithmetic Mean (When It Works — When It Fails)
+        </a>
+      </h3>
+
+      <p>
+        Understand the arithmetic mean,
+        its interpretation, and its sensitivity to outliers.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Mean</span>
+        <span class="pill">Outliers</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/descriptive/center/arithmetic-mean/">
+         Open lesson
+      </a>
+
     </div>
 
-    <!-- 3 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/center/median/">3. Median (Robust Center for Skewed Data)</a></h3>
-      <p>Why median resists outliers, how it behaves under skewness, and when it is preferred.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/descriptive/center/median/">Open lesson</a>
+    <!-- LESSON 3 -->
+    <div class="card lesson-card lesson-block-card">
+
+      <div class="lesson-block-number">03</div>
+
+      <h3>
+        <a href="/descriptive/center/median/">
+          Median (Robust Center for Skewed Data)
+        </a>
+      </h3>
+
+      <p>
+        Learn why the median resists outliers
+        and becomes preferable for skewed distributions.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Median</span>
+        <span class="pill">Robustness</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/descriptive/center/median/">
+         Open lesson
+      </a>
+
     </div>
 
-    <!-- 4 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/center/mode/">4. Mode (Most Frequent Value, Categorical “Center”)</a></h3>
-      <p>Mode for categorical and discrete data, multiple modes, and interpretation limits.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/descriptive/center/mode/">Open lesson</a>
+    <!-- LESSON 4 -->
+    <div class="card lesson-card lesson-block-card">
+
+      <div class="lesson-block-number">04</div>
+
+      <h3>
+        <a href="/descriptive/center/mode/">
+          Mode (Most Frequent Value)
+        </a>
+      </h3>
+
+      <p>
+        Use the mode for categorical and discrete data,
+        and understand multimodal distributions.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Mode</span>
+        <span class="pill">Categorical data</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/descriptive/center/mode/">
+         Open lesson
+      </a>
+
     </div>
 
-    <!-- 5 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/center/mean-vs-median/">5. Mean vs Median (Skewness, Outliers, and Choice Rules)</a></h3>
-      <p>Decision rules for choosing mean or median using distribution shape and outlier behavior.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/descriptive/center/mean-vs-median/">Open lesson</a>
+    <!-- LESSON 5 -->
+    <div class="card lesson-card lesson-block-card">
+
+      <div class="lesson-block-number">05</div>
+
+      <h3>
+        <a href="/descriptive/center/mean-vs-median/">
+          Mean vs Median (Decision Rules)
+        </a>
+      </h3>
+
+      <p>
+        Learn how skewness and outliers determine
+        whether mean or median is more appropriate.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Decision rules</span>
+        <span class="pill">Skewness</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/descriptive/center/mean-vs-median/">
+         Open lesson
+      </a>
+
     </div>
 
-    <!-- 6 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/center/weighted-mean/">6. Weighted Mean (When Not All Observations Are Equal)</a></h3>
-      <p>How weights change interpretation; survey weights, grades/credits, and aggregated averages.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/descriptive/center/weighted-mean/">Open lesson</a>
+    <!-- LESSON 6 -->
+    <div class="card lesson-card lesson-block-card">
+
+      <div class="lesson-block-number">06</div>
+
+      <h3>
+        <a href="/descriptive/center/weighted-mean/">
+          Weighted Mean
+        </a>
+      </h3>
+
+      <p>
+        Understand weighted averages:
+        survey weights, GPA calculations, and aggregated summaries.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Weights</span>
+        <span class="pill">Applications</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/descriptive/center/weighted-mean/">
+         Open lesson
+      </a>
+
     </div>
 
-    <!-- 7 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/center/trimmed-mean/">7. Trimmed Mean (Robust Alternative to Mean)</a></h3>
-      <p>Trim extremes to stabilize the mean; when trimming is justified and how to report it.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/descriptive/center/trimmed-mean/">Open lesson</a>
+    <!-- LESSON 7 -->
+    <div class="card lesson-card lesson-block-card">
+
+      <div class="lesson-block-number">07</div>
+
+      <h3>
+        <a href="/descriptive/center/trimmed-mean/">
+          Trimmed Mean
+        </a>
+      </h3>
+
+      <p>
+        Remove extreme observations to stabilize the mean
+        while preserving most of the data.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Robust statistics</span>
+        <span class="pill">Trimmed mean</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/descriptive/center/trimmed-mean/">
+         Open lesson
+      </a>
+
     </div>
 
-    <!-- 8 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/center/winsorized-mean/">8. Winsorized Mean (Outlier Control Without Deletion)</a></h3>
-      <p>Replace extremes rather than remove them; why winsorization is used and its limitations.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/descriptive/center/winsorized-mean/">Open lesson</a>
+    <!-- LESSON 8 -->
+    <div class="card lesson-card lesson-block-card">
+
+      <div class="lesson-block-number">08</div>
+
+      <h3>
+        <a href="/descriptive/center/winsorized-mean/">
+          Winsorized Mean
+        </a>
+      </h3>
+
+      <p>
+        Learn how winsorization reduces outlier influence
+        without deleting observations entirely.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Winsorization</span>
+        <span class="pill">Outlier control</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/descriptive/center/winsorized-mean/">
+         Open lesson
+      </a>
+
     </div>
 
-    <!-- 9 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/center/center-for-ordinal-data/">9. Center for Ordinal Data (What Is Valid?)</a></h3>
-      <p>Median and mode as valid summaries; why mean can be invalid for ordinal scales.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/descriptive/center/center-for-ordinal-data/">Open lesson</a>
+    <!-- LESSON 9 -->
+    <div class="card lesson-card lesson-block-card">
+
+      <div class="lesson-block-number">09</div>
+
+      <h3>
+        <a href="/descriptive/center/center-for-ordinal-data/">
+          Center for Ordinal Data
+        </a>
+      </h3>
+
+      <p>
+        Understand why median and mode are valid for ordinal scales —
+        while means can become misleading.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Ordinal data</span>
+        <span class="pill">Measurement scales</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/descriptive/center/center-for-ordinal-data/">
+         Open lesson
+      </a>
+
     </div>
 
-    <!-- 10 -->
-    <div class="card lesson-card">
-      <h3><a href="/descriptive/center/reporting-center-properly/">10. Reporting Center Properly (With Context)</a></h3>
-      <p>How to write center in reports: include units, sample size, distribution context, and avoid overclaiming.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/descriptive/center/reporting-center-properly/">Open lesson</a>
+    <!-- LESSON 10 -->
+    <div class="card lesson-card lesson-block-card">
+
+      <div class="lesson-block-number">10</div>
+
+      <h3>
+        <a href="/descriptive/center/reporting-center-properly/">
+          Reporting Center Properly
+        </a>
+      </h3>
+
+      <p>
+        Learn how to report measures of center with context,
+        units, sample size, and correct interpretation.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Reporting</span>
+        <span class="pill">Interpretation</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/descriptive/center/reporting-center-properly/">
+         Open lesson
+      </a>
+
     </div>
 
   </div>
+
 </section>
 
+<!-- OUTCOME -->
 <section class="section section-slim">
+
   <div class="callout">
+
     <div class="callout-copy">
+
       <h2>Outcome of Block 4</h2>
+
       <ul class="bullets">
-        <li>Choose a valid measure of center based on variable type and scale</li>
-        <li>Understand how skewness and outliers change the meaning of “average”</li>
-        <li>Use robust alternatives (median, trimmed, winsorized) responsibly</li>
-        <li>Report center clearly with correct interpretation and context</li>
-        <li>Be ready for Measures of Spread (Block 5)</li>
+
+        <li>Select appropriate measures of center based on variable type</li>
+
+        <li>Understand how skewness and outliers affect “average” values</li>
+
+        <li>Use robust alternatives responsibly</li>
+
+        <li>Interpret mean, median, and mode correctly</li>
+
+        <li>Report center clearly with context and limitations</li>
+
       </ul>
+
     </div>
 
     <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Next block</div>
-        <div class="mini-body">
-          Continue to <a href="/descriptive/spread/" style="color:#1a73e8; text-decoration:underline;"><strong>Block 5 — Measures of Spread</strong></a>.
+
+      <div class="mini">
+
+        <div class="mini-title">
+          Next block
         </div>
+
+        <div class="mini-body">
+
+          Continue to
+
+          <a href="/descriptive/spread/">
+            <strong>Block 5 — Measures of Spread</strong>
+          </a>
+
+        </div>
+
       </div>
+
+      <div class="mini">
+
+        <div class="mini-title">
+          Key principle
+        </div>
+
+        <div class="mini-body">
+          There is no universally “best” average —
+          the correct measure depends on the data structure.
+        </div>
+
+      </div>
+
     </div>
+
   </div>
+
 </section>
 
+<!-- CONTINUE READING -->
 <script>
-  (function () {
-    // ✅ Unique key for Block 4 lessons only
-    var KEY = "esa_continue_descriptive_center_lesson_v0";
+(function () {
 
-    var raw = localStorage.getItem(KEY);
+  try {
+
+    const KEY =
+      "esa_continue_descriptive_center_lesson_v0";
+
+    const raw = localStorage.getItem(KEY);
+
     if (!raw) return;
 
-    try {
-      var data = JSON.parse(raw);
-      if (!data || !data.url || !data.label) return;
+    const data = JSON.parse(raw);
 
-      var wrap = document.getElementById("continue-reading-block4");
-      var label = document.getElementById("continue-reading-block4-label");
-      var btn = document.getElementById("continue-reading-block4-btn");
-      if (!wrap || !label || !btn) return;
+    if (!data || !data.url || !data.label) return;
 
-      label.innerHTML = 'You last visited: <strong>' + data.label + '</strong>';
-      btn.href = data.url;
-      wrap.style.display = "block";
-    } catch (e) {}
-  })();
+    const wrap =
+      document.getElementById("continue-reading-block4");
+
+    const label =
+      document.getElementById("continue-reading-block4-label");
+
+    const btn =
+      document.getElementById("continue-reading-block4-btn");
+
+    if (!wrap || !label || !btn) return;
+
+    label.innerHTML =
+      'You last visited: <strong>' + data.label + '</strong>';
+
+    btn.href = data.url;
+
+    wrap.style.display = "block";
+
+  } catch (e) {}
+
+})();
 </script>
