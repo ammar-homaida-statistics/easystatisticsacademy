@@ -1,7 +1,7 @@
 ---
 layout: default
 title: What Does It Mean to Describe Data?
-description: "Learn what descriptive statistics really does: turning raw data into understandable structure using center, spread, shape, comparisons, and visual summaries."
+description: Learn what descriptive statistics really does: turning raw data into understandable structure using center, spread, shape, comparisons, and visual summaries.
 permalink: /descriptive/data-variables/what-does-it-mean-to-describe-data/
 sidebar: false
 ---
@@ -51,7 +51,7 @@ sidebar: false
 
       <a class="btn"
          href="/descriptive/data-variables/">
-         Block Home
+         Back to Block
       </a>
 
       <a class="btn btn-outline"
@@ -70,8 +70,7 @@ sidebar: false
 
   <div class="content-narrow">
 
-    <!-- SECTION -->
-    <h2>1. Raw Data Is Usually Hard to Understand</h2>
+    <h2>Raw Data Is Usually Hard to Understand</h2>
 
     <p>
       Imagine the following exam scores:
@@ -114,12 +113,16 @@ sidebar: false
       Descriptive statistics helps answer these questions.
     </p>
 
-    <!-- SECTION -->
-    <h2>2. Descriptive Statistics Creates Structure</h2>
+    <h2>Descriptive Statistics Creates Structure</h2>
 
     <p>
       Descriptive statistics organizes data into understandable summaries.
     </p>
+
+    <p>
+  The main goal is to understand the <strong>distribution</strong> of the data —
+  how values are centered, spread out, shaped, and patterned.
+</p>
 
     <p>
       Instead of staring at dozens or thousands of raw values,
@@ -159,8 +162,7 @@ sidebar: false
       </table>
     </div>
 
-    <!-- SECTION -->
-    <h2>3. Description Comes Before Inference</h2>
+    <h2>Description Comes Before Inference</h2>
 
     <p>
       In statistics, description comes first.
@@ -195,8 +197,7 @@ sidebar: false
 
     </div>
 
-    <!-- SECTION -->
-    <h2>4. Describing Data Is More Than Calculating Numbers</h2>
+    <h2>Describing Data Is More Than Calculating Numbers</h2>
 
     <p>
       A common mistake is thinking descriptive statistics
@@ -214,7 +215,7 @@ sidebar: false
     <div class="example-box">
 
       <p>
-        “The average salary is $80,000”
+        “The average salary is \$80,000”
       </p>
 
       <p>
@@ -235,8 +236,7 @@ sidebar: false
       not just isolated numbers.
     </p>
 
-    <!-- SECTION -->
-    <h2>5. Numerical and Graphical Description Work Together</h2>
+    <h2>Numerical and Graphical Description Work Together</h2>
 
     <p>
       Good descriptive analysis combines:
@@ -274,11 +274,22 @@ sidebar: false
 
     <p>
       Numerical summaries provide precision.
-      Graphs provide intuition and pattern recognition.
+      Graphs reveal patterns, structure, and unusual behavior
+that may not appear in numerical summaries alone.
     </p>
 
-    <!-- SECTION -->
-    <h2>6. Real-World Example</h2>
+    <div class="concept-box">
+
+  <strong>Important insight:</strong>
+
+  <p>
+    Different datasets can produce similar numerical summaries
+    while having very different distributions.
+  </p>
+
+</div>
+
+    <h2>Real-World Example</h2>
 
     <p>
       Suppose a hospital records waiting times for patients.
@@ -293,6 +304,7 @@ sidebar: false
       <li>Most patients wait between 10–20 minutes</li>
       <li>A few patients wait much longer than others</li>
       <li>Emergency cases behave differently from routine visits</li>
+      <li>The waiting-time distribution may be skewed by a few extremely long waits</li>
     </ul>
 
     <p>
@@ -300,8 +312,7 @@ sidebar: false
       these summaries already support operational decisions.
     </p>
 
-    <!-- SECTION -->
-    <h2>7. Descriptive Statistics Is About Understanding</h2>
+    <h2>Descriptive Statistics Is About Understanding</h2>
 
     <p>
       The main purpose of descriptive statistics is understanding.
@@ -323,6 +334,17 @@ sidebar: false
       Without this step,
       later statistical analysis becomes unreliable.
     </p>
+
+    <div class="concept-box">
+
+  <strong>Key insight:</strong>
+
+  <p>
+    Descriptive statistics is not only about simplifying data —
+    it is about understanding the structure and behavior of the distribution.
+  </p>
+
+</div>
 
     <!-- TAKEAWAYS -->
     <div class="summary-box">
