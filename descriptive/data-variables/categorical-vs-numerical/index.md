@@ -118,6 +118,9 @@ variables are classified using measurement types such as:
   <li>Scale</li>
 </ul>
 
+<img src="{{ '/descriptive/images/variable-types-table.png' | relative_url }}"
+  style="margin-top:15px; max-width:100%; height:auto;">
+
 </div>
 
     <h2>What Is Categorical Data?</h2>
