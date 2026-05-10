@@ -496,14 +496,6 @@ Choosing the correct measurement level affects available analyses and graphs.
       <li>Educational levels</li>
     </ul>
 
-    <img src="{{ 'descriptive/images/likert-scale.png' | relative_url }}" 
-     alt="Likert scale example" 
-     style="margin-top:15px; max-width:100%; height:auto;">
-
-<p>
-Likert scales are common examples of ordinal measurement.
-</p>
-
     <p>
   One of the most common ordinal structures
   is the Likert scale used in surveys,
@@ -522,6 +514,14 @@ Likert scales are common examples of ordinal measurement.
       Understanding ordinal structure
       is essential for applied statistics and data science.
     </p>
+
+    <img src="{{ 'descriptive/images/likert-scale.png' | relative_url }}" 
+     alt="Likert scale example" 
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+Likert scales are common examples of ordinal measurement.
+</p>
 
     <div class="concept-box">
 
