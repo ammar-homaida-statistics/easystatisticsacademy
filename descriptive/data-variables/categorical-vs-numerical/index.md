@@ -481,46 +481,7 @@ while numerical variables are often visualized using histograms.
     <p>
       Suppose a university records:
     </p>
-
-    <div class="table-wrap">
-
-      <table>
-
-        <thead>
-          <tr>
-            <th>Variable</th>
-            <th>Type</th>
-          </tr>
-        </thead>
-
-        <tbody>
-
-          <tr>
-            <td>Major</td>
-            <td>Categorical</td>
-          </tr>
-
-          <tr>
-            <td>Gender</td>
-            <td>Categorical</td>
-          </tr>
-
-          <tr>
-            <td>GPA</td>
-            <td>Numerical</td>
-          </tr>
-
-          <tr>
-            <td>Age</td>
-            <td>Numerical</td>
-          </tr>
-
-        </tbody>
-
-      </table>
-
-    </div>
-
+    
     <img src="{{ 'descriptive/images/variable-types-table.png' | relative_url }}" 
      alt="Dataset showing categorical and numerical variables" 
      style="margin-top:15px; max-width:100%; height:auto;">
