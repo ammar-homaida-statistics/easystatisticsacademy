@@ -121,7 +121,7 @@ sidebar: false
 
     </div>
 
-    <img src="{{ '/descriptive/images/dataset-structure.png' | relative_url }}" 
+    <img src="{{ 'descriptive/images/dataset-structure.png' | relative_url }}" 
      alt="Dataset structure diagram" 
      style="margin-top:15px; max-width:100%; height:auto;">
 
