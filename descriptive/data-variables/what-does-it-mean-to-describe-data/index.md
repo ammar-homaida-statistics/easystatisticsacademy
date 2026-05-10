@@ -1,7 +1,7 @@
 ---
 layout: default
 title: What Does It Mean to Describe Data?
-description: Learn what descriptive statistics really does: turning raw data into understandable structure using center, spread, shape, comparisons, and visual summaries.
+description: "Learn what descriptive statistics really does: turning raw data into understandable structure using center, spread, shape, comparisons, and visual summaries."
 permalink: /descriptive/data-variables/what-does-it-mean-to-describe-data/
 sidebar: false
 ---
