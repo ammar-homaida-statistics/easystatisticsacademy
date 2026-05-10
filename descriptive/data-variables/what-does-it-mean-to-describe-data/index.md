@@ -1,7 +1,7 @@
 ---
 layout: default
 title: What Does It Mean to Describe Data?
-description: "Learn what descriptive statistics really does: turning raw data into understandable structure using center, spread, shape, comparisons, and visual summaries."
+description: Learn what descriptive statistics really does: turning raw data into understandable structure using center, spread, shape, comparisons, and visual summaries.
 permalink: /descriptive/data-variables/what-does-it-mean-to-describe-data/
 sidebar: false
 ---
@@ -51,12 +51,12 @@ sidebar: false
 
       <a class="btn"
          href="/descriptive/data-variables/">
-         Back to Block
+         Block Home
       </a>
 
       <a class="btn btn-outline"
          href="/descriptive/data-variables/units-observations-and-variables/">
-         Next lesson
+         Next: Units, Observations, and Variables
       </a>
 
     </div>
@@ -350,12 +350,12 @@ sidebar: false
 
       <a class="btn btn-outline"
          href="/descriptive/data-variables/">
-         ← Block Home
+         ← Block 1: Data & Variables
       </a>
 
       <a class="btn"
          href="/descriptive/data-variables/units-observations-and-variables/">
-         Next Lesson →
+         Next: Units, Observations, and Variables →
       </a>
 
     </div>
