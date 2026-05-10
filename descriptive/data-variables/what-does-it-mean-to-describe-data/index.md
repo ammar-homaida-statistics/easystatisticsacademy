@@ -214,7 +214,7 @@ sidebar: false
     <div class="example-box">
 
       <p>
-        “The average salary is \$80,000”
+        “The average salary is $80,000”
       </p>
 
       <p>
