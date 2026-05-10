@@ -97,7 +97,7 @@ sidebar: false
       </table>
     </div>
 
-<img src="{{ '/descriptive/images/exam-score-histogram.png' | relative_url }}" 
+<img src="{{ 'descriptive/images/exam-score-histogram.png' | relative_url }}" 
      alt="Histogram of exam scores" 
      style="margin-top:15px; max-width:100%; height:auto;">
 
