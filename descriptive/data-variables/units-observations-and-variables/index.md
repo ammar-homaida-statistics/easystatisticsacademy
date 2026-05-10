@@ -489,6 +489,14 @@ Spreadsheet software such as Excel stores data using the same row-column structu
 
 </div>
 
+<div>
+
+  <h3>Python Example</h3>
+
+<p>
+This code creates a simple dataset using a DataFrame structure.
+</p>
+
 <pre><code>import pandas as pd
 
 data = pd.DataFrame({
@@ -497,11 +505,19 @@ data = pd.DataFrame({
 })
 </code></pre>
 
+<h3>R Example</h3>
+
+<p>
+This code creates a dataset using a data frame.
+</p>
+
 <pre><code>data <- data.frame(
   Age = c(20, 22, 21),
   GPA = c(3.5, 3.9, 3.2)
 )
 </code></pre>
+
+</div>
 
     <!-- TAKEAWAYS -->
     <div class="summary-box">
