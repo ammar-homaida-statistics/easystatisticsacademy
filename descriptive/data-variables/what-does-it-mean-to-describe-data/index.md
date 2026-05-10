@@ -1,162 +1,365 @@
 ---
 layout: default
-title: "What Does It Mean to “Describe” Data?"
-description: "Descriptive vs inferential statistics, description vs explanation, and why correct description matters."
+title: What Does It Mean to Describe Data?
+description: Learn what descriptive statistics really does: turning raw data into understandable structure using center, spread, shape, comparisons, and visual summaries.
 permalink: /descriptive/data-variables/what-does-it-mean-to-describe-data/
 sidebar: false
 ---
 
-<!-- Previous Button -->
-<section class="section section-slim">
-  <a class="btn btn-outline" href="/descriptive/data-variables/">
-    ← Back to Block 1 — Data & Variables
-  </a>
-</section>
-
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        This lesson is being developed. Content will be expanded while preserving the structure and examples.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h1>What Does It Mean to “Describe” Data?</h1>
-    <p>
-      Descriptive statistics is the foundation of all statistical work.
-      Before modeling, testing, or predicting, we must first describe the data correctly.
-    </p>
-  </div>
-
-  <h2>1. Descriptive vs Inferential Statistics</h2>
-
-  <p><strong>Descriptive statistics</strong> summarizes and organizes data.</p>
-  <p><strong>Inferential statistics</strong> uses data to make conclusions about a larger population.</p>
-
-  <p>Example:</p>
-  <ul>
-    <li>“The average exam score of these 40 students is 72.” → Descriptive</li>
-    <li>“The average score of all students in the university is likely around 72.” → Inferential</li>
-  </ul>
-
-  <p>
-    Descriptive statistics does <strong>not</strong> go beyond the data you have.
-    It does not generalize, predict, or test hypotheses.
-  </p>
-
-  <h2>2. Description ≠ Explanation</h2>
-
-  <p>
-    Describing a pattern is not the same as explaining it.
-  </p>
-
-  <p>Example:</p>
-  <ul>
-    <li>“Students who studied more hours had higher scores.” → Description</li>
-    <li>“Studying more hours caused higher scores.” → Explanation (requires more evidence)</li>
-  </ul>
-
-  <p>
-    Descriptive statistics shows patterns.
-    It does not prove cause-and-effect relationships.
-  </p>
-
-  <h2>3. Population vs Sample Description</h2>
-
-  <p>
-    You can describe:
-  </p>
-
-  <ul>
-    <li>A <strong>population</strong> (all units of interest)</li>
-    <li>A <strong>sample</strong> (a subset of the population)</li>
-  </ul>
-
-  <p>Example:</p>
-
-  <ul>
-    <li>If you measure the heights of all students in one classroom → population description.</li>
-    <li>If you measure only 20 selected students → sample description.</li>
-  </ul>
-
-  <p>
-    Describing a sample does not automatically describe the population.
-    That step belongs to inference.
-  </p>
-
-  <h2>4. What Does Good Description Look Like?</h2>
-
-  <p>A good description is:</p>
-
-  <ul>
-    <li>Clear</li>
-    <li>Accurate</li>
-    <li>Appropriate for the variable type</li>
-    <li>Free of causal language</li>
-  </ul>
-
-  <p>Example dataset (5 exam scores):</p>
-
-  <p><code>65, 70, 72, 90, 93</code></p>
-
-  <p>Basic descriptive summary:</p>
-
-  <ul>
-    <li>Minimum: 65</li>
-    <li>Maximum: 93</li>
-    <li>Mean: 78</li>
-    <li>Range: 28</li>
-  </ul>
-
-  <p>
-    This tells us the center and spread.
-    It does not explain why some students scored higher.
-  </p>
-
-  <h2>5. Why Poor Description Leads to Wrong Conclusions</h2>
-
-  <p>
-    If data are poorly described, everything that follows becomes unstable.
-  </p>
-
-  <p>Common mistakes:</p>
-
-  <ul>
-    <li>Using the mean for ordinal data</li>
-    <li>Ignoring extreme values</li>
-    <li>Mislabeling axes in graphs</li>
-    <li>Interpreting correlation as causation</li>
-  </ul>
-
-  <p>
-    Most statistical errors originate at the descriptive stage.
-  </p>
-
-</section>
-
-<!-- Next Button -->
-<section class="section section-slim">
-  <a class="btn" href="/descriptive/data-variables/units-observations-and-variables/">
-    Next Lesson → Units, Observations & Variables
-  </a>
-</section>
-
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_descriptive_data_variables_lesson_v0";
+(function () {
 
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/descriptive/data-variables/what-does-it-mean-to-describe-data/",
-      label: "Lesson 1 — What Does It Mean to “Describe” Data?",
-      ts: Date.now()
-    }));
-  })();
+  const KEY =
+    "esa_continue_descriptive_data_variables_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/descriptive/data-variables/what-does-it-mean-to-describe-data/",
+    label: "What Does It Mean to Describe Data?",
+    ts: Date.now()
+  }));
+
+})();
 </script>
+
+<!-- HERO -->
+<section class="hero hero-section">
+
+  <div class="hero-card">
+
+    <div class="badge-row">
+      <span class="badge">Descriptive Statistics</span>
+      <span class="badge">Block 1</span>
+      <span class="badge">Foundations</span>
+      <span class="badge">Data Understanding</span>
+    </div>
+
+    <h1>What Does It Mean to Describe Data?</h1>
+
+    <p class="lead">
+      Before calculating means, percentages, or graphs,
+      we must understand the real purpose of descriptive statistics.
+    </p>
+
+    <p class="lead">
+      Describing data means transforming raw observations into understandable structure.
+      We summarize patterns, identify variability, detect unusual behavior,
+      and communicate what the data actually looks like.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/descriptive/data-variables/">
+         Back to Block
+      </a>
+
+      <a class="btn btn-outline"
+         href="/descriptive/data-variables/units-observations-and-variables/">
+         Next lesson
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- LESSON -->
+<section class="section">
+
+  <div class="content-narrow">
+
+    <!-- SECTION -->
+    <h2>1. Raw Data Is Usually Hard to Understand</h2>
+
+    <p>
+      Imagine the following exam scores:
+    </p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Scores</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>71</td></tr>
+          <tr><td>85</td></tr>
+          <tr><td>66</td></tr>
+          <tr><td>92</td></tr>
+          <tr><td>73</td></tr>
+          <tr><td>81</td></tr>
+          <tr><td>75</td></tr>
+          <tr><td>68</td></tr>
+          <tr><td>88</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      Looking at raw values alone is difficult.
+      We cannot immediately answer:
+    </p>
+
+    <ul class="bullets">
+      <li>What score is typical?</li>
+      <li>Are the scores spread out or clustered?</li>
+      <li>Are there unusually high or low values?</li>
+      <li>Is the distribution symmetric or skewed?</li>
+    </ul>
+
+    <p>
+      Descriptive statistics helps answer these questions.
+    </p>
+
+    <!-- SECTION -->
+    <h2>2. Descriptive Statistics Creates Structure</h2>
+
+    <p>
+      Descriptive statistics organizes data into understandable summaries.
+    </p>
+
+    <p>
+      Instead of staring at dozens or thousands of raw values,
+      we use summaries such as:
+    </p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Question</th>
+            <th>Common Tool</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>What is typical?</td>
+            <td>Mean / Median / Mode</td>
+          </tr>
+          <tr>
+            <td>How spread out is the data?</td>
+            <td>Range / Variance / Standard deviation</td>
+          </tr>
+          <tr>
+            <td>What does the distribution look like?</td>
+            <td>Histograms / Boxplots</td>
+          </tr>
+          <tr>
+            <td>Are there unusual observations?</td>
+            <td>Outlier analysis</td>
+          </tr>
+          <tr>
+            <td>How are categories distributed?</td>
+            <td>Frequencies / Percentages</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SECTION -->
+    <h2>3. Description Comes Before Inference</h2>
+
+    <p>
+      In statistics, description comes first.
+    </p>
+
+    <p>
+      Before making predictions, testing hypotheses,
+      or building machine learning models,
+      we must first understand the data itself.
+    </p>
+
+    <p>
+      Good analysts always ask:
+    </p>
+
+    <ul class="bullets">
+      <li>What variables exist?</li>
+      <li>What type of data do we have?</li>
+      <li>Are there missing values?</li>
+      <li>Are there strange patterns or errors?</li>
+      <li>Does the data appear reliable?</li>
+    </ul>
+
+    <div class="concept-box">
+
+      <strong>Key idea:</strong>
+
+      <p>
+        Descriptive statistics is not “simple statistics.”
+        It is the foundation of all later analysis.
+      </p>
+
+    </div>
+
+    <!-- SECTION -->
+    <h2>4. Describing Data Is More Than Calculating Numbers</h2>
+
+    <p>
+      A common mistake is thinking descriptive statistics
+      means only computing formulas.
+    </p>
+
+    <p>
+      Real description includes interpretation and context.
+    </p>
+
+    <p>
+      For example:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        “The average salary is \$80,000”
+      </p>
+
+      <p>
+        is incomplete unless we also know:
+      </p>
+
+      <ul class="bullets">
+        <li>How spread out salaries are</li>
+        <li>Whether a few extreme salaries inflate the average</li>
+        <li>How many people were measured</li>
+        <li>Whether the distribution is skewed</li>
+      </ul>
+
+    </div>
+
+    <p>
+      Descriptive statistics tries to describe the full behavior of the data,
+      not just isolated numbers.
+    </p>
+
+    <!-- SECTION -->
+    <h2>5. Numerical and Graphical Description Work Together</h2>
+
+    <p>
+      Good descriptive analysis combines:
+    </p>
+
+    <div class="grid grid-2">
+
+      <div class="card">
+
+        <h3>Numerical summaries</h3>
+
+        <ul class="bullets">
+          <li>Means</li>
+          <li>Medians</li>
+          <li>Percentages</li>
+          <li>Standard deviations</li>
+        </ul>
+
+      </div>
+
+      <div class="card">
+
+        <h3>Visual summaries</h3>
+
+        <ul class="bullets">
+          <li>Histograms</li>
+          <li>Bar charts</li>
+          <li>Boxplots</li>
+          <li>Scatterplots</li>
+        </ul>
+
+      </div>
+
+    </div>
+
+    <p>
+      Numerical summaries provide precision.
+      Graphs provide intuition and pattern recognition.
+    </p>
+
+    <!-- SECTION -->
+    <h2>6. Real-World Example</h2>
+
+    <p>
+      Suppose a hospital records waiting times for patients.
+    </p>
+
+    <p>
+      Descriptive statistics may reveal:
+    </p>
+
+    <ul class="bullets">
+      <li>The average waiting time is 18 minutes</li>
+      <li>Most patients wait between 10–20 minutes</li>
+      <li>A few patients wait much longer than others</li>
+      <li>Emergency cases behave differently from routine visits</li>
+    </ul>
+
+    <p>
+      Even before advanced modeling,
+      these summaries already support operational decisions.
+    </p>
+
+    <!-- SECTION -->
+    <h2>7. Descriptive Statistics Is About Understanding</h2>
+
+    <p>
+      The main purpose of descriptive statistics is understanding.
+    </p>
+
+    <p>
+      We use it to:
+    </p>
+
+    <ul class="bullets">
+      <li>Understand patterns</li>
+      <li>Understand variability</li>
+      <li>Understand distributions</li>
+      <li>Understand data quality</li>
+      <li>Communicate findings clearly</li>
+    </ul>
+
+    <p>
+      Without this step,
+      later statistical analysis becomes unreliable.
+    </p>
+
+    <!-- TAKEAWAYS -->
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>Descriptive statistics transforms raw data into understandable structure</li>
+
+        <li>It summarizes center, spread, shape, and patterns</li>
+
+        <li>Description comes before inference or modeling</li>
+
+        <li>Graphs and numerical summaries complement each other</li>
+
+        <li>Good descriptive analysis improves interpretation and decision-making</li>
+
+      </ul>
+
+    </div>
+
+    <!-- NAVIGATION -->
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/descriptive/data-variables/">
+         ← Block Home
+      </a>
+
+      <a class="btn"
+         href="/descriptive/data-variables/units-observations-and-variables/">
+         Next Lesson →
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
