@@ -1,4 +1,3 @@
-```html
 ---
 layout: default
 title: Discrete vs Continuous Data
