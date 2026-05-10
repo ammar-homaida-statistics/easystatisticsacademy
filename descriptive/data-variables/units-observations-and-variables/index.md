@@ -349,7 +349,7 @@ while columns represent variables.
 
     <div class="concept-box">
 
-<strong>In practice:</strong>Datasets are not just table
+<strong>In practice: </strong>Datasets are not just table
 
 <p>
 In SPSS Data View:
