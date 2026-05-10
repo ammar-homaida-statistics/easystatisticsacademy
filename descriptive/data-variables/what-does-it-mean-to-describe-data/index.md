@@ -1,7 +1,7 @@
 ---
 layout: default
 title: What Does It Mean to Describe Data?
-description: Learn what descriptive statistics really does: turning raw data into understandable structure using center, spread, shape, comparisons, and visual summaries.
+description: "Learn what descriptive statistics really does: turning raw data into understandable structure using center, spread, shape, comparisons, and visual summaries."
 permalink: /descriptive/data-variables/what-does-it-mean-to-describe-data/
 sidebar: false
 ---
@@ -96,6 +96,15 @@ sidebar: false
         </tbody>
       </table>
     </div>
+
+<img src="{{ '/descriptive/images/exam-score-histogram.png' | relative_url }}" 
+     alt="Histogram of exam scores" 
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+A histogram immediately reveals the overall distribution of the scores,
+making patterns easier to understand than raw values alone.
+</p>
 
     <p>
       Looking at raw values alone is difficult.
@@ -197,6 +206,21 @@ sidebar: false
 
     </div>
 
+    <div class="concept-box">
+
+<strong>In practice:</strong>
+
+<p>
+In SPSS, descriptive statistics are commonly explored using:
+</p>
+
+<ul class="bullets">
+  <li>Analyze → Descriptive Statistics → Frequencies</li>
+  <li>Analyze → Descriptive Statistics → Explore</li>
+</ul>
+
+</div>
+
     <h2>Describing Data Is More Than Calculating Numbers</h2>
 
     <p>
@@ -277,6 +301,15 @@ sidebar: false
       Graphs reveal patterns, structure, and unusual behavior
 that may not appear in numerical summaries alone.
     </p>
+
+    <img src="{{ '/descriptive/images/exam-score-boxplot.png' | relative_url }}" 
+     alt="Boxplot of exam scores" 
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+Different visualizations emphasize different aspects of the distribution.
+Boxplots highlight spread, center, and potential outliers.
+</p>
 
     <div class="concept-box">
 
