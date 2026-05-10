@@ -360,6 +360,10 @@ In SPSS Data View:
   <li>Columns represent variables</li>
 </ul>
 
+<img src="{{ 'descriptive/images/SPSS_Data_View.png' | relative_url }}" 
+     alt="Dataset structure diagram" 
+     style="margin-top:15px; max-width:100%; height:auto;">
+
 </div>
 
     <h2>Why This Distinction Matters</h2>
