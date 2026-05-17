@@ -172,7 +172,12 @@ allowing fair comparisons across different sample sizes.
       Formula:
     </p>
 
-    :contentReference[oaicite:0]{index=0}
+    <div class="formula-box">
+  Relative Frequency =
+  <span class="fraction">
+    Frequency / Total Number of Observations
+  </span>
+</div>
 
     <p>
       Relative frequencies range between:
@@ -288,7 +293,9 @@ Relative frequency converts raw counts into proportions of the total sample.
       Formula:
     </p>
 
-    :contentReference[oaicite:1]{index=1}
+    :<div class="formula-box">
+  Percent = Relative Frequency × 100
+</div>
 
     <p>
       Using the previous example:
@@ -393,14 +400,18 @@ Relative frequency converts raw counts into proportions of the total sample.
       relative frequencies sum to:
     </p>
 
-    :contentReference[oaicite:2]{index=2}
+    <div class="formula-box">
+  Sum of Relative Frequencies = 1
+</div>
 
     <p>
       Similarly,
       percentages sum to:
     </p>
 
-    :contentReference[oaicite:3]{index=3}
+    <div class="formula-box">
+  Sum of Percentages = 100%
+</div>
 
     <p>
       Small differences may occur because of rounding.
