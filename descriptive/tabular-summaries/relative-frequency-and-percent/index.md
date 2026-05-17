@@ -146,6 +146,15 @@ sidebar: false
 
     </div>
 
+    <img src="{{ 'descriptive/images/raw-vs-relative-frequency.png' | relative_url }}" 
+     alt="Raw counts versus relative frequencies" 
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+Relative frequencies standardize counts,
+allowing fair comparisons across different sample sizes.
+</p>
+
     <h2>What Is Relative Frequency?</h2>
 
     <p>
@@ -177,6 +186,14 @@ sidebar: false
     <p>
       because they represent proportions.
     </p>
+
+    <img src="{{ 'descriptive/images/frequency-to-relative-frequency.png' | relative_url }}" 
+     alt="Converting frequencies into relative frequencies" 
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+Relative frequency converts raw counts into proportions of the total sample.
+</p>
 
     <h2>Example Calculation</h2>
 
@@ -492,6 +509,56 @@ sidebar: false
   </p>
 
 </div>
+
+<img src="{{ 'descriptive/images/percent-visualizations.png' | relative_url }}" 
+     alt="Percentages visualized using charts" 
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+     <div class="concept-box">
+
+<strong>In practice:</strong>
+
+<p>
+In SPSS, frequency tables commonly include:
+</p>
+
+<ul class="bullets">
+  <li>Frequency</li>
+  <li>Percent</li>
+  <li>Valid Percent</li>
+  <li>Cumulative Percent</li>
+</ul>
+
+<p>
+Spreadsheet software such as Excel can calculate percentages
+by dividing counts by the total sample size.
+</p>
+
+</div>
+
+<h3>Python Example</h3>
+
+<p>
+This example converts frequencies into percentages.
+</p>
+
+<pre><code>counts = [12, 5, 3]
+
+total = sum(counts)
+
+percentages = [x / total * 100 for x in counts]
+</code></pre>
+
+<h3>R Example</h3>
+
+<p>
+This example converts frequencies into proportions.
+</p>
+
+<pre><code>counts <- c(12, 5, 3)
+
+counts / sum(counts)
+</code></pre>
 
     <!-- TAKEAWAYS -->
     <div class="summary-box">
