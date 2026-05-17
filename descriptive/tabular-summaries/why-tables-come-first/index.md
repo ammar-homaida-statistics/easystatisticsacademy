@@ -440,30 +440,6 @@ before advanced modeling or visualization.
 
 </div>
 
-<h3>Python Example</h3>
-
-<p>
-This example creates a simple frequency table.
-</p>
-
-<pre><code>import pandas as pd
-
-data = ["Windows", "macOS", "Windows"]
-
-pd.Series(data).value_counts()
-</code></pre>
-
-<h3>R Example</h3>
-
-<p>
-This example creates a frequency table.
-</p>
-
-<pre><code>data <- c("Windows", "macOS", "Windows")
-
-table(data)
-</code></pre>
-
     <!-- TAKEAWAYS -->
     <div class="summary-box">
 
