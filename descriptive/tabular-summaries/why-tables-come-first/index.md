@@ -1,138 +1,509 @@
 ---
 layout: default
-title: "Why Tables Come First"
-description: "Why tables are the most reliable summary: clarity, auditability, and avoiding visual distortion."
+title: Why Tables Come First
+description: Learn why tabular summaries are one of the first and most important tools in descriptive statistics and exploratory data analysis.
 permalink: /descriptive/tabular-summaries/why-tables-come-first/
 sidebar: false
 ---
 
-<!-- Previous Button -->
-<section class="section section-slim">
-  <a class="btn btn-outline" href="/descriptive/tabular-summaries/">
-    ← Back to Block 2: Tabular Summaries
-  </a>
-</section>
-
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        This lesson is being developed. Content will be refined while preserving the structure and examples.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h1>Why Tables Come First</h1>
-    <p>
-      Before charts, before means, before models: tables are the most reliable way to summarize data.
-      They are precise, auditable, and harder to misread than visuals.
-    </p>
-  </div>
-
-  <h2>1. What a Table Does (And What It Does Not)</h2>
-  <p>
-    A table organizes information into categories or intervals and reports exact values such as
-    <strong>counts</strong>, <strong>proportions</strong>, and <strong>percentages</strong>.
-  </p>
-  <p>
-    A table does not try to “look impressive.” It tries to be correct and transparent.
-  </p>
-
-  <h2>2. Tables Are Auditable</h2>
-  <p>
-    “Auditable” means: anyone can check the numbers.
-    If a table says there are 42 observations in a category, a reader can verify it directly.
-  </p>
-  <p>
-    Charts often hide small but important details (exact counts, denominator changes, missing values).
-  </p>
-
-  <h2>3. Tables Force You to Define the Denominator</h2>
-  <p>
-    The biggest source of descriptive mistakes is a hidden denominator:
-  </p>
-  <ul>
-    <li>Are percentages out of the total sample?</li>
-    <li>Or only out of non-missing values?</li>
-    <li>Or out of a subgroup (row/column in a cross-tab)?</li>
-  </ul>
-  <p>
-    A good table makes the denominator obvious.
-  </p>
-
-  <h2>4. Mini Example (Counts vs Percent)</h2>
-  <p>Suppose you have 20 students and their department:</p>
-
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Department</th>
-        <th>Count</th>
-        <th>Percent</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>Math</td><td>8</td><td>40%</td></tr>
-      <tr><td>Biology</td><td>7</td><td>35%</td></tr>
-      <tr><td>Economics</td><td>5</td><td>25%</td></tr>
-      <tr><td><strong>Total</strong></td><td><strong>20</strong></td><td><strong>100%</strong></td></tr>
-    </tbody>
-  </table>
-
-  <p>
-    From this table, the reader immediately knows:
-  </p>
-  <ul>
-    <li>The total sample size (20)</li>
-    <li>Exact counts per category</li>
-    <li>Percentages that add to 100%</li>
-  </ul>
-
-  <h2>5. Why Charts Can Mislead (Even When Not Intentional)</h2>
-  <p>Common issues:</p>
-  <ul>
-    <li>Missing values not shown (percentages look bigger than they should)</li>
-    <li>Axis manipulation (bar chart scale exaggerates differences)</li>
-    <li>Too many categories (readers cannot compare properly)</li>
-    <li>Pie charts hide small differences and make comparisons hard</li>
-  </ul>
-  <p>
-    A table may be less “visual,” but it is usually more honest.
-  </p>
-
-  <h2>6. Practical Rule for This Block</h2>
-  <ul>
-    <li>Start with tables to confirm counts, totals, and missingness.</li>
-    <li>Then (later) use charts to communicate patterns.</li>
-  </ul>
-
-  <p>
-    In the next lesson, we build frequency tables correctly — including what to do with missing values.
-  </p>
-</section>
-
-<!-- Next Button -->
-<section class="section section-slim">
-  <a class="btn" href="/descriptive/tabular-summaries/frequency-tables/">
-    Next Lesson → Frequency Tables (Counts)
-  </a>
-</section>
-
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_descriptive_tabular_summaries_lesson_v0";
+(function () {
 
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/descriptive/tabular-summaries/why-tables-come-first/",
-      label: "Lesson 1 — Why Tables Come First",
-      ts: Date.now()
-    }));
-  })();
+  const KEY =
+    "esa_continue_descriptive_tabular_summaries_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/descriptive/tabular-summaries/why-tables-come-first/",
+    label: "Why Tables Come First",
+    ts: Date.now()
+  }));
+
+})();
 </script>
+
+<!-- HERO -->
+<section class="hero hero-section">
+
+  <div class="hero-card">
+
+    <div class="badge-row">
+      <span class="badge">Descriptive Statistics</span>
+      <span class="badge">Block 2</span>
+      <span class="badge">Tabular Summaries</span>
+      <span class="badge">Exploration</span>
+    </div>
+
+    <h1>Why Tables Come First</h1>
+
+    <p class="lead">
+      Before graphs, models, or advanced analysis,
+      statisticians usually organize data into tables.
+    </p>
+
+    <p class="lead">
+      Tables provide structure,
+      reveal patterns,
+      summarize distributions,
+      and make raw data understandable.
+      They are one of the oldest and most fundamental tools in statistics.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/descriptive/tabular-summaries/">
+         ← Back to Block
+      </a>
+
+      <a class="btn btn-outline"
+         href="/descriptive/tabular-summaries/frequency-tables/">
+         Next: Frequency Tables
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- LESSON -->
+<section class="section">
+
+  <div class="content-narrow">
+
+    <h2>Raw Data Quickly Becomes Difficult to Read</h2>
+
+    <p>
+      Imagine collecting exam scores from 100 students.
+    </p>
+
+    <p>
+      The raw dataset may look like this:
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <tbody>
+          <tr>
+            <td>71</td>
+            <td>84</td>
+            <td>68</td>
+            <td>90</td>
+            <td>73</td>
+            <td>81</td>
+            <td>66</td>
+            <td>79</td>
+            <td>88</td>
+            <td>74</td>
+          </tr>
+
+          <tr>
+            <td>91</td>
+            <td>62</td>
+            <td>77</td>
+            <td>83</td>
+            <td>69</td>
+            <td>75</td>
+            <td>95</td>
+            <td>72</td>
+            <td>80</td>
+            <td>67</td>
+          </tr>
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      Even with only a few values,
+      understanding the overall pattern is difficult.
+    </p>
+
+    <p>
+      We cannot immediately see:
+    </p>
+
+    <ul class="bullets">
+      <li>Which values occur most often</li>
+      <li>Whether scores cluster together</li>
+      <li>Whether unusual values exist</li>
+      <li>How the data is distributed</li>
+    </ul>
+
+    <p>
+      Raw data alone is often too chaotic for interpretation.
+    </p>
+
+    <h2>Tables Organize Information</h2>
+
+    <p>
+      Tables transform raw observations into structured summaries.
+    </p>
+
+    <p>
+      Instead of examining individual values randomly,
+      tables organize information systematically.
+    </p>
+
+    <p>
+  This organization helps reveal the underlying distribution
+  and structure of the data.
+</p>
+
+    <p>
+      This helps us:
+    </p>
+
+    <ul class="bullets">
+      <li>Identify patterns</li>
+      <li>Detect concentration</li>
+      <li>Compare groups</li>
+      <li>Summarize distributions</li>
+      <li>Communicate results clearly</li>
+    </ul>
+
+    <img src="{{ 'descriptive/images/raw-to-table.png' | relative_url }}" 
+     alt="Raw data transformed into organized table" 
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+Tables transform scattered observations into structured summaries
+that are easier to interpret.
+</p>
+
+    <div class="concept-box">
+
+      <strong>Key idea:</strong>
+
+      <p>
+        Tables reduce complexity while preserving important information.
+      </p>
+
+    </div>
+
+    <h2>Tables Are the First Layer of Summarization</h2>
+
+    <p>
+      Before calculating:
+    </p>
+
+    <ul class="bullets">
+      <li>Means</li>
+      <li>Standard deviations</li>
+      <li>Correlations</li>
+      <li>Regression models</li>
+    </ul>
+
+    <p>
+      statisticians often begin with simple tables.
+    </p>
+
+    <p>
+      Tables provide an initial understanding of the dataset
+      before more advanced analysis begins.
+    </p>
+
+    <h2>Example: Organizing Survey Responses</h2>
+
+    <p>
+      Suppose 20 people answer a survey question:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        “Which operating system do you primarily use?”
+      </p>
+
+    </div>
+
+    <p>
+      Raw responses:
+    </p>
+
+    <p>
+      Windows, macOS, Windows, Linux, Windows,
+      macOS, Windows, Linux, Windows...
+    </p>
+
+    <p>
+      This becomes easier to understand using a table:
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Operating System</th>
+            <th>Count</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Windows</td>
+            <td>12</td>
+          </tr>
+
+          <tr>
+            <td>macOS</td>
+            <td>5</td>
+          </tr>
+
+          <tr>
+            <td>Linux</td>
+            <td>3</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      The table immediately reveals the distribution
+of responses across categories.
+    </p>
+
+    <h2>Tables Support Human Interpretation</h2>
+
+    <p>
+      Human interpretation improves dramatically
+when information is organized systematically.
+    </p>
+
+    <p>
+      Tables help the brain detect:
+    </p>
+
+    <ul class="bullets">
+      <li>Patterns</li>
+      <li>Relationships</li>
+      <li>Imbalances</li>
+      <li>Concentrations</li>
+      <li>Anomalies</li>
+    </ul>
+
+    <p>
+      This is why tables remain central
+      even in modern data science.
+    </p>
+
+    <h2>Tables Also Help Detect Problems</h2>
+
+    <p>
+      Tables are useful for quality control.
+    </p>
+
+    <p>
+  They are also central to exploratory data analysis,
+  where statisticians investigate patterns before formal modeling.
+</p>
+
+    <p>
+      They may reveal:
+    </p>
+
+    <ul class="bullets">
+      <li>Impossible values</li>
+      <li>Missing categories</li>
+      <li>Data entry errors</li>
+      <li>Unexpected distributions</li>
+      <li>Rare observations</li>
+    </ul>
+
+    <p>
+      Exploratory analysis often starts with tabular summaries
+      precisely because they expose issues quickly.
+    </p>
+
+    <div class="concept-box">
+
+  <strong>Important insight:</strong>
+
+  <p>
+    Statistical understanding usually begins with organization,
+    not with formulas or advanced models.
+  </p>
+
+</div>
+
+    <h2>Tables Come Before Visualization</h2>
+
+    <p>
+      Graphs are powerful,
+      but graphs themselves are usually based on summarized tables.
+    </p>
+
+    <p>
+      For example:
+    </p>
+
+    <ul class="bullets">
+      <li>Bar charts use frequency tables</li>
+      <li>Histograms summarize grouped values</li>
+      <li>Pie charts depend on category counts</li>
+    </ul>
+
+    <img src="{{ 'descriptive/images/table-to-graph.png' | relative_url }}" 
+     alt="Tables used to create graphs" 
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+Many statistical graphs are constructed directly from summarized tables.
+</p>
+
+    <p>
+      Tables often provide the foundation
+      for later visualization.
+    </p>
+
+    <h2>Tables Exist Everywhere in Statistics</h2>
+
+    <p>
+      Statistical work constantly uses tables:
+    </p>
+
+    <ul class="bullets">
+      <li>Frequency tables</li>
+      <li>Contingency tables</li>
+      <li>Grouped distributions</li>
+      <li>Summary statistics tables</li>
+      <li>Regression output tables</li>
+      <li>Experimental results tables</li>
+    </ul>
+
+    <p>
+      Understanding tables is therefore essential
+      for statistical literacy.
+    </p>
+
+    <div class="concept-box">
+
+<strong>In practice:</strong>
+
+<p>
+SPSS, Excel, R, and Python commonly begin analysis
+by generating frequency tables and summary tables
+before advanced modeling or visualization.
+</p>
+
+</div>
+
+    <h2>Good Tables Improve Communication</h2>
+
+    <p>
+      A good table should:
+    </p>
+
+    <ul class="bullets">
+      <li>Be clear</li>
+      <li>Be organized</li>
+      <li>Use meaningful labels</li>
+      <li>Highlight important structure</li>
+      <li>Reduce unnecessary complexity</li>
+    </ul>
+
+    <p>
+      Good statistical communication depends heavily
+      on clean organization of information.
+    </p>
+
+    <h2>Descriptive Statistics Begins With Organization</h2>
+
+    <p>
+      One of the main goals of descriptive statistics
+      is transforming complexity into understandable structure.
+    </p>
+
+    <p>
+      Tables are one of the earliest
+      and most effective tools for achieving that goal.
+    </p>
+
+    <div class="concept-box">
+
+  <strong>Key insight:</strong>
+
+  <p>
+    Tables do more than summarize data —
+    they help transform raw observations into interpretable structure.
+  </p>
+
+</div>
+
+<h3>Python Example</h3>
+
+<p>
+This example creates a simple frequency table.
+</p>
+
+<pre><code>import pandas as pd
+
+data = ["Windows", "macOS", "Windows"]
+
+pd.Series(data).value_counts()
+</code></pre>
+
+<h3>R Example</h3>
+
+<p>
+This example creates a frequency table.
+</p>
+
+<pre><code>data <- c("Windows", "macOS", "Windows")
+
+table(data)
+</code></pre>
+
+    <!-- TAKEAWAYS -->
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>Raw data is often difficult to interpret directly</li>
+
+        <li>Tables organize information into understandable structure</li>
+
+        <li>Tables help identify patterns and distributions</li>
+
+        <li>Tabular summaries usually come before advanced analysis</li>
+
+        <li>Tables help detect errors and data quality problems</li>
+
+        <li>Many statistical visualizations are built from tables</li>
+
+        <li>Good statistical communication depends on good organization</li>
+
+      </ul>
+
+    </div>
+
+    <!-- NAVIGATION -->
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/descriptive/tabular-summaries/">
+         ← Block 2: Tabular Summaries
+      </a>
+
+      <a class="btn"
+         href="/descriptive/tabular-summaries/frequency-tables/">
+         Next: Frequency Tables →
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
