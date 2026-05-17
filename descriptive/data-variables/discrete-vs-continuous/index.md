@@ -119,6 +119,11 @@ sidebar: false
     </p>
 
     <p>
+  Discrete variables are often whole numbers,
+  but the essential feature is that values are separate and countable.
+</p>
+
+    <p>
       Examples:
     </p>
 
@@ -256,7 +261,7 @@ sidebar: false
 
           <tr>
             <td>Distinct separate values</td>
-            <td>Infinite possible values in intervals</td>
+            <td>Can take any value within intervals</td>
           </tr>
 
           <tr>
@@ -266,12 +271,30 @@ sidebar: false
 
           <tr>
             <td>Values “jump”</td>
-            <td>Values flow continuously</td>
+            <td>Values vary continuously across a scale</td>
           </tr>
 
         </tbody>
 
       </table>
+
+      <img src="{{ 'descriptive/images/discrete-vs-continuous-visual.png' | relative_url }}" 
+     alt="Discrete versus continuous data" 
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+Discrete variables move between separate values,
+while continuous variables vary along a measurement scale.
+</p>
+
+      <p>
+  Both discrete and continuous variables are numerical variables.
+</p>
+
+<p>
+  The difference is not whether numbers are used,
+  but how values are generated and interpreted.
+</p>
 
     </div>
 
@@ -354,6 +377,26 @@ sidebar: false
 
     </div>
 
+    <img src="{{ 'descriptive/images/discrete-vs-continuous-graphs.png' | relative_url }}" 
+     alt="Graphs for discrete and continuous variables" 
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+     <div class="concept-box">
+
+<strong>In practice:</strong>
+
+<p>
+In SPSS, discrete variables are often summarized using frequencies,
+while continuous variables are commonly explored using histograms and descriptive statistics.
+</p>
+
+</div>
+
+<p>
+Discrete variables are commonly summarized using counts,
+while continuous variables are often visualized using distributions.
+</p>
+
     <h2>Real-World Example</h2>
 
     <p>
@@ -423,6 +466,38 @@ sidebar: false
       Understanding how data is generated
       is central to statistical thinking.
     </p>
+
+    <div class="concept-box">
+
+  <strong>Important insight:</strong>
+
+  <p>
+    Correctly identifying whether data is discrete or continuous
+    helps determine valid probability models,
+    visualizations, and statistical assumptions.
+  </p>
+
+</div>
+
+<h3>Python Example</h3>
+
+<p>
+This example creates discrete and continuous variables.
+</p>
+
+<pre><code>children = [0, 1, 2, 3]
+heights = [170.2, 168.5, 181.1]
+</code></pre>
+
+<h3>R Example</h3>
+
+<p>
+This example creates discrete and continuous variables.
+</p>
+
+<pre><code>children <- c(0, 1, 2, 3)
+heights <- c(170.2, 168.5, 181.1)
+</code></pre>
 
     <!-- TAKEAWAYS -->
     <div class="summary-box">
