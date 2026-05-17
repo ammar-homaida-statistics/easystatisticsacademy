@@ -443,6 +443,9 @@ data = pd.DataFrame({
 })
 </code></pre>
 
+<img src="{{ 'descriptive/images/Python_output_Create_dataset.png' | relative_url }}" 
+     style="margin-top:15px; max-width:100%; height:auto;">
+
 <h3>R Example</h3>
 
 <p>
@@ -454,6 +457,9 @@ This example creates a dataset using a data frame.
   GPA = c(3.5, 3.9, 3.2)
 )
 </code></pre>
+
+<img src="{{ 'descriptive/images/R_output_Create_dataset.png' | relative_url }}" 
+     style="margin-top:15px; max-width:100%; height:auto;">
 
     <!-- TAKEAWAYS -->
     <div class="summary-box">
