@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Discrete vs Continuous Data
-description: Learn the difference between discrete and continuous numerical variables and why this distinction matters in statistics.
+description: Learn the difference between discrete and continuous numerical variables and why this distinction matters in statistics and data analysis.
 permalink: /descriptive/data-variables/discrete-vs-continuous/
 sidebar: false
 ---
@@ -41,9 +41,10 @@ sidebar: false
     </p>
 
     <p class="lead">
-      Some numerical variables count separate individual values,
-      while others measure quantities on a continuous scale.
-      This creates the distinction between discrete and continuous data.
+      Some numerical variables represent counts,
+      while others represent measurements on a continuous scale.
+      This creates the distinction between
+      discrete and continuous data.
     </p>
 
     <div class="hero-actions">
@@ -55,7 +56,7 @@ sidebar: false
 
       <a class="btn btn-outline"
          href="/descriptive/data-variables/data-structure-and-datasets/">
-         Next Lesson →
+         Next: Data Structure and Datasets
       </a>
 
     </div>
@@ -73,11 +74,16 @@ sidebar: false
 
     <p>
       In the previous lessons,
-      we separated numerical variables from categorical variables.
+      we separated variables into:
     </p>
 
+    <ul class="bullets">
+      <li>Categorical variables</li>
+      <li>Numerical variables</li>
+    </ul>
+
     <p>
-      Numerical variables themselves also split into two major types:
+      Numerical variables themselves split into two important types:
     </p>
 
     <ul class="bullets">
@@ -86,8 +92,8 @@ sidebar: false
     </ul>
 
     <p>
-      The key difference is whether values are counted
-      or measured.
+      The distinction depends on how values are produced:
+      by counting or by measuring.
     </p>
 
     <div class="concept-box">
@@ -95,8 +101,8 @@ sidebar: false
       <strong>Key idea:</strong>
 
       <p>
-        Discrete variables count separate values.
-        Continuous variables measure quantities on a scale.
+        Discrete variables usually count.
+        Continuous variables usually measure.
       </p>
 
     </div>
@@ -105,11 +111,11 @@ sidebar: false
 
     <p>
       <strong>Discrete data</strong>
-      consists of separate, countable values.
+      consists of separate, distinct values.
     </p>
 
     <p>
-      Discrete variables usually arise from counting.
+      These values often arise from counting.
     </p>
 
     <p>
@@ -131,22 +137,22 @@ sidebar: false
 
           <tr>
             <td>Number of children</td>
-            <td>0, 1, 2, 3...</td>
+            <td>0, 1, 2, 3, ...</td>
           </tr>
 
           <tr>
-            <td>Number of emails received</td>
-            <td>5, 12, 24...</td>
+            <td>Number of students</td>
+            <td>25, 26, 27</td>
           </tr>
 
           <tr>
-            <td>Defects in a product batch</td>
-            <td>0, 2, 7...</td>
+            <td>Cars owned</td>
+            <td>0, 1, 2</td>
           </tr>
 
           <tr>
-            <td>Goals scored</td>
-            <td>0, 1, 2, 3...</td>
+            <td>Hospital visits</td>
+            <td>1, 2, 5</td>
           </tr>
 
         </tbody>
@@ -156,27 +162,28 @@ sidebar: false
     </div>
 
     <p>
-      These variables move in jumps between values.
-      Fractions usually do not make sense.
+      These variables move in jumps.
+      Intermediate values often make no sense.
     </p>
 
-    <div class="example-box">
+    <p>
+      For example:
+    </p>
 
-      <p>
-        A family cannot have 2.4 children.
-      </p>
-
-    </div>
+    <ul class="bullets">
+      <li>2.5 children → meaningless</li>
+      <li>7.3 hospital visits → meaningless</li>
+    </ul>
 
     <h2>What Is Continuous Data?</h2>
 
     <p>
       <strong>Continuous data</strong>
-      represents measurements on a continuous scale.
+      can take any value within a range.
     </p>
 
     <p>
-      Continuous variables usually arise from measuring.
+      These variables usually arise from measurement.
     </p>
 
     <p>
@@ -190,7 +197,7 @@ sidebar: false
         <thead>
           <tr>
             <th>Variable</th>
-            <th>Example Values</th>
+            <th>Possible Values</th>
           </tr>
         </thead>
 
@@ -198,22 +205,22 @@ sidebar: false
 
           <tr>
             <td>Height</td>
-            <td>170.2 cm, 181.7 cm</td>
+            <td>170.2 cm, 170.25 cm, 170.251 cm...</td>
           </tr>
 
           <tr>
             <td>Weight</td>
-            <td>68.4 kg, 91.1 kg</td>
-          </tr>
-
-          <tr>
-            <td>Time</td>
-            <td>2.53 sec, 7.91 sec</td>
+            <td>65.1 kg, 65.12 kg...</td>
           </tr>
 
           <tr>
             <td>Temperature</td>
-            <td>18.6°C, 31.2°C</td>
+            <td>21.4°C, 21.45°C...</td>
+          </tr>
+
+          <tr>
+            <td>Time</td>
+            <td>2.1 sec, 2.15 sec...</td>
           </tr>
 
         </tbody>
@@ -223,11 +230,11 @@ sidebar: false
     </div>
 
     <p>
-      Continuous variables can theoretically take infinitely many values
-      within an interval.
+      Between any two continuous values,
+      more possible values can exist.
     </p>
 
-    <h2>The Main Difference</h2>
+    <h2>The Core Difference</h2>
 
     <div class="table-wrap">
 
@@ -248,18 +255,18 @@ sidebar: false
           </tr>
 
           <tr>
-            <td>Separate values</td>
-            <td>Infinite possible values</td>
+            <td>Distinct separate values</td>
+            <td>Infinite possible values in intervals</td>
           </tr>
 
           <tr>
             <td>Often whole numbers</td>
-            <td>Often decimals</td>
+            <td>Decimals are common</td>
           </tr>
 
           <tr>
-            <td>Jumps between values</td>
-            <td>Flows continuously</td>
+            <td>Values “jump”</td>
+            <td>Values flow continuously</td>
           </tr>
 
         </tbody>
@@ -268,83 +275,51 @@ sidebar: false
 
     </div>
 
-<img src="{{ 'descriptive/images/discrete-vs-continuous-visual.png' | relative_url }}" 
-     alt="Discrete versus continuous data" 
-     style="margin-top:15px; max-width:100%; height:auto;">
-
-<p>
-Discrete variables move between separate values,
-while continuous variables vary along a measurement scale.
-</p>
-
-<p>
-  Both discrete and continuous variables are numerical variables.
-</p>
-
-<p>
-  The distinction is not whether numbers are used,
-  but how the values are generated and interpreted.
-</p>
-
     <h2>Continuous Variables Are Often Rounded</h2>
 
-<p>
-Spreadsheet software such as Excel may display rounded values,
-even when the underlying variable is continuous.
-</p>
-
     <p>
-      In practice,
-      continuous measurements are usually rounded.
+      A very important point:
     </p>
 
-<p>
-  Real measurements are limited by instrument precision,
-  so observed continuous values are always approximations.
-</p>
+    <div class="example-box">
+
+      <p>
+        Continuous variables may appear discrete
+        because measurements are rounded.
+      </p>
+
+    </div>
 
     <p>
       For example:
     </p>
 
     <ul class="bullets">
-      <li>Height recorded as 170 cm</li>
-      <li>Weight recorded as 68.5 kg</li>
-      <li>Temperature recorded as 25°C</li>
+      <li>Height recorded as 172 cm</li>
+      <li>Temperature recorded as 21°C</li>
     </ul>
 
     <p>
-      Even though the recorded values appear discrete,
-      the underlying variable remains continuous.
+      Even if values look like whole numbers,
+      the underlying variable may still be continuous.
     </p>
 
-    <div class="concept-box">
-
-      <strong>Important:</strong>
-
-      <p>
-        Measurement precision does not change the true type of the variable.
-      </p>
-
-    </div>
+    <p>
+      The distinction depends on the real phenomenon,
+      not only on the recorded format.
+    </p>
 
     <h2>Why This Distinction Matters</h2>
 
     <p>
-      Discrete and continuous variables behave differently.
-    </p>
-
-    <p>
-      This affects:
+      Discrete and continuous variables often require different:
     </p>
 
     <ul class="bullets">
       <li>Probability models</li>
-<li>Different probability distributions apply to different variable types</li>
-      <li>Graphs and visualization</li>
-      <li>Statistical formulas</li>
-      <li>Machine learning methods</li>
-      <li>Interpretation of results</li>
+      <li>Graphs</li>
+      <li>Statistical methods</li>
+      <li>Interpretations</li>
     </ul>
 
     <p>
@@ -379,15 +354,6 @@ even when the underlying variable is continuous.
 
     </div>
 
-<img src="{{ 'descriptive/images/discrete-vs-continuous-graphs.png' | relative_url }}" 
-     alt="Graphs for discrete and continuous variables" 
-     style="margin-top:15px; max-width:100%; height:auto;">
-
-<p>
-Discrete variables are often summarized using counts,
-while continuous variables are commonly summarized using distributions.
-</p>
-
     <h2>Real-World Example</h2>
 
     <p>
@@ -418,12 +384,12 @@ while continuous variables are commonly summarized using distributions.
           </tr>
 
           <tr>
-            <td>Days hospitalized</td>
+            <td>Number of visits</td>
             <td>Discrete</td>
           </tr>
 
           <tr>
-            <td>Blood pressure</td>
+            <td>Weight</td>
             <td>Continuous</td>
           </tr>
 
@@ -434,95 +400,29 @@ while continuous variables are commonly summarized using distributions.
     </div>
 
     <p>
-      Both are numerical,
-      but they represent fundamentally different types of quantities.
+      Correctly identifying variable type
+      improves statistical interpretation.
     </p>
 
-    <h2>The Difference Can Sometimes Depend on Context</h2>
-
-<p>
-  The classification may depend on the level of measurement precision.
-</p>
+    <h2>Discrete and Continuous Data in Modern Statistics</h2>
 
     <p>
-      Some variables may appear discrete or continuous
-      depending on how they are measured.
-    </p>
-
-    <p>
-      For example:
+      This distinction appears everywhere:
     </p>
 
     <ul class="bullets">
-      <li>Age in years → often treated as discrete</li>
-      <li>Exact age in seconds → continuous</li>
+      <li>Probability theory</li>
+      <li>Regression modeling</li>
+      <li>Machine learning</li>
+      <li>Simulation</li>
+      <li>Scientific measurement</li>
+      <li>Experimental design</li>
     </ul>
 
     <p>
-      Statistical modeling sometimes simplifies continuous variables
-      into discrete categories for practical reasons.
+      Understanding how data is generated
+      is central to statistical thinking.
     </p>
-
-    <h2>Understanding Variable Type Improves Analysis</h2>
-
-    <p>
-      Correctly identifying discrete and continuous variables helps:
-    </p>
-
-    <ul class="bullets">
-      <li>Choose proper visualizations</li>
-      <li>Select correct probability models</li>
-      <li>Avoid incorrect assumptions</li>
-      <li>Interpret results properly</li>
-    </ul>
-
-    <p>
-      This distinction becomes extremely important later
-      in probability, inference, and machine learning.
-    </p>
-
-<div class="concept-box">
-
-  <strong>Important insight:</strong>
-
-  <p>
-    Correctly identifying whether data is discrete or continuous
-    helps determine valid probability models,
-    visualizations, and statistical assumptions.
-  </p>
-
-<div class="concept-box">
-
-<strong>In practice:</strong>
-
-<p>
-In SPSS, continuous variables are often analyzed using histograms,
-while discrete variables are commonly summarized using frequencies and bar charts.
-</p>
-
-</div>
-
-</div>
-
-<h3>Python Example</h3>
-
-<p>
-This example creates discrete and continuous variables.
-</p>
-
-<pre><code>children = [0, 1, 2, 3]
-heights = [170.2, 168.5, 181.1]
-</code></pre>
-
-<h3>R Example</h3>
-
-<p>
-This example creates discrete and continuous variables.
-</p>
-
-<pre><code>children <- c(0, 1, 2, 3)
-heights <- c(170.2, 168.5, 181.1)
-</code></pre>
 
     <!-- TAKEAWAYS -->
     <div class="summary-box">
@@ -533,13 +433,13 @@ heights <- c(170.2, 168.5, 181.1)
 
         <li>Discrete variables usually arise from counting</li>
 
-        <li>Continuous variables usually arise from measuring</li>
+        <li>Continuous variables usually arise from measurement</li>
 
-        <li>Discrete values are separate and countable</li>
+        <li>Discrete variables contain separate distinct values</li>
 
-        <li>Continuous variables can theoretically take any value within a range or interval</li>
+        <li>Continuous variables can take infinitely many values within intervals</li>
 
-        <li>Rounding does not change a continuous variable into a discrete one</li>
+        <li>Rounded measurements may still represent continuous variables</li>
 
         <li>This distinction affects statistical methods and interpretation</li>
 
@@ -557,7 +457,7 @@ heights <- c(170.2, 168.5, 181.1)
 
       <a class="btn"
          href="/descriptive/data-variables/data-structure-and-datasets/">
-         Next Lesson →
+         Next: Data Structure and Datasets →
       </a>
 
     </div>
