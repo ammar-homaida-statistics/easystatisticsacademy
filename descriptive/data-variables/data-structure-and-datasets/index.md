@@ -86,48 +86,6 @@ sidebar: false
       Example:
     </p>
 
-    <div class="table-wrap">
-
-      <table>
-
-        <thead>
-          <tr>
-            <th>Student</th>
-            <th>Age</th>
-            <th>Major</th>
-            <th>GPA</th>
-          </tr>
-        </thead>
-
-        <tbody>
-
-          <tr>
-            <td>Alice</td>
-            <td>20</td>
-            <td>Biology</td>
-            <td>3.5</td>
-          </tr>
-
-          <tr>
-            <td>Omar</td>
-            <td>22</td>
-            <td>Statistics</td>
-            <td>3.9</td>
-          </tr>
-
-          <tr>
-            <td>Sara</td>
-            <td>21</td>
-            <td>Engineering</td>
-            <td>3.2</td>
-          </tr>
-
-        </tbody>
-
-      </table>
-
-    </div>
-
     <img src="{{ 'descriptive/images/dataset-structure.png' | relative_url }}" 
      alt="Structure of a dataset" 
      style="margin-top:15px; max-width:100%; height:auto;">
