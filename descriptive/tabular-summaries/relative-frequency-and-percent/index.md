@@ -560,6 +560,9 @@ total = sum(counts)
 percentages = [x / total * 100 for x in counts]
 </code></pre>
 
+<img src="{{ 'descriptive/images/Python_relative-frequency-and-percenty.png' | relative_url }}" 
+     style="margin-top:15px; max-width:100%; height:auto;">
+
 <h3>R Example</h3>
 
 <p>
@@ -570,6 +573,9 @@ This example converts frequencies into proportions.
 
 counts / sum(counts)
 </code></pre>
+
+<img src="{{ 'descriptive/images/R_relative-frequency-and-percenty.png' | relative_url }}" 
+     style="margin-top:15px; max-width:100%; height:auto;">
 
     <!-- TAKEAWAYS -->
     <div class="summary-box">
