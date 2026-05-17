@@ -293,7 +293,7 @@ Relative frequency converts raw counts into proportions of the total sample.
       Formula:
     </p>
 
-    :<div class="formula-box">
+    <div class="formula-box">
   Percent = Relative Frequency × 100
 </div>
 
