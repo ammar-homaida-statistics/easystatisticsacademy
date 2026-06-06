@@ -171,6 +171,15 @@ sidebar: false
 
     </div>
 
+    <img src="{{ 'descriptive/images/frequency-vs-cumulative-frequency.png' | relative_url }}"
+     alt="Frequency versus cumulative frequency"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+Frequencies show counts at each value,
+while cumulative frequencies show how counts accumulate across values.
+</p>
+
     <p>
       We now compute running totals:
     </p>
@@ -238,6 +247,14 @@ sidebar: false
     <div class="formula-box">
   CFᵢ = CFᵢ₋₁ + fᵢ
 </div>
+
+<img src="{{ '/descriptive/images/cumulative-running-total.png' | relative_url }}"
+     alt="Running total calculation"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+Each cumulative frequency adds the next frequency to the running total.
+</p>
 
     <p>
       The final cumulative frequency always equals the total sample size.
@@ -428,6 +445,14 @@ sidebar: false
       Cumulative summaries provide richer interpretation than raw frequencies alone.
     </p>
 
+    <img src="{{ '/descriptive/images/ogive-example.png' | relative_url }}"
+     alt="Ogive cumulative frequency curve"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+An ogive shows how observations accumulate across a distribution.
+</p>
+
     <h2>Common Mistakes</h2>
 
     <p>
@@ -483,6 +508,35 @@ sidebar: false
   <li>SPSS can display cumulative frequencies and cumulative percentages</li>
   <li>Cumulative percentages are commonly used to identify percentiles</li>
 </ul>
+
+<p>
+Spreadsheet software such as Excel can compute cumulative totals
+using running-sum formulas.
+</p>
+
+<h3>Python Example</h3>
+
+<p>
+This example computes cumulative frequencies.
+</p>
+
+<pre><code>import pandas as pd
+
+freq = [2, 5, 4, 3]
+
+pd.Series(freq).cumsum()
+</code></pre>
+
+<h3>R Example</h3>
+
+<p>
+This example computes cumulative frequencies.
+</p>
+
+<pre><code>freq <- c(2, 5, 4, 3)
+
+cumsum(freq)
+</code></pre>
 
     <!-- TAKEAWAYS -->
     <div class="summary-box">
