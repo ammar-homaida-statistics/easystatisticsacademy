@@ -1,176 +1,485 @@
 ---
 layout: default
-title: "Cumulative Frequency & Cumulative Percent"
-description: "Distribution buildup: how to read cumulative summaries and why they matter for percentiles."
+title: Cumulative Frequency
+description: Learn how cumulative frequencies summarize running totals and help analyze distributions, rankings, and percentiles.
 permalink: /descriptive/tabular-summaries/cumulative-frequency/
 sidebar: false
 ---
 
-<!-- Previous Button -->
-<section class="section section-slim">
-  <a class="btn btn-outline" href="/descriptive/tabular-summaries/handling-missing-values/">
-    ← Previous Lesson: Handling Missing Values in Tables
-  </a>
-</section>
-
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Applied examples and graphical interpretation will be expanded later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h1>Cumulative Frequency & Cumulative Percent</h1>
-    <p>
-      Cumulative summaries show how a distribution builds up from the smallest value to the largest.
-      They are essential for understanding percentiles and distribution shape.
-    </p>
-  </div>
-
-  <h2>1. What Is Cumulative Frequency?</h2>
-
-  <p>
-    Cumulative frequency is the running total of frequencies up to a given category or value.
-  </p>
-
-  <p>
-    It answers:
-  </p>
-
-  <ul>
-    <li>How many observations are at or below this value?</li>
-  </ul>
-
-  <hr>
-
-  <h2>2. Example</h2>
-
-  <p>
-    Suppose we have test scores from 20 students:
-  </p>
-
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Score</th>
-        <th>Frequency</th>
-        <th>Cumulative Frequency</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>50–59</td><td>2</td><td>2</td></tr>
-      <tr><td>60–69</td><td>4</td><td>6</td></tr>
-      <tr><td>70–79</td><td>7</td><td>13</td></tr>
-      <tr><td>80–89</td><td>5</td><td>18</td></tr>
-      <tr><td>90–100</td><td>2</td><td>20</td></tr>
-    </tbody>
-  </table>
-
-  <p>
-    Interpretation:
-  </p>
-
-  <ul>
-    <li>6 students scored below 70.</li>
-    <li>13 students scored below 80.</li>
-    <li>All 20 students are included by the last row.</li>
-  </ul>
-
-  <hr>
-
-  <h2>3. What Is Cumulative Percent?</h2>
-
-  <p>
-    Cumulative percent = (cumulative frequency ÷ total) × 100
-  </p>
-
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Score</th>
-        <th>Cumulative Percent</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>50–59</td><td>10%</td></tr>
-      <tr><td>60–69</td><td>30%</td></tr>
-      <tr><td>70–79</td><td>65%</td></tr>
-      <tr><td>80–89</td><td>90%</td></tr>
-      <tr><td>90–100</td><td>100%</td></tr>
-    </tbody>
-  </table>
-
-  <p>
-    Now we can say:
-  </p>
-
-  <ul>
-    <li>65% of students scored below 80.</li>
-    <li>90% scored below 90.</li>
-  </ul>
-
-  <hr>
-
-  <h2>4. Why Cumulative Tables Matter</h2>
-
-  <ul>
-    <li>They allow percentile interpretation.</li>
-    <li>They help identify medians.</li>
-    <li>They show distribution buildup.</li>
-    <li>They help compare performance thresholds.</li>
-  </ul>
-
-  <hr>
-
-  <h2>5. Important Rules</h2>
-
-  <ul>
-    <li>Cumulative frequency must always increase.</li>
-    <li>The final cumulative frequency must equal total n.</li>
-    <li>Cumulative percent must end at 100%.</li>
-  </ul>
-
-  <hr>
-
-  <h2>6. Common Mistakes</h2>
-
-  <ul>
-    <li>Using cumulative percent for nominal categories (not valid).</li>
-    <li>Incorrect ordering of categories.</li>
-    <li>Arithmetic errors in running totals.</li>
-    <li>Interpreting cumulative percent as category percent.</li>
-  </ul>
-
-  <p>
-    Cumulative summaries are meaningful only when data have a natural order.
-  </p>
-
-</section>
-
-<!-- Next Button -->
-<section class="section section-slim">
-  <a class="btn" href="/descriptive/tabular-summaries/grouped-frequency-tables/">
-    Next Lesson → Grouped Frequency Tables (Binning)
-  </a>
-</section>
-
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_descriptive_tabular_summaries_lesson_v0";
+(function () {
 
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/descriptive/tabular-summaries/cumulative-frequency/",
-      label: "Lesson 5 — Cumulative Frequency & Cumulative Percent",
-      ts: Date.now()
-    }));
-  })();
+  const KEY =
+    "esa_continue_descriptive_tabular_summaries_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/descriptive/tabular-summaries/cumulative-frequency/",
+    label: "Cumulative Frequency",
+    ts: Date.now()
+  }));
+
+})();
 </script>
+
+<!-- HERO -->
+<section class="hero hero-section">
+
+  <div class="hero-card">
+
+    <div class="badge-row">
+      <span class="badge">Descriptive Statistics</span>
+      <span class="badge">Block 2</span>
+      <span class="badge">Frequency Analysis</span>
+      <span class="badge">Running Totals</span>
+    </div>
+
+    <h1>Cumulative Frequency</h1>
+
+    <p class="lead">
+      Sometimes we are interested not only in individual frequencies,
+      but also in how frequencies accumulate across values.
+    </p>
+
+    <p class="lead">
+      Cumulative frequency helps summarize distributions progressively,
+      making it easier to understand rankings,
+      percentiles,
+      thresholds,
+      and overall distribution structure.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/descriptive/tabular-summaries/relative-frequency-and-percent/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/descriptive/tabular-summaries/grouped-frequency-tables/">
+         Next: Grouped Frequency Tables
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- LESSON -->
+<section class="section">
+
+  <div class="content-narrow">
+
+    <h2>What Is Cumulative Frequency?</h2>
+
+    <p>
+      <strong>Cumulative frequency</strong>
+      is the running total of frequencies as we move through ordered values or categories.
+    </p>
+
+    <p>
+      Instead of showing only how often a value occurs,
+      cumulative frequency shows how many observations are at or below a value.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Key idea:</strong>
+
+      <p>
+        Cumulative frequency accumulates counts progressively across ordered values.
+      </p>
+
+    </div>
+
+    <h2>Why Ordering Matters</h2>
+
+    <p>
+      Cumulative frequency only makes sense when values are ordered.
+    </p>
+
+    <p>
+      Therefore,
+      cumulative frequencies are commonly used for:
+    </p>
+
+    <ul class="bullets">
+      <li>Numerical variables</li>
+      <li>Ordinal variables</li>
+      <li>Grouped intervals</li>
+    </ul>
+
+    <p>
+      They are generally not meaningful for purely nominal categories.
+    </p>
+
+    <h2>Basic Example</h2>
+
+    <p>
+      Suppose exam scores are summarized as:
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Score</th>
+            <th>Frequency</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>60</td>
+            <td>2</td>
+          </tr>
+
+          <tr>
+            <td>70</td>
+            <td>5</td>
+          </tr>
+
+          <tr>
+            <td>80</td>
+            <td>4</td>
+          </tr>
+
+          <tr>
+            <td>90</td>
+            <td>3</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      We now compute running totals:
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Score</th>
+            <th>Frequency</th>
+            <th>Cumulative Frequency</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>60</td>
+            <td>2</td>
+            <td>2</td>
+          </tr>
+
+          <tr>
+            <td>70</td>
+            <td>5</td>
+            <td>7</td>
+          </tr>
+
+          <tr>
+            <td>80</td>
+            <td>4</td>
+            <td>11</td>
+          </tr>
+
+          <tr>
+            <td>90</td>
+            <td>3</td>
+            <td>14</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      Interpretation:
+    </p>
+
+    <ul class="bullets">
+      <li>7 students scored 70 or below</li>
+      <li>11 students scored 80 or below</li>
+      <li>14 students scored 90 or below</li>
+    </ul>
+
+    <h2>How Cumulative Frequency Is Calculated</h2>
+
+    <p>
+      Each cumulative frequency equals:
+    </p>
+
+    :contentReference[oaicite:0]{index=0}
+
+    <p>
+      The final cumulative frequency always equals the total sample size.
+    </p>
+
+    <h2>Cumulative Relative Frequency</h2>
+
+    <p>
+      We can also accumulate relative frequencies or percentages.
+    </p>
+
+    <p>
+      Example:
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Score</th>
+            <th>Percent</th>
+            <th>Cumulative Percent</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>60</td>
+            <td>14%</td>
+            <td>14%</td>
+          </tr>
+
+          <tr>
+            <td>70</td>
+            <td>36%</td>
+            <td>50%</td>
+          </tr>
+
+          <tr>
+            <td>80</td>
+            <td>29%</td>
+            <td>79%</td>
+          </tr>
+
+          <tr>
+            <td>90</td>
+            <td>21%</td>
+            <td>100%</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      Cumulative percentages are widely used in reporting and interpretation.
+    </p>
+
+    <h2>Why Cumulative Frequency Is Useful</h2>
+
+    <p>
+      Cumulative frequency helps answer questions such as:
+    </p>
+
+    <ul class="bullets">
+      <li>How many observations are below a threshold?</li>
+      <li>What proportion scored below 80?</li>
+      <li>Where are the middle observations located?</li>
+      <li>How concentrated is the distribution?</li>
+    </ul>
+
+    <p>
+      These questions are extremely common in statistics.
+    </p>
+
+    <h2>Cumulative Frequency and Percentiles</h2>
+
+    <p>
+      Percentiles are closely connected
+      to cumulative frequency distributions.
+    </p>
+
+    <p>
+      Example:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        The 75th percentile is the value below which 75% of observations fall.
+      </p>
+
+    </div>
+
+    <p>
+      Cumulative frequencies help identify such cutoff points.
+    </p>
+
+    <h2>Cumulative Frequency Curves</h2>
+
+    <p>
+      Cumulative frequencies can also be visualized graphically.
+    </p>
+
+    <p>
+      A graph of cumulative frequencies is called an:
+    </p>
+
+    <ul class="bullets">
+      <li>Ogive</li>
+    </ul>
+
+    <p>
+      These graphs help visualize accumulation patterns across distributions.
+    </p>
+
+    <h2>Example: Customer Waiting Times</h2>
+
+    <p>
+      Suppose waiting times are summarized:
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Waiting Time (minutes)</th>
+            <th>Cumulative Percent</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>5 or less</td>
+            <td>20%</td>
+          </tr>
+
+          <tr>
+            <td>10 or less</td>
+            <td>55%</td>
+          </tr>
+
+          <tr>
+            <td>15 or less</td>
+            <td>82%</td>
+          </tr>
+
+          <tr>
+            <td>20 or less</td>
+            <td>100%</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      Interpretation:
+    </p>
+
+    <ul class="bullets">
+      <li>55% waited 10 minutes or less</li>
+      <li>82% waited 15 minutes or less</li>
+    </ul>
+
+    <p>
+      Cumulative summaries provide richer interpretation than raw frequencies alone.
+    </p>
+
+    <h2>Common Mistakes</h2>
+
+    <p>
+      Common errors include:
+    </p>
+
+    <ul class="bullets">
+      <li>Using cumulative frequency on unordered categories</li>
+      <li>Confusing frequency with cumulative frequency</li>
+      <li>Incorrectly summing categories</li>
+      <li>Ignoring the importance of ordering</li>
+    </ul>
+
+    <p>
+      Correct ordering is essential for meaningful cumulative interpretation.
+    </p>
+
+    <h2>Cumulative Frequency Is Widely Used</h2>
+
+    <p>
+      Cumulative summaries appear throughout:
+    </p>
+
+    <ul class="bullets">
+      <li>Educational testing</li>
+      <li>Quality control</li>
+      <li>Survey analysis</li>
+      <li>Business analytics</li>
+      <li>Medical reporting</li>
+      <li>Probability distributions</li>
+    </ul>
+
+    <p>
+      They are foundational tools for understanding distributions progressively.
+    </p>
+
+    <!-- TAKEAWAYS -->
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>Cumulative frequency represents running totals across ordered values</li>
+
+        <li>It shows how many observations fall at or below a value</li>
+
+        <li>Cumulative frequency requires meaningful ordering</li>
+
+        <li>The final cumulative frequency equals the total sample size</li>
+
+        <li>Cumulative percentages help interpret distributions and percentiles</li>
+
+        <li>Cumulative summaries are useful for thresholds and rankings</li>
+
+        <li>They are widely used throughout applied statistics</li>
+
+      </ul>
+
+    </div>
+
+    <!-- NAVIGATION -->
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/descriptive/tabular-summaries/relative-frequency-and-percent/">
+         ← Previous: Relative Frequency and Percent
+      </a>
+
+      <a class="btn"
+         href="/descriptive/tabular-summaries/grouped-frequency-tables/">
+         Next: Grouped Frequency Tables →
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
