@@ -509,15 +509,27 @@ An ogive shows how observations accumulate across a distribution.
   <li>Cumulative percentages are commonly used to identify percentiles</li>
 </ul>
 
-<div style="display:flex; gap:15px; justify-content:center; flex-wrap:wrap;">
+<div style="display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap;">
 
-  <img src="{{ '/descriptive/images/spss_frequencies_data.png' | relative_url }}"
-       alt="SPSS data view"
-       style="width:48%; height:auto;">
+  <div style="flex:1; min-width:300px;">
+    <img src="{{ 'descriptive/images/spss_frequencies_data.png' | relative_url }}"
+         alt="SPSS data view"
+         style="width:100%; height:auto;">
 
-  <img src="{{ '/descriptive/images/spss_frequencies.png' | relative_url }}"
-       alt="SPSS frequencies output"
-       style="width:48%; height:auto;">
+    <p style="text-align:center;">
+      Data entered in SPSS
+    </p>
+  </div>
+
+  <div style="flex:1; min-width:300px;">
+    <img src="{{ 'descriptive/images/spss_frequencies.png' | relative_url }}"
+         alt="SPSS frequencies output"
+         style="width:100%; height:auto;">
+
+    <p style="text-align:center;">
+      Frequency table output
+    </p>
+  </div>
 
 </div>
 
