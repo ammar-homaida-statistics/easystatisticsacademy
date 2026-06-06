@@ -1,191 +1,558 @@
 ---
 layout: default
-title: "Contingency Tables (Cross-tabs)"
-description: "Two-way tables and what they answer: association patterns using correct totals."
+title: Contingency Tables
+description: Learn how contingency tables summarize relationships between two categorical variables and form the foundation of categorical data analysis.
 permalink: /descriptive/tabular-summaries/contingency-tables/
 sidebar: false
 ---
 
-<!-- Previous Button -->
-<section class="section section-slim">
-  <a class="btn btn-outline" href="/descriptive/tabular-summaries/grouped-frequency-tables/">
-    ← Previous Lesson: Grouped Frequency Tables (Binning)
-  </a>
-</section>
+<!-- SAVE LESSON PROGRESS -->
+<script>
+(function () {
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Advanced interpretation examples and software outputs will be added later.
-      </p>
+  const KEY =
+    "esa_continue_descriptive_tabular_summaries_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/descriptive/tabular-summaries/contingency-tables/",
+    label: "Contingency Tables",
+    ts: Date.now()
+  }));
+
+})();
+</script>
+
+<!-- HERO -->
+<section class="hero hero-section">
+
+  <div class="hero-card">
+
+    <div class="badge-row">
+      <span class="badge">Descriptive Statistics</span>
+      <span class="badge">Block 2</span>
+      <span class="badge">Categorical Data</span>
+      <span class="badge">Cross Tabulation</span>
     </div>
+
+    <h1>Contingency Tables</h1>
+
+    <p class="lead">
+      Frequency tables summarize one variable.
+    </p>
+
+    <p class="lead">
+      But many statistical questions involve relationships between
+      two categorical variables.
+      Contingency tables provide a structured way to examine
+      those relationships and compare groups.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/descriptive/tabular-summaries/grouped-frequency-tables/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/descriptive/tabular-summaries/choosing-the-right-percentage/">
+         Next: Choosing the Right Percentage
+      </a>
+
+    </div>
+
   </div>
+
 </section>
 
+<!-- LESSON -->
 <section class="section">
-  <div class="section-head">
-    <h1>Contingency Tables (Cross-tabs)</h1>
+
+  <div class="content-narrow">
+
+    <h2>From One Variable to Two Variables</h2>
+
     <p>
-      A contingency table (or cross-tabulation) summarizes the relationship between two categorical variables.
+      A frequency table summarizes a single variable.
+    </p>
+
+    <p>
+      For example:
+    </p>
+
+    <ul class="bullets">
+      <li>Blood type frequencies</li>
+      <li>Favorite color frequencies</li>
+      <li>Education level frequencies</li>
+    </ul>
+
+    <p>
+      But many real-world questions involve comparing two variables simultaneously.
+    </p>
+
+    <p>
+      Examples:
+    </p>
+
+    <ul class="bullets">
+      <li>Gender and smoking status</li>
+      <li>Education level and employment status</li>
+      <li>Treatment group and recovery outcome</li>
+      <li>Political party and voting preference</li>
+    </ul>
+
+    <div class="concept-box">
+
+      <strong>Key idea:</strong>
+
+      <p>
+        Contingency tables summarize the joint distribution
+        of two categorical variables.
+      </p>
+
+    </div>
+
+    <p>
+  A joint distribution describes how observations are distributed
+  across combinations of categories from two variables.
+</p>
+
+    <h2>What Is a Contingency Table?</h2>
+
+    <p>
+      A <strong>contingency table</strong>
+      (also called a cross-tabulation or cross-tab)
+      displays frequencies for combinations of categories.
+    </p>
+
+    <p>
+      One variable forms the rows,
+      and the other forms the columns.
+    </p>
+
+    <p>
+      Each cell contains a frequency count.
+    </p>
+
+    <img src="{{ '/descriptive/images/contingency-table-structure.png' | relative_url }}"
+     alt="Structure of a contingency table"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+Rows represent categories of one variable,
+columns represent categories of a second variable,
+and cells contain frequencies for category combinations.
+</p>
+
+    <h2>Example: Smoking and Gender</h2>
+
+    <p>
+      Suppose a survey records smoking status and gender.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th></th>
+            <th>Smoker</th>
+            <th>Non-Smoker</th>
+            <th>Total</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Male</td>
+            <td>30</td>
+            <td>70</td>
+            <td>100</td>
+          </tr>
+
+          <tr>
+            <td>Female</td>
+            <td>20</td>
+            <td>80</td>
+            <td>100</td>
+          </tr>
+
+          <tr>
+            <td><strong>Total</strong></td>
+            <td><strong>50</strong></td>
+            <td><strong>150</strong></td>
+            <td><strong>200</strong></td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      This table summarizes how two categorical variables
+occur together in the same dataset.
+    </p>
+
+    <h2>Understanding the Cells</h2>
+
+    <p>
+      Each cell represents a combination of categories.
+    </p>
+
+    <p>
+      For example:
+    </p>
+
+    <ul class="bullets">
+      <li>30 males are smokers</li>
+      <li>70 males are non-smokers</li>
+      <li>20 females are smokers</li>
+      <li>80 females are non-smokers</li>
+    </ul>
+
+    <p>
+      The table provides much richer information
+      than separate frequency tables.
+    </p>
+
+    <p>
+  Raw cell counts alone do not always reveal meaningful differences.
+  Percentages are often needed for proper comparison.
+</p>
+
+    <h2>Row Totals and Column Totals</h2>
+
+    <p>
+      Contingency tables often include totals.
+    </p>
+
+    <div class="grid grid-2">
+
+      <div class="card">
+
+        <h3>Row Totals</h3>
+
+        <p>
+          Summarize each row category.
+        </p>
+
+        <p>
+          Example:
+          Total males = 100.
+        </p>
+
+      </div>
+
+      <div class="card">
+
+        <h3>Column Totals</h3>
+
+        <p>
+          Summarize each column category.
+        </p>
+
+        <p>
+          Example:
+          Total smokers = 50.
+        </p>
+
+      </div>
+
+    </div>
+
+    <p>
+      Totals help calculate percentages and comparisons.
+    </p>
+
+    <div class="concept-box">
+
+  <strong>Important insight:</strong>
+
+  <p>
+    Contingency tables do not simply summarize categories.
+    They summarize relationships between categories.
+  </p>
+
+</div>
+
+    <h2>Why Contingency Tables Are Useful</h2>
+
+    <p>
+      They allow us to investigate whether variables appear related.
+    </p>
+
+    <p>
+      Looking at the example:
+    </p>
+
+    <ul class="bullets">
+      <li>30% of males smoke</li>
+      <li>20% of females smoke</li>
+    </ul>
+
+    <p>
+      This suggests possible differences between groups.
+    </p>
+
+    <img src="{{ '/descriptive/images/counts-vs-percentages-crosstab.png' | relative_url }}"
+     alt="Counts versus percentages in a contingency table"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+Percentages often reveal group differences more clearly than raw counts.
+</p>
+
+    <p>
+  However, comparisons should usually be based on percentages
+  rather than raw counts.
+</p>
+
+    <p>
+      Later statistical methods will help determine
+      whether such differences are meaningful.
+    </p>
+
+    <h2>Contingency Tables Do Not Prove Causation</h2>
+
+    <p>
+      A contingency table only describes observed relationships.
+    </p>
+
+    <p>
+      It cannot prove:
+    </p>
+
+    <ul class="bullets">
+      <li>Cause and effect</li>
+      <li>Direction of influence</li>
+      <li>Underlying mechanisms</li>
+    </ul>
+
+    <p>
+      It is a descriptive tool,
+      not a causal analysis tool.
+    </p>
+
+    <h2>Contingency Tables Are Common in Research</h2>
+
+    <p>
+      They appear frequently in:
+    </p>
+
+    <ul class="bullets">
+      <li>Medical studies</li>
+      <li>Survey research</li>
+      <li>Marketing analysis</li>
+      <li>Education research</li>
+      <li>Public policy studies</li>
+      <li>Social science investigations</li>
+    </ul>
+
+    <p>
+      Whenever two categorical variables are analyzed together,
+      contingency tables are often the starting point.
+    </p>
+
+    <h2>Two-Way Tables and Beyond</h2>
+
+    <p>
+      Most introductory statistics focuses on two-way tables,
+      involving two variables.
+    </p>
+
+    <p>
+      More advanced analyses may involve:
+    </p>
+
+    <ul class="bullets">
+      <li>Three-way tables</li>
+      <li>Multi-way tables</li>
+      <li>Higher-dimensional categorical structures</li>
+    </ul>
+
+    <p>
+      The underlying idea remains the same:
+      summarizing combinations of categories.
+    </p>
+
+    <h2>Contingency Tables Lead to Statistical Testing</h2>
+
+    <p>
+      Later in statistics,
+      contingency tables become the foundation for:
+    </p>
+
+    <ul class="bullets">
+      <li>Chi-square tests</li>
+      <li>Tests of independence</li>
+      <li>Association measures</li>
+      <li>Categorical modeling</li>
+    </ul>
+
+    <p>
+      Understanding the table itself comes before understanding those methods.
+    </p>
+
+    <h2>The Most Important Question</h2>
+
+    <p>
+      When viewing a contingency table,
+      always ask:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Are the proportions similar across groups,
+        or do important differences appear?
+      </p>
+
+    </div>
+
+    <p>
+      This question drives much of categorical data analysis.
+    </p>
+
+    <div class="concept-box">
+
+  <strong>Key insight:</strong>
+
+  <p>
+    Frequency tables describe one variable,
+    while contingency tables describe how two variables
+    are related within a dataset.
+  </p>
+
+</div>
+
+<h2>Optional: Contingency Tables in SPSS</h2>
+
+<ul class="bullets">
+  <li>Analyze → Descriptive Statistics → Crosstabs</li>
+  <li>Rows and columns are assigned to categorical variables</li>
+  <li>SPSS can display counts, percentages, and chi-square statistics</li>
+</ul>
+
+<div style="display:flex; gap:20px; flex-wrap:wrap;">
+
+  <div style="flex:1; min-width:300px;">
+    <img src="{{ 'descriptive/images/spss_crosstab_data.png' | relative_url }}"
+         alt="SPSS data view"
+         style="width:100%; height:auto;">
+    <p style="text-align:center;">
+      Data entered in SPSS
     </p>
   </div>
 
-  <h2>1. What Is a Contingency Table?</h2>
+  <div style="flex:1; min-width:300px;">
+    <img src="{{ 'descriptive/images/spss_crosstabs_output.png' | relative_url }}"
+         alt="SPSS crosstabs output"
+         style="width:100%; height:auto;">
+    <p style="text-align:center;">
+      Crosstabs output
+    </p>
+  </div>
 
-  <p>
-    It is a two-way table that shows how frequencies are distributed across combinations of categories.
-  </p>
+</div>
 
-  <p>
-    It answers:
-  </p>
+<h3>Python Example</h3>
 
-  <ul>
-    <li>How does one variable vary across categories of another?</li>
-    <li>Is there a pattern of association?</li>
-  </ul>
+<p>
+This example creates a contingency table for gender and smoking status.
+</p>
 
-  <hr>
+<pre><code>import pandas as pd
 
-  <h2>2. Example</h2>
+data = pd.DataFrame({
+    "Gender": ["Male", "Male", "Female", "Female"],
+    "Smoking": ["Yes", "No", "No", "Yes"]
+})
 
-  <p>
-    Suppose we survey 40 students about gender and preferred study method.
-  </p>
+print(pd.crosstab(data["Gender"], data["Smoking"]))
+</code></pre>
 
-  <table class="table">
-    <thead>
-      <tr>
-        <th></th>
-        <th>Group Study</th>
-        <th>Individual Study</th>
-        <th>Total</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Male</td>
-        <td>8</td>
-        <td>12</td>
-        <td>20</td>
-      </tr>
-      <tr>
-        <td>Female</td>
-        <td>14</td>
-        <td>6</td>
-        <td>20</td>
-      </tr>
-      <tr>
-        <td><strong>Total</strong></td>
-        <td><strong>22</strong></td>
-        <td><strong>18</strong></td>
-        <td><strong>40</strong></td>
-      </tr>
-    </tbody>
-  </table>
+<h3>R Example</h3>
 
-  <hr>
+<p>
+This example creates a contingency table for gender and smoking status.
+</p>
 
-  <h2>3. What Can We See?</h2>
+<pre><code>gender <- c("Male", "Male", "Female", "Female")
+smoking <- c("Yes", "No", "No", "Yes")
 
-  <p>
-    Raw counts show:
-  </p>
+table(gender, smoking)
+</code></pre>
 
-  <ul>
-    <li>More females prefer group study (14 vs 8 males).</li>
-    <li>More males prefer individual study (12 vs 6 females).</li>
-  </ul>
+<div style="display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap;">
 
-  <p>
-    But raw counts alone are not enough.
-  </p>
+  <div style="flex:1; min-width:300px;">
+    <img src="{{ 'descriptive/images/spss_crosstab_data.png' | relative_url }}"
+         alt="SPSS data view for contingency table"
+         style="width:100%; height:auto;">
 
-  <hr>
+    <p style="text-align:center;">
+      Data entered in SPSS
+    </p>
+  </div>
 
-  <h2>4. Why Percentages Matter</h2>
+  <div style="flex:1; min-width:300px;">
+    <img src="{{ 'descriptive/images/spss_crosstabs_output.png' | relative_url }}"
+         alt="SPSS crosstabs output"
+         style="width:100%; height:auto;">
 
-  <p>
-    To interpret association correctly, we need row or column percentages.
-  </p>
+    <p style="text-align:center;">
+      Crosstabs output
+    </p>
+  </div>
 
-  <p>
-    For example, row percentages (within gender):
-  </p>
+</div>
 
-  <ul>
-    <li>Male: 8/20 = 40% group study</li>
-    <li>Female: 14/20 = 70% group study</li>
-  </ul>
+    <!-- TAKEAWAYS -->
+    <div class="summary-box">
 
-  <p>
-    Now the comparison is clearer.
-  </p>
+      <h2>Lesson Takeaways</h2>
 
-  <hr>
+      <ul class="bullets">
 
-  <h2>5. Marginal Totals</h2>
+        <li>Contingency tables summarize two categorical variables simultaneously</li>
 
-  <p>
-    Marginal totals are the row and column totals.
-  </p>
+        <li>Rows and columns represent categories of different variables</li>
 
-  <ul>
-    <li>Row totals → total per gender</li>
-    <li>Column totals → total per study method</li>
-  </ul>
+        <li>Cells contain frequencies for category combinations</li>
 
-  <p>
-    The grand total is the total sample size.
-  </p>
+        <li>Totals help support interpretation and percentage calculations</li>
 
-  <hr>
+        <li>Contingency tables reveal patterns and group differences</li>
 
-  <h2>6. What Contingency Tables Do Not Prove</h2>
+        <li>They describe relationships but do not establish causation</li>
 
-  <ul>
-    <li>They do not prove causation.</li>
-    <li>They do not test statistical significance (that comes later).</li>
-    <li>They only describe association patterns.</li>
-  </ul>
+        <li>They form the foundation for later categorical statistical methods</li>
 
-  <hr>
+      </ul>
 
-  <h2>7. Common Mistakes</h2>
+    </div>
 
-  <ul>
-    <li>Comparing raw counts without considering group sizes.</li>
-    <li>Using the wrong percentage (row vs column).</li>
-    <li>Ignoring small sample sizes.</li>
-    <li>Drawing causal conclusions from descriptive data.</li>
-  </ul>
+    <!-- NAVIGATION -->
+    <div class="lesson-nav">
 
-  <p>
-    Proper interpretation requires choosing the correct denominator — which is the next lesson.
-  </p>
+      <a class="btn btn-outline"
+         href="/descriptive/tabular-summaries/grouped-frequency-tables/">
+         ← Previous: Grouped Frequency Tables
+      </a>
+
+      <a class="btn"
+         href="/descriptive/tabular-summaries/choosing-the-right-percentage/">
+         Next: Choosing the Right Percentage →
+      </a>
+
+    </div>
+
+  </div>
 
 </section>
-
-<!-- Next Button -->
-<section class="section section-slim">
-  <a class="btn" href="/descriptive/tabular-summaries/choosing-the-right-percentage/">
-    Next Lesson → Choosing the Right Percentage
-  </a>
-</section>
-
-<script>
-  (function () {
-    var KEY = "esa_continue_descriptive_tabular_summaries_lesson_v0";
-
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/descriptive/tabular-summaries/contingency-tables/",
-      label: "Lesson 7 — Contingency Tables (Cross-tabs)",
-      ts: Date.now()
-    }));
-  })();
-</script>
