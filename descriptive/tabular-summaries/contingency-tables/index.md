@@ -489,29 +489,6 @@ smoking <- c("Yes", "No", "No", "Yes")
 table(gender, smoking)
 </code></pre>
 
-<div style="display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap;">
-
-  <div style="flex:1; min-width:300px;">
-    <img src="{{ 'descriptive/images/spss_crosstab_data.png' | relative_url }}"
-         alt="SPSS data view for contingency table"
-         style="width:100%; height:auto;">
-
-    <p style="text-align:center;">
-      Data entered in SPSS
-    </p>
-  </div>
-
-  <div style="flex:1; min-width:300px;">
-    <img src="{{ 'descriptive/images/spss_crosstabs_output.png' | relative_url }}"
-         alt="SPSS crosstabs output"
-         style="width:100%; height:auto;">
-
-    <p style="text-align:center;">
-      Crosstabs output
-    </p>
-  </div>
-
-</div>
 
     <!-- TAKEAWAYS -->
     <div class="summary-box">
