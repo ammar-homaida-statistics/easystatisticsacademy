@@ -96,6 +96,17 @@ sidebar: false
 
     <h2>Why Ordering Matters</h2>
 
+    <div class="concept-box">
+
+  <strong>Important insight:</strong>
+
+  <p>
+    Cumulative frequency depends on meaningful ordering.
+    Without order, accumulation has no statistical interpretation.
+  </p>
+
+</div>
+
     <p>
       Cumulative frequency only makes sense when values are ordered.
     </p>
@@ -224,7 +235,9 @@ sidebar: false
       Each cumulative frequency equals:
     </p>
 
-    :contentReference[oaicite:0]{index=0}
+    <div class="formula-box">
+  CFᵢ = CFᵢ₋₁ + fᵢ
+</div>
 
     <p>
       The final cumulative frequency always equals the total sample size.
@@ -302,6 +315,12 @@ sidebar: false
     </ul>
 
     <p>
+  Cumulative frequencies reveal how observations accumulate
+  throughout a distribution rather than how they are distributed
+  within individual categories.
+</p>
+
+    <p>
       These questions are extremely common in statistics.
     </p>
 
@@ -327,6 +346,11 @@ sidebar: false
     <p>
       Cumulative frequencies help identify such cutoff points.
     </p>
+
+    <p>
+  Quartiles, deciles, and percentiles are all derived
+  from cumulative distributions.
+</p>
 
     <h2>Cumulative Frequency Curves</h2>
 
@@ -439,6 +463,26 @@ sidebar: false
     <p>
       They are foundational tools for understanding distributions progressively.
     </p>
+
+    <div class="concept-box">
+
+  <strong>Key insight:</strong>
+
+  <p>
+    Frequency tables show where observations occur,
+    while cumulative frequency tables show how observations
+    accumulate across a distribution.
+  </p>
+
+</div>
+
+<h2>Optional: Cumulative Frequencies in SPSS</h2>
+
+<ul class="bullets">
+  <li>Analyze → Descriptive Statistics → Frequencies</li>
+  <li>SPSS can display cumulative frequencies and cumulative percentages</li>
+  <li>Cumulative percentages are commonly used to identify percentiles</li>
+</ul>
 
     <!-- TAKEAWAYS -->
     <div class="summary-box">
