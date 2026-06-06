@@ -53,8 +53,8 @@ sidebar: false
       </a>
 
       <a class="btn btn-outline"
-         href="/descriptive/tabular-summaries/cumulative-frequency/">
-         Next: Cumulative Frequency
+         href="/descriptive/tabular-summaries/contingency-tables/">
+         Next: Contingency Tables
       </a>
 
     </div>
@@ -558,8 +558,8 @@ This example creates grouped intervals using a histogram.
       </a>
 
       <a class="btn"
-         href="/descriptive/tabular-summaries/cumulative-frequency/">
-         Next: Cumulative Frequency →
+         href="/descriptive/tabular-summaries/contingency-tables/">
+         Next: Contingency Tables →
       </a>
 
     </div>
