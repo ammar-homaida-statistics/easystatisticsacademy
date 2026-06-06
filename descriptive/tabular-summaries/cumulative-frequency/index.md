@@ -509,6 +509,18 @@ An ogive shows how observations accumulate across a distribution.
   <li>Cumulative percentages are commonly used to identify percentiles</li>
 </ul>
 
+<div style="display:flex; gap:15px; justify-content:center; flex-wrap:wrap;">
+
+  <img src="{{ '/descriptive/images/spss_frequencies_data.png' | relative_url }}"
+       alt="SPSS data view"
+       style="width:48%; height:auto;">
+
+  <img src="{{ '/descriptive/images/spss_frequencies.png' | relative_url }}"
+       alt="SPSS frequencies output"
+       style="width:48%; height:auto;">
+
+</div>
+
 <p>
 Spreadsheet software such as Excel can compute cumulative totals
 using running-sum formulas.
