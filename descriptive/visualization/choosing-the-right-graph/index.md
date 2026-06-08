@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Choosing the Right Graph
-description: Learn how statisticians select appropriate graphs based on variable types, analytical goals, and the message they want to communicate.
+description: Learn a systematic approach for selecting the most appropriate graph for any dataset and statistical question.
 permalink: /descriptive/visualization/choosing-the-right-graph/
 sidebar: false
 ---
@@ -32,21 +32,20 @@ sidebar: false
       <span class="badge">Descriptive Statistics</span>
       <span class="badge">Block 3</span>
       <span class="badge">Visualization</span>
-      <span class="badge">Decision Making</span>
+      <span class="badge">Final Lesson</span>
     </div>
 
     <h1>Choosing the Right Graph</h1>
 
     <p class="lead">
-      Creating a graph is easy.
-      Choosing the correct graph is the real statistical skill.
+      A graph is only useful if it helps answer a statistical question.
     </p>
 
     <p class="lead">
-      Every graph highlights certain aspects of data and hides others.
-      Good statisticians select visualizations based on the question being asked,
-      the type of data available,
-      and the message they want to communicate.
+      Throughout this block you learned many visualization tools.
+      The final challenge is knowing which graph to use,
+      when to use it,
+      and why.
     </p>
 
     <div class="hero-actions">
@@ -57,7 +56,7 @@ sidebar: false
       </a>
 
       <a class="btn btn-outline"
-         href="/descriptive/center/why-center-matters/">
+         href="/descriptive/center/">
          Next Block: Center →
       </a>
 
@@ -73,30 +72,14 @@ sidebar: false
 
   <div class="content-narrow">
 
-    <h2>The Goal Comes First</h2>
+    <h2>The Most Important Rule</h2>
 
     <p>
-      Many beginners start by asking:
+      Never choose a graph because it looks attractive.
     </p>
 
-    <div class="example-box">
-      <p>
-        "Which graph should I make?"
-      </p>
-    </div>
-
     <p>
-      Statisticians ask a different question:
-    </p>
-
-    <div class="example-box">
-      <p>
-        "What am I trying to learn from the data?"
-      </p>
-    </div>
-
-    <p>
-      The purpose of the analysis should always guide the choice of graph.
+      Choose a graph because it answers the statistical question clearly.
     </p>
 
     <div class="concept-box">
@@ -104,15 +87,38 @@ sidebar: false
       <strong>Key idea:</strong>
 
       <p>
-        Choose the graph that best answers the statistical question.
+        The correct graph depends on the type of data and the purpose of the analysis.
       </p>
 
     </div>
 
+    <h2>Start With the Question</h2>
+
+    <p>
+      Before creating any graph,
+      ask:
+    </p>
+
+    <ul class="bullets">
+
+      <li>What am I trying to learn?</li>
+
+      <li>What type of variable do I have?</li>
+
+      <li>How many variables are involved?</li>
+
+      <li>Am I comparing, describing, or exploring relationships?</li>
+
+    </ul>
+
+    <p>
+      These questions usually determine the best visualization.
+    </p>
+
     <h2>Step 1: Identify the Variable Type</h2>
 
     <p>
-      The first step is determining what type of data you have.
+      Visualization begins with understanding the data.
     </p>
 
     <div class="table-wrap">
@@ -120,32 +126,29 @@ sidebar: false
       <table>
 
         <thead>
+
           <tr>
             <th>Variable Type</th>
             <th>Examples</th>
           </tr>
+
         </thead>
 
         <tbody>
 
           <tr>
             <td>Categorical</td>
-            <td>Blood type, major, country</td>
+            <td>Blood type, major, gender</td>
           </tr>
 
           <tr>
             <td>Numerical</td>
-            <td>Height, age, income</td>
+            <td>Age, income, height</td>
           </tr>
 
           <tr>
-            <td>Time Series</td>
+            <td>Time-based</td>
             <td>Monthly sales, stock prices</td>
-          </tr>
-
-          <tr>
-            <td>Two Numerical Variables</td>
-            <td>Height and weight</td>
           </tr>
 
         </tbody>
@@ -155,13 +158,14 @@ sidebar: false
     </div>
 
     <p>
-      Variable type immediately narrows the appropriate graph choices.
+      Different variable types require different visualizations.
     </p>
 
-    <h2>Step 2: Identify the Goal</h2>
+    <h2>Graphs for Categorical Variables</h2>
 
     <p>
-      Different graphs answer different questions.
+      If the variable is categorical,
+      the primary goal is usually comparison.
     </p>
 
     <div class="table-wrap">
@@ -169,10 +173,12 @@ sidebar: false
       <table>
 
         <thead>
+
           <tr>
             <th>Goal</th>
-            <th>Common Graph</th>
+            <th>Recommended Graph</th>
           </tr>
+
         </thead>
 
         <tbody>
@@ -183,27 +189,128 @@ sidebar: false
           </tr>
 
           <tr>
-            <td>Show proportions</td>
+            <td>Show parts of a whole</td>
             <td>Pie chart</td>
           </tr>
 
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      In most situations,
+      statisticians prefer bar charts because comparisons are easier.
+    </p>
+
+    <h2>Graphs for Numerical Variables</h2>
+
+    <p>
+      If the variable is numerical,
+      the goal is often understanding the distribution.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
           <tr>
-            <td>Show distribution</td>
+            <th>Goal</th>
+            <th>Recommended Graph</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Distribution shape</td>
             <td>Histogram</td>
           </tr>
 
           <tr>
-            <td>Summarize distribution</td>
+            <td>Smoothed distribution</td>
+            <td>Density curve</td>
+          </tr>
+
+          <tr>
+            <td>Compact summary</td>
             <td>Boxplot</td>
           </tr>
 
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>Graphs for Relationships</h2>
+
+    <p>
+      If two numerical variables are being studied,
+      the goal is usually understanding association.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
           <tr>
-            <td>Show relationship</td>
+            <th>Question</th>
+            <th>Recommended Graph</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Relationship between two variables</td>
             <td>Scatterplot</td>
           </tr>
 
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      Scatterplots reveal direction,
+      strength,
+      clusters,
+      and outliers.
+    </p>
+
+    <h2>Graphs for Time-Based Data</h2>
+
+    <p>
+      When time is involved,
+      preserving order becomes essential.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
           <tr>
-            <td>Show change over time</td>
+            <th>Question</th>
+            <th>Recommended Graph</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Change over time</td>
             <td>Line chart</td>
           </tr>
 
@@ -213,277 +320,66 @@ sidebar: false
 
     </div>
 
-    <h2>The Graph Selection Framework</h2>
-
     <p>
-      A useful way to think about graph selection is:
+      Line charts reveal trends,
+      seasonality,
+      cycles,
+      and unusual events.
     </p>
+
+    <h2>A Practical Decision Guide</h2>
 
     <div class="grid grid-2">
 
       <div class="card">
 
-        <h3>What Data?</h3>
+        <h3>One Categorical Variable</h3>
 
         <ul class="bullets">
-          <li>Categorical?</li>
-          <li>Numerical?</li>
-          <li>Time-based?</li>
+          <li>Bar chart</li>
+          <li>Pie chart</li>
         </ul>
 
       </div>
 
       <div class="card">
 
-        <h3>What Goal?</h3>
+        <h3>One Numerical Variable</h3>
 
         <ul class="bullets">
-          <li>Compare?</li>
-          <li>Describe?</li>
-          <li>Explore?</li>
-          <li>Communicate?</li>
+          <li>Histogram</li>
+          <li>Density curve</li>
+          <li>Boxplot</li>
+        </ul>
+
+      </div>
+
+      <div class="card">
+
+        <h3>Two Numerical Variables</h3>
+
+        <ul class="bullets">
+          <li>Scatterplot</li>
+        </ul>
+
+      </div>
+
+      <div class="card">
+
+        <h3>Time Series</h3>
+
+        <ul class="bullets">
+          <li>Line chart</li>
         </ul>
 
       </div>
 
     </div>
 
-    <p>
-      Once these questions are answered,
-      the correct graph is often obvious.
-    </p>
-
-    <h2>When to Use a Bar Chart</h2>
+    <h2>The Same Data Can Have Different Graphs</h2>
 
     <p>
-      Bar charts are ideal when:
-    </p>
-
-    <ul class="bullets">
-
-      <li>Variables are categorical</li>
-
-      <li>Comparisons are important</li>
-
-      <li>Categories are independent</li>
-
-      <li>Exact differences matter</li>
-
-    </ul>
-
-    <p>
-      Examples:
-    </p>
-
-    <ul class="bullets">
-
-      <li>Students by major</li>
-
-      <li>Votes by candidate</li>
-
-      <li>Products by sales category</li>
-
-    </ul>
-
-    <h2>When to Use a Pie Chart</h2>
-
-    <p>
-      Pie charts are appropriate when:
-    </p>
-
-    <ul class="bullets">
-
-      <li>Categories form a meaningful whole</li>
-
-      <li>Percentages sum to 100%</li>
-
-      <li>There are few categories</li>
-
-    </ul>
-
-    <p>
-      Example:
-    </p>
-
-    <ul class="bullets">
-
-      <li>Budget allocation</li>
-
-      <li>Market share</li>
-
-      <li>Survey response percentages</li>
-
-    </ul>
-
-    <p>
-      If precise comparison is important,
-      bar charts are usually preferable.
-    </p>
-
-    <h2>When to Use a Histogram</h2>
-
-    <p>
-      Histograms are designed for numerical distributions.
-    </p>
-
-    <p>
-      Use them when you want to understand:
-    </p>
-
-    <ul class="bullets">
-
-      <li>Shape</li>
-
-      <li>Spread</li>
-
-      <li>Center</li>
-
-      <li>Outliers</li>
-
-      <li>Clusters</li>
-
-    </ul>
-
-    <p>
-      Histograms answer:
-    </p>
-
-    <div class="example-box">
-      <p>
-        "How are the values distributed?"
-      </p>
-    </div>
-
-    <h2>When to Use a Boxplot</h2>
-
-    <p>
-      Boxplots are useful when:
-    </p>
-
-    <ul class="bullets">
-
-      <li>Comparing several groups</li>
-
-      <li>Looking for outliers</li>
-
-      <li>Summarizing distributions compactly</li>
-
-    </ul>
-
-    <p>
-      They provide less detail than histograms
-      but are often easier to compare across groups.
-    </p>
-
-    <h2>When to Use a Scatterplot</h2>
-
-    <p>
-      Scatterplots should be used when:
-    </p>
-
-    <ul class="bullets">
-
-      <li>Two numerical variables exist</li>
-
-      <li>You want to examine relationships</li>
-
-      <li>You want to detect trends or clusters</li>
-
-    </ul>
-
-    <p>
-      Scatterplots answer:
-    </p>
-
-    <div class="example-box">
-      <p>
-        "How do these variables move together?"
-      </p>
-    </div>
-
-    <h2>When to Use a Line Chart</h2>
-
-    <p>
-      Line charts are best when:
-    </p>
-
-    <ul class="bullets">
-
-      <li>Data are ordered through time</li>
-
-      <li>Trends are important</li>
-
-      <li>Change is the primary focus</li>
-
-    </ul>
-
-    <p>
-      They answer:
-    </p>
-
-    <div class="example-box">
-      <p>
-        "How does this variable change over time?"
-      </p>
-    </div>
-
-    <h2>A Practical Decision Table</h2>
-
-    <div class="table-wrap">
-
-      <table>
-
-        <thead>
-
-          <tr>
-            <th>If You Want To...</th>
-            <th>Use...</th>
-          </tr>
-
-        </thead>
-
-        <tbody>
-
-          <tr>
-            <td>Compare categories</td>
-            <td>Bar chart</td>
-          </tr>
-
-          <tr>
-            <td>Show percentages of a whole</td>
-            <td>Pie chart</td>
-          </tr>
-
-          <tr>
-            <td>See a distribution</td>
-            <td>Histogram</td>
-          </tr>
-
-          <tr>
-            <td>Summarize a distribution</td>
-            <td>Boxplot</td>
-          </tr>
-
-          <tr>
-            <td>Study a relationship</td>
-            <td>Scatterplot</td>
-          </tr>
-
-          <tr>
-            <td>Track change over time</td>
-            <td>Line chart</td>
-          </tr>
-
-        </tbody>
-
-      </table>
-
-    </div>
-
-    <h2>There Is Rarely One Perfect Graph</h2>
-
-    <p>
-      Multiple graphs may be useful for the same dataset.
+      A single dataset may be visualized in multiple ways.
     </p>
 
     <p>
@@ -492,100 +388,159 @@ sidebar: false
 
     <ul class="bullets">
 
-      <li>Histogram for shape</li>
+      <li>Histogram → detailed shape</li>
 
-      <li>Boxplot for summary</li>
+      <li>Density curve → smooth shape</li>
 
-      <li>Table for exact values</li>
+      <li>Boxplot → concise summary</li>
 
     </ul>
 
     <p>
-      Good statistical analysis often combines several tools.
+      The best choice depends on what you want to communicate.
     </p>
 
-    <h2>The Best Graph Is the One That Answers the Question</h2>
+    <h2>Think About the Audience</h2>
 
     <p>
-      Attractive graphics are not necessarily informative graphics.
-    </p>
-
-    <p>
-      The best visualization:
+      Different audiences need different visualizations.
     </p>
 
     <ul class="bullets">
 
-      <li>Matches the variable type</li>
+      <li>Researchers may prefer detailed distributions</li>
 
-      <li>Matches the analytical goal</li>
+      <li>Managers may prefer concise summaries</li>
 
-      <li>Communicates clearly</li>
-
-      <li>Avoids distortion</li>
-
-      <li>Supports accurate interpretation</li>
+      <li>General audiences may prefer simple comparisons</li>
 
     </ul>
 
     <p>
-      Effective statistical communication always prioritizes understanding.
+      Effective communication considers the reader.
     </p>
 
-    <h2>Completing the Visualization Block</h2>
+    <h2>Common Mistakes in Graph Selection</h2>
+
+    <ul class="bullets">
+
+      <li>Using pie charts with many categories</li>
+
+      <li>Using bar charts for continuous distributions</li>
+
+      <li>Using line charts for unordered categories</li>
+
+      <li>Using scatterplots for categorical data</li>
+
+      <li>Choosing a graph for appearance rather than clarity</li>
+
+    </ul>
 
     <p>
-      You have now studied the major graphical tools used in descriptive statistics:
+      These mistakes often make interpretation more difficult.
+    </p>
+
+    <h2>There Is Rarely a Perfect Graph</h2>
+
+    <p>
+      Visualization involves trade-offs.
+    </p>
+
+    <p>
+      Some graphs emphasize:
     </p>
 
     <ul class="bullets">
 
-      <li>Bar charts</li>
+      <li>Detail</li>
 
-      <li>Pie charts</li>
+      <li>Simplicity</li>
 
-      <li>Histograms</li>
+      <li>Comparison</li>
 
-      <li>Density curves</li>
+      <li>Distribution shape</li>
 
-      <li>Boxplots</li>
-
-      <li>Scatterplots</li>
-
-      <li>Line charts</li>
-
-      <li>Graph evaluation principles</li>
+      <li>Relationships</li>
 
     </ul>
 
     <p>
-      The next block moves from visual descriptions to numerical descriptions,
-      beginning with measures of center.
+      The goal is selecting the graph that best serves the purpose of the analysis.
+    </p>
+
+    <h2>The Statistical Workflow</h2>
+
+    <p>
+      The lessons in this block reflect a common workflow:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Understand the data</li>
+
+      <li>Create tables</li>
+
+      <li>Create visualizations</li>
+
+      <li>Explore patterns</li>
+
+      <li>Summarize the distribution</li>
+
+      <li>Draw conclusions</li>
+
+    </ul>
+
+    <p>
+      Good graph selection is a critical step in this process.
+    </p>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Visualization helps us see distributions,
+      but statisticians also need numerical summaries.
+    </p>
+
+    <p>
+      The next block introduces measures of center,
+      including:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Mean</li>
+
+      <li>Median</li>
+
+      <li>Mode</li>
+
+    </ul>
+
+    <p>
+      These measures help quantify where data tend to be located.
     </p>
 
     <!-- TAKEAWAYS -->
 
     <div class="summary-box">
 
-      <h2>Lesson Takeaways</h2>
+      <h2>Block 3 Takeaways</h2>
 
       <ul class="bullets">
 
-        <li>Graph selection depends on both data type and analytical goal</li>
+        <li>Graph choice depends on the statistical question</li>
+
+        <li>Variable type is the starting point for graph selection</li>
 
         <li>Bar charts compare categories</li>
 
-        <li>Pie charts show parts of a whole</li>
+        <li>Histograms, density curves, and boxplots describe distributions</li>
 
-        <li>Histograms display numerical distributions</li>
+        <li>Scatterplots reveal relationships</li>
 
-        <li>Boxplots summarize distributions efficiently</li>
+        <li>Line charts reveal changes through time</li>
 
-        <li>Scatterplots reveal relationships between variables</li>
-
-        <li>Line charts show changes through time</li>
-
-        <li>The best graph is the one that answers the statistical question clearly</li>
+        <li>Good visualizations communicate information clearly and honestly</li>
 
       </ul>
 
@@ -601,8 +556,8 @@ sidebar: false
       </a>
 
       <a class="btn"
-         href="/descriptive/center/why-center-matters/">
-         Next Block: Why Center Matters →
+         href="/descriptive/center/">
+         Next Block: Center →
       </a>
 
     </div>
