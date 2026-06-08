@@ -1,203 +1,544 @@
 ---
 layout: default
-title: "Weighted Mean"
-description: "How and when to use the weighted mean for grouped data, grades, and index construction."
+title: Weighted Mean
+description: Learn how weighted means account for observations with different levels of importance and why they are widely used in education, economics, finance, and statistics.
 permalink: /descriptive/center/weighted-mean/
 sidebar: false
 ---
 
-<section class="section section-slim">
-  <a class="btn btn-outline" href="/descriptive/center/mode/">
-    ← Previous Lesson: Mode
-  </a>
-</section>
-
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5;border:2px solid #ff9800;padding:2rem;border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0;color:#e65100;font-size:1.8rem;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0;font-size:1.05rem;color:#5d4037;line-height:1.6;">
-        Real datasets, grouped-data applications, and software demonstrations (SPSS, R, Python, Excel) will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h1>Weighted Mean</h1>
-    <p class="lead">
-      The weighted mean adjusts the average when observations do not contribute equally.
-      Some values carry more importance (weight) than others.
-    </p>
-  </div>
-
-  <hr>
-
-  <h2>1. Why Do We Need a Weighted Mean?</h2>
-
-  <p>
-    The regular mean assumes that all observations contribute equally.
-  </p>
-
-  <p>
-    But in many real situations:
-  </p>
-
-  <ul>
-    <li>Courses have different credit hours</li>
-    <li>Survey responses have sampling weights</li>
-    <li>Grouped data represents multiple observations per class</li>
-  </ul>
-
-  <p>
-    In these cases, a simple average is incorrect.
-  </p>
-
-  <hr>
-
-  <h2>2. Formula</h2>
-
-  <p>
-    If values are x<sub>i</sub> and weights are w<sub>i</sub>, the weighted mean is:
-  </p>
-
-  <p style="font-weight:bold;">
-    Weighted Mean = Σ(wᵢ xᵢ) / Σ(wᵢ)
-  </p>
-
-  <p>
-    The weights determine the influence of each value.
-  </p>
-
-  <hr>
-
-  <h2>3. Example — Course Grades</h2>
-
-  <p><strong>Student grades:</strong></p>
-
-  <ul>
-    <li>Statistics: 90 (3 credits)</li>
-    <li>Economics: 80 (2 credits)</li>
-    <li>History: 70 (1 credit)</li>
-  </ul>
-
-  <p>
-    Simple mean:
-  </p>
-
-  <p>
-    (90 + 80 + 70) / 3 = 80
-  </p>
-
-  <p>
-    Weighted mean:
-  </p>
-
-  <p>
-    (90×3 + 80×2 + 70×1) / (3+2+1)
-  </p>
-
-  <p>
-    = (270 + 160 + 70) / 6  
-    = 500 / 6  
-    = 83.33
-  </p>
-
-  <p>
-    The weighted mean better reflects academic performance.
-  </p>
-
-  <hr>
-
-  <h2>4. Weighted Mean for Grouped Data</h2>
-
-  <p>
-    In grouped frequency tables, the class midpoint acts as the value,
-    and frequency acts as the weight.
-  </p>
-
-  <p>
-    Mean ≈ Σ(midpoint × frequency) / total frequency
-  </p>
-
-  <p>
-    This is how we estimate the mean from binned data.
-  </p>
-
-  <hr>
-
-  <h2>5. Properties</h2>
-
-  <ul>
-    <li>If all weights are equal → weighted mean = regular mean</li>
-    <li>Larger weights increase influence</li>
-    <li>Still sensitive to extreme values</li>
-  </ul>
-
-  <hr>
-
-  <h2>6. Common Mistakes</h2>
-
-  <ul>
-    <li>Forgetting to divide by total weight</li>
-    <li>Using frequencies incorrectly</li>
-    <li>Confusing weighted mean with simple mean</li>
-  </ul>
-
-  <hr>
-
-  <h2>7. Interpretation</h2>
-
-  <p>
-    The weighted mean represents the central value after accounting for importance or frequency.
-  </p>
-
-  <p>
-    It answers:
-    <strong>“What is the average when some observations count more than others?”</strong>
-  </p>
-
-  <hr>
-
-  <h2>Conceptual Comparison</h2>
-
-  <ul>
-    <li>Mean → equal contribution</li>
-    <li>Weighted mean → unequal contribution</li>
-    <li>Median → position-based</li>
-    <li>Mode → frequency-based</li>
-  </ul>
-
-  <hr>
-
-  <h2>Summary</h2>
-
-  <ul>
-    <li>Weighted mean adjusts for unequal importance.</li>
-    <li>Essential for grouped data and academic grading.</li>
-    <li>Still sensitive to outliers.</li>
-    <li>Reduces bias when contributions differ.</li>
-  </ul>
-
-</section>
-
-<section class="section section-slim">
-  <a class="btn" href="/descriptive/center/trimmed-mean/">
-    Next Lesson → Trimmed Mean
-  </a>
-</section>
-
+<!-- SAVE LESSON PROGRESS -->
 <script>
-(function(){
-  var KEY="esa_continue_descriptive_center_lesson_v0";
-  localStorage.setItem(KEY,JSON.stringify({
-    url:"/descriptive/center/weighted-mean/",
-    label:"Lesson 5 — Weighted Mean",
-    ts:Date.now()
+(function () {
+
+  const KEY =
+    "esa_continue_descriptive_center_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/descriptive/center/weighted-mean/",
+    label: "Weighted Mean",
+    ts: Date.now()
   }));
+
 })();
 </script>
+
+<!-- HERO -->
+
+<section class="hero hero-section">
+
+  <div class="hero-card">
+
+    <div class="badge-row">
+      <span class="badge">Descriptive Statistics</span>
+      <span class="badge">Block 4</span>
+      <span class="badge">Center</span>
+      <span class="badge">Weighted Mean</span>
+    </div>
+
+    <h1>Weighted Mean</h1>
+
+    <p class="lead">
+      The arithmetic mean assumes every observation contributes equally to the final average.
+    </p>
+
+    <p class="lead">
+      In many real-world situations,
+      however,
+      some observations are more important than others.
+      The weighted mean accounts for these differences by assigning weights to observations.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/descriptive/center/mean-vs-median/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/descriptive/center/trimmed-mean/">
+         Next: Trimmed Mean →
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- LESSON -->
+
+<section class="section">
+
+  <div class="content-narrow">
+
+    <h2>Why Do We Need a Weighted Mean?</h2>
+
+    <p>
+      Consider a student whose course grade is determined by:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Homework: 20%</li>
+
+      <li>Midterm Exam: 30%</li>
+
+      <li>Final Exam: 50%</li>
+
+    </ul>
+
+    <p>
+      These components do not contribute equally.
+    </p>
+
+    <p>
+      The final exam is more important than the homework assignments.
+    </p>
+
+    <p>
+      A simple arithmetic mean would ignore these differences.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Key idea:</strong>
+
+      <p>
+        A weighted mean gives different levels of importance to different observations.
+      </p>
+
+    </div>
+
+    <h2>What Is a Weighted Mean?</h2>
+
+    <p>
+      A <strong>weighted mean</strong>
+      is an average in which each observation is multiplied by a weight before averaging.
+    </p>
+
+    <p>
+      Larger weights have a greater influence on the final result.
+    </p>
+
+    <p>
+      Smaller weights have less influence.
+    </p>
+
+    <h2>The Formula</h2>
+
+    <p>
+      The weighted mean is calculated as:
+    </p>
+
+    0
+
+    <p>
+      where:
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Symbol</th>
+            <th>Meaning</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>xᵢ</td>
+            <td>Observation value</td>
+          </tr>
+
+          <tr>
+            <td>wᵢ</td>
+            <td>Weight assigned to the observation</td>
+          </tr>
+
+          <tr>
+            <td>Σ</td>
+            <td>Summation symbol</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>How the Formula Works</h2>
+
+    <p>
+      The calculation involves two steps:
+    </p>
+
+    <ol>
+
+      <li>Multiply each value by its weight.</li>
+
+      <li>Divide the sum of weighted values by the sum of the weights.</li>
+
+    </ol>
+
+    <p>
+      This ensures that observations with larger weights contribute more to the final average.
+    </p>
+
+    <h2>Example: Course Grades</h2>
+
+    <p>
+      Suppose a student receives:
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Component</th>
+            <th>Score</th>
+            <th>Weight</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Homework</td>
+            <td>90</td>
+            <td>20%</td>
+          </tr>
+
+          <tr>
+            <td>Midterm</td>
+            <td>80</td>
+            <td>30%</td>
+          </tr>
+
+          <tr>
+            <td>Final Exam</td>
+            <td>70</td>
+            <td>50%</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      Calculate weighted contributions:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        (90 × 0.20) + (80 × 0.30) + (70 × 0.50)
+      </p>
+    </div>
+
+    <div class="example-box">
+
+      <p>
+        18 + 24 + 35 = 77
+      </p>
+
+    </div>
+
+    <p>
+      Therefore:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Weighted Mean = 77
+      </p>
+
+    </div>
+
+    <h2>Comparison with the Arithmetic Mean</h2>
+
+    <p>
+      If we ignored the weights:
+    </p>
+
+    1
+
+    <p>
+      The ordinary mean would be 80.
+    </p>
+
+    <p>
+      The weighted mean is 77.
+    </p>
+
+    <p>
+      The difference occurs because the lowest score received the largest weight.
+    </p>
+
+    <h2>When Are Weighted Means Used?</h2>
+
+    <p>
+      Weighted means appear frequently in practice.
+    </p>
+
+    <ul class="bullets">
+
+      <li>Course grades</li>
+
+      <li>Stock market indexes</li>
+
+      <li>Economic indicators</li>
+
+      <li>Survey analysis</li>
+
+      <li>Performance evaluations</li>
+
+      <li>Machine learning models</li>
+
+    </ul>
+
+    <h2>Example: Survey Data</h2>
+
+    <p>
+      Large surveys often use weights because some groups may be overrepresented or underrepresented in the sample.
+    </p>
+
+    <p>
+      Weighting helps make survey results more representative of the target population.
+    </p>
+
+    <p>
+      Modern polling frequently relies on weighted averages.
+    </p>
+
+    <h2>Example: Stock Market Indexes</h2>
+
+    <p>
+      In many stock indexes,
+      large companies influence the index more than small companies.
+    </p>
+
+    <p>
+      This is achieved through weighting.
+    </p>
+
+    <p>
+      A company's size determines how much influence it has on the overall average.
+    </p>
+
+    <h2>Equal Weights Produce the Arithmetic Mean</h2>
+
+    <p>
+      If every observation has the same weight,
+      the weighted mean becomes the ordinary arithmetic mean.
+    </p>
+
+    <p>
+      Therefore,
+      the arithmetic mean can be viewed as a special case of the weighted mean.
+    </p>
+
+    <h2>Choosing Appropriate Weights</h2>
+
+    <p>
+      Weights should have a meaningful interpretation.
+    </p>
+
+    <p>
+      They may represent:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Importance</li>
+
+      <li>Frequency</li>
+
+      <li>Population representation</li>
+
+      <li>Reliability</li>
+
+      <li>Sample size</li>
+
+    </ul>
+
+    <p>
+      Arbitrary weights can produce misleading results.
+    </p>
+
+    <h2>Strengths of the Weighted Mean</h2>
+
+    <ul class="bullets">
+
+      <li>Accounts for unequal importance</li>
+
+      <li>Provides realistic summaries</li>
+
+      <li>Widely applicable</li>
+
+      <li>Flexible and adaptable</li>
+
+      <li>Uses all observations</li>
+
+    </ul>
+
+    <h2>Limitations of the Weighted Mean</h2>
+
+    <ul class="bullets">
+
+      <li>Requires appropriate weights</li>
+
+      <li>Can be manipulated through weighting choices</li>
+
+      <li>Sensitive to outliers</li>
+
+      <li>May be harder to interpret than a simple mean</li>
+
+    </ul>
+
+    <h2>Weighted Means and Outliers</h2>
+
+    <p>
+      Like the arithmetic mean,
+      the weighted mean uses every observation.
+    </p>
+
+    <p>
+      Therefore,
+      it is still sensitive to extreme values.
+    </p>
+
+    <p>
+      An outlier with a large weight can have an especially strong influence on the result.
+    </p>
+
+    <h2>Interpreting a Weighted Mean</h2>
+
+    <p>
+      A weighted mean should be interpreted as a balance point that reflects the assigned weights.
+    </p>
+
+    <p>
+      Observations with larger weights pull the average toward themselves more strongly.
+    </p>
+
+    <p>
+      The result represents a weighted center rather than a simple center.
+    </p>
+
+    <h2>Weighted Mean vs Mean</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Arithmetic Mean</th>
+            <th>Weighted Mean</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Equal importance</td>
+            <td>Unequal importance</td>
+          </tr>
+
+          <tr>
+            <td>Simple average</td>
+            <td>Weighted average</td>
+          </tr>
+
+          <tr>
+            <td>All weights identical</td>
+            <td>Weights may differ</td>
+          </tr>
+
+          <tr>
+            <td>Simpler calculation</td>
+            <td>More flexible calculation</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>Why Weighted Means Matter</h2>
+
+    <p>
+      Many important averages in business,
+      economics,
+      education,
+      and science are actually weighted means.
+    </p>
+
+    <p>
+      Understanding weighting helps explain how many reported statistics are produced.
+    </p>
+
+    <p>
+      It is one of the most practical applications of measures of center.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>A weighted mean allows observations to have different levels of importance</li>
+
+        <li>The weighted mean multiplies values by their weights before averaging</li>
+
+        <li>Equal weights produce the ordinary arithmetic mean</li>
+
+        <li>Weighted means are common in grades, surveys, and economic statistics</li>
+
+        <li>Weights should have meaningful interpretations</li>
+
+        <li>The weighted mean remains sensitive to outliers</li>
+
+        <li>Many real-world averages are weighted averages rather than simple averages</li>
+
+      </ul>
+
+    </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/descriptive/center/mean-vs-median/">
+         ← Previous: Mean vs Median
+      </a>
+
+      <a class="btn"
+         href="/descriptive/center/trimmed-mean/">
+         Next: Trimmed Mean →
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
