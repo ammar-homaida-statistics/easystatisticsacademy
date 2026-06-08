@@ -1,124 +1,525 @@
 ---
 layout: default
-title: "From Numbers to Message (What Reporting Really Is)"
-description: "How to transform descriptive outputs into a clear, decision-ready statement."
+title: From Numbers to Message
+description: Learn how to move beyond calculations and transform statistical results into meaningful interpretations and clear messages.
 permalink: /descriptive/reporting/from-numbers-to-message/
 sidebar: false
 ---
 
-<section class="section section-slim">
-  <a class="btn btn-outline" href="/descriptive/reporting/">
-    ← Back to Block 7 — Reporting & Practical Integration
-  </a>
-</section>
-
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5;border:2px solid #ff9800;padding:2rem;border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0;color:#e65100;font-size:1.8rem;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0;font-size:1.05rem;color:#5d4037;line-height:1.6;">
-        This lesson structure is finalized. Examples, visuals, and software demonstrations will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h1>From Numbers to Message</h1>
-    <p class="lead">
-      Reporting is not listing numbers. Reporting means turning descriptive results into a clear message
-      that a reader can understand and use.
-    </p>
-  </div>
-
-  <hr>
-
-  <h2>1) What “Reporting” Means</h2>
-  <p>
-    Descriptive statistics produce outputs: tables, graphs, means, medians, standard deviations, and percentages.
-    Reporting is the step where you answer:
-    <strong>“So what does this mean in words?”</strong>
-  </p>
-
-  <hr>
-
-  <h2>2) The Reporting Pipeline (Always the Same)</h2>
-  <ol>
-    <li><strong>Define the context</strong> (population/unit, time, source).</li>
-    <li><strong>Describe the data quality</strong> (n, missingness, outliers).</li>
-    <li><strong>Summarize center + spread + shape</strong> (with correct measures).</li>
-    <li><strong>Make comparisons carefully</strong> (groups/time) using correct denominators.</li>
-    <li><strong>Write a message</strong> that is accurate, limited, and decision-ready.</li>
-  </ol>
-
-  <hr>
-
-  <h2>3) A Bad Report vs a Good Report</h2>
-
-  <h3>Bad (numbers only)</h3>
-  <ul>
-    <li>Mean = 83.3, SD = 12.1, Median = 86</li>
-    <li>20% are missing</li>
-    <li>Group A = 90, Group B = 80</li>
-  </ul>
-
-  <h3>Good (message with evidence)</h3>
-  <p>
-    <strong>Overall performance is high</strong> (median 86), but variability is moderate (SD 12).
-    <strong>Results should be interpreted carefully</strong> because 20% of values are missing.
-    <strong>Group A scores higher than Group B</strong> by about 10 points, and this comparison uses the same scoring scale.
-  </p>
-
-  <hr>
-
-  <h2>4) The “Minimum Reporting Set” (Do Not Skip)</h2>
-  <ul>
-    <li><strong>What is being measured</strong> (variable + unit).</li>
-    <li><strong>Who/what</strong> (observational unit) and <strong>where/when</strong>.</li>
-    <li><strong>n</strong> (sample size) and <strong>missingness</strong> (how many, how handled).</li>
-    <li><strong>Center</strong> (mean/median/mode — choose valid one).</li>
-    <li><strong>Spread</strong> (SD/IQR/range — choose valid one).</li>
-    <li><strong>Shape</strong> (skewness/outliers if relevant).</li>
-  </ul>
-
-  <hr>
-
-  <h2>5) Safe Language Rules (Avoid Overclaiming)</h2>
-  <ul>
-    <li>Say <strong>“is higher”</strong> not <strong>“causes”</strong>.</li>
-    <li>Say <strong>“in this dataset”</strong> not <strong>“in general”</strong>.</li>
-    <li>Say <strong>“associated with”</strong> not <strong>“leads to”</strong>.</li>
-    <li>If missingness/outliers exist, mention them explicitly.</li>
-  </ul>
-
-  <hr>
-
-  <h2>6) Summary</h2>
-  <ul>
-    <li>Reporting = numbers + meaning.</li>
-    <li>Always include context, n/missingness, center, spread, and shape.</li>
-    <li>Use safe language and avoid causal claims.</li>
-    <li>A good report is a short message supported by clear evidence.</li>
-  </ul>
-</section>
-
-<section class="section section-slim">
-  <a class="btn" href="/descriptive/reporting/complete-description-checklist/">
-    Next Lesson → Complete Description Checklist
-  </a>
-</section>
-
+<!-- SAVE LESSON PROGRESS -->
 <script>
-(function(){
-  var KEY="esa_continue_descriptive_reporting_lesson_v0";
-  localStorage.setItem(KEY,JSON.stringify({
-    url:"/descriptive/reporting/from-numbers-to-message/",
-    label:"Lesson 1 — From Numbers to Message",
-    ts:Date.now()
+(function () {
+
+  const KEY =
+    "esa_continue_descriptive_reporting_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/descriptive/reporting/from-numbers-to-message/",
+    label: "From Numbers to Message",
+    ts: Date.now()
   }));
+
 })();
 </script>
+
+<!-- HERO -->
+
+<section class="hero hero-section">
+
+  <div class="hero-card">
+
+    <div class="badge-row">
+      <span class="badge">Descriptive Statistics</span>
+      <span class="badge">Block 7</span>
+      <span class="badge">Reporting</span>
+      <span class="badge">Interpretation</span>
+    </div>
+
+    <h1>From Numbers to Message</h1>
+
+    <p class="lead">
+      Statistics are not collected merely to produce numbers.
+    </p>
+
+    <p class="lead">
+      The ultimate goal of analysis is communication.
+      Good statisticians transform numerical results into meaningful messages that help people understand data and make decisions.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/descriptive/shape/shape-in-reporting/">
+         ← Previous Block
+      </a>
+
+      <a class="btn btn-outline"
+         href="/descriptive/reporting/complete-description-checklist/">
+         Next: Complete Description Checklist →
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- LESSON -->
+
+<section class="section">
+
+  <div class="content-narrow">
+
+    <h2>Why Reporting Matters</h2>
+
+    <p>
+      Calculating statistics is only one part of data analysis.
+    </p>
+
+    <p>
+      Decision makers,
+      managers,
+      researchers,
+      clients,
+      and the public rarely care about calculations themselves.
+    </p>
+
+    <p>
+      They care about what those calculations mean.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Key idea:</strong>
+
+      <p>
+        Statistics become valuable only when they are translated into understandable information.
+      </p>
+
+    </div>
+
+    <h2>Numbers Are Not Conclusions</h2>
+
+    <p>
+      A statistic is a numerical summary.
+    </p>
+
+    <p>
+      A conclusion is an interpretation of that summary.
+    </p>
+
+    <p>
+      These are not the same thing.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Mean age = 42.3 years
+      </p>
+
+    </div>
+
+    <p>
+      This is a statistic.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        "The population consists primarily of middle-aged adults."
+      </p>
+
+    </div>
+
+    <p>
+      This is an interpretation.
+    </p>
+
+    <h2>The Three Levels of Reporting</h2>
+
+    <p>
+      Effective reporting often progresses through three levels:
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Level</th>
+            <th>Example</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Number</td>
+            <td>Mean = 42.3</td>
+          </tr>
+
+          <tr>
+            <td>Description</td>
+            <td>Average age is 42.3 years</td>
+          </tr>
+
+          <tr>
+            <td>Message</td>
+            <td>Population is primarily middle-aged</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      The third level is often the most valuable.
+    </p>
+
+    <h2>Using Context</h2>
+
+    <p>
+      Statistical results should always be interpreted within context.
+    </p>
+
+    <p>
+      A value that is large in one setting may be small in another.
+    </p>
+
+    <p>
+      Context transforms statistics into meaningful information.
+    </p>
+
+    <h2>Example: Average Income</h2>
+
+    <div class="example-box">
+
+      <p>
+        Median income = $52,000
+      </p>
+
+    </div>
+
+    <p>
+      This number alone provides limited insight.
+    </p>
+
+    <p>
+      A stronger interpretation might be:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        "Half of households earn less than $52,000 and half earn more."
+      </p>
+
+    </div>
+
+    <p>
+      The second statement communicates meaning rather than merely reporting a statistic.
+    </p>
+
+    <h2>Combining Center, Spread, and Shape</h2>
+
+    <p>
+      The strongest descriptions integrate multiple statistical concepts.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Mean = 78.4
+      </p>
+
+      <p>
+        Standard Deviation = 8.1
+      </p>
+
+    </div>
+
+    <p>
+      Better reporting:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        "Scores were centered around 78, with moderate variability."
+      </p>
+
+    </div>
+
+    <p>
+      Even better reporting:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        "Scores were centered around 78, showed moderate variability, and appeared approximately symmetric."
+      </p>
+
+    </div>
+
+    <h2>Focus on the Research Question</h2>
+
+    <p>
+      Statistical reporting should answer the original question that motivated the analysis.
+    </p>
+
+    <p>
+      Numbers that do not contribute to the question often distract readers.
+    </p>
+
+    <p>
+      Good reporting remains focused on the purpose of the analysis.
+    </p>
+
+    <h2>Avoid Reporting Without Interpretation</h2>
+
+    <p>
+      A common mistake is presenting tables full of numbers without explaining their meaning.
+    </p>
+
+    <p>
+      Readers should not be expected to perform all interpretation themselves.
+    </p>
+
+    <p>
+      Analysts should guide understanding.
+    </p>
+
+    <h2>Describe Patterns, Not Just Values</h2>
+
+    <p>
+      Statistical summaries should emphasize patterns.
+    </p>
+
+    <p>
+      Examples include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>High variability</li>
+
+      <li>Low variability</li>
+
+      <li>Strong skewness</li>
+
+      <li>Multiple peaks</li>
+
+      <li>Presence of outliers</li>
+
+      <li>Consistency across observations</li>
+
+    </ul>
+
+    <p>
+      Patterns are often more informative than isolated numbers.
+    </p>
+
+    <h2>Use Plain Language</h2>
+
+    <p>
+      Technical terms are useful,
+      but reporting should remain understandable to the intended audience.
+    </p>
+
+    <p>
+      Whenever possible,
+      explain what statistics mean rather than simply naming them.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Less helpful:
+      </p>
+
+      <p>
+        "SD = 12.4"
+      </p>
+
+    </div>
+
+    <div class="example-box">
+
+      <p>
+        More helpful:
+      </p>
+
+      <p>
+        "Values typically differ from the average by about 12 units."
+      </p>
+
+    </div>
+
+    <h2>Support Claims with Evidence</h2>
+
+    <p>
+      Interpretations should always be supported by data.
+    </p>
+
+    <p>
+      Conclusions should not extend beyond what the statistics justify.
+    </p>
+
+    <p>
+      Strong reporting balances explanation with evidence.
+    </p>
+
+    <h2>Avoid Overstating Results</h2>
+
+    <p>
+      Descriptive statistics summarize observations.
+    </p>
+
+    <p>
+      They do not establish causation.
+    </p>
+
+    <p>
+      Reporting should avoid claims that go beyond the available evidence.
+    </p>
+
+    <h2>Think Like a Reader</h2>
+
+    <p>
+      Effective reporting considers the audience.
+    </p>
+
+    <p>
+      Ask:
+    </p>
+
+    <ul class="bullets">
+
+      <li>What is the most important finding?</li>
+
+      <li>What should the reader remember?</li>
+
+      <li>What decisions might depend on this information?</li>
+
+    </ul>
+
+    <p>
+      Answers to these questions help shape the final message.
+    </p>
+
+    <h2>Building a Statistical Narrative</h2>
+
+    <p>
+      Good reporting often follows a simple structure:
+    </p>
+
+    <ol>
+
+      <li>Present the statistic.</li>
+
+      <li>Explain what it means.</li>
+
+      <li>Connect it to the broader context.</li>
+
+    </ol>
+
+    <p>
+      This progression transforms isolated numbers into useful information.
+    </p>
+
+    <h2>An Example of Strong Reporting</h2>
+
+    <div class="example-box">
+
+      <p>
+        "The median household income was $52,000. The distribution was strongly right-skewed, indicating that a relatively small number of households earned substantially more than the majority."
+      </p>
+
+    </div>
+
+    <p>
+      This statement combines center,
+      shape,
+      and interpretation into a coherent message.
+    </p>
+
+    <h2>Why Communication Is a Statistical Skill</h2>
+
+    <p>
+      Statistical work is only successful when results can be understood and applied.
+    </p>
+
+    <p>
+      Communication is therefore not separate from statistics—it is part of statistics.
+    </p>
+
+    <p>
+      The ability to explain results clearly is one of the most important skills a statistician can develop.
+    </p>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Effective reporting requires more than interpretation.
+    </p>
+
+    <p>
+      It also requires a systematic approach to describing data completely.
+    </p>
+
+    <p>
+      The next lesson introduces a practical checklist that can be used to ensure that no important aspect of a distribution has been overlooked.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>Statistics become valuable when they are translated into meaningful messages</li>
+
+        <li>Numbers and interpretations are not the same thing</li>
+
+        <li>Good reporting combines center, spread, and shape</li>
+
+        <li>Context is essential for meaningful interpretation</li>
+
+        <li>Patterns are often more important than individual values</li>
+
+        <li>Interpretations should be supported by evidence</li>
+
+        <li>Communication is a core statistical skill</li>
+
+      </ul>
+
+    </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/descriptive/shape/shape-in-reporting/">
+         ← Previous: Shape in Reporting
+      </a>
+
+      <a class="btn"
+         href="/descriptive/reporting/complete-description-checklist/">
+         Next: Complete Description Checklist →
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
