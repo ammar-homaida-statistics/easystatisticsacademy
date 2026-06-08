@@ -1,190 +1,522 @@
 ---
 layout: default
-title: "Boxplots & Outliers"
-description: "Understanding the five-number summary, interquartile range (IQR), and visual detection of outliers."
+title: Boxplots
+description: Learn how boxplots summarize distributions using the five-number summary and help identify spread, skewness, and outliers.
 permalink: /descriptive/visualization/boxplots/
 sidebar: false
 ---
 
-<!-- Previous Button -->
-<section class="section section-slim">
-  <a class="btn btn-outline" href="/descriptive/visualization/density-curves/">
-    ← Previous Lesson: Density Curves
-  </a>
+<!-- SAVE LESSON PROGRESS -->
+<script>
+(function () {
+
+  const KEY =
+    "esa_continue_descriptive_visualization_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/descriptive/visualization/boxplots/",
+    label: "Boxplots",
+    ts: Date.now()
+  }));
+
+})();
+</script>
+
+<!-- HERO -->
+
+<section class="hero hero-section">
+
+  <div class="hero-card">
+
+    <div class="badge-row">
+      <span class="badge">Descriptive Statistics</span>
+      <span class="badge">Block 3</span>
+      <span class="badge">Visualization</span>
+      <span class="badge">Numerical Data</span>
+    </div>
+
+    <h1>Boxplots</h1>
+
+    <p class="lead">
+      Histograms show the overall shape of a distribution.
+    </p>
+
+    <p class="lead">
+      Boxplots provide a compact summary of a distribution using only a few key numbers.
+      They are especially useful for comparing groups,
+      detecting outliers,
+      and understanding the spread of data.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/descriptive/visualization/density-curves/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/descriptive/visualization/scatterplots/">
+         Next: Scatterplots →
+      </a>
+
+    </div>
+
+  </div>
+
 </section>
 
-<!-- UNDER CONSTRUCTION -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Visual examples and multi-group comparisons will be added later.
-      </p>
-    </div>
-  </div>
-</section>
+<!-- LESSON -->
 
 <section class="section">
 
-<div class="section-head">
-  <h1>Boxplots & Outliers</h1>
-  <p>
-    A boxplot summarizes a distribution using five key statistics and highlights potential outliers.
-  </p>
-</div>
+  <div class="content-narrow">
 
-<hr>
+    <h2>What Is a Boxplot?</h2>
 
-<h2>1. The Five-Number Summary</h2>
+    <p>
+      A <strong>boxplot</strong>
+      (also called a box-and-whisker plot)
+      is a graphical summary of a numerical distribution.
+    </p>
 
-A boxplot is built from:
+    <p>
+      Rather than displaying every observation,
+      it summarizes the data using key descriptive statistics.
+    </p>
 
-<ul>
-  <li>Minimum</li>
-  <li>Q1 (First Quartile)</li>
-  <li>Median (Q2)</li>
-  <li>Q3 (Third Quartile)</li>
-  <li>Maximum</li>
-</ul>
+    <div class="concept-box">
 
-<p>
-These values divide the data into four equal parts.
-</p>
+      <strong>Key idea:</strong>
 
-<hr>
+      <p>
+        A boxplot compresses an entire distribution into a small visual summary.
+      </p>
 
-<h2>2. Interquartile Range (IQR)</h2>
+    </div>
 
-<p>
-The IQR measures spread in the middle 50% of the data.
-</p>
+    <h2>The Five-Number Summary</h2>
 
-<p>
-IQR = Q3 − Q1
-</p>
+    <p>
+      Boxplots are built from the
+      <strong>five-number summary</strong>.
+    </p>
 
-<p>
-It is resistant to extreme values.
-</p>
+    <p>
+      These values describe the location and spread of the data.
+    </p>
 
-<hr>
+    <div class="table-wrap">
 
-<h2>3. Structure of a Boxplot</h2>
+      <table>
 
-<ul>
-  <li>The box spans from Q1 to Q3.</li>
-  <li>The line inside the box marks the median.</li>
-  <li>Whiskers extend toward minimum and maximum (excluding outliers).</li>
-</ul>
+        <thead>
+          <tr>
+            <th>Statistic</th>
+            <th>Description</th>
+          </tr>
+        </thead>
 
-<p>
-The box shows central spread. Whiskers show range.
-</p>
+        <tbody>
 
-<hr>
+          <tr>
+            <td>Minimum</td>
+            <td>Smallest observation</td>
+          </tr>
 
-<h2>4. Detecting Outliers</h2>
+          <tr>
+            <td>Q1</td>
+            <td>First quartile (25th percentile)</td>
+          </tr>
 
-<p>
-An observation is often considered an outlier if:
-</p>
+          <tr>
+            <td>Median</td>
+            <td>50th percentile</td>
+          </tr>
 
-<p>
-Value &lt; Q1 − 1.5 × IQR  
-or  
-Value &gt; Q3 + 1.5 × IQR
-</p>
+          <tr>
+            <td>Q3</td>
+            <td>Third quartile (75th percentile)</td>
+          </tr>
 
-<p>
-Outliers appear as separate points beyond the whiskers.
-</p>
+          <tr>
+            <td>Maximum</td>
+            <td>Largest observation</td>
+          </tr>
 
-<hr>
+        </tbody>
 
-<h2>5. What Boxplots Reveal</h2>
+      </table>
 
-Boxplots allow us to see:
+    </div>
 
-<ul>
-  <li>Median location</li>
-  <li>Spread (IQR)</li>
-  <li>Skewness (asymmetry in box/whiskers)</li>
-  <li>Presence of outliers</li>
-</ul>
+    <h2>Understanding Quartiles</h2>
 
-<hr>
+    <p>
+      Quartiles divide ordered data into four equal parts.
+    </p>
 
-<h2>6. Comparing Groups</h2>
+    <ul class="bullets">
 
-<p>
-Multiple boxplots side-by-side allow comparison of:
-</p>
+      <li>25% of observations fall below Q1</li>
 
-<ul>
-  <li>Center (median differences)</li>
-  <li>Spread (IQR differences)</li>
-  <li>Outlier patterns</li>
-</ul>
+      <li>50% fall below the median</li>
 
-<p>
-They are powerful for group comparison.
-</p>
+      <li>75% fall below Q3</li>
 
-<hr>
+    </ul>
 
-<h2>7. Strengths and Limitations</h2>
+    <p>
+      These values help describe where observations are concentrated.
+    </p>
 
-<strong>Strengths:</strong>
+    <h2>A Numerical Example</h2>
 
-<ul>
-  <li>Compact summary</li>
-  <li>Outlier detection</li>
-  <li>Good for group comparison</li>
-</ul>
+    <p>
+      Consider the ordered dataset:
+    </p>
 
-<strong>Limitations:</strong>
+    <div class="example-box">
 
-<ul>
-  <li>Do not show detailed shape</li>
-  <li>Hide multimodality</li>
-  <li>Less intuitive for beginners</li>
-</ul>
+      <p>
+        5, 7, 8, 10, 12, 13, 15, 17, 20
+      </p>
 
-<hr>
+    </div>
 
-<h2>Summary</h2>
+    <p>
+      The five-number summary is:
+    </p>
 
-<ul>
-  <li>Boxplots summarize distributions using five numbers.</li>
-  <li>IQR measures middle spread.</li>
-  <li>Outliers are identified using 1.5 × IQR rule.</li>
-  <li>Excellent tool for comparing groups.</li>
-</ul>
+    <div class="table-wrap">
 
-<p>
-Boxplots connect visualization to numerical summaries of spread.
-</p>
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Minimum</th>
+            <th>Q1</th>
+            <th>Median</th>
+            <th>Q3</th>
+            <th>Maximum</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>5</td>
+            <td>7.5</td>
+            <td>12</td>
+            <td>16</td>
+            <td>20</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      A boxplot visualizes these five values.
+    </p>
+
+    <h2>The Box</h2>
+
+    <p>
+      The box itself extends from:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Q1 (left side)</li>
+
+      <li>Q3 (right side)</li>
+
+    </ul>
+
+    <p>
+      This region contains the middle 50% of observations.
+    </p>
+
+    <p>
+      The width of the box reflects the spread of the central portion of the data.
+    </p>
+
+    <h2>The Median Line</h2>
+
+    <p>
+      A line inside the box marks the median.
+    </p>
+
+    <p>
+      This line divides the data into two equal halves.
+    </p>
+
+    <p>
+      Its position can reveal asymmetry in the distribution.
+    </p>
+
+    <h2>The Whiskers</h2>
+
+    <p>
+      Lines extending from the box are called whiskers.
+    </p>
+
+    <p>
+      They connect the box to observations outside the middle 50%.
+    </p>
+
+    <p>
+      Whiskers help show the overall range of the data.
+    </p>
+
+    <h2>The Interquartile Range (IQR)</h2>
+
+    <p>
+      One of the most important measures in a boxplot is the
+      <strong>interquartile range</strong>.
+    </p>
+
+    0
+
+    <p>
+      The IQR measures the spread of the middle 50% of observations.
+    </p>
+
+    <p>
+      It is resistant to extreme values and widely used in statistics.
+    </p>
+
+    <h2>Detecting Outliers</h2>
+
+    <p>
+      Boxplots are famous for identifying outliers.
+    </p>
+
+    <p>
+      A common rule classifies observations as potential outliers if they lie beyond:
+    </p>
+
+    1
+
+    <p>
+      Such observations are often displayed as individual points.
+    </p>
+
+    <h2>What Boxplots Reveal</h2>
+
+    <p>
+      Boxplots provide information about:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Center</li>
+
+      <li>Spread</li>
+
+      <li>Skewness</li>
+
+      <li>Outliers</li>
+
+      <li>Variability</li>
+
+    </ul>
+
+    <p>
+      All of this information is displayed in a compact form.
+    </p>
+
+    <h2>Recognizing Skewness</h2>
+
+    <p>
+      A boxplot may suggest skewness when:
+    </p>
+
+    <ul class="bullets">
+
+      <li>The median is not centered within the box</li>
+
+      <li>One whisker is noticeably longer than the other</li>
+
+      <li>Outliers appear mainly on one side</li>
+
+    </ul>
+
+    <p>
+      These features help identify asymmetric distributions.
+    </p>
+
+    <h2>Comparing Groups</h2>
+
+    <p>
+      One of the greatest strengths of boxplots
+      is comparing multiple distributions simultaneously.
+    </p>
+
+    <p>
+      Example applications:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Exam scores across classrooms</li>
+
+      <li>Income across regions</li>
+
+      <li>Recovery times across treatments</li>
+
+      <li>Sales across stores</li>
+
+    </ul>
+
+    <p>
+      Multiple boxplots can reveal differences quickly.
+    </p>
+
+    <h2>Boxplots vs Histograms</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Boxplot</th>
+            <th>Histogram</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Compact summary</td>
+            <td>Detailed shape</td>
+          </tr>
+
+          <tr>
+            <td>Five-number summary</td>
+            <td>Distribution frequencies</td>
+          </tr>
+
+          <tr>
+            <td>Good for comparisons</td>
+            <td>Good for shape analysis</td>
+          </tr>
+
+          <tr>
+            <td>Highlights outliers</td>
+            <td>Shows clusters and peaks</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      The two graphs complement one another.
+    </p>
+
+    <h2>Limitations of Boxplots</h2>
+
+    <p>
+      Boxplots do not show every feature of a distribution.
+    </p>
+
+    <p>
+      For example,
+      they may hide:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Multiple peaks</li>
+
+      <li>Detailed distribution shape</li>
+
+      <li>Small clusters</li>
+
+    </ul>
+
+    <p>
+      Histograms often provide more detail,
+      while boxplots provide greater simplicity.
+    </p>
+
+    <h2>Why Boxplots Are Important</h2>
+
+    <p>
+      Boxplots are widely used because they:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Summarize data efficiently</li>
+
+      <li>Handle large datasets well</li>
+
+      <li>Support group comparisons</li>
+
+      <li>Highlight outliers</li>
+
+      <li>Connect directly to descriptive statistics</li>
+
+    </ul>
+
+    <p>
+      They are a standard tool throughout statistics and data science.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>Boxplots summarize distributions using the five-number summary</li>
+
+        <li>The box contains the middle 50% of observations</li>
+
+        <li>The median is displayed inside the box</li>
+
+        <li>The interquartile range measures central spread</li>
+
+        <li>Boxplots are useful for identifying outliers</li>
+
+        <li>They are excellent for comparing multiple groups</li>
+
+        <li>Boxplots complement histograms rather than replace them</li>
+
+      </ul>
+
+    </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/descriptive/visualization/density-curves/">
+         ← Previous: Density Curves
+      </a>
+
+      <a class="btn"
+         href="/descriptive/visualization/scatterplots/">
+         Next: Scatterplots →
+      </a>
+
+    </div>
+
+  </div>
 
 </section>
-
-<!-- Next Button -->
-<section class="section section-slim">
-  <a class="btn" href="/descriptive/visualization/scatterplots/">
-    Next Lesson → Scatterplots
-  </a>
-</section>
-
-<script>
-  (function () {
-    var KEY = "esa_continue_descriptive_visualization_lesson_v0";
-
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/descriptive/visualization/boxplots/",
-      label: "Lesson 7 — Boxplots & Outliers",
-      ts: Date.now()
-    }));
-  })();
-</script>
