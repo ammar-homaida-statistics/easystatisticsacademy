@@ -1,208 +1,520 @@
 ---
 layout: default
-title: "Histograms"
-description: "Understanding distribution shape, bin width, and correct interpretation of continuous data."
+title: Histograms
+description: Learn how histograms display the distribution of numerical data and reveal shape, center, spread, gaps, clusters, and outliers.
 permalink: /descriptive/visualization/histograms/
 sidebar: false
 ---
 
-<!-- Previous Button -->
-<section class="section section-slim">
-  <a class="btn btn-outline" href="/descriptive/visualization/pie-charts/">
-    ← Previous Lesson: Pie Charts
-  </a>
+<!-- SAVE LESSON PROGRESS -->
+<script>
+(function () {
+
+  const KEY =
+    "esa_continue_descriptive_visualization_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/descriptive/visualization/histograms/",
+    label: "Histograms",
+    ts: Date.now()
+  }));
+
+})();
+</script>
+
+<!-- HERO -->
+
+<section class="hero hero-section">
+
+  <div class="hero-card">
+
+    <div class="badge-row">
+      <span class="badge">Descriptive Statistics</span>
+      <span class="badge">Block 3</span>
+      <span class="badge">Visualization</span>
+      <span class="badge">Numerical Data</span>
+    </div>
+
+    <h1>Histograms</h1>
+
+    <p class="lead">
+      Histograms are one of the most important tools for understanding numerical data.
+    </p>
+
+    <p class="lead">
+      Unlike bar charts, which compare categories,
+      histograms reveal the shape of a distribution,
+      helping us understand where observations occur,
+      how spread out they are,
+      and whether unusual patterns exist.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/descriptive/visualization/pie-charts/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/descriptive/visualization/density-curves/">
+         Next: Density Curves →
+      </a>
+
+    </div>
+
+  </div>
+
 </section>
 
-<!-- UNDER CONSTRUCTION -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Visual examples (skewed, symmetric, multimodal distributions) and software demonstrations will be added later.
-      </p>
-    </div>
-  </div>
-</section>
+<!-- LESSON -->
 
 <section class="section">
 
-<div class="section-head">
-  <h1>Histograms</h1>
-  <p>
-    Histograms are used to visualize <strong>numerical continuous data</strong>.
-    They reveal the shape of a distribution.
-  </p>
-</div>
+  <div class="content-narrow">
 
-<hr>
+    <h2>What Is a Histogram?</h2>
 
-<h2>1. When to Use a Histogram</h2>
+    <p>
+      A <strong>histogram</strong>
+      is a graph used to display the distribution of numerical data.
+    </p>
 
-Use a histogram when:
+    <p>
+      Instead of showing individual values,
+      observations are grouped into intervals called
+      <strong>bins</strong> or <strong>classes</strong>.
+    </p>
 
-<ul>
-  <li>The variable is numerical</li>
-  <li>The variable is continuous (or approximately continuous)</li>
-  <li>You want to understand distribution shape</li>
-</ul>
+    <p>
+      The height of each bar represents the frequency
+      of observations within that interval.
+    </p>
 
-Examples:
-<ul>
-  <li>Exam scores</li>
-  <li>Income</li>
-  <li>Age</li>
-  <li>Height</li>
-</ul>
+    <div class="concept-box">
 
-<hr>
+      <strong>Key idea:</strong>
 
-<h2>2. How a Histogram Is Constructed</h2>
+      <p>
+        Histograms show how numerical values are distributed across intervals.
+      </p>
 
-A histogram:
+    </div>
 
-<ul>
-  <li>Groups values into intervals (bins)</li>
-  <li>Counts how many observations fall in each interval</li>
-  <li>Displays bars that touch</li>
-</ul>
+    <h2>Why Histograms Matter</h2>
 
-<p>
-Bars touch because the data are continuous.
-</p>
+    <p>
+      Looking at raw numerical values can be overwhelming.
+    </p>
 
-<hr>
+    <p>
+      A histogram summarizes hundreds or thousands of observations
+      into a visual representation of the distribution.
+    </p>
 
-<h2>3. Bin Width Matters</h2>
+    <p>
+      This allows us to see:
+    </p>
 
-Bin width determines how the data appear.
+    <ul class="bullets">
 
-If bins are:
-<ul>
-  <li><strong>Too wide</strong> → Important detail disappears</li>
-  <li><strong>Too narrow</strong> → Graph looks noisy</li>
-</ul>
+      <li>Where most observations occur</li>
 
-<p>
-Different bin choices can create different visual impressions.
-</p>
+      <li>How spread out values are</li>
 
-<hr>
+      <li>Whether multiple peaks exist</li>
 
-<h2>4. What a Histogram Reveals</h2>
+      <li>Whether outliers are present</li>
 
-Histograms allow us to see:
+      <li>Whether the distribution is symmetric or skewed</li>
 
-<ul>
-  <li>Symmetry</li>
-  <li>Skewness (left or right)</li>
-  <li>Outliers</li>
-  <li>Clusters</li>
-  <li>Multimodality (multiple peaks)</li>
-</ul>
+    </ul>
 
-<p>
-This is impossible to see clearly from a raw table.
-</p>
+    <h2>Example: Exam Scores</h2>
 
-<hr>
+    <p>
+      Suppose exam scores are grouped into intervals:
+    </p>
 
-<h2>5. Symmetric Distribution</h2>
+    <div class="table-wrap">
 
-In a symmetric distribution:
+      <table>
 
-<ul>
-  <li>Left and right sides mirror each other</li>
-  <li>Mean ≈ Median</li>
-</ul>
+        <thead>
+          <tr>
+            <th>Score Range</th>
+            <th>Frequency</th>
+          </tr>
+        </thead>
 
-<p>
-This pattern often appears in natural measurement processes.
-</p>
+        <tbody>
 
-<hr>
+          <tr>
+            <td>40–49</td>
+            <td>2</td>
+          </tr>
 
-<h2>6. Skewed Distribution</h2>
+          <tr>
+            <td>50–59</td>
+            <td>5</td>
+          </tr>
 
-Right-skewed:
-<ul>
-  <li>Long tail on the right</li>
-  <li>Mean > Median</li>
-</ul>
+          <tr>
+            <td>60–69</td>
+            <td>10</td>
+          </tr>
 
-Left-skewed:
-<ul>
-  <li>Long tail on the left</li>
-  <li>Mean < Median</li>
-</ul>
+          <tr>
+            <td>70–79</td>
+            <td>15</td>
+          </tr>
 
-<p>
-Understanding skewness prepares you for inference later.
-</p>
+          <tr>
+            <td>80–89</td>
+            <td>12</td>
+          </tr>
 
-<hr>
+          <tr>
+            <td>90–99</td>
+            <td>6</td>
+          </tr>
 
-<h2>7. Histogram vs Bar Chart</h2>
+        </tbody>
 
-Do not confuse:
+      </table>
 
-<ul>
-  <li><strong>Histogram</strong> → Continuous numerical data</li>
-  <li><strong>Bar chart</strong> → Categorical data</li>
-</ul>
+    </div>
 
-Differences:
+    <p>
+      A histogram would transform this table into a visual display
+      of the score distribution.
+    </p>
 
-<ul>
-  <li>Histogram bars touch</li>
-  <li>Bar chart bars are separated</li>
-</ul>
+    <h2>Histogram Example</h2>
 
-<hr>
+    0
 
-<h2>8. Common Mistakes</h2>
+    <p>
+      The tallest bar identifies the interval containing the largest number of observations.
+    </p>
 
-<ul>
-  <li>Using histogram for categorical data</li>
-  <li>Not labeling axis clearly</li>
-  <li>Using extreme bin widths</li>
-  <li>Interpreting small fluctuations as meaningful patterns</li>
-</ul>
+    <h2>Histograms Are Different from Bar Charts</h2>
 
-<hr>
+    <p>
+      Histograms and bar charts may look similar,
+      but they serve different purposes.
+    </p>
 
-<h2>Summary</h2>
+    <div class="table-wrap">
 
-<ul>
-  <li>Histograms visualize continuous numerical data.</li>
-  <li>Bin width affects interpretation.</li>
-  <li>They reveal distribution shape.</li>
-  <li>They prepare you for understanding mean, median, and spread.</li>
-</ul>
+      <table>
 
-<p>
-A histogram is not decoration — it is the foundation of distribution analysis.
-</p>
+        <thead>
+
+          <tr>
+            <th>Histogram</th>
+            <th>Bar Chart</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Numerical data</td>
+            <td>Categorical data</td>
+          </tr>
+
+          <tr>
+            <td>Distribution shape</td>
+            <td>Category comparison</td>
+          </tr>
+
+          <tr>
+            <td>Intervals (bins)</td>
+            <td>Categories</td>
+          </tr>
+
+          <tr>
+            <td>Bars touch</td>
+            <td>Bars separated</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>Understanding Bins</h2>
+
+    <p>
+      Histograms group nearby values together.
+    </p>
+
+    <p>
+      These groups are called bins.
+    </p>
+
+    <p>
+      Example:
+    </p>
+
+    <ul class="bullets">
+
+      <li>0–9</li>
+
+      <li>10–19</li>
+
+      <li>20–29</li>
+
+      <li>30–39</li>
+
+    </ul>
+
+    <p>
+      Choosing bin widths is an important part of histogram construction.
+    </p>
+
+    <h2>Too Few Bins</h2>
+
+    <p>
+      If there are too few bins,
+      important structure may disappear.
+    </p>
+
+    <p>
+      The histogram becomes overly simplified
+      and may hide meaningful patterns.
+    </p>
+
+    <h2>Too Many Bins</h2>
+
+    <p>
+      If there are too many bins,
+      the graph becomes noisy.
+    </p>
+
+    <p>
+      Random variation may appear more important than it really is.
+    </p>
+
+    <p>
+      Good histograms balance detail and simplicity.
+    </p>
+
+    <h2>What Histograms Reveal</h2>
+
+    <p>
+      Histograms help identify several important characteristics of a distribution.
+    </p>
+
+    <div class="grid grid-2">
+
+      <div class="card">
+
+        <h3>Center</h3>
+
+        <p>
+          Where most observations occur.
+        </p>
+
+      </div>
+
+      <div class="card">
+
+        <h3>Spread</h3>
+
+        <p>
+          How dispersed the values are.
+        </p>
+
+      </div>
+
+      <div class="card">
+
+        <h3>Shape</h3>
+
+        <p>
+          Symmetric, skewed, or multimodal.
+        </p>
+
+      </div>
+
+      <div class="card">
+
+        <h3>Outliers</h3>
+
+        <p>
+          Unusual observations far from most data.
+        </p>
+
+      </div>
+
+    </div>
+
+    <h2>Symmetric Distributions</h2>
+
+    <p>
+      Some histograms appear balanced around a center.
+    </p>
+
+    <p>
+      In a symmetric distribution:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Left and right sides look similar</li>
+
+      <li>The center is clearly visible</li>
+
+      <li>Extreme values occur on both sides</li>
+
+    </ul>
+
+    <p>
+      Many natural measurements are approximately symmetric.
+    </p>
+
+    <h2>Skewed Distributions</h2>
+
+    <p>
+      Not all distributions are symmetric.
+    </p>
+
+    <p>
+      A histogram may have:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Long right tail (right-skewed)</li>
+
+      <li>Long left tail (left-skewed)</li>
+
+    </ul>
+
+    <p>
+      Income data is a classic example of a right-skewed distribution.
+    </p>
+
+    <h2>Multiple Peaks</h2>
+
+    <p>
+      Some histograms contain more than one peak.
+    </p>
+
+    <p>
+      This may indicate:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Multiple groups in the data</li>
+
+      <li>Different populations combined together</li>
+
+      <li>Underlying structure worth investigating</li>
+
+    </ul>
+
+    <p>
+      Histograms often reveal patterns that summary statistics cannot.
+    </p>
+
+    <h2>Histograms and Outliers</h2>
+
+    <p>
+      Outliers may appear as isolated bars
+      separated from the main body of the distribution.
+    </p>
+
+    <p>
+      Detecting unusual observations
+      is one of the major benefits of visualization.
+    </p>
+
+    <h2>Histograms and Statistical Thinking</h2>
+
+    <p>
+      Histograms encourage statisticians to think about distributions
+      rather than individual observations.
+    </p>
+
+    <p>
+      Much of modern statistics is built upon understanding
+      how distributions behave.
+    </p>
+
+    <h2>Applications of Histograms</h2>
+
+    <p>
+      Histograms are widely used in:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Research studies</li>
+
+      <li>Quality control</li>
+
+      <li>Business analytics</li>
+
+      <li>Medicine</li>
+
+      <li>Engineering</li>
+
+      <li>Machine learning</li>
+
+    </ul>
+
+    <p>
+      They are among the most important graphs in all of statistics.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>Histograms display distributions of numerical variables</li>
+
+        <li>Values are grouped into intervals called bins</li>
+
+        <li>Histograms reveal center, spread, shape, and outliers</li>
+
+        <li>Histograms differ fundamentally from bar charts</li>
+
+        <li>Bin selection affects interpretation</li>
+
+        <li>Histograms help identify skewness and multiple peaks</li>
+
+        <li>Understanding distributions is a central goal of statistics</li>
+
+      </ul>
+
+    </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/descriptive/visualization/pie-charts/">
+         ← Previous: Pie Charts
+      </a>
+
+      <a class="btn"
+         href="/descriptive/visualization/density-curves/">
+         Next: Density Curves →
+      </a>
+
+    </div>
+
+  </div>
 
 </section>
-
-<!-- Next Button -->
-<section class="section section-slim">
-  <a class="btn" href="/descriptive/visualization/density-curves/">
-    Next Lesson → Density Curves
-  </a>
-</section>
-
-<script>
-  (function () {
-    var KEY = "esa_continue_descriptive_visualization_lesson_v0";
-
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/descriptive/visualization/histograms/",
-      label: "Lesson 5 — Histograms",
-      ts: Date.now()
-    }));
-  })();
-</script>
