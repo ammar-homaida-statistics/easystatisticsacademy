@@ -1,245 +1,550 @@
 ---
 layout: default
-title: "Matching Graph Type to Variable Type"
-description: "The core rule of visualization: categorical vs numerical variables determine the correct graphical summary."
+title: Matching Graph to Variable Type
+description: Learn how the type of variable determines which graph should be used and why choosing the wrong graph can mislead interpretation.
 permalink: /descriptive/visualization/matching-graph-to-variable-type/
 sidebar: false
 ---
 
-<!-- Previous Button -->
-<section class="section section-slim">
-  <a class="btn btn-outline" href="/descriptive/visualization/why-visualization-matters/">
-    ← Previous Lesson: Why Visualization Matters
-  </a>
+<!-- SAVE LESSON PROGRESS -->
+<script>
+(function () {
+
+  const KEY =
+    "esa_continue_descriptive_visualization_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/descriptive/visualization/matching-graph-to-variable-type/",
+    label: "Matching Graph to Variable Type",
+    ts: Date.now()
+  }));
+
+})();
+</script>
+
+<!-- HERO -->
+<section class="hero hero-section">
+
+  <div class="hero-card">
+
+    <div class="badge-row">
+      <span class="badge">Descriptive Statistics</span>
+      <span class="badge">Block 3</span>
+      <span class="badge">Visualization</span>
+      <span class="badge">Graph Selection</span>
+    </div>
+
+    <h1>Matching Graph to Variable Type</h1>
+
+    <p class="lead">
+      One of the most important decisions in data visualization
+      is choosing the correct graph.
+    </p>
+
+    <p class="lead">
+      The best graph depends primarily on the type of variable being analyzed.
+      Using the wrong graph can hide patterns,
+      distort comparisons,
+      and create misleading conclusions.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/descriptive/visualization/why-visualization-matters/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/descriptive/visualization/bar-charts/">
+         Next: Bar Charts →
+      </a>
+
+    </div>
+
+  </div>
+
 </section>
 
-<!-- UNDER CONSTRUCTION -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Visual comparisons, incorrect examples, and software demonstrations will be added later.
-      </p>
-    </div>
-  </div>
-</section>
+<!-- LESSON -->
 
 <section class="section">
 
-<div class="section-head">
-  <h1>Matching Graph Type to Variable Type</h1>
-  <p>
-    The most important rule in visualization is simple:
-    <strong>The type of variable determines the correct graph.</strong>
-  </p>
-</div>
+  <div class="content-narrow">
 
-<hr>
+    <h2>Why Graph Selection Matters</h2>
 
-<h2>1. The Fundamental Rule</h2>
+    <p>
+      Every graph emphasizes certain features of data.
+    </p>
 
-<p>
-Before choosing a graph, ask:
-</p>
+    <p>
+      Some graphs are designed for:
+    </p>
 
-<ul>
-  <li>Is the variable categorical?</li>
-  <li>Is the variable numerical?</li>
-</ul>
+    <ul class="bullets">
 
-<p>
-If this step is wrong, the visualization will be misleading.
-</p>
+      <li>Comparisons</li>
 
-<hr>
+      <li>Distributions</li>
 
-<h2>2. Categorical Variables → Bar Charts</h2>
+      <li>Trends</li>
 
-<p>
-Categorical variables represent groups or labels.
-</p>
+      <li>Relationships</li>
 
-Examples:
-<ul>
-  <li>Gender</li>
-  <li>Department</li>
-  <li>Education level</li>
-  <li>Product category</li>
-</ul>
+      <li>Composition</li>
 
-<p>
-Correct graph:
-</p>
+    </ul>
 
-<ul>
-  <li>Bar chart</li>
-</ul>
+    <p>
+      Selecting an appropriate graph begins with understanding
+      the variable being displayed.
+    </p>
 
-<p>
-Bars are separated because categories are distinct.
-</p>
+    <div class="concept-box">
 
-<hr>
+      <strong>Key idea:</strong>
 
-<h2>3. Numerical Variables → Histograms</h2>
+      <p>
+        Variable type should guide graph choice.
+      </p>
 
-<p>
-Numerical variables represent measurements or counts.
-</p>
+    </div>
 
-Examples:
-<ul>
-  <li>Age</li>
-  <li>Income</li>
-  <li>Height</li>
-  <li>Exam score</li>
-</ul>
+    <h2>Start With the Variable Type</h2>
 
-<p>
-Correct graph:
-</p>
+    <p>
+      Earlier lessons introduced:
+    </p>
 
-<ul>
-  <li>Histogram</li>
-</ul>
+    <ul class="bullets">
 
-<p>
-Histogram bars touch because the data are continuous.
-</p>
+      <li>Categorical variables</li>
 
-<hr>
+      <li>Numerical variables</li>
 
-<h2>4. Two Numerical Variables → Scatterplot</h2>
+      <li>Discrete variables</li>
 
-<p>
-When studying the relationship between two numerical variables:
-</p>
+      <li>Continuous variables</li>
 
-Examples:
-<ul>
-  <li>Study hours and exam score</li>
-  <li>Income and years of education</li>
-</ul>
+    </ul>
 
-<p>
-Correct graph:
-</p>
+    <p>
+      Different variable types require different visualizations.
+    </p>
 
-<ul>
-  <li>Scatterplot</li>
-</ul>
+    <h2>Categorical Variables</h2>
 
-<p>
-This shows association patterns visually.
-</p>
+    <p>
+      Categorical variables classify observations into groups.
+    </p>
 
-<hr>
+    <p>
+      Examples:
+    </p>
 
-<h2>5. Time-Based Data → Line Chart</h2>
+    <ul class="bullets">
 
-<p>
-When data are ordered in time:
-</p>
+      <li>Blood type</li>
 
-Examples:
-<ul>
-  <li>Monthly sales</li>
-  <li>Yearly inflation rate</li>
-</ul>
+      <li>Political party</li>
 
-<p>
-Correct graph:
-</p>
+      <li>Major field of study</li>
 
-<ul>
-  <li>Line chart</li>
-</ul>
+      <li>Favorite sport</li>
 
-<p>
-Lines imply continuity across ordered points.
-</p>
+    </ul>
 
-<hr>
+    <p>
+      The goal is usually to compare category frequencies or percentages.
+    </p>
 
-<h2>6. Common Mistakes</h2>
+    <p>
+      Common graphs:
+    </p>
 
-<ul>
-  <li>Using a histogram for categorical data</li>
-  <li>Using a bar chart for continuous distribution shape</li>
-  <li>Using line charts for unordered categories</li>
-</ul>
+    <ul class="bullets">
 
-<p>
-Incorrect graph choice creates false visual meaning.
-</p>
+      <li>Bar charts</li>
 
-<hr>
+      <li>Pie charts</li>
 
-<h2>7. Quick Decision Table</h2>
+    </ul>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Variable Type</th>
-      <th>Recommended Graph</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Categorical</td>
-      <td>Bar chart</td>
-    </tr>
-    <tr>
-      <td>Numerical (one variable)</td>
-      <td>Histogram</td>
-    </tr>
-    <tr>
-      <td>Numerical (two variables)</td>
-      <td>Scatterplot</td>
-    </tr>
-    <tr>
-      <td>Time-ordered data</td>
-      <td>Line chart</td>
-    </tr>
-  </tbody>
-</table>
+    <h2>Example: Categorical Data</h2>
 
-<hr>
+    <p>
+      Student majors:
+    </p>
 
-<h2>Summary</h2>
+    0
 
-<ul>
-  <li>Always identify the variable type first.</li>
-  <li>Categorical → Bar chart.</li>
-  <li>Numerical → Histogram.</li>
-  <li>Two numerical variables → Scatterplot.</li>
-  <li>Time data → Line chart.</li>
-</ul>
+    <p>
+      A bar chart clearly compares category sizes.
+    </p>
 
-<p>
-Correct visualization begins with correct classification.
-</p>
+    <h2>Numerical Variables</h2>
+
+    <p>
+      Numerical variables represent measurable quantities.
+    </p>
+
+    <p>
+      Examples:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Age</li>
+
+      <li>Income</li>
+
+      <li>Height</li>
+
+      <li>Weight</li>
+
+      <li>Exam score</li>
+
+    </ul>
+
+    <p>
+      The goal is often to understand how values are distributed.
+    </p>
+
+    <p>
+      Common graphs:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Histograms</li>
+
+      <li>Boxplots</li>
+
+      <li>Dot plots</li>
+
+    </ul>
+
+    <h2>Discrete Numerical Variables</h2>
+
+    <p>
+      Discrete variables take separate countable values.
+    </p>
+
+    <p>
+      Examples:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Number of children</li>
+
+      <li>Number of defects</li>
+
+      <li>Number of books owned</li>
+
+    </ul>
+
+    <p>
+      Graph choices often include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Bar charts</li>
+
+      <li>Histograms</li>
+
+    </ul>
+
+    <p>
+      The best choice depends on the number of distinct values.
+    </p>
+
+    <h2>Continuous Numerical Variables</h2>
+
+    <p>
+      Continuous variables can take many possible values.
+    </p>
+
+    <p>
+      Examples:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Height</li>
+
+      <li>Weight</li>
+
+      <li>Reaction time</li>
+
+      <li>Temperature</li>
+
+    </ul>
+
+    <p>
+      Common graphs:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Histograms</li>
+
+      <li>Density plots</li>
+
+      <li>Boxplots</li>
+
+    </ul>
+
+    <p>
+      These graphs focus on distribution shape.
+    </p>
+
+    <h2>Time-Based Variables</h2>
+
+    <p>
+      When observations are collected over time,
+      preserving order becomes important.
+    </p>
+
+    <p>
+      Examples:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Monthly sales</li>
+
+      <li>Daily temperatures</li>
+
+      <li>Annual population growth</li>
+
+    </ul>
+
+    <p>
+      The most common graph is:
+    </p>
+
+    <ul class="bullets">
+      <li>Line chart</li>
+    </ul>
+
+    <p>
+      Line charts emphasize change through time.
+    </p>
+
+    <h2>Example: Time Series Data</h2>
+
+    1
+
+    <h2>Two Numerical Variables</h2>
+
+    <p>
+      Sometimes we want to study relationships between variables.
+    </p>
+
+    <p>
+      Examples:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Height and weight</li>
+
+      <li>Advertising and sales</li>
+
+      <li>Study hours and exam score</li>
+
+    </ul>
+
+    <p>
+      The standard graph is:
+    </p>
+
+    <ul class="bullets">
+      <li>Scatterplot</li>
+    </ul>
+
+    <p>
+      Scatterplots reveal relationships,
+      trends,
+      and clusters.
+    </p>
+
+    <h2>Composition Data</h2>
+
+    <p>
+      Sometimes the goal is to show parts of a whole.
+    </p>
+
+    <p>
+      Examples:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Market share</li>
+
+      <li>Budget allocation</li>
+
+      <li>Survey response proportions</li>
+
+    </ul>
+
+    <p>
+      Common graphs:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Pie charts</li>
+
+      <li>Stacked bar charts</li>
+
+    </ul>
+
+    <p>
+      However,
+      many statisticians prefer bar charts because comparisons are easier.
+    </p>
+
+    <h2>A Simple Graph Selection Guide</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Goal</th>
+            <th>Common Graph</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Compare categories</td>
+            <td>Bar chart</td>
+          </tr>
+
+          <tr>
+            <td>Show parts of a whole</td>
+            <td>Pie chart</td>
+          </tr>
+
+          <tr>
+            <td>Show a distribution</td>
+            <td>Histogram</td>
+          </tr>
+
+          <tr>
+            <td>Show change over time</td>
+            <td>Line chart</td>
+          </tr>
+
+          <tr>
+            <td>Show relationships</td>
+            <td>Scatterplot</td>
+          </tr>
+
+          <tr>
+            <td>Summarize spread</td>
+            <td>Boxplot</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>Common Mistake: Choosing Based on Appearance</h2>
+
+    <p>
+      Beginners often choose graphs because they look attractive.
+    </p>
+
+    <p>
+      Good visualization is not about decoration.
+    </p>
+
+    <p>
+      It is about communicating information accurately.
+    </p>
+
+    <p>
+      The best graph is the one that answers the statistical question most clearly.
+    </p>
+
+    <h2>Think About the Question First</h2>
+
+    <p>
+      Before creating a graph,
+      ask:
+    </p>
+
+    <ul class="bullets">
+
+      <li>What type of variable do I have?</li>
+
+      <li>What pattern am I trying to see?</li>
+
+      <li>What comparison matters most?</li>
+
+      <li>Who will read this graph?</li>
+
+    </ul>
+
+    <p>
+      Answering these questions usually points to the correct visualization.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>Variable type is the primary factor in graph selection</li>
+
+        <li>Categorical variables are commonly displayed with bar charts</li>
+
+        <li>Numerical variables are often displayed with histograms and boxplots</li>
+
+        <li>Time-based data is usually displayed with line charts</li>
+
+        <li>Relationships between numerical variables are shown with scatterplots</li>
+
+        <li>Different graphs answer different statistical questions</li>
+
+        <li>The best graph communicates information clearly and accurately</li>
+
+      </ul>
+
+    </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/descriptive/visualization/why-visualization-matters/">
+         ← Previous: Why Visualization Matters
+      </a>
+
+      <a class="btn"
+         href="/descriptive/visualization/bar-charts/">
+         Next: Bar Charts →
+      </a>
+
+    </div>
+
+  </div>
 
 </section>
-
-<!-- Next Button -->
-<section class="section section-slim">
-  <a class="btn" href="/descriptive/visualization/bar-charts/">
-    Next Lesson → Bar Charts
-  </a>
-</section>
-
-<script>
-  (function () {
-    var KEY = "esa_continue_descriptive_visualization_lesson_v0";
-
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/descriptive/visualization/matching-graph-to-variable-type/",
-      label: "Lesson 2 — Matching Graph Type to Variable Type",
-      ts: Date.now()
-    }));
-  })();
-</script>
