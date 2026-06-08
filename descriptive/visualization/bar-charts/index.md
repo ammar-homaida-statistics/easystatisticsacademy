@@ -1,210 +1,519 @@
 ---
 layout: default
-title: "Bar Charts"
-description: "Correct construction, scaling, labeling, and interpretation of categorical graphical summaries."
+title: Bar Charts
+description: Learn what bar charts are, when to use them, how to interpret them, and common mistakes to avoid.
 permalink: /descriptive/visualization/bar-charts/
 sidebar: false
 ---
 
-<!-- Previous Button -->
-<section class="section section-slim">
-  <a class="btn btn-outline" href="/descriptive/visualization/matching-graph-to-variable-type/">
-    ← Previous Lesson: Matching Graph Type to Variable Type
-  </a>
+<!-- SAVE LESSON PROGRESS -->
+<script>
+(function () {
+
+  const KEY =
+    "esa_continue_descriptive_visualization_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/descriptive/visualization/bar-charts/",
+    label: "Bar Charts",
+    ts: Date.now()
+  }));
+
+})();
+</script>
+
+<!-- HERO -->
+
+<section class="hero hero-section">
+
+  <div class="hero-card">
+
+    <div class="badge-row">
+      <span class="badge">Descriptive Statistics</span>
+      <span class="badge">Block 3</span>
+      <span class="badge">Visualization</span>
+      <span class="badge">Categorical Data</span>
+    </div>
+
+    <h1>Bar Charts</h1>
+
+    <p class="lead">
+      Bar charts are one of the most common and useful
+      statistical visualizations.
+    </p>
+
+    <p class="lead">
+      They are designed to compare categories,
+      making differences in frequency,
+      percentage,
+      or other summary values easy to see.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/descriptive/visualization/matching-graph-to-variable-type/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/descriptive/visualization/pie-charts/">
+         Next: Pie Charts →
+      </a>
+
+    </div>
+
+  </div>
+
 </section>
 
-<!-- UNDER CONSTRUCTION -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Visual examples, incorrect vs correct comparisons, and software demonstrations will be added later.
-      </p>
-    </div>
-  </div>
-</section>
+<!-- LESSON -->
 
 <section class="section">
 
-<div class="section-head">
-  <h1>Bar Charts</h1>
-  <p>
-    Bar charts are used to visualize <strong>categorical variables</strong>.
-    They display counts or percentages for each category.
-  </p>
-</div>
+  <div class="content-narrow">
 
-<hr>
+    <h2>What Is a Bar Chart?</h2>
 
-<h2>1. When to Use a Bar Chart</h2>
+    <p>
+      A <strong>bar chart</strong>
+      displays categories using rectangular bars.
+    </p>
 
-<p>
-Use a bar chart when your variable is categorical.
-</p>
+    <p>
+      The length or height of each bar represents:
+    </p>
 
-Examples:
-<ul>
-  <li>Gender distribution</li>
-  <li>Department choice</li>
-  <li>Product category preference</li>
-  <li>Education level</li>
-</ul>
+    <ul class="bullets">
 
-<p>
-Each category is distinct and unordered (unless ordinal).
-</p>
+      <li>Frequency</li>
 
-<hr>
+      <li>Percentage</li>
 
-<h2>2. Structure of a Proper Bar Chart</h2>
+      <li>Count</li>
 
-A correct bar chart must have:
+      <li>Rate</li>
 
-<ul>
-  <li>Clearly labeled categories (x-axis)</li>
-  <li>Counts or percentages (y-axis)</li>
-  <li>A meaningful title</li>
-  <li>Equal bar widths</li>
-  <li>Separated bars (no touching)</li>
-</ul>
+      <li>Another summary measure</li>
 
-<p>
-Separated bars indicate distinct categories.
-</p>
+    </ul>
 
-<hr>
+    <p>
+      Larger values produce longer or taller bars.
+    </p>
 
-<h2>3. Counts vs Percentages</h2>
+    <div class="concept-box">
 
-<p>
-Bar charts may display:
-</p>
+      <strong>Key idea:</strong>
 
-<ul>
-  <li>Frequency (counts)</li>
-  <li>Relative frequency (percent)</li>
-</ul>
+      <p>
+        Bar charts are designed to compare categories.
+      </p>
 
-<p>
-Use percentages when:
-</p>
+    </div>
 
-<ul>
-  <li>Comparing groups of different sizes</li>
-  <li>Communicating proportions clearly</li>
-</ul>
+    <h2>A Simple Example</h2>
 
-<p>
-Always label the axis clearly:
-</p>
+    <p>
+      Suppose a class survey recorded students' favorite subjects.
+    </p>
 
-<p><strong>Incorrect:</strong> "Students"</p>
-<p><strong>Correct:</strong> "Percentage of Students (%)"</p>
+    0
 
-<hr>
+    <p>
+      The chart immediately shows that Mathematics
+      is the most popular subject.
+    </p>
 
-<h2>4. Ordering Categories</h2>
+    <h2>Why Bar Charts Work Well</h2>
 
-Bar charts may be ordered:
+    <p>
+      Humans are very good at comparing lengths.
+    </p>
 
-<ul>
-  <li>Alphabetically</li>
-  <li>By frequency (descending order)</li>
-  <li>Logically (for ordinal variables)</li>
-</ul>
+    <p>
+      Because bar lengths correspond directly to values,
+      differences between categories are easy to see.
+    </p>
 
-<p>
-Ordering by frequency often improves clarity.
-</p>
+    <p>
+      This makes bar charts highly effective for communication.
+    </p>
 
-<hr>
+    <h2>When Should Bar Charts Be Used?</h2>
 
-<h2>5. Common Bar Chart Mistakes</h2>
+    <p>
+      Bar charts are most appropriate for:
+    </p>
 
-<ul>
-  <li>Starting y-axis above zero</li>
-  <li>Unequal bar widths</li>
-  <li>3D distortion</li>
-  <li>Too many categories</li>
-  <li>Missing labels</li>
-</ul>
+    <ul class="bullets">
 
-<p>
-The y-axis should generally start at zero to avoid exaggerating differences.
-</p>
+      <li>Categorical variables</li>
 
-<hr>
+      <li>Nominal variables</li>
 
-<h2>6. Bar Chart vs Histogram</h2>
+      <li>Ordinal variables</li>
 
-<p>
-Do not confuse:
-</p>
+      <li>Discrete numerical variables with few values</li>
 
-<ul>
-  <li><strong>Bar chart</strong> → categorical data</li>
-  <li><strong>Histogram</strong> → numerical continuous data</li>
-</ul>
+    </ul>
 
-<p>
-Bar chart bars are separated.  
-Histogram bars touch.
-</p>
+    <p>
+      Typical examples include:
+    </p>
 
-<hr>
+    <ul class="bullets">
 
-<h2>7. Interpreting a Bar Chart</h2>
+      <li>Blood type</li>
 
-When interpreting:
+      <li>Political party</li>
 
-<ul>
-  <li>Identify the highest category</li>
-  <li>Identify the lowest category</li>
-  <li>Compare differences carefully</li>
-  <li>Avoid causal language</li>
-</ul>
+      <li>Product category</li>
 
-<p>
-Bar charts describe distribution; they do not explain causes.
-</p>
+      <li>Education level</li>
 
-<hr>
+      <li>Favorite sport</li>
 
-<h2>Summary</h2>
+    </ul>
 
-<ul>
-  <li>Bar charts are for categorical variables.</li>
-  <li>Bars must be separated and equal width.</li>
-  <li>Axis must be clearly labeled.</li>
-  <li>Start y-axis at zero (in most cases).</li>
-  <li>Interpret patterns responsibly.</li>
-</ul>
+    <h2>Bar Charts and Frequency Tables</h2>
 
-<p>
-A clean bar chart increases clarity.  
-A distorted one increases confusion.
-</p>
+    <p>
+      Bar charts are often created directly from frequency tables.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Blood Type</th>
+            <th>Frequency</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>A</td>
+            <td>32</td>
+          </tr>
+
+          <tr>
+            <td>B</td>
+            <td>18</td>
+          </tr>
+
+          <tr>
+            <td>AB</td>
+            <td>7</td>
+          </tr>
+
+          <tr>
+            <td>O</td>
+            <td>43</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      The frequencies become the heights of the bars.
+    </p>
+
+    <h2>Bar Charts Can Show Percentages</h2>
+
+    <p>
+      Instead of frequencies,
+      bars may represent percentages.
+    </p>
+
+    <p>
+      Example:
+    </p>
+
+    1
+
+    <p>
+      Whether using frequencies or percentages,
+      interpretation remains similar.
+    </p>
+
+    <h2>Vertical and Horizontal Bar Charts</h2>
+
+    <p>
+      Bar charts can be displayed vertically or horizontally.
+    </p>
+
+    <div class="grid grid-2">
+
+      <div class="card">
+
+        <h3>Vertical Bars</h3>
+
+        <p>
+          Most common format.
+        </p>
+
+        <p>
+          Categories appear on the horizontal axis.
+        </p>
+
+      </div>
+
+      <div class="card">
+
+        <h3>Horizontal Bars</h3>
+
+        <p>
+          Useful when category labels are long.
+        </p>
+
+        <p>
+          Often easier to read with many categories.
+        </p>
+
+      </div>
+
+    </div>
+
+    <h2>Ordering Categories</h2>
+
+    <p>
+      Category order affects readability.
+    </p>
+
+    <p>
+      Common approaches include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Alphabetical order</li>
+
+      <li>Natural order</li>
+
+      <li>Descending frequency</li>
+
+      <li>Logical progression</li>
+
+    </ul>
+
+    <p>
+      Appropriate ordering helps reveal patterns.
+    </p>
+
+    <h2>Bar Charts vs Histograms</h2>
+
+    <p>
+      Beginners often confuse bar charts and histograms.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Bar Chart</th>
+            <th>Histogram</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Categorical data</td>
+            <td>Numerical data</td>
+          </tr>
+
+          <tr>
+            <td>Bars separated</td>
+            <td>Bars touch</td>
+          </tr>
+
+          <tr>
+            <td>Category comparison</td>
+            <td>Distribution shape</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      Although they look similar,
+      they serve different purposes.
+    </p>
+
+    <h2>Interpreting Bar Charts</h2>
+
+    <p>
+      When viewing a bar chart,
+      ask:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Which category is largest?</li>
+
+      <li>Which category is smallest?</li>
+
+      <li>Are differences large or small?</li>
+
+      <li>Do categories form a pattern?</li>
+
+      <li>Are there unusual categories?</li>
+
+    </ul>
+
+    <p>
+      These questions help uncover meaningful insights.
+    </p>
+
+    <h2>Common Mistake: Truncated Axes</h2>
+
+    <p>
+      Bar charts should usually begin at zero.
+    </p>
+
+    <p>
+      If the axis starts above zero,
+      small differences may appear much larger than they really are.
+    </p>
+
+    <div class="example-box">
+
+      <strong>Warning:</strong>
+
+      <p>
+        Truncated axes are one of the most common sources of misleading graphs.
+      </p>
+
+    </div>
+
+    <h2>Common Mistake: Too Many Categories</h2>
+
+    <p>
+      A bar chart with dozens of categories
+      becomes difficult to read.
+    </p>
+
+    <p>
+      Possible solutions include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Grouping small categories</li>
+
+      <li>Sorting categories</li>
+
+      <li>Using a horizontal layout</li>
+
+      <li>Creating multiple charts</li>
+
+    </ul>
+
+    <h2>Why Bar Charts Are So Popular</h2>
+
+    <p>
+      Bar charts are widely used because they are:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Simple</li>
+
+      <li>Flexible</li>
+
+      <li>Easy to interpret</li>
+
+      <li>Effective for comparisons</li>
+
+      <li>Suitable for many audiences</li>
+
+    </ul>
+
+    <p>
+      They are among the most important tools in descriptive statistics.
+    </p>
+
+    <h2>Good Statistical Practice</h2>
+
+    <p>
+      Before creating a bar chart,
+      verify:
+    </p>
+
+    <ul class="bullets">
+
+      <li>The variable is appropriate for a bar chart</li>
+
+      <li>Categories are clearly labeled</li>
+
+      <li>The axis is not misleading</li>
+
+      <li>Values are accurate</li>
+
+      <li>The chart answers a meaningful question</li>
+
+    </ul>
+
+    <p>
+      Good visualization begins with thoughtful design.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>Bar charts compare categories using bar lengths</li>
+
+        <li>They are most commonly used for categorical variables</li>
+
+        <li>Bar charts can display frequencies or percentages</li>
+
+        <li>Ordering categories can improve interpretation</li>
+
+        <li>Bar charts and histograms serve different purposes</li>
+
+        <li>Axes should usually begin at zero</li>
+
+        <li>Bar charts are among the most widely used statistical graphics</li>
+
+      </ul>
+
+    </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/descriptive/visualization/matching-graph-to-variable-type/">
+         ← Previous: Matching Graph to Variable Type
+      </a>
+
+      <a class="btn"
+         href="/descriptive/visualization/pie-charts/">
+         Next: Pie Charts →
+      </a>
+
+    </div>
+
+  </div>
 
 </section>
-
-<!-- Next Button -->
-<section class="section section-slim">
-  <a class="btn" href="/descriptive/visualization/pie-charts/">
-    Next Lesson → Pie Charts
-  </a>
-</section>
-
-<script>
-  (function () {
-    var KEY = "esa_continue_descriptive_visualization_lesson_v0";
-
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/descriptive/visualization/bar-charts/",
-      label: "Lesson 3 — Bar Charts",
-      ts: Date.now()
-    }));
-  })();
-</script>
