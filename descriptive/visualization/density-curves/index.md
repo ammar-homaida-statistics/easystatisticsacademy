@@ -1,172 +1,518 @@
 ---
 layout: default
-title: "Density Curves (Conceptual)"
-description: "Understanding smooth distribution representation and the idea of area as proportion."
+title: Density Curves
+description: Learn what density curves are, how they represent distributions, and how they help statisticians think beyond individual observations.
 permalink: /descriptive/visualization/density-curves/
 sidebar: false
 ---
 
-<!-- Previous Button -->
-<section class="section section-slim">
-  <a class="btn btn-outline" href="/descriptive/visualization/histograms/">
-    ← Previous Lesson: Histograms
-  </a>
+<!-- SAVE LESSON PROGRESS -->
+<script>
+(function () {
+
+  const KEY =
+    "esa_continue_descriptive_visualization_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/descriptive/visualization/density-curves/",
+    label: "Density Curves",
+    ts: Date.now()
+  }));
+
+})();
+</script>
+
+<!-- HERO -->
+
+<section class="hero hero-section">
+
+  <div class="hero-card">
+
+    <div class="badge-row">
+      <span class="badge">Descriptive Statistics</span>
+      <span class="badge">Block 3</span>
+      <span class="badge">Visualization</span>
+      <span class="badge">Distributions</span>
+    </div>
+
+    <h1>Density Curves</h1>
+
+    <p class="lead">
+      Histograms show how data are distributed using bars.
+    </p>
+
+    <p class="lead">
+      Density curves take the next step by representing distributions
+      as smooth continuous shapes.
+      They help statisticians focus on the overall structure of a distribution
+      rather than individual observations.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/descriptive/visualization/histograms/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/descriptive/visualization/boxplots/">
+         Next: Boxplots →
+      </a>
+
+    </div>
+
+  </div>
+
 </section>
 
-<!-- UNDER CONSTRUCTION -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Visual comparisons with histograms and probability examples will be added later.
-      </p>
-    </div>
-  </div>
-</section>
+<!-- LESSON -->
 
 <section class="section">
 
-<div class="section-head">
-  <h1>Density Curves (Conceptual)</h1>
-  <p>
-    A density curve is a smooth representation of a distribution.
-    It shows the overall shape without focusing on individual bars.
-  </p>
-</div>
+  <div class="content-narrow">
 
-<hr>
+    <h2>Why Move Beyond Histograms?</h2>
 
-<h2>1. From Histogram to Smooth Curve</h2>
+    <p>
+      Histograms are excellent tools for exploring numerical data,
+      but they depend on choices such as:
+    </p>
 
-<p>
-A histogram shows frequencies using bins.
-</p>
+    <ul class="bullets">
 
-<p>
-If we smooth the histogram, we obtain a <strong>density curve</strong>.
-</p>
+      <li>Bin width</li>
 
-<p>
-The curve represents the overall distribution pattern.
-</p>
+      <li>Number of bins</li>
 
-<hr>
+      <li>Bin boundaries</li>
 
-<h2>2. Area Represents Proportion</h2>
+    </ul>
 
-<p>
-In a density curve:
-</p>
+    <p>
+      Different choices can make the same dataset appear somewhat different.
+    </p>
 
-<ul>
-  <li>The total area under the curve equals 1 (or 100%).</li>
-  <li>Area between two values represents proportion of observations.</li>
-</ul>
+    <p>
+      Density curves provide a smoother representation
+      of the underlying distribution.
+    </p>
 
-<p>
-This is the key idea that connects descriptive statistics to probability.
-</p>
+    <div class="concept-box">
 
-<hr>
+      <strong>Key idea:</strong>
 
-<h2>3. Height Is Not Frequency</h2>
+      <p>
+        Density curves describe the overall shape of a distribution
+        using a smooth continuous curve.
+      </p>
 
-<p>
-Important distinction:
-</p>
+    </div>
 
-<ul>
-  <li>Histogram height → frequency (or density)</li>
-  <li>Density curve height → relative density</li>
-</ul>
+    <h2>What Is a Density Curve?</h2>
 
-<p>
-The probability comes from <strong>area</strong>, not height.
-</p>
+    <p>
+      A <strong>density curve</strong>
+      is a smooth curve that represents how observations
+      are distributed across values.
+    </p>
 
-<hr>
+    <p>
+      Areas under the curve represent proportions of observations.
+    </p>
 
-<h2>4. Shape Interpretation</h2>
+    <p>
+      Unlike histograms,
+      density curves do not display frequencies directly.
+    </p>
 
-Density curves help identify:
+    <p>
+      Instead,
+      they emphasize the distribution's shape.
+    </p>
 
-<ul>
-  <li>Symmetry</li>
-  <li>Right skew</li>
-  <li>Left skew</li>
-  <li>Peaks (modes)</li>
-</ul>
+    <h2>A Conceptual Example</h2>
 
-<p>
-The curve removes random noise from bin selection.
-</p>
+    <p>
+      Imagine measuring the heights of thousands of adults.
+    </p>
 
-<hr>
+    <p>
+      A histogram might show many bars.
+    </p>
 
-<h2>5. Why Density Curves Matter</h2>
+    <p>
+      A density curve would smooth those bars into a single continuous shape,
+      revealing the overall pattern more clearly.
+    </p>
 
-They prepare you for:
+    <div class="example-box">
 
-<ul>
-  <li>Normal distribution</li>
-  <li>Probability calculations</li>
-  <li>Z-scores</li>
-  <li>Confidence intervals</li>
-</ul>
+      <p>
+        Think of a density curve as a smoothed histogram.
+      </p>
 
-<p>
-Understanding density curves is essential before moving to probability.
-</p>
+    </div>
 
-<hr>
+    <h2>The Area Under a Density Curve</h2>
 
-<h2>6. Density Curve vs Histogram</h2>
+    <p>
+      One of the most important properties of a density curve
+      is that the total area underneath it equals 1.
+    </p>
 
-<ul>
-  <li>Histogram → Empirical counts</li>
-  <li>Density curve → Smooth theoretical shape</li>
-</ul>
+    0
 
-<p>
-They complement each other.
-</p>
+    <p>
+      This represents 100% of all observations.
+    </p>
 
-<hr>
+    <p>
+      Every observation is accounted for somewhere under the curve.
+    </p>
 
-<h2>Summary</h2>
+    <h2>Area Represents Proportion</h2>
 
-<ul>
-  <li>Density curves smooth histograms.</li>
-  <li>Total area equals 1.</li>
-  <li>Area represents proportion.</li>
-  <li>Height alone does not represent probability.</li>
-  <li>They bridge descriptive statistics and probability.</li>
-</ul>
+    <p>
+      In a density curve,
+      probabilities and proportions correspond to areas.
+    </p>
 
-<p>
-Density curves transform visualization into mathematical interpretation.
-</p>
+    <p>
+      Example:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Area = 0.25 means 25% of observations</li>
+
+      <li>Area = 0.50 means 50% of observations</li>
+
+      <li>Area = 0.75 means 75% of observations</li>
+
+    </ul>
+
+    <p>
+      This idea becomes extremely important in probability and inference.
+    </p>
+
+    <h2>Density Does Not Mean Frequency</h2>
+
+    <p>
+      Beginners often interpret curve height as frequency.
+    </p>
+
+    <p>
+      This is not entirely correct.
+    </p>
+
+    <p>
+      The important quantity is area,
+      not height alone.
+    </p>
+
+    <p>
+      Taller sections indicate greater concentration of observations,
+      but proportions are determined by area.
+    </p>
+
+    <h2>Common Shapes of Density Curves</h2>
+
+    <p>
+      Density curves can take many forms.
+    </p>
+
+    <div class="grid grid-2">
+
+      <div class="card">
+
+        <h3>Symmetric</h3>
+
+        <p>
+          Left and right sides mirror one another.
+        </p>
+
+      </div>
+
+      <div class="card">
+
+        <h3>Right-Skewed</h3>
+
+        <p>
+          Long tail extends toward larger values.
+        </p>
+
+      </div>
+
+      <div class="card">
+
+        <h3>Left-Skewed</h3>
+
+        <p>
+          Long tail extends toward smaller values.
+        </p>
+
+      </div>
+
+      <div class="card">
+
+        <h3>Multimodal</h3>
+
+        <p>
+          Multiple peaks appear.
+        </p>
+
+      </div>
+
+    </div>
+
+    <h2>Symmetric Density Curves</h2>
+
+    <p>
+      A symmetric density curve has similar shapes on both sides of its center.
+    </p>
+
+    <p>
+      Many natural phenomena approximately follow symmetric distributions.
+    </p>
+
+    <p>
+      Examples include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Some measurement errors</li>
+
+      <li>Certain biological characteristics</li>
+
+      <li>Standardized test scores</li>
+
+    </ul>
+
+    <h2>Skewed Density Curves</h2>
+
+    <p>
+      Many real-world datasets are not symmetric.
+    </p>
+
+    <p>
+      Income is a classic example.
+    </p>
+
+    <p>
+      Most people earn moderate incomes,
+      while a small number earn extremely large incomes.
+    </p>
+
+    <p>
+      This produces a long right tail.
+    </p>
+
+    <h2>Multiple Peaks</h2>
+
+    <p>
+      Some density curves show multiple peaks.
+    </p>
+
+    <p>
+      This may indicate:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Several groups in the data</li>
+
+      <li>Different populations combined together</li>
+
+      <li>Important underlying structure</li>
+
+    </ul>
+
+    <p>
+      Multiple peaks often deserve further investigation.
+    </p>
+
+    <h2>Density Curves and Histograms</h2>
+
+    <p>
+      Histograms and density curves are closely related.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Histogram</th>
+            <th>Density Curve</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Uses bars</td>
+            <td>Uses a smooth curve</td>
+          </tr>
+
+          <tr>
+            <td>Depends on bins</td>
+            <td>Less dependent on bins</td>
+          </tr>
+
+          <tr>
+            <td>Shows frequencies</td>
+            <td>Shows density</td>
+          </tr>
+
+          <tr>
+            <td>Observed counts</td>
+            <td>Underlying shape</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      Both tools help us understand distributions,
+      but from slightly different perspectives.
+    </p>
+
+    <h2>Density Curves and Probability</h2>
+
+    <p>
+      Density curves provide a bridge between
+      descriptive statistics and probability theory.
+    </p>
+
+    <p>
+      Later courses will use density curves to calculate:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Probabilities</li>
+
+      <li>Percentiles</li>
+
+      <li>Confidence intervals</li>
+
+      <li>Statistical significance</li>
+
+    </ul>
+
+    <p>
+      Understanding the basic concept now
+      makes those topics much easier later.
+    </p>
+
+    <h2>The Normal Curve</h2>
+
+    <p>
+      The most famous density curve in statistics
+      is the normal curve.
+    </p>
+
+    <p>
+      It is:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Symmetric</li>
+
+      <li>Bell-shaped</li>
+
+      <li>Centered around a mean</li>
+
+    </ul>
+
+    <p>
+      Entire fields of statistics rely on properties of this distribution.
+    </p>
+
+    <p>
+      You will study it in detail later.
+    </p>
+
+    <h2>Why Density Curves Matter</h2>
+
+    <p>
+      Density curves encourage statistical thinking.
+    </p>
+
+    <p>
+      Rather than focusing on individual observations,
+      they emphasize:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Patterns</li>
+
+      <li>Shapes</li>
+
+      <li>Concentrations</li>
+
+      <li>Variability</li>
+
+      <li>Probabilistic behavior</li>
+
+    </ul>
+
+    <p>
+      This perspective is central to modern statistics.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>Density curves are smooth representations of distributions</li>
+
+        <li>They help reveal the overall shape of data</li>
+
+        <li>The total area under a density curve equals 1</li>
+
+        <li>Areas correspond to proportions and probabilities</li>
+
+        <li>Density curves may be symmetric, skewed, or multimodal</li>
+
+        <li>They complement histograms rather than replace them</li>
+
+        <li>Density curves form a bridge between descriptive statistics and probability</li>
+
+      </ul>
+
+    </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/descriptive/visualization/histograms/">
+         ← Previous: Histograms
+      </a>
+
+      <a class="btn"
+         href="/descriptive/visualization/boxplots/">
+         Next: Boxplots →
+      </a>
+
+    </div>
+
+  </div>
 
 </section>
-
-<!-- Next Button -->
-<section class="section section-slim">
-  <a class="btn" href="/descriptive/visualization/boxplots/">
-    Next Lesson → Boxplots & Outliers
-  </a>
-</section>
-
-<script>
-  (function () {
-    var KEY = "esa_continue_descriptive_visualization_lesson_v0";
-
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/descriptive/visualization/density-curves/",
-      label: "Lesson 6 — Density Curves",
-      ts: Date.now()
-    }));
-  })();
-</script>
