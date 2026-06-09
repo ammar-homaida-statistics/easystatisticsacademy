@@ -512,7 +512,7 @@ sidebar: false
       ← Previous Block: Conditional Probability & Bayes
     </a>
 
-    <a class="btn" href="/probability/expectation-variability/">
+    <a class="btn" href="/probability/expectation-variance/">
       Next Block: Expectation & Variability →
     </a>
 
