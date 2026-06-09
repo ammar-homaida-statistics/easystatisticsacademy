@@ -87,6 +87,11 @@ sidebar: false
       Larger categories receive larger slices.
     </p>
 
+    <p>
+  Together, all slices should account for the entire dataset,
+  meaning every observation contributes to one and only one category.
+</p>
+
     <div class="concept-box">
 
       <strong>Key idea:</strong>
@@ -103,11 +108,24 @@ sidebar: false
       Suppose a survey asks students about their preferred mode of transportation.
     </p>
 
-    0
+    <img src="{{ 'descriptive/images/transportation-pie-chart.png' | relative_url }}"
+     alt="Pie chart of preferred transportation methods"
+     style="margin-top:15px; max-width:100%; height:auto;">
 
     <p>
       The chart immediately shows how the total group is divided among categories.
     </p>
+
+    <div class="concept-box">
+
+  <strong>Important insight:</strong>
+
+  <p>
+    Pie charts answer a very specific question:
+    "How is the whole divided among categories?"
+  </p>
+
+</div>
 
     <h2>When Should Pie Charts Be Used?</h2>
 
@@ -273,7 +291,18 @@ sidebar: false
       is often harder in a pie chart than in a bar chart.
     </p>
 
+    <p>
+  Small differences between categories are often difficult
+  to judge accurately using slice sizes alone.
+</p>
+
     <h2>Why Many Statisticians Prefer Bar Charts</h2>
+
+    <p>
+  For the same dataset, a bar chart and a pie chart contain
+  the same information, but bar charts usually make category
+  comparisons easier.
+</p>
 
     <p>
       For category comparisons,
@@ -295,6 +324,14 @@ sidebar: false
       <li>Large numbers of categories are easier to display</li>
 
     </ul>
+
+    <img src="{{ 'descriptive/images/pie-chart-vs-bar-chart.png' | relative_url }}"
+     alt="Pie chart compared with bar chart"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+Both graphs contain the same information, but bar charts often make comparisons easier.
+</p>
 
     <p>
       As a result,
@@ -328,6 +365,12 @@ sidebar: false
     </p>
 
     <h2>Bad Pie Chart Example</h2>
+
+    <p>
+  Three-dimensional pie charts should generally be avoided.
+  Perspective effects can distort slice sizes and make
+  comparisons less accurate.
+</p>
 
     <p>
       A pie chart with:
@@ -384,7 +427,9 @@ sidebar: false
       Every slice corresponds to:
     </p>
 
-    1
+    <img src="{{ 'descriptive/images/pie-chart-percentage-formula.png' | relative_url }}"
+     alt="Pie chart percentages are calculated from category counts divided by the total"
+     style="margin-top:15px; max-width:100%; height:auto;">
 
     <p>
       The size of the slice reflects this percentage.
@@ -430,6 +475,65 @@ sidebar: false
     <p>
       The key is choosing the graph that best answers the statistical question.
     </p>
+
+    <div class="concept-box">
+
+  <strong>Key insight:</strong>
+
+  <p>
+    Pie charts are useful for showing composition,
+    but bar charts are often better for comparison.
+  </p>
+
+</div>
+
+<h2>Optional: Creating Pie Charts in SPSS</h2>
+
+<ul class="bullets">
+
+  <li>Graphs → Chart Builder</li>
+
+  <li>Select Pie Chart</li>
+
+  <li>Assign the categorical variable</li>
+
+  <li>Display percentages if appropriate</li>
+
+</ul>
+
+<p>
+  Always verify that categories form a complete whole before using a pie chart.
+</p>
+
+<h3>Python Example</h3>
+
+<p>
+This example creates a pie chart showing transportation preferences.
+</p>
+
+<pre><code>import matplotlib.pyplot as plt
+
+counts = [40, 30, 20, 10]
+labels = ["Car", "Bus", "Walking", "Bike"]
+
+plt.pie(counts, labels=labels)
+plt.show()
+</code></pre>
+
+<h3>R Example</h3>
+
+<p>
+This example creates a pie chart showing transportation preferences.
+</p>
+
+<pre><code>counts <- c(40, 30, 20, 10)
+
+pie(counts,
+    labels = c("Car",
+               "Bus",
+               "Walking",
+               "Bike"))
+</code></pre>
 
     <!-- TAKEAWAYS -->
 
