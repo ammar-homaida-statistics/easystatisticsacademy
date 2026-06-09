@@ -1,286 +1,539 @@
 ---
 layout: default
-title: "3. Continuous Random Variables & PDF"
-description: "Continuous random variables, probability density functions (PDF), and computing probabilities using area (integration)."
+title: Continuous Random Variables
+description: Learn how continuous random variables differ from discrete variables and why probabilities are represented using areas rather than individual values.
 permalink: /probability/random-variables/continuous-random-variables/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">🚧 Lesson Under Construction</h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 is published first to lock the structure and the correct conceptual flow. Numerical examples,
-        graphs, and software demonstrations will be added later without changing the lesson order.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update "last visited lesson" for Probability Block 3 -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_probability_random_variables_lesson_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/probability/random-variables/continuous-random-variables/",
-      label: "Lesson 3 — Continuous Random Variables & PDF",
-      ts: Date.now()
-    }));
-  })();
+(function () {
+
+  const KEY =
+    "esa_continue_probability_random_variables_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/probability/random-variables/continuous-random-variables/",
+    label: "Continuous Random Variables",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 3</span>
-        <span class="badge">Lesson 3</span>
-        <span class="badge">Continuous</span>
-        <span class="badge">PDF</span>
-      </div>
 
-      <h1>3. Continuous Random Variables &amp; PDF</h1>
-      <p class="lead">
-        A continuous random variable takes values in an interval of real numbers.
-        Its distribution is described by a <strong>probability density function (PDF)</strong>,
-        and probabilities are computed as areas under curves.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/probability/random-variables/">Back to Block 3</a>
-        <a class="btn btn-outline" href="/probability/">Probability home</a>
-      </div>
-
-      <p class="muted-mini">
-        In the continuous world, probabilities come from area — not from summing masses.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Probability</span>
+      <span class="badge">Block 3</span>
+      <span class="badge">Random Variables</span>
+      <span class="badge">Continuous Variables</span>
     </div>
+
+    <h1>Continuous Random Variables</h1>
+
+    <p class="lead">
+      Many real-world quantities are measured rather than counted.
+    </p>
+
+    <p class="lead">
+      Continuous random variables describe measurements that can take infinitely many possible values within a range.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/probability/random-variables/discrete-random-variables/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/probability/random-variables/cumulative-distribution-function/">
+         Next: Cumulative Distribution Function →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>What Is a Continuous Random Variable?</h2>
+
     <p>
-      By the end of this lesson, you should be able to define a continuous random variable,
-      interpret a probability density function (PDF), and compute probabilities using integration.
+      A continuous random variable can take any value within an interval or collection of intervals.
     </p>
-  </div>
 
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Key idea</h2>
-      <p style="margin:0;">
-        <strong>For continuous random variables, probabilities are areas under a density curve.</strong>
-        Individual points have probability zero.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>1) What “continuous” means</h2>
     <p>
-      A random variable X is continuous if it can take values in an interval
-      (for example, all real numbers between 0 and 10).
+      Unlike discrete variables,
+      the possible values cannot be listed individually because infinitely many values exist.
     </p>
-  </div>
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Typical continuous examples</h3>
-      <ul class="bullets">
-        <li>Height of a person</li>
-        <li>Waiting time</li>
-        <li>Measurement error</li>
-        <li>Temperature</li>
-      </ul>
-      <p class="muted-mini">
-        These are measured quantities rather than counts.
-      </p>
-    </div>
+    <div class="concept-box">
 
-    <div class="card">
-      <h3>Key contrast with discrete case</h3>
+      <strong>Key idea:</strong>
+
       <p>
-        Discrete: probabilities assigned to specific values.  
-        Continuous: probabilities assigned to intervals.
+        Continuous random variables represent measurements and can take infinitely many possible values.
       </p>
+
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) Probability Density Function (PDF)</h2>
-    <p>
-      The distribution of a continuous random variable is described by a function f(x),
-      called the probability density function.
-    </p>
-  </div>
+    <h2>Examples of Continuous Random Variables</h2>
 
-  <div class="card">
-    <p style="font-size:1.1rem; margin:0;">
-      <strong>f(x) ≥ 0</strong>
-    </p>
-    <p style="margin-top:.5rem;">
-      <strong>∫ f(x) dx over entire support = 1</strong>
-    </p>
-  </div>
+    <div class="example-box">
 
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Important clarification</h2>
-      <p style="margin:0;">
-        f(x) is not a probability. It is a density.  
-        Probability comes from integrating (area under the curve).
+      <p>
+        Height of a person
       </p>
+
+      <p>
+        Weight of a package
+      </p>
+
+      <p>
+        Temperature
+      </p>
+
+      <p>
+        Time required to complete a task
+      </p>
+
+      <p>
+        Amount of rainfall
+      </p>
+
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) Computing probabilities</h2>
     <p>
-      For continuous X:
+      Each of these variables can take values with arbitrary precision.
     </p>
-  </div>
 
-  <div class="card">
-    <p style="margin:0;">
-      <strong>P(a ≤ X ≤ b) = ∫ₐᵇ f(x) dx</strong>
-    </p>
-  </div>
+    <h2>Why Continuous Variables Are Different</h2>
 
-  <div class="card" style="margin-top:1rem;">
-    <h3>Probability at a point</h3>
-    <p style="margin:0;">
-      <strong>P(X = a) = 0</strong>
+    <p>
+      Consider measuring a person's height.
     </p>
-    <p class="muted-mini" style="margin-top:.5rem;">
-      A single point has zero width → zero area → zero probability.
-    </p>
-  </div>
 
-  <div class="card" style="margin-top:1rem;">
-    <h3>Implication</h3>
+    <p>
+      Possible values include:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        170 cm
+      </p>
+
+      <p>
+        170.1 cm
+      </p>
+
+      <p>
+        170.12 cm
+      </p>
+
+      <p>
+        170.123 cm
+      </p>
+
+    </div>
+
+    <p>
+      No matter how precise a measurement becomes,
+      additional values can always exist between two nearby numbers.
+    </p>
+
+    <p>
+      This infinite divisibility is a defining characteristic of continuous variables.
+    </p>
+
+    <h2>Discrete Versus Continuous</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Discrete</th>
+            <th>Continuous</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Counts</td>
+            <td>Measurements</td>
+          </tr>
+
+          <tr>
+            <td>Countable values</td>
+            <td>Infinite values in intervals</td>
+          </tr>
+
+          <tr>
+            <td>PMF used</td>
+            <td>PDF used</td>
+          </tr>
+
+          <tr>
+            <td>Individual values can have probability</td>
+            <td>Individual values have probability zero</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>The Surprising Property</h2>
+
+    <p>
+      One of the most surprising ideas in probability is:
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Important:</strong>
+
+      <p>
+        The probability of any single value of a continuous random variable is zero.
+      </p>
+
+    </div>
+
+    <p>
+      For example:
+    </p>
+
+    0
+
+    <p>
+      even though 170 cm is a possible height.
+    </p>
+
+    <h2>Why Is the Probability Zero?</h2>
+
+    <p>
+      A continuous variable has infinitely many possible values.
+    </p>
+
+    <p>
+      Probability must be spread across the entire continuum.
+    </p>
+
+    <p>
+      As a result,
+      no single point receives positive probability.
+    </p>
+
+    <p>
+      Probability is assigned to intervals rather than individual values.
+    </p>
+
+    <h2>Probabilities Are About Ranges</h2>
+
+    <p>
+      Instead of asking:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        What is the probability that height equals exactly 170 cm?
+      </p>
+
+    </div>
+
+    <p>
+      we ask:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        What is the probability that height lies between 165 cm and 175 cm?
+      </p>
+
+    </div>
+
+    <p>
+      Continuous probability focuses on intervals.
+    </p>
+
+    <h2>Probability Density Functions (PDFs)</h2>
+
+    <p>
+      Continuous random variables use a probability density function rather than a probability mass function.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Definition:</strong>
+
+      <p>
+        A probability density function describes how probability is distributed across the values of a continuous random variable.
+      </p>
+
+    </div>
+
+    <h2>Density Is Not Probability</h2>
+
+    <p>
+      A common misconception is that the value of a density function is itself a probability.
+    </p>
+
+    <p>
+      This is incorrect.
+    </p>
+
+    <p>
+      Density indicates how concentrated probability is around a location.
+    </p>
+
+    <p>
+      Actual probabilities are obtained from areas under the density curve.
+    </p>
+
+    <h2>The Area Interpretation</h2>
+
+    <p>
+      For continuous variables:
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core principle:</strong>
+
+      <p>
+        Probability equals area under the density curve.
+      </p>
+
+    </div>
+
+    <p>
+      This interpretation is central to continuous probability theory.
+    </p>
+
+    <h2>Total Probability Equals One</h2>
+
+    <p>
+      Just as PMFs must sum to one,
+      PDFs must satisfy an equivalent condition.
+    </p>
+
+    <p>
+      The total area under the density curve must equal one.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Entire area under the PDF = 1
+      </p>
+
+    </div>
+
+    <p>
+      This ensures that some value of the random variable must occur.
+    </p>
+
+    <h2>Probability Between Two Values</h2>
+
+    <p>
+      For continuous variables,
+      probabilities are calculated over intervals.
+    </p>
+
+    <p>
+      For example:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Probability that height lies between 165 cm and 175 cm
+      </p>
+
+    </div>
+
+    <p>
+      corresponds to the area under the density curve between those values.
+    </p>
+
+    <h2>Continuous Variables in Practice</h2>
+
+    <p>
+      Many scientific and engineering measurements are modeled as continuous variables.
+    </p>
+
     <ul class="bullets">
-      <li>P(X ≤ a) = P(X &lt; a)</li>
-      <li>P(X ≥ a) = P(X &gt; a)</li>
+
+      <li>Temperature</li>
+
+      <li>Pressure</li>
+
+      <li>Distance</li>
+
+      <li>Time</li>
+
+      <li>Speed</li>
+
+      <li>Voltage</li>
+
     </ul>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>4) Support and shape</h2>
     <p>
-      The support of a continuous variable is the interval where f(x) &gt; 0.
+      Continuous models often provide accurate approximations even when measurements are recorded with finite precision.
     </p>
-  </div>
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Finite support</h3>
+    <h2>The Normal Distribution Example</h2>
+
+    <p>
+      One of the most famous continuous distributions is the normal distribution.
+    </p>
+
+    <p>
+      It produces the familiar bell-shaped curve.
+    </p>
+
+    <p>
+      Many naturally occurring measurements are approximately normal.
+    </p>
+
+    <p>
+      Later lessons will examine this distribution in detail.
+    </p>
+
+    <h2>Continuous Variables and Data Science</h2>
+
+    <p>
+      Continuous random variables appear throughout data science and analytics.
+    </p>
+
+    <div class="example-box">
+
       <p>
-        Example: X between 0 and 1 only.
+        Customer spending
       </p>
+
+      <p>
+        Response times
+      </p>
+
+      <p>
+        Sensor measurements
+      </p>
+
+      <p>
+        Financial returns
+      </p>
+
     </div>
 
-    <div class="card">
-      <h3>Infinite support</h3>
-      <p>
-        Example: X over all real numbers (e.g., normal distribution).
-      </p>
-    </div>
-  </div>
+    <p>
+      Continuous probability models help describe uncertainty in these measurements.
+    </p>
 
-  <p class="muted-mini" style="margin-top:.75rem;">
-    Shape determines where most probability mass lies (peaks, spread, skewness).
-  </p>
-</section>
+    <h2>A Different Probability Mindset</h2>
 
-<section class="section">
-  <div class="section-head">
-    <h2>5) Common traps</h2>
-  </div>
+    <p>
+      Discrete probability focuses on individual outcomes.
+    </p>
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Trap A: Thinking f(x) is probability</h3>
-      <p>
-        The height of the curve is not the probability.
-        Only area corresponds to probability.
-      </p>
-    </div>
+    <p>
+      Continuous probability focuses on intervals and areas.
+    </p>
 
-    <div class="card">
-      <h3>Trap B: Assigning positive probability to a single value</h3>
-      <p>
-        In continuous models, this is incorrect.
-      </p>
-    </div>
+    <p>
+      This conceptual shift is one of the most important transitions in probability theory.
+    </p>
 
-    <div class="card">
-      <h3>Trap C: Forgetting total area must equal 1</h3>
-      <p>
-        Always verify ∫ f(x) dx = 1.
-      </p>
-    </div>
+    <h2>Connecting Discrete and Continuous Variables</h2>
 
-    <div class="card">
-      <h3>Trap D: Mixing discrete and continuous logic</h3>
-      <p>
-        Summation applies to discrete; integration applies to continuous.
-      </p>
-    </div>
-  </div>
-</section>
+    <p>
+      Both discrete and continuous random variables describe uncertainty.
+    </p>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+    <p>
+      The difference lies in the set of possible values and the way probabilities are represented.
+    </p>
+
+    <p>
+      Understanding both types is essential before studying probability distributions more deeply.
+    </p>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      We now understand the two major categories of random variables.
+    </p>
+
+    <p>
+      The next lesson introduces the cumulative distribution function (CDF),
+      a tool that applies to both discrete and continuous random variables and provides a unified way to describe probabilities.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Define a continuous random variable</li>
-        <li>Interpret a probability density function correctly</li>
-        <li>Compute probabilities via integration</li>
-        <li>Understand why point probabilities are zero</li>
-        <li>Be ready to unify both cases using the CDF</li>
+
+        <li>Continuous random variables represent measurements</li>
+
+        <li>They can take infinitely many values within intervals</li>
+
+        <li>Individual values have probability zero</li>
+
+        <li>Probabilities are assigned to ranges of values</li>
+
+        <li>Continuous variables use probability density functions (PDFs)</li>
+
+        <li>Probability corresponds to area under a density curve</li>
+
+        <li>The total area under a PDF equals one</li>
+
+        <li>Continuous models are widely used in science, engineering, and data science</li>
+
       </ul>
+
     </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/probability/random-variables/discrete-random-variables/">
+         ← Previous: Discrete Random Variables
+      </a>
+
+      <a class="btn"
+         href="/probability/random-variables/cumulative-distribution-function/">
+         Next: Cumulative Distribution Function →
+      </a>
+
+    </div>
+
   </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next step</h2>
-      <p style="margin:0;">
-        Next, we define the <strong>Cumulative Distribution Function (CDF)</strong>,
-        which works for both discrete and continuous variables.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/probability/random-variables/cumulative-distribution-function/">
-          Next lesson: 4. Cumulative Distribution Function →
-        </a>
-      </div>
-    </div>
-
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/probability/random-variables/discrete-random-variables/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 2: Discrete Random Variables & PMF
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>

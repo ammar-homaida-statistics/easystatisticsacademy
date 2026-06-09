@@ -1,258 +1,528 @@
 ---
 layout: default
-title: "4. Cumulative Distribution Function (CDF)"
-description: "The cumulative distribution function (CDF) unifies discrete and continuous random variables and provides a complete description of a distribution."
+title: Cumulative Distribution Function (CDF)
+description: Learn how cumulative distribution functions describe probabilities up to a given value and provide a unified framework for both discrete and continuous random variables.
 permalink: /probability/random-variables/cumulative-distribution-function/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">🚧 Lesson Under Construction</h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 is published first to lock the structure and the correct conceptual flow.
-        Numerical examples, graphs, and software demonstrations will be added later without changing the lesson order.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update "last visited lesson" for Probability Block 3 -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_probability_random_variables_lesson_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/probability/random-variables/cumulative-distribution-function/",
-      label: "Lesson 4 — Cumulative Distribution Function (CDF)",
-      ts: Date.now()
-    }));
-  })();
+(function () {
+
+  const KEY =
+    "esa_continue_probability_random_variables_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/probability/random-variables/cumulative-distribution-function/",
+    label: "Cumulative Distribution Function (CDF)",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 3</span>
-        <span class="badge">Lesson 4</span>
-        <span class="badge">CDF</span>
-        <span class="badge">Unifying concept</span>
-      </div>
 
-      <h1>4. Cumulative Distribution Function (CDF)</h1>
-      <p class="lead">
-        The cumulative distribution function (CDF) provides a complete description of a random variable.
-        It works for both discrete and continuous cases and connects probability to inequality statements.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/probability/random-variables/">Back to Block 3</a>
-        <a class="btn btn-outline" href="/probability/">Probability home</a>
-      </div>
-
-      <p class="muted-mini">
-        The CDF answers the most common probability question: “What is the probability that X is less than or equal to x?”
-      </p>
+    <div class="badge-row">
+      <span class="badge">Probability</span>
+      <span class="badge">Block 3</span>
+      <span class="badge">Random Variables</span>
+      <span class="badge">Distributions</span>
     </div>
+
+    <h1>Cumulative Distribution Function (CDF)</h1>
+
+    <p class="lead">
+      Probability mass functions and probability density functions describe probabilities differently.
+    </p>
+
+    <p class="lead">
+      The cumulative distribution function provides a single framework that works for both discrete and continuous random variables.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/probability/random-variables/continuous-random-variables/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/probability/random-variables/expectation/">
+         Next: Expectation →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>Why We Need the CDF</h2>
+
     <p>
-      By the end of this lesson, you should be able to define the CDF, interpret its properties,
-      and use it to compute probabilities for both discrete and continuous random variables.
+      We have already seen two types of random variables:
     </p>
-  </div>
 
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Key definition</h2>
-      <p style="margin:0;">
-        For any random variable X, the cumulative distribution function is:
-        <strong>F(x) = P(X ≤ x)</strong>.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>1) What the CDF represents</h2>
-    <p>
-      The CDF accumulates probability from negative infinity up to x.
-      It tells you how much probability mass lies to the left of x.
-    </p>
-  </div>
-
-  <div class="card">
     <ul class="bullets">
-      <li>F(x) increases as x increases.</li>
-      <li>F(x) approaches 0 as x → −∞.</li>
-      <li>F(x) approaches 1 as x → +∞.</li>
+
+      <li>Discrete random variables</li>
+
+      <li>Continuous random variables</li>
+
     </ul>
-  </div>
 
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Interpretation</h2>
-      <p style="margin:0;">
-        F(x) is the proportion of probability mass to the left of x.
+    <p>
+      Discrete variables use probability mass functions.
+    </p>
+
+    <p>
+      Continuous variables use probability density functions.
+    </p>
+
+    <p>
+      The cumulative distribution function provides a common language for both.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Key idea:</strong>
+
+      <p>
+        A cumulative distribution function gives the probability that a random variable is less than or equal to a specified value.
       </p>
-    </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) CDF in the discrete case</h2>
-    <p>
-      For a discrete random variable, the CDF is a step function.
-    </p>
-  </div>
-
-  <div class="card">
-    <p>
-      F(x) = Σ P(X = k) for all k ≤ x.
-    </p>
-  </div>
-
-  <div class="card" style="margin-top:1rem;">
-    <h3>Important property</h3>
-    <p>
-      The CDF jumps at each possible value of X.
-      The size of the jump equals the probability mass at that point.
-    </p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>3) CDF in the continuous case</h2>
-    <p>
-      For a continuous random variable with density f(x):
-    </p>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      <strong>F(x) = ∫₋∞ˣ f(t) dt</strong>
-    </p>
-  </div>
-
-  <div class="card" style="margin-top:1rem;">
-    <h3>Connection to PDF</h3>
-    <p>
-      If F(x) is differentiable, then:
-    </p>
-    <p style="margin:0;"><strong>f(x) = F′(x)</strong></p>
-  </div>
-
-  <div class="card" style="margin-top:1rem;">
-    <h3>Probability using CDF</h3>
-    <p style="margin:0;">
-      P(a ≤ X ≤ b) = F(b) − F(a)
-    </p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>4) Fundamental properties of any CDF</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <ul class="bullets">
-        <li>0 ≤ F(x) ≤ 1</li>
-        <li>F(x) is non-decreasing</li>
-        <li>Right-continuous</li>
-      </ul>
     </div>
 
-    <div class="card">
-      <ul class="bullets">
-        <li>lim x→−∞ F(x) = 0</li>
-        <li>lim x→+∞ F(x) = 1</li>
-      </ul>
-    </div>
-  </div>
-</section>
+    <h2>The Definition of a CDF</h2>
 
-<section class="section">
-  <div class="section-head">
-    <h2>5) Why the CDF is powerful</h2>
     <p>
-      The CDF completely determines the distribution.
-      Once you know F(x), you can compute any probability involving inequalities.
+      The cumulative distribution function of a random variable X is defined as:
     </p>
-  </div>
 
-  <div class="card">
+    0
+
+    <p>
+      This formula represents the probability that X takes a value less than or equal to x.
+    </p>
+
+    <h2>Understanding the Word "Cumulative"</h2>
+
+    <p>
+      The term cumulative means that probabilities accumulate as we move from left to right along the number line.
+    </p>
+
+    <p>
+      Every value less than or equal to x contributes to the total probability.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Instead of focusing on a single value,
+        the CDF considers all values up to that point.
+      </p>
+
+    </div>
+
+    <h2>A Discrete Example</h2>
+
+    <p>
+      Suppose a fair die is rolled.
+    </p>
+
+    <p>
+      Let:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        X = Number shown on the die
+      </p>
+
+    </div>
+
+    <p>
+      What is:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        F(3)
+      </p>
+
+    </div>
+
+    <p>
+      By definition:
+    </p>
+
+    1
+
+    <p>
+      The values satisfying this condition are:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        1, 2, 3
+      </p>
+
+    </div>
+
+    <p>
+      Therefore:
+    </p>
+
+    2
+
+    <h2>A Continuous Example</h2>
+
+    <p>
+      Suppose X represents height.
+    </p>
+
+    <p>
+      Then:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        F(170)
+      </p>
+
+    </div>
+
+    <p>
+      represents:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Probability that height is 170 cm or less.
+      </p>
+
+    </div>
+
+    <p>
+      For continuous variables,
+      the CDF corresponds to accumulated area under the density curve.
+    </p>
+
+    <h2>The CDF and Area Under the Curve</h2>
+
+    <p>
+      For continuous random variables:
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Interpretation:</strong>
+
+      <p>
+        The CDF at x equals the area under the PDF to the left of x.
+      </p>
+
+    </div>
+
+    <p>
+      As more area is accumulated,
+      the CDF increases.
+    </p>
+
+    <h2>Properties of Every CDF</h2>
+
+    <p>
+      Regardless of the type of random variable,
+      all cumulative distribution functions satisfy several important properties.
+    </p>
+
+    <h3>Property 1: Values Are Between 0 and 1</h3>
+
+    3
+
+    <p>
+      Since probabilities range from 0 to 1,
+      the CDF must also remain within these bounds.
+    </p>
+
+    <h3>Property 2: The CDF Never Decreases</h3>
+
+    <p>
+      As x increases,
+      additional probability may be accumulated.
+    </p>
+
+    <p>
+      Probability cannot be lost.
+    </p>
+
+    <p>
+      Therefore,
+      the CDF is always nondecreasing.
+    </p>
+
+    <h3>Property 3: The CDF Approaches One</h3>
+
+    <p>
+      Eventually all possible outcomes are included.
+    </p>
+
+    <p>
+      Therefore:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Far to the right:
+        F(x) → 1
+      </p>
+
+    </div>
+
+    <h3>Property 4: The CDF Approaches Zero</h3>
+
+    <p>
+      Far to the left,
+      no outcomes have yet been accumulated.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Far to the left:
+        F(x) → 0
+      </p>
+
+    </div>
+
+    <h2>What a CDF Graph Looks Like</h2>
+
+    <p>
+      A cumulative distribution function begins near zero and gradually increases toward one.
+    </p>
+
+    <p>
+      It never moves downward.
+    </p>
+
+    <p>
+      The exact shape depends on the underlying distribution.
+    </p>
+
+    <h2>Discrete CDFs</h2>
+
+    <p>
+      For discrete variables,
+      the CDF appears as a staircase.
+    </p>
+
+    <p>
+      Each jump corresponds to probability assigned to a particular value.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Probability accumulates in steps.
+      </p>
+
+    </div>
+
+    <h2>Continuous CDFs</h2>
+
+    <p>
+      For continuous variables,
+      the CDF is usually smooth.
+    </p>
+
+    <p>
+      Probability accumulates continuously as x increases.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Probability accumulates gradually.
+      </p>
+
+    </div>
+
+    <h2>Finding Probabilities Using the CDF</h2>
+
+    <p>
+      One major advantage of the CDF is that interval probabilities can be computed easily.
+    </p>
+
+    <p>
+      For any two values a and b:
+    </p>
+
+    4
+
+    <p>
+      This formula works for many probability calculations.
+    </p>
+
+    <h2>An Example of an Interval Probability</h2>
+
+    <p>
+      Suppose:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        F(10) = 0.80
+      </p>
+
+      <p>
+        F(5) = 0.35
+      </p>
+
+    </div>
+
+    <p>
+      Then:
+    </p>
+
+    5
+
+    <p>
+      The probability that X falls between 5 and 10 is 0.45.
+    </p>
+
+    <h2>Why the CDF Is Important</h2>
+
+    <p>
+      The cumulative distribution function is one of the most fundamental objects in probability.
+    </p>
+
+    <p>
+      In fact,
+      a probability distribution can be completely described by its CDF.
+    </p>
+
+    <p>
+      Knowing the CDF means knowing the entire distribution.
+    </p>
+
+    <h2>Applications of CDFs</h2>
+
     <ul class="bullets">
-      <li>Handles both discrete and continuous cases.</li>
-      <li>Works for mixed distributions.</li>
-      <li>Foundation for quantiles and inverse transform sampling.</li>
+
+      <li>Probability calculations</li>
+
+      <li>Percentiles</li>
+
+      <li>Risk analysis</li>
+
+      <li>Statistical inference</li>
+
+      <li>Reliability engineering</li>
+
+      <li>Machine learning</li>
+
     </ul>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Common mistakes</h2>
-      <ul class="bullets">
-        <li>Confusing CDF with PDF/PMF</li>
-        <li>Forgetting CDF is non-decreasing</li>
-        <li>Ignoring right-continuity in discrete case</li>
-        <li>Using F(b) − F(a) incorrectly when variables are discrete</li>
-      </ul>
-    </div>
-  </div>
-</section>
+    <p>
+      CDFs appear throughout modern statistics and data science.
+    </p>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
-      <ul class="bullets">
-        <li>Define and interpret F(x) = P(X ≤ x)</li>
-        <li>Connect CDF to PMF and PDF</li>
-        <li>Compute probabilities using F(b) − F(a)</li>
-        <li>Prepare for expectation and variance next</li>
-      </ul>
-    </div>
-  </div>
-</section>
+    <h2>The Bridge to Expectation</h2>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next step</h2>
-      <p style="margin:0;">
-        Next, we define <strong>expectation</strong>: the long-run average value of a random variable under its distribution.
+    <p>
+      So far,
+      we have focused on describing probabilities and distributions.
+    </p>
+
+    <p>
+      Another important question is:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        What value should we expect to observe on average?
       </p>
 
-      <!-- ✅ FIXED: matches your folder name "expectation" -->
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/probability/random-variables/expectation/">
-          Next lesson: 5. Expectation →
-        </a>
-      </div>
     </div>
 
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/probability/random-variables/continuous-random-variables/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 3: Continuous Random Variables & PDF
-          </a>
-        </div>
-      </div>
+    <p>
+      This question leads to one of the most important concepts in probability:
+      expectation.
+    </p>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      The next lesson introduces expectation,
+      often called the expected value or mean of a random variable.
+    </p>
+
+    <p>
+      Expectation summarizes the center of a probability distribution and plays a central role throughout probability and statistics.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>The cumulative distribution function is defined as F(x) = P(X ≤ x)</li>
+
+        <li>The CDF accumulates probability from left to right</li>
+
+        <li>The CDF works for both discrete and continuous random variables</li>
+
+        <li>For continuous variables, the CDF represents accumulated area under the PDF</li>
+
+        <li>Every CDF is nondecreasing and ranges from 0 to 1</li>
+
+        <li>Interval probabilities can be found using differences of CDF values</li>
+
+        <li>A probability distribution is completely determined by its CDF</li>
+
+      </ul>
+
     </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/probability/random-variables/continuous-random-variables/">
+         ← Previous: Continuous Random Variables
+      </a>
+
+      <a class="btn"
+         href="/probability/random-variables/expectation/">
+         Next: Expectation →
+      </a>
+
+    </div>
+
   </div>
+
 </section>

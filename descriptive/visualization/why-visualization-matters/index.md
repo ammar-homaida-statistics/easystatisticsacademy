@@ -126,6 +126,14 @@ sidebar: false
       A graph often communicates the same information almost instantly.
     </p>
 
+    <img src="{{ 'descriptive/images/table-vs-bar-chart.png' | relative_url }}"
+     alt="Table compared with bar chart"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+The same information is often easier to compare visually than numerically.
+</p>
+
     <div class="concept-box">
 
       <strong>Key idea:</strong>
@@ -135,6 +143,28 @@ sidebar: false
       </p>
 
     </div>
+
+    <p>
+  Humans are generally better at recognizing visual patterns
+  than comparing large collections of numbers.
+</p>
+
+<p>
+  This is why graphs often reveal insights that are difficult
+  to detect from tables alone.
+</p>
+
+<div class="concept-box">
+
+  <strong>Important insight:</strong>
+
+  <p>
+    Visualization does not replace statistical analysis.
+    It helps guide analysis by revealing patterns that deserve
+    further investigation.
+  </p>
+
+</div>
 
     <h2>Statistics Is About Patterns</h2>
 
@@ -162,6 +192,14 @@ sidebar: false
       <li>Distribution shapes</li>
 
     </ul>
+
+    <img src="{{ 'descriptive/images/four-goals-of-visualization.png' | relative_url }}"
+     alt="Major goals of statistical visualization"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+Different graph types help reveal different kinds of statistical patterns.
+</p>
 
     <p>
       Many important findings become visible before any formal calculation is performed.
@@ -202,6 +240,19 @@ sidebar: false
       The numbers suggest growth,
       but the trend becomes much easier to recognize visually.
     </p>
+
+    <p>
+  A line chart would immediately reveal the steady upward pattern,
+  whereas the table requires the reader to compare values manually.
+</p>
+
+<img src="{{ 'descriptive/images/hidden-pattern-line-chart.png' | relative_url }}"
+     alt="Trend revealed by a line chart"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+Line charts often reveal trends that are difficult to see in tables.
+</p>
 
     <h2>Visualization Reveals Trends</h2>
 
@@ -344,6 +395,11 @@ sidebar: false
       Exploratory data analysis relies heavily on visualization.
     </p>
 
+    <p>
+  Visual patterns should be investigated further rather than accepted
+  automatically as evidence.
+</p>
+
     <h2>Visualization Supports Communication</h2>
 
     <p>
@@ -476,6 +532,62 @@ sidebar: false
       The ability to create and interpret graphs
       is one of the most valuable skills a statistician can develop.
     </p>
+
+    <div class="concept-box">
+
+  <strong>Key insight:</strong>
+
+  <p>
+    Good visualizations transform numerical information
+    into patterns that can be understood quickly and accurately.
+  </p>
+
+</div>
+
+<h2>Optional: Visualization in SPSS</h2>
+
+<ul class="bullets">
+  <li>Graphs → Chart Builder</li>
+  <li>SPSS can create bar charts, histograms, boxplots, and scatterplots</li>
+  <li>Choosing the correct graph remains the responsibility of the analyst</li>
+</ul>
+
+<h3>Python Example</h3>
+
+<p>
+Create a simple bar chart from categorical data.
+</p>
+
+<pre><code>import matplotlib.pyplot as plt
+
+departments = ["Sales", "Marketing", "Finance", "HR"]
+employees = [45, 28, 18, 9]
+
+plt.bar(departments, employees)
+plt.show()
+</code></pre>
+
+<div style="flex:1; min-width:300px;">
+    <img src="{{ 'descriptive/images/python_bar_chart_output.png' | relative_url }}"
+         alt="Python chart output"
+         style="width:100%; height:auto;">
+    <p style="text-align:center;">
+      Bar chart output
+    </p>
+  </div>
+
+<h3>R Example</h3>
+
+<p>
+Create a simple bar chart from categorical data.
+</p>
+
+<pre><code>departments <- c("Sales","Marketing","Finance","HR")
+employees <- c(45,28,18,9)
+
+barplot(employees,
+        names.arg = departments)
+</code></pre>
 
     <!-- TAKEAWAYS -->
 

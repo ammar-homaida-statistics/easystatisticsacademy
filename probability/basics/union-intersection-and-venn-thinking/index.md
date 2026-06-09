@@ -1,283 +1,619 @@
 ---
 layout: default
-title: "4. Union, Intersection & Venn Thinking"
-description: "Translate language into probability using set logic: union, intersection, disjoint events, and visual reasoning."
+title: Union, Intersection, and Venn Thinking
+description: Learn how events can be combined using unions and intersections, and how Venn diagrams help visualize probability relationships.
 permalink: /probability/basics/union-intersection-and-venn-thinking/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 establishes correct reasoning patterns. Diagrams, software visuals,
-        and interactive examples will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update last visited lesson -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_probability_basics_lesson_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/probability/basics/union-intersection-and-venn-thinking/",
-      label: "Lesson 4 — Union, Intersection & Venn Thinking",
-      ts: Date.now()
-    }));
-  })();
+(function () {
+
+  const KEY =
+    "esa_continue_probability_basics_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/probability/basics/union-intersection-and-venn-thinking/",
+    label: "Union, Intersection, and Venn Thinking",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
 
-      <div class="badge-row">
-        <span class="badge">Block 1</span>
-        <span class="badge">Lesson 4</span>
-        <span class="badge">Visual reasoning</span>
-        <span class="badge">Logic</span>
-      </div>
+    <div class="badge-row">
+      <span class="badge">Probability</span>
+      <span class="badge">Block 1</span>
+      <span class="badge">Basics</span>
+      <span class="badge">Events</span>
+    </div>
 
-      <h1>4. Union, Intersection &amp; Venn Thinking</h1>
+    <h1>Union, Intersection, and Venn Thinking</h1>
 
-      <p class="lead">
-        Most probability errors are language errors.  
-        This lesson teaches you how to translate words like “and”, “or”, and “at least”
-        into precise mathematical events.
-      </p>
+    <p class="lead">
+      Probability often involves combining events.
+    </p>
 
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/probability/basics/probability-axioms-and-basic-rules/">
-          ← Previous lesson: 3. Probability Axioms & Basic Rules
-        </a>
-        <a class="btn btn-outline" href="/probability/basics/">Back to Block 1</a>
-      </div>
+    <p class="lead">
+      We may want to know the probability that one event occurs, another event occurs, or that both occur together. Unions, intersections, and Venn diagrams provide a powerful framework for thinking about these relationships.
+    </p>
 
-      <p class="muted-mini">
-        Precision in language = precision in probability.
-      </p>
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/probability/basics/probability-axioms-and-basic-rules/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/probability/basics/equally-likely-and-counting-intuition/">
+         Next: Equally Likely and Counting Intuition →
+      </a>
 
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
   </div>
 
-  <ul class="bullets">
-    <li>Translate verbal statements into events</li>
-    <li>Understand union (∪) and intersection (∩)</li>
-    <li>Recognize disjoint vs overlapping events</li>
-    <li>Avoid common language-based probability mistakes</li>
-  </ul>
 </section>
 
+<!-- LESSON -->
+
 <section class="section">
-  <div class="section-head">
-    <h2>1) Intersection (A ∩ B) — “AND”</h2>
+
+  <div class="content-narrow">
+
+    <h2>Why Combine Events?</h2>
+
     <p>
-      The intersection of two events means both occur.
+      Many probability questions involve more than one event.
     </p>
-  </div>
 
-  <div class="card">
-    <h3>Examples</h3>
-    <ul class="bullets">
-      <li>“Roll an even number AND greater than 3” → {4,6}</li>
-      <li>“Student is female AND passed the exam”</li>
-      <li>“Customer buys product A AND product B”</li>
-    </ul>
-  </div>
+    <div class="example-box">
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Key idea</h2>
-      <p style="margin:0;">
-        Intersection reduces the number of outcomes.
-        It makes the event more specific.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>2) Union (A ∪ B) — “OR”</h2>
-    <p>
-      The union of two events means at least one occurs.
-    </p>
-  </div>
-
-  <div class="card">
-    <h3>Important clarification</h3>
-    <p>
-      In probability, “OR” is inclusive — meaning:
-    </p>
-    <ul class="bullets">
-      <li>A occurs</li>
-      <li>B occurs</li>
-      <li>Both occur</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <h3>Examples</h3>
-    <ul class="bullets">
-      <li>“Roll a 2 OR a 4” → {2,4}</li>
-      <li>“Student passed OR received extra credit”</li>
-    </ul>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>3) Disjoint (Mutually Exclusive) Events</h2>
-  </div>
-
-  <div class="card">
-    <p>
-      Two events are disjoint if they cannot happen together.
-    </p>
-    <p><strong>A ∩ B = ∅</strong></p>
-  </div>
-
-  <div class="card">
-    <h3>Example</h3>
-    <ul class="bullets">
-      <li>Rolling a 2 AND rolling a 5 (single die roll)</li>
-    </ul>
-  </div>
-
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Warning</h2>
-      <p style="margin:0;">
-        Disjoint does NOT mean independent.
-        (You will revisit this in Lesson 6.)
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>4) Translating Common Phrases</h2>
-  </div>
-
-  <div class="grid grid-2">
-
-    <div class="card">
-      <h3>“At least one”</h3>
       <p>
-        Means 1 or more.
-        Often easier to compute using the complement rule.
+        What is the probability of drawing a heart or a king?
       </p>
-    </div>
 
-    <div class="card">
-      <h3>“Exactly one”</h3>
       <p>
-        Means one occurs AND the other does not.
+        What is the probability that a student studies and passes?
       </p>
-    </div>
 
-    <div class="card">
-      <h3>“Either A or B”</h3>
       <p>
-        Usually inclusive OR unless explicitly stated otherwise.
+        What is the probability of rain and strong winds?
       </p>
+
     </div>
 
-    <div class="card">
-      <h3>“Neither A nor B”</h3>
-      <p>
-        Complement of (A ∪ B).
-      </p>
-    </div>
-
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>5) Why Venn Thinking Helps</h2>
-  </div>
-
-  <div class="card">
     <p>
-      Visualizing events as overlapping regions prevents:
+      To answer questions like these,
+      we need methods for combining events.
     </p>
-    <ul class="bullets">
-      <li>Double-counting probabilities</li>
-      <li>Forgetting intersections</li>
-      <li>Confusing AND with OR</li>
-    </ul>
-  </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Golden rule</h2>
-      <p style="margin:0;">
-        Always rewrite a verbal statement as:
-        <br><br>
-        “Let A be …”  
-        “Let B be …”
-        <br><br>
-        Then express the event using ∪, ∩, or complement.
+    <div class="concept-box">
+
+      <strong>Key idea:</strong>
+
+      <p>
+        Unions describe "or" situations. Intersections describe "and" situations.
       </p>
-    </div>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Common mistakes</h2>
+    </div>
+
+    <h2>Introducing Event A and Event B</h2>
+
+    <p>
+      Throughout probability,
+      events are commonly represented by capital letters.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        A = Rolling an even number
+      </p>
+
+      <p>
+        B = Rolling a number greater than 3
+      </p>
+
+    </div>
+
+    <p>
+      We can study each event individually or examine how they relate to one another.
+    </p>
+
+    <h2>What Is a Union?</h2>
+
+    <p>
+      The <strong>union</strong> of two events contains outcomes that belong to Event A,
+      Event B,
+      or both.
+    </p>
+
+    <p>
+      The union is written as:
+    </p>
+
+    0
+
+    <p>
+      The symbol ∪ can be interpreted as "or."
+    </p>
+
+    <h2>Union Example</h2>
+
+    <p>
+      Suppose a die is rolled.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        A = {2,4,6}
+      </p>
+
+      <p>
+        B = {4,5,6}
+      </p>
+
+    </div>
+
+    <p>
+      The union contains every outcome appearing in either event.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        A ∪ B = {2,4,5,6}
+      </p>
+
+    </div>
+
+    <p>
+      Notice that outcomes are listed only once.
+    </p>
+
+    <h2>What Is an Intersection?</h2>
+
+    <p>
+      The <strong>intersection</strong> of two events contains outcomes shared by both events.
+    </p>
+
+    <p>
+      The intersection is written as:
+    </p>
+
+    1
+
+    <p>
+      The symbol ∩ can be interpreted as "and."
+    </p>
+
+    <h2>Intersection Example</h2>
+
+    <p>
+      Using the previous events:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        A = {2,4,6}
+      </p>
+
+      <p>
+        B = {4,5,6}
+      </p>
+
+    </div>
+
+    <p>
+      The shared outcomes are:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        A ∩ B = {4,6}
+      </p>
+
+    </div>
+
+    <p>
+      These outcomes belong to both events simultaneously.
+    </p>
+
+    <h2>Understanding "Or"</h2>
+
+    <p>
+      In probability,
+      "or" usually means inclusive or.
+    </p>
+
+    <p>
+      This means:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Event A occurs</li>
+
+      <li>Event B occurs</li>
+
+      <li>Both events occur</li>
+
+    </ul>
+
+    <p>
+      All three possibilities belong to the union.
+    </p>
+
+    <h2>Understanding "And"</h2>
+
+    <p>
+      The word "and" is much more restrictive.
+    </p>
+
+    <p>
+      The outcome must satisfy both events simultaneously.
+    </p>
+
+    <p>
+      Only outcomes in the overlap belong to the intersection.
+    </p>
+
+    <h2>Venn Diagrams</h2>
+
+    <p>
+      Venn diagrams provide a visual way to represent events.
+    </p>
+
+    <p>
+      Each circle represents an event,
+      while the surrounding rectangle represents the sample space.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Rectangle → Sample Space
+      </p>
+
+      <p>
+        Circle A → Event A
+      </p>
+
+      <p>
+        Circle B → Event B
+      </p>
+
+    </div>
+
+    <p>
+      The overlap between circles represents the intersection.
+    </p>
+
+    <h2>Visualizing the Union</h2>
+
+    <p>
+      In a Venn diagram,
+      the union includes all regions covered by either circle.
+    </p>
+
+    <p>
+      This includes:
+    </p>
+
+    <ul class="bullets">
+
+      <li>A only</li>
+
+      <li>B only</li>
+
+      <li>The overlap</li>
+
+    </ul>
+
+    <p>
+      Everything inside either circle belongs to the union.
+    </p>
+
+    <h2>Visualizing the Intersection</h2>
+
+    <p>
+      In a Venn diagram,
+      the intersection is only the overlapping region.
+    </p>
+
+    <p>
+      This region contains outcomes belonging to both events simultaneously.
+    </p>
+
+    <h2>Mutually Exclusive Events</h2>
+
+    <p>
+      Some events have no overlap.
+    </p>
+
+    <p>
+      Such events are called mutually exclusive.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        A = Rolling a 1
+      </p>
+
+      <p>
+        B = Rolling a 6
+      </p>
+
+    </div>
+
+    <p>
+      These events cannot occur together.
+    </p>
+
+    <p>
+      Their intersection is empty.
+    </p>
+
+    2
+
+    <h2>Union Rule for Mutually Exclusive Events</h2>
+
+    <p>
+      When events cannot occur together,
+      probabilities simply add.
+    </p>
+
+    3
+
+    <p>
+      This rule was introduced in the previous lesson.
+    </p>
+
+    <h2>When Events Overlap</h2>
+
+    <p>
+      Most events are not mutually exclusive.
+    </p>
+
+    <p>
+      When overlap exists,
+      simply adding probabilities counts the overlap twice.
+    </p>
+
+    <p>
+      Therefore,
+      a correction is needed.
+    </p>
+
+    <h2>The Addition Rule</h2>
+
+    <p>
+      For any two events:
+    </p>
+
+    4
+
+    <p>
+      The overlap is subtracted once to avoid double counting.
+    </p>
+
+    <h2>Why Subtract the Intersection?</h2>
+
+    <p>
+      Consider:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        P(A) = 0.50
+      </p>
+
+      <p>
+        P(B) = 0.40
+      </p>
+
+      <p>
+        P(A ∩ B) = 0.10
+      </p>
+
+    </div>
+
+    <p>
+      If we simply add:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        0.50 + 0.40 = 0.90
+      </p>
+
+    </div>
+
+    <p>
+      The overlap is counted twice.
+    </p>
+
+    <p>
+      Applying the addition rule:
+    </p>
+
+    5
+
+    <p>
+      The correct probability is 0.80.
+    </p>
+
+    <h2>Complement Regions in Venn Diagrams</h2>
+
+    <p>
+      Venn diagrams also help visualize complements.
+    </p>
+
+    <p>
+      The complement of Event A consists of everything outside Circle A but still inside the sample space.
+    </p>
+
+    <p>
+      This idea connects directly to the complement rule introduced earlier.
+    </p>
+
+    <h2>Thinking in Regions</h2>
+
+    <p>
+      Venn diagrams encourage a useful habit:
+      thinking about events as regions of the sample space.
+    </p>
+
+    <p>
+      Probability then becomes the amount of probability assigned to those regions.
+    </p>
+
+    <p>
+      This perspective will be extremely useful in later topics.
+    </p>
+
+    <h2>Why Venn Thinking Matters</h2>
+
+    <p>
+      Many important probability concepts rely on event relationships.
+    </p>
+
+    <p>
+      These include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Conditional probability</li>
+
+      <li>Independence</li>
+
+      <li>Bayes' theorem</li>
+
+      <li>Contingency tables</li>
+
+      <li>Statistical inference</li>
+
+    </ul>
+
+    <p>
+      Venn diagrams provide an intuitive foundation for all of them.
+    </p>
+
+    <h2>A Quick Summary</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Symbol</th>
+            <th>Meaning</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>A ∪ B</td>
+            <td>A or B or both</td>
+          </tr>
+
+          <tr>
+            <td>A ∩ B</td>
+            <td>A and B</td>
+          </tr>
+
+          <tr>
+            <td>Aᶜ</td>
+            <td>Not A</td>
+          </tr>
+
+          <tr>
+            <td>∅</td>
+            <td>Impossible event</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      We now understand how events are defined and combined.
+    </p>
+
+    <p>
+      The next question is:
+      how do we actually count outcomes and assign probabilities?
+    </p>
+
+    <p>
+      The next lesson introduces equally likely outcomes and counting intuition,
+      which form the basis for many classical probability calculations.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Interpreting “or” as exclusive when it is inclusive</li>
-        <li>Adding probabilities without checking overlap</li>
-        <li>Ignoring whether events can occur together</li>
-        <li>Failing to define A and B explicitly</li>
+
+        <li>The union of events represents "A or B"</li>
+
+        <li>The intersection of events represents "A and B"</li>
+
+        <li>Venn diagrams visualize relationships between events</li>
+
+        <li>Mutually exclusive events have no overlap</li>
+
+        <li>The addition rule accounts for overlapping events</li>
+
+        <li>Complements represent outcomes outside an event</li>
+
+        <li>Venn thinking is foundational for later probability topics</li>
+
       </ul>
-    </div>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
-      <ul class="bullets">
-        <li>Translate language into mathematical events</li>
-        <li>Use union and intersection correctly</li>
-        <li>Recognize disjoint events</li>
-        <li>Prepare for counting-based probability next</li>
-      </ul>
     </div>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next lesson</h2>
-      <p style="margin:0;">
-        Now we examine when outcomes are equally likely and how counting determines probability.
-      </p>
+    <!-- NAVIGATION -->
 
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/probability/basics/equally-likely-and-counting-intuition/">
-          Next lesson: 5. Equally Likely Outcomes & Counting Intuition →
-        </a>
-      </div>
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/probability/basics/probability-axioms-and-basic-rules/">
+         ← Previous: Probability Axioms and Basic Rules
+      </a>
+
+      <a class="btn"
+         href="/probability/basics/equally-likely-and-counting-intuition/">
+         Next: Equally Likely and Counting Intuition →
+      </a>
+
     </div>
+
   </div>
+
 </section>

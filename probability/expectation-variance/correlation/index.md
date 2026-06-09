@@ -1,256 +1,553 @@
 ---
 layout: default
-title: "4. Correlation"
-description: "Correlation is standardized covariance. It measures strength and direction of linear relationship and removes scale dependence."
+title: Correlation
+description: Learn how correlation standardizes covariance and provides a clear measure of the strength and direction of linear relationships.
 permalink: /probability/expectation-variance/correlation/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">🚧 Lesson Under Construction</h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 establishes the formal definition and interpretation of correlation.
-        Visual intuition and real data examples will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update "last visited lesson" for Probability Block 4 -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_probability_expectation_variance_lesson_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/probability/expectation-variance/correlation/",
-      label: "Lesson 4 — Correlation",
-      ts: Date.now()
-    }));
-  })();
+(function () {
+
+  const KEY =
+    "esa_continue_probability_expectation_variance_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/probability/expectation-variance/correlation/",
+    label: "Correlation",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 4</span>
-        <span class="badge">Lesson 4</span>
-        <span class="badge">Correlation</span>
-        <span class="badge">Standardized</span>
-      </div>
 
-      <h1>4. Correlation</h1>
-      <p class="lead">
-        Covariance measures joint movement but depends on scale.
-        Correlation removes scale and produces a standardized measure
-        between −1 and 1.
+    <div class="badge-row">
+      <span class="badge">Probability</span>
+      <span class="badge">Block 4</span>
+      <span class="badge">Expectation & Variance</span>
+      <span class="badge">Association</span>
+    </div>
+
+    <h1>Correlation</h1>
+
+    <p class="lead">
+      Covariance tells us whether variables move together, but its magnitude depends on measurement units.
+    </p>
+
+    <p class="lead">
+      Correlation solves this problem by providing a standardized measure of the strength and direction of a linear relationship.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/probability/expectation-variance/covariance/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/probability/expectation-variance/indicator-random-variables/">
+         Next: Indicator Random Variables →
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>Why Correlation Exists</h2>
+
+    <p>
+      In the previous lesson,
+      we learned that covariance measures how two variables move together.
+    </p>
+
+    <p>
+      However,
+      covariance has a major limitation.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Changing measurement units changes covariance.
       </p>
 
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/probability/expectation-variance/">Back to Block 4</a>
-        <a class="btn btn-outline" href="/probability/">Probability home</a>
-      </div>
-
-      <p class="muted-mini">
-        Key message: correlation measures strength and direction of linear relationship.
+      <p>
+        Converting meters to centimeters changes its value.
       </p>
+
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
     <p>
-      By the end of this lesson, you should be able to define correlation,
-      interpret its magnitude and sign, and understand its limitations.
+      This makes comparisons difficult.
     </p>
-  </div>
 
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Key definition</h2>
-      <p style="margin:0; font-size:1.1rem;">
-        <strong>Corr(X,Y) = Cov(X,Y) / (σ_X σ_Y)</strong>
+    <div class="concept-box">
+
+      <strong>Key idea:</strong>
+
+      <p>
+        Correlation is a standardized version of covariance that always falls between −1 and +1.
       </p>
-    </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) Why standardize covariance?</h2>
+    </div>
+
+    <h2>The Correlation Formula</h2>
+
     <p>
-      Covariance depends on measurement units.
-      If we change scale, covariance changes.
+      The correlation between two random variables X and Y is:
     </p>
-  </div>
 
-  <div class="card">
+    0
+
     <p>
-      Correlation divides by standard deviations,
-      making it unit-free and comparable across contexts.
+      where:
     </p>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) Range of correlation</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0; font-size:1.1rem;">
-      <strong>−1 ≤ Corr(X,Y) ≤ 1</strong>
-    </p>
-  </div>
-
-  <div class="grid grid-3" style="margin-top:1rem;">
-    <div class="card">
-      <h3>Corr = 1</h3>
-      <p>Perfect positive linear relationship.</p>
-    </div>
-
-    <div class="card">
-      <h3>Corr = −1</h3>
-      <p>Perfect negative linear relationship.</p>
-    </div>
-
-    <div class="card">
-      <h3>Corr = 0</h3>
-      <p>No linear relationship (not necessarily independence).</p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>3) Interpretation of magnitude</h2>
-  </div>
-
-  <div class="card">
     <ul class="bullets">
-      <li>Close to 1 → strong positive linear association</li>
-      <li>Close to −1 → strong negative linear association</li>
-      <li>Close to 0 → weak linear association</li>
+
+      <li>Cov(X,Y) is the covariance</li>
+
+      <li>σX is the standard deviation of X</li>
+
+      <li>σY is the standard deviation of Y</li>
+
     </ul>
-  </div>
 
-  <p class="muted-mini" style="margin-top:.75rem;">
-    Correlation measures linear strength only.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>4) Important warnings</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Correlation ≠ Causation</h3>
-      <p>
-        A high correlation does not imply that one variable causes the other.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Zero correlation ≠ Independence</h3>
-      <p>
-        Variables may have nonlinear dependence even when correlation is zero.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Sensitive to outliers</h3>
-      <p>
-        A single extreme observation can dramatically change correlation.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Only linear structure</h3>
-      <p>
-        Strong nonlinear relationships can produce small correlation.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>5) Structural role in variance</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      Using correlation, the variance of a sum becomes:
+    <p>
+      Dividing by the standard deviations removes the influence of measurement units.
     </p>
-    <p style="margin-top:.5rem; font-size:1.1rem;">
-      <strong>Var(X+Y) = Var(X) + Var(Y) + 2ρσ_Xσ_Y</strong>
+
+    <h2>The Correlation Symbol</h2>
+
+    <p>
+      Correlation is commonly represented by:
     </p>
-  </div>
 
-  <p class="muted-mini" style="margin-top:.75rem;">
-    where ρ = Corr(X,Y).
-  </p>
-</section>
+    1
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Common mistakes</h2>
-      <ul class="bullets">
-        <li>Confusing covariance and correlation</li>
-        <li>Interpreting correlation as causation</li>
-        <li>Ignoring nonlinear relationships</li>
-        <li>Assuming zero correlation implies independence</li>
-      </ul>
-    </div>
-  </div>
-</section>
+    <p>
+      for population correlation.
+    </p>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
-      <ul class="bullets">
-        <li>Define correlation formally</li>
-        <li>Interpret magnitude and direction</li>
-        <li>Understand its limits</li>
-        <li>Be ready to use indicator variables next</li>
-      </ul>
-    </div>
-  </div>
-</section>
+    <p>
+      Sample correlation is often represented by:
+    </p>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next step</h2>
-      <p style="margin:0;">
-        Now we introduce indicator random variables —
-        one of the most powerful tools for counting and modeling.
+    <div class="example-box">
+
+      <p>
+        r
       </p>
 
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/probability/expectation-variance/indicator-random-variables/">
-          Next lesson: 5. Indicator Random Variables →
-        </a>
-      </div>
     </div>
 
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/probability/expectation-variance/covariance/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 3: Covariance
-          </a>
-        </div>
-      </div>
+    <h2>The Range of Correlation</h2>
+
+    <p>
+      Correlation always satisfies:
+    </p>
+
+    2
+
+    <p>
+      This fixed range makes interpretation straightforward.
+    </p>
+
+    <h2>Positive Correlation</h2>
+
+    <p>
+      Positive correlation indicates that variables tend to move in the same direction.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        More study time → higher exam scores
+      </p>
+
+      <p>
+        More advertising → higher sales
+      </p>
+
     </div>
+
+    <p>
+      Positive correlations satisfy:
+    </p>
+
+    3
+
+    <h2>Negative Correlation</h2>
+
+    <p>
+      Negative correlation indicates that variables tend to move in opposite directions.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Higher prices → lower demand
+      </p>
+
+      <p>
+        More distance traveled → less fuel remaining
+      </p>
+
+    </div>
+
+    <p>
+      Negative correlations satisfy:
+    </p>
+
+    4
+
+    <h2>Zero Correlation</h2>
+
+    <p>
+      A correlation of zero indicates no linear relationship.
+    </p>
+
+    5
+
+    <p>
+      Knowledge of one variable does not provide information about a linear trend in the other.
+    </p>
+
+    <h2>Interpreting Correlation Strength</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Correlation</th>
+            <th>Interpretation</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>+1</td>
+            <td>Perfect positive linear relationship</td>
+          </tr>
+
+          <tr>
+            <td>0.7 to 0.9</td>
+            <td>Strong positive relationship</td>
+          </tr>
+
+          <tr>
+            <td>0.3 to 0.7</td>
+            <td>Moderate positive relationship</td>
+          </tr>
+
+          <tr>
+            <td>0</td>
+            <td>No linear relationship</td>
+          </tr>
+
+          <tr>
+            <td>-0.3 to -0.7</td>
+            <td>Moderate negative relationship</td>
+          </tr>
+
+          <tr>
+            <td>-0.7 to -0.9</td>
+            <td>Strong negative relationship</td>
+          </tr>
+
+          <tr>
+            <td>-1</td>
+            <td>Perfect negative linear relationship</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      These ranges are rough guidelines rather than strict rules.
+    </p>
+
+    <h2>Perfect Positive Correlation</h2>
+
+    <p>
+      When:
+    </p>
+
+    6
+
+    <p>
+      all observations lie exactly on an increasing straight line.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Y = 2X
+      </p>
+
+    </div>
+
+    <p>
+      Every increase in X produces a perfectly predictable increase in Y.
+    </p>
+
+    <h2>Perfect Negative Correlation</h2>
+
+    <p>
+      When:
+    </p>
+
+    7
+
+    <p>
+      all observations lie exactly on a decreasing straight line.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Y = 100 − X
+      </p>
+
+    </div>
+
+    <p>
+      Increases in X correspond perfectly to decreases in Y.
+    </p>
+
+    <h2>Correlation Measures Linear Relationships</h2>
+
+    <p>
+      Correlation is specifically designed to detect linear relationships.
+    </p>
+
+    <p>
+      A strong nonlinear relationship can still produce a correlation near zero.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Important:</strong>
+
+      <p>
+        Zero correlation does not necessarily mean no relationship exists.
+      </p>
+
+    </div>
+
+    <h2>A Nonlinear Example</h2>
+
+    <p>
+      Suppose:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Y = X²
+      </p>
+
+    </div>
+
+    <p>
+      The relationship is clearly strong.
+    </p>
+
+    <p>
+      Yet under some symmetric settings,
+      correlation may be close to zero because the relationship is not linear.
+    </p>
+
+    <h2>Correlation and Independence</h2>
+
+    <p>
+      Independent variables always have zero correlation.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Independence ⇒ Zero Correlation
+      </p>
+
+    </div>
+
+    <p>
+      However,
+      the reverse is generally false.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Important:</strong>
+
+      <p>
+        Zero correlation does not imply independence.
+      </p>
+
+    </div>
+
+    <h2>Correlation in Data Analysis</h2>
+
+    <p>
+      Correlation is widely used in:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Statistics</li>
+
+      <li>Machine learning</li>
+
+      <li>Finance</li>
+
+      <li>Economics</li>
+
+      <li>Quality control</li>
+
+      <li>Scientific research</li>
+
+    </ul>
+
+    <p>
+      It provides a quick summary of linear association between variables.
+    </p>
+
+    <h2>Correlation Is Not Causation</h2>
+
+    <p>
+      One of the most important principles in statistics is:
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Warning:</strong>
+
+      <p>
+        Correlation does not imply causation.
+      </p>
+
+    </div>
+
+    <p>
+      Two variables can be strongly correlated even when neither causes the other.
+    </p>
+
+    <p>
+      Hidden factors or coincidence may create the observed relationship.
+    </p>
+
+    <h2>Why Correlation Matters</h2>
+
+    <p>
+      Correlation provides a standardized measure of dependence.
+    </p>
+
+    <p>
+      Unlike covariance,
+      it can be interpreted consistently across different datasets and measurement scales.
+    </p>
+
+    <p>
+      This makes it one of the most widely reported statistical measures.
+    </p>
+
+    <h2>The Connection to Probability</h2>
+
+    <p>
+      Correlation helps us understand how random variables interact.
+    </p>
+
+    <p>
+      Combined with expectation,
+      variance,
+      and covariance,
+      it forms a complete toolkit for describing uncertainty and dependence.
+    </p>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      So far,
+      we have focused on expectation,
+      variance,
+      covariance,
+      and correlation.
+    </p>
+
+    <p>
+      The next lesson introduces indicator random variables,
+      a simple but extremely powerful tool used throughout probability theory and combinatorics.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>Correlation standardizes covariance</li>
+
+        <li>Correlation always lies between −1 and +1</li>
+
+        <li>Positive values indicate variables move together</li>
+
+        <li>Negative values indicate variables move in opposite directions</li>
+
+        <li>Zero correlation indicates no linear relationship</li>
+
+        <li>Correlation measures linear association only</li>
+
+        <li>Zero correlation does not imply independence</li>
+
+        <li>Correlation does not imply causation</li>
+
+      </ul>
+
+    </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/probability/expectation-variance/covariance/">
+         ← Previous: Covariance
+      </a>
+
+      <a class="btn"
+         href="/probability/expectation-variance/indicator-random-variables/">
+         Next: Indicator Random Variables →
+      </a>
+
+    </div>
+
   </div>
+
 </section>

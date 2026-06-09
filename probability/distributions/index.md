@@ -1,256 +1,727 @@
 ---
 layout: default
 title: Block 5 — Common Distributions
-description: Learn the core distributions used everywhere: discrete and continuous families, how to recognize them, compute probabilities, and interpret parameters in real applications.
+description: Learn the most important probability distributions, how to recognize them, interpret their parameters, and use them to model real-world uncertainty.
 permalink: /probability/distributions/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 This Section Is Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        This block introduces the most important named probability distributions (discrete and continuous).
-        Lessons are being published in fixed pedagogical order as part of the Probability unit.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update "last visited block" for Probability home -->
+<!-- SAVE BLOCK PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_probability_last_block_v0";
+(function () {
 
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/probability/distributions/",
-      label: "Block 5 — Common Distributions",
-      ts: Date.now()
-    }));
-  })();
+  const KEY = "esa_continue_probability_last_block_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/probability/distributions/",
+    label: "Block 5 — Common Distributions",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card hero-split">
+
+    <!-- LEFT -->
+
     <div class="hero-copy">
+
       <div class="badge-row">
+        <span class="badge">Probability</span>
         <span class="badge">Block 5</span>
         <span class="badge">Distributions</span>
-        <span class="badge">Discrete</span>
-        <span class="badge">Continuous</span>
+        <span class="badge">Modeling</span>
       </div>
 
       <h1>Block 5 — Common Distributions</h1>
+
       <p class="lead">
-        Distributions are reusable probability models. This block teaches you how to recognize the right model,
-        interpret parameters, compute probabilities, and connect each distribution to real data situations.
+        Probability distributions are reusable models of uncertainty.
+      </p>
+
+      <p class="lead">
+        This block introduces the most important discrete and continuous
+        probability distributions used throughout statistics,
+        machine learning, engineering, economics, and science.
+      </p>
+
+      <p class="muted-mini">
+        12 lessons • Applied probability modeling • Builds on Expectation & Variability • Prepares for LLN & CLT
       </p>
 
       <div class="hero-actions">
-        <a class="btn btn-outline" href="/probability/">Back to Probability</a>
-        <a class="btn" href="#lessons">Open lessons</a>
+
+        <a class="btn" href="#lessons">
+          Open Lessons
+        </a>
+
+        <a class="btn btn-outline" href="/probability/">
+          Back to Probability
+        </a>
+
       </div>
 
-      <p class="muted-mini">
-        Version 0: structure is locked. Lessons will be refined without changing order.
-      </p>
+      <div class="hero-highlight">
+
+        <div class="hero-highlight-icon">
+          📊
+        </div>
+
+        <div>
+
+          <strong>Why this block matters</strong>
+
+          <p>
+            Most real-world probability problems are solved using probability
+            distributions. Learning to recognize the correct distribution is one
+            of the most valuable skills in probability and statistics.
+          </p>
+
+        </div>
+
+      </div>
+
     </div>
+
+    <!-- RIGHT -->
 
     <div class="hero-panel">
+
       <div class="panel-card">
-        <h2 class="panel-title">What this block covers</h2>
-        <ul class="quickstart" style="list-style:none; padding-left:0; margin:0;">
-          <li style="margin:.35rem 0;"><strong>Discrete distributions</strong><span class="meta">Counts and events</span></li>
-          <li style="margin:.35rem 0;"><strong>Continuous distributions</strong><span class="meta">Measurements and waiting times</span></li>
-          <li style="margin:.35rem 0;"><strong>Parameter meaning</strong><span class="meta">Interpretation & modeling</span></li>
-          <li style="margin:.35rem 0;"><strong>Recognition patterns</strong><span class="meta">Which distribution fits?</span></li>
-          <li style="margin:.35rem 0;"><strong>Connections</strong><span class="meta">Approximation & relationships</span></li>
-          <li style="margin:.35rem 0;"><strong>Software</strong><span class="meta">Excel / R / Python / SPSS later</span></li>
-        </ul>
+
+        <h2 class="panel-title">Block overview</h2>
+
+        <div class="mini">
+          <div class="mini-title">Lessons</div>
+          <div class="mini-body">12 structured lessons</div>
+        </div>
+
+        <div class="mini">
+          <div class="mini-title">Level</div>
+          <div class="mini-body">Applied probability</div>
+        </div>
+
+        <div class="mini">
+          <div class="mini-title">Main skill</div>
+          <div class="mini-body">
+            Match distributions to real situations
+          </div>
+        </div>
+
+        <div class="mini">
+          <div class="mini-title">Next block</div>
+          <div class="mini-body">
+            Law of Large Numbers & CLT
+          </div>
+        </div>
+
       </div>
+
     </div>
+
   </div>
+
 </section>
 
-<!-- ✅ Continue Reading -->
-<section class="section" id="continue-reading-block5" style="display:none;">
+<!-- CONTINUE READING -->
+
+<section
+  class="section"
+  id="continue-reading-probability-distributions"
+  style="display:none;"
+>
+
   <div class="callout">
+
     <div class="callout-copy">
+
       <h2>Continue reading</h2>
-      <p class="muted-mini" id="continue-reading-block5-label" style="margin:0 0 .75rem 0;"></p>
-      <a class="btn" id="continue-reading-block5-btn" href="#">Continue</a>
+
+      <p
+        id="continue-reading-probability-distributions-label"
+        class="muted-mini"
+      ></p>
+
+      <a
+        class="btn"
+        id="continue-reading-probability-distributions-btn"
+        href="#"
+      >
+        Continue
+      </a>
+
     </div>
+
   </div>
+
 </section>
+
+<!-- LESSONS -->
 
 <section class="section" id="lessons">
+
   <div class="section-head">
-    <h2>Lessons (Version 0)</h2>
+
+    <h2>Lessons</h2>
+
     <p>
-      Work through these lessons in order. Each lesson page is active
-      (even if still being developed), so you can navigate the full structure now.
+      These distributions appear repeatedly throughout probability,
+      statistical inference, machine learning, operations research,
+      and applied data analysis.
     </p>
-  </div>
-
-  <h3 style="margin-top:0;">Discrete distributions</h3>
-  <div class="grid grid-2" style="margin-top:.75rem;">
-
-    <div class="card lesson-card">
-      <h3><a href="/probability/distributions/bernoulli-distribution/">1. Bernoulli Distribution</a></h3>
-      <p>Single trial with success/failure; the building block for many models.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/probability/distributions/bernoulli-distribution/">Open lesson</a>
-      </div>
-    </div>
-
-    <div class="card lesson-card">
-      <h3><a href="/probability/distributions/binomial-distribution/">2. Binomial Distribution</a></h3>
-      <p>Number of successes in n independent Bernoulli trials.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/probability/distributions/binomial-distribution/">Open lesson</a>
-      </div>
-    </div>
-
-    <div class="card lesson-card">
-      <h3><a href="/probability/distributions/geometric-distribution/">3. Geometric Distribution</a></h3>
-      <p>Waiting time until the first success; memoryless property preview.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/probability/distributions/geometric-distribution/">Open lesson</a>
-      </div>
-    </div>
-
-    <div class="card lesson-card">
-      <h3><a href="/probability/distributions/negative-binomial-distribution/">4. Negative Binomial Distribution</a></h3>
-      <p>Waiting time until r successes; generalizes geometric.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/probability/distributions/negative-binomial-distribution/">Open lesson</a>
-      </div>
-    </div>
-
-    <div class="card lesson-card">
-      <h3><a href="/probability/distributions/poisson-distribution/">5. Poisson Distribution</a></h3>
-      <p>Counts of events in time/space under a constant rate model.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/probability/distributions/poisson-distribution/">Open lesson</a>
-      </div>
-    </div>
-
-    <div class="card lesson-card">
-      <h3><a href="/probability/distributions/hypergeometric-distribution/">6. Hypergeometric Distribution</a></h3>
-      <p>Sampling without replacement; contrasts with binomial.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/probability/distributions/hypergeometric-distribution/">Open lesson</a>
-      </div>
-    </div>
 
   </div>
 
-  <h3 style="margin-top:2rem;">Continuous distributions</h3>
-  <div class="grid grid-2" style="margin-top:.75rem;">
+  <!-- DISCRETE -->
 
-    <div class="card lesson-card">
-      <h3><a href="/probability/distributions/uniform-distribution/">7. Uniform Distribution</a></h3>
-      <p>Equal density on an interval; baseline continuous model.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/probability/distributions/uniform-distribution/">Open lesson</a>
+  <h3>Discrete Distributions</h3>
+
+  <div class="grid grid-2">
+
+    <div class="card lesson-card lesson-block-card">
+
+      <h3>
+        <a href="/probability/distributions/bernoulli-distribution/">
+          Bernoulli Distribution
+        </a>
+      </h3>
+
+      <p>
+        Model a single success-or-failure trial,
+        the foundation of many probability models.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Bernoulli</span>
+        <span class="pill">Binary</span>
+        <span class="pill">Success</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/probability/distributions/bernoulli-distribution/">
+         Open lesson
+      </a>
+
     </div>
 
-    <div class="card lesson-card">
-      <h3><a href="/probability/distributions/exponential-distribution/">8. Exponential Distribution</a></h3>
-      <p>Waiting times; memorylessness; link to Poisson processes later.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/probability/distributions/exponential-distribution/">Open lesson</a>
+    <div class="card lesson-card lesson-block-card">
+
+      <h3>
+        <a href="/probability/distributions/binomial-distribution/">
+          Binomial Distribution
+        </a>
+      </h3>
+
+      <p>
+        Count the number of successes in a fixed number
+        of independent Bernoulli trials.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Binomial</span>
+        <span class="pill">Counts</span>
+        <span class="pill">Trials</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/probability/distributions/binomial-distribution/">
+         Open lesson
+      </a>
+
     </div>
 
-    <div class="card lesson-card">
-      <h3><a href="/probability/distributions/gamma-distribution/">9. Gamma Distribution</a></h3>
-      <p>Flexible waiting time model; includes exponential as a special case.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/probability/distributions/gamma-distribution/">Open lesson</a>
+    <div class="card lesson-card lesson-block-card">
+
+      <h3>
+        <a href="/probability/distributions/geometric-distribution/">
+          Geometric Distribution
+        </a>
+      </h3>
+
+      <p>
+        Model the waiting time until the first success occurs.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Geometric</span>
+        <span class="pill">Waiting Time</span>
+        <span class="pill">Memoryless</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/probability/distributions/geometric-distribution/">
+         Open lesson
+      </a>
+
     </div>
 
-    <div class="card lesson-card">
-      <h3><a href="/probability/distributions/beta-distribution/">10. Beta Distribution</a></h3>
-      <p>Models probabilities (0–1); foundation for Bayesian updating later.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/probability/distributions/beta-distribution/">Open lesson</a>
+    <div class="card lesson-card lesson-block-card">
+
+      <h3>
+        <a href="/probability/distributions/negative-binomial-distribution/">
+          Negative Binomial Distribution
+        </a>
+      </h3>
+
+      <p>
+        Generalize geometric waiting times to the occurrence
+        of multiple successes.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Negative Binomial</span>
+        <span class="pill">Waiting Time</span>
+        <span class="pill">Counts</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/probability/distributions/negative-binomial-distribution/">
+         Open lesson
+      </a>
+
     </div>
 
-    <div class="card lesson-card">
-      <h3><a href="/probability/distributions/normal-distribution/">11. Normal Distribution</a></h3>
-      <p>The central model: symmetry, standardization, and approximation.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/probability/distributions/normal-distribution/">Open lesson</a>
+    <div class="card lesson-card lesson-block-card">
+
+      <h3>
+        <a href="/probability/distributions/poisson-distribution/">
+          Poisson Distribution
+        </a>
+      </h3>
+
+      <p>
+        Model counts of events occurring randomly through time,
+        distance, area, or volume.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Poisson</span>
+        <span class="pill">Counts</span>
+        <span class="pill">Rate</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/probability/distributions/poisson-distribution/">
+         Open lesson
+      </a>
+
     </div>
 
-    <div class="card lesson-card">
-      <h3><a href="/probability/distributions/lognormal-distribution/">12. Lognormal Distribution</a></h3>
-      <p>Positive skewed data; multiplicative effects; log transform intuition.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/probability/distributions/lognormal-distribution/">Open lesson</a>
+    <div class="card lesson-card lesson-block-card">
+
+      <h3>
+        <a href="/probability/distributions/hypergeometric-distribution/">
+          Hypergeometric Distribution
+        </a>
+      </h3>
+
+      <p>
+        Model sampling without replacement and compare it
+        with the binomial model.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Hypergeometric</span>
+        <span class="pill">Sampling</span>
+        <span class="pill">Without Replacement</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/probability/distributions/hypergeometric-distribution/">
+         Open lesson
+      </a>
+
     </div>
 
   </div>
+
+  <!-- CONTINUOUS -->
+
+  <h3 style="margin-top:2rem;">
+    Continuous Distributions
+  </h3>
+
+  <div class="grid grid-2">
+
+    <div class="card lesson-card lesson-block-card">
+
+      <h3>
+        <a href="/probability/distributions/uniform-distribution/">
+          Uniform Distribution
+        </a>
+      </h3>
+
+      <p>
+        Model situations where all values within an interval
+        are equally plausible.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Uniform</span>
+        <span class="pill">Continuous</span>
+        <span class="pill">Equal Density</span>
+      </div>
+
+      <a class="btn btn-outline"
+         href="/probability/distributions/uniform-distribution/">
+         Open lesson
+      </a>
+
+    </div>
+
+    <div class="card lesson-card lesson-block-card">
+
+      <h3>
+        <a href="/probability/distributions/exponential-distribution/">
+          Exponential Distribution
+        </a>
+      </h3>
+
+      <p>
+        Model waiting times between events and explore
+        the memoryless property.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Exponential</span>
+        <span class="pill">Waiting Time</span>
+        <span class="pill">Memoryless</span>
+      </div>
+
+      <a class="btn btn-outline"
+         href="/probability/distributions/exponential-distribution/">
+         Open lesson
+      </a>
+
+    </div>
+
+    <div class="card lesson-card lesson-block-card">
+
+      <h3>
+        <a href="/probability/distributions/gamma-distribution/">
+          Gamma Distribution
+        </a>
+      </h3>
+
+      <p>
+        Extend exponential models into a flexible family
+        of waiting-time distributions.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Gamma</span>
+        <span class="pill">Waiting Time</span>
+        <span class="pill">Flexible</span>
+      </div>
+
+      <a class="btn btn-outline"
+         href="/probability/distributions/gamma-distribution/">
+         Open lesson
+      </a>
+
+    </div>
+
+    <div class="card lesson-card lesson-block-card">
+
+      <h3>
+        <a href="/probability/distributions/beta-distribution/">
+          Beta Distribution
+        </a>
+      </h3>
+
+      <p>
+        Model probabilities themselves and build foundations
+        for Bayesian statistics.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Beta</span>
+        <span class="pill">Probabilities</span>
+        <span class="pill">Bayesian</span>
+      </div>
+
+      <a class="btn btn-outline"
+         href="/probability/distributions/beta-distribution/">
+         Open lesson
+      </a>
+
+    </div>
+
+    <div class="card lesson-card lesson-block-card">
+
+      <h3>
+        <a href="/probability/distributions/normal-distribution/">
+          Normal Distribution
+        </a>
+      </h3>
+
+      <p>
+        Study the most important distribution in statistics,
+        including standardization and approximation.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Normal</span>
+        <span class="pill">Gaussian</span>
+        <span class="pill">Standardization</span>
+      </div>
+
+      <a class="btn btn-outline"
+         href="/probability/distributions/normal-distribution/">
+         Open lesson
+      </a>
+
+    </div>
+
+    <div class="card lesson-card lesson-block-card">
+
+      <h3>
+        <a href="/probability/distributions/lognormal-distribution/">
+          Lognormal Distribution
+        </a>
+      </h3>
+
+      <p>
+        Model positively skewed quantities generated through
+        multiplicative processes.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Lognormal</span>
+        <span class="pill">Skewed</span>
+        <span class="pill">Growth</span>
+      </div>
+
+      <a class="btn btn-outline"
+         href="/probability/distributions/lognormal-distribution/">
+         Open lesson
+      </a>
+
+    </div>
+
+  </div>
+
 </section>
 
+<!-- BLOCK MAP -->
+
 <section class="section section-slim">
+
   <div class="callout">
+
     <div class="callout-copy">
-      <h2>Outcome of Block 5</h2>
+
+      <h2>How this block fits into probability</h2>
+
+      <p>
+        Previous blocks developed probability tools.
+        This block introduces the probability models that repeatedly appear
+        throughout applied statistics and scientific analysis.
+      </p>
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+
+            <tr>
+              <th>Distribution Family</th>
+              <th>Typical Use</th>
+            </tr>
+
+          </thead>
+
+          <tbody>
+
+            <tr>
+              <td>Bernoulli / Binomial</td>
+              <td>Successes and failures</td>
+            </tr>
+
+            <tr>
+              <td>Geometric / Negative Binomial</td>
+              <td>Waiting times for successes</td>
+            </tr>
+
+            <tr>
+              <td>Poisson</td>
+              <td>Event counts</td>
+            </tr>
+
+            <tr>
+              <td>Uniform</td>
+              <td>Equal plausibility</td>
+            </tr>
+
+            <tr>
+              <td>Exponential / Gamma</td>
+              <td>Continuous waiting times</td>
+            </tr>
+
+            <tr>
+              <td>Beta</td>
+              <td>Modeling probabilities</td>
+            </tr>
+
+            <tr>
+              <td>Normal</td>
+              <td>Natural variation and inference</td>
+            </tr>
+
+            <tr>
+              <td>Lognormal</td>
+              <td>Multiplicative growth processes</td>
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- GOALS -->
+
+<section class="section section-slim">
+
+  <div class="callout">
+
+    <div class="callout-copy">
+
+      <h2>Goal of this block</h2>
+
       <ul class="bullets">
-        <li>Recognize the most common named distributions from context</li>
-        <li>Interpret parameters correctly (what they mean in real systems)</li>
-        <li>Compute probabilities using PMF/PDF/CDF logic</li>
-        <li>Understand key relationships and approximations (binomial ↔ Poisson, etc.)</li>
-        <li>Be ready for convergence tools (LLN & CLT) in Block 6</li>
+
+        <li>Recognize common probability distributions from context</li>
+
+        <li>Interpret parameters correctly</li>
+
+        <li>Understand discrete and continuous distribution families</li>
+
+        <li>Compute probabilities using PMFs, PDFs, and CDFs</li>
+
+        <li>Understand relationships between distributions</li>
+
+        <li>Recognize approximation patterns between models</li>
+
+        <li>Prepare for the Law of Large Numbers and Central Limit Theorem</li>
+
       </ul>
+
     </div>
 
     <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Next block</div>
+
+      <div class="mini">
+
+        <div class="mini-title">Next block</div>
+
         <div class="mini-body">
-          Continue to
-          <a href="/probability/lln-clt/" style="color:#1a73e8; text-decoration:underline;">
-            <strong>Block 6 — Law of Large Numbers &amp; CLT</strong>
-          </a>.
+          Continue to <strong>Law of Large Numbers & CLT</strong>
         </div>
+
       </div>
+
+      <div class="mini">
+
+        <div class="mini-title">Core idea</div>
+
+        <div class="mini-body">
+          Distributions are reusable mathematical models of uncertainty.
+        </div>
+
+      </div>
+
+      <div class="mini">
+
+        <div class="mini-title">Big transition</div>
+
+        <div class="mini-body">
+          These models become the building blocks of inference.
+        </div>
+
+      </div>
+
     </div>
 
   </div>
+
 </section>
 
-<!-- ✅ Continue Reading Script -->
-<script>
-  (function () {
-    var KEY = "esa_continue_probability_distributions_lesson_v0";
+<!-- NAVIGATION -->
 
-    var raw = localStorage.getItem(KEY);
+<section class="section section-slim">
+
+  <div class="lesson-nav">
+
+    <a class="btn btn-outline" href="/probability/expectation-variance/">
+      ← Previous Block: Expectation & Variability
+    </a>
+
+    <a class="btn" href="/probability/lln-clt/">
+      Next Block: Law of Large Numbers & CLT →
+    </a>
+
+  </div>
+
+</section>
+
+<!-- CONTINUE READING SCRIPT -->
+
+<script>
+(function () {
+
+  try {
+
+    const KEY =
+      "esa_continue_probability_distributions_lesson_v0";
+
+    const raw = localStorage.getItem(KEY);
+
     if (!raw) return;
 
-    try {
-      var data = JSON.parse(raw);
-      if (!data || !data.url || !data.label) return;
+    const data = JSON.parse(raw);
 
-      var wrap = document.getElementById("continue-reading-block5");
-      var label = document.getElementById("continue-reading-block5-label");
-      var btn = document.getElementById("continue-reading-block5-btn");
-      if (!wrap || !label || !btn) return;
+    if (!data || !data.url || !data.label) return;
 
-      label.innerHTML = 'You last visited: <strong>' + data.label + '</strong>';
-      btn.href = data.url;
-      wrap.style.display = "block";
-    } catch (e) {}
-  })();
+    const wrap =
+      document.getElementById(
+        "continue-reading-probability-distributions"
+      );
+
+    const label =
+      document.getElementById(
+        "continue-reading-probability-distributions-label"
+      );
+
+    const btn =
+      document.getElementById(
+        "continue-reading-probability-distributions-btn"
+      );
+
+    if (!wrap || !label || !btn) return;
+
+    label.innerHTML =
+      "You last visited: <strong>" +
+      data.label +
+      "</strong>";
+
+    btn.href = data.url;
+
+    wrap.style.display = "block";
+
+  } catch (e) {}
+
+})();
 </script>
