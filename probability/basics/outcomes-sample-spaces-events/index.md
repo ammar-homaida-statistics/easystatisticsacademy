@@ -1,237 +1,602 @@
 ---
 layout: default
-title: "2. Outcomes, Sample Spaces & Events"
-description: "Define outcomes, sample spaces, and events precisely to avoid ambiguous probability reasoning."
+title: Outcomes, Sample Spaces, and Events
+description: Learn the fundamental building blocks of probability: outcomes, sample spaces, and events.
 permalink: /probability/basics/outcomes-sample-spaces-events/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 is published to lock conceptual clarity. Examples, visuals, and software demonstrations
-        will be added later without changing the structure.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update last visited lesson for Block 1 -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_probability_basics_lesson_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/probability/basics/outcomes-sample-spaces-events/",
-      label: "Lesson 2 — Outcomes, Sample Spaces & Events",
-      ts: Date.now()
-    }));
-  })();
+(function () {
+
+  const KEY =
+    "esa_continue_probability_basics_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/probability/basics/outcomes-sample-spaces-events/",
+    label: "Outcomes, Sample Spaces, and Events",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
 
-      <div class="badge-row">
-        <span class="badge">Block 1</span>
-        <span class="badge">Lesson 2</span>
-        <span class="badge">Modeling</span>
-        <span class="badge">Precision</span>
-      </div>
+    <div class="badge-row">
+      <span class="badge">Probability</span>
+      <span class="badge">Block 1</span>
+      <span class="badge">Basics</span>
+      <span class="badge">Foundations</span>
+    </div>
 
-      <h1>2. Outcomes, Sample Spaces &amp; Events</h1>
+    <h1>Outcomes, Sample Spaces, and Events</h1>
 
-      <p class="lead">
-        Probability works only when its basic objects are defined clearly.
-        In this lesson, we define outcomes, sample spaces, and events with precision.
-      </p>
+    <p class="lead">
+      Probability begins by identifying what can happen.
+    </p>
 
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/probability/basics/what-is-probability/">
-          ← Previous lesson: 1. What Is Probability (and What It Is Not)?
-        </a>
-        <a class="btn btn-outline" href="/probability/basics/">Back to Block 1</a>
-      </div>
+    <p class="lead">
+      Before assigning probabilities, we must define the possible outcomes of an experiment, organize them into a sample space, and specify the events we are interested in studying.
+    </p>
 
-      <p class="muted-mini">
-        Version 0: conceptual clarity first. Visual and applied examples will follow.
-      </p>
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/probability/basics/what-is-probability/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/probability/basics/probability-axioms-and-basic-rules/">
+         Next: Probability Axioms and Basic Rules →
+      </a>
 
     </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
-    <p>
-      By the end of this lesson, you should be able to:
-    </p>
-  </div>
-
-  <ul class="bullets">
-    <li>Define an outcome correctly</li>
-    <li>Construct a valid sample space</li>
-    <li>Express events as subsets of a sample space</li>
-    <li>Avoid ambiguous or incomplete modeling</li>
-  </ul>
-</section>
+<!-- LESSON -->
 
 <section class="section">
-  <div class="section-head">
-    <h2>1) What is an outcome?</h2>
-    <p>
-      An <strong>outcome</strong> is a single possible result of a random process.
-    </p>
-  </div>
 
-  <div class="card">
-    <h3>Examples</h3>
+  <div class="content-narrow">
+
+    <h2>Why We Need Structure</h2>
+
+    <p>
+      Probability studies uncertainty,
+      but uncertainty must be described precisely.
+    </p>
+
+    <p>
+      To calculate probabilities,
+      we first need to identify what outcomes are possible.
+    </p>
+
+    <p>
+      This leads to three foundational concepts:
+    </p>
+
     <ul class="bullets">
-      <li>Coin toss → H or T</li>
-      <li>Die roll → 1,2,3,4,5,6</li>
-      <li>Survey response → Yes or No</li>
-      <li>Exam score → 0 to 100</li>
-    </ul>
-  </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Important</h2>
-      <p style="margin:0;">
-        An outcome is the smallest level of resolution in your model.
-        If you define outcomes poorly, everything that follows becomes incorrect.
+      <li>Outcomes</li>
+
+      <li>Sample Spaces</li>
+
+      <li>Events</li>
+
+    </ul>
+
+    <div class="concept-box">
+
+      <strong>Key idea:</strong>
+
+      <p>
+        Every probability problem begins by defining possible outcomes and the events of interest.
+      </p>
+
+    </div>
+
+    <h2>What Is an Outcome?</h2>
+
+    <p>
+      An <strong>outcome</strong> is a single possible result of a random experiment.
+    </p>
+
+    <p>
+      It represents one specific thing that could happen.
+    </p>
+
+    <div class="example-box">
+
+      <strong>Rolling a die</strong>
+
+      <p>
+        Possible outcomes:
+      </p>
+
+      <p>
+        1, 2, 3, 4, 5, 6
+      </p>
+
+    </div>
+
+    <p>
+      Each number is an individual outcome.
+    </p>
+
+    <h2>Examples of Outcomes</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Experiment</th>
+            <th>Example Outcome</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Coin toss</td>
+            <td>Heads</td>
+          </tr>
+
+          <tr>
+            <td>Rolling a die</td>
+            <td>4</td>
+          </tr>
+
+          <tr>
+            <td>Drawing a card</td>
+            <td>Ace of Spades</td>
+          </tr>
+
+          <tr>
+            <td>Weather tomorrow</td>
+            <td>Rain</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      Outcomes are the smallest units considered in probability models.
+    </p>
+
+    <h2>What Is a Sample Space?</h2>
+
+    <p>
+      The <strong>sample space</strong> is the set of all possible outcomes of an experiment.
+    </p>
+
+    <p>
+      It contains every outcome that could occur.
+    </p>
+
+    <p>
+      Sample spaces are commonly denoted by the symbol:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        S
       </p>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) What is a sample space?</h2>
+    <h2>Sample Space for a Coin Toss</h2>
+
     <p>
-      The <strong>sample space</strong> (usually denoted S or Ω) is the set of all possible outcomes.
+      Consider a single coin toss.
     </p>
-  </div>
 
-  <div class="card">
-    <h3>Examples</h3>
+    <p>
+      The possible outcomes are:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        S = {Heads, Tails}
+      </p>
+    </div>
+
+    <p>
+      Since every possible result is included,
+      this is the complete sample space.
+    </p>
+
+    <h2>Sample Space for a Die Roll</h2>
+
+    <p>
+      For a six-sided die:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        S = {1, 2, 3, 4, 5, 6}
+      </p>
+    </div>
+
+    <p>
+      Every possible outcome appears exactly once in the sample space.
+    </p>
+
+    <h2>The Sample Space Must Be Complete</h2>
+
+    <p>
+      A sample space should include every possible outcome.
+    </p>
+
+    <p>
+      Missing outcomes lead to incorrect probability calculations.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Incorrect:
+      </p>
+
+      <p>
+        S = {1, 2, 3, 4, 5}
+      </p>
+    </div>
+
+    <p>
+      The outcome 6 has been omitted,
+      so this is not a valid sample space for a die roll.
+    </p>
+
+    <h2>What Is an Event?</h2>
+
+    <p>
+      An <strong>event</strong> is a collection of one or more outcomes from the sample space.
+    </p>
+
+    <p>
+      Events represent situations we are interested in studying.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Key idea:</strong>
+
+      <p>
+        Outcomes are individual results. Events are groups of outcomes.
+      </p>
+
+    </div>
+
+    <h2>Example: Rolling an Even Number</h2>
+
+    <p>
+      Suppose:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        S = {1, 2, 3, 4, 5, 6}
+      </p>
+    </div>
+
+    <p>
+      The event:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        E = {2, 4, 6}
+      </p>
+    </div>
+
+    <p>
+      represents rolling an even number.
+    </p>
+
+    <p>
+      The event contains multiple outcomes.
+    </p>
+
+    <h2>Example: Rolling a Number Greater Than 4</h2>
+
+    <div class="example-box">
+
+      <p>
+        E = {5, 6}
+      </p>
+    </div>
+
+    <p>
+      This event occurs whenever either outcome 5 or outcome 6 is observed.
+    </p>
+
+    <h2>Simple Events and Compound Events</h2>
+
+    <p>
+      Events can contain one outcome or many outcomes.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Example</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Simple Event</td>
+            <td>{3}</td>
+          </tr>
+
+          <tr>
+            <td>Compound Event</td>
+            <td>{2, 4, 6}</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      A simple event contains one outcome.
+    </p>
+
+    <p>
+      A compound event contains multiple outcomes.
+    </p>
+
+    <h2>The Relationship Between Outcomes and Events</h2>
+
+    <p>
+      Outcomes are the building blocks of events.
+    </p>
+
+    <p>
+      Every event is made up of outcomes from the sample space.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Sample Space:
+      </p>
+
+      <p>
+        S = {1, 2, 3, 4, 5, 6}
+      </p>
+
+      <p>
+        Event:
+      </p>
+
+      <p>
+        E = {1, 3, 5}
+      </p>
+
+    </div>
+
+    <p>
+      The event is simply a subset of the sample space.
+    </p>
+
+    <h2>Events as Sets</h2>
+
+    <p>
+      Probability uses ideas from set theory.
+    </p>
+
+    <p>
+      Sample spaces and events are often treated as sets.
+    </p>
+
+    <p>
+      This approach allows us to apply mathematical operations to events.
+    </p>
+
+    <p>
+      Later lessons will explore unions,
+      intersections,
+      and complements of events.
+    </p>
+
+    <h2>The Certain Event</h2>
+
+    <p>
+      An event containing every outcome in the sample space is called the certain event.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        S = {1, 2, 3, 4, 5, 6}
+      </p>
+
+    </div>
+
+    <p>
+      Since one of these outcomes must occur,
+      the probability of the sample space is always 1.
+    </p>
+
+    <h2>The Impossible Event</h2>
+
+    <p>
+      The impossible event contains no outcomes.
+    </p>
+
+    <p>
+      It is called the empty set.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        ∅
+      </p>
+    </div>
+
+    <p>
+      The probability of the impossible event is always 0.
+    </p>
+
+    <h2>A Complete Example</h2>
+
+    <p>
+      Consider rolling a die.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Sample Space:
+      </p>
+
+      <p>
+        S = {1, 2, 3, 4, 5, 6}
+      </p>
+
+      <p>
+        Event A:
+      </p>
+
+      <p>
+        A = {2, 4, 6}
+      </p>
+
+      <p>
+        Event B:
+      </p>
+
+      <p>
+        B = {5, 6}
+      </p>
+
+    </div>
+
+    <p>
+      Here:
+    </p>
+
     <ul class="bullets">
-      <li>Coin toss → S = {H, T}</li>
-      <li>Die roll → S = {1,2,3,4,5,6}</li>
-      <li>Two coin tosses → S = {HH, HT, TH, TT}</li>
+
+      <li>The sample space contains all outcomes</li>
+
+      <li>Event A represents even numbers</li>
+
+      <li>Event B represents numbers greater than 4</li>
+
     </ul>
-  </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Modeling warning</h2>
-      <p style="margin:0;">
-        The sample space depends on how you define the experiment.
-        Different definitions → different probabilities.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>3) What is an event?</h2>
     <p>
-      An <strong>event</strong> is a subset of the sample space.
-      It may contain one or more outcomes.
+      This structure forms the basis of probability calculations.
     </p>
-  </div>
 
-  <div class="card">
-    <h3>Examples</h3>
-    <ul class="bullets">
-      <li>Rolling an even number → {2,4,6}</li>
-      <li>At least one head in two tosses → {HH, HT, TH}</li>
-      <li>Score above 80 → all outcomes > 80</li>
-    </ul>
-  </div>
+    <h2>Why These Concepts Matter</h2>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Key insight</h2>
-      <p style="margin:0;">
-        Probability is assigned to events — not to vague descriptions.
-        Always express events in terms of outcomes.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>4) Why precision matters</h2>
     <p>
-      Many probability mistakes come from unclear definitions.
+      Every probability problem begins with:
     </p>
-  </div>
 
-  <div class="grid grid-2">
+    <ol>
 
-    <div class="card">
-      <h3>Ambiguity example</h3>
-      <p>
-        “Probability that a family with two children has two boys.”
-      </p>
-      <p>
-        Is the sample space {BB, BG, GB, GG}?
-        Or does order not matter?
-        The answer changes the probability.
-      </p>
-    </div>
+      <li>Defining the experiment</li>
 
-    <div class="card">
-      <h3>Lesson</h3>
-      <p>
-        Always define:
-      </p>
+      <li>Identifying outcomes</li>
+
+      <li>Constructing the sample space</li>
+
+      <li>Defining events of interest</li>
+
+    </ol>
+
+    <p>
+      Once these pieces are in place,
+      probabilities can be assigned and analyzed.
+    </p>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Now that we understand outcomes,
+      sample spaces,
+      and events,
+      we can begin assigning probabilities to them.
+    </p>
+
+    <p>
+      The next lesson introduces the fundamental rules that every probability model must satisfy:
+      the probability axioms and basic probability rules.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>What counts as an outcome?</li>
-        <li>Are outcomes equally likely?</li>
-        <li>What exactly is the event?</li>
+
+        <li>An outcome is a single possible result of an experiment</li>
+
+        <li>A sample space contains all possible outcomes</li>
+
+        <li>An event is a collection of outcomes</li>
+
+        <li>Events are subsets of the sample space</li>
+
+        <li>Simple events contain one outcome</li>
+
+        <li>Compound events contain multiple outcomes</li>
+
+        <li>Probability calculations begin with outcomes, sample spaces, and events</li>
+
       </ul>
+
+    </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/probability/basics/what-is-probability/">
+         ← Previous: What Is Probability?
+      </a>
+
+      <a class="btn"
+         href="/probability/basics/probability-axioms-and-basic-rules/">
+         Next: Probability Axioms and Basic Rules →
+      </a>
+
     </div>
 
   </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
-      <ul class="bullets">
-        <li>Define outcome, sample space, and event precisely</li>
-        <li>Understand events as subsets</li>
-        <li>Avoid ambiguous modeling</li>
-        <li>Be ready for probability rules (next lesson)</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next lesson</h2>
-      <p style="margin:0;">
-        Now that we have defined events precisely, we can assign numbers to them using formal rules.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/probability/basics/probability-axioms-and-basic-rules/">
-          Next lesson: 3. Probability Axioms & Basic Rules →
-        </a>
-      </div>
-    </div>
-  </div>
 </section>
