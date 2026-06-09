@@ -1,278 +1,552 @@
 ---
 layout: default
-title: "6. Independence vs Disjointness"
-description: "Understand the crucial difference between independent events and mutually exclusive (disjoint) events."
+title: Independence vs Disjointness
+description: Learn the critical difference between independent events and mutually exclusive events, one of the most commonly misunderstood concepts in probability.
 permalink: /probability/basics/independence-vs-disjointness/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 focuses on deep conceptual clarity. Visual demonstrations and simulations
-        will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update last visited lesson -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_probability_basics_lesson_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/probability/basics/independence-vs-disjointness/",
-      label: "Lesson 6 — Independence vs Disjointness",
-      ts: Date.now()
-    }));
-  })();
+(function () {
+
+  const KEY =
+    "esa_continue_probability_basics_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/probability/basics/independence-vs-disjointness/",
+    label: "Independence vs Disjointness",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
 
-      <div class="badge-row">
-        <span class="badge">Block 1</span>
-        <span class="badge">Lesson 6</span>
-        <span class="badge">Core clarity</span>
-        <span class="badge">Logical distinction</span>
-      </div>
+    <div class="badge-row">
+      <span class="badge">Probability</span>
+      <span class="badge">Block 1</span>
+      <span class="badge">Basics</span>
+      <span class="badge">Core Concepts</span>
+    </div>
 
-      <h1>6. Independence vs Disjointness</h1>
+    <h1>Independence vs Disjointness</h1>
 
-      <p class="lead">
-        These two concepts are often confused — but they are completely different.
-        Understanding the difference prevents serious probability mistakes.
-      </p>
+    <p class="lead">
+      One of the most common mistakes in probability is confusing independent events with mutually exclusive events.
+    </p>
 
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/probability/basics/equally-likely-and-counting-intuition/">
-          ← Previous lesson: 5. Equally Likely Outcomes & Counting Intuition
-        </a>
-        <a class="btn btn-outline" href="/probability/basics/">Back to Block 1</a>
-      </div>
+    <p class="lead">
+      Although both concepts describe relationships between events, they mean fundamentally different things and lead to very different probability calculations.
+    </p>
 
-      <p class="muted-mini">
-        This distinction is fundamental for conditional probability and inference.
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/probability/basics/equally-likely-and-counting-intuition/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/probability/basics/conditional-language-traps/">
+         Next: Conditional Language Traps →
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>Why This Topic Matters</h2>
+
+    <p>
+      Students often use the words independent and mutually exclusive as if they mean the same thing.
+    </p>
+
+    <p>
+      In probability,
+      they describe completely different situations.
+    </p>
+
+    <p>
+      Understanding the distinction is essential because many later topics rely on it,
+      including conditional probability,
+      Bayes' theorem,
+      and statistical inference.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Key idea:</strong>
+
+      <p>
+        Independent events do not affect each other. Mutually exclusive events cannot occur together.
       </p>
 
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
-  </div>
-
-  <ul class="bullets">
-    <li>Define independence formally</li>
-    <li>Define disjoint (mutually exclusive) events</li>
-    <li>Understand why they are not the same</li>
-    <li>Identify each concept correctly in applied problems</li>
-  </ul>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>1) Disjoint (Mutually Exclusive) Events</h2>
-  </div>
-
-  <div class="card">
-    <p>
-      Two events A and B are disjoint if they cannot occur together.
-    </p>
-
-    <p><strong>A ∩ B = ∅</strong></p>
+    <h2>What Does Independent Mean?</h2>
 
     <p>
-      This means:
+      Two events are independent if the occurrence of one event does not change the probability of the other.
     </p>
 
-    <p><strong>P(A ∩ B) = 0</strong></p>
-  </div>
+    <p>
+      Knowing that one event occurred provides no information about the other event.
+    </p>
 
-  <div class="card">
-    <h3>Example</h3>
-    <ul class="bullets">
-      <li>Rolling a die: “Roll a 2” and “Roll a 5”</li>
-      <li>Single coin toss: “Head” and “Tail”</li>
-    </ul>
-  </div>
+    <div class="example-box">
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Key idea</h2>
-      <p style="margin:0;">
-        Disjoint events cannot happen at the same time.
+      <p>
+        Event A: First coin toss is Heads
       </p>
-    </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) Independent Events</h2>
-  </div>
-
-  <div class="card">
-    <p>
-      Two events A and B are independent if:
-    </p>
-
-    <p><strong>P(A ∩ B) = P(A) × P(B)</strong></p>
-
-    <p>
-      This means:
-    </p>
-
-    <p>
-      Knowing that A occurred does not change the probability of B.
-    </p>
-  </div>
-
-  <div class="card">
-    <h3>Example</h3>
-    <ul class="bullets">
-      <li>Two separate coin tosses</li>
-      <li>Rolling a die twice</li>
-    </ul>
-  </div>
-
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Key idea</h2>
-      <p style="margin:0;">
-        Independence is about information — one event does not influence the other.
+      <p>
+        Event B: Second coin toss is Heads
       </p>
+
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) Why Disjoint ≠ Independent</h2>
-  </div>
+    <p>
+      The result of the first toss does not influence the result of the second toss.
+    </p>
 
-  <div class="card">
-    <h3>Suppose A and B are disjoint</h3>
+    <p>
+      Therefore,
+      the events are independent.
+    </p>
+
+    <h2>The Independence Rule</h2>
+
+    <p>
+      For independent events:
+    </p>
+
+    0
+
+    <p>
+      The probability that both events occur equals the product of their individual probabilities.
+    </p>
+
+    <h2>Independence Example</h2>
+
+    <p>
+      Suppose two fair coin tosses are performed.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        P(Heads on first toss) = 0.5
+      </p>
+
+      <p>
+        P(Heads on second toss) = 0.5
+      </p>
+
+    </div>
+
+    <p>
+      Since the events are independent:
+    </p>
+
+    1
+
+    <p>
+      The probability of obtaining heads on both tosses is 0.25.
+    </p>
+
+    <h2>What Does Mutually Exclusive Mean?</h2>
+
+    <p>
+      Two events are mutually exclusive when they cannot occur at the same time.
+    </p>
+
+    <p>
+      If one event occurs,
+      the other event cannot occur.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Event A: Roll a 2
+      </p>
+
+      <p>
+        Event B: Roll a 5
+      </p>
+
+    </div>
+
+    <p>
+      A single die roll cannot be both 2 and 5 simultaneously.
+    </p>
+
+    <p>
+      Therefore,
+      the events are mutually exclusive.
+    </p>
+
+    <h2>The Disjointness Rule</h2>
+
+    <p>
+      For mutually exclusive events:
+    </p>
+
+    2
+
+    <p>
+      There is no overlap between the events.
+    </p>
+
+    <p>
+      Their intersection is empty.
+    </p>
+
+    <h2>Visualizing Mutually Exclusive Events</h2>
+
+    <p>
+      In a Venn diagram,
+      mutually exclusive events appear as separate circles with no overlap.
+    </p>
+
+    <p>
+      No outcome belongs to both events simultaneously.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        A ∩ B = ∅
+      </p>
+
+    </div>
+
+    <h2>Visualizing Independent Events</h2>
+
+    <p>
+      Independent events can overlap.
+    </p>
+
+    <p>
+      In fact,
+      most independent events do have an intersection.
+    </p>
+
+    <p>
+      Independence concerns influence,
+      not overlap.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Important:</strong>
+
+      <p>
+        Independence is about probabilities. Disjointness is about outcomes.
+      </p>
+
+    </div>
+
+    <h2>The Critical Difference</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Independent Events</th>
+            <th>Mutually Exclusive Events</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Can occur together</td>
+            <td>Cannot occur together</td>
+          </tr>
+
+          <tr>
+            <td>May overlap</td>
+            <td>No overlap</td>
+          </tr>
+
+          <tr>
+            <td>One event does not affect the other</td>
+            <td>Occurrence of one prevents the other</td>
+          </tr>
+
+          <tr>
+            <td>P(A ∩ B) = P(A)P(B)</td>
+            <td>P(A ∩ B) = 0</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>Can Events Be Both?</h2>
+
+    <p>
+      This is where many students become surprised.
+    </p>
+
+    <p>
+      Except for special cases,
+      events cannot be both independent and mutually exclusive.
+    </p>
+
+    <h2>Why Not?</h2>
+
+    <p>
+      Suppose A and B are mutually exclusive.
+    </p>
+
     <p>
       Then:
     </p>
 
-    <p><strong>P(A ∩ B) = 0</strong></p>
+    3
 
     <p>
-      But independence would require:
+      But if they are also independent:
     </p>
 
-    <p><strong>P(A ∩ B) = P(A) × P(B)</strong></p>
+    4
+
+    <p>
+      Combining these statements gives:
+    </p>
+
+    5
+
+    <p>
+      Therefore,
+      at least one event must have probability zero.
+    </p>
+
+    <p>
+      Otherwise,
+      both conditions cannot be true simultaneously.
+    </p>
+
+    <h2>A Coin Toss Example</h2>
+
+    <p>
+      Consider a single coin toss.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        A = Heads
+      </p>
+
+      <p>
+        B = Tails
+      </p>
+
+    </div>
+
+    <p>
+      These events are mutually exclusive.
+    </p>
+
+    <p>
+      If heads occurs,
+      tails cannot occur.
+    </p>
 
     <p>
       Therefore:
     </p>
 
-    <p><strong>P(A) × P(B) = 0</strong></p>
+    6
 
     <p>
-      This can only happen if:
+      However:
+    </p>
+
+    7
+
+    <p>
+      The values are not equal.
+    </p>
+
+    <p>
+      Therefore,
+      the events are not independent.
+    </p>
+
+    <h2>A Genuine Independence Example</h2>
+
+    <p>
+      Suppose two fair coins are tossed.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        A = First toss is Heads
+      </p>
+
+      <p>
+        B = Second toss is Heads
+      </p>
+
+    </div>
+
+    <p>
+      These events can occur together.
+    </p>
+
+    <p>
+      The outcome HH belongs to both events.
+    </p>
+
+    <p>
+      Because one toss does not affect the other,
+      the events are independent.
+    </p>
+
+    <h2>Another Way to Think About It</h2>
+
+    <p>
+      Ask two questions:
     </p>
 
     <ul class="bullets">
-      <li>P(A) = 0, or</li>
-      <li>P(B) = 0</li>
+
+      <li>Can the events occur together?</li>
+
+      <li>Does one event affect the probability of the other?</li>
+
     </ul>
 
     <p>
-      So if both events have positive probability,
-      they cannot be both disjoint and independent.
+      The first question concerns disjointness.
     </p>
-  </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Important conclusion</h2>
-      <p style="margin:0;">
-        If A and B are disjoint and both have positive probability,
-        then they are automatically dependent.
-      </p>
-    </div>
-  </div>
-</section>
+    <p>
+      The second concerns independence.
+    </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>4) Intuition Comparison</h2>
-  </div>
+    <h2>A Practical Test for Independence</h2>
 
-  <div class="grid grid-2">
+    <p>
+      If knowing Event A occurred changes the probability of Event B,
+      then the events are not independent.
+    </p>
 
-    <div class="card">
-      <h3>Disjoint</h3>
+    <p>
+      If the probability remains unchanged,
+      independence may exist.
+    </p>
+
+    <p>
+      Later lessons will formalize this idea using conditional probability.
+    </p>
+
+    <h2>Why Students Confuse These Concepts</h2>
+
+    <p>
+      Both concepts involve relationships between events,
+      but they focus on different aspects of those relationships.
+    </p>
+
+    <ul class="bullets">
+
+      <li>Disjointness concerns overlap.</li>
+
+      <li>Independence concerns influence.</li>
+
+    </ul>
+
+    <p>
+      Keeping these ideas separate prevents many probability errors.
+    </p>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Independence is closely connected to conditional probability.
+    </p>
+
+    <p>
+      In fact,
+      independence can be defined using conditional probabilities.
+    </p>
+
+    <p>
+      Before introducing formal conditional probability,
+      we first need to understand how probability language can sometimes be misleading.
+    </p>
+
+    <p>
+      The next lesson examines common conditional language traps and how to interpret probability statements carefully.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Cannot happen together</li>
-        <li>Overlap = 0</li>
-        <li>About logical structure</li>
+
+        <li>Independent events do not influence each other's probabilities</li>
+
+        <li>Mutually exclusive events cannot occur together</li>
+
+        <li>Independence concerns influence, not overlap</li>
+
+        <li>Disjointness concerns overlap, not influence</li>
+
+        <li>Independent events satisfy P(A ∩ B) = P(A)P(B)</li>
+
+        <li>Mutually exclusive events satisfy P(A ∩ B) = 0</li>
+
+        <li>Except for probability-zero cases, events cannot be both independent and mutually exclusive</li>
+
       </ul>
+
     </div>
 
-    <div class="card">
-      <h3>Independent</h3>
-      <ul class="bullets">
-        <li>Can happen together</li>
-        <li>Overlap = product rule</li>
-        <li>About informational influence</li>
-      </ul>
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/probability/basics/equally-likely-and-counting-intuition/">
+         ← Previous: Equally Likely and Counting Intuition
+      </a>
+
+      <a class="btn"
+         href="/probability/basics/conditional-language-traps/">
+         Next: Conditional Language Traps →
+      </a>
+
     </div>
 
   </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Common mistakes</h2>
-      <ul class="bullets">
-        <li>Thinking “cannot happen together” means independent</li>
-        <li>Forgetting to check P(A ∩ B) = P(A)P(B)</li>
-        <li>Confusing independence with “unrelated in real life”</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
-      <ul class="bullets">
-        <li>Clearly distinguish independence and disjointness</li>
-        <li>Recognize logical contradiction if both assumed</li>
-        <li>Prepare for conditional probability (next block)</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next lesson</h2>
-      <p style="margin:0;">
-        Before moving to conditional probability, we examine common language traps in probability reasoning.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/probability/basics/conditional-language-traps/">
-          Next lesson: 7. Probability Language Traps →
-        </a>
-      </div>
-    </div>
-  </div>
 </section>
