@@ -208,7 +208,9 @@ Variable type provides the starting point for selecting an appropriate graph.
       Student majors:
     </p>
 
-    0
+    <img src="{{ 'descriptive/images/student-majors-bar-chart.png' | relative_url }}"
+     alt="Bar chart of student majors"
+     style="margin-top:15px; max-width:100%; height:auto;">
 
     <p>
       A bar chart clearly compares category sizes.
@@ -373,7 +375,9 @@ Variable type provides the starting point for selecting an appropriate graph.
 
     <h2>Example: Time Series Data</h2>
 
-    1
+    <img src="{{ 'descriptive/images/monthly-sales-line-chart.png' | relative_url }}"
+     alt="Line chart showing monthly sales over time"
+     style="margin-top:15px; max-width:100%; height:auto;">
 
     <h2>Two Numerical Variables</h2>
 

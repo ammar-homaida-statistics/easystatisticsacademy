@@ -102,6 +102,11 @@ sidebar: false
       Larger values produce longer or taller bars.
     </p>
 
+    <p>
+  The height (or length) of a bar represents the value associated
+  with that category, while the width of the bar has no statistical meaning.
+</p>
+
     <div class="concept-box">
 
       <strong>Key idea:</strong>
@@ -118,12 +123,25 @@ sidebar: false
       Suppose a class survey recorded students' favorite subjects.
     </p>
 
-    0
+    <img src="{{ 'descriptive/images/favorite-subjects-bar-chart.png' | relative_url }}"
+     alt="Bar chart of favorite subjects"
+     style="margin-top:15px; max-width:100%; height:auto;">
 
     <p>
       The chart immediately shows that Mathematics
       is the most popular subject.
     </p>
+
+    <div class="concept-box">
+
+  <strong>Important insight:</strong>
+
+  <p>
+    Bar charts are effective because people compare lengths
+    more accurately than areas, angles, or volumes.
+  </p>
+
+</div>
 
     <h2>Why Bar Charts Work Well</h2>
 
@@ -236,12 +254,19 @@ sidebar: false
       Example:
     </p>
 
-    1
+    <img src="{{ 'descriptive/images/bar-chart-percentages.png' | relative_url }}"
+     alt="Bar chart displaying percentages"
+     style="margin-top:15px; max-width:100%; height:auto;">
 
     <p>
       Whether using frequencies or percentages,
       interpretation remains similar.
     </p>
+
+    <p>
+  Percentages are often preferred when comparing groups
+  of different sizes because they provide a standardized scale.
+</p>
 
     <h2>Vertical and Horizontal Bar Charts</h2>
 
@@ -281,6 +306,10 @@ sidebar: false
 
     </div>
 
+    <img src="{{ 'descriptive/images/vertical-vs-horizontal-bars.png' | relative_url }}"
+     alt="Vertical and horizontal bar charts"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
     <h2>Ordering Categories</h2>
 
     <p>
@@ -306,6 +335,12 @@ sidebar: false
     <p>
       Appropriate ordering helps reveal patterns.
     </p>
+
+    <p>
+  Sorting categories by frequency is often useful
+  because it makes the largest and smallest groups
+  immediately visible.
+</p>
 
     <h2>Bar Charts vs Histograms</h2>
 
@@ -348,6 +383,10 @@ sidebar: false
       </table>
 
     </div>
+
+    <img src="{{ 'descriptive/images/bar-chart-vs-histogram.png' | relative_url }}"
+     alt="Bar chart compared with histogram"
+     style="margin-top:15px; max-width:100%; height:auto;">
 
     <p>
       Although they look similar,
@@ -399,6 +438,10 @@ sidebar: false
       </p>
 
     </div>
+
+    <img src="{{ 'descriptive/images/truncated-axis-example.png' | relative_url }}"
+     alt="Effect of truncating a bar chart axis"
+     style="margin-top:15px; max-width:100%; height:auto;">
 
     <h2>Common Mistake: Too Many Categories</h2>
 
@@ -471,6 +514,64 @@ sidebar: false
     <p>
       Good visualization begins with thoughtful design.
     </p>
+
+    <div class="concept-box">
+
+  <strong>Key insight:</strong>
+
+  <p>
+    Bar charts are designed for comparison.
+    Their strength lies in making differences between categories
+    easy to see and interpret.
+  </p>
+
+</div>
+
+<h2>Optional: Creating Bar Charts in SPSS</h2>
+
+<ul class="bullets">
+
+  <li>Graphs → Chart Builder</li>
+
+  <li>Select Bar Chart</li>
+
+  <li>Assign the categorical variable to the x-axis</li>
+
+  <li>SPSS automatically calculates frequencies or percentages</li>
+
+</ul>
+
+<p>
+  Always verify labels, ordering, and axis scales before reporting results.
+</p>
+
+<h3>Python Example</h3>
+
+<p>
+This example creates a simple bar chart showing the number of students who selected each subject.
+</p>
+
+<pre><code>import matplotlib.pyplot as plt
+
+subjects = ["Math", "Science", "History"]
+counts = [40, 30, 15]
+
+plt.bar(subjects, counts)
+plt.show()
+</code></pre>
+
+<h3>R Example</h3>
+
+<p>
+This example creates a simple bar chart showing the number of students who selected each subject.
+</p>
+
+<pre><code>subjects <- c("Math", "Science", "History")
+counts <- c(40, 30, 15)
+
+barplot(counts,
+        names.arg = subjects)
+</code></pre>
 
     <!-- TAKEAWAYS -->
 
