@@ -1,265 +1,597 @@
 ---
 layout: default
-title: "6. Variance & Standard Deviation"
-description: "Variance and standard deviation measure variability around the mean and quantify dispersion of a random variable."
+title: Variance and Standard Deviation
+description: Learn how variance and standard deviation measure the spread of a probability distribution around its expected value.
 permalink: /probability/random-variables/variance-and-standard-deviation/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">🚧 Lesson Under Construction</h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 focuses on conceptual clarity and correct mathematical structure.
-        Numerical examples, simulations, and visual demonstrations will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update last visited lesson -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_probability_random_variables_lesson_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/probability/random-variables/variance-and-standard-deviation/",
-      label: "Lesson 6 — Variance & Standard Deviation",
-      ts: Date.now()
-    }));
-  })();
+(function () {
+
+  const KEY =
+    "esa_continue_probability_random_variables_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/probability/random-variables/variance-and-standard-deviation/",
+    label: "Variance and Standard Deviation",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
 
-      <div class="badge-row">
-        <span class="badge">Block 3</span>
-        <span class="badge">Lesson 6</span>
-        <span class="badge">Dispersion</span>
-        <span class="badge">Variability</span>
-      </div>
+    <div class="badge-row">
+      <span class="badge">Probability</span>
+      <span class="badge">Block 3</span>
+      <span class="badge">Random Variables</span>
+      <span class="badge">Variability</span>
+    </div>
 
-      <h1>6. Variance &amp; Standard Deviation</h1>
+    <h1>Variance and Standard Deviation</h1>
 
-      <p class="lead">
-        Expectation measures the center of a distribution. Variance measures its spread.
-        Together, they summarize location and variability of a random variable.
-      </p>
+    <p class="lead">
+      Expectation tells us where a probability distribution is centered.
+    </p>
 
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/probability/random-variables/">Back to Block 3</a>
-        <a class="btn btn-outline" href="/probability/">Probability home</a>
-      </div>
+    <p class="lead">
+      Variance and standard deviation tell us how widely outcomes are spread around that center.
+    </p>
 
-      <p class="muted-mini">
-        Variance quantifies uncertainty around the mean.
-      </p>
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/probability/random-variables/expectation/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/probability/expectation-variance/">
+         Next Block: Expectation & Variance →
+      </a>
 
     </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>Why Variability Matters</h2>
+
     <p>
-      By the end of this lesson, you should be able to define variance and standard deviation,
-      compute them for discrete and continuous random variables, and interpret variability correctly.
+      Two random variables can have the same expected value but behave very differently.
     </p>
-  </div>
 
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Key idea</h2>
-      <p style="margin:0;">
-        <strong>Variance measures the average squared deviation from the mean.</strong>
+    <div class="example-box">
+
+      <p>
+        Investment A always returns $100.
       </p>
+
+      <p>
+        Investment B returns either $0 or $200.
+      </p>
+
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) Definition of variance</h2>
-  </div>
-
-  <div class="card">
     <p>
-      The variance of a random variable X is:
+      Both investments have the same expected value of $100.
     </p>
-    <p style="margin:0;"><strong>Var(X) = E[(X − μ)²]</strong></p>
-    <p class="muted-mini">
-      where μ = E[X].
+
+    <p>
+      However,
+      the second investment is much more variable.
     </p>
-  </div>
 
-  <div class="card" style="margin-top:1rem;">
-    <h3>Alternative formula (computational form)</h3>
-    <p style="margin:0;"><strong>Var(X) = E[X²] − (E[X])²</strong></p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>2) Discrete case</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      <strong>Var(X) = Σ (x − μ)² p(x)</strong>
+    <p>
+      We need a way to measure that variability.
     </p>
-  </div>
 
-  <div class="card" style="margin-top:1rem;">
-    <p style="margin:0;">
-      Using shortcut:
-      <strong>Var(X) = Σ x² p(x) − μ²</strong>
-    </p>
-  </div>
-</section>
+    <div class="concept-box">
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) Continuous case</h2>
-  </div>
+      <strong>Key idea:</strong>
 
-  <div class="card">
-    <p style="margin:0;">
-      <strong>Var(X) = ∫ (x − μ)² f(x) dx</strong>
-    </p>
-  </div>
-
-  <div class="card" style="margin-top:1rem;">
-    <p style="margin:0;">
-      Or:
-      <strong>Var(X) = ∫ x² f(x) dx − μ²</strong>
-    </p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>4) Standard deviation</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      <strong>SD(X) = √Var(X)</strong>
-    </p>
-  </div>
-
-  <p class="muted-mini" style="margin-top:.75rem;">
-    Standard deviation is in the same units as X, making it easier to interpret.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>5) Important properties</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Scaling rule</h3>
-      <p style="margin:0;">
-        Var(aX + b) = a² Var(X)
+      <p>
+        Variance and standard deviation measure how far outcomes tend to fall from the expected value.
       </p>
+
     </div>
 
-    <div class="card">
-      <h3>Sum of independent variables</h3>
-      <p style="margin:0;">
-        If X and Y are independent:
-        Var(X + Y) = Var(X) + Var(Y)
+    <h2>Measuring Distance from the Mean</h2>
+
+    <p>
+      A natural idea is to examine the difference between an outcome and the expected value.
+    </p>
+
+    <p>
+      This difference is called a deviation.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Deviation = Outcome − Mean
       </p>
+
     </div>
-  </div>
 
-  <p class="muted-mini" style="margin-top:.75rem;">
-    We will revisit these ideas in Block 4 when we study variance algebra, covariance, and correlation.
-  </p>
-</section>
+    <p>
+      Large deviations indicate outcomes far from the center.
+    </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>6) Interpretation</h2>
-  </div>
+    <h2>The Problem with Simple Deviations</h2>
 
-  <div class="card">
+    <p>
+      Positive and negative deviations cancel one another.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        +5 and −5 sum to zero.
+      </p>
+
+    </div>
+
+    <p>
+      As a result,
+      averaging raw deviations always produces zero.
+    </p>
+
+    <p>
+      A different approach is needed.
+    </p>
+
+    <h2>Squaring the Deviations</h2>
+
+    <p>
+      Variance solves the cancellation problem by squaring deviations before averaging them.
+    </p>
+
+    <p>
+      Squaring makes all values nonnegative.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        (+5)² = 25
+      </p>
+
+      <p>
+        (−5)² = 25
+      </p>
+
+    </div>
+
+    <p>
+      Both contribute equally to variability.
+    </p>
+
+    <h2>The Variance Formula</h2>
+
+    <p>
+      For a random variable X:
+    </p>
+
+    0
+
+    <p>
+      This formula represents the expected squared distance from the mean.
+    </p>
+
+    <h2>Alternative Notation</h2>
+
+    <p>
+      Variance is often written using the symbol:
+    </p>
+
+    1
+
+    <p>
+      when referring to a population distribution.
+    </p>
+
+    <h2>Interpreting Variance</h2>
+
+    <p>
+      A larger variance indicates greater spread.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Small variance → outcomes cluster near the mean.
+      </p>
+
+      <p>
+        Large variance → outcomes spread farther from the mean.
+      </p>
+
+    </div>
+
+    <p>
+      Variance quantifies uncertainty around the expected value.
+    </p>
+
+    <h2>Example: Fair Coin</h2>
+
+    <p>
+      Let:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        X = 1 if heads
+      </p>
+
+      <p>
+        X = 0 if tails
+      </p>
+
+    </div>
+
+    <p>
+      We already know:
+    </p>
+
+    2
+
+    <p>
+      The variance can be calculated using the variance formula.
+    </p>
+
+    <p>
+      The result is:
+    </p>
+
+    3
+
+    <p>
+      This value measures the variability of the coin toss outcomes.
+    </p>
+
+    <h2>The Units Problem</h2>
+
+    <p>
+      Variance has an important limitation.
+    </p>
+
+    <p>
+      Because deviations are squared,
+      the units are also squared.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Height measured in centimeters
+      </p>
+
+      <p>
+        Variance measured in square centimeters
+      </p>
+
+    </div>
+
+    <p>
+      These units are often difficult to interpret directly.
+    </p>
+
+    <h2>Introducing Standard Deviation</h2>
+
+    <p>
+      Standard deviation solves this problem by taking the square root of variance.
+    </p>
+
+    4
+
+    <p>
+      Standard deviation returns the measure of spread to the original units.
+    </p>
+
+    <h2>Why Standard Deviation Is Popular</h2>
+
+    <p>
+      Standard deviation is easier to interpret because it uses the same units as the data.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Height → centimeters
+      </p>
+
+      <p>
+        Weight → kilograms
+      </p>
+
+      <p>
+        Time → minutes
+      </p>
+
+    </div>
+
+    <p>
+      This makes standard deviation one of the most widely reported measures of variability.
+    </p>
+
+    <h2>Interpreting Standard Deviation</h2>
+
+    <p>
+      Standard deviation provides a typical distance from the mean.
+    </p>
+
+    <p>
+      Larger values indicate greater variability.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Small standard deviation → observations are tightly clustered.
+      </p>
+
+      <p>
+        Large standard deviation → observations are more dispersed.
+      </p>
+
+    </div>
+
+    <h2>Variance and Risk</h2>
+
+    <p>
+      Variance is frequently used as a measure of risk.
+    </p>
+
+    <p>
+      In finance,
+      investments with larger variances are generally considered riskier.
+    </p>
+
+    <p>
+      More variability means less predictability.
+    </p>
+
+    <h2>Properties of Variance</h2>
+
+    <h3>Variance Is Never Negative</h3>
+
+    5
+
+    <p>
+      Because squared values cannot be negative,
+      variance cannot be negative.
+    </p>
+
+    <h3>Constant Variables Have Zero Variance</h3>
+
+    <p>
+      If a variable always takes the same value,
+      there is no variability.
+    </p>
+
+    6
+
+    <p>
+      when every observation is identical.
+    </p>
+
+    <h2>Expectation and Variability Together</h2>
+
+    <p>
+      Expectation and variance provide complementary information.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Measure</th>
+            <th>Describes</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Expectation</td>
+            <td>Center</td>
+          </tr>
+
+          <tr>
+            <td>Variance</td>
+            <td>Spread</td>
+          </tr>
+
+          <tr>
+            <td>Standard Deviation</td>
+            <td>Spread in original units</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      Together,
+      these measures provide a much more complete description of a distribution.
+    </p>
+
+    <h2>Applications of Variance and Standard Deviation</h2>
+
     <ul class="bullets">
-      <li>Small variance → values tightly clustered around the mean.</li>
-      <li>Large variance → values widely spread.</li>
-      <li>Variance is always non-negative.</li>
+
+      <li>Risk management</li>
+
+      <li>Financial modeling</li>
+
+      <li>Machine learning</li>
+
+      <li>Quality control</li>
+
+      <li>Forecasting</li>
+
+      <li>Statistical inference</li>
+
     </ul>
-  </div>
 
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Units warning</h2>
-      <p style="margin:0;">
-        Variance is in <strong>squared units</strong>. Standard deviation is in the <strong>original units</strong>,
-        which is why SD is usually the more interpretable measure.
-      </p>
+    <p>
+      They are among the most important quantities in all of statistics.
+    </p>
+
+    <h2>What We Learned in Block 3</h2>
+
+    <p>
+      This block introduced random variables and probability distributions.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Topic</th>
+            <th>Main Idea</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Random Variables</td>
+            <td>Assign numbers to uncertain outcomes.</td>
+          </tr>
+
+          <tr>
+            <td>Discrete Variables</td>
+            <td>Countable outcomes.</td>
+          </tr>
+
+          <tr>
+            <td>Continuous Variables</td>
+            <td>Measured outcomes.</td>
+          </tr>
+
+          <tr>
+            <td>CDF</td>
+            <td>Accumulated probability up to a value.</td>
+          </tr>
+
+          <tr>
+            <td>Expectation</td>
+            <td>Center of a distribution.</td>
+          </tr>
+
+          <tr>
+            <td>Variance & Standard Deviation</td>
+            <td>Spread of a distribution.</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
     </div>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Common mistakes</h2>
+    <h2>Preparing for the Next Block</h2>
+
+    <p>
+      We now know how to describe a random variable using:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Its distribution</li>
+
+      <li>Its expected value</li>
+
+      <li>Its variability</li>
+
+    </ul>
+
+    <p>
+      The next block explores expectation and variance in greater depth.
+    </p>
+
+    <p>
+      We will learn how these quantities behave under transformations,
+      combinations of variables,
+      and repeated random experiments.
+    </p>
+
+    <!-- BLOCK TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Block 3 Takeaways</h2>
+
       <ul class="bullets">
-        <li>Confusing variance with standard deviation</li>
-        <li>Forgetting that variance uses squared deviations</li>
-        <li>Mixing up <strong>Var(X+Y)</strong> with <strong>Var(X)+Var(Y)</strong> without checking independence</li>
-        <li>Thinking variance measures center instead of spread</li>
+
+        <li>Random variables convert outcomes into numerical values</li>
+
+        <li>Discrete variables represent counts</li>
+
+        <li>Continuous variables represent measurements</li>
+
+        <li>CDFs provide a unified description of distributions</li>
+
+        <li>Expectation measures the center of a distribution</li>
+
+        <li>Variance measures spread around the mean</li>
+
+        <li>Standard deviation measures spread in the original units</li>
+
+        <li>Center and spread together describe a distribution more completely</li>
+
       </ul>
+
     </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/probability/random-variables/expectation/">
+         ← Previous: Expectation
+      </a>
+
+      <a class="btn"
+         href="/probability/random-variables/">
+         Random Variables Home
+      </a>
+
+      <a class="btn btn-outline"
+         href="/probability/expectation-variance/">
+         Next Block: Expectation & Variance →
+      </a>
+
+    </div>
+
   </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
-      <ul class="bullets">
-        <li>Define <strong>Var(X)=E[(X-μ)^2]</strong> and compute it using <strong>E[X²] − (E[X])²</strong></li>
-        <li>Compute variance for discrete and continuous random variables</li>
-        <li>Interpret SD as spread in the original units</li>
-        <li>Understand key variance properties (scaling, sums under independence)</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next block</h2>
-      <p style="margin:0;">
-        Next, we go deeper into expectation and variability: linearity, variance algebra, covariance, correlation,
-        and tools like indicator variables.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/probability/expectation-variance/">
-          Block 4 — Expectation &amp; Variability →
-        </a>
-      </div>
-    </div>
-
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/probability/random-variables/expectation/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 5: Expectation
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>
