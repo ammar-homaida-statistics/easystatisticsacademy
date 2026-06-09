@@ -111,6 +111,18 @@ sidebar: false
 
     </div>
 
+    <p>
+  Variable type is the starting point,
+  but the purpose of the analysis also matters.
+</p>
+
+<p>
+  The same variable may be displayed differently
+  depending on whether the goal is comparison,
+  distribution analysis,
+  or trend detection.
+</p>
+
     <h2>Start With the Variable Type</h2>
 
     <p>
@@ -132,6 +144,25 @@ sidebar: false
     <p>
       Different variable types require different visualizations.
     </p>
+
+    <img src="{{ 'descriptive/images/variable-type-graph-selection.png' | relative_url }}"
+     alt="Choosing graphs based on variable type"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+Variable type provides the starting point for selecting an appropriate graph.
+</p>
+
+    <div class="concept-box">
+
+  <strong>Important insight:</strong>
+
+  <p>
+    Good graph selection begins with understanding
+    both the data type and the question being asked.
+  </p>
+
+</div>
 
     <h2>Categorical Variables</h2>
 
@@ -260,6 +291,12 @@ sidebar: false
     <p>
       The best choice depends on the number of distinct values.
     </p>
+
+    <p>
+  When only a few distinct values exist,
+  bar charts are often easier to interpret.
+  Histograms become more useful when many numerical values are present.
+</p>
 
     <h2>Continuous Numerical Variables</h2>
 
@@ -409,6 +446,11 @@ sidebar: false
       many statisticians prefer bar charts because comparisons are easier.
     </p>
 
+    <p>
+  Pie charts can become difficult to interpret
+  when many categories are displayed.
+</p>
+
     <h2>A Simple Graph Selection Guide</h2>
 
     <div class="table-wrap">
@@ -462,6 +504,14 @@ sidebar: false
 
     </div>
 
+    <img src="{{ 'descriptive/images/common-graph-types-overview.png' | relative_url }}"
+     alt="Common graph types overview"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+Different graphs are designed to answer different statistical questions.
+</p>
+
     <h2>Common Mistake: Choosing Based on Appearance</h2>
 
     <p>
@@ -479,6 +529,14 @@ sidebar: false
     <p>
       The best graph is the one that answers the statistical question most clearly.
     </p>
+
+    <img src="{{ 'descriptive/images/wrong-vs-correct-graph-choice.png' | relative_url }}"
+     alt="Wrong versus correct graph choice"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+The same data can be easier or harder to interpret depending on graph selection.
+</p>
 
     <h2>Think About the Question First</h2>
 
@@ -502,6 +560,27 @@ sidebar: false
     <p>
       Answering these questions usually points to the correct visualization.
     </p>
+
+    <div class="concept-box">
+
+  <strong>Key insight:</strong>
+
+  <p>
+    There is no universally best graph.
+    The best graph depends on the variable,
+    the question,
+    and the message being communicated.
+  </p>
+
+</div>
+
+<h2>Optional: Choosing Graphs in SPSS</h2>
+
+<ul class="bullets">
+  <li>Graphs → Chart Builder</li>
+  <li>SPSS recommends graph types based on selected variables</li>
+  <li>Analysts should still verify that the graph matches the statistical question</li>
+</ul>
 
     <!-- TAKEAWAYS -->
 
