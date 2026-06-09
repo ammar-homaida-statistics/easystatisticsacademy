@@ -1,280 +1,541 @@
 ---
 layout: default
-title: "5. Equally Likely Outcomes & Counting Intuition"
-description: "When equally likely reasoning is valid, when it is dangerous, and how counting determines probability."
+title: Equally Likely and Counting Intuition
+description: Learn how equally likely outcomes allow probabilities to be calculated through counting and develop intuition for classical probability.
 permalink: /probability/basics/equally-likely-and-counting-intuition/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 establishes disciplined counting logic. Visual diagrams and software simulations
-        will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update last visited lesson -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_probability_basics_lesson_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/probability/basics/equally-likely-and-counting-intuition/",
-      label: "Lesson 5 — Equally Likely Outcomes & Counting Intuition",
-      ts: Date.now()
-    }));
-  })();
+(function () {
+
+  const KEY =
+    "esa_continue_probability_basics_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/probability/basics/equally-likely-and-counting-intuition/",
+    label: "Equally Likely and Counting Intuition",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
 
-      <div class="badge-row">
-        <span class="badge">Block 1</span>
-        <span class="badge">Lesson 5</span>
-        <span class="badge">Counting</span>
-        <span class="badge">Modeling discipline</span>
-      </div>
+    <div class="badge-row">
+      <span class="badge">Probability</span>
+      <span class="badge">Block 1</span>
+      <span class="badge">Basics</span>
+      <span class="badge">Counting</span>
+    </div>
 
-      <h1>5. Equally Likely Outcomes &amp; Counting Intuition</h1>
+    <h1>Equally Likely and Counting Intuition</h1>
 
-      <p class="lead">
-        Many probability problems assume outcomes are equally likely.
-        This lesson teaches when that assumption is valid — and when it is not.
+    <p class="lead">
+      Many probability problems can be solved by counting.
+    </p>
+
+    <p class="lead">
+      When all outcomes are equally likely, probability becomes a matter of comparing favorable outcomes to total possible outcomes.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/probability/basics/union-intersection-and-venn-thinking/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/probability/basics/independence-vs-disjointness/">
+         Next: Independence vs Disjointness →
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>Why Counting Matters</h2>
+
+    <p>
+      Many probability calculations begin with a simple question:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        How many outcomes are possible?
       </p>
+    </div>
 
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/probability/basics/union-intersection-and-venn-thinking/">
-          ← Previous lesson: 4. Union, Intersection & Venn Thinking
-        </a>
-        <a class="btn btn-outline" href="/probability/basics/">Back to Block 1</a>
-      </div>
+    <p>
+      Once we know the number of possible outcomes and the number of favorable outcomes,
+      probability often becomes straightforward.
+    </p>
 
-      <p class="muted-mini">
-        Counting works only when modeling assumptions are correct.
+    <div class="concept-box">
+
+      <strong>Key idea:</strong>
+
+      <p>
+        Probability can often be viewed as a counting problem.
       </p>
 
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
-  </div>
-
-  <ul class="bullets">
-    <li>Understand what “equally likely” really means</li>
-    <li>Use counting to compute probabilities correctly</li>
-    <li>Avoid hidden modeling mistakes</li>
-  </ul>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>1) The equally likely formula</h2>
-  </div>
-
-  <div class="card">
-    <p>
-      If all outcomes in the sample space are equally likely:
-    </p>
-
-    <p><strong>P(A) = (number of favorable outcomes) / (total number of outcomes)</strong></p>
+    <h2>What Does Equally Likely Mean?</h2>
 
     <p>
-      This formula only works when each outcome has the same probability.
+      Outcomes are <strong>equally likely</strong> when each outcome has the same probability of occurring.
     </p>
-  </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Important condition</h2>
-      <p style="margin:0;">
-        You must justify why outcomes are equally likely.
-        Never assume it silently.
+    <p>
+      No outcome is favored over another.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        A fair coin
       </p>
+
+      <p>
+        A fair six-sided die
+      </p>
+
+      <p>
+        A well-shuffled deck of cards
+      </p>
+
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) Simple examples where counting works</h2>
-  </div>
+    <p>
+      These are common examples of equally likely outcomes.
+    </p>
 
-  <div class="grid grid-2">
+    <h2>The Classical Probability Formula</h2>
 
-    <div class="card">
-      <h3>Example 1: Fair die</h3>
+    <p>
+      When outcomes are equally likely,
+      probability can be calculated using a simple formula.
+    </p>
+
+    0
+
+    <p>
+      This formula is known as the classical definition of probability.
+    </p>
+
+    <h2>Example: Rolling a Die</h2>
+
+    <p>
+      Suppose we roll a fair six-sided die.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Sample Space:
+      </p>
+
       <p>
         S = {1,2,3,4,5,6}
       </p>
-      <p>
-        Probability of rolling an even number:
-      </p>
-      <p>
-        Favorable outcomes = {2,4,6} → 3  
-        Total outcomes = 6  
-        Probability = 3/6 = 1/2
-      </p>
+
     </div>
 
-    <div class="card">
-      <h3>Example 2: Two coin tosses</h3>
-      <p>
-        S = {HH, HT, TH, TT}
-      </p>
-      <p>
-        Probability of exactly one head:
-      </p>
-      <p>
-        Favorable outcomes = {HT, TH} → 2  
-        Total outcomes = 4  
-        Probability = 2/4 = 1/2
-      </p>
-    </div>
-
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>3) When counting goes wrong</h2>
-  </div>
-
-  <div class="card">
-    <h3>Common mistake: Counting incorrectly</h3>
     <p>
-      In the two-child example:
+      What is the probability of rolling a 4?
     </p>
-    <p>
-      Sample space should be:
-      {BB, BG, GB, GG}
-    </p>
-    <p>
-      If you forget ordering, you may incorrectly use:
-      {BB, BG, GG}
-    </p>
-  </div>
 
-  <div class="card">
-    <h3>Common mistake: Assuming equal likelihood without justification</h3>
     <p>
-      Example:
-      Selecting a random person and asking for their birthday month.
-      Are months equally likely? Not necessarily.
-    </p>
-  </div>
-
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Lesson</h2>
-      <p style="margin:0;">
-        Counting works only if:
-        <br>
-        1) The sample space is correct  
-        2) Outcomes are truly equally likely
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>4) Ordered vs Unordered Outcomes</h2>
-  </div>
-
-  <div class="card">
-    <p>
-      Sometimes order matters.
-      Sometimes it does not.
+      There is:
     </p>
 
     <ul class="bullets">
-      <li>Two coin tosses → order matters (HT ≠ TH)</li>
-      <li>Choosing two people from a group → order does not matter</li>
+
+      <li>1 favorable outcome</li>
+
+      <li>6 total outcomes</li>
+
     </ul>
-  </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Key modeling question</h2>
-      <p style="margin:0;">
-        Does the sequence of outcomes matter in this experiment?
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>5) Why counting intuition matters</h2>
-  </div>
-
-  <div class="card">
     <p>
-      Counting intuition prepares you for:
+      Therefore:
+    </p>
+
+    1
+
+    <h2>Example: Rolling an Even Number</h2>
+
+    <p>
+      The event:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        E = {2,4,6}
+      </p>
+
+    </div>
+
+    <p>
+      contains:
     </p>
 
     <ul class="bullets">
-      <li>Combinations and permutations (later)</li>
-      <li>Binomial probabilities</li>
-      <li>Hypergeometric models</li>
-      <li>Probability in real-world decision problems</li>
+
+      <li>3 favorable outcomes</li>
+
+      <li>6 total outcomes</li>
+
     </ul>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Common mistakes</h2>
-      <ul class="bullets">
-        <li>Forgetting to define the correct sample space</li>
-        <li>Ignoring whether outcomes are equally likely</li>
-        <li>Counting without checking order relevance</li>
-        <li>Confusing combinations with permutations</li>
-      </ul>
-    </div>
-  </div>
-</section>
+    <p>
+      Therefore:
+    </p>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
-      <ul class="bullets">
-        <li>Know when counting applies</li>
-        <li>Identify equally likely assumptions</li>
-        <li>Model experiments correctly before computing</li>
-        <li>Prepare for independence (next lesson)</li>
-      </ul>
-    </div>
-  </div>
-</section>
+    2
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next lesson</h2>
-      <p style="margin:0;">
-        Now we clarify one of the most confused concepts in probability.
+    <h2>Example: Drawing a Card</h2>
+
+    <p>
+      A standard deck contains 52 cards.
+    </p>
+
+    <p>
+      There are 4 aces.
+    </p>
+
+    <p>
+      Therefore:
+    </p>
+
+    3
+
+    <p>
+      Counting provides the answer immediately.
+    </p>
+
+    <h2>Thinking About Favorable Outcomes</h2>
+
+    <p>
+      The most important step is often identifying which outcomes satisfy the event.
+    </p>
+
+    <p>
+      These are called favorable outcomes.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Event:
       </p>
 
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/probability/basics/independence-vs-disjointness/">
-          Next lesson: 6. Independence vs Disjointness →
-        </a>
-      </div>
+      <p>
+        Roll a number greater than 4.
+      </p>
+
     </div>
+
+    <p>
+      Favorable outcomes:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        {5,6}
+      </p>
+
+    </div>
+
+    <p>
+      Once favorable outcomes are identified,
+      counting becomes easy.
+    </p>
+
+    <h2>Why the Formula Works</h2>
+
+    <p>
+      If all outcomes are equally likely,
+      each outcome receives an equal share of the total probability.
+    </p>
+
+    <p>
+      Since the sample space has probability 1,
+      the probability is distributed evenly among outcomes.
+    </p>
+
+    <p>
+      Counting favorable outcomes tells us how much probability belongs to the event.
+    </p>
+
+    <h2>When Counting Is Not Enough</h2>
+
+    <p>
+      The counting formula works only when outcomes are equally likely.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Fair die → equally likely outcomes
+      </p>
+
+      <p>
+        Loaded die → outcomes may not be equally likely
+      </p>
+
+    </div>
+
+    <p>
+      In unequal situations,
+      probabilities cannot be determined by counting alone.
+    </p>
+
+    <h2>A Common Mistake</h2>
+
+    <p>
+      Students sometimes assume that all outcomes are equally likely without checking.
+    </p>
+
+    <p>
+      This assumption is not always justified.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Weather outcomes are not equally likely.
+      </p>
+
+      <p>
+        Stock market outcomes are not equally likely.
+      </p>
+
+    </div>
+
+    <p>
+      Always verify whether equal likelihood is reasonable.
+    </p>
+
+    <h2>Counting and Sample Spaces</h2>
+
+    <p>
+      Counting begins with a complete sample space.
+    </p>
+
+    <p>
+      If outcomes are omitted,
+      probability calculations become incorrect.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        S = {1,2,3,4,5,6}
+      </p>
+    </div>
+
+    <p>
+      Every possible outcome must be represented.
+    </p>
+
+    <h2>Probability as a Fraction of Outcomes</h2>
+
+    <p>
+      Under equal likelihood,
+      probability can be interpreted as a fraction of the sample space.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        3 favorable outcomes out of 6 total outcomes
+      </p>
+    </div>
+
+    <p>
+      This corresponds to:
+    </p>
+
+    4
+
+    <p>
+      Half of the possible outcomes satisfy the event.
+    </p>
+
+    <h2>Developing Counting Intuition</h2>
+
+    <p>
+      As probability problems become more complex,
+      counting remains a central skill.
+    </p>
+
+    <p>
+      Future topics will include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Multiple-step experiments</li>
+
+      <li>Permutations</li>
+
+      <li>Combinations</li>
+
+      <li>Counting principles</li>
+
+    </ul>
+
+    <p>
+      These techniques all build upon simple counting ideas.
+    </p>
+
+    <h2>A Useful Mental Process</h2>
+
+    <p>
+      For equally likely problems:
+    </p>
+
+    <ol>
+
+      <li>Identify the sample space.</li>
+
+      <li>Count total outcomes.</li>
+
+      <li>Identify the event.</li>
+
+      <li>Count favorable outcomes.</li>
+
+      <li>Apply the probability formula.</li>
+
+    </ol>
+
+    <p>
+      This process solves many introductory probability questions.
+    </p>
+
+    <h2>An Example from Everyday Life</h2>
+
+    <p>
+      Suppose a raffle contains 100 tickets,
+      and you own 5 of them.
+    </p>
+
+    <p>
+      Assuming every ticket is equally likely to be selected:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Favorable outcomes = 5</li>
+
+      <li>Total outcomes = 100</li>
+
+    </ul>
+
+    <p>
+      Therefore:
+    </p>
+
+    5
+
+    <p>
+      Your probability of winning is 5%.
+    </p>
+
+    <h2>The Limits of Counting</h2>
+
+    <p>
+      Counting provides a powerful starting point,
+      but probability is broader than counting alone.
+    </p>
+
+    <p>
+      Later lessons will examine situations where probabilities arise from long-run frequencies,
+      models,
+      and conditional information.
+    </p>
+
+    <p>
+      Nevertheless,
+      counting intuition remains one of the most important foundations of probability.
+    </p>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Another important concept often confused with event relationships is independence.
+    </p>
+
+    <p>
+      Students frequently assume that independent events and mutually exclusive events mean the same thing.
+    </p>
+
+    <p>
+      The next lesson explains why these concepts are fundamentally different.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>Equally likely outcomes have identical probabilities</li>
+
+        <li>Classical probability is based on counting favorable and total outcomes</li>
+
+        <li>The probability formula works only when outcomes are equally likely</li>
+
+        <li>Identifying favorable outcomes is often the key step</li>
+
+        <li>Counting intuition underlies many probability methods</li>
+
+        <li>A complete sample space is essential for accurate calculations</li>
+
+        <li>Counting methods form the foundation for more advanced probability topics</li>
+
+      </ul>
+
+    </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/probability/basics/union-intersection-and-venn-thinking/">
+         ← Previous: Union, Intersection, and Venn Thinking
+      </a>
+
+      <a class="btn"
+         href="/probability/basics/independence-vs-disjointness/">
+         Next: Independence vs Disjointness →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
