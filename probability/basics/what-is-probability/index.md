@@ -1,108 +1,61 @@
 ---
 layout: default
-title: What Is Probability (and What It Is Not?)
-description: Learn what probability measures, why it quantifies uncertainty, and the most common misconceptions beginners have about probabilistic thinking.
+title: What Is Probability?
+description: Learn what probability means, why it is important, and how it helps quantify uncertainty in the real world.
 permalink: /probability/basics/what-is-probability/
-parent: Probability Basics
-grand_parent: Probability & Theory
-nav_order: 1
+sidebar: false
 ---
 
 <!-- SAVE LESSON PROGRESS -->
 <script>
 (function () {
 
-  const KEY = "esa_continue_probability_basics_lesson_v0";
+  const KEY =
+    "esa_continue_probability_basics_lesson_v0";
 
   localStorage.setItem(KEY, JSON.stringify({
     url: "/probability/basics/what-is-probability/",
-    label: "What Is Probability (and What It Is Not?)",
+    label: "What Is Probability?",
     ts: Date.now()
   }));
 
 })();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
 
   <div class="hero-card">
 
     <div class="badge-row">
-      <span class="badge">Probability Basics</span>
+      <span class="badge">Probability</span>
+      <span class="badge">Block 1</span>
+      <span class="badge">Basics</span>
       <span class="badge">Lesson 1</span>
-      <span class="badge">Foundations</span>
     </div>
 
-    <h1>What Is Probability (and What It Is Not?)</h1>
+    <h1>What Is Probability?</h1>
 
     <p class="lead">
-      Probability is a mathematical language for describing uncertainty.
-      It does not predict exactly what will happen in a single trial.
-      Instead, it describes how likely different outcomes are.
+      Probability is the language of uncertainty.
+    </p>
+
+    <p class="lead">
+      It provides a systematic way to describe how likely events are to occur and helps us make decisions when outcomes are uncertain.
     </p>
 
     <div class="hero-actions">
-      <a class="btn btn-outline" href="/probability/basics/">
-        Back to Block
+
+      <a class="btn btn-outline"
+         href="/probability/">
+         ← Probability Home
       </a>
-    </div>
 
-  </div>
-
-</section>
-
-<section class="section">
-
-  <div class="section-head">
-    <h2>Learning objectives</h2>
-  </div>
-
-  <ul class="bullets">
-
-    <li>Understand probability as a measure of uncertainty</li>
-
-    <li>Distinguish probability from certainty and impossibility</li>
-
-    <li>Interpret probabilities correctly</li>
-
-    <li>Recognize common misconceptions about randomness</li>
-
-    <li>Understand why probability is fundamental to statistics</li>
-
-  </ul>
-
-</section>
-
-<section class="section">
-
-  <div class="section-head">
-    <h2>Why probability exists</h2>
-  </div>
-
-  <p>
-    Many situations involve uncertainty.
-    We do not know tomorrow's weather,
-    the outcome of a sports match,
-    whether a patient will respond to treatment,
-    or whether a manufactured item will fail.
-  </p>
-
-  <p>
-    Probability provides a framework for describing and quantifying that uncertainty.
-    Rather than saying an event is simply "possible" or "impossible,"
-    probability tells us how likely it is.
-  </p>
-
-  <div class="callout">
-
-    <div class="callout-copy">
-
-      <strong>Core idea</strong>
-
-      <p>
-        Probability measures uncertainty,
-        not certainty.
-      </p>
+      <a class="btn"
+         href="/probability/basics/outcomes-sample-spaces-events/">
+         Next: Outcomes, Sample Spaces, and Events →
+      </a>
 
     </div>
 
@@ -110,269 +63,431 @@ nav_order: 1
 
 </section>
 
-<section class="section">
-
-  <div class="section-head">
-    <h2>The probability scale</h2>
-  </div>
-
-  <p>
-    Probabilities range from 0 to 1.
-  </p>
-
-  <div class="table-wrap">
-
-    <table>
-
-      <thead>
-
-        <tr>
-          <th>Probability</th>
-          <th>Meaning</th>
-        </tr>
-
-      </thead>
-
-      <tbody>
-
-        <tr>
-          <td>0</td>
-          <td>Impossible event</td>
-        </tr>
-
-        <tr>
-          <td>0.25</td>
-          <td>Low likelihood</td>
-        </tr>
-
-        <tr>
-          <td>0.50</td>
-          <td>Equal likelihood</td>
-        </tr>
-
-        <tr>
-          <td>0.75</td>
-          <td>High likelihood</td>
-        </tr>
-
-        <tr>
-          <td>1</td>
-          <td>Certain event</td>
-        </tr>
-
-      </tbody>
-
-    </table>
-
-  </div>
-
-  <p>
-    Probabilities are often expressed as decimals,
-    fractions,
-    or percentages.
-  </p>
-
-</section>
+<!-- LESSON -->
 
 <section class="section">
 
-  <div class="section-head">
-    <h2>Probability does not guarantee outcomes</h2>
-  </div>
+  <div class="content-narrow">
 
-  <p>
-    A common misunderstanding is believing that a high probability guarantees success.
-  </p>
+    <h2>Uncertainty Is Everywhere</h2>
 
-  <p>
-    Suppose an event has probability 0.95.
-    This means the event is very likely,
-    but failure is still possible.
-  </p>
+    <p>
+      Many situations involve uncertainty.
+    </p>
 
-  <p>
-    Similarly,
-    a probability of 0.05 does not mean an event cannot occur.
-    Rare events still happen.
-  </p>
+    <p>
+      We rarely know exactly what will happen in the future.
+    </p>
 
-  <div class="callout">
+    <p>
+      Weather forecasts,
+      stock prices,
+      medical outcomes,
+      sporting events,
+      and everyday decisions all involve uncertainty.
+    </p>
 
-    <div class="callout-copy">
-
-      <strong>Important</strong>
+    <div class="example-box">
 
       <p>
-        Probability describes likelihood,
-        not certainty.
+        Will it rain tomorrow?
+      </p>
+
+      <p>
+        Will a patient recover from treatment?
+      </p>
+
+      <p>
+        Will a company achieve its sales target?
       </p>
 
     </div>
 
-  </div>
+    <p>
+      Probability helps us reason about these uncertain situations.
+    </p>
 
-</section>
+    <h2>What Probability Measures</h2>
 
-<section class="section">
+    <p>
+      Probability measures the likelihood that an event will occur.
+    </p>
 
-  <div class="section-head">
-    <h2>Long-run interpretation</h2>
-  </div>
+    <p>
+      Higher probabilities indicate more likely events,
+      while lower probabilities indicate less likely events.
+    </p>
 
-  <p>
-    One way to interpret probability is through repeated trials.
-  </p>
+    <div class="concept-box">
 
-  <p>
-    If a fair coin is tossed many times,
-    approximately half of the tosses should be heads.
-  </p>
-
-  <p>
-    This does not mean every pair of tosses will contain one head and one tail.
-    Instead,
-    the proportion tends to stabilize as the number of trials increases.
-  </p>
-
-  <p>
-    This idea becomes extremely important later when studying the
-    Law of Large Numbers.
-  </p>
-
-</section>
-
-<section class="section">
-
-  <div class="section-head">
-    <h2>Probability is not prediction</h2>
-  </div>
-
-  <p>
-    Probability does not tell us exactly what will happen next.
-  </p>
-
-  <p>
-    It tells us what outcomes are plausible and how likely they are.
-  </p>
-
-  <p>
-    For example,
-    saying there is a 70% chance of rain does not mean rain must occur.
-    It means rain is more likely than not,
-    according to the information available.
-  </p>
-
-</section>
-
-<section class="section">
-
-  <div class="section-head">
-    <h2>Common misconceptions</h2>
-  </div>
-
-  <div class="grid grid-2">
-
-    <div class="card">
-
-      <h3>Misconception 1</h3>
+      <strong>Key idea:</strong>
 
       <p>
-        "A probability of 80% means the event will happen."
-      </p>
-
-      <p>
-        Incorrect.
-        The event is likely,
-        not guaranteed.
+        Probability quantifies uncertainty.
       </p>
 
     </div>
 
-    <div class="card">
+    <h2>The Probability Scale</h2>
 
-      <h3>Misconception 2</h3>
+    <p>
+      Probabilities are measured on a scale from 0 to 1.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Probability</th>
+            <th>Meaning</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>0</td>
+            <td>Impossible event</td>
+          </tr>
+
+          <tr>
+            <td>0.25</td>
+            <td>Unlikely event</td>
+          </tr>
+
+          <tr>
+            <td>0.50</td>
+            <td>Equally likely to occur or not occur</td>
+          </tr>
+
+          <tr>
+            <td>0.75</td>
+            <td>Likely event</td>
+          </tr>
+
+          <tr>
+            <td>1</td>
+            <td>Certain event</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      Every probability lies between 0 and 1 inclusive.
+    </p>
+
+    <h2>Probability as a Percentage</h2>
+
+    <p>
+      Probabilities are often expressed as percentages.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Probability</th>
+            <th>Percentage</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>0.10</td>
+            <td>10%</td>
+          </tr>
+
+          <tr>
+            <td>0.50</td>
+            <td>50%</td>
+          </tr>
+
+          <tr>
+            <td>0.90</td>
+            <td>90%</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      A probability of 0.80 means there is an 80% chance that the event occurs.
+    </p>
+
+    <h2>Examples of Probability</h2>
+
+    <div class="example-box">
 
       <p>
-        "A rare event cannot happen."
+        Probability of rain tomorrow = 0.60
+      </p>
+    </div>
+
+    <p>
+      This means rain is considered more likely than not.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Probability of drawing an ace from a standard deck = 0.077
+      </p>
+    </div>
+
+    <p>
+      This event is possible but relatively unlikely.
+    </p>
+
+    <h2>Probability Is Not Certainty</h2>
+
+    <p>
+      A common misconception is that a high probability guarantees an outcome.
+    </p>
+
+    <p>
+      It does not.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        A weather forecast may report a 90% chance of rain.
+      </p>
+    </div>
+
+    <p>
+      Rain is very likely,
+      but it is still possible that no rain occurs.
+    </p>
+
+    <p>
+      Probability describes likelihood,
+      not certainty.
+    </p>
+
+    <h2>Why Probability Matters</h2>
+
+    <p>
+      Probability provides a foundation for rational decision-making.
+    </p>
+
+    <p>
+      It helps individuals and organizations evaluate risk,
+      compare alternatives,
+      and make informed choices.
+    </p>
+
+    <p>
+      Modern fields such as:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Statistics</li>
+
+      <li>Finance</li>
+
+      <li>Medicine</li>
+
+      <li>Engineering</li>
+
+      <li>Artificial Intelligence</li>
+
+      <li>Data Science</li>
+
+    </ul>
+
+    <p>
+      all depend heavily on probability.
+    </p>
+
+    <h2>Probability and Statistics</h2>
+
+    <p>
+      Probability and statistics are closely related,
+      but they are not identical.
+    </p>
+
+    <p>
+      Probability starts with a model and predicts what outcomes are likely.
+    </p>
+
+    <p>
+      Statistics starts with observed data and attempts to learn about the underlying process.
+    </p>
+
+    <p>
+      Together,
+      they form the foundation of modern quantitative reasoning.
+    </p>
+
+    <h2>Three Everyday Interpretations</h2>
+
+    <p>
+      People often interpret probability in different ways.
+    </p>
+
+    <ul class="bullets">
+
+      <li>As long-run frequency</li>
+
+      <li>As a degree of belief</li>
+
+      <li>As a measure of uncertainty</li>
+
+    </ul>
+
+    <p>
+      These interpretations will be explored in later lessons.
+    </p>
+
+    <h2>Probability Helps Manage Risk</h2>
+
+    <p>
+      Many important decisions involve risk.
+    </p>
+
+    <p>
+      Probability provides a framework for evaluating uncertain outcomes before decisions are made.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Insurance companies estimate accident probabilities.
       </p>
 
       <p>
-        Incorrect.
-        Rare events occur all the time.
+        Investors evaluate market risks.
+      </p>
+
+      <p>
+        Doctors assess treatment outcomes.
       </p>
 
     </div>
 
-    <div class="card">
+    <p>
+      Probability plays a central role in each case.
+    </p>
 
-      <h3>Misconception 3</h3>
+    <h2>What Probability Does Not Do</h2>
+
+    <p>
+      Probability does not predict individual outcomes with certainty.
+    </p>
+
+    <p>
+      Instead,
+      it describes patterns of uncertainty.
+    </p>
+
+    <div class="example-box">
 
       <p>
-        "Probability predicts individual outcomes perfectly."
+        A fair coin has a probability of 0.5 of landing heads.
       </p>
+    </div>
 
-      <p>
-        Incorrect.
-        Probability describes patterns,
-        not certainty.
-      </p>
+    <p>
+      This does not tell us what will happen on the next flip.
+    </p>
+
+    <p>
+      It tells us what to expect over many repetitions.
+    </p>
+
+    <h2>From Uncertainty to Structure</h2>
+
+    <p>
+      Although uncertainty may seem random,
+      probability allows us to study it systematically.
+    </p>
+
+    <p>
+      By defining possible outcomes and assigning probabilities,
+      we can analyze uncertain situations mathematically.
+    </p>
+
+    <p>
+      This idea forms the basis of all probability theory.
+    </p>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      To calculate probabilities,
+      we first need a precise way to describe possible outcomes.
+    </p>
+
+    <p>
+      The next lesson introduces three fundamental concepts:
+      outcomes,
+      sample spaces,
+      and events.
+    </p>
+
+    <p>
+      These concepts form the building blocks of probability.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>Probability quantifies uncertainty</li>
+
+        <li>Probabilities range from 0 to 1</li>
+
+        <li>Probability measures how likely an event is to occur</li>
+
+        <li>Probability does not guarantee outcomes</li>
+
+        <li>Probability supports decision-making under uncertainty</li>
+
+        <li>Many scientific and practical fields rely on probability</li>
+
+        <li>Outcomes, sample spaces, and events are the next building blocks of probability</li>
+
+      </ul>
 
     </div>
 
-    <div class="card">
+    <!-- NAVIGATION -->
 
-      <h3>Misconception 4</h3>
+    <div class="lesson-nav">
 
-      <p>
-        "Random means every outcome appears equally often immediately."
-      </p>
+      <a class="btn btn-outline"
+         href="/probability/">
+         Probability Home
+      </a>
 
-      <p>
-        Incorrect.
-        Balance emerges over many repetitions,
-        not necessarily over a few trials.
-      </p>
-
-    </div>
-
-  </div>
-
-</section>
-
-<section class="section">
-
-  <div class="section-head">
-    <h2>Key takeaway</h2>
-  </div>
-
-  <div class="callout">
-
-    <div class="callout-copy">
-
-      <p>
-        Probability is the mathematical study of uncertainty.
-        It measures how likely events are,
-        but it does not guarantee outcomes.
-        Understanding probability correctly is the foundation of all statistical reasoning.
-      </p>
+      <a class="btn"
+         href="/probability/basics/outcomes-sample-spaces-events/">
+         Next: Outcomes, Sample Spaces, and Events →
+      </a>
 
     </div>
-
-  </div>
-
-</section>
-
-<section class="section section-slim">
-
-  <div class="lesson-nav">
-
-    <a class="btn btn-outline" href="/probability/basics/">
-      ← Block Home
-    </a>
-
-    <a class="btn" href="/probability/basics/outcomes-sample-spaces-events/">
-      Next →
-    </a>
 
   </div>
 
