@@ -1,218 +1,616 @@
 ---
 layout: default
-title: "6. Applications — Mini Cases"
-description: "Integrated applications combining expectation, variance, covariance, correlation, and indicator variables in realistic probability modeling scenarios."
+title: Applications and Mini Cases
+description: Apply expectation, variance, covariance, correlation, and indicator variables to real-world probability problems.
 permalink: /probability/expectation-variance/applications-mini-cases/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">🚧 Lesson Under Construction</h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 integrates all tools from Block 4 conceptually.
-        Full numerical worked examples and simulations will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update last visited lesson -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_probability_expectation_variance_lesson_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/probability/expectation-variance/applications-mini-cases/",
-      label: "Lesson 6 — Applications: Mini Cases",
-      ts: Date.now()
-    }));
-  })();
+(function () {
+
+  const KEY =
+    "esa_continue_probability_expectation_variance_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/probability/expectation-variance/applications-mini-cases/",
+    label: "Applications and Mini Cases",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 4</span>
-        <span class="badge">Lesson 6</span>
-        <span class="badge">Applications</span>
-        <span class="badge">Integration</span>
-      </div>
 
-      <h1>6. Applications — Mini Cases</h1>
+    <div class="badge-row">
+      <span class="badge">Probability</span>
+      <span class="badge">Block 4</span>
+      <span class="badge">Expectation & Variance</span>
+      <span class="badge">Applications</span>
+    </div>
 
-      <p class="lead">
-        This lesson integrates expectation, variance, covariance, correlation,
-        and indicator variables into realistic modeling situations.
-        The goal is structural understanding — not memorization.
+    <h1>Applications and Mini Cases</h1>
+
+    <p class="lead">
+      Probability concepts become truly valuable when they are applied to real decisions and real data.
+    </p>
+
+    <p class="lead">
+      This lesson brings together expectation, variance, covariance, correlation, and indicator variables through practical examples.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/probability/expectation-variance/indicator-random-variables/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/probability/distributions/">
+         Next Block: Distributions →
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>Bringing the Ideas Together</h2>
+
+    <p>
+      Throughout this block,
+      we studied several important concepts:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Expectation</li>
+
+      <li>Variance</li>
+
+      <li>Covariance</li>
+
+      <li>Correlation</li>
+
+      <li>Indicator variables</li>
+
+    </ul>
+
+    <p>
+      These ideas rarely appear in isolation.
+    </p>
+
+    <p>
+      Real-world problems often require multiple concepts working together.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Key idea:</strong>
+
+      <p>
+        Probability models become powerful when expectation and variability are used together to describe uncertainty.
       </p>
 
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/probability/expectation-variance/">Back to Block 4</a>
-        <a class="btn btn-outline" href="/probability/">Probability home</a>
-      </div>
+    </div>
 
-      <p class="muted-mini">
-        Modeling principle: break problems into components, then apply the right tool.
+    <h2>Mini Case 1: Customer Arrivals</h2>
+
+    <p>
+      A small coffee shop records the number of customers arriving each hour.
+    </p>
+
+    <p>
+      Historical data suggests:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Expected arrivals = 30 customers
       </p>
+
+      <p>
+        Standard deviation = 5 customers
+      </p>
+
     </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
-    <p>
-      By the end of this lesson, you should be able to identify which structural tool
-      (linearity, variance rules, covariance, correlation, indicators)
-      applies in a modeling scenario.
-    </p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>Mini Case 1 — Counting Successes</h2>
-  </div>
-
-  <div class="card">
-    <p>
-      Suppose multiple events may occur.
-      Define indicator variables for each event.
-      Write total count as:
-    </p>
-
-    <p style="font-size:1.1rem;">
-      <strong>X = I₁ + I₂ + … + I_n</strong>
-    </p>
 
     <p>
-      Then:
-      <strong>E[X] = Σ P(Aᵢ)</strong>
-    </p>
-  </div>
-
-  <p class="muted-mini">
-    Independence is not required. This is pure linearity.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>Mini Case 2 — Variability of a Sum</h2>
-  </div>
-
-  <div class="card">
-    <p>
-      For two variables:
-    </p>
-
-    <p style="font-size:1.1rem;">
-      <strong>Var(X + Y) = Var(X) + Var(Y) + 2Cov(X,Y)</strong>
-    </p>
-
-    <p>
-      If independent → covariance = 0 → variances add.
-    </p>
-  </div>
-
-  <p class="muted-mini">
-    Dependence influences spread, not expectation.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>Mini Case 3 — Portfolio Interpretation</h2>
-  </div>
-
-  <div class="card">
-    <p>
-      In finance-like models:
+      What do these values mean?
     </p>
 
     <ul class="bullets">
-      <li>Expectation → average return</li>
-      <li>Variance → risk</li>
-      <li>Covariance → joint movement</li>
-      <li>Correlation → standardized dependence</li>
-    </ul>
-  </div>
 
-  <p class="muted-mini">
-    This is the structural backbone of regression and machine learning.
-  </p>
-</section>
+      <li>The average hour has about 30 customers.</li>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Mini Case 4 — Random Structure Modeling</h2>
-  </div>
+      <li>Actual customer counts vary around that average.</li>
 
-  <div class="card">
-    <p>
-      Complex quantities are often decomposed as:
-    </p>
+      <li>A standard deviation of 5 indicates moderate variability.</li>
 
-    <ul class="bullets">
-      <li>Sum of components</li>
-      <li>Function of random variables</li>
-      <li>Combination of dependent parts</li>
     </ul>
 
     <p>
-      The correct tool depends on structure:
+      Managers can use this information for staffing decisions.
+    </p>
+
+    <h2>Mini Case 2: Insurance Risk</h2>
+
+    <p>
+      An insurance company estimates:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Expected claim cost = $500
+      </p>
+
+      <p>
+        Standard deviation = $2,000
+      </p>
+
+    </div>
+
+    <p>
+      The average claim cost appears manageable.
+    </p>
+
+    <p>
+      However,
+      the large standard deviation indicates substantial uncertainty.
+    </p>
+
+    <p>
+      Variability is often as important as the average itself.
+    </p>
+
+    <h2>Mini Case 3: Exam Performance</h2>
+
+    <p>
+      Suppose two classes have:
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Class</th>
+            <th>Mean</th>
+            <th>Standard Deviation</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>A</td>
+            <td>75</td>
+            <td>4</td>
+          </tr>
+
+          <tr>
+            <td>B</td>
+            <td>75</td>
+            <td>15</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      Both classes have identical averages.
+    </p>
+
+    <p>
+      Class B exhibits much greater variability.
+    </p>
+
+    <p>
+      Expectation alone does not fully describe performance.
+    </p>
+
+    <h2>Mini Case 4: Portfolio Diversification</h2>
+
+    <p>
+      An investor owns two assets.
+    </p>
+
+    <p>
+      Each asset has its own expected return and variance.
+    </p>
+
+    <p>
+      The overall risk depends not only on the individual variances but also on covariance.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Positive covariance → assets move together
+      </p>
+
+      <p>
+        Negative covariance → assets offset one another
+      </p>
+
+    </div>
+
+    <p>
+      Diversification works because covariance influences total variability.
+    </p>
+
+    <h2>Mini Case 5: Website Clicks</h2>
+
+    <p>
+      A marketing team studies whether users click an advertisement.
+    </p>
+
+    <p>
+      Define:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        I = 1 if the user clicks
+      </p>
+
+      <p>
+        I = 0 otherwise
+      </p>
+
+    </div>
+
+    <p>
+      This is an indicator random variable.
+    </p>
+
+    <p>
+      If:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        P(click) = 0.08
+      </p>
+
+    </div>
+
+    <p>
+      then:
+    </p>
+
+    0
+
+    <p>
+      The expected value equals the click probability.
+    </p>
+
+    <h2>Mini Case 6: Manufacturing Defects</h2>
+
+    <p>
+      A factory inspects 1,000 products.
+    </p>
+
+    <p>
+      Each product has a 2% probability of being defective.
+    </p>
+
+    <p>
+      Define an indicator variable for each item:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Iᵢ = 1 if item i is defective
+      </p>
+
+      <p>
+        Iᵢ = 0 otherwise
+      </p>
+
+    </div>
+
+    <p>
+      Total defects:
+    </p>
+
+    1
+
+    <p>
+      Using linearity of expectation:
+    </p>
+
+    2
+
+    <p>
+      The factory expects approximately 20 defective products.
+    </p>
+
+    <h2>Mini Case 7: Studying Relationships</h2>
+
+    <p>
+      A researcher investigates:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Hours studied
+      </p>
+
+      <p>
+        Exam score
+      </p>
+
+    </div>
+
+    <p>
+      A positive correlation is observed.
+    </p>
+
+    <p>
+      This indicates that students who study more tend to score higher.
+    </p>
+
+    <p>
+      However,
+      correlation alone cannot establish causation.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Reminder:</strong>
+
+      <p>
+        Correlation measures association, not cause-and-effect relationships.
+      </p>
+
+    </div>
+
+    <h2>Choosing the Right Quantity</h2>
+
+    <p>
+      Different probability questions require different tools.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Question</th>
+            <th>Tool</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>What is the average outcome?</td>
+            <td>Expectation</td>
+          </tr>
+
+          <tr>
+            <td>How variable are outcomes?</td>
+            <td>Variance / Standard Deviation</td>
+          </tr>
+
+          <tr>
+            <td>Do variables move together?</td>
+            <td>Covariance</td>
+          </tr>
+
+          <tr>
+            <td>How strong is the relationship?</td>
+            <td>Correlation</td>
+          </tr>
+
+          <tr>
+            <td>How many events occur?</td>
+            <td>Indicator Variables</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>Building a Probability Description</h2>
+
+    <p>
+      A complete probability description often includes:
     </p>
 
     <ul class="bullets">
-      <li>Need mean only? → Linearity</li>
-      <li>Need spread? → Variance rules</li>
-      <li>Need joint behavior? → Covariance</li>
-      <li>Need standardized dependence? → Correlation</li>
-      <li>Need counting? → Indicators</li>
-    </ul>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Structural takeaway</h2>
+      <li>Expected value</li>
+
+      <li>Variance or standard deviation</li>
+
+      <li>Relationships with other variables</li>
+
+      <li>Probability distributions</li>
+
+    </ul>
+
+    <p>
+      Together,
+      these provide a much richer understanding than any single measure alone.
+    </p>
+
+    <h2>What We Learned in Block 4</h2>
+
+    <p>
+      This block expanded our understanding of expectation and variability.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Topic</th>
+            <th>Main Idea</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Linearity of Expectation</td>
+            <td>Expectations always add.</td>
+          </tr>
+
+          <tr>
+            <td>Variance Rules</td>
+            <td>Variability depends on covariance.</td>
+          </tr>
+
+          <tr>
+            <td>Covariance</td>
+            <td>Measures joint movement.</td>
+          </tr>
+
+          <tr>
+            <td>Correlation</td>
+            <td>Standardized measure of association.</td>
+          </tr>
+
+          <tr>
+            <td>Indicator Variables</td>
+            <td>Simplify counting problems.</td>
+          </tr>
+
+          <tr>
+            <td>Applications</td>
+            <td>Combine concepts in practical settings.</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>The Big Picture</h2>
+
+    <p>
+      Expectation describes center.
+    </p>
+
+    <p>
+      Variance describes spread.
+    </p>
+
+    <p>
+      Covariance and correlation describe relationships.
+    </p>
+
+    <p>
+      Indicator variables simplify counting.
+    </p>
+
+    <p>
+      Together,
+      these concepts form the core mathematical toolkit for analyzing random phenomena.
+    </p>
+
+    <h2>Preparing for Distributions</h2>
+
+    <p>
+      So far,
+      we have studied general properties of random variables.
+    </p>
+
+    <p>
+      The next block introduces specific probability distributions.
+    </p>
+
+    <p>
+      These distributions provide standardized models for many common types of random behavior and form the foundation of statistical modeling.
+    </p>
+
+    <!-- BLOCK TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Block 4 Takeaways</h2>
+
       <ul class="bullets">
-        <li>Expectation is linear.</li>
-        <li>Variance is quadratic.</li>
-        <li>Dependence enters through covariance.</li>
-        <li>Indicators turn events into algebra.</li>
-        <li>All modeling starts with decomposition.</li>
-      </ul>
-    </div>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of Block 4</h2>
-      <ul class="bullets">
-        <li>Confident use of linearity of expectation</li>
-        <li>Correct application of variance rules</li>
-        <li>Understanding covariance and correlation</li>
-        <li>Mastery of indicator variable technique</li>
-        <li>Readiness for Named Distributions (Block 5)</li>
+        <li>Expectation measures long-run average behavior</li>
+
+        <li>Linearity of expectation simplifies many calculations</li>
+
+        <li>Variance measures uncertainty around the mean</li>
+
+        <li>Covariance measures joint variability</li>
+
+        <li>Correlation standardizes covariance</li>
+
+        <li>Indicator variables simplify counting problems</li>
+
+        <li>Expectation and variability are both necessary for describing uncertainty</li>
+
+        <li>These concepts appear throughout statistics, finance, machine learning, and data science</li>
+
       </ul>
+
     </div>
 
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Next block</div>
-        <div class="mini-body">
-          <a href="/probability/distributions/" style="color:#1a73e8; text-decoration:underline;">
-            Block 5 — Common Distributions
-          </a>
-        </div>
-      </div>
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/probability/expectation-variance/indicator-random-variables/">
+         ← Previous: Indicator Random Variables
+      </a>
+
+      <a class="btn"
+         href="/probability/expectation-variance/">
+         Expectation & Variance Home
+      </a>
+
+      <a class="btn btn-outline"
+         href="/probability/distributions/">
+         Next Block: Distributions →
+      </a>
+
     </div>
+
   </div>
+
 </section>
