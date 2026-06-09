@@ -1,294 +1,573 @@
 ---
 layout: default
-title: "1. What Is Conditional Probability?"
-description: "Conditional probability as probability under new information: how conditioning restricts the sample space and how to compute P(A|B) correctly."
+title: What Is Conditional Probability?
+description: Learn how probabilities change when new information becomes available and discover the foundation of conditional probability.
 permalink: /probability/conditional/what-is-conditional-probability/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">🚧 Lesson Under Construction</h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 is published first to lock the structure and the correct conceptual flow. Examples, graphs,
-        and software demonstrations will be added later without changing the lesson order.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update "last visited lesson" for Probability Block 2 -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_probability_conditional_lesson_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/probability/conditional/what-is-conditional-probability/",
-      label: "Lesson 1 — What Is Conditional Probability?",
-      ts: Date.now()
-    }));
-  })();
+(function () {
+
+  const KEY =
+    "esa_continue_probability_conditional_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/probability/conditional/what-is-conditional-probability/",
+    label: "What Is Conditional Probability?",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 2</span>
-        <span class="badge">Lesson 1</span>
-        <span class="badge">Conditioning</span>
-        <span class="badge">Updating</span>
-      </div>
 
-      <h1>1. What Is Conditional Probability?</h1>
-      <p class="lead">
-        Conditional probability is probability after you learn new information. This lesson explains the idea
-        precisely: conditioning <strong>restricts the sample space</strong> and forces you to recompute probabilities
-        inside that restricted universe.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/probability/conditional/">Back to Block 2</a>
-        <a class="btn btn-outline" href="/probability/">Probability home</a>
-      </div>
-
-      <p class="muted-mini">
-        Version 0: correct structure first. Visuals and software examples will be added later.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Probability</span>
+      <span class="badge">Block 2</span>
+      <span class="badge">Conditional Probability</span>
+      <span class="badge">Foundations</span>
     </div>
+
+    <h1>What Is Conditional Probability?</h1>
+
+    <p class="lead">
+      Many probability questions change when new information becomes available.
+    </p>
+
+    <p class="lead">
+      Conditional probability provides a mathematical framework for updating probabilities when some information is already known.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/probability/conditional/">
+         ← Conditional Probability Home
+      </a>
+
+      <a class="btn btn-outline"
+         href="/probability/conditional/multiplication-rule/">
+         Next: Multiplication Rule →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>Why Conditional Probability Exists</h2>
+
     <p>
-      By the end of this lesson, you should be able to interpret conditioning correctly, compute
-      <strong>P(A | B)</strong> using the definition, and avoid the most common conceptual mistakes
-      (especially confusing <strong>P(A|B)</strong> with <strong>P(B|A)</strong>).
+      In many situations,
+      we receive information before making probability calculations.
     </p>
-  </div>
 
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Key idea</h2>
-      <p style="margin:0;">
-        <strong>Conditional probability is ordinary probability computed in a reduced sample space.</strong>
-        The phrase “given B” means: “restrict attention to outcomes where B happened.”
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>1) Intuition: probability after learning information</h2>
     <p>
-      Before you observe anything, many outcomes are possible. When you learn that some event <strong>B</strong>
-      occurred, you remove all outcomes incompatible with <strong>B</strong>. You then recompute probabilities on what remains.
+      Once new information becomes available,
+      probabilities often change.
     </p>
-  </div>
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Unconditional probability</h3>
+    <div class="example-box">
+
       <p>
-        Unconditional probability is what you compute using the full sample space.
-        It answers: “How likely is A with no extra information?”
+        What is the probability that a randomly selected card is a king?
       </p>
-      <ul class="bullets">
-        <li>Full universe: S</li>
-        <li>Question: P(A)</li>
-        <li>Model defined on all outcomes</li>
-      </ul>
+
     </div>
 
-    <div class="card">
-      <h3>Conditional probability</h3>
-      <p>
-        Conditional probability answers: “How likely is A <em>after</em> we know B happened?”
-      </p>
-      <ul class="bullets">
-        <li>New universe: only outcomes in B</li>
-        <li>Question: P(A | B)</li>
-        <li>Same model, but restricted to B</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>2) Formal definition</h2>
     <p>
-      If <strong>P(B) &gt; 0</strong>, the conditional probability of A given B is defined by:
+      Now suppose we learn that the card is a face card.
     </p>
-  </div>
 
-  <div class="card">
-    <p style="font-size:1.1rem; margin:0;">
-      <strong>P(A | B) = P(A ∩ B) / P(B)</strong>
-    </p>
-  </div>
+    <div class="example-box">
 
-  <div class="grid grid-2" style="margin-top:1rem;">
-    <div class="card">
-      <h3>What the numerator means</h3>
       <p>
-        <strong>P(A ∩ B)</strong> is the probability that both A and B occur.
-        This is the “overlap” of A and B.
+        What is the probability that the card is a king given that it is a face card?
       </p>
+
     </div>
 
-    <div class="card">
-      <h3>Why we divide by P(B)</h3>
-      <p>
-        When we condition on B, we are working inside B. The total probability mass inside B is <strong>P(B)</strong>.
-        Dividing rescales so that “B becomes the whole universe” (probability 1 within the conditional world).
-      </p>
-    </div>
-  </div>
-
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Minimum condition</h2>
-      <p style="margin:0;">
-        You can only define <strong>P(A|B)</strong> if <strong>P(B) &gt; 0</strong>.  
-        If B is impossible under the model, “given B” has no meaning.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>3) Conditioning as “shrinking the sample space”</h2>
     <p>
-      The cleanest mental model is this:
+      The second question uses additional information,
+      so the answer changes.
     </p>
-  </div>
 
-  <div class="card">
+    <div class="concept-box">
+
+      <strong>Key idea:</strong>
+
+      <p>
+        Conditional probability measures the probability of an event after certain information is known.
+      </p>
+
+    </div>
+
+    <h2>The Meaning of "Given"</h2>
+
+    <p>
+      The word <strong>given</strong> is the most important word in conditional probability.
+    </p>
+
+    <p>
+      It means that some information has already been revealed.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Probability of rain tomorrow.
+      </p>
+    </div>
+
+    <p>
+      versus
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Probability of rain tomorrow given that dark storm clouds are present.
+      </p>
+    </div>
+
+    <p>
+      The second probability incorporates additional information.
+    </p>
+
+    <h2>How Information Changes the Sample Space</h2>
+
+    <p>
+      Conditional probability works by restricting attention to outcomes consistent with the known information.
+    </p>
+
+    <p>
+      In effect,
+      the sample space becomes smaller.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Original sample space:
+      </p>
+
+      <p>
+        All 52 cards in a deck
+      </p>
+
+    </div>
+
+    <p>
+      If we learn the card is a face card,
+      the relevant sample space becomes:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        12 face cards
+      </p>
+
+    </div>
+
+    <p>
+      We ignore outcomes that are no longer possible.
+    </p>
+
+    <h2>The Notation for Conditional Probability</h2>
+
+    <p>
+      Conditional probability is written using a vertical bar.
+    </p>
+
+    0
+
+    <p>
+      This is read as:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Probability of A given B
+      </p>
+    </div>
+
+    <p>
+      Event B represents the information already known.
+    </p>
+
+    <h2>An Intuitive Example</h2>
+
+    <p>
+      Consider a standard deck of 52 cards.
+    </p>
+
+    <p>
+      Let:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        A = Card is a king
+      </p>
+
+      <p>
+        B = Card is a face card
+      </p>
+
+    </div>
+
+    <p>
+      There are:
+    </p>
+
     <ul class="bullets">
-      <li>Start with the full sample space <strong>S</strong>.</li>
-      <li>Learn that <strong>B</strong> occurred → remove all outcomes not in B.</li>
-      <li>Now compute probabilities inside the reduced space <strong>B</strong>.</li>
-      <li>A becomes “A within B”, i.e., <strong>A ∩ B</strong>.</li>
+
+      <li>12 face cards</li>
+
+      <li>4 kings</li>
+
     </ul>
-  </div>
 
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Translation rule</h2>
-      <p style="margin:0;">
-        “Probability of A given B” = “Among outcomes where B happened, how often does A also happen?”
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>4) Conditional probability is NOT symmetric</h2>
     <p>
-      A core error (and the reason Bayes’ theorem is needed later) is assuming:
-      <strong>P(A|B) = P(B|A)</strong>. This is usually false.
+      Once we know the card is a face card,
+      only those 12 cards remain relevant.
     </p>
-  </div>
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Why people confuse them</h3>
-      <p>
-        The language “given” feels like it should not matter which side it is on.
-        But mathematically, conditioning changes the universe — and changing the universe changes the probability.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Correct mindset</h3>
-      <p>
-        <strong>P(A|B)</strong> asks: “inside B, how often is A true?”  
-        <strong>P(B|A)</strong> asks: “inside A, how often is B true?”  
-        These are different questions.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>5) Independence connection (preview)</h2>
     <p>
-      Independence is a special case of conditional probability:
-      learning B does not change the probability of A.
+      Therefore:
     </p>
-  </div>
 
-  <div class="card">
-    <p style="margin:0;">
-      If A and B are independent, then:
-      <strong>P(A | B) = P(A)</strong> and <strong>P(B | A) = P(B)</strong>.
+    1
+
+    <h2>The Formal Definition</h2>
+
+    <p>
+      Conditional probability is defined mathematically as:
     </p>
-  </div>
 
-  <p class="muted-mini" style="margin-top:.75rem;">
-    We will use this idea repeatedly when building the multiplication rule and Bayes’ theorem.
-  </p>
-</section>
+    2
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Common mistakes</h2>
-      <ul class="bullets">
-        <li>Treating “given” as a minor detail (it changes the sample space)</li>
-        <li>Forgetting the condition <strong>P(B) &gt; 0</strong></li>
-        <li>Confusing <strong>P(A|B)</strong> with <strong>P(B|A)</strong></li>
-        <li>Assuming independence without justification</li>
-      </ul>
-    </div>
-  </div>
-</section>
+    <p>
+      provided that:
+    </p>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
-      <ul class="bullets">
-        <li>Interpret conditioning as restricting the sample space</li>
-        <li>Use the definition <strong>P(A|B)=P(A∩B)/P(B)</strong> correctly</li>
-        <li>Recognize that conditional probability is not symmetric</li>
-        <li>Be ready to derive the multiplication rule next</li>
-      </ul>
-    </div>
-  </div>
-</section>
+    3
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next step</h2>
-      <p style="margin:0;">
-        Next, we derive the multiplication rule, which lets us compute joint probabilities using conditional pieces.
+    <p>
+      This formula is one of the most important formulas in probability.
+    </p>
+
+    <h2>Understanding the Formula</h2>
+
+    <p>
+      The formula asks:
+    </p>
+
+    <ul class="bullets">
+
+      <li>How much probability belongs to both A and B?</li>
+
+      <li>Out of all probability belonging to B?</li>
+
+    </ul>
+
+    <p>
+      In other words,
+      we zoom into Event B and examine what proportion also belongs to Event A.
+    </p>
+
+    <h2>A Venn Diagram Perspective</h2>
+
+    <p>
+      Imagine a Venn diagram containing Events A and B.
+    </p>
+
+    <p>
+      Once we know B has occurred,
+      everything outside B becomes irrelevant.
+    </p>
+
+    <p>
+      The probability calculation is performed only within the B region.
+    </p>
+
+    <p>
+      This visual interpretation is often helpful.
+    </p>
+
+    <h2>Example Using Probabilities</h2>
+
+    <p>
+      Suppose:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        P(A ∩ B) = 0.20
       </p>
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/probability/conditional/multiplication-rule/">
-          Next lesson: 2. The Multiplication Rule →
-        </a>
-      </div>
+
+      <p>
+        P(B) = 0.50
+      </p>
+
     </div>
 
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/probability/basics/modeling-randomness-mini-cases/" style="color:#1a73e8; text-decoration:underline;">
-            Block 1 — Lesson 8: Modeling Randomness (Mini Cases)
-          </a>
-        </div>
-      </div>
+    <p>
+      Then:
+    </p>
+
+    4
+
+    <p>
+      Given that B occurred,
+      the probability of A is 0.40.
+    </p>
+
+    <h2>Conditional Probability Can Increase</h2>
+
+    <p>
+      Sometimes new information makes an event more likely.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Probability of carrying an umbrella.
+      </p>
+
+      <p>
+        Probability of carrying an umbrella given that it is raining.
+      </p>
+
     </div>
+
+    <p>
+      The second probability is usually much larger.
+    </p>
+
+    <h2>Conditional Probability Can Decrease</h2>
+
+    <p>
+      Information can also reduce probabilities.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Probability a student missed class.
+      </p>
+
+      <p>
+        Probability a student missed class given that attendance was mandatory and recorded.
+      </p>
+
+    </div>
+
+    <p>
+      Additional information may make the event less likely.
+    </p>
+
+    <h2>Conditional Probability Can Stay the Same</h2>
+
+    <p>
+      Sometimes information changes nothing.
+    </p>
+
+    <p>
+      This occurs when events are independent.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        First coin toss is heads.
+      </p>
+
+      <p>
+        Second coin toss is heads.
+      </p>
+
+    </div>
+
+    <p>
+      Knowing the first toss does not affect the second.
+    </p>
+
+    <p>
+      Therefore:
+    </p>
+
+    5
+
+    <p>
+      when events are independent.
+    </p>
+
+    <h2>Why Conditional Probability Is Important</h2>
+
+    <p>
+      Conditional probability appears throughout science,
+      business,
+      medicine,
+      engineering,
+      economics,
+      and artificial intelligence.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Probability of disease given a test result
+      </p>
+
+      <p>
+        Probability of loan default given income information
+      </p>
+
+      <p>
+        Probability of rain given weather conditions
+      </p>
+
+    </div>
+
+    <p>
+      All of these are conditional probability questions.
+    </p>
+
+    <h2>The Foundation for Future Topics</h2>
+
+    <p>
+      Conditional probability is not just another probability rule.
+    </p>
+
+    <p>
+      It is the foundation for:
+    </p>
+
+    <ul class="bullets">
+
+      <li>The multiplication rule</li>
+
+      <li>Independence</li>
+
+      <li>Tree diagrams</li>
+
+      <li>Bayes' theorem</li>
+
+      <li>Statistical inference</li>
+
+      <li>Machine learning</li>
+
+    </ul>
+
+    <p>
+      Many advanced ideas can be traced back to this concept.
+    </p>
+
+    <h2>A New Way of Thinking</h2>
+
+    <p>
+      Unconditional probability asks:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        How likely is Event A?
+      </p>
+    </div>
+
+    <p>
+      Conditional probability asks:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        How likely is Event A now that I know Event B occurred?
+      </p>
+    </div>
+
+    <p>
+      This shift in perspective is one of the most important transitions in probability theory.
+    </p>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      The conditional probability formula immediately leads to another powerful result.
+    </p>
+
+    <p>
+      By rearranging the formula,
+      we can calculate probabilities of events occurring together.
+    </p>
+
+    <p>
+      The next lesson introduces the multiplication rule,
+      one of the most useful tools in probability.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>Conditional probability incorporates additional information</li>
+
+        <li>The word "given" indicates known information</li>
+
+        <li>Conditional probability changes the effective sample space</li>
+
+        <li>P(A|B) means probability of A given B</li>
+
+        <li>Conditional probability is defined as P(A∩B)/P(B)</li>
+
+        <li>Information can increase, decrease, or leave probabilities unchanged</li>
+
+        <li>Conditional probability is the foundation of many advanced probability topics</li>
+
+      </ul>
+
+    </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/probability/conditional/">
+         Conditional Probability Home
+      </a>
+
+      <a class="btn"
+         href="/probability/conditional/multiplication-rule/">
+         Next: Multiplication Rule →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
