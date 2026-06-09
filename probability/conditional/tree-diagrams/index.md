@@ -1,268 +1,604 @@
 ---
 layout: default
-title: "5. Tree Diagrams & Structured Reasoning"
-description: "Use tree diagrams to visualize conditional probability, sequential events, and Bayesian updating clearly and correctly."
+title: Tree Diagrams
+description: Learn how tree diagrams organize sequential probability problems and simplify conditional probability calculations.
 permalink: /probability/conditional/tree-diagrams/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">🚧 Lesson Under Construction</h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 establishes the structural reasoning method. Full diagrams,
-        numerical examples, and software demonstrations will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update "last visited lesson" for Probability Block 2 -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_probability_conditional_lesson_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/probability/conditional/tree-diagrams/",
-      label: "Lesson 5 — Tree Diagrams & Structured Reasoning",
-      ts: Date.now()
-    }));
-  })();
+(function () {
+
+  const KEY =
+    "esa_continue_probability_conditional_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/probability/conditional/tree-diagrams/",
+    label: "Tree Diagrams",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 2</span>
-        <span class="badge">Lesson 5</span>
-        <span class="badge">Visualization</span>
-        <span class="badge">Structure</span>
-      </div>
 
-      <h1>5. Tree Diagrams & Structured Reasoning</h1>
-      <p class="lead">
-        Tree diagrams translate conditional probability into a visual structure.
-        They make sequential reasoning transparent and reduce algebraic mistakes.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/probability/conditional/">Back to Block 2</a>
-        <a class="btn btn-outline" href="/probability/">Probability home</a>
-      </div>
-
-      <p class="muted-mini">
-        Trees are not decoration — they enforce correct multiplication and summation.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Probability</span>
+      <span class="badge">Block 2</span>
+      <span class="badge">Conditional Probability</span>
+      <span class="badge">Visualization</span>
     </div>
+
+    <h1>Tree Diagrams</h1>
+
+    <p class="lead">
+      Conditional probability problems often involve multiple stages and possible pathways.
+    </p>
+
+    <p class="lead">
+      Tree diagrams provide a visual framework for organizing these pathways and applying the multiplication rule systematically.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/probability/conditional/bayes-theorem/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/probability/conditional/base-rate-neglect-and-fallacies/">
+         Next: Base-Rate Neglect and Fallacies →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>Why Tree Diagrams Matter</h2>
+
     <p>
-      By the end of this lesson, you should be able to:
+      Many probability problems involve a sequence of events.
     </p>
-  </div>
 
-  <ul class="bullets">
-    <li>Construct a probability tree for sequential events</li>
-    <li>Multiply probabilities along branches</li>
-    <li>Sum probabilities across terminal nodes</li>
-    <li>Use trees to simplify Bayes and total probability problems</li>
-  </ul>
+    <div class="example-box">
 
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Key idea</h2>
-      <p style="margin:0;">
-        <strong>Multiply along branches. Sum across paths.</strong>
+      <p>
+        Toss a coin twice.
       </p>
+
+      <p>
+        Draw two cards from a deck.
+      </p>
+
+      <p>
+        Take a medical test after screening.
+      </p>
+
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) What is a tree diagram?</h2>
     <p>
-      A tree diagram represents a multi-step experiment as branching paths.
-      Each branch corresponds to a conditional probability.
+      As the number of stages increases,
+      it becomes difficult to keep track of all possible outcomes mentally.
     </p>
-  </div>
 
-  <div class="card">
+    <p>
+      Tree diagrams help organize the possibilities.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Key idea:</strong>
+
+      <p>
+        A tree diagram displays all possible pathways through a sequential process.
+      </p>
+
+    </div>
+
+    <h2>What Is a Tree Diagram?</h2>
+
+    <p>
+      A tree diagram is a branching structure used to represent possible outcomes.
+    </p>
+
+    <p>
+      Each branch corresponds to a possible result at a particular stage.
+    </p>
+
+    <p>
+      Following a path from the start to an endpoint represents one complete outcome sequence.
+    </p>
+
+    <h2>A Simple Coin Toss Example</h2>
+
+    <p>
+      Suppose a fair coin is tossed twice.
+    </p>
+
+    <p>
+      The first toss can produce:
+    </p>
+
     <ul class="bullets">
-      <li>Start with the first event</li>
-      <li>From each branch, extend to the next conditional event</li>
-      <li>Continue until all outcomes are represented</li>
+
+      <li>Heads</li>
+
+      <li>Tails</li>
+
     </ul>
-  </div>
 
-  <p class="muted-mini" style="margin-top:.75rem;">
-    Each complete path from root to leaf represents a joint event.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>2) Multiplication along branches</h2>
     <p>
-      Each branch carries a conditional probability.
-      The probability of a complete path is the product of its branches.
+      From each of these outcomes,
+      the second toss can again produce heads or tails.
     </p>
-  </div>
 
-  <div class="card">
-    <p style="margin:0;">
-      <strong>P(A ∩ B) = P(A) · P(B | A)</strong>
-    </p>
-  </div>
+    <div class="example-box">
 
-  <p class="muted-mini" style="margin-top:.75rem;">
-    This is exactly the multiplication rule in visual form.
-  </p>
-</section>
+      <p>
+        HH
+      </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) Summation across terminal nodes</h2>
+      <p>
+        HT
+      </p>
+
+      <p>
+        TH
+      </p>
+
+      <p>
+        TT
+      </p>
+
+    </div>
+
     <p>
-      If an event can happen through multiple paths,
-      add the probabilities of those paths.
+      These four paths form the complete sample space.
     </p>
-  </div>
 
-  <div class="card">
+    <h2>Reading a Tree Diagram</h2>
+
     <p>
-      Example structure:
+      Each level of the tree corresponds to a stage of the experiment.
     </p>
+
+    <p>
+      Each branch represents a possible outcome at that stage.
+    </p>
+
+    <p>
+      The endpoints represent complete outcome sequences.
+    </p>
+
+    <h2>Assigning Probabilities to Branches</h2>
+
+    <p>
+      Every branch receives a probability.
+    </p>
+
+    <p>
+      For a fair coin:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        P(H) = 0.5
+      </p>
+
+      <p>
+        P(T) = 0.5
+      </p>
+
+    </div>
+
+    <p>
+      These probabilities are written on the corresponding branches.
+    </p>
+
+    <h2>Multiplying Along a Path</h2>
+
+    <p>
+      The multiplication rule applies naturally to tree diagrams.
+    </p>
+
+    <p>
+      To find the probability of a complete path:
+    </p>
+
     <ul class="bullets">
-      <li>Path 1 leads to A</li>
-      <li>Path 2 also leads to A</li>
-      <li>Total P(A) = P(path 1) + P(path 2)</li>
+
+      <li>Multiply the probabilities along that path.</li>
+
     </ul>
-  </div>
 
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Connection</h2>
-      <p style="margin:0;">
-        Summing across branches implements the law of total probability.
-      </p>
-    </div>
-  </div>
-</section>
+    <p>
+      For example:
+    </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>4) Why tree diagrams prevent mistakes</h2>
-  </div>
+    <div class="example-box">
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Forces correct conditioning</h3>
       <p>
-        Every branch explicitly states the condition.
-        You cannot silently assume independence.
+        HH
       </p>
     </div>
 
-    <div class="card">
-      <h3>Prevents double counting</h3>
-      <p>
-        Each path represents a distinct joint event.
-        Overlaps are visually separated.
-      </p>
-    </div>
+    <p>
+      has probability:
+    </p>
 
-    <div class="card">
-      <h3>Clarifies partitions</h3>
-      <p>
-        Trees make partitions explicit.
-        Each first-level branch represents a case.
-      </p>
-    </div>
+    0
 
-    <div class="card">
-      <h3>Supports Bayes’ reasoning</h3>
-      <p>
-        Posterior probabilities can be read directly from branch ratios.
-      </p>
-    </div>
-  </div>
-</section>
+    <h2>Why Multiplication Works</h2>
 
-<section class="section">
-  <div class="section-head">
-    <h2>5) When should you use a tree?</h2>
-  </div>
+    <p>
+      Each branch represents a conditional probability.
+    </p>
 
-  <div class="card">
+    <p>
+      The probability of the entire sequence equals the probability of moving through every branch in the path.
+    </p>
+
+    <p>
+      This is exactly the multiplication rule.
+    </p>
+
+    <h2>Adding Across Paths</h2>
+
+    <p>
+      Sometimes an event can occur through multiple pathways.
+    </p>
+
+    <p>
+      In that case:
+    </p>
+
     <ul class="bullets">
-      <li>Sequential experiments (step 1 → step 2)</li>
-      <li>Conditional structures (test → disease status)</li>
-      <li>Multi-stage decisions</li>
-      <li>Bayes problems</li>
-      <li>Sampling without replacement</li>
-    </ul>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Common mistakes</h2>
+      <li>Calculate the probability of each path.</li>
+
+      <li>Add the path probabilities.</li>
+
+    </ul>
+
+    <p>
+      This idea comes directly from the Law of Total Probability.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Memory rule:</strong>
+
+      <p>
+        Multiply along branches. Add across paths.
+      </p>
+
+    </div>
+
+    <h2>Example: At Least One Head</h2>
+
+    <p>
+      For two coin tosses:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        HH
+      </p>
+
+      <p>
+        HT
+      </p>
+
+      <p>
+        TH
+      </p>
+
+      <p>
+        TT
+      </p>
+
+    </div>
+
+    <p>
+      The event "at least one head" includes:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        HH, HT, TH
+      </p>
+
+    </div>
+
+    <p>
+      Therefore:
+    </p>
+
+    1
+
+    <p>
+      The probability is 0.75.
+    </p>
+
+    <h2>Tree Diagrams and Conditional Probability</h2>
+
+    <p>
+      Tree diagrams become even more useful when probabilities change from stage to stage.
+    </p>
+
+    <p>
+      This often occurs when events are dependent.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Drawing cards without replacement
+      </p>
+    </div>
+
+    <p>
+      The probability of the second draw depends on the first draw.
+    </p>
+
+    <h2>Example: Drawing Two Cards</h2>
+
+    <p>
+      Suppose a deck contains:
+    </p>
+
+    <ul class="bullets">
+
+      <li>4 aces</li>
+
+      <li>48 non-aces</li>
+
+    </ul>
+
+    <p>
+      Let:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        A = Ace
+      </p>
+
+      <p>
+        N = Non-ace
+      </p>
+
+    </div>
+
+    <p>
+      After drawing an ace,
+      the probabilities for the second draw change.
+    </p>
+
+    <p>
+      Tree diagrams display these changing probabilities clearly.
+    </p>
+
+    <h2>Visualizing Bayes' Theorem</h2>
+
+    <p>
+      Tree diagrams are frequently used to solve Bayesian problems.
+    </p>
+
+    <p>
+      A tree can represent:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Disease or no disease</li>
+
+      <li>Positive or negative test</li>
+
+    </ul>
+
+    <p>
+      Path probabilities are then combined to calculate posterior probabilities.
+    </p>
+
+    <p>
+      Many Bayes' theorem problems become easier when drawn as trees.
+    </p>
+
+    <h2>Tree Diagrams and Partitions</h2>
+
+    <p>
+      Recall that the Law of Total Probability partitions the sample space into pathways.
+    </p>
+
+    <p>
+      Tree diagrams provide a visual representation of those pathways.
+    </p>
+
+    <p>
+      Every branch represents a possible route through the experiment.
+    </p>
+
+    <h2>Advantages of Tree Diagrams</h2>
+
+    <ul class="bullets">
+
+      <li>Organize complex probability problems</li>
+
+      <li>Display conditional probabilities clearly</li>
+
+      <li>Reduce calculation mistakes</li>
+
+      <li>Support Bayes' theorem calculations</li>
+
+      <li>Provide visual intuition</li>
+
+    </ul>
+
+    <p>
+      They are especially useful when several stages are involved.
+    </p>
+
+    <h2>A Common Mistake</h2>
+
+    <p>
+      Students sometimes add branch probabilities when they should multiply.
+    </p>
+
+    <p>
+      Remember:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Branch probabilities represent sequential events.
+      </p>
+    </div>
+
+    <p>
+      Sequential events require multiplication.
+    </p>
+
+    <p>
+      Addition is used only when combining separate pathways leading to the same event.
+    </p>
+
+    <h2>When Should You Draw a Tree?</h2>
+
+    <p>
+      Tree diagrams are particularly useful when:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Several stages occur in sequence.</li>
+
+      <li>Conditional probabilities are involved.</li>
+
+      <li>Many possible pathways exist.</li>
+
+      <li>Bayesian reasoning is required.</li>
+
+    </ul>
+
+    <p>
+      In these situations,
+      drawing a tree often simplifies the entire problem.
+    </p>
+
+    <h2>The Big Picture</h2>
+
+    <p>
+      Tree diagrams combine three major ideas:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Conditional probability</li>
+
+      <li>The multiplication rule</li>
+
+      <li>The Law of Total Probability</li>
+
+    </ul>
+
+    <p>
+      They provide a visual framework for understanding how these concepts work together.
+    </p>
+
+    <h2>Preparing for Probability Fallacies</h2>
+
+    <p>
+      Even when calculations are correct,
+      human intuition often misinterprets probabilities.
+    </p>
+
+    <p>
+      People frequently ignore base rates,
+      misunderstand conditional probabilities,
+      and draw incorrect conclusions from evidence.
+    </p>
+
+    <p>
+      These mistakes are called probability fallacies.
+    </p>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      The next lesson examines one of the most common reasoning errors in probability:
+      base-rate neglect.
+    </p>
+
+    <p>
+      We will also explore several probability fallacies that affect decision-making in everyday life,
+      science,
+      medicine,
+      and business.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Writing unconditional probabilities on conditional branches</li>
-        <li>Forgetting to multiply along a path</li>
-        <li>Adding probabilities without checking disjointness</li>
-        <li>Leaving out one branch (incomplete tree)</li>
+
+        <li>Tree diagrams represent sequential probability processes</li>
+
+        <li>Each branch corresponds to a possible outcome</li>
+
+        <li>Complete paths represent full outcome sequences</li>
+
+        <li>Probabilities are multiplied along branches</li>
+
+        <li>Probabilities are added across relevant paths</li>
+
+        <li>Tree diagrams simplify conditional probability calculations</li>
+
+        <li>Tree diagrams are particularly useful for Bayes' theorem problems</li>
+
       </ul>
+
     </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/probability/conditional/bayes-theorem/">
+         ← Previous: Bayes' Theorem
+      </a>
+
+      <a class="btn"
+         href="/probability/conditional/base-rate-neglect-and-fallacies/">
+         Next: Base-Rate Neglect and Fallacies →
+      </a>
+
+    </div>
+
   </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
-      <ul class="bullets">
-        <li>Construct a correct probability tree</li>
-        <li>Apply multiplication rule visually</li>
-        <li>Apply total probability visually</li>
-        <li>Prepare for real-world Bayesian reasoning</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next step</h2>
-      <p style="margin:0;">
-        Finally, we examine common reasoning errors such as base-rate neglect.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/probability/conditional/base-rate-neglect-and-fallacies/">
-          Next lesson: 6. Base-Rate Neglect & Common Fallacies →
-        </a>
-      </div>
-    </div>
-
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/probability/conditional/bayes-theorem/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 4: Bayes’ Theorem
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>
