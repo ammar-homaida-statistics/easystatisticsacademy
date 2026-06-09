@@ -1,24 +1,24 @@
 ---
 layout: default
-title: What Is Probability (and What It Is Not)?
-description: Learn what probability measures, what uncertainty means, and common misconceptions about chance, randomness, and prediction.
+title: What Is Probability (and What It Is Not?)
+description: Learn what probability measures, why it quantifies uncertainty, and the most common misconceptions beginners have about probabilistic thinking.
 permalink: /probability/basics/what-is-probability/
-parent: /probability/basics/
-sidebar: false
+parent: Probability Basics
+grand_parent: Probability & Theory
+nav_order: 1
 ---
 
 <!-- SAVE LESSON PROGRESS -->
 <script>
 (function () {
 
-  localStorage.setItem(
-    "esa_continue_probability_basics_lesson_v0",
-    JSON.stringify({
-      url: "/probability/basics/what-is-probability/",
-      label: "What Is Probability (and What It Is Not)?",
-      ts: Date.now()
-    })
-  );
+  const KEY = "esa_continue_probability_basics_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/probability/basics/what-is-probability/",
+    label: "What Is Probability (and What It Is Not?)",
+    ts: Date.now()
+  }));
 
 })();
 </script>
@@ -28,30 +28,23 @@ sidebar: false
   <div class="hero-card">
 
     <div class="badge-row">
-      <span class="badge">Probability</span>
-      <span class="badge">Block 1</span>
+      <span class="badge">Probability Basics</span>
       <span class="badge">Lesson 1</span>
+      <span class="badge">Foundations</span>
     </div>
 
-    <h1>What Is Probability (and What It Is Not)?</h1>
+    <h1>What Is Probability (and What It Is Not?)</h1>
 
     <p class="lead">
-      Probability is the mathematical language of uncertainty.
-      It provides a way to describe how likely events are before we know what will happen.
+      Probability is a mathematical language for describing uncertainty.
+      It does not predict exactly what will happen in a single trial.
+      Instead, it describes how likely different outcomes are.
     </p>
 
     <div class="hero-actions">
-
-      <a class="btn btn-outline"
-         href="/probability/basics/">
-         Back to Block
+      <a class="btn btn-outline" href="/probability/basics/">
+        Back to Block
       </a>
-
-      <a class="btn"
-         href="/probability/basics/outcomes-sample-spaces-events/">
-         Next Lesson
-      </a>
-
     </div>
 
   </div>
@@ -61,22 +54,20 @@ sidebar: false
 <section class="section">
 
   <div class="section-head">
-
-    <h2>Learning goals</h2>
-
+    <h2>Learning objectives</h2>
   </div>
 
   <ul class="bullets">
 
-    <li>Understand what probability measures</li>
+    <li>Understand probability as a measure of uncertainty</li>
+
+    <li>Distinguish probability from certainty and impossibility</li>
 
     <li>Interpret probabilities correctly</li>
 
-    <li>Distinguish uncertainty from certainty</li>
-
     <li>Recognize common misconceptions about randomness</li>
 
-    <li>Prepare for sample spaces and events</li>
+    <li>Understand why probability is fundamental to statistics</li>
 
   </ul>
 
@@ -84,17 +75,21 @@ sidebar: false
 
 <section class="section">
 
-  <h2>Why probability exists</h2>
+  <div class="section-head">
+    <h2>Why probability exists</h2>
+  </div>
 
   <p>
     Many situations involve uncertainty.
-    Before a coin is flipped, a card is drawn, a patient receives a test result,
-    or tomorrow's weather arrives, we do not know the outcome.
+    We do not know tomorrow's weather,
+    the outcome of a sports match,
+    whether a patient will respond to treatment,
+    or whether a manufactured item will fail.
   </p>
 
   <p>
-    Probability provides a systematic way to quantify that uncertainty.
-    Instead of saying an event is simply "possible" or "impossible,"
+    Probability provides a framework for describing and quantifying that uncertainty.
+    Rather than saying an event is simply "possible" or "impossible,"
     probability tells us how likely it is.
   </p>
 
@@ -102,10 +97,11 @@ sidebar: false
 
     <div class="callout-copy">
 
-      <strong>Key idea</strong>
+      <strong>Core idea</strong>
 
       <p>
-        Probability measures uncertainty before the outcome is known.
+        Probability measures uncertainty,
+        not certainty.
       </p>
 
     </div>
@@ -116,10 +112,12 @@ sidebar: false
 
 <section class="section">
 
-  <h2>What probability means</h2>
+  <div class="section-head">
+    <h2>The probability scale</h2>
+  </div>
 
   <p>
-    A probability is a number between 0 and 1.
+    Probabilities range from 0 to 1.
   </p>
 
   <div class="table-wrap">
@@ -127,10 +125,12 @@ sidebar: false
     <table>
 
       <thead>
+
         <tr>
           <th>Probability</th>
-          <th>Interpretation</th>
+          <th>Meaning</th>
         </tr>
+
       </thead>
 
       <tbody>
@@ -142,17 +142,17 @@ sidebar: false
 
         <tr>
           <td>0.25</td>
-          <td>Occurs about 25% of the time in repeated situations</td>
+          <td>Low likelihood</td>
         </tr>
 
         <tr>
           <td>0.50</td>
-          <td>Equally likely to occur or not occur</td>
+          <td>Equal likelihood</td>
         </tr>
 
         <tr>
-          <td>0.90</td>
-          <td>Very likely</td>
+          <td>0.75</td>
+          <td>High likelihood</td>
         </tr>
 
         <tr>
@@ -166,21 +166,34 @@ sidebar: false
 
   </div>
 
+  <p>
+    Probabilities are often expressed as decimals,
+    fractions,
+    or percentages.
+  </p>
+
 </section>
 
 <section class="section">
 
-  <h2>Probability is not prediction</h2>
+  <div class="section-head">
+    <h2>Probability does not guarantee outcomes</h2>
+  </div>
 
   <p>
-    A common mistake is to think probability predicts exactly what will happen.
-    It does not.
+    A common misunderstanding is believing that a high probability guarantees success.
   </p>
 
   <p>
-    If a fair coin has probability 0.5 of landing heads,
-    that does not mean every second flip will be heads.
-    It means that over many flips, about half are expected to be heads.
+    Suppose an event has probability 0.95.
+    This means the event is very likely,
+    but failure is still possible.
+  </p>
+
+  <p>
+    Similarly,
+    a probability of 0.05 does not mean an event cannot occur.
+    Rare events still happen.
   </p>
 
   <div class="callout">
@@ -190,7 +203,8 @@ sidebar: false
       <strong>Important</strong>
 
       <p>
-        Probability describes long-run behavior, not guaranteed outcomes.
+        Probability describes likelihood,
+        not certainty.
       </p>
 
     </div>
@@ -201,85 +215,60 @@ sidebar: false
 
 <section class="section">
 
-  <h2>Probability and randomness</h2>
-
-  <p>
-    Randomness does not mean chaos.
-    A random process can still have predictable probabilities.
-  </p>
-
-  <p>
-    For example:
-  </p>
-
-  <ul class="bullets">
-
-    <li>The next coin flip is uncertain.</li>
-
-    <li>The probability of heads is known.</li>
-
-    <li>The exact outcome is random.</li>
-
-    <li>The long-run pattern is predictable.</li>
-
-  </ul>
-
-  <p>
-    Probability studies this balance between uncertainty and regularity.
-  </p>
-
-</section>
-
-<section class="section">
-
-  <h2>Three common interpretations of probability</h2>
-
-  <div class="table-wrap">
-
-    <table>
-
-      <thead>
-
-        <tr>
-          <th>Interpretation</th>
-          <th>Main idea</th>
-        </tr>
-
-      </thead>
-
-      <tbody>
-
-        <tr>
-          <td>Classical</td>
-          <td>Based on equally likely outcomes</td>
-        </tr>
-
-        <tr>
-          <td>Frequentist</td>
-          <td>Based on long-run relative frequency</td>
-        </tr>
-
-        <tr>
-          <td>Bayesian</td>
-          <td>Based on degree of belief given evidence</td>
-        </tr>
-
-      </tbody>
-
-    </table>
-
+  <div class="section-head">
+    <h2>Long-run interpretation</h2>
   </div>
 
   <p>
-    Throughout this course, we will primarily use the frequentist framework
-    while also introducing Bayesian ideas later.
+    One way to interpret probability is through repeated trials.
+  </p>
+
+  <p>
+    If a fair coin is tossed many times,
+    approximately half of the tosses should be heads.
+  </p>
+
+  <p>
+    This does not mean every pair of tosses will contain one head and one tail.
+    Instead,
+    the proportion tends to stabilize as the number of trials increases.
+  </p>
+
+  <p>
+    This idea becomes extremely important later when studying the
+    Law of Large Numbers.
   </p>
 
 </section>
 
 <section class="section">
 
-  <h2>Common misconceptions</h2>
+  <div class="section-head">
+    <h2>Probability is not prediction</h2>
+  </div>
+
+  <p>
+    Probability does not tell us exactly what will happen next.
+  </p>
+
+  <p>
+    It tells us what outcomes are plausible and how likely they are.
+  </p>
+
+  <p>
+    For example,
+    saying there is a 70% chance of rain does not mean rain must occur.
+    It means rain is more likely than not,
+    according to the information available.
+  </p>
+
+</section>
+
+<section class="section">
+
+  <div class="section-head">
+    <h2>Common misconceptions</h2>
+  </div>
 
   <div class="grid grid-2">
 
@@ -288,11 +277,13 @@ sidebar: false
       <h3>Misconception 1</h3>
 
       <p>
-        "A 70% chance means the event will happen."
+        "A probability of 80% means the event will happen."
       </p>
 
       <p>
-        Incorrect. A 70% probability still allows the event to fail.
+        Incorrect.
+        The event is likely,
+        not guaranteed.
       </p>
 
     </div>
@@ -302,11 +293,12 @@ sidebar: false
       <h3>Misconception 2</h3>
 
       <p>
-        "Random means unpredictable forever."
+        "A rare event cannot happen."
       </p>
 
       <p>
-        Individual outcomes are unpredictable, but long-run patterns are not.
+        Incorrect.
+        Rare events occur all the time.
       </p>
 
     </div>
@@ -316,11 +308,13 @@ sidebar: false
       <h3>Misconception 3</h3>
 
       <p>
-        "Probability tells us exactly what will happen next."
+        "Probability predicts individual outcomes perfectly."
       </p>
 
       <p>
-        Probability describes likelihood, not certainty.
+        Incorrect.
+        Probability describes patterns,
+        not certainty.
       </p>
 
     </div>
@@ -330,11 +324,13 @@ sidebar: false
       <h3>Misconception 4</h3>
 
       <p>
-        "After several heads, tails becomes due."
+        "Random means every outcome appears equally often immediately."
       </p>
 
       <p>
-        This is the gambler's fallacy. Past independent outcomes do not force future outcomes.
+        Incorrect.
+        Balance emerges over many repetitions,
+        not necessarily over a few trials.
       </p>
 
     </div>
@@ -345,45 +341,24 @@ sidebar: false
 
 <section class="section">
 
-  <h2>Example</h2>
+  <div class="section-head">
+    <h2>Key takeaway</h2>
+  </div>
 
   <div class="callout">
 
     <div class="callout-copy">
 
       <p>
-        A weather forecast says there is a 30% chance of rain tomorrow.
-      </p>
-
-      <p>
-        This does not mean it will rain for 30% of the day.
-        It means that under similar conditions,
-        rain occurs about 30% of the time.
+        Probability is the mathematical study of uncertainty.
+        It measures how likely events are,
+        but it does not guarantee outcomes.
+        Understanding probability correctly is the foundation of all statistical reasoning.
       </p>
 
     </div>
 
   </div>
-
-</section>
-
-<section class="section">
-
-  <h2>Key takeaways</h2>
-
-  <ul class="bullets">
-
-    <li>Probability quantifies uncertainty.</li>
-
-    <li>Probabilities range from 0 to 1.</li>
-
-    <li>Probability does not guarantee outcomes.</li>
-
-    <li>Randomness can still produce predictable long-run patterns.</li>
-
-    <li>Probability is the foundation of all later statistical inference.</li>
-
-  </ul>
 
 </section>
 
@@ -391,14 +366,12 @@ sidebar: false
 
   <div class="lesson-nav">
 
-    <a class="btn btn-outline"
-       href="/probability/basics/">
-       ← Back to Block 1
+    <a class="btn btn-outline" href="/probability/basics/">
+      ← Block Home
     </a>
 
-    <a class="btn"
-       href="/probability/basics/outcomes-sample-spaces-events/">
-       Next Lesson →
+    <a class="btn" href="/probability/basics/outcomes-sample-spaces-events/">
+      Next →
     </a>
 
   </div>
