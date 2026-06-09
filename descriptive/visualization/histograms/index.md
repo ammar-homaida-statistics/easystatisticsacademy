@@ -99,7 +99,24 @@ sidebar: false
         Histograms show how numerical values are distributed across intervals.
       </p>
 
+      <p>
+  Although histograms use bars, they are fundamentally different from bar charts.
+  Histograms display distributions of numerical values,
+  whereas bar charts compare categories.
+</p>
+
     </div>
+
+    <div class="concept-box">
+
+  <strong>Important insight:</strong>
+
+  <p>
+    Many important characteristics of data become visible in a histogram
+    before any numerical summary is calculated.
+  </p>
+
+</div>
 
     <h2>Why Histograms Matter</h2>
 
@@ -192,7 +209,9 @@ sidebar: false
 
     <h2>Histogram Example</h2>
 
-    0
+    <img src="{{ 'descriptive/images/exam-scores-histogram.png' | relative_url }}"
+     alt="Histogram of exam scores"
+     style="margin-top:15px; max-width:100%; height:auto;">
 
     <p>
       The tallest bar identifies the interval containing the largest number of observations.
@@ -246,6 +265,14 @@ sidebar: false
 
     </div>
 
+    <img src="{{ 'descriptive/images/histogram-vs-bar-chart.png' | relative_url }}"
+     alt="Histogram compared with bar chart"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+Although both use bars, histograms display numerical distributions while bar charts compare categories.
+</p>
+
     <h2>Understanding Bins</h2>
 
     <p>
@@ -276,6 +303,11 @@ sidebar: false
       Choosing bin widths is an important part of histogram construction.
     </p>
 
+    <p>
+  Different bin widths can produce very different-looking histograms,
+  even when the underlying data remain unchanged.
+</p>
+
     <h2>Too Few Bins</h2>
 
     <p>
@@ -289,6 +321,10 @@ sidebar: false
     </p>
 
     <h2>Too Many Bins</h2>
+
+    <img src="{{ 'descriptive/images/bin-width-comparison.png' | relative_url }}"
+     alt="Too few bins versus too many bins"
+     style="margin-top:15px; max-width:100%; height:auto;">
 
     <p>
       If there are too many bins,
@@ -379,6 +415,10 @@ sidebar: false
 
     <h2>Skewed Distributions</h2>
 
+    <img src="{{ 'descriptive/images/symmetric-vs-skewed-histograms.png' | relative_url }}"
+     alt="Symmetric and skewed histograms"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
     <p>
       Not all distributions are symmetric.
     </p>
@@ -400,6 +440,10 @@ sidebar: false
     </p>
 
     <h2>Multiple Peaks</h2>
+
+    <img src="{{ 'descriptive/images/bimodal-histogram.png' | relative_url }}"
+     alt="Histogram with multiple peaks"
+     style="margin-top:15px; max-width:100%; height:auto;">
 
     <p>
       Some histograms contain more than one peak.
@@ -431,6 +475,12 @@ sidebar: false
     </p>
 
     <p>
+  However, histograms are only a screening tool.
+  Unusual observations should be investigated further
+  before being classified as outliers.
+</p>
+
+    <p>
       Detecting unusual observations
       is one of the major benefits of visualization.
     </p>
@@ -446,6 +496,18 @@ sidebar: false
       Much of modern statistics is built upon understanding
       how distributions behave.
     </p>
+
+    <h2>Histograms and Summary Statistics</h2>
+
+<p>
+  Two datasets can have similar means and standard deviations
+  while having very different histogram shapes.
+</p>
+
+<p>
+  This is why visualizing a distribution is often as important
+  as calculating numerical summaries.
+</p>
 
     <h2>Applications of Histograms</h2>
 
@@ -472,6 +534,64 @@ sidebar: false
     <p>
       They are among the most important graphs in all of statistics.
     </p>
+
+    <div class="concept-box">
+
+  <strong>Key insight:</strong>
+
+  <p>
+    Histograms help statisticians think about distributions,
+    and understanding distributions is central to statistical reasoning.
+  </p>
+
+</div>
+
+<h2>Optional: Creating Histograms in SPSS</h2>
+
+<ul class="bullets">
+
+  <li>Graphs → Chart Builder</li>
+
+  <li>Select Histogram</li>
+
+  <li>Assign the numerical variable</li>
+
+  <li>Review the chosen bin structure</li>
+
+</ul>
+
+<p>
+  Always inspect the distribution visually before proceeding with further analysis.
+</p>
+
+<h3>Python Example</h3>
+
+<p>
+This example creates a histogram for numerical data.
+</p>
+
+<pre><code>import matplotlib.pyplot as plt
+
+scores = [55,58,60,62,65,67,68,70,
+          72,74,75,77,80,82,85,
+          88,90,92,95]
+
+plt.hist(scores)
+plt.show()
+</code></pre>
+
+<h3>R Example</h3>
+
+<p>
+This example creates a histogram for numerical data.
+</p>
+
+<pre><code>scores <- c(55,58,60,62,65,67,68,70,
+            72,74,75,77,80,82,85,
+            88,90,92,95)
+
+hist(scores)
+</code></pre>
 
     <!-- TAKEAWAYS -->
 
