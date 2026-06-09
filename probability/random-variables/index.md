@@ -1,204 +1,570 @@
 ---
 layout: default
 title: Block 3 — Random Variables
-description: From events to numerical quantities: discrete and continuous random variables, probability distributions, expectation, variance, and foundational probabilistic modeling.
+description: Learn how random variables transform probability into quantitative models through PMFs, PDFs, CDFs, expectation, and variance.
 permalink: /probability/random-variables/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 This Section Is Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        This block introduces random variables and probability distributions.
-        Lessons are being published in fixed pedagogical order as part of the Probability unit.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update "last visited block" for Probability home -->
+<!-- SAVE BLOCK PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_probability_last_block_v0";
+(function () {
 
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/probability/random-variables/",
-      label: "Block 3 — Random Variables",
-      ts: Date.now()
-    }));
-  })();
+  const KEY = "esa_continue_probability_last_block_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/probability/random-variables/",
+    label: "Block 3 — Random Variables",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
 <section class="hero hero-section">
+
   <div class="hero-card hero-split">
+
+    <!-- LEFT -->
+
     <div class="hero-copy">
+
       <div class="badge-row">
+        <span class="badge">Probability</span>
         <span class="badge">Block 3</span>
         <span class="badge">Random Variables</span>
         <span class="badge">Distributions</span>
-        <span class="badge">Expectation</span>
       </div>
 
       <h1>Block 3 — Random Variables</h1>
+
       <p class="lead">
-        A random variable assigns numbers to outcomes.
-        This block transforms probability from set-based reasoning
-        into quantitative modeling — the foundation of statistical inference.
+        Random variables transform uncertainty into numbers.
+      </p>
+
+      <p class="lead">
+        This block moves probability from events and sets into quantitative models.
+        It introduces probability distributions, expectation, variance,
+        and the mathematical language used throughout modern statistics.
+      </p>
+
+      <p class="muted-mini">
+        6 lessons • Core probability theory • Builds on Conditional Probability • Prepares for Expectation & Variability
       </p>
 
       <div class="hero-actions">
-        <a class="btn btn-outline" href="/probability/">Back to Probability</a>
-        <a class="btn" href="#lessons">Open lessons</a>
+
+        <a class="btn" href="#lessons">
+          Open Lessons
+        </a>
+
+        <a class="btn btn-outline" href="/probability/">
+          Back to Probability
+        </a>
+
       </div>
 
-      <p class="muted-mini">
-        Version 0: structure is locked. Lessons will be refined without changing order.
-      </p>
+      <div class="hero-highlight">
+
+        <div class="hero-highlight-icon">
+          📈
+        </div>
+
+        <div>
+
+          <strong>Why this block matters</strong>
+
+          <p>
+            Statistical inference, machine learning, forecasting,
+            and data science all rely on probability distributions.
+            Random variables provide the framework that makes these ideas possible.
+          </p>
+
+        </div>
+
+      </div>
+
     </div>
+
+    <!-- RIGHT -->
 
     <div class="hero-panel">
+
       <div class="panel-card">
-        <h2 class="panel-title">What this block covers</h2>
-        <ul class="quickstart" style="list-style:none; padding-left:0; margin:0;">
-          <li style="margin:.35rem 0;"><strong>Definition of random variables</strong><span class="meta">Mapping outcomes to numbers</span></li>
-          <li style="margin:.35rem 0;"><strong>Discrete random variables</strong><span class="meta">PMF and summation</span></li>
-          <li style="margin:.35rem 0;"><strong>Continuous random variables</strong><span class="meta">PDF and integration</span></li>
-          <li style="margin:.35rem 0;"><strong>CDF</strong><span class="meta">Cumulative distribution function</span></li>
-          <li style="margin:.35rem 0;"><strong>Expectation</strong><span class="meta">Weighted averages</span></li>
-          <li style="margin:.35rem 0;"><strong>Variance</strong><span class="meta">Quantifying variability</span></li>
-        </ul>
+
+        <h2 class="panel-title">Block overview</h2>
+
+        <div class="mini">
+          <div class="mini-title">Lessons</div>
+          <div class="mini-body">6 structured lessons</div>
+        </div>
+
+        <div class="mini">
+          <div class="mini-title">Level</div>
+          <div class="mini-body">Core theory</div>
+        </div>
+
+        <div class="mini">
+          <div class="mini-title">Main skill</div>
+          <div class="mini-body">
+            Model uncertainty numerically
+          </div>
+        </div>
+
+        <div class="mini">
+          <div class="mini-title">Next block</div>
+          <div class="mini-body">
+            Expectation & Variability
+          </div>
+        </div>
+
       </div>
+
     </div>
+
   </div>
+
 </section>
 
-<section class="section" id="continue-reading-block3" style="display:none;">
+<!-- CONTINUE READING -->
+
+<section
+  class="section"
+  id="continue-reading-probability-rv"
+  style="display:none;"
+>
+
   <div class="callout">
+
     <div class="callout-copy">
+
       <h2>Continue reading</h2>
-      <p class="muted-mini" id="continue-reading-block3-label" style="margin:0 0 .75rem 0;"></p>
-      <a class="btn" id="continue-reading-block3-btn" href="#">Continue</a>
+
+      <p
+        id="continue-reading-probability-rv-label"
+        class="muted-mini"
+      ></p>
+
+      <a
+        class="btn"
+        id="continue-reading-probability-rv-btn"
+        href="#"
+      >
+        Continue
+      </a>
+
     </div>
+
   </div>
+
 </section>
+
+<!-- LESSONS -->
 
 <section class="section" id="lessons">
+
   <div class="section-head">
-    <h2>Lessons (Version 0)</h2>
+
+    <h2>Lessons</h2>
+
     <p>
-      Work through these lessons in order. Each lesson page is active
-      (even if still being developed), so you can navigate the full structure now.
+      These lessons introduce the mathematical objects that connect
+      probability theory to statistical modeling and inference.
     </p>
+
   </div>
 
   <div class="grid grid-2">
 
-    <!-- Lesson 1 -->
-    <div class="card lesson-card">
-      <h3><a href="/probability/random-variables/what-is-a-random-variable/">1. What Is a Random Variable?</a></h3>
-      <p>From events to numbers; formal definition; mapping outcomes to real values.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/probability/random-variables/what-is-a-random-variable/">Open lesson</a>
+    <!-- LESSON 1 -->
+
+    <div class="card lesson-card lesson-block-card">
+
+      <h3>
+        <a href="/probability/random-variables/what-is-a-random-variable/">
+          What Is a Random Variable?
+        </a>
+      </h3>
+
+      <p>
+        Learn how random variables assign numerical values to outcomes
+        and why this idea transforms probability into mathematics.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Definition</span>
+        <span class="pill">Mapping</span>
+        <span class="pill">Foundation</span>
       </div>
+
+      <a
+        class="btn btn-outline"
+        href="/probability/random-variables/what-is-a-random-variable/"
+      >
+        Open lesson
+      </a>
+
     </div>
 
-    <!-- Lesson 2 -->
-    <div class="card lesson-card">
-      <h3><a href="/probability/random-variables/discrete-random-variables/">2. Discrete Random Variables & PMF</a></h3>
-      <p>Probability mass function, support, summation rules, and basic modeling.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/probability/random-variables/discrete-random-variables/">Open lesson</a>
+    <!-- LESSON 2 -->
+
+    <div class="card lesson-card lesson-block-card">
+
+      <h3>
+        <a href="/probability/random-variables/discrete-random-variables/">
+          Discrete Random Variables & PMF
+        </a>
+      </h3>
+
+      <p>
+        Learn probability mass functions,
+        supports, summation rules,
+        and modeling with discrete outcomes.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Discrete</span>
+        <span class="pill">PMF</span>
+        <span class="pill">Counting</span>
       </div>
+
+      <a
+        class="btn btn-outline"
+        href="/probability/random-variables/discrete-random-variables/"
+      >
+        Open lesson
+      </a>
+
     </div>
 
-    <!-- Lesson 3 -->
-    <div class="card lesson-card">
-      <h3><a href="/probability/random-variables/continuous-random-variables/">3. Continuous Random Variables & PDF</a></h3>
-      <p>Density functions, integration, and why P(X = x) = 0 in continuous models.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/probability/random-variables/continuous-random-variables/">Open lesson</a>
+    <!-- LESSON 3 -->
+
+    <div class="card lesson-card lesson-block-card">
+
+      <h3>
+        <a href="/probability/random-variables/continuous-random-variables/">
+          Continuous Random Variables & PDF
+        </a>
+      </h3>
+
+      <p>
+        Learn density functions,
+        integration,
+        and why individual values have probability zero.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Continuous</span>
+        <span class="pill">PDF</span>
+        <span class="pill">Density</span>
       </div>
+
+      <a
+        class="btn btn-outline"
+        href="/probability/random-variables/continuous-random-variables/"
+      >
+        Open lesson
+      </a>
+
     </div>
 
-    <!-- Lesson 4 -->
-    <div class="card lesson-card">
-      <h3><a href="/probability/random-variables/cumulative-distribution-function/">4. Cumulative Distribution Function (CDF)</a></h3>
-      <p>Unifying discrete and continuous cases; properties and interpretation.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/probability/random-variables/cumulative-distribution-function/">Open lesson</a>
+    <!-- LESSON 4 -->
+
+    <div class="card lesson-card lesson-block-card">
+
+      <h3>
+        <a href="/probability/random-variables/cumulative-distribution-function/">
+          Cumulative Distribution Function (CDF)
+        </a>
+      </h3>
+
+      <p>
+        Learn the CDF,
+        the one probability function that works for both
+        discrete and continuous random variables.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">CDF</span>
+        <span class="pill">Probability</span>
+        <span class="pill">Distribution</span>
       </div>
+
+      <a
+        class="btn btn-outline"
+        href="/probability/random-variables/cumulative-distribution-function/"
+      >
+        Open lesson
+      </a>
+
     </div>
 
-    <!-- Lesson 5 -->
-    <div class="card lesson-card">
-      <h3><a href="/probability/random-variables/expectation/">5. Expectation (Mean of a Random Variable)</a></h3>
-      <p>Weighted averages, linearity of expectation, and interpretation.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/probability/random-variables/expectation/">Open lesson</a>
+    <!-- LESSON 5 -->
+
+    <div class="card lesson-card lesson-block-card">
+
+      <h3>
+        <a href="/probability/random-variables/expectation/">
+          Expectation (Mean of a Random Variable)
+        </a>
+      </h3>
+
+      <p>
+        Learn weighted averages,
+        expected values,
+        and one of the most important concepts in probability.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Expectation</span>
+        <span class="pill">Mean</span>
+        <span class="pill">Average</span>
       </div>
+
+      <a
+        class="btn btn-outline"
+        href="/probability/random-variables/expectation/"
+      >
+        Open lesson
+      </a>
+
     </div>
 
-    <!-- Lesson 6 -->
-    <div class="card lesson-card">
-      <h3><a href="/probability/random-variables/variance-and-standard-deviation/">6. Variance & Standard Deviation</a></h3>
-      <p>Measuring spread; variance formula; properties; connection to uncertainty.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/probability/random-variables/variance-and-standard-deviation/">Open lesson</a>
+    <!-- LESSON 6 -->
+
+    <div class="card lesson-card lesson-block-card">
+
+      <h3>
+        <a href="/probability/random-variables/variance-and-standard-deviation/">
+          Variance & Standard Deviation
+        </a>
+      </h3>
+
+      <p>
+        Learn how probability models measure variability,
+        uncertainty,
+        and dispersion around expected values.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Variance</span>
+        <span class="pill">Spread</span>
+        <span class="pill">Uncertainty</span>
       </div>
+
+      <a
+        class="btn btn-outline"
+        href="/probability/random-variables/variance-and-standard-deviation/"
+      >
+        Open lesson
+      </a>
+
     </div>
 
   </div>
+
 </section>
+
+<!-- BLOCK MAP -->
 
 <section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of Block 3</h2>
-      <ul class="bullets">
-        <li>Translate probabilistic experiments into random variables</li>
-        <li>Work with PMF, PDF, and CDF correctly</li>
-        <li>Compute expectation and variance</li>
-        <li>Understand how probability distributions summarize uncertainty</li>
-        <li>Be ready for deeper work on expectation, variability, and linearity (Block 4)</li>
-      </ul>
-    </div>
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Next block</div>
-        <div class="mini-body">
-          Continue to
-          <a href="/probability/expectation-variability/" style="color:#1a73e8; text-decoration:underline;">
-            <strong>Block 4 — Expectation & Variability</strong>
-          </a>.
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<script>
-  (function () {
-    var KEY = "esa_continue_probability_random_variables_lesson_v0";
 
-    var raw = localStorage.getItem(KEY);
+  <div class="callout">
+
+    <div class="callout-copy">
+
+      <h2>How this block fits into probability</h2>
+
+      <p>
+        Previous blocks focused on events and probabilities.
+        This block introduces probability distributions,
+        which become the primary objects studied throughout statistics.
+      </p>
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+
+            <tr>
+              <th>Concept</th>
+              <th>Why it matters later</th>
+            </tr>
+
+          </thead>
+
+          <tbody>
+
+            <tr>
+              <td>Random Variables</td>
+              <td>Foundation of statistical models</td>
+            </tr>
+
+            <tr>
+              <td>PMF & PDF</td>
+              <td>Describe probability distributions</td>
+            </tr>
+
+            <tr>
+              <td>CDF</td>
+              <td>Supports probability calculations and theory</td>
+            </tr>
+
+            <tr>
+              <td>Expectation</td>
+              <td>Central concept in inference and prediction</td>
+            </tr>
+
+            <tr>
+              <td>Variance</td>
+              <td>Measures uncertainty and variability</td>
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- GOALS -->
+
+<section class="section section-slim">
+
+  <div class="callout">
+
+    <div class="callout-copy">
+
+      <h2>Goal of this block</h2>
+
+      <ul class="bullets">
+
+        <li>Translate random experiments into random variables</li>
+
+        <li>Work correctly with PMFs and PDFs</li>
+
+        <li>Interpret cumulative distribution functions</li>
+
+        <li>Compute expectations and expected values</li>
+
+        <li>Compute variance and standard deviation</li>
+
+        <li>Understand probability distributions as models of uncertainty</li>
+
+        <li>Prepare for Expectation & Variability</li>
+
+      </ul>
+
+    </div>
+
+    <div class="callout-side">
+
+      <div class="mini">
+
+        <div class="mini-title">Next block</div>
+
+        <div class="mini-body">
+          Continue to <strong>Expectation & Variability</strong>
+        </div>
+
+      </div>
+
+      <div class="mini">
+
+        <div class="mini-title">Core idea</div>
+
+        <div class="mini-body">
+          Random variables convert uncertainty into mathematics.
+        </div>
+
+      </div>
+
+      <div class="mini">
+
+        <div class="mini-title">Big transition</div>
+
+        <div class="mini-body">
+          This is where probability becomes statistical modeling.
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- NAVIGATION -->
+
+<section class="section section-slim">
+
+  <div class="lesson-nav">
+
+    <a class="btn btn-outline" href="/probability/conditional/">
+      ← Previous Block: Conditional Probability & Bayes
+    </a>
+
+    <a class="btn" href="/probability/expectation-variability/">
+      Next Block: Expectation & Variability →
+    </a>
+
+  </div>
+
+</section>
+
+<!-- CONTINUE READING SCRIPT -->
+
+<script>
+(function () {
+
+  try {
+
+    const KEY =
+      "esa_continue_probability_random_variables_lesson_v0";
+
+    const raw = localStorage.getItem(KEY);
+
     if (!raw) return;
 
-    try {
-      var data = JSON.parse(raw);
-      if (!data || !data.url || !data.label) return;
+    const data = JSON.parse(raw);
 
-      var wrap = document.getElementById("continue-reading-block3");
-      var label = document.getElementById("continue-reading-block3-label");
-      var btn = document.getElementById("continue-reading-block3-btn");
-      if (!wrap || !label || !btn) return;
+    if (!data || !data.url || !data.label) return;
 
-      label.innerHTML = 'You last visited: <strong>' + data.label + '</strong>';
-      btn.href = data.url;
-      wrap.style.display = "block";
-    } catch (e) {}
-  })();
+    const wrap =
+      document.getElementById(
+        "continue-reading-probability-rv"
+      );
+
+    const label =
+      document.getElementById(
+        "continue-reading-probability-rv-label"
+      );
+
+    const btn =
+      document.getElementById(
+        "continue-reading-probability-rv-btn"
+      );
+
+    if (!wrap || !label || !btn) return;
+
+    label.innerHTML =
+      "You last visited: <strong>" +
+      data.label +
+      "</strong>";
+
+    btn.href = data.url;
+
+    wrap.style.display = "block";
+
+  } catch (e) {}
+
+})();
 </script>
