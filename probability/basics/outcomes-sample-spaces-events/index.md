@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Outcomes, Sample Spaces, and Events
-description: Learn the fundamental building blocks of probability: outcomes, sample spaces, and events.
-permalink: /probability/basics/outcomes-sample-spaces-events/
+title: Probability Axioms and Basic Rules
+description: Learn the fundamental axioms of probability and the basic rules that every probability calculation must follow.
+permalink: /probability/basics/probability-axioms-and-basic-rules/
 sidebar: false
 ---
 
@@ -14,8 +14,8 @@ sidebar: false
     "esa_continue_probability_basics_lesson_v0";
 
   localStorage.setItem(KEY, JSON.stringify({
-    url: "/probability/basics/outcomes-sample-spaces-events/",
-    label: "Outcomes, Sample Spaces, and Events",
+    url: "/probability/basics/probability-axioms-and-basic-rules/",
+    label: "Probability Axioms and Basic Rules",
     ts: Date.now()
   }));
 
@@ -32,29 +32,29 @@ sidebar: false
       <span class="badge">Probability</span>
       <span class="badge">Block 1</span>
       <span class="badge">Basics</span>
-      <span class="badge">Foundations</span>
+      <span class="badge">Core Rules</span>
     </div>
 
-    <h1>Outcomes, Sample Spaces, and Events</h1>
+    <h1>Probability Axioms and Basic Rules</h1>
 
     <p class="lead">
-      Probability begins by identifying what can happen.
+      Every probability calculation is built on a small set of fundamental principles.
     </p>
 
     <p class="lead">
-      Before assigning probabilities, we must define the possible outcomes of an experiment, organize them into a sample space, and specify the events we are interested in studying.
+      These principles, called probability axioms, define what probability is and establish the rules that all valid probability models must obey.
     </p>
 
     <div class="hero-actions">
 
       <a class="btn"
-         href="/probability/basics/what-is-probability/">
+         href="/probability/basics/outcomes-sample-spaces-events/">
          ← Previous Lesson
       </a>
 
       <a class="btn btn-outline"
-         href="/probability/basics/probability-axioms-and-basic-rules/">
-         Next: Probability Axioms and Basic Rules →
+         href="/probability/basics/union-intersection-and-venn-thinking/">
+         Next: Union, Intersection, and Venn Thinking →
       </a>
 
     </div>
@@ -69,209 +69,19 @@ sidebar: false
 
   <div class="content-narrow">
 
-    <h2>Why We Need Structure</h2>
+    <h2>Why Do We Need Rules?</h2>
 
     <p>
-      Probability studies uncertainty,
-      but uncertainty must be described precisely.
+      Probability is not just intuition.
     </p>
 
     <p>
-      To calculate probabilities,
-      we first need to identify what outcomes are possible.
+      It is a mathematical system governed by precise rules.
     </p>
 
     <p>
-      This leads to three foundational concepts:
-    </p>
-
-    <ul class="bullets">
-
-      <li>Outcomes</li>
-
-      <li>Sample Spaces</li>
-
-      <li>Events</li>
-
-    </ul>
-
-    <div class="concept-box">
-
-      <strong>Key idea:</strong>
-
-      <p>
-        Every probability problem begins by defining possible outcomes and the events of interest.
-      </p>
-
-    </div>
-
-    <h2>What Is an Outcome?</h2>
-
-    <p>
-      An <strong>outcome</strong> is a single possible result of a random experiment.
-    </p>
-
-    <p>
-      It represents one specific thing that could happen.
-    </p>
-
-    <div class="example-box">
-
-      <strong>Rolling a die</strong>
-
-      <p>
-        Possible outcomes:
-      </p>
-
-      <p>
-        1, 2, 3, 4, 5, 6
-      </p>
-
-    </div>
-
-    <p>
-      Each number is an individual outcome.
-    </p>
-
-    <h2>Examples of Outcomes</h2>
-
-    <div class="table-wrap">
-
-      <table>
-
-        <thead>
-          <tr>
-            <th>Experiment</th>
-            <th>Example Outcome</th>
-          </tr>
-        </thead>
-
-        <tbody>
-
-          <tr>
-            <td>Coin toss</td>
-            <td>Heads</td>
-          </tr>
-
-          <tr>
-            <td>Rolling a die</td>
-            <td>4</td>
-          </tr>
-
-          <tr>
-            <td>Drawing a card</td>
-            <td>Ace of Spades</td>
-          </tr>
-
-          <tr>
-            <td>Weather tomorrow</td>
-            <td>Rain</td>
-          </tr>
-
-        </tbody>
-
-      </table>
-
-    </div>
-
-    <p>
-      Outcomes are the smallest units considered in probability models.
-    </p>
-
-    <h2>What Is a Sample Space?</h2>
-
-    <p>
-      The <strong>sample space</strong> is the set of all possible outcomes of an experiment.
-    </p>
-
-    <p>
-      It contains every outcome that could occur.
-    </p>
-
-    <p>
-      Sample spaces are commonly denoted by the symbol:
-    </p>
-
-    <div class="example-box">
-
-      <p>
-        S
-      </p>
-    </div>
-
-    <h2>Sample Space for a Coin Toss</h2>
-
-    <p>
-      Consider a single coin toss.
-    </p>
-
-    <p>
-      The possible outcomes are:
-    </p>
-
-    <div class="example-box">
-
-      <p>
-        S = {Heads, Tails}
-      </p>
-    </div>
-
-    <p>
-      Since every possible result is included,
-      this is the complete sample space.
-    </p>
-
-    <h2>Sample Space for a Die Roll</h2>
-
-    <p>
-      For a six-sided die:
-    </p>
-
-    <div class="example-box">
-
-      <p>
-        S = {1, 2, 3, 4, 5, 6}
-      </p>
-    </div>
-
-    <p>
-      Every possible outcome appears exactly once in the sample space.
-    </p>
-
-    <h2>The Sample Space Must Be Complete</h2>
-
-    <p>
-      A sample space should include every possible outcome.
-    </p>
-
-    <p>
-      Missing outcomes lead to incorrect probability calculations.
-    </p>
-
-    <div class="example-box">
-
-      <p>
-        Incorrect:
-      </p>
-
-      <p>
-        S = {1, 2, 3, 4, 5}
-      </p>
-    </div>
-
-    <p>
-      The outcome 6 has been omitted,
-      so this is not a valid sample space for a die roll.
-    </p>
-
-    <h2>What Is an Event?</h2>
-
-    <p>
-      An <strong>event</strong> is a collection of one or more outcomes from the sample space.
-    </p>
-
-    <p>
-      Events represent situations we are interested in studying.
+      Without these rules,
+      probability calculations could become inconsistent or contradictory.
     </p>
 
     <div class="concept-box">
@@ -279,12 +89,289 @@ sidebar: false
       <strong>Key idea:</strong>
 
       <p>
-        Outcomes are individual results. Events are groups of outcomes.
+        The probability axioms define the foundation upon which all probability theory is built.
       </p>
 
     </div>
 
-    <h2>Example: Rolling an Even Number</h2>
+    <h2>The Three Probability Axioms</h2>
+
+    <p>
+      Modern probability theory is based on three fundamental axioms introduced by the mathematician
+      0.
+    </p>
+
+    <p>
+      Every valid probability model must satisfy these axioms.
+    </p>
+
+    <h2>Axiom 1: Probabilities Cannot Be Negative</h2>
+
+    <p>
+      The probability of any event must be greater than or equal to zero.
+    </p>
+
+    1
+
+    <p>
+      Negative probabilities are not meaningful.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Valid: 0.25
+      </p>
+
+      <p>
+        Valid: 0.80
+      </p>
+
+      <p>
+        Invalid: -0.15
+      </p>
+
+    </div>
+
+    <h2>Axiom 2: The Sample Space Has Probability 1</h2>
+
+    <p>
+      The probability that some outcome from the sample space occurs is always 1.
+    </p>
+
+    2
+
+    <p>
+      Since the sample space contains all possible outcomes,
+      something in the sample space must occur.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Rolling a die:
+      </p>
+
+      <p>
+        S = {1,2,3,4,5,6}
+      </p>
+
+      <p>
+        P(S) = 1
+      </p>
+
+    </div>
+
+    <h2>Axiom 3: Addition for Mutually Exclusive Events</h2>
+
+    <p>
+      If two events cannot occur at the same time,
+      their probabilities add.
+    </p>
+
+    3
+
+    <p>
+      This rule applies only when the events are mutually exclusive.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Rolling a die:
+      </p>
+
+      <p>
+        A = rolling a 1
+      </p>
+
+      <p>
+        B = rolling a 2
+      </p>
+
+    </div>
+
+    <p>
+      Since both outcomes cannot happen on the same roll,
+      the probabilities can be added directly.
+    </p>
+
+    <h2>What Is a Mutually Exclusive Event?</h2>
+
+    <p>
+      Two events are mutually exclusive if they cannot occur simultaneously.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Rolling a die:
+      </p>
+
+      <p>
+        Event A = {1}
+      </p>
+
+      <p>
+        Event B = {2}
+      </p>
+
+    </div>
+
+    <p>
+      One roll cannot produce both outcomes,
+      so the events are mutually exclusive.
+    </p>
+
+    <h2>The Probability Scale</h2>
+
+    <p>
+      The first two axioms imply an important rule.
+    </p>
+
+    <p>
+      Every probability must lie between 0 and 1.
+    </p>
+
+    4
+
+    <p>
+      This rule applies to every event.
+    </p>
+
+    <h2>Impossible Events</h2>
+
+    <p>
+      An impossible event has probability zero.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Rolling a 7 on a standard six-sided die.
+      </p>
+    </div>
+
+    <p>
+      Since the outcome cannot occur:
+    </p>
+
+    5
+
+    <h2>Certain Events</h2>
+
+    <p>
+      A certain event has probability one.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Rolling a number between 1 and 6 on a standard die.
+      </p>
+    </div>
+
+    <p>
+      Since this event must occur:
+    </p>
+
+    6
+
+    <h2>Probabilities of All Outcomes Must Add to 1</h2>
+
+    <p>
+      For a complete sample space,
+      the probabilities of all possible outcomes sum to 1.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Fair die:
+      </p>
+
+      <p>
+        1/6 + 1/6 + 1/6 + 1/6 + 1/6 + 1/6 = 1
+      </p>
+
+    </div>
+
+    <p>
+      This rule follows directly from the axioms.
+    </p>
+
+    <h2>Example: Fair Coin</h2>
+
+    <p>
+      Sample space:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        S = {H, T}
+      </p>
+    </div>
+
+    <p>
+      Since the coin is fair:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        P(H) = 0.5
+      </p>
+
+      <p>
+        P(T) = 0.5
+      </p>
+
+    </div>
+
+    <p>
+      Notice:
+    </p>
+
+    7
+
+    <h2>The Complement Rule</h2>
+
+    <p>
+      Every event has a complement.
+    </p>
+
+    <p>
+      The complement consists of all outcomes not contained in the event.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Event:
+      </p>
+
+      <p>
+        Rolling an even number.
+      </p>
+
+      <p>
+        Complement:
+      </p>
+
+      <p>
+        Rolling an odd number.
+      </p>
+
+    </div>
+
+    <p>
+      Probabilities of an event and its complement must sum to 1.
+    </p>
+
+    8
+
+    <h2>Complement Example</h2>
 
     <p>
       Suppose:
@@ -293,266 +380,89 @@ sidebar: false
     <div class="example-box">
 
       <p>
-        S = {1, 2, 3, 4, 5, 6}
+        P(Rain) = 0.30
       </p>
     </div>
 
     <p>
-      The event:
+      Then:
     </p>
 
-    <div class="example-box">
-
-      <p>
-        E = {2, 4, 6}
-      </p>
-    </div>
+    9
 
     <p>
-      represents rolling an even number.
+      The probability of no rain is 0.70.
     </p>
 
-    <p>
-      The event contains multiple outcomes.
-    </p>
-
-    <h2>Example: Rolling a Number Greater Than 4</h2>
-
-    <div class="example-box">
-
-      <p>
-        E = {5, 6}
-      </p>
-    </div>
+    <h2>Why the Complement Rule Is Useful</h2>
 
     <p>
-      This event occurs whenever either outcome 5 or outcome 6 is observed.
-    </p>
-
-    <h2>Simple Events and Compound Events</h2>
-
-    <p>
-      Events can contain one outcome or many outcomes.
-    </p>
-
-    <div class="table-wrap">
-
-      <table>
-
-        <thead>
-          <tr>
-            <th>Type</th>
-            <th>Example</th>
-          </tr>
-        </thead>
-
-        <tbody>
-
-          <tr>
-            <td>Simple Event</td>
-            <td>{3}</td>
-          </tr>
-
-          <tr>
-            <td>Compound Event</td>
-            <td>{2, 4, 6}</td>
-          </tr>
-
-        </tbody>
-
-      </table>
-
-    </div>
-
-    <p>
-      A simple event contains one outcome.
+      Sometimes it is easier to calculate the complement than the event itself.
     </p>
 
     <p>
-      A compound event contains multiple outcomes.
+      This idea becomes especially important in later probability problems.
     </p>
 
-    <h2>The Relationship Between Outcomes and Events</h2>
+    <h2>Checking Probability Calculations</h2>
 
     <p>
-      Outcomes are the building blocks of events.
-    </p>
-
-    <p>
-      Every event is made up of outcomes from the sample space.
-    </p>
-
-    <div class="example-box">
-
-      <p>
-        Sample Space:
-      </p>
-
-      <p>
-        S = {1, 2, 3, 4, 5, 6}
-      </p>
-
-      <p>
-        Event:
-      </p>
-
-      <p>
-        E = {1, 3, 5}
-      </p>
-
-    </div>
-
-    <p>
-      The event is simply a subset of the sample space.
-    </p>
-
-    <h2>Events as Sets</h2>
-
-    <p>
-      Probability uses ideas from set theory.
+      The axioms provide a simple way to verify calculations.
     </p>
 
     <p>
-      Sample spaces and events are often treated as sets.
-    </p>
-
-    <p>
-      This approach allows us to apply mathematical operations to events.
-    </p>
-
-    <p>
-      Later lessons will explore unions,
-      intersections,
-      and complements of events.
-    </p>
-
-    <h2>The Certain Event</h2>
-
-    <p>
-      An event containing every outcome in the sample space is called the certain event.
-    </p>
-
-    <div class="example-box">
-
-      <p>
-        S = {1, 2, 3, 4, 5, 6}
-      </p>
-
-    </div>
-
-    <p>
-      Since one of these outcomes must occur,
-      the probability of the sample space is always 1.
-    </p>
-
-    <h2>The Impossible Event</h2>
-
-    <p>
-      The impossible event contains no outcomes.
-    </p>
-
-    <p>
-      It is called the empty set.
-    </p>
-
-    <div class="example-box">
-
-      <p>
-        ∅
-      </p>
-    </div>
-
-    <p>
-      The probability of the impossible event is always 0.
-    </p>
-
-    <h2>A Complete Example</h2>
-
-    <p>
-      Consider rolling a die.
-    </p>
-
-    <div class="example-box">
-
-      <p>
-        Sample Space:
-      </p>
-
-      <p>
-        S = {1, 2, 3, 4, 5, 6}
-      </p>
-
-      <p>
-        Event A:
-      </p>
-
-      <p>
-        A = {2, 4, 6}
-      </p>
-
-      <p>
-        Event B:
-      </p>
-
-      <p>
-        B = {5, 6}
-      </p>
-
-    </div>
-
-    <p>
-      Here:
+      Ask:
     </p>
 
     <ul class="bullets">
 
-      <li>The sample space contains all outcomes</li>
+      <li>Is every probability between 0 and 1?</li>
 
-      <li>Event A represents even numbers</li>
+      <li>Do probabilities sum correctly?</li>
 
-      <li>Event B represents numbers greater than 4</li>
+      <li>Does the sample space have probability 1?</li>
+
+      <li>Does the complement rule hold?</li>
 
     </ul>
 
     <p>
-      This structure forms the basis of probability calculations.
+      If not,
+      something is wrong.
     </p>
 
-    <h2>Why These Concepts Matter</h2>
+    <h2>The Foundation of Everything Ahead</h2>
 
     <p>
-      Every probability problem begins with:
+      The probability axioms may seem simple,
+      but nearly every probability formula comes from them.
     </p>
 
-    <ol>
-
-      <li>Defining the experiment</li>
-
-      <li>Identifying outcomes</li>
-
-      <li>Constructing the sample space</li>
-
-      <li>Defining events of interest</li>
-
-    </ol>
-
     <p>
-      Once these pieces are in place,
-      probabilities can be assigned and analyzed.
+      Conditional probability,
+      Bayes' theorem,
+      random variables,
+      probability distributions,
+      and statistical inference all rely on these foundational rules.
     </p>
 
     <h2>Looking Ahead</h2>
 
     <p>
-      Now that we understand outcomes,
-      sample spaces,
-      and events,
-      we can begin assigning probabilities to them.
+      Events can be combined in different ways.
     </p>
 
     <p>
-      The next lesson introduces the fundamental rules that every probability model must satisfy:
-      the probability axioms and basic probability rules.
+      We may want the probability that one event occurs,
+      another event occurs,
+      or both occur together.
+    </p>
+
+    <p>
+      The next lesson introduces unions,
+      intersections,
+      and Venn diagrams,
+      which provide a visual framework for reasoning about events.
     </p>
 
     <!-- TAKEAWAYS -->
@@ -563,19 +473,19 @@ sidebar: false
 
       <ul class="bullets">
 
-        <li>An outcome is a single possible result of an experiment</li>
+        <li>Probability theory is built on three fundamental axioms</li>
 
-        <li>A sample space contains all possible outcomes</li>
+        <li>Probabilities can never be negative</li>
 
-        <li>An event is a collection of outcomes</li>
+        <li>The sample space always has probability 1</li>
 
-        <li>Events are subsets of the sample space</li>
+        <li>Mutually exclusive event probabilities can be added</li>
 
-        <li>Simple events contain one outcome</li>
+        <li>Every probability lies between 0 and 1</li>
 
-        <li>Compound events contain multiple outcomes</li>
+        <li>The complement rule states that P(Aᶜ) = 1 − P(A)</li>
 
-        <li>Probability calculations begin with outcomes, sample spaces, and events</li>
+        <li>All later probability concepts are built upon these basic rules</li>
 
       </ul>
 
@@ -586,13 +496,13 @@ sidebar: false
     <div class="lesson-nav">
 
       <a class="btn btn-outline"
-         href="/probability/basics/what-is-probability/">
-         ← Previous: What Is Probability?
+         href="/probability/basics/outcomes-sample-spaces-events/">
+         ← Previous: Outcomes, Sample Spaces, and Events
       </a>
 
       <a class="btn"
-         href="/probability/basics/probability-axioms-and-basic-rules/">
-         Next: Probability Axioms and Basic Rules →
+         href="/probability/basics/union-intersection-and-venn-thinking/">
+         Next: Union, Intersection, and Venn Thinking →
       </a>
 
     </div>
