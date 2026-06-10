@@ -1,288 +1,591 @@
 ---
 layout: default
-title: "10. Beta Distribution"
-description: "A flexible distribution on [0, 1] used to model probabilities and proportions; conjugate prior for Bernoulli/binomial models."
+title: Beta Distribution
+description: Learn how the beta distribution models probabilities and proportions, and why it is fundamental in Bayesian statistics.
 permalink: /probability/distributions/beta-distribution/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem;">🚧 Lesson Under Construction</h2>
-      <p style="margin:0; font-size:1.05rem;">
-        Version 0 defines structure, parameters, and core formulas.
-        Visual intuition, worked examples, and simulations will be added next.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Continue Reading Tracking -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_probability_distributions_lesson_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/probability/distributions/beta-distribution/",
-      label: "Lesson 10 — Beta Distribution",
-      ts: Date.now()
-    }));
-  })();
+(function () {
+
+  const KEY =
+    "esa_continue_probability_distributions_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/probability/distributions/beta-distribution/",
+    label: "Beta Distribution",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 5</span>
-        <span class="badge">Lesson 10</span>
-        <span class="badge">Continuous</span>
-        <span class="badge">Proportions</span>
-      </div>
 
-      <h1>10. Beta Distribution</h1>
-
-      <p class="lead">
-        The Beta distribution is defined on <strong>[0, 1]</strong> and is one of the most useful continuous
-        distributions in statistics because it models <strong>probabilities, proportions, and rates</strong>.
-        Its shape is extremely flexible and is controlled by two positive parameters.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/probability/distributions/">Back to Block 5</a>
-        <a class="btn btn-outline" href="/probability/">Probability home</a>
-      </div>
-
-      <p class="muted-mini">
-        Think: “a distribution for an unknown probability p.”
-      </p>
+    <div class="badge-row">
+      <span class="badge">Probability</span>
+      <span class="badge">Block 5</span>
+      <span class="badge">Distributions</span>
+      <span class="badge">Continuous</span>
     </div>
+
+    <h1>Beta Distribution</h1>
+
+    <p class="lead">
+      Many real-world quantities represent probabilities or proportions.
+    </p>
+
+    <p class="lead">
+      The beta distribution is specifically designed to model values that must lie between 0 and 1.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/probability/distributions/gamma-distribution/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/probability/distributions/normal-distribution/">
+         Next: Normal Distribution →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) Definition</h2>
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>What Is a Beta Distribution?</h2>
+
     <p>
-      A random variable <strong>X</strong> follows a Beta distribution with parameters
-      <strong>&alpha; &gt; 0</strong> and <strong>&beta; &gt; 0</strong> if it has probability density function:
-    </p>
-  </div>
-
-  <div class="card">
-    <p style="font-size:1.1rem; margin:0;">
-      $$
-      f(x)=\frac{1}{B(\alpha,\beta)}\,x^{\alpha-1}(1-x)^{\beta-1},
-      \quad 0\le x\le 1
-      $$
+      The beta distribution is a continuous probability distribution defined on the interval from 0 to 1.
     </p>
 
-    <p class="muted-mini" style="margin-top:.75rem;">
-      Here <strong>B(&alpha;,&beta;)</strong> is the Beta function:
-      $$
-      B(\alpha,\beta)=\int_0^1 x^{\alpha-1}(1-x)^{\beta-1}\,dx
-      $$
-      and it connects to the Gamma function via:
-      $$
-      B(\alpha,\beta)=\frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha+\beta)}.
-      $$
-    </p>
-  </div>
+    <div class="concept-box">
 
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Key idea</h2>
-      <p style="margin:0;">
-        <strong>Beta is the natural distribution for uncertain probabilities.</strong>
-        If a parameter must stay between 0 and 1, Beta is a first-choice model.
-      </p>
-    </div>
-  </div>
-</section>
+      <strong>Definition:</strong>
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) Parameters and shape intuition</h2>
-    <p>
-      The parameters <strong>&alpha;</strong> and <strong>&beta;</strong> control the shape near 0 and near 1.
-      Different values produce very different behaviors.
-    </p>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>How to read &alpha; and &beta;</h3>
-      <ul class="bullets">
-        <li>If <strong>&alpha; &gt; 1</strong>, density tends to be low near 0; if <strong>&alpha; &lt; 1</strong>, it spikes near 0.</li>
-        <li>If <strong>&beta; &gt; 1</strong>, density tends to be low near 1; if <strong>&beta; &lt; 1</strong>, it spikes near 1.</li>
-        <li>If <strong>&alpha; = &beta;</strong>, the distribution is symmetric around 0.5.</li>
-      </ul>
-    </div>
-
-    <div class="card">
-      <h3>Common shape regimes</h3>
-      <ul class="bullets">
-        <li><strong>&alpha; = &beta; = 1</strong> → Uniform on [0, 1]</li>
-        <li><strong>&alpha; &gt; 1, &beta; &gt; 1</strong> → unimodal (peak inside the interval)</li>
-        <li><strong>&alpha; &lt; 1, &beta; &lt; 1</strong> → U-shaped (mass near 0 and 1)</li>
-        <li><strong>&alpha; \gg &beta;</strong> → mass near 1; <strong>&beta; \gg &alpha;</strong> → mass near 0</li>
-      </ul>
-    </div>
-  </div>
-
-  <p class="muted-mini" style="margin-top:.75rem;">
-    In practice: choose &alpha; and &beta; to encode how strongly you believe the probability is near 0, near 1, or around the middle.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>3) Mean and variance</h2>
-    <p>
-      The Beta distribution has closed-form mean and variance, which make it easy to interpret.
-    </p>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      $$
-      \mathbb{E}[X]=\frac{\alpha}{\alpha+\beta}
-      $$
-    </p>
-  </div>
-
-  <div class="card" style="margin-top:1rem;">
-    <p style="margin:0;">
-      $$
-      \mathrm{Var}(X)=\frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)}
-      $$
-    </p>
-  </div>
-
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Interpretation shortcut</h2>
-      <p style="margin:0;">
-        The sum <strong>&alpha;+&beta;</strong> controls concentration:
-        larger values make the distribution tighter (less uncertain), smaller values make it wider (more uncertain).
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>4) Mode (when it exists)</h2>
-    <p>
-      When <strong>&alpha; &gt; 1</strong> and <strong>&beta; &gt; 1</strong>, the Beta distribution has a single interior mode.
-    </p>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      $$
-      \mathrm{mode}(X)=\frac{\alpha-1}{\alpha+\beta-2},
-      \quad \text{for } \alpha>1,\ \beta>1.
-      $$
-    </p>
-  </div>
-
-  <p class="muted-mini" style="margin-top:.75rem;">
-    If &alpha; ≤ 1 or &beta; ≤ 1, the highest density may occur at the boundaries (0 or 1).
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>5) Why Beta matters (statistical modeling viewpoint)</h2>
-    <p>
-      Beta is central in probability and statistics because it naturally models unknown probabilities.
-    </p>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Proportions and rates</h3>
-      <ul class="bullets">
-        <li>Click-through rate (CTR)</li>
-        <li>Defect rate in manufacturing</li>
-        <li>Prevalence (proportion) in epidemiology</li>
-        <li>Conversion rate in business analytics</li>
-      </ul>
-    </div>
-
-    <div class="card">
-      <h3>Bayesian connection (preview)</h3>
       <p>
-        In Bayesian inference, if the probability of “success” is <strong>p</strong>, a common prior model is:
+        A beta distribution models uncertain probabilities, proportions, and percentages that must remain between 0 and 1.
       </p>
-      <p style="margin:0;">
-        $$
-        p \sim \mathrm{Beta}(\alpha,\beta).
-        $$
-      </p>
-      <p class="muted-mini" style="margin-top:.5rem;">
-        Later, you will see that Beta combines cleanly with Bernoulli/binomial data (conjugacy).
-      </p>
-    </div>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Common mistakes</h2>
+    </div>
+
+    <h2>Why We Need the Beta Distribution</h2>
+
+    <p>
+      Many quantities naturally have lower and upper limits.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Probability of success
+      </p>
+
+      <p>
+        Conversion rate
+      </p>
+
+      <p>
+        Market share
+      </p>
+
+      <p>
+        Fraction of defective products
+      </p>
+
+      <p>
+        Percentage of voters supporting a candidate
+      </p>
+
+    </div>
+
+    <p>
+      These values can never be less than 0 or greater than 1.
+    </p>
+
+    <p>
+      The beta distribution was designed for exactly this situation.
+    </p>
+
+    <h2>The Parameters</h2>
+
+    <p>
+      The beta distribution uses two shape parameters:
+    </p>
+
+    <ul class="bullets">
+
+      <li>α (alpha)</li>
+
+      <li>β (beta)</li>
+
+    </ul>
+
+    <p>
+      These parameters determine the shape of the distribution.
+    </p>
+
+    <h2>Notation</h2>
+
+    <p>
+      A beta random variable is written as:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        X ~ Beta(α, β)
+      </p>
+
+    </div>
+
+    <p>
+      Different values of α and β create dramatically different shapes.
+    </p>
+
+    <h2>The Probability Density Function</h2>
+
+    <p>
+      The beta density function is:
+    </p>
+
+    0
+
+    <p>
+      for:
+    </p>
+
+    1
+
+    <p>
+      where:
+    </p>
+
+    2
+
+    <p>
+      is the beta function.
+    </p>
+
+    <h2>The Beta Function</h2>
+
+    <p>
+      The beta function is a mathematical constant that ensures the total area under the density equals one.
+    </p>
+
+    <p>
+      It is closely related to the gamma function studied previously.
+    </p>
+
+    <h2>Shape Flexibility</h2>
+
+    <p>
+      One of the most useful properties of the beta distribution is its flexibility.
+    </p>
+
+    <p>
+      Different parameter values create very different shapes.
+    </p>
+
+    <h2>Case 1: Uniform Distribution</h2>
+
+    <p>
+      When:
+    </p>
+
+    3
+
+    <p>
+      the beta distribution becomes:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Uniform(0,1)
+      </p>
+
+    </div>
+
+    <p>
+      Every value between 0 and 1 is equally likely.
+    </p>
+
+    <h2>Case 2: Symmetric Bell Shape</h2>
+
+    <p>
+      When:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        α = β > 1
+      </p>
+
+    </div>
+
+    <p>
+      the distribution becomes symmetric around 0.5.
+    </p>
+
+    <p>
+      Larger parameter values create a stronger concentration near the center.
+    </p>
+
+    <h2>Case 3: Right-Skewed Shape</h2>
+
+    <p>
+      When:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        α &lt; β
+      </p>
+
+    </div>
+
+    <p>
+      more probability is concentrated near zero.
+    </p>
+
+    <p>
+      Small values become more likely than large values.
+    </p>
+
+    <h2>Case 4: Left-Skewed Shape</h2>
+
+    <p>
+      When:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        α &gt; β
+      </p>
+
+    </div>
+
+    <p>
+      more probability is concentrated near one.
+    </p>
+
+    <p>
+      Large values become more likely than small values.
+    </p>
+
+    <h2>The Mean</h2>
+
+    <p>
+      The expected value of a beta distribution is:
+    </p>
+
+    4
+
+    <div class="concept-box">
+
+      <strong>Interpretation:</strong>
+
+      <p>
+        The mean reflects the balance between α and β.
+      </p>
+
+    </div>
+
+    <h2>Example of the Mean</h2>
+
+    <p>
+      Suppose:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        α = 8
+      </p>
+
+      <p>
+        β = 2
+      </p>
+
+    </div>
+
+    <p>
+      Then:
+    </p>
+
+    5
+
+    <p>
+      The distribution is centered near 0.8.
+    </p>
+
+    <h2>The Variance</h2>
+
+    <p>
+      The variance is:
+    </p>
+
+    6
+
+    <p>
+      Variability depends on both parameters.
+    </p>
+
+    <h2>How Confidence Changes Shape</h2>
+
+    <p>
+      Consider two distributions with the same mean:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Beta(2,2)
+      </p>
+
+      <p>
+        Beta(200,200)
+      </p>
+
+    </div>
+
+    <p>
+      Both have mean 0.5.
+    </p>
+
+    <p>
+      However,
+      Beta(200,200) is much more concentrated around 0.5.
+    </p>
+
+    <p>
+      Larger parameters imply greater certainty.
+    </p>
+
+    <h2>The Bayesian Interpretation</h2>
+
+    <p>
+      The beta distribution is especially important in Bayesian statistics.
+    </p>
+
+    <p>
+      It is often used to represent uncertainty about an unknown probability.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        What is the true conversion rate?
+      </p>
+
+      <p>
+        What is the true disease prevalence?
+      </p>
+
+      <p>
+        What is the true click-through probability?
+      </p>
+
+    </div>
+
+    <p>
+      The beta distribution provides a probability model for these unknown probabilities.
+    </p>
+
+    <h2>Why Bayesian Analysts Love the Beta Distribution</h2>
+
+    <p>
+      When observing successes and failures,
+      beta distributions update very naturally.
+    </p>
+
+    <p>
+      This mathematical convenience makes them a standard Bayesian tool.
+    </p>
+
+    <h2>Applications of the Beta Distribution</h2>
+
+    <ul class="bullets">
+
+      <li>A/B testing</li>
+
+      <li>Marketing conversion analysis</li>
+
+      <li>Reliability estimation</li>
+
+      <li>Medical probability modeling</li>
+
+      <li>Survey response proportions</li>
+
+      <li>Bayesian inference</li>
+
+    </ul>
+
+    <p>
+      Any uncertain probability may potentially be modeled with a beta distribution.
+    </p>
+
+    <h2>Relationship to Other Distributions</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Distribution</th>
+            <th>Relationship</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Uniform</td>
+            <td>Beta(1,1)</td>
+          </tr>
+
+          <tr>
+            <td>Gamma</td>
+            <td>Closely related through the beta function</td>
+          </tr>
+
+          <tr>
+            <td>Bernoulli/Binomial</td>
+            <td>Common Bayesian partner</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>Why the Beta Distribution Matters</h2>
+
+    <p>
+      The beta distribution is the standard probability model for uncertain probabilities.
+    </p>
+
+    <p>
+      Its flexibility allows it to represent a wide range of beliefs and data situations.
+    </p>
+
+    <p>
+      It plays a foundational role in modern Bayesian statistics and decision-making under uncertainty.
+    </p>
+
+    <h2>The Limitation</h2>
+
+    <p>
+      Beta distributions are restricted to values between 0 and 1.
+    </p>
+
+    <p>
+      Many natural measurements can take any real value.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Heights
+      </p>
+
+      <p>
+        Test scores
+      </p>
+
+      <p>
+        Measurement errors
+      </p>
+
+      <p>
+        IQ scores
+      </p>
+
+    </div>
+
+    <p>
+      Such quantities are often modeled using the most famous probability distribution of all:
+      the normal distribution.
+    </p>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      The normal distribution is the central distribution of probability and statistics.
+    </p>
+
+    <p>
+      Its appearance throughout science, data analysis, and machine learning makes it one of the most important concepts in all of statistics.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Forgetting the support is <strong>[0, 1]</strong> (Beta cannot model values outside this interval)</li>
-        <li>Interpreting &alpha; and &beta; as “mean and variance” directly (they are shape parameters)</li>
-        <li>Ignoring the role of <strong>&alpha;+&beta;</strong> in controlling uncertainty</li>
-        <li>Using Beta for data values that are exactly 0 or 1 without thinking (boundary issues may need special handling)</li>
+
+        <li>The beta distribution models probabilities and proportions between 0 and 1</li>
+
+        <li>It is controlled by two shape parameters, α and β</li>
+
+        <li>The beta distribution can take many different shapes</li>
+
+        <li>The mean equals α/(α + β)</li>
+
+        <li>The variance depends on both α and β</li>
+
+        <li>Beta(1,1) is the uniform distribution</li>
+
+        <li>The beta distribution is fundamental in Bayesian statistics</li>
+
+        <li>It is widely used to model uncertainty about probabilities</li>
+
       </ul>
+
     </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/probability/distributions/gamma-distribution/">
+         ← Previous: Gamma Distribution
+      </a>
+
+      <a class="btn"
+         href="/probability/distributions/normal-distribution/">
+         Next: Normal Distribution →
+      </a>
+
+    </div>
+
   </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
-      <ul class="bullets">
-        <li>Know the Beta PDF on [0, 1] and the role of the Beta function</li>
-        <li>Interpret how &alpha; and &beta; shape the distribution</li>
-        <li>Compute mean and variance</li>
-        <li>Understand why Beta is a natural model for unknown probabilities</li>
-        <li>Be ready for the Normal distribution next</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next step</h2>
-      <p style="margin:0;">
-        Next, we study the most important distribution in statistics:
-        the <strong>Normal distribution</strong> and its role as a universal approximation.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/probability/distributions/normal-distribution/">
-          Next lesson: 11. Normal Distribution →
-        </a>
-      </div>
-    </div>
-
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/probability/distributions/gamma-distribution/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 9 — Gamma Distribution
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>
