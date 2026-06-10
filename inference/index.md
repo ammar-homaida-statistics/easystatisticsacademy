@@ -26,6 +26,11 @@ sidebar: false
         confidence intervals, and hypothesis testing with correct interpretation.
       </p>
 
+      <p class="lead">
+        This unit transforms probability theory into practical statistical decision-making,
+        teaching how uncertainty is measured, communicated, and evaluated.
+      </p>
+
       <p class="muted-mini">
         7 structured blocks • Concept-first • Built on probability
       </p>
@@ -70,7 +75,7 @@ sidebar: false
     <h2>Blocks (Unit Structure)</h2>
     <p>
       Follow the blocks in order. Each block builds your ability to make valid conclusions
-      from data under uncertainty.
+      from data under uncertainty and communicate evidence responsibly.
     </p>
   </div>
 
@@ -90,49 +95,49 @@ sidebar: false
     <!-- BLOCK 1 -->
     <div class="card lesson-card">
       <h3><a href="/inference/foundations/">Block 1 — Inference Foundations</a></h3>
-      <p>Parameters, estimators, standard error, and uncertainty.</p>
+      <p>Parameters, estimators, standard errors, and inferential thinking.</p>
       <a class="btn btn-outline" href="/inference/foundations/">Open block</a>
     </div>
 
     <!-- BLOCK 2 -->
     <div class="card lesson-card">
       <h3><a href="/inference/confidence-intervals/">Block 2 — Confidence Intervals</a></h3>
-      <p>Meaning, construction, and correct interpretation.</p>
+      <p>Confidence levels, margins of error, and interval estimation.</p>
       <a class="btn btn-outline" href="/inference/confidence-intervals/">Open block</a>
     </div>
 
     <!-- BLOCK 3 -->
     <div class="card lesson-card">
       <h3><a href="/inference/hypothesis-testing/">Block 3 — Hypothesis Testing</a></h3>
-      <p>Null hypothesis, errors, p-values, and decisions.</p>
+      <p>Null hypotheses, p-values, significance, and decision rules.</p>
       <a class="btn btn-outline" href="/inference/hypothesis-testing/">Open block</a>
     </div>
 
     <!-- BLOCK 4 -->
     <div class="card lesson-card">
       <h3><a href="/inference/classical-tests/">Block 4 — Classical Tests</a></h3>
-      <p>t-tests, proportion tests, and chi-square methods.</p>
+      <p>t-tests, proportion tests, chi-square methods, and practical applications.</p>
       <a class="btn btn-outline" href="/inference/classical-tests/">Open block</a>
     </div>
 
     <!-- BLOCK 5 -->
     <div class="card lesson-card">
       <h3><a href="/inference/power-sample-size/">Block 5 — Power & Sample Size</a></h3>
-      <p>Design thinking, effect size, and statistical power.</p>
+      <p>Type II errors, effect size, power analysis, and study design.</p>
       <a class="btn btn-outline" href="/inference/power-sample-size/">Open block</a>
     </div>
 
     <!-- BLOCK 6 -->
     <div class="card lesson-card">
       <h3><a href="/inference/interpretation-reporting/">Block 6 — Interpretation & Reporting</a></h3>
-      <p>Effect sizes, evidence, and correct conclusions.</p>
+      <p>Evidence evaluation, effect sizes, reporting results, and common mistakes.</p>
       <a class="btn btn-outline" href="/inference/interpretation-reporting/">Open block</a>
     </div>
 
     <!-- BLOCK 7 -->
     <div class="card lesson-card">
       <h3><a href="/inference/assumptions-robustness/">Block 7 — Assumptions & Robustness</a></h3>
-      <p>When methods fail and how to respond correctly.</p>
+      <p>Model assumptions, violations, robustness, and responsible inference.</p>
       <a class="btn btn-outline" href="/inference/assumptions-robustness/">Open block</a>
     </div>
 
@@ -147,23 +152,26 @@ sidebar: false
       <h2>Goal of this unit</h2>
       <ul class="bullets">
         <li>Understand inference as reasoning under uncertainty</li>
-        <li>Interpret confidence intervals and p-values correctly</li>
-        <li>Avoid common statistical misconceptions</li>
-        <li>Prepare for modeling and applied analysis</li>
+        <li>Interpret confidence intervals correctly</li>
+        <li>Interpret p-values and significance appropriately</li>
+        <li>Understand statistical evidence and practical importance</li>
+        <li>Avoid common inferential misconceptions</li>
+        <li>Prepare for statistical modeling and applied analysis</li>
       </ul>
     </div>
 
     <div class="callout-side">
       <div class="mini">
-        <div class="mini-title">Next</div>
+        <div class="mini-title">Next Unit</div>
         <div class="mini-body">
           Continue to <strong>Statistical Modeling</strong>
         </div>
       </div>
+
       <div class="mini">
-        <div class="mini-title">Note</div>
+        <div class="mini-title">Prerequisite</div>
         <div class="mini-body">
-          Focus on interpretation, not mechanical procedures
+          Probability and sampling distributions
         </div>
       </div>
     </div>
@@ -188,7 +196,9 @@ sidebar: false
 
     if (!wrap || !label || !btn) return;
 
-    label.innerHTML = "You last visited: <strong>" + data.label + "</strong>";
+    label.innerHTML =
+      "You last visited: <strong>" + data.label + "</strong>";
+
     btn.href = data.url;
     wrap.style.display = "block";
 
