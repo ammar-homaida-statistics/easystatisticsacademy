@@ -1,211 +1,560 @@
 ---
 layout: default
-title: "8. Exponential Distribution"
-description: "The fundamental continuous waiting-time model with constant hazard and memoryless property."
+title: Exponential Distribution
+description: Learn how the exponential distribution models waiting times between random events and why it is the continuous counterpart of the geometric distribution.
 permalink: /probability/distributions/exponential-distribution/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem;">🚧 Lesson Under Construction</h2>
-      <p style="margin:0; font-size:1.05rem;">
-        Version 0 establishes structure, formulas, and interpretation.
-        Worked examples, intuition visuals, and simulations will be added next.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Continue Reading Tracking -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_probability_distributions_lesson_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/probability/distributions/exponential-distribution/",
-      label: "Lesson 8 — Exponential Distribution",
-      ts: Date.now()
-    }));
-  })();
+(function () {
+
+  const KEY =
+    "esa_continue_probability_distributions_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/probability/distributions/exponential-distribution/",
+    label: "Exponential Distribution",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 5</span>
-        <span class="badge">Lesson 8</span>
-        <span class="badge">Continuous</span>
-        <span class="badge">Waiting Time</span>
-      </div>
 
-      <h1>8. Exponential Distribution</h1>
-
-      <p class="lead">
-        The exponential distribution models waiting time until the first event
-        in a process with a constant rate. It is the continuous analogue of
-        the geometric distribution.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/probability/distributions/">Back to Block 5</a>
-        <a class="btn btn-outline" href="/probability/">Probability home</a>
-      </div>
-
-      <p class="muted-mini">
-        Key idea: constant hazard rate ⇒ memoryless property.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Probability</span>
+      <span class="badge">Block 5</span>
+      <span class="badge">Distributions</span>
+      <span class="badge">Continuous</span>
     </div>
+
+    <h1>Exponential Distribution</h1>
+
+    <p class="lead">
+      Many probability problems focus on waiting times.
+    </p>
+
+    <p class="lead">
+      The exponential distribution is one of the most important continuous distributions because it models the time between random events.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/probability/distributions/uniform-distribution/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/probability/distributions/gamma-distribution/">
+         Next: Gamma Distribution →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) Definition</h2>
-  </div>
+<!-- LESSON -->
 
-  <div class="card">
+<section>
+
+  <div class="content-narrow">
+
+    <h2>What Is an Exponential Distribution?</h2>
+
     <p>
-      A random variable X follows an exponential distribution with rate parameter λ > 0 if:
+      The exponential distribution describes the waiting time until the next occurrence of a random event.
     </p>
 
-    <p style="font-size:1.1rem;">
-      $$
-      f(x) =
-      \begin{cases}
-      \lambda e^{-\lambda x}, & x \ge 0 \\
-      0, & x < 0
-      \end{cases}
-      $$
-    </p>
-  </div>
-</section>
+    <div class="concept-box">
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) Cumulative Distribution Function</h2>
-  </div>
+      <strong>Definition:</strong>
 
-  <div class="card">
-    <p style="font-size:1.1rem;">
-      $$
-      F(x) = 1 - e^{-\lambda x}, \quad x \ge 0
-      $$
-    </p>
-  </div>
+      <p>
+        An exponential random variable measures the time between consecutive events in a Poisson process.
+      </p>
 
-  <div class="card" style="margin-top:1rem;">
-    <h3>Survival Function</h3>
-    <p style="margin:0;">
-      $$
-      P(X > x) = e^{-\lambda x}
-      $$
-    </p>
-  </div>
-</section>
+    </div>
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) Mean and Variance</h2>
-  </div>
+    <h2>The Main Question</h2>
 
-  <div class="card">
-    <p style="margin:0;">
-      $$
-      E[X] = \frac{1}{\lambda}
-      $$
-    </p>
-  </div>
-
-  <div class="card" style="margin-top:1rem;">
-    <p style="margin:0;">
-      $$
-      Var(X) = \frac{1}{\lambda^2}
-      $$
-    </p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>4) Memoryless Property</h2>
-  </div>
-
-  <div class="card">
-    <p style="font-size:1.1rem;">
-      $$
-      P(X > s + t \mid X > s) = P(X > t)
-      $$
-    </p>
-  </div>
-
-  <p class="muted-mini">
-    The exponential distribution is the only continuous distribution with this property.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>5) Hazard Rate</h2>
-  </div>
-
-  <div class="card">
     <p>
-      The hazard rate is:
+      Instead of counting events,
+      we ask:
     </p>
 
-    <p style="font-size:1.1rem;">
-      $$
-      h(x) = \lambda
-      $$
+    <div class="example-box">
+
+      <p>
+        How long until the next customer arrives?
+      </p>
+
+      <p>
+        How long until the next phone call?
+      </p>
+
+      <p>
+        How long until a machine fails?
+      </p>
+
+      <p>
+        How long until the next website visit?
+      </p>
+
+    </div>
+
+    <p>
+      These are waiting-time questions.
     </p>
 
-    <p class="muted-mini">
-      Constant hazard ⇒ no aging effect.
-    </p>
-  </div>
-</section>
+    <h2>Connection to the Poisson Distribution</h2>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+    <p>
+      The Poisson distribution counts events.
+    </p>
+
+    <p>
+      The exponential distribution measures the time between those events.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Distribution</th>
+            <th>Models</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Poisson</td>
+            <td>Number of events</td>
+          </tr>
+
+          <tr>
+            <td>Exponential</td>
+            <td>Waiting time between events</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>The Rate Parameter</h2>
+
+    <p>
+      The exponential distribution uses the same rate parameter:
+    </p>
+
+    0
+
+    <p>
+      that appears in the Poisson distribution.
+    </p>
+
+    <p>
+      λ represents the average number of events per unit time.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        λ = 4 means four events per hour on average.
+      </p>
+
+    </div>
+
+    <h2>Notation</h2>
+
+    <p>
+      An exponential random variable is written as:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        X ~ Exponential(λ)
+      </p>
+
+    </div>
+
+    <p>
+      where λ is the event rate.
+    </p>
+
+    <h2>The Probability Density Function</h2>
+
+    <p>
+      The exponential density function is:
+    </p>
+
+    1
+
+    <p>
+      for:
+    </p>
+
+    2
+
+    <p>
+      and zero otherwise.
+    </p>
+
+    <h2>The Shape of the Density</h2>
+
+    <p>
+      The density starts high and decreases continuously.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Short waiting times are common.
+      </p>
+
+      <p>
+        Long waiting times are increasingly rare.
+      </p>
+
+    </div>
+
+    <p>
+      This creates a strongly right-skewed distribution.
+    </p>
+
+    <h2>The Cumulative Distribution Function</h2>
+
+    <p>
+      The probability that an event occurs within time x is:
+    </p>
+
+    3
+
+    <p>
+      This is the cumulative distribution function (CDF).
+    </p>
+
+    <h2>Probabilities of Waiting Longer</h2>
+
+    <p>
+      The probability of waiting more than x units of time is:
+    </p>
+
+    4
+
+    <p>
+      This is called the survival function.
+    </p>
+
+    <h2>Example: Customer Arrivals</h2>
+
+    <p>
+      Suppose customers arrive at an average rate of:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        λ = 2 per minute
+      </p>
+
+    </div>
+
+    <p>
+      What is the probability the next customer arrives within one minute?
+    </p>
+
+    <p>
+      Using the CDF:
+    </p>
+
+    5
+
+    <p>
+      This evaluates to approximately 0.865.
+    </p>
+
+    <h2>The Mean</h2>
+
+    <p>
+      The expected value is:
+    </p>
+
+    6
+
+    <div class="concept-box">
+
+      <strong>Interpretation:</strong>
+
+      <p>
+        The average waiting time equals the reciprocal of the event rate.
+      </p>
+
+    </div>
+
+    <h2>Example of the Mean</h2>
+
+    <p>
+      If:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        λ = 4 per hour
+      </p>
+
+    </div>
+
+    <p>
+      Then:
+    </p>
+
+    7
+
+    <p>
+      hours,
+      or approximately 15 minutes.
+    </p>
+
+    <h2>The Variance</h2>
+
+    <p>
+      The variance is:
+    </p>
+
+    8
+
+    <p>
+      The standard deviation is:
+    </p>
+
+    9
+
+    <p>
+      Interestingly,
+      the standard deviation equals the mean.
+    </p>
+
+    <h2>The Memoryless Property</h2>
+
+    <p>
+      The exponential distribution has a remarkable property:
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Memoryless Property:</strong>
+
+      <p>
+        Future waiting time does not depend on how long you have already waited.
+      </p>
+
+    </div>
+
+    <h2>The Memoryless Formula</h2>
+
+    <p>
+      Mathematically:
+    </p>
+
+    10
+
+    <p>
+      The remaining waiting time has the same distribution regardless of past waiting.
+    </p>
+
+    <h2>Understanding Memorylessness</h2>
+
+    <p>
+      Suppose no customer has arrived for 20 minutes.
+    </p>
+
+    <p>
+      The expected future waiting time remains unchanged.
+    </p>
+
+    <p>
+      The process does not become "due" for an event.
+    </p>
+
+    <h2>Connection to the Geometric Distribution</h2>
+
+    <p>
+      The geometric distribution is the discrete waiting-time model.
+    </p>
+
+    <p>
+      The exponential distribution is its continuous counterpart.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Distribution</th>
+            <th>Waiting-Time Type</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Geometric</td>
+            <td>Discrete trials</td>
+          </tr>
+
+          <tr>
+            <td>Exponential</td>
+            <td>Continuous time</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>Applications of the Exponential Distribution</h2>
+
+    <ul class="bullets">
+
+      <li>Customer arrival times</li>
+
+      <li>Machine lifetimes</li>
+
+      <li>Queueing systems</li>
+
+      <li>Network packet arrivals</li>
+
+      <li>Service waiting times</li>
+
+      <li>Reliability engineering</li>
+
+    </ul>
+
+    <p>
+      It is one of the most widely used continuous distributions.
+    </p>
+
+    <h2>Why It Matters</h2>
+
+    <p>
+      The exponential distribution provides a simple model for random waiting times.
+    </p>
+
+    <p>
+      Its connection to Poisson processes makes it fundamental in probability theory,
+      operations research,
+      reliability analysis,
+      and data science.
+    </p>
+
+    <h2>The Limitation</h2>
+
+    <p>
+      The exponential distribution models waiting for a single event.
+    </p>
+
+    <p>
+      Sometimes we need to model waiting for multiple events.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Time until the third customer arrives
+      </p>
+
+      <p>
+        Time until the fifth failure occurs
+      </p>
+
+      <p>
+        Time until ten calls arrive
+      </p>
+
+    </div>
+
+    <p>
+      These situations lead to the gamma distribution.
+    </p>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      The gamma distribution generalizes the exponential distribution by modeling waiting times until multiple events occur.
+    </p>
+
+    <p>
+      It is one of the most flexible and useful continuous distributions in probability and statistics.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Understand exponential waiting-time interpretation</li>
-        <li>Compute probabilities using PDF and CDF</li>
-        <li>Apply memoryless property correctly</li>
-        <li>Connect exponential to geometric and Poisson processes</li>
+
+        <li>The exponential distribution models waiting times between random events</li>
+
+        <li>It is governed by the rate parameter λ</li>
+
+        <li>The density function is λe<sup>−λx</sup></li>
+
+        <li>The mean equals 1/λ</li>
+
+        <li>The variance equals 1/λ²</li>
+
+        <li>It possesses the memoryless property</li>
+
+        <li>It is the continuous counterpart of the geometric distribution</li>
+
+        <li>It is closely connected to Poisson processes</li>
+
       </ul>
+
     </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/probability/distributions/uniform-distribution/">
+         ← Previous: Uniform Distribution
+      </a>
+
+      <a class="btn"
+         href="/probability/distributions/gamma-distribution/">
+         Next: Gamma Distribution →
+      </a>
+
+    </div>
+
   </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next step</h2>
-      <p style="margin:0;">
-        Next, we generalize exponential waiting times using the Gamma distribution.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/probability/distributions/gamma-distribution/">
-          Next lesson: 9. Gamma Distribution →
-        </a>
-      </div>
-    </div>
-
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/probability/distributions/uniform-distribution/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 7 — Uniform Distribution
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>
