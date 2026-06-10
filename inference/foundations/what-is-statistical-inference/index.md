@@ -1,8 +1,8 @@
 ---
 layout: default
 title: What Is Statistical Inference?
-description: Learn what statistical inference is and how it allows us to use sample data to learn about populations.
-permalink: /inference/foundation/what-is-statistical-inference/
+description: Learn what statistical inference is and how statisticians use samples to learn about unknown populations.
+permalink: /inference/foundations/what-is-statistical-inference/
 sidebar: false
 ---
 
@@ -11,10 +11,10 @@ sidebar: false
 (function () {
 
   const KEY =
-    "esa_continue_inference_foundation_lesson_v0";
+    "esa_continue_inference_foundations_lesson_v0";
 
   localStorage.setItem(KEY, JSON.stringify({
-    url: "/inference/foundation/what-is-statistical-inference/",
+    url: "/inference/foundations/what-is-statistical-inference/",
     label: "What Is Statistical Inference?",
     ts: Date.now()
   }));
@@ -31,29 +31,29 @@ sidebar: false
     <div class="badge-row">
       <span class="badge">Inference</span>
       <span class="badge">Block 1</span>
-      <span class="badge">Foundation</span>
+      <span class="badge">Foundations</span>
       <span class="badge">Lesson 1</span>
     </div>
 
     <h1>What Is Statistical Inference?</h1>
 
     <p class="lead">
-      Most real-world populations are too large, expensive, or impossible to observe completely.
+      Data analysis often begins with a sample, but the real goal is usually to understand a larger population.
     </p>
 
     <p class="lead">
-      Statistical inference provides a framework for using sample data to learn about unknown population characteristics.
+      Statistical inference provides the tools for moving from sample evidence to conclusions about unknown population characteristics.
     </p>
 
     <div class="hero-actions">
 
       <a class="btn"
-         href="/inference/foundation/">
-         ← Back to Foundation
+         href="/inference/foundations/">
+         ← Back to Foundations
       </a>
 
       <a class="btn btn-outline"
-         href="/inference/foundation/populations-parameters-target/">
+         href="/inference/foundations/populations-parameters-target/">
          Next: Populations, Parameters, and Targets →
       </a>
 
@@ -72,60 +72,56 @@ sidebar: false
     <h2>Why Statistical Inference Exists</h2>
 
     <p>
-      Imagine trying to answer questions such as:
+      In most real-world situations,
+      collecting data from an entire population is impossible, expensive, or impractical.
     </p>
 
     <div class="example-box">
 
       <p>
-        What percentage of voters support a candidate?
+        Survey every voter in a country
       </p>
 
       <p>
-        What is the average income in a country?
+        Test every manufactured product
       </p>
 
       <p>
-        Does a new medication work?
+        Measure every customer
       </p>
 
       <p>
-        Is a manufacturing process meeting quality standards?
+        Observe every future event
       </p>
 
     </div>
 
     <p>
-      In most situations,
-      observing every individual is impossible.
-    </p>
-
-    <p>
       Instead,
-      we collect a sample and use it to draw conclusions.
+      we collect a sample and use it to learn about the population.
     </p>
 
-    <h2>The Core Idea</h2>
+    <h2>What Is Statistical Inference?</h2>
 
     <div class="concept-box">
 
       <strong>Definition:</strong>
 
       <p>
-        Statistical inference is the process of using sample data to learn about a population.
+        Statistical inference is the process of using sample data to draw conclusions about a population.
       </p>
 
     </div>
 
     <p>
-      The goal is to move from limited information to broader conclusions while accounting for uncertainty.
+      Inference goes beyond describing observed data.
     </p>
-
-    <h2>From Samples to Populations</h2>
 
     <p>
-      Statistical inference works in the opposite direction of probability.
+      It attempts to learn about quantities that are not directly observed.
     </p>
+
+    <h2>Descriptive Statistics vs Statistical Inference</h2>
 
     <div class="table-wrap">
 
@@ -134,8 +130,8 @@ sidebar: false
         <thead>
 
           <tr>
-            <th>Probability</th>
-            <th>Inference</th>
+            <th>Descriptive Statistics</th>
+            <th>Statistical Inference</th>
           </tr>
 
         </thead>
@@ -143,13 +139,18 @@ sidebar: false
         <tbody>
 
           <tr>
-            <td>Known population → Predict samples</td>
-            <td>Observed sample → Learn about population</td>
+            <td>Summarizes observed data</td>
+            <td>Draws conclusions beyond the sample</td>
           </tr>
 
           <tr>
-            <td>Forward reasoning</td>
-            <td>Reverse reasoning</td>
+            <td>Describes what happened</td>
+            <td>Estimates what is unknown</td>
+          </tr>
+
+          <tr>
+            <td>Focuses on data</td>
+            <td>Focuses on populations</td>
           </tr>
 
         </tbody>
@@ -158,45 +159,11 @@ sidebar: false
 
     </div>
 
-    <p>
-      Inference uses probability theory as its foundation.
-    </p>
-
-    <h2>A Simple Example</h2>
+    <h2>The Core Challenge</h2>
 
     <p>
-      Suppose a city has one million residents.
+      Samples never perfectly match populations.
     </p>
-
-    <p>
-      A researcher surveys:
-    </p>
-
-    <div class="example-box">
-
-      <p>
-        1,000 residents
-      </p>
-
-    </div>
-
-    <p>
-      and finds that:
-    </p>
-
-    <div class="example-box">
-
-      <p>
-        62% support a proposed policy.
-      </p>
-
-    </div>
-
-    <p>
-      The researcher then uses inference to estimate support within the entire city.
-    </p>
-
-    <h2>The Challenge of Uncertainty</h2>
 
     <p>
       Different samples produce different results.
@@ -205,36 +172,58 @@ sidebar: false
     <div class="example-box">
 
       <p>
-        Sample A → 62%
+        Sample A → Average income = $48,000
       </p>
 
       <p>
-        Sample B → 59%
+        Sample B → Average income = $51,000
       </p>
 
       <p>
-        Sample C → 64%
+        Sample C → Average income = $49,500
       </p>
 
     </div>
 
     <p>
-      Because samples vary,
-      conclusions are never perfectly certain.
+      Statistical inference helps us quantify and manage this uncertainty.
+    </p>
+
+    <h2>The Basic Logic of Inference</h2>
+
+    <p>
+      Statistical inference follows a simple pattern:
+    </p>
+
+    <ol>
+
+      <li>Collect a sample.</li>
+
+      <li>Compute sample statistics.</li>
+
+      <li>Measure uncertainty.</li>
+
+      <li>Draw conclusions about the population.</li>
+
+    </ol>
+
+    <p>
+      Every inferential method follows this general logic.
+    </p>
+
+    <h2>Why Probability Is Necessary</h2>
+
+    <p>
+      Inference depends on probability theory.
     </p>
 
     <p>
-      Statistical inference quantifies this uncertainty.
-    </p>
-
-    <h2>The Role of Probability</h2>
-
-    <p>
-      Probability tells us how sample statistics behave when sampling is repeated.
+      Probability tells us how sample statistics behave under repeated sampling.
     </p>
 
     <p>
-      Inference uses that information to evaluate what population values are plausible.
+      Without probability,
+      we could not evaluate uncertainty or reliability.
     </p>
 
     <div class="concept-box">
@@ -242,15 +231,39 @@ sidebar: false
       <strong>Key idea:</strong>
 
       <p>
-        Statistical inference relies on probability to measure uncertainty.
+        Probability provides the mathematical foundation for statistical inference.
       </p>
 
     </div>
 
-    <h2>The Two Main Goals of Inference</h2>
+    <h2>What Are We Trying to Learn?</h2>
 
     <p>
-      Most inferential procedures fall into two broad categories.
+      Inference often focuses on unknown population quantities such as:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Population mean</li>
+
+      <li>Population proportion</li>
+
+      <li>Population variance</li>
+
+      <li>Differences between groups</li>
+
+      <li>Relationships between variables</li>
+
+    </ul>
+
+    <p>
+      These quantities are called parameters.
+    </p>
+
+    <h2>Two Major Goals of Inference</h2>
+
+    <p>
+      Most inferential procedures belong to one of two categories.
     </p>
 
     <div class="table-wrap">
@@ -270,12 +283,12 @@ sidebar: false
 
           <tr>
             <td>Estimation</td>
-            <td>What is the population value?</td>
+            <td>What is the parameter value?</td>
           </tr>
 
           <tr>
             <td>Hypothesis Testing</td>
-            <td>Is there evidence for a claim?</td>
+            <td>What does the evidence suggest?</td>
           </tr>
 
         </tbody>
@@ -287,21 +300,21 @@ sidebar: false
     <h2>Estimation</h2>
 
     <p>
-      Estimation focuses on determining likely values for unknown parameters.
+      Estimation attempts to determine plausible values for unknown parameters.
     </p>
 
     <div class="example-box">
 
       <p>
-        Average income
+        Estimate average customer spending
       </p>
 
       <p>
-        Population proportion
+        Estimate election support
       </p>
 
       <p>
-        Average treatment effect
+        Estimate disease prevalence
       </p>
 
     </div>
@@ -313,146 +326,134 @@ sidebar: false
     <h2>Hypothesis Testing</h2>
 
     <p>
-      Hypothesis testing evaluates claims about populations.
+      Hypothesis testing evaluates claims using sample evidence.
     </p>
 
     <div class="example-box">
 
       <p>
-        Does a drug improve recovery?
+        Is a new treatment effective?
       </p>
 
       <p>
-        Has customer satisfaction changed?
+        Has a process changed?
       </p>
 
       <p>
-        Is a coin fair?
+        Are two groups different?
       </p>
 
     </div>
 
     <p>
-      Statistical tests help determine whether observed evidence supports a claim.
+      Statistical tests help answer these questions systematically.
     </p>
 
-    <h2>Inference Is About Evidence</h2>
+    <h2>Uncertainty Is Central</h2>
 
     <p>
-      Statistical inference rarely proves anything with certainty.
+      Unlike pure mathematics,
+      statistical conclusions are rarely certain.
     </p>
 
     <p>
       Instead,
-      it measures how strongly the data support various conclusions.
+      conclusions are expressed with quantified uncertainty.
     </p>
 
-    <div class="concept-box">
-
-      <strong>Important:</strong>
+    <div class="example-box">
 
       <p>
-        Statistical inference evaluates evidence rather than providing absolute proof.
+        95% confidence interval
+      </p>
+
+      <p>
+        p-value
+      </p>
+
+      <p>
+        Margin of error
       </p>
 
     </div>
 
-    <h2>Why Large Samples Help</h2>
-
     <p>
-      Larger samples generally produce more reliable information.
+      These measures communicate the strength of evidence.
     </p>
 
-    <p>
-      The Law of Large Numbers and Central Limit Theorem explain why.
-    </p>
-
-    <p>
-      As sample size increases,
-      estimates tend to become more stable and precise.
-    </p>
-
-    <h2>Applications of Statistical Inference</h2>
+    <h2>Examples of Statistical Inference</h2>
 
     <ul class="bullets">
 
-      <li>Medicine and clinical trials</li>
+      <li>Election polling</li>
 
-      <li>Business analytics</li>
+      <li>Medical research</li>
 
-      <li>Economics and finance</li>
+      <li>A/B testing</li>
 
-      <li>Government surveys</li>
+      <li>Quality control</li>
 
-      <li>Manufacturing quality control</li>
+      <li>Market research</li>
+
+      <li>Economic forecasting</li>
 
       <li>Machine learning evaluation</li>
 
-      <li>Scientific research</li>
-
     </ul>
 
     <p>
-      Nearly every data-driven field depends on statistical inference.
+      Statistical inference is used wherever decisions must be made under uncertainty.
     </p>
 
-    <h2>Common Misconceptions</h2>
+    <h2>The Inferential Framework</h2>
+
+    <p>
+      Much of modern statistics can be summarized by a simple idea:
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Framework:</strong>
+
+      <p>
+        Use a sample to learn about a population while accounting for uncertainty caused by sampling variability.
+      </p>
+
+    </div>
+
+    <h2>What Makes Inference Possible?</h2>
+
+    <p>
+      The entire field relies on concepts developed in probability:
+    </p>
 
     <ul class="bullets">
 
-      <li>Inference does not eliminate uncertainty.</li>
+      <li>Random variables</li>
 
-      <li>Inference does not guarantee correctness.</li>
+      <li>Probability distributions</li>
 
-      <li>Inference does not replace careful study design.</li>
+      <li>Sampling distributions</li>
 
-      <li>Inference depends on assumptions and data quality.</li>
+      <li>Law of Large Numbers</li>
 
-    </ul>
-
-    <h2>The Building Blocks of Inference</h2>
-
-    <p>
-      Throughout this section,
-      several concepts will appear repeatedly:
-    </p>
-
-    <ul class="bullets">
-
-      <li>Populations</li>
-
-      <li>Parameters</li>
-
-      <li>Samples</li>
-
-      <li>Estimators</li>
-
-      <li>Standard errors</li>
-
-      <li>Confidence intervals</li>
-
-      <li>Hypothesis tests</li>
+      <li>Central Limit Theorem</li>
 
     </ul>
 
     <p>
-      Together,
-      these concepts form the language of inference.
+      These ideas make reliable inference possible.
     </p>
 
     <h2>Looking Ahead</h2>
 
     <p>
-      Before making estimates or conducting tests,
-      we must clearly distinguish between populations and samples.
+      Before building inferential procedures,
+      we must clearly distinguish populations from samples and parameters from statistics.
     </p>
 
     <p>
-      We must also identify the parameters we are trying to learn about.
-    </p>
-
-    <p>
-      The next lesson introduces populations, parameters, and inferential targets.
+      These distinctions form the language of statistical inference.
     </p>
 
     <!-- TAKEAWAYS -->
@@ -463,21 +464,21 @@ sidebar: false
 
       <ul class="bullets">
 
-        <li>Statistical inference uses sample data to learn about populations</li>
+        <li>Statistical inference uses samples to learn about populations</li>
 
-        <li>Inference is the reverse of probability reasoning</li>
-
-        <li>Sampling variability creates uncertainty</li>
+        <li>Inference goes beyond description and addresses unknown quantities</li>
 
         <li>Probability theory provides the foundation for inference</li>
 
-        <li>The two major goals are estimation and hypothesis testing</li>
+        <li>Most inferential goals involve estimation or hypothesis testing</li>
 
-        <li>Inference evaluates evidence rather than proving conclusions</li>
+        <li>Sampling variability creates uncertainty</li>
 
-        <li>Larger samples generally provide more reliable information</li>
+        <li>Inference quantifies uncertainty rather than eliminating it</li>
 
-        <li>Inference is essential across science, business, medicine, and public policy</li>
+        <li>Population parameters are the primary targets of inference</li>
+
+        <li>Statistical inference is central to modern data-driven decision making</li>
 
       </ul>
 
@@ -488,12 +489,12 @@ sidebar: false
     <div class="lesson-nav">
 
       <a class="btn btn-outline"
-         href="/inference/foundation/">
-         ← Back to Foundation
+         href="/inference/foundations/">
+         ← Back to Foundations
       </a>
 
       <a class="btn"
-         href="/inference/foundation/populations-parameters-target/">
+         href="/inference/foundations/populations-parameters-target/">
          Next: Populations, Parameters, and Targets →
       </a>
 
