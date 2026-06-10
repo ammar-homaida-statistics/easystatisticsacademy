@@ -1,260 +1,492 @@
 ---
 layout: default
-title: "4. t-Distribution & the t-Statistic"
-description: "Inference when σ is unknown: Student’s t distribution, degrees of freedom, and why it replaces z in practical estimation."
+title: t Distribution and t Test
+description: Learn why the t-distribution is needed, how it differs from the normal distribution, and how t-tests are used for inference about means.
 permalink: /probability/sampling-distributions/t-distribution-and-t-test/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem;">🚧 Lesson Under Construction</h2>
-      <p style="margin:0; font-size:1.05rem;">
-        Version 0 introduces Student’s t distribution and its role in inference when σ is unknown.
-        Worked examples and simulation-based intuition will be added in Version 1.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Continue Reading Tracking -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_probability_sampling_distributions_lesson_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/probability/sampling-distributions/t-distribution-and-t-test/",
-      label: "Lesson 4 — t-Distribution & the t-Statistic",
-      ts: Date.now()
-    }));
-  })();
+(function () {
+
+  const KEY =
+    "esa_continue_probability_sampling_distributions_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/probability/sampling-distributions/t-distribution-and-t-test/",
+    label: "t Distribution and t Test",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 7</span>
-        <span class="badge">Lesson 4</span>
-        <span class="badge">t</span>
-        <span class="badge">Degrees of Freedom</span>
-      </div>
 
-      <h1>4. t-Distribution & the t-Statistic</h1>
-
-      <p class="lead">
-        In real applications, the population variance \(\sigma^2\) is usually unknown.
-        Replacing \(\sigma\) with the sample standard deviation \(S\)
-        introduces extra uncertainty.  
-        That uncertainty changes the reference distribution from Normal to <strong>Student’s t</strong>.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/probability/sampling-distributions/">Back to Block 7</a>
-        <a class="btn btn-outline" href="/probability/">Probability home</a>
-      </div>
-
-      <p class="muted-mini">
-        The t-distribution accounts for estimating σ.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Probability</span>
+      <span class="badge">Block 7</span>
+      <span class="badge">Sampling Distributions</span>
+      <span class="badge">Inference</span>
     </div>
+
+    <h1>t Distribution and t Test</h1>
+
+    <p class="lead">
+      The z-distribution works well when population variability is known.
+    </p>
+
+    <p class="lead">
+      In practice, population standard deviations are rarely known. The t-distribution provides a solution and forms the basis of one of the most important statistical procedures: the t-test.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/probability/sampling-distributions/z-statistic-and-ci/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/probability/sampling-distributions/chi-square-and-variance/">
+         Next: Chi-Square and Variance →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>The Problem with Z Procedures</h2>
+
     <p>
-      By the end of this lesson, you should be able to derive the t-statistic,
-      explain degrees of freedom, and construct confidence intervals and tests
-      for a mean when σ is unknown.
+      Earlier confidence intervals and z-statistics used:
     </p>
-  </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Key idea</h2>
-      <p style="margin:0;">
-        Replacing \(\sigma\) with \(S\) increases uncertainty.
-        The resulting standardized statistic follows a <strong>t-distribution</strong>.
-      </p>
-    </div>
-  </div>
-</section>
+    0
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) Why z no longer works</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      Previously:
-      \[
-      Z = \frac{\overline{X}-\mu}{\sigma/\sqrt{n}}
-      \sim N(0,1).
-      \]
+    <p>
+      where:
     </p>
-  </div>
 
-  <div class="card" style="margin-top:1rem;">
-    <p style="margin:0;">
-      But when \(\sigma\) is unknown, we estimate it using:
-      \[
-      S^2 = \frac{1}{n-1}\sum_{i=1}^n (X_i-\overline{X})^2.
-      \]
-    </p>
-  </div>
-
-  <p class="muted-mini" style="margin-top:.75rem;">
-    Now both numerator and denominator are random.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>2) The t-statistic</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0; font-size:1.05rem;">
-      \[
-      T=\frac{\overline{X}-\mu}{S/\sqrt{n}}.
-      \]
-    </p>
-  </div>
-
-  <div class="card" style="margin-top:1rem;">
-    <p style="margin:0;">
-      If \(X_1,\dots,X_n\) are Normal, then:
-      \[
-      T \sim t_{n-1}.
-      \]
-    </p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>3) Degrees of freedom</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      The t-distribution depends on degrees of freedom (df):
-      \[
-      \text{df} = n-1.
-      \]
-    </p>
-  </div>
-
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Interpretation</h2>
-      <p style="margin:0;">
-        One degree of freedom is lost because the sample mean is estimated first.
-        Larger df → t approaches Normal.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>4) Confidence interval (unknown σ)</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      A \(100(1-\alpha)\%\) confidence interval for \(\mu\):
-      \[
-      \overline{X} \pm t_{1-\alpha/2,\,n-1}\frac{S}{\sqrt{n}}.
-      \]
-    </p>
-  </div>
-
-  <p class="muted-mini" style="margin-top:.75rem;">
-    Compare with z-interval: critical value is larger for small n.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>5) Hypothesis testing</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      To test \(H_0:\mu=\mu_0\):
-      \[
-      T=\frac{\overline{X}-\mu_0}{S/\sqrt{n}}.
-      \]
-    </p>
-  </div>
-
-  <div class="card" style="margin-top:1rem;">
     <ul class="bullets">
-      <li>Reject if \(|T| > t_{1-\alpha/2,n-1}\).</li>
-      <li>Controls Type I error at level \(\alpha\).</li>
+
+      <li>σ = population standard deviation</li>
+
     </ul>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>6) Shape comparison: t vs Normal</h2>
-  </div>
+    <p>
+      The difficulty is that σ is usually unknown.
+    </p>
 
-  <div class="card">
+    <p>
+      Most real studies only have sample data.
+    </p>
+
+    <h2>The Solution</h2>
+
+    <p>
+      Instead of using the population standard deviation,
+      we estimate it using the sample standard deviation:
+    </p>
+
+    1
+
+    <p>
+      This replacement introduces additional uncertainty.
+    </p>
+
+    <p>
+      The t-distribution accounts for that uncertainty.
+    </p>
+
+    <h2>What Is the t Distribution?</h2>
+
+    <p>
+      The t-distribution is a probability distribution used when population variability is unknown and must be estimated from the sample.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Definition:</strong>
+
+      <p>
+        The t-distribution is a family of distributions that resemble the normal distribution but have heavier tails.
+      </p>
+
+    </div>
+
+    <h2>Why Heavier Tails?</h2>
+
+    <p>
+      Because σ is estimated rather than known,
+      estimates are less certain.
+    </p>
+
+    <p>
+      The t-distribution reflects this extra uncertainty by placing more probability in the tails.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        More extreme values become slightly more likely.
+      </p>
+
+    </div>
+
+    <h2>Comparing Normal and t Distributions</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Feature</th>
+            <th>Normal Distribution</th>
+            <th>t Distribution</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Center</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+
+          <tr>
+            <td>Symmetry</td>
+            <td>Symmetric</td>
+            <td>Symmetric</td>
+          </tr>
+
+          <tr>
+            <td>Tails</td>
+            <td>Lighter</td>
+            <td>Heavier</td>
+          </tr>
+
+          <tr>
+            <td>Depends on Sample Size</td>
+            <td>No</td>
+            <td>Yes</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>Degrees of Freedom</h2>
+
+    <p>
+      Every t-distribution is determined by its degrees of freedom.
+    </p>
+
+    <p>
+      For a one-sample mean:
+    </p>
+
+    2
+
+    <p>
+      where:
+    </p>
+
     <ul class="bullets">
-      <li>t has heavier tails.</li>
-      <li>More uncertainty for small samples.</li>
-      <li>As \(n \to \infty\), \(t_{n-1} \to N(0,1)\).</li>
-    </ul>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+      <li>n = sample size</li>
+
+    </ul>
+
+    <h2>Effect of Degrees of Freedom</h2>
+
+    <p>
+      Small degrees of freedom produce heavier tails.
+    </p>
+
+    <p>
+      Large degrees of freedom make the t-distribution resemble the normal distribution.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Key idea:</strong>
+
+      <p>
+        As sample size increases, the t-distribution approaches the standard normal distribution.
+      </p>
+
+    </div>
+
+    <h2>The t Statistic</h2>
+
+    <p>
+      The t-statistic is calculated similarly to a z-statistic.
+    </p>
+
+    <p>
+      The difference is that the sample standard deviation is used.
+    </p>
+
+    3
+
+    <p>
+      This statistic follows a t-distribution under appropriate assumptions.
+    </p>
+
+    <h2>Interpreting a t Statistic</h2>
+
+    <p>
+      A t-statistic measures how many estimated standard errors separate the sample mean from a hypothesized population mean.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        t = 0 → perfect agreement
+      </p>
+
+      <p>
+        Large positive t → sample mean is much larger
+      </p>
+
+      <p>
+        Large negative t → sample mean is much smaller
+      </p>
+
+    </div>
+
+    <h2>What Is a t Test?</h2>
+
+    <p>
+      A t-test evaluates whether observed sample data provide evidence against a hypothesized population mean.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Purpose:</strong>
+
+      <p>
+        Determine whether a difference is larger than would be expected from sampling variability alone.
+      </p>
+
+    </div>
+
+    <h2>A Simple Example</h2>
+
+    <p>
+      Suppose a manufacturer claims:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Average battery life = 10 hours
+      </p>
+
+    </div>
+
+    <p>
+      A sample of batteries is tested.
+    </p>
+
+    <p>
+      If the sample mean differs substantially from 10 hours,
+      a t-test can determine whether the difference is statistically meaningful.
+    </p>
+
+    <h2>The Logic of a t Test</h2>
+
+    <ol>
+
+      <li>Assume a population mean.</li>
+
+      <li>Collect sample data.</li>
+
+      <li>Compute a t-statistic.</li>
+
+      <li>Evaluate how unusual the result would be if the assumption were true.</li>
+
+    </ol>
+
+    <h2>Confidence Intervals Using t</h2>
+
+    <p>
+      Confidence intervals for means often use the t-distribution.
+    </p>
+
+    <p>
+      The general structure is:
+    </p>
+
+    4
+
+    <p>
+      where:
+    </p>
+
+    <ul class="bullets">
+
+      <li>t* is a critical value from the t-distribution</li>
+
+      <li>s is the sample standard deviation</li>
+
+    </ul>
+
+    <h2>Why Small Samples Need t Procedures</h2>
+
+    <p>
+      Small samples contain more uncertainty.
+    </p>
+
+    <p>
+      The heavier tails of the t-distribution account for this uncertainty and produce wider confidence intervals.
+    </p>
+
+    <p>
+      Wider intervals provide more realistic assessments of precision.
+    </p>
+
+    <h2>Common Types of t Tests</h2>
+
+    <ul class="bullets">
+
+      <li>One-sample t-test</li>
+
+      <li>Two-sample t-test</li>
+
+      <li>Paired t-test</li>
+
+    </ul>
+
+    <p>
+      These tests address different research questions but share the same underlying principles.
+    </p>
+
+    <h2>Assumptions of t Procedures</h2>
+
+    <ul class="bullets">
+
+      <li>Random sampling</li>
+
+      <li>Independent observations</li>
+
+      <li>Approximately normal population for small samples</li>
+
+    </ul>
+
+    <p>
+      Large samples often reduce sensitivity to normality assumptions.
+    </p>
+
+    <h2>When Z and t Become Similar</h2>
+
+    <p>
+      As sample size grows:
+    </p>
+
+    5
+
+    <p>
+      The distinction between z and t procedures becomes increasingly small.
+    </p>
+
+    <p>
+      For very large samples,
+      the results are often nearly identical.
+    </p>
+
+    <h2>Why the t Distribution Matters</h2>
+
+    <p>
+      Most real analyses do not know the population standard deviation.
+    </p>
+
+    <p>
+      The t-distribution allows valid inference despite this uncertainty.
+    </p>
+
+    <p>
+      It is one of the most frequently used tools in applied statistics.
+    </p>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      The t-distribution is not the only important sampling distribution.
+    </p>
+
+    <p>
+      Another key distribution arises when studying variability itself.
+    </p>
+
+    <p>
+      The next lesson introduces the chi-square distribution and shows how it is used for variance estimation and inference.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Derive the t-statistic</li>
-        <li>Explain degrees of freedom</li>
-        <li>Construct t-based confidence intervals</li>
-        <li>Perform t hypothesis tests</li>
-        <li>Understand why t → Normal as n increases</li>
+
+        <li>The t-distribution is used when population standard deviation is unknown</li>
+
+        <li>It resembles the normal distribution but has heavier tails</li>
+
+        <li>Degrees of freedom determine the exact shape</li>
+
+        <li>The t-distribution approaches the normal distribution as sample size increases</li>
+
+        <li>The t-statistic uses the sample standard deviation</li>
+
+        <li>t-tests evaluate claims about population means</li>
+
+        <li>t-based confidence intervals account for additional uncertainty</li>
+
+        <li>The t-distribution is one of the most important tools in statistical inference</li>
+
       </ul>
+
     </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/probability/sampling-distributions/z-statistic-and-ci/">
+         ← Previous: Z Statistic and Confidence Intervals
+      </a>
+
+      <a class="btn"
+         href="/probability/sampling-distributions/chi-square-and-variance/">
+         Next: Chi-Square and Variance →
+      </a>
+
+    </div>
+
   </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next step</h2>
-      <p style="margin:0;">
-        Next, we study the <strong>Chi-Square distribution</strong>,
-        which governs inference about variance.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/probability/sampling-distributions/chi-square-and-variance/">
-          Next lesson: 5. Chi-Square Distribution →
-        </a>
-      </div>
-    </div>
-
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/probability/sampling-distributions/z-statistic-and-ci/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 3 — z-Statistic & Confidence Intervals
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>
