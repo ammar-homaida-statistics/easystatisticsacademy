@@ -1,225 +1,490 @@
 ---
 layout: default
-title: "5. Normal Approximation"
-description: "Using the Central Limit Theorem to approximate probabilities in practical problems."
+title: Normal Approximation
+description: Learn how the Central Limit Theorem allows normal distributions to approximate many probability distributions in practice.
 permalink: /probability/lln-clt/normal-approximation/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem;">🚧 Lesson Under Construction</h2>
-      <p style="margin:0; font-size:1.05rem;">
-        Version 0 introduces practical use of normal approximation.
-        Worked examples and software demonstrations will be added in Version 1.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Tracking -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_probability_lln_clt_lesson_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/probability/lln-clt/normal-approximation/",
-      label: "Lesson 5 — Normal Approximation",
-      ts: Date.now()
-    }));
-  })();
+(function () {
+
+  const KEY =
+    "esa_continue_probability_lln_clt_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/probability/lln-clt/normal-approximation/",
+    label: "Normal Approximation",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 6</span>
-        <span class="badge">Lesson 5</span>
-        <span class="badge">Application</span>
-        <span class="badge">Approximation</span>
-      </div>
 
-      <h1>5. Normal Approximation</h1>
-      <p class="lead">
-        The Central Limit Theorem allows us to replace complicated distributions
-        with an approximate <strong>normal model</strong> for large samples.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/probability/lln-clt/">Back to Block 6</a>
-        <a class="btn btn-outline" href="/probability/">Probability home</a>
-      </div>
-
-      <p class="muted-mini">
-        This is the bridge from probability theory to statistical inference.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Probability</span>
+      <span class="badge">Block 6</span>
+      <span class="badge">LLN & CLT</span>
+      <span class="badge">Applications</span>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
-    <p>
-      By the end of this lesson, you should be able to apply normal approximation
-      to sums and averages, and know when it is appropriate.
+    <h1>Normal Approximation</h1>
+
+    <p class="lead">
+      The Central Limit Theorem is powerful because it allows complicated probability distributions to be approximated by a normal distribution.
     </p>
-  </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Key idea</h2>
-      <p style="margin:0;">
-        When sample size is large, the sampling distribution of the mean
-        is approximately normal.
-      </p>
+    <p class="lead">
+      This idea makes many probability and statistical calculations far simpler and forms the practical bridge between probability theory and statistical inference.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/probability/lln-clt/central-limit-theorem/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/probability/lln-clt/inference-bridge/">
+         Next: Inference Bridge →
+      </a>
+
     </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) Approximation for sample mean</h2>
-  </div>
+<!-- LESSON -->
 
-  <div class="card">
-    <p style="margin:0;">
-      For large \( n \),
-      \[
-      \overline{X}_n \approx N\!\left(\mu, \frac{\sigma^2}{n}\right).
-      \]
-    </p>
-  </div>
+<section>
 
-  <p class="muted-mini" style="margin-top:.75rem;">
-    This follows directly from the CLT.
-  </p>
-</section>
+  <div class="content-narrow">
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) Probability approximation</h2>
-  </div>
-
-  <div class="card">
-    <p>
-      To approximate:
-      \[
-      \Pr(a < \overline{X}_n < b),
-      \]
-      standardize:
-    </p>
+    <h2>What Is Normal Approximation?</h2>
 
     <p>
-      \[
-      Z = \frac{\overline{X}_n - \mu}{\sigma/\sqrt{n}}.
-      \]
+      Normal approximation means replacing a complicated distribution with a normal distribution that behaves similarly.
     </p>
-  </div>
 
-  <p class="muted-mini" style="margin-top:.75rem;">
-    Then use standard normal tables or software.
-  </p>
-</section>
+    <div class="concept-box">
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) Example (Binomial Approximation)</h2>
-  </div>
+      <strong>Core idea:</strong>
 
-  <div class="card">
+      <p>
+        When sample sizes are sufficiently large, many statistics can be treated as approximately normal.
+      </p>
+
+    </div>
+
+    <h2>Why Approximate?</h2>
+
     <p>
-      If \( X \sim \text{Binomial}(n,p) \) and \( n \) is large,
+      Exact probability calculations are often difficult.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Large binomial distributions
+      </p>
+
+      <p>
+        Sample means from unknown populations
+      </p>
+
+      <p>
+        Complex counting processes
+      </p>
+
+    </div>
+
+    <p>
+      The normal distribution provides a convenient approximation that is often remarkably accurate.
+    </p>
+
+    <h2>The Role of the Central Limit Theorem</h2>
+
+    <p>
+      The Central Limit Theorem tells us that sample means tend toward a normal distribution.
+    </p>
+
+    <p>
+      Specifically:
+    </p>
+
+    0
+
+    <p>
+      when the sample size is sufficiently large.
+    </p>
+
+    <p>
+      This approximation becomes better as sample size increases.
+    </p>
+
+    <h2>Approximating Sample Means</h2>
+
+    <p>
+      Suppose a population has:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Mean = μ
+      </p>
+
+      <p>
+        Standard deviation = σ
+      </p>
+
+    </div>
+
+    <p>
+      Then for large n:
+    </p>
+
+    1
+
+    <p>
+      approximately.
+    </p>
+
+    <p>
+      This allows probability calculations using the normal curve.
+    </p>
+
+    <h2>The Standard Error</h2>
+
+    <p>
+      The standard deviation of the sampling distribution is:
+    </p>
+
+    2
+
+    <p>
+      called the standard error.
+    </p>
+
+    <p>
+      Standard error determines the spread of sample means.
+    </p>
+
+    <h2>Using Z-Scores</h2>
+
+    <p>
+      Once a normal approximation is available,
+      probabilities can be calculated using standardized values.
+    </p>
+
+    3
+
+    <p>
+      This converts sample means into standard normal values.
+    </p>
+
+    <h2>Example: Average Heights</h2>
+
+    <p>
+      Suppose a population has:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        μ = 170 cm
+      </p>
+
+      <p>
+        σ = 12 cm
+      </p>
+
+      <p>
+        n = 100
+      </p>
+
+    </div>
+
+    <p>
+      Then:
+    </p>
+
+    4
+
+    <p>
+      The distribution of sample means is much narrower than the original population distribution.
+    </p>
+
+    <h2>Why Sample Means Are Less Variable</h2>
+
+    <p>
+      Individual observations vary considerably.
+    </p>
+
+    <p>
+      Averages smooth out random fluctuations.
+    </p>
+
+    <p>
+      As sample size increases,
+      the sampling distribution becomes increasingly concentrated around the population mean.
+    </p>
+
+    <h2>Normal Approximation for Proportions</h2>
+
+    <p>
+      The CLT also applies to sample proportions.
+    </p>
+
+    <p>
+      If:
+    </p>
+
+    5
+
+    <p>
+      is the true population proportion,
       then:
     </p>
 
+    6
+
     <p>
-      \[
-      X \approx N(np, np(1-p)).
-      \]
+      for sufficiently large sample sizes.
     </p>
-  </div>
 
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Continuity correction</h2>
-      <p style="margin:0;">
-        For discrete-to-continuous approximation, adjust by ±0.5.
+    <h2>Example: Survey Results</h2>
+
+    <p>
+      Suppose:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        True support = 60%
       </p>
+
+      <p>
+        Sample size = 400
+      </p>
+
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>4) When is approximation good?</h2>
-  </div>
+    <p>
+      The sample proportion varies from sample to sample,
+      but its distribution is approximately normal.
+    </p>
 
-  <div class="card">
+    <p>
+      This fact underlies opinion polling.
+    </p>
+
+    <h2>Normal Approximation to the Binomial</h2>
+
+    <p>
+      Large binomial distributions can often be approximated by a normal distribution.
+    </p>
+
+    <p>
+      If:
+    </p>
+
+    7
+
+    <p>
+      then for sufficiently large n:
+    </p>
+
+    8
+
+    <p>
+      This approximation simplifies probability calculations substantially.
+    </p>
+
+    <h2>The Continuity Correction</h2>
+
+    <p>
+      Binomial distributions are discrete,
+      while normal distributions are continuous.
+    </p>
+
+    <p>
+      To improve accuracy,
+      statisticians often use a continuity correction.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Replace 10 with 10.5
+      </p>
+
+      <p>
+        Replace 20 with 19.5
+      </p>
+
+    </div>
+
+    <p>
+      This adjustment helps align discrete and continuous probabilities.
+    </p>
+
+    <h2>When Normal Approximation Works Well</h2>
+
     <ul class="bullets">
-      <li>Large sample size</li>
+
+      <li>Large sample sizes</li>
+
+      <li>Independent observations</li>
+
+      <li>Moderate skewness</li>
+
       <li>Finite variance</li>
-      <li>Original distribution not extremely skewed</li>
-      <li>For binomial: \( np \) and \( n(1-p) \) sufficiently large</li>
+
     </ul>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>5) Limitations</h2>
-  </div>
+    <p>
+      Under these conditions,
+      approximations are often extremely accurate.
+    </p>
 
-  <div class="card">
+    <h2>When Caution Is Needed</h2>
+
     <ul class="bullets">
-      <li>Heavy-tailed distributions may converge slowly</li>
-      <li>Small sample sizes may produce poor approximation</li>
-      <li>Skewed distributions require larger n</li>
+
+      <li>Very small samples</li>
+
+      <li>Extreme skewness</li>
+
+      <li>Heavy-tailed populations</li>
+
+      <li>Strong dependence</li>
+
     </ul>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+    <p>
+      In such situations,
+      the normal approximation may be poor.
+    </p>
+
+    <h2>Why Normal Approximation Changed Statistics</h2>
+
+    <p>
+      Before modern computers,
+      exact probability calculations were often impractical.
+    </p>
+
+    <p>
+      Normal approximations allowed statisticians to solve complex problems using tables and relatively simple mathematics.
+    </p>
+
+    <p>
+      Even today,
+      normal approximations remain fundamental.
+    </p>
+
+    <h2>Connection to Statistical Inference</h2>
+
+    <p>
+      Most inferential methods rely on normal approximations.
+    </p>
+
+    <ul class="bullets">
+
+      <li>Confidence intervals</li>
+
+      <li>Hypothesis tests</li>
+
+      <li>Margin of error calculations</li>
+
+      <li>Regression inference</li>
+
+    </ul>
+
+    <p>
+      Without normal approximation,
+      many standard statistical procedures would not exist.
+    </p>
+
+    <h2>The Bridge to Inference</h2>
+
+    <p>
+      The Central Limit Theorem provides a probability model for sample means and proportions.
+    </p>
+
+    <p>
+      Once we know how sample statistics behave,
+      we can begin making statements about unknown population parameters.
+    </p>
+
+    <p>
+      This transition marks the beginning of statistical inference.
+    </p>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      The next lesson connects probability theory to inferential statistics.
+    </p>
+
+    <p>
+      It explains how the Law of Large Numbers and Central Limit Theorem provide the foundation for estimation, confidence intervals, and hypothesis testing.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Apply normal approximation to sample means</li>
-        <li>Use continuity correction correctly</li>
-        <li>Recognize when approximation is appropriate</li>
-        <li>Prepare for formal statistical inference</li>
+
+        <li>Normal approximation replaces complex distributions with normal distributions</li>
+
+        <li>The Central Limit Theorem justifies many normal approximations</li>
+
+        <li>Sample means are approximately normal for large samples</li>
+
+        <li>The standard error equals σ/√n</li>
+
+        <li>Sample proportions are also approximately normal under suitable conditions</li>
+
+        <li>Large binomial distributions can often be approximated by normal distributions</li>
+
+        <li>Normal approximation underlies many statistical procedures</li>
+
+        <li>It provides the bridge from probability to inference</li>
+
       </ul>
+
     </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/probability/lln-clt/central-limit-theorem/">
+         ← Previous: Central Limit Theorem
+      </a>
+
+      <a class="btn"
+         href="/probability/lln-clt/inference-bridge/">
+         Next: Inference Bridge →
+      </a>
+
+    </div>
+
   </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next step</h2>
-      <p style="margin:0;">
-        We now connect convergence theory to statistical inference:
-        confidence intervals and hypothesis testing.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/probability/lln-clt/inference-bridge/">
-          Next lesson: 6. Why Inference Works →
-        </a>
-      </div>
-    </div>
-
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/probability/lln-clt/central-limit-theorem/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 4 — Central Limit Theorem
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>
