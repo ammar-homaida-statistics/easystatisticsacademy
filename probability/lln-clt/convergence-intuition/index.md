@@ -1,225 +1,443 @@
 ---
 layout: default
-title: "1. Convergence Intuition"
-description: "Understanding what convergence means in probability before formal LLN and CLT."
+title: Convergence Intuition
+description: Build intuition for convergence, one of the most important ideas in probability and statistics.
 permalink: /probability/lln-clt/convergence-intuition/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">🚧 Lesson Under Construction</h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 establishes the conceptual foundation of convergence.
-        Formal definitions and simulations will be added later without changing structure.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update "last visited lesson" for Block 6 -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_probability_lln_clt_lesson_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/probability/lln-clt/convergence-intuition/",
-      label: "Lesson 1 — Convergence Intuition",
-      ts: Date.now()
-    }));
-  })();
+(function () {
+
+  const KEY =
+    "esa_continue_probability_lln_clt_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/probability/lln-clt/convergence-intuition/",
+    label: "Convergence Intuition",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 6</span>
-        <span class="badge">Lesson 1</span>
-        <span class="badge">Convergence</span>
-        <span class="badge">Foundations</span>
-      </div>
 
-      <h1>1. Convergence Intuition</h1>
-      <p class="lead">
-        Before stating the Law of Large Numbers or the Central Limit Theorem,
-        we must understand what it means for a random sequence to
-        <strong>“approach” a value.</strong>
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/probability/lln-clt/">Back to Block 6</a>
-        <a class="btn btn-outline" href="/probability/">Probability home</a>
-      </div>
-
-      <p class="muted-mini">
-        Convergence is the language of modern probability theory.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Probability</span>
+      <span class="badge">Block 6</span>
+      <span class="badge">LLN & CLT</span>
+      <span class="badge">Foundations</span>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
-    <p>
-      By the end of this lesson, you should understand what it means
-      for random variables to converge and why this idea is central
-      to LLN and CLT.
+    <h1>Convergence Intuition</h1>
+
+    <p class="lead">
+      Probability theory often studies what happens as the number of observations becomes very large.
     </p>
-  </div>
 
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Key idea</h2>
-      <p style="margin:0;">
-        Convergence describes how a sequence of random variables behaves
-        as the sample size grows.
-      </p>
+    <p class="lead">
+      The key idea connecting many probability results is convergence—the tendency of random quantities to settle into predictable patterns as more data become available.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/probability/lln-clt/">
+         ← Back to LLN & CLT
+      </a>
+
+      <a class="btn btn-outline"
+         href="/probability/lln-clt/law-of-large-numbers/">
+         Next: Law of Large Numbers →
+      </a>
+
     </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) Deterministic convergence (review)</h2>
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>Why Convergence Matters</h2>
+
     <p>
-      For ordinary numbers, a sequence \(a_n\) converges to \(L\) if
-      the values get arbitrarily close to \(L\) as \(n\) increases.
+      Individual random outcomes are unpredictable.
     </p>
-  </div>
 
-  <div class="card">
-    <p style="margin:0; font-size:1.05rem;">
-      \[
-      a_n \to L
-      \]
-      means:
-      eventually, the distance \(|a_n - L|\) becomes very small.
-    </p>
-  </div>
-
-  <p class="muted-mini" style="margin-top:.75rem;">
-    Example: \(1/n \to 0\).
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>2) Random sequences are different</h2>
     <p>
-      For random variables \(X_1, X_2, \dots\),
-      each \(X_n\) is not a fixed number but a random quantity.
+      However, when many outcomes are observed together,
+      surprising regularities emerge.
     </p>
-  </div>
 
-  <div class="card">
-    <p style="margin:0;">
-      We now ask:
-      <strong>How does the distribution of \(X_n\) behave as \(n\) grows?</strong>
-    </p>
-  </div>
-</section>
+    <div class="example-box">
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) Example: sample average</h2>
-    <p>
-      Let \(X_1, X_2, \dots, X_n\) be independent with mean \(\mu\).
-      Define the sample average:
-    </p>
-  </div>
-
-  <div class="card">
-    <p style="margin:0; font-size:1.1rem;">
-      \[
-      \overline{X}_n = \frac{1}{n} \sum_{i=1}^n X_i.
-      \]
-    </p>
-  </div>
-
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Empirical observation</h2>
-      <p style="margin:0;">
-        As \(n\) increases, \(\overline{X}_n\) becomes more stable
-        and tends to stay close to \(\mu\).
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>4) Types of convergence (preview)</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Convergence in probability</h3>
       <p>
-        The probability that \(X_n\) differs from \(L\) by more than
-        a small amount goes to zero.
+        One coin toss is unpredictable.
       </p>
-    </div>
 
-    <div class="card">
-      <h3>Almost sure convergence</h3>
       <p>
-        With probability 1, the sequence eventually stays close to \(L\).
+        One thousand coin tosses produce a stable proportion of heads.
       </p>
+
     </div>
-  </div>
 
-  <p class="muted-mini" style="margin-top:.75rem;">
-    These ideas will be made precise in later lessons.
-  </p>
-</section>
+    <p>
+      Convergence describes this movement from randomness toward stability.
+    </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>5) Why convergence matters</h2>
-  </div>
+    <h2>A Simple Coin Toss Example</h2>
 
-  <div class="card">
+    <p>
+      Consider repeatedly tossing a fair coin.
+    </p>
+
+    <p>
+      After one toss, the proportion of heads is either:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        0
+      </p>
+
+      <p>
+        1
+      </p>
+
+    </div>
+
+    <p>
+      After ten tosses, the proportion may be:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        0.4
+      </p>
+
+      <p>
+        0.5
+      </p>
+
+      <p>
+        0.6
+      </p>
+
+    </div>
+
+    <p>
+      After ten thousand tosses,
+      the proportion typically becomes very close to:
+    </p>
+
+    0
+
+    <p>
+      The sample proportion appears to settle near the true probability.
+    </p>
+
+    <h2>Random Does Not Mean Chaotic Forever</h2>
+
+    <p>
+      Many people imagine randomness as complete disorder.
+    </p>
+
+    <p>
+      In reality,
+      randomness often becomes more predictable when viewed at a larger scale.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Key idea:</strong>
+
+      <p>
+        Individual outcomes remain random, but aggregate behavior often becomes stable.
+      </p>
+
+    </div>
+
+    <h2>What Does "Converge" Mean?</h2>
+
+    <p>
+      Informally,
+      convergence means getting closer and closer to some target value.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Sample proportion → True probability
+      </p>
+
+      <p>
+        Sample mean → Population mean
+      </p>
+
+      <p>
+        Sampling distribution → Normal distribution
+      </p>
+
+    </div>
+
+    <p>
+      Many major statistical results are convergence results.
+    </p>
+
+    <h2>Convergence Is About Long-Run Behavior</h2>
+
+    <p>
+      Probability theory frequently asks:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        What happens as n becomes very large?
+      </p>
+
+    </div>
+
+    <p>
+      The symbol:
+    </p>
+
+    1
+
+    <p>
+      appears throughout probability because convergence concerns long-run behavior.
+    </p>
+
+    <h2>Convergence Is Not Perfection</h2>
+
+    <p>
+      Convergence does not mean exact equality.
+    </p>
+
+    <p>
+      Instead,
+      it means the difference becomes smaller and smaller.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        0.48
+      </p>
+
+      <p>
+        0.495
+      </p>
+
+      <p>
+        0.501
+      </p>
+
+      <p>
+        0.4998
+      </p>
+
+    </div>
+
+    <p>
+      Values fluctuate but move closer to the target.
+    </p>
+
+    <h2>Averages Become Stable</h2>
+
+    <p>
+      Imagine measuring customer spending.
+    </p>
+
+    <p>
+      One customer may spend:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        $5
+      </p>
+
+      <p>
+        $200
+      </p>
+
+      <p>
+        $50
+      </p>
+
+    </div>
+
+    <p>
+      Individual observations vary substantially.
+    </p>
+
+    <p>
+      Yet the average spending across thousands of customers becomes much more stable.
+    </p>
+
+    <p>
+      This stability is an example of convergence.
+    </p>
+
+    <h2>Where Convergence Appears in Statistics</h2>
+
     <ul class="bullets">
-      <li>Explains why averages stabilize (LLN)</li>
-      <li>Explains why sums look normal (CLT)</li>
-      <li>Justifies statistical estimation</li>
-      <li>Connects probability to real data</li>
+
+      <li>Sample means approaching population means</li>
+
+      <li>Sample proportions approaching true probabilities</li>
+
+      <li>Sampling distributions approaching normal distributions</li>
+
+      <li>Estimates approaching true parameter values</li>
+
+      <li>Machine-learning models improving with more data</li>
+
     </ul>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
-      <ul class="bullets">
-        <li>Understand deterministic vs random convergence</li>
-        <li>Interpret stabilization of sample averages</li>
-        <li>Preview convergence in probability and almost sure convergence</li>
-        <li>Prepare for the Law of Large Numbers</li>
-      </ul>
-    </div>
-  </div>
-</section>
+    <p>
+      Convergence underlies nearly every statistical method.
+    </p>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next step</h2>
-      <p style="margin:0;">
-        Now we formalize the idea that averages stabilize:
-        the <strong>Law of Large Numbers</strong>.
+    <h2>Several Types of Convergence Exist</h2>
+
+    <p>
+      Probability theory defines multiple forms of convergence.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Convergence in probability
       </p>
 
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/probability/lln-clt/law-of-large-numbers/">
-          Next lesson: 2. Law of Large Numbers →
-        </a>
-      </div>
+      <p>
+        Almost sure convergence
+      </p>
+
+      <p>
+        Convergence in distribution
+      </p>
+
+      <p>
+        Convergence in mean
+      </p>
+
     </div>
+
+    <p>
+      Each describes a different way random variables can become close to a target.
+    </p>
+
+    <p>
+      For now,
+      the intuitive idea of "getting closer" is sufficient.
+    </p>
+
+    <h2>The Big Picture</h2>
+
+    <p>
+      Two of the most important results in probability are based on convergence:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Law of Large Numbers (LLN)</li>
+
+      <li>Central Limit Theorem (CLT)</li>
+
+    </ul>
+
+    <p>
+      The Law of Large Numbers explains why averages become stable.
+    </p>
+
+    <p>
+      The Central Limit Theorem explains why many sampling distributions become approximately normal.
+    </p>
+
+    <h2>Why Convergence Makes Statistics Possible</h2>
+
+    <p>
+      Without convergence,
+      collecting more data would not improve estimates.
+    </p>
+
+    <p>
+      Statistical inference relies on the fact that larger samples generally provide more reliable information.
+    </p>
+
+    <p>
+      Convergence provides the mathematical foundation for this reliability.
+    </p>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      The first major convergence theorem is the Law of Large Numbers.
+    </p>
+
+    <p>
+      It explains why sample averages and proportions move toward their true population values as sample size increases.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>Convergence describes random quantities moving toward stable values</li>
+
+        <li>Many probability results focus on behavior as n becomes large</li>
+
+        <li>Randomness can produce stability when many observations are combined</li>
+
+        <li>Convergence does not mean exact equality</li>
+
+        <li>Sample averages and proportions often converge to population quantities</li>
+
+        <li>Convergence is the foundation of statistical inference</li>
+
+        <li>The Law of Large Numbers and Central Limit Theorem are major convergence results</li>
+
+      </ul>
+
+    </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/probability/lln-clt/">
+         ← Back to LLN & CLT
+      </a>
+
+      <a class="btn"
+         href="/probability/lln-clt/law-of-large-numbers/">
+         Next: Law of Large Numbers →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
