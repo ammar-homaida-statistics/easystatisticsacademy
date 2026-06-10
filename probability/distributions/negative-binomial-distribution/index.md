@@ -1,275 +1,549 @@
 ---
 layout: default
-title: "4. Negative Binomial Distribution"
-description: "The negative binomial distribution models the number of trials required to achieve r successes; PMF, mean, variance, and connection to geometric."
+title: Negative Binomial Distribution
+description: Learn how the negative binomial distribution models the number of trials required to achieve a specified number of successes.
 permalink: /probability/distributions/negative-binomial-distribution/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">🚧 Lesson Under Construction</h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 is published first to lock the structure and the correct conceptual flow.
-        Worked examples, simulations, and visual comparisons will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update "last visited lesson" for Probability Block 5 -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_probability_distributions_lesson_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/probability/distributions/negative-binomial-distribution/",
-      label: "Lesson 4 — Negative Binomial Distribution",
-      ts: Date.now()
-    }));
-  })();
+(function () {
+
+  const KEY =
+    "esa_continue_probability_distributions_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/probability/distributions/negative-binomial-distribution/",
+    label: "Negative Binomial Distribution",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 5</span>
-        <span class="badge">Lesson 4</span>
-        <span class="badge">Discrete</span>
-        <span class="badge">Negative Binomial</span>
-      </div>
 
-      <h1>4. Negative Binomial Distribution</h1>
-      <p class="lead">
-        The negative binomial distribution generalizes the geometric distribution.
-        Instead of waiting for the <strong>first</strong> success,
-        we wait until the <strong>r-th success</strong>.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/probability/distributions/">Back to Block 5</a>
-        <a class="btn btn-outline" href="/probability/">Probability home</a>
-      </div>
-
-      <p class="muted-mini">
-        Think: repeated independent trials until r successes occur.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Probability</span>
+      <span class="badge">Block 5</span>
+      <span class="badge">Distributions</span>
+      <span class="badge">Waiting Times</span>
     </div>
+
+    <h1>Negative Binomial Distribution</h1>
+
+    <p class="lead">
+      The geometric distribution models the waiting time until the first success.
+    </p>
+
+    <p class="lead">
+      The negative binomial distribution generalizes this idea by modeling the waiting time until a specified number of successes occurs.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/probability/distributions/geometric-distribution/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/probability/distributions/poisson-distribution/">
+         Next: Poisson Distribution →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>What Is a Negative Binomial Distribution?</h2>
+
     <p>
-      By the end of this lesson, you should be able to define the negative binomial distribution,
-      write its PMF, compute its mean and variance, and understand how it relates to geometric and binomial.
+      A negative binomial distribution describes the number of trials required to obtain a fixed number of successes in independent Bernoulli trials.
     </p>
-  </div>
 
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Key idea</h2>
-      <p style="margin:0;">
-        <strong>Negative binomial models waiting time for r successes.</strong>
+    <div class="concept-box">
+
+      <strong>Definition:</strong>
+
+      <p>
+        A negative binomial random variable counts how many trials are needed to achieve r successes.
       </p>
-    </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) Definition</h2>
+    </div>
+
+    <h2>The Main Question</h2>
+
     <p>
-      Consider independent Bernoulli trials with success probability \(p\).
-      Let \(X\) be the number of trials required to obtain \(r\) successes.
+      Instead of asking:
     </p>
-  </div>
 
-  <div class="card">
-    <p style="margin:0; font-size:1.1rem;">
-      \[
-      X \sim \operatorname{NegBin}(r,p).
-      \]
-    </p>
-  </div>
+    <div class="example-box">
 
-  <p class="muted-mini" style="margin-top:.75rem;">
-    Support: \(X = r, r+1, r+2, \ldots\)
-  </p>
-</section>
+      <p>
+        How long until the first success?
+      </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) Probability mass function (PMF)</h2>
+    </div>
+
     <p>
-      To have the r-th success on trial \(k\):
-      exactly \(r-1\) successes must occur in the first \(k-1\) trials,
-      and trial \(k\) must be a success.
+      we ask:
     </p>
-  </div>
 
-  <div class="card">
-    <p style="margin:0; font-size:1.1rem;">
-      \[
-      \Pr(X = k)
-      =
-      \binom{k-1}{r-1}
-      p^{\,r}
-      (1-p)^{\,k-r},
-      \qquad k=r,r+1,\ldots
-      \]
-    </p>
-  </div>
+    <div class="example-box">
 
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Why the binomial coefficient appears</h2>
-      <p style="margin:0;">
-        Among the first \(k-1\) trials, we choose which \(r-1\) are successes.
-        The last trial is fixed as a success.
+      <p>
+        How long until the fifth success?
       </p>
-    </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) Mean and variance</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Expectation</h3>
-      <p style="margin:0; font-size:1.1rem;">
-        \[
-        \mathbb{E}[X] = \frac{r}{p}.
-        \]
+      <p>
+        How many customers until the third purchase?
       </p>
+
+      <p>
+        How many inspections until the tenth defect?
+      </p>
+
     </div>
 
-    <div class="card">
-      <h3>Variance</h3>
-      <p style="margin:0; font-size:1.1rem;">
-        \[
-        \operatorname{Var}(X)
-        =
-        \frac{r(1-p)}{p^2}.
-        \]
-      </p>
-    </div>
-  </div>
-
-  <p class="muted-mini" style="margin-top:.75rem;">
-    Notice: for \(r=1\), this reduces to the geometric distribution.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>4) Connection to geometric</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      If \(r=1\), the PMF becomes:
-      \[
-      \Pr(X = k) = (1-p)^{k-1}p,
-      \]
-      which is exactly the geometric distribution.
-    </p>
-  </div>
-
-  <p class="muted-mini" style="margin-top:.75rem;">
-    Geometric = special case of negative binomial.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>5) Alternative parameterization (counting failures)</h2>
     <p>
-      Some texts define the negative binomial as the number of failures before the r-th success.
+      These are negative binomial questions.
     </p>
-  </div>
 
-  <div class="card">
-    <p style="margin:0;">
-      If \(Y = X - r\), then:
-      \[
-      \Pr(Y = y)
-      =
-      \binom{y+r-1}{r-1}
-      p^{\,r}
-      (1-p)^{\,y},
-      \qquad y=0,1,2,\ldots
-      \]
+    <h2>Conditions for a Negative Binomial Model</h2>
+
+    <p>
+      A negative binomial distribution applies when:
     </p>
-  </div>
 
-  <p class="muted-mini" style="margin-top:.75rem;">
-    Always check which definition a software package uses.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>6) When to use</h2>
-  </div>
-
-  <div class="card">
     <ul class="bullets">
-      <li>Repeated independent trials</li>
-      <li>Constant success probability p</li>
-      <li>Interest in waiting time until r successes</li>
-      <li>Modeling over-dispersed count data (in applied settings)</li>
+
+      <li>Trials are independent.</li>
+
+      <li>Each trial has two outcomes.</li>
+
+      <li>The success probability remains constant.</li>
+
+      <li>We continue until r successes occur.</li>
+
     </ul>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
-      <ul class="bullets">
-        <li>Recognize waiting-time-for-r-success scenarios</li>
-        <li>Use the PMF formula correctly</li>
-        <li>Use \(\mathbb{E}[X]=r/p\)</li>
-        <li>Understand connection to geometric distribution</li>
-        <li>Prepare for continuous waiting-time models</li>
-      </ul>
-    </div>
-  </div>
-</section>
+    <h2>Notation</h2>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next step</h2>
-      <p style="margin:0;">
-        Next, we move from counting trials until r successes
-        to counting events occurring over time or space
-        with a constant rate.
+    <p>
+      A negative binomial random variable is commonly written as:
+    </p>
+
+    0
+
+    <p>
+      where:
+    </p>
+
+    <ul class="bullets">
+
+      <li>r = required number of successes</li>
+
+      <li>p = probability of success</li>
+
+    </ul>
+
+    <h2>Possible Values</h2>
+
+    <p>
+      At least r trials are needed to obtain r successes.
+    </p>
+
+    <p>
+      Therefore:
+    </p>
+
+    1
+
+    <p>
+      are the possible values of X.
+    </p>
+
+    <h2>The Probability Formula</h2>
+
+    <p>
+      The probability that the r-th success occurs on trial k is:
+    </p>
+
+    2
+
+    <p>
+      where:
+    </p>
+
+    <ul class="bullets">
+
+      <li>k ≥ r</li>
+
+      <li>The final trial must be a success.</li>
+
+      <li>The previous k−1 trials contain exactly r−1 successes.</li>
+
+    </ul>
+
+    <h2>Understanding the Formula</h2>
+
+    <p>
+      To have the r-th success occur on trial k:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Trial k must be a success.
       </p>
 
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/probability/distributions/poisson-distribution/">
-          Next lesson: 5. Poisson Distribution →
-        </a>
-      </div>
+      <p>
+        The first k−1 trials must contain exactly r−1 successes.
+      </p>
+
     </div>
 
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/probability/distributions/geometric-distribution/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 3: Geometric Distribution
-          </a>
-        </div>
-      </div>
+    <p>
+      The combination term counts all possible arrangements of those earlier successes.
+    </p>
+
+    <h2>Relationship to the Geometric Distribution</h2>
+
+    <p>
+      The geometric distribution is actually a special case of the negative binomial distribution.
+    </p>
+
+    <p>
+      When:
+    </p>
+
+    3
+
+    <p>
+      the negative binomial formula reduces to the geometric distribution.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Important:</strong>
+
+      <p>
+        The geometric distribution is the negative binomial distribution with one required success.
+      </p>
+
     </div>
+
+    <h2>Example: Waiting for Three Heads</h2>
+
+    <p>
+      Suppose a fair coin is tossed repeatedly.
+    </p>
+
+    <p>
+      Let:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        X = Trial on which the third head appears
+      </p>
+
+    </div>
+
+    <p>
+      Then:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        r = 3
+      </p>
+
+      <p>
+        p = 0.5
+      </p>
+
+    </div>
+
+    <p>
+      X follows a negative binomial distribution.
+    </p>
+
+    <p>
+      It models the waiting time until three heads have occurred.
+    </p>
+
+    <h2>The Mean</h2>
+
+    <p>
+      The expected value is:
+    </p>
+
+    4
+
+    <div class="concept-box">
+
+      <strong>Interpretation:</strong>
+
+      <p>
+        The average number of trials required grows with the number of required successes and decreases as success becomes more likely.
+      </p>
+
+    </div>
+
+    <h2>Example of the Mean</h2>
+
+    <p>
+      Suppose:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        r = 5
+      </p>
+
+      <p>
+        p = 0.25
+      </p>
+
+    </div>
+
+    <p>
+      Then:
+    </p>
+
+    5
+
+    <p>
+      On average,
+      twenty trials are needed to obtain five successes.
+    </p>
+
+    <h2>The Variance</h2>
+
+    <p>
+      The variance is:
+    </p>
+
+    6
+
+    <p>
+      Variability increases when successes become rarer.
+    </p>
+
+    <h2>Comparing Geometric and Negative Binomial</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Distribution</th>
+            <th>Models</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Geometric</td>
+            <td>Waiting time for first success</td>
+          </tr>
+
+          <tr>
+            <td>Negative Binomial</td>
+            <td>Waiting time for r successes</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>Why It Is Called "Negative Binomial"</h2>
+
+    <p>
+      The name originates from an algebraic expansion involving negative exponents.
+    </p>
+
+    <p>
+      Historically,
+      this distribution emerged from the negative binomial series in mathematics.
+    </p>
+
+    <p>
+      The term does not imply negative probabilities or negative counts.
+    </p>
+
+    <h2>Applications in Practice</h2>
+
+    <ul class="bullets">
+
+      <li>Calls required before multiple sales occur</li>
+
+      <li>Patients screened before several positive cases are found</li>
+
+      <li>Network transmissions until several successful packets are received</li>
+
+      <li>Production inspections until multiple defects are observed</li>
+
+      <li>Sports attempts required before multiple successful outcomes</li>
+
+    </ul>
+
+    <p>
+      The distribution is useful whenever repeated successes are the focus.
+    </p>
+
+    <h2>Connection to Counting Processes</h2>
+
+    <p>
+      Binomial distributions count successes within a fixed number of trials.
+    </p>
+
+    <p>
+      Negative binomial distributions reverse the perspective.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Binomial:
+        Fixed trials → Count successes
+      </p>
+
+      <p>
+        Negative Binomial:
+        Fixed successes → Count trials
+      </p>
+
+    </div>
+
+    <p>
+      These distributions are closely related but answer different questions.
+    </p>
+
+    <h2>The Shape of the Distribution</h2>
+
+    <p>
+      Negative binomial distributions are generally right-skewed.
+    </p>
+
+    <p>
+      Most waiting times are relatively short,
+      but occasionally much longer waiting times occur.
+    </p>
+
+    <p>
+      The skewness becomes more pronounced when success probabilities are small.
+    </p>
+
+    <h2>The Limitation</h2>
+
+    <p>
+      Bernoulli,
+      binomial,
+      geometric,
+      and negative binomial distributions all arise from repeated success-or-failure trials.
+    </p>
+
+    <p>
+      Many real-world events do not naturally fit that framework.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Number of emails received today
+      </p>
+
+      <p>
+        Number of accidents this week
+      </p>
+
+      <p>
+        Number of website visits this hour
+      </p>
+
+    </div>
+
+    <p>
+      These counts are often modeled using the Poisson distribution.
+    </p>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      The Poisson distribution is one of the most important distributions in statistics.
+    </p>
+
+    <p>
+      It models counts of events occurring over time, space, or other continuous domains and is widely used in science, engineering, business, and data analytics.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>The negative binomial distribution models waiting time until r successes occur</li>
+
+        <li>It generalizes the geometric distribution</li>
+
+        <li>The geometric distribution is the special case r = 1</li>
+
+        <li>The mean equals r/p</li>
+
+        <li>The variance equals r(1 − p)/p²</li>
+
+        <li>It arises from repeated independent Bernoulli trials</li>
+
+        <li>It is useful for multi-success waiting-time problems</li>
+
+      </ul>
+
+    </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/probability/distributions/geometric-distribution/">
+         ← Previous: Geometric Distribution
+      </a>
+
+      <a class="btn"
+         href="/probability/distributions/poisson-distribution/">
+         Next: Poisson Distribution →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
