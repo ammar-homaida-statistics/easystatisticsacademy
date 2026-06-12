@@ -1,303 +1,540 @@
 ---
 layout: default
-title: "8. One-Sided vs Two-Sided Tests"
-description: "Compare one-sided and two-sided hypothesis tests, understand how they affect rejection regions and power, and learn when each is appropriate."
+title: One-Sided vs Two-Sided Tests
+description: Learn the difference between one-sided and two-sided hypothesis tests, when each should be used, and how they affect statistical conclusions.
 permalink: /inference/hypothesis-testing/one-sided-vs-two-sided/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 establishes the formal distinction between one-sided and two-sided tests.
-        Numerical examples and power comparisons will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update continue-reading keys -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_hypothesis_testing_lesson_v0";
+(function () {
 
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/hypothesis-testing/one-sided-vs-two-sided/",
-      label: "Lesson 8 — One-Sided vs Two-Sided Tests",
-      ts: Date.now()
-    }));
+  const KEY =
+    "esa_continue_inference_hypothesis_testing_lesson_v0";
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/hypothesis-testing/",
-      label: "Block 3 — Hypothesis Testing",
-      ts: Date.now()
-    }));
-  })();
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/hypothesis-testing/one-sided-vs-two-sided/",
+    label: "One-Sided vs Two-Sided Tests",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 3</span>
-        <span class="badge">Lesson 8</span>
-        <span class="badge">One-Sided</span>
-        <span class="badge">Two-Sided</span>
-      </div>
 
-      <h1>8. One-Sided vs Two-Sided Tests</h1>
-
-      <p class="lead">
-        The direction of the alternative hypothesis determines
-        how extremeness is defined and where the rejection region lies.
-        Choosing between one-sided and two-sided testing
-        affects power and interpretation.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/hypothesis-testing/">Back to Block 3</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        Direction must be chosen before observing the data.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 3</span>
+      <span class="badge">Hypothesis Testing</span>
+      <span class="badge">Test Design</span>
     </div>
+
+    <h1>One-Sided vs Two-Sided Tests</h1>
+
+    <p class="lead">
+      Not all research questions ask the same thing.
+    </p>
+
+    <p class="lead">
+      Some questions look for any difference from a null value, while others focus on a specific direction. This distinction determines whether a hypothesis test is one-sided or two-sided.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/hypothesis-testing/power-and-effect-size/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/hypothesis-testing/ci-and-test-connection/">
+         Next: Confidence Intervals and Tests →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>Why Direction Matters</h2>
+
     <p>
-      Distinguish formally between one-sided and two-sided tests,
-      understand how rejection regions differ,
-      and explain their effect on power.
+      Consider a company launching a new manufacturing process.
     </p>
-  </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Core idea</h2>
-      <p style="margin:0;">
-        A two-sided test looks for any deviation from the null.
-        A one-sided test looks for deviation in only one direction.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>1) Hypothesis structure</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Two-sided test</h3>
-      <p style="margin:0;">
-        \[
-        H_0:\ \theta = \theta_0
-        \quad\text{vs}\quad
-        H_1:\ \theta \ne \theta_0
-        \]
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>One-sided test (greater)</h3>
-      <p style="margin:0;">
-        \[
-        H_0:\ \theta = \theta_0
-        \quad\text{vs}\quad
-        H_1:\ \theta > \theta_0
-        \]
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>One-sided test (smaller)</h3>
-      <p style="margin:0;">
-        \[
-        H_0:\ \theta = \theta_0
-        \quad\text{vs}\quad
-        H_1:\ \theta < \theta_0
-        \]
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Directionality rule</h3>
-      <p style="margin:0;">
-        The alternative must reflect the scientific question,
-        not the observed data.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>2) Rejection regions</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Two-sided (α split)</h3>
-      <p style="margin:0;">
-        \[
-        \text{Reject if } |T| > t_{\alpha/2}
-        \]
-      </p>
-      <p class="muted-mini">
-        Probability α is split across two tails.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>One-sided (α in one tail)</h3>
-      <p style="margin:0;">
-        \[
-        \text{Reject if } T > t_{\alpha}
-        \]
-      </p>
-      <p class="muted-mini">
-        Entire α lies in one tail.
-      </p>
-    </div>
-  </div>
-
-  <p class="muted-mini">
-    For the same α, the one-sided critical value is smaller in magnitude,
-    making rejection easier in that direction.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>3) Effect on power</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      When the true effect is in the specified direction,
-      a one-sided test has greater power than a two-sided test
-      at the same α and sample size.
+    <p>
+      The company may ask:
     </p>
-  </div>
 
-  <p style="margin-top:.75rem;">
-    However, if the true effect is in the opposite direction,
-    a one-sided test may completely miss it.
-  </p>
-</section>
+    <div class="example-box">
 
-<section class="section">
-  <div class="section-head">
-    <h2>4) When to use each?</h2>
-  </div>
+      <p>
+        Has the average production output changed?
+      </p>
+    </div>
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Use two-sided when</h3>
+    <p>
+      Or it may ask:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Has the average production output increased?
+      </p>
+    </div>
+
+    <p>
+      These questions are not identical.
+    </p>
+
+    <p>
+      The first looks for change in either direction.
+    </p>
+
+    <p>
+      The second looks only for improvement.
+    </p>
+
+    <h2>The Two-Sided Test</h2>
+
+    <div class="concept-box">
+
+      <strong>Definition:</strong>
+
+      <p>
+        A two-sided test evaluates whether a parameter differs from the null value in either direction.
+      </p>
+
+    </div>
+
+    <p>
+      A typical two-sided hypothesis pair is:
+    </p>
+
+    0
+
+    <br><br>
+
+    1
+
+    <p>
+      The alternative hypothesis allows values above or below the null value.
+    </p>
+
+    <h2>What Counts as Evidence?</h2>
+
+    <p>
+      For a two-sided test,
+      evidence against the null hypothesis can come from either direction.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Sample mean much larger than 100
+      </p>
+
+      <p>
+        Sample mean much smaller than 100
+      </p>
+
+    </div>
+
+    <p>
+      Both outcomes support the alternative hypothesis.
+    </p>
+
+    <h2>The One-Sided Test</h2>
+
+    <div class="concept-box">
+
+      <strong>Definition:</strong>
+
+      <p>
+        A one-sided test evaluates whether a parameter differs from the null value in a specific direction.
+      </p>
+
+    </div>
+
+    <p>
+      There are two forms of one-sided tests.
+    </p>
+
+    <h2>Right-Tailed Test</h2>
+
+    <p>
+      A right-tailed test looks for values larger than the null value.
+    </p>
+
+    2
+
+    <br><br>
+
+    3
+
+    <p>
+      Only unusually large observations provide evidence against H₀.
+    </p>
+
+    <h2>Left-Tailed Test</h2>
+
+    <p>
+      A left-tailed test looks for values smaller than the null value.
+    </p>
+
+    4
+
+    <br><br>
+
+    5
+
+    <p>
+      Only unusually small observations provide evidence against H₀.
+    </p>
+
+    <h2>The Tail Concept</h2>
+
+    <p>
+      The term "tail" refers to extreme regions of a probability distribution.
+    </p>
+
+    <p>
+      In a one-sided test,
+      the rejection region is placed entirely in one tail.
+    </p>
+
+    <p>
+      In a two-sided test,
+      the rejection region is divided between both tails.
+    </p>
+
+    <h2>Visual Comparison</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Test Type</th>
+            <th>Evidence Location</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Left-Tailed</td>
+            <td>Lower tail only</td>
+          </tr>
+
+          <tr>
+            <td>Right-Tailed</td>
+            <td>Upper tail only</td>
+          </tr>
+
+          <tr>
+            <td>Two-Sided</td>
+            <td>Both tails</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>How p-Values Differ</h2>
+
+    <p>
+      Suppose a test statistic equals:
+    </p>
+
+    6
+
+    <p>
+      For a right-tailed test,
+      only the upper-tail probability is counted.
+    </p>
+
+    <p>
+      For a two-sided test,
+      both tails are considered.
+    </p>
+
+    <p>
+      As a result,
+      two-sided p-values are generally larger than corresponding one-sided p-values.
+    </p>
+
+    <h2>Why One-Sided Tests Have More Power</h2>
+
+    <p>
+      Because all of the significance level:
+    </p>
+
+    7
+
+    <p>
+      is placed in a single tail,
+      one-sided tests can detect effects more easily in the specified direction.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Important:</strong>
+
+      <p>
+        One-sided tests provide greater power only for effects in the chosen direction.
+      </p>
+
+    </div>
+
+    <h2>The Cost of a One-Sided Test</h2>
+
+    <p>
+      A one-sided test completely ignores evidence in the opposite direction.
+    </p>
+
+    <p>
+      For example:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Hₐ: μ > 100
+      </p>
+    </div>
+
+    <p>
+      Even an extremely small sample mean does not support this alternative.
+    </p>
+
+    <p>
+      The test is not designed to detect decreases.
+    </p>
+
+    <h2>When Should a One-Sided Test Be Used?</h2>
+
+    <p>
+      A one-sided test is appropriate only when:
+    </p>
+
+    <ul class="bullets">
+
+      <li>The research question is genuinely directional.</li>
+
+      <li>The opposite direction is scientifically irrelevant.</li>
+
+      <li>The direction is specified before data collection.</li>
+
+    </ul>
+
+    <h2>When Should a Two-Sided Test Be Used?</h2>
+
+    <p>
+      A two-sided test is generally preferred when:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Any departure from the null value matters.</li>
+
+      <li>Either direction is possible.</li>
+
+      <li>The direction is uncertain before data collection.</li>
+
+    </ul>
+
+    <p>
+      For this reason,
+      two-sided tests are the default in many scientific disciplines.
+    </p>
+
+    <h2>A Common Mistake</h2>
+
+    <div class="example-box">
+
+      <p>
+        Examine the data first and then choose a one-sided test because the effect appears positive.
+      </p>
+    </div>
+
+    <p>
+      This practice is statistically invalid.
+    </p>
+
+    <p>
+      The direction must be chosen before seeing the data.
+    </p>
+
+    <h2>Connection to Confidence Intervals</h2>
+
+    <p>
+      Two-sided hypothesis tests correspond naturally to two-sided confidence intervals.
+    </p>
+
+    <p>
+      For example:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        95% confidence interval ↔ α = 0.05 two-sided test
+      </p>
+    </div>
+
+    <p>
+      This relationship becomes important in the next lesson.
+    </p>
+
+    <h2>Comparing the Approaches</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Feature</th>
+            <th>One-Sided</th>
+            <th>Two-Sided</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Tests one direction only</td>
+            <td>Yes</td>
+            <td>No</td>
+          </tr>
+
+          <tr>
+            <td>Detects both directions</td>
+            <td>No</td>
+            <td>Yes</td>
+          </tr>
+
+          <tr>
+            <td>Greater directional power</td>
+            <td>Yes</td>
+            <td>No</td>
+          </tr>
+
+          <tr>
+            <td>Most common scientific default</td>
+            <td>No</td>
+            <td>Yes</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      One-sided and two-sided tests answer different scientific questions.
+    </p>
+
+    <p>
+      Choosing the appropriate form requires understanding the research objective before analyzing data.
+    </p>
+
+    <p>
+      The decision affects p-values, power, rejection regions, and interpretation.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Two-sided tests detect departures from the null hypothesis in either direction, while one-sided tests focus on a specific direction. The choice must be made before examining the data and should be driven by the research question.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Confidence intervals and hypothesis tests often appear as separate statistical tools.
+    </p>
+
+    <p>
+      In reality,
+      they are closely connected and frequently lead to identical conclusions.
+    </p>
+
+    <p>
+      The next lesson explores the relationship between confidence intervals and hypothesis tests.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Both increases and decreases matter</li>
-        <li>No strong theoretical direction exists</li>
-        <li>Conservative inference is preferred</li>
+
+        <li>Two-sided tests look for differences in either direction</li>
+
+        <li>One-sided tests look for differences in a specific direction</li>
+
+        <li>Left-tailed and right-tailed tests are the two one-sided forms</li>
+
+        <li>One-sided tests have greater power in the chosen direction</li>
+
+        <li>One-sided tests ignore evidence in the opposite direction</li>
+
+        <li>The choice of test must be made before observing the data</li>
+
+        <li>Two-sided tests are the default in many scientific fields</li>
+
+        <li>Confidence intervals and hypothesis tests are closely related</li>
+
       </ul>
+
     </div>
 
-    <div class="card">
-      <h3>Use one-sided when</h3>
-      <ul class="bullets">
-        <li>Only one direction is meaningful</li>
-        <li>Opposite direction is irrelevant or impossible</li>
-        <li>Direction is pre-specified before data collection</li>
-      </ul>
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/hypothesis-testing/power-and-effect-size/">
+         ← Previous: Power and Effect Size
+      </a>
+
+      <a class="btn"
+         href="/inference/hypothesis-testing/ci-and-test-connection/">
+         Next: Confidence Intervals and Tests →
+      </a>
+
     </div>
+
   </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>5) Common pitfalls</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Post-hoc direction choice</h3>
-      <p style="margin:0;">
-        Choosing one-sided after seeing the data invalidates error guarantees.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Reporting inconsistency</h3>
-      <p style="margin:0;">
-        Using a two-sided confidence interval but a one-sided test creates confusion.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Misinterpretation</h3>
-      <p style="margin:0;">
-        A one-sided test does not test for “any difference.”
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Ignoring context</h3>
-      <p style="margin:0;">
-        Direction must be justified by theory or design.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
-      <ul class="bullets">
-        <li>Formally distinguish one-sided and two-sided tests</li>
-        <li>Understand how α is allocated across tails</li>
-        <li>Explain differences in power</li>
-        <li>Avoid post-hoc directional testing</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next step</h2>
-      <p style="margin:0;">
-        Next, we connect hypothesis tests and confidence intervals
-        and show their mathematical equivalence.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/hypothesis-testing/ci-and-test-connection/">
-          Next lesson: 9. CI and Test Connection →
-        </a>
-      </div>
-    </div>
-
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/hypothesis-testing/power-and-effect-size/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 7: Power and Effect Size
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>
