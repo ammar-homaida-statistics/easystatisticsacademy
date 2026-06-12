@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Sampling Bias vs Statistical Bias
-description: Learn the difference between sampling bias and statistical bias, two concepts that share a name but arise from completely different sources.
-permalink: /inference/foundations/sampling-bias-vs-statistical-bias/
+title: Practical Inference — What Can We Claim?
+description: Learn how to decide what statistical claims are justified based on sampling design, assumptions, uncertainty, and evidence.
+permalink: /inference/foundations/practical-inference-what-can-we-claim/
 sidebar: false
 ---
 
@@ -14,8 +14,8 @@ sidebar: false
     "esa_continue_inference_foundations_lesson_v0";
 
   localStorage.setItem(KEY, JSON.stringify({
-    url: "/inference/foundations/sampling-bias-vs-statistical-bias/",
-    label: "Sampling Bias vs Statistical Bias",
+    url: "/inference/foundations/practical-inference-what-can-we-claim/",
+    label: "Practical Inference — What Can We Claim?",
     ts: Date.now()
   }));
 
@@ -32,29 +32,29 @@ sidebar: false
       <span class="badge">Inference</span>
       <span class="badge">Block 1</span>
       <span class="badge">Foundations</span>
-      <span class="badge">Critical Distinction</span>
+      <span class="badge">Final Lesson</span>
     </div>
 
-    <h1>Sampling Bias vs Statistical Bias</h1>
+    <h1>Practical Inference — What Can We Claim?</h1>
 
     <p class="lead">
-      The word "bias" appears throughout statistics, but it does not always mean the same thing.
+      Statistical inference is not only about formulas.
     </p>
 
     <p class="lead">
-      Sampling bias and statistical bias are fundamentally different concepts. One originates from data collection, while the other originates from estimator behavior.
+      It is also about knowing what conclusions are justified, what assumptions are required, and where the limits of the data lie.
     </p>
 
     <div class="hero-actions">
 
       <a class="btn"
-         href="/inference/foundations/independence-and-random-sampling/">
+         href="/inference/foundations/sampling-bias-vs-statistical-bias/">
          ← Previous Lesson
       </a>
 
       <a class="btn btn-outline"
-         href="/inference/foundations/practical-inference-what-can-we-claim/">
-         Next: Practical Inference — What Can We Claim? →
+         href="/inference/confidence-intervals/">
+         Next Block: Confidence Intervals →
       </a>
 
     </div>
@@ -69,56 +69,61 @@ sidebar: false
 
   <div class="content-narrow">
 
-    <h2>Why This Distinction Matters</h2>
+    <h2>The Central Question</h2>
 
     <p>
-      Students often hear the word bias and assume it always refers to the same problem.
+      Every inferential analysis should end with one question:
     </p>
 
-    <p>
-      In reality,
-      two very different ideas share the same name.
-    </p>
-
-    <p>
-      Confusing them can lead to incorrect conclusions about data quality and estimator performance.
-    </p>
-
-    <div class="concept-box">
-
-      <strong>Key idea:</strong>
+    <div class="example-box">
 
       <p>
-        Sampling bias concerns how data are collected. Statistical bias concerns how estimators behave.
+        What can we legitimately claim from these data?
       </p>
 
     </div>
 
-    <h2>Two Different Sources of Error</h2>
+    <p>
+      A statistical result is only useful when interpreted within the limits of the design, assumptions, and uncertainty.
+    </p>
+
+    <h2>Inference Depends on Design</h2>
+
+    <p>
+      The strength of a statistical claim depends heavily on how the data were collected.
+    </p>
 
     <div class="table-wrap">
 
       <table>
 
         <thead>
-
           <tr>
-            <th>Type of Bias</th>
-            <th>Source</th>
+            <th>Design Feature</th>
+            <th>Supports</th>
           </tr>
-
         </thead>
 
         <tbody>
 
           <tr>
-            <td>Sampling Bias</td>
-            <td>Data collection process</td>
+            <td>Random sampling</td>
+            <td>Generalization to a population</td>
           </tr>
 
           <tr>
-            <td>Statistical Bias</td>
-            <td>Estimator properties</td>
+            <td>Random assignment</td>
+            <td>Causal conclusions</td>
+          </tr>
+
+          <tr>
+            <td>Large sample size</td>
+            <td>More precise estimates</td>
+          </tr>
+
+          <tr>
+            <td>Representative sampling frame</td>
+            <td>Reduced sampling bias</td>
           </tr>
 
         </tbody>
@@ -127,327 +132,197 @@ sidebar: false
 
     </div>
 
+    <h2>Generalization Claims</h2>
+
     <p>
-      Although both can produce misleading conclusions,
-      they arise for different reasons and require different solutions.
+      Generalization means extending conclusions from a sample to a broader population.
     </p>
 
-    <h2>What Is Sampling Bias?</h2>
+    <p>
+      This is most justified when the sample was randomly selected from the target population.
+    </p>
 
     <div class="concept-box">
 
-      <strong>Definition:</strong>
+      <strong>Rule:</strong>
 
       <p>
-        Sampling bias occurs when the sampling process systematically favors some population members over others.
+        Random sampling supports population generalization.
+      </p>
+
+    </div>
+
+    <h2>Causal Claims</h2>
+
+    <p>
+      Causal claims are stronger than descriptive or associational claims.
+    </p>
+
+    <p>
+      They require evidence that one variable actually produces a change in another.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Rule:</strong>
+
+      <p>
+        Random assignment supports causal inference.
       </p>
 
     </div>
 
     <p>
-      The resulting sample fails to represent the target population properly.
+      Without random assignment or a strong causal design,
+      statistical association should not be interpreted as causation.
     </p>
 
-    <h2>A Sampling Bias Example</h2>
+    <h2>Association Claims</h2>
 
     <p>
-      Imagine estimating average household income by surveying only luxury apartment residents.
+      Many studies can support association but not causation.
     </p>
 
     <div class="example-box">
 
       <p>
-        Target population: Entire city
+        Higher study time is associated with higher exam scores.
       </p>
 
       <p>
-        Sample: Luxury apartment residents
+        Higher income is associated with longer life expectancy.
       </p>
 
     </div>
 
     <p>
-      High-income households are overrepresented.
+      These statements describe relationships,
+      but they do not automatically prove cause and effect.
+    </p>
+
+    <h2>Uncertainty Must Be Reported</h2>
+
+    <p>
+      Inferential claims should include uncertainty.
     </p>
 
     <p>
-      The sample is systematically distorted.
-    </p>
-
-    <p>
-      This is sampling bias.
-    </p>
-
-    <h2>Common Sources of Sampling Bias</h2>
-
-    <ul class="bullets">
-
-      <li>Convenience sampling</li>
-
-      <li>Voluntary response surveys</li>
-
-      <li>Coverage errors</li>
-
-      <li>Nonresponse bias</li>
-
-      <li>Selection effects</li>
-
-    </ul>
-
-    <p>
-      All create samples that differ systematically from the intended population.
-    </p>
-
-    <h2>Why Sampling Bias Is Dangerous</h2>
-
-    <p>
-      Sampling bias affects the entire dataset.
-    </p>
-
-    <p>
-      Even perfect statistical methods cannot fully repair severely biased samples.
-    </p>
-
-    <div class="concept-box">
-
-      <strong>Important principle:</strong>
-
-      <p>
-        Better analysis cannot compensate for fundamentally unrepresentative data.
-      </p>
-
-    </div>
-
-    <h2>What Is Statistical Bias?</h2>
-
-    <p>
-      Statistical bias refers to something entirely different.
-    </p>
-
-    <div class="concept-box">
-
-      <strong>Definition:</strong>
-
-      <p>
-        Statistical bias occurs when an estimator systematically overestimates or underestimates a population parameter.
-      </p>
-
-    </div>
-
-    <p>
-      Here the concern is not the sample itself,
-      but the estimator used to analyze it.
-    </p>
-
-    <h2>Mathematical Definition</h2>
-
-    <p>
-      For an estimator:
-    </p>
-
-    0
-
-    <p>
-      estimating:
-    </p>
-
-    1
-
-    <p>
-      statistical bias is:
-    </p>
-
-    2
-
-    <h2>A Statistical Bias Example</h2>
-
-    <p>
-      Suppose the true parameter equals:
-    </p>
-
-    <div class="example-box">
-
-      <p>
-        θ = 100
-      </p>
-
-    </div>
-
-    <p>
-      Across repeated samples,
-      an estimator averages:
-    </p>
-
-    <div class="example-box">
-
-      <p>
-        95
-      </p>
-
-    </div>
-
-    <p>
-      The estimator systematically underestimates the parameter.
-    </p>
-
-    <p>
-      This is statistical bias.
-    </p>
-
-    <h2>Sampling Bias vs Statistical Bias</h2>
-
-    <div class="table-wrap">
-
-      <table>
-
-        <thead>
-
-          <tr>
-            <th>Question</th>
-            <th>Sampling Bias</th>
-            <th>Statistical Bias</th>
-          </tr>
-
-        </thead>
-
-        <tbody>
-
-          <tr>
-            <td>What is biased?</td>
-            <td>The sample</td>
-            <td>The estimator</td>
-          </tr>
-
-          <tr>
-            <td>Source of problem</td>
-            <td>Data collection</td>
-            <td>Estimation procedure</td>
-          </tr>
-
-          <tr>
-            <td>Can random sampling help?</td>
-            <td>Yes</td>
-            <td>Not necessarily</td>
-          </tr>
-
-          <tr>
-            <td>Can a good estimator fix it?</td>
-            <td>Usually no</td>
-            <td>Possibly</td>
-          </tr>
-
-        </tbody>
-
-      </table>
-
-    </div>
-
-    <h2>Can Both Occur Together?</h2>
-
-    <p>
-      Yes.
-    </p>
-
-    <p>
-      A study can suffer from:
+      This uncertainty may appear as:
     </p>
 
     <ul class="bullets">
 
-      <li>Sampling bias</li>
+      <li>Standard errors</li>
 
-      <li>Statistical bias</li>
+      <li>Confidence intervals</li>
 
-      <li>Both simultaneously</li>
+      <li>Margins of error</li>
 
-      <li>Neither</li>
+      <li>p-values</li>
 
     </ul>
 
     <p>
-      These problems are separate and can coexist.
+      Reporting only a point estimate can make results seem more certain than they are.
     </p>
 
-    <h2>A Useful Thought Experiment</h2>
+    <h2>Precision Matters</h2>
 
     <p>
-      Suppose we collect a perfectly random sample.
+      A result can be statistically valid but imprecise.
     </p>
 
+    <div class="example-box">
+
+      <p>
+        Estimated effect = 10
+      </p>
+
+      <p>
+        Confidence interval = −5 to 25
+      </p>
+
+    </div>
+
     <p>
-      If we use a biased estimator,
-      statistical bias can still occur.
+      The estimate suggests a positive effect,
+      but the interval is wide and includes many plausible values.
     </p>
 
-    <p>
-      Good sampling does not automatically guarantee unbiased estimation.
-    </p>
-
-    <h2>The Reverse Situation</h2>
+    <h2>Statistical Significance Is Not Everything</h2>
 
     <p>
-      Suppose we use an unbiased estimator.
-    </p>
-
-    <p>
-      If the sample itself is systematically distorted,
-      conclusions may still be misleading.
-    </p>
-
-    <p>
-      Good estimators cannot completely overcome poor sampling.
-    </p>
-
-    <h2>Which Problem Is More Serious?</h2>
-
-    <p>
-      In practice,
-      sampling bias is often considered more dangerous.
+      Statistical significance tells us whether data are unusual under a null model.
     </p>
 
     <p>
-      Statistical bias can sometimes be quantified and corrected.
+      It does not automatically tell us whether the result is meaningful in practice.
     </p>
+
+    <div class="concept-box">
+
+      <strong>Important:</strong>
+
+      <p>
+        Practical importance and statistical significance are different concepts.
+      </p>
+
+    </div>
+
+    <h2>Check the Assumptions</h2>
 
     <p>
-      Sampling bias often contaminates the entire foundation of the analysis.
+      Before trusting an inferential result,
+      ask whether the assumptions are reasonable.
     </p>
 
-    <h2>Where These Ideas Appear</h2>
+    <ul class="bullets">
+
+      <li>Was the sample representative?</li>
+
+      <li>Were observations independent?</li>
+
+      <li>Was the estimator appropriate?</li>
+
+      <li>Was the uncertainty calculation valid?</li>
+
+      <li>Were outliers or missing data handled transparently?</li>
+
+    </ul>
+
+    <h2>What Can We Claim?</h2>
 
     <div class="table-wrap">
 
       <table>
 
         <thead>
-
           <tr>
-            <th>Area</th>
-            <th>Main Concern</th>
+            <th>Evidence</th>
+            <th>Reasonable Claim</th>
           </tr>
-
         </thead>
 
         <tbody>
 
           <tr>
-            <td>Survey design</td>
-            <td>Sampling bias</td>
+            <td>Convenience sample</td>
+            <td>Describe the observed sample cautiously</td>
           </tr>
 
           <tr>
-            <td>Polling</td>
-            <td>Sampling bias</td>
+            <td>Random sample</td>
+            <td>Generalize to the sampled population</td>
           </tr>
 
           <tr>
-            <td>Estimator theory</td>
-            <td>Statistical bias</td>
+            <td>Randomized experiment</td>
+            <td>Make stronger causal claims</td>
           </tr>
 
           <tr>
-            <td>Machine learning</td>
-            <td>Both frequently appear</td>
+            <td>Observational association</td>
+            <td>Claim association, not causation</td>
           </tr>
 
         </tbody>
@@ -456,68 +331,94 @@ sidebar: false
 
     </div>
 
-    <h2>The Data Collection Hierarchy</h2>
+    <h2>Common Overclaims</h2>
 
     <p>
-      Statistical analysis generally follows this order:
+      Statistical reports often go wrong by claiming more than the data support.
     </p>
+
+    <div class="example-box">
+
+      <p>
+        Claiming causation from observational data
+      </p>
+
+      <p>
+        Generalizing from an unrepresentative sample
+      </p>
+
+      <p>
+        Ignoring uncertainty
+      </p>
+
+      <p>
+        Treating significance as practical importance
+      </p>
+
+    </div>
+
+    <h2>The Responsible Inference Checklist</h2>
 
     <ol>
 
-      <li>Collect representative data</li>
+      <li>Define the target population.</li>
 
-      <li>Choose appropriate estimators</li>
+      <li>Identify the parameter or claim.</li>
 
-      <li>Quantify uncertainty</li>
+      <li>Evaluate the sampling design.</li>
 
-      <li>Draw conclusions</li>
+      <li>Check independence and assumptions.</li>
+
+      <li>Report the estimate and uncertainty.</li>
+
+      <li>State conclusions with appropriate caution.</li>
 
     </ol>
 
-    <p>
-      Problems introduced early in the process often have the largest impact.
-    </p>
-
-    <h2>A Practical Rule</h2>
-
-    <div class="concept-box">
-
-      <strong>Remember:</strong>
-
-      <p>
-        If the issue concerns who entered the sample, think sampling bias.
-      </p>
-
-      <p>
-        If the issue concerns how a parameter is estimated, think statistical bias.
-      </p>
-
-    </div>
-
-    <h2>The Bigger Picture</h2>
+    <h2>What This Block Established</h2>
 
     <p>
-      Reliable inference requires both:
+      This block introduced the foundation of statistical inference.
     </p>
 
     <ul class="bullets">
 
-      <li>Representative samples</li>
+      <li>Populations and parameters</li>
 
-      <li>Good estimators</li>
+      <li>Statistics as random variables</li>
+
+      <li>Estimators and estimates</li>
+
+      <li>Sampling distributions</li>
+
+      <li>Standard errors</li>
+
+      <li>Bias and estimator quality</li>
+
+      <li>Confidence and significance</li>
+
+      <li>Sampling assumptions</li>
 
     </ul>
 
     <p>
-      Sampling bias threatens representativeness.
+      These ideas support every inferential method that follows.
+    </p>
+
+    <h2>The Big Picture</h2>
+
+    <p>
+      Statistical inference is a disciplined way of learning from incomplete data.
     </p>
 
     <p>
-      Statistical bias threatens estimator accuracy.
+      It does not remove uncertainty,
+      but it helps quantify it.
     </p>
 
     <p>
-      Understanding the difference helps diagnose problems in real-world analyses.
+      It does not guarantee truth,
+      but it helps determine which claims are supported by evidence.
     </p>
 
     <div class="concept-box">
@@ -525,7 +426,7 @@ sidebar: false
       <strong>Core message:</strong>
 
       <p>
-        Sampling bias is a data collection problem. Statistical bias is an estimation problem. Both can distort conclusions, but they arise from different stages of the inferential process.
+        A good inferential conclusion is not just statistically calculated. It is justified by the data design, assumptions, uncertainty, and scope of the research question.
       </p>
 
     </div>
@@ -533,43 +434,39 @@ sidebar: false
     <h2>Looking Ahead</h2>
 
     <p>
-      Statistical inference always aims to answer a practical question:
+      The next block focuses on confidence intervals.
     </p>
 
-    <div class="example-box">
-
-      <p>
-        What conclusions can we legitimately draw from the data?
-      </p>
-    </div>
-
     <p>
-      The next lesson brings together the major ideas of this block and focuses on the practical limits of statistical claims.
+      You will learn how to construct intervals,
+      interpret confidence levels,
+      choose critical values,
+      and communicate uncertainty clearly.
     </p>
 
     <!-- TAKEAWAYS -->
 
     <div class="summary-box">
 
-      <h2>Lesson Takeaways</h2>
+      <h2>Block 1 Takeaways</h2>
 
       <ul class="bullets">
 
-        <li>Sampling bias and statistical bias are different concepts</li>
+        <li>Inference uses samples to learn about population parameters</li>
 
-        <li>Sampling bias originates from the data collection process</li>
+        <li>Statistics vary because samples vary</li>
 
-        <li>Statistical bias originates from estimator behavior</li>
+        <li>Sampling distributions describe estimator behavior</li>
 
-        <li>Sampling bias affects representativeness</li>
+        <li>Standard errors measure inferential uncertainty</li>
 
-        <li>Statistical bias affects estimator accuracy</li>
+        <li>Confidence intervals and tests rely on the same foundation</li>
 
-        <li>Good estimators cannot fully fix severely biased samples</li>
+        <li>Random sampling supports generalization</li>
 
-        <li>Both forms of bias can occur simultaneously</li>
+        <li>Random assignment supports causal claims</li>
 
-        <li>Understanding the distinction is essential for evaluating statistical conclusions</li>
+        <li>Valid claims must respect design, assumptions, and uncertainty</li>
 
       </ul>
 
@@ -580,13 +477,13 @@ sidebar: false
     <div class="lesson-nav">
 
       <a class="btn btn-outline"
-         href="/inference/foundations/independence-and-random-sampling/">
-         ← Previous: Independence and Random Sampling
+         href="/inference/foundations/sampling-bias-vs-statistical-bias/">
+         ← Previous: Sampling Bias vs Statistical Bias
       </a>
 
       <a class="btn"
-         href="/inference/foundations/practical-inference-what-can-we-claim/">
-         Next: Practical Inference — What Can We Claim? →
+         href="/inference/confidence-intervals/">
+         Next Block: Confidence Intervals →
       </a>
 
     </div>
