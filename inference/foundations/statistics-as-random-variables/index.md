@@ -1,318 +1,525 @@
 ---
 layout: default
-title: "3. Statistics as Random Variables"
-description: "Understand why statistics are random variables, how sampling distributions arise, and why randomness belongs to estimators—not parameters."
+title: Statistics as Random Variables
+description: Learn why statistics are random variables and why this idea is the foundation of statistical inference.
 permalink: /inference/foundations/statistics-as-random-variables/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">🚧 Lesson Under Construction</h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 is published first to lock the structure and the correct conceptual flow. Examples, graphs,
-        and software demonstrations will be added later without changing the lesson order.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update "last visited lesson" for Inference Block 1 -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_foundations_lesson_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/foundations/statistics-as-random-variables/",
-      label: "Lesson 3 — Statistics as Random Variables",
-      ts: Date.now()
-    }));
+(function () {
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/foundations/",
-      label: "Block 1 — Inference Foundations",
-      ts: Date.now()
-    }));
-  })();
+  const KEY =
+    "esa_continue_inference_foundations_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/foundations/statistics-as-random-variables/",
+    label: "Statistics as Random Variables",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 1</span>
-        <span class="badge">Lesson 3</span>
-        <span class="badge">Sampling</span>
-        <span class="badge">Randomness</span>
-      </div>
 
-      <h1>3. Statistics as Random Variables</h1>
-      <p class="lead">
-        A statistic is not just a number — it is a <strong>random variable</strong>.
-        Because the sample is random, any quantity computed from it varies across samples.
-        This variability is the foundation of statistical inference.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/foundations/">Back to Block 1</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        Version 0: structure first. Visuals and simulations will be added later.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 1</span>
+      <span class="badge">Foundations</span>
+      <span class="badge">Core Theory</span>
     </div>
+
+    <h1>Statistics as Random Variables</h1>
+
+    <p class="lead">
+      Population parameters are fixed but unknown.
+    </p>
+
+    <p class="lead">
+      Statistics are calculated from samples, and because samples vary, statistics vary as well. This makes statistics random variables and creates the uncertainty that statistical inference seeks to understand.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/foundations/populations-parameters-target/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/foundations/estimators-vs-estimates/">
+         Next: Estimators vs Estimates →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>A Common Misunderstanding</h2>
+
     <p>
-      By the end of this lesson, you should be able to explain why statistics are random variables,
-      describe the idea of repeated sampling, and define a <strong>sampling distribution</strong> conceptually.
+      Many beginners view statistics as fixed numbers.
     </p>
-  </div>
 
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Key idea</h2>
-      <p style="margin:0;">
-        <strong>Randomness belongs to the sampling process.</strong>
-        Because different random samples produce different estimates,
-        the statistic itself has a probability distribution.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>1) From fixed data to random samples</h2>
     <p>
-      When you compute a statistic from one observed dataset, it looks like a single number.
-      But imagine repeating the sampling process many times.
+      After all, once a sample is collected,
+      the sample mean appears to be a single value.
     </p>
-  </div>
 
-  <div class="card">
-    <p style="margin:0;">
-      Each time you draw a new random sample from the same population,
-      you would compute a new value of the statistic.
-    </p>
-  </div>
+    <div class="example-box">
 
-  <p class="muted-mini" style="margin-top:.75rem;">
-    Even if the population parameter stays fixed, the sample mean, sample proportion,
-    or regression slope would change from sample to sample.
-  </p>
-</section>
+      <p>
+        Sample mean = 52.4
+      </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) Statistics are functions of random data</h2>
+      <p>
+        Sample proportion = 0.61
+      </p>
+
+    </div>
+
     <p>
-      A statistic is a function of the sample:
+      However,
+      before the sample was collected,
+      those values were unknown.
     </p>
-  </div>
 
-  <div class="card">
-    <p style="font-size:1.1rem; margin:0;">
-      If the sample is \(X_1, X_2, \dots, X_n\), then  
-      \(\bar{X} = \frac{1}{n}\sum_{i=1}^n X_i\)
-    </p>
-  </div>
-
-  <p style="margin-top:.75rem;">
-    Because the sample values \(X_i\) are random variables (under random sampling),
-    any function of them — including \(\bar{X}\) — is also a random variable.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>3) The sampling distribution</h2>
     <p>
-      The <strong>sampling distribution</strong> of a statistic describes
-      how that statistic varies across repeated samples of the same size.
+      Different samples could have produced different results.
     </p>
-  </div>
 
-  <div class="card">
-    <p style="margin:0;">
-      Sampling distribution = probability distribution of a statistic.
-    </p>
-  </div>
+    <h2>Where Randomness Comes From</h2>
 
-  <div class="grid grid-2" style="margin-top:1rem;">
-    <div class="card">
-      <h3>Example: Sample mean</h3>
-      <p>
-        If you repeatedly sample size \(n\) and compute \(\bar{X}\),
-        the values of \(\bar{X}\) form a distribution centered at \(\mu\).
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Example: Sample proportion</h3>
-      <p>
-        Repeated values of \(\hat{p}\) form a distribution centered at \(p\).
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>4) Why this matters for inference</h2>
     <p>
-      Inference depends on knowing (or approximating) the sampling distribution.
+      The randomness does not come from the formula.
     </p>
-  </div>
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Uncertainty measurement</h3>
-      <p>
-        The spread of the sampling distribution determines the
-        <strong>standard error</strong>.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Confidence intervals</h3>
-      <p>
-        Intervals are constructed using quantiles of the sampling distribution.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Hypothesis tests</h3>
-      <p>
-        Test statistics compare observed values to their sampling distribution under an assumption.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Large-sample logic</h3>
-      <p>
-        As sample size increases, sampling distributions often become approximately normal (CLT).
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>5) Parameter vs statistic revisited</h2>
     <p>
-      This is the central structural difference in inference:
+      It comes from the sample selection process.
     </p>
-  </div>
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Parameter</h3>
+    <div class="concept-box">
+
+      <strong>Key idea:</strong>
+
+      <p>
+        If samples are random, then statistics computed from those samples are random as well.
+      </p>
+
+    </div>
+
+    <h2>What Is a Random Variable?</h2>
+
+    <p>
+      A random variable is a quantity whose value depends on the outcome of a random process.
+    </p>
+
+    <p>
+      Since samples are random,
+      statistics calculated from samples are random variables.
+    </p>
+
+    <h2>A Simple Example</h2>
+
+    <p>
+      Suppose a population has an unknown mean:
+    </p>
+
+    <p>
+      μ = 50
+    </p>
+
+    <p>
+      Draw a random sample and calculate:
+    </p>
+
+    0
+
+    <p>
+      One sample may produce:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        x̄ = 48
+      </p>
+
+    </div>
+
+    <p>
+      Another sample may produce:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        x̄ = 53
+      </p>
+
+    </div>
+
+    <p>
+      Another may produce:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        x̄ = 50
+      </p>
+
+    </div>
+
+    <p>
+      The sample mean changes because the sample changes.
+    </p>
+
+    <h2>The Sample Mean Is Random</h2>
+
+    <p>
+      Before observing the sample,
+      the sample mean could take many possible values.
+    </p>
+
+    <p>
+      Therefore:
+    </p>
+
+    1
+
+    <p>
+      is a random variable.
+    </p>
+
+    <h2>Other Statistics Are Random Too</h2>
+
+    <p>
+      The same logic applies to many common statistics.
+    </p>
+
+    <ul class="bullets">
+
+      <li>Sample mean</li>
+
+      <li>Sample proportion</li>
+
+      <li>Sample variance</li>
+
+      <li>Sample standard deviation</li>
+
+      <li>Regression coefficients</li>
+
+    </ul>
+
+    <p>
+      All vary from sample to sample.
+    </p>
+
+    <h2>Parameters vs Statistics</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Parameter</th>
+            <th>Statistic</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Fixed</td>
+            <td>Random</td>
+          </tr>
+
+          <tr>
+            <td>Population quantity</td>
+            <td>Sample quantity</td>
+          </tr>
+
+          <tr>
+            <td>Unknown</td>
+            <td>Observed after sampling</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <div class="concept-box">
+
+      <strong>Important distinction:</strong>
+
+      <p>
+        Parameters do not vary from sample to sample. Statistics do.
+      </p>
+
+    </div>
+
+    <h2>The Distribution of a Statistic</h2>
+
+    <p>
+      Because statistics are random variables,
+      they have probability distributions.
+    </p>
+
+    <p>
+      These are called sampling distributions.
+    </p>
+
+    <p>
+      For example,
+      the sample mean has its own distribution across repeated samples.
+    </p>
+
+    <h2>Why Sampling Distributions Matter</h2>
+
+    <p>
+      Sampling distributions tell us:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Expected values</li>
+
+      <li>Typical variability</li>
+
+      <li>Unusual outcomes</li>
+
+      <li>Precision of estimates</li>
+
+    </ul>
+
+    <p>
+      They form the mathematical basis of inference.
+    </p>
+
+    <h2>Expected Value of a Statistic</h2>
+
+    <p>
+      Since statistics are random variables,
+      they have expected values.
+    </p>
+
+    <p>
+      For the sample mean:
+    </p>
+
+    2
+
+    <p>
+      The sample mean is centered on the population mean.
+    </p>
+
+    <h2>Variability of a Statistic</h2>
+
+    <p>
+      Random variables also have variance.
+    </p>
+
+    <p>
+      For the sample mean:
+    </p>
+
+    3
+
+    <p>
+      This tells us how much sample means fluctuate across repeated samples.
+    </p>
+
+    <h2>The Source of Inferential Uncertainty</h2>
+
+    <p>
+      Why do confidence intervals exist?
+    </p>
+
+    <p>
+      Why are hypothesis tests necessary?
+    </p>
+
+    <p>
+      Because statistics are random.
+    </p>
+
+    <p>
+      If statistics were fixed,
+      there would be no uncertainty to quantify.
+    </p>
+
+    <h2>The Inferential Framework</h2>
+
+    <p>
+      Statistical inference works because:
+    </p>
+
+    <ol>
+
+      <li>Parameters are fixed but unknown.</li>
+
+      <li>Statistics are random.</li>
+
+      <li>Sampling distributions describe that randomness.</li>
+
+      <li>Probability theory quantifies uncertainty.</li>
+
+    </ol>
+
+    <p>
+      This framework underlies all inferential procedures.
+    </p>
+
+    <h2>A Useful Thought Experiment</h2>
+
+    <p>
+      Imagine collecting thousands of independent samples from the same population.
+    </p>
+
+    <p>
+      Each sample produces a different statistic.
+    </p>
+
+    <p>
+      The collection of those statistics forms a sampling distribution.
+    </p>
+
+    <p>
+      Statistical inference studies that distribution.
+    </p>
+
+    <h2>Observed Value vs Random Variable</h2>
+
+    <p>
+      Before sampling:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        x̄ is random.
+      </p>
+
+    </div>
+
+    <p>
+      After sampling:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        x̄ = 52.4 (observed value)
+      </p>
+
+    </div>
+
+    <p>
+      The random variable becomes a realized outcome.
+    </p>
+
+    <h2>Why This Idea Is So Important</h2>
+
+    <p>
+      Much of statistical theory can be summarized as studying the behavior of random statistics.
+    </p>
+
+    <p>
+      Confidence intervals,
+      p-values,
+      standard errors,
+      and hypothesis tests all depend on this concept.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Statistical inference is possible because statistics behave as random variables with predictable probability distributions.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Statistics are random variables,
+      but not every statistic serves the same purpose.
+    </p>
+
+    <p>
+      Some statistics are specifically designed to estimate population parameters.
+    </p>
+
+    <p>
+      The next lesson introduces estimators and explains the important distinction between estimators and estimates.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Belongs to the population</li>
-        <li>Fixed (frequentist framework)</li>
-        <li>Unknown</li>
+
+        <li>Statistics are random variables because samples are random</li>
+
+        <li>Different samples produce different statistic values</li>
+
+        <li>Parameters are fixed but unknown</li>
+
+        <li>Statistics vary from sample to sample</li>
+
+        <li>Random statistics have sampling distributions</li>
+
+        <li>Expected values and variances can be defined for statistics</li>
+
+        <li>Sampling variability creates inferential uncertainty</li>
+
+        <li>Statistical inference studies the behavior of random statistics</li>
+
       </ul>
+
     </div>
 
-    <div class="card">
-      <h3>Statistic</h3>
-      <ul class="bullets">
-        <li>Computed from sample</li>
-        <li>Random variable</li>
-        <li>Has sampling distribution</li>
-      </ul>
-    </div>
-  </div>
+    <!-- NAVIGATION -->
 
-  <p class="muted-mini" style="margin-top:.75rem;">
-    Confusing these two leads to incorrect interpretations of standard errors and p-values.
-  </p>
-</section>
+    <div class="lesson-nav">
 
-<section class="section">
-  <div class="section-head">
-    <h2>6) Common misconceptions</h2>
-  </div>
+      <a class="btn btn-outline"
+         href="/inference/foundations/populations-parameters-target/">
+         ← Previous: Populations, Parameters, and Targets
+      </a>
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>“We only have one sample, so nothing is random.”</h3>
-      <p>
-        Even with one observed sample, the conceptual sampling process defines the distribution.
-      </p>
-    </div>
+      <a class="btn"
+         href="/inference/foundations/estimators-vs-estimates/">
+         Next: Estimators vs Estimates →
+      </a>
 
-    <div class="card">
-      <h3>“The mean itself varies in the population.”</h3>
-      <p>
-        The population mean is fixed. The sample mean varies because the sample varies.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>“Randomness disappears for large n.”</h3>
-      <p>
-        Variability decreases as n increases, but it never becomes zero.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>“Sampling distribution = data distribution.”</h3>
-      <p>
-        The distribution of the statistic is different from the distribution of individual observations.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
-      <ul class="bullets">
-        <li>Explain why statistics are random variables</li>
-        <li>Define a sampling distribution conceptually</li>
-        <li>Understand that randomness belongs to the sample, not the parameter</li>
-        <li>Connect sampling distributions to SE, CI, and hypothesis testing</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next step</h2>
-      <p style="margin:0;">
-        Next, we distinguish clearly between
-        <strong>estimators</strong> (rules) and
-        <strong>estimates</strong> (realized numbers).
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/foundations/estimators-vs-estimates/">
-          Next lesson: 4. Estimators vs Estimates →
-        </a>
-      </div>
-    </div>
-
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/foundations/populations-parameters-target/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 2: Populations, Parameters, and the Target of Estimation
-          </a>
-        </div>
-      </div>
     </div>
 
   </div>
+
 </section>
