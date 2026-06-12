@@ -1,257 +1,570 @@
 ---
 layout: default
-title: "3. Critical Values: z and t"
-description: "Understand critical values in confidence intervals: when to use z vs t, how degrees of freedom matter, and why t intervals are wider."
+title: Critical Values — z and t
+description: Learn what critical values are, where z and t critical values come from, and how they determine the width of confidence intervals.
 permalink: /inference/confidence-intervals/critical-values-z-and-t/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">🚧 Lesson Under Construction</h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 establishes the conceptual difference between z and t critical values.
-        Tables, numeric examples, and software demonstrations will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update "last visited lesson" for Inference Block 2 -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_confidence_intervals_lesson_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/confidence-intervals/critical-values-z-and-t/",
-      label: "Lesson 3 — Critical Values: z and t",
-      ts: Date.now()
-    }));
+(function () {
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/confidence-intervals/",
-      label: "Block 2 — Confidence Intervals",
-      ts: Date.now()
-    }));
-  })();
+  const KEY =
+    "esa_continue_inference_confidence_intervals_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/confidence-intervals/critical-values-z-and-t/",
+    label: "Critical Values — z and t",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 2</span>
-        <span class="badge">Lesson 3</span>
-        <span class="badge">z</span>
-        <span class="badge">t</span>
-      </div>
 
-      <h1>3. Critical Values: z and t</h1>
-      <p class="lead">
-        The critical value determines how far we move from the estimate in standard error units.
-        Choosing between <strong>z</strong> and <strong>t</strong> depends on what we know about variability.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/confidence-intervals/">Back to Block 2</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        Version 0: conceptual clarity first. Tables and computation next.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 2</span>
+      <span class="badge">Confidence Intervals</span>
+      <span class="badge">Critical Values</span>
     </div>
+
+    <h1>Critical Values — z and t</h1>
+
+    <p class="lead">
+      Every confidence interval needs a margin of error.
+    </p>
+
+    <p class="lead">
+      One component of that margin is the standard error. The other is the critical value, which determines how much uncertainty must be captured to achieve a desired confidence level.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/confidence-intervals/interval-blueprint-estimate-plus-minus/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/confidence-intervals/ci-for-mean-sigma-known-z/">
+         Next: CI for Mean (σ Known) →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>Recall the Confidence Interval Blueprint</h2>
+
     <p>
-      By the end of this lesson, you should be able to distinguish z and t critical values,
-      explain why t intervals are wider, and identify when each distribution applies.
+      In the previous lesson we learned that confidence intervals generally follow:
     </p>
-  </div>
 
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Key idea</h2>
-      <p style="margin:0;">
-        The critical value reflects how much uncertainty we must account for.
-        When the population variance is unknown, extra uncertainty is introduced —
-        and that is why we use the t distribution.
-      </p>
-    </div>
-  </div>
-</section>
+    0
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) The z critical value</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      The z critical value comes from the <strong>standard normal distribution</strong>.
+    <p>
+      The standard error measures uncertainty.
     </p>
-  </div>
 
-  <div class="grid grid-2" style="margin-top:1rem;">
-    <div class="card">
-      <h3>When to use z</h3>
-      <ul class="bullets">
-        <li>Population standard deviation σ is known</li>
-        <li>Large-sample approximations (common for proportions)</li>
-      </ul>
-    </div>
-
-    <div class="card">
-      <h3>Common values</h3>
-      <ul class="bullets">
-        <li>90% → 1.645</li>
-        <li>95% → 1.96</li>
-        <li>99% → 2.576</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>2) The t critical value</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      The t critical value comes from the <strong>Student’s t distribution</strong>,
-      which depends on degrees of freedom (df).
+    <p>
+      The critical value determines how much of that uncertainty is included in the interval.
     </p>
-  </div>
 
-  <div class="grid grid-2" style="margin-top:1rem;">
-    <div class="card">
-      <h3>When to use t</h3>
-      <ul class="bullets">
-        <li>Population standard deviation is unknown</li>
-        <li>Using sample standard deviation S</li>
-        <li>Typical case for mean inference</li>
-      </ul>
-    </div>
+    <h2>What Is a Critical Value?</h2>
 
-    <div class="card">
-      <h3>Degrees of freedom</h3>
+    <div class="concept-box">
+
+      <strong>Definition:</strong>
+
       <p>
-        For a one-sample mean:
-        df = n − 1
-      </p>
-    </div>
-  </div>
-
-  <p class="muted-mini" style="margin-top:.75rem;">
-    The t distribution is wider (heavier tails) than the normal distribution,
-    especially for small sample sizes.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>3) Why t intervals are wider</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      When σ is unknown, we estimate it using S.
-      That introduces additional variability.
-      The t distribution adjusts for that uncertainty.
-    </p>
-  </div>
-
-  <p style="margin-top:.75rem;">
-    As sample size increases, the t distribution approaches the standard normal distribution.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>4) Summary comparison</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>z Interval</h3>
-      <ul class="bullets">
-        <li>Uses σ</li>
-        <li>Fixed critical values</li>
-        <li>Narrower (if σ known)</li>
-      </ul>
-    </div>
-
-    <div class="card">
-      <h3>t Interval</h3>
-      <ul class="bullets">
-        <li>Uses S</li>
-        <li>Depends on df</li>
-        <li>Wider (accounts for extra uncertainty)</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>5) Practical rule</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      In real applications for means,
-      σ is almost never known.
-      Therefore, the t interval is the standard default.
-    </p>
-  </div>
-</section>
-
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
-      <ul class="bullets">
-        <li>Distinguish between z and t critical values</li>
-        <li>Understand the role of degrees of freedom</li>
-        <li>Explain why t intervals are wider</li>
-        <li>Know when each distribution applies</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next step</h2>
-      <p style="margin:0;">
-        Now we construct a full interval step-by-step
-        for a population mean.
+        A critical value is a cutoff taken from a probability distribution that determines how far an interval extends from its estimate.
       </p>
 
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/confidence-intervals/ci-for-mean-sigma-known-z/">
-          Next lesson: 4. CI for a Mean →
-        </a>
-      </div>
     </div>
 
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/confidence-intervals/interval-blueprint-estimate-plus-minus/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 2: CI Blueprint
-          </a>
-        </div>
-      </div>
+    <p>
+      It acts as a multiplier on the standard error.
+    </p>
+
+    <h2>Why We Need Critical Values</h2>
+
+    <p>
+      Suppose an estimate has:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Standard Error = 2
+      </p>
+    </div>
+
+    <p>
+      Knowing the uncertainty alone is not enough.
+    </p>
+
+    <p>
+      We must decide how much of the sampling distribution we want the interval to cover.
+    </p>
+
+    <p>
+      That choice determines the critical value.
+    </p>
+
+    <h2>The Confidence Level Connection</h2>
+
+    <p>
+      Confidence levels and critical values are directly connected.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Confidence Level</th>
+            <th>Coverage Goal</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>90%</td>
+            <td>Capture the middle 90%</td>
+          </tr>
+
+          <tr>
+            <td>95%</td>
+            <td>Capture the middle 95%</td>
+          </tr>
+
+          <tr>
+            <td>99%</td>
+            <td>Capture the middle 99%</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      Higher confidence requires covering more of the sampling distribution.
+    </p>
+
+    <h2>The Standard Normal Distribution</h2>
+
+    <p>
+      Many confidence intervals use the standard normal distribution.
+    </p>
+
+    <p>
+      This distribution is centered at zero and has standard deviation one.
+    </p>
+
+    <p>
+      Critical values from this distribution are called z critical values.
+    </p>
+
+    <h2>The Famous 95% Critical Value</h2>
+
+    <p>
+      For a 95% confidence interval,
+      the middle 95% of the standard normal distribution lies approximately between:
+    </p>
+
+    1
+
+    <p>
+      Therefore the critical value is:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        z* = 1.96
+      </p>
+    </div>
+
+    <h2>Common z Critical Values</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Confidence Level</th>
+            <th>z Critical Value</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>90%</td>
+            <td>1.645</td>
+          </tr>
+
+          <tr>
+            <td>95%</td>
+            <td>1.96</td>
+          </tr>
+
+          <tr>
+            <td>99%</td>
+            <td>2.576</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>What These Numbers Mean</h2>
+
+    <p>
+      Larger critical values extend the interval farther from the estimate.
+    </p>
+
+    <p>
+      This increases the probability that the interval procedure captures the true parameter.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Tradeoff:</strong>
+
+      <p>
+        More confidence requires a wider interval.
+      </p>
+
+    </div>
+
+    <h2>A Margin of Error Example</h2>
+
+    <p>
+      Suppose:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        SE = 2
+      </p>
+
+      <p>
+        95% confidence
+      </p>
+    </div>
+
+    <p>
+      Then:
+    </p>
+
+    2
+
+    <p>
+      The interval extends 3.92 units above and below the estimate.
+    </p>
+
+    <h2>When z Is Used</h2>
+
+    <p>
+      z critical values are typically used when:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Population standard deviation is known</li>
+
+      <li>Large-sample approximations apply</li>
+
+      <li>Normal-theory assumptions justify their use</li>
+
+    </ul>
+
+    <p>
+      However,
+      another distribution is often needed in practice.
+    </p>
+
+    <h2>The Problem With Unknown Population Variability</h2>
+
+    <p>
+      In real applications,
+      the population standard deviation:
+    </p>
+
+    3
+
+    <p>
+      is usually unknown.
+    </p>
+
+    <p>
+      Instead,
+      we estimate it using sample data.
+    </p>
+
+    <p>
+      This introduces additional uncertainty.
+    </p>
+
+    <h2>Enter the t Distribution</h2>
+
+    <p>
+      The t distribution was developed specifically to account for uncertainty arising from estimating population variability.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Definition:</strong>
+
+      <p>
+        The t distribution resembles the normal distribution but has heavier tails.
+      </p>
+
+    </div>
+
+    <h2>Why Heavier Tails Matter</h2>
+
+    <p>
+      Heavier tails allocate more probability to extreme values.
+    </p>
+
+    <p>
+      As a result,
+      t critical values are larger than corresponding z critical values.
+    </p>
+
+    <p>
+      This produces wider intervals.
+    </p>
+
+    <h2>The Role of Degrees of Freedom</h2>
+
+    <p>
+      Unlike z critical values,
+      t critical values depend on:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Degrees of Freedom (df)
+      </p>
+    </div>
+
+    <p>
+      For one-sample mean intervals:
+    </p>
+
+    4
+
+    <h2>How Sample Size Changes t</h2>
+
+    <p>
+      Small samples produce larger t critical values.
+    </p>
+
+    <p>
+      Large samples make the t distribution increasingly similar to the normal distribution.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Important fact:</strong>
+
+      <p>
+        As sample size grows, t critical values approach z critical values.
+      </p>
+
+    </div>
+
+    <h2>An Example Comparison</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>95% Confidence</th>
+            <th>Critical Value</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>z</td>
+            <td>1.96</td>
+          </tr>
+
+          <tr>
+            <td>t (df = 10)</td>
+            <td>≈ 2.228</td>
+          </tr>
+
+          <tr>
+            <td>t (df = 30)</td>
+            <td>≈ 2.042</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      Notice how the t critical value decreases toward 1.96 as sample size increases.
+    </p>
+
+    <h2>Choosing Between z and t</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Situation</th>
+            <th>Use</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>σ known</td>
+            <td>z critical value</td>
+          </tr>
+
+          <tr>
+            <td>σ unknown</td>
+            <td>t critical value</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      In practice,
+      t methods are often more common because population standard deviations are rarely known.
+    </p>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      Critical values determine how much uncertainty is included in a confidence interval.
+    </p>
+
+    <p>
+      They translate confidence levels into numerical multipliers.
+    </p>
+
+    <p>
+      Combined with standard errors,
+      they create the margin of error that defines interval width.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Critical values determine how many standard errors are needed to achieve a desired confidence level. z values come from the normal distribution, while t values account for additional uncertainty when population variability is unknown.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Now that we understand the confidence interval blueprint and critical values,
+      we can construct our first complete confidence interval.
+    </p>
+
+    <p>
+      The next lesson develops the confidence interval for a population mean when the population standard deviation is known using the z distribution.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>Critical values determine interval width</li>
+
+        <li>Confidence levels correspond to specific critical values</li>
+
+        <li>95% confidence corresponds to z* ≈ 1.96</li>
+
+        <li>Margin of error equals critical value times standard error</li>
+
+        <li>Higher confidence requires larger critical values</li>
+
+        <li>The t distribution accounts for uncertainty in estimating variability</li>
+
+        <li>t critical values depend on degrees of freedom</li>
+
+        <li>As sample size increases, t critical values approach z critical values</li>
+
+      </ul>
+
+    </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/confidence-intervals/interval-blueprint-estimate-plus-minus/">
+         ← Previous: Interval Blueprint
+      </a>
+
+      <a class="btn"
+         href="/inference/confidence-intervals/ci-for-mean-sigma-known-z/">
+         Next: CI for Mean (σ Known) →
+      </a>
+
     </div>
 
   </div>
+
 </section>
