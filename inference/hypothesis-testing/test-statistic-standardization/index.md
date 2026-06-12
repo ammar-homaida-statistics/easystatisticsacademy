@@ -1,346 +1,533 @@
 ---
 layout: default
-title: "3. Test Statistic and Standardization"
-description: "Learn what a test statistic is, why we standardize estimates into SE units, and how standardization creates z/t-style scales for hypothesis testing."
+title: Test Statistic and Standardization
+description: Learn what a test statistic is, why standardization is essential in hypothesis testing, and how observed results are converted into evidence.
 permalink: /inference/hypothesis-testing/test-statistic-standardization/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 locks the logic of test statistics and standardization.
-        Worked examples, visuals, and software demonstrations will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update continue-reading keys -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_hypothesis_testing_lesson_v0";
+(function () {
 
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/hypothesis-testing/test-statistic-standardization/",
-      label: "Lesson 3 — Test Statistic and Standardization",
-      ts: Date.now()
-    }));
+  const KEY =
+    "esa_continue_inference_hypothesis_testing_lesson_v0";
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/hypothesis-testing/",
-      label: "Block 3 — Hypothesis Testing",
-      ts: Date.now()
-    }));
-  })();
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/hypothesis-testing/test-statistic-standardization/",
+    label: "Test Statistic and Standardization",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 3</span>
-        <span class="badge">Lesson 3</span>
-        <span class="badge">Test statistic</span>
-        <span class="badge">SE units</span>
-      </div>
 
-      <h1>3. Test Statistic and Standardization</h1>
-
-      <p class="lead">
-        A hypothesis test converts data into a single number that measures evidence against the null.
-        This number is the <strong>test statistic</strong>.
-        Standardization puts results on a common scale by measuring distance from the null in
-        <strong>standard error units</strong>.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/hypothesis-testing/">Back to Block 3</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        Core idea: “How many SEs away from the null is the observed estimate?”
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 3</span>
+      <span class="badge">Hypothesis Testing</span>
+      <span class="badge">Core Mechanics</span>
     </div>
+
+    <h1>Test Statistic and Standardization</h1>
+
+    <p class="lead">
+      Once hypotheses are defined, we need a way to measure how far the observed data depart from the null hypothesis.
+    </p>
+
+    <p class="lead">
+      Test statistics provide that measurement by converting observed differences into standardized units that can be evaluated using probability models.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/hypothesis-testing/null-and-alternative/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/hypothesis-testing/p-value-meaning/">
+         Next: p-Value Meaning →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>The Problem We Need to Solve</h2>
+
     <p>
-      By the end of this lesson, you should be able to define a test statistic,
-      explain standardization, and recognize the universal structure behind z and t tests.
+      Suppose a manufacturer claims:
     </p>
-  </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Key idea</h2>
-      <p style="margin:0;">
-        Most classical tests are built from the same template:
-        <strong>(estimate − null value) ÷ standard error</strong>.
-        The resulting number is comparable across problems because it is measured in SE units.
-      </p>
-    </div>
-  </div>
-</section>
+    0
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) What is a test statistic?</h2>
     <p>
-      A <strong>test statistic</strong> is a function of the sample that summarizes the evidence against
-      the null hypothesis.
-      Under the null hypothesis, the test statistic has a known (or approximated) sampling distribution.
+      and a sample produces:
     </p>
-  </div>
 
-  <div class="card">
-    <p style="margin:0;">
-      A test statistic is a <strong>statistic</strong> (depends on data), designed so that
-      “more extreme” values are less likely under \(H_0\).
-    </p>
-  </div>
+    1
 
-  <p class="muted-mini" style="margin-top:.75rem;">
-    The p-value will be computed from the sampling distribution of this statistic under \(H_0\).
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>2) The universal structure: distance / uncertainty</h2>
     <p>
-      Many tests can be understood as:
-      distance between the observed estimate and the null value,
-      scaled by the typical sampling variability.
+      The sample mean differs from the claimed value by:
     </p>
-  </div>
 
-  <div class="card">
-    <p style="margin:0; font-size:1.05rem;">
-      <strong>
-      \[
-      \text{Test statistic}
-      \;=\;
-      \frac{\text{estimate} - \text{null value}}{\text{standard error}}
-      \]
-      </strong>
-    </p>
-  </div>
+    2
 
-  <div class="grid grid-2" style="margin-top:1rem;">
-    <div class="card">
-      <h3>Numerator = signal</h3>
-      <p style="margin:0;">
-        \(\text{estimate} - \text{null value}\) measures the observed departure from \(H_0\).
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Denominator = noise</h3>
-      <p style="margin:0;">
-        \(\text{SE}\) measures how much the estimate typically varies across samples when \(H_0\) is true.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>3) What “standardization” means</h2>
     <p>
-      Standardization means converting a raw difference into a number of standard errors.
-      This creates a universal unit:
-      “how many SEs away from the null.”
+      Is a difference of 8 large?
     </p>
-  </div>
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Raw difference (not comparable)</h3>
-      <p style="margin:0;">
-        A difference of 2 units might be huge in one context and tiny in another.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>SE units (comparable)</h3>
-      <p style="margin:0;">
-        A value like 3.0 means “three standard errors away,” which is interpretable across problems.
-      </p>
-    </div>
-  </div>
-
-  <p class="muted-mini" style="margin-top:.75rem;">
-    Standardization is why z/t values can be compared to reference distributions.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>4) z vs t: same structure, different reference distribution</h2>
     <p>
-      The standardized statistic often follows a known distribution under \(H_0\).
-      Which distribution you use depends on how the standard error is computed.
+      The answer depends on the amount of natural variability in the sampling process.
     </p>
-  </div>
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>z-style statistics</h3>
-      <p style="margin:0;">
-        Used when variability is known or when large-sample approximations apply.
-      </p>
-      <p style="margin-top:.75rem; margin-bottom:0;">
-        \[
-        Z = \frac{\text{estimate} - \text{null value}}{\text{SE}}
-        \quad\text{and}\quad
-        Z \approx N(0,1)\ \text{under } H_0
-        \]
-      </p>
-    </div>
+    <h2>Why Raw Differences Are Not Enough</h2>
 
-    <div class="card">
-      <h3>t-style statistics</h3>
-      <p style="margin:0;">
-        Used when variability is estimated from the same data (common for means).
-      </p>
-      <p style="margin-top:.75rem; margin-bottom:0;">
-        \[
-        T = \frac{\text{estimate} - \text{null value}}{\text{SE}}
-        \quad\text{and}\quad
-        T \sim t_{\text{df}}\ \text{under } H_0
-        \]
-      </p>
-    </div>
-  </div>
-
-  <p class="muted-mini" style="margin-top:.75rem;">
-    The formula looks the same; the difference is the reference distribution and degrees of freedom.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>5) “More extreme” depends on the alternative</h2>
     <p>
-      Once standardized, you must define what counts as extreme.
-      That depends on whether the alternative is two-sided or one-sided.
+      A difference of 8 units may be:
     </p>
-  </div>
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Two-sided alternative</h3>
-      <p style="margin:0;">
-        Extremeness is measured by magnitude:
-        large \(|T|\) or large \(|Z|\).
+    <ul class="bullets">
+
+      <li>Huge in one situation</li>
+
+      <li>Tiny in another</li>
+
+    </ul>
+
+    <p>
+      The interpretation depends on how much random variation is expected.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Key idea:</strong>
+
+      <p>
+        Evidence is determined not by the size of a difference alone, but by its size relative to expected sampling variability.
       </p>
-      <p style="margin-top:.75rem; margin-bottom:0;">
-        \[
-        \text{extreme} \iff |T|\ \text{is large}
-        \]
-      </p>
+
     </div>
 
-    <div class="card">
-      <h3>One-sided alternative</h3>
-      <p style="margin:0;">
-        Extremeness is directional:
-        large positive values (or large negative values) depending on \(H_1\).
+    <h2>The Need for Standardization</h2>
+
+    <p>
+      To evaluate evidence fairly,
+      we compare the observed difference to the amount of variation expected under the null hypothesis.
+    </p>
+
+    <p>
+      This process is called standardization.
+    </p>
+
+    <h2>The General Formula</h2>
+
+    <p>
+      Most test statistics have the form:
+    </p>
+
+    3
+
+    <p>
+      where:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Observed = estimate from the sample</li>
+
+      <li>Expected = value predicted by the null hypothesis</li>
+
+      <li>SE = standard error</li>
+
+    </ul>
+
+    <h2>Interpreting the Formula</h2>
+
+    <p>
+      The numerator measures departure from the null hypothesis.
+    </p>
+
+    <p>
+      The denominator measures expected random variability.
+    </p>
+
+    <p>
+      Together they tell us:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        How many standard errors away from the null expectation the observation lies.
       </p>
-      <p style="margin-top:.75rem; margin-bottom:0;">
-        \[
-        \text{extreme} \iff T\ \text{is large in the direction of } H_1
-        \]
-      </p>
+
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>6) Common traps (and how to avoid them)</h2>
-  </div>
+    <h2>The z Statistic</h2>
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Trap A: Using SD instead of SE</h3>
-      <p style="margin:0;">
-        Tests standardize by the <strong>standard error of the estimator</strong>, not the raw data spread.
+    <p>
+      When population variability is known,
+      a common test statistic is:
+    </p>
+
+    4
+
+    <p>
+      where:
+    </p>
+
+    <ul class="bullets">
+
+      <li>x̄ = observed sample mean</li>
+
+      <li>μ₀ = null-hypothesis value</li>
+
+      <li>SE = standard error</li>
+
+    </ul>
+
+    <h2>An Example</h2>
+
+    <p>
+      Suppose:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Sample mean = 492
       </p>
+
+      <p>
+        Null value = 500
+      </p>
+
+      <p>
+        Standard error = 2
+      </p>
+
     </div>
 
-    <div class="card">
-      <h3>Trap B: Mixing the wrong SE with the wrong distribution</h3>
-      <p style="margin:0;">
-        If you estimate \(\sigma\) from the sample for a mean test, you typically use a t reference distribution.
+    <p>
+      Then:
+    </p>
+
+    5
+
+    <p>
+      The observed mean is four standard errors below the null expectation.
+    </p>
+
+    <h2>Why Standard Errors Matter</h2>
+
+    <p>
+      Consider the same observed difference:
+    </p>
+
+    6
+
+    <p>
+      but now suppose:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        SE = 20
       </p>
+
     </div>
 
-    <div class="card">
-      <h3>Trap C: Forgetting the null value</h3>
-      <p style="margin:0;">
-        Always subtract the hypothesized value from \(H_0\) (often 0 for differences).
-      </p>
+    <p>
+      Then:
+    </p>
+
+    7
+
+    <p>
+      Suddenly the same difference appears quite ordinary.
+    </p>
+
+    <p>
+      The evidence changes because the expected variability changed.
+    </p>
+
+    <h2>Large vs Small Test Statistics</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Statistic Magnitude</th>
+            <th>Interpretation</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Near 0</td>
+            <td>Data consistent with H₀</td>
+          </tr>
+
+          <tr>
+            <td>Moderate</td>
+            <td>Some departure from H₀</td>
+          </tr>
+
+          <tr>
+            <td>Large absolute value</td>
+            <td>Strong departure from H₀</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
     </div>
 
-    <div class="card">
-      <h3>Trap D: Ignoring the alternative direction</h3>
-      <p style="margin:0;">
-        The alternative determines whether extremeness is one tail or two tails.
-      </p>
-    </div>
-  </div>
-</section>
+    <h2>The Direction Matters Too</h2>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+    <p>
+      Test statistics contain information about direction.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Value</th>
+            <th>Meaning</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Positive</td>
+            <td>Observed value exceeds null expectation</td>
+          </tr>
+
+          <tr>
+            <td>Negative</td>
+            <td>Observed value falls below null expectation</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      The sign becomes especially important for one-sided tests.
+    </p>
+
+    <h2>The t Statistic</h2>
+
+    <p>
+      When population variability is unknown,
+      statisticians replace σ with the sample standard deviation.
+    </p>
+
+    <p>
+      This produces the t statistic:
+    </p>
+
+    8
+
+    <p>
+      The logic remains identical.
+    </p>
+
+    <p>
+      Only the probability distribution changes.
+    </p>
+
+    <h2>A Universal Idea</h2>
+
+    <p>
+      Nearly every classical test statistic follows the same blueprint:
+    </p>
+
+    9
+
+    <p>
+      This pattern appears throughout statistics.
+    </p>
+
+    <h2>Why Standardization Is Powerful</h2>
+
+    <p>
+      Raw measurements may use different units:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Points</li>
+
+      <li>Dollars</li>
+
+      <li>Milliliters</li>
+
+      <li>Percentages</li>
+
+    </ul>
+
+    <p>
+      Standardization converts them into a common scale measured in standard errors.
+    </p>
+
+    <p>
+      This allows probability calculations to be performed consistently.
+    </p>
+
+    <h2>The Sampling Distribution Connection</h2>
+
+    <p>
+      Under the null hypothesis,
+      the test statistic has a known sampling distribution.
+    </p>
+
+    <p>
+      Examples include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Standard normal distribution</li>
+
+      <li>t distribution</li>
+
+      <li>Chi-square distribution</li>
+
+      <li>F distribution</li>
+
+    </ul>
+
+    <p>
+      These distributions determine how unusual the observed statistic is.
+    </p>
+
+    <h2>What Counts as Unusual?</h2>
+
+    <p>
+      A test statistic near the center of its distribution is unsurprising.
+    </p>
+
+    <p>
+      A statistic far into the tails is unusual under the null hypothesis.
+    </p>
+
+    <p>
+      The more unusual the statistic,
+      the stronger the evidence against the null.
+    </p>
+
+    <h2>The Missing Piece</h2>
+
+    <p>
+      We now know how to quantify departure from the null hypothesis.
+    </p>
+
+    <p>
+      But we still need a way to convert that departure into a probability statement.
+    </p>
+
+    <p>
+      That probability is called the p-value.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        A test statistic standardizes the difference between observed data and the null hypothesis by expressing that difference in units of standard error. Larger absolute test statistics indicate stronger evidence against the null hypothesis.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Once a test statistic is computed,
+      statisticians evaluate how unusual it would be if the null hypothesis were true.
+    </p>
+
+    <p>
+      The probability of observing evidence at least this extreme is called the p-value.
+    </p>
+
+    <p>
+      The next lesson introduces p-values, one of the most important—and most misunderstood—concepts in statistics.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Define a test statistic and its role in hypothesis testing</li>
-        <li>Explain standardization as “distance in SE units”</li>
-        <li>Recognize the universal form \((\text{estimate}-\text{null})/\text{SE}\)</li>
-        <li>Understand how z and t tests share structure but differ in reference distributions</li>
+
+        <li>Raw differences must be evaluated relative to expected variability</li>
+
+        <li>Standardization converts differences into standard-error units</li>
+
+        <li>Most test statistics follow (Observed − Expected)/SE</li>
+
+        <li>Large absolute statistics indicate stronger departures from H₀</li>
+
+        <li>The sign indicates the direction of departure</li>
+
+        <li>z and t statistics are common examples</li>
+
+        <li>Standardization allows probability calculations across different scales</li>
+
+        <li>Test statistics are the bridge between data and p-values</li>
+
       </ul>
-    </div>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next step</h2>
-      <p style="margin:0;">
-        Next, we define the <strong>p-value</strong> precisely and explain what it does (and does not) mean.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/hypothesis-testing/p-value-meaning/">
-          Next lesson: 4. p-Value: Meaning and Interpretation →
-        </a>
-      </div>
     </div>
 
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/hypothesis-testing/null-and-alternative/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 2: Null and Alternative Hypotheses
-          </a>
-        </div>
-      </div>
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/hypothesis-testing/null-and-alternative/">
+         ← Previous: Null and Alternative Hypotheses
+      </a>
+
+      <a class="btn"
+         href="/inference/hypothesis-testing/p-value-meaning/">
+         Next: p-Value Meaning →
+      </a>
+
     </div>
 
   </div>
+
 </section>
