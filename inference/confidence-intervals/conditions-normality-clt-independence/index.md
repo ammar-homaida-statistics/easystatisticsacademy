@@ -1,375 +1,566 @@
 ---
 layout: default
-title: "6. Conditions for Valid Confidence Intervals"
-description: "Confidence intervals require structural assumptions. This lesson defines the conditions (independence, random sampling, normality/CLT, and proportion checks) and explains what happens when they fail."
+title: Conditions — Normality, CLT, and Independence
+description: Learn the assumptions required for confidence intervals and how normality, the Central Limit Theorem, and independence support valid inference.
 permalink: /inference/confidence-intervals/conditions-normality-clt-independence/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">🚧 Lesson Under Construction</h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 locks the <strong>validity checklist</strong>. Diagnostics and fixes come later.
-        The goal is to prevent “correct formulas” applied to invalid settings.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update "last visited lesson" for Inference Block 2 -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_confidence_intervals_lesson_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/confidence-intervals/conditions-normality-clt-independence/",
-      label: "Lesson 6 — Conditions for Valid Confidence Intervals",
-      ts: Date.now()
-    }));
+(function () {
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/confidence-intervals/",
-      label: "Block 2 — Confidence Intervals",
-      ts: Date.now()
-    }));
-  })();
+  const KEY =
+    "esa_continue_inference_confidence_intervals_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/confidence-intervals/conditions-normality-clt-independence/",
+    label: "Conditions — Normality, CLT, and Independence",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 2</span>
-        <span class="badge">Lesson 6</span>
-        <span class="badge">Assumptions</span>
-        <span class="badge">Validity</span>
-      </div>
 
-      <h1>6. Conditions for Valid Confidence Intervals</h1>
-      <p class="lead">
-        A confidence interval is only meaningful if its assumptions are reasonable.
-        This lesson provides a clean checklist: <strong>design → independence → distribution conditions</strong>.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/confidence-intervals/">Back to Block 2</a>
-        <a class="btn btn-outline" href="/inference/">Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        Version 0: checklist first. Fixes and alternatives (bootstrap, robust intervals) come later.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 2</span>
+      <span class="badge">Confidence Intervals</span>
+      <span class="badge">Assumptions</span>
     </div>
+
+    <h1>Conditions — Normality, CLT, and Independence</h1>
+
+    <p class="lead">
+      Confidence interval formulas are only as trustworthy as the assumptions behind them.
+    </p>
+
+    <p class="lead">
+      Before constructing an interval, statisticians must verify that the conditions supporting the sampling distribution are reasonably satisfied.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/confidence-intervals/ci-for-mean-sigma-unknown-t/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/confidence-intervals/ci-for-proportion/">
+         Next: CI for a Proportion →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>Why Conditions Matter</h2>
+
     <p>
-      By the end of this lesson, you should be able to verify whether a confidence interval method is valid for your data,
-      and explain what kind of failure occurs if assumptions do not hold.
+      Confidence intervals rely on probability models.
     </p>
-  </div>
 
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Key idea</h2>
-      <p style="margin:0;">
-        <strong>Confidence intervals are probability statements about the long-run behavior of the method.</strong>
-        If the method’s assumptions are violated, the stated confidence level may no longer be true.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>1) The validity checklist (big picture)</h2>
     <p>
-      Before computing any CI, check in this order:
+      Those probability models describe how estimates behave under repeated sampling.
     </p>
-  </div>
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>A) Target & design</h3>
-      <ul class="bullets">
-        <li>Is the population/parameter clearly defined?</li>
-        <li>Is the sampling/assignment mechanism credible?</li>
-        <li>Are you estimating the right parameter for the question?</li>
-      </ul>
-    </div>
-
-    <div class="card">
-      <h3>B) Independence</h3>
-      <ul class="bullets">
-        <li>Are observations independent?</li>
-        <li>Any clustering, repeated measures, time dependence?</li>
-        <li>If sampling without replacement: is the sample small relative to population?</li>
-      </ul>
-    </div>
-
-    <div class="card">
-      <h3>C) Distribution condition (mean)</h3>
-      <ul class="bullets">
-        <li>Population approximately normal <em>or</em> sample large (CLT)</li>
-        <li>No extreme outliers for small/moderate n</li>
-      </ul>
-    </div>
-
-    <div class="card">
-      <h3>D) Distribution condition (proportion)</h3>
-      <ul class="bullets">
-        <li>Large counts: \(n\hat p\) and \(n(1-\hat p)\) sufficiently large</li>
-        <li>Independence (same as above)</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>2) Independence (the most important assumption)</h2>
     <p>
-      Most CI formulas assume the data behave like a random sample of independent observations.
-      If independence fails, standard errors are wrong.
+      If the assumptions are severely violated,
+      the interval may no longer achieve its advertised confidence level.
     </p>
-  </div>
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Independence is plausible when</h3>
+    <div class="concept-box">
+
+      <strong>Key idea:</strong>
+
+      <p>
+        A confidence interval is only as reliable as the assumptions used to justify it.
+      </p>
+
+    </div>
+
+    <h2>The Three Major Conditions</h2>
+
+    <p>
+      For confidence intervals involving means, three conditions are especially important:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Independence</li>
+
+      <li>Normality</li>
+
+      <li>The Central Limit Theorem (CLT)</li>
+
+    </ul>
+
+    <p>
+      Together they justify the sampling distribution used by confidence interval formulas.
+    </p>
+
+    <h2>Condition 1: Independence</h2>
+
+    <p>
+      Statistical formulas assume observations provide separate pieces of information.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Independence:</strong>
+
+      <p>
+        Knowing one observation should not substantially determine another observation.
+      </p>
+
+    </div>
+
+    <p>
+      Independence is often the most important assumption in statistical inference.
+    </p>
+
+    <h2>Why Independence Matters</h2>
+
+    <p>
+      Standard error formulas assume information accumulates as sample size increases.
+    </p>
+
+    <p>
+      If observations are strongly dependent,
+      the effective amount of information is smaller than the sample size suggests.
+    </p>
+
+    <p>
+      Confidence intervals may become misleadingly narrow.
+    </p>
+
+    <h2>How Independence Is Often Achieved</h2>
+
+    <p>
+      Independence is commonly approximated through:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Random sampling</li>
+
+      <li>Random assignment</li>
+
+      <li>Large populations relative to sample size</li>
+
+    </ul>
+
+    <p>
+      Proper study design is often the first defense against dependence problems.
+    </p>
+
+    <h2>The 10% Condition</h2>
+
+    <p>
+      When sampling without replacement,
+      a common guideline is:
+    </p>
+
+    <div class="concept-box">
+
+      <strong>10% Condition:</strong>
+
+      <p>
+        The sample size should be less than about 10% of the population size.
+      </p>
+
+    </div>
+
+    <p>
+      This helps justify treating observations as approximately independent.
+    </p>
+
+    <h2>Condition 2: Normality</h2>
+
+    <p>
+      Confidence intervals for means are built using distributions that assume approximate normality.
+    </p>
+
+    <p>
+      The question becomes:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Is the sampling distribution of the sample mean approximately normal?
+      </p>
+
+    </div>
+
+    <h2>When the Population Is Normal</h2>
+
+    <p>
+      If the population itself is normally distributed,
+      then the sample mean is normally distributed for every sample size.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Important fact:</strong>
+
+      <p>
+        A normal population guarantees a normal sampling distribution of the mean.
+      </p>
+
+    </div>
+
+    <h2>The Real-World Problem</h2>
+
+    <p>
+      Most real populations are not perfectly normal.
+    </p>
+
+    <p>
+      They may be:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Skewed</li>
+
+      <li>Heavy-tailed</li>
+
+      <li>Multimodal</li>
+
+      <li>Contain outliers</li>
+
+    </ul>
+
+    <p>
+      Fortunately,
+      another powerful result often rescues us.
+    </p>
+
+    <h2>Condition 3: The Central Limit Theorem</h2>
+
+    <p>
+      The Central Limit Theorem explains why confidence intervals work surprisingly well.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>CLT:</strong>
+
+      <p>
+        As sample size increases, the sampling distribution of the sample mean becomes approximately normal, regardless of the population shape.
+      </p>
+
+    </div>
+
+    <h2>Why the CLT Is So Important</h2>
+
+    <p>
+      Without the CLT,
+      confidence intervals would require normal populations much more often.
+    </p>
+
+    <p>
+      With the CLT,
+      many practical datasets become analyzable using standard inferential methods.
+    </p>
+
+    <h2>The Sample Size Effect</h2>
+
+    <p>
+      Larger samples generally make the CLT more effective.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Sample Size</th>
+            <th>Normal Approximation</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Small</td>
+            <td>May be poor</td>
+          </tr>
+
+          <tr>
+            <td>Moderate</td>
+            <td>Often reasonable</td>
+          </tr>
+
+          <tr>
+            <td>Large</td>
+            <td>Usually very good</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>Is n = 30 a Magic Number?</h2>
+
+    <p>
+      Many introductory courses mention:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        n ≥ 30
+      </p>
+
+    </div>
+
+    <p>
+      as a rule of thumb.
+    </p>
+
+    <p>
+      However,
+      there is nothing magical about 30.
+    </p>
+
+    <p>
+      The required sample size depends on the population shape.
+    </p>
+
+    <h2>When Smaller Samples Can Work</h2>
+
+    <p>
+      If the population is approximately normal,
+      even small samples may support valid confidence intervals.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        n = 10
+      </p>
+
+      <p>
+        n = 15
+      </p>
+    </div>
+
+    <p>
+      can sometimes be sufficient.
+    </p>
+
+    <h2>When Larger Samples May Be Needed</h2>
+
+    <p>
+      Highly skewed populations may require substantially larger samples before the CLT produces a good approximation.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Strong right skew
+      </p>
+
+      <p>
+        Extreme outliers
+      </p>
+
+      <p>
+        Heavy tails
+      </p>
+
+    </div>
+
+    <p>
+      These situations demand extra caution.
+    </p>
+
+    <h2>The Role of Outliers</h2>
+
+    <p>
+      Outliers can strongly affect both:
+    </p>
+
+    <ul class="bullets">
+
+      <li>The sample mean</li>
+
+      <li>The sample standard deviation</li>
+
+    </ul>
+
+    <p>
+      Because mean confidence intervals depend on both quantities,
+      extreme observations deserve careful investigation.
+    </p>
+
+    <h2>A Practical Checklist</h2>
+
+    <p>
+      Before constructing a confidence interval for a mean, ask:
+    </p>
+
+    <ol>
+
+      <li>Was the sample obtained reasonably randomly?</li>
+
+      <li>Are observations approximately independent?</li>
+
+      <li>Is the sample less than 10% of the population?</li>
+
+      <li>Is the population approximately normal, or is the sample large enough for the CLT?</li>
+
+      <li>Are there serious outliers or extreme skewness?</li>
+
+    </ol>
+
+    <h2>What Happens If Conditions Fail?</h2>
+
+    <p>
+      Violations do not automatically invalidate an interval.
+    </p>
+
+    <p>
+      The impact depends on:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Severity of the violation</li>
+
+      <li>Sample size</li>
+
+      <li>Type of interval</li>
+
+    </ul>
+
+    <p>
+      Some violations are minor.
+      Others can substantially distort coverage probabilities.
+    </p>
+
+    <h2>Why Statisticians Check Assumptions First</h2>
+
+    <p>
+      Computing an interval is easy.
+    </p>
+
+    <p>
+      Determining whether the interval is trustworthy is the harder task.
+    </p>
+
+    <p>
+      Good statistical practice emphasizes assumption checking before interpretation.
+    </p>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      Confidence intervals rely on sampling distributions.
+    </p>
+
+    <p>
+      Independence supports valid standard errors.
+    </p>
+
+    <p>
+      Normality and the CLT support the distributions used for critical values.
+    </p>
+
+    <p>
+      Together these conditions make confidence interval procedures work as intended.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Reliable confidence intervals require approximately independent observations and an approximately normal sampling distribution, obtained through population normality, the Central Limit Theorem, or both.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      So far we have focused on confidence intervals for means.
+    </p>
+
+    <p>
+      Another extremely common inferential task is estimating population proportions.
+    </p>
+
+    <p>
+      The next lesson develops confidence intervals for proportions and shows how the same interval blueprint applies in a new setting.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Random sampling from a population</li>
-        <li>Random assignment in an experiment</li>
-        <li>No repeated measurements from the same unit</li>
+
+        <li>Confidence intervals rely on assumptions</li>
+
+        <li>Independence is essential for valid standard errors</li>
+
+        <li>The 10% condition helps justify approximate independence</li>
+
+        <li>Normal populations produce normal sampling distributions</li>
+
+        <li>The Central Limit Theorem often justifies normal approximations</li>
+
+        <li>Larger samples improve the CLT approximation</li>
+
+        <li>Outliers and strong skewness require caution</li>
+
+        <li>Assumption checking is a critical part of statistical inference</li>
+
       </ul>
+
     </div>
 
-    <div class="card">
-      <h3>Independence is questionable when</h3>
-      <ul class="bullets">
-        <li>Cluster sampling (schools, families, hospitals)</li>
-        <li>Time series / sequential measurements</li>
-        <li>Before-after on the same subjects (paired data)</li>
-      </ul>
-    </div>
-  </div>
+    <!-- NAVIGATION -->
 
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Practical warning</h2>
-      <p style="margin:0;">
-        Violated independence typically makes intervals <strong>too narrow</strong> (overconfident),
-        because the effective sample size is smaller than n.
-      </p>
-    </div>
-  </div>
-</section>
+    <div class="lesson-nav">
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) The “10% condition” (sampling without replacement)</h2>
-    <p>
-      If you sample without replacement from a finite population, independence is approximately valid
-      when the sample is small relative to the population.
-    </p>
-  </div>
+      <a class="btn btn-outline"
+         href="/inference/confidence-intervals/ci-for-mean-sigma-unknown-t/">
+         ← Previous: CI for Mean (σ Unknown)
+      </a>
 
-  <div class="card">
-    <p style="margin:0;">
-      A common rule:
-      <strong>\(n \le 0.10\,N\)</strong>
-      (sample size is at most 10% of the population size).
-    </p>
-  </div>
+      <a class="btn"
+         href="/inference/confidence-intervals/ci-for-proportion/">
+         Next: CI for a Proportion →
+      </a>
 
-  <p class="muted-mini" style="margin-top:.75rem;">
-    When this fails, a finite population correction may be needed (later topic).
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>4) Mean intervals: normality vs CLT</h2>
-    <p>
-      For confidence intervals about a mean (z or t), validity depends on how close the sampling distribution
-      of \(\bar X\) is to normal.
-    </p>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Small n</h3>
-      <p>
-        If n is small, you need the population distribution to be reasonably normal,
-        and you must be careful with outliers/skewness.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Large n (CLT)</h3>
-      <p>
-        If n is large, the Central Limit Theorem makes \(\bar X\) approximately normal
-        even if the population is not perfectly normal (unless extremely heavy-tailed).
-      </p>
-    </div>
-  </div>
-
-  <div class="card" style="margin-top:1rem;">
-    <h3>Outliers matter</h3>
-    <p style="margin:0;">
-      One extreme outlier can dominate the mean and inflate/ distort S, especially for small samples.
-      In that case, a “valid-looking” CI can be misleading.
-    </p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>5) Proportion intervals: large-count condition</h2>
-    <p>
-      For the standard z interval for a proportion, validity comes from a normal approximation to the binomial.
-    </p>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      Check counts (often with \(\hat p\)):
-      \[
-      n\hat p \ge 10
-      \quad \text{and} \quad
-      n(1-\hat p) \ge 10
-      \]
-    </p>
-  </div>
-
-  <p class="muted-mini" style="margin-top:.75rem;">
-    If these counts are small (or p is near 0 or 1), normal-based CIs can perform poorly.
-    Alternatives (Wilson / exact / bootstrap) come later.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>6) What happens when conditions fail?</h2>
-    <p>
-      A failure typically shows up as incorrect coverage:
-      the method does not achieve the advertised confidence level.
-    </p>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Too narrow intervals</h3>
-      <p>
-        Often caused by dependence or under-estimated SE.
-        Leads to overconfidence.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Incorrect center or misleading target</h3>
-      <p>
-        Often caused by sampling bias or a poorly defined population/parameter.
-        Even “wide” intervals can be meaningless if the target is wrong.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Skew/heavy tails (mean case)</h3>
-      <p>
-        Can break the normal approximation for small/moderate samples.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Small counts (proportion case)</h3>
-      <p>
-        Normal approximation fails; coverage can be far from the nominal level.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>7) Common traps</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Trap A: Treating “large n” as magic</h3>
-      <p>
-        Large n helps, but dependence and bias can still destroy validity.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Trap B: Ignoring the study design</h3>
-      <p>
-        The design determines what inference is allowed. Formulas don’t fix sampling bias.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Trap C: Skipping count checks for proportions</h3>
-      <p>
-        The z-proportion interval requires large counts.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Trap D: Confusing SD vs SE</h3>
-      <p>
-        The interval width must be driven by SE, not raw variability.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
-      <ul class="bullets">
-        <li>Apply a correct validity checklist before computing a CI</li>
-        <li>Identify when z/t assumptions for a mean are reasonable</li>
-        <li>Identify when the normal approximation for a proportion is reasonable</li>
-        <li>Explain how failures affect coverage and interpretation</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next step</h2>
-      <p style="margin:0;">
-        Next we construct a confidence interval for a <strong>proportion</strong>.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/confidence-intervals/ci-for-proportion/">
-          Next lesson: 7. CI for a Proportion →
-        </a>
-      </div>
-    </div>
-
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/confidence-intervals/ci-for-mean-sigma-unknown-t/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 5: CI for a Mean (t Interval)
-          </a>
-        </div>
-      </div>
     </div>
 
   </div>
+
 </section>
