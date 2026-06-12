@@ -1,277 +1,554 @@
 ---
 layout: default
-title: "4. p-Value: Meaning and Interpretation"
-description: "Define the p-value precisely, understand its probabilistic meaning under H0, and avoid common misinterpretations."
+title: p-Value Meaning
+description: Learn what a p-value measures, how it is computed conceptually, and how to interpret it correctly in hypothesis testing.
 permalink: /inference/hypothesis-testing/p-value-meaning/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 establishes the formal definition of the p-value and correct interpretation.
-        Applied examples, simulations, and reporting templates will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update continue-reading keys -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_hypothesis_testing_lesson_v0";
+(function () {
 
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/hypothesis-testing/p-value-meaning/",
-      label: "Lesson 4 — p-Value: Meaning and Interpretation",
-      ts: Date.now()
-    }));
+  const KEY =
+    "esa_continue_inference_hypothesis_testing_lesson_v0";
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/hypothesis-testing/",
-      label: "Block 3 — Hypothesis Testing",
-      ts: Date.now()
-    }));
-  })();
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/hypothesis-testing/p-value-meaning/",
+    label: "p-Value Meaning",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 3</span>
-        <span class="badge">Lesson 4</span>
-        <span class="badge">p-value</span>
-        <span class="badge">Evidence</span>
-      </div>
 
-      <h1>4. p-Value: Meaning and Interpretation</h1>
-
-      <p class="lead">
-        The p-value measures how extreme the observed test statistic would be
-        <strong>if the null hypothesis were true</strong>.
-        It is a probability computed under the null model — not a probability that the null is true.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/hypothesis-testing/">Back to Block 3</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        The p-value quantifies extremeness under H<sub>0</sub>.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 3</span>
+      <span class="badge">Hypothesis Testing</span>
+      <span class="badge">Core Concept</span>
     </div>
+
+    <h1>p-Value Meaning</h1>
+
+    <p class="lead">
+      The p-value is the central measure of evidence in classical hypothesis testing.
+    </p>
+
+    <p class="lead">
+      It connects the observed data to the null hypothesis by quantifying how unusual the observed result would be if the null hypothesis were true.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/hypothesis-testing/test-statistic-standardization/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/hypothesis-testing/significance-level-alpha/">
+         Next: Significance Level (α) →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>Why We Need the p-Value</h2>
+
     <p>
-      Define the p-value formally, interpret it correctly,
-      and identify common misconceptions.
+      In the previous lesson,
+      we learned how to compute a test statistic.
     </p>
-  </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Formal definition</h2>
-      <p style="margin:0;">
-        The p-value is the probability, under H<sub>0</sub>,
-        of obtaining a test statistic at least as extreme
-        as the one observed.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>1) Mathematical definition</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Two-sided test</h3>
-      <p style="margin:0;">
-        \[
-        p = P\big(|T| \ge |t_{\text{obs}}| \mid H_0\big)
-        \]
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>One-sided (greater)</h3>
-      <p style="margin:0;">
-        \[
-        p = P\big(T \ge t_{\text{obs}} \mid H_0\big)
-        \]
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>One-sided (smaller)</h3>
-      <p style="margin:0;">
-        \[
-        p = P\big(T \le t_{\text{obs}} \mid H_0\big)
-        \]
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Key condition</h3>
-      <p style="margin:0;">
-        All probabilities are computed assuming H<sub>0</sub> is true.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>2) What the p-value measures</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Small p-value</h3>
-      <p style="margin:0;">
-        The observed result would be rare if H<sub>0</sub> were true.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Large p-value</h3>
-      <p style="margin:0;">
-        The observed result is consistent with H<sub>0</sub>.
-      </p>
-    </div>
-  </div>
-
-  <p class="muted-mini" style="margin-top:.75rem;">
-    A small p-value signals incompatibility between the data and the null model.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>3) What the p-value is NOT</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Not the probability that H<sub>0</sub> is true</h3>
-      <p style="margin:0;">
-        The p-value assumes H<sub>0</sub> is true.
-        It does not assign a probability to hypotheses.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Not the probability that results occurred “by chance”</h3>
-      <p style="margin:0;">
-        All sampling variability is chance.
-        The p-value measures extremeness under a specific model.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Not the size of the effect</h3>
-      <p style="margin:0;">
-        A tiny effect can produce a small p-value if the sample size is large.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Not evidence of practical importance</h3>
-      <p style="margin:0;">
-        Statistical significance does not imply practical significance.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>4) Interpreting a p-value correctly</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      Correct interpretation template:
-      <br><br>
-      “If the null hypothesis were true, the probability of observing
-      a test statistic at least this extreme would be ___.”
+    <p>
+      Suppose a test produces:
     </p>
-  </div>
 
-  <p class="muted-mini" style="margin-top:.75rem;">
-    Notice the conditional structure: probability of data given H<sub>0</sub>, not probability of H<sub>0</sub> given data.
-  </p>
-</section>
+    0
 
-<section class="section">
-  <div class="section-head">
-    <h2>5) Relationship to the test statistic</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      Larger absolute values of the standardized statistic
-      correspond to smaller p-values.
+    <p>
+      Is that unusual?
     </p>
-  </div>
 
-  <p style="margin-top:.75rem;">
-    The p-value is a transformation of the test statistic through its reference distribution.
-  </p>
-</section>
+    <p>
+      A test statistic alone does not answer the question.
+    </p>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+    <p>
+      We need a probability that tells us how surprising such a result would be under the null hypothesis.
+    </p>
+
+    <h2>The Formal Definition</h2>
+
+    <div class="concept-box">
+
+      <strong>Definition:</strong>
+
+      <p>
+        The p-value is the probability of obtaining results at least as extreme as the observed result, assuming the null hypothesis is true.
+      </p>
+
+    </div>
+
+    <p>
+      This definition is the foundation of classical hypothesis testing.
+    </p>
+
+    <h2>The Assumption Behind Every p-Value</h2>
+
+    <p>
+      Every p-value calculation begins by assuming:
+    </p>
+
+    1
+
+    <p>
+      is true.
+    </p>
+
+    <p>
+      The p-value asks:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        If the null hypothesis were actually true, how surprising would the observed data be?
+      </p>
+
+    </div>
+
+    <h2>Understanding "At Least as Extreme"</h2>
+
+    <p>
+      Hypothesis testing does not consider only the observed result.
+    </p>
+
+    <p>
+      It also considers outcomes even more inconsistent with the null hypothesis.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Important idea:</strong>
+
+      <p>
+        The p-value includes the probability of the observed outcome and all outcomes that provide even stronger evidence against the null hypothesis.
+      </p>
+
+    </div>
+
+    <h2>A Coin-Flipping Example</h2>
+
+    <p>
+      Suppose:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        H₀: The coin is fair.
+      </p>
+    </div>
+
+    <p>
+      You flip the coin 100 times and observe:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        90 heads
+      </p>
+    </div>
+
+    <p>
+      The relevant question is:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        If the coin were fair, how likely would 90 heads or something even more extreme be?
+      </p>
+    </div>
+
+    <p>
+      That probability is the p-value.
+    </p>
+
+    <h2>Large p-Values</h2>
+
+    <p>
+      Large p-values indicate that the observed data are reasonably consistent with the null hypothesis.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>p-Value</th>
+            <th>Interpretation</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Large</td>
+            <td>Data are not unusual under H₀</td>
+          </tr>
+
+          <tr>
+            <td>Near 1</td>
+            <td>Data are highly consistent with H₀</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>Small p-Values</h2>
+
+    <p>
+      Small p-values indicate that the observed data would be unusual if the null hypothesis were true.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>p-Value</th>
+            <th>Interpretation</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Small</td>
+            <td>Data are unusual under H₀</td>
+          </tr>
+
+          <tr>
+            <td>Very small</td>
+            <td>Strong evidence against H₀</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>The Evidence Scale</h2>
+
+    <p>
+      The p-value is often interpreted as a measure of evidence against the null hypothesis.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>p-Value</th>
+            <th>Evidence Against H₀</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>0.20</td>
+            <td>Weak</td>
+          </tr>
+
+          <tr>
+            <td>0.05</td>
+            <td>Moderate</td>
+          </tr>
+
+          <tr>
+            <td>0.01</td>
+            <td>Strong</td>
+          </tr>
+
+          <tr>
+            <td>0.001</td>
+            <td>Very strong</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      Smaller p-values correspond to stronger evidence against the null hypothesis.
+    </p>
+
+    <h2>How Test Statistics and p-Values Connect</h2>
+
+    <p>
+      Larger absolute test statistics generally produce smaller p-values.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        z = 0.3 → large p-value
+      </p>
+
+      <p>
+        z = 1.2 → moderate p-value
+      </p>
+
+      <p>
+        z = 3.5 → very small p-value
+      </p>
+
+    </div>
+
+    <p>
+      The farther the statistic lies from the null expectation,
+      the more unusual it becomes.
+    </p>
+
+    <h2>What the p-Value Is NOT</h2>
+
+    <p>
+      Many incorrect interpretations appear in practice.
+    </p>
+
+    <h3>Incorrect Interpretation #1</h3>
+
+    <div class="example-box">
+
+      <p>
+        “The p-value is the probability that the null hypothesis is true.”
+      </p>
+
+    </div>
+
+    <p>
+      This is false.
+    </p>
+
+    <p>
+      Classical hypothesis testing does not assign probabilities to hypotheses.
+    </p>
+
+    <h2>Incorrect Interpretation #2</h2>
+
+    <div class="example-box">
+
+      <p>
+        “The p-value is the probability that the observed result occurred by chance.”
+      </p>
+
+    </div>
+
+    <p>
+      This statement is also inaccurate.
+    </p>
+
+    <p>
+      The p-value assumes the null hypothesis is true and measures how surprising the data would be under that assumption.
+    </p>
+
+    <h2>Incorrect Interpretation #3</h2>
+
+    <div class="example-box">
+
+      <p>
+        “A large p-value proves the null hypothesis.”
+      </p>
+
+    </div>
+
+    <p>
+      This is false as well.
+    </p>
+
+    <p>
+      A large p-value simply means the data do not provide strong evidence against the null hypothesis.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Important:</strong>
+
+      <p>
+        Lack of evidence against H₀ is not proof that H₀ is correct.
+      </p>
+
+    </div>
+
+    <h2>A Courtroom Analogy</h2>
+
+    <p>
+      Consider a criminal trial.
+    </p>
+
+    <ul class="bullets">
+
+      <li>Null hypothesis = innocence</li>
+
+      <li>Alternative hypothesis = guilt</li>
+
+      <li>Data = evidence</li>
+
+    </ul>
+
+    <p>
+      A small p-value corresponds to evidence that would be very surprising if innocence were true.
+    </p>
+
+    <p>
+      Therefore innocence becomes harder to maintain.
+    </p>
+
+    <h2>The Role of Sampling Variability</h2>
+
+    <p>
+      Even when the null hypothesis is true,
+      unusual samples occasionally occur.
+    </p>
+
+    <p>
+      The p-value quantifies how rare those samples would be.
+    </p>
+
+    <p>
+      This is why probability plays a central role in hypothesis testing.
+    </p>
+
+    <h2>Evidence Versus Importance</h2>
+
+    <p>
+      A small p-value does not automatically imply a large or important effect.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        A tiny effect can produce a tiny p-value if the sample size is extremely large.
+      </p>
+    </div>
+
+    <p>
+      Statistical evidence and practical importance are different concepts.
+    </p>
+
+    <h2>The Decision Problem</h2>
+
+    <p>
+      We now know how to measure evidence against the null hypothesis.
+    </p>
+
+    <p>
+      But how small must a p-value be before we decide the evidence is strong enough?
+    </p>
+
+    <p>
+      To answer that question,
+      statisticians define a threshold called the significance level.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        A p-value measures how unusual the observed data would be if the null hypothesis were true. Smaller p-values indicate stronger evidence against the null hypothesis.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      The p-value measures evidence,
+      but a formal decision rule still requires a cutoff.
+    </p>
+
+    <p>
+      The significance level provides that cutoff and determines when evidence is considered strong enough to reject the null hypothesis.
+    </p>
+
+    <p>
+      The next lesson introduces significance levels, alpha, and statistical decision rules.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Define the p-value formally</li>
-        <li>Interpret it as a probability under H<sub>0</sub></li>
-        <li>Avoid common misinterpretations</li>
-        <li>Understand its link to the standardized test statistic</li>
+
+        <li>The p-value assumes the null hypothesis is true</li>
+
+        <li>It measures the probability of results at least as extreme as the observed result</li>
+
+        <li>Small p-values indicate stronger evidence against H₀</li>
+
+        <li>Large p-values indicate the data are not unusual under H₀</li>
+
+        <li>The p-value is not the probability that H₀ is true</li>
+
+        <li>A large p-value does not prove H₀</li>
+
+        <li>Statistical evidence and practical importance are different ideas</li>
+
+        <li>p-values provide evidence, while significance levels provide decision rules</li>
+
       </ul>
+
     </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/hypothesis-testing/test-statistic-standardization/">
+         ← Previous: Test Statistic and Standardization
+      </a>
+
+      <a class="btn"
+         href="/inference/hypothesis-testing/significance-level-alpha/">
+         Next: Significance Level (α) →
+      </a>
+
+    </div>
+
   </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next step</h2>
-      <p style="margin:0;">
-        Next, we formalize the role of the significance level \(\alpha\)
-        and how it controls Type I error.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/hypothesis-testing/significance-level-alpha/">
-          Next lesson: 5. Significance Level (α) →
-        </a>
-      </div>
-    </div>
-
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/hypothesis-testing/test-statistic-standardization/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 3: Test Statistic and Standardization
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>
