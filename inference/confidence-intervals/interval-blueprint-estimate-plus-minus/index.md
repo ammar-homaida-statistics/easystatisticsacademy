@@ -1,276 +1,550 @@
 ---
 layout: default
-title: "2. CI Blueprint: Estimate ± Margin of Error"
-description: "The universal structure of confidence intervals: estimate, standard error, critical value, and margin of error. One template that powers most intervals."
+title: Interval Blueprint — Estimate ± Margin of Error
+description: Learn the universal blueprint behind confidence intervals and how nearly every interval follows the same structure.
 permalink: /inference/confidence-intervals/interval-blueprint-estimate-plus-minus/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">🚧 Lesson Under Construction</h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 locks the structural blueprint of confidence intervals.
-        Fully worked numeric examples and software demonstrations will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update "last visited lesson" for Inference Block 2 -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_confidence_intervals_lesson_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/confidence-intervals/interval-blueprint-estimate-plus-minus/",
-      label: "Lesson 2 — CI Blueprint: Estimate ± Margin of Error",
-      ts: Date.now()
-    }));
+(function () {
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/confidence-intervals/",
-      label: "Block 2 — Confidence Intervals",
-      ts: Date.now()
-    }));
-  })();
+  const KEY =
+    "esa_continue_inference_confidence_intervals_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/confidence-intervals/interval-blueprint-estimate-plus-minus/",
+    label: "Interval Blueprint — Estimate ± Margin of Error",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 2</span>
-        <span class="badge">Lesson 2</span>
-        <span class="badge">Margin of Error</span>
-        <span class="badge">Standard Error</span>
-      </div>
 
-      <h1>2. CI Blueprint: Estimate ± Margin of Error</h1>
-      <p class="lead">
-        Most confidence intervals follow the same structure:
-        <strong>estimate ± (critical value × standard error)</strong>.
-        This lesson formalizes that universal template.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/confidence-intervals/">Back to Block 2</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        Version 0: structure first. Distribution details come next.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 2</span>
+      <span class="badge">Confidence Intervals</span>
+      <span class="badge">Core Formula</span>
     </div>
+
+    <h1>Interval Blueprint — Estimate ± Margin of Error</h1>
+
+    <p class="lead">
+      Confidence interval formulas may appear different across statistical methods.
+    </p>
+
+    <p class="lead">
+      However, almost every confidence interval follows the same fundamental blueprint: an estimate plus or minus a margin of error.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/confidence-intervals/what-is-a-confidence-interval/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/confidence-intervals/critical-values-z-and-t/">
+         Next: Critical Values — z and t →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>The Universal Confidence Interval Formula</h2>
+
     <p>
-      By the end of this lesson, you should be able to write the generic confidence interval formula,
-      identify each of its components, and explain how they control uncertainty.
+      Nearly every confidence interval in statistics can be written as:
     </p>
-  </div>
 
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Key idea</h2>
-      <p style="margin:0;">
-        A confidence interval always combines:
-        (1) a point estimate,
-        (2) a measure of variability (standard error),
-        and (3) a multiplier (critical value) determined by the confidence level.
-      </p>
-    </div>
-  </div>
-</section>
+    0
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) The universal formula</h2>
-  </div>
-
-  <div class="card">
-    <p style="font-size:1.15rem; margin:0;">
-      <strong>Confidence Interval = Estimate ± (Critical Value × Standard Error)</strong>
+    <p>
+      This simple structure appears throughout statistical inference.
     </p>
-  </div>
 
-  <p class="muted-mini" style="margin-top:.75rem;">
-    This structure applies to means, proportions, differences, regression coefficients, and more.
-  </p>
-</section>
+    <p>
+      Whether estimating means,
+      proportions,
+      regression coefficients,
+      or treatment effects,
+      the basic idea remains the same.
+    </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) Component 1 — The estimate</h2>
-  </div>
+    <h2>Two Parts of Every Interval</h2>
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Examples</h3>
-      <ul class="bullets">
-        <li>Sample mean: \(\bar{X}\)</li>
-        <li>Sample proportion: \(\hat{p}\)</li>
-        <li>Difference of means: \(\bar{X}_1 - \bar{X}_2\)</li>
-        <li>Regression slope: \(\hat{\beta}\)</li>
-      </ul>
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Component</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Estimate</td>
+            <td>Best guess of the parameter</td>
+          </tr>
+
+          <tr>
+            <td>Margin of Error</td>
+            <td>Amount of uncertainty</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
     </div>
 
-    <div class="card">
-      <h3>Role</h3>
+    <p>
+      The estimate determines the center of the interval.
+    </p>
+
+    <p>
+      The margin of error determines its width.
+    </p>
+
+    <h2>The Estimate</h2>
+
+    <p>
+      The estimate comes from sample data.
+    </p>
+
+    <p>
+      Common examples include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Sample mean</li>
+
+      <li>Sample proportion</li>
+
+      <li>Difference in sample means</li>
+
+      <li>Regression coefficient estimate</li>
+
+    </ul>
+
+    <p>
+      The estimate represents the interval's midpoint.
+    </p>
+
+    <h2>The Margin of Error</h2>
+
+    <p>
+      The margin of error determines how far the interval extends in each direction.
+    </p>
+
+    <p>
+      Larger margins create wider intervals.
+    </p>
+
+    <p>
+      Smaller margins create narrower intervals.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Key idea:</strong>
+
       <p>
-        The estimate centers the interval.
-        It represents the most plausible value based on observed data.
+        The margin of error quantifies uncertainty in the estimate.
+      </p>
+
+    </div>
+
+    <h2>A Simple Example</h2>
+
+    <p>
+      Suppose a survey estimates support for a policy at:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Estimate = 62%
       </p>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) Component 2 — The standard error (SE)</h2>
     <p>
-      The standard error measures the variability of the estimator across repeated samples.
+      If the margin of error is:
     </p>
-  </div>
 
-  <div class="card">
-    <p style="margin:0;">
-      SE reflects how much the estimate would change if we drew another sample.
-    </p>
-  </div>
+    <div class="example-box">
 
-  <p class="muted-mini" style="margin-top:.75rem;">
-    Larger sample sizes reduce SE. Higher variability increases SE.
-  </p>
-</section>
+      <p>
+        ±4%
+      </p>
+    </div>
 
-<section class="section">
-  <div class="section-head">
-    <h2>4) Component 3 — The critical value</h2>
     <p>
-      The critical value determines how many standard errors we move away from the estimate.
+      Then the confidence interval becomes:
     </p>
-  </div>
 
-  <div class="card">
-    <p style="margin:0;">
-      For 95% confidence, the multiplier is chosen so that 95% of the sampling distribution
-      lies within ± that value.
-    </p>
-  </div>
+    <div class="example-box">
 
-  <p style="margin-top:.75rem;">
-    The exact value depends on:
-    the distribution (z or t),
-    the confidence level,
-    and possibly degrees of freedom.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>5) Margin of error (MOE)</h2>
-  </div>
-
-  <div class="card">
-    <p style="font-size:1.1rem; margin:0;">
-      <strong>Margin of Error = Critical Value × Standard Error</strong>
-    </p>
-  </div>
-
-  <p style="margin-top:.75rem;">
-    The margin of error determines the half-width of the interval.
-    Larger MOE → wider interval → more uncertainty.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>6) What controls interval width?</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Sample size (n)</h3>
-      <p>Increasing n decreases SE → narrower interval.</p>
+      <p>
+        58% to 66%
+      </p>
     </div>
 
-    <div class="card">
-      <h3>Variability</h3>
-      <p>More spread in data increases SE → wider interval.</p>
-    </div>
+    <h2>Why the Interval Is Symmetric</h2>
 
-    <div class="card">
-      <h3>Confidence level</h3>
-      <p>Higher confidence → larger critical value → wider interval.</p>
-    </div>
-
-    <div class="card">
-      <h3>Distribution choice</h3>
-      <p>t intervals are slightly wider than z intervals (extra uncertainty).</p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>7) Why this blueprint matters</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      Once you understand this template,
-      every confidence interval becomes a matter of identifying:
-      the correct estimate, the correct SE, and the correct critical value.
+    <p>
+      Many introductory confidence intervals extend equally above and below the estimate.
     </p>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+    <p>
+      This occurs because many sampling distributions are approximately symmetric.
+    </p>
+
+    <p>
+      Later,
+      you will encounter situations where intervals are not perfectly symmetric.
+    </p>
+
+    <h2>Where the Margin of Error Comes From</h2>
+
+    <p>
+      The margin of error is not chosen arbitrarily.
+    </p>
+
+    <p>
+      It comes from two ingredients:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Standard error</li>
+
+      <li>Critical value</li>
+
+    </ul>
+
+    <p>
+      Together they determine how much uncertainty should be reflected in the interval.
+    </p>
+
+    <h2>The Complete Blueprint</h2>
+
+    <p>
+      The margin of error itself can be written as:
+    </p>
+
+    1
+
+    <p>
+      Substituting this into the confidence interval formula gives:
+    </p>
+
+    2
+
+    <p>
+      This is one of the most important formulas in all of inference.
+    </p>
+
+    <h2>The Role of the Standard Error</h2>
+
+    <p>
+      The standard error measures sampling uncertainty.
+    </p>
+
+    <p>
+      Larger standard errors produce larger margins of error.
+    </p>
+
+    <p>
+      Smaller standard errors produce smaller margins of error.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Interpretation:</strong>
+
+      <p>
+        More uncertainty leads to wider intervals.
+      </p>
+
+    </div>
+
+    <h2>The Role of the Critical Value</h2>
+
+    <p>
+      The critical value determines how much confidence we want.
+    </p>
+
+    <p>
+      Higher confidence levels require larger critical values.
+    </p>
+
+    <p>
+      Larger critical values create wider intervals.
+    </p>
+
+    <h2>The Tradeoff</h2>
+
+    <p>
+      Confidence intervals involve a tradeoff:
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Goal</th>
+            <th>Effect on Interval Width</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Higher confidence</td>
+            <td>Wider interval</td>
+          </tr>
+
+          <tr>
+            <td>Greater precision</td>
+            <td>Narrower interval</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      More confidence generally requires accepting a wider interval.
+    </p>
+
+    <h2>Understanding Interval Width</h2>
+
+    <p>
+      The width of a confidence interval reflects uncertainty.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Interval Width</th>
+            <th>Meaning</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Narrow</td>
+            <td>High precision</td>
+          </tr>
+
+          <tr>
+            <td>Wide</td>
+            <td>Low precision</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>How Sample Size Affects the Blueprint</h2>
+
+    <p>
+      Larger samples reduce standard errors.
+    </p>
+
+    <p>
+      Smaller standard errors reduce margins of error.
+    </p>
+
+    <p>
+      This produces narrower confidence intervals.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Larger sample → Smaller SE → Smaller margin of error → Narrower interval
+      </p>
+    </div>
+
+    <h2>A Real-World Example</h2>
+
+    <p>
+      Imagine a poll reporting:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Candidate support = 52%
+      </p>
+
+      <p>
+        Margin of error = ±3%
+      </p>
+    </div>
+
+    <p>
+      Applying the interval blueprint:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        49% to 55%
+      </p>
+    </div>
+
+    <p>
+      The estimate provides the center,
+      while the margin of error determines the range.
+    </p>
+
+    <h2>Why This Formula Appears Everywhere</h2>
+
+    <p>
+      As you progress through statistical inference,
+      you will encounter confidence intervals for:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Means</li>
+
+      <li>Proportions</li>
+
+      <li>Differences in means</li>
+
+      <li>Differences in proportions</li>
+
+      <li>Regression coefficients</li>
+
+      <li>Odds ratios</li>
+
+    </ul>
+
+    <p>
+      The details change,
+      but the blueprint remains remarkably consistent.
+    </p>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      Many students memorize individual confidence interval formulas.
+    </p>
+
+    <p>
+      A more useful approach is to recognize the common structure behind them.
+    </p>
+
+    <p>
+      Once the blueprint is understood,
+      new confidence intervals become much easier to learn.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Nearly every confidence interval is simply an estimate surrounded by a margin of error that reflects uncertainty.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      The standard error explains one part of the margin of error.
+    </p>
+
+    <p>
+      The remaining piece is the critical value.
+    </p>
+
+    <p>
+      The next lesson introduces z critical values, t critical values, and how confidence levels determine interval width.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Write the generic CI formula correctly</li>
-        <li>Explain each component of the interval</li>
-        <li>Understand how margin of error is formed</li>
-        <li>See how width reflects uncertainty</li>
+
+        <li>Most confidence intervals follow the same blueprint</li>
+
+        <li>Confidence intervals consist of an estimate and a margin of error</li>
+
+        <li>The estimate determines the center of the interval</li>
+
+        <li>The margin of error determines the width</li>
+
+        <li>Margin of error equals critical value times standard error</li>
+
+        <li>Larger standard errors produce wider intervals</li>
+
+        <li>Higher confidence levels require larger margins of error</li>
+
+        <li>Understanding the blueprint simplifies learning confidence intervals</li>
+
       </ul>
-    </div>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next step</h2>
-      <p style="margin:0;">
-        Next we determine the correct multiplier:
-        <strong>z vs t critical values</strong>.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/confidence-intervals/critical-values-z-and-t/">
-          Next lesson: 3. Critical Values →
-        </a>
-      </div>
     </div>
 
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/confidence-intervals/what-is-a-confidence-interval/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 1: What Is a Confidence Interval?
-          </a>
-        </div>
-      </div>
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/confidence-intervals/what-is-a-confidence-interval/">
+         ← Previous: What Is a Confidence Interval?
+      </a>
+
+      <a class="btn"
+         href="/inference/confidence-intervals/critical-values-z-and-t/">
+         Next: Critical Values — z and t →
+      </a>
+
     </div>
 
   </div>
+
 </section>
