@@ -1,279 +1,566 @@
 ---
 layout: default
-title: "7. Standard Deviation vs Standard Error (Common Confusion)"
-description: "Clarify the fundamental difference between standard deviation (SD) and standard error (SE). Learn what each measures, when to use them, and why confusing them leads to serious reporting errors."
+title: SD vs SE — Common Confusion
+description: Learn the critical difference between standard deviation and standard error, one of the most commonly misunderstood concepts in statistics.
 permalink: /inference/foundations/sd-vs-se-common-confusion/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">🚧 Lesson Under Construction</h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 focuses on conceptual clarity. Numerical demonstrations,
-        graphical illustrations, and reporting examples will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update "last visited lesson" -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_foundations_lesson_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/foundations/sd-vs-se-common-confusion/",
-      label: "Lesson 7 — Standard Deviation vs Standard Error",
-      ts: Date.now()
-    }));
+(function () {
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/foundations/",
-      label: "Block 1 — Inference Foundations",
-      ts: Date.now()
-    }));
-  })();
+  const KEY =
+    "esa_continue_inference_foundations_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/foundations/sd-vs-se-common-confusion/",
+    label: "SD vs SE — Common Confusion",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 1</span>
-        <span class="badge">Lesson 7</span>
-        <span class="badge">SD vs SE</span>
-        <span class="badge">Reporting</span>
-      </div>
 
-      <h1>7. Standard Deviation vs Standard Error</h1>
-      <p class="lead">
-        Standard deviation (SD) and standard error (SE) measure two completely different types of variability.
-        Confusing them leads to incorrect interpretation and misleading reporting.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/foundations/">Back to Block 1</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        Version 0: conceptual separation first. Applied examples will follow.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 1</span>
+      <span class="badge">Foundations</span>
+      <span class="badge">Essential Concept</span>
     </div>
+
+    <h1>SD vs SE — Common Confusion</h1>
+
+    <p class="lead">
+      Standard deviation and standard error are closely related, yet they measure completely different things.
+    </p>
+
+    <p class="lead">
+      Confusing them can lead to serious misunderstandings about data variability and inferential uncertainty.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/foundations/standard-error-unit-of-uncertainty/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/foundations/bias-and-variance-intuition/">
+         Next: Bias and Variance Intuition →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>Why This Confusion Happens</h2>
+
     <p>
-      By the end of this lesson, you should clearly distinguish SD from SE,
-      know when each should be reported, and understand why SE is typically smaller than SD.
+      Both standard deviation and standard error involve measuring spread.
     </p>
-  </div>
 
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Key idea</h2>
-      <p style="margin:0;">
-        <strong>SD measures variability in the data.</strong>  
-        <strong>SE measures variability of an estimator.</strong>
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>1) What standard deviation measures</h2>
     <p>
-      Standard deviation describes how spread out individual observations are around their mean.
+      Both often appear in statistical reports.
     </p>
-  </div>
 
-  <div class="card">
-    <p style="margin:0;">
-      For data \(X_1, \dots, X_n\), the sample standard deviation \(S\)
-      reflects how much individual values vary within that dataset.
-    </p>
-  </div>
-
-  <p class="muted-mini" style="margin-top:.75rem;">
-    SD answers: “How variable are the observations?”
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>2) What standard error measures</h2>
     <p>
-      Standard error describes how much an estimator varies across repeated samples.
+      Both use similar mathematical formulas.
     </p>
-  </div>
 
-  <div class="card">
-    <p style="margin:0;">
-      If estimating the mean:
-      \[
-      SE(\bar{X}) = \frac{S}{\sqrt{n}}.
-      \]
+    <p>
+      Yet they answer completely different questions.
     </p>
-  </div>
 
-  <p class="muted-mini" style="margin-top:.75rem;">
-    SE answers: “How precise is the estimate of the population parameter?”
-  </p>
-</section>
+    <div class="concept-box">
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) Why SE is smaller than SD</h2>
-  </div>
+      <strong>Key idea:</strong>
 
-  <div class="card">
-    <p style="margin:0;">
-      Because SE divides SD by \(\sqrt{n}\), it shrinks as sample size increases.
+      <p>
+        Standard deviation describes data. Standard error describes estimates.
+      </p>
+
+    </div>
+
+    <h2>What Does Standard Deviation Measure?</h2>
+
+    <p>
+      Standard deviation measures variability among individual observations.
     </p>
-  </div>
 
-  <ul class="bullets" style="margin-top:.75rem;">
-    <li>SD reflects individual-level variation.</li>
-    <li>SE reflects average-level uncertainty.</li>
-    <li>Larger samples reduce SE but not SD.</li>
-  </ul>
+    <div class="concept-box">
 
-  <p class="muted-mini">
-    Increasing sample size improves precision but does not change inherent variability of data.
-  </p>
-</section>
+      <strong>Definition:</strong>
 
-<section class="section">
-  <div class="section-head">
-    <h2>4) When to report SD vs SE</h2>
-  </div>
+      <p>
+        Standard deviation describes how far observations typically lie from their mean.
+      </p>
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Report SD when:</h3>
+    </div>
+
+    <div class="example-box">
+
+      <p>
+        Heights of students
+      </p>
+
+      <p>
+        Customer spending amounts
+      </p>
+
+      <p>
+        Exam scores
+      </p>
+
+    </div>
+
+    <p>
+      Standard deviation summarizes the spread of the data itself.
+    </p>
+
+    <h2>What Does Standard Error Measure?</h2>
+
+    <p>
+      Standard error measures variability of an estimator across repeated samples.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Definition:</strong>
+
+      <p>
+        Standard error describes how much an estimate is expected to vary from sample to sample.
+      </p>
+
+    </div>
+
+    <p>
+      It measures uncertainty in estimation rather than variability in observations.
+    </p>
+
+    <h2>The Core Difference</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Question</th>
+            <th>Answer</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>How variable are the observations?</td>
+            <td>Standard Deviation</td>
+          </tr>
+
+          <tr>
+            <td>How variable is the estimate?</td>
+            <td>Standard Error</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>A Population Example</h2>
+
+    <p>
+      Suppose exam scores have:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Mean = 70
+      </p>
+
+      <p>
+        Standard deviation = 15
+      </p>
+
+    </div>
+
+    <p>
+      The standard deviation of 15 tells us students differ substantially from one another.
+    </p>
+
+    <p>
+      It describes the spread of individual scores.
+    </p>
+
+    <h2>Now Consider Sample Means</h2>
+
+    <p>
+      Imagine repeatedly taking samples of 100 students and calculating sample means.
+    </p>
+
+    <p>
+      Those sample means vary much less than individual scores.
+    </p>
+
+    <p>
+      Their variability is measured by the standard error.
+    </p>
+
+    <h2>The Relationship Between SD and SE</h2>
+
+    <p>
+      For sample means:
+    </p>
+
+    0
+
+    <p>
+      or equivalently:
+    </p>
+
+    1
+
+    <p>
+      when the population standard deviation is known.
+    </p>
+
+    <h2>What the Formula Reveals</h2>
+
+    <p>
+      Standard error depends on two factors:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Population variability</li>
+
+      <li>Sample size</li>
+
+    </ul>
+
+    <p>
+      More variable populations produce larger standard errors.
+    </p>
+
+    <p>
+      Larger samples produce smaller standard errors.
+    </p>
+
+    <h2>An Example Calculation</h2>
+
+    <p>
+      Suppose:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        SD = 20
+      </p>
+
+      <p>
+        n = 100
+      </p>
+
+    </div>
+
+    <p>
+      Then:
+    </p>
+
+    2
+
+    <p>
+      Individual observations vary by about 20 units.
+    </p>
+
+    <p>
+      Sample means vary by only about 2 units.
+    </p>
+
+    <h2>Why Standard Error Is Usually Smaller</h2>
+
+    <p>
+      Sample means average out random fluctuations.
+    </p>
+
+    <p>
+      As a result,
+      estimates are generally more stable than individual observations.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Observation variability > Estimate variability
+      </p>
+
+    </div>
+
+    <h2>Visualizing the Difference</h2>
+
+    <p>
+      Imagine measuring heights.
+    </p>
+
+    <p>
+      Standard deviation describes the spread of individual heights.
+    </p>
+
+    <p>
+      Standard error describes the spread of sample average heights.
+    </p>
+
+    <p>
+      These are fundamentally different distributions.
+    </p>
+
+    <h2>Data Distribution vs Sampling Distribution</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Distribution</th>
+            <th>Spread Measure</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Data distribution</td>
+            <td>Standard deviation</td>
+          </tr>
+
+          <tr>
+            <td>Sampling distribution</td>
+            <td>Standard error</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>Why Researchers Report Both</h2>
+
+    <p>
+      Standard deviation and standard error communicate different information.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Measure</th>
+            <th>Purpose</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>SD</td>
+            <td>Describe variability in data</td>
+          </tr>
+
+          <tr>
+            <td>SE</td>
+            <td>Describe uncertainty in estimates</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>A Common Reporting Mistake</h2>
+
+    <p>
+      Sometimes reports present:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Mean ± SE
+      </p>
+
+    </div>
+
+    <p>
+      when readers expect:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Mean ± SD
+      </p>
+
+    </div>
+
+    <p>
+      This can make data appear far less variable than they actually are.
+    </p>
+
+    <h2>Inference Uses Standard Error</h2>
+
+    <p>
+      Confidence intervals,
+      z statistics,
+      t statistics,
+      and hypothesis tests all rely on standard errors.
+    </p>
+
+    <p>
+      Inferential procedures focus on estimate variability rather than raw data variability.
+    </p>
+
+    <h2>Description Uses Standard Deviation</h2>
+
+    <p>
+      Descriptive statistics focus on the observations themselves.
+    </p>
+
+    <p>
+      Standard deviation is therefore a natural descriptive measure.
+    </p>
+
+    <h2>A Quick Memory Trick</h2>
+
+    <div class="concept-box">
+
+      <strong>Remember:</strong>
+
+      <p>
+        Standard Deviation = Spread of Data
+      </p>
+
+      <p>
+        Standard Error = Spread of Estimates
+      </p>
+
+    </div>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      Statistical inference depends on understanding uncertainty in estimates.
+    </p>
+
+    <p>
+      Standard error measures that uncertainty.
+    </p>
+
+    <p>
+      Standard deviation measures something entirely different: variability in observations.
+    </p>
+
+    <p>
+      Knowing which quantity is being discussed is essential for correctly interpreting statistical results.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Standard deviation describes data variability. Standard error describes inferential uncertainty.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Standard errors quantify uncertainty,
+      but uncertainty is not the only challenge in estimation.
+    </p>
+
+    <p>
+      Estimates can also be systematically wrong.
+    </p>
+
+    <p>
+      The next lesson introduces bias and variance, two fundamental ideas used to evaluate estimator quality.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Describing raw data</li>
-        <li>Summarizing variability of observations</li>
-        <li>Presenting descriptive statistics</li>
+
+        <li>Standard deviation measures variability in observations</li>
+
+        <li>Standard error measures variability in estimates</li>
+
+        <li>SD describes data distributions</li>
+
+        <li>SE describes sampling distributions</li>
+
+        <li>Standard error decreases as sample size increases</li>
+
+        <li>SE is often much smaller than SD</li>
+
+        <li>Descriptive statistics rely heavily on SD</li>
+
+        <li>Inferential statistics rely heavily on SE</li>
+
       </ul>
+
     </div>
 
-    <div class="card">
-      <h3>Report SE when:</h3>
-      <ul class="bullets">
-        <li>Quantifying estimation uncertainty</li>
-        <li>Constructing confidence intervals</li>
-        <li>Computing hypothesis tests</li>
-      </ul>
-    </div>
-  </div>
+    <!-- NAVIGATION -->
 
-  <p class="muted-mini" style="margin-top:.75rem;">
-    In scientific reporting, replacing SD with SE to make variability look smaller is misleading.
-  </p>
-</section>
+    <div class="lesson-nav">
 
-<section class="section">
-  <div class="section-head">
-    <h2>5) Graphical interpretation</h2>
-  </div>
+      <a class="btn btn-outline"
+         href="/inference/foundations/standard-error-unit-of-uncertainty/">
+         ← Previous: Standard Error — Unit of Uncertainty
+      </a>
 
-  <div class="card">
-    <p style="margin:0;">
-      If you draw a histogram of the raw data,
-      its width reflects SD.
-      If you draw a histogram of repeated sample means,
-      its width reflects SE.
-    </p>
-  </div>
+      <a class="btn"
+         href="/inference/foundations/bias-and-variance-intuition/">
+         Next: Bias and Variance Intuition →
+      </a>
 
-  <p class="muted-mini" style="margin-top:.75rem;">
-    These are fundamentally different distributions.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>6) Common misconceptions</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>“SE shows variability in the sample.”</h3>
-      <p>
-        That is SD. SE reflects estimator variability across samples.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>“Smaller SE means smaller variability in data.”</h3>
-      <p>
-        Smaller SE may simply reflect larger sample size.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>“SD and SE are interchangeable.”</h3>
-      <p>
-        They measure different concepts and should not be substituted.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>“SE should always be reported.”</h3>
-      <p>
-        In descriptive contexts, SD is usually more appropriate.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
-      <ul class="bullets">
-        <li>Clearly separate SD and SE conceptually</li>
-        <li>Understand why SE decreases with sample size</li>
-        <li>Know appropriate reporting contexts</li>
-        <li>Avoid misleading interpretation</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next step</h2>
-      <p style="margin:0;">
-        Next, we introduce <strong>bias and variance</strong> formally,
-        and examine how accuracy and stability interact in estimation.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/foundations/bias-and-variance-intuition/">
-          Next lesson: 8. Bias and Variance (Intuition First) →
-        </a>
-      </div>
-    </div>
-
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/foundations/standard-error-unit-of-uncertainty/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 6: Standard Error
-          </a>
-        </div>
-      </div>
     </div>
 
   </div>
+
 </section>
