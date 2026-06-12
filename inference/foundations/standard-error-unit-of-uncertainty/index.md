@@ -1,306 +1,547 @@
 ---
 layout: default
-title: "6. Standard Error — The Unit of Uncertainty"
-description: "Understand the standard error as the standard deviation of an estimator. Learn how SE quantifies sampling variability and why it is central to confidence intervals and hypothesis tests."
+title: Standard Error — Unit of Uncertainty
+description: Learn what standard error measures and why it is the fundamental unit of uncertainty in statistical inference.
 permalink: /inference/foundations/standard-error-unit-of-uncertainty/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">🚧 Lesson Under Construction</h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 establishes the conceptual role of standard error.
-        Formal derivations, numerical examples, and software demonstrations will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update "last visited lesson" -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_foundations_lesson_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/foundations/standard-error-unit-of-uncertainty/",
-      label: "Lesson 6 — Standard Error — The Unit of Uncertainty",
-      ts: Date.now()
-    }));
+(function () {
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/foundations/",
-      label: "Block 1 — Inference Foundations",
-      ts: Date.now()
-    }));
-  })();
+  const KEY =
+    "esa_continue_inference_foundations_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/foundations/standard-error-unit-of-uncertainty/",
+    label: "Standard Error — Unit of Uncertainty",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 1</span>
-        <span class="badge">Lesson 6</span>
-        <span class="badge">Standard Error</span>
-        <span class="badge">Uncertainty Scale</span>
-      </div>
 
-      <h1>6. Standard Error — The Unit of Uncertainty</h1>
-      <p class="lead">
-        The <strong>standard error (SE)</strong> is the standard deviation of an estimator.
-        It measures how much the estimator would vary across repeated samples.
-        SE is the fundamental scale of uncertainty in statistical inference.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/foundations/">Back to Block 1</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        Version 0: conceptual foundation first. Applications to CI and tests will follow.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 1</span>
+      <span class="badge">Foundations</span>
+      <span class="badge">Core Concept</span>
     </div>
+
+    <h1>Standard Error — Unit of Uncertainty</h1>
+
+    <p class="lead">
+      Statistical inference is fundamentally about uncertainty.
+    </p>
+
+    <p class="lead">
+      The standard error measures that uncertainty by describing how much an estimator is expected to vary from sample to sample.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/foundations/sampling-distributions-bridge/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/foundations/sd-vs-se-common-confusion/">
+         Next: SD vs SE — Common Confusion →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>Why We Need a Measure of Uncertainty</h2>
+
     <p>
-      By the end of this lesson, you should be able to define the standard error formally,
-      distinguish it from standard deviation, and explain how sample size affects estimator uncertainty.
+      Suppose two studies both estimate the same population mean.
     </p>
-  </div>
 
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Key idea</h2>
-      <p style="margin:0;">
-        <strong>Standard error = standard deviation of the estimator’s sampling distribution.</strong>
-        It quantifies how precise an estimate is.
+    <div class="example-box">
+
+      <p>
+        Study A → Estimate = 50
       </p>
+
+      <p>
+        Study B → Estimate = 50
+      </p>
+
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) Formal definition</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      If \(\hat{\theta}\) is an estimator of \(\theta\), then
-      \[
-      SE(\hat{\theta}) = \sqrt{\text{Var}(\hat{\theta})}.
-      \]
+    <p>
+      The estimates are identical.
     </p>
-  </div>
 
-  <p style="margin-top:.75rem;">
-    The SE describes how much \(\hat{\theta}\) would fluctuate across repeated random samples.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>2) Example: Standard error of the mean</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Population known variance</h3>
-      <p>
-        If population variance is \(\sigma^2\),
-        \[
-        SE(\bar{X}) = \frac{\sigma}{\sqrt{n}}.
-        \]
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Unknown variance (estimated)</h3>
-      <p>
-        In practice,
-        \[
-        SE(\bar{X}) \approx \frac{S}{\sqrt{n}},
-        \]
-        where \(S\) is the sample standard deviation.
-      </p>
-    </div>
-  </div>
-
-  <p class="muted-mini" style="margin-top:.75rem;">
-    Larger sample sizes reduce SE because averaging stabilizes random fluctuations.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>3) Standard deviation vs standard error</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Standard deviation (SD)</h3>
-      <ul class="bullets">
-        <li>Measures variability of individual observations</li>
-        <li>Describes spread in raw data</li>
-        <li>Population-level or sample-level property</li>
-      </ul>
-    </div>
-
-    <div class="card">
-      <h3>Standard error (SE)</h3>
-      <ul class="bullets">
-        <li>Measures variability of an estimator</li>
-        <li>Describes uncertainty of a parameter estimate</li>
-        <li>Decreases as sample size increases</li>
-      </ul>
-    </div>
-  </div>
-
-  <p class="muted-mini" style="margin-top:.75rem;">
-    SD answers: “How variable are the data?”  
-    SE answers: “How precise is the estimate?”
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>4) Why SE is central to inference</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Confidence intervals</h3>
-      <p>
-        CI width is proportional to SE:
-        estimate ± (critical value × SE).
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Hypothesis tests</h3>
-      <p>
-        Test statistics often standardize the estimator:
-        \[
-        \frac{\hat{\theta} - \theta_0}{SE(\hat{\theta})}.
-        \]
-      </p>
-    </div>
-  </div>
-
-  <p class="muted-mini" style="margin-top:.75rem;">
-    SE converts raw estimation error into a standardized scale.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>5) How sample size affects SE</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      Because many estimators have variance proportional to \(1/n\),
-      the standard error typically shrinks at rate \(1/\sqrt{n}\).
+    <p>
+      However,
+      one estimate may be much more reliable than the other.
     </p>
-  </div>
 
-  <p style="margin-top:.75rem;">
-    This means:
-  </p>
+    <p>
+      To evaluate reliability,
+      we need a measure of uncertainty.
+    </p>
 
-  <ul class="bullets">
-    <li>Doubling sample size does not halve SE.</li>
-    <li>To reduce SE by half, you must increase sample size by a factor of four.</li>
-  </ul>
+    <h2>What Is Standard Error?</h2>
 
-  <p class="muted-mini">
-    Precision increases slowly with sample size.
-  </p>
-</section>
+    <div class="concept-box">
 
-<section class="section">
-  <div class="section-head">
-    <h2>6) Common misconceptions</h2>
-  </div>
+      <strong>Definition:</strong>
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>“Large sample = zero uncertainty.”</h3>
       <p>
-        SE decreases with n but never becomes zero unless the population is fully observed.
+        The standard error (SE) is the standard deviation of a sampling distribution.
       </p>
+
     </div>
 
-    <div class="card">
-      <h3>“SE measures spread of data.”</h3>
+    <p>
+      It measures how much an estimator varies across repeated samples.
+    </p>
+
+    <h2>The Big Idea</h2>
+
+    <p>
+      Imagine drawing thousands of samples from the same population.
+    </p>
+
+    <p>
+      For each sample,
+      calculate an estimate.
+    </p>
+
+    <div class="example-box">
+
       <p>
-        That is SD, not SE.
+        Sample mean
       </p>
+
+      <p>
+        Sample proportion
+      </p>
+
+      <p>
+        Regression coefficient
+      </p>
+
     </div>
 
-    <div class="card">
-      <h3>“Reporting more decimals increases precision.”</h3>
-      <p>
-        Precision depends on SE, not on formatting.
-      </p>
+    <p>
+      The spread of those estimates is measured by the standard error.
+    </p>
+
+    <h2>Standard Error Measures Sampling Variability</h2>
+
+    <p>
+      A small standard error means estimates are tightly clustered.
+    </p>
+
+    <p>
+      A large standard error means estimates fluctuate substantially.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Standard Error</th>
+            <th>Interpretation</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Small</td>
+            <td>High precision</td>
+          </tr>
+
+          <tr>
+            <td>Large</td>
+            <td>Low precision</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
     </div>
 
-    <div class="card">
-      <h3>“SE is optional.”</h3>
-      <p>
-        Without SE, inference (CI/tests) cannot be constructed correctly.
-      </p>
-    </div>
-  </div>
-</section>
+    <h2>Why Standard Error Is So Important</h2>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+    <p>
+      Nearly every inferential procedure uses standard errors.
+    </p>
+
+    <ul class="bullets">
+
+      <li>Confidence intervals</li>
+
+      <li>Hypothesis tests</li>
+
+      <li>p-values</li>
+
+      <li>Z statistics</li>
+
+      <li>t statistics</li>
+
+      <li>Regression inference</li>
+
+    </ul>
+
+    <p>
+      Standard error is the common language of inferential uncertainty.
+    </p>
+
+    <h2>The Standard Error of the Mean</h2>
+
+    <p>
+      For the sample mean:
+    </p>
+
+    0
+
+    <p>
+      where:
+    </p>
+
+    <ul class="bullets">
+
+      <li>σ = population standard deviation</li>
+
+      <li>n = sample size</li>
+
+    </ul>
+
+    <h2>Understanding the Formula</h2>
+
+    <p>
+      The formula contains two important ideas.
+    </p>
+
+    <h3>More Variable Populations Create More Uncertainty</h3>
+
+    <p>
+      Larger values of:
+    </p>
+
+    1
+
+    <p>
+      produce larger standard errors.
+    </p>
+
+    <p>
+      More variable populations are harder to estimate precisely.
+    </p>
+
+    <h3>Larger Samples Reduce Uncertainty</h3>
+
+    <p>
+      Increasing:
+    </p>
+
+    2
+
+    <p>
+      reduces the standard error.
+    </p>
+
+    <p>
+      Larger samples provide more information.
+    </p>
+
+    <h2>The Square-Root Rule</h2>
+
+    <p>
+      Standard error decreases according to:
+    </p>
+
+    3
+
+    <p>
+      This means precision improves slowly as sample size grows.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        To cut SE in half,
+        sample size must increase fourfold.
+      </p>
+
+    </div>
+
+    <h2>An Example</h2>
+
+    <p>
+      Suppose:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Population SD = 20
+      </p>
+
+      <p>
+        Sample size = 100
+      </p>
+
+    </div>
+
+    <p>
+      Then:
+    </p>
+
+    4
+
+    <p>
+      Sample means typically vary by about 2 units around the true population mean.
+    </p>
+
+    <h2>Standard Error Is About Estimates, Not Data</h2>
+
+    <p>
+      This distinction is crucial.
+    </p>
+
+    <p>
+      Standard error does not describe individual observations.
+    </p>
+
+    <p>
+      It describes the variability of an estimator.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Remember:</strong>
+
+      <p>
+        Standard error measures uncertainty in estimates, not variability in raw data.
+      </p>
+
+    </div>
+
+    <h2>Every Estimator Has a Standard Error</h2>
+
+    <p>
+      Standard errors are not limited to sample means.
+    </p>
+
+    <p>
+      They exist for:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Sample proportions</li>
+
+      <li>Differences in means</li>
+
+      <li>Regression coefficients</li>
+
+      <li>Odds ratios</li>
+
+      <li>Many other estimators</li>
+
+    </ul>
+
+    <p>
+      Every estimator has a sampling distribution,
+      and therefore a standard error.
+    </p>
+
+    <h2>Standard Error and Confidence Intervals</h2>
+
+    <p>
+      Confidence intervals are built directly from standard errors.
+    </p>
+
+    <p>
+      A common structure is:
+    </p>
+
+    5
+
+    <p>
+      Larger standard errors produce wider intervals.
+    </p>
+
+    <h2>Standard Error and Hypothesis Testing</h2>
+
+    <p>
+      Test statistics compare observed differences to standard errors.
+    </p>
+
+    <p>
+      A large effect relative to its standard error provides stronger evidence.
+    </p>
+
+    <p>
+      A small effect relative to its standard error provides weaker evidence.
+    </p>
+
+    <h2>Precision vs Accuracy</h2>
+
+    <p>
+      Standard error measures precision,
+      not accuracy.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Concept</th>
+            <th>Meaning</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Accuracy</td>
+            <td>Closeness to the true parameter</td>
+          </tr>
+
+          <tr>
+            <td>Precision</td>
+            <td>Consistency across samples</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      Standard error primarily measures precision.
+    </p>
+
+    <h2>The Fundamental Unit of Inference</h2>
+
+    <p>
+      Statistical inference repeatedly asks:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        How unusual is this estimate?
+      </p>
+
+      <p>
+        How much uncertainty exists?
+      </p>
+
+      <p>
+        How precise is this result?
+      </p>
+
+    </div>
+
+    <p>
+      Standard error provides the answer.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Standard error is the fundamental numerical measure of inferential uncertainty.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      One of the most common mistakes in statistics is confusing standard deviation and standard error.
+    </p>
+
+    <p>
+      Although they are related,
+      they measure completely different concepts.
+    </p>
+
+    <p>
+      The next lesson explores this distinction in detail.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Define standard error formally</li>
-        <li>Distinguish SE from SD clearly</li>
-        <li>Understand how SE scales with sample size</li>
-        <li>Connect SE to CI and hypothesis testing</li>
+
+        <li>Standard error is the standard deviation of a sampling distribution</li>
+
+        <li>It measures uncertainty in an estimator</li>
+
+        <li>Small standard errors indicate high precision</li>
+
+        <li>Large standard errors indicate low precision</li>
+
+        <li>Standard error decreases as sample size increases</li>
+
+        <li>Every estimator has a standard error</li>
+
+        <li>Confidence intervals and hypothesis tests rely on standard errors</li>
+
+        <li>Standard error is the fundamental unit of inferential uncertainty</li>
+
       </ul>
-    </div>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next step</h2>
-      <p style="margin:0;">
-        Next, we examine the most common source of confusion:
-        <strong>Standard Deviation vs Standard Error</strong> in reporting and interpretation.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/foundations/sd-vs-se-common-confusion/">
-          Next lesson: 7. Standard Deviation vs Standard Error →
-        </a>
-      </div>
     </div>
 
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/foundations/sampling-distributions-bridge/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 5: Sampling Distributions
-          </a>
-        </div>
-      </div>
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/foundations/sampling-distributions-bridge/">
+         ← Previous: Sampling Distributions Bridge
+      </a>
+
+      <a class="btn"
+         href="/inference/foundations/sd-vs-se-common-confusion/">
+         Next: SD vs SE — Common Confusion →
+      </a>
+
     </div>
 
   </div>
+
 </section>
