@@ -38,7 +38,7 @@ sidebar: false
     <h1>Confidence Interval for a Proportion</h1>
 
     <p class="lead">
-      Many statistical questions involve proportions rather than means.
+      Many real-world questions involve proportions rather than means.
     </p>
 
     <p class="lead">
@@ -53,7 +53,7 @@ sidebar: false
       </a>
 
       <a class="btn btn-outline"
-         href="/inference/confidence-intervals/ci-for-difference-of-mean-independent/">
+         href="/inference/confidence-intervals/ci-for-difference-of-means-independent/">
          Next: CI for Difference of Means →
       </a>
 
@@ -72,34 +72,34 @@ sidebar: false
     <h2>The Parameter of Interest</h2>
 
     <p>
-      Suppose a population contains individuals who either possess or do not possess some characteristic.
+      When studying proportions, the population parameter is:
+    </p>
+
+    0
+
+    <p>
+      representing the proportion of the population possessing a particular characteristic.
     </p>
 
     <div class="example-box">
 
       <p>
-        Supports a candidate
+        Proportion supporting a candidate
       </p>
 
       <p>
-        Purchased a product
+        Proportion purchasing a product
       </p>
 
       <p>
-        Has a disease
+        Proportion of defective items
       </p>
 
       <p>
-        Passed an exam
+        Proportion responding "Yes" to a survey question
       </p>
 
     </div>
-
-    <p>
-      The population proportion is denoted by:
-    </p>
-
-    0
 
     <h2>The Sample Proportion</h2>
 
@@ -109,6 +109,12 @@ sidebar: false
     </p>
 
     1
+
+    <p>
+      which equals:
+    </p>
+
+    2
 
     <p>
       where:
@@ -122,155 +128,98 @@ sidebar: false
 
     </ul>
 
-    <p>
-      The sample proportion serves as the point estimate.
-    </p>
-
-    <h2>An Example</h2>
+    <h2>Example of a Sample Proportion</h2>
 
     <p>
-      Suppose a survey of:
-    </p>
-
-    <div class="example-box">
-
-      <p>
-        n = 500 voters
-      </p>
-    </div>
-
-    <p>
-      finds:
-    </p>
-
-    <div class="example-box">
-
-      <p>
-        310 support a proposal
-      </p>
-    </div>
-
-    <p>
-      Then:
-    </p>
-
-    2
-
-    <p>
-      The estimated support level is 62%.
-    </p>
-
-    <h2>The Sampling Distribution of p̂</h2>
-
-    <p>
-      Like the sample mean,
-      the sample proportion varies from sample to sample.
+      Suppose a survey asks 500 people whether they support a policy.
     </p>
 
     <p>
-      Therefore:
+      If 310 people support it:
     </p>
 
     3
 
     <p>
-      has a sampling distribution.
+      The sample proportion estimates the population proportion.
     </p>
 
-    <p>
-      Confidence intervals are built from that sampling distribution.
-    </p>
-
-    <h2>The Standard Error of a Proportion</h2>
+    <h2>The Confidence Interval Blueprint Still Applies</h2>
 
     <p>
-      The standard error of a sample proportion is:
+      As always:
     </p>
 
     4
 
     <p>
-      Because the true proportion is unknown,
-      we estimate it using:
+      For proportions:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Estimate = p̂</li>
+
+      <li>Margin of Error = Critical Value × Standard Error</li>
+
+    </ul>
+
+    <h2>The Standard Error of a Proportion</h2>
+
+    <p>
+      The estimated standard error is:
     </p>
 
     5
 
+    <p>
+      This measures how much sample proportions vary across repeated samples.
+    </p>
+
     <h2>The Confidence Interval Formula</h2>
 
     <p>
-      Using the standard confidence interval blueprint:
+      Combining the estimate,
+      standard error,
+      and z critical value gives:
     </p>
 
     6
 
     <p>
-      This is the traditional confidence interval for a population proportion.
+      This is the standard large-sample confidence interval for a population proportion.
     </p>
 
     <h2>Why z Critical Values Are Used</h2>
 
     <p>
-      Under appropriate conditions,
-      the sampling distribution of:
+      Unlike mean intervals,
+      proportion intervals do not use the t distribution.
     </p>
 
-    7
-
     <p>
-      is approximately normal.
+      Under appropriate conditions,
+      the sampling distribution of the sample proportion is approximately normal.
     </p>
 
     <p>
       Therefore z critical values are used.
     </p>
 
-    <h2>Conditions for a Proportion Interval</h2>
-
-    <p>
-      Three conditions are commonly checked:
-    </p>
-
-    <ol>
-
-      <li>Random sampling</li>
-
-      <li>Independence (often via the 10% condition)</li>
-
-      <li>Large-count condition</li>
-
-    </ol>
-
-    <h2>The Large-Count Condition</h2>
-
-    <p>
-      The normal approximation works best when there are enough expected successes and failures.
-    </p>
-
-    <div class="concept-box">
-
-      <strong>Rule of thumb:</strong>
-
-      <p>
-        n·p̂ ≥ 10 and n·(1 − p̂) ≥ 10
-      </p>
-
-    </div>
-
-    <p>
-      This helps ensure the sampling distribution is reasonably normal.
-    </p>
-
     <h2>Example Setup</h2>
 
     <p>
-      Using the earlier survey:
+      Suppose:
     </p>
 
     <div class="example-box">
 
       <p>
         n = 500
+      </p>
+
+      <p>
+        x = 310
       </p>
 
       <p>
@@ -289,19 +238,13 @@ sidebar: false
       Using:
     </p>
 
-    8
+    7
 
     <p>
       gives approximately:
     </p>
 
-    <div class="example-box">
-
-      <p>
-        SE ≈ 0.0217
-      </p>
-
-    </div>
+    8
 
     <h2>Step 2: Find the Critical Value</h2>
 
@@ -334,14 +277,15 @@ sidebar: false
     10
 
     <p>
-      giving:
+      yielding:
     </p>
 
     <div class="example-box">
 
       <p>
-        (0.578, 0.663)
+        (0.5775, 0.6625)
       </p>
+
     </div>
 
     <p>
@@ -353,6 +297,7 @@ sidebar: false
       <p>
         57.8% to 66.3%
       </p>
+
     </div>
 
     <h2>Interpreting the Interval</h2>
@@ -364,18 +309,88 @@ sidebar: false
     <div class="example-box">
 
       <p>
-        The procedure used to generate this interval captures the true population proportion about 95% of the time in repeated sampling.
+        We used a procedure that captures the true population proportion approximately 95% of the time in repeated sampling.
       </p>
+
     </div>
 
     <p>
-      The interval suggests plausible values for the population proportion lie between 57.8% and 66.3%.
+      The interval suggests plausible values for the population proportion lie between about 57.8% and 66.3%.
+    </p>
+
+    <h2>Conditions for Proportion Intervals</h2>
+
+    <p>
+      Several assumptions should be checked before using the interval.
+    </p>
+
+    <h3>1. Random Sampling</h3>
+
+    <p>
+      The sample should be reasonably representative of the population.
+    </p>
+
+    <h3>2. Independence</h3>
+
+    <p>
+      Observations should be approximately independent.
+    </p>
+
+    <p>
+      The 10% condition is often used:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Sample size less than about 10% of the population.
+      </p>
+
+    </div>
+
+    <h3>3. Success-Failure Condition</h3>
+
+    <p>
+      The normal approximation requires enough successes and failures.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Success-Failure Condition:</strong>
+
+      <p>
+        n·p̂ ≥ 10 and n·(1 − p̂) ≥ 10
+      </p>
+
+    </div>
+
+    <p>
+      This ensures the sampling distribution is approximately normal.
+    </p>
+
+    <h2>Checking the Condition in Our Example</h2>
+
+    <p>
+      Successes:
+    </p>
+
+    11
+
+    <p>
+      Failures:
+    </p>
+
+    12
+
+    <p>
+      Both values exceed 10,
+      so the condition is easily satisfied.
     </p>
 
     <h2>What Affects Interval Width?</h2>
 
     <p>
-      The width depends on:
+      The same factors appear again:
     </p>
 
     <ul class="bullets">
@@ -384,105 +399,68 @@ sidebar: false
 
       <li>Sample size</li>
 
-      <li>The estimated proportion itself</li>
+      <li>Variability in the proportion</li>
 
     </ul>
 
     <h2>Effect of Sample Size</h2>
 
     <p>
-      Larger samples reduce:
+      Larger samples reduce the standard error.
     </p>
 
-    11
-
     <p>
-      producing narrower confidence intervals.
+      Smaller standard errors create narrower intervals.
     </p>
 
     <div class="example-box">
 
       <p>
-        Larger sample → smaller SE → narrower interval
+        Larger sample → greater precision
       </p>
+
     </div>
 
-    <h2>When Is Variability Largest?</h2>
+    <h2>When Variability Is Largest</h2>
 
     <p>
       The quantity:
     </p>
 
-    12
-
-    <p>
-      is largest when:
-    </p>
-
     13
 
     <p>
-      Therefore proportions near 50% typically produce the widest intervals.
+      reaches its maximum when:
     </p>
 
-    <h2>Polling and Margins of Error</h2>
+    14
 
     <p>
-      Election polling frequently reports:
+      This means proportions near 50% tend to produce the largest standard errors and widest intervals.
     </p>
 
-    <div class="example-box">
-
-      <p>
-        Support = 52%
-      </p>
-
-      <p>
-        Margin of Error = ±3%
-      </p>
-
-    </div>
+    <h2>Why Proportion Intervals Matter</h2>
 
     <p>
-      This is simply a confidence interval written in abbreviated form.
-    </p>
-
-    <h2>Limitations of the Traditional Formula</h2>
-
-    <p>
-      For small samples or proportions near 0 or 1,
-      the traditional interval may perform poorly.
-    </p>
-
-    <p>
-      More advanced alternatives include:
+      Confidence intervals for proportions appear everywhere:
     </p>
 
     <ul class="bullets">
 
-      <li>Wilson intervals</li>
+      <li>Political polling</li>
 
-      <li>Agresti–Coull intervals</li>
+      <li>Market research</li>
 
-      <li>Exact binomial intervals</li>
+      <li>Medical studies</li>
+
+      <li>Quality control</li>
+
+      <li>A/B testing</li>
 
     </ul>
 
     <p>
-      However,
-      the traditional interval remains important for learning core concepts.
-    </p>
-
-    <h2>The Bigger Picture</h2>
-
-    <p>
-      Confidence intervals for proportions follow exactly the same logic as confidence intervals for means.
-    </p>
-
-    <p>
-      The estimate changes,
-      the standard error changes,
-      but the inferential blueprint remains identical.
+      They are among the most frequently used inferential tools.
     </p>
 
     <div class="concept-box">
@@ -490,7 +468,7 @@ sidebar: false
       <strong>Core message:</strong>
 
       <p>
-        A confidence interval for a population proportion combines a sample proportion, a standard error, and a z critical value to quantify uncertainty about the true population proportion.
+        Confidence intervals for proportions estimate population percentages by combining a sample proportion with a normal-approximation margin of error based on its standard error.
       </p>
 
     </div>
@@ -498,11 +476,15 @@ sidebar: false
     <h2>Looking Ahead</h2>
 
     <p>
-      Many studies compare two groups rather than estimating a single parameter.
+      So far we have estimated a single mean and a single proportion.
     </p>
 
     <p>
-      The next lesson extends confidence interval ideas to differences between independent means, allowing direct comparison of populations.
+      Many real research questions compare groups rather than describing one group.
+    </p>
+
+    <p>
+      The next lesson develops confidence intervals for differences between two independent population means.
     </p>
 
     <!-- TAKEAWAYS -->
@@ -513,21 +495,21 @@ sidebar: false
 
       <ul class="bullets">
 
-        <li>The population proportion is denoted by p</li>
+        <li>The parameter of interest is the population proportion p</li>
 
-        <li>The sample proportion p̂ serves as the point estimate</li>
+        <li>The estimator is the sample proportion p̂</li>
 
-        <li>The standard error depends on p̂ and sample size</li>
+        <li>The standard error is √[p̂(1−p̂)/n]</li>
 
-        <li>The interval formula is p̂ ± z*SE</li>
+        <li>Proportion intervals use z critical values</li>
 
-        <li>Random sampling and independence remain important assumptions</li>
+        <li>The confidence interval formula is p̂ ± z*SE</li>
 
-        <li>The large-count condition supports the normal approximation</li>
+        <li>The success-failure condition supports the normal approximation</li>
 
         <li>Larger samples produce narrower intervals</li>
 
-        <li>Confidence intervals for proportions follow the same blueprint as mean intervals</li>
+        <li>Confidence intervals for proportions are widely used in surveys and polling</li>
 
       </ul>
 
@@ -543,7 +525,7 @@ sidebar: false
       </a>
 
       <a class="btn"
-         href="/inference/confidence-intervals/ci-for-difference-of-mean-independent/">
+         href="/inference/confidence-intervals/ci-for-difference-of-means-independent/">
          Next: CI for Difference of Means →
       </a>
 
