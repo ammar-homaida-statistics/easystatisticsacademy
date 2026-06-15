@@ -1,270 +1,636 @@
 ---
 layout: default
-title: "11. One-Way ANOVA (F Test)"
-description: "Conduct and interpret the one-way ANOVA F test to compare the means of three or more independent groups."
+title: One-Way ANOVA and the F Test
+description: Learn how one-way ANOVA compares the means of three or more groups and uses the F statistic to determine whether meaningful differences exist.
 permalink: /inference/classical-tests/one-way-anova-f-test/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 establishes the core ANOVA logic and F-statistic structure.
-        Detailed numeric examples and software walkthroughs will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update continue-reading keys -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_classical_tests_lesson_v0";
+(function () {
 
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/classical-tests/one-way-anova-f-test/",
-      label: "Lesson 11 — One-Way ANOVA (F Test)",
-      ts: Date.now()
-    }));
+  const KEY =
+    "esa_continue_inference_classical_tests_lesson_v0";
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/classical-tests/",
-      label: "Block 4 — Classical Tests",
-      ts: Date.now()
-    }));
-  })();
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/classical-tests/one-way-anova-f-test/",
+    label: "One-Way ANOVA and the F Test",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 4</span>
-        <span class="badge">Lesson 11</span>
-        <span class="badge">ANOVA</span>
-        <span class="badge">F Test</span>
-      </div>
 
-      <h1>11. One-Way ANOVA (F Test)</h1>
-
-      <p class="lead">
-        One-way ANOVA tests whether three or more independent population means
-        are equal by comparing variability <strong>between groups</strong>
-        to variability <strong>within groups</strong>.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/classical-tests/">Back to Block 4</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        ANOVA generalizes the two-sample t test to multiple groups.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 4</span>
+      <span class="badge">Classical Tests</span>
+      <span class="badge">ANOVA</span>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
-    <p>
-      Formulate ANOVA hypotheses, compute the F statistic,
-      and interpret the comparison of between-group and within-group variability.
+    <h1>One-Way ANOVA and the F Test</h1>
+
+    <p class="lead">
+      Researchers often need to compare the means of three or more groups simultaneously.
     </p>
+
+    <p class="lead">
+      One-way Analysis of Variance (ANOVA) provides a systematic way to determine whether at least one population mean differs from the others.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/classical-tests/chi-square-homogeneity-test/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/classical-tests/post-hoc-tests-and-multiple-comparisons-preview/">
+         Next: Post-Hoc Tests and Multiple Comparisons →
+      </a>
+
+    </div>
+
   </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>When to use ANOVA</h2>
-      <p style="margin:0;">
-        Use one-way ANOVA when:
-        <br>
-        • There are three or more independent groups  
-        • The response variable is quantitative  
-        • Group membership defines a single categorical factor  
+</section>
+
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>The Problem with Multiple t Tests</h2>
+
+    <p>
+      Suppose researchers compare average exam scores from:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Teaching Method A</li>
+
+      <li>Teaching Method B</li>
+
+      <li>Teaching Method C</li>
+
+      <li>Teaching Method D</li>
+
+    </ul>
+
+    <p>
+      One possible approach is performing many pairwise t tests.
+    </p>
+
+    <p>
+      However, repeated testing increases the probability of making at least one Type I error.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Key motivation:</strong>
+
+      <p>
+        ANOVA allows comparison of multiple means while controlling the overall false-positive rate.
+      </p>
+
+    </div>
+
+    <h2>What Does ANOVA Mean?</h2>
+
+    <p>
+      ANOVA stands for:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Analysis of Variance
       </p>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) Hypotheses</h2>
-  </div>
+    <p>
+      Although the goal is comparing means, the method works by analyzing sources of variation in the data.
+    </p>
 
-  <div class="card">
-    \[
-    H_0: \mu_1 = \mu_2 = \dots = \mu_k
-    \]
-  </div>
+    <h2>The Research Question</h2>
 
-  <div class="card" style="margin-top:1rem;">
-    \[
-    H_1:\ \text{At least one mean differs}
-    \]
-  </div>
+    <p>
+      Suppose there are:
+    </p>
 
-  <p class="muted-mini">
-    The alternative does not specify which means differ.
-  </p>
-</section>
+    0
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) Variance decomposition</h2>
-  </div>
+    <p>
+      populations with means:
+    </p>
 
-  <div class="card">
-    Total variability =
-    <br><br>
-    Between-group variability +
-    Within-group variability
-  </div>
+    1
 
-  <p>
-    ANOVA partitions the total sum of squares:
-  </p>
+    <p>
+      We want to determine whether all means are equal.
+    </p>
 
-  <div class="card">
-    \[
-    SS_{Total} = SS_{Between} + SS_{Within}
-    \]
-  </div>
-</section>
+    <h2>The Hypotheses</h2>
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) Mean squares</h2>
-  </div>
+    <p>
+      The null hypothesis is:
+    </p>
 
-  <div class="card">
-    \[
-    MS_{Between} = \frac{SS_{Between}}{k - 1}
-    \]
-  </div>
+    2
 
-  <div class="card" style="margin-top:1rem;">
-    \[
-    MS_{Within} = \frac{SS_{Within}}{n - k}
-    \]
-  </div>
+    <p>
+      The alternative hypothesis is:
+    </p>
 
-  <p class="muted-mini">
-    Where:
-    <br>
-    • \(k\) = number of groups  
-    • \(n\) = total sample size  
-  </p>
-</section>
+    <div class="example-box">
 
-<section class="section">
-  <div class="section-head">
-    <h2>4) F statistic</h2>
-  </div>
-
-  <div class="card">
-    \[
-    F =
-    \frac{MS_{Between}}{MS_{Within}}
-    \]
-  </div>
-
-  <p>
-    Under \(H_0\):
-    \[
-    F \sim F_{k-1,\, n-k}
-    \]
-  </p>
-
-  <p class="muted-mini">
-    Large F values indicate greater between-group variation
-    relative to within-group variation.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>5) Assumptions</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Independence</h3>
-      <p>Observations are independent within and across groups.</p>
+      <p>
+        Hₐ: At least one population mean differs.
+      </p>
     </div>
 
-    <div class="card">
-      <h3>Normality</h3>
-      <p>Residuals are approximately normally distributed.</p>
+    <p>
+      Notice that ANOVA does not identify which mean differs.
+    </p>
+
+    <p>
+      It only tests whether evidence of any difference exists.
+    </p>
+
+    <h2>The Core Idea</h2>
+
+    <p>
+      ANOVA compares two sources of variability:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Variation between group means</li>
+
+      <li>Variation within groups</li>
+
+    </ul>
+
+    <p>
+      If group means differ substantially relative to within-group variation, evidence against the null hypothesis increases.
+    </p>
+
+    <h2>Between-Group Variation</h2>
+
+    <p>
+      Between-group variation measures how far group means are from the overall mean.
+    </p>
+
+    <p>
+      Large between-group variation suggests population means may differ.
+    </p>
+
+    <h2>Within-Group Variation</h2>
+
+    <p>
+      Within-group variation measures natural variability among observations inside each group.
+    </p>
+
+    <p>
+      This variation is expected even when all population means are equal.
+    </p>
+
+    <h2>The ANOVA Logic</h2>
+
+    <div class="concept-box">
+
+      <strong>Interpretation:</strong>
+
+      <p>
+        If between-group variation is much larger than within-group variation, the observed group differences are unlikely to be explained by random sampling alone.
+      </p>
+
     </div>
 
-    <div class="card">
-      <h3>Equal variances</h3>
-      <p>Population variances are approximately equal across groups.</p>
+    <h2>The F Statistic</h2>
+
+    <p>
+      ANOVA summarizes this comparison using:
+    </p>
+
+    3
+
+    <p>
+      The F statistic is a ratio of variances.
+    </p>
+
+    <h2>Interpreting F</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>F Value</th>
+            <th>Interpretation</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Near 1</td>
+            <td>Evidence consistent with equal means</td>
+          </tr>
+
+          <tr>
+            <td>Moderately large</td>
+            <td>Some evidence of differences</td>
+          </tr>
+
+          <tr>
+            <td>Very large</td>
+            <td>Strong evidence against H₀</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>6) Interpretation</h2>
-  </div>
+    <h2>Example Dataset</h2>
 
-  <div class="card">
-    A small p-value indicates that not all group means are equal.
-  </div>
+    <p>
+      Suppose average scores are observed for three teaching methods.
+    </p>
 
-  <p class="muted-mini">
-    ANOVA tells us that a difference exists —
-    not which groups differ.
-  </p>
-</section>
+    <div class="table-wrap">
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+      <table>
+
+        <thead>
+          <tr>
+            <th>Group</th>
+            <th>Sample Mean</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>A</td>
+            <td>72</td>
+          </tr>
+
+          <tr>
+            <td>B</td>
+            <td>81</td>
+          </tr>
+
+          <tr>
+            <td>C</td>
+            <td>85</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      ANOVA evaluates whether these observed differences are larger than expected from random sampling variation.
+    </p>
+
+    <h2>The ANOVA Table</h2>
+
+    <p>
+      Results are commonly summarized in an ANOVA table.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Source</th>
+            <th>SS</th>
+            <th>df</th>
+            <th>MS</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Between Groups</td>
+            <td>SSB</td>
+            <td>k − 1</td>
+            <td>MSB</td>
+          </tr>
+
+          <tr>
+            <td>Within Groups</td>
+            <td>SSW</td>
+            <td>N − k</td>
+            <td>MSW</td>
+          </tr>
+
+          <tr>
+            <td>Total</td>
+            <td>SST</td>
+            <td>N − 1</td>
+            <td>—</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>Degrees of Freedom</h2>
+
+    <p>
+      ANOVA uses two degrees-of-freedom values:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Numerator: k − 1</li>
+
+      <li>Denominator: N − k</li>
+
+    </ul>
+
+    <p>
+      where:
+    </p>
+
+    <ul class="bullets">
+
+      <li>k = number of groups</li>
+
+      <li>N = total sample size</li>
+
+    </ul>
+
+    <h2>The F Distribution</h2>
+
+    <p>
+      Under:
+    </p>
+
+    4
+
+    <p>
+      the test statistic follows an F distribution.
+    </p>
+
+    <p>
+      The F distribution:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Is always positive</li>
+
+      <li>Is right-skewed</li>
+
+      <li>Depends on two degrees-of-freedom values</li>
+
+    </ul>
+
+    <h2>The p-Value</h2>
+
+    <p>
+      Once the F statistic is computed, the p-value is obtained from the F distribution.
+    </p>
+
+    <p>
+      Large F values produce small p-values.
+    </p>
+
+    <h2>Decision Rule</h2>
+
+    <div class="concept-box">
+
+      <strong>Decision Rule:</strong>
+
+      <p>
+        Reject H₀ if p ≤ α.
+      </p>
+
+      <p>
+        Fail to reject H₀ if p > α.
+      </p>
+
+    </div>
+
+    <h2>What Does Rejection Mean?</h2>
+
+    <p>
+      Rejecting:
+    </p>
+
+    5
+
+    <p>
+      means the data provide evidence that at least one population mean differs.
+    </p>
+
+    <p>
+      ANOVA alone does not reveal which groups differ.
+    </p>
+
+    <h2>Assumptions</h2>
+
+    <p>
+      One-way ANOVA assumes:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Independent observations</li>
+
+      <li>Random sampling</li>
+
+      <li>Approximately normal populations</li>
+
+      <li>Equal population variances across groups</li>
+
+    </ul>
+
+    <h2>Why Equal Variances Matter</h2>
+
+    <p>
+      ANOVA compares sources of variation.
+    </p>
+
+    <p>
+      Severe differences in population variances can affect the reliability of the F test.
+    </p>
+
+    <p>
+      Alternative procedures exist when this assumption is violated.
+    </p>
+
+    <h2>ANOVA vs Multiple t Tests</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Feature</th>
+            <th>Multiple t Tests</th>
+            <th>ANOVA</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Compares many groups</td>
+            <td>Inefficient</td>
+            <td>Yes</td>
+          </tr>
+
+          <tr>
+            <td>Controls overall Type I error</td>
+            <td>Poorly</td>
+            <td>Yes</td>
+          </tr>
+
+          <tr>
+            <td>Single global test</td>
+            <td>No</td>
+            <td>Yes</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>Common Applications</h2>
+
+    <div class="example-box">
+
+      <p>
+        Comparing teaching methods
+      </p>
+
+      <p>
+        Comparing medical treatments
+      </p>
+
+      <p>
+        Comparing manufacturing processes
+      </p>
+
+      <p>
+        Comparing marketing strategies
+      </p>
+
+      <p>
+        Comparing regional outcomes
+      </p>
+
+    </div>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      One-way ANOVA generalizes the two-sample t test to situations involving three or more groups.
+    </p>
+
+    <p>
+      Instead of comparing groups individually, it evaluates all groups simultaneously using the ratio of between-group variation to within-group variation.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        One-way ANOVA tests whether multiple population means are equal. It uses the F statistic to compare between-group variation to within-group variation and determines whether observed mean differences are larger than expected by chance.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      A significant ANOVA result indicates that at least one group differs.
+    </p>
+
+    <p>
+      However, it does not identify which specific groups are different.
+    </p>
+
+    <p>
+      The next lesson introduces post-hoc tests and multiple-comparison procedures that help locate those differences while controlling error rates.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Formulate ANOVA hypotheses</li>
-        <li>Understand variance decomposition</li>
-        <li>Compute and interpret the F statistic</li>
-        <li>Recognize ANOVA assumptions</li>
+
+        <li>One-way ANOVA compares three or more population means</li>
+
+        <li>The null hypothesis states that all population means are equal</li>
+
+        <li>The F statistic compares between-group variation to within-group variation</li>
+
+        <li>Large F values indicate stronger evidence against equal means</li>
+
+        <li>A significant result implies at least one mean differs</li>
+
+        <li>ANOVA does not identify which groups differ</li>
+
+        <li>The method controls overall Type I error better than multiple t tests</li>
+
+        <li>The F distribution depends on numerator and denominator degrees of freedom</li>
+
       </ul>
+
     </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/classical-tests/chi-square-homogeneity-test/">
+         ← Previous: Chi-Square Test of Homogeneity
+      </a>
+
+      <a class="btn"
+         href="/inference/classical-tests/post-hoc-tests-and-multiple-comparisons-preview/">
+         Next: Post-Hoc Tests and Multiple Comparisons →
+      </a>
+
+    </div>
+
   </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next lesson</h2>
-      <p style="margin:0;">
-        If ANOVA is significant,
-        we must determine which groups differ.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/classical-tests/post-hoc-tests-and-multiple-comparisons-preview/">
-          Next lesson: 12. Post-Hoc Tests & Multiple Comparisons →
-        </a>
-      </div>
-    </div>
-
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/classical-tests/chi-square-homogeneity-test/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 10: Chi-Square Homogeneity Test
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>
