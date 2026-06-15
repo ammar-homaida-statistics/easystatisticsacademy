@@ -1,250 +1,611 @@
 ---
 layout: default
-title: "4. Paired t Test (Mean of Differences)"
-description: "Conduct and interpret a paired t test for matched or dependent samples by reducing the problem to a one-sample test on differences."
+title: Paired t Test
+description: Learn how the paired t test analyzes matched observations and evaluates whether the average difference between paired measurements is zero.
 permalink: /inference/classical-tests/paired-t-test/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 establishes the formal structure of the paired t test.
-        Applied case studies and full software walkthroughs will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update continue-reading keys -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_classical_tests_lesson_v0";
+(function () {
 
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/classical-tests/paired-t-test/",
-      label: "Lesson 4 — Paired t Test",
-      ts: Date.now()
-    }));
+  const KEY =
+    "esa_continue_inference_classical_tests_lesson_v0";
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/classical-tests/",
-      label: "Block 4 — Classical Tests",
-      ts: Date.now()
-    }));
-  })();
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/classical-tests/paired-t-test/",
+    label: "Paired t Test",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 4</span>
-        <span class="badge">Lesson 4</span>
-        <span class="badge">Paired</span>
-        <span class="badge">Dependent Samples</span>
-      </div>
 
-      <h1>4. Paired t Test (Mean of Differences)</h1>
-
-      <p class="lead">
-        The paired t test evaluates whether the mean difference
-        between two related measurements is zero.
-        It converts paired observations into a single variable:
-        the difference within each pair.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/classical-tests/">Back to Block 4</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        A paired problem is a one-sample problem in disguise.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 4</span>
+      <span class="badge">Classical Tests</span>
+      <span class="badge">Matched Samples</span>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
-    <p>
-      Transform paired data into differences,
-      compute the paired t statistic,
-      and interpret the result correctly.
+    <h1>Paired t Test</h1>
+
+    <p class="lead">
+      Many studies collect observations in naturally linked pairs rather than from independent groups.
     </p>
+
+    <p class="lead">
+      The paired t test evaluates whether the average difference within those pairs is significantly different from zero.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/classical-tests/one-sample-t-test-for-mean/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/classical-tests/two-sample-t-test-independent/">
+         Next: Two-Sample t Test (Independent Samples) →
+      </a>
+
+    </div>
+
   </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>When to use this test</h2>
-      <p style="margin:0;">
-        Use the paired t test when:
-        <br>
-        • Observations are naturally paired (before–after, matched units)  
-        • Differences are independent across pairs  
-        • Differences are approximately normal or sample size is moderate/large
+</section>
+
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>What Makes Data Paired?</h2>
+
+    <p>
+      In some studies, observations naturally come in matched pairs.
+    </p>
+
+    <p>
+      Examples include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Before-and-after measurements on the same person</li>
+
+      <li>Blood pressure measured before and after treatment</li>
+
+      <li>Student scores before and after a training program</li>
+
+      <li>Matched twins or matched subjects</li>
+
+    </ul>
+
+    <p>
+      In these situations, observations are not independent.
+    </p>
+
+    <h2>The Key Idea</h2>
+
+    <div class="concept-box">
+
+      <strong>Core principle:</strong>
+
+      <p>
+        A paired t test converts paired observations into differences and then performs a one-sample t test on those differences.
+      </p>
+
+    </div>
+
+    <p>
+      The individual measurements are not analyzed directly.
+    </p>
+
+    <p>
+      Instead, the differences become the data.
+    </p>
+
+    <h2>Constructing Differences</h2>
+
+    <p>
+      For each pair:
+    </p>
+
+    0
+
+    <p>
+      This creates a new sample consisting entirely of differences.
+    </p>
+
+    <h2>The Parameter of Interest</h2>
+
+    <p>
+      The paired t test focuses on:
+    </p>
+
+    1
+
+    <p>
+      where:
+    </p>
+
+    <ul class="bullets">
+
+      <li>μ<sub>d</sub> = population mean difference</li>
+
+    </ul>
+
+    <p>
+      The question becomes:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Is the average difference equal to zero?
       </p>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) Define the differences</h2>
-  </div>
+    <h2>The Hypotheses</h2>
 
-  <div class="card">
-    \[
-    D_i = X_{1i} - X_{2i}
-    \]
-  </div>
+    <p>
+      The standard paired t test uses:
+    </p>
 
-  <p class="muted-mini">
-    The parameter of interest is:
-    \[
-    \mu_D
-    \]
-    (the mean difference in the population).
-  </p>
-</section>
+    2
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) Hypotheses</h2>
-  </div>
+    <br><br>
 
-  <div class="card">
-    \[
-    H_0: \mu_D = 0
-    \quad\text{vs}\quad
-    H_1: \mu_D \ne 0
-    \]
-  </div>
+    3
 
-  <p class="muted-mini">
-    One-sided alternatives are possible when direction is specified in advance.
-  </p>
-</section>
+    <p>
+      Zero corresponds to no average change.
+    </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) Test statistic</h2>
-  </div>
+    <h2>Alternative Forms</h2>
 
-  <div class="card">
-    \[
-    t =
-    \frac{\bar{D}}
-    {S_D / \sqrt{n}}
-    \]
-  </div>
+    <div class="table-wrap">
 
-  <p style="margin-top:.75rem;">
-    Where:
-    <br>
-    • \( \bar{D} \) = mean of differences  
-    • \( S_D \) = standard deviation of differences  
-    • \( n \) = number of pairs
-  </p>
-</section>
+      <table>
 
-<section class="section">
-  <div class="section-head">
-    <h2>4) Sampling distribution</h2>
-  </div>
+        <thead>
+          <tr>
+            <th>Alternative Hypothesis</th>
+            <th>Interpretation</th>
+          </tr>
+        </thead>
 
-  <div class="card">
-    \[
-    t \sim t_{n-1}
-    \quad\text{under } H_0
-    \]
-  </div>
+        <tbody>
 
-  <p class="muted-mini">
-    Degrees of freedom:
-    \[
-    df = n - 1
-    \]
-  </p>
-</section>
+          <tr>
+            <td>μ<sub>d</sub> ≠ 0</td>
+            <td>Any average change</td>
+          </tr>
 
-<section class="section">
-  <div class="section-head">
-    <h2>5) Interpretation</h2>
-  </div>
+          <tr>
+            <td>μ<sub>d</sub> &gt; 0</td>
+            <td>Average increase</td>
+          </tr>
 
-  <div class="card">
-    A small p-value indicates that the observed average difference
-    is unlikely if the true mean difference were zero.
-  </div>
+          <tr>
+            <td>μ<sub>d</sub> &lt; 0</td>
+            <td>Average decrease</td>
+          </tr>
 
-  <p class="muted-mini">
-    If zero lies in the corresponding confidence interval,
-    the null hypothesis is not rejected.
-  </p>
-</section>
+        </tbody>
 
-<section class="section">
-  <div class="section-head">
-    <h2>6) Why not use two independent tests?</h2>
-  </div>
+      </table>
 
-  <div class="card">
-    Treating paired data as independent ignores the pairing structure
-    and inflates variability.
-  </div>
+    </div>
 
-  <div class="card" style="margin-top:1rem;">
-    The paired design reduces variance by removing between-subject variability.
-  </div>
-</section>
+    <h2>Example Dataset</h2>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+    <p>
+      Suppose five individuals participate in a training program.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Person</th>
+            <th>Before</th>
+            <th>After</th>
+            <th>Difference</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>1</td>
+            <td>70</td>
+            <td>75</td>
+            <td>5</td>
+          </tr>
+
+          <tr>
+            <td>2</td>
+            <td>68</td>
+            <td>72</td>
+            <td>4</td>
+          </tr>
+
+          <tr>
+            <td>3</td>
+            <td>75</td>
+            <td>79</td>
+            <td>4</td>
+          </tr>
+
+          <tr>
+            <td>4</td>
+            <td>71</td>
+            <td>74</td>
+            <td>3</td>
+          </tr>
+
+          <tr>
+            <td>5</td>
+            <td>69</td>
+            <td>74</td>
+            <td>5</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      The paired t test analyzes:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        5, 4, 4, 3, 5
+      </p>
+    </div>
+
+    <p>
+      rather than the before and after scores separately.
+    </p>
+
+    <h2>The Sample Mean Difference</h2>
+
+    <p>
+      Let:
+    </p>
+
+    4
+
+    <p>
+      denote the sample mean difference.
+    </p>
+
+    <p>
+      This measures the average change observed in the sample.
+    </p>
+
+    <h2>The Standard Error</h2>
+
+    <p>
+      The standard error of the mean difference is:
+    </p>
+
+    5
+
+    <p>
+      where:
+    </p>
+
+    <ul class="bullets">
+
+      <li>s<sub>d</sub> = sample standard deviation of differences</li>
+
+      <li>n = number of pairs</li>
+
+    </ul>
+
+    <h2>The Test Statistic</h2>
+
+    <p>
+      The paired t statistic is:
+    </p>
+
+    6
+
+    <p>
+      Since the null value is usually zero,
+      the formula simplifies naturally.
+    </p>
+
+    <h2>Degrees of Freedom</h2>
+
+    <p>
+      As with a one-sample t test:
+    </p>
+
+    7
+
+    <p>
+      where n represents the number of pairs.
+    </p>
+
+    <h2>Why Pairing Helps</h2>
+
+    <p>
+      Pairing often removes subject-to-subject variability.
+    </p>
+
+    <p>
+      Each participant effectively serves as their own control.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Benefit:</strong>
+
+      <p>
+        Paired designs often produce smaller variability and greater statistical power than independent-sample designs.
+      </p>
+
+    </div>
+
+    <h2>When Should a Paired t Test Be Used?</h2>
+
+    <p>
+      Use a paired t test when observations are meaningfully linked.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Before vs after treatment
+      </p>
+
+      <p>
+        Same subject measured twice
+      </p>
+
+      <p>
+        Matched individuals
+      </p>
+
+      <p>
+        Repeated measurements
+      </p>
+
+    </div>
+
+    <h2>When Should It Not Be Used?</h2>
+
+    <p>
+      If the two samples are unrelated,
+      a paired t test is inappropriate.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Comparing students from School A and School B
+      </p>
+
+      <p>
+        Comparing independent treatment groups
+      </p>
+
+    </div>
+
+    <p>
+      Such situations require independent-sample procedures instead.
+    </p>
+
+    <h2>Assumptions</h2>
+
+    <p>
+      The paired t test assumes:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Pairs are meaningfully matched</li>
+
+      <li>Differences are independent across pairs</li>
+
+      <li>The population of differences is approximately normal (or sample size is large)</li>
+
+      <li>Pairs are randomly sampled</li>
+
+    </ul>
+
+    <h2>Confidence Interval for Mean Difference</h2>
+
+    <p>
+      The corresponding confidence interval is:
+    </p>
+
+    8
+
+    <p>
+      This interval estimates plausible values for:
+    </p>
+
+    9
+
+    <h2>Interpretation Example</h2>
+
+    <p>
+      Suppose a study finds:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Mean difference = 4.2
+      </p>
+
+      <p>
+        p = 0.003
+      </p>
+
+    </div>
+
+    <p>
+      The conclusion is:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        There is strong evidence that the average change differs from zero.
+      </p>
+    </div>
+
+    <p>
+      The sign of the mean difference indicates whether the change is positive or negative.
+    </p>
+
+    <h2>Paired vs Independent Samples</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Feature</th>
+            <th>Paired t Test</th>
+            <th>Independent t Test</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Observations linked?</td>
+            <td>Yes</td>
+            <td>No</td>
+          </tr>
+
+          <tr>
+            <td>Analyzes differences?</td>
+            <td>Yes</td>
+            <td>No</td>
+          </tr>
+
+          <tr>
+            <td>Uses one sample of differences?</td>
+            <td>Yes</td>
+            <td>No</td>
+          </tr>
+
+          <tr>
+            <td>Groups independent?</td>
+            <td>No</td>
+            <td>Yes</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      The paired t test extends the one-sample t test by applying it to differences created from matched observations.
+    </p>
+
+    <p>
+      By controlling for pair-specific variation, paired designs often achieve more precise and powerful inference.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        A paired t test evaluates whether the average difference within matched pairs equals zero. The test converts paired observations into a single sample of differences and then performs a one-sample t test on those differences.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Many studies compare two entirely separate groups rather than matched observations.
+    </p>
+
+    <p>
+      Examples include treatment versus control groups and comparisons between distinct populations.
+    </p>
+
+    <p>
+      The next lesson introduces the two-sample t test for independent samples.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Identify paired designs correctly</li>
-        <li>Reduce paired data to differences</li>
-        <li>Compute and interpret the paired t statistic</li>
-        <li>Avoid treating paired data as independent</li>
+
+        <li>Paired data consist of matched observations</li>
+
+        <li>The paired t test analyzes differences within pairs</li>
+
+        <li>The parameter of interest is the population mean difference μd</li>
+
+        <li>The null hypothesis usually states μd = 0</li>
+
+        <li>The test statistic uses the sample of differences</li>
+
+        <li>Degrees of freedom equal n − 1 where n is the number of pairs</li>
+
+        <li>Pairing often reduces variability and increases power</li>
+
+        <li>The paired t test should only be used when observations are genuinely linked</li>
+
       </ul>
+
     </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/classical-tests/one-sample-t-test-for-mean/">
+         ← Previous: One-Sample t Test for a Mean
+      </a>
+
+      <a class="btn"
+         href="/inference/classical-tests/two-sample-t-test-independent/">
+         Next: Two-Sample t Test (Independent Samples) →
+      </a>
+
+    </div>
+
   </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next lesson</h2>
-      <p style="margin:0;">
-        We now compare two independent groups
-        using the two-sample t test.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/classical-tests/two-sample-t-test-independent/">
-          Next lesson: 5. Two-Sample t Test (Independent Samples) →
-        </a>
-      </div>
-    </div>
-
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/classical-tests/one-sample-t-test-for-mean/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 3: One-Sample t Test
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>
