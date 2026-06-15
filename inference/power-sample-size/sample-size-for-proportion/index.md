@@ -1,256 +1,397 @@
 ---
 layout: default
-title: "5. Sample Size for a Proportion"
-description: "Derive and interpret the required sample size for detecting a difference in a population proportion with specified alpha and power."
-permalink: /inference/power-sample-size/sample-size-for-proportion/
+title: Precision vs Detectability
+description: Learn the difference between estimating parameters precisely and detecting effects statistically, and understand how sample size influences both goals.
+permalink: /inference/power-sample-size/precision-vs-detectability/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 derives the core sample size formula for a one-sample proportion
-        under normal approximation. Two-sample extensions and software tools
-        will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update continue-reading keys -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_power_sample_size_lesson_v0";
+(function () {
 
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/power-sample-size/sample-size-for-proportion/",
-      label: "Lesson 5 — Sample Size for a Proportion",
-      ts: Date.now()
-    }));
+  const KEY =
+    "esa_continue_inference_power_sample_size_lesson_v0";
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/power-sample-size/",
-      label: "Block 5 — Power & Sample Size",
-      ts: Date.now()
-    }));
-  })();
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/power-sample-size/precision-vs-detectability/",
+    label: "Precision vs Detectability",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 5</span>
-        <span class="badge">Lesson 5</span>
-        <span class="badge">Sample Size</span>
-        <span class="badge">Proportion</span>
-      </div>
 
-      <h1>5. Sample Size for a Proportion</h1>
-
-      <p class="lead">
-        To detect a meaningful change in a population proportion,
-        we must determine the required sample size
-        based on the desired power and significance level.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/power-sample-size/">Back to Block 5</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        Planning requires specifying the smallest important difference.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 5</span>
+      <span class="badge">Power & Sample Size</span>
+      <span class="badge">Study Design</span>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
-    <p>
-      Derive and interpret the required sample size for detecting
-      a specified difference in a population proportion.
+    <h1>Precision vs Detectability</h1>
+
+    <p class="lead">
+      Researchers often assume that increasing sample size serves a single purpose.
     </p>
-  </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Planning question</h2>
-      <p style="margin:0;">
-        What sample size n ensures:
-        \[
-        P(\text{Reject } H_0 \mid p = p_0 + \Delta) = 1 - \beta ?
-        \]
-      </p>
+    <p class="lead">
+      In reality, sample size affects two related but distinct goals: estimating parameters precisely and detecting meaningful effects.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/power-sample-size/sample-size-for-mean/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/power-sample-size/sample-size-for-proportion/">
+         Next: Sample Size for a Proportion →
+      </a>
+
     </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) Setup</h2>
-  </div>
+<section>
 
-  <div class="card">
-    Hypotheses:
-    \[
-    H_0: p = p_0
-    \qquad
-    H_1: p \neq p_0
-    \]
-  </div>
+  <div class="content-narrow">
 
-  <div class="card" style="margin-top:1rem;">
-    Test statistic (normal approximation):
-    \[
-    Z =
-    \frac{\hat{p} - p_0}
-         {\sqrt{ \frac{p_0(1 - p_0)}{n} }}
-    \]
-  </div>
+    <h2>Two Different Goals</h2>
 
-  <p class="muted-mini">
-    Assumes normal approximation to the binomial.
-  </p>
-</section>
+    <p>
+      Statistical studies are often designed for one of two purposes:
+    </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) Detectable difference</h2>
-  </div>
+    <ul class="bullets">
 
-  <div class="card">
-    Let
-    \[
-    \Delta = |p - p_0|
-    \]
-    be the smallest meaningful difference.
-  </div>
+      <li>Estimating a quantity accurately</li>
 
-  <p>
-    Under the alternative,
-    the standardized shift equals:
-    \[
-    \frac{\Delta}
-         {\sqrt{ \frac{p_0(1 - p_0)}{n} }}
-    =
-    \frac{\Delta \sqrt{n}}
-         {\sqrt{p_0(1 - p_0)}}
-    \]
-  </p>
-</section>
+      <li>Detecting whether an effect exists</li>
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) Sample size formula (two-sided test)</h2>
-  </div>
+    </ul>
 
-  <div class="card">
-    Required sample size:
-    \[
-    n =
-    \frac{
-      (z_{\alpha/2} + z_{\beta})^2
-      \, p_0 (1 - p_0)
-    }
-    {\Delta^2}
-    \]
-  </div>
+    <p>
+      These goals are related but not identical.
+    </p>
 
-  <p class="muted-mini">
-    Where:
-    <br>
-    • \(z_{\alpha/2}\) controls Type I error  
-    • \(z_{\beta}\) controls power  
-    • \(\Delta\) is the smallest meaningful difference  
-    • \(p_0\) is the baseline proportion  
-  </p>
-</section>
+    <h2>What Is Precision?</h2>
 
-<section class="section">
-  <div class="section-head">
-    <h2>4) Interpretation</h2>
-  </div>
+    <p>
+      Precision refers to how accurately a parameter can be estimated.
+    </p>
 
-  <div class="card">
-    Larger required n when:
-    <br><br>
-    • Desired power increases  
-    • Alpha decreases  
-    • Baseline proportion near 0.5 (maximum variance)  
-    • Detectable difference becomes smaller  
-  </div>
+    <p>
+      High precision produces:
+    </p>
 
-  <p>
-    Variance is largest when \(p_0 = 0.5\),
-    which yields the most conservative sample size.
-  </p>
-</section>
+    <ul class="bullets">
 
-<section class="section">
-  <div class="section-head">
-    <h2>5) Practical workflow</h2>
-  </div>
+      <li>Narrow confidence intervals</li>
 
-  <div class="card">
-    Step 1: Choose alpha (e.g., 0.05)  
-    <br>
-    Step 2: Choose desired power (e.g., 0.80 or 0.90)  
-    <br>
-    Step 3: Specify smallest meaningful difference Δ  
-    <br>
-    Step 4: Specify baseline proportion p₀  
-    <br>
-    Step 5: Compute required n  
-  </div>
-</section>
+      <li>Small margins of error</li>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+      <li>More stable estimates</li>
+
+    </ul>
+
+    <div class="concept-box">
+
+      <strong>Precision focuses on estimation quality.</strong>
+    </div>
+
+    <h2>What Is Detectability?</h2>
+
+    <p>
+      Detectability refers to a study's ability to identify a real effect.
+    </p>
+
+    <p>
+      This idea is captured by statistical power.
+    </p>
+
+    <p>
+      A highly detectable effect is likely to be identified as statistically significant when it truly exists.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Detectability focuses on hypothesis testing.</strong>
+    </div>
+
+    <h2>The Connection</h2>
+
+    <p>
+      Both precision and detectability improve as sample size increases.
+    </p>
+
+    <p>
+      However, they answer different questions.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Goal</th>
+            <th>Main Question</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Precision</td>
+            <td>How accurately can we estimate?</td>
+          </tr>
+
+          <tr>
+            <td>Detectability</td>
+            <td>Can we detect a real effect?</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>An Estimation Example</h2>
+
+    <p>
+      Suppose a survey estimates average household income.
+    </p>
+
+    <p>
+      The primary goal may be obtaining a confidence interval with a small margin of error.
+    </p>
+
+    <p>
+      Here, precision is more important than hypothesis testing.
+    </p>
+
+    <h2>A Testing Example</h2>
+
+    <p>
+      Suppose researchers compare two medical treatments.
+    </p>
+
+    <p>
+      The primary goal is determining whether the treatments differ.
+    </p>
+
+    <p>
+      Here, statistical power becomes the main concern.
+    </p>
+
+    <h2>How Sample Size Affects Precision</h2>
+
+    <p>
+      Recall that standard errors often contain:
+    </p>
+
+    0
+
+    <p>
+      Increasing sample size reduces standard errors and narrows confidence intervals.
+    </p>
+
+    <h2>How Sample Size Affects Detectability</h2>
+
+    <p>
+      Smaller standard errors also make true effects easier to distinguish from random variation.
+    </p>
+
+    <p>
+      Therefore, power generally increases as sample size increases.
+    </p>
+
+    <h2>Can a Study Be Precise but Underpowered?</h2>
+
+    <p>
+      In some situations, yes.
+    </p>
+
+    <p>
+      A study may estimate a parameter reasonably well but still lack enough power to detect very small effects.
+    </p>
+
+    <p>
+      The answer depends on the effect size being investigated.
+    </p>
+
+    <h2>Can a Study Detect Tiny Effects?</h2>
+
+    <p>
+      Very large samples can detect extremely small effects.
+    </p>
+
+    <p>
+      However, those effects may have little practical importance.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Important:</strong>
+
+      <p>
+        Detectability does not automatically imply practical significance.
+      </p>
+
+    </div>
+
+    <h2>The Trade-Off</h2>
+
+    <p>
+      Researchers often face a design choice:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Estimate precisely</li>
+
+      <li>Detect small effects</li>
+
+      <li>Control costs</li>
+
+    </ul>
+
+    <p>
+      Achieving all three simultaneously may require substantial resources.
+    </p>
+
+    <h2>Precision-Based Planning</h2>
+
+    <p>
+      When estimation is the goal, sample size is usually chosen based on:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Margin of error</li>
+
+      <li>Confidence level</li>
+
+      <li>Population variability</li>
+
+    </ul>
+
+    <h2>Power-Based Planning</h2>
+
+    <p>
+      When testing is the goal, sample size is usually chosen based on:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Target power</li>
+
+      <li>Significance level</li>
+
+      <li>Effect size</li>
+
+      <li>Variability</li>
+
+    </ul>
+
+    <h2>Which Goal Should Come First?</h2>
+
+    <p>
+      The answer depends on the research objective.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Surveys often prioritize precision.
+      </p>
+
+      <p>
+        Experiments often prioritize detectability.
+      </p>
+
+    </div>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      Precision and detectability are two complementary perspectives on study quality.
+    </p>
+
+    <p>
+      Both improve with larger samples, but they serve different scientific goals.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Precision concerns how accurately parameters can be estimated, while detectability concerns whether real effects can be identified. Effective study design requires understanding both objectives and balancing them appropriately.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Many practical studies focus on estimating or testing population proportions rather than means.
+    </p>
+
+    <p>
+      The next lesson introduces sample-size calculations for proportions and shows how precision and power concepts extend to percentage-based outcomes.
+    </p>
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Derive sample size formula for a proportion</li>
-        <li>Understand role of baseline proportion</li>
-        <li>Interpret influence of alpha and beta</li>
-        <li>Plan proportion studies responsibly</li>
+
+        <li>Precision and detectability are distinct study goals</li>
+
+        <li>Precision focuses on estimation quality</li>
+
+        <li>Detectability focuses on hypothesis testing and power</li>
+
+        <li>Larger samples improve both precision and detectability</li>
+
+        <li>Detecting an effect does not guarantee practical importance</li>
+
+        <li>Estimation studies often prioritize precision</li>
+
+        <li>Experimental studies often prioritize detectability</li>
+
+        <li>Study design requires balancing statistical and practical considerations</li>
+
       </ul>
+
     </div>
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/power-sample-size/sample-size-for-mean/">
+         ← Previous: Sample Size for a Mean
+      </a>
+
+      <a class="btn"
+         href="/inference/power-sample-size/sample-size-for-proportion/">
+         Next: Sample Size for a Proportion →
+      </a>
+
+    </div>
+
   </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next lesson</h2>
-      <p style="margin:0;">
-        We now distinguish planning for precision
-        from planning for detectability.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/power-sample-size/precision-vs-detectability/">
-          Next lesson: 6. Precision vs Detectability →
-        </a>
-      </div>
-    </div>
-
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/power-sample-size/sample-size-for-mean/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 4: Sample Size for a Mean
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>
