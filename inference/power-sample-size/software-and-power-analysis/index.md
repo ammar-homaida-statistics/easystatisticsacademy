@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Software and Power Analysis
-description: Learn how modern statistical software performs power analysis and how researchers use these tools to plan effective studies.
+description: Learn how statistical software is used to perform power analysis, estimate sample sizes, and evaluate study designs before data collection.
 permalink: /inference/power-sample-size/software-and-power-analysis/
 sidebar: false
 ---
@@ -32,17 +32,17 @@ sidebar: false
       <span class="badge">Inference</span>
       <span class="badge">Block 5</span>
       <span class="badge">Power & Sample Size</span>
-      <span class="badge">Practical Tools</span>
+      <span class="badge">Practical Applications</span>
     </div>
 
     <h1>Software and Power Analysis</h1>
 
     <p class="lead">
-      Modern studies rarely determine sample sizes by hand.
+      Modern studies rarely rely on hand calculations for power analysis.
     </p>
 
     <p class="lead">
-      Statistical software allows researchers to estimate power, calculate sample-size requirements, and evaluate alternative study designs before collecting data.
+      Statistical software allows researchers to estimate sample sizes, evaluate alternative study designs, and assess statistical power before collecting data.
     </p>
 
     <div class="hero-actions">
@@ -53,8 +53,8 @@ sidebar: false
       </a>
 
       <a class="btn btn-outline"
-         href="/inference/power-sample-size/interpretation-reporting/">
-         Next: Interpretation and Reporting →
+         href="/inference/interpretation-reporting/">
+         Next Block: Interpretation & Reporting →
       </a>
 
     </div>
@@ -69,186 +69,90 @@ sidebar: false
 
   <div class="content-narrow">
 
-    <h2>Why Software Is Important</h2>
+    <h2>Why Power Analysis Matters</h2>
 
     <p>
-      Power calculations often involve several interacting quantities:
+      Before collecting data, researchers often need answers to questions such as:
     </p>
 
     <ul class="bullets">
 
-      <li>Effect size</li>
+      <li>How many participants are required?</li>
 
-      <li>Sample size</li>
+      <li>Can the study detect a meaningful effect?</li>
 
-      <li>Statistical power</li>
+      <li>What level of power is realistic?</li>
 
-      <li>Significance level</li>
-
-      <li>Population variability</li>
+      <li>How sensitive is the design to assumptions?</li>
 
     </ul>
 
     <p>
-      While some simple formulas can be computed manually, most realistic studies require software.
+      Power-analysis software helps answer these questions systematically.
     </p>
 
     <div class="concept-box">
 
-      <strong>Key idea:</strong>
+      <strong>Main purpose:</strong>
 
       <p>
-        Software automates the calculations, but researchers must still choose meaningful assumptions and study goals.
+        Use information about effect size, variability, significance level, and power to plan studies before data collection begins.
       </p>
 
     </div>
 
-    <h2>What Is Power Analysis?</h2>
+    <h2>Review of the Four Core Ingredients</h2>
 
     <p>
-      Power analysis refers to a collection of methods used to determine relationships among:
+      Most power analyses involve four quantities:
     </p>
 
     <ul class="bullets">
-
-      <li>Power</li>
 
       <li>Effect size</li>
 
       <li>Sample size</li>
 
-      <li>Significance level</li>
+      <li>Power</li>
+
+      <li>Significance level (α)</li>
 
     </ul>
 
     <p>
-      Knowing some of these quantities allows software to estimate the others.
+      Once three are specified, software can often determine the fourth.
     </p>
 
-    <h2>Common Types of Power Analysis</h2>
-
-    <div class="table-wrap">
-
-      <table>
-
-        <thead>
-          <tr>
-            <th>Known Values</th>
-            <th>Quantity Computed</th>
-          </tr>
-        </thead>
-
-        <tbody>
-
-          <tr>
-            <td>Power, α, Effect Size</td>
-            <td>Sample Size</td>
-          </tr>
-
-          <tr>
-            <td>Sample Size, α, Effect Size</td>
-            <td>Power</td>
-          </tr>
-
-          <tr>
-            <td>Power, Sample Size, α</td>
-            <td>Detectable Effect Size</td>
-          </tr>
-
-          <tr>
-            <td>Power, Sample Size, Effect Size</td>
-            <td>Required α</td>
-          </tr>
-
-        </tbody>
-
-      </table>
-
-    </div>
-
-    <h2>The Most Common Question</h2>
+    <h2>The Typical Workflow</h2>
 
     <p>
-      In practice, researchers often ask:
+      A researcher commonly:
     </p>
 
-    <div class="example-box">
+    <ol>
 
-      <p>
-        How many observations are needed to achieve 80% power for detecting a meaningful effect?
-      </p>
-    </div>
+      <li>Defines the research question</li>
+
+      <li>Selects an appropriate statistical test</li>
+
+      <li>Chooses a meaningful effect size</li>
+
+      <li>Sets α (often 0.05)</li>
+
+      <li>Chooses a target power (often 0.80 or 0.90)</li>
+
+      <li>Calculates the required sample size</li>
+
+    </ol>
 
     <p>
-      This is called an a priori power analysis.
+      Software automates the final calculation.
     </p>
 
-    <h2>A Priori Power Analysis</h2>
+    <h2>Common Statistical Software</h2>
 
     <p>
-      Conducted before data collection.
-    </p>
-
-    <p>
-      Researchers specify:
-    </p>
-
-    <ul class="bullets">
-
-      <li>Target power</li>
-
-      <li>Significance level</li>
-
-      <li>Expected effect size</li>
-
-    </ul>
-
-    <p>
-      Software then calculates the required sample size.
-    </p>
-
-    <h2>Post Hoc Power Analysis</h2>
-
-    <p>
-      Sometimes power is evaluated after a study is completed.
-    </p>
-
-    <p>
-      This is called:
-    </p>
-
-    <div class="example-box">
-
-      <p>
-        Post Hoc Power Analysis
-      </p>
-    </div>
-
-    <p>
-      Although sometimes reported, many statisticians prefer confidence intervals and effect-size estimates when interpreting completed studies.
-    </p>
-
-    <h2>Sensitivity Analysis</h2>
-
-    <p>
-      Another common application asks:
-    </p>
-
-    <div class="example-box">
-
-      <p>
-        Given my sample size, what is the smallest effect I can reasonably detect?
-      </p>
-    </div>
-
-    <p>
-      This is known as sensitivity analysis.
-    </p>
-
-    <h2>Popular Software Tools</h2>
-
-    <p>
-      Many statistical packages include power-analysis functionality.
+      Many tools support power analysis.
     </p>
 
     <div class="table-wrap">
@@ -258,7 +162,7 @@ sidebar: false
         <thead>
           <tr>
             <th>Software</th>
-            <th>Common Uses</th>
+            <th>Typical Use</th>
           </tr>
         </thead>
 
@@ -266,27 +170,32 @@ sidebar: false
 
           <tr>
             <td>G*Power</td>
-            <td>Education and research planning</td>
+            <td>Dedicated power-analysis software</td>
           </tr>
 
           <tr>
             <td>R</td>
-            <td>Advanced statistical workflows</td>
+            <td>Flexible statistical computing</td>
           </tr>
 
           <tr>
             <td>Python</td>
-            <td>Data science and experimentation</td>
+            <td>Data science and simulation</td>
           </tr>
 
           <tr>
             <td>SAS</td>
-            <td>Clinical and industrial studies</td>
+            <td>Enterprise analytics</td>
           </tr>
 
           <tr>
             <td>SPSS</td>
-            <td>Applied research and social sciences</td>
+            <td>Applied statistical analysis</td>
+          </tr>
+
+          <tr>
+            <td>Stata</td>
+            <td>Research and econometrics</td>
           </tr>
 
         </tbody>
@@ -298,7 +207,7 @@ sidebar: false
     <h2>G*Power</h2>
 
     <p>
-      G*Power is one of the most widely used free tools for power analysis.
+      G*Power is one of the most widely used educational tools for power analysis.
     </p>
 
     <p>
@@ -311,110 +220,139 @@ sidebar: false
 
       <li>ANOVA</li>
 
-      <li>Regression</li>
+      <li>Correlation tests</li>
 
-      <li>Correlation analyses</li>
+      <li>Regression models</li>
 
       <li>Chi-square tests</li>
 
     </ul>
 
     <p>
-      Many introductory statistics courses use G*Power for study planning exercises.
+      Its graphical interface makes it popular among students and researchers.
     </p>
 
     <h2>Power Analysis in R</h2>
 
     <p>
-      R provides several packages for power analysis.
+      R provides several packages for power calculations.
     </p>
 
     <p>
-      Common functions can estimate:
+      Common functions allow users to estimate:
     </p>
 
     <ul class="bullets">
 
-      <li>Required sample size</li>
+      <li>Required sample sizes</li>
 
       <li>Expected power</li>
 
-      <li>Minimum detectable effect size</li>
+      <li>Minimum detectable effects</li>
 
     </ul>
 
     <p>
-      R is particularly useful for complex study designs.
+      R is especially useful for custom designs and simulations.
     </p>
 
     <h2>Power Analysis in Python</h2>
 
     <p>
-      Python libraries can perform power calculations for many standard statistical procedures.
+      Python libraries support many of the same tasks.
     </p>
 
     <p>
-      This is especially common in:
+      Researchers can combine:
     </p>
 
     <ul class="bullets">
 
-      <li>Machine learning experiments</li>
+      <li>Power calculations</li>
 
-      <li>A/B testing</li>
+      <li>Simulation studies</li>
 
-      <li>Product analytics</li>
+      <li>Data-generation models</li>
 
-      <li>Business experimentation</li>
+      <li>Experimental planning</li>
 
     </ul>
 
-    <h2>The Inputs Matter More Than the Software</h2>
+    <p>
+      within a single workflow.
+    </p>
+
+    <h2>What Inputs Are Required?</h2>
 
     <p>
-      Different software packages often produce nearly identical results when given the same assumptions.
+      Software cannot determine sample size automatically without assumptions.
     </p>
 
     <p>
-      The critical challenge is choosing realistic inputs.
+      Researchers must provide information such as:
     </p>
 
-    <div class="concept-box">
+    <ul class="bullets">
 
-      <strong>Important reminder:</strong>
+      <li>Expected effect size</li>
+
+      <li>Desired power</li>
+
+      <li>Significance level</li>
+
+      <li>Test type</li>
+
+      <li>Study design</li>
+
+    </ul>
+
+    <h2>The Hardest Input</h2>
+
+    <p>
+      The most challenging input is often:
+    </p>
+
+    <div class="example-box">
 
       <p>
-        Power calculations are only as good as the assumptions supplied to the software.
+        Expected effect size
       </p>
-
     </div>
 
-    <h2>Choosing an Effect Size</h2>
-
     <p>
-      One of the hardest decisions in power analysis is selecting a meaningful effect size.
+      Because future data are unknown, researchers must estimate what effect would be scientifically meaningful and realistically plausible.
     </p>
 
+    <h2>Sources of Effect-Size Estimates</h2>
+
     <p>
-      Researchers often rely on:
+      Effect-size assumptions often come from:
     </p>
 
     <ul class="bullets">
 
       <li>Previous studies</li>
 
-      <li>Pilot data</li>
+      <li>Pilot studies</li>
 
-      <li>Domain expertise</li>
+      <li>Meta-analyses</li>
 
-      <li>Practical importance thresholds</li>
+      <li>Subject-matter expertise</li>
 
     </ul>
 
-    <h2>Choosing a Power Target</h2>
+    <p>
+      Poor assumptions can produce misleading sample-size recommendations.
+    </p>
+
+    <h2>Sensitivity Analysis</h2>
 
     <p>
-      Typical planning values include:
+      Researchers frequently evaluate several possible scenarios.
+    </p>
+
+    <p>
+      For example:
     </p>
 
     <div class="table-wrap">
@@ -423,26 +361,26 @@ sidebar: false
 
         <thead>
           <tr>
-            <th>Target Power</th>
-            <th>Common Interpretation</th>
+            <th>Effect Size</th>
+            <th>Required Sample Size</th>
           </tr>
         </thead>
 
         <tbody>
 
           <tr>
-            <td>0.80</td>
-            <td>Standard minimum target</td>
+            <td>Small</td>
+            <td>Large</td>
           </tr>
 
           <tr>
-            <td>0.90</td>
-            <td>Stronger protection against Type II errors</td>
+            <td>Medium</td>
+            <td>Moderate</td>
           </tr>
 
           <tr>
-            <td>0.95</td>
-            <td>Very conservative design</td>
+            <td>Large</td>
+            <td>Smaller</td>
           </tr>
 
         </tbody>
@@ -451,104 +389,174 @@ sidebar: false
 
     </div>
 
-    <h2>Choosing α</h2>
-
     <p>
-      Most studies use:
+      Exploring multiple scenarios helps assess design robustness.
     </p>
 
-    0
+    <h2>Simulation-Based Power Analysis</h2>
 
     <p>
-      although some fields adopt stricter standards.
+      Some complex studies cannot be analyzed with simple formulas.
     </p>
 
     <p>
-      Changing α influences both power and required sample size.
+      In these situations, researchers often use simulations.
     </p>
 
-    <h2>A Typical Workflow</h2>
-
     <p>
-      Researchers often follow these steps:
+      The idea is:
     </p>
 
     <ol>
 
-      <li>Define the research question</li>
+      <li>Generate artificial data repeatedly</li>
 
-      <li>Identify a meaningful effect size</li>
+      <li>Apply the planned statistical method</li>
 
-      <li>Select α</li>
-
-      <li>Choose target power</li>
-
-      <li>Run power analysis software</li>
-
-      <li>Determine required sample size</li>
-
-      <li>Evaluate feasibility</li>
+      <li>Estimate how often the effect is detected</li>
 
     </ol>
 
-    <h2>When Results Are Impractical</h2>
-
     <p>
-      Sometimes power analysis recommends a sample size that is impossible to obtain.
+      This approximates statistical power under realistic conditions.
     </p>
 
+    <h2>Advantages of Simulation</h2>
+
+    <ul class="bullets">
+
+      <li>Handles complex designs</li>
+
+      <li>Supports unusual distributions</li>
+
+      <li>Accommodates missing-data scenarios</li>
+
+      <li>Allows flexible modeling assumptions</li>
+
+    </ul>
+
+    <h2>Power Curves in Software</h2>
+
     <p>
-      Researchers may then:
+      Many programs generate power curves showing how power changes as:
     </p>
 
     <ul class="bullets">
 
-      <li>Modify study goals</li>
+      <li>Sample size changes</li>
 
-      <li>Increase resources</li>
+      <li>Effect size changes</li>
 
-      <li>Accept lower power</li>
-
-      <li>Focus on larger effects</li>
+      <li>Significance level changes</li>
 
     </ul>
 
     <p>
-      Study planning often involves compromise.
+      These visualizations help researchers compare alternative designs.
     </p>
 
-    <h2>Power Analysis Is a Planning Tool</h2>
+    <h2>Interpreting Software Output</h2>
 
     <p>
-      Power analysis does not guarantee successful research.
-    </p>
-
-    <p>
-      Instead, it helps researchers make informed decisions before collecting data.
+      Software output should never be treated as unquestionable truth.
     </p>
 
     <p>
-      Proper planning reduces the risk of conducting studies that are too small to be informative.
+      Every result depends on assumptions about:
     </p>
 
-    <h2>Modern Research Standards</h2>
+    <ul class="bullets">
+
+      <li>Effect sizes</li>
+
+      <li>Variability</li>
+
+      <li>Data quality</li>
+
+      <li>Model assumptions</li>
+
+    </ul>
 
     <p>
-      Many journals, funding agencies, and ethics committees now expect researchers to justify sample sizes using power analysis.
+      Understanding those assumptions is as important as understanding the numerical output.
+    </p>
+
+    <h2>Common Mistakes</h2>
+
+    <ul class="bullets">
+
+      <li>Using unrealistic effect sizes</li>
+
+      <li>Ignoring uncertainty in assumptions</li>
+
+      <li>Choosing power targets after seeing data</li>
+
+      <li>Confusing statistical significance with power</li>
+
+      <li>Failing to justify sample-size choices</li>
+
+    </ul>
+
+    <h2>Modern Reporting Standards</h2>
+
+    <p>
+      Increasingly, journals and funding agencies expect researchers to report:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Power-analysis methods</li>
+
+      <li>Assumed effect sizes</li>
+
+      <li>Target power levels</li>
+
+      <li>Sample-size calculations</li>
+
+    </ul>
+
+    <p>
+      Transparent reporting improves study credibility.
+    </p>
+
+    <h2>Power Analysis as a Design Tool</h2>
+
+    <p>
+      Power analysis is most valuable before data collection begins.
     </p>
 
     <p>
-      This requirement helps improve study quality and reproducibility.
+      It helps researchers avoid:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Underpowered studies</li>
+
+      <li>Unnecessarily large studies</li>
+
+      <li>Wasted resources</li>
+
+      <li>Ambiguous conclusions</li>
+
+    </ul>
+
+    <p>
+      Good planning improves both scientific and practical outcomes.
     </p>
 
     <h2>The Bigger Picture</h2>
 
     <p>
-      Power analysis connects statistical theory with practical study design.
+      Modern statistical software makes power analysis accessible to researchers across disciplines.
     </p>
 
     <p>
-      Software makes calculations accessible, but thoughtful choices about effect sizes, power targets, and significance levels remain essential.
+      However, software does not replace statistical judgment.
+    </p>
+
+    <p>
+      Effective power analysis requires thoughtful assumptions, realistic goals, and a clear understanding of the research question.
     </p>
 
     <div class="concept-box">
@@ -556,23 +564,23 @@ sidebar: false
       <strong>Core message:</strong>
 
       <p>
-        Power-analysis software helps researchers determine sample sizes, estimate power, and evaluate study designs. The quality of the results depends not only on the software but also on the assumptions and goals chosen by the researcher.
+        Statistical software helps researchers perform power analyses, estimate sample sizes, and evaluate study designs. The quality of these analyses depends not only on the software but also on the assumptions and decisions made by the researcher.
       </p>
 
     </div>
 
-    <h2>Looking Ahead</h2>
+    <h2>Completing the Power &amp; Sample Size Block</h2>
 
     <p>
-      Designing a study is only part of the process.
+      You have now completed the core concepts of statistical power, effect size, sample-size determination, and study planning.
     </p>
 
     <p>
-      Researchers must also communicate their power analyses, assumptions, and conclusions clearly.
+      These ideas form the foundation of designing informative and reliable studies before any data are collected.
     </p>
 
     <p>
-      The next lesson focuses on interpretation and reporting of power analyses and sample-size decisions.
+      The next block focuses on interpreting, communicating, and reporting statistical results responsibly.
     </p>
 
     <!-- TAKEAWAYS -->
@@ -583,21 +591,21 @@ sidebar: false
 
       <ul class="bullets">
 
-        <li>Power analysis examines relationships among power, sample size, effect size, and significance level</li>
+        <li>Power analysis is used to plan studies before data collection</li>
 
-        <li>A priori power analysis is performed before data collection</li>
+        <li>Software can estimate power, sample size, or detectable effect size</li>
 
-        <li>Sensitivity analysis evaluates the smallest detectable effect</li>
+        <li>Common tools include G*Power, R, Python, SAS, SPSS, and Stata</li>
 
-        <li>Popular tools include G*Power, R, Python, SPSS, and SAS</li>
+        <li>Effect-size assumptions are often the most challenging input</li>
 
-        <li>Meaningful effect-size assumptions are critical</li>
+        <li>Sensitivity analysis evaluates multiple design scenarios</li>
 
-        <li>Common power targets are 0.80 and 0.90</li>
+        <li>Simulation methods support complex power analyses</li>
 
-        <li>Power analysis supports efficient and informative study design</li>
+        <li>Software results depend on assumptions and should be interpreted carefully</li>
 
-        <li>Software performs calculations, but researchers choose the assumptions</li>
+        <li>Power analysis helps prevent underpowered and inefficient studies</li>
 
       </ul>
 
@@ -613,8 +621,8 @@ sidebar: false
       </a>
 
       <a class="btn"
-         href="/inference/power-sample-size/interpretation-reporting/">
-         Next: Interpretation and Reporting →
+         href="/inference/interpretation-reporting/">
+         Next Block: Interpretation &amp; Reporting →
       </a>
 
     </div>
