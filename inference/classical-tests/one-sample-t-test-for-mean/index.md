@@ -1,285 +1,596 @@
 ---
 layout: default
-title: "3. One-Sample t Test for a Mean (σ Unknown)"
-description: "Conduct and interpret a one-sample t test for a population mean when the population standard deviation is unknown."
+title: One-Sample t Test for a Mean
+description: Learn how the one-sample t test evaluates whether a population mean differs from a hypothesized value when the population standard deviation is unknown.
 permalink: /inference/classical-tests/one-sample-t-test-for-mean/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 establishes the formal structure of the one-sample t test.
-        Worked examples, diagnostic checks, and software demonstrations will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update continue-reading keys -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_classical_tests_lesson_v0";
+(function () {
 
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/classical-tests/one-sample-t-test-for-mean/",
-      label: "Lesson 3 — One-Sample t Test for a Mean",
-      ts: Date.now()
-    }));
+  const KEY =
+    "esa_continue_inference_classical_tests_lesson_v0";
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/classical-tests/",
-      label: "Block 4 — Classical Tests",
-      ts: Date.now()
-    }));
-  })();
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/classical-tests/one-sample-t-test-for-mean/",
+    label: "One-Sample t Test for a Mean",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 4</span>
-        <span class="badge">Lesson 3</span>
-        <span class="badge">t Test</span>
-        <span class="badge">σ Unknown</span>
-      </div>
 
-      <h1>3. One-Sample t Test for a Mean (σ Unknown)</h1>
-
-      <p class="lead">
-        The one-sample t test evaluates whether a sample mean
-        differs from a hypothesized population mean
-        when the population standard deviation is unknown
-        and must be estimated from the sample.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/classical-tests/">Back to Block 4</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        This is the standard test for a single mean in practice.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 4</span>
+      <span class="badge">Classical Tests</span>
+      <span class="badge">t Test</span>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
-    <p>
-      Formulate hypotheses for a mean,
-      compute the t statistic,
-      determine degrees of freedom,
-      and interpret the p-value correctly.
+    <h1>One-Sample t Test for a Mean</h1>
+
+    <p class="lead">
+      The one-sample t test is one of the most widely used procedures in statistics.
     </p>
-  </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>When to use this test</h2>
-      <p style="margin:0;">
-        Use the one-sample t test when:
-        <br>
-        • The population standard deviation is unknown  
-        • Observations are independent  
-        • The population is approximately normal or the sample size is moderate/large
-      </p>
-    </div>
-  </div>
-</section>
+    <p class="lead">
+      It evaluates whether a population mean differs from a hypothesized value when the population standard deviation is unknown.
+    </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) Hypotheses</h2>
-  </div>
+    <div class="hero-actions">
 
-  <div class="card">
-    \[
-    H_0: \mu = \mu_0
-    \quad\text{vs}\quad
-    H_1: \mu \ne \mu_0
-    \]
-  </div>
+      <a class="btn"
+         href="/inference/classical-tests/one-sample-z-test-for-mean/">
+         ← Previous Lesson
+      </a>
 
-  <p class="muted-mini">
-    One-sided alternatives (greater or less) may also be used when justified.
-  </p>
-</section>
+      <a class="btn btn-outline"
+         href="/inference/classical-tests/paired-t-test/">
+         Next: Paired t Test →
+      </a>
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) Test statistic</h2>
-  </div>
-
-  <div class="card">
-    \[
-    t =
-    \frac{\bar{X} - \mu_0}
-    {S / \sqrt{n}}
-    \]
-  </div>
-
-  <p style="margin-top:.75rem;">
-    Here, \( S \) is the sample standard deviation.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>3) Sampling distribution under \(H_0\)</h2>
-  </div>
-
-  <div class="card">
-    \[
-    t \sim t_{n-1}
-    \quad\text{if } H_0 \text{ is true}
-    \]
-  </div>
-
-  <p class="muted-mini">
-    The degrees of freedom are:
-    \[
-    df = n - 1
-    \]
-  </p>
-
-  <p>
-    The t distribution has heavier tails than the normal distribution,
-    accounting for additional uncertainty from estimating \( \sigma \).
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>4) Decision rule</h2>
-  </div>
-
-  <div class="card">
-    Reject \(H_0\) if:
-    \[
-    |t| > t_{\alpha/2,\,n-1}
-    \]
-  </div>
-
-  <div class="card" style="margin-top:1rem;">
-    Equivalent p-value rule:
-    <br><br>
-    Reject if \( p \le \alpha \)
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>5) Interpretation</h2>
-  </div>
-
-  <div class="card">
-    If the p-value is small,
-    the observed sample mean is unlikely under \(H_0\),
-    providing statistical evidence against the null hypothesis.
-  </div>
-
-  <p class="muted-mini">
-    Failure to reject does not prove the null hypothesis.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>6) Connection to confidence interval</h2>
-  </div>
-
-  <div class="card">
-    The corresponding \(100(1-\alpha)\%\) confidence interval is:
-    \[
-    \bar{X}
-    \pm
-    t_{\alpha/2,\,n-1}
-    \frac{S}{\sqrt{n}}
-    \]
-  </div>
-
-  <p>
-    Rejecting \(H_0\) is equivalent to the null value \( \mu_0 \)
-    lying outside this interval.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>7) Comparison with z test</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>z test</h3>
-      <p style="margin:0;">
-        Uses known \( \sigma \)  
-        Standard normal distribution
-      </p>
     </div>
 
-    <div class="card">
-      <h3>t test</h3>
-      <p style="margin:0;">
-        Uses sample \( S \)  
-        t distribution with \( n-1 \) df
-      </p>
-    </div>
   </div>
 
-  <p class="muted-mini">
-    As \( n \) increases, the t distribution approaches the normal distribution.
-  </p>
 </section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>Why Do We Need the t Test?</h2>
+
+    <p>
+      The Z test assumes the population standard deviation:
+    </p>
+
+    0
+
+    <p>
+      is known.
+    </p>
+
+    <p>
+      In real applications, this is rarely true.
+    </p>
+
+    <p>
+      Instead, we estimate population variability using the sample standard deviation:
+    </p>
+
+    1
+
+    <p>
+      This additional uncertainty changes the sampling distribution and leads to the t test.
+    </p>
+
+    <h2>The Research Question</h2>
+
+    <p>
+      Suppose a university claims that students study an average of:
+    </p>
+
+    2
+
+    <p>
+      A researcher collects a sample and wants to determine whether the true population mean differs from this value.
+    </p>
+
+    <h2>When Is a One-Sample t Test Appropriate?</h2>
+
+    <div class="concept-box">
+
+      <strong>Use a one-sample t test when:</strong>
+
       <ul class="bullets">
-        <li>Formulate and test hypotheses for a mean</li>
-        <li>Compute the t statistic correctly</li>
-        <li>Determine degrees of freedom</li>
-        <li>Interpret p-values and intervals responsibly</li>
-      </ul>
-    </div>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next lesson</h2>
-      <p style="margin:0;">
-        We now examine the paired t test,
-        which reduces matched data to a one-sample test on differences.
+        <li>The parameter of interest is a population mean.</li>
+
+        <li>A single random sample is observed.</li>
+
+        <li>The population standard deviation is unknown.</li>
+
+        <li>Observations are independent.</li>
+
+        <li>The population is approximately normal or the sample size is sufficiently large.</li>
+
+      </ul>
+
+    </div>
+
+    <h2>The Hypotheses</h2>
+
+    <p>
+      The standard hypotheses are:
+    </p>
+
+    3
+
+    <br><br>
+
+    4
+
+    <p>
+      where:
+    </p>
+
+    <ul class="bullets">
+
+      <li>μ = population mean</li>
+
+      <li>μ₀ = hypothesized value</li>
+
+    </ul>
+
+    <h2>Possible Alternatives</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Alternative Hypothesis</th>
+            <th>Test Type</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>μ ≠ μ₀</td>
+            <td>Two-sided</td>
+          </tr>
+
+          <tr>
+            <td>μ &gt; μ₀</td>
+            <td>Right-tailed</td>
+          </tr>
+
+          <tr>
+            <td>μ &lt; μ₀</td>
+            <td>Left-tailed</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>The Estimated Standard Error</h2>
+
+    <p>
+      Since σ is unknown, we estimate it using:
+    </p>
+
+    5
+
+    <p>
+      This estimate introduces additional uncertainty.
+    </p>
+
+    <h2>The t Statistic</h2>
+
+    <p>
+      The test statistic becomes:
+    </p>
+
+    6
+
+    <p>
+      Just like the Z statistic, it measures how many standard errors separate the sample mean from the null value.
+    </p>
+
+    <h2>Why Not Use the Normal Distribution?</h2>
+
+    <p>
+      Because:
+    </p>
+
+    7
+
+    <p>
+      is estimated from the sample, the resulting statistic has more variability than a Z statistic.
+    </p>
+
+    <p>
+      Therefore, the standard normal distribution is no longer appropriate.
+    </p>
+
+    <h2>The t Distribution</h2>
+
+    <p>
+      The t statistic follows a t distribution under the null hypothesis.
+    </p>
+
+    <p>
+      Compared with the normal distribution, the t distribution has:
+    </p>
+
+    <ul class="bullets">
+
+      <li>More spread</li>
+
+      <li>Heavier tails</li>
+
+      <li>Greater probability of extreme values</li>
+
+    </ul>
+
+    <h2>Degrees of Freedom</h2>
+
+    <p>
+      Every t distribution is identified by its degrees of freedom:
+    </p>
+
+    8
+
+    <p>
+      Different sample sizes produce different t distributions.
+    </p>
+
+    <h2>What Happens as Sample Size Increases?</h2>
+
+    <p>
+      Larger samples estimate variability more accurately.
+    </p>
+
+    <p>
+      Consequently:
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Important result:</strong>
+
+      <p>
+        As degrees of freedom increase, the t distribution approaches the standard normal distribution.
       </p>
 
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/classical-tests/paired-t-test/">
-          Next lesson: 4. Paired t Test →
-        </a>
-      </div>
     </div>
 
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/classical-tests/one-sample-z-test-for-mean/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 2: One-Sample z Test
-          </a>
-        </div>
-      </div>
+    <h2>Example Setup</h2>
+
+    <p>
+      Suppose:
+    </p>
+
+    <div class="example-box">
+
+      <p>μ₀ = 20</p>
+      <p>x̄ = 18</p>
+      <p>s = 4</p>
+      <p>n = 25</p>
+      <p>α = 0.05</p>
+
     </div>
+
+    <h2>Step 1: Compute the Standard Error</h2>
+
+    <p>
+      Using:
+    </p>
+
+    9
+
+    <p>
+      gives:
+    </p>
+
+    10
+
+    <h2>Step 2: Compute the t Statistic</h2>
+
+    <p>
+      Substitute into the formula:
+    </p>
+
+    11
+
+    <p>
+      Therefore:
+    </p>
+
+    12
+
+    <h2>Step 3: Determine Degrees of Freedom</h2>
+
+    <p>
+      Using:
+    </p>
+
+    13
+
+    <p>
+      gives:
+    </p>
+
+    14
+
+    <h2>Step 4: Compute the p-Value</h2>
+
+    <p>
+      Using the t distribution with:
+    </p>
+
+    15
+
+    <p>
+      the two-sided p-value is approximately:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        p ≈ 0.020
+      </p>
+    </div>
+
+    <h2>Step 5: Make the Decision</h2>
+
+    <p>
+      Compare:
+    </p>
+
+    <div class="example-box">
+
+      <p>p ≈ 0.020</p>
+      <p>α = 0.05</p>
+
+    </div>
+
+    <p>
+      Since:
+    </p>
+
+    16
+
+    <p>
+      we reject:
+    </p>
+
+    17
+
+    <h2>Step 6: Interpret the Result</h2>
+
+    <p>
+      Statistical conclusion:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Reject the null hypothesis.
+      </p>
+    </div>
+
+    <p>
+      Practical conclusion:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        The sample provides evidence that the population mean differs from 20 hours per week.
+      </p>
+    </div>
+
+    <h2>Critical Values and the t Distribution</h2>
+
+    <p>
+      The critical values depend on both:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Significance level</li>
+
+      <li>Degrees of freedom</li>
+
+    </ul>
+
+    <p>
+      Unlike the Z test, there is no single universal critical value.
+    </p>
+
+    <h2>Confidence Interval Connection</h2>
+
+    <p>
+      The corresponding confidence interval is:
+    </p>
+
+    18
+
+    <p>
+      where:
+    </p>
+
+    19
+
+    <p>
+      comes from the t distribution.
+    </p>
+
+    <p>
+      As with all classical tests, confidence intervals and hypothesis tests produce matching conclusions at corresponding confidence levels.
+    </p>
+
+    <h2>Assumptions Revisited</h2>
+
+    <p>
+      The one-sample t test assumes:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Random sampling</li>
+
+      <li>Independent observations</li>
+
+      <li>Approximately normal population or sufficiently large sample</li>
+
+      <li>No severe violations affecting inference</li>
+
+    </ul>
+
+    <h2>Z Test vs t Test</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Feature</th>
+            <th>Z Test</th>
+            <th>t Test</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Population σ known</td>
+            <td>Yes</td>
+            <td>No</td>
+          </tr>
+
+          <tr>
+            <td>Uses sample s</td>
+            <td>No</td>
+            <td>Yes</td>
+          </tr>
+
+          <tr>
+            <td>Distribution used</td>
+            <td>Normal</td>
+            <td>t Distribution</td>
+          </tr>
+
+          <tr>
+            <td>Common in practice</td>
+            <td>Rare</td>
+            <td>Very common</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      The one-sample t test extends the logic of the Z test to realistic situations where population variability is unknown.
+    </p>
+
+    <p>
+      By accounting for uncertainty in the estimated standard deviation, it provides valid inference for a much broader range of practical applications.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        The one-sample t test evaluates whether a population mean differs from a hypothesized value when the population standard deviation is unknown. It replaces σ with the sample standard deviation and uses the t distribution to account for the resulting uncertainty.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Many studies collect observations in naturally matched pairs.
+    </p>
+
+    <p>
+      Examples include before-and-after measurements, repeated observations on the same subject, and matched experimental designs.
+    </p>
+
+    <p>
+      The next lesson introduces the paired t test, which analyzes differences within paired observations.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>The one-sample t test is used when σ is unknown</li>
+
+        <li>The standard error is estimated using s/√n</li>
+
+        <li>The test statistic is t = (x̄ − μ₀)/(s/√n)</li>
+
+        <li>The t distribution accounts for uncertainty in estimating σ</li>
+
+        <li>Degrees of freedom equal n − 1</li>
+
+        <li>The t distribution approaches the normal distribution as sample size increases</li>
+
+        <li>The t test is far more common in practice than the Z test</li>
+
+        <li>Confidence intervals and t tests are closely connected</li>
+
+      </ul>
+
+    </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/classical-tests/one-sample-z-test-for-mean/">
+         ← Previous: One-Sample Z Test for a Mean
+      </a>
+
+      <a class="btn"
+         href="/inference/classical-tests/paired-t-test/">
+         Next: Paired t Test →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
