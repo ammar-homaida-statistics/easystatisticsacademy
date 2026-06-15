@@ -1,270 +1,550 @@
 ---
 layout: default
-title: "7. Underpowered Studies"
-description: "Understand the consequences of low statistical power, why small studies can mislead, and how underpowered designs distort inference."
+title: Underpowered Studies
+description: Learn what underpowered studies are, why they are problematic, and how insufficient power can lead to unreliable scientific conclusions.
 permalink: /inference/power-sample-size/underpowered-studies/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 explains why low power weakens scientific conclusions.
-        Simulation examples and empirical illustrations will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update continue-reading keys -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_power_sample_size_lesson_v0";
+(function () {
 
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/power-sample-size/underpowered-studies/",
-      label: "Lesson 7 — Underpowered Studies",
-      ts: Date.now()
-    }));
+  const KEY =
+    "esa_continue_inference_power_sample_size_lesson_v0";
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/power-sample-size/",
-      label: "Block 5 — Power & Sample Size",
-      ts: Date.now()
-    }));
-  })();
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/power-sample-size/underpowered-studies/",
+    label: "Underpowered Studies",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 5</span>
-        <span class="badge">Lesson 7</span>
-        <span class="badge">Power</span>
-        <span class="badge">Study Design</span>
-      </div>
 
-      <h1>7. Underpowered Studies</h1>
-
-      <p class="lead">
-        A study with low statistical power has a high probability of
-        failing to detect real effects.
-        Underpowered designs create unreliable and unstable conclusions.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/power-sample-size/">Back to Block 5</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        Low power does not only increase Type II error — it affects interpretation quality.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 5</span>
+      <span class="badge">Power & Sample Size</span>
+      <span class="badge">Study Quality</span>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
-    <p>
-      Understand the statistical and practical consequences of low power
-      and recognize why adequate sample size is essential for credible inference.
+    <h1>Underpowered Studies</h1>
+
+    <p class="lead">
+      A study can be perfectly designed, carefully executed, and analyzed correctly yet still fail to answer its research question.
     </p>
+
+    <p class="lead">
+      One of the most common reasons is insufficient statistical power.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/power-sample-size/precision-vs-detectability/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/power-sample-size/software-and-power-analysis/">
+         Next: Software and Power Analysis →
+      </a>
+
+    </div>
+
   </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Core issue</h2>
-      <p style="margin:0;">
-        When power is low:
-        \[
-        P(\text{Reject } H_0 \mid H_1 \text{ true})
-        \text{ is small.}
-        \]
-        Real effects are frequently missed.
+</section>
+
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>What Does Underpowered Mean?</h2>
+
+    <p>
+      A study is underpowered when it has a low probability of detecting a meaningful effect that truly exists.
+    </p>
+
+    <p>
+      In other words:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        The study is too weak to reliably answer its research question.
       </p>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) Increased Type II error</h2>
-  </div>
+    <p>
+      Even genuine effects may go unnoticed.
+    </p>
 
-  <div class="card">
-    Power:
-    \[
-    1 - \beta
-    \]
-  </div>
+    <h2>Review: Statistical Power</h2>
 
-  <div class="card" style="margin-top:1rem;">
-    Underpowered study:
-    \[
-    \beta \text{ is large}
-    \quad\Rightarrow\quad
-    \text{High probability of false negative.}
-    \]
-  </div>
+    <p>
+      Recall that power is:
+    </p>
 
-  <p class="muted-mini">
-    Important effects may go undetected.
-  </p>
-</section>
+    0
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) Instability of significant results</h2>
-  </div>
+    <p>
+      where:
+    </p>
 
-  <div class="card">
-    In low-power settings:
-    <br><br>
-    • Only large observed effects become significant  
-    • Estimated effect sizes are exaggerated  
-    • Results are less reproducible  
-  </div>
+    <ul class="bullets">
 
-  <p>
-    This phenomenon is sometimes called
-    <strong>effect size inflation</strong>.
-  </p>
-</section>
+      <li>β is the probability of a Type II error</li>
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) Wide confidence intervals</h2>
-  </div>
+      <li>Power is the probability of detecting a true effect</li>
 
-  <div class="card">
-    Standard error:
-    \[
-    SE \propto \frac{1}{\sqrt{n}}
-    \]
-  </div>
+    </ul>
 
-  <p>
-    Small n leads to:
-    <br>
-    • Large standard errors  
-    • Wide confidence intervals  
-    • Imprecise estimates  
-  </p>
-</section>
+    <p>
+      Low power means a larger chance of missing real effects.
+    </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>4) Misleading interpretation</h2>
-  </div>
+    <h2>What Counts as Low Power?</h2>
 
-  <div class="card">
-    Non-significant result in an underpowered study
-    does <strong>not</strong> imply:
-    <br><br>
-    “No effect exists.”
-  </div>
+    <p>
+      There is no universal threshold, but many fields consider:
+    </p>
 
-  <p>
-    It may simply reflect insufficient sensitivity.
-  </p>
-</section>
+    <div class="table-wrap">
 
-<section class="section">
-  <div class="section-head">
-    <h2>5) Practical consequences</h2>
-  </div>
+      <table>
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Scientific impact</h3>
-      <ul class="bullets">
-        <li>Irreproducible findings</li>
-        <li>Inconsistent literature</li>
-        <li>False sense of null effect</li>
-      </ul>
+        <thead>
+          <tr>
+            <th>Power</th>
+            <th>Typical Interpretation</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>0.50</td>
+            <td>Very low</td>
+          </tr>
+
+          <tr>
+            <td>0.60</td>
+            <td>Low</td>
+          </tr>
+
+          <tr>
+            <td>0.80</td>
+            <td>Common target</td>
+          </tr>
+
+          <tr>
+            <td>0.90</td>
+            <td>Strong design</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
     </div>
 
-    <div class="card">
-      <h3>Ethical impact</h3>
-      <ul class="bullets">
-        <li>Wasted resources</li>
-        <li>Participant burden without strong inference</li>
-        <li>Poor decision-making</li>
-      </ul>
-    </div>
-  </div>
-</section>
+    <p>
+      A study with 50% power misses true effects about half the time.
+    </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>6) Practical rule</h2>
-  </div>
+    <h2>The Most Obvious Consequence</h2>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Recommended threshold</h2>
-      <p style="margin:0;">
-        Many applied fields use
-        \[
-        \text{Power} \ge 0.80
-        \]
-        as a minimum planning benchmark.
+    <p>
+      Underpowered studies produce more:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Type II Errors
       </p>
     </div>
-  </div>
 
-  <p class="muted-mini">
-    This is not universal, but commonly accepted.
-  </p>
-</section>
+    <p>
+      Real effects may exist, but the study fails to detect them.
+    </p>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
-      <ul class="bullets">
-        <li>Recognize consequences of low power</li>
-        <li>Understand effect size inflation</li>
-        <li>Distinguish non-significant from “no effect”</li>
-        <li>Appreciate ethical dimension of study design</li>
-      </ul>
+    <h2>A Clinical Trial Example</h2>
+
+    <p>
+      Suppose a new treatment genuinely improves patient outcomes.
+    </p>
+
+    <p>
+      A small study enrolls only a few participants.
+    </p>
+
+    <p>
+      The resulting p-value is not statistically significant.
+    </p>
+
+    <p>
+      Researchers may conclude:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        "The treatment does not work."
+      </p>
     </div>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next lesson</h2>
-      <p style="margin:0;">
-        We now examine how statistical software performs
-        power and sample size analysis in practice.
+    <p>
+      Yet the real problem may simply be insufficient power.
+    </p>
+
+    <h2>Absence of Evidence vs Evidence of Absence</h2>
+
+    <div class="concept-box">
+
+      <strong>Critical distinction:</strong>
+
+      <p>
+        Failing to find evidence of an effect is not the same as proving that no effect exists.
       </p>
 
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/power-sample-size/software-and-power-analysis/">
-          Next lesson: 8. Software & Power Analysis →
-        </a>
-      </div>
     </div>
 
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/power-sample-size/precision-vs-detectability/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 6: Precision vs Detectability
-          </a>
-        </div>
-      </div>
+    <p>
+      This distinction becomes especially important when studies are underpowered.
+    </p>
+
+    <h2>Low Power Creates Uncertainty</h2>
+
+    <p>
+      In low-power studies:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Confidence intervals tend to be wide</li>
+
+      <li>Estimates are less stable</li>
+
+      <li>Results vary substantially across samples</li>
+
+      <li>Conclusions become less reliable</li>
+
+    </ul>
+
+    <h2>Small Samples Are a Common Cause</h2>
+
+    <p>
+      One of the most common reasons for low power is:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Insufficient sample size
+      </p>
     </div>
+
+    <p>
+      Small samples contain less information and produce larger standard errors.
+    </p>
+
+    <h2>The Signal-to-Noise Problem</h2>
+
+    <p>
+      Statistical inference often involves separating:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Signal (real effect)</li>
+
+      <li>Noise (random variation)</li>
+
+    </ul>
+
+    <p>
+      Underpowered studies struggle because the signal is difficult to distinguish from the noise.
+    </p>
+
+    <h2>Effect Size Matters Too</h2>
+
+    <p>
+      Studies can become underpowered even with moderate sample sizes if the target effect is very small.
+    </p>
+
+    <p>
+      Smaller effects require more data to detect reliably.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>General rule:</strong>
+
+      <p>
+        The smaller the effect being studied, the larger the required sample size.
+      </p>
+
+    </div>
+
+    <h2>The Replication Problem</h2>
+
+    <p>
+      Low-powered studies contribute to replication difficulties.
+    </p>
+
+    <p>
+      Because estimates vary greatly from sample to sample:
+    </p>
+
+    <ul class="bullets">
+
+      <li>One study may find significance</li>
+
+      <li>A later study may not</li>
+
+      <li>Results appear inconsistent</li>
+
+    </ul>
+
+    <p>
+      This has been a major concern in many scientific fields.
+    </p>
+
+    <h2>Unstable Effect Estimates</h2>
+
+    <p>
+      Underpowered studies do not merely miss effects.
+    </p>
+
+    <p>
+      They also tend to produce highly variable estimates.
+    </p>
+
+    <p>
+      Observed effect sizes may fluctuate substantially across repeated samples.
+    </p>
+
+    <h2>Publication Bias and Power</h2>
+
+    <p>
+      Scientific journals often favor statistically significant results.
+    </p>
+
+    <p>
+      In low-power environments:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Many studies fail to find significance</li>
+
+      <li>Only a subset gets published</li>
+
+      <li>Published effects may appear larger than reality</li>
+
+    </ul>
+
+    <p>
+      This can distort the scientific literature.
+    </p>
+
+    <h2>A Visual Intuition</h2>
+
+    <p>
+      Consider two studies investigating the same effect.
+    </p>
+
+    
+
+    <p>
+      The larger study has a much greater chance of discovering the true effect.
+    </p>
+
+    <h2>Why Researchers Perform Power Analysis</h2>
+
+    <p>
+      Power analysis is intended to prevent underpowered studies before data collection begins.
+    </p>
+
+    <p>
+      Researchers estimate:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Target effect size</li>
+
+      <li>Desired power</li>
+
+      <li>Significance level</li>
+
+      <li>Required sample size</li>
+
+    </ul>
+
+    <p>
+      This planning step helps ensure that the study can answer its intended question.
+    </p>
+
+    <h2>Resource Constraints</h2>
+
+    <p>
+      Unfortunately, ideal sample sizes are not always feasible.
+    </p>
+
+    <p>
+      Researchers may face:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Limited funding</li>
+
+      <li>Limited participant availability</li>
+
+      <li>Time restrictions</li>
+
+      <li>Ethical constraints</li>
+
+    </ul>
+
+    <p>
+      These limitations often create difficult design decisions.
+    </p>
+
+    <h2>Interpreting Non-Significant Results Carefully</h2>
+
+    <p>
+      When a study reports a non-significant result, it is useful to ask:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Did the study have enough power to detect a meaningful effect?
+      </p>
+    </div>
+
+    <p>
+      Without that information, interpreting the result can be difficult.
+    </p>
+
+    <h2>Modern Reporting Practices</h2>
+
+    <p>
+      Increasingly, researchers report:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Power analyses</li>
+
+      <li>Confidence intervals</li>
+
+      <li>Effect sizes</li>
+
+      <li>Sample-size justifications</li>
+
+    </ul>
+
+    <p>
+      These details help readers evaluate the strength of the evidence.
+    </p>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      Statistical significance alone does not guarantee a useful study.
+    </p>
+
+    <p>
+      A study must also have sufficient power to detect effects that matter.
+    </p>
+
+    <p>
+      Underpowered studies can miss important discoveries, produce unstable results, and contribute to misleading scientific conclusions.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Underpowered studies have a low probability of detecting real effects. They increase the risk of Type II errors, produce less reliable estimates, and can lead researchers to overlook meaningful findings.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Power analysis has become a standard component of modern statistical practice.
+    </p>
+
+    <p>
+      Researchers routinely use software tools to estimate power, calculate required sample sizes, and evaluate alternative study designs.
+    </p>
+
+    <p>
+      The next lesson introduces common software tools and practical workflows used for power analysis.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>Underpowered studies have a low probability of detecting real effects</li>
+
+        <li>Low power increases the risk of Type II errors</li>
+
+        <li>Non-significant results do not necessarily imply no effect exists</li>
+
+        <li>Small sample sizes are a common cause of underpowered studies</li>
+
+        <li>Smaller effects require larger samples to detect</li>
+
+        <li>Low-powered studies often produce unstable estimates</li>
+
+        <li>Underpowered research contributes to replication problems</li>
+
+        <li>Power analysis helps prevent these issues during study planning</li>
+
+      </ul>
+
+    </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/power-sample-size/precision-vs-detectability/">
+         ← Previous: Precision vs Detectability
+      </a>
+
+      <a class="btn"
+         href="/inference/power-sample-size/software-and-power-analysis/">
+         Next: Software and Power Analysis →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
