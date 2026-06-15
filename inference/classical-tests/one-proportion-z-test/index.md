@@ -1,251 +1,555 @@
 ---
 layout: default
-title: "6. One-Proportion z Test"
-description: "Conduct and interpret a one-proportion z test to evaluate whether a population proportion differs from a hypothesized value."
+title: One-Proportion Z Test
+description: Learn how the one-proportion Z test evaluates whether a population proportion differs from a hypothesized value.
 permalink: /inference/classical-tests/one-proportion-z-test/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 establishes the structure of the one-proportion z test.
-        Full numerical examples and software walkthroughs will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update continue-reading keys -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_classical_tests_lesson_v0";
+(function () {
 
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/classical-tests/one-proportion-z-test/",
-      label: "Lesson 6 — One-Proportion z Test",
-      ts: Date.now()
-    }));
+  const KEY =
+    "esa_continue_inference_classical_tests_lesson_v0";
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/classical-tests/",
-      label: "Block 4 — Classical Tests",
-      ts: Date.now()
-    }));
-  })();
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/classical-tests/one-proportion-z-test/",
+    label: "One-Proportion Z Test",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 4</span>
-        <span class="badge">Lesson 6</span>
-        <span class="badge">Proportion</span>
-        <span class="badge">z Test</span>
-      </div>
 
-      <h1>6. One-Proportion z Test</h1>
-
-      <p class="lead">
-        The one-proportion z test evaluates whether a population proportion
-        differs from a hypothesized value using the normal approximation
-        to the binomial distribution.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/classical-tests/">Back to Block 4</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        This test relies on large-sample normal approximation.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 4</span>
+      <span class="badge">Classical Tests</span>
+      <span class="badge">Proportions</span>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
-    <p>
-      Formulate hypotheses for a proportion,
-      compute the z test statistic,
-      check validity conditions,
-      and interpret the p-value correctly.
+    <h1>One-Proportion Z Test</h1>
+
+    <p class="lead">
+      Many statistical questions involve proportions rather than means.
     </p>
-  </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>When to use this test</h2>
-      <p style="margin:0;">
-        Use the one-proportion z test when:
-        <br>
-        • Data are counts of successes out of \( n \) trials  
-        • Observations are independent  
-        • The success–failure condition is satisfied
-      </p>
+    <p class="lead">
+      The one-proportion Z test evaluates whether a population proportion differs from a hypothesized value using sample data and normal approximations.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/classical-tests/two-sample-t-test-independent/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/classical-tests/two-proportion-z-test/">
+         Next: Two-Proportion Z Test →
+      </a>
+
     </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) Parameter and hypotheses</h2>
-  </div>
+<!-- LESSON -->
 
-  <div class="card">
-    \[
-    \text{Parameter: } p
-    \]
-  </div>
+<section>
 
-  <div class="card" style="margin-top:1rem;">
-    \[
-    H_0: p = p_0
-    \quad\text{vs}\quad
-    H_1: p \ne p_0
-    \]
-  </div>
+  <div class="content-narrow">
 
-  <p class="muted-mini">
-    One-sided alternatives are also possible when justified.
-  </p>
-</section>
+    <h2>When Do We Use a Proportion Test?</h2>
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) Sample proportion</h2>
-  </div>
+    <p>
+      Some variables have only two possible outcomes.
+    </p>
 
-  <div class="card">
-    \[
-    \hat{p} = \frac{X}{n}
-    \]
-  </div>
+    <div class="example-box">
 
-  <p>
-    Where \( X \) is the number of successes in the sample.
-  </p>
-</section>
+      <p>
+        Success / Failure
+      </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) Test statistic</h2>
-  </div>
+      <p>
+        Yes / No
+      </p>
 
-  <div class="card">
-    \[
-    z =
-    \frac{\hat{p} - p_0}
-    {\sqrt{\frac{p_0(1-p_0)}{n}}}
-    \]
-  </div>
+      <p>
+        Purchased / Did Not Purchase
+      </p>
 
-  <p class="muted-mini">
-    Note: the standard error uses \( p_0 \) under the null hypothesis.
-  </p>
-</section>
+      <p>
+        Defective / Non-Defective
+      </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>4) Validity condition</h2>
-  </div>
+    </div>
 
-  <div class="card">
-    Success–failure condition under \(H_0\):
-    \[
-    n p_0 \ge 10
-    \quad\text{and}\quad
-    n(1-p_0) \ge 10
-    \]
-  </div>
+    <p>
+      In these situations, the parameter of interest is often a population proportion.
+    </p>
 
-  <p>
-    If these conditions are not satisfied,
-    the normal approximation may be unreliable.
-  </p>
-</section>
+    <h2>The Population Proportion</h2>
 
-<section class="section">
-  <div class="section-head">
-    <h2>5) Decision rule</h2>
-  </div>
+    <p>
+      The symbol:
+    </p>
 
-  <div class="card">
-    Reject \(H_0\) if:
-    \[
-    |z| > z_{\alpha/2}
-    \]
-  </div>
+    0
 
-  <div class="card" style="margin-top:1rem;">
-    Equivalent p-value rule:
+    <p>
+      represents the true population proportion.
+    </p>
+
+    <p>
+      Examples include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Proportion of voters supporting a candidate</li>
+
+      <li>Proportion of customers who purchase a product</li>
+
+      <li>Proportion of defective items produced</li>
+
+      <li>Proportion of patients responding to treatment</li>
+
+    </ul>
+
+    <h2>The Research Question</h2>
+
+    <p>
+      Suppose a company claims:
+    </p>
+
+    1
+
+    <p>
+      meaning that 50% of customers prefer a new product design.
+    </p>
+
+    <p>
+      A researcher wants to determine whether the true proportion differs from that claim.
+    </p>
+
+    <h2>The Hypotheses</h2>
+
+    <p>
+      The standard two-sided hypotheses are:
+    </p>
+
+    2
+
     <br><br>
-    Reject if \( p \le \alpha \)
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>6) Interpretation</h2>
-  </div>
+    3
 
-  <div class="card">
-    A small p-value indicates that the observed sample proportion
-    would be unlikely if the true population proportion were \( p_0 \).
-  </div>
+    <p>
+      where:
+    </p>
 
-  <p class="muted-mini">
-    Statistical significance does not imply a large or practically important difference.
-  </p>
-</section>
+    <ul class="bullets">
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
-      <ul class="bullets">
-        <li>Formulate hypotheses for a proportion</li>
-        <li>Compute the one-proportion z statistic</li>
-        <li>Check the success–failure condition</li>
-        <li>Interpret results correctly</li>
-      </ul>
+      <li>p = true population proportion</li>
+
+      <li>p₀ = hypothesized proportion</li>
+
+    </ul>
+
+    <h2>One-Sided Alternatives</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Alternative Hypothesis</th>
+            <th>Interpretation</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>p ≠ p₀</td>
+            <td>Proportion differs</td>
+          </tr>
+
+          <tr>
+            <td>p &gt; p₀</td>
+            <td>Proportion is larger</td>
+          </tr>
+
+          <tr>
+            <td>p &lt; p₀</td>
+            <td>Proportion is smaller</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
     </div>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next lesson</h2>
-      <p style="margin:0;">
-        We now compare two independent proportions
-        using the two-proportion z test.
+    <h2>The Sample Proportion</h2>
+
+    <p>
+      The observed sample proportion is:
+    </p>
+
+    4
+
+    <p>
+      where:
+    </p>
+
+    <ul class="bullets">
+
+      <li>x = number of successes</li>
+
+      <li>n = sample size</li>
+
+    </ul>
+
+    <h2>Example</h2>
+
+    <p>
+      Suppose:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        120 out of 200 customers prefer the product.
+      </p>
+    </div>
+
+    <p>
+      Then:
+    </p>
+
+    5
+
+    <h2>The Standard Error Under H₀</h2>
+
+    <p>
+      Under the null hypothesis:
+    </p>
+
+    6
+
+    <p>
+      the standard error becomes:
+    </p>
+
+    7
+
+    <p>
+      Notice that the null value:
+    </p>
+
+    8
+
+    <p>
+      appears in the formula.
+    </p>
+
+    <h2>The Z Statistic</h2>
+
+    <p>
+      The one-proportion Z statistic is:
+    </p>
+
+    9
+
+    <p>
+      This measures how many standard errors separate the observed sample proportion from the null value.
+    </p>
+
+    <h2>Worked Example</h2>
+
+    <p>
+      Suppose:
+    </p>
+
+    <div class="example-box">
+
+      <p>n = 200</p>
+      <p>x = 120</p>
+      <p>p₀ = 0.50</p>
+
+    </div>
+
+    <p>
+      The sample proportion is:
+    </p>
+
+    10
+
+    <h2>Compute the Standard Error</h2>
+
+    <p>
+      Using:
+    </p>
+
+    11
+
+    <p>
+      gives:
+    </p>
+
+    12
+
+    <h2>Compute the Test Statistic</h2>
+
+    <p>
+      Therefore:
+    </p>
+
+    13
+
+    <p>
+      which gives approximately:
+    </p>
+
+    14
+
+    <h2>The p-Value</h2>
+
+    <p>
+      Under:
+    </p>
+
+    15
+
+    <p>
+      the statistic follows the standard normal distribution approximately.
+    </p>
+
+    <p>
+      For a two-sided test:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        p-value ≈ 0.0046
+      </p>
+    </div>
+
+    <h2>The Decision</h2>
+
+    <p>
+      Suppose:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        α = 0.05
+      </p>
+    </div>
+
+    <p>
+      Since:
+    </p>
+
+    16
+
+    <p>
+      we reject:
+    </p>
+
+    17
+
+    <h2>Interpretation</h2>
+
+    <div class="example-box">
+
+      <p>
+        The sample provides evidence that the population proportion differs from 50%.
+      </p>
+    </div>
+
+    <h2>Why a Z Distribution?</h2>
+
+    <p>
+      The sampling distribution of:
+    </p>
+
+    18
+
+    <p>
+      becomes approximately normal when the sample size is sufficiently large.
+    </p>
+
+    <p>
+      This approximation comes from the Central Limit Theorem.
+    </p>
+
+    <h2>Success-Failure Condition</h2>
+
+    <p>
+      The normal approximation is generally considered reasonable when:
+    </p>
+
+    19
+
+    <p>
+      and:
+    </p>
+
+    20
+
+    <p>
+      under the null hypothesis.
+    </p>
+
+    <h2>Assumptions</h2>
+
+    <ul class="bullets">
+
+      <li>Random sampling</li>
+
+      <li>Independent observations</li>
+
+      <li>Binary outcomes</li>
+
+      <li>Success-failure condition satisfied</li>
+
+      <li>Sample size small relative to population size when sampling without replacement</li>
+
+    </ul>
+
+    <h2>Confidence Interval Connection</h2>
+
+    <p>
+      The corresponding confidence interval for a population proportion is:
+    </p>
+
+    21
+
+    <p>
+      As with other classical procedures,
+      confidence intervals and hypothesis tests provide matching conclusions at corresponding confidence levels.
+    </p>
+
+    <h2>Common Applications</h2>
+
+    <div class="example-box">
+
+      <p>
+        Election polling
       </p>
 
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/classical-tests/two-proportion-z-test/">
-          Next lesson: 7. Two-Proportion z Test →
-        </a>
-      </div>
+      <p>
+        Product approval studies
+      </p>
+
+      <p>
+        Customer satisfaction surveys
+      </p>
+
+      <p>
+        Quality-control inspections
+      </p>
+
+      <p>
+        Medical response rates
+      </p>
+
     </div>
 
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/classical-tests/two-sample-t-test-independent/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 5: Two-Sample t Test
-          </a>
-        </div>
-      </div>
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      The one-proportion Z test extends hypothesis testing from numerical measurements to binary outcomes.
+    </p>
+
+    <p>
+      Instead of evaluating means, it evaluates population proportions using the sampling distribution of sample proportions.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        The one-proportion Z test evaluates whether a population proportion differs from a hypothesized value. It uses the sample proportion, a null-based standard error, and a normal approximation to measure evidence against the null hypothesis.
+      </p>
+
     </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Many practical studies compare proportions between two groups rather than testing a single proportion.
+    </p>
+
+    <p>
+      Examples include comparing conversion rates, approval rates, treatment success rates, and defect rates.
+    </p>
+
+    <p>
+      The next lesson introduces the two-proportion Z test for comparing population proportions.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>The one-proportion Z test evaluates a single population proportion</li>
+
+        <li>The parameter of interest is p</li>
+
+        <li>The sample proportion is x/n</li>
+
+        <li>The null hypothesis usually states p = p₀</li>
+
+        <li>The standard error is computed using p₀ under the null hypothesis</li>
+
+        <li>The test statistic follows an approximate standard normal distribution</li>
+
+        <li>The success-failure condition supports the normal approximation</li>
+
+        <li>The test is widely used for binary-outcome data</li>
+
+      </ul>
+
+    </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/classical-tests/two-sample-t-test-independent/">
+         ← Previous: Two-Sample t Test
+      </a>
+
+      <a class="btn"
+         href="/inference/classical-tests/two-proportion-z-test/">
+         Next: Two-Proportion Z Test →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
