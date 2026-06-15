@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Precision vs Detectability
-description: Learn the difference between estimating parameters precisely and detecting effects statistically, and understand how sample size influences both goals.
-permalink: /inference/power-sample-size/precision-vs-detectability/
+title: Sample Size for a Proportion
+description: Learn how sample-size requirements are determined when estimating or testing population proportions and percentages.
+permalink: /inference/power-sample-size/sample-size-for-proportion/
 sidebar: false
 ---
 
@@ -14,13 +14,15 @@ sidebar: false
     "esa_continue_inference_power_sample_size_lesson_v0";
 
   localStorage.setItem(KEY, JSON.stringify({
-    url: "/inference/power-sample-size/precision-vs-detectability/",
-    label: "Precision vs Detectability",
+    url: "/inference/power-sample-size/sample-size-for-proportion/",
+    label: "Sample Size for a Proportion",
     ts: Date.now()
   }));
 
 })();
 </script>
+
+<!-- HERO -->
 
 <section class="hero hero-section">
 
@@ -30,17 +32,17 @@ sidebar: false
       <span class="badge">Inference</span>
       <span class="badge">Block 5</span>
       <span class="badge">Power & Sample Size</span>
-      <span class="badge">Study Design</span>
+      <span class="badge">Proportions</span>
     </div>
 
-    <h1>Precision vs Detectability</h1>
+    <h1>Sample Size for a Proportion</h1>
 
     <p class="lead">
-      Researchers often assume that increasing sample size serves a single purpose.
+      Many studies focus on proportions rather than means.
     </p>
 
     <p class="lead">
-      In reality, sample size affects two related but distinct goals: estimating parameters precisely and detecting meaningful effects.
+      Polling, surveys, quality control, public-health studies, and A/B tests often require determining how many observations are needed to estimate or detect differences in population proportions.
     </p>
 
     <div class="hero-actions">
@@ -51,8 +53,8 @@ sidebar: false
       </a>
 
       <a class="btn btn-outline"
-         href="/inference/power-sample-size/sample-size-for-proportion/">
-         Next: Sample Size for a Proportion →
+         href="/inference/power-sample-size/precision-vs-detectability/">
+         Next: Precision vs Detectability →
       </a>
 
     </div>
@@ -61,81 +63,224 @@ sidebar: false
 
 </section>
 
+<!-- LESSON -->
+
 <section>
 
   <div class="content-narrow">
 
-    <h2>Two Different Goals</h2>
+    <h2>Why Proportions Matter</h2>
 
     <p>
-      Statistical studies are often designed for one of two purposes:
+      Many important questions involve percentages or probabilities.
     </p>
 
     <ul class="bullets">
 
-      <li>Estimating a quantity accurately</li>
+      <li>What proportion of voters support a candidate?</li>
 
-      <li>Detecting whether an effect exists</li>
+      <li>What fraction of customers make a purchase?</li>
+
+      <li>What percentage of patients respond to treatment?</li>
+
+      <li>What proportion of manufactured items are defective?</li>
 
     </ul>
 
     <p>
-      These goals are related but not identical.
+      Accurate answers require adequate sample sizes.
     </p>
 
-    <h2>What Is Precision?</h2>
+    <h2>Planning for Precision</h2>
 
     <p>
-      Precision refers to how accurately a parameter can be estimated.
+      Suppose we want to estimate a population proportion:
+    </p>
+
+    0
+
+    <p>
+      with a specified margin of error.
     </p>
 
     <p>
-      High precision produces:
+      The question becomes:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        How many observations are needed to estimate the proportion with sufficient precision?
+      </p>
+    </div>
+
+    <h2>Recall the Confidence Interval</h2>
+
+    <p>
+      For large samples, a confidence interval for a proportion has the form:
+    </p>
+
+    1
+
+    <p>
+      The margin of error is therefore:
+    </p>
+
+    2
+
+    <h2>Solving for Sample Size</h2>
+
+    <p>
+      Rearranging the margin-of-error formula gives:
+    </p>
+
+    3
+
+    <p>
+      This is the classic sample-size formula for estimating a population proportion.
+    </p>
+
+    <h2>The Unknown Proportion Problem</h2>
+
+    <p>
+      The formula requires a value of:
+    </p>
+
+    4
+
+    <p>
+      but the true population proportion is usually unknown before data collection.
+    </p>
+
+    <p>
+      Researchers often use:
     </p>
 
     <ul class="bullets">
 
-      <li>Narrow confidence intervals</li>
+      <li>Pilot studies</li>
 
-      <li>Small margins of error</li>
+      <li>Historical data</li>
 
-      <li>More stable estimates</li>
+      <li>Expert knowledge</li>
 
     </ul>
 
-    <div class="concept-box">
+    <p>
+      to obtain an estimate.
+    </p>
 
-      <strong>Precision focuses on estimation quality.</strong>
+    <h2>The Conservative Choice</h2>
+
+    <p>
+      When no information is available, a common strategy is:
+    </p>
+
+    5
+
+    <p>
+      because:
+    </p>
+
+    6
+
+    <p>
+      is maximized at 0.5.
+    </p>
+
+    <p>
+      This produces the largest required sample size and ensures adequate precision regardless of the true proportion.
+    </p>
+
+    <h2>The Conservative Formula</h2>
+
+    <p>
+      Substituting:
+    </p>
+
+    7
+
+    <p>
+      yields:
+    </p>
+
+    8
+
+    <p>
+      This is frequently used in survey design.
+    </p>
+
+    <h2>Example Calculation</h2>
+
+    <p>
+      Suppose we want:
+    </p>
+
+    <div class="example-box">
+
+      <p>95% confidence</p>
+      <p>Margin of error = 0.03</p>
+
     </div>
 
-    <h2>What Is Detectability?</h2>
-
     <p>
-      Detectability refers to a study's ability to identify a real effect.
+      Using:
     </p>
 
-    <p>
-      This idea is captured by statistical power.
-    </p>
+    9
 
     <p>
-      A highly detectable effect is likely to be identified as statistically significant when it truly exists.
+      and the conservative assumption:
+    </p>
+
+    10
+
+    <p>
+      gives:
+    </p>
+
+    11
+
+    <p>
+      Therefore:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Required sample size = 1068
+      </p>
+    </div>
+
+    <h2>Always Round Up</h2>
+
+    <p>
+      As with all sample-size calculations:
     </p>
 
     <div class="concept-box">
 
-      <strong>Detectability focuses on hypothesis testing.</strong>
+      <strong>Rule:</strong>
+
+      <p>
+        Always round upward to ensure the desired precision is achieved.
+      </p>
+
     </div>
 
-    <h2>The Connection</h2>
+    <h2>Effect of Margin of Error</h2>
 
     <p>
-      Both precision and detectability improve as sample size increases.
+      Notice that:
     </p>
 
+    12
+
     <p>
-      However, they answer different questions.
+      Just as with means, halving the margin of error approximately quadruples the required sample size.
     </p>
+
+    <h2>A Precision Illustration</h2>
 
     <div class="table-wrap">
 
@@ -143,21 +288,26 @@ sidebar: false
 
         <thead>
           <tr>
-            <th>Goal</th>
-            <th>Main Question</th>
+            <th>Margin of Error</th>
+            <th>Relative Sample Size</th>
           </tr>
         </thead>
 
         <tbody>
 
           <tr>
-            <td>Precision</td>
-            <td>How accurately can we estimate?</td>
+            <td>6%</td>
+            <td>1×</td>
           </tr>
 
           <tr>
-            <td>Detectability</td>
-            <td>Can we detect a real effect?</td>
+            <td>3%</td>
+            <td>4×</td>
+          </tr>
+
+          <tr>
+            <td>1.5%</td>
+            <td>16×</td>
           </tr>
 
         </tbody>
@@ -166,170 +316,145 @@ sidebar: false
 
     </div>
 
-    <h2>An Estimation Example</h2>
-
     <p>
-      Suppose a survey estimates average household income.
+      Small gains in precision can require substantial increases in sample size.
     </p>
 
-    <p>
-      The primary goal may be obtaining a confidence interval with a small margin of error.
-    </p>
+    <h2>Planning for Hypothesis Testing</h2>
 
     <p>
-      Here, precision is more important than hypothesis testing.
-    </p>
-
-    <h2>A Testing Example</h2>
-
-    <p>
-      Suppose researchers compare two medical treatments.
-    </p>
-
-    <p>
-      The primary goal is determining whether the treatments differ.
-    </p>
-
-    <p>
-      Here, statistical power becomes the main concern.
-    </p>
-
-    <h2>How Sample Size Affects Precision</h2>
-
-    <p>
-      Recall that standard errors often contain:
-    </p>
-
-    0
-
-    <p>
-      Increasing sample size reduces standard errors and narrows confidence intervals.
-    </p>
-
-    <h2>How Sample Size Affects Detectability</h2>
-
-    <p>
-      Smaller standard errors also make true effects easier to distinguish from random variation.
-    </p>
-
-    <p>
-      Therefore, power generally increases as sample size increases.
-    </p>
-
-    <h2>Can a Study Be Precise but Underpowered?</h2>
-
-    <p>
-      In some situations, yes.
-    </p>
-
-    <p>
-      A study may estimate a parameter reasonably well but still lack enough power to detect very small effects.
-    </p>
-
-    <p>
-      The answer depends on the effect size being investigated.
-    </p>
-
-    <h2>Can a Study Detect Tiny Effects?</h2>
-
-    <p>
-      Very large samples can detect extremely small effects.
-    </p>
-
-    <p>
-      However, those effects may have little practical importance.
-    </p>
-
-    <div class="concept-box">
-
-      <strong>Important:</strong>
-
-      <p>
-        Detectability does not automatically imply practical significance.
-      </p>
-
-    </div>
-
-    <h2>The Trade-Off</h2>
-
-    <p>
-      Researchers often face a design choice:
+      When testing hypotheses about proportions, sample-size determination depends on:
     </p>
 
     <ul class="bullets">
 
-      <li>Estimate precisely</li>
-
-      <li>Detect small effects</li>
-
-      <li>Control costs</li>
-
-    </ul>
-
-    <p>
-      Achieving all three simultaneously may require substantial resources.
-    </p>
-
-    <h2>Precision-Based Planning</h2>
-
-    <p>
-      When estimation is the goal, sample size is usually chosen based on:
-    </p>
-
-    <ul class="bullets">
-
-      <li>Margin of error</li>
-
-      <li>Confidence level</li>
-
-      <li>Population variability</li>
-
-    </ul>
-
-    <h2>Power-Based Planning</h2>
-
-    <p>
-      When testing is the goal, sample size is usually chosen based on:
-    </p>
-
-    <ul class="bullets">
-
-      <li>Target power</li>
+      <li>Desired power</li>
 
       <li>Significance level</li>
 
-      <li>Effect size</li>
+      <li>Target effect size</li>
 
-      <li>Variability</li>
+      <li>Baseline proportion</li>
 
     </ul>
 
-    <h2>Which Goal Should Come First?</h2>
+    <h2>The Role of Effect Size</h2>
 
     <p>
-      The answer depends on the research objective.
+      Suppose a company wants to detect an increase in conversion rate.
     </p>
 
     <div class="example-box">
 
       <p>
-        Surveys often prioritize precision.
+        From 10% to 11%
       </p>
+    </div>
+
+    <p>
+      This is a much smaller effect than:
+    </p>
+
+    <div class="example-box">
 
       <p>
-        Experiments often prioritize detectability.
+        From 10% to 20%
       </p>
-
     </div>
+
+    <p>
+      Smaller effects require larger samples to detect reliably.
+    </p>
+
+    <h2>The Role of Baseline Proportion</h2>
+
+    <p>
+      Variability for proportions depends on:
+    </p>
+
+    13
+
+    <p>
+      Variability is highest near:
+    </p>
+
+    14
+
+    <p>
+      and decreases as proportions approach 0 or 1.
+    </p>
+
+    <p>
+      Consequently, required sample sizes also depend on the expected baseline proportion.
+    </p>
+
+    <h2>Polling Example</h2>
+
+    <p>
+      National election polls often target margins of error around:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        ±3%
+      </p>
+    </div>
+
+    <p>
+      which explains why many polls collect roughly one thousand respondents.
+    </p>
+
+    <h2>A/B Testing Example</h2>
+
+    <p>
+      Online experiments frequently require thousands or even millions of observations because conversion-rate differences can be very small.
+    </p>
+
+    <p>
+      Detecting tiny effects demands substantial sample sizes.
+    </p>
+
+    <h2>Balancing Precision and Cost</h2>
+
+    <p>
+      Larger samples improve precision and power, but they also increase:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Financial costs</li>
+
+      <li>Time requirements</li>
+
+      <li>Data collection effort</li>
+
+      <li>Operational complexity</li>
+
+    </ul>
+
+    <p>
+      Sample-size planning is therefore a balance between statistical goals and practical constraints.
+    </p>
+
+    <h2>Modern Software</h2>
+
+    <p>
+      Statistical software can compute sample sizes quickly.
+    </p>
+
+    <p>
+      However, researchers must still choose meaningful targets for precision, effect size, confidence, and power.
+    </p>
 
     <h2>The Bigger Picture</h2>
 
     <p>
-      Precision and detectability are two complementary perspectives on study quality.
+      Sample-size planning for proportions follows the same principles as planning for means.
     </p>
 
     <p>
-      Both improve with larger samples, but they serve different scientific goals.
+      Researchers specify desired precision or power, then determine the number of observations needed to achieve those goals.
     </p>
 
     <div class="concept-box">
@@ -337,7 +462,7 @@ sidebar: false
       <strong>Core message:</strong>
 
       <p>
-        Precision concerns how accurately parameters can be estimated, while detectability concerns whether real effects can be identified. Effective study design requires understanding both objectives and balancing them appropriately.
+        Sample-size calculations for proportions depend on confidence level, margin of error, baseline proportion, and desired power. Smaller margins of error and smaller detectable effects require substantially larger samples.
       </p>
 
     </div>
@@ -345,12 +470,18 @@ sidebar: false
     <h2>Looking Ahead</h2>
 
     <p>
-      Many practical studies focus on estimating or testing population proportions rather than means.
+      Precision and detectability are closely related but distinct study-design goals.
     </p>
 
     <p>
-      The next lesson introduces sample-size calculations for proportions and shows how precision and power concepts extend to percentage-based outcomes.
+      Some studies aim for narrow confidence intervals, while others focus on detecting meaningful effects.
     </p>
+
+    <p>
+      The next lesson explores the difference between precision and detectability and explains how these goals influence study design.
+    </p>
+
+    <!-- TAKEAWAYS -->
 
     <div class="summary-box">
 
@@ -358,25 +489,27 @@ sidebar: false
 
       <ul class="bullets">
 
-        <li>Precision and detectability are distinct study goals</li>
+        <li>Sample-size planning for proportions often focuses on confidence intervals or power</li>
 
-        <li>Precision focuses on estimation quality</li>
+        <li>The classic proportion formula is based on the desired margin of error</li>
 
-        <li>Detectability focuses on hypothesis testing and power</li>
+        <li>When p is unknown, p = 0.5 provides a conservative sample-size estimate</li>
 
-        <li>Larger samples improve both precision and detectability</li>
+        <li>Smaller margins of error require much larger samples</li>
 
-        <li>Detecting an effect does not guarantee practical importance</li>
+        <li>Required sample size depends on baseline proportion and variability</li>
 
-        <li>Estimation studies often prioritize precision</li>
+        <li>Smaller effects require larger samples to detect</li>
 
-        <li>Experimental studies often prioritize detectability</li>
+        <li>Polling and A/B testing rely heavily on proportion-based sample-size calculations</li>
 
-        <li>Study design requires balancing statistical and practical considerations</li>
+        <li>Effective study design balances statistical goals and practical limitations</li>
 
       </ul>
 
     </div>
+
+    <!-- NAVIGATION -->
 
     <div class="lesson-nav">
 
@@ -386,8 +519,8 @@ sidebar: false
       </a>
 
       <a class="btn"
-         href="/inference/power-sample-size/sample-size-for-proportion/">
-         Next: Sample Size for a Proportion →
+         href="/inference/power-sample-size/precision-vs-detectability/">
+         Next: Precision vs Detectability →
       </a>
 
     </div>
