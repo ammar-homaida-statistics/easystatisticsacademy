@@ -95,6 +95,21 @@ sidebar: false
 
     </div>
 
+    <div class="concept-box">
+
+  <strong>Important insight:</strong>
+
+  <p>
+    Boxplots summarize distributions using only a few numbers,
+    making them much more compact than histograms.
+  </p>
+
+</div>
+
+<img src="{{ 'descriptive/images/boxplot-anatomy.png' | relative_url }}"
+     alt="Anatomy of a boxplot"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
     <h2>The Five-Number Summary</h2>
 
     <p>
@@ -105,6 +120,12 @@ sidebar: false
     <p>
       These values describe the location and spread of the data.
     </p>
+
+    <p>
+  Because quartiles divide the data into four equal parts,
+  the interval from Q1 to Q3 always contains the middle 50%
+  of observations.
+</p>
 
     <div class="table-wrap">
 
@@ -150,6 +171,10 @@ sidebar: false
 
     </div>
 
+    <img src="{{ 'descriptive/images/five-number-summary-boxplot.png' | relative_url }}"
+     alt="Five-number summary visualized with a boxplot"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
     <h2>Understanding Quartiles</h2>
 
     <p>
@@ -169,6 +194,12 @@ sidebar: false
     <p>
       These values help describe where observations are concentrated.
     </p>
+
+    <p>
+  Because quartiles divide the data into four equal parts,
+  the interval from Q1 to Q3 always contains the middle 50%
+  of observations.
+</p>
 
     <h2>A Numerical Example</h2>
 
@@ -274,6 +305,12 @@ sidebar: false
       Whiskers help show the overall range of the data.
     </p>
 
+    <p>
+  In many boxplots, whiskers extend only to the most extreme
+  non-outlier observations rather than to the absolute minimum
+  and maximum values.
+</p>
+
     <h2>The Interquartile Range (IQR)</h2>
 
     <p>
@@ -281,7 +318,10 @@ sidebar: false
       <strong>interquartile range</strong>.
     </p>
 
-    0
+    <p>
+  The IQR measures the distance between the first and third quartiles,
+  capturing the spread of the middle 50% of observations.
+</p>
 
     <p>
       The IQR measures the spread of the middle 50% of observations.
@@ -293,6 +333,10 @@ sidebar: false
 
     <h2>Detecting Outliers</h2>
 
+    <img src="{{ 'descriptive/images/boxplot-outlier-example.png' | relative_url }}"
+     alt="Boxplot showing an outlier"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
     <p>
       Boxplots are famous for identifying outliers.
     </p>
@@ -301,7 +345,10 @@ sidebar: false
       A common rule classifies observations as potential outliers if they lie beyond:
     </p>
 
-    1
+    <p>
+  Observations outside these boundaries are commonly flagged
+  as potential outliers.
+</p>
 
     <p>
       Such observations are often displayed as individual points.
@@ -333,6 +380,10 @@ sidebar: false
 
     <h2>Recognizing Skewness</h2>
 
+    <img src="{{ 'descriptive/images/symmetric-vs-skewed-boxplots.png' | relative_url }}"
+     alt="Symmetric and skewed boxplots"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
     <p>
       A boxplot may suggest skewness when:
     </p>
@@ -352,6 +403,10 @@ sidebar: false
     </p>
 
     <h2>Comparing Groups</h2>
+
+    <img src="{{ 'descriptive/images/group-comparison-boxplots.png' | relative_url }}"
+     alt="Comparing groups using boxplots"
+     style="margin-top:15px; max-width:100%; height:auto;">
 
     <p>
       One of the greatest strengths of boxplots
@@ -377,6 +432,11 @@ sidebar: false
     <p>
       Multiple boxplots can reveal differences quickly.
     </p>
+
+    <p>
+  Comparing several boxplots side by side is often easier
+  than comparing several histograms.
+</p>
 
     <h2>Boxplots vs Histograms</h2>
 
@@ -424,6 +484,22 @@ sidebar: false
     <p>
       The two graphs complement one another.
     </p>
+
+    <h2>Histograms and Boxplots Together</h2>
+
+    <img src="{{ 'descriptive/images/histogram-vs-boxplot.png' | relative_url }}"
+     alt="Histogram and boxplot comparison"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+  Analysts often examine both a histogram and a boxplot
+  for the same dataset.
+</p>
+
+<p>
+  The histogram reveals detailed shape,
+  while the boxplot provides a compact summary.
+</p>
 
     <h2>Limitations of Boxplots</h2>
 
@@ -474,6 +550,76 @@ sidebar: false
     <p>
       They are a standard tool throughout statistics and data science.
     </p>
+
+    <div class="concept-box">
+
+  <strong>Key insight:</strong>
+
+  <p>
+    Boxplots summarize center, spread, and potential outliers
+    in a compact visual form, making them especially useful
+    for comparing groups.
+  </p>
+
+</div>
+
+<h2>Creating Boxplots in SPSS</h2>
+
+<ul class="bullets">
+
+  <li>Graphs → Chart Builder</li>
+
+  <li>Select Boxplot</li>
+
+  <li>Assign the numerical variable</li>
+
+  <li>SPSS automatically identifies potential outliers</li>
+
+</ul>
+
+<div style="flex:1; min-width:300px;">
+    <img src="{{ '/descriptive/images/spss_boxplot_output.png' | relative_url }}"
+         alt="SPSS boxplot output"
+         style="width:100%; height:auto;">
+    <p style="text-align:center;">
+      Boxplot showing spread and potential outlier
+    </p>
+  </div>
+
+<p>
+  Boxplots are commonly used as an initial screening tool
+  during exploratory data analysis.
+</p>
+
+<h3>Python Example</h3>
+
+<p>
+This example creates a boxplot for numerical data.
+</p>
+
+<pre><code>import matplotlib.pyplot as plt
+
+scores = [55,58,60,62,65,67,68,70,
+          72,74,75,77,80,82,85,
+          88,90,92,95,120]
+
+plt.boxplot(scores)
+
+plt.show()
+</code></pre>
+
+<h3>R Example</h3>
+
+<p>
+This example creates a boxplot for numerical data.
+</p>
+
+<pre><code>scores <- c(55,58,60,62,65,67,68,70,
+            72,74,75,77,80,82,85,
+            88,90,92,95,120)
+
+boxplot(scores)
+</code></pre>
 
     <!-- TAKEAWAYS -->
 
