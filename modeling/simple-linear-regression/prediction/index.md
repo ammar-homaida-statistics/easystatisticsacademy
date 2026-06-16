@@ -1,171 +1,537 @@
 ---
 layout: default
-title: 9. Prediction Using Regression
+title: Prediction
+description: Learn how regression models generate predictions, how to interpret predicted values, and the limitations of prediction in statistical modeling.
 permalink: /modeling/simple-linear-regression/prediction/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <h2 style="color:#e65100;">🚧 Lesson Under Construction</h2>
-    <p>
-      Version 0 focuses on prediction logic using regression.
-      Uncertainty and prediction intervals will be added later.
-    </p>
-  </div>
-</section>
-
-<!-- ✅ Update last visited lesson -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
 (function () {
-  localStorage.setItem("esa_continue_modeling_slr_lesson_v0", JSON.stringify({
+
+  const KEY =
+    "esa_continue_modeling_simple_linear_regression_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
     url: "/modeling/simple-linear-regression/prediction/",
-    label: "Lesson 9 — Prediction",
+    label: "Prediction",
     ts: Date.now()
   }));
+
 })();
 </script>
 
 <!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
 
     <div class="badge-row">
+      <span class="badge">Modeling</span>
       <span class="badge">Block 2</span>
-      <span class="badge">Lesson 9</span>
+      <span class="badge">Simple Linear Regression</span>
       <span class="badge">Prediction</span>
-      <span class="badge">Application</span>
     </div>
 
-    <h1>9. Prediction Using Regression</h1>
+    <h1>Prediction</h1>
 
     <p class="lead">
-      Regression models can be used to predict outcomes,
-      but predictions always include uncertainty and limitations.
+      One of the most important uses of regression is prediction.
+    </p>
+
+    <p class="lead">
+      After estimating a regression equation, we can use it to predict outcomes for new observations and support data-driven decisions.
     </p>
 
     <div class="hero-actions">
-      <a class="btn btn-outline" href="/modeling/simple-linear-regression/">Back to Block 2</a>
-      <a class="btn" href="#lesson">Start lesson</a>
+
+      <a class="btn"
+         href="/modeling/simple-linear-regression/correlation-vs-regression/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/modeling/multiple-regression/">
+         Continue to Multiple Regression →
+      </a>
+
     </div>
 
-    <p class="muted-mini">
-      Version 0: conceptual understanding of prediction before formal intervals.
-    </p>
-
   </div>
+
 </section>
 
 <!-- LESSON -->
-<section class="section" id="lesson">
 
-  <h2>Learning objective</h2>
-  <p>
-    By the end of this lesson, you should understand how regression is used for prediction,
-    and why predictions are inherently uncertain.
-  </p>
+<section>
 
-  <div class="card">
-    <h3>Key idea</h3>
-    <p>
-      A regression model provides an expected value of Y for a given X,
-      not an exact outcome.
-    </p>
-  </div>
+  <div class="content-narrow">
 
-  <h2>1) How prediction works</h2>
-  <div class="card">
-    <p>
-      Given a model:
-    </p>
-    <p><strong>Y = β₀ + β₁X</strong></p>
-    <p>
-      We can plug in a value of X to obtain a predicted value of Y.
-    </p>
-  </div>
+    <h2>Why Prediction Matters</h2>
 
-  <h2>2) Example</h2>
-  <div class="card">
     <p>
-      If the model is:
+      Many real-world applications of statistics focus on forecasting future outcomes.
     </p>
-    <p><strong>Score = 50 + 5 × Hours</strong></p>
-    <p>
-      For 4 hours of study:
-    </p>
-    <p><strong>Predicted score = 70</strong></p>
-  </div>
 
-  <h2>3) Prediction is not exact</h2>
-  <div class="card">
     <p>
-      Real data contain noise. The predicted value is the average expected outcome,
-      not a guaranteed value.
+      Examples include:
     </p>
-  </div>
 
-  <h2>4) Residuals and prediction error</h2>
-  <div class="card">
-    <p>
-      The difference between actual and predicted values is the prediction error (residual).
-    </p>
-  </div>
+    <ul class="bullets">
 
-  <h2>5) Interpolation vs extrapolation</h2>
-  <div class="card">
-    <ul>
-      <li><strong>Interpolation</strong> → predicting within observed data range (safer)</li>
-      <li><strong>Extrapolation</strong> → predicting outside data range (risky)</li>
+      <li>Predicting house prices</li>
+
+      <li>Forecasting sales revenue</li>
+
+      <li>Estimating medical outcomes</li>
+
+      <li>Predicting exam scores</li>
+
+      <li>Forecasting energy demand</li>
+
     </ul>
-  </div>
 
-  <h2>6) Why predictions can fail</h2>
-  <div class="card">
-    <ul>
-      <li>Model is misspecified</li>
-      <li>Important variables are missing</li>
-      <li>Assumptions are violated</li>
-      <li>Extrapolation beyond data</li>
+    <p>
+      Regression provides a framework for making these predictions.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Main idea:</strong>
+
+      <p>
+        Prediction uses the regression equation to estimate expected outcomes for specified predictor values.
+      </p>
+
+    </div>
+
+    <h2>Using the Regression Equation</h2>
+
+    <p>
+      Once a regression model has been fitted, predictions are generated by substituting predictor values into the regression equation.
+    </p>
+
+    <p>
+      The predicted value is typically written as:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        ŷ
+      </p>
+    </div>
+
+    <p>
+      This symbol represents the model's prediction of the outcome variable.
+    </p>
+
+    <h2>A Simple Example</h2>
+
+    <p>
+      Suppose the fitted regression equation is:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Exam Score = 50 + 4 × Study Hours
+      </p>
+    </div>
+
+    <p>
+      If a student studies:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        10 hours
+      </p>
+    </div>
+
+    <p>
+      the predicted score becomes:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        ŷ = 50 + 4(10) = 90
+      </p>
+    </div>
+
+    <p>
+      The model predicts an expected score of 90 points.
+    </p>
+
+    <h2>Predictions Are Expected Values</h2>
+
+    <p>
+      A common misconception is that predictions represent guaranteed outcomes.
+    </p>
+
+    <p>
+      They do not.
+    </p>
+
+    <p>
+      Regression predictions describe expected or average outcomes.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Important distinction:</strong>
+
+      <p>
+        A predicted value is an expected outcome, not a certainty.
+      </p>
+
+    </div>
+
+    <h2>Why Predictions Are Imperfect</h2>
+
+    <p>
+      Real-world data contain variability.
+    </p>
+
+    <p>
+      Even if two individuals have identical predictor values, their outcomes may differ because of:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Random variation</li>
+
+      <li>Measurement error</li>
+
+      <li>Unobserved factors</li>
+
+      <li>Natural uncertainty</li>
+
     </ul>
-  </div>
 
-  <h2>7) Prediction vs explanation</h2>
-  <div class="card">
     <p>
-      A model can predict well without explaining causality,
-      and explain relationships without predicting accurately.
+      Residuals capture these prediction errors.
     </p>
-  </div>
 
-  <h2>8) Why this matters</h2>
-  <div class="card">
+    <h2>Prediction and Residuals</h2>
+
     <p>
-      Prediction is widely used in real applications,
-      but misuse leads to overconfidence and incorrect decisions.
+      Recall:
     </p>
-  </div>
 
-  <div class="card">
-    <h3>Outcome of this lesson</h3>
-    <ul>
-      <li>Use regression for prediction</li>
-      <li>Understand prediction as expected value</li>
-      <li>Distinguish interpolation vs extrapolation</li>
-      <li>Recognize sources of prediction error</li>
-      <li>Avoid overconfidence in predictions</li>
+    <div class="example-box">
+
+      <p>
+        Residual = Observed − Predicted
+      </p>
+    </div>
+
+    <p>
+      Residuals indicate how far observations differ from the model's predictions.
+    </p>
+
+    <p>
+      Smaller residuals generally imply more accurate predictions.
+    </p>
+
+    <h2>Interpolation</h2>
+
+    <p>
+      Predictions made within the range of observed data are called interpolation.
+    </p>
+
+    <p>
+      Example:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Observed study hours range from 1 to 15</li>
+
+      <li>Prediction made for 10 study hours</li>
+
     </ul>
-  </div>
 
-  <div class="card">
-    <h3>Next step</h3>
     <p>
-      Now we extend regression to multiple predictors,
-      allowing more realistic modeling.
+      This prediction falls within the observed range and is usually considered relatively safe.
     </p>
-    <a class="btn" href="/modeling/multiple-regression/">
-      Go to Block 3 — Multiple Regression →
-    </a>
+
+    <h2>Extrapolation</h2>
+
+    <p>
+      Predictions made outside the observed range are called extrapolation.
+    </p>
+
+    <p>
+      Example:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Observed study hours range from 1 to 15</li>
+
+      <li>Prediction made for 40 study hours</li>
+
+    </ul>
+
+    <p>
+      This prediction extends beyond the available data.
+    </p>
+
+    <p>
+      Extrapolation can be risky because the assumed relationship may no longer hold.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Warning:</strong>
+
+      <p>
+        Regression models are usually most reliable within the range of observed data.
+      </p>
+
+    </div>
+
+    <h2>Prediction vs Explanation</h2>
+
+    <p>
+      Earlier we distinguished between explanatory and predictive modeling.
+    </p>
+
+    <p>
+      Prediction focuses on estimating future or unknown outcomes accurately.
+    </p>
+
+    <p>
+      Explanation focuses on understanding relationships.
+    </p>
+
+    <p>
+      A model can sometimes excel at one objective more than the other.
+    </p>
+
+    <h2>Prediction Accuracy</h2>
+
+    <p>
+      Good predictive models tend to produce:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Small residuals</li>
+
+      <li>Low prediction error</li>
+
+      <li>Reasonable performance on new data</li>
+
+    </ul>
+
+    <p>
+      Prediction quality depends on both the model and the data.
+    </p>
+
+    <h2>Prediction Intervals</h2>
+
+    <p>
+      Because predictions contain uncertainty, analysts often report intervals rather than single values.
+    </p>
+
+    <p>
+      A prediction interval provides a range of plausible outcomes for a future observation.
+    </p>
+
+    <p>
+      These intervals are wider than confidence intervals for mean responses because individual outcomes contain additional variability.
+    </p>
+
+    <h2>Factors Affecting Prediction Quality</h2>
+
+    <p>
+      Prediction performance depends on several factors:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Strength of the relationship</li>
+
+      <li>Amount of noise in the data</li>
+
+      <li>Sample size</li>
+
+      <li>Model assumptions</li>
+
+      <li>Measurement quality</li>
+
+    </ul>
+
+    <p>
+      Stronger relationships generally support more accurate predictions.
+    </p>
+
+    <h2>Prediction Does Not Imply Causation</h2>
+
+    <p>
+      A model may predict extremely well without identifying causal mechanisms.
+    </p>
+
+    <p>
+      Prediction and causation are different objectives.
+    </p>
+
+    <p>
+      A useful predictive model can exist even when causal relationships remain uncertain.
+    </p>
+
+    <h2>Prediction in Practice</h2>
+
+    <p>
+      Modern analytics, machine learning, and forecasting systems rely heavily on prediction.
+    </p>
+
+    <p>
+      Regression provides one of the simplest and most interpretable predictive frameworks.
+    </p>
+
+    <p>
+      Many advanced predictive methods build upon ideas first introduced through regression.
+    </p>
+
+    <h2>Limits of Simple Linear Regression</h2>
+
+    <p>
+      Simple linear regression uses only one predictor variable.
+    </p>
+
+    <p>
+      Real-world outcomes are often influenced by many factors simultaneously.
+    </p>
+
+    <p>
+      As a result, single-predictor models may leave substantial variation unexplained.
+    </p>
+
+    <h2>Why We Need More Predictors</h2>
+
+    <p>
+      Consider predicting house prices.
+    </p>
+
+    <p>
+      Price may depend on:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Size</li>
+
+      <li>Location</li>
+
+      <li>Age</li>
+
+      <li>Number of bedrooms</li>
+
+      <li>Property condition</li>
+
+    </ul>
+
+    <p>
+      A single predictor rarely captures the full complexity of such relationships.
+    </p>
+
+    <p>
+      This motivates the move to multiple regression.
+    </p>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      Prediction is one of the central goals of statistical modeling.
+    </p>
+
+    <p>
+      Regression models use estimated relationships to forecast outcomes, quantify uncertainty, and support decision-making.
+    </p>
+
+    <p>
+      Understanding how predictions are generated—and their limitations—is essential for applying regression responsibly.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Regression predictions estimate expected outcomes for specified predictor values. Predictions are useful but inherently uncertain, and they are most reliable when made within the range of observed data.
+      </p>
+
+    </div>
+
+    <h2>Completing the Simple Linear Regression Block</h2>
+
+    <p>
+      You have now completed the Simple Linear Regression block.
+    </p>
+
+    <p>
+      This block introduced the core ideas of regression, including regression equations, slopes, intercepts, residuals, least squares, model fit, and prediction.
+    </p>
+
+    <p>
+      These concepts provide the foundation for more advanced regression methods.
+    </p>
+
+    <p>
+      The next block extends these ideas by allowing multiple predictors to influence an outcome simultaneously.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>Regression uses fitted equations to generate predictions</li>
+
+        <li>Predicted values are denoted by ŷ</li>
+
+        <li>Predictions represent expected outcomes, not certainties</li>
+
+        <li>Residuals measure prediction errors</li>
+
+        <li>Interpolation is generally safer than extrapolation</li>
+
+        <li>Prediction accuracy depends on relationship strength and data quality</li>
+
+        <li>Prediction intervals quantify uncertainty in future outcomes</li>
+
+        <li>Many real-world prediction problems require multiple predictors</li>
+
+      </ul>
+
+    </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/modeling/simple-linear-regression/correlation-vs-regression/">
+         ← Previous: Correlation vs Regression
+      </a>
+
+      <a class="btn"
+         href="/modeling/multiple-regression/">
+         Continue to Multiple Regression →
+      </a>
+
+    </div>
+
   </div>
 
 </section>
