@@ -1,236 +1,574 @@
 ---
 layout: default
-title: "10. Reporting Assumptions and Limitations"
-description: "Learn how to transparently report model assumptions, robustness checks, and study limitations to strengthen credibility."
+title: Reporting Assumptions and Limitations
+description: Learn how to communicate assumptions, limitations, uncertainty, and robustness transparently so statistical conclusions can be interpreted appropriately.
 permalink: /inference/assumptions-robustness/reporting-assumptions-and-limitations/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 formalizes how to report assumptions, diagnostic checks,
-        robustness analyses, and limitations with clarity and integrity.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update continue-reading keys -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_assumptions_robustness_lesson_v0";
+(function () {
 
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/assumptions-robustness/reporting-assumptions-and-limitations/",
-      label: "Lesson 10 — Reporting Assumptions & Limitations",
-      ts: Date.now()
-    }));
+  const KEY =
+    "esa_continue_inference_assumptions_robustness_lesson_v0";
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/assumptions-robustness/",
-      label: "Block 7 — Assumptions & Robustness",
-      ts: Date.now()
-    }));
-  })();
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/assumptions-robustness/reporting-assumptions-and-limitations/",
+    label: "Reporting Assumptions and Limitations",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 7</span>
-        <span class="badge">Lesson 10</span>
-        <span class="badge">Transparency</span>
-        <span class="badge">Limitations</span>
-      </div>
 
-      <h1>10. Reporting Assumptions and Limitations</h1>
-
-      <p class="lead">
-        Credible inference requires more than correct calculations.
-        It requires transparent reporting of assumptions, diagnostics,
-        robustness checks, and study limitations.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/assumptions-robustness/">Back to Block 7</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        Transparency increases reproducibility and scientific trust.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 7</span>
+      <span class="badge">Assumptions & Robustness</span>
+      <span class="badge">Reporting</span>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
-    <p>
-      Develop a structured and professional approach to reporting
-      statistical assumptions, diagnostics, robustness checks,
-      and practical limitations.
+    <h1>Reporting Assumptions and Limitations</h1>
+
+    <p class="lead">
+      Every statistical analysis relies on assumptions and faces limitations.
     </p>
-  </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Core principle</h2>
-      <p style="margin:0;">
-        Statistical reporting should make it possible for another analyst
-        to understand, evaluate, and replicate the inferential logic.
-      </p>
+    <p class="lead">
+      Responsible reporting requires communicating these assumptions clearly so readers can evaluate the strength, credibility, and scope of the conclusions.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/assumptions-robustness/sensitivity-analysis-and-specification/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/learning-paths/">
+         Continue Learning →
+      </a>
+
     </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) Report model assumptions explicitly</h2>
-  </div>
+<!-- LESSON -->
 
-  <div class="card">
-    Clearly state:
-    <br><br>
-    • Independence assumptions  
-    • Distributional assumptions (e.g., normality)  
-    • Variance assumptions (equal vs unequal)  
-    • Design assumptions (random sampling, random assignment)  
-  </div>
+<section>
 
-  <p>
-    Do not assume readers will infer which assumptions were used.
-  </p>
-</section>
+  <div class="content-narrow">
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) Report diagnostic checks</h2>
-  </div>
+    <h2>Why Reporting Matters</h2>
 
-  <div class="card">
-    Include:
-    <br><br>
-    • Normality diagnostics (QQ-plot summary)  
-    • Variance checks  
-    • Outlier analysis  
-    • Sensitivity analysis summary  
-  </div>
+    <p>
+      Statistical analysis is not complete when calculations finish.
+    </p>
 
-  <p>
-    Diagnostics need not be exhaustive,
-    but key checks should be documented.
-  </p>
-</section>
+    <p>
+      Conclusions must be communicated accurately and transparently.
+    </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) Report robustness comparisons</h2>
-  </div>
+    <p>
+      Readers need enough information to understand how results were obtained and how much confidence they deserve.
+    </p>
 
-  <div class="card">
-    Example phrasing:
-    <br><br>
-    “Results were consistent under Welch’s correction.”  
-    “Conclusions remained unchanged using a nonparametric alternative.”  
-  </div>
+    <div class="concept-box">
 
-  <p>
-    Stability strengthens credibility.
-  </p>
-</section>
+      <strong>Main idea:</strong>
 
-<section class="section">
-  <div class="section-head">
-    <h2>4) Distinguish limitations clearly</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Statistical limitations</h3>
       <p>
-        Small sample size, measurement error, assumption concerns.
+        Good reporting explains not only what was found, but also the assumptions, uncertainties, and limitations that affect interpretation.
       </p>
+
     </div>
 
-    <div class="card">
-      <h3>Design limitations</h3>
+    <h2>Every Analysis Has Assumptions</h2>
+
+    <p>
+      Statistical methods depend on assumptions about:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Sampling</li>
+
+      <li>Independence</li>
+
+      <li>Measurement quality</li>
+
+      <li>Distributional properties</li>
+
+      <li>Model structure</li>
+
+    </ul>
+
+    <p>
+      Readers should know which assumptions are important and how plausible they appear.
+    </p>
+
+    <h2>Every Analysis Has Limitations</h2>
+
+    <p>
+      No dataset is perfect.
+    </p>
+
+    <p>
+      Common limitations include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Small sample sizes</li>
+
+      <li>Missing data</li>
+
+      <li>Measurement error</li>
+
+      <li>Selection bias</li>
+
+      <li>Limited generalizability</li>
+
+    </ul>
+
+    <p>
+      Acknowledging limitations strengthens credibility rather than weakening it.
+    </p>
+
+    <h2>The Goal Is Transparency</h2>
+
+    <p>
+      Transparent reporting allows readers to evaluate evidence independently.
+    </p>
+
+    <p>
+      Hiding assumptions or limitations can create a misleading impression of certainty.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Transparency principle:</strong>
+
       <p>
-        Non-random sampling, observational data, confounding.
+        Statistical conclusions should be accompanied by enough context for others to judge their reliability.
       </p>
+
     </div>
-  </div>
 
-  <p>
-    Limitations do not invalidate results —
-    but they bound interpretation.
-  </p>
-</section>
+    <h2>Report Assumptions Explicitly</h2>
 
-<section class="section">
-  <div class="section-head">
-    <h2>5) Recommended reporting structure</h2>
-  </div>
+    <p>
+      Analysts should clearly identify assumptions that materially affect conclusions.
+    </p>
 
-  <div class="card">
-    Suggested order:
-    <br><br>
-    1. Research question  
-    2. Statistical method  
-    3. Assumptions  
-    4. Test results (estimate, CI, p-value)  
-    5. Robustness checks  
-    6. Limitations  
-    7. Practical interpretation  
-  </div>
-</section>
+    <p>
+      Examples include:
+    </p>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+    <ul class="bullets">
+
+      <li>Random sampling assumptions</li>
+
+      <li>Independence assumptions</li>
+
+      <li>Normality assumptions</li>
+
+      <li>Model assumptions</li>
+
+      <li>Missing-data assumptions</li>
+
+    </ul>
+
+    <p>
+      Readers should not have to guess what assumptions were made.
+    </p>
+
+    <h2>Report Diagnostic Checks</h2>
+
+    <p>
+      When assumptions are important, analysts should describe how they were evaluated.
+    </p>
+
+    <p>
+      Examples include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Residual plots</li>
+
+      <li>Normality assessments</li>
+
+      <li>Variance diagnostics</li>
+
+      <li>Sensitivity analyses</li>
+
+    </ul>
+
+    <p>
+      This demonstrates that assumptions were considered rather than ignored.
+    </p>
+
+    <h2>Communicate Uncertainty</h2>
+
+    <p>
+      Statistical results should rarely be presented as certain facts.
+    </p>
+
+    <p>
+      Instead, uncertainty should be communicated using:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Confidence intervals</li>
+
+      <li>Standard errors</li>
+
+      <li>Prediction intervals</li>
+
+      <li>Appropriate language</li>
+
+    </ul>
+
+    <p>
+      Uncertainty is a central part of statistical reasoning.
+    </p>
+
+    <h2>Avoid Overstating Conclusions</h2>
+
+    <p>
+      Statistical evidence rarely proves a claim with absolute certainty.
+    </p>
+
+    <p>
+      Strong conclusions should only be drawn when supported by strong evidence.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Prefer: "The results suggest..."
+      </p>
+
+      <p>
+        Avoid: "The results prove..."
+      </p>
+
+    </div>
+
+    <h2>Discuss Generalizability</h2>
+
+    <p>
+      Readers should understand:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Who was studied</li>
+
+      <li>What population is represented</li>
+
+      <li>Where conclusions may apply</li>
+
+      <li>Where conclusions may not apply</li>
+
+    </ul>
+
+    <p>
+      Generalization beyond the observed sample requires justification.
+    </p>
+
+    <h2>Report Missing Data Issues</h2>
+
+    <p>
+      Missing values can influence results substantially.
+    </p>
+
+    <p>
+      Reports should explain:
+    </p>
+
+    <ul class="bullets">
+
+      <li>How much data were missing</li>
+
+      <li>How missingness was handled</li>
+
+      <li>Whether sensitivity analyses were performed</li>
+
+    </ul>
+
+    <p>
+      These decisions affect interpretation.
+    </p>
+
+    <h2>Report Outliers and Influential Observations</h2>
+
+    <p>
+      If unusual observations affect results:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Describe how they were identified</li>
+
+      <li>Explain how they were handled</li>
+
+      <li>Report sensitivity analyses when appropriate</li>
+
+    </ul>
+
+    <p>
+      Transparency helps readers evaluate robustness.
+    </p>
+
+    <h2>Report Robustness Checks</h2>
+
+    <p>
+      When alternative specifications or methods were examined:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Describe the alternatives</li>
+
+      <li>Summarize the results</li>
+
+      <li>Discuss any important differences</li>
+
+    </ul>
+
+    <p>
+      Robust findings are more persuasive when readers can see the evidence.
+    </p>
+
+    <h2>Separate Results From Interpretation</h2>
+
+    <p>
+      Good reports distinguish:
+    </p>
+
+    <ul class="bullets">
+
+      <li>What the data show</li>
+
+      <li>How the results are interpreted</li>
+
+      <li>What conclusions are justified</li>
+
+    </ul>
+
+    <p>
+      Mixing these elements can create confusion.
+    </p>
+
+    <h2>Acknowledge Alternative Explanations</h2>
+
+    <p>
+      Responsible reporting considers whether:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Confounding variables exist</li>
+
+      <li>Bias may be present</li>
+
+      <li>Different models might explain the findings</li>
+
+    </ul>
+
+    <p>
+      Considering alternatives improves scientific credibility.
+    </p>
+
+    <h2>Limitations Are Not Failures</h2>
+
+    <p>
+      Every study has constraints.
+    </p>
+
+    <p>
+      Discussing limitations demonstrates careful scientific thinking rather than weakness.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Important perspective:</strong>
+
+      <p>
+        Honest discussion of limitations increases trust because it shows that uncertainty and weaknesses have been considered carefully.
+      </p>
+
+    </div>
+
+    <h2>A Reporting Checklist</h2>
+
+    <p>
+      Before finalizing an analysis, ask:
+    </p>
+
+    <ol>
+
+      <li>Have key assumptions been stated?</li>
+
+      <li>Have assumptions been evaluated?</li>
+
+      <li>Have limitations been acknowledged?</li>
+
+      <li>Has uncertainty been communicated?</li>
+
+      <li>Have robustness checks been reported?</li>
+
+      <li>Do conclusions match the evidence?</li>
+
+    </ol>
+
+    <h2>Why This Matters for Decision-Making</h2>
+
+    <p>
+      Statistical analyses often inform important decisions.
+    </p>
+
+    <p>
+      Decision-makers need:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Reliable evidence</li>
+
+      <li>Known uncertainties</li>
+
+      <li>Clear assumptions</li>
+
+      <li>Realistic limitations</li>
+
+    </ul>
+
+    <p>
+      Transparent reporting supports better decisions.
+    </p>
+
+    <h2>The Scientific Perspective</h2>
+
+    <p>
+      Science advances through cumulative evidence.
+    </p>
+
+    <p>
+      Transparent reporting helps future researchers:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Evaluate findings</li>
+
+      <li>Replicate analyses</li>
+
+      <li>Build upon prior work</li>
+
+      <li>Identify areas for improvement</li>
+
+    </ul>
+
+    <p>
+      Clear reporting contributes to the reliability of scientific knowledge.
+    </p>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      Statistical analysis is not only about computation.
+    </p>
+
+    <p>
+      It is also about communicating evidence responsibly.
+    </p>
+
+    <p>
+      Reporting assumptions, uncertainty, limitations, and robustness checks allows others to evaluate conclusions fairly and appropriately.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Responsible statistical reporting requires transparency about assumptions, limitations, uncertainty, and robustness. Conclusions should be presented honestly, with claims that match the strength of the evidence.
+      </p>
+
+    </div>
+
+    <h2>Completing the Assumptions &amp; Robustness Block</h2>
+
+    <p>
+      You have now completed the Assumptions &amp; Robustness block.
+    </p>
+
+    <p>
+      This block explored model assumptions, study-design assumptions, normality, independence, heteroscedasticity, outliers, robust methods, bootstrapping, sensitivity analysis, and transparent reporting.
+    </p>
+
+    <p>
+      Together, these topics provide a framework for evaluating how trustworthy statistical conclusions remain when real-world data depart from ideal theoretical conditions.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Report assumptions clearly</li>
-        <li>Document diagnostics and robustness</li>
-        <li>Distinguish statistical and design limits</li>
-        <li>Strengthen transparency and reproducibility</li>
+
+        <li>All statistical analyses rely on assumptions and have limitations</li>
+
+        <li>Transparent reporting improves credibility and trust</li>
+
+        <li>Important assumptions should be stated explicitly</li>
+
+        <li>Diagnostic checks should be reported when relevant</li>
+
+        <li>Uncertainty should be communicated clearly</li>
+
+        <li>Robustness checks strengthen confidence in findings</li>
+
+        <li>Limitations should be acknowledged rather than hidden</li>
+
+        <li>Conclusions should match the strength of the evidence</li>
+
       </ul>
+
     </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/assumptions-robustness/sensitivity-analysis-and-specification/">
+         ← Previous: Sensitivity Analysis and Specification
+      </a>
+
+      <a class="btn"
+         href="/learning-paths/">
+         Continue Learning →
+      </a>
+
+    </div>
+
   </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next step</h2>
-      <p style="margin:0;">
-        Return to the full Statistical Inference structure
-        to integrate all components.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/">
-          Back to Statistical Inference →
-        </a>
-      </div>
-    </div>
-
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/assumptions-robustness/sensitivity-analysis-and-specification/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 9: Sensitivity Analysis & Specification
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>
