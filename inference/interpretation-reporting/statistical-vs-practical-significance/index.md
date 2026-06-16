@@ -1,253 +1,524 @@
 ---
 layout: default
-title: "2. Statistical vs Practical Significance"
-description: "Distinguish statistical significance from practical importance. Understand how sample size affects p-values and why effect size matters."
+title: Statistical vs Practical Significance
+description: Learn the difference between statistical significance and practical significance, and why both are necessary for sound decision-making.
 permalink: /inference/interpretation-reporting/statistical-vs-practical-significance/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 clarifies why “statistically significant” does not imply
-        “important” and how sample size influences conclusions.
-        Applied examples will be expanded later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update continue-reading keys -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_interpretation_reporting_lesson_v0";
+(function () {
 
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/interpretation-reporting/statistical-vs-practical-significance/",
-      label: "Lesson 2 — Statistical vs Practical Significance",
-      ts: Date.now()
-    }));
+  const KEY =
+    "esa_continue_inference_interpretation_reporting_lesson_v0";
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/interpretation-reporting/",
-      label: "Block 6 — Interpretation & Reporting",
-      ts: Date.now()
-    }));
-  })();
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/interpretation-reporting/statistical-vs-practical-significance/",
+    label: "Statistical vs Practical Significance",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 6</span>
-        <span class="badge">Lesson 2</span>
-        <span class="badge">Effect Size</span>
-        <span class="badge">Interpretation</span>
-      </div>
 
-      <h1>2. Statistical vs Practical Significance</h1>
-
-      <p class="lead">
-        A small p-value indicates statistical evidence.
-        It does not automatically imply that the effect is meaningful in practice.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/interpretation-reporting/">Back to Block 6</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        Statistical detectability and real-world importance are different concepts.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 6</span>
+      <span class="badge">Interpretation & Reporting</span>
+      <span class="badge">Decision Making</span>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
-    <p>
-      Distinguish between statistical significance and practical relevance,
-      and understand how sample size affects p-values.
+    <h1>Statistical vs Practical Significance</h1>
+
+    <p class="lead">
+      Statistical significance tells us whether evidence exists against a null hypothesis.
     </p>
+
+    <p class="lead">
+      Practical significance asks whether the observed effect is large enough to matter in the real world.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/interpretation-reporting/p-values-what-they-mean/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/interpretation-reporting/interpreting-confidence-intervals/">
+         Next: Interpreting Confidence Intervals →
+      </a>
+
+    </div>
+
   </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Core distinction</h2>
-      <p style="margin:0;">
-        Statistical significance answers:
-        “Is the effect detectable?”
-        <br><br>
-        Practical significance answers:
-        “Is the effect large enough to matter?”
+</section>
+
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>Two Different Questions</h2>
+
+    <p>
+      Statistical analysis often answers two separate questions:
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Question</th>
+            <th>Answer Provided By</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Is there evidence of an effect?</td>
+            <td>Statistical significance</td>
+          </tr>
+
+          <tr>
+            <td>Is the effect important?</td>
+            <td>Practical significance</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      These questions are related, but they are not the same.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Key idea:</strong>
+
+      <p>
+        An effect can be statistically significant without being practically important, and practically important without being statistically significant.
+      </p>
+
+    </div>
+
+    <h2>What Is Statistical Significance?</h2>
+
+    <p>
+      Statistical significance concerns evidence against the null hypothesis.
+    </p>
+
+    <p>
+      A result is often called statistically significant when:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        p ≤ α
       </p>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) Role of sample size</h2>
-  </div>
+    <p>
+      Under this framework, the observed data would be considered unlikely if the null hypothesis were true.
+    </p>
 
-  <div class="card">
-    Test statistic (mean case):
-    \[
-    T =
-    \frac{\bar{X} - \mu_0}{SE}
-    \]
-  </div>
+    <h2>What Statistical Significance Does NOT Tell Us</h2>
 
-  <div class="card" style="margin-top:1rem;">
-    Standard error:
-    \[
-    SE = \frac{\sigma}{\sqrt{n}}
-    \]
-  </div>
+    <p>
+      A statistically significant result does not automatically tell us:
+    </p>
 
-  <p>
-    As n increases:
-    <br>
-    • SE decreases  
-    • T increases for same difference  
-    • p-value becomes smaller  
-  </p>
+    <ul class="bullets">
 
-  <p class="muted-mini">
-    Large samples can detect very small effects.
-  </p>
-</section>
+      <li>How large the effect is</li>
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) Small effect, large sample</h2>
-  </div>
+      <li>Whether the effect is meaningful</li>
 
-  <div class="card">
-    Even a tiny difference
-    \[
-    \Delta \approx 0
-    \]
-    may yield:
-    \[
-    p < 0.05
-    \]
-    when n is very large.
-  </div>
+      <li>Whether the effect justifies action</li>
 
-  <p>
-    This does not guarantee meaningful impact.
-  </p>
-</section>
+      <li>Whether the effect has practical consequences</li>
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) Large effect, small sample</h2>
-  </div>
+    </ul>
 
-  <div class="card">
-    With small n:
-    <br><br>
-    • SE is large  
-    • Test statistic may be modest  
-    • p-value may exceed 0.05  
-  </div>
+    <h2>What Is Practical Significance?</h2>
 
-  <p>
-    A practically important effect may fail to reach significance.
-  </p>
-</section>
+    <p>
+      Practical significance concerns real-world importance.
+    </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>4) Effect size measures</h2>
-  </div>
+    <p>
+      It asks:
+    </p>
 
-  <div class="card">
-    Standardized mean difference:
-    \[
-    d = \frac{\Delta}{\sigma}
-    \]
-  </div>
+    <div class="example-box">
 
-  <div class="card" style="margin-top:1rem;">
-    For proportions:
-    \[
-    \Delta = |p_1 - p_2|
-    \]
-  </div>
+      <p>
+        Is the observed effect large enough to matter?
+      </p>
+    </div>
 
-  <p>
-    Effect sizes quantify magnitude independently of sample size.
-  </p>
-</section>
+    <p>
+      The answer depends on context, goals, costs, benefits, and consequences.
+    </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>5) Reporting recommendation</h2>
-  </div>
+    <h2>A Medical Example</h2>
 
-  <div class="card">
-    Good reporting includes:
-    <br><br>
-    • Effect size  
-    • Confidence interval  
-    • p-value  
-    • Contextual interpretation  
-  </div>
+    <p>
+      Suppose a new medication reduces blood pressure by:
+    </p>
 
-  <p>
-    Avoid binary language such as “significant / not significant”
-    without discussing magnitude.
-  </p>
-</section>
+    <div class="example-box">
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+      <p>
+        0.2 mmHg
+      </p>
+    </div>
+
+    <p>
+      With a very large sample size, this difference might produce:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        p &lt; 0.001
+      </p>
+    </div>
+
+    <p>
+      The result is statistically significant.
+    </p>
+
+    <p>
+      However, a reduction of only 0.2 mmHg may have little clinical importance.
+    </p>
+
+    <h2>A Business Example</h2>
+
+    <p>
+      Suppose a website redesign increases conversion rates from:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        10.00% to 10.02%
+      </p>
+    </div>
+
+    <p>
+      A large dataset might detect this difference statistically.
+    </p>
+
+    <p>
+      Whether it matters financially depends on implementation costs and business objectives.
+    </p>
+
+    <h2>The Role of Sample Size</h2>
+
+    <p>
+      Sample size strongly influences statistical significance.
+    </p>
+
+    <p>
+      Larger samples make it easier to detect small effects.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Important consequence:</strong>
+
+      <p>
+        Very large samples can make tiny effects statistically significant.
+      </p>
+
+    </div>
+
+    <h2>An Illustration</h2>
+
+    <p>
+      Consider two effects:
+    </p>
+
+      
+
+    <p>
+      Statistical significance focuses on detectability.
+    </p>
+
+    <p>
+      Practical significance focuses on magnitude and consequences.
+    </p>
+
+    <h2>Effect Size Bridges the Gap</h2>
+
+    <p>
+      Effect size measures the magnitude of an effect.
+    </p>
+
+    <p>
+      Unlike p-values, effect sizes directly address practical importance.
+    </p>
+
+    <p>
+      Common measures include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Cohen's d</li>
+
+      <li>Correlation coefficients</li>
+
+      <li>Odds ratios</li>
+
+      <li>Risk differences</li>
+
+      <li>Mean differences</li>
+
+    </ul>
+
+    <h2>Confidence Intervals Also Help</h2>
+
+    <p>
+      Confidence intervals provide information about:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Magnitude of effects</li>
+
+      <li>Precision of estimates</li>
+
+      <li>Plausible ranges of values</li>
+
+    </ul>
+
+    <p>
+      They often provide more insight than a significance decision alone.
+    </p>
+
+    <h2>A Non-Significant but Important Effect</h2>
+
+    <p>
+      Suppose a pilot study finds:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Large estimated improvement
+      </p>
+
+      <p>
+        p = 0.08
+      </p>
+
+    </div>
+
+    <p>
+      The study fails to reach conventional significance.
+    </p>
+
+    <p>
+      However, the estimated effect may still be practically important.
+    </p>
+
+    <p>
+      The study might simply lack sufficient power.
+    </p>
+
+    <h2>Decision Making Requires Context</h2>
+
+    <p>
+      Practical significance depends on:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Scientific importance</li>
+
+      <li>Economic impact</li>
+
+      <li>Clinical relevance</li>
+
+      <li>Policy consequences</li>
+
+      <li>Risk considerations</li>
+
+    </ul>
+
+    <p>
+      Statistics alone cannot determine these judgments.
+    </p>
+
+    <h2>Why Researchers Report More Than P-Values</h2>
+
+    <p>
+      Modern reporting often includes:
+    </p>
+
+    <ul class="bullets">
+
+      <li>P-values</li>
+
+      <li>Effect sizes</li>
+
+      <li>Confidence intervals</li>
+
+      <li>Study limitations</li>
+
+    </ul>
+
+    <p>
+      Together these provide a fuller picture of the evidence.
+    </p>
+
+    <h2>Interpreting Results Responsibly</h2>
+
+    <p>
+      When reading research findings, it is useful to ask:
+    </p>
+
+    <ol>
+
+      <li>Is the result statistically significant?</li>
+
+      <li>How large is the effect?</li>
+
+      <li>Is the effect practically meaningful?</li>
+
+      <li>How precise is the estimate?</li>
+
+    </ol>
+
+    <p>
+      These questions lead to more thoughtful interpretation.
+    </p>
+
+    <h2>Common Mistakes</h2>
+
+    <div class="concept-box">
+
+      <strong>Avoid these errors:</strong>
+
       <ul class="bullets">
-        <li>Separate detectability from importance</li>
-        <li>Understand impact of sample size on p-values</li>
-        <li>Use effect size for magnitude assessment</li>
-        <li>Report results responsibly</li>
-      </ul>
-    </div>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next lesson</h2>
-      <p style="margin:0;">
-        We now clarify how to interpret confidence intervals correctly.
+        <li>Equating significance with importance</li>
+
+        <li>Ignoring effect size</li>
+
+        <li>Ignoring confidence intervals</li>
+
+        <li>Making decisions based only on p-values</li>
+
+      </ul>
+
+    </div>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      Statistical significance and practical significance serve different purposes.
+    </p>
+
+    <p>
+      Statistical significance evaluates evidence against a null hypothesis.
+    </p>
+
+    <p>
+      Practical significance evaluates whether an effect matters in the real world.
+    </p>
+
+    <p>
+      Responsible interpretation requires considering both.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Statistical significance addresses whether evidence exists for an effect, while practical significance addresses whether the effect is important. Sound conclusions require attention to both questions.
       </p>
 
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/interpretation-reporting/interpreting-confidence-intervals/">
-          Next lesson: 3. Interpreting Confidence Intervals →
-        </a>
-      </div>
     </div>
 
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/interpretation-reporting/p-values-what-they-mean/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 1: P-Values — What They Mean
-          </a>
-        </div>
-      </div>
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Confidence intervals provide one of the most useful tools for understanding both uncertainty and effect magnitude.
+    </p>
+
+    <p>
+      Yet confidence intervals are frequently misunderstood.
+    </p>
+
+    <p>
+      The next lesson focuses on how to interpret confidence intervals correctly and avoid common mistakes.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>Statistical significance and practical significance are different concepts</li>
+
+        <li>Statistical significance focuses on evidence against H₀</li>
+
+        <li>Practical significance focuses on real-world importance</li>
+
+        <li>Large samples can make tiny effects statistically significant</li>
+
+        <li>Effect size helps assess practical importance</li>
+
+        <li>Confidence intervals provide information about magnitude and uncertainty</li>
+
+        <li>Decision making requires context beyond p-values</li>
+
+        <li>Good reporting includes significance measures, effect sizes, and confidence intervals</li>
+
+      </ul>
+
     </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/interpretation-reporting/p-values-what-they-mean/">
+         ← Previous: P-Values: What They Mean
+      </a>
+
+      <a class="btn"
+         href="/inference/interpretation-reporting/interpreting-confidence-intervals/">
+         Next: Interpreting Confidence Intervals →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
