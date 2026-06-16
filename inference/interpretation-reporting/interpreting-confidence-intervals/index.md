@@ -1,244 +1,588 @@
 ---
 layout: default
-title: "3. Interpreting Confidence Intervals"
-description: "Understand what a confidence interval means, how to interpret it correctly, and how interval width communicates precision."
+title: Interpreting Confidence Intervals
+description: Learn how to correctly interpret confidence intervals, understand what they communicate about uncertainty, and avoid common misconceptions.
 permalink: /inference/interpretation-reporting/interpreting-confidence-intervals/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 clarifies the formal meaning of confidence intervals,
-        common interpretation errors, and how interval width reflects precision.
-        Applied examples and visuals will be expanded later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update continue-reading keys -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_interpretation_reporting_lesson_v0";
+(function () {
 
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/interpretation-reporting/interpreting-confidence-intervals/",
-      label: "Lesson 3 — Interpreting Confidence Intervals",
-      ts: Date.now()
-    }));
+  const KEY =
+    "esa_continue_inference_interpretation_reporting_lesson_v0";
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/interpretation-reporting/",
-      label: "Block 6 — Interpretation & Reporting",
-      ts: Date.now()
-    }));
-  })();
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/interpretation-reporting/interpreting-confidence-intervals/",
+    label: "Interpreting Confidence Intervals",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 6</span>
-        <span class="badge">Lesson 3</span>
-        <span class="badge">Confidence Interval</span>
-        <span class="badge">Precision</span>
-      </div>
 
-      <h1>3. Interpreting Confidence Intervals</h1>
-
-      <p class="lead">
-        A confidence interval provides a range of plausible values
-        for a population parameter.
-        Its interpretation is often misunderstood.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/interpretation-reporting/">Back to Block 6</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        Confidence refers to the procedure, not to the specific interval after it is computed.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 6</span>
+      <span class="badge">Interpretation & Reporting</span>
+      <span class="badge">Confidence Intervals</span>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
-    <p>
-      Interpret confidence intervals correctly,
-      understand their long-run meaning,
-      and connect interval width to statistical precision.
+    <h1>Interpreting Confidence Intervals</h1>
+
+    <p class="lead">
+      Confidence intervals are among the most informative outputs of statistical analysis.
     </p>
-  </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Formal definition</h2>
-      <p style="margin:0;">
-        A 95% confidence interval is constructed by a method that,
-        over repeated sampling,
-        captures the true parameter in 95% of samples.
-      </p>
+    <p class="lead">
+      They provide information about uncertainty, precision, and the plausible range of parameter values, but they are often misunderstood.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/interpretation-reporting/statistical-vs-practical-significance/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/interpretation-reporting/interpreting-effect-sizes/">
+         Next: Interpreting Effect Sizes →
+      </a>
+
     </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) What a CI means</h2>
-  </div>
+<!-- LESSON -->
 
-  <div class="card">
-    Example form:
-    \[
-    \hat{\theta}
-    \pm
-    z_{\alpha/2} \cdot SE
-    \]
-  </div>
+<section>
 
-  <p>
-    After computation, we say:
-    <br><br>
-    “The data are compatible with parameter values between
-    the lower and upper bounds.”
-  </p>
-</section>
+  <div class="content-narrow">
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) What a CI does NOT mean</h2>
-  </div>
+    <h2>Why Confidence Intervals Matter</h2>
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Not</h3>
+    <p>
+      Point estimates provide a single best estimate of a population parameter.
+    </p>
+
+    <p>
+      However, every estimate contains sampling uncertainty.
+    </p>
+
+    <p>
+      Confidence intervals communicate that uncertainty directly.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Main idea:</strong>
+
       <p>
-        “There is a 95% probability that the true parameter lies in this interval.”
+        A confidence interval provides a range of plausible values for a population parameter.
       </p>
+
     </div>
 
-    <div class="card">
-      <h3>Not</h3>
+    <h2>A Simple Example</h2>
+
+    <p>
+      Suppose a study estimates a population mean as:
+    </p>
+
+    <div class="example-box">
+
       <p>
-        “The parameter moves randomly inside the interval.”
+        50
       </p>
     </div>
-  </div>
 
-  <p class="muted-mini">
-    The parameter is fixed; the interval is random before sampling.
-  </p>
-</section>
+    <p>
+      A 95% confidence interval might be:
+    </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) CI width and precision</h2>
-  </div>
+    <div class="example-box">
 
-  <div class="card">
-    Width:
-    \[
-    2 \cdot z_{\alpha/2} \cdot SE
-    \]
-  </div>
+      <p>
+        (46, 54)
+      </p>
+    </div>
 
-  <div class="card" style="margin-top:1rem;">
-    Since:
-    \[
-    SE = \frac{\sigma}{\sqrt{n}}
-    \]
-  </div>
+    <p>
+      Rather than focusing only on 50, we recognize that nearby values are also plausible.
+    </p>
 
-  <p>
-    Increasing n → smaller SE → narrower interval → greater precision.
-  </p>
-</section>
+    <h2>The Correct Interpretation</h2>
 
-<section class="section">
-  <div class="section-head">
-    <h2>4) Connection to hypothesis testing</h2>
-  </div>
+    <p>
+      A common interpretation for a 95% confidence interval is:
+    </p>
 
-  <div class="card">
-    If the null value lies outside the CI:
-    <br><br>
-    \[
-    \text{Reject } H_0 \text{ at level } \alpha
-    \]
-  </div>
+    <div class="concept-box">
 
-  <p>
-    Confidence intervals provide more information than a binary test decision.
-  </p>
-</section>
+      <strong>Correct interpretation:</strong>
 
-<section class="section">
-  <div class="section-head">
-    <h2>5) Reporting guidance</h2>
-  </div>
+      <p>
+        The procedure used to construct the interval captures the true parameter in approximately 95% of repeated random samples.
+      </p>
 
-  <div class="card">
-    Recommended reporting:
-    <br><br>
-    Estimate = 2.4  
-    95% CI: (1.1, 3.7)  
-    Interpretation in context  
-  </div>
+    </div>
 
-  <p>
-    Always interpret in substantive terms, not only statistical terms.
-  </p>
-</section>
+    <p>
+      This statement refers to the long-run performance of the method.
+    </p>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+    <h2>What Changes Across Samples?</h2>
+
+    <p>
+      The population parameter is fixed.
+    </p>
+
+    <p>
+      What changes from sample to sample is:
+    </p>
+
+    <ul class="bullets">
+
+      <li>The sample data</li>
+
+      <li>The estimate</li>
+
+      <li>The confidence interval</li>
+
+    </ul>
+
+    <p>
+      Different samples produce different intervals.
+    </p>
+
+    <h2>A Useful Mental Picture</h2>
+
+    <p>
+      Imagine repeatedly collecting random samples and computing a confidence interval each time.
+    </p>
+
+    <p>
+      Most intervals would contain the true parameter, while some would miss it.
+    </p>
+
+    <p>
+      For a 95% confidence procedure:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        About 95% of intervals contain the true value.
+      </p>
+    </div>
+
+    <h2>A Common Misconception</h2>
+
+    <div class="concept-box">
+
+      <strong>Incorrect interpretation:</strong>
+
+      <p>
+        There is a 95% probability that the true parameter lies inside this specific interval.
+      </p>
+
+    </div>
+
+    <p>
+      In classical frequentist inference, the parameter is fixed.
+    </p>
+
+    <p>
+      The interval either contains the parameter or it does not.
+    </p>
+
+    <h2>Why People Use This Informally</h2>
+
+    <p>
+      In everyday language, researchers sometimes loosely say:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        "We are 95% confident the parameter lies between these values."
+      </p>
+    </div>
+
+    <p>
+      While this wording is common, the more precise interpretation concerns the long-run behavior of the interval-producing procedure.
+    </p>
+
+    <h2>Confidence Intervals and Precision</h2>
+
+    <p>
+      Interval width provides information about precision.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Interval Width</th>
+            <th>Interpretation</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Narrow</td>
+            <td>More precise estimate</td>
+          </tr>
+
+          <tr>
+            <td>Wide</td>
+            <td>Less precise estimate</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      Narrow intervals indicate less uncertainty about the parameter.
+    </p>
+
+    <h2>Confidence Level and Width</h2>
+
+    <p>
+      Increasing confidence generally increases interval width.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Confidence Level</th>
+            <th>Typical Width</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>90%</td>
+            <td>Narrower</td>
+          </tr>
+
+          <tr>
+            <td>95%</td>
+            <td>Wider</td>
+          </tr>
+
+          <tr>
+            <td>99%</td>
+            <td>Widest</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      Greater confidence requires a larger range of plausible values.
+    </p>
+
+    <h2>Confidence Intervals and Sample Size</h2>
+
+    <p>
+      Larger sample sizes reduce standard errors.
+    </p>
+
+    <p>
+      Smaller standard errors produce narrower intervals.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>General rule:</strong>
+
+      <p>
+        Larger samples typically produce more precise confidence intervals.
+      </p>
+
+    </div>
+
+    <h2>Confidence Intervals and Statistical Significance</h2>
+
+    <p>
+      Confidence intervals often communicate the same information as hypothesis tests.
+    </p>
+
+    <p>
+      For example, a 95% confidence interval for a mean difference:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        (2.1, 7.4)
+      </p>
+    </div>
+
+    <p>
+      does not include zero.
+    </p>
+
+    <p>
+      This corresponds to rejecting:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        H₀: Difference = 0
+      </p>
+    </div>
+
+    <h2>When Zero Is Inside the Interval</h2>
+
+    <p>
+      Suppose a confidence interval for a difference is:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        (-3.2, 5.1)
+      </p>
+    </div>
+
+    <p>
+      Because zero is a plausible value, the data do not provide strong evidence that the true difference differs from zero.
+    </p>
+
+    <h2>Beyond Significance Testing</h2>
+
+    <p>
+      Confidence intervals provide information that p-values alone cannot.
+    </p>
+
+    <ul class="bullets">
+
+      <li>Magnitude of effects</li>
+
+      <li>Direction of effects</li>
+
+      <li>Precision of estimates</li>
+
+      <li>Plausible parameter values</li>
+
+    </ul>
+
+    <p>
+      This is why many statisticians prefer reporting intervals alongside p-values.
+    </p>
+
+    <h2>Practical Importance</h2>
+
+    <p>
+      Confidence intervals help evaluate practical significance.
+    </p>
+
+    <p>
+      Consider two intervals:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        (0.01, 0.02)
+      </p>
+
+      <p>
+        (5.0, 8.0)
+      </p>
+
+    </div>
+
+    <p>
+      Both might exclude zero and therefore be statistically significant.
+    </p>
+
+    <p>
+      However, the practical implications could be dramatically different.
+    </p>
+
+    <h2>Confidence Intervals Are Not Prediction Intervals</h2>
+
+    <p>
+      Another common mistake is confusing confidence intervals with prediction intervals.
+    </p>
+
+    <ul class="bullets">
+
+      <li>Confidence intervals estimate parameters</li>
+
+      <li>Prediction intervals estimate future observations</li>
+
+    </ul>
+
+    <p>
+      Prediction intervals are usually much wider because they include individual-level variability.
+    </p>
+
+    <h2>Reporting Confidence Intervals</h2>
+
+    <p>
+      Good reporting typically includes:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Point estimate</li>
+
+      <li>Confidence interval</li>
+
+      <li>Confidence level</li>
+
+    </ul>
+
+    <p>
+      For example:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Mean difference = 4.2
+      </p>
+
+      <p>
+        95% CI: (1.3, 7.1)
+      </p>
+
+    </div>
+
+    <p>
+      This conveys both the estimate and its uncertainty.
+    </p>
+
+    <h2>Common Mistakes</h2>
+
+    <div class="concept-box">
+
+      <strong>Avoid these errors:</strong>
+
       <ul class="bullets">
-        <li>Interpret confidence intervals correctly</li>
-        <li>Understand long-run coverage meaning</li>
-        <li>Relate width to precision</li>
-        <li>Connect CI to hypothesis testing</li>
-      </ul>
-    </div>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next lesson</h2>
-      <p style="margin:0;">
-        We now focus on interpreting effect sizes responsibly.
+        <li>Interpreting the interval as a probability statement about the parameter</li>
+
+        <li>Focusing only on whether zero is included</li>
+
+        <li>Ignoring interval width</li>
+
+        <li>Ignoring practical importance</li>
+
+      </ul>
+
+    </div>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      Confidence intervals are powerful because they communicate uncertainty directly.
+    </p>
+
+    <p>
+      Unlike a single p-value, they reveal both the range of plausible values and the precision of estimation.
+    </p>
+
+    <p>
+      Proper interpretation helps researchers make more informed scientific and practical decisions.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Confidence intervals provide a range of plausible values for a population parameter. Their width reflects precision, and their position reflects the magnitude and direction of the estimated effect.
       </p>
 
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/interpretation-reporting/interpreting-effect-sizes/">
-          Next lesson: 4. Interpreting Effect Sizes →
-        </a>
-      </div>
     </div>
 
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/interpretation-reporting/statistical-vs-practical-significance/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 2: Statistical vs Practical Significance
-          </a>
-        </div>
-      </div>
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Confidence intervals describe uncertainty around estimates, but understanding the size of an effect requires additional tools.
+    </p>
+
+    <p>
+      Effect-size measures help quantify magnitude and practical importance.
+    </p>
+
+    <p>
+      The next lesson focuses on interpreting effect sizes and understanding what makes an effect small, moderate, or large.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>Confidence intervals provide a range of plausible parameter values</li>
+
+        <li>The correct interpretation involves repeated sampling procedures</li>
+
+        <li>Interval width reflects estimation precision</li>
+
+        <li>Higher confidence levels produce wider intervals</li>
+
+        <li>Larger samples typically produce narrower intervals</li>
+
+        <li>Confidence intervals often correspond closely to hypothesis tests</li>
+
+        <li>Intervals provide more information than p-values alone</li>
+
+        <li>Both magnitude and uncertainty should be considered when interpreting results</li>
+
+      </ul>
+
     </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/interpretation-reporting/statistical-vs-practical-significance/">
+         ← Previous: Statistical vs Practical Significance
+      </a>
+
+      <a class="btn"
+         href="/inference/interpretation-reporting/interpreting-effect-sizes/">
+         Next: Interpreting Effect Sizes →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
