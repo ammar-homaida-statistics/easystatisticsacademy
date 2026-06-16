@@ -1,265 +1,590 @@
 ---
 layout: default
-title: "8. Reproducibility and Analysis Checklist"
-description: "Understand reproducibility in statistical analysis and use a structured checklist to ensure transparency, validity, and credibility."
+title: Reproducibility and Analysis Checklist
+description: Learn why reproducibility matters in statistical analysis and use a practical checklist to evaluate analyses before reporting results.
 permalink: /inference/interpretation-reporting/reproducibility-and-analysis-checklist/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 introduces reproducibility principles and a structured
-        analysis checklist. Expanded workflow examples will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update continue-reading keys -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_interpretation_reporting_lesson_v0";
+(function () {
 
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/interpretation-reporting/reproducibility-and-analysis-checklist/",
-      label: "Lesson 8 — Reproducibility & Analysis Checklist",
-      ts: Date.now()
-    }));
+  const KEY =
+    "esa_continue_inference_interpretation_reporting_lesson_v0";
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/interpretation-reporting/",
-      label: "Block 6 — Interpretation & Reporting",
-      ts: Date.now()
-    }));
-  })();
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/interpretation-reporting/reproducibility-and-analysis-checklist/",
+    label: "Reproducibility and Analysis Checklist",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 6</span>
-        <span class="badge">Lesson 8</span>
-        <span class="badge">Reproducibility</span>
-        <span class="badge">Transparency</span>
-      </div>
 
-      <h1>8. Reproducibility and Analysis Checklist</h1>
-
-      <p class="lead">
-        A statistical result is credible only if the analysis can be
-        reproduced, verified, and transparently evaluated.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/interpretation-reporting/">Back to Block 6</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        Reproducibility is a methodological requirement, not a technical luxury.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 6</span>
+      <span class="badge">Interpretation & Reporting</span>
+      <span class="badge">Reproducibility</span>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
-    <p>
-      Understand the meaning of reproducibility and use a structured checklist
-      to evaluate statistical analyses rigorously.
+    <h1>Reproducibility and Analysis Checklist</h1>
+
+    <p class="lead">
+      Statistical conclusions are only as trustworthy as the process used to produce them.
     </p>
+
+    <p class="lead">
+      Reproducibility helps ensure that analyses can be verified, reviewed, repeated, and trusted by others.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/interpretation-reporting/tables-figures-and-visual-communication/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/assumptions-robustness/">
+         Next Block: Assumptions & Robustness →
+      </a>
+
+    </div>
+
   </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Core principle</h2>
-      <p style="margin:0;">
-        An analysis should be traceable from raw data
-        to final conclusion without hidden steps.
-      </p>
-    </div>
-  </div>
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) What is reproducibility?</h2>
-  </div>
+<!-- LESSON -->
 
-  <div class="card">
-    Reproducibility means:
-    <br><br>
-    • Same data  
-    • Same code  
-    • Same procedures  
-    <br><br>
-    ⇒ Same results
-  </div>
+<section>
 
-  <p>
-    It differs from replication, which involves collecting new data.
-  </p>
-</section>
+  <div class="content-narrow">
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) Why reproducibility matters</h2>
-  </div>
+    <h2>Why Reproducibility Matters</h2>
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Error detection</h3>
+    <p>
+      A statistical result should not depend on hidden steps, undocumented decisions, or inaccessible calculations.
+    </p>
+
+    <p>
+      Other researchers should be able to understand how the analysis was conducted and verify the reported conclusions.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core principle:</strong>
+
       <p>
-        Transparent workflows allow mistakes to be identified.
+        A reproducible analysis can be independently repeated using the same data and methods to obtain the same results.
+      </p>
+
+    </div>
+
+    <h2>What Is Reproducibility?</h2>
+
+    <p>
+      Reproducibility means that someone else can follow the documented workflow and arrive at the same outputs.
+    </p>
+
+    <p>
+      This typically requires:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Access to the data</li>
+
+      <li>Access to the analysis methods</li>
+
+      <li>Clear documentation</li>
+
+      <li>Transparent reporting</li>
+
+    </ul>
+
+    <h2>Why It Is Important</h2>
+
+    <p>
+      Reproducibility supports:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Scientific credibility</li>
+
+      <li>Error detection</li>
+
+      <li>Knowledge accumulation</li>
+
+      <li>Independent verification</li>
+
+    </ul>
+
+    <p>
+      Without reproducibility, findings become difficult to trust.
+    </p>
+
+    <h2>Reproducibility vs Replication</h2>
+
+    <p>
+      These terms are related but distinct.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Concept</th>
+            <th>Meaning</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Reproducibility</td>
+            <td>Same data and methods produce the same results</td>
+          </tr>
+
+          <tr>
+            <td>Replication</td>
+            <td>New data produce similar findings</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      Reproducibility verifies the analysis process, while replication evaluates the robustness of conclusions.
+    </p>
+
+    <h2>Common Sources of Irreproducibility</h2>
+
+    <p>
+      Analyses become difficult to reproduce when:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Data cleaning steps are undocumented</li>
+
+      <li>Code is unavailable</li>
+
+      <li>Manual calculations are not recorded</li>
+
+      <li>Results are copied without verification</li>
+
+      <li>Software settings are omitted</li>
+
+    </ul>
+
+    <h2>Document Every Major Decision</h2>
+
+    <p>
+      Analysts should record:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Data sources</li>
+
+      <li>Filtering decisions</li>
+
+      <li>Variable definitions</li>
+
+      <li>Model choices</li>
+
+      <li>Assumption checks</li>
+
+    </ul>
+
+    <p>
+      These decisions often influence final conclusions.
+    </p>
+
+    <h2>Preserve Raw Data</h2>
+
+    <p>
+      Raw data should generally remain unchanged.
+    </p>
+
+    <p>
+      Instead of editing original files directly:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Keep a raw-data version</li>
+
+      <li>Create processed copies</li>
+
+      <li>Document transformations</li>
+
+    </ul>
+
+    <p>
+      This protects against accidental information loss.
+    </p>
+
+    <h2>Automate Analyses When Possible</h2>
+
+    <p>
+      Reproducibility improves when analyses are automated through scripts rather than manual calculations.
+    </p>
+
+    <p>
+      Automation reduces:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Human error</li>
+
+      <li>Inconsistent workflows</li>
+
+      <li>Calculation mistakes</li>
+
+    </ul>
+
+    <h2>Record Software Information</h2>
+
+    <p>
+      Results can depend on software versions and settings.
+    </p>
+
+    <p>
+      Good documentation often includes:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Software used</li>
+
+      <li>Package versions</li>
+
+      <li>Important configuration settings</li>
+
+    </ul>
+
+    <p>
+      This information can be crucial when reproducing analyses years later.
+    </p>
+
+    <h2>Transparency Improves Trust</h2>
+
+    <p>
+      Readers are more likely to trust findings when the analytical process is visible and understandable.
+    </p>
+
+    <p>
+      Transparency demonstrates confidence in the methods and conclusions.
+    </p>
+
+    <h2>Check Assumptions Explicitly</h2>
+
+    <p>
+      Before reporting results, analysts should verify:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Model assumptions</li>
+
+      <li>Sampling assumptions</li>
+
+      <li>Independence assumptions</li>
+
+      <li>Distributional assumptions</li>
+
+    </ul>
+
+    <p>
+      Conclusions may depend on these conditions.
+    </p>
+
+    <h2>Check Data Quality</h2>
+
+    <p>
+      Reliable conclusions require reliable data.
+    </p>
+
+    <p>
+      Analysts should investigate:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Missing values</li>
+
+      <li>Outliers</li>
+
+      <li>Data-entry errors</li>
+
+      <li>Inconsistent coding</li>
+
+    </ul>
+
+    <h2>Review Statistical Outputs</h2>
+
+    <p>
+      Before publication or reporting:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Verify summary statistics</li>
+
+      <li>Check test outputs</li>
+
+      <li>Confirm confidence intervals</li>
+
+      <li>Validate figures and tables</li>
+
+    </ul>
+
+    <p>
+      Small mistakes can lead to incorrect conclusions.
+    </p>
+
+    <h2>Look for Consistency</h2>
+
+    <p>
+      Results should be consistent across:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Text descriptions</li>
+
+      <li>Tables</li>
+
+      <li>Figures</li>
+
+      <li>Statistical outputs</li>
+
+    </ul>
+
+    <p>
+      Contradictions should be resolved before reporting.
+    </p>
+
+    <h2>Consider Alternative Explanations</h2>
+
+    <p>
+      Responsible analysis includes asking:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Could another explanation account for these results?
       </p>
     </div>
 
-    <div class="card">
-      <h3>Credibility</h3>
-      <p>
-        Reproducible results increase trust.
-      </p>
-    </div>
+    <p>
+      This mindset improves analytical rigor.
+    </p>
 
-    <div class="card">
-      <h3>Scientific integrity</h3>
-      <p>
-        Enables verification by independent analysts.
-      </p>
-    </div>
+    <h2>The Analysis Checklist</h2>
 
-    <div class="card">
-      <h3>Longevity</h3>
-      <p>
-        Allows future researchers to build upon findings.
-      </p>
-    </div>
-  </div>
-</section>
+    <div class="concept-box">
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) Analysis checklist</h2>
-  </div>
+      <strong>Pre-reporting checklist:</strong>
 
-  <div class="card">
-    Before interpreting results, verify:
-    <br><br>
-    • Population and parameter clearly defined  
-    • Hypotheses pre-specified  
-    • Assumptions checked and reported  
-    • Correct test selected  
-    • Effect sizes reported  
-    • Confidence intervals included  
-    • Multiple testing adjustments considered  
-    • Exact p-values provided  
-    • Sample size justified  
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>4) Documentation practices</h2>
-  </div>
-
-  <div class="card">
-    Recommended practices:
-    <br><br>
-    • Script-based analysis (R, Python, etc.)  
-    • Version control  
-    • Clear file structure  
-    • Commented code  
-    • Data dictionary  
-  </div>
-
-  <p>
-    Avoid manual copy-paste workflows without traceability.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>5) Common threats to reproducibility</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>P-hacking</h3>
-      <p>
-        Repeated testing until significance appears.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Selective reporting</h3>
-      <p>
-        Publishing only significant outcomes.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Unreported preprocessing</h3>
-      <p>
-        Hidden data cleaning decisions.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Ambiguous methods</h3>
-      <p>
-        Insufficient description of procedures.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
       <ul class="bullets">
-        <li>Define reproducibility precisely</li>
-        <li>Distinguish reproducibility from replication</li>
-        <li>Apply a structured analysis checklist</li>
-        <li>Recognize threats to credibility</li>
-      </ul>
-    </div>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next block</h2>
-      <p style="margin:0;">
-        We now move to assumptions and robustness —
-        examining what happens when model conditions fail.
+        <li>Research question clearly defined</li>
+
+        <li>Data sources documented</li>
+
+        <li>Data cleaning recorded</li>
+
+        <li>Assumptions checked</li>
+
+        <li>Appropriate methods selected</li>
+
+        <li>Results verified</li>
+
+        <li>Effect sizes reported</li>
+
+        <li>Confidence intervals reported</li>
+
+        <li>Limitations acknowledged</li>
+
+        <li>Conclusions supported by evidence</li>
+
+      </ul>
+
+    </div>
+
+    <h2>Reporting Checklist</h2>
+
+    <div class="concept-box">
+
+      <strong>Communication checklist:</strong>
+
+      <ul class="bullets">
+
+        <li>Main findings summarized clearly</li>
+
+        <li>Statistical evidence reported accurately</li>
+
+        <li>Practical significance discussed</li>
+
+        <li>Uncertainty communicated</li>
+
+        <li>Visualizations labeled properly</li>
+
+        <li>Claims match the evidence</li>
+
+      </ul>
+
+    </div>
+
+    <h2>Why Checklists Help</h2>
+
+    <p>
+      Complex analyses involve many decisions.
+    </p>
+
+    <p>
+      Checklists reduce the chance of:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Overlooked assumptions</li>
+
+      <li>Reporting omissions</li>
+
+      <li>Calculation errors</li>
+
+      <li>Interpretation mistakes</li>
+
+    </ul>
+
+    <p>
+      They provide a systematic final review process.
+    </p>
+
+    <h2>Modern Statistical Practice</h2>
+
+    <p>
+      Increasingly, organizations encourage:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Open data when possible</li>
+
+      <li>Open code when possible</li>
+
+      <li>Pre-registration</li>
+
+      <li>Transparent workflows</li>
+
+    </ul>
+
+    <p>
+      These practices strengthen the reliability of statistical conclusions.
+    </p>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      Statistical reporting does not end when results are computed.
+    </p>
+
+    <p>
+      Analysts must ensure that methods are transparent, assumptions are checked, conclusions are justified, and findings can be verified.
+    </p>
+
+    <p>
+      Reproducibility is a cornerstone of trustworthy statistical practice.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Reproducible analyses are transparent, documented, and verifiable. Using structured analysis and reporting checklists helps ensure that conclusions are accurate, defensible, and trustworthy.
       </p>
 
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/assumptions-robustness/">
-          Block 7 — Assumptions & Robustness →
-        </a>
-      </div>
     </div>
 
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/interpretation-reporting/tables-figures-and-visual-communication/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 7: Tables & Visual Communication
-          </a>
-        </div>
-      </div>
+    <h2>Completing the Interpretation &amp; Reporting Block</h2>
+
+    <p>
+      You have now completed the Interpretation &amp; Reporting block.
+    </p>
+
+    <p>
+      These lessons focused on understanding p-values, confidence intervals, effect sizes, communication, visualization, and reproducibility.
+    </p>
+
+    <p>
+      The next block explores assumptions, robustness, and how statistical conclusions can be affected when ideal conditions are not fully satisfied.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>Reproducibility allows others to verify statistical analyses</li>
+
+        <li>Reproducibility and replication are related but distinct concepts</li>
+
+        <li>Transparent documentation improves credibility</li>
+
+        <li>Data cleaning and analytical decisions should be recorded</li>
+
+        <li>Assumptions and data quality should be checked before reporting</li>
+
+        <li>Results should be verified across outputs, tables, and figures</li>
+
+        <li>Analysis and reporting checklists reduce errors</li>
+
+        <li>Reproducibility is a foundation of trustworthy statistical practice</li>
+
+      </ul>
+
     </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/interpretation-reporting/tables-figures-and-visual-communication/">
+         ← Previous: Tables, Figures, and Visual Communication
+      </a>
+
+      <a class="btn"
+         href="/inference/assumptions-robustness/">
+         Next Block: Assumptions &amp; Robustness →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
