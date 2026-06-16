@@ -1,242 +1,604 @@
 ---
 layout: default
-title: "5. Multiple Testing and False Positives"
-description: "Understand why multiple comparisons inflate Type I error, how false positives arise, and the logic behind adjustment methods."
+title: Multiple Testing and False Positives
+description: Learn why conducting many hypothesis tests increases the chance of false positives and how statisticians address the multiple-testing problem.
 permalink: /inference/interpretation-reporting/multiple-testing-and-false-positives/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 explains why conducting many tests increases the probability
-        of false positives and introduces the logic of correction methods.
-        Applied demonstrations and simulations will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update continue-reading keys -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_interpretation_reporting_lesson_v0";
+(function () {
 
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/interpretation-reporting/multiple-testing-and-false-positives/",
-      label: "Lesson 5 — Multiple Testing & False Positives",
-      ts: Date.now()
-    }));
+  const KEY =
+    "esa_continue_inference_interpretation_reporting_lesson_v0";
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/interpretation-reporting/",
-      label: "Block 6 — Interpretation & Reporting",
-      ts: Date.now()
-    }));
-  })();
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/interpretation-reporting/multiple-testing-and-false-positives/",
+    label: "Multiple Testing and False Positives",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 6</span>
-        <span class="badge">Lesson 5</span>
-        <span class="badge">Multiple Testing</span>
-        <span class="badge">Type I Error</span>
-      </div>
 
-      <h1>5. Multiple Testing and False Positives</h1>
-
-      <p class="lead">
-        When many hypotheses are tested,
-        the probability of obtaining at least one false positive increases.
-        This is known as the multiple testing problem.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/interpretation-reporting/">Back to Block 6</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        Type I error control applies to single tests — not automatically to sets of tests.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 6</span>
+      <span class="badge">Interpretation & Reporting</span>
+      <span class="badge">Multiple Testing</span>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
-    <p>
-      Understand how multiple comparisons inflate false positive rates
-      and learn the basic logic behind correction procedures.
+    <h1>Multiple Testing and False Positives</h1>
+
+    <p class="lead">
+      Hypothesis-testing procedures are usually taught one test at a time.
     </p>
-  </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Core idea</h2>
-      <p style="margin:0;">
-        If each test has Type I error rate
-        \[
-        \alpha,
-        \]
-        the probability of at least one false positive increases
-        as the number of tests grows.
-      </p>
+    <p class="lead">
+      In practice, researchers often perform many tests simultaneously, creating an increased risk of false-positive findings.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/interpretation-reporting/interpreting-effect-sizes/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/interpretation-reporting/reporting-results-clear-language/">
+         Next: Reporting Results in Clear Language →
+      </a>
+
     </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) Family-wise error rate (FWER)</h2>
-  </div>
+<!-- LESSON -->
 
-  <div class="card">
-    For m independent tests:
-    \[
-    P(\text{at least one false positive})
-    =
-    1 - (1 - \alpha)^m
-    \]
-  </div>
+<section>
 
-  <p>
-    Example:
-    <br>
-    If \( \alpha = 0.05 \) and \( m = 20 \),
-    the overall false positive probability is much larger than 0.05.
-  </p>
-</section>
+  <div class="content-narrow">
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) Illustration</h2>
-  </div>
+    <h2>The Basic Problem</h2>
 
-  <div class="card">
-    With 100 independent tests at \( \alpha = 0.05 \):
-    <br><br>
-    Expected false positives:
-    \[
-    100 \times 0.05 = 5
-    \]
-  </div>
+    <p>
+      A significance level controls the probability of a Type I error for a single hypothesis test.
+    </p>
 
-  <p>
-    Even when all null hypotheses are true,
-    some significant results will appear by chance.
-  </p>
-</section>
+    <p>
+      For example:
+    </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) Correction logic</h2>
-  </div>
+    <div class="example-box">
 
-  <div class="card">
-    Bonferroni adjustment:
-    \[
-    \alpha_{adjusted} = \frac{\alpha}{m}
-    \]
-  </div>
-
-  <p>
-    This controls the probability of at least one false positive
-    across the entire family of tests.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>4) False discovery rate (FDR)</h2>
-  </div>
-
-  <div class="card">
-    FDR controls:
-    <br><br>
-    The expected proportion of false positives
-    among rejected hypotheses.
-  </div>
-
-  <p>
-    FDR methods (e.g., Benjamini–Hochberg)
-    are often used in high-dimensional settings.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>5) Practical implications</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Exploratory analysis</h3>
       <p>
-        Multiple testing common; interpret cautiously.
+        α = 0.05
       </p>
     </div>
 
-    <div class="card">
-      <h3>Confirmatory analysis</h3>
+    <p>
+      means a false positive is expected about 5% of the time when the null hypothesis is true.
+    </p>
+
+    <p>
+      This interpretation applies to one test.
+    </p>
+
+    <h2>What Happens With Many Tests?</h2>
+
+    <p>
+      Suppose a researcher performs:
+    </p>
+
+    <div class="example-box">
+
       <p>
-        Pre-specify hypotheses and control error rates.
+        20 independent hypothesis tests
       </p>
     </div>
-  </div>
 
-  <p class="muted-mini">
-    Transparency about number of tests performed is essential.
-  </p>
-</section>
+    <p>
+      using:
+    </p>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+    <div class="example-box">
+
+      <p>
+        α = 0.05
+      </p>
+    </div>
+
+    <p>
+      Even if every null hypothesis is true, some tests may appear significant purely by chance.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Key idea:</strong>
+
+      <p>
+        The more tests we perform, the greater the chance of obtaining at least one false positive.
+      </p>
+
+    </div>
+
+    <h2>A Simple Illustration</h2>
+
+    <p>
+      Imagine repeatedly flipping a fair coin.
+    </p>
+
+    <p>
+      One unusual outcome may not be surprising if enough opportunities are provided.
+    </p>
+
+    <p>
+      Similarly, when many statistical tests are performed, rare events become more likely to occur somewhere in the collection of tests.
+    </p>
+
+    <h2>The Family-Wise Error Rate</h2>
+
+    <p>
+      The probability of making at least one Type I error among multiple tests is called the:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Family-Wise Error Rate (FWER)
+      </p>
+    </div>
+
+    <p>
+      This quantity is often much larger than the nominal significance level for individual tests.
+    </p>
+
+    <h2>An Approximation</h2>
+
+    <p>
+      For independent tests, the probability of at least one false positive is:
+    </p>
+
+    
+
+    <p>
+      where:
+    </p>
+
+    <ul class="bullets">
+
+      <li>α = significance level for each test</li>
+
+      <li>m = number of tests</li>
+
+    </ul>
+
+    <h2>Example</h2>
+
+    <p>
+      Suppose:
+    </p>
+
+    <div class="example-box">
+
+      <p>α = 0.05</p>
+      <p>m = 20 tests</p>
+
+    </div>
+
+    <p>
+      Then:
+    </p>
+
+    
+
+    <p>
+      There is approximately a 64% chance of observing at least one false positive.
+    </p>
+
+    <p>
+      This is much larger than 5%.
+    </p>
+
+    <h2>Why This Matters</h2>
+
+    <p>
+      Researchers often explore many variables, outcomes, or subgroup comparisons.
+    </p>
+
+    <p>
+      Without adjustment:
+    </p>
+
+    <ul class="bullets">
+
+      <li>False discoveries become more common</li>
+
+      <li>Evidence can be overstated</li>
+
+      <li>Replication becomes more difficult</li>
+
+    </ul>
+
+    <h2>A Research Example</h2>
+
+    <p>
+      Suppose a medical study compares:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Blood pressure</li>
+
+      <li>Heart rate</li>
+
+      <li>Cholesterol</li>
+
+      <li>Weight</li>
+
+      <li>Several biomarkers</li>
+
+    </ul>
+
+    <p>
+      across multiple treatment groups.
+    </p>
+
+    <p>
+      The number of hypothesis tests can quickly become large.
+    </p>
+
+    <p>
+      Some significant findings may emerge purely by chance.
+    </p>
+
+    <h2>Data Mining and False Positives</h2>
+
+    <p>
+      Modern datasets often contain hundreds or thousands of variables.
+    </p>
+
+    <p>
+      If researchers search extensively for significant relationships:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Some statistically significant results may appear even when no true relationships exist.
+      </p>
+    </div>
+
+    <p>
+      This phenomenon is sometimes called:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Data dredging or p-hacking
+      </p>
+    </div>
+
+    <h2>P-Hacking</h2>
+
+    <p>
+      P-hacking occurs when researchers repeatedly analyze data in ways that increase the chance of obtaining significant results.
+    </p>
+
+    <p>
+      Examples include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Testing many outcomes</li>
+
+      <li>Trying multiple models</li>
+
+      <li>Removing observations selectively</li>
+
+      <li>Stopping data collection after significance appears</li>
+
+    </ul>
+
+    <p>
+      These practices can inflate false-positive rates.
+    </p>
+
+    <h2>The Bonferroni Correction</h2>
+
+    <p>
+      One of the simplest approaches to controlling family-wise error is:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Bonferroni correction
+      </p>
+    </div>
+
+    <p>
+      The adjusted significance level becomes:
+    </p>
+
+    
+
+    <h2>Bonferroni Example</h2>
+
+    <p>
+      Suppose:
+    </p>
+
+    <div class="example-box">
+
+      <p>α = 0.05</p>
+      <p>m = 10 tests</p>
+
+    </div>
+
+    <p>
+      Then:
+    </p>
+
+    
+
+    <p>
+      Each individual test must meet the stricter threshold.
+    </p>
+
+    <h2>Advantages and Limitations</h2>
+
+    <p>
+      Bonferroni correction is:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Simple</li>
+
+      <li>Easy to explain</li>
+
+      <li>Conservative</li>
+
+    </ul>
+
+    <p>
+      However, it can reduce statistical power, especially when many tests are performed.
+    </p>
+
+    <h2>False Discovery Rate</h2>
+
+    <p>
+      In some applications, researchers focus on controlling:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        False Discovery Rate (FDR)
+      </p>
+    </div>
+
+    <p>
+      rather than family-wise error.
+    </p>
+
+    <p>
+      FDR methods aim to limit the proportion of false positives among declared discoveries.
+    </p>
+
+    <h2>Why FDR Became Important</h2>
+
+    <p>
+      Fields such as:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Genomics</li>
+
+      <li>Bioinformatics</li>
+
+      <li>Machine learning</li>
+
+      <li>Large-scale experimentation</li>
+
+    </ul>
+
+    <p>
+      often involve thousands of simultaneous tests.
+    </p>
+
+    <p>
+      Traditional family-wise controls may become too restrictive.
+    </p>
+
+    <h2>Pre-Registration</h2>
+
+    <p>
+      One strategy for reducing false positives is:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Pre-registration
+      </p>
+    </div>
+
+    <p>
+      Researchers specify hypotheses and analysis plans before seeing the data.
+    </p>
+
+    <p>
+      This reduces opportunities for selective reporting.
+    </p>
+
+    <h2>Exploratory vs Confirmatory Analysis</h2>
+
+    <p>
+      It is useful to distinguish:
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Exploratory</td>
+            <td>Generate hypotheses</td>
+          </tr>
+
+          <tr>
+            <td>Confirmatory</td>
+            <td>Test pre-specified hypotheses</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      Multiple-testing concerns are especially important in exploratory analyses.
+    </p>
+
+    <h2>Replication as a Safeguard</h2>
+
+    <p>
+      Even with statistical corrections, replication remains one of the strongest protections against false discoveries.
+    </p>
+
+    <p>
+      Genuine effects should be observable across multiple independent studies.
+    </p>
+
+    <h2>Reporting Multiple Tests Transparently</h2>
+
+    <p>
+      Good reporting practices include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Reporting the number of tests conducted</li>
+
+      <li>Describing adjustment procedures</li>
+
+      <li>Distinguishing exploratory analyses</li>
+
+      <li>Reporting effect sizes and confidence intervals</li>
+
+    </ul>
+
+    <p>
+      Transparency helps readers evaluate the strength of evidence.
+    </p>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      Hypothesis testing works well when a small number of carefully planned comparisons are performed.
+    </p>
+
+    <p>
+      As the number of tests grows, false positives become increasingly likely.
+    </p>
+
+    <p>
+      Multiple-testing adjustments and transparent reporting help maintain the reliability of statistical conclusions.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Conducting many hypothesis tests increases the likelihood of false positives. Researchers use methods such as Bonferroni corrections, false-discovery-rate procedures, pre-registration, and replication to reduce this risk.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Even when statistical analyses are performed correctly, results can still be misunderstood if they are communicated poorly.
+    </p>
+
+    <p>
+      Effective reporting requires translating statistical findings into language that is accurate, clear, and accessible.
+    </p>
+
+    <p>
+      The next lesson focuses on communicating statistical results in clear language for both technical and non-technical audiences.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Understand inflation of Type I error</li>
-        <li>Compute family-wise error probability</li>
-        <li>Explain Bonferroni logic</li>
-        <li>Distinguish FWER from FDR</li>
+
+        <li>Multiple testing increases the chance of false positives</li>
+
+        <li>The family-wise error rate grows as more tests are performed</li>
+
+        <li>P-hacking can inflate false-positive rates</li>
+
+        <li>Bonferroni correction is a simple adjustment method</li>
+
+        <li>False discovery rate methods are useful for large-scale testing</li>
+
+        <li>Pre-registration helps reduce selective reporting</li>
+
+        <li>Exploratory and confirmatory analyses should be distinguished</li>
+
+        <li>Replication remains one of the strongest safeguards against false discoveries</li>
+
       </ul>
+
     </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/interpretation-reporting/interpreting-effect-sizes/">
+         ← Previous: Interpreting Effect Sizes
+      </a>
+
+      <a class="btn"
+         href="/inference/interpretation-reporting/reporting-results-clear-language/">
+         Next: Reporting Results in Clear Language →
+      </a>
+
+    </div>
+
   </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next lesson</h2>
-      <p style="margin:0;">
-        We now focus on reporting results clearly and responsibly.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/interpretation-reporting/reporting-results-clear-language/">
-          Next lesson: 6. Reporting Results in Clear Language →
-        </a>
-      </div>
-    </div>
-
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/interpretation-reporting/interpreting-effect-sizes/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 4: Interpreting Effect Sizes
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>
