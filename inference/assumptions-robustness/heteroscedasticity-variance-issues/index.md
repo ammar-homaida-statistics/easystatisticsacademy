@@ -1,250 +1,575 @@
 ---
 layout: default
-title: "5. Heteroscedasticity and Variance Issues"
-description: "Understand heteroscedasticity, why unequal variances matter for inference, and how to diagnose and correct variance-related problems."
+title: Heteroscedasticity and Variance Issues
+description: Learn what heteroscedasticity means, why equal variance assumptions matter, and how changing variability can affect statistical inference.
 permalink: /inference/assumptions-robustness/heteroscedasticity-variance-issues/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 explains heteroscedasticity, how it affects standard errors,
-        and how robust methods can correct inference without changing estimates.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update continue-reading keys -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_assumptions_robustness_lesson_v0";
+(function () {
 
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/assumptions-robustness/heteroscedasticity-variance-issues/",
-      label: "Lesson 5 — Heteroscedasticity and Variance Issues",
-      ts: Date.now()
-    }));
+  const KEY =
+    "esa_continue_inference_assumptions_robustness_lesson_v0";
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/assumptions-robustness/",
-      label: "Block 7 — Assumptions & Robustness",
-      ts: Date.now()
-    }));
-  })();
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/assumptions-robustness/heteroscedasticity-variance-issues/",
+    label: "Heteroscedasticity and Variance Issues",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 7</span>
-        <span class="badge">Lesson 5</span>
-        <span class="badge">Variance</span>
-        <span class="badge">Robust SE</span>
-      </div>
 
-      <h1>5. Heteroscedasticity and Variance Issues</h1>
-
-      <p class="lead">
-        Many classical methods assume constant variance.
-        When variance changes across observations,
-        standard errors — not coefficients — are usually the first casualty.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/assumptions-robustness/">Back to Block 7</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        Unequal variance primarily distorts uncertainty, not point estimates.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 7</span>
+      <span class="badge">Assumptions & Robustness</span>
+      <span class="badge">Variance Assumptions</span>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
-    <p>
-      Understand what heteroscedasticity is, why it matters,
-      and how to detect and correct it in practice.
+    <h1>Heteroscedasticity and Variance Issues</h1>
+
+    <p class="lead">
+      Many statistical methods assume that variability remains reasonably constant across observations, groups, or predictor values.
     </p>
+
+    <p class="lead">
+      When variability changes systematically, standard methods may become less reliable and special techniques may be needed.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/assumptions-robustness/independence-and-dependence/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/assumptions-robustness/outliers-and-influence/">
+         Next: Outliers and Influence →
+      </a>
+
+    </div>
+
   </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Core idea</h2>
-      <p style="margin:0;">
-        Heteroscedasticity means that the variance of the error term
-        is not constant across observations.
+</section>
+
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>Why Variability Matters</h2>
+
+    <p>
+      Statistical inference depends not only on averages and effects, but also on variability.
+    </p>
+
+    <p>
+      Standard errors, confidence intervals, and hypothesis tests all rely on estimates of variation.
+    </p>
+
+    <p>
+      If variability behaves differently than expected, inferential procedures can be affected.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Main idea:</strong>
+
+      <p>
+        Many methods assume that variance remains approximately constant across observations or groups.
+      </p>
+
+    </div>
+
+    <h2>Review: What Is Variance?</h2>
+
+    <p>
+      Variance measures how spread out observations are around a center.
+    </p>
+
+    <p>
+      Larger variance indicates greater variability.
+    </p>
+
+    <p>
+      Smaller variance indicates tighter clustering around the mean.
+    </p>
+
+    0
+
+    <h2>Homoscedasticity</h2>
+
+    <p>
+      When variability remains roughly constant across observations, we say:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Homoscedasticity
       </p>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) Constant vs non-constant variance</h2>
-  </div>
+    <p>
+      This term literally means:
+    </p>
 
-  <div class="card">
-    Homoscedasticity:
-    \[
-    Var(\varepsilon_i) = \sigma^2
-    \]
-  </div>
+    <div class="example-box">
 
-  <div class="card" style="margin-top:1rem;">
-    Heteroscedasticity:
-    \[
-    Var(\varepsilon_i) = \sigma_i^2
-    \]
-  </div>
+      <p>
+        Equal spread or equal variance
+      </p>
+    </div>
 
-  <p>
-    The variance differs across levels of X or across groups.
-  </p>
-</section>
+    <p>
+      Many classical methods operate most effectively under this condition.
+    </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) Why it matters</h2>
-  </div>
+    <h2>Heteroscedasticity</h2>
 
-  <div class="card">
-    In linear regression:
-    \[
-    Var(\hat{\beta}) = \sigma^2 (X'X)^{-1}
-    \]
-  </div>
+    <p>
+      When variability changes systematically across observations, we say:
+    </p>
 
-  <p>
-    This formula assumes constant variance.
-    If variance is unequal, standard errors become biased.
-  </p>
+    <div class="example-box">
 
-  <div class="card" style="margin-top:1rem;">
-    Consequences:
-    <br><br>
-    • Incorrect confidence intervals  
-    • Distorted p-values  
-    • Inflated or deflated Type I error  
-  </div>
-</section>
+      <p>
+        Heteroscedasticity
+      </p>
+    </div>
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) Detecting heteroscedasticity</h2>
-  </div>
+    <p>
+      This means the amount of variation is not constant.
+    </p>
 
-  <div class="card">
-    Graphical diagnostics:
-    <br><br>
-    • Residuals vs fitted values plot  
-    • Spread increasing with predictor  
-  </div>
+    <div class="concept-box">
 
-  <div class="card" style="margin-top:1rem;">
-    Formal tests:
-    <br><br>
-    • Breusch–Pagan test  
-    • White test  
-  </div>
+      <strong>Definition:</strong>
 
-  <p class="muted-mini">
-    Visual inspection is often more informative than formal testing.
-  </p>
-</section>
+      <p>
+        Heteroscedasticity occurs when the variance of observations or errors changes across levels of another variable.
+      </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>4) What does not change</h2>
-  </div>
+    </div>
 
-  <div class="card">
-    Under standard assumptions:
-    <br><br>
-    OLS estimates remain unbiased even under heteroscedasticity.
-  </div>
+    <h2>A Simple Example</h2>
 
-  <p>
-    The issue is efficiency and correct inference,
-    not bias of coefficients.
-  </p>
-</section>
+    <p>
+      Suppose income is studied as a function of age.
+    </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>5) Remedies</h2>
-  </div>
+    <p>
+      Younger individuals may have relatively similar incomes.
+    </p>
 
-  <div class="card">
-    Common solutions:
-    <br><br>
-    • Heteroscedasticity-robust standard errors  
-    • Transformations (log scale)  
-    • Weighted least squares  
-  </div>
+    <p>
+      Older individuals may exhibit much greater variation.
+    </p>
 
-  <div class="card" style="margin-top:1rem;">
-    Robust variance estimator:
-    \[
-    \widehat{Var}(\hat{\beta})_{\text{robust}}
-    \]
-  </div>
+    <p>
+      The average income may increase with age, but the variability may increase as well.
+    </p>
 
-  <p class="muted-mini">
-    Robust SE adjusts uncertainty without changing coefficients.
-  </p>
-</section>
+    <h2>What Heteroscedasticity Looks Like</h2>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+    <p>
+      A common pattern resembles a funnel shape.
+    </p>
+
+    <p>
+      As predictor values increase:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Spread may widen</li>
+
+      <li>Spread may narrow</li>
+
+      <li>Variance may change systematically</li>
+
+    </ul>
+
+    <p>
+      These patterns often become visible in residual plots.
+    </p>
+
+    <h2>Why Equal Variance Assumptions Appear</h2>
+
+    <p>
+      Many statistical formulas were derived assuming that variability remains stable.
+    </p>
+
+    <p>
+      Examples include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Classical linear regression</li>
+
+      <li>ANOVA</li>
+
+      <li>Pooled two-sample t-tests</li>
+
+      <li>Certain confidence interval procedures</li>
+
+    </ul>
+
+    <p>
+      Constant variance simplifies estimation and inference.
+    </p>
+
+    <h2>Consequences of Heteroscedasticity</h2>
+
+    <p>
+      Unequal variances do not always bias estimated means or regression coefficients.
+    </p>
+
+    <p>
+      However, they can affect:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Standard errors</li>
+
+      <li>Confidence intervals</li>
+
+      <li>P-values</li>
+
+      <li>Hypothesis tests</li>
+
+    </ul>
+
+    <p>
+      Inference may become less reliable if heteroscedasticity is ignored.
+    </p>
+
+    <h2>Why Standard Errors Matter</h2>
+
+    <p>
+      Most inferential procedures use standard errors to quantify uncertainty.
+    </p>
+
+    <p>
+      If variability is incorrectly modeled:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Uncertainty may be underestimated</li>
+
+      <li>Uncertainty may be overestimated</li>
+
+      <li>Confidence intervals may be inaccurate</li>
+
+      <li>Significance tests may be misleading</li>
+
+    </ul>
+
+    <h2>Group Comparisons</h2>
+
+    <p>
+      Unequal variances frequently appear when comparing groups.
+    </p>
+
+    <p>
+      For example:
+    </p>
+
+    <ul class="bullets">
+
+      <li>One treatment group may be highly variable</li>
+
+      <li>Another treatment group may be tightly clustered</li>
+
+    </ul>
+
+    <p>
+      Equal-variance assumptions should be evaluated before applying methods that require them.
+    </p>
+
+    <h2>Detecting Variance Problems Graphically</h2>
+
+    <p>
+      Visual inspection is often the most useful starting point.
+    </p>
+
+    <p>
+      Analysts commonly examine:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Residual plots</li>
+
+      <li>Scatterplots</li>
+
+      <li>Boxplots</li>
+
+      <li>Group-specific summaries</li>
+
+    </ul>
+
+    <p>
+      Visual patterns frequently reveal variance changes.
+    </p>
+
+    <h2>Residual Plots</h2>
+
+    <p>
+      In regression analysis, residual plots are especially informative.
+    </p>
+
+    <p>
+      Analysts often look for:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Funnel shapes</li>
+
+      <li>Expanding spread</li>
+
+      <li>Contracting spread</li>
+
+      <li>Systematic patterns</li>
+
+    </ul>
+
+    <p>
+      Such features may indicate heteroscedasticity.
+    </p>
+
+    <h2>Formal Tests</h2>
+
+    <p>
+      Statistical software provides formal procedures such as:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Breusch–Pagan test</li>
+
+      <li>White test</li>
+
+      <li>Levene's test</li>
+
+      <li>Brown–Forsythe test</li>
+
+    </ul>
+
+    <p>
+      These tests can provide evidence regarding variance assumptions.
+    </p>
+
+    <h2>Limitations of Formal Tests</h2>
+
+    <p>
+      Like many diagnostic procedures:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Large samples can detect trivial departures</li>
+
+      <li>Small samples may miss important problems</li>
+
+      <li>Practical significance matters as much as statistical significance</li>
+
+    </ul>
+
+    <p>
+      Formal tests should be interpreted alongside visual diagnostics.
+    </p>
+
+    <h2>Robust Alternatives</h2>
+
+    <p>
+      Modern statistical methods often provide protection against unequal variances.
+    </p>
+
+    <p>
+      Examples include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Welch's t-test</li>
+
+      <li>Heteroscedasticity-robust standard errors</li>
+
+      <li>Bootstrap methods</li>
+
+      <li>Weighted regression techniques</li>
+
+    </ul>
+
+    <p>
+      These approaches reduce sensitivity to variance violations.
+    </p>
+
+    <h2>Does Heteroscedasticity Always Matter?</h2>
+
+    <p>
+      Not necessarily.
+    </p>
+
+    <p>
+      Mild variance differences often have limited practical impact.
+    </p>
+
+    <p>
+      Severe variance changes are more likely to affect conclusions.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Robustness perspective:</strong>
+
+      <p>
+        The important question is not whether variances are perfectly equal, but whether unequal variances meaningfully affect inference.
+      </p>
+
+    </div>
+
+    <h2>A Practical Workflow</h2>
+
+    <ol>
+
+      <li>Visualize the data</li>
+
+      <li>Inspect residual plots</li>
+
+      <li>Compare group variability</li>
+
+      <li>Assess practical severity</li>
+
+      <li>Use robust methods when needed</li>
+
+    </ol>
+
+    <h2>Variance and Real Data</h2>
+
+    <p>
+      Real-world data frequently exhibit changing variability.
+    </p>
+
+    <p>
+      Examples include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Income data</li>
+
+      <li>Medical costs</li>
+
+      <li>Business revenue</li>
+
+      <li>Financial returns</li>
+
+    </ul>
+
+    <p>
+      Recognizing these patterns is an important part of statistical modeling.
+    </p>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      Variance assumptions help statistical procedures estimate uncertainty correctly.
+    </p>
+
+    <p>
+      When variability changes substantially across observations or groups, standard inferential methods may become less reliable.
+    </p>
+
+    <p>
+      Modern robust techniques often provide effective alternatives when heteroscedasticity is present.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Heteroscedasticity occurs when variance changes across observations or groups. Its primary impact is on uncertainty estimation, and robust methods are often available when unequal variances become important.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Another challenge arises when a small number of observations exert unusually large influence on an analysis.
+    </p>
+
+    <p>
+      Outliers can affect estimates, standard errors, and conclusions in ways that are not always obvious.
+    </p>
+
+    <p>
+      The next lesson explores outliers, influential observations, and how to evaluate their impact on statistical analyses.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Define heteroscedasticity precisely</li>
-        <li>Understand its effect on standard errors</li>
-        <li>Diagnose variance patterns graphically</li>
-        <li>Apply robust inference when necessary</li>
+
+        <li>Many statistical methods assume approximately constant variance</li>
+
+        <li>Homoscedasticity means variance is roughly constant</li>
+
+        <li>Heteroscedasticity means variance changes across observations or groups</li>
+
+        <li>Unequal variances primarily affect standard errors and inference</li>
+
+        <li>Residual plots are useful diagnostic tools</li>
+
+        <li>Formal tests can help assess variance assumptions</li>
+
+        <li>Modern robust methods often handle unequal variances effectively</li>
+
+        <li>The key question is whether variance differences materially affect conclusions</li>
+
       </ul>
+
     </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/assumptions-robustness/independence-and-dependence/">
+         ← Previous: Independence and Dependence
+      </a>
+
+      <a class="btn"
+         href="/inference/assumptions-robustness/outliers-and-influence/">
+         Next: Outliers and Influence →
+      </a>
+
+    </div>
+
   </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next lesson</h2>
-      <p style="margin:0;">
-        We now examine outliers and influential observations —
-        when a few points control the entire conclusion.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/assumptions-robustness/outliers-and-influence/">
-          Next lesson: 6. Outliers and Influence →
-        </a>
-      </div>
-    </div>
-
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/assumptions-robustness/independence-and-dependence/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 4: Independence and Dependence
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>
