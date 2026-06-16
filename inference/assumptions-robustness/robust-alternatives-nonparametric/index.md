@@ -1,243 +1,553 @@
 ---
 layout: default
-title: "7. Robust and Nonparametric Alternatives"
-description: "Explore robust and nonparametric methods that reduce sensitivity to distributional assumptions, outliers, and variance violations."
+title: Robust Alternatives and Nonparametric Methods
+description: Learn how robust and nonparametric methods provide alternatives when classical assumptions are questionable or violated.
 permalink: /inference/assumptions-robustness/robust-alternatives-nonparametric/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 introduces robust estimators and nonparametric tests
-        as principled responses to assumption violations.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update continue-reading keys -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_assumptions_robustness_lesson_v0";
+(function () {
 
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/assumptions-robustness/robust-alternatives-nonparametric/",
-      label: "Lesson 7 — Robust & Nonparametric Alternatives",
-      ts: Date.now()
-    }));
+  const KEY =
+    "esa_continue_inference_assumptions_robustness_lesson_v0";
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/assumptions-robustness/",
-      label: "Block 7 — Assumptions & Robustness",
-      ts: Date.now()
-    }));
-  })();
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/assumptions-robustness/robust-alternatives-nonparametric/",
+    label: "Robust Alternatives and Nonparametric Methods",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 7</span>
-        <span class="badge">Lesson 7</span>
-        <span class="badge">Robust</span>
-        <span class="badge">Nonparametric</span>
-      </div>
 
-      <h1>7. Robust and Nonparametric Alternatives</h1>
-
-      <p class="lead">
-        When classical assumptions fail substantially,
-        robust and nonparametric methods provide stable inference
-        without relying heavily on normality or equal variances.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/assumptions-robustness/">Back to Block 7</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        Robustness focuses on stability; nonparametrics focus on minimal assumptions.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 7</span>
+      <span class="badge">Assumptions & Robustness</span>
+      <span class="badge">Robust Methods</span>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
-    <p>
-      Understand the difference between robust and nonparametric approaches,
-      and identify when alternative methods are preferable.
+    <h1>Robust Alternatives and Nonparametric Methods</h1>
+
+    <p class="lead">
+      Classical statistical procedures often work remarkably well, but they rely on assumptions that may not always hold in practice.
     </p>
+
+    <p class="lead">
+      Robust and nonparametric methods provide useful alternatives when data contain outliers, skewness, unequal variances, or other assumption violations.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/assumptions-robustness/outliers-and-influence/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/assumptions-robustness/bootstrap-as-robust-tool/">
+         Next: Bootstrap as a Robust Tool →
+      </a>
+
+    </div>
+
   </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Core distinction</h2>
-      <p style="margin:0;">
-        Robust methods modify estimators or standard errors.  
-        Nonparametric methods replace distributional assumptions entirely.
+</section>
+
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>Why Alternatives Are Needed</h2>
+
+    <p>
+      Many classical methods assume:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Normality</li>
+
+      <li>Equal variances</li>
+
+      <li>Absence of extreme outliers</li>
+
+      <li>Specific probability models</li>
+
+    </ul>
+
+    <p>
+      When these assumptions become questionable, analysts may seek procedures that are less sensitive to violations.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Main idea:</strong>
+
+      <p>
+        Robust and nonparametric methods aim to provide reliable conclusions even when classical assumptions are imperfect.
+      </p>
+
+    </div>
+
+    <h2>What Makes a Method Robust?</h2>
+
+    <p>
+      A robust method continues to perform reasonably well when assumptions are only approximately satisfied.
+    </p>
+
+    <p>
+      Robust methods are typically less affected by:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Outliers</li>
+
+      <li>Skewed distributions</li>
+
+      <li>Mild heteroscedasticity</li>
+
+      <li>Small departures from theoretical models</li>
+
+    </ul>
+
+    <p>
+      Robustness is a matter of degree rather than an all-or-nothing property.
+    </p>
+
+    <h2>What Are Nonparametric Methods?</h2>
+
+    <div class="concept-box">
+
+      <strong>Definition:</strong>
+
+      <p>
+        Nonparametric methods are procedures that make fewer assumptions about the exact form of the population distribution.
+      </p>
+
+    </div>
+
+    <p>
+      They are often useful when the shape of the underlying distribution is unknown or difficult to justify.
+    </p>
+
+    <h2>Parametric vs Nonparametric</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Parametric Methods</th>
+            <th>Nonparametric Methods</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Distribution Assumptions</td>
+            <td>Stronger</td>
+            <td>Weaker</td>
+          </tr>
+
+          <tr>
+            <td>Efficiency Under Ideal Conditions</td>
+            <td>Often Higher</td>
+            <td>Often Lower</td>
+          </tr>
+
+          <tr>
+            <td>Robustness</td>
+            <td>Typically Lower</td>
+            <td>Typically Higher</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      Each approach has strengths and limitations.
+    </p>
+
+    <h2>A Common Trade-Off</h2>
+
+    <p>
+      Parametric methods often extract more information when assumptions are accurate.
+    </p>
+
+    <p>
+      Nonparametric methods sacrifice some efficiency in exchange for greater flexibility and robustness.
+    </p>
+
+    <h2>The Mean vs the Median</h2>
+
+    <p>
+      One of the simplest examples involves measures of center.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Statistic</th>
+            <th>Sensitivity to Outliers</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Mean</td>
+            <td>High</td>
+          </tr>
+
+          <tr>
+            <td>Median</td>
+            <td>Low</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      The median is often considered a more robust measure of central tendency.
+    </p>
+
+    <h2>Trimmed Means</h2>
+
+    <p>
+      Another robust alternative is the trimmed mean.
+    </p>
+
+    <p>
+      A trimmed mean removes a small percentage of the largest and smallest observations before computing the average.
+    </p>
+
+    <p>
+      This reduces sensitivity to extreme values.
+    </p>
+
+    <h2>Rank-Based Methods</h2>
+
+    <p>
+      Many nonparametric procedures use ranks instead of raw numerical values.
+    </p>
+
+    <p>
+      Ranking reduces the influence of extreme observations because only relative ordering is used.
+    </p>
+
+    <h2>The Mann–Whitney Test</h2>
+
+    <p>
+      A common alternative to the independent-samples t-test is:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Mann–Whitney U Test
       </p>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) Robust estimators</h2>
-  </div>
+    <p>
+      This procedure compares groups using ranks rather than relying directly on means and standard deviations.
+    </p>
 
-  <div class="card">
-    Example: Median vs Mean  
-    <br><br>
-    Mean:
-    \[
-    \bar{X} = \frac{1}{n}\sum X_i
-    \]
-  </div>
+    <h2>The Wilcoxon Signed-Rank Test</h2>
 
-  <div class="card" style="margin-top:1rem;">
-    Median:
-    <br><br>
-    Resistant to extreme values.
-  </div>
+    <p>
+      For paired data, a popular alternative to the paired t-test is:
+    </p>
 
-  <p>
-    The median has a higher breakdown point than the mean.
-  </p>
-</section>
+    <div class="example-box">
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) Robust standard errors</h2>
-  </div>
-
-  <div class="card">
-    Heteroscedasticity-robust variance:
-    \[
-    \widehat{Var}(\hat{\beta})_{\text{robust}}
-    \]
-  </div>
-
-  <p>
-    Adjusts inference without altering coefficient estimates.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>3) Nonparametric tests</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Wilcoxon rank-sum</h3>
-      <p>Alternative to two-sample t-test.</p>
+      <p>
+        Wilcoxon Signed-Rank Test
+      </p>
     </div>
 
-    <div class="card">
-      <h3>Wilcoxon signed-rank</h3>
-      <p>Alternative to paired t-test.</p>
+    <p>
+      This method is useful when assumptions underlying the paired t-test are questionable.
+    </p>
+
+    <h2>The Kruskal–Wallis Test</h2>
+
+    <p>
+      For comparing more than two groups, a nonparametric alternative to one-way ANOVA is:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Kruskal–Wallis Test
+      </p>
     </div>
 
-    <div class="card">
-      <h3>Kruskal–Wallis</h3>
-      <p>Alternative to one-way ANOVA.</p>
+    <p>
+      This procedure evaluates group differences using ranks.
+    </p>
+
+    <h2>Robust Regression</h2>
+
+    <p>
+      Regression methods can also be modified to reduce sensitivity to unusual observations.
+    </p>
+
+    <p>
+      Robust regression procedures reduce the influence of extreme data points on fitted relationships.
+    </p>
+
+    <h2>Advantages of Nonparametric Methods</h2>
+
+    <ul class="bullets">
+
+      <li>Fewer distributional assumptions</li>
+
+      <li>Greater resistance to outliers</li>
+
+      <li>Useful for skewed data</li>
+
+      <li>Applicable when measurement scales are limited</li>
+
+    </ul>
+
+    <p>
+      These strengths make nonparametric methods valuable in many practical settings.
+    </p>
+
+    <h2>Limitations of Nonparametric Methods</h2>
+
+    <ul class="bullets">
+
+      <li>May have lower statistical power under ideal parametric conditions</li>
+
+      <li>Can provide less detailed modeling information</li>
+
+      <li>May answer slightly different scientific questions</li>
+
+      <li>Not automatically superior to parametric methods</li>
+
+    </ul>
+
+    <p>
+      Choosing a method requires understanding the goals of the analysis.
+    </p>
+
+    <h2>Robust Does Not Mean Better</h2>
+
+    <p>
+      A common misconception is that robust or nonparametric methods are always preferable.
+    </p>
+
+    <p>
+      In reality:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Classical methods often perform very well</li>
+
+      <li>Robust methods solve specific problems</li>
+
+      <li>The best choice depends on the data and objectives</li>
+
+    </ul>
+
+    <h2>The Role of Sample Size</h2>
+
+    <p>
+      Large samples often reduce concerns about moderate assumption violations.
+    </p>
+
+    <p>
+      As sample size increases:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Classical methods become more robust</li>
+
+      <li>Sampling distributions stabilize</li>
+
+      <li>The Central Limit Theorem provides protection</li>
+
+    </ul>
+
+    <p>
+      Robust alternatives become especially useful when sample sizes are small or assumptions are seriously violated.
+    </p>
+
+    <h2>Sensitivity Analysis</h2>
+
+    <p>
+      A useful strategy is to compare conclusions across multiple methods.
+    </p>
+
+    <p>
+      For example:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Classical t-test</li>
+
+      <li>Welch's t-test</li>
+
+      <li>Mann–Whitney test</li>
+
+    </ul>
+
+    <p>
+      If conclusions remain similar, confidence in the findings increases.
+    </p>
+
+    <h2>Robustness as a Philosophy</h2>
+
+    <p>
+      Robust methods are not merely alternative formulas.
+    </p>
+
+    <p>
+      They reflect a broader statistical philosophy:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Conclusions should not depend excessively on fragile assumptions.
+      </p>
     </div>
 
-    <div class="card">
-      <h3>Spearman correlation</h3>
-      <p>Rank-based correlation measure.</p>
+    <p>
+      This idea is central to modern applied statistics.
+    </p>
+
+    <h2>When Should You Consider Alternatives?</h2>
+
+    <p>
+      Robust or nonparametric approaches deserve consideration when:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Extreme outliers exist</li>
+
+      <li>Strong skewness is present</li>
+
+      <li>Sample sizes are small</li>
+
+      <li>Distribution assumptions appear implausible</li>
+
+      <li>Sensitivity analyses reveal instability</li>
+
+    </ul>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      Statistical methods differ in how strongly they depend on assumptions.
+    </p>
+
+    <p>
+      Robust and nonparametric approaches provide valuable alternatives when assumptions become questionable.
+    </p>
+
+    <p>
+      Rather than searching for a universally best method, analysts should evaluate which procedures produce reliable conclusions for the problem at hand.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Robust and nonparametric methods reduce sensitivity to assumption violations by relying less heavily on specific distributional models. They provide useful alternatives when classical assumptions are difficult to justify.
+      </p>
+
     </div>
-  </div>
 
-  <p class="muted-mini">
-    These methods rely on ranks rather than distributional form.
-  </p>
-</section>
+    <h2>Looking Ahead</h2>
 
-<section class="section">
-  <div class="section-head">
-    <h2>4) Trade-offs</h2>
-  </div>
+    <p>
+      One particularly powerful modern approach avoids many traditional distributional assumptions altogether.
+    </p>
 
-  <div class="card">
-    Advantages:
-    <br><br>
-    • Less sensitive to outliers  
-    • Fewer distributional assumptions  
-  </div>
+    <p>
+      Bootstrap methods use resampling from observed data to estimate uncertainty directly.
+    </p>
 
-  <div class="card" style="margin-top:1rem;">
-    Limitations:
-    <br><br>
-    • Sometimes lower power  
-    • Harder parameter interpretation  
-  </div>
-</section>
+    <p>
+      The next lesson introduces the bootstrap and explains why it has become one of the most widely used robustness tools in modern statistics.
+    </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>5) Practical guideline</h2>
-  </div>
+    <!-- TAKEAWAYS -->
 
-  <div class="card">
-    Recommended workflow:
-    <br><br>
-    1. Fit classical model  
-    2. Diagnose assumptions  
-    3. Compare with robust/nonparametric alternative  
-    4. Evaluate stability of conclusions  
-  </div>
-</section>
+    <div class="summary-box">
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Differentiate robust vs nonparametric approaches</li>
-        <li>Understand rank-based alternatives</li>
-        <li>Recognize breakdown point concept</li>
-        <li>Apply alternative methods strategically</li>
+
+        <li>Robust methods are less sensitive to assumption violations</li>
+
+        <li>Nonparametric methods make fewer distributional assumptions</li>
+
+        <li>Parametric and nonparametric methods involve trade-offs</li>
+
+        <li>The median is more robust to outliers than the mean</li>
+
+        <li>Rank-based procedures reduce the influence of extreme observations</li>
+
+        <li>Mann–Whitney, Wilcoxon, and Kruskal–Wallis are common nonparametric tests</li>
+
+        <li>Robust methods are not automatically superior to classical methods</li>
+
+        <li>Method selection should depend on data quality, assumptions, and scientific goals</li>
+
       </ul>
+
     </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/assumptions-robustness/outliers-and-influence/">
+         ← Previous: Outliers and Influence
+      </a>
+
+      <a class="btn"
+         href="/inference/assumptions-robustness/bootstrap-as-robust-tool/">
+         Next: Bootstrap as a Robust Tool →
+      </a>
+
+    </div>
+
   </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next lesson</h2>
-      <p style="margin:0;">
-        We now examine the bootstrap —
-        a flexible and powerful robustness tool.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/assumptions-robustness/bootstrap-as-robust-tool/">
-          Next lesson: 8. Bootstrap as a Robust Tool →
-        </a>
-      </div>
-    </div>
-
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/assumptions-robustness/outliers-and-influence/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 6: Outliers and Influence
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>
