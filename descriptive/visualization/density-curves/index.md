@@ -6,7 +6,6 @@ permalink: /descriptive/visualization/density-curves/
 sidebar: false
 ---
 
-<!-- SAVE LESSON PROGRESS -->
 <script>
 (function () {
 
@@ -21,8 +20,6 @@ sidebar: false
 
 })();
 </script>
-
-<!-- HERO -->
 
 <section class="hero hero-section">
 
@@ -65,8 +62,6 @@ sidebar: false
   </div>
 
 </section>
-
-<!-- LESSON -->
 
 <section class="section">
 
@@ -122,9 +117,9 @@ sidebar: false
     </p>
 
     <p>
-  The probability of an interval is found from the area under the curve
-  over that interval, not from the height at a single point.
-</p>
+      The probability of an interval is found from the area under the curve
+      over that interval, not from the height at a single point.
+    </p>
 
     <p>
       Unlike histograms,
@@ -164,20 +159,20 @@ sidebar: false
      style="margin-top:15px; max-width:100%; height:auto;">
 
     <p>
-  The histogram shows grouped observed data,
-  while the density curve shows the overall distribution pattern.
-</p>
+      The histogram shows grouped observed data,
+      while the density curve shows the overall distribution pattern.
+    </p>
 
     <div class="concept-box">
 
-  <strong>Important insight:</strong>
+      <strong>Important insight:</strong>
 
-  <p>
-    A density curve is not a picture of individual observations.
-    It is a model of how observations are distributed across values.
-  </p>
+      <p>
+        A density curve is not a picture of individual observations.
+        It is a model of how observations are distributed across values.
+      </p>
 
-</div>
+    </div>
 
     <h2>The Area Under a Density Curve</h2>
 
@@ -187,12 +182,12 @@ sidebar: false
     </p>
 
     <div class="formula-box">
-  Total Area Under the Density Curve = 1
-</div>
+      Total Area Under the Density Curve = 1
+    </div>
 
-<img src="{{ 'descriptive/images/area-under-density-curve.png' | relative_url }}"
-     alt="Area under a density curve"
-     style="margin-top:15px; max-width:100%; height:auto;">
+    <img src="{{ 'descriptive/images/area-under-density-curve.png' | relative_url }}"
+         alt="Area under a density curve"
+         style="margin-top:15px; max-width:100%; height:auto;">
 
     <p>
       This represents 100% of all observations.
@@ -421,10 +416,10 @@ sidebar: false
     </p>
 
     <p>
-  Because density curves smooth the data,
-  they may hide small gaps, spikes, or unusual observations
-  that are visible in a histogram.
-</p>
+      Because density curves smooth the data,
+      they may hide small gaps, spikes, or unusual observations
+      that are visible in a histogram.
+    </p>
 
     <h2>Density Curves and Probability</h2>
 
@@ -476,8 +471,8 @@ sidebar: false
     </ul>
 
     <img src="{{ 'descriptive/images/normal-density-curve.png' | relative_url }}"
-     alt="Normal density curve"
-     style="margin-top:15px; max-width:100%; height:auto;">
+         alt="Histogram with normal curve"
+         style="margin-top:15px; max-width:100%; height:auto;">
 
     <p>
       Entire fields of statistics rely on properties of this distribution.
@@ -518,40 +513,42 @@ sidebar: false
 
     <div class="concept-box">
 
-  <strong>Key insight:</strong>
+      <strong>Key insight:</strong>
 
-  <p>
-    Density curves help connect visual descriptions of data
-    to probability, where areas represent proportions and probabilities.
-  </p>
+      <p>
+        Density curves help connect visual descriptions of data
+        to probability, where areas represent proportions and probabilities.
+      </p>
 
-</div>
+    </div>
 
-<h2>Density Curves in Software</h2>
+    <h2>Density Curves in Software</h2>
 
-<p>
-  Some statistical software can overlay a smooth curve on a histogram
-  to help compare observed data with an idealized distribution.
-</p>
-
-<p>
-  In SPSS, histograms can often be displayed with a normal curve overlay.
-</p>
-
-  <div style="flex:1; min-width:300px;">
-    <img src="{{ 'descriptive/images/spss_histogram_normal_curve.png' | relative_url }}"
-         alt="Histogram with normal curve"
-         style="width:100%; height:auto;">
-    <p style="text-align:center;">
-      Histogram with normal curve overlay
+    <p>
+      Some statistical software can overlay a smooth curve on a histogram
+      to help compare observed data with an idealized distribution.
     </p>
-  </div>
 
-  <h3>Python Example</h3>
+    <p>
+      In SPSS, histograms can often be displayed with a normal curve overlay.
+    </p>
 
-<p>
-This example creates a histogram and overlays a density curve.
-</p>
+    <div style="display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap; margin-bottom: 20px;">
+      <div style="flex:1; min-width:300px;">
+        <img src="{{ 'descriptive/images/spss_histogram_normal_curve.png' | relative_url }}"
+             alt="Histogram with normal curve"
+             style="width:100%; height:auto;">
+        <p style="text-align:center;">
+          Histogram with normal curve overlay
+        </p>
+      </div>
+    </div>
+
+    <h3>Python Example</h3>
+
+    <p>
+      This example creates a histogram and overlays a density curve.
+    </p>
 
 <pre><code>import numpy as np
 import matplotlib.pyplot as plt
@@ -570,11 +567,11 @@ plt.plot(xs, density(xs))
 plt.show()
 </code></pre>
 
-<h3>R Example</h3>
+    <h3>R Example</h3>
 
-<p>
-This example creates a histogram and overlays a density curve.
-</p>
+    <p>
+      This example creates a histogram and overlays a density curve.
+    </p>
 
 <pre><code>x <- rnorm(500)
 
@@ -584,8 +581,6 @@ hist(x,
 lines(density(x),
       lwd = 2)
 </code></pre>
-
-    <!-- TAKEAWAYS -->
 
     <div class="summary-box">
 
@@ -610,8 +605,6 @@ lines(density(x),
       </ul>
 
     </div>
-
-    <!-- NAVIGATION -->
 
     <div class="lesson-nav">
 
