@@ -38,11 +38,11 @@ sidebar: false
     <h1>What Is Regression?</h1>
 
     <p class="lead">
-      Regression is one of the most widely used statistical modeling techniques for understanding relationships between variables.
+      Regression is one of the most widely used statistical modeling techniques for describing relationships between variables.
     </p>
 
     <p class="lead">
-      It helps analysts explain outcomes, estimate effects, and make predictions using observed data.
+      It helps analysts understand how changes in one variable are associated with changes in another and provides a framework for prediction.
     </p>
 
     <div class="hero-actions">
@@ -53,8 +53,8 @@ sidebar: false
       </a>
 
       <a class="btn btn-outline"
-         href="/modeling/simple-linear-regression/regression-equations/">
-         Next: Regression Equations →
+         href="/modeling/simple-linear-regression/regression-equation/">
+         Next: The Regression Equation →
       </a>
 
     </div>
@@ -76,23 +76,23 @@ sidebar: false
     </p>
 
     <p>
-      Examples include:
+      For example:
     </p>
 
     <ul class="bullets">
 
       <li>How does advertising affect sales?</li>
 
-      <li>How does study time affect exam scores?</li>
+      <li>How does education relate to income?</li>
 
-      <li>How does experience affect salary?</li>
+      <li>How does house size influence price?</li>
 
-      <li>How does house size affect house price?</li>
+      <li>How does study time relate to exam performance?</li>
 
     </ul>
 
     <p>
-      Regression provides a framework for analyzing such relationships systematically.
+      Regression provides a systematic way to study these relationships.
     </p>
 
     <div class="concept-box">
@@ -100,45 +100,61 @@ sidebar: false
       <strong>Main idea:</strong>
 
       <p>
-        Regression models describe how changes in one variable are associated with changes in another variable.
+        Regression models describe how an outcome variable changes as one or more predictor variables change.
       </p>
 
     </div>
 
     <h2>What Is Regression?</h2>
 
-    <div class="concept-box">
-
-      <strong>Definition:</strong>
-
-      <p>
-        Regression is a statistical method used to model and quantify relationships between an outcome variable and one or more predictor variables.
-      </p>
-
-    </div>
+    <p>
+      Regression is a statistical method used to model the relationship between variables.
+    </p>
 
     <p>
-      The goal is often to understand, explain, or predict the outcome variable.
+      Typically, a regression model includes:
+    </p>
+
+    <ul class="bullets">
+
+      <li>An outcome variable</li>
+
+      <li>One or more predictor variables</li>
+
+      <li>A mathematical relationship connecting them</li>
+
+    </ul>
+
+    <p>
+      The goal is to understand, explain, or predict the outcome.
     </p>
 
     <h2>The Basic Idea</h2>
 
     <p>
-      Suppose we observe that larger houses tend to sell for higher prices.
+      Suppose we collect information on:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Study hours</li>
+
+      <li>Exam scores</li>
+
+    </ul>
+
+    <p>
+      We might observe that students who study more tend to earn higher scores.
     </p>
 
     <p>
-      Instead of describing this relationship qualitatively, regression attempts to represent it mathematically.
+      Regression helps quantify that relationship rather than describing it qualitatively.
     </p>
 
-    <p>
-      The resulting model can estimate how much price tends to change as house size changes.
-    </p>
-
-    <h2>Predictors and Outcomes</h2>
+    <h2>Outcome and Predictor Variables</h2>
 
     <p>
-      Every regression model contains variables that play different roles.
+      Regression models distinguish between two key types of variables.
     </p>
 
     <div class="table-wrap">
@@ -155,12 +171,12 @@ sidebar: false
         <tbody>
 
           <tr>
-            <td>Predictor</td>
+            <td>Predictor Variable</td>
             <td>Used to explain or predict another variable</td>
           </tr>
 
           <tr>
-            <td>Outcome</td>
+            <td>Outcome Variable</td>
             <td>Variable being explained or predicted</td>
           </tr>
 
@@ -171,121 +187,79 @@ sidebar: false
     </div>
 
     <p>
-      Regression attempts to connect predictors to outcomes through a mathematical relationship.
+      Regression focuses on how predictors relate to outcomes.
     </p>
 
-    <h2>A House Price Example</h2>
+    <h2>A Real-World Example</h2>
 
     <p>
-      Consider:
-    </p>
-
-    <ul class="bullets">
-
-      <li>Predictor: House size</li>
-
-      <li>Outcome: House price</li>
-
-    </ul>
-
-    <p>
-      Regression attempts to estimate how house price changes as house size changes.
+      Consider housing prices.
     </p>
 
     <p>
-      Once the relationship is estimated, predictions become possible.
+      A predictor variable might be:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        House size
+      </p>
+    </div>
+
+    <p>
+      The outcome variable might be:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        House price
+      </p>
+    </div>
+
+    <p>
+      Regression can estimate how expected price changes as size changes.
     </p>
 
     <h2>Regression Is About Relationships</h2>
 
     <p>
-      The focus of regression is not simply describing variables individually.
+      Regression does not merely summarize data.
     </p>
 
     <p>
-      Instead, regression studies relationships between variables.
+      It attempts to model a systematic relationship between variables.
     </p>
 
     <p>
-      Questions often include:
+      The relationship may be:
     </p>
 
     <ul class="bullets">
 
-      <li>How strong is the relationship?</li>
+      <li>Positive</li>
 
-      <li>Is the relationship positive or negative?</li>
+      <li>Negative</li>
 
-      <li>Can the relationship be used for prediction?</li>
+      <li>Strong</li>
 
-      <li>How much uncertainty exists?</li>
+      <li>Weak</li>
 
-    </ul>
+      <li>Linear</li>
 
-    <h2>Positive Relationships</h2>
-
-    <p>
-      In a positive relationship:
-    </p>
-
-    <div class="example-box">
-
-      <p>
-        Larger values of one variable tend to be associated with larger values of another variable.
-      </p>
-
-    </div>
-
-    <p>
-      Examples include:
-    </p>
-
-    <ul class="bullets">
-
-      <li>Study time and exam scores</li>
-
-      <li>Advertising spending and sales</li>
-
-      <li>House size and house price</li>
+      <li>Nonlinear</li>
 
     </ul>
 
-    <h2>Negative Relationships</h2>
-
     <p>
-      In a negative relationship:
+      Understanding these relationships is a central goal of modeling.
     </p>
-
-    <div class="example-box">
-
-      <p>
-        Larger values of one variable tend to be associated with smaller values of another variable.
-      </p>
-
-    </div>
-
-    <p>
-      Examples include:
-    </p>
-
-    <ul class="bullets">
-
-      <li>Product price and demand</li>
-
-      <li>Travel speed and travel time</li>
-
-      <li>Exercise frequency and resting heart rate</li>
-
-    </ul>
 
     <h2>Regression and Prediction</h2>
 
     <p>
-      One important use of regression is prediction.
-    </p>
-
-    <p>
-      Once a relationship has been estimated, the model can generate expected outcomes for new observations.
+      Once a relationship is estimated, regression models can generate predictions.
     </p>
 
     <p>
@@ -296,13 +270,17 @@ sidebar: false
 
       <li>Predict future sales</li>
 
-      <li>Estimate house values</li>
-
-      <li>Forecast energy demand</li>
-
       <li>Predict exam scores</li>
 
+      <li>Predict medical outcomes</li>
+
+      <li>Predict housing prices</li>
+
     </ul>
+
+    <p>
+      Prediction is one of the most common applications of regression.
+    </p>
 
     <h2>Regression and Explanation</h2>
 
@@ -318,30 +296,28 @@ sidebar: false
 
       <li>Which variables matter most</li>
 
-      <li>How outcomes change with predictors</li>
+      <li>Whether relationships exist</li>
 
-      <li>The direction of relationships</li>
+      <li>How large effects appear to be</li>
 
-      <li>The magnitude of effects</li>
+      <li>How variables move together</li>
 
     </ul>
 
     <p>
-      These insights help support scientific and business decisions.
+      These questions emphasize interpretation rather than prediction.
     </p>
 
-    <h2>Regression Does Not Guarantee Causation</h2>
+    <h2>Regression Is Not Proof of Causation</h2>
 
     <p>
-      One of the most important cautions in modeling is:
+      One of the most important cautions in statistics is:
     </p>
 
-    <div class="concept-box">
-
-      <strong>Important warning:</strong>
+    <div class="example-box">
 
       <p>
-        Regression can identify associations, but association alone does not prove causation.
+        Regression can reveal associations, but association alone does not prove causation.
       </p>
 
     </div>
@@ -351,27 +327,13 @@ sidebar: false
     </p>
 
     <p>
-      Additional evidence is usually needed before causal conclusions can be justified.
-    </p>
-
-    <h2>Regression and Noise</h2>
-
-    <p>
-      Real-world data contain noise.
-    </p>
-
-    <p>
-      Even when a relationship exists, observations rarely fall perfectly on a simple pattern.
-    </p>
-
-    <p>
-      Regression attempts to identify the underlying signal despite random variation.
+      Additional evidence is needed before claiming a causal relationship.
     </p>
 
     <h2>Simple vs Multiple Regression</h2>
 
     <p>
-      Regression models can involve different numbers of predictors.
+      Regression models vary in complexity.
     </p>
 
     <div class="table-wrap">
@@ -380,8 +342,8 @@ sidebar: false
 
         <thead>
           <tr>
-            <th>Type</th>
-            <th>Predictors</th>
+            <th>Model Type</th>
+            <th>Number of Predictors</th>
           </tr>
         </thead>
 
@@ -404,39 +366,113 @@ sidebar: false
     </div>
 
     <p>
-      This block begins with simple linear regression because it provides the foundation for many more advanced models.
+      This block focuses on simple linear regression, the foundation for many more advanced methods.
     </p>
 
-    <h2>Why Regression Is So Popular</h2>
+    <h2>Why Start with Simple Linear Regression?</h2>
 
     <p>
-      Regression is used extensively because it:
+      Simple linear regression introduces many core ideas used throughout statistical modeling:
     </p>
 
     <ul class="bullets">
 
-      <li>Is relatively easy to interpret</li>
+      <li>Model equations</li>
 
-      <li>Supports explanation and prediction</li>
+      <li>Parameters</li>
 
-      <li>Provides measures of uncertainty</li>
+      <li>Prediction</li>
 
-      <li>Can be extended to more complex situations</li>
+      <li>Residuals</li>
+
+      <li>Model fit</li>
+
+      <li>Interpretation</li>
 
     </ul>
 
     <p>
-      Many advanced statistical and machine-learning methods build upon regression concepts.
+      Mastering these ideas makes more advanced modeling techniques easier to understand.
+    </p>
+
+    <h2>Regression as Signal Extraction</h2>
+
+    <p>
+      Recall the distinction between signal and noise.
+    </p>
+
+    <p>
+      Regression attempts to identify the systematic component of a relationship while separating it from random variation.
+    </p>
+
+    <p>
+      In this sense, regression acts as a signal-extraction tool.
+    </p>
+
+    <h2>What Regression Produces</h2>
+
+    <p>
+      A regression analysis typically produces:
+    </p>
+
+    <ul class="bullets">
+
+      <li>An estimated relationship</li>
+
+      <li>Model parameters</li>
+
+      <li>Predicted values</li>
+
+      <li>Measures of uncertainty</li>
+
+      <li>Measures of model fit</li>
+
+    </ul>
+
+    <p>
+      These outputs help analysts understand and evaluate relationships.
+    </p>
+
+    <h2>Applications of Regression</h2>
+
+    <p>
+      Regression is used across many disciplines.
+    </p>
+
+    <ul class="bullets">
+
+      <li>Economics</li>
+
+      <li>Finance</li>
+
+      <li>Marketing</li>
+
+      <li>Medicine</li>
+
+      <li>Engineering</li>
+
+      <li>Social sciences</li>
+
+      <li>Data science</li>
+
+    </ul>
+
+    <p>
+      It remains one of the most important tools in modern statistics.
     </p>
 
     <h2>The Bigger Picture</h2>
 
     <p>
-      Regression is one of the most important tools in statistics because it transforms relationships among variables into mathematical models.
+      Regression provides a mathematical framework for describing how variables move together.
     </p>
 
     <p>
-      These models help analysts understand patterns, estimate effects, and make predictions while accounting for uncertainty.
+      It helps explain patterns, estimate relationships, and generate predictions while accounting for uncertainty.
+    </p>
+
+    <p>
+      Because of its flexibility and interpretability, regression forms the foundation of many statistical and machine-learning methods.
     </p>
 
     <div class="concept-box">
@@ -444,7 +480,7 @@ sidebar: false
       <strong>Core message:</strong>
 
       <p>
-        Regression is a statistical modeling technique used to describe, explain, and predict relationships between outcome variables and predictor variables. It forms the foundation of much of modern statistical analysis.
+        Regression is a statistical modeling technique that describes relationships between variables. It helps explain outcomes, make predictions, estimate effects, and separate meaningful patterns from random variation.
       </p>
 
     </div>
@@ -452,11 +488,15 @@ sidebar: false
     <h2>Looking Ahead</h2>
 
     <p>
-      To use regression effectively, we need a mathematical language for expressing relationships between variables.
+      Every regression model is built around an equation that formally describes the relationship between predictors and outcomes.
     </p>
 
     <p>
-      The next lesson introduces regression equations and explains how predictors and outcomes are connected mathematically.
+      Understanding this equation is the next step toward understanding how regression works.
+    </p>
+
+    <p>
+      The next lesson introduces the regression equation and explains its components.
     </p>
 
     <!-- TAKEAWAYS -->
@@ -469,19 +509,19 @@ sidebar: false
 
         <li>Regression models relationships between variables</li>
 
-        <li>Regression can be used for both explanation and prediction</li>
+        <li>Regression uses predictors to explain or predict outcomes</li>
 
-        <li>Predictors are used to explain or predict outcomes</li>
-
-        <li>Relationships may be positive or negative</li>
-
-        <li>Regression helps identify signal within noisy data</li>
-
-        <li>Association does not automatically imply causation</li>
+        <li>Regression supports both explanation and prediction</li>
 
         <li>Simple regression uses one predictor variable</li>
 
-        <li>Regression is one of the most widely used statistical tools</li>
+        <li>Regression helps separate signal from noise</li>
+
+        <li>Regression produces predictions and interpretable parameter estimates</li>
+
+        <li>Regression identifies associations but does not automatically prove causation</li>
+
+        <li>Regression is one of the most widely used tools in statistics and data science</li>
 
       </ul>
 
@@ -497,8 +537,8 @@ sidebar: false
       </a>
 
       <a class="btn"
-         href="/modeling/simple-linear-regression/regression-equations/">
-         Next: Regression Equations →
+         href="/modeling/simple-linear-regression/regression-equation/">
+         Next: The Regression Equation →
       </a>
 
     </div>
