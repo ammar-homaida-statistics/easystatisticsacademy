@@ -1,334 +1,566 @@
 ---
 layout: default
-title: "8. Bias and Variance (Intuition First)"
-description: "Understand bias and variance as two fundamental properties of estimators. Learn how accuracy and stability interact, and why trade-offs arise in real estimation problems."
+title: Bias and Variance Intuition
+description: Learn the concepts of bias and variance and understand the two major sources of estimation error in statistical inference.
 permalink: /inference/foundations/bias-and-variance-intuition/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">🚧 Lesson Under Construction</h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 focuses on conceptual clarity. Formal derivations, numerical simulations,
-        and applied modeling examples will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update "last visited lesson" -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_foundations_lesson_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/foundations/bias-and-variance-intuition/",
-      label: "Lesson 8 — Bias and Variance (Intuition First)",
-      ts: Date.now()
-    }));
+(function () {
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/foundations/",
-      label: "Block 1 — Inference Foundations",
-      ts: Date.now()
-    }));
-  })();
+  const KEY =
+    "esa_continue_inference_foundations_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/foundations/bias-and-variance-intuition/",
+    label: "Bias and Variance Intuition",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 1</span>
-        <span class="badge">Lesson 8</span>
-        <span class="badge">Bias</span>
-        <span class="badge">Variance</span>
-      </div>
 
-      <h1>8. Bias and Variance (Intuition First)</h1>
-      <p class="lead">
-        Every estimator has two key characteristics:
-        <strong>bias</strong> (systematic error) and
-        <strong>variance</strong> (random variability).
-        Understanding their interaction is central to statistical reasoning.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/foundations/">Back to Block 1</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        Version 0: intuition before algebra. Mathematical decomposition will follow later.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 1</span>
+      <span class="badge">Foundations</span>
+      <span class="badge">Estimator Quality</span>
     </div>
+
+    <h1>Bias and Variance Intuition</h1>
+
+    <p class="lead">
+      Not all estimators are equally good.
+    </p>
+
+    <p class="lead">
+      Two of the most important ways to evaluate an estimator are bias and variance. Together, they explain why some estimates are consistently accurate while others are unreliable.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/foundations/sd-vs-se-common-confusion/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/foundations/what-makes-good-estimator/">
+         Next: What Makes a Good Estimator? →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>Why Estimators Can Be Wrong</h2>
+
     <p>
-      By the end of this lesson, you should define bias and variance formally,
-      interpret them geometrically, and understand why reducing one may increase the other.
+      When estimating an unknown parameter,
+      errors are inevitable.
     </p>
-  </div>
 
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Key idea</h2>
-      <p style="margin:0;">
-        <strong>Bias measures accuracy.</strong>  
-        <strong>Variance measures stability.</strong>  
-        Good estimation balances both.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>1) What is bias?</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      The bias of an estimator \(\hat{\theta}\) is:
-      \[
-      \text{Bias}(\hat{\theta}) = E(\hat{\theta}) - \theta.
-      \]
+    <p>
+      However,
+      those errors can arise from two very different sources:
     </p>
-  </div>
 
-  <p style="margin-top:.75rem;">
-    If the expected value equals the true parameter,
-    the estimator is unbiased.
-  </p>
+    <ul class="bullets">
 
-  <ul class="bullets">
-    <li>Bias reflects systematic deviation.</li>
-    <li>Bias shifts the center of the sampling distribution.</li>
-  </ul>
-</section>
+      <li>Systematic error</li>
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) What is variance?</h2>
-  </div>
+      <li>Random variation</li>
 
-  <div class="card">
-    <p style="margin:0;">
-      The variance of an estimator is:
-      \[
-      \text{Var}(\hat{\theta}),
-      \]
-      which measures how widely it fluctuates across samples.
+    </ul>
+
+    <p>
+      These correspond to bias and variance.
     </p>
-  </div>
 
-  <p style="margin-top:.75rem;">
-    Large variance means unstable estimates;
-    small variance means consistent estimates.
-  </p>
-</section>
+    <h2>The Target Analogy</h2>
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) Geometric interpretation</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Unbiased & low variance</h3>
-      <p>
-        Estimates cluster tightly around the true parameter.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Unbiased & high variance</h3>
-      <p>
-        Estimates are centered correctly but widely scattered.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Biased & low variance</h3>
-      <p>
-        Estimates are tightly clustered but systematically shifted.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Biased & high variance</h3>
-      <p>
-        Estimates are both unstable and systematically incorrect.
-      </p>
-    </div>
-  </div>
-
-  <p class="muted-mini">
-    Visual diagrams will be added later to illustrate this clearly.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>4) The bias–variance trade-off</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      In many real estimation problems,
-      reducing variance may increase bias, and reducing bias may increase variance.
+    <p>
+      Imagine repeatedly throwing darts at a target.
     </p>
-  </div>
 
-  <ul class="bullets" style="margin-top:.75rem;">
-    <li>Simpler models → lower variance, possibly higher bias.</li>
-    <li>Complex models → lower bias, possibly higher variance.</li>
-  </ul>
-
-  <p class="muted-mini">
-    This trade-off becomes central in regression, regularization, and machine learning.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>5) Mean squared error (preview)</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      A common performance measure is:
-      \[
-      MSE(\hat{\theta}) = \text{Var}(\hat{\theta}) + \text{Bias}(\hat{\theta})^2.
-      \]
+    <p>
+      The center of the target represents the true population parameter.
     </p>
-  </div>
 
-  <p style="margin-top:.75rem;">
-    Even a biased estimator may have lower MSE if it substantially reduces variance.
-  </p>
-</section>
+    <p>
+      Each dart represents an estimate obtained from a sample.
+    </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>6) Practical implications</h2>
-  </div>
+    <p>
+      The pattern of darts reveals bias and variance.
+    </p>
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Large samples</h3>
+    <h2>What Is Bias?</h2>
+
+    <div class="concept-box">
+
+      <strong>Definition:</strong>
+
       <p>
-        Often reduce variance, improving overall precision.
+        Bias is the systematic difference between an estimator's average value and the true population parameter.
       </p>
+
     </div>
 
-    <div class="card">
-      <h3>Model complexity</h3>
+    <p>
+      Bias measures whether an estimator consistently misses the target.
+    </p>
+
+    <h2>A Biased Estimator</h2>
+
+    <p>
+      Suppose the true parameter is:
+    </p>
+
+    <div class="example-box">
+
       <p>
-        Must balance fit and stability.
+        True value = 100
       </p>
+
     </div>
 
-    <div class="card">
-      <h3>Regularization</h3>
+    <p>
+      Repeated estimates average:
+    </p>
+
+    <div class="example-box">
+
       <p>
-        Introduces small bias to reduce variance dramatically.
+        Average estimate = 95
       </p>
+
     </div>
 
-    <div class="card">
-      <h3>Inference perspective</h3>
+    <p>
+      The estimator systematically underestimates the parameter.
+    </p>
+
+    <p>
+      This is bias.
+    </p>
+
+    <h2>Mathematical Definition of Bias</h2>
+
+    <p>
+      For an estimator:
+    </p>
+
+    0
+
+    <p>
+      estimating parameter:
+    </p>
+
+    1
+
+    <p>
+      bias is:
+    </p>
+
+    2
+
+    <h2>Unbiased Estimators</h2>
+
+    <p>
+      An estimator is unbiased if:
+    </p>
+
+    3
+
+    <p>
+      On average,
+      it hits the correct target.
+    </p>
+
+    <p>
+      Many common estimators are designed to be unbiased.
+    </p>
+
+    <h2>What Is Variance?</h2>
+
+    <div class="concept-box">
+
+      <strong>Definition:</strong>
+
       <p>
-        Confidence intervals reflect both bias and variance properties.
+        Variance measures how much an estimator fluctuates across repeated samples.
       </p>
+
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>7) Common misconceptions</h2>
-  </div>
+    <p>
+      Even an unbiased estimator may vary substantially from one sample to another.
+    </p>
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>“Unbiased is always best.”</h3>
+    <h2>High Variance</h2>
+
+    <p>
+      Imagine estimates such as:
+    </p>
+
+    <div class="example-box">
+
       <p>
-        Not necessarily. Lower MSE may matter more than zero bias.
+        70
       </p>
-    </div>
 
-    <div class="card">
-      <h3>“Bias means bad data.”</h3>
       <p>
-        Statistical bias refers to estimator properties, not sampling bias.
+        110
       </p>
-    </div>
 
-    <div class="card">
-      <h3>“Variance only matters in small samples.”</h3>
       <p>
-        Variance affects all estimators, though magnitude shrinks with n.
+        95
       </p>
-    </div>
 
-    <div class="card">
-      <h3>“Bias disappears automatically.”</h3>
       <p>
-        Some biases persist regardless of sample size if the estimator is structurally biased.
+        130
       </p>
-    </div>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+      <p>
+        85
+      </p>
+
+    </div>
+
+    <p>
+      These estimates fluctuate dramatically.
+    </p>
+
+    <p>
+      The estimator has high variance.
+    </p>
+
+    <h2>Low Variance</h2>
+
+    <p>
+      Now imagine estimates such as:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        99
+      </p>
+
+      <p>
+        101
+      </p>
+
+      <p>
+        100
+      </p>
+
+      <p>
+        98
+      </p>
+
+      <p>
+        102
+      </p>
+
+    </div>
+
+    <p>
+      These estimates cluster tightly together.
+    </p>
+
+    <p>
+      The estimator has low variance.
+    </p>
+
+    <h2>Bias and Variance Are Different</h2>
+
+    <p>
+      Bias measures whether estimates are centered correctly.
+    </p>
+
+    <p>
+      Variance measures how spread out they are.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Concept</th>
+            <th>Question</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Bias</td>
+            <td>Is the estimator centered correctly?</td>
+          </tr>
+
+          <tr>
+            <td>Variance</td>
+            <td>How much does it fluctuate?</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>Four Possible Situations</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Bias</th>
+            <th>Variance</th>
+            <th>Quality</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Low</td>
+            <td>Low</td>
+            <td>Excellent</td>
+          </tr>
+
+          <tr>
+            <td>Low</td>
+            <td>High</td>
+            <td>Unstable</td>
+          </tr>
+
+          <tr>
+            <td>High</td>
+            <td>Low</td>
+            <td>Consistently wrong</td>
+          </tr>
+
+          <tr>
+            <td>High</td>
+            <td>High</td>
+            <td>Poor</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>The Dartboard Interpretation</h2>
+
+    <ul class="bullets">
+
+      <li>Low bias + low variance → darts cluster around the center</li>
+
+      <li>Low bias + high variance → darts spread widely around the center</li>
+
+      <li>High bias + low variance → darts cluster away from the center</li>
+
+      <li>High bias + high variance → darts are scattered and off target</li>
+
+    </ul>
+
+    <h2>Bias-Variance Tradeoff</h2>
+
+    <p>
+      In many statistical and machine learning problems,
+      reducing bias may increase variance.
+    </p>
+
+    <p>
+      Reducing variance may increase bias.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Tradeoff:</strong>
+
+      <p>
+        Improving one aspect sometimes worsens the other.
+      </p>
+
+    </div>
+
+    <h2>Why Sample Size Helps</h2>
+
+    <p>
+      Larger samples generally reduce variance.
+    </p>
+
+    <p>
+      More information makes estimates more stable.
+    </p>
+
+    <p>
+      This is one reason large samples are valuable in statistical inference.
+    </p>
+
+    <h2>Connection to Standard Error</h2>
+
+    <p>
+      Standard error is directly related to estimator variance.
+    </p>
+
+    <p>
+      A large variance implies a large standard error.
+    </p>
+
+    <p>
+      A small variance implies a small standard error.
+    </p>
+
+    <h2>Connection to Confidence Intervals</h2>
+
+    <p>
+      Confidence intervals primarily reflect variance.
+    </p>
+
+    <p>
+      Larger variability produces wider intervals.
+    </p>
+
+    <p>
+      Smaller variability produces narrower intervals.
+    </p>
+
+    <h2>Connection to Machine Learning</h2>
+
+    <p>
+      The bias-variance framework is central in machine learning.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Underfitting often produces high bias.
+      </p>
+
+      <p>
+        Overfitting often produces high variance.
+      </p>
+
+    </div>
+
+    <p>
+      Many predictive modeling techniques balance these competing sources of error.
+    </p>
+
+    <h2>Why Both Matter</h2>
+
+    <p>
+      An estimator that is unbiased but wildly unstable may not be useful.
+    </p>
+
+    <p>
+      An estimator that is very stable but systematically wrong may also be unsuitable.
+    </p>
+
+    <p>
+      Good estimators usually seek both low bias and low variance.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Bias measures correctness of the center. Variance measures stability of the estimates.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Bias and variance provide two major criteria for evaluating estimators.
+    </p>
+
+    <p>
+      Statisticians use additional properties as well,
+      including consistency and efficiency.
+    </p>
+
+    <p>
+      The next lesson brings these ideas together and explains what makes a good estimator.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Define bias and variance formally</li>
-        <li>Interpret bias as systematic shift</li>
-        <li>Interpret variance as estimator instability</li>
-        <li>Understand the bias–variance trade-off conceptually</li>
-        <li>Preview MSE decomposition</li>
+
+        <li>Bias measures systematic estimation error</li>
+
+        <li>Variance measures estimation variability across samples</li>
+
+        <li>Unbiased estimators are centered on the true parameter</li>
+
+        <li>Low-variance estimators are stable across samples</li>
+
+        <li>Bias and variance measure different aspects of estimator quality</li>
+
+        <li>Larger samples generally reduce variance</li>
+
+        <li>Standard error is closely related to estimator variance</li>
+
+        <li>Good estimators typically have low bias and low variance</li>
+
       </ul>
-    </div>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next step</h2>
-      <p style="margin:0;">
-        Next, we examine what makes a
-        <strong>“good” estimator</strong>
-        by combining bias, variance, and consistency.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/foundations/what-makes-good-estimator/">
-          Next lesson: 9. What Makes a “Good” Estimator? →
-        </a>
-      </div>
     </div>
 
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/foundations/sd-vs-se-common-confusion/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 7: Standard Deviation vs Standard Error
-          </a>
-        </div>
-      </div>
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/foundations/sd-vs-se-common-confusion/">
+         ← Previous: SD vs SE — Common Confusion
+      </a>
+
+      <a class="btn"
+         href="/inference/foundations/what-makes-good-estimator/">
+         Next: What Makes a Good Estimator? →
+      </a>
+
     </div>
 
   </div>
+
 </section>

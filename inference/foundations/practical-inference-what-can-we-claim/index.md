@@ -1,277 +1,493 @@
 ---
 layout: default
-title: "15. Practical Inference Thinking: What Can We Claim?"
-description: "Translate statistical results into responsible claims. Learn the limits of generalization, causal interpretation, and uncertainty language."
+title: Practical Inference — What Can We Claim?
+description: Learn how to decide what statistical claims are justified based on sampling design, assumptions, uncertainty, and evidence.
 permalink: /inference/foundations/practical-inference-what-can-we-claim/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 focuses on interpretation and responsible reporting.
-        Applied case studies and real datasets will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update "last visited lesson" -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_foundations_lesson_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/foundations/practical-inference-what-can-we-claim/",
-      label: "Lesson 15 — Practical Inference: What Can We Claim?",
-      ts: Date.now()
-    }));
+(function () {
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/foundations/",
-      label: "Block 1 — Inference Foundations",
-      ts: Date.now()
-    }));
-  })();
+  const KEY =
+    "esa_continue_inference_foundations_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/foundations/practical-inference-what-can-we-claim/",
+    label: "Practical Inference — What Can We Claim?",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 1</span>
-        <span class="badge">Lesson 15</span>
-        <span class="badge">Interpretation</span>
-        <span class="badge">Reporting</span>
-      </div>
 
-      <h1>15. Practical Inference Thinking: What Can We Claim?</h1>
-      <p class="lead">
-        Statistical inference is not only about calculation —
-        it is about making justified claims under uncertainty.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/foundations/">Back to Block 1</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        Version 0: interpretation discipline before applied modeling.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 1</span>
+      <span class="badge">Foundations</span>
+      <span class="badge">Final Lesson</span>
     </div>
+
+    <h1>Practical Inference — What Can We Claim?</h1>
+
+    <p class="lead">
+      Statistical inference is not only about formulas.
+    </p>
+
+    <p class="lead">
+      It is also about knowing what conclusions are justified, what assumptions are required, and where the limits of the data lie.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/foundations/sampling-bias-vs-statistical-bias/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/confidence-intervals/">
+         Next Block: Confidence Intervals →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>The Central Question</h2>
+
     <p>
-      By the end of this lesson, you should understand the limits of inference,
-      distinguish statistical significance from practical importance,
-      and formulate responsible conclusions.
+      Every inferential analysis should end with one question:
     </p>
-  </div>
 
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Key idea</h2>
-      <p style="margin:0;">
-        Inference supports claims — but only within the boundaries
-        set by data, assumptions, and design.
-      </p>
-    </div>
-  </div>
-</section>
+    <div class="example-box">
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) From result to claim</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      A statistical result is not a conclusion.
-      It must be translated carefully.
-    </p>
-  </div>
-
-  <ul class="bullets" style="margin-top:.75rem;">
-    <li>What population does this apply to?</li>
-    <li>What assumptions were required?</li>
-    <li>How large is the uncertainty?</li>
-  </ul>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>2) Statistical significance vs practical importance</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Statistical significance</h3>
       <p>
-        Evidence against H₀ at level α.
+        What can we legitimately claim from these data?
       </p>
+
     </div>
 
-    <div class="card">
-      <h3>Practical importance</h3>
+    <p>
+      A statistical result is only useful when interpreted within the limits of the design, assumptions, and uncertainty.
+    </p>
+
+    <h2>Inference Depends on Design</h2>
+
+    <p>
+      The strength of a statistical claim depends heavily on how the data were collected.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Design Feature</th>
+            <th>Supports</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Random sampling</td>
+            <td>Generalization to a population</td>
+          </tr>
+
+          <tr>
+            <td>Random assignment</td>
+            <td>Causal conclusions</td>
+          </tr>
+
+          <tr>
+            <td>Large sample size</td>
+            <td>More precise estimates</td>
+          </tr>
+
+          <tr>
+            <td>Representative sampling frame</td>
+            <td>Reduced sampling bias</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>Generalization Claims</h2>
+
+    <p>
+      Generalization means extending conclusions from a sample to a broader population.
+    </p>
+
+    <p>
+      This is most justified when the sample was randomly selected from the target population.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Rule:</strong>
+
       <p>
-        Magnitude and real-world impact of the effect.
+        Random sampling supports population generalization.
       </p>
+
     </div>
-  </div>
 
-  <p class="muted-mini" style="margin-top:.75rem;">
-    A small effect can be statistically significant with large n,
-    yet practically trivial.
-  </p>
-</section>
+    <h2>Causal Claims</h2>
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) Scope of generalization</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      Inference generalizes from sample to population —
-      but only if sampling assumptions hold.
+    <p>
+      Causal claims are stronger than descriptive or associational claims.
     </p>
-  </div>
 
-  <ul class="bullets" style="margin-top:.75rem;">
-    <li>Random sampling → population inference</li>
-    <li>Convenience sample → limited external validity</li>
-  </ul>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>4) Causation vs association</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      Observational studies typically support association,
-      not causation.
+    <p>
+      They require evidence that one variable actually produces a change in another.
     </p>
-  </div>
 
-  <p style="margin-top:.75rem;">
-    Causal claims require design conditions such as random assignment.
-  </p>
-</section>
+    <div class="concept-box">
 
-<section class="section">
-  <div class="section-head">
-    <h2>5) Uncertainty language</h2>
-  </div>
+      <strong>Rule:</strong>
 
-  <div class="card">
-    <p style="margin:0;">
-      Responsible reporting includes uncertainty expressions:
+      <p>
+        Random assignment supports causal inference.
+      </p>
+
+    </div>
+
+    <p>
+      Without random assignment or a strong causal design,
+      statistical association should not be interpreted as causation.
     </p>
-  </div>
 
-  <ul class="bullets" style="margin-top:.75rem;">
-    <li>“Estimated difference is … with 95% CI …”</li>
-    <li>“Evidence suggests …”</li>
-    <li>“Results are consistent with …”</li>
-  </ul>
-</section>
+    <h2>Association Claims</h2>
 
-<section class="section">
-  <div class="section-head">
-    <h2>6) What we cannot claim</h2>
-  </div>
+    <p>
+      Many studies can support association but not causation.
+    </p>
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>No probability statements about fixed parameters</h3>
-      <p>Confidence is about procedure, not parameter randomness.</p>
+    <div class="example-box">
+
+      <p>
+        Higher study time is associated with higher exam scores.
+      </p>
+
+      <p>
+        Higher income is associated with longer life expectancy.
+      </p>
+
     </div>
 
-    <div class="card">
-      <h3>No proof of null hypothesis</h3>
-      <p>Failing to reject does not confirm truth.</p>
-    </div>
+    <p>
+      These statements describe relationships,
+      but they do not automatically prove cause and effect.
+    </p>
 
-    <div class="card">
-      <h3>No universal generalization</h3>
-      <p>Scope is limited to sampling frame.</p>
-    </div>
+    <h2>Uncertainty Must Be Reported</h2>
 
-    <div class="card">
-      <h3>No causal claim without design</h3>
-      <p>Correlation does not imply causation.</p>
-    </div>
-  </div>
-</section>
+    <p>
+      Inferential claims should include uncertainty.
+    </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>7) Practical checklist before claiming</h2>
-  </div>
+    <p>
+      This uncertainty may appear as:
+    </p>
 
-  <div class="card">
-    <ul class="bullets" style="margin:0;">
-      <li>Was the sampling method appropriate?</li>
-      <li>Are independence assumptions reasonable?</li>
-      <li>Is the effect size meaningful?</li>
-      <li>Is uncertainty clearly reported?</li>
-      <li>Are conclusions limited to supported scope?</li>
+    <ul class="bullets">
+
+      <li>Standard errors</li>
+
+      <li>Confidence intervals</li>
+
+      <li>Margins of error</li>
+
+      <li>p-values</li>
+
     </ul>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
-      <ul class="bullets">
-        <li>Translate statistical results into disciplined claims</li>
-        <li>Distinguish statistical vs practical importance</li>
-        <li>Recognize limits of inference</li>
-        <li>Prepare for applied reporting and modeling</li>
-      </ul>
-    </div>
-  </div>
-</section>
+    <p>
+      Reporting only a point estimate can make results seem more certain than they are.
+    </p>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Block 1 completed</h2>
-      <p style="margin:0;">
-        You now understand the conceptual foundations of inference.
-        The next block formalizes <strong>confidence interval construction</strong>
-        in detail.
+    <h2>Precision Matters</h2>
+
+    <p>
+      A result can be statistically valid but imprecise.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Estimated effect = 10
       </p>
 
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/confidence-intervals/">
-          Continue to Block 2 — Confidence Intervals →
-        </a>
-      </div>
+      <p>
+        Confidence interval = −5 to 25
+      </p>
+
     </div>
 
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/foundations/sampling-bias-vs-statistical-bias/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 14: Sampling Bias vs Statistical Bias
-          </a>
-        </div>
-      </div>
+    <p>
+      The estimate suggests a positive effect,
+      but the interval is wide and includes many plausible values.
+    </p>
+
+    <h2>Statistical Significance Is Not Everything</h2>
+
+    <p>
+      Statistical significance tells us whether data are unusual under a null model.
+    </p>
+
+    <p>
+      It does not automatically tell us whether the result is meaningful in practice.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Important:</strong>
+
+      <p>
+        Practical importance and statistical significance are different concepts.
+      </p>
+
+    </div>
+
+    <h2>Check the Assumptions</h2>
+
+    <p>
+      Before trusting an inferential result,
+      ask whether the assumptions are reasonable.
+    </p>
+
+    <ul class="bullets">
+
+      <li>Was the sample representative?</li>
+
+      <li>Were observations independent?</li>
+
+      <li>Was the estimator appropriate?</li>
+
+      <li>Was the uncertainty calculation valid?</li>
+
+      <li>Were outliers or missing data handled transparently?</li>
+
+    </ul>
+
+    <h2>What Can We Claim?</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Evidence</th>
+            <th>Reasonable Claim</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Convenience sample</td>
+            <td>Describe the observed sample cautiously</td>
+          </tr>
+
+          <tr>
+            <td>Random sample</td>
+            <td>Generalize to the sampled population</td>
+          </tr>
+
+          <tr>
+            <td>Randomized experiment</td>
+            <td>Make stronger causal claims</td>
+          </tr>
+
+          <tr>
+            <td>Observational association</td>
+            <td>Claim association, not causation</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>Common Overclaims</h2>
+
+    <p>
+      Statistical reports often go wrong by claiming more than the data support.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Claiming causation from observational data
+      </p>
+
+      <p>
+        Generalizing from an unrepresentative sample
+      </p>
+
+      <p>
+        Ignoring uncertainty
+      </p>
+
+      <p>
+        Treating significance as practical importance
+      </p>
+
+    </div>
+
+    <h2>The Responsible Inference Checklist</h2>
+
+    <ol>
+
+      <li>Define the target population.</li>
+
+      <li>Identify the parameter or claim.</li>
+
+      <li>Evaluate the sampling design.</li>
+
+      <li>Check independence and assumptions.</li>
+
+      <li>Report the estimate and uncertainty.</li>
+
+      <li>State conclusions with appropriate caution.</li>
+
+    </ol>
+
+    <h2>What This Block Established</h2>
+
+    <p>
+      This block introduced the foundation of statistical inference.
+    </p>
+
+    <ul class="bullets">
+
+      <li>Populations and parameters</li>
+
+      <li>Statistics as random variables</li>
+
+      <li>Estimators and estimates</li>
+
+      <li>Sampling distributions</li>
+
+      <li>Standard errors</li>
+
+      <li>Bias and estimator quality</li>
+
+      <li>Confidence and significance</li>
+
+      <li>Sampling assumptions</li>
+
+    </ul>
+
+    <p>
+      These ideas support every inferential method that follows.
+    </p>
+
+    <h2>The Big Picture</h2>
+
+    <p>
+      Statistical inference is a disciplined way of learning from incomplete data.
+    </p>
+
+    <p>
+      It does not remove uncertainty,
+      but it helps quantify it.
+    </p>
+
+    <p>
+      It does not guarantee truth,
+      but it helps determine which claims are supported by evidence.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        A good inferential conclusion is not just statistically calculated. It is justified by the data design, assumptions, uncertainty, and scope of the research question.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      The next block focuses on confidence intervals.
+    </p>
+
+    <p>
+      You will learn how to construct intervals,
+      interpret confidence levels,
+      choose critical values,
+      and communicate uncertainty clearly.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Block 1 Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>Inference uses samples to learn about population parameters</li>
+
+        <li>Statistics vary because samples vary</li>
+
+        <li>Sampling distributions describe estimator behavior</li>
+
+        <li>Standard errors measure inferential uncertainty</li>
+
+        <li>Confidence intervals and tests rely on the same foundation</li>
+
+        <li>Random sampling supports generalization</li>
+
+        <li>Random assignment supports causal claims</li>
+
+        <li>Valid claims must respect design, assumptions, and uncertainty</li>
+
+      </ul>
+
+    </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/foundations/sampling-bias-vs-statistical-bias/">
+         ← Previous: Sampling Bias vs Statistical Bias
+      </a>
+
+      <a class="btn"
+         href="/inference/confidence-intervals/">
+         Next Block: Confidence Intervals →
+      </a>
+
     </div>
 
   </div>
+
 </section>

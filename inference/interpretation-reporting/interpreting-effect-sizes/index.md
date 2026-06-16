@@ -1,239 +1,576 @@
 ---
 layout: default
-title: "4. Interpreting Effect Sizes"
-description: "Understand how to interpret effect sizes, distinguish magnitude from significance, and explain practical meaning clearly."
+title: Interpreting Effect Sizes
+description: Learn how to interpret effect sizes, understand their practical meaning, and use them alongside p-values and confidence intervals.
 permalink: /inference/interpretation-reporting/interpreting-effect-sizes/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 introduces effect size interpretation across common test types.
-        Context-based examples and applied reporting templates will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update continue-reading keys -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_interpretation_reporting_lesson_v0";
+(function () {
 
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/interpretation-reporting/interpreting-effect-sizes/",
-      label: "Lesson 4 — Interpreting Effect Sizes",
-      ts: Date.now()
-    }));
+  const KEY =
+    "esa_continue_inference_interpretation_reporting_lesson_v0";
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/interpretation-reporting/",
-      label: "Block 6 — Interpretation & Reporting",
-      ts: Date.now()
-    }));
-  })();
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/interpretation-reporting/interpreting-effect-sizes/",
+    label: "Interpreting Effect Sizes",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 6</span>
-        <span class="badge">Lesson 4</span>
-        <span class="badge">Effect Size</span>
-        <span class="badge">Magnitude</span>
-      </div>
 
-      <h1>4. Interpreting Effect Sizes</h1>
-
-      <p class="lead">
-        Effect size quantifies the magnitude of a difference or association.
-        It answers “How large is the effect?” — not merely “Is it detectable?”
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/interpretation-reporting/">Back to Block 6</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        Magnitude interpretation requires context, not only numeric thresholds.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 6</span>
+      <span class="badge">Interpretation & Reporting</span>
+      <span class="badge">Effect Sizes</span>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
-    <p>
-      Identify common effect size measures,
-      interpret their magnitude correctly,
-      and connect them to substantive meaning.
+    <h1>Interpreting Effect Sizes</h1>
+
+    <p class="lead">
+      Statistical significance tells us whether evidence exists for an effect.
     </p>
+
+    <p class="lead">
+      Effect sizes help answer a different question: how large is that effect, and does it matter in practice?
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/interpretation-reporting/interpreting-confidence-intervals/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/interpretation-reporting/multiple-testing-and-false-positives/">
+         Next: Multiple Testing and False Positives →
+      </a>
+
+    </div>
+
   </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Core principle</h2>
-      <p style="margin:0;">
-        Statistical significance depends on sample size.  
-        Effect size reflects magnitude independent of sample size.
+</section>
+
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>Why Effect Sizes Matter</h2>
+
+    <p>
+      Suppose two studies both produce:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        p &lt; 0.001
       </p>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) Mean differences</h2>
-  </div>
+    <p>
+      Both results are statistically significant.
+    </p>
 
-  <div class="card">
-    Raw difference:
-    \[
-    \Delta = \mu_1 - \mu_2
-    \]
-  </div>
+    <p>
+      Yet one effect may be tiny while the other is substantial.
+    </p>
 
-  <div class="card" style="margin-top:1rem;">
-    Standardized effect size (Cohen's d):
-    \[
-    d = \frac{\mu_1 - \mu_2}{\sigma}
-    \]
-  </div>
+    <p>
+      To understand magnitude, we need effect sizes.
+    </p>
 
-  <p>
-    Interpretation depends on domain context.
-  </p>
-</section>
+    <div class="concept-box">
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) Proportion differences</h2>
-  </div>
+      <strong>Key idea:</strong>
 
-  <div class="card">
-    Absolute difference:
-    \[
-    \Delta = p_1 - p_2
-    \]
-  </div>
+      <p>
+        Effect sizes measure the strength or magnitude of a phenomenon rather than merely its detectability.
+      </p>
 
-  <div class="card" style="margin-top:1rem;">
-    Risk ratio:
-    \[
-    RR = \frac{p_1}{p_2}
-    \]
-  </div>
+    </div>
 
-  <p>
-    Relative measures may appear large even if absolute differences are small.
-  </p>
-</section>
+    <h2>Statistical Significance vs Effect Size</h2>
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) Association measures</h2>
-  </div>
+    <p>
+      These quantities answer different questions.
+    </p>
 
-  <div class="card">
-    Correlation:
-    \[
-    r \in [-1, 1]
-    \]
-  </div>
+    <div class="table-wrap">
 
-  <div class="card" style="margin-top:1rem;">
-    Chi-square effect size (Cramér's V):
-    \[
-    V = \sqrt{\frac{\chi^2}{n(k-1)}}
-    \]
-  </div>
+      <table>
 
-  <p>
-    Effect sizes quantify strength of association, not causality.
-  </p>
-</section>
+        <thead>
+          <tr>
+            <th>Measure</th>
+            <th>Main Question</th>
+          </tr>
+        </thead>
 
-<section class="section">
-  <div class="section-head">
-    <h2>4) Avoid mechanical thresholds</h2>
-  </div>
+        <tbody>
 
-  <div class="card">
-    Generic labels such as:
-    <br><br>
-    small, medium, large
-  </div>
+          <tr>
+            <td>P-Value</td>
+            <td>Is there evidence against H₀?</td>
+          </tr>
 
-  <p>
-    are rough conventions and should not replace contextual judgment.
-  </p>
-</section>
+          <tr>
+            <td>Effect Size</td>
+            <td>How large is the effect?</td>
+          </tr>
 
-<section class="section">
-  <div class="section-head">
-    <h2>5) Practical interpretation</h2>
-  </div>
+        </tbody>
 
-  <div class="card">
-    Better reporting example:
-    <br><br>
-    “The intervention increased average test scores by 4 points,
-    representing approximately 0.5 standard deviations.”
-  </div>
+      </table>
 
-  <p>
-    Always explain magnitude in real-world units whenever possible.
-  </p>
-</section>
+    </div>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+    <p>
+      Both pieces of information are important.
+    </p>
+
+    <h2>Raw Effect Sizes</h2>
+
+    <p>
+      Some effect sizes are reported directly in the original measurement units.
+    </p>
+
+    <p>
+      Examples include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Increase of 5 test-score points</li>
+
+      <li>Decrease of 10 mmHg in blood pressure</li>
+
+      <li>Increase of $500 in monthly revenue</li>
+
+    </ul>
+
+    <p>
+      These measures are often intuitive because they retain their original units.
+    </p>
+
+    <h2>Standardized Effect Sizes</h2>
+
+    <p>
+      Sometimes researchers want to compare effects measured on different scales.
+    </p>
+
+    <p>
+      Standardized effect sizes remove units and place effects on a common scale.
+    </p>
+
+    <h2>Cohen's d</h2>
+
+    <p>
+      One of the most common standardized effect-size measures is:
+    </p>
+
+    
+
+    <p>
+      Cohen's d expresses a mean difference relative to the variability in the data.
+    </p>
+
+    <h2>Traditional Guidelines</h2>
+
+    <p>
+      Cohen proposed rough benchmarks:
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Cohen's d</th>
+            <th>Traditional Interpretation</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>0.2</td>
+            <td>Small</td>
+          </tr>
+
+          <tr>
+            <td>0.5</td>
+            <td>Medium</td>
+          </tr>
+
+          <tr>
+            <td>0.8</td>
+            <td>Large</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      These values are useful starting points, but they should never replace subject-matter knowledge.
+    </p>
+
+    <h2>Context Matters</h2>
+
+    <p>
+      An effect considered small in one field may be extremely important in another.
+    </p>
+
+    <p>
+      For example:
+    </p>
+
+    <ul class="bullets">
+
+      <li>A small reduction in mortality may save thousands of lives</li>
+
+      <li>A small increase in manufacturing defects may be costly</li>
+
+      <li>A small educational improvement may affect millions of students</li>
+
+    </ul>
+
+    <p>
+      Practical significance depends on context.
+    </p>
+
+    <h2>Correlation Effect Sizes</h2>
+
+    <p>
+      Correlation coefficients are also effect-size measures.
+    </p>
+
+    <p>
+      They describe the strength of a relationship between variables.
+    </p>
+
+    <p>
+      Values closer to:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        -1 or +1
+      </p>
+    </div>
+
+    <p>
+      indicate stronger associations.
+    </p>
+
+    <p>
+      Values near:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        0
+      </p>
+    </div>
+
+    <p>
+      indicate weak relationships.
+    </p>
+
+    <h2>Effect Sizes for Proportions</h2>
+
+    <p>
+      For categorical outcomes, effect sizes may be reported using:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Difference in proportions</li>
+
+      <li>Risk ratios</li>
+
+      <li>Odds ratios</li>
+
+      <li>Relative risk reduction</li>
+
+    </ul>
+
+    <p>
+      Different contexts require different measures.
+    </p>
+
+    <h2>Effect Size and Sample Size</h2>
+
+    <p>
+      Unlike p-values, effect sizes are not directly driven by sample size.
+    </p>
+
+    <p>
+      A large sample may make a tiny effect statistically significant, but the effect size itself remains small.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Important distinction:</strong>
+
+      <p>
+        Statistical significance can change with sample size, while effect size describes magnitude.
+      </p>
+
+    </div>
+
+    <h2>Why Confidence Intervals Help</h2>
+
+    <p>
+      Effect-size estimates are subject to sampling variability.
+    </p>
+
+    <p>
+      Therefore researchers often report:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Effect size estimate</li>
+
+      <li>Confidence interval for the effect size</li>
+
+    </ul>
+
+    <p>
+      This communicates both magnitude and uncertainty.
+    </p>
+
+    <h2>An Example</h2>
+
+    <p>
+      Consider two reports:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Cohen's d = 0.60
+      </p>
+
+      <p>
+        95% CI: (0.15, 1.05)
+      </p>
+
+    </div>
+
+    <p>
+      The estimated effect is moderate, but the interval indicates considerable uncertainty about the exact magnitude.
+    </p>
+
+    <h2>Practical Decision-Making</h2>
+
+    <p>
+      Effect sizes often drive real-world decisions.
+    </p>
+
+    <p>
+      Examples include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Approving medical treatments</li>
+
+      <li>Implementing educational interventions</li>
+
+      <li>Launching new business strategies</li>
+
+      <li>Changing public policies</li>
+
+    </ul>
+
+    <p>
+      Decision-makers care about how much improvement occurs, not merely whether a p-value falls below a threshold.
+    </p>
+
+    <h2>A Large Effect Without Significance</h2>
+
+    <p>
+      In small studies, substantial effects may fail to reach statistical significance.
+    </p>
+
+    <p>
+      This often occurs because:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Sample sizes are small</li>
+
+      <li>Power is limited</li>
+
+      <li>Estimates are imprecise</li>
+
+    </ul>
+
+    <p>
+      Looking only at p-values can obscure potentially important findings.
+    </p>
+
+    <h2>A Tiny Effect With Significance</h2>
+
+    <p>
+      In very large studies, extremely small effects can become highly significant.
+    </p>
+
+    <p>
+      Such results should not automatically be interpreted as important.
+    </p>
+
+    <p>
+      The magnitude of the effect must still be examined.
+    </p>
+
+    <h2>Reporting Best Practices</h2>
+
+    <p>
+      Modern statistical reporting often includes:
+    </p>
+
+    <ul class="bullets">
+
+      <li>P-values</li>
+
+      <li>Effect sizes</li>
+
+      <li>Confidence intervals</li>
+
+      <li>Study limitations</li>
+
+    </ul>
+
+    <p>
+      Together these provide a richer understanding of the evidence.
+    </p>
+
+    <h2>Common Mistakes</h2>
+
+    <div class="concept-box">
+
+      <strong>Avoid these errors:</strong>
+
       <ul class="bullets">
-        <li>Identify common effect size measures</li>
-        <li>Separate magnitude from significance</li>
-        <li>Avoid mechanical threshold thinking</li>
-        <li>Interpret effect sizes in context</li>
-      </ul>
-    </div>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next lesson</h2>
-      <p style="margin:0;">
-        We now examine the problem of multiple testing
-        and false positives.
+        <li>Ignoring effect size and focusing only on p-values</li>
+
+        <li>Assuming statistically significant effects are automatically important</li>
+
+        <li>Applying generic benchmarks without considering context</li>
+
+        <li>Ignoring uncertainty around effect-size estimates</li>
+
+      </ul>
+
+    </div>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      Effect sizes help bridge the gap between statistical results and real-world interpretation.
+    </p>
+
+    <p>
+      They provide information about magnitude, practical importance, and decision relevance.
+    </p>
+
+    <p>
+      Without effect sizes, statistical conclusions are often incomplete.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Effect sizes quantify the magnitude of an effect. They complement p-values by helping researchers and decision-makers evaluate whether statistically detectable effects are also practically meaningful.
       </p>
 
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/interpretation-reporting/multiple-testing-and-false-positives/">
-          Next lesson: 5. Multiple Testing & False Positives →
-        </a>
-      </div>
     </div>
 
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/interpretation-reporting/interpreting-confidence-intervals/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 3: Interpreting Confidence Intervals
-          </a>
-        </div>
-      </div>
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Statistical inference often involves many simultaneous tests.
+    </p>
+
+    <p>
+      When researchers perform numerous hypothesis tests, the chance of obtaining false positives increases.
+    </p>
+
+    <p>
+      The next lesson examines multiple testing and explains why false-positive rates become a concern when many comparisons are made.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>Effect sizes measure the magnitude of an effect</li>
+
+        <li>P-values and effect sizes answer different questions</li>
+
+        <li>Raw effect sizes retain original measurement units</li>
+
+        <li>Standardized effect sizes allow comparison across studies</li>
+
+        <li>Cohen's d is a common measure of standardized mean differences</li>
+
+        <li>Context is essential when interpreting effect sizes</li>
+
+        <li>Confidence intervals communicate uncertainty around effect-size estimates</li>
+
+        <li>Practical decisions should consider effect size, not just statistical significance</li>
+
+      </ul>
+
     </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/interpretation-reporting/interpreting-confidence-intervals/">
+         ← Previous: Interpreting Confidence Intervals
+      </a>
+
+      <a class="btn"
+         href="/inference/interpretation-reporting/multiple-testing-and-false-positives/">
+         Next: Multiple Testing and False Positives →
+      </a>
+
+    </div>
+
   </div>
+
 </section>

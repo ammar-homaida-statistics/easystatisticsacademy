@@ -1,282 +1,582 @@
 ---
 layout: default
-title: "6. Type I and Type II Errors"
-description: "Define Type I and Type II errors formally, understand their probabilities (α and β), and explain their trade-off in hypothesis testing."
+title: Type I and Type II Errors
+description: Learn the two fundamental mistakes possible in hypothesis testing and how they shape statistical decision-making.
 permalink: /inference/hypothesis-testing/type1-type2-errors/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 establishes the formal definitions of Type I and Type II errors
-        and their probabilistic interpretation. Power and effect size follow next.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update continue-reading keys -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_hypothesis_testing_lesson_v0";
+(function () {
 
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/hypothesis-testing/type1-type2-errors/",
-      label: "Lesson 6 — Type I and Type II Errors",
-      ts: Date.now()
-    }));
+  const KEY =
+    "esa_continue_inference_hypothesis_testing_lesson_v0";
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/hypothesis-testing/",
-      label: "Block 3 — Hypothesis Testing",
-      ts: Date.now()
-    }));
-  })();
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/hypothesis-testing/type1-type2-errors/",
+    label: "Type I and Type II Errors",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 3</span>
-        <span class="badge">Lesson 6</span>
-        <span class="badge">Type I</span>
-        <span class="badge">Type II</span>
-      </div>
 
-      <h1>6. Type I and Type II Errors</h1>
-
-      <p class="lead">
-        Every hypothesis test carries two kinds of possible mistakes.
-        A <strong>Type I error</strong> rejects a true null hypothesis.
-        A <strong>Type II error</strong> fails to reject a false null hypothesis.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/hypothesis-testing/">Back to Block 3</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        Statistical decisions always involve controlled risk.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 3</span>
+      <span class="badge">Hypothesis Testing</span>
+      <span class="badge">Decision Errors</span>
     </div>
+
+    <h1>Type I and Type II Errors</h1>
+
+    <p class="lead">
+      Hypothesis testing provides a structured decision process, but no statistical decision rule is perfect.
+    </p>
+
+    <p class="lead">
+      Because decisions are based on samples rather than entire populations, mistakes can occur. Understanding these mistakes is central to statistical inference.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/hypothesis-testing/significance-level-alpha/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/hypothesis-testing/power-and-effect-size/">
+         Next: Power and Effect Size →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>Why Errors Are Unavoidable</h2>
+
     <p>
-      Define Type I and Type II errors formally,
-      understand their probabilities,
-      and explain the trade-off between them.
+      Hypothesis tests make decisions using incomplete information.
     </p>
-  </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Core framework</h2>
-      <p style="margin:0;">
-        Decisions are made about \(H_0\),
-        but reality may or may not match \(H_0\).
-        Errors arise from the mismatch between decision and truth.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>1) Decision vs truth table</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      <strong>Truth:</strong> either \(H_0\) is true or false.<br>
-      <strong>Decision:</strong> reject \(H_0\) or fail to reject \(H_0\).
+    <p>
+      We observe a sample, not an entire population.
     </p>
-  </div>
 
-  <div class="card" style="margin-top:1rem;">
-    <p style="margin:0;">
-      If \(H_0\) is true and we reject → <strong>Type I error</strong><br>
-      If \(H_0\) is false and we fail to reject → <strong>Type II error</strong>
+    <p>
+      Because samples vary randomly,
+      a statistical decision can occasionally be wrong.
     </p>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) Type I error (False Positive)</h2>
-  </div>
+    <div class="concept-box">
 
-  <div class="card">
-    \[
-    \alpha = P(\text{Reject } H_0 \mid H_0 \text{ true})
-    \]
-  </div>
+      <strong>Key idea:</strong>
 
-  <p style="margin-top:.75rem;">
-    This probability is controlled directly by the chosen significance level \( \alpha \).
-  </p>
-
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Interpretation</h2>
-      <p style="margin:0;">
-        In repeated experiments where \(H_0\) is true,
-        about \(100\alpha\%\) of tests will incorrectly reject it.
+      <p>
+        Even a perfectly designed hypothesis test can make mistakes because random sampling variability is unavoidable.
       </p>
+
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) Type II error (False Negative)</h2>
-  </div>
+    <h2>The Two Possible Realities</h2>
 
-  <div class="card">
-    \[
-    \beta = P(\text{Fail to reject } H_0 \mid H_0 \text{ false})
-    \]
-  </div>
-
-  <p style="margin-top:.75rem;">
-    Unlike α, β depends on the true parameter value under the alternative.
-  </p>
-
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Interpretation</h2>
-      <p style="margin:0;">
-        When a real effect exists,
-        β is the probability that the test fails to detect it.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>4) The trade-off between α and β</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      For a fixed sample size,
-      reducing α makes rejection harder,
-      which typically increases β.
+    <p>
+      In truth, only one of two situations can exist:
     </p>
-  </div>
 
-  <p style="margin-top:.75rem;">
-    There is no way to minimize both errors simultaneously without increasing sample size.
-  </p>
-</section>
+    <ul class="bullets">
 
-<section class="section">
-  <div class="section-head">
-    <h2>5) Connection to power</h2>
-  </div>
+      <li>The null hypothesis is true.</li>
 
-  <div class="card">
-    \[
-    \text{Power} = 1 - \beta
-    \]
-  </div>
+      <li>The null hypothesis is false.</li>
 
-  <p style="margin-top:.75rem;">
-    Power is the probability of correctly rejecting a false null hypothesis.
-  </p>
+    </ul>
 
-  <p class="muted-mini">
-    Increasing power means reducing Type II error.
-  </p>
-</section>
+    <p>
+      However, we do not know which situation is correct.
+    </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>6) Practical interpretation</h2>
-  </div>
+    <h2>The Two Possible Decisions</h2>
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Type I error risk</h3>
-      <p style="margin:0;">
-        Claiming an effect that does not exist.
+    <p>
+      A hypothesis test can produce one of two decisions:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Reject H₀</li>
+
+      <li>Fail to reject H₀</li>
+
+    </ul>
+
+    <p>
+      Combining realities and decisions creates four possible outcomes.
+    </p>
+
+    <h2>The Decision Table</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Reality</th>
+            <th>Reject H₀</th>
+            <th>Fail to Reject H₀</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>H₀ True</td>
+            <td>Type I Error</td>
+            <td>Correct Decision</td>
+          </tr>
+
+          <tr>
+            <td>H₀ False</td>
+            <td>Correct Decision</td>
+            <td>Type II Error</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      Two outcomes are correct decisions.
+    </p>
+
+    <p>
+      Two outcomes are errors.
+    </p>
+
+    <h2>Type I Error</h2>
+
+    <div class="concept-box">
+
+      <strong>Definition:</strong>
+
+      <p>
+        A Type I error occurs when a true null hypothesis is rejected.
+      </p>
+
+    </div>
+
+    <p>
+      In simple language:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Detecting an effect that does not actually exist.
+      </p>
+
+    </div>
+
+    <h2>Examples of Type I Errors</h2>
+
+    <div class="example-box">
+
+      <p>
+        Concluding a drug works when it actually does not.
+      </p>
+
+      <p>
+        Concluding a manufacturing process changed when it actually did not.
+      </p>
+
+      <p>
+        Concluding a website redesign improved conversions when it actually had no effect.
+      </p>
+
+    </div>
+
+    <h2>The Probability of a Type I Error</h2>
+
+    <p>
+      The significance level directly controls the probability of a Type I error.
+    </p>
+
+    0
+
+    <p>
+      For example:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        α = 0.05
       </p>
     </div>
 
-    <div class="card">
-      <h3>Type II error risk</h3>
-      <p style="margin:0;">
-        Missing a real effect.
+    <p>
+      implies a long-run Type I error rate of approximately 5%.
+    </p>
+
+    <h2>Type II Error</h2>
+
+    <div class="concept-box">
+
+      <strong>Definition:</strong>
+
+      <p>
+        A Type II error occurs when a false null hypothesis is not rejected.
       </p>
+
     </div>
 
-    <div class="card">
-      <h3>Medical context</h3>
-      <p style="margin:0;">
-        False alarm vs missed diagnosis.
+    <p>
+      In simple language:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Missing a real effect that actually exists.
       </p>
+
     </div>
 
-    <div class="card">
-      <h3>Business context</h3>
-      <p style="margin:0;">
-        Acting on noise vs ignoring a profitable change.
-      </p>
-    </div>
-  </div>
-</section>
+    <h2>Examples of Type II Errors</h2>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+    <div class="example-box">
+
+      <p>
+        Concluding a drug does not work when it actually does.
+      </p>
+
+      <p>
+        Missing a real safety problem in a manufacturing process.
+      </p>
+
+      <p>
+        Concluding two teaching methods are equivalent when one truly performs better.
+      </p>
+
+    </div>
+
+    <h2>The Probability of a Type II Error</h2>
+
+    <p>
+      The probability of a Type II error is denoted by:
+    </p>
+
+    1
+
+    <p>
+      Unlike α,
+      β depends on several factors:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Sample size</li>
+
+      <li>Variability</li>
+
+      <li>Effect size</li>
+
+      <li>Significance level</li>
+
+    </ul>
+
+    <h2>Why Type II Errors Are Harder</h2>
+
+    <p>
+      Type I errors are easy to define because they assume the null hypothesis is true.
+    </p>
+
+    <p>
+      Type II errors depend on how false the null hypothesis is.
+    </p>
+
+    <p>
+      Therefore their probability varies across situations.
+    </p>
+
+    <h2>A Medical Testing Example</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Statistical Decision</th>
+            <th>Medical Analogy</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Type I Error</td>
+            <td>Healthy patient diagnosed as sick</td>
+          </tr>
+
+          <tr>
+            <td>Type II Error</td>
+            <td>Sick patient diagnosed as healthy</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      Both mistakes can be costly,
+      but the consequences differ.
+    </p>
+
+    <h2>The Tradeoff Between Errors</h2>
+
+    <p>
+      Reducing one type of error often increases the other.
+    </p>
+
+    <p>
+      For example,
+      lowering:
+    </p>
+
+    2
+
+    <p>
+      makes rejection more difficult.
+    </p>
+
+    <p>
+      This reduces Type I errors but may increase Type II errors.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Tradeoff:</strong>
+
+      <p>
+        Making false alarms less likely often makes missed detections more likely.
+      </p>
+
+    </div>
+
+    <h2>Why Sample Size Helps</h2>
+
+    <p>
+      Increasing sample size often improves decision quality.
+    </p>
+
+    <p>
+      Larger samples reduce uncertainty and make real effects easier to detect.
+    </p>
+
+    <p>
+      As a result:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Type II error rates often decrease.</li>
+
+      <li>Statistical power often increases.</li>
+
+    </ul>
+
+    <h2>The Courtroom Analogy Revisited</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Statistics</th>
+            <th>Courtroom Analogy</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Type I Error</td>
+            <td>Convicting an innocent person</td>
+          </tr>
+
+          <tr>
+            <td>Type II Error</td>
+            <td>Acquitting a guilty person</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      Society often designs legal systems to make Type I errors extremely rare,
+      even if that increases Type II errors.
+    </p>
+
+    <p>
+      Different applications may prioritize different error types.
+    </p>
+
+    <h2>Which Error Is Worse?</h2>
+
+    <p>
+      There is no universal answer.
+    </p>
+
+    <p>
+      The consequences depend on context.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Drug approval may prioritize minimizing Type I errors.
+      </p>
+
+      <p>
+        Disease screening may prioritize minimizing Type II errors.
+      </p>
+
+      <p>
+        Fraud detection systems may balance both.
+      </p>
+
+    </div>
+
+    <h2>The Relationship to Statistical Power</h2>
+
+    <p>
+      The probability of correctly detecting a false null hypothesis is called power.
+    </p>
+
+    <p>
+      Power is directly related to Type II error:
+    </p>
+
+    3
+
+    <p>
+      This relationship becomes a major topic in the next lesson.
+    </p>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      Hypothesis testing is fundamentally a decision-making process under uncertainty.
+    </p>
+
+    <p>
+      Type I and Type II errors define the risks associated with those decisions.
+    </p>
+
+    <p>
+      Understanding these risks helps researchers design studies and interpret results responsibly.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        A Type I error occurs when a true null hypothesis is rejected. A Type II error occurs when a false null hypothesis is not rejected. Statistical inference balances the risks of these two kinds of mistakes.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Type II errors describe missed discoveries.
+    </p>
+
+    <p>
+      Researchers often want to know how likely a study is to detect a real effect when one exists.
+    </p>
+
+    <p>
+      That probability is called statistical power.
+    </p>
+
+    <p>
+      The next lesson introduces power, effect size, and the factors that influence a study's ability to detect meaningful effects.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Define Type I and Type II errors formally</li>
-        <li>Understand the roles of α and β</li>
-        <li>Explain the error trade-off</li>
-        <li>Recognize the link to statistical power</li>
+
+        <li>Hypothesis tests can make two kinds of errors</li>
+
+        <li>A Type I error rejects a true null hypothesis</li>
+
+        <li>A Type II error fails to reject a false null hypothesis</li>
+
+        <li>The probability of a Type I error equals α</li>
+
+        <li>The probability of a Type II error is denoted by β</li>
+
+        <li>Reducing one error type often increases the other</li>
+
+        <li>Sample size can reduce Type II errors</li>
+
+        <li>Statistical power equals 1 − β</li>
+
       </ul>
+
     </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/hypothesis-testing/significance-level-alpha/">
+         ← Previous: Significance Level (α)
+      </a>
+
+      <a class="btn"
+         href="/inference/hypothesis-testing/power-and-effect-size/">
+         Next: Power and Effect Size →
+      </a>
+
+    </div>
+
   </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next step</h2>
-      <p style="margin:0;">
-        Next, we examine statistical power and effect size,
-        and how they determine detectability.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/hypothesis-testing/power-and-effect-size/">
-          Next lesson: 7. Power and Effect Size →
-        </a>
-      </div>
-    </div>
-
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/hypothesis-testing/significance-level-alpha/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 5: Significance Level (α)
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>

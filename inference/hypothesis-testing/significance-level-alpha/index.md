@@ -1,290 +1,559 @@
 ---
 layout: default
-title: "5. Significance Level (α)"
-description: "Define the significance level α, understand its role in controlling Type I error, and distinguish between α and the p-value."
+title: Significance Level (α)
+description: Learn what the significance level represents, why it is chosen before analyzing data, and how it guides hypothesis-testing decisions.
 permalink: /inference/hypothesis-testing/significance-level-alpha/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 establishes the formal meaning of the significance level α
-        and its relationship to Type I error.
-        Examples, simulations, and decision diagrams will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update continue-reading keys -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_hypothesis_testing_lesson_v0";
+(function () {
 
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/hypothesis-testing/significance-level-alpha/",
-      label: "Lesson 5 — Significance Level (α)",
-      ts: Date.now()
-    }));
+  const KEY =
+    "esa_continue_inference_hypothesis_testing_lesson_v0";
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/hypothesis-testing/",
-      label: "Block 3 — Hypothesis Testing",
-      ts: Date.now()
-    }));
-  })();
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/hypothesis-testing/significance-level-alpha/",
+    label: "Significance Level (α)",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 3</span>
-        <span class="badge">Lesson 5</span>
-        <span class="badge">α</span>
-        <span class="badge">Type I Error</span>
-      </div>
 
-      <h1>5. Significance Level (α)</h1>
-
-      <p class="lead">
-        The significance level \( \alpha \) is a pre-specified threshold
-        that controls the probability of making a Type I error.
-        It defines how much false-positive risk we are willing to tolerate.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/hypothesis-testing/">Back to Block 3</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        α is chosen before seeing the data.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 3</span>
+      <span class="badge">Hypothesis Testing</span>
+      <span class="badge">Decision Rules</span>
     </div>
+
+    <h1>Significance Level (α)</h1>
+
+    <p class="lead">
+      A p-value measures evidence against the null hypothesis, but evidence alone does not produce a decision.
+    </p>
+
+    <p class="lead">
+      To make decisions consistently, statisticians choose a significance level that determines how much evidence is required before rejecting the null hypothesis.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/hypothesis-testing/p-value-meaning/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/hypothesis-testing/type1-type2-errors/">
+         Next: Type I and Type II Errors →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>Why a Decision Rule Is Needed</h2>
+
     <p>
-      Define the significance level formally,
-      distinguish α from the p-value,
-      and understand how α controls Type I error.
+      Suppose a study produces:
     </p>
-  </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Core definition</h2>
-      <p style="margin:0;">
-        The significance level \( \alpha \) is the probability of rejecting \(H_0\)
-        when \(H_0\) is actually true.
+    <div class="example-box">
+
+      <p>
+        p = 0.08
       </p>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) Formal probability statement</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      \[
-      \alpha = P(\text{Reject } H_0 \mid H_0 \text{ is true})
-      \]
+    <p>
+      Is that small enough to reject the null hypothesis?
     </p>
-  </div>
 
-  <p class="muted-mini" style="margin-top:.75rem;">
-    This is a long-run frequency statement across repeated experiments.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>2) Where α enters the procedure</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Critical value approach</h3>
-      <p style="margin:0;">
-        Choose a cutoff so that the rejection region has probability α under \(H_0\).
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>p-value approach</h3>
-      <p style="margin:0;">
-        Reject \(H_0\) if:
-        \[
-        p \le \alpha
-        \]
-      </p>
-    </div>
-  </div>
-
-  <p class="muted-mini" style="margin-top:.75rem;">
-    Both approaches are mathematically equivalent.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>3) Common α values</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>α = 0.10</h3>
-      <p style="margin:0;">Less strict, higher false-positive tolerance.</p>
-    </div>
-
-    <div class="card">
-      <h3>α = 0.05</h3>
-      <p style="margin:0;">Standard conventional choice in many fields.</p>
-    </div>
-
-    <div class="card">
-      <h3>α = 0.01</h3>
-      <p style="margin:0;">More stringent, lower false-positive rate.</p>
-    </div>
-
-    <div class="card">
-      <h3>Smaller α</h3>
-      <p style="margin:0;">Harder to reject \(H_0\); reduces Type I error.</p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>4) α vs p-value</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>α</h3>
-      <ul class="bullets">
-        <li>Chosen before observing data</li>
-        <li>Controls false-positive rate</li>
-        <li>Fixed decision threshold</li>
-      </ul>
-    </div>
-
-    <div class="card">
-      <h3>p-value</h3>
-      <ul class="bullets">
-        <li>Computed from the data</li>
-        <li>Measures extremeness under \(H_0\)</li>
-        <li>Compared to α for decision</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="card" style="margin-top:1rem;">
-    Decision rule:
-    <br><br>
-    If \(p \le \alpha\) → reject \(H_0\).  
-    If \(p > \alpha\) → fail to reject \(H_0\).
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>5) Interpretation in repeated sampling</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      If we repeat the same experiment many times under \(H_0\),
-      approximately \(100\alpha\%\) of those experiments
-      would incorrectly reject the null hypothesis.
+    <p>
+      Different people might answer differently.
     </p>
-  </div>
 
-  <p class="muted-mini" style="margin-top:.75rem;">
-    α is a property of the procedure — not of a single dataset.
-  </p>
-</section>
+    <p>
+      To avoid subjective decisions,
+      hypothesis testing uses a predefined threshold.
+    </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>6) Common misconceptions</h2>
-  </div>
+    <h2>The Significance Level</h2>
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Not the probability that H<sub>0</sub> is true</h3>
-      <p style="margin:0;">α controls error rate, not belief in hypotheses.</p>
-    </div>
+    <div class="concept-box">
 
-    <div class="card">
-      <h3>Not adjustable after seeing data</h3>
-      <p style="margin:0;">Choosing α post hoc invalidates error guarantees.</p>
-    </div>
+      <strong>Definition:</strong>
 
-    <div class="card">
-      <h3>Smaller α ≠ better in all cases</h3>
-      <p style="margin:0;">Reducing α increases the risk of missing real effects.</p>
-    </div>
-
-    <div class="card">
-      <h3>α does not measure effect size</h3>
-      <p style="margin:0;">It only sets a decision threshold.</p>
-    </div>
-  </div>
-</section>
-
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
-      <ul class="bullets">
-        <li>Define α formally</li>
-        <li>Understand its link to Type I error</li>
-        <li>Distinguish α from the p-value</li>
-        <li>Interpret α as long-run false-positive control</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next step</h2>
-      <p style="margin:0;">
-        Next, we examine Type I and Type II errors
-        and how they interact with power.
+      <p>
+        The significance level is a predetermined probability threshold used to decide whether the evidence against the null hypothesis is strong enough to reject it.
       </p>
 
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/hypothesis-testing/type1-type2-errors/">
-          Next lesson: 6. Type I and Type II Errors →
-        </a>
-      </div>
     </div>
 
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/hypothesis-testing/p-value-meaning/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 4: p-Value: Meaning and Interpretation
-          </a>
-        </div>
-      </div>
+    <p>
+      It is denoted by:
+    </p>
+
+    0
+
+    <h2>The Basic Decision Rule</h2>
+
+    <p>
+      After computing a p-value:
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Decision Rule:</strong>
+
+      <p>
+        Reject H₀ if p ≤ α.
+      </p>
+
+      <p>
+        Fail to reject H₀ if p > α.
+      </p>
+
     </div>
+
+    <p>
+      This rule is the foundation of classical hypothesis testing.
+    </p>
+
+    <h2>The Most Common Choice</h2>
+
+    <p>
+      In many fields,
+      the standard choice is:
+    </p>
+
+    1
+
+    <p>
+      This convention became widespread through historical statistical practice.
+    </p>
+
+    <p>
+      Although common,
+      it is not a universal law.
+    </p>
+
+    <h2>Other Common Significance Levels</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>α</th>
+            <th>Usage</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>0.10</td>
+            <td>More lenient evidence standard</td>
+          </tr>
+
+          <tr>
+            <td>0.05</td>
+            <td>Most common default</td>
+          </tr>
+
+          <tr>
+            <td>0.01</td>
+            <td>Stricter evidence requirement</td>
+          </tr>
+
+          <tr>
+            <td>0.001</td>
+            <td>Very strong evidence required</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>Interpreting α</h2>
+
+    <p>
+      The significance level is chosen before examining the data.
+    </p>
+
+    <p>
+      It specifies how willing we are to risk incorrectly rejecting a true null hypothesis.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Interpretation:</strong>
+
+      <p>
+        α controls the long-run probability of falsely rejecting a true null hypothesis.
+      </p>
+
+    </div>
+
+    <h2>An Example Decision</h2>
+
+    <p>
+      Suppose:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        α = 0.05
+      </p>
+
+      <p>
+        p = 0.03
+      </p>
+
+    </div>
+
+    <p>
+      Since:
+    </p>
+
+    2
+
+    <p>
+      we reject the null hypothesis.
+    </p>
+
+    <p>
+      The data provide sufficient evidence according to the chosen standard.
+    </p>
+
+    <h2>Another Example</h2>
+
+    <p>
+      Suppose:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        α = 0.05
+      </p>
+
+      <p>
+        p = 0.18
+      </p>
+
+    </div>
+
+    <p>
+      Since:
+    </p>
+
+    3
+
+    <p>
+      we fail to reject the null hypothesis.
+    </p>
+
+    <p>
+      The sample does not provide sufficiently strong evidence against H₀.
+    </p>
+
+    <h2>Reject vs Fail to Reject</h2>
+
+    <p>
+      Hypothesis testing uses very specific language.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Decision</th>
+            <th>Meaning</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Reject H₀</td>
+            <td>Evidence against H₀ is sufficiently strong</td>
+          </tr>
+
+          <tr>
+            <td>Fail to Reject H₀</td>
+            <td>Evidence against H₀ is insufficient</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      Notice that we never say:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        “Accept H₀”
+      </p>
+    </div>
+
+    <p>
+      because lack of evidence against H₀ does not prove it is true.
+    </p>
+
+    <h2>The Relationship Between Confidence Intervals and α</h2>
+
+    <p>
+      Confidence intervals and hypothesis tests are closely connected.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Confidence Level</th>
+            <th>Equivalent α</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>90%</td>
+            <td>0.10</td>
+          </tr>
+
+          <tr>
+            <td>95%</td>
+            <td>0.05</td>
+          </tr>
+
+          <tr>
+            <td>99%</td>
+            <td>0.01</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      In many situations:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        A null value outside a 95% confidence interval corresponds to rejection at α = 0.05.
+      </p>
+    </div>
+
+    <h2>Why Not Always Use a Tiny α?</h2>
+
+    <p>
+      A very small significance level reduces false rejections.
+    </p>
+
+    <p>
+      However,
+      it also makes it harder to detect real effects.
+    </p>
+
+    <p>
+      There is a tradeoff between caution and sensitivity.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Tradeoff:</strong>
+
+      <p>
+        Smaller α decreases false alarms but increases the chance of missing real effects.
+      </p>
+
+    </div>
+
+    <h2>Scientific Context Matters</h2>
+
+    <p>
+      Different fields often choose different significance levels.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Medical studies may require stricter evidence.
+      </p>
+
+      <p>
+        Exploratory research may tolerate a larger α.
+      </p>
+
+    </div>
+
+    <p>
+      The consequences of making errors influence the choice.
+    </p>
+
+    <h2>What α Does Not Mean</h2>
+
+    <p>
+      The significance level is often misunderstood.
+    </p>
+
+    <h3>Incorrect Interpretation</h3>
+
+    <div class="example-box">
+
+      <p>
+        “α is the probability that H₀ is true.”
+      </p>
+    </div>
+
+    <p>
+      This is false.
+    </p>
+
+    <p>
+      The significance level concerns decision errors,
+      not probabilities assigned to hypotheses.
+    </p>
+
+    <h2>The Long-Run Perspective</h2>
+
+    <p>
+      Imagine repeating the same study thousands of times when the null hypothesis is actually true.
+    </p>
+
+    <p>
+      If:
+    </p>
+
+    4
+
+    <p>
+      then approximately 5% of those studies would incorrectly reject H₀.
+    </p>
+
+    <p>
+      This repeated-sampling interpretation is fundamental.
+    </p>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      The p-value measures evidence.
+    </p>
+
+    <p>
+      The significance level provides a decision threshold.
+    </p>
+
+    <p>
+      Together they transform uncertainty into a formal statistical decision process.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        The significance level α is a predefined evidence threshold that controls how much evidence is required before rejecting the null hypothesis. It determines the long-run risk of falsely rejecting a true null hypothesis.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Hypothesis-testing decisions can sometimes be wrong.
+    </p>
+
+    <p>
+      We may reject a true null hypothesis or fail to reject a false one.
+    </p>
+
+    <p>
+      The next lesson introduces Type I and Type II errors, the two fundamental kinds of mistakes in statistical decision-making.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>The significance level is denoted by α</li>
+
+        <li>α is chosen before examining the data</li>
+
+        <li>Reject H₀ when p ≤ α</li>
+
+        <li>Fail to reject H₀ when p > α</li>
+
+        <li>α = 0.05 is the most common choice</li>
+
+        <li>α controls the long-run probability of falsely rejecting a true H₀</li>
+
+        <li>Smaller α requires stronger evidence</li>
+
+        <li>Confidence intervals and significance tests are closely connected</li>
+
+      </ul>
+
+    </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/hypothesis-testing/p-value-meaning/">
+         ← Previous: p-Value Meaning
+      </a>
+
+      <a class="btn"
+         href="/inference/hypothesis-testing/type1-type2-errors/">
+         Next: Type I and Type II Errors →
+      </a>
+
+    </div>
+
   </div>
+
 </section>

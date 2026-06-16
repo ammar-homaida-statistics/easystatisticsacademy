@@ -1,244 +1,563 @@
 ---
 layout: default
-title: "1. P-Values: What They Mean"
-description: "Interpret p-values correctly. Understand what a p-value measures, what it does not measure, and how to report it responsibly."
+title: P-Values: What They Mean
+description: Learn what p-values measure, how they are interpreted in hypothesis testing, and the common misconceptions surrounding them.
 permalink: /inference/interpretation-reporting/p-values-what-they-mean/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 establishes the formal definition of the p-value
-        and clarifies common misinterpretations.
-        Applied examples and reporting templates will be expanded later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update continue-reading keys -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_interpretation_reporting_lesson_v0";
+(function () {
 
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/interpretation-reporting/p-values-what-they-mean/",
-      label: "Lesson 1 — P-Values: What They Mean",
-      ts: Date.now()
-    }));
+  const KEY =
+    "esa_continue_inference_interpretation_reporting_lesson_v0";
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/interpretation-reporting/",
-      label: "Block 6 — Interpretation & Reporting",
-      ts: Date.now()
-    }));
-  })();
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/interpretation-reporting/p-values-what-they-mean/",
+    label: "P-Values: What They Mean",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 6</span>
-        <span class="badge">Lesson 1</span>
-        <span class="badge">p-value</span>
-        <span class="badge">Interpretation</span>
-      </div>
 
-      <h1>1. P-Values: What They Mean</h1>
-
-      <p class="lead">
-        The p-value measures how compatible the observed data are
-        with the null hypothesis.
-        It is frequently misinterpreted.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/interpretation-reporting/">Back to Block 6</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        Interpretation errors often arise from confusing probability of data with probability of hypotheses.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 6</span>
+      <span class="badge">Interpretation & Reporting</span>
+      <span class="badge">P-Values</span>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
-    <p>
-      Define the p-value formally, interpret it correctly,
-      and avoid common misconceptions.
+    <h1>P-Values: What They Mean</h1>
+
+    <p class="lead">
+      The p-value is one of the most widely reported and widely misunderstood quantities in statistics.
     </p>
-  </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Formal definition</h2>
-      <p style="margin:0;">
-        The p-value is:
-        \[
-        P(\text{Test statistic as extreme or more extreme than observed} \mid H_0 \text{ true})
-        \]
-      </p>
+    <p class="lead">
+      Understanding what a p-value actually measures—and what it does not measure—is essential for interpreting statistical results correctly.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/interpretation-reporting/">
+         ← Block Home
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/interpretation-reporting/statistical-vs-practical-significance/">
+         Next: Statistical vs Practical Significance →
+      </a>
+
     </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) What the p-value measures</h2>
-  </div>
+<!-- LESSON -->
 
-  <div class="card">
-    For a two-sided test:
-    \[
-    p =
-    P(|T| \ge |t_{obs}| \mid H_0)
-    \]
-  </div>
+<section>
 
-  <p>
-    It quantifies how surprising the observed statistic is
-    under the null model.
-  </p>
-</section>
+  <div class="content-narrow">
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) What the p-value does NOT measure</h2>
-  </div>
+    <h2>Why P-Values Matter</h2>
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Not</h3>
+    <p>
+      Most classical hypothesis tests ultimately produce a p-value.
+    </p>
+
+    <p>
+      Researchers often use that number to decide whether observed evidence is strong enough to reject a null hypothesis.
+    </p>
+
+    <p>
+      Despite its importance, the p-value is frequently misinterpreted.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core challenge:</strong>
+
       <p>
-        P(H₀ is true)
+        Many people know how to calculate a p-value but misunderstand what it actually represents.
       </p>
+
     </div>
 
-    <div class="card">
-      <h3>Not</h3>
+    <h2>Recall the Hypothesis-Testing Framework</h2>
+
+    <p>
+      Hypothesis testing begins with:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Null hypothesis (H₀)</li>
+
+      <li>Alternative hypothesis (Hₐ)</li>
+
+      <li>Test statistic</li>
+
+      <li>Sampling distribution</li>
+
+    </ul>
+
+    <p>
+      The p-value summarizes how unusual the observed data would be if the null hypothesis were true.
+    </p>
+
+    <h2>The Formal Definition</h2>
+
+    <div class="concept-box">
+
+      <strong>Definition:</strong>
+
       <p>
-        Probability the result occurred "by chance"
+        A p-value is the probability of obtaining results at least as extreme as those observed, assuming the null hypothesis is true.
       </p>
+
     </div>
 
-    <div class="card">
-      <h3>Not</h3>
+    <p>
+      The key phrase is:
+    </p>
+
+    <div class="example-box">
+
       <p>
-        Magnitude of the effect
+        Assuming the null hypothesis is true.
       </p>
     </div>
 
-    <div class="card">
-      <h3>Not</h3>
+    <h2>Interpreting Small P-Values</h2>
+
+    <p>
+      A small p-value means:
+    </p>
+
+    <div class="example-box">
+
       <p>
-        Probability the result will replicate
+        The observed data would be unusual if H₀ were true.
       </p>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) Relationship to alpha</h2>
-  </div>
+    <p>
+      Therefore, researchers may view the data as evidence against the null hypothesis.
+    </p>
 
-  <div class="card">
-    Decision rule:
-    \[
-    p \le \alpha
-    \Rightarrow
-    \text{Reject } H_0
-    \]
-  </div>
+    <h2>Interpreting Large P-Values</h2>
 
-  <p>
-    The p-value is compared to a pre-specified threshold α.
-  </p>
-</section>
+    <p>
+      A large p-value means:
+    </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>4) Continuous measure of evidence</h2>
-  </div>
+    <div class="example-box">
 
-  <div class="card">
-    Smaller p-value → greater incompatibility with H₀.
-  </div>
+      <p>
+        The observed data are reasonably consistent with H₀.
+      </p>
+    </div>
 
-  <p>
-    However, evidence is continuous —
-    there is no sharp boundary between “true” and “false”.
-  </p>
-</section>
+    <p>
+      In that situation, there is insufficient evidence to reject the null hypothesis.
+    </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>5) Correct reporting language</h2>
-  </div>
+    <h2>A Simple Example</h2>
 
-  <div class="card">
-    Correct:
-    <br><br>
-    “The data provide evidence against H₀ (p = 0.02).”
-  </div>
+    <p>
+      Suppose a hypothesis test produces:
+    </p>
 
-  <div class="card" style="margin-top:1rem;">
-    Incorrect:
-    <br><br>
-    “There is a 2% probability that H₀ is true.”
-  </div>
-</section>
+    <div class="example-box">
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+      <p>
+        p = 0.03
+      </p>
+    </div>
+
+    <p>
+      This means:
+    </p>
+
+    <p>
+      If the null hypothesis were true, results at least as extreme as the observed data would occur about 3% of the time.
+    </p>
+
+    <p>
+      Because this probability is relatively small, the evidence may be considered inconsistent with H₀.
+    </p>
+
+    <h2>The Decision Rule</h2>
+
+    <p>
+      Statistical decisions are often based on:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Significance level α
+      </p>
+    </div>
+
+    <p>
+      The common rule is:
+    </p>
+
+    <ul class="bullets">
+
+      <li>If p ≤ α, reject H₀</li>
+
+      <li>If p > α, fail to reject H₀</li>
+
+    </ul>
+
+    <h2>A Common Threshold</h2>
+
+    <p>
+      Many studies use:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        α = 0.05
+      </p>
+    </div>
+
+    <p>
+      Although widely used, this threshold is a convention rather than a universal law.
+    </p>
+
+    <h2>What a P-Value Is NOT</h2>
+
+    <p>
+      One of the most important lessons in statistics is understanding what a p-value does not represent.
+    </p>
+
+    <h2>Misconception #1</h2>
+
+    <div class="concept-box">
+
+      <strong>Incorrect:</strong>
+
+      <p>
+        The p-value is the probability that the null hypothesis is true.
+      </p>
+
+    </div>
+
+    <p>
+      This interpretation is wrong.
+    </p>
+
+    <p>
+      The p-value assumes H₀ is true; it does not calculate the probability that H₀ is true.
+    </p>
+
+    <h2>Misconception #2</h2>
+
+    <div class="concept-box">
+
+      <strong>Incorrect:</strong>
+
+      <p>
+        The p-value is the probability that the observed results occurred by chance.
+      </p>
+
+    </div>
+
+    <p>
+      This statement oversimplifies and often misrepresents the meaning of the p-value.
+    </p>
+
+    <p>
+      The calculation specifically assumes the null hypothesis is true and evaluates the extremeness of the observed data.
+    </p>
+
+    <h2>Misconception #3</h2>
+
+    <div class="concept-box">
+
+      <strong>Incorrect:</strong>
+
+      <p>
+        A smaller p-value means a larger effect.
+      </p>
+
+    </div>
+
+    <p>
+      Effect size and p-values measure different things.
+    </p>
+
+    <p>
+      Very small effects can produce extremely small p-values when sample sizes are large.
+    </p>
+
+    <h2>P-Values and Sample Size</h2>
+
+    <p>
+      Sample size strongly influences p-values.
+    </p>
+
+    <p>
+      Large samples make it easier to detect even tiny effects.
+    </p>
+
+    <p>
+      Consequently:
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Important:</strong>
+
+      <p>
+        Statistical significance does not automatically imply practical importance.
+      </p>
+
+    </div>
+
+    <h2>P-Values and Effect Size</h2>
+
+    <p>
+      To understand a result fully, researchers should examine:
+    </p>
+
+    <ul class="bullets">
+
+      <li>P-value</li>
+
+      <li>Effect size</li>
+
+      <li>Confidence interval</li>
+
+    </ul>
+
+    <p>
+      Together these provide a more complete picture than a p-value alone.
+    </p>
+
+    <h2>Continuous Evidence</h2>
+
+    <p>
+      P-values are continuous measures of evidence.
+    </p>
+
+    <p>
+      Consider:
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>P-Value</th>
+            <th>General Interpretation</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>0.40</td>
+            <td>Little evidence against H₀</td>
+          </tr>
+
+          <tr>
+            <td>0.10</td>
+            <td>Weak evidence against H₀</td>
+          </tr>
+
+          <tr>
+            <td>0.03</td>
+            <td>Moderate evidence against H₀</td>
+          </tr>
+
+          <tr>
+            <td>0.001</td>
+            <td>Strong evidence against H₀</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      Evidence changes gradually rather than abruptly.
+    </p>
+
+    <h2>The Problem with Bright Lines</h2>
+
+    <p>
+      Consider two studies:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Study A: p = 0.049
+      </p>
+
+      <p>
+        Study B: p = 0.051
+      </p>
+
+    </div>
+
+    <p>
+      These studies provide very similar evidence.
+    </p>
+
+    <p>
+      Yet a strict significance threshold would classify one as "significant" and the other as "not significant."
+    </p>
+
+    <p>
+      This illustrates why thoughtful interpretation is important.
+    </p>
+
+    <h2>P-Values and Replication</h2>
+
+    <p>
+      A statistically significant result does not guarantee that future studies will obtain the same outcome.
+    </p>
+
+    <p>
+      Replication depends on:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Effect size</li>
+
+      <li>Power</li>
+
+      <li>Study quality</li>
+
+      <li>Sampling variation</li>
+
+    </ul>
+
+    <h2>Modern Recommendations</h2>
+
+    <p>
+      Many statisticians recommend reporting:
+    </p>
+
+    <ul class="bullets">
+
+      <li>P-values</li>
+
+      <li>Confidence intervals</li>
+
+      <li>Effect sizes</li>
+
+      <li>Study limitations</li>
+
+    </ul>
+
+    <p>
+      rather than relying solely on a significance threshold.
+    </p>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      P-values are useful tools for evaluating evidence against a null hypothesis.
+    </p>
+
+    <p>
+      However, they do not measure effect size, practical importance, or the probability that a hypothesis is true.
+    </p>
+
+    <p>
+      Proper interpretation requires combining p-values with other statistical information and subject-matter knowledge.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        A p-value measures how unusual the observed data would be if the null hypothesis were true. Small p-values provide evidence against H₀, but p-values alone are not sufficient for understanding the importance or size of an effect.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Statistical significance is often confused with practical importance.
+    </p>
+
+    <p>
+      A result can be statistically significant yet have little real-world impact, while an important effect may fail to reach significance in a small study.
+    </p>
+
+    <p>
+      The next lesson explores the distinction between statistical significance and practical significance.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Define the p-value precisely</li>
-        <li>Distinguish data probability from hypothesis probability</li>
-        <li>Use correct reporting language</li>
-        <li>Avoid common misinterpretations</li>
+
+        <li>A p-value measures how unusual the observed data would be if H₀ were true</li>
+
+        <li>Small p-values provide evidence against the null hypothesis</li>
+
+        <li>Large p-values indicate insufficient evidence to reject H₀</li>
+
+        <li>P-values are not the probability that H₀ is true</li>
+
+        <li>P-values do not measure effect size</li>
+
+        <li>Sample size strongly influences p-values</li>
+
+        <li>Statistical significance and practical importance are different concepts</li>
+
+        <li>P-values should be interpreted alongside confidence intervals and effect sizes</li>
+
       </ul>
+
     </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/interpretation-reporting/">
+         ← Back to Block Home
+      </a>
+
+      <a class="btn"
+         href="/inference/interpretation-reporting/statistical-vs-practical-significance/">
+         Next: Statistical vs Practical Significance →
+      </a>
+
+    </div>
+
   </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next lesson</h2>
-      <p style="margin:0;">
-        We now distinguish statistical significance
-        from practical importance.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/interpretation-reporting/statistical-vs-practical-significance/">
-          Next lesson: 2. Statistical vs Practical Significance →
-        </a>
-      </div>
-    </div>
-
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous block</div>
-        <div class="mini-body">
-          <a href="/inference/power-sample-size/" style="color:#1a73e8; text-decoration:underline;">
-            Block 5: Power & Sample Size
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>

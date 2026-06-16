@@ -1,260 +1,598 @@
 ---
 layout: default
-title: "6. Outliers and Influence"
-description: "Understand what outliers are, how influential observations affect estimates, and how to diagnose and handle them responsibly."
+title: Outliers and Influence
+description: Learn what outliers are, how influential observations affect statistical analyses, and how to evaluate their impact responsibly.
 permalink: /inference/assumptions-robustness/outliers-and-influence/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 explains the distinction between outliers and influential points,
-        and introduces diagnostic tools for assessing their impact.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update continue-reading keys -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_assumptions_robustness_lesson_v0";
+(function () {
 
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/assumptions-robustness/outliers-and-influence/",
-      label: "Lesson 6 — Outliers and Influence",
-      ts: Date.now()
-    }));
+  const KEY =
+    "esa_continue_inference_assumptions_robustness_lesson_v0";
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/assumptions-robustness/",
-      label: "Block 7 — Assumptions & Robustness",
-      ts: Date.now()
-    }));
-  })();
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/assumptions-robustness/outliers-and-influence/",
+    label: "Outliers and Influence",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 7</span>
-        <span class="badge">Lesson 6</span>
-        <span class="badge">Outliers</span>
-        <span class="badge">Influence</span>
-      </div>
 
-      <h1>6. Outliers and Influence</h1>
-
-      <p class="lead">
-        A single observation can substantially change an estimate,
-        a confidence interval, or even a hypothesis test conclusion.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/assumptions-robustness/">Back to Block 7</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        Not all outliers are influential — and not all influential points are outliers.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 7</span>
+      <span class="badge">Assumptions & Robustness</span>
+      <span class="badge">Outliers</span>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
-    <p>
-      Distinguish between outliers and influential observations,
-      understand their impact on inference,
-      and apply diagnostic tools responsibly.
+    <h1>Outliers and Influence</h1>
+
+    <p class="lead">
+      A small number of unusual observations can sometimes have a surprisingly large impact on statistical conclusions.
     </p>
-  </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Core distinction</h2>
-      <p style="margin:0;">
-        An outlier is extreme in value.  
-        An influential point changes the model result when removed.
-      </p>
+    <p class="lead">
+      Understanding outliers and influential observations helps analysts distinguish between meaningful signals, data-quality problems, and artifacts of the analysis process.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/assumptions-robustness/heteroscedasticity-variance-issues/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/assumptions-robustness/robust-alternatives-nonparametric/">
+         Next: Robust Alternatives & Nonparametric Methods →
+      </a>
+
     </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) Outliers</h2>
-  </div>
+<!-- LESSON -->
 
-  <div class="card">
-    An observation is an outlier if:
-    <br><br>
-    • It lies far from the center of the data  
-    • It deviates strongly from the pattern  
-  </div>
+<section>
 
-  <p>
-    Example (z-score rule):
-    \[
-    |Z| > 3
-    \]
-  </p>
+  <div class="content-narrow">
 
-  <p class="muted-mini">
-    Extreme values do not automatically invalidate analysis.
-  </p>
-</section>
+    <h2>Why Outliers Matter</h2>
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) Influence</h2>
-  </div>
+    <p>
+      Most statistical methods summarize large collections of observations.
+    </p>
 
-  <div class="card">
-    Influence measures how much an observation changes:
-    <br><br>
-    • Estimated coefficients  
-    • Standard errors  
-    • Test statistics  
-  </div>
+    <p>
+      Occasionally, one or a few observations fall far from the majority of the data.
+    </p>
 
-  <div class="card" style="margin-top:1rem;">
-    Cook’s distance:
-    \[
-    D_i
-    \]
-  </div>
+    <p>
+      These unusual observations may substantially affect estimates, standard errors, and statistical conclusions.
+    </p>
 
-  <p>
-    Large values of \(D_i\) indicate influential observations.
-  </p>
-</section>
+    <div class="concept-box">
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) Why they matter</h2>
-  </div>
+      <strong>Main idea:</strong>
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Mean sensitivity</h3>
       <p>
-        The sample mean is highly sensitive to extreme values.
+        Not all unusual observations are problematic, but all important outliers deserve investigation.
       </p>
+
     </div>
 
-    <div class="card">
-      <h3>Regression slopes</h3>
+    <h2>What Is an Outlier?</h2>
+
+    <p>
+      An outlier is an observation that appears unusually distant from the rest of the dataset.
+    </p>
+
+    <p>
+      Outliers may occur because of:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Natural variation</li>
+
+      <li>Rare events</li>
+
+      <li>Measurement errors</li>
+
+      <li>Data-entry mistakes</li>
+
+      <li>Population heterogeneity</li>
+
+    </ul>
+
+    <h2>Outlier Does Not Mean Error</h2>
+
+    <p>
+      A common mistake is assuming that every outlier is wrong.
+    </p>
+
+    <p>
+      In reality, some outliers represent genuine and important observations.
+    </p>
+
+    <div class="example-box">
+
       <p>
-        A single high-leverage point can alter slope direction.
+        An unusually large insurance claim may be rare, but it may still be a valid observation.
       </p>
     </div>
 
-    <div class="card">
-      <h3>Type I error</h3>
+    <p>
+      Outliers should be examined, not automatically removed.
+    </p>
+
+    <h2>Why Outliers Can Be Problematic</h2>
+
+    <p>
+      Many statistical methods are sensitive to extreme values.
+    </p>
+
+    <p>
+      Outliers can affect:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Means</li>
+
+      <li>Variances</li>
+
+      <li>Standard deviations</li>
+
+      <li>Regression estimates</li>
+
+      <li>Hypothesis tests</li>
+
+    </ul>
+
+    <p>
+      A single observation may sometimes have a disproportionate effect.
+    </p>
+
+    <h2>The Mean vs the Median</h2>
+
+    <p>
+      Consider the values:
+    </p>
+
+    <div class="example-box">
+
       <p>
-        Outliers can inflate variance and distort inference.
+        5, 6, 7, 8, 100
       </p>
     </div>
 
-    <div class="card">
-      <h3>Misleading conclusions</h3>
+    <p>
+      The value 100 strongly influences the mean.
+    </p>
+
+    <p>
+      The median changes much less.
+    </p>
+
+    <p>
+      This illustrates why some statistics are more robust than others.
+    </p>
+
+    <h2>Outliers and Variability</h2>
+
+    <p>
+      Outliers often increase estimates of variability.
+    </p>
+
+    <p>
+      As a result:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Standard deviations may increase</li>
+
+      <li>Standard errors may increase</li>
+
+      <li>Confidence intervals may widen</li>
+
+    </ul>
+
+    <p>
+      Inferential conclusions may change substantially.
+    </p>
+
+    <h2>Detecting Outliers Graphically</h2>
+
+    <p>
+      Visual inspection is often the first step.
+    </p>
+
+    <p>
+      Useful graphical tools include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Histograms</li>
+
+      <li>Boxplots</li>
+
+      <li>Scatterplots</li>
+
+      <li>Residual plots</li>
+
+    </ul>
+
+    <p>
+      Graphs frequently reveal unusual observations more effectively than numerical summaries.
+    </p>
+
+    <h2>Boxplots and Outliers</h2>
+
+    <p>
+      Boxplots are commonly used to identify potential outliers.
+    </p>
+
+    <p>
+      Observations located far beyond the whiskers are often flagged for further investigation.
+    </p>
+
+    <p>
+      Being flagged does not automatically mean the observation should be removed.
+    </p>
+
+    <h2>Standardized Observations</h2>
+
+    <p>
+      Analysts sometimes examine observations relative to the overall variability of the data.
+    </p>
+
+    <p>
+      Standardized values help identify observations that are unusually far from the center.
+    </p>
+
+    0
+
+    <h2>Outliers in Regression</h2>
+
+    <p>
+      Outliers become particularly important in regression analysis.
+    </p>
+
+    <p>
+      An unusual observation may affect:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Regression slopes</li>
+
+      <li>Predicted values</li>
+
+      <li>Standard errors</li>
+
+      <li>Model fit statistics</li>
+
+    </ul>
+
+    <p>
+      Some observations can exert much more influence than others.
+    </p>
+
+    <h2>What Is Influence?</h2>
+
+    <div class="concept-box">
+
+      <strong>Definition:</strong>
+
       <p>
-        Results may be driven by a small subset of observations.
+        An influential observation is one whose inclusion or removal substantially changes the results of an analysis.
+      </p>
+
+    </div>
+
+    <p>
+      Influence is about impact, not simply unusualness.
+    </p>
+
+    <h2>Outlier vs Influential Observation</h2>
+
+    <p>
+      These concepts are related but different.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Concept</th>
+            <th>Main Idea</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Outlier</td>
+            <td>Unusual observation</td>
+          </tr>
+
+          <tr>
+            <td>Influential Observation</td>
+            <td>Observation that changes conclusions</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      An observation can be:
+    </p>
+
+    <ul class="bullets">
+
+      <li>An outlier but not influential</li>
+
+      <li>Influential but not extreme in value</li>
+
+      <li>Both outlying and influential</li>
+
+    </ul>
+
+    <h2>High-Leverage Points</h2>
+
+    <p>
+      In regression, observations with unusual predictor values are often called:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        High-leverage points
       </p>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>4) Diagnostic tools</h2>
-  </div>
+    <p>
+      High leverage increases the potential for influence.
+    </p>
 
-  <div class="card">
-    Common diagnostics:
-    <br><br>
-    • Boxplots  
-    • Residual plots  
-    • Leverage statistics  
-    • Cook’s distance  
-  </div>
+    <p>
+      However, not all high-leverage observations are influential.
+    </p>
 
-  <div class="card" style="margin-top:1rem;">
-    Standardized residual:
-    \[
-    r_i = \frac{e_i}{\hat{\sigma}(e_i)}
-    \]
-  </div>
-</section>
+    <h2>Why Investigation Matters</h2>
 
-<section class="section">
-  <div class="section-head">
-    <h2>5) What to do</h2>
-  </div>
+    <p>
+      When unusual observations appear, analysts should ask:
+    </p>
 
-  <div class="card">
-    Responsible strategy:
-    <br><br>
-    1. Investigate data entry errors  
-    2. Assess influence formally  
-    3. Compare results with and without the point  
-    4. Consider robust alternatives  
-  </div>
+    <ul class="bullets">
 
-  <p class="muted-mini">
-    Removing points without justification is not acceptable practice.
-  </p>
-</section>
+      <li>Is the observation valid?</li>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+      <li>Was there a recording error?</li>
+
+      <li>Does the observation represent a different population?</li>
+
+      <li>How sensitive are conclusions to its presence?</li>
+
+    </ul>
+
+    <p>
+      Investigation is more important than automatic deletion.
+    </p>
+
+    <h2>Avoid Automatic Removal</h2>
+
+    <p>
+      Removing observations solely because they are unusual can introduce bias.
+    </p>
+
+    <p>
+      Outlier removal should have a clear justification.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Good practice:</strong>
+
+      <p>
+        Remove observations only when there is evidence that they are erroneous or inappropriate for the intended analysis.
+      </p>
+
+    </div>
+
+    <h2>Sensitivity Analysis</h2>
+
+    <p>
+      One useful strategy is to compare results:
+    </p>
+
+    <ul class="bullets">
+
+      <li>With the observation included</li>
+
+      <li>With the observation excluded</li>
+
+    </ul>
+
+    <p>
+      Large differences suggest substantial influence.
+    </p>
+
+    <p>
+      This approach helps evaluate robustness.
+    </p>
+
+    <h2>Robust Statistics</h2>
+
+    <p>
+      Some statistical methods are intentionally designed to reduce sensitivity to outliers.
+    </p>
+
+    <p>
+      Examples include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Medians instead of means</li>
+
+      <li>Trimmed means</li>
+
+      <li>Robust regression methods</li>
+
+      <li>Nonparametric procedures</li>
+
+    </ul>
+
+    <p>
+      These approaches can provide more stable conclusions in the presence of extreme observations.
+    </p>
+
+    <h2>Outliers and Scientific Discovery</h2>
+
+    <p>
+      Sometimes the most interesting observations are the unusual ones.
+    </p>
+
+    <p>
+      Scientific breakthroughs have occasionally emerged from investigating observations that initially appeared anomalous.
+    </p>
+
+    <p>
+      Outliers can reveal important processes that standard analyses overlook.
+    </p>
+
+    <h2>The Robustness Perspective</h2>
+
+    <p>
+      The key question is not:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Does an outlier exist?
+      </p>
+    </div>
+
+    <p>
+      Instead ask:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Does the outlier meaningfully affect the conclusions?
+      </p>
+    </div>
+
+    <p>
+      This distinction focuses attention on practical impact rather than simple detection.
+    </p>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      Outliers are common in real datasets.
+    </p>
+
+    <p>
+      Some are errors, some are rare events, and some represent important scientific information.
+    </p>
+
+    <p>
+      Responsible statistical practice involves understanding their source and evaluating their influence rather than applying automatic rules.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Outliers are unusual observations, while influential observations are those that substantially affect analytical conclusions. Good statistical practice focuses on investigation, sensitivity analysis, and robustness rather than automatic removal.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Classical statistical procedures often rely on assumptions about distributions and sensitivity to extreme values.
+    </p>
+
+    <p>
+      When these assumptions become questionable, analysts may use robust or nonparametric alternatives.
+    </p>
+
+    <p>
+      The next lesson introduces these approaches and explains when they provide useful alternatives to traditional methods.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Define outliers precisely</li>
-        <li>Understand influence vs extremeness</li>
-        <li>Apply diagnostic tools</li>
-        <li>Handle extreme values responsibly</li>
+
+        <li>Outliers are observations that appear unusually distant from the rest of the data</li>
+
+        <li>Outliers are not automatically errors</li>
+
+        <li>Extreme observations can affect estimates and inference</li>
+
+        <li>Influential observations are those that materially change conclusions</li>
+
+        <li>Outliers and influence are related but distinct concepts</li>
+
+        <li>Graphs are useful for identifying unusual observations</li>
+
+        <li>Sensitivity analysis helps evaluate influence</li>
+
+        <li>Robust methods can reduce sensitivity to extreme observations</li>
+
       </ul>
+
     </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/assumptions-robustness/heteroscedasticity-variance-issues/">
+         ← Previous: Heteroscedasticity and Variance Issues
+      </a>
+
+      <a class="btn"
+         href="/inference/assumptions-robustness/robust-alternatives-nonparametric/">
+         Next: Robust Alternatives & Nonparametric Methods →
+      </a>
+
+    </div>
+
   </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next lesson</h2>
-      <p style="margin:0;">
-        We now examine robust and nonparametric alternatives
-        when assumptions fail substantially.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/assumptions-robustness/robust-alternatives-nonparametric/">
-          Next lesson: 7. Robust and Nonparametric Alternatives →
-        </a>
-      </div>
-    </div>
-
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/assumptions-robustness/heteroscedasticity-variance-issues/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 5: Heteroscedasticity
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>

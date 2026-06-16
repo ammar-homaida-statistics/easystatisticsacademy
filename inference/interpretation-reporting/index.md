@@ -1,7 +1,3 @@
-<!-- =========================================================
-BLOCK 6 — INTERPRETATION & REPORTING
-File: /inference/interpretation-reporting/index.md
-========================================================= -->
 ---
 layout: default
 title: Block 6 — Interpretation & Reporting
@@ -10,220 +6,631 @@ permalink: /inference/interpretation-reporting/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 This Block Is Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        This block focuses on the hardest part of inference: <strong>interpretation</strong>.
-        You will learn to report results accurately, avoid common wording mistakes,
-        and connect statistical outputs (p-values, CIs, effect sizes) to real meaning.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update "last visited block" -->
+<!-- SAVE BLOCK PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_last_block_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/interpretation-reporting/",
-      label: "Block 6 — Interpretation & Reporting",
-      ts: Date.now()
-    }));
-  })();
+(function () {
+
+  const KEY = "esa_continue_inference_last_block_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/interpretation-reporting/",
+    label: "Block 6 — Interpretation & Reporting",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card hero-split">
+
+    <!-- LEFT -->
+
     <div class="hero-copy">
+
       <div class="badge-row">
+        <span class="badge">Inference</span>
         <span class="badge">Block 6</span>
         <span class="badge">Interpretation</span>
-        <span class="badge">Reporting</span>
         <span class="badge">Communication</span>
       </div>
 
-      <h1>Block 6 — Interpretation &amp; Reporting</h1>
+      <h1>Block 6 — Interpretation & Reporting</h1>
+
       <p class="lead">
-        A correct calculation with a wrong interpretation is still wrong.
-        This block teaches how to interpret p-values and confidence intervals,
-        emphasize effect sizes and practical significance, and report results clearly and honestly.
+        Correct statistical analysis requires correct interpretation.
+      </p>
+
+      <p class="lead">
+        This block focuses on communicating evidence accurately,
+        understanding what statistical results actually mean,
+        and avoiding the most common reporting mistakes in applied research.
+      </p>
+
+      <p class="muted-mini">
+        8 lessons • Scientific communication • Builds on Power & Sample Size • Prepares for Assumptions & Robustness
       </p>
 
       <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/">Back to Statistical Inference</a>
-        <a class="btn" href="#lessons">Open structure</a>
+
+        <a class="btn" href="#lessons">
+          Open Lessons
+        </a>
+
+        <a class="btn btn-outline" href="/inference/">
+          Back to Statistical Inference
+        </a>
+
       </div>
 
-      <p class="muted-mini">
-        Version 0: structure is locked. Lessons will expand without changing URLs or order.
-      </p>
+      <div class="hero-highlight">
+
+        <div class="hero-highlight-icon">
+          📝
+        </div>
+
+        <div>
+
+          <strong>Why this block matters</strong>
+
+          <p>
+            A perfectly executed analysis can still produce misleading conclusions
+            if p-values, confidence intervals, and effect sizes are interpreted incorrectly.
+            Good reporting is essential for scientific credibility and decision-making.
+          </p>
+
+        </div>
+
+      </div>
+
     </div>
+
+    <!-- RIGHT -->
 
     <div class="hero-panel">
+
       <div class="panel-card">
-        <h2 class="panel-title">What this block covers</h2>
-        <ul class="quickstart" style="list-style:none; padding-left:0; margin:0;">
-          <li style="margin:.35rem 0;"><strong>Meaning of p-values</strong><span class="meta">What they are / what they are not</span></li>
-          <li style="margin:.35rem 0;"><strong>CI interpretation</strong><span class="meta">Coverage, precision, and language</span></li>
-          <li style="margin:.35rem 0;"><strong>Effect sizes</strong><span class="meta">Magnitude, not only significance</span></li>
-          <li style="margin:.35rem 0;"><strong>Multiple testing</strong><span class="meta">False positives and adjustment logic</span></li>
-          <li style="margin:.35rem 0;"><strong>Reporting</strong><span class="meta">Clear sentences, tables, and figures</span></li>
-          <li style="margin:.35rem 0;"><strong>Reproducibility</strong><span class="meta">Checks, transparency, and workflow</span></li>
-        </ul>
+
+        <h2 class="panel-title">Block overview</h2>
+
+        <div class="mini">
+          <div class="mini-title">Lessons</div>
+          <div class="mini-body">8 structured lessons</div>
+        </div>
+
+        <div class="mini">
+          <div class="mini-title">Level</div>
+          <div class="mini-body">Applied statistical reasoning</div>
+        </div>
+
+        <div class="mini">
+          <div class="mini-title">Main skill</div>
+          <div class="mini-body">
+            Interpret and communicate statistical evidence correctly
+          </div>
+        </div>
+
+        <div class="mini">
+          <div class="mini-title">Next block</div>
+          <div class="mini-body">
+            Assumptions & Robustness
+          </div>
+        </div>
+
       </div>
+
     </div>
+
   </div>
+
 </section>
 
-<!-- ✅ Continue Reading (lesson-level placeholder key for this block) -->
-<section class="section" id="continue-reading-block6" style="display:none;">
+<!-- CONTINUE READING -->
+
+<section
+  class="section"
+  id="continue-reading-inference-reporting"
+  style="display:none;"
+>
+
   <div class="callout">
+
     <div class="callout-copy">
+
       <h2>Continue reading</h2>
-      <p class="muted-mini" id="continue-reading-block6-label" style="margin:0 0 .75rem 0;"></p>
-      <a class="btn" id="continue-reading-block6-btn" href="#">Continue</a>
+
+      <p
+        id="continue-reading-inference-reporting-label"
+        class="muted-mini"
+      ></p>
+
+      <a
+        class="btn"
+        id="continue-reading-inference-reporting-btn"
+        href="#"
+      >
+        Continue
+      </a>
+
     </div>
+
   </div>
+
 </section>
+
+<!-- LESSONS -->
 
 <section class="section" id="lessons">
+
   <div class="section-head">
-    <h2>Lessons (Version 0)</h2>
+
+    <h2>Lessons</h2>
+
     <p>
-      Lessons are published in order to keep interpretation logic coherent.
-      The list below is the permanent structure for this block.
+      These lessons focus on the interpretation of statistical evidence,
+      effective communication,
+      and avoiding misleading conclusions.
     </p>
+
   </div>
 
   <div class="grid grid-2">
 
-    <!-- Lesson 1 -->
-    <div class="card lesson-card">
-      <h3><a href="/inference/interpretation-reporting/p-values-what-they-mean/">1. p-Values: What They Mean (and Do Not Mean)</a></h3>
-      <p>Define p-values precisely, connect them to the null model, and avoid classic interpretation errors.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/inference/interpretation-reporting/p-values-what-they-mean/">Open lesson</a>
+    <!-- LESSON 1 -->
+
+    <div class="card lesson-card lesson-block-card">
+
+      <h3>
+        <a href="/inference/interpretation-reporting/p-values-what-they-mean/">
+          p-Values: What They Mean (and Do Not Mean)
+        </a>
+      </h3>
+
+      <p>
+        Define p-values precisely,
+        connect them to the null model,
+        and avoid common interpretation errors.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">p-Value</span>
+        <span class="pill">Interpretation</span>
+        <span class="pill">Evidence</span>
       </div>
+
+      <a
+        class="btn btn-outline"
+        href="/inference/interpretation-reporting/p-values-what-they-mean/"
+      >
+        Open lesson
+      </a>
+
     </div>
 
-    <!-- Lesson 2 -->
-    <div class="card lesson-card">
-      <h3><a href="/inference/interpretation-reporting/statistical-vs-practical-significance/">2. Statistical vs Practical Significance</a></h3>
-      <p>Why “significant” does not mean “important” and how sample size changes conclusions.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/inference/interpretation-reporting/statistical-vs-practical-significance/">Open lesson</a>
+    <!-- LESSON 2 -->
+
+    <div class="card lesson-card lesson-block-card">
+
+      <h3>
+        <a href="/inference/interpretation-reporting/statistical-vs-practical-significance/">
+          Statistical vs Practical Significance
+        </a>
+      </h3>
+
+      <p>
+        Learn why statistical significance
+        does not automatically imply practical importance.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Significance</span>
+        <span class="pill">Effect Size</span>
+        <span class="pill">Decision Making</span>
       </div>
+
+      <a
+        class="btn btn-outline"
+        href="/inference/interpretation-reporting/statistical-vs-practical-significance/"
+      >
+        Open lesson
+      </a>
+
     </div>
 
-    <!-- Lesson 3 -->
-    <div class="card lesson-card">
-      <h3><a href="/inference/interpretation-reporting/interpreting-confidence-intervals/">3. Interpreting Confidence Intervals Correctly</a></h3>
-      <p>Coverage meaning, wrong wording, and how CI width communicates precision.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/inference/interpretation-reporting/interpreting-confidence-intervals/">Open lesson</a>
+    <!-- LESSON 3 -->
+
+    <div class="card lesson-card lesson-block-card">
+
+      <h3>
+        <a href="/inference/interpretation-reporting/interpreting-confidence-intervals/">
+          Interpreting Confidence Intervals Correctly
+        </a>
+      </h3>
+
+      <p>
+        Understand confidence interval interpretation,
+        coverage, precision,
+        and common misconceptions.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Confidence Intervals</span>
+        <span class="pill">Coverage</span>
+        <span class="pill">Precision</span>
       </div>
+
+      <a
+        class="btn btn-outline"
+        href="/inference/interpretation-reporting/interpreting-confidence-intervals/"
+      >
+        Open lesson
+      </a>
+
     </div>
 
-    <!-- Lesson 4 -->
-    <div class="card lesson-card">
-      <h3><a href="/inference/interpretation-reporting/interpreting-effect-sizes/">4. Interpreting Effect Sizes</a></h3>
-      <p>Effect size families (difference, ratio, standardized) and how to explain magnitude.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/inference/interpretation-reporting/interpreting-effect-sizes/">Open lesson</a>
+    <!-- LESSON 4 -->
+
+    <div class="card lesson-card lesson-block-card">
+
+      <h3>
+        <a href="/inference/interpretation-reporting/interpreting-effect-sizes/">
+          Interpreting Effect Sizes
+        </a>
+      </h3>
+
+      <p>
+        Learn how to explain magnitude,
+        compare effect size measures,
+        and communicate practical impact.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Effect Size</span>
+        <span class="pill">Magnitude</span>
+        <span class="pill">Interpretation</span>
       </div>
+
+      <a
+        class="btn btn-outline"
+        href="/inference/interpretation-reporting/interpreting-effect-sizes/"
+      >
+        Open lesson
+      </a>
+
     </div>
 
-    <!-- Lesson 5 -->
-    <div class="card lesson-card">
-      <h3><a href="/inference/interpretation-reporting/multiple-testing-and-false-positives/">5. Multiple Testing and False Positives</a></h3>
-      <p>Why multiple comparisons inflate false discoveries and what adjustments mean conceptually.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/inference/interpretation-reporting/multiple-testing-and-false-positives/">Open lesson</a>
+<!-- LESSON 5 -->
+
+    <div class="card lesson-card lesson-block-card">
+
+      <h3>
+        <a href="/inference/interpretation-reporting/multiple-testing-and-false-positives/">
+          Multiple Testing and False Positives
+        </a>
+      </h3>
+
+      <p>
+        Understand why repeated testing increases false discoveries
+        and how adjustment procedures help control error rates.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Multiple Testing</span>
+        <span class="pill">False Positives</span>
+        <span class="pill">Adjustments</span>
       </div>
+
+      <a
+        class="btn btn-outline"
+        href="/inference/interpretation-reporting/multiple-testing-and-false-positives/"
+      >
+        Open lesson
+      </a>
+
     </div>
 
-    <!-- Lesson 6 -->
-    <div class="card lesson-card">
-      <h3><a href="/inference/interpretation-reporting/reporting-results-clear-language/">6. Reporting Results in Clear Language</a></h3>
-      <p>Templates for correct reporting: what to include, what to avoid, and how to write honest conclusions.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/inference/interpretation-reporting/reporting-results-clear-language/">Open lesson</a>
+    <!-- LESSON 6 -->
+
+    <div class="card lesson-card lesson-block-card">
+
+      <h3>
+        <a href="/inference/interpretation-reporting/reporting-results-clear-language/">
+          Reporting Results in Clear Language
+        </a>
+      </h3>
+
+      <p>
+        Learn how to write statistically correct conclusions
+        that are clear, concise, and scientifically honest.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Reporting</span>
+        <span class="pill">Communication</span>
+        <span class="pill">Writing</span>
       </div>
+
+      <a
+        class="btn btn-outline"
+        href="/inference/interpretation-reporting/reporting-results-clear-language/"
+      >
+        Open lesson
+      </a>
+
     </div>
 
-    <!-- Lesson 7 -->
-    <div class="card lesson-card">
-      <h3><a href="/inference/interpretation-reporting/tables-figures-and-visual-communication/">7. Tables, Figures, and Visual Communication</a></h3>
-      <p>How to present inference results visually: CI plots, effect plots, and common visualization traps.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/inference/interpretation-reporting/tables-figures-and-visual-communication/">Open lesson</a>
+    <!-- LESSON 7 -->
+
+    <div class="card lesson-card lesson-block-card">
+
+      <h3>
+        <a href="/inference/interpretation-reporting/tables-figures-and-visual-communication/">
+          Tables, Figures, and Visual Communication
+        </a>
+      </h3>
+
+      <p>
+        Present statistical evidence effectively using tables,
+        confidence interval plots,
+        and other visual tools.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Visualization</span>
+        <span class="pill">Tables</span>
+        <span class="pill">Communication</span>
       </div>
+
+      <a
+        class="btn btn-outline"
+        href="/inference/interpretation-reporting/tables-figures-and-visual-communication/"
+      >
+        Open lesson
+      </a>
+
     </div>
 
-    <!-- Lesson 8 -->
-    <div class="card lesson-card">
-      <h3><a href="/inference/interpretation-reporting/reproducibility-and-analysis-checklist/">8. Reproducibility and an Analysis Checklist</a></h3>
-      <p>A practical checklist: assumptions, sensitivity, documentation, and reproducible reporting habits.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/inference/interpretation-reporting/reproducibility-and-analysis-checklist/">Open lesson</a>
+    <!-- LESSON 8 -->
+
+    <div class="card lesson-card lesson-block-card">
+
+      <h3>
+        <a href="/inference/interpretation-reporting/reproducibility-and-analysis-checklist/">
+          Reproducibility and an Analysis Checklist
+        </a>
+      </h3>
+
+      <p>
+        Build habits that improve transparency,
+        reproducibility,
+        and confidence in statistical conclusions.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Reproducibility</span>
+        <span class="pill">Workflow</span>
+        <span class="pill">Checklist</span>
       </div>
+
+      <a
+        class="btn btn-outline"
+        href="/inference/interpretation-reporting/reproducibility-and-analysis-checklist/"
+      >
+        Open lesson
+      </a>
+
     </div>
 
   </div>
+
 </section>
 
+<!-- BLOCK MAP -->
+
 <section class="section section-slim">
+
   <div class="callout">
+
     <div class="callout-copy">
-      <h2>Outcome of Block 6</h2>
+
+      <h2>How this block fits into inference</h2>
+
+      <p>
+        Statistical inference does not end with a p-value or confidence interval.
+        The final step is interpretation and communication.
+        This block develops the skills needed to explain results accurately,
+        assess practical importance,
+        and report findings responsibly.
+      </p>
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+
+            <tr>
+              <th>Concept</th>
+              <th>Why it matters later</th>
+            </tr>
+
+          </thead>
+
+          <tbody>
+
+            <tr>
+              <td>p-Value Interpretation</td>
+              <td>Avoids common misunderstandings about statistical evidence</td>
+            </tr>
+
+            <tr>
+              <td>Confidence Intervals</td>
+              <td>Communicates uncertainty and precision effectively</td>
+            </tr>
+
+            <tr>
+              <td>Effect Sizes</td>
+              <td>Provides practical meaning beyond significance tests</td>
+            </tr>
+
+            <tr>
+              <td>Multiple Testing</td>
+              <td>Reduces false discoveries and misleading conclusions</td>
+            </tr>
+
+            <tr>
+              <td>Reproducible Reporting</td>
+              <td>Improves transparency and scientific credibility</td>
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- GOALS -->
+
+<section class="section section-slim">
+
+  <div class="callout">
+
+    <div class="callout-copy">
+
+      <h2>Goal of this block</h2>
+
       <ul class="bullets">
-        <li>Interpret p-values and CIs correctly using precise language</li>
-        <li>Separate statistical significance from practical importance</li>
-        <li>Report effect sizes and uncertainty clearly</li>
-        <li>Avoid common reporting traps and improve reproducibility</li>
+
+        <li>Interpret p-values correctly using precise language</li>
+
+        <li>Explain confidence intervals without common misconceptions</li>
+
+        <li>Distinguish statistical significance from practical importance</li>
+
+        <li>Interpret and report effect sizes responsibly</li>
+
+        <li>Recognize risks created by multiple testing</li>
+
+        <li>Communicate statistical results clearly to non-specialists</li>
+
+        <li>Produce transparent and reproducible analyses</li>
+
+        <li>Develop professional reporting habits for research and practice</li>
+
       </ul>
+
     </div>
 
     <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Next block</div>
+
+      <div class="mini">
+
+        <div class="mini-title">Next block</div>
+
         <div class="mini-body">
-          Continue to
-          <a href="/inference/assumptions-robustness/" style="color:#1a73e8; text-decoration:underline;">
-            <strong>Block 7 — Assumptions & Robustness</strong>
-          </a>.
+          Continue to <strong>Assumptions & Robustness</strong>
         </div>
+
       </div>
+
+      <div class="mini">
+
+        <div class="mini-title">Core idea</div>
+
+        <div class="mini-body">
+          Correct interpretation is as important as correct calculation.
+        </div>
+
+      </div>
+
+      <div class="mini">
+
+        <div class="mini-title">Big transition</div>
+
+        <div class="mini-body">
+          The next block examines what happens when assumptions fail and how robust methods respond.
+        </div>
+
+      </div>
+
     </div>
 
   </div>
+
 </section>
 
-<!-- ✅ Continue Reading Script (lesson-level) -->
+<!-- NAVIGATION -->
+
+<section class="section section-slim">
+
+  <div class="lesson-nav">
+
+    <a class="btn btn-outline" href="/inference/power-sample-size/">
+      ← Previous Block: Power & Sample Size
+    </a>
+
+    <a class="btn" href="/inference/assumptions-robustness/">
+      Next Block: Assumptions & Robustness →
+    </a>
+
+  </div>
+
+</section>
+
+<!-- CONTINUE READING SCRIPT -->
+
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_interpretation_reporting_lesson_v0";
-    var raw = localStorage.getItem(KEY);
+(function () {
+
+  try {
+
+    const KEY =
+      "esa_continue_inference_interpretation_reporting_lesson_v0";
+
+    const raw = localStorage.getItem(KEY);
+
     if (!raw) return;
 
-    try {
-      var data = JSON.parse(raw);
-      if (!data || !data.url || !data.label) return;
+    const data = JSON.parse(raw);
 
-      var wrap = document.getElementById("continue-reading-block6");
-      var label = document.getElementById("continue-reading-block6-label");
-      var btn = document.getElementById("continue-reading-block6-btn");
-      if (!wrap || !label || !btn) return;
+    if (!data || !data.url || !data.label) return;
 
-      label.innerHTML = 'You last visited: <strong>' + data.label + '</strong>';
-      btn.href = data.url;
-      wrap.style.display = "block";
-    } catch (e) {}
-  })();
+    const wrap =
+      document.getElementById(
+        "continue-reading-inference-reporting"
+      );
+
+    const label =
+      document.getElementById(
+        "continue-reading-inference-reporting-label"
+      );
+
+    const btn =
+      document.getElementById(
+        "continue-reading-inference-reporting-btn"
+      );
+
+    if (!wrap || !label || !btn) return;
+
+    label.innerHTML =
+      "You last visited: <strong>" +
+      data.label +
+      "</strong>";
+
+    btn.href = data.url;
+
+    wrap.style.display = "block";
+
+  } catch (e) {}
+
+})();
 </script>

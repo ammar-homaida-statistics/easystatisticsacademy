@@ -1,303 +1,508 @@
 ---
 layout: default
-title: "6. Why Inference Works"
-description: "How LLN and CLT justify confidence intervals and hypothesis testing: sampling distributions, standard error, and long-run guarantees."
+title: Inference Bridge
+description: Learn how probability theory, the Law of Large Numbers, and the Central Limit Theorem make statistical inference possible.
 permalink: /probability/lln-clt/inference-bridge/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem;">🚧 Lesson Under Construction</h2>
-      <p style="margin:0; font-size:1.05rem;">
-        Version 0 explains the logic behind statistical inference: why intervals and tests can be trusted in the long run.
-        Worked examples and software demos will be added in Version 1.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Continue Reading Tracking -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_probability_lln_clt_lesson_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/probability/lln-clt/inference-bridge/",
-      label: "Lesson 6 — Why Inference Works",
-      ts: Date.now()
-    }));
-  })();
+(function () {
+
+  const KEY =
+    "esa_continue_probability_lln_clt_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/probability/lln-clt/inference-bridge/",
+    label: "Inference Bridge",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 6</span>
-        <span class="badge">Lesson 6</span>
-        <span class="badge">Inference</span>
-        <span class="badge">Bridge</span>
-      </div>
 
-      <h1>6. Why Inference Works</h1>
-
-      <p class="lead">
-        Statistical inference is possible because sample summaries become stable (LLN)
-        and their fluctuations become predictable (CLT). This lesson connects those ideas to
-        <strong>confidence intervals</strong> and <strong>hypothesis tests</strong>.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/probability/lln-clt/">Back to Block 6</a>
-        <a class="btn btn-outline" href="/probability/">Probability home</a>
-      </div>
-
-      <p class="muted-mini">
-        Inference = “estimate and test using probability guarantees about sampling.”
-      </p>
+    <div class="badge-row">
+      <span class="badge">Probability</span>
+      <span class="badge">Block 6</span>
+      <span class="badge">LLN & CLT</span>
+      <span class="badge">Inference</span>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
-    <p>
-      By the end of this lesson, you should be able to explain (in probability terms)
-      why confidence intervals have a target coverage and why hypothesis tests have controlled error rates.
+    <h1>Inference Bridge</h1>
+
+    <p class="lead">
+      Probability theory studies random processes and their long-run behavior.
     </p>
-  </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Key idea</h2>
-      <p style="margin:0;">
-        Inference works because the <strong>sampling distribution</strong> of an estimator is (approximately) known.
-        LLN gives consistency; CLT gives approximate normality and standard errors.
-      </p>
+    <p class="lead">
+      Statistical inference uses sample data to learn about unknown populations. The bridge connecting these two worlds is built from the Law of Large Numbers and the Central Limit Theorem.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/probability/lln-clt/normal-approximation/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/probability/sampling-distributions/">
+         Next: Sampling Distributions →
+      </a>
+
     </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) What “inference” is, in one line</h2>
-  </div>
+<!-- LESSON -->
 
-  <div class="card">
-    <p style="margin:0;">
-      We observe a sample and use it to learn about an unknown parameter (like \(\mu\) or \(p\))
-      while quantifying uncertainty using probability.
-    </p>
-  </div>
-</section>
+<section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) The sampling distribution is the engine</h2>
+  <div class="content-narrow">
+
+    <h2>From Probability to Statistics</h2>
+
     <p>
-      Let \(X_1,\dots,X_n\) be i.i.d. with mean \(\mu\) and variance \(\sigma^2\).
-      The sample mean is:
+      Probability and statistics ask opposite questions.
     </p>
-  </div>
 
-  <div class="card">
-    <p style="margin:0; font-size:1.05rem;">
-      \[
-      \overline{X}=\frac{1}{n}\sum_{i=1}^n X_i.
-      \]
-    </p>
-  </div>
+    <div class="table-wrap">
 
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Why it matters</h2>
-      <p style="margin:0;">
-        Inference needs the distribution of \(\overline{X}\) (or another estimator) across repeated samples.
-        That distribution is called the sampling distribution.
-      </p>
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Probability</th>
+            <th>Statistics</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Known population → Predict sample behavior</td>
+            <td>Observed sample → Learn about population</td>
+          </tr>
+
+          <tr>
+            <td>Forward direction</td>
+            <td>Reverse direction</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) LLN gives consistency (stability)</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      LLN tells us:
-      \[
-      \overline{X} \xrightarrow[]{P} \mu.
-      \]
+    <p>
+      Statistical inference depends on understanding how samples behave when drawn from populations.
     </p>
-  </div>
 
-  <p class="muted-mini" style="margin-top:.75rem;">
-    Meaning: as \(n\) grows, \(\overline{X}\) gets close to \(\mu\) with high probability.
-    This is the basic “stability” behind estimation.
-  </p>
-</section>
+    <h2>The Fundamental Challenge</h2>
 
-<section class="section">
-  <div class="section-head">
-    <h2>4) CLT gives shape + scale (predictable error)</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      CLT tells us:
-      \[
-      \frac{\overline{X}-\mu}{\sigma/\sqrt{n}} \xrightarrow[]{d} N(0,1).
-      \]
+    <p>
+      In practice,
+      populations are usually unknown.
     </p>
-  </div>
 
-  <div class="card" style="margin-top:1rem;">
-    <p style="margin:0;">
-      So for large \(n\),
-      \[
-      \overline{X}\approx N\!\left(\mu,\frac{\sigma^2}{n}\right).
-      \]
-    </p>
-  </div>
+    <div class="example-box">
 
-  <p class="muted-mini" style="margin-top:.75rem;">
-    This is what makes error bars and probability statements possible.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>5) Standard error: the uncertainty unit</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      The standard deviation of \(\overline{X}\) is:
-      \[
-      \operatorname{SD}(\overline{X})=\frac{\sigma}{\sqrt{n}}.
-      \]
-    </p>
-  </div>
-
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Interpretation</h2>
-      <p style="margin:0;">
-        \(\sigma/\sqrt{n}\) is the natural “noise level” of the sample mean.  
-        Bigger \(n\) → smaller uncertainty.
+      <p>
+        True voter support
       </p>
+
+      <p>
+        Average customer spending
+      </p>
+
+      <p>
+        Disease prevalence
+      </p>
+
+      <p>
+        Product defect rate
+      </p>
+
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>6) Confidence intervals (coverage logic)</h2>
     <p>
-      A 95% confidence interval is constructed so that, in repeated sampling,
-      it contains the true parameter about 95% of the time.
+      We cannot observe every member of the population.
     </p>
-  </div>
 
-  <div class="card">
-    <p style="margin:0;">
-      If \(\sigma\) is known and \(n\) is large:
-      \[
-      \mu \in \overline{X} \pm z_{0.975}\,\frac{\sigma}{\sqrt{n}}.
-      \]
-    </p>
-  </div>
-
-  <p class="muted-mini" style="margin-top:.75rem;">
-    Where \(z_{0.975}\approx 1.96\).
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>7) Hypothesis tests (error control logic)</h2>
     <p>
-      A hypothesis test uses the sampling distribution to decide whether data is “too unlikely”
-      under a null model.
+      Instead,
+      we collect a sample and use it to make conclusions.
     </p>
-  </div>
 
-  <div class="card">
-    <p style="margin:0;">
-      Example (mean test idea):
-      \[
-      Z=\frac{\overline{X}-\mu_0}{\sigma/\sqrt{n}}.
-      \]
+    <h2>Why Sampling Works</h2>
+
+    <p>
+      Statistical inference would be impossible if samples behaved unpredictably.
     </p>
-  </div>
 
-  <div class="card" style="margin-top:1rem;">
+    <p>
+      The Law of Large Numbers provides the first guarantee.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Law of Large Numbers:</strong>
+
+      <p>
+        Sample averages and proportions tend to move toward their true population values as sample size increases.
+      </p>
+
+    </div>
+
+    <p>
+      This tells us that large samples are informative.
+    </p>
+
+    <h2>The Role of the Central Limit Theorem</h2>
+
+    <p>
+      The Law of Large Numbers tells us where sample statistics go.
+    </p>
+
+    <p>
+      The Central Limit Theorem tells us how they vary around the truth.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Central Limit Theorem:</strong>
+
+      <p>
+        Sampling distributions often become approximately normal when sample sizes are sufficiently large.
+      </p>
+
+    </div>
+
+    <p>
+      This normality allows probability calculations.
+    </p>
+
+    <h2>The Sampling Distribution Idea</h2>
+
+    <p>
+      Every sample produces slightly different results.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Sample mean = 49.8
+      </p>
+
+      <p>
+        Sample mean = 50.5
+      </p>
+
+      <p>
+        Sample mean = 51.2
+      </p>
+
+    </div>
+
+    <p>
+      These differences create a distribution of possible sample statistics.
+    </p>
+
+    <p>
+      This distribution is called a sampling distribution.
+    </p>
+
+    <h2>Why Sampling Distributions Matter</h2>
+
+    <p>
+      Inference requires knowing how much sample statistics fluctuate.
+    </p>
+
+    <p>
+      Without that information,
+      we could not judge whether a sample result is surprising or expected.
+    </p>
+
+    <h2>Estimating Unknown Parameters</h2>
+
+    <p>
+      Statistical inference often focuses on parameters.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Population mean (μ)
+      </p>
+
+      <p>
+        Population proportion (p)
+      </p>
+
+      <p>
+        Population variance (σ²)
+      </p>
+
+    </div>
+
+    <p>
+      These quantities are unknown and must be estimated from sample data.
+    </p>
+
+    <h2>Point Estimates</h2>
+
+    <p>
+      A point estimate is a single numerical guess for a parameter.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Parameter</th>
+            <th>Point Estimate</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>μ</td>
+            <td>x̄</td>
+          </tr>
+
+          <tr>
+            <td>p</td>
+            <td>p̂</td>
+          </tr>
+
+          <tr>
+            <td>σ²</td>
+            <td>s²</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      Point estimates are useful but incomplete.
+    </p>
+
+    <h2>Uncertainty Is Always Present</h2>
+
+    <p>
+      Different samples produce different estimates.
+    </p>
+
+    <p>
+      Therefore every estimate contains uncertainty.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Key idea:</strong>
+
+      <p>
+        Statistical inference quantifies uncertainty rather than eliminating it.
+      </p>
+
+    </div>
+
+    <h2>Confidence Intervals</h2>
+
+    <p>
+      Instead of providing a single estimate,
+      we often provide a range of plausible values.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Estimated mean = 50
+      </p>
+
+      <p>
+        95% confidence interval = [47, 53]
+      </p>
+
+    </div>
+
+    <p>
+      Confidence intervals rely heavily on the Central Limit Theorem.
+    </p>
+
+    <h2>Hypothesis Testing</h2>
+
+    <p>
+      Statistical inference also includes hypothesis testing.
+    </p>
+
+    <p>
+      Hypothesis tests evaluate whether observed sample results are consistent with a proposed claim.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Is a new treatment effective?
+      </p>
+
+      <p>
+        Has customer behavior changed?
+      </p>
+
+      <p>
+        Is the true proportion greater than 50%?
+      </p>
+
+    </div>
+
+    <p>
+      Again,
+      probability theory provides the framework.
+    </p>
+
+    <h2>The Complete Logic of Inference</h2>
+
+    <ol>
+
+      <li>Collect a sample.</li>
+
+      <li>Compute sample statistics.</li>
+
+      <li>Use probability theory to understand sampling variability.</li>
+
+      <li>Draw conclusions about population parameters.</li>
+
+    </ol>
+
+    <p>
+      This workflow defines statistical inference.
+    </p>
+
+    <h2>Why LLN and CLT Are Foundational</h2>
+
+    <p>
+      The Law of Large Numbers ensures that sample statistics move toward truth.
+    </p>
+
+    <p>
+      The Central Limit Theorem explains how those statistics vary around truth.
+    </p>
+
+    <p>
+      Together,
+      they make inference mathematically possible.
+    </p>
+
+    <h2>Applications Everywhere</h2>
+
     <ul class="bullets">
-      <li>\(\alpha\) controls Type I error: false rejection probability under \(H_0\).</li>
-      <li>Power increases with \(n\): smaller standard error makes detection easier.</li>
+
+      <li>Opinion polling</li>
+
+      <li>Clinical trials</li>
+
+      <li>A/B testing</li>
+
+      <li>Market research</li>
+
+      <li>Quality control</li>
+
+      <li>Machine learning evaluation</li>
+
+      <li>Scientific research</li>
+
     </ul>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>8) Why this is a “bridge” lesson</h2>
-  </div>
+    <p>
+      All of these rely on inferential reasoning built upon probability theory.
+    </p>
 
-  <div class="card">
-    <ul class="bullets">
-      <li>Probability gives convergence + approximation (LLN/CLT).</li>
-      <li>Statistics uses them to build estimators, intervals, and tests.</li>
-      <li>Next block formalizes sampling distributions (t, chi-square, F, etc.).</li>
-    </ul>
-  </div>
-</section>
+    <h2>The Next Stage</h2>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+    <p>
+      To fully understand inference,
+      we must study sampling distributions directly.
+    </p>
+
+    <p>
+      Sampling distributions explain how statistics vary from sample to sample and provide the mathematical basis for confidence intervals and hypothesis tests.
+    </p>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      The next block focuses entirely on sampling distributions.
+    </p>
+
+    <p>
+      You will learn how sample means, proportions, and other statistics behave across repeated samples and how those behaviors enable modern statistical inference.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Explain inference using LLN (stability) and CLT (approximate normality)</li>
-        <li>Interpret standard error as uncertainty scale</li>
-        <li>Understand why CI coverage and test error control are possible</li>
-        <li>Be ready for Sampling Distributions (Block 7)</li>
+
+        <li>Probability predicts sample behavior when population characteristics are known</li>
+
+        <li>Statistics uses sample data to learn about unknown populations</li>
+
+        <li>The Law of Large Numbers explains why sample statistics become reliable</li>
+
+        <li>The Central Limit Theorem explains how sample statistics vary</li>
+
+        <li>Sampling distributions are central to statistical inference</li>
+
+        <li>Confidence intervals and hypothesis tests depend on probability theory</li>
+
+        <li>Inference quantifies uncertainty rather than eliminating it</li>
+
+        <li>LLN and CLT form the bridge between probability and statistics</li>
+
       </ul>
+
     </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/probability/lln-clt/normal-approximation/">
+         ← Previous: Normal Approximation
+      </a>
+
+      <a class="btn"
+         href="/probability/sampling-distributions/">
+         Next: Sampling Distributions →
+      </a>
+
+    </div>
+
   </div>
-</section>
 
-<!-- ✅ Next block navigation -->
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next step</h2>
-      <p style="margin:0;">
-        Next, we move to <strong>Block 7 — Sampling Distributions</strong>,
-        where we study the distributions of statistics like \(\overline{X}\), \(S^2\), and test statistics.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/probability/sampling-distributions/">
-          Next block: Block 7 — Sampling Distributions →
-        </a>
-      </div>
-    </div>
-
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/probability/lln-clt/normal-approximation/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 5 — Normal Approximation
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>

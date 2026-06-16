@@ -1,304 +1,546 @@
 ---
 layout: default
-title: "5. CI for a Mean (σ Unknown): t Interval"
-description: "Construct and interpret a confidence interval for a population mean when the population standard deviation is unknown. Full t-based formulation."
+title: Confidence Interval for a Mean (σ Unknown) — t Interval
+description: Learn how to construct and interpret a confidence interval for a population mean when the population standard deviation is unknown.
 permalink: /inference/confidence-intervals/ci-for-mean-sigma-unknown-t/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">🚧 Lesson Under Construction</h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 establishes the full structure of the t-based confidence interval.
-        Worked numerical examples and software demonstrations will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update "last visited lesson" for Inference Block 2 -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_confidence_intervals_lesson_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/confidence-intervals/ci-for-mean-sigma-unknown-t/",
-      label: "Lesson 5 — CI for a Mean (σ Unknown): t Interval",
-      ts: Date.now()
-    }));
+(function () {
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/confidence-intervals/",
-      label: "Block 2 — Confidence Intervals",
-      ts: Date.now()
-    }));
-  })();
+  const KEY =
+    "esa_continue_inference_confidence_intervals_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/confidence-intervals/ci-for-mean-sigma-unknown-t/",
+    label: "Confidence Interval for a Mean (σ Unknown) — t Interval",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 2</span>
-        <span class="badge">Lesson 5</span>
-        <span class="badge">Mean</span>
-        <span class="badge">t Interval</span>
-      </div>
 
-      <h1>5. CI for a Mean (σ Unknown): t Interval</h1>
-      <p class="lead">
-        In real applications, the population standard deviation is almost never known.
-        Therefore, confidence intervals for a mean typically use the
-        <strong>t distribution</strong>.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/confidence-intervals/">Back to Block 2</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        This is the practical default for mean inference.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 2</span>
+      <span class="badge">Confidence Intervals</span>
+      <span class="badge">Most Common CI</span>
     </div>
+
+    <h1>Confidence Interval for a Mean (σ Unknown) — t Interval</h1>
+
+    <p class="lead">
+      In real statistical work, the population standard deviation is almost never known.
+    </p>
+
+    <p class="lead">
+      Instead, we estimate it from the sample. This introduces additional uncertainty, which is why the t distribution is used instead of the normal distribution.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/confidence-intervals/ci-for-mean-sigma-known-z/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/confidence-intervals/conditions-normality-clt-independence/">
+         Next: Conditions — Normality, CLT, Independence →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>Why the z Interval Is Usually Unrealistic</h2>
+
     <p>
-      By the end of this lesson, you should be able to derive, compute, and interpret
-      the t-based confidence interval for a population mean.
+      The z interval assumes the population standard deviation:
     </p>
-  </div>
 
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Key idea</h2>
-      <p style="margin:0;">
-        When σ is unknown and replaced by the sample standard deviation S,
-        additional uncertainty appears. The t distribution adjusts for that uncertainty.
-      </p>
-    </div>
-  </div>
-</section>
+    0
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) Sampling distribution (unknown σ)</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      If the population is normal (or n is large), then:
-      \[
-      T = \frac{\bar{X} - \mu}{S/\sqrt{n}}
-      \sim t_{n-1}
-      \]
+    <p>
+      is known.
     </p>
-  </div>
 
-  <p style="margin-top:.75rem;">
-    The degrees of freedom are:
-    \[
-    df = n - 1
-    \]
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>2) Standard error of the mean</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      \[
-      SE(\bar{X}) = \frac{S}{\sqrt{n}}
-      \]
+    <p>
+      In practice, this is rarely true.
     </p>
-  </div>
 
-  <p class="muted-mini" style="margin-top:.75rem;">
-    Notice the difference: S replaces σ.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>3) Deriving the interval</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      \[
-      P\left(
-      -t_{\alpha/2,\,df}
-      \le
-      \frac{\bar{X}-\mu}{S/\sqrt{n}}
-      \le
-      t_{\alpha/2,\,df}
-      \right)
-      = 1-\alpha
-      \]
+    <p>
+      Most of the time we only have sample data, so population variability must be estimated.
     </p>
-  </div>
 
-  <p style="margin-top:.75rem;">
-    Solving for μ gives:
-  </p>
+    <h2>Replacing σ with s</h2>
 
-  <div class="card">
-    <p style="margin:0;">
-      \[
-      \bar{X}
-      \pm
-      t_{\alpha/2,\,n-1}
-      \frac{S}{\sqrt{n}}
-      \]
+    <p>
+      Since σ is unknown, we replace it with the sample standard deviation:
     </p>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>4) Final formula</h2>
-  </div>
+    1
 
-  <div class="card">
-    <p style="font-size:1.1rem; margin:0;">
-      <strong>
-      Confidence Interval =
-      \[
-      \bar{X}
-      \pm
-      t_{\alpha/2,\,n-1}
-      \frac{S}{\sqrt{n}}
-      \]
-      </strong>
+    <p>
+      This estimate introduces additional uncertainty because:
     </p>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>5) Why t intervals are wider</h2>
-  </div>
+    <ul class="bullets">
 
-  <div class="card">
-    <p style="margin:0;">
-      Because S is random and estimates σ,
-      the interval must compensate for additional uncertainty.
-      The t critical value is larger than z (for small n).
+      <li>The sample mean varies from sample to sample.</li>
+
+      <li>The sample standard deviation varies from sample to sample.</li>
+
+    </ul>
+
+    <p>
+      Both sources of uncertainty must now be considered.
     </p>
-  </div>
 
-  <p style="margin-top:.75rem;">
-    As n increases, the t distribution approaches the normal distribution.
-  </p>
-</section>
+    <h2>Why the t Distribution Appears</h2>
 
-<section class="section">
-  <div class="section-head">
-    <h2>6) Assumptions</h2>
-  </div>
+    <p>
+      When σ is replaced by s,
+      the standardized statistic no longer follows the standard normal distribution.
+    </p>
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Normal population</h3>
+    <p>
+      Instead it follows a t distribution.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Key idea:</strong>
+
       <p>
-        Required for small samples.
+        The t distribution accounts for uncertainty introduced by estimating population variability.
       </p>
+
     </div>
 
-    <div class="card">
-      <h3>Large sample size</h3>
+    <h2>The t Distribution Revisited</h2>
+
+    <p>
+      The t distribution resembles the normal distribution but has heavier tails.
+    </p>
+
+    <p>
+      Heavier tails allow more probability for extreme values.
+    </p>
+
+    <p>
+      This extra probability reflects the added uncertainty from estimating σ.
+    </p>
+
+    <h2>The Standard Error</h2>
+
+    <p>
+      When σ is unknown, the estimated standard error becomes:
+    </p>
+
+    2
+
+    <p>
+      This is the estimated variability of the sample mean.
+    </p>
+
+    <h2>The t Confidence Interval Formula</h2>
+
+    <p>
+      Applying the confidence interval blueprint gives:
+    </p>
+
+    3
+
+    <p>
+      This is the one-sample t confidence interval for a population mean.
+    </p>
+
+    <h2>Understanding the Components</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Symbol</th>
+            <th>Meaning</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>x̄</td>
+            <td>Sample mean</td>
+          </tr>
+
+          <tr>
+            <td>t*</td>
+            <td>t critical value</td>
+          </tr>
+
+          <tr>
+            <td>s</td>
+            <td>Sample standard deviation</td>
+          </tr>
+
+          <tr>
+            <td>n</td>
+            <td>Sample size</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>Degrees of Freedom</h2>
+
+    <p>
+      Unlike z critical values,
+      t critical values depend on degrees of freedom.
+    </p>
+
+    <p>
+      For a one-sample mean interval:
+    </p>
+
+    4
+
+    <p>
+      The degrees of freedom determine the exact shape of the t distribution.
+    </p>
+
+    <h2>Why Degrees of Freedom Matter</h2>
+
+    <p>
+      Small samples provide less information about population variability.
+    </p>
+
+    <p>
+      Therefore:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Small df → larger t critical values</li>
+
+      <li>Large df → t approaches z</li>
+
+    </ul>
+
+    <p>
+      This automatically adjusts interval width based on sample size.
+    </p>
+
+    <h2>Example Setup</h2>
+
+    <p>
+      Suppose:
+    </p>
+
+    <div class="example-box">
+
       <p>
-        By the Central Limit Theorem,
-        approximate validity even if the population is not perfectly normal.
+        Sample mean = 80
       </p>
-    </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>7) Common traps</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Trap A: Using z instead of t</h3>
       <p>
-        If σ is unknown, t is required.
+        Sample standard deviation = 15
       </p>
-    </div>
 
-    <div class="card">
-      <h3>Trap B: Forgetting degrees of freedom</h3>
       <p>
-        df = n − 1.
+        Sample size = 25
       </p>
-    </div>
 
-    <div class="card">
-      <h3>Trap C: Ignoring normality with very small n</h3>
       <p>
-        For n < 15, normality matters more.
+        Confidence level = 95%
       </p>
+
     </div>
 
-    <div class="card">
-      <h3>Trap D: Misinterpreting the interval</h3>
+    <h2>Step 1: Compute the Standard Error</h2>
+
+    <p>
+      Using:
+    </p>
+
+    5
+
+    <p>
+      gives:
+    </p>
+
+    6
+
+    <h2>Step 2: Determine Degrees of Freedom</h2>
+
+    <p>
+      Since:
+    </p>
+
+    7
+
+    <p>
+      we use a t critical value based on 24 degrees of freedom.
+    </p>
+
+    <h2>Step 3: Find the Critical Value</h2>
+
+    <p>
+      For:
+    </p>
+
+    <div class="example-box">
+
       <p>
-        The parameter is fixed; the interval varies.
+        95% confidence
       </p>
-    </div>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+      <p>
+        df = 24
+      </p>
+
+    </div>
+
+    <p>
+      the critical value is approximately:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        t* ≈ 2.064
+      </p>
+
+    </div>
+
+    <h2>Step 4: Compute the Margin of Error</h2>
+
+    <p>
+      Margin of error:
+    </p>
+
+    8
+
+    <h2>Step 5: Construct the Interval</h2>
+
+    <p>
+      Therefore:
+    </p>
+
+    9
+
+    <p>
+      giving:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        (73.81, 86.19)
+      </p>
+
+    </div>
+
+    <h2>Comparing z and t Intervals</h2>
+
+    <p>
+      Notice that t intervals are generally wider than comparable z intervals.
+    </p>
+
+    <p>
+      This reflects the additional uncertainty from estimating σ.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Feature</th>
+            <th>z Interval</th>
+            <th>t Interval</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Population SD known?</td>
+            <td>Yes</td>
+            <td>No</td>
+          </tr>
+
+          <tr>
+            <td>Critical values</td>
+            <td>z</td>
+            <td>t</td>
+          </tr>
+
+          <tr>
+            <td>Depends on df?</td>
+            <td>No</td>
+            <td>Yes</td>
+          </tr>
+
+          <tr>
+            <td>Usually wider?</td>
+            <td>No</td>
+            <td>Yes</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>What Happens as Sample Size Grows?</h2>
+
+    <p>
+      Larger samples estimate population variability more accurately.
+    </p>
+
+    <p>
+      As sample size increases:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Degrees of freedom increase</li>
+
+      <li>t critical values decrease</li>
+
+      <li>t approaches the normal distribution</li>
+
+    </ul>
+
+    <p>
+      Eventually the distinction between z and t becomes very small.
+    </p>
+
+    <h2>Why This Is the Most Important Mean Interval</h2>
+
+    <p>
+      Because σ is rarely known,
+      the t interval is the standard method for estimating population means.
+    </p>
+
+    <p>
+      It is one of the most widely used confidence intervals in statistics.
+    </p>
+
+    <h2>When Is the t Interval Appropriate?</h2>
+
+    <p>
+      The method is appropriate when:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Data come from a random sample</li>
+
+      <li>Observations are independent</li>
+
+      <li>The sampling distribution is approximately normal</li>
+
+    </ul>
+
+    <p>
+      The next lesson focuses entirely on these conditions.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        When population variability is unknown, confidence intervals for means use the sample standard deviation, a t critical value, and the estimated standard error s/√n.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Every confidence interval formula relies on assumptions.
+    </p>
+
+    <p>
+      For mean intervals, the most important involve independence, normality, and the Central Limit Theorem.
+    </p>
+
+    <p>
+      The next lesson examines when mean confidence intervals are trustworthy and when caution is needed.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Construct a t-based CI correctly</li>
-        <li>Compute standard error using S</li>
-        <li>Understand degrees of freedom</li>
-        <li>Explain why t is wider than z</li>
+
+        <li>The t interval is used when the population standard deviation is unknown</li>
+
+        <li>The standard error is estimated using s/√n</li>
+
+        <li>The interval formula is x̄ ± t*SE</li>
+
+        <li>t critical values depend on degrees of freedom</li>
+
+        <li>Degrees of freedom equal n − 1 for one-sample mean intervals</li>
+
+        <li>t intervals are usually wider than z intervals</li>
+
+        <li>As sample size increases, t approaches the normal distribution</li>
+
+        <li>The t interval is the most commonly used confidence interval for means</li>
+
       </ul>
-    </div>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next step</h2>
-      <p style="margin:0;">
-        Now we move to confidence intervals for a population proportion.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/confidence-intervals/conditions-normality-clt-independence/">
-          Next lesson: 6. Conditions for Valid Confidence intervals→
-        </a>
-      </div>
     </div>
 
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/confidence-intervals/ci-for-mean-sigma-known-z/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 4: CI for Mean (σ Known)
-          </a>
-        </div>
-      </div>
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/confidence-intervals/ci-for-mean-sigma-known-z/">
+         ← Previous: CI for Mean (σ Known)
+      </a>
+
+      <a class="btn"
+         href="/inference/confidence-intervals/conditions-normality-clt-independence/">
+         Next: Conditions — Normality, CLT, Independence →
+      </a>
+
     </div>
 
   </div>
+
 </section>

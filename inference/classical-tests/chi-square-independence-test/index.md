@@ -1,250 +1,618 @@
 ---
 layout: default
-title: "9. Chi-Square Test of Independence"
-description: "Conduct and interpret the chi-square test of independence to assess association between two categorical variables."
+title: Chi-Square Test of Independence
+description: Learn how the chi-square test of independence evaluates whether two categorical variables are associated.
 permalink: /inference/classical-tests/chi-square-independence-test/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 establishes the formal structure of the chi-square test of independence.
-        Worked contingency table examples and software demonstrations will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update continue-reading keys -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_classical_tests_lesson_v0";
+(function () {
 
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/classical-tests/chi-square-independence-test/",
-      label: "Lesson 9 — Chi-Square Test of Independence",
-      ts: Date.now()
-    }));
+  const KEY =
+    "esa_continue_inference_classical_tests_lesson_v0";
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/classical-tests/",
-      label: "Block 4 — Classical Tests",
-      ts: Date.now()
-    }));
-  })();
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/classical-tests/chi-square-independence-test/",
+    label: "Chi-Square Test of Independence",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 4</span>
-        <span class="badge">Lesson 9</span>
-        <span class="badge">Categorical</span>
-        <span class="badge">Association</span>
-      </div>
 
-      <h1>9. Chi-Square Test of Independence</h1>
-
-      <p class="lead">
-        The chi-square test of independence evaluates whether
-        two categorical variables are statistically associated
-        in a population.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/classical-tests/">Back to Block 4</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        This test analyzes contingency tables.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 4</span>
+      <span class="badge">Classical Tests</span>
+      <span class="badge">Categorical Association</span>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
-    <p>
-      Formulate hypotheses for association between categorical variables,
-      compute expected counts,
-      and interpret the chi-square statistic.
+    <h1>Chi-Square Test of Independence</h1>
+
+    <p class="lead">
+      Many studies seek to determine whether two categorical variables are related.
     </p>
+
+    <p class="lead">
+      The chi-square test of independence evaluates whether an observed association between categorical variables is stronger than would be expected from random variation alone.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/classical-tests/chi-square-goodness-of-fit/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/classical-tests/chi-square-homogeneity-test/">
+         Next: Chi-Square Test of Homogeneity →
+      </a>
+
+    </div>
+
   </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>When to use this test</h2>
-      <p style="margin:0;">
-        Use the independence test when:
-        <br>
-        • There are two categorical variables  
-        • Data are arranged in a contingency table  
-        • Observations are independent  
+</section>
+
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>The Research Question</h2>
+
+    <p>
+      Suppose researchers collect data on:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Gender and product preference</li>
+
+      <li>Smoking status and disease occurrence</li>
+
+      <li>Education level and voting behavior</li>
+
+      <li>Device type and website conversion</li>
+
+    </ul>
+
+    <p>
+      The question becomes:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Are these variables related?
       </p>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) Hypotheses</h2>
-  </div>
+    <p>
+      This is the purpose of the chi-square test of independence.
+    </p>
 
-  <div class="card">
-    \[
-    H_0:\ \text{The variables are independent}
-    \]
-  </div>
+    <h2>What Does Independence Mean?</h2>
 
-  <div class="card" style="margin-top:1rem;">
-    \[
-    H_1:\ \text{The variables are associated}
-    \]
-  </div>
+    <div class="concept-box">
 
-  <p class="muted-mini">
-    Independence means that the distribution of one variable
-    does not differ across levels of the other.
-  </p>
-</section>
+      <strong>Independence:</strong>
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) Expected counts</h2>
-  </div>
+      <p>
+        Two variables are independent if knowledge of one variable provides no information about the other.
+      </p>
 
-  <div class="card">
-    \[
-    E_{ij} =
-    \frac{(\text{Row Total}_i)(\text{Column Total}_j)}{\text{Grand Total}}
-    \]
-  </div>
+    </div>
 
-  <p>
-    Expected counts are computed assuming independence.
-  </p>
-</section>
+    <p>
+      Under independence, category proportions remain the same across groups.
+    </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) Test statistic</h2>
-  </div>
+    <h2>The Null and Alternative Hypotheses</h2>
 
-  <div class="card">
-    \[
-    \chi^2 =
-    \sum_{i}\sum_{j}
-    \frac{(O_{ij} - E_{ij})^2}{E_{ij}}
-    \]
-  </div>
+    <div class="example-box">
 
-  <p class="muted-mini">
-    \(O_{ij}\) = observed count  
-    <br>
-    \(E_{ij}\) = expected count  
-  </p>
-</section>
+      <p>
+        H₀: The variables are independent.
+      </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>4) Degrees of freedom</h2>
-  </div>
+      <p>
+        Hₐ: The variables are associated.
+      </p>
 
-  <div class="card">
-    \[
-    df = (r - 1)(c - 1)
-    \]
-  </div>
+    </div>
 
-  <p>
-    Where:
-    <br>
-    • \(r\) = number of rows  
-    • \(c\) = number of columns  
-  </p>
-</section>
+    <p>
+      The test does not specify the nature of the association.
+    </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>5) Validity condition</h2>
-  </div>
+    <p>
+      It only evaluates whether evidence of a relationship exists.
+    </p>
 
-  <div class="card">
-    All expected counts should satisfy:
-    \[
-    E_{ij} \ge 5
-    \]
-  </div>
+    <h2>Contingency Tables</h2>
 
-  <p>
-    Small expected counts weaken the chi-square approximation.
-  </p>
-</section>
+    <p>
+      Data are organized into a contingency table.
+    </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>6) Interpretation</h2>
-  </div>
+    <p>
+      Example:
+    </p>
 
-  <div class="card">
-    A small p-value indicates that the pattern of counts
-    differs from what would be expected under independence.
-  </div>
+    <div class="table-wrap">
 
-  <p class="muted-mini">
-    The test does not measure strength of association —
-    only evidence of association.
-  </p>
-</section>
+      <table>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+        <thead>
+
+          <tr>
+            <th></th>
+            <th>Prefers A</th>
+            <th>Prefers B</th>
+            <th>Total</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Male</td>
+            <td>40</td>
+            <td>60</td>
+            <td>100</td>
+          </tr>
+
+          <tr>
+            <td>Female</td>
+            <td>70</td>
+            <td>30</td>
+            <td>100</td>
+          </tr>
+
+          <tr>
+            <td>Total</td>
+            <td>110</td>
+            <td>90</td>
+            <td>200</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>Observed Counts</h2>
+
+    <p>
+      The entries inside the table are the observed counts:
+    </p>
+
+    0
+
+    <p>
+      These are the actual frequencies recorded in the sample.
+    </p>
+
+    <h2>Expected Counts Under Independence</h2>
+
+    <p>
+      If the variables are independent, expected counts can be calculated from the row and column totals.
+    </p>
+
+    <p>
+      The formula is:
+    </p>
+
+    1
+
+    <h2>Example Expected Count</h2>
+
+    <p>
+      For the Male–Prefers A cell:
+    </p>
+
+    2
+
+    <p>
+      Under independence, we would expect 55 observations in that cell.
+    </p>
+
+    <h2>Observed vs Expected</h2>
+
+    <p>
+      The observed count was:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        40
+      </p>
+    </div>
+
+    <p>
+      The expected count was:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        55
+      </p>
+    </div>
+
+    <p>
+      This discrepancy contributes to the test statistic.
+    </p>
+
+    <h2>The Chi-Square Statistic</h2>
+
+    <p>
+      The test statistic is:
+    </p>
+
+    3
+
+    <p>
+      The sum is taken across every cell in the contingency table.
+    </p>
+
+    <h2>Interpreting χ²</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>χ² Value</th>
+            <th>Interpretation</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Small</td>
+            <td>Observed counts close to independence expectations</td>
+          </tr>
+
+          <tr>
+            <td>Large</td>
+            <td>Evidence of association</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>The Chi-Square Distribution</h2>
+
+    <p>
+      Under:
+    </p>
+
+    4
+
+    <p>
+      the test statistic follows a chi-square distribution approximately.
+    </p>
+
+    <p>
+      Larger χ² values produce smaller p-values.
+    </p>
+
+    <h2>Degrees of Freedom</h2>
+
+    <p>
+      For a contingency table with:
+    </p>
+
+    <ul class="bullets">
+
+      <li>r rows</li>
+
+      <li>c columns</li>
+
+    </ul>
+
+    <p>
+      the degrees of freedom are:
+    </p>
+
+    5
+
+    <h2>Example</h2>
+
+    <p>
+      For a:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        2 × 2 table
+      </p>
+    </div>
+
+    <p>
+      we have:
+    </p>
+
+    6
+
+    <h2>The p-Value</h2>
+
+    <p>
+      Once:
+    </p>
+
+    <ul class="bullets">
+
+      <li>χ² is computed</li>
+
+      <li>Degrees of freedom are determined</li>
+
+    </ul>
+
+    <p>
+      the p-value is obtained from the chi-square distribution.
+    </p>
+
+    <h2>Decision Rule</h2>
+
+    <div class="concept-box">
+
+      <strong>Decision Rule:</strong>
+
+      <p>
+        Reject H₀ if p ≤ α.
+      </p>
+
+      <p>
+        Fail to reject H₀ if p > α.
+      </p>
+
+    </div>
+
+    <h2>What Does Rejection Mean?</h2>
+
+    <p>
+      Rejecting:
+    </p>
+
+    7
+
+    <p>
+      means the data provide evidence that the variables are associated.
+    </p>
+
+    <p>
+      It does not establish causation.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Important:</strong>
+
+      <p>
+        Association does not imply causation.
+      </p>
+
+    </div>
+
+    <h2>Assumptions</h2>
+
+    <ul class="bullets">
+
+      <li>Random sampling</li>
+
+      <li>Independent observations</li>
+
+      <li>Categorical variables</li>
+
+      <li>Sufficiently large expected counts</li>
+
+    </ul>
+
+    <h2>Expected Count Guideline</h2>
+
+    <p>
+      A common recommendation is:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        All expected counts should generally be at least 5.
+      </p>
+    </div>
+
+    <p>
+      This helps ensure a reliable chi-square approximation.
+    </p>
+
+    <h2>Applications</h2>
+
+    <div class="example-box">
+
+      <p>
+        Marketing research
+      </p>
+
+      <p>
+        Medical studies
+      </p>
+
+      <p>
+        Social-science surveys
+      </p>
+
+      <p>
+        Political polling
+      </p>
+
+      <p>
+        User-behavior analysis
+      </p>
+
+    </div>
+
+    <h2>Independence vs Goodness-of-Fit</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Feature</th>
+            <th>Goodness-of-Fit</th>
+            <th>Independence Test</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Variables</td>
+            <td>One</td>
+            <td>Two</td>
+          </tr>
+
+          <tr>
+            <td>Question</td>
+            <td>Matches expected distribution?</td>
+            <td>Variables associated?</td>
+          </tr>
+
+          <tr>
+            <td>Expected counts from</td>
+            <td>Hypothesized probabilities</td>
+            <td>Row and column totals</td>
+          </tr>
+
+          <tr>
+            <td>Table structure</td>
+            <td>Single categorical variable</td>
+            <td>Contingency table</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>Measuring Association Strength</h2>
+
+    <p>
+      A significant chi-square result indicates that an association exists.
+    </p>
+
+    <p>
+      However, significance alone does not describe the strength of the relationship.
+    </p>
+
+    <p>
+      Additional measures such as Cramér's V are often used to quantify association strength.
+    </p>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      The chi-square test of independence is one of the most important methods for categorical data analysis.
+    </p>
+
+    <p>
+      It allows researchers to investigate relationships between variables without requiring numerical measurements.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        The chi-square test of independence evaluates whether two categorical variables are associated. It compares observed counts to the counts expected under independence and determines whether discrepancies are larger than expected by chance.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      The chi-square test of independence analyzes association within a single population.
+    </p>
+
+    <p>
+      A closely related procedure compares categorical distributions across multiple populations or groups.
+    </p>
+
+    <p>
+      The next lesson introduces the chi-square test of homogeneity.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Formulate independence hypotheses</li>
-        <li>Compute expected counts in contingency tables</li>
-        <li>Calculate chi-square statistic</li>
-        <li>Interpret results correctly</li>
+
+        <li>The test evaluates whether two categorical variables are independent</li>
+
+        <li>Data are organized in contingency tables</li>
+
+        <li>Expected counts are computed from row and column totals</li>
+
+        <li>The chi-square statistic measures discrepancies between observed and expected counts</li>
+
+        <li>Degrees of freedom equal (r − 1)(c − 1)</li>
+
+        <li>Rejecting H₀ suggests an association exists</li>
+
+        <li>Association does not imply causation</li>
+
+        <li>The test is widely used across social sciences, medicine, business, and public policy</li>
+
       </ul>
+
     </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/classical-tests/chi-square-goodness-of-fit/">
+         ← Previous: Chi-Square Goodness-of-Fit Test
+      </a>
+
+      <a class="btn"
+         href="/inference/classical-tests/chi-square-homogeneity-test/">
+         Next: Chi-Square Test of Homogeneity →
+      </a>
+
+    </div>
+
   </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next lesson</h2>
-      <p style="margin:0;">
-        We now distinguish the independence test
-        from the chi-square test of homogeneity.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/classical-tests/chi-square-homogeneity-test/">
-          Next lesson: 10. Chi-Square Homogeneity Test →
-        </a>
-      </div>
-    </div>
-
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/classical-tests/chi-square-goodness-of-fit/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 8: Chi-Square Goodness-of-Fit
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>

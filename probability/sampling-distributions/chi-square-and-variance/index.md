@@ -1,232 +1,502 @@
 ---
 layout: default
-title: "5. Chi-Square Distribution & Variance Inference"
-description: "Sampling distribution of the sample variance, chi-square distribution, degrees of freedom, and inference for σ²."
+title: Chi-Square and Variance
+description: Learn the chi-square distribution and how it is used to study population variance and variability.
 permalink: /probability/sampling-distributions/chi-square-and-variance/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem;">🚧 Lesson Under Construction</h2>
-      <p style="margin:0; font-size:1.05rem;">
-        Version 0 introduces the chi-square distribution and explains
-        how it governs inference for population variance.
-        Examples and graphical intuition will be added in Version 1.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Continue Reading Tracking -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_probability_sampling_distributions_lesson_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/probability/sampling-distributions/chi-square-and-variance/",
-      label: "Lesson 5 — Chi-Square Distribution & Variance Inference",
-      ts: Date.now()
-    }));
-  })();
+(function () {
+
+  const KEY =
+    "esa_continue_probability_sampling_distributions_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/probability/sampling-distributions/chi-square-and-variance/",
+    label: "Chi-Square and Variance",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 7</span>
-        <span class="badge">Lesson 5</span>
-        <span class="badge">Chi-Square</span>
-        <span class="badge">Variance</span>
-      </div>
 
-      <h1>5. Chi-Square Distribution & Variance Inference</h1>
-
-      <p class="lead">
-        While the Normal and t-distributions govern inference for the mean,
-        the <strong>chi-square distribution</strong> governs inference for variance.
-        It emerges from squared standard Normal variables.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/probability/sampling-distributions/">Back to Block 7</a>
-        <a class="btn btn-outline" href="/probability/">Probability home</a>
-      </div>
-
-      <p class="muted-mini">
-        Variance inference requires a different reference distribution.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Probability</span>
+      <span class="badge">Block 7</span>
+      <span class="badge">Sampling Distributions</span>
+      <span class="badge">Variance Inference</span>
     </div>
+
+    <h1>Chi-Square and Variance</h1>
+
+    <p class="lead">
+      Means are important, but variability is equally important.
+    </p>
+
+    <p class="lead">
+      The chi-square distribution provides the foundation for statistical inference about population variance and standard deviation.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/probability/sampling-distributions/t-distribution-and-t-test/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/probability/sampling-distributions/f-distribution-and-anova-preview/">
+         Next: F Distribution and ANOVA Preview →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>Why Study Variance?</h2>
+
     <p>
-      By the end of this lesson, you should understand how the chi-square distribution arises
-      and how it is used to construct confidence intervals and tests for σ².
+      Two datasets can have the same mean while having very different levels of variability.
     </p>
-  </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Key idea</h2>
-      <p style="margin:0;">
-        If \(Z_1,\dots,Z_k \sim N(0,1)\) independently, then
-        \[
-        \sum_{i=1}^{k} Z_i^2 \sim \chi^2_k.
-        \]
+    <div class="example-box">
+
+      <p>
+        Exam scores clustered tightly around 80
       </p>
+
+      <p>
+        Exam scores ranging from 20 to 100
+      </p>
+
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) Origin of the chi-square distribution</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      The chi-square distribution with \(k\) degrees of freedom
-      is the sum of squares of \(k\) independent standard Normal variables.
+    <p>
+      Both datasets may share the same average,
+      but their variability tells very different stories.
     </p>
-  </div>
 
-  <div class="card" style="margin-top:1rem;">
-    <p style="margin:0;">
-      \[
-      \chi^2_k = Z_1^2 + Z_2^2 + \dots + Z_k^2.
-      \]
+    <h2>The Need for a New Distribution</h2>
+
+    <p>
+      The normal distribution helps analyze means.
     </p>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) Sampling distribution of the sample variance</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      If \(X_1,\dots,X_n \sim N(\mu,\sigma^2)\), then:
-      \[
-      \frac{(n-1)S^2}{\sigma^2} \sim \chi^2_{n-1}.
-      \]
+    <p>
+      The t-distribution helps analyze means when population variability is unknown.
     </p>
-  </div>
 
-  <p class="muted-mini" style="margin-top:.75rem;">
-    This result holds only under Normality.
-  </p>
-</section>
+    <p>
+      To analyze variance itself,
+      statisticians use the chi-square distribution.
+    </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) Shape and properties</h2>
-  </div>
+    <h2>What Is the Chi-Square Distribution?</h2>
 
-  <div class="card">
+    <div class="concept-box">
+
+      <strong>Definition:</strong>
+
+      <p>
+        The chi-square distribution is a probability distribution that arises from sums of squared standard normal variables.
+      </p>
+
+    </div>
+
+    <p>
+      It is one of the most important distributions in statistical inference.
+    </p>
+
+    <h2>How It Is Constructed</h2>
+
+    <p>
+      Suppose:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Z₁, Z₂, ..., Zₖ
+      </p>
+
+    </div>
+
+    <p>
+      are independent standard normal variables.
+    </p>
+
+    <p>
+      Then:
+    </p>
+
+    0
+
+    <p>
+      follows a chi-square distribution with:
+    </p>
+
+    <p>
+      k degrees of freedom.
+    </p>
+
+    <h2>Key Characteristics</h2>
+
     <ul class="bullets">
-      <li>Support: positive values only</li>
-      <li>Right-skewed (especially for small df)</li>
-      <li>Mean = \(k\)</li>
-      <li>Variance = \(2k\)</li>
+
+      <li>Always positive</li>
+
+      <li>Right-skewed</li>
+
+      <li>Depends on degrees of freedom</li>
+
+      <li>Used extensively in inference</li>
+
     </ul>
-  </div>
 
-  <p class="muted-mini" style="margin-top:.75rem;">
-    As degrees of freedom increase, the distribution becomes more symmetric.
-  </p>
-</section>
+    <h2>The Shape of the Distribution</h2>
 
-<section class="section">
-  <div class="section-head">
-    <h2>4) Confidence interval for variance</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      A \(100(1-\alpha)\%\) CI for \(\sigma^2\):
-      \[
-      \left(
-      \frac{(n-1)S^2}{\chi^2_{1-\alpha/2,n-1}},
-      \frac{(n-1)S^2}{\chi^2_{\alpha/2,n-1}}
-      \right).
-      \]
+    <p>
+      Small degrees of freedom produce strong right skewness.
     </p>
-  </div>
 
-  <p class="muted-mini" style="margin-top:.75rem;">
-    Note the reversal of critical values due to asymmetry.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>5) Hypothesis test for variance</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      To test \(H_0:\sigma^2=\sigma_0^2\):
-      \[
-      \chi^2 = \frac{(n-1)S^2}{\sigma_0^2}.
-      \]
+    <p>
+      Larger degrees of freedom make the distribution more symmetric.
     </p>
-  </div>
 
-  <div class="card" style="margin-top:1rem;">
+    <div class="concept-box">
+
+      <strong>Observation:</strong>
+
+      <p>
+        As degrees of freedom increase, the chi-square distribution becomes less skewed.
+      </p>
+
+    </div>
+
+    <h2>Degrees of Freedom</h2>
+
+    <p>
+      Degrees of freedom determine the exact shape of the chi-square distribution.
+    </p>
+
+    <p>
+      For variance estimation:
+    </p>
+
+    1
+
+    <p>
+      where:
+    </p>
+
     <ul class="bullets">
-      <li>Compare with \(\chi^2_{n-1}\) critical values.</li>
-      <li>One-sided or two-sided tests possible.</li>
-    </ul>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+      <li>n = sample size</li>
+
+    </ul>
+
+    <h2>Connection to Sample Variance</h2>
+
+    <p>
+      One of the most important results in statistics is:
+    </p>
+
+    2
+
+    <p>
+      when data come from a normal population.
+    </p>
+
+    <p>
+      This result forms the basis of variance inference.
+    </p>
+
+    <h2>What This Means</h2>
+
+    <p>
+      The sample variance:
+    </p>
+
+    3
+
+    <p>
+      changes from sample to sample.
+    </p>
+
+    <p>
+      The chi-square distribution describes exactly how that variability behaves.
+    </p>
+
+    <h2>Estimating Population Variance</h2>
+
+    <p>
+      Most studies do not know:
+    </p>
+
+    4
+
+    <p>
+      the true population variance.
+    </p>
+
+    <p>
+      Instead,
+      researchers estimate it using:
+    </p>
+
+    5
+
+    <p>
+      from the sample.
+    </p>
+
+    <h2>Confidence Intervals for Variance</h2>
+
+    <p>
+      The chi-square distribution allows confidence intervals for:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Population variance</li>
+
+      <li>Population standard deviation</li>
+
+    </ul>
+
+    <p>
+      These intervals quantify uncertainty about variability.
+    </p>
+
+    <h2>Variance Hypothesis Tests</h2>
+
+    <p>
+      Researchers may wish to test claims such as:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Process variability equals a target value
+      </p>
+
+      <p>
+        Manufacturing consistency has changed
+      </p>
+
+      <p>
+        Measurement systems meet quality standards
+      </p>
+
+    </div>
+
+    <p>
+      Chi-square tests provide a framework for evaluating such claims.
+    </p>
+
+    <h2>Applications in Quality Control</h2>
+
+    <p>
+      Variability is often more important than the average.
+    </p>
+
+    <p>
+      Manufacturers frequently monitor variance to ensure consistent product quality.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Bottle filling volumes
+      </p>
+
+      <p>
+        Component dimensions
+      </p>
+
+      <p>
+        Production tolerances
+      </p>
+
+    </div>
+
+    <h2>Applications in Measurement Systems</h2>
+
+    <p>
+      Scientists often evaluate whether measurement procedures produce stable and reliable results.
+    </p>
+
+    <p>
+      Variance-based methods help assess measurement precision.
+    </p>
+
+    <h2>Chi-Square Goodness-of-Fit Tests</h2>
+
+    <p>
+      Beyond variance estimation,
+      chi-square methods are also used to compare observed counts with expected counts.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Survey categories
+      </p>
+
+      <p>
+        Genetic inheritance patterns
+      </p>
+
+      <p>
+        Customer preference distributions
+      </p>
+
+    </div>
+
+    <p>
+      These applications become important later in statistical inference.
+    </p>
+
+    <h2>Comparing Distributions Used in Inference</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Distribution</th>
+            <th>Main Use</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Normal (Z)</td>
+            <td>Inference for means when variability is known</td>
+          </tr>
+
+          <tr>
+            <td>t</td>
+            <td>Inference for means when variability is estimated</td>
+          </tr>
+
+          <tr>
+            <td>Chi-Square</td>
+            <td>Inference for variance and variability</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>Why Variance Matters</h2>
+
+    <p>
+      Means describe location.
+    </p>
+
+    <p>
+      Variances describe spread.
+    </p>
+
+    <p>
+      Understanding both is necessary for a complete understanding of data.
+    </p>
+
+    <h2>The Next Step</h2>
+
+    <p>
+      Sometimes researchers want to compare variability across multiple groups simultaneously.
+    </p>
+
+    <p>
+      This requires another important distribution:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        The F distribution
+      </p>
+
+    </div>
+
+    <p>
+      The F distribution forms the basis of ANOVA, one of the most widely used techniques in statistical analysis.
+    </p>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      The next lesson introduces the F distribution and provides a preview of Analysis of Variance (ANOVA), a method used to compare multiple groups at the same time.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Understand how χ² arises from squared Normals</li>
-        <li>Derive sampling distribution of S²</li>
-        <li>Construct confidence intervals for σ²</li>
-        <li>Perform variance hypothesis tests</li>
-        <li>Prepare for F-distribution</li>
+
+        <li>The chi-square distribution is built from sums of squared standard normal variables</li>
+
+        <li>It is always positive and usually right-skewed</li>
+
+        <li>Its shape depends on degrees of freedom</li>
+
+        <li>Chi-square distributions describe the behavior of sample variances</li>
+
+        <li>They are used to estimate and test population variance</li>
+
+        <li>Variance confidence intervals rely on chi-square methods</li>
+
+        <li>Chi-square procedures are important in quality control and measurement analysis</li>
+
+        <li>The chi-square distribution is one of the core distributions of statistical inference</li>
+
       </ul>
+
     </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/probability/sampling-distributions/t-distribution-and-t-test/">
+         ← Previous: t Distribution and t Test
+      </a>
+
+      <a class="btn"
+         href="/probability/sampling-distributions/f-distribution-and-anova-preview/">
+         Next: F Distribution and ANOVA Preview →
+      </a>
+
+    </div>
+
   </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next step</h2>
-      <p style="margin:0;">
-        Next, we combine two chi-square variables to form the
-        <strong>F-distribution</strong>, used in comparing variances and ANOVA.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/probability/sampling-distributions/f-distribution-and-anova-preview/">
-          Next lesson: 6. F-Distribution & ANOVA →
-        </a>
-      </div>
-    </div>
-
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/probability/sampling-distributions/t-distribution-and-t-test/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 4 — t-Distribution
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>

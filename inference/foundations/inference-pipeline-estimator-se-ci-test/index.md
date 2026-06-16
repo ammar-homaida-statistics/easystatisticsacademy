@@ -1,293 +1,548 @@
 ---
 layout: default
-title: "10. The Inference Pipeline: Estimator → SE → CI/Test"
-description: "Formalize the core workflow of statistical inference: compute an estimator, quantify uncertainty using standard error, and translate results into confidence intervals or hypothesis tests."
+title: Inference Pipeline — Estimator, SE, CI, Test
+description: Learn the complete statistical inference workflow from estimators and standard errors to confidence intervals and hypothesis tests.
 permalink: /inference/foundations/inference-pipeline-estimator-se-ci-test/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">🚧 Lesson Under Construction</h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 defines the structural logic of inference. 
-        Detailed derivations, numeric examples, and software demonstrations will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update "last visited lesson" -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_foundations_lesson_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/foundations/inference-pipeline-estimator-se-ci-test/",
-      label: "Lesson 10 — The Inference Pipeline",
-      ts: Date.now()
-    }));
+(function () {
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/foundations/",
-      label: "Block 1 — Inference Foundations",
-      ts: Date.now()
-    }));
-  })();
+  const KEY =
+    "esa_continue_inference_foundations_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/foundations/inference-pipeline-estimator-se-ci-test/",
+    label: "Inference Pipeline — Estimator, SE, CI, Test",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 1</span>
-        <span class="badge">Lesson 10</span>
-        <span class="badge">Workflow</span>
-        <span class="badge">CI & Tests</span>
-      </div>
 
-      <h1>10. The Inference Pipeline: Estimator → SE → CI/Test</h1>
-      <p class="lead">
-        Statistical inference follows a structured workflow:
-        compute an estimator, quantify its uncertainty, 
-        and translate the result into an interval or a decision.
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 1</span>
+      <span class="badge">Foundations</span>
+      <span class="badge">Big Picture</span>
+    </div>
+
+    <h1>Inference Pipeline — Estimator, SE, CI, Test</h1>
+
+    <p class="lead">
+      Statistical inference may seem like a collection of separate techniques.
+    </p>
+
+    <p class="lead">
+      In reality, confidence intervals, hypothesis tests, standard errors, and estimators are all parts of a single inferential pipeline.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/foundations/what-makes-good-estimator/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/foundations/point-vs-interval-estimation/">
+         Next: Point vs Interval Estimation →
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>Why a Pipeline?</h2>
+
+    <p>
+      Statistical inference is often taught as individual topics:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Estimators</li>
+
+      <li>Standard errors</li>
+
+      <li>Confidence intervals</li>
+
+      <li>Hypothesis tests</li>
+
+    </ul>
+
+    <p>
+      But these ideas are deeply connected.
+    </p>
+
+    <p>
+      Each step builds directly on the previous one.
+    </p>
+
+    <h2>The Complete Inferential Workflow</h2>
+
+    <div class="concept-box">
+
+      <strong>Inference Pipeline:</strong>
+
+      <p>
+        Parameter → Estimator → Sampling Distribution → Standard Error → Confidence Interval → Hypothesis Test
       </p>
 
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/foundations/">Back to Block 1</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
+    </div>
 
-      <p class="muted-mini">
-        Version 0: structural clarity first. Algebra and computation come next.
+    <p>
+      Nearly every inferential procedure follows this structure.
+    </p>
+
+    <h2>Step 1: Define the Parameter</h2>
+
+    <p>
+      Every analysis begins with a population quantity of interest.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Population mean income
       </p>
-    </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
-    <p>
-      By the end of this lesson, you should clearly describe the
-      complete inference workflow and understand how estimation,
-      uncertainty, intervals, and hypothesis testing connect.
-    </p>
-  </div>
-
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Key idea</h2>
-      <p style="margin:0;">
-        Inference is not a formula — it is a pipeline:
-        <strong>Estimate → Quantify uncertainty → Interpret.</strong>
+      <p>
+        Population proportion supporting a policy
       </p>
-    </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) Step 1 — Compute an estimator</h2>
+      <p>
+        Treatment effect
+      </p>
+
+      <p>
+        Difference between groups
+      </p>
+
+    </div>
+
     <p>
-      We begin with a statistic computed from the sample:
+      This quantity is the inferential target.
     </p>
-  </div>
 
-  <div class="card">
-    <p style="margin:0;">
-      Example:
-      \[
-      \hat{\theta} = \bar{X}, \quad \hat{p}, \quad \hat{\beta}
-      \]
-    </p>
-  </div>
+    <h2>Step 2: Choose an Estimator</h2>
 
-  <p style="margin-top:.75rem;">
-    This is the point estimate of the unknown population parameter.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>2) Step 2 — Quantify uncertainty (Standard Error)</h2>
     <p>
-      Every estimator varies across samples.
-      The standard error measures that variability.
+      Because the parameter is unknown,
+      we need a statistic that estimates it.
     </p>
-  </div>
 
-  <div class="card">
-    <p style="margin:0;">
-      \[
-      SE(\hat{\theta}) = \sqrt{\text{Var}(\hat{\theta})}
-      \]
-    </p>
-  </div>
+    <div class="example-box">
 
-  <p style="margin-top:.75rem;">
-    The SE determines how wide confidence intervals will be
-    and how extreme test statistics become.
-  </p>
-</section>
+      <p>
+        Population mean → Sample mean
+      </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) Step 3 — Standardize</h2>
+      <p>
+        Population proportion → Sample proportion
+      </p>
+
+    </div>
+
     <p>
-      To compare the estimate to a theoretical distribution,
-      we standardize:
+      The estimator transforms sample data into information about the parameter.
     </p>
-  </div>
 
-  <div class="card">
-    <p style="margin:0;">
-      \[
-      \text{Test statistic} = 
-      \frac{\hat{\theta} - \theta_0}{SE(\hat{\theta})}
-      \]
+    <h2>Step 3: Understand the Sampling Distribution</h2>
+
+    <p>
+      The estimator is a random variable.
     </p>
-  </div>
 
-  <p style="margin-top:.75rem;">
-    This transforms the estimator into a standardized quantity
-    (z, t, χ², F, etc.).
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>4) Step 4A — Build a confidence interval</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      \[
-      \hat{\theta} \pm (\text{critical value}) \times SE(\hat{\theta})
-      \]
+    <p>
+      Therefore it has a sampling distribution.
     </p>
-  </div>
 
-  <p style="margin-top:.75rem;">
-    The interval expresses plausible values of the parameter.
-  </p>
+    <div class="concept-box">
 
-  <p class="muted-mini">
-    The critical value comes from the relevant sampling distribution.
-  </p>
-</section>
+      <strong>Question:</strong>
 
-<section class="section">
-  <div class="section-head">
-    <h2>4B) Step 4B — Perform a hypothesis test</h2>
-  </div>
+      <p>
+        How would this estimator behave if we repeatedly sampled from the population?
+      </p>
 
-  <div class="card">
-    <p style="margin:0;">
-      Compare the test statistic to a critical value 
-      or compute a p-value.
-    </p>
-  </div>
-
-  <ul class="bullets" style="margin-top:.75rem;">
-    <li>If extreme → reject H₀.</li>
-    <li>If not extreme → fail to reject H₀.</li>
-  </ul>
-
-  <p class="muted-mini">
-    Hypothesis tests and confidence intervals are two sides of the same logic.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>5) The unified structure</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      The entire inference system rests on:
-    </p>
-  </div>
-
-  <ul class="bullets" style="margin-top:.75rem;">
-    <li>Sampling distributions</li>
-    <li>Standard error</li>
-    <li>Standardization</li>
-    <li>Probability-based decision rules</li>
-  </ul>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>6) Why this structure matters</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Clarity</h3>
-      <p>Prevents memorizing isolated formulas.</p>
     </div>
 
-    <div class="card">
-      <h3>Transferability</h3>
-      <p>Same structure applies to means, proportions, regression, ANOVA.</p>
+    <p>
+      The answer comes from the sampling distribution.
+    </p>
+
+    <h2>Why the Sampling Distribution Matters</h2>
+
+    <p>
+      The sampling distribution tells us:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Expected value</li>
+
+      <li>Typical variability</li>
+
+      <li>Probability of unusual outcomes</li>
+
+      <li>Estimator precision</li>
+
+    </ul>
+
+    <p>
+      It provides the mathematical foundation for inference.
+    </p>
+
+    <h2>Step 4: Compute the Standard Error</h2>
+
+    <p>
+      The spread of the sampling distribution is summarized by the standard error.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Standard Error:</strong>
+
+      <p>
+        The standard deviation of a sampling distribution.
+      </p>
+
     </div>
 
-    <div class="card">
-      <h3>Error prevention</h3>
-      <p>Understanding the pipeline reduces mechanical mistakes.</p>
+    <p>
+      Standard error quantifies uncertainty in the estimator.
+    </p>
+
+    <h2>An Example</h2>
+
+    <p>
+      For the sample mean:
+    </p>
+
+    0
+
+    <p>
+      Larger samples produce smaller standard errors and therefore more precise estimates.
+    </p>
+
+    <h2>Step 5: Build a Confidence Interval</h2>
+
+    <p>
+      Once we know the estimate and its standard error,
+      we can quantify uncertainty using a confidence interval.
+    </p>
+
+    <p>
+      A common form is:
+    </p>
+
+    1
+
+    <p>
+      Confidence intervals provide a range of plausible values for the parameter.
+    </p>
+
+    <h2>What Confidence Intervals Add</h2>
+
+    <p>
+      A point estimate alone provides a single number.
+    </p>
+
+    <p>
+      A confidence interval communicates both:
+    </p>
+
+    <ul class="bullets">
+
+      <li>The estimate</li>
+
+      <li>The uncertainty around it</li>
+
+    </ul>
+
+    <p>
+      This makes confidence intervals more informative.
+    </p>
+
+    <h2>Step 6: Perform a Hypothesis Test</h2>
+
+    <p>
+      Sometimes we want to evaluate a claim rather than estimate a parameter.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Is the treatment effective?
+      </p>
+
+      <p>
+        Has the process changed?
+      </p>
+
+      <p>
+        Are two groups different?
+      </p>
+
     </div>
 
-    <div class="card">
-      <h3>Interpretation focus</h3>
-      <p>Encourages probabilistic reasoning rather than procedural steps.</p>
-    </div>
-  </div>
-</section>
+    <p>
+      Hypothesis testing addresses these questions.
+    </p>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+    <h2>How Hypothesis Tests Use Standard Errors</h2>
+
+    <p>
+      Test statistics compare observed effects to expected sampling variability.
+    </p>
+
+    <p>
+      A generic test statistic looks like:
+    </p>
+
+    2
+
+    <p>
+      Large values indicate stronger evidence against the null hypothesis.
+    </p>
+
+    <h2>The Entire Pipeline in One Example</h2>
+
+    <p>
+      Suppose we want to estimate average customer spending.
+    </p>
+
+    <ol>
+
+      <li>Parameter: Population mean spending</li>
+
+      <li>Estimator: Sample mean</li>
+
+      <li>Sampling distribution: Distribution of sample means</li>
+
+      <li>Standard error: Measures uncertainty</li>
+
+      <li>Confidence interval: Plausible parameter values</li>
+
+      <li>Hypothesis test: Evaluate specific claims</li>
+
+    </ol>
+
+    <p>
+      Every stage builds directly on the previous stage.
+    </p>
+
+    <h2>Why Standard Error Sits at the Center</h2>
+
+    <p>
+      Notice that both confidence intervals and hypothesis tests require standard errors.
+    </p>
+
+    <p>
+      Standard error acts as the bridge between estimation and inference.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Observation:</strong>
+
+      <p>
+        Estimator → Standard Error → Confidence Interval/Test
+      </p>
+
+    </div>
+
+    <h2>Where Probability Appears</h2>
+
+    <p>
+      Probability enters through the sampling distribution.
+    </p>
+
+    <p>
+      The sampling distribution tells us how likely different estimator values are.
+    </p>
+
+    <p>
+      Confidence intervals and hypothesis tests rely on those probabilities.
+    </p>
+
+    <h2>The Role of Sample Size</h2>
+
+    <p>
+      Sample size affects nearly every step.
+    </p>
+
+    <ul class="bullets">
+
+      <li>Larger samples reduce standard error</li>
+
+      <li>Smaller standard errors narrow confidence intervals</li>
+
+      <li>Narrower intervals improve precision</li>
+
+      <li>More precise estimates improve testing power</li>
+
+    </ul>
+
+    <p>
+      This is why sample size is so important in statistics.
+    </p>
+
+    <h2>Two Different Goals</h2>
+
+    <p>
+      The pipeline can support two major inferential goals:
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Goal</th>
+            <th>Main Output</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Estimation</td>
+            <td>Confidence interval</td>
+          </tr>
+
+          <tr>
+            <td>Testing</td>
+            <td>Hypothesis test result</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      Both rely on the same underlying structure.
+    </p>
+
+    <h2>A Unified View of Statistical Inference</h2>
+
+    <p>
+      Many seemingly different statistical procedures are simply variations of the same workflow.
+    </p>
+
+    <p>
+      Whether performing a t-test,
+      estimating a proportion,
+      fitting a regression,
+      or analyzing an experiment,
+      the inferential logic remains similar.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Unified Framework:</strong>
+
+      <p>
+        Estimate a parameter, quantify uncertainty, and use probability to draw conclusions.
+      </p>
+
+    </div>
+
+    <h2>Why This Lesson Matters</h2>
+
+    <p>
+      Understanding the pipeline helps connect all future inferential methods.
+    </p>
+
+    <p>
+      Instead of memorizing isolated formulas,
+      you can see how every procedure fits into a larger framework.
+    </p>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      The next major topic explores one of the most important distinctions in estimation.
+    </p>
+
+    <p>
+      Sometimes we report a single best estimate.
+    </p>
+
+    <p>
+      Other times we report a range of plausible values.
+    </p>
+
+    <p>
+      The next lesson introduces point estimation and interval estimation.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Describe the complete inference pipeline</li>
-        <li>Connect estimation to uncertainty quantification</li>
-        <li>Explain how CI and tests arise from the same structure</li>
-        <li>Prepare for detailed CI and testing procedures</li>
+
+        <li>Statistical inference follows a common workflow</li>
+
+        <li>Inference begins with a population parameter</li>
+
+        <li>Estimators provide sample-based information about parameters</li>
+
+        <li>Sampling distributions describe estimator behavior</li>
+
+        <li>Standard errors measure inferential uncertainty</li>
+
+        <li>Confidence intervals quantify plausible parameter values</li>
+
+        <li>Hypothesis tests evaluate specific claims</li>
+
+        <li>Most inferential methods follow the same underlying pipeline</li>
+
       </ul>
-    </div>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next step</h2>
-      <p style="margin:0;">
-        Next, we clarify the conceptual difference between
-        <strong>point estimation</strong> and
-        <strong>interval estimation</strong>.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/foundations/point-vs-interval-estimation/">
-          Next lesson: 11. Point vs Interval Estimation →
-        </a>
-      </div>
     </div>
 
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/foundations/what-makes-good-estimator/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 9: What Makes an Estimator “Good”?
-          </a>
-        </div>
-      </div>
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/foundations/what-makes-good-estimator/">
+         ← Previous: What Makes a Good Estimator?
+      </a>
+
+      <a class="btn"
+         href="/inference/foundations/point-vs-interval-estimation/">
+         Next: Point vs Interval Estimation →
+      </a>
+
     </div>
 
   </div>
+
 </section>

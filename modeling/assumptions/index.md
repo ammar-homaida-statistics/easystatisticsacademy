@@ -1,229 +1,603 @@
 ---
 layout: default
 title: Block 4 — Model Assumptions
+description: Learn the assumptions behind regression models, why they matter, how violations affect interpretation, and how statisticians think about model validity.
 permalink: /modeling/assumptions/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem;">
-        🚧 This Block Is Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; line-height:1.6;">
-        This block explains the assumptions behind regression models.
-        These are not technical details—they determine whether results
-        can be trusted and interpreted correctly.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update last visited block -->
+<!-- SAVE BLOCK PROGRESS -->
 <script>
 (function () {
-  localStorage.setItem("esa_continue_modeling_last_block_v0", JSON.stringify({
+
+  const KEY = "esa_continue_modeling_last_block_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
     url: "/modeling/assumptions/",
     label: "Block 4 — Model Assumptions",
     ts: Date.now()
   }));
+
 })();
 </script>
 
 <!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card hero-split">
+
+    <!-- LEFT -->
 
     <div class="hero-copy">
 
       <div class="badge-row">
+        <span class="badge">Modeling</span>
         <span class="badge">Block 4</span>
         <span class="badge">Assumptions</span>
         <span class="badge">Validity</span>
-        <span class="badge">Diagnostics</span>
       </div>
 
       <h1>Block 4 — Model Assumptions</h1>
 
       <p class="lead">
-        Regression models rely on assumptions. When these assumptions fail,
-        interpretation breaks. This block teaches what assumptions mean,
-        why they matter, and what happens when they are violated.
+        Statistical models rely on assumptions about how data are generated
+        and how relationships behave.
+      </p>
+
+      <p class="lead">
+        This block explains why assumptions exist,
+        how they affect interpretation,
+        what happens when they fail,
+        and how statisticians evaluate model validity in practice.
+      </p>
+
+      <p class="muted-mini">
+        8 lessons • Model validity • Builds on Multiple Regression • Prepares for Diagnostics
       </p>
 
       <div class="hero-actions">
-        <a class="btn btn-outline" href="/modeling/">Back to Statistical Modeling</a>
-        <a class="btn" href="#lessons">Open structure</a>
+
+        <a class="btn" href="#lessons">
+          Open Lessons
+        </a>
+
+        <a class="btn btn-outline" href="/modeling/">
+          Back to Statistical Modeling
+        </a>
+
       </div>
 
-      <p class="muted-mini">
-        Version 0: structure is fixed. Lessons will expand without changing order.
-      </p>
+      <div class="hero-highlight">
+
+        <div class="hero-highlight-icon">
+          ⚙️
+        </div>
+
+        <div>
+
+          <strong>Why this block matters</strong>
+
+          <p>
+            A regression model can produce impressive-looking results while
+            violating assumptions that make those results unreliable.
+            Understanding assumptions is essential for interpreting models responsibly.
+          </p>
+
+        </div>
+
+      </div>
 
     </div>
+
+    <!-- RIGHT -->
 
     <div class="hero-panel">
+
       <div class="panel-card">
-        <h2 class="panel-title">What this block covers</h2>
-        <ul class="quickstart" style="list-style:none; padding-left:0;">
 
-          <li><strong>Why assumptions exist</strong><span class="meta">Validity of interpretation</span></li>
-          <li><strong>Linearity</strong><span class="meta">Correct functional form</span></li>
-          <li><strong>Independence</strong><span class="meta">No dependence between observations</span></li>
-          <li><strong>Homoscedasticity</strong><span class="meta">Constant variance of errors</span></li>
-          <li><strong>Normality</strong><span class="meta">Distribution of residuals (for inference)</span></li>
-          <li><strong>Violations</strong><span class="meta">What breaks and why</span></li>
-          <li><strong>Robust thinking</strong><span class="meta">What to do in practice</span></li>
+        <h2 class="panel-title">Block overview</h2>
 
-        </ul>
+        <div class="mini">
+          <div class="mini-title">Lessons</div>
+          <div class="mini-body">8 structured lessons</div>
+        </div>
+
+        <div class="mini">
+          <div class="mini-title">Level</div>
+          <div class="mini-body">Regression validity and interpretation</div>
+        </div>
+
+        <div class="mini">
+          <div class="mini-title">Main skill</div>
+          <div class="mini-body">
+            Evaluate whether a model can be trusted
+          </div>
+        </div>
+
+        <div class="mini">
+          <div class="mini-title">Next block</div>
+          <div class="mini-body">
+            Diagnostics
+          </div>
+        </div>
+
       </div>
+
     </div>
 
   </div>
+
 </section>
 
-<!-- ✅ Continue Reading -->
-<section class="section" id="continue-reading-assumptions" style="display:none;">
+<!-- CONTINUE READING -->
+
+<section
+  class="section"
+  id="continue-reading-modeling-assumptions"
+  style="display:none;"
+>
+
   <div class="callout">
+
     <div class="callout-copy">
+
       <h2>Continue reading</h2>
-      <p class="muted-mini" id="continue-reading-assumptions-label" style="margin:0 0 .75rem 0;"></p>
-      <a class="btn" id="continue-reading-assumptions-btn" href="#">Continue</a>
+
+      <p
+        id="continue-reading-modeling-assumptions-label"
+        class="muted-mini"
+      ></p>
+
+      <a
+        class="btn"
+        id="continue-reading-modeling-assumptions-btn"
+        href="#"
+      >
+        Continue
+      </a>
+
     </div>
+
   </div>
+
 </section>
 
 <!-- LESSONS -->
+
 <section class="section" id="lessons">
 
   <div class="section-head">
-    <h2>Lessons (Version 0)</h2>
+
+    <h2>Lessons</h2>
+
     <p>
-      Assumptions are introduced conceptually first, then examined one-by-one,
-      followed by consequences and practical handling.
+      These lessons introduce the assumptions behind regression models,
+      explain their purpose,
+      and examine the consequences of assumption violations.
     </p>
+
   </div>
 
   <div class="grid grid-2">
 
-    <div class="card lesson-card">
-      <h3><a href="/modeling/assumptions/why-assumptions/">1. Why Assumptions Matter</a></h3>
-      <p>Why regression requires assumptions and what “valid model” means.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/modeling/assumptions/why-assumptions/">Open lesson</a>
+    <!-- LESSON 1 -->
+
+    <div class="card lesson-card lesson-block-card">
+
+      <h3>
+        <a href="/modeling/assumptions/why-assumptions/">
+          Why Assumptions Matter
+        </a>
+      </h3>
+
+      <p>
+        Learn why statistical models require assumptions and how assumptions support valid interpretation.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Validity</span>
+        <span class="pill">Inference</span>
+        <span class="pill">Models</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/modeling/assumptions/why-assumptions/">
+         Open lesson
+      </a>
+
     </div>
 
-    <div class="card lesson-card">
-      <h3><a href="/modeling/assumptions/linearity/">2. Linearity</a></h3>
-      <p>The relationship must be correctly modeled as linear (or transformed).</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/modeling/assumptions/linearity/">Open lesson</a>
+    <!-- LESSON 2 -->
+
+    <div class="card lesson-card lesson-block-card">
+
+      <h3>
+        <a href="/modeling/assumptions/linearity/">
+          Linearity
+        </a>
+      </h3>
+
+      <p>
+        Understand the assumption that the model correctly represents the relationship between predictors and outcome.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Linearity</span>
+        <span class="pill">Functional Form</span>
+        <span class="pill">Relationships</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/modeling/assumptions/linearity/">
+         Open lesson
+      </a>
+
     </div>
 
-    <div class="card lesson-card">
-      <h3><a href="/modeling/assumptions/independence/">3. Independence</a></h3>
-      <p>Observations must not influence each other.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/modeling/assumptions/independence/">Open lesson</a>
+    <!-- LESSON 3 -->
+
+    <div class="card lesson-card lesson-block-card">
+
+      <h3>
+        <a href="/modeling/assumptions/independence/">
+          Independence
+        </a>
+      </h3>
+
+      <p>
+        Learn why observations should not systematically influence one another.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Independence</span>
+        <span class="pill">Sampling</span>
+        <span class="pill">Dependence</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/modeling/assumptions/independence/">
+         Open lesson
+      </a>
+
     </div>
 
-    <div class="card lesson-card">
-      <h3><a href="/modeling/assumptions/homoscedasticity/">4. Homoscedasticity</a></h3>
-      <p>Variance of errors should remain constant across predictor values.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/modeling/assumptions/homoscedasticity/">Open lesson</a>
+    <!-- LESSON 4 -->
+
+    <div class="card lesson-card lesson-block-card">
+
+      <h3>
+        <a href="/modeling/assumptions/homoscedasticity/">
+          Homoscedasticity
+        </a>
+      </h3>
+
+      <p>
+        Understand constant error variance and why changing variance affects inference.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Variance</span>
+        <span class="pill">Errors</span>
+        <span class="pill">Residuals</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/modeling/assumptions/homoscedasticity/">
+         Open lesson
+      </a>
+
     </div>
 
-    <div class="card lesson-card">
-      <h3><a href="/modeling/assumptions/normality/">5. Normality of Residuals</a></h3>
-      <p>Required mainly for inference (not for estimation itself).</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/modeling/assumptions/normality/">Open lesson</a>
+    <!-- LESSON 5 -->
+
+    <div class="card lesson-card lesson-block-card">
+
+      <h3>
+        <a href="/modeling/assumptions/normality/">
+          Normality of Residuals
+        </a>
+      </h3>
+
+      <p>
+        Learn why residual normality matters mainly for inference rather than estimation.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Normality</span>
+        <span class="pill">Residuals</span>
+        <span class="pill">Inference</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/modeling/assumptions/normality/">
+         Open lesson
+      </a>
+
     </div>
 
-    <div class="card lesson-card">
-      <h3><a href="/modeling/assumptions/outliers/">6. Outliers and Their Impact</a></h3>
-      <p>Extreme points can distort model estimates and interpretation.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/modeling/assumptions/outliers/">Open lesson</a>
+    <!-- LESSON 6 -->
+
+    <div class="card lesson-card lesson-block-card">
+
+      <h3>
+        <a href="/modeling/assumptions/outliers/">
+          Outliers and Their Impact
+        </a>
+      </h3>
+
+      <p>
+        Understand how unusual observations can influence model estimates and conclusions.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Outliers</span>
+        <span class="pill">Influence</span>
+        <span class="pill">Robustness</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/modeling/assumptions/outliers/">
+         Open lesson
+      </a>
+
     </div>
 
-    <div class="card lesson-card">
-      <h3><a href="/modeling/assumptions/violations/">7. Violations and Consequences</a></h3>
-      <p>What goes wrong when assumptions fail.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/modeling/assumptions/violations/">Open lesson</a>
+    <!-- LESSON 7 -->
+
+    <div class="card lesson-card lesson-block-card">
+
+      <h3>
+        <a href="/modeling/assumptions/violations/">
+          Violations and Consequences
+        </a>
+      </h3>
+
+      <p>
+        Learn what breaks when assumptions fail and how violations affect interpretation.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Violations</span>
+        <span class="pill">Consequences</span>
+        <span class="pill">Validity</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/modeling/assumptions/violations/">
+         Open lesson
+      </a>
+
     </div>
 
-    <div class="card lesson-card">
-      <h3><a href="/modeling/assumptions/robustness/">8. Robustness and Practical Thinking</a></h3>
-      <p>Which assumptions matter most and when models still work.</p>
-      <div class="pill-row">
-        <a class="btn btn-outline" href="/modeling/assumptions/robustness/">Open lesson</a>
+    <!-- LESSON 8 -->
+
+    <div class="card lesson-card lesson-block-card">
+
+      <h3>
+        <a href="/modeling/assumptions/robustness/">
+          Robustness and Practical Thinking
+        </a>
+      </h3>
+
+      <p>
+        Learn which assumptions matter most and how analysts think about imperfect models in practice.
+      </p>
+
+      <div class="lesson-card-tags">
+        <span class="pill">Robustness</span>
+        <span class="pill">Practice</span>
+        <span class="pill">Judgment</span>
       </div>
+
+      <a class="btn btn-outline"
+         href="/modeling/assumptions/robustness/">
+         Open lesson
+      </a>
+
     </div>
 
   </div>
+
 </section>
 
-<!-- OUTCOME -->
+<!-- BLOCK MAP -->
+
 <section class="section section-slim">
+
   <div class="callout">
 
     <div class="callout-copy">
-      <h2>Outcome of Block 4</h2>
-      <ul class="bullets">
-        <li>Understand why regression assumptions exist</li>
-        <li>Explain each assumption conceptually</li>
-        <li>Recognize violations and their consequences</li>
-        <li>Distinguish critical vs less critical assumptions</li>
-        <li>Think practically about model validity</li>
-      </ul>
-    </div>
 
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Next block</div>
-        <div class="mini-body">
-          Continue to
-          <a href="/modeling/diagnostics/" style="color:#1a73e8; text-decoration:underline;">
-            <strong>Block 5 — Diagnostics</strong>
-          </a>.
-        </div>
+      <h2>How this block fits into modeling</h2>
+
+      <p>
+        Multiple regression provides estimates,
+        but assumptions determine whether those estimates can be trusted.
+        This block develops the framework needed to evaluate model validity.
+      </p>
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Concept</th>
+              <th>Why it matters later</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <tr>
+              <td>Linearity</td>
+              <td>Ensures the model structure is appropriate</td>
+            </tr>
+
+            <tr>
+              <td>Independence</td>
+              <td>Supports valid uncertainty estimates</td>
+            </tr>
+
+            <tr>
+              <td>Homoscedasticity</td>
+              <td>Improves reliability of standard errors</td>
+            </tr>
+
+            <tr>
+              <td>Normality</td>
+              <td>Supports hypothesis testing and confidence intervals</td>
+            </tr>
+
+            <tr>
+              <td>Robustness</td>
+              <td>Guides practical decision-making when assumptions fail</td>
+            </tr>
+
+          </tbody>
+
+        </table>
+
       </div>
+
     </div>
 
   </div>
+
+</section>
+
+<!-- GOALS -->
+
+<section class="section section-slim">
+
+  <div class="callout">
+
+    <div class="callout-copy">
+
+      <h2>Goal of this block</h2>
+
+      <ul class="bullets">
+
+        <li>Understand why regression assumptions exist</li>
+
+        <li>Explain each major assumption conceptually</li>
+
+        <li>Recognize common assumption violations</li>
+
+        <li>Understand the consequences of violations</li>
+
+        <li>Distinguish critical from less critical assumptions</li>
+
+        <li>Develop practical thinking about model validity</li>
+
+        <li>Understand robustness in applied modeling</li>
+
+        <li>Prepare for formal model diagnostics</li>
+
+      </ul>
+
+    </div>
+
+    <div class="callout-side">
+
+      <div class="mini">
+
+        <div class="mini-title">Next block</div>
+
+        <div class="mini-body">
+          Continue to <strong>Diagnostics</strong>
+        </div>
+
+      </div>
+
+      <div class="mini">
+
+        <div class="mini-title">Core idea</div>
+
+        <div class="mini-body">
+          Assumptions determine whether model interpretations can be trusted.
+        </div>
+
+      </div>
+
+      <div class="mini">
+
+        <div class="mini-title">Big transition</div>
+
+        <div class="mini-body">
+          The next block focuses on diagnosing assumptions using real analytical tools.
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- NAVIGATION -->
+
+<section class="section section-slim">
+
+  <div class="lesson-nav">
+
+    <a class="btn btn-outline" href="/modeling/multiple-regression/">
+      ← Previous Block: Multiple Regression
+    </a>
+
+    <a class="btn" href="/modeling/diagnostics/">
+      Next Block: Diagnostics →
+    </a>
+
+  </div>
+
 </section>
 
 <!-- CONTINUE READING SCRIPT -->
+
 <script>
 (function () {
-  var KEY = "esa_continue_modeling_assumptions_lesson_v0";
-  var raw = localStorage.getItem(KEY);
-  if (!raw) return;
 
   try {
-    var data = JSON.parse(raw);
+
+    const KEY =
+      "esa_continue_modeling_assumptions_lesson_v0";
+
+    const raw = localStorage.getItem(KEY);
+
+    if (!raw) return;
+
+    const data = JSON.parse(raw);
+
     if (!data || !data.url || !data.label) return;
 
-    var wrap = document.getElementById("continue-reading-assumptions");
-    var label = document.getElementById("continue-reading-assumptions-label");
-    var btn = document.getElementById("continue-reading-assumptions-btn");
+    const wrap =
+      document.getElementById(
+        "continue-reading-modeling-assumptions"
+      );
 
-    label.innerHTML = 'You last visited: <strong>' + data.label + '</strong>';
+    const label =
+      document.getElementById(
+        "continue-reading-modeling-assumptions-label"
+      );
+
+    const btn =
+      document.getElementById(
+        "continue-reading-modeling-assumptions-btn"
+      );
+
+    label.innerHTML =
+      "You last visited: <strong>" +
+      data.label +
+      "</strong>";
+
     btn.href = data.url;
+
     wrap.style.display = "block";
 
   } catch (e) {}
+
 })();
 </script>

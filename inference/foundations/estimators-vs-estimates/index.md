@@ -1,314 +1,538 @@
 ---
 layout: default
-title: "4. Estimators vs Estimates"
-description: "Distinguish clearly between an estimator (a rule or formula) and an estimate (a realized number). Understand why this distinction is essential for inference."
+title: Estimators vs Estimates
+description: Learn the difference between estimators and estimates and why the distinction is fundamental to statistical inference.
 permalink: /inference/foundations/estimators-vs-estimates/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">🚧 Lesson Under Construction</h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 is published first to lock the structure and the correct conceptual flow.
-        Worked examples, visuals, and software demonstrations will be added later without changing the lesson order.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update "last visited lesson" for Inference Block 1 -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_foundations_lesson_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/foundations/estimators-vs-estimates/",
-      label: "Lesson 4 — Estimators vs Estimates",
-      ts: Date.now()
-    }));
+(function () {
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/foundations/",
-      label: "Block 1 — Inference Foundations",
-      ts: Date.now()
-    }));
-  })();
+  const KEY =
+    "esa_continue_inference_foundations_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/foundations/estimators-vs-estimates/",
+    label: "Estimators vs Estimates",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 1</span>
-        <span class="badge">Lesson 4</span>
-        <span class="badge">Estimation</span>
-        <span class="badge">Core Distinction</span>
-      </div>
 
-      <h1>4. Estimators vs Estimates</h1>
-      <p class="lead">
-        An <strong>estimator</strong> is a rule or formula applied to data.
-        An <strong>estimate</strong> is the numerical result you obtain from one sample.
-        Confusing the two leads to major interpretation errors in inference.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/foundations/">Back to Block 1</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        Version 0: conceptual clarity first. Formal properties will follow in later lessons.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
-    <p>
-      By the end of this lesson, you should be able to define an estimator formally,
-      distinguish it from an estimate, and explain why the estimator is treated as a random variable.
-    </p>
-  </div>
-
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Key idea</h2>
-      <p style="margin:0;">
-        <strong>Estimator = rule. Estimate = number.</strong>
-        The estimator varies across samples; the estimate is one realized value.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>1) What is an estimator?</h2>
-    <p>
-      An estimator is a function of the sample used to estimate a population parameter.
-      It is defined before observing the data.
-    </p>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      If the sample is \(X_1, X_2, \dots, X_n\), then  
-      the sample mean estimator is  
-      \(\bar{X} = \frac{1}{n}\sum_{i=1}^n X_i\).
-    </p>
-  </div>
-
-  <p style="margin-top:.75rem;">
-    Notice: this formula is defined independently of the specific values observed.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>2) What is an estimate?</h2>
-    <p>
-      Once you observe a specific dataset, you plug the values into the estimator formula.
-      The resulting number is the estimate.
-    </p>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      If your observed data produce \(\bar{x} = 72.4\),  
-      then 72.4 is the <strong>estimate</strong> of \(\mu\).
-    </p>
-  </div>
-
-  <p class="muted-mini" style="margin-top:.75rem;">
-    Lowercase letters (e.g., \(\bar{x}\)) are often used to denote realized values.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>3) Why the distinction matters</h2>
-    <p>
-      The estimator has a sampling distribution.
-      The estimate does not.
-    </p>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Estimator (random)</h3>
-      <ul class="bullets">
-        <li>Depends on random sample</li>
-        <li>Has expectation, variance</li>
-        <li>Used to derive SE and CI</li>
-      </ul>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 1</span>
+      <span class="badge">Foundations</span>
+      <span class="badge">Estimation</span>
     </div>
 
-    <div class="card">
-      <h3>Estimate (fixed number)</h3>
-      <ul class="bullets">
-        <li>Observed from one dataset</li>
-        <li>No distribution by itself</li>
-        <li>Used in reporting results</li>
-      </ul>
+    <h1>Estimators vs Estimates</h1>
+
+    <p class="lead">
+      The words estimator and estimate sound similar, but they describe different concepts.
+    </p>
+
+    <p class="lead">
+      Understanding the distinction is essential because statistical inference studies estimators before observing estimates.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/foundations/statistics-as-random-variables/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/foundations/sampling-distributions-bridge/">
+         Next: Sampling Distributions Bridge →
+      </a>
+
     </div>
+
   </div>
 
-  <p class="muted-mini" style="margin-top:.75rem;">
-    Statements like “the estimate has variance” are technically incorrect.
-    The estimator has variance; the estimate is one realized outcome.
-  </p>
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>4) Examples across common parameters</h2>
-  </div>
+<!-- LESSON -->
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Population mean</h3>
+<section>
+
+  <div class="content-narrow">
+
+    <h2>Why the Distinction Matters</h2>
+
+    <p>
+      In everyday language,
+      people often use estimator and estimate interchangeably.
+    </p>
+
+    <p>
+      In statistics,
+      however,
+      they have different meanings.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Key idea:</strong>
+
       <p>
-        Parameter: \(\mu\)  
-        Estimator: \(\bar{X}\)  
-        Estimate: \(\bar{x}\)
+        An estimator is a rule. An estimate is a result.
       </p>
+
     </div>
 
-    <div class="card">
-      <h3>Population proportion</h3>
-      <p>
-        Parameter: \(p\)  
-        Estimator: \(\hat{P}\)  
-        Estimate: \(\hat{p}\)
-      </p>
-    </div>
+    <h2>What Is an Estimator?</h2>
 
-    <div class="card">
-      <h3>Regression slope</h3>
-      <p>
-        Parameter: \(\beta\)  
-        Estimator: \(\hat{\beta}\)  
-        Estimate: numeric value from sample
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Variance</h3>
-      <p>
-        Parameter: \(\sigma^2\)  
-        Estimator: \(S^2\)  
-        Estimate: observed \(s^2\)
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>5) Properties apply to estimators, not estimates</h2>
     <p>
-      When we discuss properties like unbiasedness, consistency, and efficiency,
-      we are referring to the estimator as a random variable.
+      An estimator is a statistic or formula used to estimate an unknown population parameter.
     </p>
-  </div>
 
-  <div class="card">
+    <div class="concept-box">
+
+      <strong>Definition:</strong>
+
+      <p>
+        An estimator is a random variable designed to estimate a population parameter.
+      </p>
+
+    </div>
+
+    <p>
+      Before data are collected,
+      the estimator can produce many possible values.
+    </p>
+
+    <h2>Examples of Estimators</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Parameter</th>
+            <th>Estimator</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>μ</td>
+            <td>x̄</td>
+          </tr>
+
+          <tr>
+            <td>p</td>
+            <td>p̂</td>
+          </tr>
+
+          <tr>
+            <td>σ²</td>
+            <td>s²</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      These formulas are estimators because they are intended to estimate unknown population quantities.
+    </p>
+
+    <h2>What Is an Estimate?</h2>
+
+    <p>
+      Once data are collected,
+      the estimator produces a specific numerical value.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Definition:</strong>
+
+      <p>
+        An estimate is the realized numerical value produced by an estimator.
+      </p>
+
+    </div>
+
+    <h2>An Example</h2>
+
+    <p>
+      Suppose:
+    </p>
+
+    <p>
+      The estimator is:
+    </p>
+
+    0
+
+    <p>
+      After collecting a sample,
+      we obtain:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        x̄ = 72.4
+      </p>
+
+    </div>
+
+    <p>
+      Here:
+    </p>
+
     <ul class="bullets">
-      <li><strong>Unbiasedness:</strong> \(E(\hat{\theta}) = \theta\)</li>
-      <li><strong>Variance:</strong> measures spread of estimator across samples</li>
-      <li><strong>Consistency:</strong> estimator converges to parameter as \(n \to \infty\)</li>
+
+      <li>x̄ is the estimator</li>
+
+      <li>72.4 is the estimate</li>
+
     </ul>
-  </div>
 
-  <p class="muted-mini" style="margin-top:.75rem;">
-    These properties cannot be evaluated from a single observed estimate alone.
-  </p>
-</section>
+    <h2>Before and After Sampling</h2>
 
-<section class="section">
-  <div class="section-head">
-    <h2>6) Common misconceptions</h2>
-  </div>
+    <div class="table-wrap">
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>“The estimate is unbiased.”</h3>
-      <p>
-        Unbiasedness is a property of the estimator’s distribution,
-        not of one realized estimate.
-      </p>
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Before Sampling</th>
+            <th>After Sampling</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Estimator is random</td>
+            <td>Estimate is fixed</td>
+          </tr>
+
+          <tr>
+            <td>Many possible outcomes</td>
+            <td>One observed value</td>
+          </tr>
+
+          <tr>
+            <td>Probability model applies</td>
+            <td>Observed result</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
     </div>
 
-    <div class="card">
-      <h3>“We can judge variance from one dataset.”</h3>
+    <h2>Why Estimators Are Random</h2>
+
+    <p>
+      Different samples lead to different estimates.
+    </p>
+
+    <div class="example-box">
+
       <p>
-        Variance refers to variability across repeated samples,
-        not variability within one sample.
+        Sample 1 → x̄ = 68
       </p>
+
+      <p>
+        Sample 2 → x̄ = 71
+      </p>
+
+      <p>
+        Sample 3 → x̄ = 74
+      </p>
+
     </div>
 
-    <div class="card">
-      <h3>“Estimator and statistic are different.”</h3>
+    <p>
+      Because the sample changes,
+      the estimator changes.
+    </p>
+
+    <p>
+      Therefore the estimator is a random variable.
+    </p>
+
+    <h2>Why Estimates Are Fixed</h2>
+
+    <p>
+      After observing the sample,
+      the estimate becomes a specific number.
+    </p>
+
+    <p>
+      There is no longer uncertainty about its value.
+    </p>
+
+    <div class="example-box">
+
       <p>
-        In most contexts, an estimator is simply a statistic used for estimation.
+        Observed estimate = 72.4
       </p>
+
     </div>
 
-    <div class="card">
-      <h3>“More decimal places mean better estimation.”</h3>
-      <p>
-        Precision in reporting does not equal precision in inference.
-        Precision is determined by the estimator’s variability.
-      </p>
-    </div>
-  </div>
-</section>
+    <p>
+      The uncertainty now concerns the unknown parameter,
+      not the observed estimate.
+    </p>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+    <h2>The Relationship Between Them</h2>
+
+    <p>
+      Every estimate comes from an estimator.
+    </p>
+
+    <p>
+      The estimator provides the procedure.
+    </p>
+
+    <p>
+      The estimate is the outcome produced by that procedure.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Relationship:</strong>
+
+      <p>
+        Estimator → Sampling Process → Estimate
+      </p>
+
+    </div>
+
+    <h2>Why Statistical Theory Focuses on Estimators</h2>
+
+    <p>
+      Before data are observed,
+      statisticians evaluate the quality of estimators.
+    </p>
+
+    <p>
+      Questions include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Is the estimator unbiased?</li>
+
+      <li>Is it precise?</li>
+
+      <li>Does it improve with larger samples?</li>
+
+      <li>How much variability does it have?</li>
+
+    </ul>
+
+    <p>
+      These are questions about estimators,
+      not estimates.
+    </p>
+
+    <h2>Desirable Properties of Estimators</h2>
+
+    <ul class="bullets">
+
+      <li>Unbiasedness</li>
+
+      <li>Consistency</li>
+
+      <li>Efficiency</li>
+
+      <li>Small standard error</li>
+
+    </ul>
+
+    <p>
+      These properties help determine whether an estimator is useful.
+    </p>
+
+    <h2>Example: Estimating a Population Mean</h2>
+
+    <p>
+      Suppose:
+    </p>
+
+    <p>
+      Population mean = μ
+    </p>
+
+    <p>
+      Estimator:
+    </p>
+
+    1
+
+    <p>
+      Sample collected:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        70, 75, 73, 72, 72
+      </p>
+
+    </div>
+
+    <p>
+      Estimate:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        x̄ = 72.4
+      </p>
+
+    </div>
+
+    <p>
+      The estimator is the formula.
+    </p>
+
+    <p>
+      The estimate is the observed value.
+    </p>
+
+    <h2>Connection to Confidence Intervals</h2>
+
+    <p>
+      Confidence intervals are built around estimates.
+    </p>
+
+    <p>
+      However,
+      the theory behind confidence intervals comes from the sampling distribution of the estimator.
+    </p>
+
+    <p>
+      This is why the distinction matters.
+    </p>
+
+    <h2>Connection to Hypothesis Testing</h2>
+
+    <p>
+      Hypothesis tests use observed estimates.
+    </p>
+
+    <p>
+      Yet the probability calculations depend on how the estimator behaves under repeated sampling.
+    </p>
+
+    <p>
+      Again,
+      the estimator is central to the theory.
+    </p>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      Statistical inference studies estimators before observing data.
+    </p>
+
+    <p>
+      After data are collected,
+      those estimators produce estimates.
+    </p>
+
+    <p>
+      Understanding this distinction helps clarify nearly every inferential method.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Estimators are random rules for learning about parameters. Estimates are the observed numerical outcomes produced by those rules.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Estimators are random variables.
+    </p>
+
+    <p>
+      Therefore they have probability distributions.
+    </p>
+
+    <p>
+      The next lesson revisits sampling distributions and explains how they connect estimators, uncertainty, and statistical inference.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Define estimator as a rule and estimate as a realized value</li>
-        <li>Explain why estimators are random variables</li>
-        <li>Understand that inferential properties apply to estimators</li>
-        <li>Prepare for formal discussion of sampling distributions and SE</li>
+
+        <li>An estimator is a rule used to estimate a population parameter</li>
+
+        <li>An estimate is the numerical value produced by an estimator</li>
+
+        <li>Estimators are random variables before sampling</li>
+
+        <li>Estimates are fixed values after sampling</li>
+
+        <li>Every estimate comes from an estimator</li>
+
+        <li>Statistical theory evaluates estimators rather than estimates</li>
+
+        <li>Confidence intervals and hypothesis tests depend on estimator behavior</li>
+
+        <li>Understanding the distinction is fundamental to inference</li>
+
       </ul>
-    </div>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next step</h2>
-      <p style="margin:0;">
-        Next, we formalize the concept of the
-        <strong>sampling distribution</strong> as the bridge from estimation to uncertainty quantification.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/foundations/sampling-distributions-bridge/">
-          Next lesson: 5. Sampling Distributions (Bridge From Probability) →
-        </a>
-      </div>
     </div>
 
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/foundations/statistics-as-random-variables/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 3: Statistics as Random Variables
-          </a>
-        </div>
-      </div>
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/foundations/statistics-as-random-variables/">
+         ← Previous: Statistics as Random Variables
+      </a>
+
+      <a class="btn"
+         href="/inference/foundations/sampling-distributions-bridge/">
+         Next: Sampling Distributions Bridge →
+      </a>
+
     </div>
 
   </div>
+
 </section>

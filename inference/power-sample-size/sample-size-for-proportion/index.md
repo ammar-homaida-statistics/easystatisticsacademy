@@ -1,256 +1,530 @@
 ---
 layout: default
-title: "5. Sample Size for a Proportion"
-description: "Derive and interpret the required sample size for detecting a difference in a population proportion with specified alpha and power."
+title: Sample Size for a Proportion
+description: Learn how sample-size requirements are determined when estimating or testing population proportions and percentages.
 permalink: /inference/power-sample-size/sample-size-for-proportion/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 derives the core sample size formula for a one-sample proportion
-        under normal approximation. Two-sample extensions and software tools
-        will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update continue-reading keys -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_power_sample_size_lesson_v0";
+(function () {
 
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/power-sample-size/sample-size-for-proportion/",
-      label: "Lesson 5 — Sample Size for a Proportion",
-      ts: Date.now()
-    }));
+  const KEY =
+    "esa_continue_inference_power_sample_size_lesson_v0";
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/power-sample-size/",
-      label: "Block 5 — Power & Sample Size",
-      ts: Date.now()
-    }));
-  })();
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/power-sample-size/sample-size-for-proportion/",
+    label: "Sample Size for a Proportion",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 5</span>
-        <span class="badge">Lesson 5</span>
-        <span class="badge">Sample Size</span>
-        <span class="badge">Proportion</span>
-      </div>
 
-      <h1>5. Sample Size for a Proportion</h1>
-
-      <p class="lead">
-        To detect a meaningful change in a population proportion,
-        we must determine the required sample size
-        based on the desired power and significance level.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/power-sample-size/">Back to Block 5</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        Planning requires specifying the smallest important difference.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 5</span>
+      <span class="badge">Power & Sample Size</span>
+      <span class="badge">Proportions</span>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
-    <p>
-      Derive and interpret the required sample size for detecting
-      a specified difference in a population proportion.
+    <h1>Sample Size for a Proportion</h1>
+
+    <p class="lead">
+      Many studies focus on proportions rather than means.
     </p>
+
+    <p class="lead">
+      Polling, surveys, quality control, public-health studies, and A/B tests often require determining how many observations are needed to estimate or detect differences in population proportions.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/power-sample-size/sample-size-for-mean/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/power-sample-size/precision-vs-detectability/">
+         Next: Precision vs Detectability →
+      </a>
+
+    </div>
+
   </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Planning question</h2>
-      <p style="margin:0;">
-        What sample size n ensures:
-        \[
-        P(\text{Reject } H_0 \mid p = p_0 + \Delta) = 1 - \beta ?
-        \]
+</section>
+
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>Why Proportions Matter</h2>
+
+    <p>
+      Many important questions involve percentages or probabilities.
+    </p>
+
+    <ul class="bullets">
+
+      <li>What proportion of voters support a candidate?</li>
+
+      <li>What fraction of customers make a purchase?</li>
+
+      <li>What percentage of patients respond to treatment?</li>
+
+      <li>What proportion of manufactured items are defective?</li>
+
+    </ul>
+
+    <p>
+      Accurate answers require adequate sample sizes.
+    </p>
+
+    <h2>Planning for Precision</h2>
+
+    <p>
+      Suppose we want to estimate a population proportion:
+    </p>
+
+    0
+
+    <p>
+      with a specified margin of error.
+    </p>
+
+    <p>
+      The question becomes:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        How many observations are needed to estimate the proportion with sufficient precision?
       </p>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) Setup</h2>
-  </div>
+    <h2>Recall the Confidence Interval</h2>
 
-  <div class="card">
-    Hypotheses:
-    \[
-    H_0: p = p_0
-    \qquad
-    H_1: p \neq p_0
-    \]
-  </div>
+    <p>
+      For large samples, a confidence interval for a proportion has the form:
+    </p>
 
-  <div class="card" style="margin-top:1rem;">
-    Test statistic (normal approximation):
-    \[
-    Z =
-    \frac{\hat{p} - p_0}
-         {\sqrt{ \frac{p_0(1 - p_0)}{n} }}
-    \]
-  </div>
+    1
 
-  <p class="muted-mini">
-    Assumes normal approximation to the binomial.
-  </p>
-</section>
+    <p>
+      The margin of error is therefore:
+    </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) Detectable difference</h2>
-  </div>
+    2
 
-  <div class="card">
-    Let
-    \[
-    \Delta = |p - p_0|
-    \]
-    be the smallest meaningful difference.
-  </div>
+    <h2>Solving for Sample Size</h2>
 
-  <p>
-    Under the alternative,
-    the standardized shift equals:
-    \[
-    \frac{\Delta}
-         {\sqrt{ \frac{p_0(1 - p_0)}{n} }}
-    =
-    \frac{\Delta \sqrt{n}}
-         {\sqrt{p_0(1 - p_0)}}
-    \]
-  </p>
-</section>
+    <p>
+      Rearranging the margin-of-error formula gives:
+    </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) Sample size formula (two-sided test)</h2>
-  </div>
+    3
 
-  <div class="card">
-    Required sample size:
-    \[
-    n =
-    \frac{
-      (z_{\alpha/2} + z_{\beta})^2
-      \, p_0 (1 - p_0)
-    }
-    {\Delta^2}
-    \]
-  </div>
+    <p>
+      This is the classic sample-size formula for estimating a population proportion.
+    </p>
 
-  <p class="muted-mini">
-    Where:
-    <br>
-    • \(z_{\alpha/2}\) controls Type I error  
-    • \(z_{\beta}\) controls power  
-    • \(\Delta\) is the smallest meaningful difference  
-    • \(p_0\) is the baseline proportion  
-  </p>
-</section>
+    <h2>The Unknown Proportion Problem</h2>
 
-<section class="section">
-  <div class="section-head">
-    <h2>4) Interpretation</h2>
-  </div>
+    <p>
+      The formula requires a value of:
+    </p>
 
-  <div class="card">
-    Larger required n when:
-    <br><br>
-    • Desired power increases  
-    • Alpha decreases  
-    • Baseline proportion near 0.5 (maximum variance)  
-    • Detectable difference becomes smaller  
-  </div>
+    4
 
-  <p>
-    Variance is largest when \(p_0 = 0.5\),
-    which yields the most conservative sample size.
-  </p>
-</section>
+    <p>
+      but the true population proportion is usually unknown before data collection.
+    </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>5) Practical workflow</h2>
-  </div>
+    <p>
+      Researchers often use:
+    </p>
 
-  <div class="card">
-    Step 1: Choose alpha (e.g., 0.05)  
-    <br>
-    Step 2: Choose desired power (e.g., 0.80 or 0.90)  
-    <br>
-    Step 3: Specify smallest meaningful difference Δ  
-    <br>
-    Step 4: Specify baseline proportion p₀  
-    <br>
-    Step 5: Compute required n  
-  </div>
-</section>
+    <ul class="bullets">
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+      <li>Pilot studies</li>
+
+      <li>Historical data</li>
+
+      <li>Expert knowledge</li>
+
+    </ul>
+
+    <p>
+      to obtain an estimate.
+    </p>
+
+    <h2>The Conservative Choice</h2>
+
+    <p>
+      When no information is available, a common strategy is:
+    </p>
+
+    5
+
+    <p>
+      because:
+    </p>
+
+    6
+
+    <p>
+      is maximized at 0.5.
+    </p>
+
+    <p>
+      This produces the largest required sample size and ensures adequate precision regardless of the true proportion.
+    </p>
+
+    <h2>The Conservative Formula</h2>
+
+    <p>
+      Substituting:
+    </p>
+
+    7
+
+    <p>
+      yields:
+    </p>
+
+    8
+
+    <p>
+      This is frequently used in survey design.
+    </p>
+
+    <h2>Example Calculation</h2>
+
+    <p>
+      Suppose we want:
+    </p>
+
+    <div class="example-box">
+
+      <p>95% confidence</p>
+      <p>Margin of error = 0.03</p>
+
+    </div>
+
+    <p>
+      Using:
+    </p>
+
+    9
+
+    <p>
+      and the conservative assumption:
+    </p>
+
+    10
+
+    <p>
+      gives:
+    </p>
+
+    11
+
+    <p>
+      Therefore:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Required sample size = 1068
+      </p>
+    </div>
+
+    <h2>Always Round Up</h2>
+
+    <p>
+      As with all sample-size calculations:
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Rule:</strong>
+
+      <p>
+        Always round upward to ensure the desired precision is achieved.
+      </p>
+
+    </div>
+
+    <h2>Effect of Margin of Error</h2>
+
+    <p>
+      Notice that:
+    </p>
+
+    12
+
+    <p>
+      Just as with means, halving the margin of error approximately quadruples the required sample size.
+    </p>
+
+    <h2>A Precision Illustration</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Margin of Error</th>
+            <th>Relative Sample Size</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>6%</td>
+            <td>1×</td>
+          </tr>
+
+          <tr>
+            <td>3%</td>
+            <td>4×</td>
+          </tr>
+
+          <tr>
+            <td>1.5%</td>
+            <td>16×</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      Small gains in precision can require substantial increases in sample size.
+    </p>
+
+    <h2>Planning for Hypothesis Testing</h2>
+
+    <p>
+      When testing hypotheses about proportions, sample-size determination depends on:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Desired power</li>
+
+      <li>Significance level</li>
+
+      <li>Target effect size</li>
+
+      <li>Baseline proportion</li>
+
+    </ul>
+
+    <h2>The Role of Effect Size</h2>
+
+    <p>
+      Suppose a company wants to detect an increase in conversion rate.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        From 10% to 11%
+      </p>
+    </div>
+
+    <p>
+      This is a much smaller effect than:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        From 10% to 20%
+      </p>
+    </div>
+
+    <p>
+      Smaller effects require larger samples to detect reliably.
+    </p>
+
+    <h2>The Role of Baseline Proportion</h2>
+
+    <p>
+      Variability for proportions depends on:
+    </p>
+
+    13
+
+    <p>
+      Variability is highest near:
+    </p>
+
+    14
+
+    <p>
+      and decreases as proportions approach 0 or 1.
+    </p>
+
+    <p>
+      Consequently, required sample sizes also depend on the expected baseline proportion.
+    </p>
+
+    <h2>Polling Example</h2>
+
+    <p>
+      National election polls often target margins of error around:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        ±3%
+      </p>
+    </div>
+
+    <p>
+      which explains why many polls collect roughly one thousand respondents.
+    </p>
+
+    <h2>A/B Testing Example</h2>
+
+    <p>
+      Online experiments frequently require thousands or even millions of observations because conversion-rate differences can be very small.
+    </p>
+
+    <p>
+      Detecting tiny effects demands substantial sample sizes.
+    </p>
+
+    <h2>Balancing Precision and Cost</h2>
+
+    <p>
+      Larger samples improve precision and power, but they also increase:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Financial costs</li>
+
+      <li>Time requirements</li>
+
+      <li>Data collection effort</li>
+
+      <li>Operational complexity</li>
+
+    </ul>
+
+    <p>
+      Sample-size planning is therefore a balance between statistical goals and practical constraints.
+    </p>
+
+    <h2>Modern Software</h2>
+
+    <p>
+      Statistical software can compute sample sizes quickly.
+    </p>
+
+    <p>
+      However, researchers must still choose meaningful targets for precision, effect size, confidence, and power.
+    </p>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      Sample-size planning for proportions follows the same principles as planning for means.
+    </p>
+
+    <p>
+      Researchers specify desired precision or power, then determine the number of observations needed to achieve those goals.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Sample-size calculations for proportions depend on confidence level, margin of error, baseline proportion, and desired power. Smaller margins of error and smaller detectable effects require substantially larger samples.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Precision and detectability are closely related but distinct study-design goals.
+    </p>
+
+    <p>
+      Some studies aim for narrow confidence intervals, while others focus on detecting meaningful effects.
+    </p>
+
+    <p>
+      The next lesson explores the difference between precision and detectability and explains how these goals influence study design.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Derive sample size formula for a proportion</li>
-        <li>Understand role of baseline proportion</li>
-        <li>Interpret influence of alpha and beta</li>
-        <li>Plan proportion studies responsibly</li>
+
+        <li>Sample-size planning for proportions often focuses on confidence intervals or power</li>
+
+        <li>The classic proportion formula is based on the desired margin of error</li>
+
+        <li>When p is unknown, p = 0.5 provides a conservative sample-size estimate</li>
+
+        <li>Smaller margins of error require much larger samples</li>
+
+        <li>Required sample size depends on baseline proportion and variability</li>
+
+        <li>Smaller effects require larger samples to detect</li>
+
+        <li>Polling and A/B testing rely heavily on proportion-based sample-size calculations</li>
+
+        <li>Effective study design balances statistical goals and practical limitations</li>
+
       </ul>
+
     </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/power-sample-size/sample-size-for-mean/">
+         ← Previous: Sample Size for a Mean
+      </a>
+
+      <a class="btn"
+         href="/inference/power-sample-size/precision-vs-detectability/">
+         Next: Precision vs Detectability →
+      </a>
+
+    </div>
+
   </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next lesson</h2>
-      <p style="margin:0;">
-        We now distinguish planning for precision
-        from planning for detectability.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/power-sample-size/precision-vs-detectability/">
-          Next lesson: 6. Precision vs Detectability →
-        </a>
-      </div>
-    </div>
-
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/power-sample-size/sample-size-for-mean/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 4: Sample Size for a Mean
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>

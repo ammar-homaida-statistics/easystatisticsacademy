@@ -1,172 +1,517 @@
 ---
 layout: default
-title: 3. Slope (Interpretation)
+title: The Slope
+description: Learn how to interpret the slope in simple linear regression and why it is one of the most important quantities in a regression model.
 permalink: /modeling/simple-linear-regression/slope/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <h2 style="color:#e65100;">🚧 Lesson Under Construction</h2>
-    <p>
-      Version 0 focuses on correct interpretation of the slope.
-      Applications and multiple examples will be expanded later.
-    </p>
-  </div>
-</section>
-
-<!-- ✅ Update last visited lesson -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
 (function () {
-  localStorage.setItem("esa_continue_modeling_slr_lesson_v0", JSON.stringify({
+
+  const KEY =
+    "esa_continue_modeling_simple_linear_regression_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
     url: "/modeling/simple-linear-regression/slope/",
-    label: "Lesson 3 — Slope",
+    label: "The Slope",
     ts: Date.now()
   }));
+
 })();
 </script>
 
 <!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
 
     <div class="badge-row">
+      <span class="badge">Modeling</span>
       <span class="badge">Block 2</span>
-      <span class="badge">Lesson 3</span>
+      <span class="badge">Simple Linear Regression</span>
       <span class="badge">Slope</span>
-      <span class="badge">Interpretation</span>
     </div>
 
-    <h1>3. Slope (Interpretation)</h1>
+    <h1>The Slope</h1>
 
     <p class="lead">
-      The slope is the most important parameter in regression.
-      It tells us how the response variable changes when the predictor changes.
+      The slope is often the most important parameter in a simple linear regression model.
+    </p>
+
+    <p class="lead">
+      It describes how the expected outcome changes when the predictor variable changes and provides the primary interpretation of the relationship.
     </p>
 
     <div class="hero-actions">
-      <a class="btn btn-outline" href="/modeling/simple-linear-regression/">Back to Block 2</a>
-      <a class="btn" href="#lesson">Start lesson</a>
+
+      <a class="btn"
+         href="/modeling/simple-linear-regression/regression-equation/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/modeling/simple-linear-regression/intercept/">
+         Next: Intercept →
+      </a>
+
     </div>
 
-    <p class="muted-mini">
-      Version 0: interpretation-first. Avoid memorization—focus on meaning.
-    </p>
-
   </div>
+
 </section>
 
 <!-- LESSON -->
-<section class="section" id="lesson">
 
-  <h2>Learning objective</h2>
-  <p>
-    By the end of this lesson, you should correctly interpret the slope
-    in a regression model and understand its meaning in real-world context.
-  </p>
+<section>
 
-  <div class="card">
-    <h3>Key idea</h3>
+  <div class="content-narrow">
+
+    <h2>Why the Slope Matters</h2>
+
     <p>
-      The slope (β₁) represents the expected change in the response variable
-      for a one-unit increase in the predictor.
+      When people ask how strongly two variables are related, they are often asking about the slope.
     </p>
-  </div>
 
-  <h2>1) Where the slope appears</h2>
-  <div class="card">
-    <p><strong>Y = β₀ + β₁X + ε</strong></p>
     <p>
-      The slope is β₁.
+      The slope quantifies how much the outcome is expected to change when the predictor changes.
     </p>
-  </div>
 
-  <h2>2) Basic interpretation</h2>
-  <div class="card">
+    <div class="concept-box">
+
+      <strong>Main idea:</strong>
+
+      <p>
+        The slope measures the expected change in the outcome variable associated with a one-unit increase in the predictor variable.
+      </p>
+
+    </div>
+
+    <h2>Where the Slope Appears</h2>
+
     <p>
-      For a one-unit increase in X,
-      the expected value of Y changes by β₁ units.
+      Recall the simple linear regression equation:
     </p>
-  </div>
 
-  <h2>3) Direction of relationship</h2>
-  <div class="card">
-    <ul>
-      <li><strong>β₁ > 0</strong> → positive relationship</li>
-      <li><strong>β₁ < 0</strong> → negative relationship</li>
-      <li><strong>β₁ = 0</strong> → no linear relationship</li>
-    </ul>
-  </div>
+    <div class="example-box">
 
-  <h2>4) Interpretation must include context</h2>
-  <div class="card">
+      <p>
+        y = β₀ + β₁x
+      </p>
+    </div>
+
     <p>
-      A correct interpretation always includes:
+      The parameter β₁ represents the slope.
     </p>
-    <ul>
-      <li>the variables</li>
-      <li>the units</li>
-      <li>the direction</li>
-    </ul>
-  </div>
 
-  <h2>5) Example</h2>
-  <div class="card">
     <p>
-      Model:
+      It determines both the direction and magnitude of the relationship.
     </p>
-    <p><strong>Score = 50 + 5 × Hours</strong></p>
+
+    <h2>What the Slope Represents</h2>
+
+    <p>
+      The slope answers a very specific question:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        If the predictor increases by one unit, how much is the outcome expected to change?
+      </p>
+    </div>
+
+    <p>
+      This interpretation forms the foundation of regression analysis.
+    </p>
+
+    <h2>A Study-Hours Example</h2>
+
+    <p>
+      Suppose the regression equation is:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Exam Score = 50 + 4 × Study Hours
+      </p>
+    </div>
+
+    <p>
+      The slope equals:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        4
+      </p>
+    </div>
+
     <p>
       Interpretation:
     </p>
-    <p>
-      For each additional hour of study, the expected exam score increases by 5 points.
-    </p>
-  </div>
 
-  <h2>6) Common mistakes</h2>
-  <div class="card">
-    <ul>
-      <li>Ignoring units</li>
-      <li>Interpreting slope as causation automatically</li>
-      <li>Confusing slope with correlation</li>
+    <p>
+      Each additional hour of study is associated with an expected increase of 4 points in exam score.
+    </p>
+
+    <h2>Positive Slopes</h2>
+
+    <p>
+      A positive slope indicates that larger predictor values tend to be associated with larger outcome values.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        β₁ > 0
+      </p>
+    </div>
+
+    <p>
+      Examples:
+    </p>
+
+    <ul class="bullets">
+
+      <li>More study time → Higher scores</li>
+
+      <li>More advertising → Higher sales</li>
+
+      <li>Larger homes → Higher prices</li>
+
     </ul>
-  </div>
 
-  <h2>7) Slope and prediction</h2>
-  <div class="card">
     <p>
-      The slope determines how predictions change when X changes.
+      Positive slopes represent increasing relationships.
     </p>
-  </div>
 
-  <h2>8) Why this matters</h2>
-  <div class="card">
+    <h2>Negative Slopes</h2>
+
     <p>
-      Correct interpretation of slope is essential for understanding
-      relationships and making valid conclusions from models.
+      A negative slope indicates that larger predictor values tend to be associated with smaller outcome values.
     </p>
-  </div>
 
-  <div class="card">
-    <h3>Outcome of this lesson</h3>
-    <ul>
-      <li>Identify the slope in a regression model</li>
-      <li>Interpret slope correctly with units</li>
-      <li>Understand direction of relationships</li>
-      <li>Avoid common interpretation mistakes</li>
+    <div class="example-box">
+
+      <p>
+        β₁ &lt; 0
+      </p>
+    </div>
+
+    <p>
+      Examples:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Higher prices → Lower demand</li>
+
+      <li>More absences → Lower grades</li>
+
+      <li>Greater distance → Lower signal strength</li>
+
     </ul>
-  </div>
 
-  <div class="card">
-    <h3>Next step</h3>
     <p>
-      Now we interpret the intercept and its meaning.
+      Negative slopes represent decreasing relationships.
     </p>
-    <a class="btn" href="/modeling/simple-linear-regression/intercept/">
-      Next lesson: Intercept →
-    </a>
+
+    <h2>Zero Slope</h2>
+
+    <p>
+      A slope of zero indicates no linear relationship.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        β₁ = 0
+      </p>
+    </div>
+
+    <p>
+      In this situation, changing the predictor does not change the expected outcome.
+    </p>
+
+    <p>
+      The regression line becomes horizontal.
+    </p>
+
+    <h2>Direction and Magnitude</h2>
+
+    <p>
+      The slope conveys two important pieces of information:
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Meaning</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Sign</td>
+            <td>Direction of relationship</td>
+          </tr>
+
+          <tr>
+            <td>Magnitude</td>
+            <td>Strength of change per unit</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      Both aspects are essential for interpretation.
+    </p>
+
+    <h2>Units Matter</h2>
+
+    <p>
+      Every slope has units.
+    </p>
+
+    <p>
+      For example:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        4 score points per study hour
+      </p>
+    </div>
+
+    <p>
+      The slope always describes outcome units per predictor unit.
+    </p>
+
+    <p>
+      Ignoring units often leads to incorrect interpretations.
+    </p>
+
+    <h2>Comparing Slopes</h2>
+
+    <p>
+      Larger slopes imply larger changes in the expected outcome for each unit increase in the predictor.
+    </p>
+
+    <p>
+      However, comparisons must consider measurement units.
+    </p>
+
+    <p>
+      A slope measured in dollars per year cannot be directly compared with a slope measured in centimeters per kilogram.
+    </p>
+
+    <h2>Slope and Steepness</h2>
+
+    <p>
+      Geometrically, the slope determines how steep a regression line appears.
+    </p>
+
+    <p>
+      Steeper lines correspond to larger absolute slope values.
+    </p>
+
+    <p>
+      Flatter lines correspond to smaller absolute slope values.
+    </p>
+
+    <h2>The Classical Slope Formula</h2>
+
+    <p>
+      In geometry, slope is often defined as rise divided by run:
+    </p>
+
+    0
+
+    <p>
+      Regression extends this idea by estimating the average rate of change across many observations.
+    </p>
+
+    <h2>The Slope Describes Expected Change</h2>
+
+    <p>
+      A common misconception is that the slope describes what happens to every individual observation.
+    </p>
+
+    <p>
+      In reality, the slope describes expected or average change.
+    </p>
+
+    <p>
+      Individual observations may differ because of noise and other factors.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Important distinction:</strong>
+
+      <p>
+        The slope describes the average relationship, not a guarantee for every observation.
+      </p>
+
+    </div>
+
+    <h2>Slope and Prediction</h2>
+
+    <p>
+      The slope plays a central role in generating predictions.
+    </p>
+
+    <p>
+      When predictor values change, the slope determines how much predicted outcomes change.
+    </p>
+
+    <p>
+      Without the slope, the model cannot respond to changes in the predictor variable.
+    </p>
+
+    <h2>Slope and Explanation</h2>
+
+    <p>
+      In explanatory modeling, the slope often represents the primary quantity of interest.
+    </p>
+
+    <p>
+      Researchers frequently ask:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Is the slope positive or negative?</li>
+
+      <li>How large is the slope?</li>
+
+      <li>Is the slope statistically distinguishable from zero?</li>
+
+    </ul>
+
+    <p>
+      These questions help evaluate relationships among variables.
+    </p>
+
+    <h2>What the Slope Does Not Tell Us</h2>
+
+    <p>
+      The slope alone does not tell us:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Whether the relationship is causal</li>
+
+      <li>How much variability remains unexplained</li>
+
+      <li>Whether predictions are highly accurate</li>
+
+      <li>Whether a linear model is appropriate</li>
+
+    </ul>
+
+    <p>
+      These issues require additional analysis.
+    </p>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      The slope is one of the most informative quantities in regression.
+    </p>
+
+    <p>
+      It summarizes how the expected outcome changes with the predictor and determines the direction and steepness of the regression line.
+    </p>
+
+    <p>
+      Understanding slope interpretation is essential for understanding regression models.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        The slope measures the expected change in an outcome for a one-unit increase in a predictor. Its sign indicates direction, and its magnitude indicates how rapidly the expected outcome changes.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      While the slope often receives the most attention, every regression equation also contains an intercept.
+    </p>
+
+    <p>
+      The intercept establishes the baseline level of the model and helps position the regression line.
+    </p>
+
+    <p>
+      The next lesson focuses on understanding and interpreting the intercept parameter.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>The slope measures expected change in the outcome for a one-unit increase in the predictor</li>
+
+        <li>The slope parameter is commonly denoted by β₁</li>
+
+        <li>Positive slopes indicate increasing relationships</li>
+
+        <li>Negative slopes indicate decreasing relationships</li>
+
+        <li>A zero slope indicates no linear relationship</li>
+
+        <li>The slope determines the steepness of the regression line</li>
+
+        <li>Slope interpretations must include units</li>
+
+        <li>The slope describes average relationships rather than individual outcomes</li>
+
+      </ul>
+
+    </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/modeling/simple-linear-regression/regression-equation/">
+         ← Previous: The Regression Equation
+      </a>
+
+      <a class="btn"
+         href="/modeling/simple-linear-regression/intercept/">
+         Next: Intercept →
+      </a>
+
+    </div>
+
   </div>
 
 </section>

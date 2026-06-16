@@ -1,248 +1,519 @@
 ---
 layout: default
-title: "1. Bernoulli Distribution"
-description: "Bernoulli(p) models a single trial with success/failure outcomes and is the building block for many discrete distributions."
+title: Bernoulli Distribution
+description: Learn the Bernoulli distribution, the simplest probability distribution for modeling a single success-or-failure outcome.
 permalink: /probability/distributions/bernoulli-distribution/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">🚧 Lesson Under Construction</h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 is published first to lock the structure and the correct conceptual flow.
-        Numerical examples, graphs, and software demonstrations will be added later without changing the lesson order.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update "last visited lesson" for Probability Block 5 -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_probability_distributions_lesson_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/probability/distributions/bernoulli-distribution/",
-      label: "Lesson 1 — Bernoulli Distribution",
-      ts: Date.now()
-    }));
-  })();
+(function () {
+
+  const KEY =
+    "esa_continue_probability_distributions_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/probability/distributions/bernoulli-distribution/",
+    label: "Bernoulli Distribution",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 5</span>
-        <span class="badge">Lesson 1</span>
-        <span class="badge">Discrete</span>
-        <span class="badge">Bernoulli</span>
-      </div>
 
-      <h1>1. Bernoulli Distribution</h1>
-      <p class="lead">
-        The Bernoulli distribution models the simplest random experiment:
-        a single trial with only two outcomes — <strong>success</strong> or <strong>failure</strong>.
-        It is the basic building block behind the Binomial, Geometric, and many other models.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/probability/distributions/">Back to Block 5</a>
-        <a class="btn btn-outline" href="/probability/">Probability home</a>
-      </div>
-
-      <p class="muted-mini">
-        If you understand Bernoulli well, most discrete distributions become easier.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Probability</span>
+      <span class="badge">Block 5</span>
+      <span class="badge">Distributions</span>
+      <span class="badge">Discrete</span>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
-    <p>
-      By the end of this lesson, you should be able to define a Bernoulli random variable,
-      write its PMF, interpret the parameter <strong>p</strong>, and compute its expectation and variance.
+    <h1>Bernoulli Distribution</h1>
+
+    <p class="lead">
+      Many random processes have only two possible outcomes: success or failure.
     </p>
-  </div>
 
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Key idea</h2>
-      <p style="margin:0;">
-        A Bernoulli variable takes only two values:
-        <strong>1</strong> (success) with probability <strong>p</strong>, and
-        <strong>0</strong> (failure) with probability <strong>1 − p</strong>.
-      </p>
+    <p class="lead">
+      The Bernoulli distribution is the simplest probability distribution and serves as the foundation for many other distributions in probability and statistics.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/probability/distributions/">
+         ← Distributions Home
+      </a>
+
+      <a class="btn btn-outline"
+         href="/probability/distributions/binomial-distribution/">
+         Next: Binomial Distribution →
+      </a>
+
     </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) Definition</h2>
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>What Is a Bernoulli Distribution?</h2>
+
     <p>
-      A random variable <strong>X</strong> follows a Bernoulli distribution with parameter <strong>p</strong>
-      if it takes values:
+      A Bernoulli distribution describes a random variable with exactly two possible outcomes.
     </p>
-  </div>
 
-  <div class="card">
-    <p style="margin:0; font-size:1.05rem;">
-      <strong>X ∈ {0, 1}</strong>, with
-      <strong>P(X = 1) = p</strong> and <strong>P(X = 0) = 1 − p</strong>.
-    </p>
-  </div>
+    <div class="concept-box">
 
-  <p class="muted-mini" style="margin-top:.75rem;">
-    The parameter <strong>p</strong> must satisfy <strong>0 ≤ p ≤ 1</strong>.
-  </p>
-</section>
+      <strong>Definition:</strong>
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) PMF (probability mass function)</h2>
-    <p>
-      The PMF of a Bernoulli random variable is:
-    </p>
-  </div>
-
-  <div class="card">
-    <p style="margin:0; font-size:1.1rem;">
-      <strong>
-        P(X = x) = p^x (1-p)^{1-x}, &nbsp; x ∈ {0,1}
-      </strong>
-    </p>
-  </div>
-
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Interpretation</h2>
-      <p style="margin:0;">
-        This single formula covers both cases:
-        if x=1 you get p, and if x=0 you get (1-p).
+      <p>
+        A Bernoulli random variable takes the value 1 for success and 0 for failure.
       </p>
+
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) Real-life examples</h2>
+    <h2>Examples of Bernoulli Outcomes</h2>
+
+    <div class="example-box">
+
+      <p>
+        Coin toss: Heads or tails
+      </p>
+
+      <p>
+        Exam result: Pass or fail
+      </p>
+
+      <p>
+        Email: Spam or not spam
+      </p>
+
+      <p>
+        Customer: Purchase or no purchase
+      </p>
+
+      <p>
+        Advertisement: Click or no click
+      </p>
+
+    </div>
+
     <p>
-      Bernoulli models a single yes/no outcome:
+      Each situation has only two possible outcomes.
     </p>
-  </div>
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Typical examples</h3>
+    <h2>The Bernoulli Random Variable</h2>
+
+    <p>
+      Let X be a Bernoulli random variable.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        X = 1 if success occurs
+      </p>
+
+      <p>
+        X = 0 if failure occurs
+      </p>
+
+    </div>
+
+    <p>
+      The probability of success is denoted by p.
+    </p>
+
+    <p>
+      The probability of failure is:
+    </p>
+
+    0
+
+    <h2>The Probability Mass Function</h2>
+
+    <p>
+      The Bernoulli distribution has the following probability mass function:
+    </p>
+
+    1
+
+    <p>
+      and:
+    </p>
+
+    2
+
+    <p>
+      These two probabilities always sum to one.
+    </p>
+
+    <h2>A Coin Toss Example</h2>
+
+    <p>
+      Suppose a fair coin is tossed.
+    </p>
+
+    <p>
+      Define:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        X = 1 if heads
+      </p>
+
+      <p>
+        X = 0 if tails
+      </p>
+
+    </div>
+
+    <p>
+      Since the coin is fair:
+    </p>
+
+    3
+
+    <p>
+      Therefore:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        P(X=1)=0.5
+      </p>
+
+      <p>
+        P(X=0)=0.5
+      </p>
+
+    </div>
+
+    <h2>The Distribution Table</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>x</th>
+            <th>P(X=x)</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>0</td>
+            <td>1 − p</td>
+          </tr>
+
+          <tr>
+            <td>1</td>
+            <td>p</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      Every Bernoulli distribution can be summarized using this table.
+    </p>
+
+    <h2>Expected Value of a Bernoulli Variable</h2>
+
+    <p>
+      Using the expectation formula:
+    </p>
+
+    4
+
+    <p>
+      Simplifying:
+    </p>
+
+    5
+
+    <div class="concept-box">
+
+      <strong>Result:</strong>
+
+      <p>
+        The mean of a Bernoulli distribution equals its success probability.
+      </p>
+
+    </div>
+
+    <h2>Interpreting the Mean</h2>
+
+    <p>
+      The expected value represents the long-run proportion of successes.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        If p = 0.70,
+        approximately 70% of trials are expected to be successes.
+      </p>
+
+    </div>
+
+    <h2>Variance of a Bernoulli Variable</h2>
+
+    <p>
+      The variance of a Bernoulli random variable is:
+    </p>
+
+    6
+
+    <p>
+      This formula appears frequently throughout probability theory.
+    </p>
+
+    <h2>How Variance Changes with p</h2>
+
+    <p>
+      Variance depends on both success and failure probabilities.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        If p is near 0 or 1,
+        variability is small.
+      </p>
+
+      <p>
+        If p is near 0.5,
+        variability is larger.
+      </p>
+
+    </div>
+
+    <p>
+      Maximum uncertainty occurs when success and failure are equally likely.
+    </p>
+
+    <h2>The Maximum Variance</h2>
+
+    <p>
+      Variance is largest when:
+    </p>
+
+    7
+
+    <p>
+      In that case:
+    </p>
+
+    8
+
+    <p>
+      This is the maximum possible Bernoulli variance.
+    </p>
+
+    <h2>Bernoulli Variables and Indicators</h2>
+
+    <p>
+      Bernoulli random variables are essentially the same as indicator variables.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Success → 1
+      </p>
+
+      <p>
+        Failure → 0
+      </p>
+
+    </div>
+
+    <p>
+      The indicator variables studied previously follow Bernoulli distributions.
+    </p>
+
+    <h2>Why Bernoulli Distributions Matter</h2>
+
+    <p>
+      Although simple,
+      Bernoulli distributions are the building blocks of many more complex models.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Customer clicks
+      </p>
+
+      <p>
+        Product defects
+      </p>
+
+      <p>
+        Medical test outcomes
+      </p>
+
+      <p>
+        Fraud detection
+      </p>
+
+    </div>
+
+    <p>
+      Many real-world systems begin with binary outcomes.
+    </p>
+
+    <h2>From One Trial to Many Trials</h2>
+
+    <p>
+      A Bernoulli distribution describes a single trial.
+    </p>
+
+    <p>
+      What happens when we repeat the trial many times?
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Ten coin tosses
+      </p>
+
+      <p>
+        One hundred customer visits
+      </p>
+
+      <p>
+        Fifty quality inspections
+      </p>
+
+    </div>
+
+    <p>
+      The resulting count of successes follows a different distribution.
+    </p>
+
+    <p>
+      That distribution is the binomial distribution.
+    </p>
+
+    <h2>Applications in Data Science</h2>
+
+    <p>
+      Bernoulli variables appear throughout analytics and machine learning.
+    </p>
+
+    <ul class="bullets">
+
+      <li>Binary classification labels</li>
+
+      <li>Email spam detection</li>
+
+      <li>Customer conversion analysis</li>
+
+      <li>Medical diagnosis systems</li>
+
+      <li>A/B testing outcomes</li>
+
+    </ul>
+
+    <p>
+      They are among the most frequently used probability models.
+    </p>
+
+    <h2>The Big Picture</h2>
+
+    <p>
+      The Bernoulli distribution models the simplest possible random experiment.
+    </p>
+
+    <p>
+      Despite its simplicity,
+      it provides the foundation for many important probability distributions and statistical models.
+    </p>
+
+    <p>
+      Understanding Bernoulli variables makes it easier to understand more advanced distributions.
+    </p>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      A Bernoulli distribution models a single success-or-failure trial.
+    </p>
+
+    <p>
+      The next lesson extends this idea to repeated independent trials and introduces one of the most important distributions in probability:
+      the binomial distribution.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Patient has a condition (1) or not (0)</li>
-        <li>Email is spam (1) or not (0)</li>
-        <li>Coin toss is heads (1) or tails (0)</li>
-        <li>Product passes QC (1) or fails (0)</li>
+
+        <li>A Bernoulli distribution has two possible outcomes: success and failure</li>
+
+        <li>Bernoulli variables take values 1 and 0</li>
+
+        <li>The probability of success is denoted by p</li>
+
+        <li>The mean of a Bernoulli variable equals p</li>
+
+        <li>The variance equals p(1 − p)</li>
+
+        <li>Indicator variables follow Bernoulli distributions</li>
+
+        <li>Bernoulli distributions are building blocks for many other probability models</li>
+
       </ul>
+
     </div>
 
-    <div class="card">
-      <h3>Modeling note</h3>
-      <p style="margin:0;">
-        “Success” does not mean “good”. It simply means the event you label as 1.
-      </p>
-      <p class="muted-mini" style="margin-top:.5rem;">
-        Example: in medicine, “success” may be “disease present”.
-      </p>
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/probability/distributions/">
+         Distributions Home
+      </a>
+
+      <a class="btn"
+         href="/probability/distributions/binomial-distribution/">
+         Next: Binomial Distribution →
+      </a>
+
     </div>
+
   </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>4) Expectation and variance</h2>
-    <p>
-      For X ~ Bernoulli(p):
-    </p>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Mean</h3>
-      <p style="margin:0;">
-        <strong>E[X] = p</strong>
-      </p>
-      <p class="muted-mini" style="margin-top:.5rem;">
-        The mean equals the success probability.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Variance</h3>
-      <p style="margin:0;">
-        <strong>Var(X) = p(1 − p)</strong>
-      </p>
-      <p class="muted-mini" style="margin-top:.5rem;">
-        Maximum at p=0.5, small near 0 or 1.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Common mistakes</h2>
-      <ul class="bullets">
-        <li>Using values {−1,1} but still calling it Bernoulli(you must define coding clearly)</li>
-        <li>Mixing up p with 1−p (define what “success=1” means)</li>
-        <li>Forgetting that Bernoulli is a single trial (Binomial is n trials)</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
-      <ul class="bullets">
-        <li>Define Bernoulli(p) and interpret p</li>
-        <li>Write the PMF in both table form and compact form</li>
-        <li>Use E[X]=p and Var(X)=p(1−p)</li>
-        <li>Prepare for Binomial as “sum of Bernoulli trials”</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next step</h2>
-      <p style="margin:0;">
-        Next, we move from a single Bernoulli trial to <strong>n</strong> independent trials:
-        the <strong>Binomial distribution</strong>.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/probability/distributions/binomial-distribution/">
-          Next lesson: 2. Binomial Distribution →
-        </a>
-      </div>
-    </div>
-
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous</div>
-        <div class="mini-body">
-          <a href="/probability/expectation-variance/" style="color:#1a73e8; text-decoration:underline;">
-            Block 4 — Expectation &amp; Variability
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>

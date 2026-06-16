@@ -1,256 +1,631 @@
 ---
 layout: default
-title: "8. Chi-Square Goodness-of-Fit Test"
-description: "Conduct and interpret the chi-square goodness-of-fit test to assess whether observed categorical frequencies match a specified distribution."
+title: Chi-Square Goodness-of-Fit Test
+description: Learn how the chi-square goodness-of-fit test evaluates whether observed categorical data match an expected distribution.
 permalink: /inference/classical-tests/chi-square-goodness-of-fit/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 establishes the formal structure of the chi-square goodness-of-fit test.
-        Detailed examples and software demonstrations will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update continue-reading keys -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_classical_tests_lesson_v0";
+(function () {
 
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/classical-tests/chi-square-goodness-of-fit/",
-      label: "Lesson 8 — Chi-Square Goodness-of-Fit",
-      ts: Date.now()
-    }));
+  const KEY =
+    "esa_continue_inference_classical_tests_lesson_v0";
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/classical-tests/",
-      label: "Block 4 — Classical Tests",
-      ts: Date.now()
-    }));
-  })();
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/classical-tests/chi-square-goodness-of-fit/",
+    label: "Chi-Square Goodness-of-Fit Test",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 4</span>
-        <span class="badge">Lesson 8</span>
-        <span class="badge">Categorical</span>
-        <span class="badge">Chi-Square</span>
-      </div>
 
-      <h1>8. Chi-Square Goodness-of-Fit Test</h1>
-
-      <p class="lead">
-        The chi-square goodness-of-fit test evaluates whether
-        the observed frequencies in categorical data
-        are consistent with a specified probability distribution.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/classical-tests/">Back to Block 4</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        This test compares observed counts to expected counts.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 4</span>
+      <span class="badge">Classical Tests</span>
+      <span class="badge">Categorical Data</span>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
-    <p>
-      Formulate hypotheses for categorical distributions,
-      compute expected counts,
-      and calculate the chi-square test statistic.
+    <h1>Chi-Square Goodness-of-Fit Test</h1>
+
+    <p class="lead">
+      Many statistical questions involve determining whether observed categorical data match an expected pattern.
     </p>
+
+    <p class="lead">
+      The chi-square goodness-of-fit test evaluates whether observed category frequencies are consistent with a specified distribution.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/classical-tests/two-proportion-z-test/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/classical-tests/chi-square-independence-test/">
+         Next: Chi-Square Test of Independence →
+      </a>
+
+    </div>
+
   </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>When to use this test</h2>
-      <p style="margin:0;">
-        Use the goodness-of-fit test when:
-        <br>
-        • Data are categorical counts  
-        • There is one categorical variable  
-        • A theoretical or specified distribution is provided
+</section>
+
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>The Research Question</h2>
+
+    <p>
+      Suppose a six-sided die is rolled many times.
+    </p>
+
+    <p>
+      We might ask:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Are the outcomes consistent with a fair die?
       </p>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) Hypotheses</h2>
-  </div>
+    <p>
+      Or suppose a company expects customer preferences to be distributed across several product categories in known proportions.
+    </p>
 
-  <div class="card">
-    \[
-    H_0:\ \text{The population distribution matches the specified probabilities}
-    \]
-  </div>
+    <p>
+      We may ask:
+    </p>
 
-  <div class="card" style="margin-top:1rem;">
-    \[
-    H_1:\ \text{The population distribution differs from the specified probabilities}
-    \]
-  </div>
+    <div class="example-box">
 
-  <p class="muted-mini">
-    The null hypothesis fully specifies expected category proportions.
-  </p>
-</section>
+      <p>
+        Do the observed preferences match the expected distribution?
+      </p>
+    </div>
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) Expected counts</h2>
-  </div>
+    <p>
+      These are goodness-of-fit problems.
+    </p>
 
-  <div class="card">
-    \[
-    E_i = n \cdot p_i
-    \]
-  </div>
+    <h2>What Does "Goodness of Fit" Mean?</h2>
 
-  <p>
-    Where:
-    <br>
-    • \( n \) is the total sample size  
-    • \( p_i \) is the specified probability for category \( i \)
-  </p>
-</section>
+    <div class="concept-box">
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) Test statistic</h2>
-  </div>
+      <strong>Definition:</strong>
 
-  <div class="card">
-    \[
-    \chi^2 =
-    \sum_{i=1}^{k}
-    \frac{(O_i - E_i)^2}{E_i}
-    \]
-  </div>
+      <p>
+        A goodness-of-fit test evaluates how well observed frequencies agree with frequencies predicted by a hypothesized distribution.
+      </p>
 
-  <p class="muted-mini">
-    Where:
-    <br>
-    • \( O_i \) = observed count  
-    • \( E_i \) = expected count  
-    • \( k \) = number of categories
-  </p>
-</section>
+    </div>
 
-<section class="section">
-  <div class="section-head">
-    <h2>4) Sampling distribution</h2>
-  </div>
+    <p>
+      The goal is to determine whether differences between observed and expected counts are larger than would be expected from random sampling alone.
+    </p>
 
-  <div class="card">
-    \[
-    \chi^2 \sim \chi^2_{k-1}
-    \quad\text{under } H_0
-    \]
-  </div>
+    <h2>Observed and Expected Counts</h2>
 
-  <p>
-    Degrees of freedom:
-    \[
-    df = k - 1
-    \]
-  </p>
-</section>
+    <p>
+      Every goodness-of-fit test compares:
+    </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>5) Validity condition</h2>
-  </div>
+    <ul class="bullets">
 
-  <div class="card">
-    All expected counts should satisfy:
-    \[
-    E_i \ge 5
-    \]
-  </div>
+      <li>Observed counts</li>
 
-  <p>
-    If expected counts are too small,
-    the chi-square approximation may be unreliable.
-  </p>
-</section>
+      <li>Expected counts</li>
 
-<section class="section">
-  <div class="section-head">
-    <h2>6) Interpretation</h2>
-  </div>
+    </ul>
 
-  <div class="card">
-    A small p-value indicates that the observed frequencies
-    differ more from the expected frequencies
-    than would be likely under the null hypothesis.
-  </div>
+    <div class="table-wrap">
 
-  <p class="muted-mini">
-    The test does not identify which categories differ most;
-    it only detects overall deviation.
-  </p>
-</section>
+      <table>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Observed</th>
+            <th>Expected</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>A</td>
+            <td>O₁</td>
+            <td>E₁</td>
+          </tr>
+
+          <tr>
+            <td>B</td>
+            <td>O₂</td>
+            <td>E₂</td>
+          </tr>
+
+          <tr>
+            <td>...</td>
+            <td>...</td>
+            <td>...</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>The Hypotheses</h2>
+
+    <p>
+      The null hypothesis states that the population follows the specified distribution.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        H₀: The category probabilities match the hypothesized values.
+      </p>
+    </div>
+
+    <p>
+      The alternative hypothesis states:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Hₐ: The distribution differs from the hypothesized distribution.
+      </p>
+    </div>
+
+    <h2>Example: Fair Die</h2>
+
+    <p>
+      For a fair six-sided die:
+    </p>
+
+    <p>
+      Each face should occur with probability:
+    </p>
+
+    0
+
+    <p>
+      Therefore:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        H₀: p₁ = p₂ = p₃ = p₄ = p₅ = p₆ = 1/6
+      </p>
+    </div>
+
+    <h2>Computing Expected Counts</h2>
+
+    <p>
+      Expected counts are obtained from:
+    </p>
+
+    1
+
+    <p>
+      where:
+    </p>
+
+    <ul class="bullets">
+
+      <li>n = total sample size</li>
+
+      <li>pᵢ = hypothesized probability for category i</li>
+
+    </ul>
+
+    <h2>Example Expected Counts</h2>
+
+    <p>
+      Suppose:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        n = 120 die rolls
+      </p>
+    </div>
+
+    <p>
+      Then for each face:
+    </p>
+
+    2
+
+    <p>
+      Every category has an expected count of 20.
+    </p>
+
+    <h2>The Chi-Square Statistic</h2>
+
+    <p>
+      The goodness-of-fit test statistic is:
+    </p>
+
+    3
+
+    <p>
+      This formula measures total discrepancy between observed and expected counts.
+    </p>
+
+    <h2>Understanding the Formula</h2>
+
+    <p>
+      For each category:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Compute the difference between observed and expected counts</li>
+
+      <li>Square the difference</li>
+
+      <li>Scale by the expected count</li>
+
+      <li>Add contributions across categories</li>
+
+    </ul>
+
+    <p>
+      Larger discrepancies produce larger chi-square values.
+    </p>
+
+    <h2>Interpreting χ²</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>χ² Value</th>
+            <th>Interpretation</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Small</td>
+            <td>Observed counts close to expected counts</td>
+          </tr>
+
+          <tr>
+            <td>Large</td>
+            <td>Observed counts differ substantially from expectations</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>Example Calculation</h2>
+
+    <p>
+      Suppose a die is rolled 60 times.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Face</th>
+            <th>Observed</th>
+            <th>Expected</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr><td>1</td><td>8</td><td>10</td></tr>
+          <tr><td>2</td><td>11</td><td>10</td></tr>
+          <tr><td>3</td><td>9</td><td>10</td></tr>
+          <tr><td>4</td><td>13</td><td>10</td></tr>
+          <tr><td>5</td><td>10</td><td>10</td></tr>
+          <tr><td>6</td><td>9</td><td>10</td></tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      The chi-square statistic summarizes the overall discrepancy across all categories.
+    </p>
+
+    <h2>The Chi-Square Distribution</h2>
+
+    <p>
+      Under:
+    </p>
+
+    4
+
+    <p>
+      the test statistic follows a chi-square distribution approximately.
+    </p>
+
+    <p>
+      This distribution is:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Always positive</li>
+
+      <li>Right-skewed</li>
+
+      <li>Defined by degrees of freedom</li>
+
+    </ul>
+
+    <h2>Degrees of Freedom</h2>
+
+    <p>
+      For a goodness-of-fit test:
+    </p>
+
+    5
+
+    <p>
+      where:
+    </p>
+
+    <ul class="bullets">
+
+      <li>k = number of categories</li>
+
+    </ul>
+
+    <h2>Example Degrees of Freedom</h2>
+
+    <p>
+      For a six-sided die:
+    </p>
+
+    6
+
+    <h2>The p-Value</h2>
+
+    <p>
+      Once:
+    </p>
+
+    7
+
+    <p>
+      and degrees of freedom are known, the p-value is obtained from the chi-square distribution.
+    </p>
+
+    <p>
+      Large χ² values correspond to small p-values.
+    </p>
+
+    <h2>Decision Rule</h2>
+
+    <div class="concept-box">
+
+      <strong>Decision Rule:</strong>
+
+      <p>
+        Reject H₀ if p ≤ α.
+      </p>
+
+      <p>
+        Fail to reject H₀ if p > α.
+      </p>
+
+    </div>
+
+    <h2>Assumptions</h2>
+
+    <ul class="bullets">
+
+      <li>Random sampling</li>
+
+      <li>Independent observations</li>
+
+      <li>Categorical outcomes</li>
+
+      <li>Expected counts sufficiently large</li>
+
+    </ul>
+
+    <h2>Expected Count Rule</h2>
+
+    <p>
+      A common guideline is:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Every expected count should be at least 5.
+      </p>
+    </div>
+
+    <p>
+      This helps justify the chi-square approximation.
+    </p>
+
+    <h2>Common Applications</h2>
+
+    <div class="example-box">
+
+      <p>
+        Testing fairness of dice or random generators
+      </p>
+
+      <p>
+        Genetics and inheritance studies
+      </p>
+
+      <p>
+        Market-share distributions
+      </p>
+
+      <p>
+        Consumer preference categories
+      </p>
+
+      <p>
+        Quality-control classification data
+      </p>
+
+    </div>
+
+    <h2>Goodness-of-Fit vs Proportion Tests</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Feature</th>
+            <th>Proportion Tests</th>
+            <th>Goodness-of-Fit Test</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Categories</td>
+            <td>Usually 2</td>
+            <td>2 or More</td>
+          </tr>
+
+          <tr>
+            <td>Parameter</td>
+            <td>Proportion(s)</td>
+            <td>Entire distribution</td>
+          </tr>
+
+          <tr>
+            <td>Data Type</td>
+            <td>Binary</td>
+            <td>Categorical</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      The chi-square goodness-of-fit test broadens statistical inference from binary outcomes to general categorical distributions.
+    </p>
+
+    <p>
+      Instead of comparing means or proportions, it evaluates whether an entire pattern of observed frequencies matches theoretical expectations.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        The chi-square goodness-of-fit test evaluates whether observed categorical frequencies match a hypothesized distribution. It measures discrepancies between observed and expected counts using the chi-square statistic and determines whether those discrepancies are larger than expected by chance.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Goodness-of-fit tests compare observed counts to a known distribution.
+    </p>
+
+    <p>
+      Another important question is whether two categorical variables are related.
+    </p>
+
+    <p>
+      The next lesson introduces the chi-square test of independence, which evaluates relationships between categorical variables.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Formulate hypotheses for categorical distributions</li>
-        <li>Compute expected counts</li>
-        <li>Calculate the chi-square statistic</li>
-        <li>Interpret results correctly</li>
+
+        <li>The goodness-of-fit test compares observed and expected frequencies</li>
+
+        <li>The null hypothesis specifies a categorical distribution</li>
+
+        <li>Expected counts are computed as n × pᵢ</li>
+
+        <li>The chi-square statistic measures overall discrepancy</li>
+
+        <li>Large χ² values indicate stronger evidence against H₀</li>
+
+        <li>Degrees of freedom equal k − 1</li>
+
+        <li>Expected counts should generally be at least 5</li>
+
+        <li>The test evaluates entire categorical distributions rather than single proportions</li>
+
       </ul>
+
     </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/classical-tests/two-proportion-z-test/">
+         ← Previous: Two-Proportion Z Test
+      </a>
+
+      <a class="btn"
+         href="/inference/classical-tests/chi-square-independence-test/">
+         Next: Chi-Square Test of Independence →
+      </a>
+
+    </div>
+
   </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next lesson</h2>
-      <p style="margin:0;">
-        We now examine the chi-square test of independence
-        for two categorical variables.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/classical-tests/chi-square-independence-test/">
-          Next lesson: 9. Chi-Square Test of Independence →
-        </a>
-      </div>
-    </div>
-
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/classical-tests/two-proportion-z-test/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 7: Two-Proportion z Test
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>

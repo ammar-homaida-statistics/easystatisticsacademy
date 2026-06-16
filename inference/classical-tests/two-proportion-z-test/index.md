@@ -1,272 +1,552 @@
 ---
 layout: default
-title: "7. Two-Proportion z Test"
-description: "Conduct and interpret a two-proportion z test to compare proportions from two independent groups."
+title: Two-Proportion Z Test
+description: Learn how the two-proportion Z test compares population proportions from two independent groups and evaluates whether they differ.
 permalink: /inference/classical-tests/two-proportion-z-test/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 establishes the formal structure of the two-proportion z test.
-        Worked numerical examples and software walkthroughs will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update continue-reading keys -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_classical_tests_lesson_v0";
+(function () {
 
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/classical-tests/two-proportion-z-test/",
-      label: "Lesson 7 — Two-Proportion z Test",
-      ts: Date.now()
-    }));
+  const KEY =
+    "esa_continue_inference_classical_tests_lesson_v0";
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/classical-tests/",
-      label: "Block 4 — Classical Tests",
-      ts: Date.now()
-    }));
-  })();
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/classical-tests/two-proportion-z-test/",
+    label: "Two-Proportion Z Test",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 4</span>
-        <span class="badge">Lesson 7</span>
-        <span class="badge">Two Proportions</span>
-        <span class="badge">z Test</span>
-      </div>
 
-      <h1>7. Two-Proportion z Test</h1>
-
-      <p class="lead">
-        The two-proportion z test evaluates whether two independent
-        population proportions differ.
-        It compares the observed difference in sample proportions
-        to its standard error under the null hypothesis.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/classical-tests/">Back to Block 4</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        Independence between groups is required.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 4</span>
+      <span class="badge">Classical Tests</span>
+      <span class="badge">Comparing Proportions</span>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
-    <p>
-      Formulate hypotheses for comparing two proportions,
-      compute the pooled standard error,
-      and interpret the test result correctly.
+    <h1>Two-Proportion Z Test</h1>
+
+    <p class="lead">
+      Many studies compare success rates, approval rates, conversion rates, or other proportions between two groups.
     </p>
+
+    <p class="lead">
+      The two-proportion Z test evaluates whether two population proportions differ significantly.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/classical-tests/one-proportion-z-test/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/classical-tests/chi-square-goodness-of-fit/">
+         Next: Chi-Square Goodness-of-Fit Test →
+      </a>
+
+    </div>
+
   </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>When to use this test</h2>
-      <p style="margin:0;">
-        Use the two-proportion z test when:
-        <br>
-        • Two groups are independent  
-        • Data consist of counts of successes in each group  
-        • Large-sample success–failure conditions are satisfied
+</section>
+
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>The Research Question</h2>
+
+    <p>
+      Suppose a company tests two versions of a website.
+    </p>
+
+    <p>
+      The goal is to determine whether the conversion rate differs between Version A and Version B.
+    </p>
+
+    <p>
+      Similar questions arise in many fields:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Treatment success rates</li>
+
+      <li>Product approval rates</li>
+
+      <li>Election support rates</li>
+
+      <li>Defect rates</li>
+
+      <li>Customer retention rates</li>
+
+    </ul>
+
+    <h2>The Population Proportions</h2>
+
+    <p>
+      Let:
+    </p>
+
+    0
+
+    <p>
+      represent the population proportion for Group 1 and:
+    </p>
+
+    1
+
+    <p>
+      represent the population proportion for Group 2.
+    </p>
+
+    <p>
+      The parameter of interest is:
+    </p>
+
+    2
+
+    <h2>The Hypotheses</h2>
+
+    <p>
+      The standard two-sided hypotheses are:
+    </p>
+
+    3
+
+    <br><br>
+
+    4
+
+    <p>
+      Under the null hypothesis, both population proportions are equal.
+    </p>
+
+    <h2>Alternative Hypotheses</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Alternative</th>
+            <th>Interpretation</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>p₁ − p₂ ≠ 0</td>
+            <td>Proportions differ</td>
+          </tr>
+
+          <tr>
+            <td>p₁ − p₂ &gt; 0</td>
+            <td>Group 1 has higher proportion</td>
+          </tr>
+
+          <tr>
+            <td>p₁ − p₂ &lt; 0</td>
+            <td>Group 1 has lower proportion</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>The Sample Proportions</h2>
+
+    <p>
+      From the two samples we compute:
+    </p>
+
+    5
+
+    <br><br>
+
+    6
+
+    <p>
+      where:
+    </p>
+
+    <ul class="bullets">
+
+      <li>x₁ = successes in sample 1</li>
+
+      <li>x₂ = successes in sample 2</li>
+
+      <li>n₁ = sample size of group 1</li>
+
+      <li>n₂ = sample size of group 2</li>
+
+    </ul>
+
+    <h2>The Observed Difference</h2>
+
+    <p>
+      The observed estimate of:
+    </p>
+
+    7
+
+    <p>
+      is:
+    </p>
+
+    8
+
+    <h2>Why a Pooled Proportion?</h2>
+
+    <p>
+      Under:
+    </p>
+
+    9
+
+    <p>
+      both samples are assumed to come from populations with the same proportion.
+    </p>
+
+    <p>
+      Therefore, information from both samples is combined into a pooled estimate.
+    </p>
+
+    <h2>The Pooled Proportion</h2>
+
+    10
+
+    <p>
+      This pooled estimate is used only for hypothesis testing.
+    </p>
+
+    <h2>The Standard Error Under H₀</h2>
+
+    <p>
+      Using the pooled proportion:
+    </p>
+
+    11
+
+    <p>
+      This measures expected variability when the null hypothesis is true.
+    </p>
+
+    <h2>The Test Statistic</h2>
+
+    <p>
+      The two-proportion Z statistic is:
+    </p>
+
+    12
+
+    <p>
+      Large absolute values indicate stronger evidence against:
+    </p>
+
+    13
+
+    <h2>Worked Example</h2>
+
+    <p>
+      Suppose:
+    </p>
+
+    <div class="example-box">
+
+      <p>x₁ = 120</p>
+      <p>n₁ = 200</p>
+      <p>x₂ = 90</p>
+      <p>n₂ = 200</p>
+
+    </div>
+
+    <h2>Compute the Sample Proportions</h2>
+
+    14
+
+    <br><br>
+
+    15
+
+    <p>
+      Therefore:
+    </p>
+
+    16
+
+    <h2>Compute the Pooled Proportion</h2>
+
+    17
+
+    <h2>Compute the Standard Error</h2>
+
+    <p>
+      Substituting into the formula yields:
+    </p>
+
+    18
+
+    <h2>Compute the Z Statistic</h2>
+
+    19
+
+    <h2>The p-Value</h2>
+
+    <p>
+      Using the standard normal distribution:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Two-sided p-value ≈ 0.003
       </p>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) Parameter and hypotheses</h2>
-  </div>
+    <h2>The Decision</h2>
 
-  <div class="card">
-    \[
-    \text{Parameter: } p_1 - p_2
-    \]
-  </div>
+    <p>
+      If:
+    </p>
 
-  <div class="card" style="margin-top:1rem;">
-    \[
-    H_0: p_1 - p_2 = 0
-    \quad\text{vs}\quad
-    H_1: p_1 - p_2 \ne 0
-    \]
-  </div>
+    <div class="example-box">
 
-  <p class="muted-mini">
-    One-sided alternatives may be used if justified beforehand.
-  </p>
-</section>
+      <p>
+        α = 0.05
+      </p>
+    </div>
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) Sample proportions</h2>
-  </div>
+    <p>
+      then:
+    </p>
 
-  <div class="card">
-    \[
-    \hat{p}_1 = \frac{X_1}{n_1},
-    \quad
-    \hat{p}_2 = \frac{X_2}{n_2}
-    \]
-  </div>
+    20
 
-  <p>
-    Where \( X_1, X_2 \) are the numbers of successes
-    in samples of size \( n_1, n_2 \).
-  </p>
-</section>
+    <p>
+      so we reject:
+    </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) Pooled proportion under \(H_0\)</h2>
-  </div>
+    21
 
-  <div class="card">
-    \[
-    \hat{p} =
-    \frac{X_1 + X_2}{n_1 + n_2}
-    \]
-  </div>
+    <h2>Interpretation</h2>
 
-  <p class="muted-mini">
-    Under \(H_0\), both samples estimate the same population proportion.
-  </p>
-</section>
+    <div class="example-box">
 
-<section class="section">
-  <div class="section-head">
-    <h2>4) Test statistic</h2>
-  </div>
+      <p>
+        The data provide evidence that the population proportions differ.
+      </p>
+    </div>
 
-  <div class="card">
-    \[
-    z =
-    \frac{\hat{p}_1 - \hat{p}_2}
-    {\sqrt{
-    \hat{p}(1-\hat{p})
-    \left(
-    \frac{1}{n_1} + \frac{1}{n_2}
-    \right)
-    }}
-    \]
-  </div>
+    <h2>Conditions for the Test</h2>
 
-  <p>
-    The denominator uses the pooled estimate because the null assumes equal proportions.
-  </p>
-</section>
+    <p>
+      The normal approximation requires sufficiently large counts.
+    </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>5) Validity condition</h2>
-  </div>
+    <p>
+      Using the pooled proportion:
+    </p>
 
-  <div class="card">
-    Success–failure condition (under \(H_0\)):
-    <br><br>
-    \( n_1 \hat{p} \ge 10 \),  
-    \( n_1 (1-\hat{p}) \ge 10 \),  
-    \( n_2 \hat{p} \ge 10 \),  
-    \( n_2 (1-\hat{p}) \ge 10 \).
-  </div>
-</section>
+    <ul class="bullets">
 
-<section class="section">
-  <div class="section-head">
-    <h2>6) Decision rule</h2>
-  </div>
+      <li>n₁p̂ ≥ 10</li>
 
-  <div class="card">
-    Reject \(H_0\) if:
-    \[
-    |z| > z_{\alpha/2}
-    \]
-  </div>
+      <li>n₁(1−p̂) ≥ 10</li>
 
-  <div class="card" style="margin-top:1rem;">
-    Equivalent p-value rule:
-    <br><br>
-    Reject if \( p \le \alpha \).
-  </div>
-</section>
+      <li>n₂p̂ ≥ 10</li>
 
-<section class="section">
-  <div class="section-head">
-    <h2>7) Interpretation</h2>
-  </div>
+      <li>n₂(1−p̂) ≥ 10</li>
 
-  <div class="card">
-    A small p-value indicates that the observed difference
-    between sample proportions would be unlikely
-    if the true population proportions were equal.
-  </div>
+    </ul>
 
-  <p class="muted-mini">
-    Always interpret the magnitude of the difference alongside statistical significance.
-  </p>
-</section>
+    <h2>Confidence Interval Difference</h2>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+    <p>
+      For confidence intervals, a pooled proportion is not used.
+    </p>
+
+    <p>
+      Instead, the standard error is:
+    </p>
+
+    22
+
+    <p>
+      This distinction is important.
+    </p>
+
+    <h2>Applications</h2>
+
+    <div class="example-box">
+
+      <p>
+        A/B testing
+      </p>
+
+      <p>
+        Clinical trials
+      </p>
+
+      <p>
+        Marketing campaigns
+      </p>
+
+      <p>
+        Election polling
+      </p>
+
+      <p>
+        Quality improvement studies
+      </p>
+
+    </div>
+
+    <h2>One-Proportion vs Two-Proportion Tests</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Feature</th>
+            <th>One-Proportion Z</th>
+            <th>Two-Proportion Z</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Groups compared</td>
+            <td>One</td>
+            <td>Two</td>
+          </tr>
+
+          <tr>
+            <td>Parameter</td>
+            <td>p</td>
+            <td>p₁ − p₂</td>
+          </tr>
+
+          <tr>
+            <td>Uses pooled estimate</td>
+            <td>No</td>
+            <td>Yes (for testing)</td>
+          </tr>
+
+          <tr>
+            <td>Typical use</td>
+            <td>Compare to claimed proportion</td>
+            <td>Compare two groups</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      The two-proportion Z test extends hypothesis testing for proportions to comparisons between groups.
+    </p>
+
+    <p>
+      It is one of the most important tools in modern experimentation, particularly in medicine, business analytics, and online experimentation.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        The two-proportion Z test evaluates whether two population proportions differ. It compares the observed difference in sample proportions to the variability expected under the assumption that the population proportions are equal.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Many categorical-data problems involve more than two categories rather than simple success-failure outcomes.
+    </p>
+
+    <p>
+      In such situations, chi-square methods become the standard inferential tools.
+    </p>
+
+    <p>
+      The next lesson introduces the chi-square goodness-of-fit test.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Formulate hypotheses for two proportions</li>
-        <li>Compute the pooled proportion</li>
-        <li>Calculate the two-proportion z statistic</li>
-        <li>Interpret results correctly</li>
+
+        <li>The two-proportion Z test compares two population proportions</li>
+
+        <li>The parameter of interest is p₁ − p₂</li>
+
+        <li>The null hypothesis usually states p₁ = p₂</li>
+
+        <li>A pooled proportion is used when computing the test statistic</li>
+
+        <li>The test statistic follows an approximate standard normal distribution</li>
+
+        <li>Large samples are required for the normal approximation</li>
+
+        <li>The procedure is central to A/B testing and comparative studies</li>
+
+        <li>Confidence intervals use a different standard error than hypothesis tests</li>
+
       </ul>
+
     </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/classical-tests/one-proportion-z-test/">
+         ← Previous: One-Proportion Z Test
+      </a>
+
+      <a class="btn"
+         href="/inference/classical-tests/chi-square-goodness-of-fit/">
+         Next: Chi-Square Goodness-of-Fit Test →
+      </a>
+
+    </div>
+
   </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next lesson</h2>
-      <p style="margin:0;">
-        We now move to categorical data analysis
-        using the chi-square goodness-of-fit test.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/classical-tests/chi-square-goodness-of-fit/">
-          Next lesson: 8. Chi-Square Goodness-of-Fit →
-        </a>
-      </div>
-    </div>
-
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/classical-tests/one-proportion-z-test/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 6: One-Proportion z Test
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>

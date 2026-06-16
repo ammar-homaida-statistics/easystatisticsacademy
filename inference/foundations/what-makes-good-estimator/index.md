@@ -1,292 +1,542 @@
 ---
 layout: default
-title: "9. What Makes an Estimator “Good”?"
-description: "Examine the formal criteria used to evaluate estimators: unbiasedness, variance, efficiency, consistency, and mean squared error. Understand how these properties interact."
+title: What Makes a Good Estimator?
+description: Learn the key properties statisticians use to evaluate estimators, including unbiasedness, consistency, efficiency, and precision.
 permalink: /inference/foundations/what-makes-good-estimator/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">🚧 Lesson Under Construction</h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 focuses on evaluation criteria for estimators.
-        Formal proofs and applied comparisons will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update "last visited lesson" -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_foundations_lesson_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/foundations/what-makes-good-estimator/",
-      label: "Lesson 9 — What Makes an Estimator “Good”?",
-      ts: Date.now()
-    }));
+(function () {
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/foundations/",
-      label: "Block 1 — Inference Foundations",
-      ts: Date.now()
-    }));
-  })();
+  const KEY =
+    "esa_continue_inference_foundations_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/foundations/what-makes-good-estimator/",
+    label: "What Makes a Good Estimator?",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 1</span>
-        <span class="badge">Lesson 9</span>
-        <span class="badge">Evaluation</span>
-        <span class="badge">Estimator Properties</span>
-      </div>
 
-      <h1>9. What Makes an Estimator “Good”?</h1>
-      <p class="lead">
-        Not all estimators are equally desirable.
-        This lesson defines the formal criteria used to evaluate estimators
-        and explains how they guide methodological choices.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/foundations/">Back to Block 1</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        Version 0: conceptual evaluation framework. Modeling implications come later.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 1</span>
+      <span class="badge">Foundations</span>
+      <span class="badge">Estimator Quality</span>
     </div>
+
+    <h1>What Makes a Good Estimator?</h1>
+
+    <p class="lead">
+      Estimators are the workhorses of statistical inference.
+    </p>
+
+    <p class="lead">
+      Some estimators provide reliable information about population parameters, while others can be inaccurate, unstable, or inefficient. Understanding what makes an estimator good is essential for sound statistical practice.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/foundations/bias-and-variance-intuition/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/foundations/inference-pipeline-estimator-se-ci-test/">
+         Next: Inference Pipeline →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>Not All Estimators Are Equal</h2>
+
     <p>
-      By the end of this lesson, you should identify the main criteria for evaluating estimators
-      and explain how unbiasedness, variance, efficiency, consistency, and MSE interact.
+      Multiple estimators may exist for the same population parameter.
     </p>
-  </div>
 
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Key idea</h2>
-      <p style="margin:0;">
-        A “good” estimator balances <strong>accuracy</strong>, <strong>stability</strong>,
-        and <strong>long-run reliability</strong>.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>1) Unbiasedness</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      An estimator \(\hat{\theta}\) is unbiased if:
-      \[
-      E(\hat{\theta}) = \theta.
-      \]
+    <p>
+      For example,
+      several different formulas could be proposed to estimate a population mean or variance.
     </p>
-  </div>
 
-  <p style="margin-top:.75rem;">
-    Unbiasedness ensures no systematic error in expectation.
-  </p>
-
-  <p class="muted-mini">
-    However, unbiasedness alone does not guarantee small variability.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>2) Variance</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      Lower variance means the estimator is more stable across samples.
+    <p>
+      The question becomes:
     </p>
-  </div>
 
-  <p style="margin-top:.75rem;">
-    Between two unbiased estimators, the one with smaller variance is preferred.
-  </p>
-</section>
+    <div class="example-box">
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) Efficiency</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      An estimator is more efficient if it has smaller variance among unbiased estimators.
-    </p>
-  </div>
-
-  <p style="margin-top:.75rem;">
-    In many models, certain estimators achieve minimum variance under assumptions
-    (e.g., Gauss–Markov theorem in regression).
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>4) Consistency</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      An estimator is consistent if:
-      \[
-      \hat{\theta} \xrightarrow{p} \theta \quad \text{as } n \to \infty.
-      \]
-    </p>
-  </div>
-
-  <p style="margin-top:.75rem;">
-    Consistency ensures that increasing sample size improves accuracy.
-  </p>
-
-  <p class="muted-mini">
-    Most classical estimators are consistent under regularity conditions.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>5) Mean squared error (MSE)</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      \[
-      MSE(\hat{\theta}) = \text{Var}(\hat{\theta}) + \text{Bias}(\hat{\theta})^2.
-      \]
-    </p>
-  </div>
-
-  <p style="margin-top:.75rem;">
-    MSE combines accuracy and stability into a single measure.
-  </p>
-
-  <ul class="bullets">
-    <li>Allows biased estimators to outperform unbiased ones if variance is much lower.</li>
-    <li>Central in shrinkage and regularization methods.</li>
-  </ul>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>6) No universal “best” estimator</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      The optimal choice depends on:
-    </p>
-  </div>
-
-  <ul class="bullets" style="margin-top:.75rem;">
-    <li>Sample size</li>
-    <li>Model assumptions</li>
-    <li>Loss function</li>
-    <li>Practical constraints</li>
-  </ul>
-
-  <p class="muted-mini">
-    Inference is context-dependent.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>7) Common misconceptions</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>“Unbiased means optimal.”</h3>
       <p>
-        Lower MSE may be more important than zero bias.
+        Which estimator should we trust?
       </p>
+
     </div>
 
-    <div class="card">
-      <h3>“Consistency guarantees small error.”</h3>
+    <p>
+      Statistical theory provides criteria for answering that question.
+    </p>
+
+    <h2>The Goal of an Estimator</h2>
+
+    <p>
+      A good estimator should provide values that are:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Accurate</li>
+
+      <li>Stable</li>
+
+      <li>Reliable</li>
+
+      <li>Informative</li>
+
+    </ul>
+
+    <p>
+      Several formal properties help evaluate whether an estimator achieves these goals.
+    </p>
+
+    <h2>Property 1: Unbiasedness</h2>
+
+    <p>
+      One of the most important properties is unbiasedness.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Definition:</strong>
+
       <p>
-        Consistency is asymptotic; finite-sample behavior may still be poor.
+        An estimator is unbiased if its expected value equals the true population parameter.
       </p>
+
     </div>
 
-    <div class="card">
-      <h3>“Efficiency applies universally.”</h3>
+    <p>
+      Mathematically:
+    </p>
+
+    0
+
+    <h2>Why Unbiasedness Matters</h2>
+
+    <p>
+      An unbiased estimator is centered on the correct target.
+    </p>
+
+    <p>
+      Across repeated samples,
+      it neither systematically overestimates nor underestimates the parameter.
+    </p>
+
+    <div class="example-box">
+
       <p>
-        Efficiency comparisons depend on model assumptions.
+        Average estimate = True parameter
       </p>
+
     </div>
 
-    <div class="card">
-      <h3>“One estimator dominates in all settings.”</h3>
+    <h2>Unbiased Does Not Mean Perfect</h2>
+
+    <p>
+      An estimator can be unbiased yet still produce wildly varying estimates.
+    </p>
+
+    <p>
+      Therefore unbiasedness alone is not sufficient.
+    </p>
+
+    <p>
+      We must also consider variability.
+    </p>
+
+    <h2>Property 2: Low Variance</h2>
+
+    <p>
+      A good estimator should not fluctuate excessively across samples.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Definition:</strong>
+
       <p>
-        Trade-offs are unavoidable in realistic problems.
+        Low variance means estimates remain relatively stable under repeated sampling.
       </p>
-    </div>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+    </div>
+
+    <p>
+      Smaller variance leads to smaller standard errors.
+    </p>
+
+    <p>
+      Smaller standard errors lead to more precise inference.
+    </p>
+
+    <h2>Why Variance Matters</h2>
+
+    <p>
+      Imagine two unbiased estimators.
+    </p>
+
+    <p>
+      One varies dramatically from sample to sample.
+    </p>
+
+    <p>
+      The other stays close to the true value.
+    </p>
+
+    <p>
+      Most statisticians would prefer the more stable estimator.
+    </p>
+
+    <h2>Property 3: Consistency</h2>
+
+    <p>
+      Consistency concerns what happens as sample size increases.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Definition:</strong>
+
+      <p>
+        A consistent estimator converges toward the true parameter as sample size grows.
+      </p>
+
+    </div>
+
+    <p>
+      Informally:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        More data → Better estimates
+      </p>
+
+    </div>
+
+    <p>
+      Most commonly used estimators are designed to be consistent.
+    </p>
+
+    <h2>The Law of Large Numbers Connection</h2>
+
+    <p>
+      Consistency is closely connected to the Law of Large Numbers.
+    </p>
+
+    <p>
+      As larger samples are collected,
+      estimation error tends to decrease.
+    </p>
+
+    <p>
+      The estimator becomes increasingly reliable.
+    </p>
+
+    <h2>Property 4: Efficiency</h2>
+
+    <p>
+      Suppose two estimators are both unbiased.
+    </p>
+
+    <p>
+      Which should be preferred?
+    </p>
+
+    <p>
+      Usually the one with smaller variance.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Definition:</strong>
+
+      <p>
+        An efficient estimator achieves lower variance than competing estimators.
+      </p>
+
+    </div>
+
+    <h2>Efficiency in Practice</h2>
+
+    <p>
+      Efficient estimators extract more information from the same data.
+    </p>
+
+    <p>
+      This leads to:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Narrower confidence intervals</li>
+
+      <li>More powerful tests</li>
+
+      <li>Greater precision</li>
+
+    </ul>
+
+    <h2>Property 5: Small Standard Error</h2>
+
+    <p>
+      Standard error summarizes estimator variability.
+    </p>
+
+    <p>
+      Good estimators generally have smaller standard errors.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Smaller SE → More precise estimates
+      </p>
+
+      <p>
+        Larger SE → Less precise estimates
+      </p>
+
+    </div>
+
+    <h2>Bias and Variance Together</h2>
+
+    <p>
+      Good estimation requires balancing bias and variance.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Estimator Type</th>
+            <th>Quality</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Low Bias + Low Variance</td>
+            <td>Excellent</td>
+          </tr>
+
+          <tr>
+            <td>Low Bias + High Variance</td>
+            <td>Unstable</td>
+          </tr>
+
+          <tr>
+            <td>High Bias + Low Variance</td>
+            <td>Consistently Wrong</td>
+          </tr>
+
+          <tr>
+            <td>High Bias + High Variance</td>
+            <td>Poor</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>The Ideal Estimator</h2>
+
+    <p>
+      An ideal estimator would be:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Unbiased</li>
+
+      <li>Consistent</li>
+
+      <li>Efficient</li>
+
+      <li>Low variance</li>
+
+      <li>Small standard error</li>
+
+    </ul>
+
+    <p>
+      In practice,
+      no estimator is perfect,
+      but many perform very well.
+    </p>
+
+    <h2>A Familiar Example</h2>
+
+    <p>
+      The sample mean:
+    </p>
+
+    1
+
+    <p>
+      is widely used because it possesses several desirable properties.
+    </p>
+
+    <ul class="bullets">
+
+      <li>Unbiased for μ</li>
+
+      <li>Consistent</li>
+
+      <li>Generally efficient under common assumptions</li>
+
+    </ul>
+
+    <p>
+      This explains its central role in statistics.
+    </p>
+
+    <h2>How Good Estimators Improve Inference</h2>
+
+    <p>
+      Better estimators lead to:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Better confidence intervals</li>
+
+      <li>More reliable hypothesis tests</li>
+
+      <li>More accurate conclusions</li>
+
+      <li>Improved decision making</li>
+
+    </ul>
+
+    <p>
+      Much of statistical theory focuses on developing and evaluating estimators.
+    </p>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      Statistical inference depends on using sample information to learn about unknown parameters.
+    </p>
+
+    <p>
+      The quality of those conclusions depends heavily on the quality of the estimators involved.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Good estimators are centered correctly, stable across samples, improve with more data, and provide precise information about unknown parameters.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      We now have all the foundational pieces:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Parameters</li>
+
+      <li>Estimators</li>
+
+      <li>Sampling distributions</li>
+
+      <li>Standard errors</li>
+
+      <li>Estimator quality</li>
+
+    </ul>
+
+    <p>
+      The next lesson combines these ideas into a complete inferential workflow that connects estimation, uncertainty, confidence intervals, and hypothesis testing.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Define unbiasedness, variance, efficiency, and consistency</li>
-        <li>Understand MSE as a combined performance measure</li>
-        <li>Recognize trade-offs in estimator selection</li>
-        <li>Prepare for applied estimation decisions</li>
+
+        <li>Good estimators provide reliable information about population parameters</li>
+
+        <li>Unbiased estimators are centered on the true parameter</li>
+
+        <li>Low variance produces stable estimates</li>
+
+        <li>Consistent estimators improve as sample size increases</li>
+
+        <li>Efficient estimators achieve lower variance than alternatives</li>
+
+        <li>Small standard errors imply greater precision</li>
+
+        <li>Both bias and variance influence estimator quality</li>
+
+        <li>Estimator quality directly affects inferential conclusions</li>
+
       </ul>
-    </div>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next step</h2>
-      <p style="margin:0;">
-        Next, we formalize the inference workflow:
-        <strong>Estimator → Standard Error → Confidence Interval / Test</strong>.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/foundations/inference-pipeline-estimator-se-ci-test/">
-          Next lesson: 10. The Estimator → SE → CI/Test Pipeline →
-        </a>
-      </div>
     </div>
 
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/foundations/bias-and-variance-intuition/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 8: Bias and Variance
-          </a>
-        </div>
-      </div>
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/foundations/bias-and-variance-intuition/">
+         ← Previous: Bias and Variance Intuition
+      </a>
+
+      <a class="btn"
+         href="/inference/foundations/inference-pipeline-estimator-se-ci-test/">
+         Next: Inference Pipeline →
+      </a>
+
     </div>
 
   </div>
+
 </section>

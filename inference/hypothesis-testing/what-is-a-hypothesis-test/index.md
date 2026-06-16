@@ -1,350 +1,475 @@
 ---
 layout: default
-title: "1. What Is a Hypothesis Test?"
-description: "Understand hypothesis testing as a structured decision rule under uncertainty: null model, evidence, test statistic, and p-value logic."
+title: What Is a Hypothesis Test?
+description: Learn the purpose of hypothesis testing, why it differs from estimation, and how statisticians use data to evaluate claims about populations.
 permalink: /inference/hypothesis-testing/what-is-a-hypothesis-test/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 locks the conceptual structure of hypothesis testing.
-        Worked examples, visuals, and software demonstrations will be added later without changing the lesson order.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update "last visited lesson" for Inference Block 3 -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_hypothesis_testing_lesson_v0";
+(function () {
 
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/hypothesis-testing/what-is-a-hypothesis-test/",
-      label: "Lesson 1 — What Is a Hypothesis Test?",
-      ts: Date.now()
-    }));
+  const KEY =
+    "esa_continue_inference_hypothesis_testing_lesson_v0";
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/hypothesis-testing/",
-      label: "Block 3 — Hypothesis Testing",
-      ts: Date.now()
-    }));
-  })();
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/hypothesis-testing/what-is-a-hypothesis-test/",
+    label: "What Is a Hypothesis Test?",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 3</span>
-        <span class="badge">Lesson 1</span>
-        <span class="badge">Testing</span>
-        <span class="badge">Decision</span>
-      </div>
 
-      <h1>1. What Is a Hypothesis Test?</h1>
-
-      <p class="lead">
-        A hypothesis test is a formal method to make a decision under uncertainty.
-        We compare observed data to a <strong>null model</strong> and measure how surprising the data would be
-        if that model were true.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/hypothesis-testing/">Back to Block 3</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        Version 0: structure first. Examples and software come after the logic is stable.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 3</span>
+      <span class="badge">Hypothesis Testing</span>
+      <span class="badge">Foundations</span>
     </div>
+
+    <h1>What Is a Hypothesis Test?</h1>
+
+    <p class="lead">
+      Confidence intervals focus on estimation. Hypothesis tests focus on evidence.
+    </p>
+
+    <p class="lead">
+      A hypothesis test provides a systematic framework for evaluating whether observed data are consistent with a proposed claim about a population.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/hypothesis-testing/">
+         ← Block Home
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/hypothesis-testing/null-and-alternative/">
+         Next: Null and Alternative Hypotheses →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
-    <p>
-      By the end of this lesson, you should be able to describe a hypothesis test as a decision procedure,
-      identify the roles of the null and alternative, and explain what “evidence against the null” means.
-    </p>
-  </div>
+<!-- LESSON -->
 
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Key idea</h2>
-      <p style="margin:0;">
-        <strong>Testing is not “proving”.</strong> A hypothesis test quantifies how compatible the observed data
-        are with a specific reference model (the null). It provides a rule for action, not a proof of truth.
+<section>
+
+  <div class="content-narrow">
+
+    <h2>Why Hypothesis Testing Exists</h2>
+
+    <p>
+      In statistical inference, researchers often want to evaluate claims rather than simply estimate parameters.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Does a new drug improve recovery rates?
       </p>
+
+      <p>
+        Does a teaching method increase exam scores?
+      </p>
+
+      <p>
+        Has a manufacturing process changed?
+      </p>
+
+      <p>
+        Is voter support above 50%?
+      </p>
+
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) The problem: decisions with uncertainty</h2>
     <p>
-      In real problems, data vary because of random sampling, measurement noise, and natural variability.
-      Hypothesis testing gives a disciplined way to decide whether an observed pattern is plausibly due to chance
-      (under a reference model) or is too extreme to ignore.
+      These questions involve evidence for or against a claim.
     </p>
-  </div>
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Typical decision questions</h3>
+    <h2>From Estimation to Decision-Making</h2>
+
+    <p>
+      Confidence intervals answer:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        What values are plausible for the parameter?
+      </p>
+
+    </div>
+
+    <p>
+      Hypothesis tests answer:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Are the data inconsistent enough with a particular claim that we should doubt it?
+      </p>
+
+    </div>
+
+    <h2>The Core Idea</h2>
+
+    <div class="concept-box">
+
+      <strong>Hypothesis Test:</strong>
+
+      <p>
+        A hypothesis test evaluates whether observed data would be unusual if a specific claim about a population were true.
+      </p>
+
+    </div>
+
+    <p>
+      The logic is indirect.
+    </p>
+
+    <p>
+      We temporarily assume a claim is true and ask whether the observed sample would be surprising under that assumption.
+    </p>
+
+    <h2>An Everyday Analogy</h2>
+
+    <p>
+      Imagine a coin that is claimed to be fair.
+    </p>
+
+    <p>
+      You flip it 100 times and observe 90 heads.
+    </p>
+
+    <p>
+      You might ask:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Would 90 heads be plausible if the coin were truly fair?
+      </p>
+
+    </div>
+
+    <p>
+      If such an outcome is extremely unlikely under the fairness assumption,
+      the claim becomes difficult to believe.
+    </p>
+
+    <p>
+      This reasoning is the essence of hypothesis testing.
+    </p>
+
+    <h2>The General Logic</h2>
+
+    <p>
+      Every hypothesis test follows the same structure:
+    </p>
+
+    <ol>
+
+      <li>State a claim about a population.</li>
+
+      <li>Assume the claim is true.</li>
+
+      <li>Determine what outcomes would be expected.</li>
+
+      <li>Compare the observed sample to those expectations.</li>
+
+      <li>Assess whether the observed result is unusually far from expectation.</li>
+
+    </ol>
+
+    <h2>The Role of Random Sampling</h2>
+
+    <p>
+      Samples naturally vary from one draw to another.
+    </p>
+
+    <p>
+      Therefore an observed difference does not automatically imply that a claim is false.
+    </p>
+
+    <p>
+      The key question is:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Is the observed difference larger than would reasonably occur through random sampling alone?
+      </p>
+
+    </div>
+
+    <h2>Evidence, Not Proof</h2>
+
+    <p>
+      Hypothesis tests do not provide mathematical proof.
+    </p>
+
+    <p>
+      Instead they quantify the strength of evidence against a proposed claim.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Important:</strong>
+
+      <p>
+        Statistical tests support decisions under uncertainty. They do not establish certainty.
+      </p>
+
+    </div>
+
+    <h2>A Simple Example</h2>
+
+    <p>
+      Suppose a manufacturer claims that a machine fills bottles with an average of:
+    </p>
+
+    0
+
+    <p>
+      A quality-control analyst collects a sample and finds an average of:
+    </p>
+
+    1
+
+    <p>
+      The question becomes:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Could random sampling reasonably explain an average this far from 500 mL?
+      </p>
+
+    </div>
+
+    <p>
+      A hypothesis test helps answer that question.
+    </p>
+
+    <h2>The Two Possible Explanations</h2>
+
+    <p>
+      Whenever data differ from a claim,
+      there are generally two explanations:
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Explanation</th>
+            <th>Meaning</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Random Variation</td>
+            <td>The claim is true and sampling variability created the difference</td>
+          </tr>
+
+          <tr>
+            <td>Real Effect</td>
+            <td>The claim is false and a genuine difference exists</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      Hypothesis testing evaluates which explanation is more plausible.
+    </p>
+
+    <h2>The Language of Hypotheses</h2>
+
+    <p>
+      Statistical tests are built around competing statements called hypotheses.
+    </p>
+
+    <p>
+      These hypotheses formalize:
+    </p>
+
+    <ul class="bullets">
+
+      <li>The claim being challenged</li>
+
+      <li>The competing explanation</li>
+
+    </ul>
+
+    <p>
+      The next lesson develops these ideas in detail.
+    </p>
+
+    <h2>Why Hypothesis Tests Are So Common</h2>
+
+    <p>
+      Hypothesis testing appears throughout science and decision-making.
+    </p>
+
+    <ul class="bullets">
+
+      <li>Clinical trials</li>
+
+      <li>Psychology experiments</li>
+
+      <li>Economics research</li>
+
+      <li>Manufacturing quality control</li>
+
+      <li>A/B testing</li>
+
+      <li>Public-health studies</li>
+
+    </ul>
+
+    <p>
+      Whenever evidence must be evaluated formally,
+      hypothesis testing often plays a central role.
+    </p>
+
+    <h2>What Hypothesis Tests Do Not Do</h2>
+
+    <p>
+      Hypothesis tests do not:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Prove hypotheses true</li>
+
+      <li>Eliminate uncertainty</li>
+
+      <li>Guarantee correct decisions</li>
+
+      <li>Measure practical importance by themselves</li>
+
+    </ul>
+
+    <p>
+      They are tools for evaluating evidence,
+      not machines for producing certainty.
+    </p>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      Confidence intervals and hypothesis tests are the two major pillars of classical statistical inference.
+    </p>
+
+    <p>
+      Confidence intervals emphasize estimation.
+    </p>
+
+    <p>
+      Hypothesis tests emphasize evidence and decision-making.
+    </p>
+
+    <p>
+      Both rely on sampling distributions, probability models, and uncertainty.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        A hypothesis test evaluates whether observed data would be unusually inconsistent with a specific claim about a population. The more unusual the data appear under that claim, the stronger the evidence against it.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Every hypothesis test begins with two competing statements.
+    </p>
+
+    <p>
+      One represents the claim being evaluated.
+    </p>
+
+    <p>
+      The other represents the competing explanation.
+    </p>
+
+    <p>
+      The next lesson introduces null hypotheses and alternative hypotheses, the foundation of all classical hypothesis tests.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Is a new treatment better than the standard?</li>
-        <li>Is the mean different from a target value?</li>
-        <li>Are two groups different?</li>
-        <li>Is there an association between two variables?</li>
+
+        <li>Hypothesis tests evaluate claims about populations</li>
+
+        <li>They assess whether observed data are unusual under a proposed assumption</li>
+
+        <li>Testing focuses on evidence rather than estimation</li>
+
+        <li>Random sampling variability is central to the logic</li>
+
+        <li>Statistical tests compare observed outcomes to expected outcomes</li>
+
+        <li>Tests provide evidence, not proof</li>
+
+        <li>Every test involves competing explanations for observed data</li>
+
+        <li>Null and alternative hypotheses form the foundation of hypothesis testing</li>
+
       </ul>
-      <p class="muted-mini">
-        A test is used when you need a <strong>decision rule</strong>, not just an estimate.
-      </p>
+
     </div>
 
-    <div class="card">
-      <h3>What testing does (and does not) do</h3>
-      <ul class="bullets">
-        <li><strong>Does:</strong> quantify evidence vs a null model</li>
-        <li><strong>Does:</strong> control false-positive risk via \(\alpha\)</li>
-        <li><strong>Does not:</strong> prove a hypothesis is true</li>
-        <li><strong>Does not:</strong> measure practical importance by itself</li>
-      </ul>
-    </div>
-  </div>
-</section>
+    <!-- NAVIGATION -->
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) The null model (the reference world)</h2>
-    <p>
-      A hypothesis test starts by specifying a <strong>null hypothesis</strong> \(H_0\):
-      a reference statement that represents “no effect”, “no difference”, or “nothing interesting”.
-      Under \(H_0\), we can describe how the data (or a test statistic) should behave.
-    </p>
-  </div>
+    <div class="lesson-nav">
 
-  <div class="card">
-    <p style="margin:0;">
-      <strong>Null hypothesis \(H_0\):</strong> a specific reference claim used to generate a probability model
-      for what we would expect to see if “nothing new” is happening.
-    </p>
-  </div>
+      <a class="btn btn-outline"
+         href="/inference/hypothesis-testing/">
+         ← Block Home
+      </a>
 
-  <p class="muted-mini" style="margin-top:.75rem;">
-    The null is not “what you believe”. It is the baseline model you challenge.
-  </p>
-</section>
+      <a class="btn"
+         href="/inference/hypothesis-testing/null-and-alternative/">
+         Next: Null and Alternative Hypotheses →
+      </a>
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) The alternative hypothesis (the direction of challenge)</h2>
-    <p>
-      The <strong>alternative hypothesis</strong> \(H_1\) (or \(H_a\)) describes what kind of departure from \(H_0\)
-      you are prepared to detect: a difference, a positive effect, a negative effect, or any non-zero effect.
-    </p>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Two-sided alternative</h3>
-      <p style="margin:0;">
-        Detects departures in both directions (difference without specifying sign).
-      </p>
-      <p class="muted-mini" style="margin-top:.5rem;">
-        Example form: \(H_1:\ \mu \neq \mu_0\)
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>One-sided alternative</h3>
-      <p style="margin:0;">
-        Detects departures in one direction only (increase or decrease).
-      </p>
-      <p class="muted-mini" style="margin-top:.5rem;">
-        Example form: \(H_1:\ \mu &gt; \mu_0\) or \(H_1:\ \mu &lt; \mu_0\)
-      </p>
-    </div>
-  </div>
-
-  <p class="muted-mini" style="margin-top:.75rem;">
-    Choosing one-sided vs two-sided is a design decision and should be made <strong>before</strong> seeing data.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>4) The test statistic (evidence in standard error units)</h2>
-    <p>
-      We compress the data into a single number called a <strong>test statistic</strong>.
-      It is designed to be large (in magnitude) when the data are inconsistent with \(H_0\).
-    </p>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      <strong>General idea:</strong>
-      \[
-      \text{test statistic} \;=\; \frac{\text{estimate} - \text{null value}}{\text{standard error}}
-      \]
-    </p>
-  </div>
-
-  <p class="muted-mini" style="margin-top:.75rem;">
-    This is the same “signal measured in uncertainty units” logic you saw in confidence intervals.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>5) The p-value (surprise under \(H_0\))</h2>
-    <p>
-      Once we compute the test statistic from the observed sample, we ask:
-      <strong>how likely is it to see a result at least this extreme if \(H_0\) were true?</strong>
-      That probability is the p-value.
-    </p>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      <strong>p-value:</strong> probability (under \(H_0\)) of getting a test statistic as extreme or more extreme
-      than what we observed (in the direction(s) specified by \(H_1\)).
-    </p>
-  </div>
-
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Important interpretation</h2>
-      <p style="margin:0;">
-        The p-value is <strong>not</strong> \(P(H_0 \text{ is true})\).
-        It is computed assuming \(H_0\) is true, and it measures how surprising the data would be in that world.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>6) Decision rule (preview)</h2>
-    <p>
-      To convert evidence into a decision, we choose a <strong>significance level</strong> \(\alpha\)
-      (like 0.05). Then we compare the p-value to \(\alpha\).
-    </p>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>If p-value ≤ \(\alpha\)</h3>
-      <p style="margin:0;">
-        Reject \(H_0\) (data are sufficiently inconsistent with the null model).
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>If p-value &gt; \(\alpha\)</h3>
-      <p style="margin:0;">
-        Fail to reject \(H_0\) (data are not extreme enough to rule out the null model).
-      </p>
-    </div>
-  </div>
-
-  <p class="muted-mini" style="margin-top:.75rem;">
-    “Fail to reject” does not mean “accept” — it means the data do not provide strong enough evidence against \(H_0\)
-    at the chosen \(\alpha\).
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>7) Common traps (and how to avoid them)</h2>
-    <p>
-      Hypothesis testing has a few classic interpretation errors that appear everywhere in real reporting.
-    </p>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Trap A: “p is the probability the null is true”</h3>
-      <p>
-        Wrong. p is computed under the assumption \(H_0\) is true; it measures surprise, not truth probability.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Trap B: “Non-significant means no effect”</h3>
-      <p>
-        Wrong. It can mean low power, high noise, or small sample size.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Trap C: Changing the hypothesis after seeing data</h3>
-      <p>
-        Decide \(H_0\), \(H_1\), and \(\alpha\) before analysis. Post-hoc choices inflate false positives.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Trap D: Confusing statistical and practical importance</h3>
-      <p>
-        A tiny effect can be statistically significant with large n. Practical meaning requires effect size and context.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
-      <ul class="bullets">
-        <li>Explain hypothesis testing as a decision procedure</li>
-        <li>Define \(H_0\) as a reference model and \(H_1\) as a structured challenge</li>
-        <li>Describe test statistics as “evidence in SE units”</li>
-        <li>Interpret the p-value correctly as surprise under \(H_0\)</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next step</h2>
-      <p style="margin:0;">
-        Next, we define the null and alternative hypotheses more precisely,
-        including equality in \(H_0\) and directional vs non-directional alternatives.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/hypothesis-testing/null-and-alternative/">
-          Next lesson: 2. Null and Alternative Hypotheses →
-        </a>
-      </div>
-    </div>
-
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Back to block</div>
-        <div class="mini-body">
-          <a href="/inference/hypothesis-testing/" style="color:#1a73e8; text-decoration:underline;">
-            Block 3: Hypothesis Testing
-          </a>
-        </div>
-      </div>
     </div>
 
   </div>
+
 </section>

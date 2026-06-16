@@ -1,277 +1,526 @@
 ---
 layout: default
-title: "13. Independence and Random Sampling: Why Inference Works"
-description: "Understand why independence and random sampling are foundational assumptions for valid statistical inference, and what breaks when they fail."
+title: Independence and Random Sampling
+description: Learn why independence and random sampling are fundamental assumptions behind nearly every statistical inference procedure.
 permalink: /inference/foundations/independence-and-random-sampling/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">🚧 Lesson Under Construction</h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 explains the structural assumptions behind inference.
-        Case studies and applied diagnostics will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update "last visited lesson" -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_foundations_lesson_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/foundations/independence-and-random-sampling/",
-      label: "Lesson 13 — Independence and Random Sampling",
-      ts: Date.now()
-    }));
+(function () {
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/foundations/",
-      label: "Block 1 — Inference Foundations",
-      ts: Date.now()
-    }));
-  })();
+  const KEY =
+    "esa_continue_inference_foundations_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/foundations/independence-and-random-sampling/",
+    label: "Independence and Random Sampling",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 1</span>
-        <span class="badge">Lesson 13</span>
-        <span class="badge">Assumptions</span>
-        <span class="badge">Design</span>
-      </div>
 
-      <h1>13. Independence and Random Sampling: Why Inference Works</h1>
-      <p class="lead">
-        Statistical inference depends not only on formulas,
-        but on how data are collected.
-        Independence and randomness are structural foundations.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/foundations/">Back to Block 1</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        Version 0: conceptual foundations before diagnostics and corrections.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 1</span>
+      <span class="badge">Foundations</span>
+      <span class="badge">Assumptions</span>
     </div>
+
+    <h1>Independence and Random Sampling</h1>
+
+    <p class="lead">
+      Statistical inference relies on more than formulas and calculations.
+    </p>
+
+    <p class="lead">
+      Behind every confidence interval, p-value, and hypothesis test are assumptions about how the data were collected. Two of the most important are independence and random sampling.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/foundations/confidence-vs-significance-preview/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/foundations/sampling-bias-vs-statistical-bias/">
+         Next: Sampling Bias vs Statistical Bias →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>Why Assumptions Matter</h2>
+
     <p>
-      By the end of this lesson, you should explain why independence and random sampling
-      justify sampling distributions, standard errors, and probability-based inference.
+      Statistical inference uses probability to describe uncertainty.
     </p>
-  </div>
 
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Key idea</h2>
-      <p style="margin:0;">
-        Inference works because randomness creates predictable long-run behavior.
-        Without randomness, probability statements lose meaning.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>1) What is random sampling?</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      A random sample gives each unit in the population a known,
-      non-zero probability of selection.
+    <p>
+      Probability models only work when certain assumptions are approximately true.
     </p>
-  </div>
 
-  <p style="margin-top:.75rem;">
-    Random sampling ensures representativeness in expectation.
-  </p>
-
-  <p class="muted-mini">
-    It justifies treating observations as draws from a probability model.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>2) Independence</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      Observations are independent if knowing one observation
-      does not change the probability distribution of another.
+    <p>
+      If the assumptions fail,
+      inferential conclusions can become unreliable.
     </p>
-  </div>
 
-  <p style="margin-top:.75rem;">
-    Independence simplifies variance calculations and
-    enables central limit theorem results.
-  </p>
-</section>
+    <div class="concept-box">
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) Why independence matters mathematically</h2>
-  </div>
+      <strong>Key idea:</strong>
 
-  <div class="card">
-    <p style="margin:0;">
-      For independent observations:
-      \[
-      \text{Var}(\bar{X}) = \frac{\sigma^2}{n}
-      \]
+      <p>
+        Good statistical methods cannot rescue badly collected data.
+      </p>
+
+    </div>
+
+    <h2>The Foundation of Inference</h2>
+
+    <p>
+      Most inferential procedures assume:
     </p>
-  </div>
 
-  <p style="margin-top:.75rem;">
-    If observations are correlated,
-    this formula no longer holds.
-  </p>
-</section>
+    <ul class="bullets">
 
-<section class="section">
-  <div class="section-head">
-    <h2>4) What breaks without independence?</h2>
-  </div>
+      <li>Observations are randomly selected</li>
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Standard errors become incorrect</h3>
-      <p>Underestimated SE leads to false significance.</p>
-    </div>
+      <li>Observations are independent</li>
 
-    <div class="card">
-      <h3>Confidence intervals too narrow</h3>
-      <p>Intervals may not achieve intended coverage.</p>
-    </div>
+    </ul>
 
-    <div class="card">
-      <h3>Invalid hypothesis tests</h3>
-      <p>Type I error rates increase.</p>
-    </div>
+    <p>
+      These assumptions allow probability theory to describe sampling behavior accurately.
+    </p>
 
-    <div class="card">
-      <h3>Misleading conclusions</h3>
-      <p>Dependence structures distort inference.</p>
-    </div>
-  </div>
-</section>
+    <h2>What Is Random Sampling?</h2>
 
-<section class="section">
-  <div class="section-head">
-    <h2>5) Random sampling vs random assignment</h2>
-  </div>
+    <div class="concept-box">
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Random sampling</h3>
-      <p>Supports generalization to a population.</p>
-    </div>
+      <strong>Definition:</strong>
 
-    <div class="card">
-      <h3>Random assignment</h3>
-      <p>Supports causal interpretation.</p>
-    </div>
-  </div>
-
-  <p class="muted-mini" style="margin-top:.75rem;">
-    These serve different inferential goals.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>6) Common misconceptions</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>“Large sample size fixes bias.”</h3>
       <p>
-        Large n does not correct systematic sampling bias.
+        Random sampling is a process in which population members are selected using chance rather than judgment or convenience.
       </p>
+
     </div>
 
-    <div class="card">
-      <h3>“Random means arbitrary.”</h3>
+    <p>
+      Every population member should have a known opportunity to be selected.
+    </p>
+
+    <h2>Why Random Sampling Matters</h2>
+
+    <p>
+      Random sampling helps ensure that samples resemble the population.
+    </p>
+
+    <p>
+      It reduces systematic selection distortions.
+    </p>
+
+    <div class="example-box">
+
       <p>
-        Randomness means governed by probability, not careless selection.
+        Election polls
       </p>
-    </div>
 
-    <div class="card">
-      <h3>“Independence is always realistic.”</h3>
       <p>
-        Many real datasets involve clustering or correlation.
+        Customer surveys
       </p>
-    </div>
 
-    <div class="card">
-      <h3>“Inference only depends on formulas.”</h3>
       <p>
-        Design assumptions are equally important.
+        Quality-control inspections
       </p>
-    </div>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+    </div>
+
+    <p>
+      All rely on random sampling principles.
+    </p>
+
+    <h2>Random Sampling Does Not Mean Perfect Sampling</h2>
+
+    <p>
+      Random samples can still differ from the population.
+    </p>
+
+    <p>
+      Sampling variability guarantees that no sample is perfect.
+    </p>
+
+    <p>
+      However,
+      random sampling prevents systematic favoritism toward certain outcomes.
+    </p>
+
+    <h2>What Is Independence?</h2>
+
+    <div class="concept-box">
+
+      <strong>Definition:</strong>
+
+      <p>
+        Observations are independent when knowing one observation provides no information about another observation.
+      </p>
+
+    </div>
+
+    <p>
+      Independence means observations behave as separate pieces of information.
+    </p>
+
+    <h2>An Example of Independence</h2>
+
+    <p>
+      Suppose we randomly select customers from a large customer database.
+    </p>
+
+    <p>
+      One customer's spending generally tells us little about another randomly selected customer's spending.
+    </p>
+
+    <p>
+      These observations are approximately independent.
+    </p>
+
+    <h2>An Example of Dependence</h2>
+
+    <p>
+      Suppose we measure the same person repeatedly.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Monday blood pressure
+      </p>
+
+      <p>
+        Tuesday blood pressure
+      </p>
+
+      <p>
+        Wednesday blood pressure
+      </p>
+
+    </div>
+
+    <p>
+      These observations are related.
+    </p>
+
+    <p>
+      One measurement provides information about another.
+    </p>
+
+    <p>
+      Independence is violated.
+    </p>
+
+    <h2>Why Independence Is Important</h2>
+
+    <p>
+      Most statistical formulas assume observations contribute unique information.
+    </p>
+
+    <p>
+      When observations are dependent,
+      the effective amount of information is smaller than it appears.
+    </p>
+
+    <p>
+      Standard errors can become misleading.
+    </p>
+
+    <h2>What Happens When Independence Fails?</h2>
+
+    <p>
+      Violations of independence often cause:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Incorrect standard errors</li>
+
+      <li>Misleading confidence intervals</li>
+
+      <li>Invalid p-values</li>
+
+      <li>Overconfident conclusions</li>
+
+    </ul>
+
+    <p>
+      The results may appear more precise than they truly are.
+    </p>
+
+    <h2>Random Sampling and Independence Are Related</h2>
+
+    <p>
+      In many situations,
+      random sampling helps produce approximately independent observations.
+    </p>
+
+    <p>
+      Especially when:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Sample size is small relative to population size.
+      </p>
+
+    </div>
+
+    <p>
+      This is why introductory statistics often treats random sampling and independence together.
+    </p>
+
+    <h2>The 10% Condition</h2>
+
+    <p>
+      A common guideline states:
+    </p>
+
+    <div class="concept-box">
+
+      <strong>10% Condition:</strong>
+
+      <p>
+        Sampling without replacement is often treated as approximately independent when the sample is less than 10% of the population.
+      </p>
+
+    </div>
+
+    <p>
+      This approximation is widely used in statistical practice.
+    </p>
+
+    <h2>Examples Where Independence Is Reasonable</h2>
+
+    <ul class="bullets">
+
+      <li>Randomly selected voters</li>
+
+      <li>Randomly selected customers</li>
+
+      <li>Randomly sampled manufactured products</li>
+
+      <li>Large population surveys</li>
+
+    </ul>
+
+    <p>
+      These settings often satisfy inferential assumptions reasonably well.
+    </p>
+
+    <h2>Examples Where Independence May Fail</h2>
+
+    <ul class="bullets">
+
+      <li>Repeated measurements on the same person</li>
+
+      <li>Students within the same classroom</li>
+
+      <li>Family members from the same household</li>
+
+      <li>Time-series observations</li>
+
+      <li>Social network data</li>
+
+    </ul>
+
+    <p>
+      These situations often require specialized statistical methods.
+    </p>
+
+    <h2>Random Sampling vs Random Assignment</h2>
+
+    <p>
+      These ideas are often confused.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Concept</th>
+            <th>Purpose</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Random Sampling</td>
+            <td>Represent a population</td>
+          </tr>
+
+          <tr>
+            <td>Random Assignment</td>
+            <td>Create comparable treatment groups</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      Both involve randomness,
+      but they solve different problems.
+    </p>
+
+    <h2>Can Inference Work Without Perfect Random Sampling?</h2>
+
+    <p>
+      In practice,
+      perfectly random samples are uncommon.
+    </p>
+
+    <p>
+      Statistical methods can still be useful when assumptions are approximately satisfied.
+    </p>
+
+    <p>
+      However,
+      stronger violations require greater caution.
+    </p>
+
+    <h2>The Inferential Chain</h2>
+
+    <p>
+      Most inferential procedures depend on:
+    </p>
+
+    <ol>
+
+      <li>Random sampling</li>
+
+      <li>Approximate independence</li>
+
+      <li>Valid sampling distributions</li>
+
+      <li>Reliable standard errors</li>
+
+      <li>Reliable confidence intervals and tests</li>
+
+    </ol>
+
+    <p>
+      If the first links fail,
+      later conclusions may also fail.
+    </p>
+
+    <h2>Why Researchers Care So Much About Data Collection</h2>
+
+    <p>
+      Statistical inference begins long before calculations are performed.
+    </p>
+
+    <p>
+      The quality of conclusions depends heavily on how data are obtained.
+    </p>
+
+    <p>
+      Good sampling designs are often more important than sophisticated analyses.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Random sampling helps produce representative data, while independence ensures observations provide separate information. Together they form the foundation of reliable statistical inference.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Independence and random sampling help reduce distortions,
+      but they do not eliminate all forms of bias.
+    </p>
+
+    <p>
+      A particularly important distinction exists between sampling bias and statistical bias.
+    </p>
+
+    <p>
+      The next lesson explains these two concepts and why confusing them can lead to major inferential mistakes.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Explain why randomness justifies inference</li>
-        <li>Describe independence formally</li>
-        <li>Recognize consequences of dependence</li>
-        <li>Understand design vs model assumptions</li>
+
+        <li>Statistical inference depends on assumptions about data collection</li>
+
+        <li>Random sampling helps create representative samples</li>
+
+        <li>Independence means observations provide separate information</li>
+
+        <li>Violations of independence can distort standard errors and p-values</li>
+
+        <li>The 10% condition often justifies approximate independence</li>
+
+        <li>Random sampling and random assignment are different concepts</li>
+
+        <li>Reliable inference begins with reliable data collection</li>
+
+        <li>Random sampling and independence are foundational assumptions in statistics</li>
+
       </ul>
-    </div>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next step</h2>
-      <p style="margin:0;">
-        Next, we distinguish between 
-        <strong>sampling bias</strong> and 
-        <strong>statistical bias</strong>.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/foundations/sampling-bias-vs-statistical-bias/">
-          Next lesson →
-        </a>
-      </div>
     </div>
 
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/foundations/confidence-vs-significance-preview/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 12: Confidence vs Significance
-          </a>
-        </div>
-      </div>
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/foundations/confidence-vs-significance-preview/">
+         ← Previous: Confidence vs Significance Preview
+      </a>
+
+      <a class="btn"
+         href="/inference/foundations/sampling-bias-vs-statistical-bias/">
+         Next: Sampling Bias vs Statistical Bias →
+      </a>
+
     </div>
 
   </div>
+
 </section>

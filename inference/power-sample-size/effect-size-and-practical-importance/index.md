@@ -1,242 +1,546 @@
 ---
 layout: default
-title: "2. Effect Size and Practical Importance"
-description: "Define effect size formally and distinguish statistical significance from practical importance."
+title: Effect Size and Practical Importance
+description: Learn what effect size measures, why statistical significance is not enough, and how practical importance influences statistical decision-making.
 permalink: /inference/power-sample-size/effect-size-and-practical-importance/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 establishes the formal definition of effect size
-        and clarifies the difference between statistical and practical importance.
-        Applied examples and domain-specific interpretations will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update continue-reading keys -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_power_sample_size_lesson_v0";
+(function () {
 
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/power-sample-size/effect-size-and-practical-importance/",
-      label: "Lesson 2 — Effect Size & Practical Importance",
-      ts: Date.now()
-    }));
+  const KEY =
+    "esa_continue_inference_power_sample_size_lesson_v0";
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/power-sample-size/",
-      label: "Block 5 — Power & Sample Size",
-      ts: Date.now()
-    }));
-  })();
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/power-sample-size/effect-size-and-practical-importance/",
+    label: "Effect Size and Practical Importance",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 5</span>
-        <span class="badge">Lesson 2</span>
-        <span class="badge">Effect Size</span>
-        <span class="badge">Magnitude</span>
-      </div>
 
-      <h1>2. Effect Size and Practical Importance</h1>
-
-      <p class="lead">
-        Effect size measures the magnitude of a phenomenon.
-        It answers a different question than statistical significance:
-        not “Is there evidence?” but “How large is the effect?”
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/power-sample-size/">Back to Block 5</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        Detectability and importance are not the same concept.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 5</span>
+      <span class="badge">Power & Sample Size</span>
+      <span class="badge">Effect Size</span>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
-    <p>
-      Define effect size formally,
-      understand standardized vs raw effect sizes,
-      and distinguish statistical significance from practical importance.
+    <h1>Effect Size and Practical Importance</h1>
+
+    <p class="lead">
+      Statistical significance tells us whether an effect is detectable, but it does not tell us whether that effect matters.
     </p>
-  </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Core principle</h2>
-      <p style="margin:0;">
-        Statistical significance depends on sample size.
-        Effect size describes magnitude independently of sample size.
-      </p>
+    <p class="lead">
+      Effect size provides a measure of the magnitude of a phenomenon and helps connect statistical results to real-world importance.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/power-sample-size/what-is-statistical-power/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/power-sample-size/power-curve-and-tradeoffs/">
+         Next: Power Curves and Trade-Offs →
+      </a>
+
     </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) Raw effect size</h2>
-  </div>
+<!-- LESSON -->
 
-  <div class="card">
-    Difference in means:
-    \[
-    \Delta = \mu_1 - \mu_2
-    \]
-  </div>
+<section>
 
-  <div class="card" style="margin-top:1rem;">
-    Difference in proportions:
-    \[
-    \Delta = p_1 - p_2
-    \]
-  </div>
+  <div class="content-narrow">
 
-  <p class="muted-mini">
-    Raw effect size keeps the original measurement scale.
-  </p>
-</section>
+    <h2>Statistical Significance Is Not Everything</h2>
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) Standardized effect size</h2>
-  </div>
+    <p>
+      Consider a study comparing two treatments.
+    </p>
 
-  <div class="card">
-    Cohen's d:
-    \[
-    d = \frac{\mu_1 - \mu_2}{\sigma}
-    \]
-  </div>
+    <p>
+      With a sufficiently large sample size, even extremely small differences can become statistically significant.
+    </p>
 
-  <p>
-    Standardization expresses the difference in units of standard deviation,
-    allowing comparison across studies.
-  </p>
+    <p>
+      For example:
+    </p>
 
-  <div class="card" style="margin-top:1rem;">
-    For ANOVA:
-    <br><br>
-    Eta-squared:
-    \[
-    \eta^2 = \frac{SS_{Between}}{SS_{Total}}
-    \]
-  </div>
-</section>
+    <div class="example-box">
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) Statistical vs practical significance</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Statistical significance</h3>
       <p>
-        Determined by p-value and alpha.
-        Influenced by sample size.
+        Mean improvement = 0.05 units
       </p>
-    </div>
 
-    <div class="card">
-      <h3>Practical importance</h3>
       <p>
-        Determined by magnitude and domain context.
-        Independent of sample size.
+        p-value &lt; 0.001
+      </p>
+
+    </div>
+
+    <p>
+      Although statistically significant, such a tiny improvement may have little practical value.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Key idea:</strong>
+
+      <p>
+        Statistical significance answers "Is there evidence of an effect?" while effect size answers "How large is the effect?"
+      </p>
+
+    </div>
+
+    <h2>What Is Effect Size?</h2>
+
+    <p>
+      Effect size quantifies the magnitude of a relationship, difference, or association.
+    </p>
+
+    <p>
+      Unlike p-values, effect sizes focus on practical importance rather than statistical evidence.
+    </p>
+
+    <h2>Why Effect Size Matters</h2>
+
+    <p>
+      Researchers often care about:
+    </p>
+
+    <ul class="bullets">
+
+      <li>How much a treatment improves outcomes</li>
+
+      <li>How large a difference exists between groups</li>
+
+      <li>How strong a relationship is</li>
+
+      <li>Whether an effect is meaningful in practice</li>
+
+    </ul>
+
+    <p>
+      Effect sizes address these questions directly.
+    </p>
+
+    <h2>Statistical vs Practical Significance</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Question</th>
+            <th>Statistical Significance</th>
+            <th>Effect Size</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Does an effect exist?</td>
+            <td>Yes</td>
+            <td>No</td>
+          </tr>
+
+          <tr>
+            <td>How large is the effect?</td>
+            <td>No</td>
+            <td>Yes</td>
+          </tr>
+
+          <tr>
+            <td>Depends strongly on sample size?</td>
+            <td>Yes</td>
+            <td>No</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>An Illustration</h2>
+
+    <p>
+      Imagine two studies investigating the same treatment effect.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Study A: Small sample, large effect
+      </p>
+
+      <p>
+        Study B: Huge sample, tiny effect
+      </p>
+
+    </div>
+
+    <p>
+      Study B may produce a much smaller p-value even though its effect is less meaningful.
+    </p>
+
+    <p>
+      This is why effect size is essential.
+    </p>
+
+    <h2>Raw Effect Sizes</h2>
+
+    <p>
+      Sometimes effect size is expressed directly in original measurement units.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Blood pressure reduced by 12 mmHg
+      </p>
+
+      <p>
+        Exam score increased by 8 points
+      </p>
+
+      <p>
+        Revenue increased by $500 per customer
+      </p>
+
+    </div>
+
+    <p>
+      These values are often easy to interpret.
+    </p>
+
+    <h2>Standardized Effect Sizes</h2>
+
+    <p>
+      In many situations, researchers want a scale-free measure that allows comparisons across studies.
+    </p>
+
+    <p>
+      Standardized effect sizes accomplish this goal.
+    </p>
+
+    <h2>Cohen's d</h2>
+
+    <p>
+      One of the most common standardized measures is:
+    </p>
+
+    0
+
+    <p>
+      Cohen's d measures the size of a mean difference relative to variability.
+    </p>
+
+    <h2>Interpreting Cohen's d</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Approximate d</th>
+            <th>Interpretation</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>0.2</td>
+            <td>Small effect</td>
+          </tr>
+
+          <tr>
+            <td>0.5</td>
+            <td>Medium effect</td>
+          </tr>
+
+          <tr>
+            <td>0.8</td>
+            <td>Large effect</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      These guidelines are only rough conventions.
+    </p>
+
+    <p>
+      Context always matters.
+    </p>
+
+    <h2>Effect Size for Proportions</h2>
+
+    <p>
+      For proportion-based studies, practical importance may be expressed through:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Difference in proportions</li>
+
+      <li>Relative risk</li>
+
+      <li>Odds ratios</li>
+
+    </ul>
+
+    <p>
+      The appropriate measure depends on the application.
+    </p>
+
+    <h2>Effect Size for Relationships</h2>
+
+    <p>
+      When studying associations between variables, common effect-size measures include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Correlation coefficients</li>
+
+      <li>R² values</li>
+
+      <li>Cramér's V</li>
+
+    </ul>
+
+    <p>
+      Different statistical methods use different effect-size metrics.
+    </p>
+
+    <h2>Effect Size and Power</h2>
+
+    <p>
+      Effect size plays a central role in power analysis.
+    </p>
+
+    <p>
+      Larger effects are easier to detect.
+    </p>
+
+    <p>
+      Smaller effects require larger samples.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Fundamental relationship:</strong>
+
+      <p>
+        As effect size increases, statistical power generally increases.
+      </p>
+
+    </div>
+
+    <h2>A Simple Example</h2>
+
+    <p>
+      Suppose two studies have identical sample sizes.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Effect A: Very small
+      </p>
+
+      <p>
+        Effect B: Very large
+      </p>
+
+    </div>
+
+    <p>
+      The study investigating Effect B is much more likely to achieve statistical significance.
+    </p>
+
+    <h2>Clinical Importance</h2>
+
+    <p>
+      In medicine, statistical significance alone is rarely sufficient.
+    </p>
+
+    <p>
+      Researchers also ask:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Is the improvement large enough to help patients?
       </p>
     </div>
-  </div>
 
-  <div class="card" style="margin-top:1rem;">
-    A very small effect can be statistically significant
-    if sample size is large.
-  </div>
+    <p>
+      Practical significance often drives real-world decisions.
+    </p>
 
-  <div class="card" style="margin-top:1rem;">
-    A meaningful effect may fail to reach significance
-    in a small sample study.
-  </div>
-</section>
+    <h2>Business Importance</h2>
 
-<section class="section">
-  <div class="section-head">
-    <h2>4) Role in power analysis</h2>
-  </div>
+    <p>
+      In business settings, a statistically significant change may still be economically irrelevant.
+    </p>
 
-  <div class="card">
-    Power increases as effect size increases.
-  </div>
+    <p>
+      For example:
+    </p>
 
-  <p>
-    Sample size calculations require specifying
-    the minimum effect size worth detecting.
-  </p>
+    <div class="example-box">
 
-  <div class="card" style="margin-top:1rem;">
-    Study planning question:
-    <br><br>
-    What is the smallest meaningful effect?
-  </div>
-</section>
+      <p>
+        A conversion-rate increase of 0.01%
+      </p>
+    </div>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+    <p>
+      may or may not justify implementation costs.
+    </p>
+
+    <h2>Reporting Best Practices</h2>
+
+    <p>
+      Modern statistical reporting often includes:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Effect size estimates</li>
+
+      <li>Confidence intervals</li>
+
+      <li>p-values</li>
+
+      <li>Power considerations</li>
+
+    </ul>
+
+    <p>
+      Together these provide a more complete picture than any single statistic.
+    </p>
+
+    <h2>Effect Size and Research Planning</h2>
+
+    <p>
+      Before data collection, researchers often specify the smallest effect that would be scientifically or practically meaningful.
+    </p>
+
+    <p>
+      This target effect size becomes a key input for sample-size calculations.
+    </p>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      Statistical inference is not only about determining whether effects exist.
+    </p>
+
+    <p>
+      It is also about understanding whether those effects matter.
+    </p>
+
+    <p>
+      Effect size provides the bridge between statistical conclusions and real-world importance.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Effect size measures the magnitude of an effect, while statistical significance measures evidence for its existence. Practical decision-making requires understanding both.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Power depends strongly on effect size, but it is also influenced by sample size and significance level.
+    </p>
+
+    <p>
+      Understanding how these quantities interact helps researchers design efficient studies.
+    </p>
+
+    <p>
+      The next lesson introduces power curves and the trade-offs among effect size, sample size, power, and significance thresholds.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Define raw and standardized effect sizes</li>
-        <li>Distinguish magnitude from significance</li>
-        <li>Understand role of effect size in power</li>
-        <li>Avoid confusing statistical with practical importance</li>
+
+        <li>Statistical significance and practical importance are different concepts</li>
+
+        <li>Effect size measures the magnitude of an effect</li>
+
+        <li>Large samples can make tiny effects statistically significant</li>
+
+        <li>Cohen's d is a common standardized effect-size measure</li>
+
+        <li>Different analyses use different effect-size metrics</li>
+
+        <li>Larger effects are easier to detect and increase power</li>
+
+        <li>Effect size is essential for sample-size planning</li>
+
+        <li>Modern reporting should include both significance measures and effect-size measures</li>
+
       </ul>
+
     </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/power-sample-size/what-is-statistical-power/">
+         ← Previous: What Is Statistical Power?
+      </a>
+
+      <a class="btn"
+         href="/inference/power-sample-size/power-curve-and-tradeoffs/">
+         Next: Power Curves and Trade-Offs →
+      </a>
+
+    </div>
+
   </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next lesson</h2>
-      <p style="margin:0;">
-        We now visualize how power changes
-        as effect size, alpha, and sample size vary.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/power-sample-size/power-curve-and-tradeoffs/">
-          Next lesson: 3. Power Curves and Trade-offs →
-        </a>
-      </div>
-    </div>
-
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/power-sample-size/what-is-statistical-power/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 1: What Is Statistical Power?
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>

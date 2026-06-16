@@ -1,232 +1,607 @@
 ---
 layout: default
-title: "10. CI for Paired Mean Difference"
-description: "Construct and interpret a confidence interval for the mean difference in paired or matched samples."
+title: Confidence Interval for a Paired Mean Difference
+description: Learn how to construct and interpret confidence intervals for paired data such as before-and-after studies and matched observations.
 permalink: /inference/confidence-intervals/ci-for-paired-mean-difference/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 establishes the paired-sample framework.
-        Extensions and software examples will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_confidence_intervals_lesson_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/confidence-intervals/ci-for-paired-mean-difference/",
-      label: "Lesson 10 — CI for Paired Mean Difference",
-      ts: Date.now()
-    }));
+(function () {
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/confidence-intervals/",
-      label: "Block 2 — Confidence Intervals",
-      ts: Date.now()
-    }));
-  })();
+  const KEY =
+    "esa_continue_inference_confidence_intervals_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/confidence-intervals/ci-for-paired-mean-difference/",
+    label: "Confidence Interval for a Paired Mean Difference",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 2</span>
-        <span class="badge">Lesson 10</span>
-        <span class="badge">Paired</span>
-        <span class="badge">Dependent Samples</span>
-      </div>
 
-      <h1>10. CI for Paired Mean Difference</h1>
-
-      <p class="lead">
-        When observations are naturally paired (before–after, matched units),
-        we analyze the differences within pairs — not the groups separately.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/confidence-intervals/">Back to Block 2</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        The paired problem is a one-sample problem in disguise.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 2</span>
+      <span class="badge">Confidence Intervals</span>
+      <span class="badge">Paired Data</span>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
-    <p>
-      Construct and interpret a confidence interval for the mean of paired differences.
+    <h1>Confidence Interval for a Paired Mean Difference</h1>
+
+    <p class="lead">
+      Not all comparisons involve independent groups.
     </p>
+
+    <p class="lead">
+      Many studies collect paired observations, where measurements naturally belong together. In these situations, inference focuses on the differences within pairs rather than comparing two separate groups.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/confidence-intervals/ci-for-difference-of-proportions/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/confidence-intervals/width-and-precision-what-controls/">
+         Next: Width and Precision — What Controls Them? →
+      </a>
+
+    </div>
+
   </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Key idea</h2>
-      <p style="margin:0;">
-        Convert paired data into a single variable:
-        the difference \( D = X_1 - X_2 \).
-        Then perform a one-sample t interval on D.
+</section>
+
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>What Is Paired Data?</h2>
+
+    <p>
+      Paired data arise when observations are naturally linked.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Before-treatment and after-treatment measurements
       </p>
-    </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) Define the differences</h2>
-  </div>
+      <p>
+        Weight before and after a diet program
+      </p>
 
-  <div class="card">
-    \[
-    D_i = X_{1i} - X_{2i}
-    \]
-  </div>
+      <p>
+        Blood pressure before and after medication
+      </p>
 
-  <p class="muted-mini">
-    Target parameter: \( \mu_D \)
-  </p>
-</section>
+      <p>
+        Matched twins receiving different treatments
+      </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) Estimator</h2>
-  </div>
-
-  <div class="card">
-    \[
-    \bar{D} = \frac{1}{n}\sum D_i
-    \]
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>3) Standard error</h2>
-  </div>
-
-  <div class="card">
-    \[
-    SE =
-    \frac{S_D}{\sqrt{n}}
-    \]
-  </div>
-
-  <p class="muted-mini">
-    Where \( S_D \) is the sample standard deviation of the differences.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>4) Confidence interval formula</h2>
-  </div>
-
-  <div class="card">
-    <strong>
-    \[
-    \bar{D}
-    \pm
-    t_{\alpha/2,\,n-1}
-    \cdot
-    \frac{S_D}{\sqrt{n}}
-    \]
-    </strong>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>5) Conditions</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Paired design</h3>
-      <p>Observations are meaningfully linked.</p>
     </div>
 
-    <div class="card">
-      <h3>Independence of pairs</h3>
-      <p>Pairs independent of each other.</p>
+    <p>
+      Each pair represents two measurements connected to the same subject or matched unit.
+    </p>
+
+    <h2>Why Independent Methods Fail</h2>
+
+    <p>
+      Paired observations are not independent.
+    </p>
+
+    <p>
+      Measurements from the same person are usually related.
+    </p>
+
+    <p>
+      Treating paired data as independent ignores this relationship and can produce incorrect uncertainty estimates.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Key idea:</strong>
+
+      <p>
+        The pair is the unit of analysis, not the individual measurements.
+      </p>
+
     </div>
 
-    <div class="card">
-      <h3>Normality of differences</h3>
-      <p>Differences approximately normal or n large.</p>
+    <h2>The Main Strategy</h2>
+
+    <p>
+      Instead of analyzing two variables separately,
+      we convert each pair into a single difference.
+    </p>
+
+    <p>
+      For each subject:
+    </p>
+
+    0
+
+    <p>
+      The analysis then proceeds using these differences.
+    </p>
+
+    <h2>The Parameter of Interest</h2>
+
+    <p>
+      Let:
+    </p>
+
+    1
+
+    <p>
+      denote the population mean difference.
+    </p>
+
+    <p>
+      This parameter represents the average change across all paired observations.
+    </p>
+
+    <h2>The Estimator</h2>
+
+    <p>
+      The sample estimate is:
+    </p>
+
+    2
+
+    <p>
+      the average of the observed differences.
+    </p>
+
+    <h2>Example Data</h2>
+
+    <p>
+      Suppose five individuals participate in a fitness program.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Person</th>
+            <th>Before</th>
+            <th>After</th>
+            <th>Difference</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>1</td>
+            <td>180</td>
+            <td>172</td>
+            <td>-8</td>
+          </tr>
+
+          <tr>
+            <td>2</td>
+            <td>165</td>
+            <td>160</td>
+            <td>-5</td>
+          </tr>
+
+          <tr>
+            <td>3</td>
+            <td>190</td>
+            <td>182</td>
+            <td>-8</td>
+          </tr>
+
+          <tr>
+            <td>4</td>
+            <td>175</td>
+            <td>169</td>
+            <td>-6</td>
+          </tr>
+
+          <tr>
+            <td>5</td>
+            <td>200</td>
+            <td>191</td>
+            <td>-9</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>6) Interpretation</h2>
-  </div>
+    <p>
+      The confidence interval will be built from the differences:
+    </p>
 
-  <div class="card">
-    A 95% CI for \( \mu_D \) gives plausible values
-    for the true average paired difference.
-  </div>
+    <div class="example-box">
 
-  <p class="muted-mini">
-    If 0 lies in the interval, the data are consistent with no average change.
-  </p>
-</section>
+      <p>
+        -8, -5, -8, -6, -9
+      </p>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+    </div>
+
+    <h2>The Standard Error</h2>
+
+    <p>
+      Once differences are computed,
+      the problem becomes a one-sample mean problem.
+    </p>
+
+    <p>
+      The estimated standard error is:
+    </p>
+
+    3
+
+    <p>
+      where:
+    </p>
+
+    <ul class="bullets">
+
+      <li>s<sub>d</sub> = sample standard deviation of the differences</li>
+
+      <li>n = number of pairs</li>
+
+    </ul>
+
+    <h2>The Confidence Interval Formula</h2>
+
+    <p>
+      Since population variability is usually unknown,
+      a t interval is used:
+    </p>
+
+    4
+
+    <p>
+      This is the standard confidence interval for a paired mean difference.
+    </p>
+
+    <h2>Degrees of Freedom</h2>
+
+    <p>
+      As with a one-sample t interval:
+    </p>
+
+    5
+
+    <p>
+      where n refers to the number of pairs.
+    </p>
+
+    <h2>Example Setup</h2>
+
+    <p>
+      Suppose a study produces:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Mean difference = -4.5
+      </p>
+
+      <p>
+        Standard deviation of differences = 8
+      </p>
+
+      <p>
+        Number of pairs = 36
+      </p>
+
+      <p>
+        Confidence level = 95%
+      </p>
+
+    </div>
+
+    <h2>Step 1: Compute the Standard Error</h2>
+
+    <p>
+      Using:
+    </p>
+
+    6
+
+    <p>
+      gives:
+    </p>
+
+    7
+
+    <h2>Step 2: Find the Critical Value</h2>
+
+    <p>
+      Degrees of freedom:
+    </p>
+
+    8
+
+    <p>
+      For 95% confidence:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        t* ≈ 2.03
+      </p>
+
+    </div>
+
+    <h2>Step 3: Compute the Margin of Error</h2>
+
+    <p>
+      Margin of error:
+    </p>
+
+    9
+
+    <h2>Step 4: Construct the Interval</h2>
+
+    <p>
+      Therefore:
+    </p>
+
+    10
+
+    <p>
+      yielding:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        (-7.21, -1.79)
+      </p>
+
+    </div>
+
+    <h2>Interpreting the Interval</h2>
+
+    <p>
+      Plausible values for the average population change lie between:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        -7.21 and -1.79
+      </p>
+
+    </div>
+
+    <p>
+      The negative values suggest the treatment tends to reduce the measured outcome.
+    </p>
+
+    <h2>The Importance of Zero</h2>
+
+    <p>
+      As with other difference intervals,
+      zero has special meaning.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Zero difference:</strong>
+
+      <p>
+        A mean difference of zero indicates no average change.
+      </p>
+
+    </div>
+
+    <h2>When Zero Is Not in the Interval</h2>
+
+    <p>
+      Consider:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        (-7.21, -1.79)
+      </p>
+
+    </div>
+
+    <p>
+      Since zero is not contained in the interval,
+      the data suggest a real average change may exist.
+    </p>
+
+    <h2>When Zero Is in the Interval</h2>
+
+    <p>
+      Suppose instead:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        (-3, 2)
+      </p>
+
+    </div>
+
+    <p>
+      Since zero lies inside the interval,
+      no change remains a plausible possibility.
+    </p>
+
+    <h2>Advantages of Pairing</h2>
+
+    <p>
+      Pairing often reduces variability because each subject acts as their own control.
+    </p>
+
+    <p>
+      This can produce:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Smaller standard errors</li>
+
+      <li>Narrower confidence intervals</li>
+
+      <li>Greater statistical precision</li>
+
+    </ul>
+
+    <h2>Conditions for the Interval</h2>
+
+    <ul class="bullets">
+
+      <li>Pairs are randomly selected or randomly assigned</li>
+
+      <li>Differences are independent across pairs</li>
+
+      <li>The distribution of differences is approximately normal, or the sample size is large enough for the CLT</li>
+
+    </ul>
+
+    <p>
+      Notice that we check assumptions on the differences, not on the original measurements.
+    </p>
+
+    <h2>Independent vs Paired Designs</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Design</th>
+            <th>Analyzes</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Independent Samples</td>
+            <td>Difference between group means</td>
+          </tr>
+
+          <tr>
+            <td>Paired Samples</td>
+            <td>Mean of paired differences</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      The formulas differ because the study designs differ.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        For paired data, inference is performed on the differences within pairs. A paired confidence interval is simply a one-sample t interval applied to those differences.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      We have now seen several confidence interval formulas.
+    </p>
+
+    <p>
+      A natural question remains:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Why are some intervals wide while others are narrow?
+      </p>
+
+    </div>
+
+    <p>
+      The next lesson examines the factors that control confidence interval width and statistical precision.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Transform paired data into differences</li>
-        <li>Use one-sample t interval on differences</li>
-        <li>Check assumptions properly</li>
-        <li>Interpret inclusion of 0</li>
+
+        <li>Paired observations are naturally linked measurements</li>
+
+        <li>Inference focuses on differences within pairs</li>
+
+        <li>The parameter of interest is μ<sub>d</sub></li>
+
+        <li>The estimator is d̄</li>
+
+        <li>The interval formula is d̄ ± t*SE</li>
+
+        <li>Zero represents no average change</li>
+
+        <li>Pairing often improves precision by reducing variability</li>
+
+        <li>A paired interval is fundamentally a one-sample t interval applied to differences</li>
+
       </ul>
-    </div>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next step</h2>
-      <p style="margin:0;">
-        Now we analyze what determines interval width and statistical precision.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/confidence-intervals/width-and-precision-what-controls/">
-          Next lesson: 11. Width & Precision: What Controls It →
-        </a>
-      </div>
     </div>
 
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/confidence-intervals/ci-for-difference-of-proportions/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 9: CI for Difference of Proportions
-          </a>
-        </div>
-      </div>
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/confidence-intervals/ci-for-difference-of-proportions/">
+         ← Previous: CI for Difference of Proportions
+      </a>
+
+      <a class="btn"
+         href="/inference/confidence-intervals/width-and-precision-what-controls/">
+         Next: Width and Precision — What Controls Them? →
+      </a>
+
     </div>
 
   </div>
+
 </section>

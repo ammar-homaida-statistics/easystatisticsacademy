@@ -1,243 +1,536 @@
 ---
 layout: default
-title: "7. CI for a Proportion: z Interval"
-description: "Construct and interpret a confidence interval for a population proportion using the normal approximation."
+title: Confidence Interval for a Proportion
+description: Learn how to construct and interpret confidence intervals for population proportions using sample proportions and normal approximations.
 permalink: /inference/confidence-intervals/ci-for-proportion/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">🚧 Lesson Under Construction</h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 establishes the mathematical structure of the z-based confidence interval
-        for a population proportion. Wilson and exact methods will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update last visited lesson -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_confidence_intervals_lesson_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/confidence-intervals/ci-for-proportion/",
-      label: "Lesson 7 — CI for a Proportion",
-      ts: Date.now()
-    }));
+(function () {
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/confidence-intervals/",
-      label: "Block 2 — Confidence Intervals",
-      ts: Date.now()
-    }));
-  })();
+  const KEY =
+    "esa_continue_inference_confidence_intervals_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/confidence-intervals/ci-for-proportion/",
+    label: "Confidence Interval for a Proportion",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 2</span>
-        <span class="badge">Lesson 7</span>
-        <span class="badge">Proportion</span>
-        <span class="badge">z Interval</span>
-      </div>
 
-      <h1>7. CI for a Proportion: z Interval</h1>
-
-      <p class="lead">
-        The z-based confidence interval for a population proportion relies on the
-        normal approximation to the sampling distribution of the sample proportion.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/confidence-intervals/">Back to Block 2</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        Version 0: large-sample method first. Refinements later.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 2</span>
+      <span class="badge">Confidence Intervals</span>
+      <span class="badge">Proportions</span>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
-    <p>
-      By the end of this lesson, you should be able to construct,
-      compute, and interpret a z-based confidence interval for a population proportion.
+    <h1>Confidence Interval for a Proportion</h1>
+
+    <p class="lead">
+      Many real-world questions involve proportions rather than means.
     </p>
-  </div>
 
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Key idea</h2>
-      <p style="margin:0;">
-        When the sample size is large, the sampling distribution of 
-        \(\hat p\) is approximately normal.
-      </p>
-    </div>
-  </div>
-</section>
+    <p class="lead">
+      Polling results, approval ratings, defect rates, conversion rates, and disease prevalence are all examples where the parameter of interest is a population proportion.
+    </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) The estimator</h2>
-  </div>
+    <div class="hero-actions">
 
-  <div class="card">
-    \[
-    \hat p = \frac{X}{n}
-    \]
-  </div>
+      <a class="btn"
+         href="/inference/confidence-intervals/conditions-normality-clt-independence/">
+         ← Previous Lesson
+      </a>
 
-  <p class="muted-mini">
-    p = population proportion (unknown)  
-    \(\hat p\) = sample proportion (random variable)
-  </p>
-</section>
+      <a class="btn btn-outline"
+         href="/inference/confidence-intervals/ci-for-difference-of-means-independent/">
+         Next: CI for Difference of Means →
+      </a>
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) Sampling distribution</h2>
-  </div>
-
-  <div class="card">
-    \[
-    \hat p \approx N\left(p, \frac{p(1-p)}{n}\right)
-    \]
-  </div>
-
-  <div class="card" style="margin-top:1rem;">
-    \[
-    SE(\hat p) = \sqrt{\frac{\hat p (1-\hat p)}{n}}
-    \]
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>3) Confidence interval formula</h2>
-  </div>
-
-  <div class="card">
-    <strong>
-    \[
-    \hat p \pm z_{\alpha/2}
-    \sqrt{\frac{\hat p(1-\hat p)}{n}}
-    \]
-    </strong>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>4) Conditions</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Independence</h3>
-      <ul class="bullets">
-        <li>Random sampling or random assignment</li>
-        <li>No strong clustering or dependence</li>
-      </ul>
     </div>
 
-    <div class="card">
-      <h3>Large count condition</h3>
-      <ul class="bullets">
-        <li>\(n\hat p \ge 10\)</li>
-        <li>\(n(1-\hat p) \ge 10\)</li>
-      </ul>
-    </div>
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>5) Interpretation</h2>
-  </div>
+<!-- LESSON -->
 
-  <div class="card">
-    A 95% confidence interval means that 95% of intervals
-    constructed using this method would contain the true proportion.
-  </div>
-</section>
+<section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>6) Common traps</h2>
-  </div>
+  <div class="content-narrow">
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Small samples</h3>
-      <p>Normal approximation fails when counts are small.</p>
-    </div>
+    <h2>The Parameter of Interest</h2>
 
-    <div class="card">
-      <h3>Bounds outside [0,1]</h3>
-      <p>z intervals may produce impossible values.</p>
-    </div>
+    <p>
+      When studying proportions, the population parameter is:
+    </p>
 
-    <div class="card">
-      <h3>Ignoring design</h3>
-      <p>Sampling bias invalidates interpretation.</p>
-    </div>
+    0
 
-    <div class="card">
-      <h3>Confusing count and proportion</h3>
-      <p>The interval estimates p, not X.</p>
-    </div>
-  </div>
-</section>
+    <p>
+      representing the proportion of the population possessing a particular characteristic.
+    </p>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
-      <ul class="bullets">
-        <li>Construct a z-based CI for a proportion</li>
-        <li>Compute SE correctly</li>
-        <li>Verify validity conditions</li>
-        <li>Interpret coverage precisely</li>
-      </ul>
-    </div>
-  </div>
-</section>
+    <div class="example-box">
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next step</h2>
-      <p style="margin:0;">
-        Now we extend interval construction to compare two independent means.
+      <p>
+        Proportion supporting a candidate
       </p>
 
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/confidence-intervals/ci-for-difference-of-means-independent/">
-          Next lesson: 8. CI for Difference of Means (Independent) →
-        </a>
-      </div>
+      <p>
+        Proportion purchasing a product
+      </p>
+
+      <p>
+        Proportion of defective items
+      </p>
+
+      <p>
+        Proportion responding "Yes" to a survey question
+      </p>
+
     </div>
 
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/confidence-intervals/conditions-normality-clt-independence/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 6: Conditions for Valid Confidence Intervals
-          </a>
-        </div>
-      </div>
+    <h2>The Sample Proportion</h2>
+
+    <p>
+      Since the true population proportion is unknown,
+      we estimate it using the sample proportion:
+    </p>
+
+    1
+
+    <p>
+      which equals:
+    </p>
+
+    2
+
+    <p>
+      where:
+    </p>
+
+    <ul class="bullets">
+
+      <li>x = number of successes</li>
+
+      <li>n = sample size</li>
+
+    </ul>
+
+    <h2>Example of a Sample Proportion</h2>
+
+    <p>
+      Suppose a survey asks 500 people whether they support a policy.
+    </p>
+
+    <p>
+      If 310 people support it:
+    </p>
+
+    3
+
+    <p>
+      The sample proportion estimates the population proportion.
+    </p>
+
+    <h2>The Confidence Interval Blueprint Still Applies</h2>
+
+    <p>
+      As always:
+    </p>
+
+    4
+
+    <p>
+      For proportions:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Estimate = p̂</li>
+
+      <li>Margin of Error = Critical Value × Standard Error</li>
+
+    </ul>
+
+    <h2>The Standard Error of a Proportion</h2>
+
+    <p>
+      The estimated standard error is:
+    </p>
+
+    5
+
+    <p>
+      This measures how much sample proportions vary across repeated samples.
+    </p>
+
+    <h2>The Confidence Interval Formula</h2>
+
+    <p>
+      Combining the estimate,
+      standard error,
+      and z critical value gives:
+    </p>
+
+    6
+
+    <p>
+      This is the standard large-sample confidence interval for a population proportion.
+    </p>
+
+    <h2>Why z Critical Values Are Used</h2>
+
+    <p>
+      Unlike mean intervals,
+      proportion intervals do not use the t distribution.
+    </p>
+
+    <p>
+      Under appropriate conditions,
+      the sampling distribution of the sample proportion is approximately normal.
+    </p>
+
+    <p>
+      Therefore z critical values are used.
+    </p>
+
+    <h2>Example Setup</h2>
+
+    <p>
+      Suppose:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        n = 500
+      </p>
+
+      <p>
+        x = 310
+      </p>
+
+      <p>
+        p̂ = 0.62
+      </p>
+
+      <p>
+        Confidence level = 95%
+      </p>
+
+    </div>
+
+    <h2>Step 1: Compute the Standard Error</h2>
+
+    <p>
+      Using:
+    </p>
+
+    7
+
+    <p>
+      gives approximately:
+    </p>
+
+    8
+
+    <h2>Step 2: Find the Critical Value</h2>
+
+    <p>
+      For a 95% confidence interval:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        z* = 1.96
+      </p>
+
+    </div>
+
+    <h2>Step 3: Compute the Margin of Error</h2>
+
+    <p>
+      Margin of error:
+    </p>
+
+    9
+
+    <h2>Step 4: Construct the Interval</h2>
+
+    <p>
+      Therefore:
+    </p>
+
+    10
+
+    <p>
+      yielding:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        (0.5775, 0.6625)
+      </p>
+
+    </div>
+
+    <p>
+      or approximately:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        57.8% to 66.3%
+      </p>
+
+    </div>
+
+    <h2>Interpreting the Interval</h2>
+
+    <p>
+      A correct interpretation is:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        We used a procedure that captures the true population proportion approximately 95% of the time in repeated sampling.
+      </p>
+
+    </div>
+
+    <p>
+      The interval suggests plausible values for the population proportion lie between about 57.8% and 66.3%.
+    </p>
+
+    <h2>Conditions for Proportion Intervals</h2>
+
+    <p>
+      Several assumptions should be checked before using the interval.
+    </p>
+
+    <h3>1. Random Sampling</h3>
+
+    <p>
+      The sample should be reasonably representative of the population.
+    </p>
+
+    <h3>2. Independence</h3>
+
+    <p>
+      Observations should be approximately independent.
+    </p>
+
+    <p>
+      The 10% condition is often used:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Sample size less than about 10% of the population.
+      </p>
+
+    </div>
+
+    <h3>3. Success-Failure Condition</h3>
+
+    <p>
+      The normal approximation requires enough successes and failures.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Success-Failure Condition:</strong>
+
+      <p>
+        n·p̂ ≥ 10 and n·(1 − p̂) ≥ 10
+      </p>
+
+    </div>
+
+    <p>
+      This ensures the sampling distribution is approximately normal.
+    </p>
+
+    <h2>Checking the Condition in Our Example</h2>
+
+    <p>
+      Successes:
+    </p>
+
+    11
+
+    <p>
+      Failures:
+    </p>
+
+    12
+
+    <p>
+      Both values exceed 10,
+      so the condition is easily satisfied.
+    </p>
+
+    <h2>What Affects Interval Width?</h2>
+
+    <p>
+      The same factors appear again:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Confidence level</li>
+
+      <li>Sample size</li>
+
+      <li>Variability in the proportion</li>
+
+    </ul>
+
+    <h2>Effect of Sample Size</h2>
+
+    <p>
+      Larger samples reduce the standard error.
+    </p>
+
+    <p>
+      Smaller standard errors create narrower intervals.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Larger sample → greater precision
+      </p>
+
+    </div>
+
+    <h2>When Variability Is Largest</h2>
+
+    <p>
+      The quantity:
+    </p>
+
+    13
+
+    <p>
+      reaches its maximum when:
+    </p>
+
+    14
+
+    <p>
+      This means proportions near 50% tend to produce the largest standard errors and widest intervals.
+    </p>
+
+    <h2>Why Proportion Intervals Matter</h2>
+
+    <p>
+      Confidence intervals for proportions appear everywhere:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Political polling</li>
+
+      <li>Market research</li>
+
+      <li>Medical studies</li>
+
+      <li>Quality control</li>
+
+      <li>A/B testing</li>
+
+    </ul>
+
+    <p>
+      They are among the most frequently used inferential tools.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Confidence intervals for proportions estimate population percentages by combining a sample proportion with a normal-approximation margin of error based on its standard error.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      So far we have estimated a single mean and a single proportion.
+    </p>
+
+    <p>
+      Many real research questions compare groups rather than describing one group.
+    </p>
+
+    <p>
+      The next lesson develops confidence intervals for differences between two independent population means.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>The parameter of interest is the population proportion p</li>
+
+        <li>The estimator is the sample proportion p̂</li>
+
+        <li>The standard error is √[p̂(1−p̂)/n]</li>
+
+        <li>Proportion intervals use z critical values</li>
+
+        <li>The confidence interval formula is p̂ ± z*SE</li>
+
+        <li>The success-failure condition supports the normal approximation</li>
+
+        <li>Larger samples produce narrower intervals</li>
+
+        <li>Confidence intervals for proportions are widely used in surveys and polling</li>
+
+      </ul>
+
+    </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/confidence-intervals/conditions-normality-clt-independence/">
+         ← Previous: Conditions — Normality, CLT, and Independence
+      </a>
+
+      <a class="btn"
+         href="/inference/confidence-intervals/ci-for-difference-of-means-independent/">
+         Next: CI for Difference of Means →
+      </a>
+
     </div>
 
   </div>
+
 </section>

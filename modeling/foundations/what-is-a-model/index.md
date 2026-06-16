@@ -1,162 +1,473 @@
 ---
 layout: default
-title: 1. What Is a Model?
+title: What Is a Model?
+description: Learn what statistical models are, why they are useful, and how models help us understand, explain, and predict real-world phenomena.
 permalink: /modeling/foundations/what-is-a-model/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <h2 style="color:#e65100;">🚧 Lesson Under Construction</h2>
-    <p>
-      Version 0 focuses on conceptual understanding of models.
-      Examples, visuals, and software applications will be added later.
-    </p>
-  </div>
-</section>
-
-<!-- ✅ Update last visited lesson -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
 (function () {
-  localStorage.setItem("esa_continue_modeling_foundations_lesson_v0", JSON.stringify({
+
+  const KEY =
+    "esa_continue_modeling_foundations_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
     url: "/modeling/foundations/what-is-a-model/",
-    label: "Lesson 1 — What Is a Model?",
+    label: "What Is a Model?",
     ts: Date.now()
   }));
+
 })();
 </script>
 
 <!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
 
     <div class="badge-row">
-      <span class="badge">Block 1</span>
-      <span class="badge">Lesson 1</span>
       <span class="badge">Modeling</span>
+      <span class="badge">Block 1</span>
       <span class="badge">Foundations</span>
+      <span class="badge">Introduction</span>
     </div>
 
-    <h1>1. What Is a Model?</h1>
+    <h1>What Is a Model?</h1>
 
     <p class="lead">
-      A statistical model is a simplified representation of reality.
-      It captures relationships between variables in a structured way,
-      allowing us to explain patterns and make predictions.
+      Models are simplified representations of reality that help us understand patterns, explain relationships, and make predictions.
+    </p>
+
+    <p class="lead">
+      Statistical modeling begins with the idea that complex real-world systems can often be described using mathematical structures.
     </p>
 
     <div class="hero-actions">
-      <a class="btn btn-outline" href="/modeling/foundations/">Back to Block 1</a>
-      <a class="btn" href="#lesson">Start lesson</a>
+
+      <a class="btn"
+         href="/modeling/foundations/">
+         ← Block Home
+      </a>
+
+      <a class="btn btn-outline"
+         href="/modeling/foundations/variables/">
+         Next: Variables →
+      </a>
+
     </div>
 
-    <p class="muted-mini">
-      Version 0: concept-first. Examples and applications will follow.
-    </p>
-
   </div>
+
 </section>
 
-<!-- LESSON CONTENT -->
-<section class="section" id="lesson">
+<!-- LESSON -->
 
-  <h2>Learning objective</h2>
-  <p>
-    By the end of this lesson, you should understand what a model is,
-    why models are necessary, and how they relate to data and reality.
-  </p>
+<section>
 
-  <div class="card">
-    <h3>Key idea</h3>
+  <div class="content-narrow">
+
+    <h2>Why Models Exist</h2>
+
     <p>
-      A model is not reality. It is a tool that approximates reality
-      using mathematical structure to make reasoning possible.
+      The real world is often too complicated to analyze directly.
     </p>
-  </div>
 
-  <h2>1) Why do we need models?</h2>
-  <div class="card">
     <p>
-      Real-world systems are complex. We cannot directly analyze everything at once.
-      Models simplify reality so that we can understand patterns, relationships,
-      and make decisions.
+      Businesses, biological systems, economies, weather patterns, and human behavior involve countless interacting factors.
     </p>
-  </div>
 
-  <h2>2) Model = simplified structure</h2>
-  <div class="card">
     <p>
-      A statistical model typically expresses a relationship between variables:
+      Models provide a manageable way to study these systems.
     </p>
-    <p><strong>Outcome = function(inputs) + error</strong></p>
-    <p>
-      The model explains part of the variation, while the rest remains unexplained (noise).
-    </p>
-  </div>
 
-  <h2>3) Components of a model</h2>
-  <div class="card">
-    <ul>
-      <li><strong>Inputs (predictors)</strong> — variables used to explain</li>
-      <li><strong>Output (response)</strong> — variable we want to understand</li>
-      <li><strong>Parameters</strong> — quantities that define the relationship</li>
-      <li><strong>Error term</strong> — randomness not explained by the model</li>
+    <div class="concept-box">
+
+      <strong>Main idea:</strong>
+
+      <p>
+        A model is a simplified representation of reality designed to answer specific questions.
+      </p>
+
+    </div>
+
+    <h2>Models Are Everywhere</h2>
+
+    <p>
+      People use models constantly, even outside statistics.
+    </p>
+
+    <p>
+      Examples include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Maps representing geographic areas</li>
+
+      <li>Architectural blueprints representing buildings</li>
+
+      <li>Weather forecasts representing atmospheric processes</li>
+
+      <li>Financial projections representing future performance</li>
+
     </ul>
-  </div>
 
-  <h2>4) Models are approximations</h2>
-  <div class="card">
     <p>
-      No model is perfectly true. Every model ignores some aspects of reality.
-      The goal is not perfection, but usefulness.
+      Each model captures important features while ignoring unnecessary details.
     </p>
-  </div>
 
-  <h2>5) Two main goals of modeling</h2>
-  <div class="card">
-    <ul>
-      <li><strong>Explanation</strong> — understand relationships</li>
-      <li><strong>Prediction</strong> — forecast outcomes</li>
+    <h2>A Statistical Model</h2>
+
+    <p>
+      In statistics, a model describes how variables are related and how data might have been generated.
+    </p>
+
+    <p>
+      Statistical models help us:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Describe patterns</li>
+
+      <li>Explain relationships</li>
+
+      <li>Estimate quantities</li>
+
+      <li>Make predictions</li>
+
+      <li>Evaluate uncertainty</li>
+
     </ul>
-  </div>
 
-  <h2>6) Example (intuitive)</h2>
-  <div class="card">
-    <p>
-      Suppose we model house price using size:
-    </p>
-    <p><strong>Price = β₀ + β₁ × Size + error</strong></p>
-    <p>
-      The model captures the main trend, but many factors remain in the error term.
-    </p>
-  </div>
+    <h2>An Example</h2>
 
-  <h2>7) Why this matters</h2>
-  <div class="card">
     <p>
-      Understanding what a model is prevents common mistakes:
-      treating models as truth, over-interpreting results,
-      or ignoring uncertainty.
+      Suppose we observe that house prices tend to increase as house size increases.
     </p>
-  </div>
 
-  <div class="card">
-    <h3>Outcome of this lesson</h3>
-    <ul>
-      <li>Define what a statistical model is</li>
-      <li>Explain why models are needed</li>
-      <li>Identify components of a model</li>
-      <li>Understand models as approximations</li>
+    <p>
+      A simple model might describe this relationship mathematically:
+    </p>
+
+    
+
+    <p>
+      Here, house size helps explain variation in house price.
+    </p>
+
+    <p>
+      The model summarizes a complex relationship using a simple equation.
+    </p>
+
+    <h2>Models Are Simplifications</h2>
+
+    <p>
+      No model captures every detail of reality.
+    </p>
+
+    <p>
+      For example, a housing-price model may ignore:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Neighborhood quality</li>
+
+      <li>School districts</li>
+
+      <li>Interest rates</li>
+
+      <li>Property condition</li>
+
     </ul>
-  </div>
 
-  <div class="card">
-    <h3>Next step</h3>
-    <p>Next we define variables and how relationships are formed.</p>
-    <a class="btn" href="/modeling/foundations/variables/">
-      Next lesson: Variables and Relationships →
-    </a>
+    <p>
+      The model is useful because it simplifies, not because it is perfect.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Important principle:</strong>
+
+      <p>
+        All models are simplifications. The goal is usefulness, not perfection.
+      </p>
+
+    </div>
+
+    <h2>Descriptive vs Predictive Models</h2>
+
+    <p>
+      Models can serve different purposes.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Purpose</th>
+            <th>Goal</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Descriptive</td>
+            <td>Summarize and explain patterns</td>
+          </tr>
+
+          <tr>
+            <td>Predictive</td>
+            <td>Forecast future or unseen outcomes</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      Some models focus on understanding relationships, while others focus on accurate prediction.
+    </p>
+
+    <h2>Inputs and Outputs</h2>
+
+    <p>
+      Most statistical models involve:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Inputs (predictors, features, explanatory variables)</li>
+
+      <li>Outputs (responses, outcomes, target variables)</li>
+
+    </ul>
+
+    <p>
+      The model describes how inputs relate to outputs.
+    </p>
+
+    <h2>Models and Data</h2>
+
+    <p>
+      Models are built using data.
+    </p>
+
+    <p>
+      Data provide evidence about how variables behave and interact.
+    </p>
+
+    <p>
+      Without data, statistical models cannot be estimated or evaluated.
+    </p>
+
+    <h2>Models and Uncertainty</h2>
+
+    <p>
+      Real-world systems contain randomness and unpredictability.
+    </p>
+
+    <p>
+      Statistical models explicitly recognize this uncertainty.
+    </p>
+
+    <p>
+      Rather than claiming perfect certainty, models often provide:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Predictions</li>
+
+      <li>Probabilities</li>
+
+      <li>Confidence intervals</li>
+
+      <li>Measures of uncertainty</li>
+
+    </ul>
+
+    <h2>Good Models vs Bad Models</h2>
+
+    <p>
+      A good model is not necessarily the most complicated one.
+    </p>
+
+    <p>
+      Good models often:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Fit data reasonably well</li>
+
+      <li>Answer the intended question</li>
+
+      <li>Generalize to new situations</li>
+
+      <li>Remain interpretable when possible</li>
+
+    </ul>
+
+    <p>
+      Complexity alone does not guarantee quality.
+    </p>
+
+    <h2>Why Modeling Matters</h2>
+
+    <p>
+      Statistical modeling is used throughout science, business, engineering, medicine, and technology.
+    </p>
+
+    <p>
+      Models help organizations:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Forecast demand</li>
+
+      <li>Assess risk</li>
+
+      <li>Understand behavior</li>
+
+      <li>Optimize decisions</li>
+
+      <li>Generate scientific insights</li>
+
+    </ul>
+
+    <h2>Models Are Hypotheses About Reality</h2>
+
+    <p>
+      Every model makes assumptions about how the world works.
+    </p>
+
+    <p>
+      These assumptions may be explicit or implicit.
+    </p>
+
+    <p>
+      Part of statistical practice involves evaluating whether those assumptions are reasonable.
+    </p>
+
+    <h2>Models Can Be Improved</h2>
+
+    <p>
+      Modeling is often an iterative process.
+    </p>
+
+    <p>
+      Analysts may:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Collect more data</li>
+
+      <li>Add variables</li>
+
+      <li>Modify assumptions</li>
+
+      <li>Compare alternative models</li>
+
+    </ul>
+
+    <p>
+      Models evolve as knowledge improves.
+    </p>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      Statistical models provide a framework for turning data into understanding.
+    </p>
+
+    <p>
+      They simplify reality, represent relationships among variables, and help us reason about uncertainty.
+    </p>
+
+    <p>
+      Nearly every modern statistical technique builds upon the concept of a model.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        A statistical model is a simplified mathematical representation of reality that helps describe patterns, explain relationships, make predictions, and quantify uncertainty.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Models are built from variables.
+    </p>
+
+    <p>
+      Understanding what variables are, how they differ, and how they interact is the foundation of statistical modeling.
+    </p>
+
+    <p>
+      The next lesson introduces variables and their role in building statistical models.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>Models are simplified representations of reality</li>
+
+        <li>Statistical models describe relationships among variables</li>
+
+        <li>Models help explain, predict, and quantify uncertainty</li>
+
+        <li>All models simplify reality by ignoring some details</li>
+
+        <li>Models can be descriptive or predictive</li>
+
+        <li>Most models connect inputs to outputs</li>
+
+        <li>Good models are useful, not necessarily perfect</li>
+
+        <li>Statistical modeling is a foundation of modern data analysis</li>
+
+      </ul>
+
+    </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/modeling/foundations/">
+         ← Back to Block Home
+      </a>
+
+      <a class="btn"
+         href="/modeling/foundations/variables/">
+         Next: Variables →
+      </a>
+
+    </div>
+
   </div>
 
 </section>

@@ -1,304 +1,558 @@
 ---
 layout: default
-title: "2. Binomial Distribution"
-description: "Binomial(n,p) models the number of successes in n independent Bernoulli trials; PMF, mean/variance, and core interpretations."
+title: Binomial Distribution
+description: Learn how the binomial distribution models the number of successes in a fixed number of independent Bernoulli trials.
 permalink: /probability/distributions/binomial-distribution/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">🚧 Lesson Under Construction</h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 is published first to lock the structure and the correct conceptual flow.
-        Numerical examples, graphs, and software demonstrations will be added later without changing the lesson order.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update "last visited lesson" for Probability Block 5 -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_probability_distributions_lesson_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/probability/distributions/binomial-distribution/",
-      label: "Lesson 2 — Binomial Distribution",
-      ts: Date.now()
-    }));
-  })();
+(function () {
+
+  const KEY =
+    "esa_continue_probability_distributions_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/probability/distributions/binomial-distribution/",
+    label: "Binomial Distribution",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 5</span>
-        <span class="badge">Lesson 2</span>
-        <span class="badge">Discrete</span>
-        <span class="badge">Binomial</span>
-      </div>
 
-      <h1>2. Binomial Distribution</h1>
-      <p class="lead">
-        The binomial distribution models the number of successes in a fixed number of independent trials.
-        It is the natural extension of the Bernoulli distribution from <strong>one</strong> trial to <strong>n</strong> trials.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/probability/distributions/">Back to Block 5</a>
-        <a class="btn btn-outline" href="/probability/">Probability home</a>
-      </div>
-
-      <p class="muted-mini">
-        Think: repeated yes/no trials → count the successes.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Probability</span>
+      <span class="badge">Block 5</span>
+      <span class="badge">Distributions</span>
+      <span class="badge">Discrete</span>
     </div>
+
+    <h1>Binomial Distribution</h1>
+
+    <p class="lead">
+      The Bernoulli distribution models a single success-or-failure trial.
+    </p>
+
+    <p class="lead">
+      The binomial distribution extends this idea to multiple independent trials and counts the total number of successes.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/probability/distributions/bernoulli-distribution/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/probability/distributions/geometric-distribution/">
+         Next: Geometric Distribution →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
-    <p>
-      By the end of this lesson, you should be able to recognize binomial settings, define
-      <strong>Binomial(n,p)</strong>, write its PMF, and use its mean and variance correctly.
-    </p>
-  </div>
+<!-- LESSON -->
 
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Key idea</h2>
-      <p style="margin:0;">
-        <strong>Binomial counts successes.</strong> It applies only when you have a fixed number of trials,
-        identical success probability, and independence between trials.
+<section>
+
+  <div class="content-narrow">
+
+    <h2>What Is a Binomial Distribution?</h2>
+
+    <p>
+      A binomial distribution describes the number of successes obtained in a fixed number of independent Bernoulli trials.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Definition:</strong>
+
+      <p>
+        A binomial random variable counts how many successes occur in n independent trials when each trial has success probability p.
+      </p>
+
+    </div>
+
+    <h2>The Four Conditions</h2>
+
+    <p>
+      A situation follows a binomial distribution when all four conditions are satisfied.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Condition</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Fixed Number of Trials</td>
+            <td>The number of trials is predetermined.</td>
+          </tr>
+
+          <tr>
+            <td>Independent Trials</td>
+            <td>One outcome does not affect another.</td>
+          </tr>
+
+          <tr>
+            <td>Two Outcomes</td>
+            <td>Success or failure.</td>
+          </tr>
+
+          <tr>
+            <td>Constant Probability</td>
+            <td>The success probability remains the same.</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>A Coin Toss Example</h2>
+
+    <p>
+      Suppose a fair coin is tossed 10 times.
+    </p>
+
+    <p>
+      Let:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        X = Number of heads
       </p>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) When do we use a binomial model?</h2>
     <p>
-      A random variable <strong>X</strong> is binomial if it counts successes in repeated trials under these conditions:
+      Then X follows a binomial distribution because:
     </p>
-  </div>
 
-  <div class="card">
     <ul class="bullets">
-      <li><strong>Fixed number of trials:</strong> n is known and constant</li>
-      <li><strong>Two outcomes per trial:</strong> success/failure (coded 1/0)</li>
-      <li><strong>Constant success probability:</strong> P(success) = p in each trial</li>
-      <li><strong>Independence:</strong> outcomes of trials do not affect each other</li>
+
+      <li>There are 10 trials.</li>
+
+      <li>Each toss is independent.</li>
+
+      <li>Each toss results in heads or tails.</li>
+
+      <li>The probability of heads remains 0.5.</li>
+
     </ul>
-  </div>
 
-  <p class="muted-mini" style="margin-top:.75rem;">
-    If any of these fail (especially independence or constant p), the binomial model may be inappropriate.
-  </p>
-</section>
+    <h2>Notation</h2>
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) Definition</h2>
     <p>
-      Let <strong>X</strong> be the number of successes in <strong>n</strong> independent Bernoulli trials with success probability <strong>p</strong>.
+      A binomial random variable is written as:
+    </p>
+
+    0
+
+    <p>
+      where:
+    </p>
+
+    <ul class="bullets">
+
+      <li>n = number of trials</li>
+
+      <li>p = probability of success</li>
+
+    </ul>
+
+    <h2>Possible Values</h2>
+
+    <p>
+      A binomial variable can take values:
+    </p>
+
+    1
+
+    <p>
+      because any number of successes from zero to n is possible.
+    </p>
+
+    <h2>The Probability Formula</h2>
+
+    <p>
+      The probability of observing exactly k successes is:
+    </p>
+
+    2
+
+    <p>
+      This is called the binomial probability mass function.
+    </p>
+
+    <h2>Understanding the Formula</h2>
+
+    <p>
+      The formula contains three parts.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Part</th>
+            <th>Meaning</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>n choose k</td>
+            <td>Number of possible arrangements</td>
+          </tr>
+
+          <tr>
+            <td>p<sup>k</sup></td>
+            <td>Probability of k successes</td>
+          </tr>
+
+          <tr>
+            <td>(1-p)<sup>n-k</sup></td>
+            <td>Probability of remaining failures</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>The Combination Term</h2>
+
+    <p>
+      The notation:
+    </p>
+
+    3
+
+    <p>
+      counts the number of ways k successes can be placed among n trials.
+    </p>
+
+    <p>
+      It is read as:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        "n choose k"
+      </p>
+
+    </div>
+
+    <h2>Example: Exactly Two Heads</h2>
+
+    <p>
+      Suppose:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        n = 3
+      </p>
+
+      <p>
+        p = 0.5
+      </p>
+
+    </div>
+
+    <p>
+      What is the probability of exactly two heads?
+    </p>
+
+    <p>
+      Applying the formula:
+    </p>
+
+    4
+
+    <p>
+      Since:
+    </p>
+
+    5
+
+    <p>
+      the probability becomes:
+    </p>
+
+    6
+
+    <h2>Mean of a Binomial Distribution</h2>
+
+    <p>
+      The expected value is:
+    </p>
+
+    7
+
+    <div class="concept-box">
+
+      <strong>Interpretation:</strong>
+
+      <p>
+        The expected number of successes equals the number of trials multiplied by the success probability.
+      </p>
+
+    </div>
+
+    <h2>Example of the Mean</h2>
+
+    <p>
+      If:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        n = 100
+      </p>
+
+      <p>
+        p = 0.2
+      </p>
+
+    </div>
+
+    <p>
       Then:
     </p>
-  </div>
 
-  <div class="card">
-    <p style="margin:0; font-size:1.1rem;">
-      \[
-      X \sim \operatorname{Binomial}(n,p).
-      \]
-    </p>
-  </div>
+    8
 
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Connection to Bernoulli</h2>
-      <p style="margin:0;">
-        If \(X_i \sim \operatorname{Bernoulli}(p)\) and trials are independent, then
-        \[
-        X=\sum_{i=1}^{n} X_i \sim \operatorname{Binomial}(n,p).
-        \]
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>3) PMF (probability mass function)</h2>
     <p>
-      The probability of observing exactly <strong>k</strong> successes is:
+      We expect about 20 successes.
     </p>
-  </div>
 
-  <div class="card">
-    <p style="margin:0; font-size:1.1rem;">
-      \[
-      \Pr(X=k)=\binom{n}{k}p^{k}(1-p)^{\,n-k}, \qquad k=0,1,2,\ldots,n.
-      \]
-    </p>
-  </div>
+    <h2>Variance of a Binomial Distribution</h2>
 
-  <div class="grid grid-2" style="margin-top:1rem;">
-    <div class="card">
-      <h3>What each term means</h3>
-      <ul class="bullets">
-        <li>\(\binom{n}{k}\): number of ways to choose which k trials are successes</li>
-        <li>\(p^{k}\): probability of k successes (for a fixed pattern)</li>
-        <li>\((1-p)^{n-k}\): probability of n−k failures (for the same pattern)</li>
-      </ul>
-    </div>
-
-    <div class="card">
-      <h3>Binomial coefficient</h3>
-      <p style="margin:0;">
-        \[
-        \binom{n}{k}=\frac{n!}{k!(n-k)!}.
-        \]
-      </p>
-      <p class="muted-mini" style="margin-top:.5rem;">
-        Counts combinations (order does not matter).
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>4) Mean and variance</h2>
     <p>
-      For \(X \sim \operatorname{Binomial}(n,p)\):
+      The variance is:
     </p>
-  </div>
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Expectation</h3>
-      <p style="margin:0; font-size:1.1rem;">
-        \[
-        \mathbb{E}[X]=np.
-        \]
-      </p>
-      <p class="muted-mini" style="margin-top:.5rem;">
-        Expected number of successes = trials × success probability.
-      </p>
-    </div>
+    9
 
-    <div class="card">
-      <h3>Variance</h3>
-      <p style="margin:0; font-size:1.1rem;">
-        \[
-        \operatorname{Var}(X)=np(1-p).
-        \]
-      </p>
-      <p class="muted-mini" style="margin-top:.5rem;">
-        Variability grows with n and is largest near \(p=0.5\).
-      </p>
-    </div>
-  </div>
-
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Why these formulas make sense</h2>
-      <p style="margin:0;">
-        Since \(X=\sum_{i=1}^{n}X_i\) with \(X_i\sim\operatorname{Bernoulli}(p)\), linearity gives
-        \(\mathbb{E}[X]=\sum \mathbb{E}[X_i]=np\), and (with independence) variances add to give \(np(1-p)\).
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>5) Interpretation and quick checks</h2>
     <p>
-      Before using a binomial model, verify the story matches the assumptions.
+      The standard deviation is:
     </p>
-  </div>
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Good binomial examples</h3>
-      <ul class="bullets">
-        <li>Number of heads in n coin tosses (fair coin: \(p=0.5\))</li>
-        <li>Number of defective items in n independent inspections</li>
-        <li>Number of patients responding to treatment in n trials (if assumptions hold)</li>
-      </ul>
-    </div>
+    10
 
-    <div class="card">
-      <h3>Not binomial (common)</h3>
-      <ul class="bullets">
-        <li>Sampling <strong>without replacement</strong> from a finite population (often hypergeometric)</li>
-        <li>Changing probability over time (non-constant p)</li>
-        <li>Dependence between trials (clustered outcomes)</li>
-      </ul>
-    </div>
-  </div>
-</section>
+    <h2>Why the Formula Makes Sense</h2>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Common mistakes</h2>
-      <ul class="bullets">
-        <li>Using binomial when trials are not independent</li>
-        <li>Forgetting k must be between 0 and n</li>
-        <li>Confusing “exactly k” with “at least k” (requires summation)</li>
-        <li>Using binomial for sampling without replacement (often hypergeometric)</li>
-      </ul>
-    </div>
-  </div>
-</section>
+    <p>
+      A binomial variable is the sum of n independent Bernoulli variables.
+    </p>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
-      <ul class="bullets">
-        <li>Recognize when Binomial(n,p) is appropriate</li>
-        <li>Use the PMF \(\Pr(X=k)=\binom{n}{k}p^k(1-p)^{n-k}\)</li>
-        <li>Use \(\mathbb{E}[X]=np\) and \(\operatorname{Var}(X)=np(1-p)\)</li>
-        <li>Prepare for Geometric distribution (waiting time until first success)</li>
-      </ul>
-    </div>
-  </div>
-</section>
+    <p>
+      Since each Bernoulli trial has:
+    </p>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next step</h2>
-      <p style="margin:0;">
-        Next, we change the question:
-        instead of “How many successes in n trials?”, we ask
-        “How many trials until the first success?” — the <strong>Geometric distribution</strong>.
+    11
+
+    <p>
+      the variances add together:
+    </p>
+
+    12
+
+    <h2>Shape of the Distribution</h2>
+
+    <p>
+      The shape depends on p.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        p = 0.5 → symmetric
       </p>
 
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/probability/distributions/geometric-distribution/">
-          Next lesson: 3. Geometric Distribution →
-        </a>
-      </div>
+      <p>
+        p &lt; 0.5 → right-skewed
+      </p>
+
+      <p>
+        p &gt; 0.5 → left-skewed
+      </p>
+
     </div>
 
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/probability/distributions/bernoulli-distribution/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 1: Bernoulli Distribution
-          </a>
-        </div>
-      </div>
+    <p>
+      As n increases,
+      the distribution becomes more bell-shaped.
+    </p>
+
+    <h2>Real-World Applications</h2>
+
+    <ul class="bullets">
+
+      <li>Number of customers who purchase a product</li>
+
+      <li>Number of defective items in a batch</li>
+
+      <li>Number of successful sales calls</li>
+
+      <li>Number of patients responding to treatment</li>
+
+      <li>Number of voters supporting a candidate</li>
+
+    </ul>
+
+    <p>
+      Any situation involving repeated success/failure trials may be modeled with a binomial distribution.
+    </p>
+
+    <h2>Bernoulli Versus Binomial</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Distribution</th>
+            <th>Models</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Bernoulli</td>
+            <td>One trial</td>
+          </tr>
+
+          <tr>
+            <td>Binomial</td>
+            <td>Multiple trials</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
     </div>
+
+    <p>
+      The binomial distribution is essentially a collection of Bernoulli trials summarized by their total number of successes.
+    </p>
+
+    <h2>The Limitation</h2>
+
+    <p>
+      The binomial distribution answers:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        How many successes occur in n trials?
+      </p>
+
+    </div>
+
+    <p>
+      Sometimes we are interested in a different question:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        How long must we wait until the first success occurs?
+      </p>
+
+    </div>
+
+    <p>
+      This leads to the geometric distribution.
+    </p>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      The geometric distribution models the number of trials required to obtain the first success.
+    </p>
+
+    <p>
+      It introduces waiting-time models, an important class of probability distributions.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>A binomial distribution counts successes in n independent Bernoulli trials</li>
+
+        <li>Binomial variables are written as Bin(n,p)</li>
+
+        <li>The probability formula uses combinations and success probabilities</li>
+
+        <li>The mean equals np</li>
+
+        <li>The variance equals np(1 − p)</li>
+
+        <li>The binomial distribution is built from repeated Bernoulli trials</li>
+
+        <li>It is widely used for modeling repeated success/failure experiments</li>
+
+      </ul>
+
+    </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/probability/distributions/bernoulli-distribution/">
+         ← Previous: Bernoulli Distribution
+      </a>
+
+      <a class="btn"
+         href="/probability/distributions/geometric-distribution/">
+         Next: Geometric Distribution →
+      </a>
+
+    </div>
+
   </div>
+
 </section>

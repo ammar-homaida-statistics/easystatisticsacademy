@@ -1,250 +1,653 @@
 ---
 layout: default
-title: "6. Reporting Results in Clear Language"
-description: "Learn how to report statistical results clearly, accurately, and responsibly without overstating conclusions."
+title: Reporting Results in Clear Language
+description: Learn how to communicate statistical findings accurately, clearly, and effectively for both technical and non-technical audiences.
 permalink: /inference/interpretation-reporting/reporting-results-clear-language/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 provides structured templates for reporting statistical results.
-        Expanded examples across test types will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update continue-reading keys -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_interpretation_reporting_lesson_v0";
+(function () {
 
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/interpretation-reporting/reporting-results-clear-language/",
-      label: "Lesson 6 — Reporting Results in Clear Language",
-      ts: Date.now()
-    }));
+  const KEY =
+    "esa_continue_inference_interpretation_reporting_lesson_v0";
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/interpretation-reporting/",
-      label: "Block 6 — Interpretation & Reporting",
-      ts: Date.now()
-    }));
-  })();
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/interpretation-reporting/reporting-results-clear-language/",
+    label: "Reporting Results in Clear Language",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 6</span>
-        <span class="badge">Lesson 6</span>
-        <span class="badge">Reporting</span>
-        <span class="badge">Communication</span>
-      </div>
 
-      <h1>6. Reporting Results in Clear Language</h1>
-
-      <p class="lead">
-        Statistical analysis is only valuable if results are communicated clearly,
-        accurately, and without exaggeration.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/interpretation-reporting/">Back to Block 6</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        Precision in language is as important as precision in estimation.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 6</span>
+      <span class="badge">Interpretation & Reporting</span>
+      <span class="badge">Communication</span>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
-    <p>
-      Use accurate reporting templates, distinguish evidence from proof,
-      and communicate statistical findings responsibly.
+    <h1>Reporting Results in Clear Language</h1>
+
+    <p class="lead">
+      Statistical analysis is only useful if its results can be understood and interpreted correctly.
     </p>
-  </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Core principle</h2>
-      <p style="margin:0;">
-        Report what the data show —
-        not what you hope they imply.
-      </p>
+    <p class="lead">
+      Effective communication requires translating technical findings into language that is accurate, clear, and meaningful to the intended audience.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/interpretation-reporting/multiple-testing-and-false-positives/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/interpretation-reporting/tables-figures-and-visual-communication/">
+         Next: Tables, Figures, and Visual Communication →
+      </a>
+
     </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) Basic reporting structure</h2>
-  </div>
+<!-- LESSON -->
 
-  <div class="card">
-    A complete report typically includes:
-    <br><br>
-    • Test type  
-    • Test statistic value  
-    • Degrees of freedom (if applicable)  
-    • p-value  
-    • Effect size  
-    • Confidence interval  
-  </div>
-</section>
+<section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) Template examples</h2>
-  </div>
+  <div class="content-narrow">
 
-  <div class="card">
-    Mean comparison example:
-    <br><br>
-    “The treatment group had a higher mean score
-    (M = 12.4, SD = 3.1) than the control group
-    (M = 10.1, SD = 2.9),
-    t(58) = 2.87, p = 0.006,
-    95% CI (0.7, 3.9),
-    Cohen’s d = 0.74.”
-  </div>
+    <h2>Why Communication Matters</h2>
 
-  <div class="card" style="margin-top:1rem;">
-    Proportion example:
-    <br><br>
-    “The success rate was 62% in group A and 48% in group B,
-    z = 2.10, p = 0.036,
-    difference = 14 percentage points,
-    95% CI (1%, 27%).”
-  </div>
-</section>
+    <p>
+      A perfectly executed statistical analysis can still fail if the results are communicated poorly.
+    </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) Avoid overstated conclusions</h2>
-  </div>
+    <p>
+      Misleading wording, technical jargon, and incomplete reporting can cause readers to misunderstand important findings.
+    </p>
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Avoid</h3>
+    <div class="concept-box">
+
+      <strong>Goal:</strong>
+
       <p>
-        “The results prove that…”
+        Report results in a way that is accurate, understandable, and aligned with the evidence.
       </p>
+
     </div>
 
-    <div class="card">
-      <h3>Prefer</h3>
+    <h2>Statistics Is About Communication</h2>
+
+    <p>
+      Statistical work often serves decision-making.
+    </p>
+
+    <p>
+      Results may be read by:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Researchers</li>
+
+      <li>Managers</li>
+
+      <li>Policy makers</li>
+
+      <li>Medical professionals</li>
+
+      <li>The general public</li>
+
+    </ul>
+
+    <p>
+      Many readers may not have advanced statistical training.
+    </p>
+
+    <h2>Start With the Research Question</h2>
+
+    <p>
+      Good reporting begins by connecting results to the original question.
+    </p>
+
+    <p>
+      Instead of immediately presenting technical statistics, explain:
+    </p>
+
+    <div class="example-box">
+
       <p>
-        “The data provide evidence that…”
+        What question was being investigated?
       </p>
     </div>
 
-    <div class="card">
-      <h3>Avoid</h3>
+    <p>
+      This helps readers understand why the analysis matters.
+    </p>
+
+    <h2>A Poor Example</h2>
+
+    <div class="example-box">
+
       <p>
-        “No effect was found.”
+        t = 2.73, df = 118, p = 0.007
       </p>
     </div>
 
-    <div class="card">
-      <h3>Prefer</h3>
+    <p>
+      While technically correct, this statement alone provides little context.
+    </p>
+
+    <h2>A Better Example</h2>
+
+    <div class="example-box">
+
       <p>
-        “The study did not detect a statistically significant difference.”
+        Participants receiving the new treatment scored higher on average than those receiving the standard treatment, and the difference was statistically significant (t = 2.73, p = 0.007).
       </p>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>4) Report uncertainty</h2>
-  </div>
+    <p>
+      The second statement combines statistical information with practical meaning.
+    </p>
 
-  <div class="card">
-    Always include:
-    <br><br>
-    • Confidence intervals  
-    • Effect sizes  
-    • Exact p-values (when possible)  
-  </div>
+    <h2>Use Plain Language When Possible</h2>
 
-  <p>
-    Avoid reporting only:
-    <br>
-    “p &lt; 0.05”
-  </p>
-</section>
+    <p>
+      Technical terminology is sometimes necessary, but unnecessary jargon should be avoided.
+    </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>5) Transparency and assumptions</h2>
-  </div>
+    <div class="table-wrap">
 
-  <div class="card">
-    Clearly state:
-    <br><br>
-    • Assumptions tested  
-    • Adjustments for multiple comparisons  
-    • Any deviations from pre-specified analysis plan  
-  </div>
+      <table>
 
-  <p class="muted-mini">
-    Reproducible reporting strengthens credibility.
-  </p>
-</section>
+        <thead>
+          <tr>
+            <th>Technical Phrase</th>
+            <th>Clearer Alternative</th>
+          </tr>
+        </thead>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+        <tbody>
+
+          <tr>
+            <td>Reject H₀</td>
+            <td>Evidence suggests a difference exists</td>
+          </tr>
+
+          <tr>
+            <td>Parameter estimate</td>
+            <td>Estimated value</td>
+          </tr>
+
+          <tr>
+            <td>Sampling variability</td>
+            <td>Natural variation from sample to sample</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>Report More Than P-Values</h2>
+
+    <p>
+      A common mistake is reporting only whether a result was statistically significant.
+    </p>
+
+    <p>
+      Good reporting typically includes:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Effect size</li>
+
+      <li>Confidence interval</li>
+
+      <li>P-value</li>
+
+      <li>Practical interpretation</li>
+
+    </ul>
+
+    <p>
+      Together these provide a fuller picture.
+    </p>
+
+    <h2>Focus on Magnitude</h2>
+
+    <p>
+      Readers often care most about:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        How large is the effect?
+      </p>
+    </div>
+
+    <p>
+      Reporting magnitude helps connect statistical findings to real-world implications.
+    </p>
+
+    <h2>Include Uncertainty</h2>
+
+    <p>
+      Statistical estimates are never perfectly precise.
+    </p>
+
+    <p>
+      Confidence intervals communicate uncertainty and should often accompany point estimates.
+    </p>
+
+    <p>
+      For example:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Average improvement = 4.2 points
+      </p>
+
+      <p>
+        95% CI: (1.3, 7.1)
+      </p>
+
+    </div>
+
+    <p>
+      This tells readers both the estimate and its plausible range.
+    </p>
+
+    <h2>Avoid Overstating Conclusions</h2>
+
+    <p>
+      Statistical evidence rarely proves anything with certainty.
+    </p>
+
+    <p>
+      Avoid language such as:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        The treatment definitely works.
+      </p>
+    </div>
+
+    <p>
+      Prefer:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        The results provide evidence that the treatment improves outcomes.
+      </p>
+    </div>
+
+    <h2>Distinguish Evidence From Proof</h2>
+
+    <p>
+      Statistical inference evaluates evidence.
+    </p>
+
+    <p>
+      It does not provide mathematical proof in the same sense as geometry or logic.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Important principle:</strong>
+
+      <p>
+        Statistical conclusions are probabilistic, not absolute.
+      </p>
+
+    </div>
+
+    <h2>Be Careful With Causal Language</h2>
+
+    <p>
+      Not all studies support causal conclusions.
+    </p>
+
+    <p>
+      Observational studies often identify associations rather than causes.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Potentially Misleading</th>
+            <th>Safer Alternative</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>X causes Y</td>
+            <td>X is associated with Y</td>
+          </tr>
+
+          <tr>
+            <td>X leads to Y</td>
+            <td>X is linked to Y</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>Communicate Practical Importance</h2>
+
+    <p>
+      Readers should understand whether observed effects matter.
+    </p>
+
+    <p>
+      Instead of reporting only:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        p &lt; 0.05
+      </p>
+    </div>
+
+    <p>
+      explain:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        The treatment reduced average recovery time by approximately five days.
+      </p>
+    </div>
+
+    <p>
+      This is much more informative.
+    </p>
+
+    <h2>Consider the Audience</h2>
+
+    <p>
+      Different audiences require different levels of detail.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Audience</th>
+            <th>Typical Style</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Researchers</td>
+            <td>Technical and detailed</td>
+          </tr>
+
+          <tr>
+            <td>Managers</td>
+            <td>Decision-focused</td>
+          </tr>
+
+          <tr>
+            <td>General Public</td>
+            <td>Plain language</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>Use Numbers Thoughtfully</h2>
+
+    <p>
+      Excessive numerical precision can distract readers.
+    </p>
+
+    <p>
+      Compare:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Mean = 42.387164
+      </p>
+    </div>
+
+    <p>
+      with:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Mean ≈ 42.4
+      </p>
+    </div>
+
+    <p>
+      The second version is often easier to interpret.
+    </p>
+
+    <h2>Provide Context</h2>
+
+    <p>
+      Statistical results become more meaningful when placed in context.
+    </p>
+
+    <p>
+      Readers benefit from understanding:
+    </p>
+
+    <ul class="bullets">
+
+      <li>How large the effect is</li>
+
+      <li>How precise the estimate is</li>
+
+      <li>Why the effect matters</li>
+
+      <li>What limitations exist</li>
+
+    </ul>
+
+    <h2>Report Limitations Honestly</h2>
+
+    <p>
+      Every study has limitations.
+    </p>
+
+    <p>
+      Examples include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Small sample sizes</li>
+
+      <li>Measurement error</li>
+
+      <li>Missing data</li>
+
+      <li>Limited generalizability</li>
+
+    </ul>
+
+    <p>
+      Transparent reporting strengthens credibility.
+    </p>
+
+    <h2>Common Reporting Mistakes</h2>
+
+    <div class="concept-box">
+
+      <strong>Avoid these pitfalls:</strong>
+
       <ul class="bullets">
-        <li>Use structured reporting templates</li>
-        <li>Avoid overstated causal language</li>
-        <li>Include effect sizes and intervals</li>
-        <li>Communicate uncertainty clearly</li>
-      </ul>
-    </div>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next lesson</h2>
-      <p style="margin:0;">
-        We now focus on presenting results effectively using
-        tables, figures, and visual communication.
+        <li>Reporting only p-values</li>
+
+        <li>Overstating certainty</li>
+
+        <li>Ignoring uncertainty</li>
+
+        <li>Using unnecessary jargon</li>
+
+        <li>Making unsupported causal claims</li>
+
+      </ul>
+
+    </div>
+
+    <h2>A Reporting Template</h2>
+
+    <p>
+      A useful reporting structure is:
+    </p>
+
+    <ol>
+
+      <li>State the research question</li>
+
+      <li>Summarize the main finding</li>
+
+      <li>Report effect size</li>
+
+      <li>Report uncertainty (CI)</li>
+
+      <li>Report statistical evidence</li>
+
+      <li>Discuss practical implications</li>
+
+      <li>Mention limitations</li>
+
+    </ol>
+
+    <p>
+      This framework helps readers understand both the results and their significance.
+    </p>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      Statistical analysis is not complete when calculations end.
+    </p>
+
+    <p>
+      Results must be communicated accurately and clearly to support understanding and decision-making.
+    </p>
+
+    <p>
+      Effective reporting combines statistical rigor with accessible language.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Good statistical reporting explains what was studied, what was found, how certain the findings are, and why they matter. Clear communication is an essential part of responsible statistical practice.
       </p>
 
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/interpretation-reporting/tables-figures-and-visual-communication/">
-          Next lesson: 7. Tables, Figures & Visual Communication →
-        </a>
-      </div>
     </div>
 
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/interpretation-reporting/multiple-testing-and-false-positives/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 5: Multiple Testing & False Positives
-          </a>
-        </div>
-      </div>
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Written explanations are only one component of effective communication.
+    </p>
+
+    <p>
+      Tables, figures, and visualizations can often communicate patterns and results more effectively than text alone.
+    </p>
+
+    <p>
+      The next lesson explores how to use tables and graphics to present statistical findings clearly and responsibly.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>Statistical results should be communicated clearly and accurately</li>
+
+        <li>Good reporting connects findings to the original research question</li>
+
+        <li>Effect sizes and confidence intervals should accompany p-values</li>
+
+        <li>Practical importance should be discussed explicitly</li>
+
+        <li>Uncertainty should be communicated honestly</li>
+
+        <li>Causal language should be used carefully</li>
+
+        <li>Reporting should be tailored to the intended audience</li>
+
+        <li>Clear communication is a fundamental part of statistical practice</li>
+
+      </ul>
+
     </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/interpretation-reporting/multiple-testing-and-false-positives/">
+         ← Previous: Multiple Testing and False Positives
+      </a>
+
+      <a class="btn"
+         href="/inference/interpretation-reporting/tables-figures-and-visual-communication/">
+         Next: Tables, Figures, and Visual Communication →
+      </a>
+
+    </div>
+
   </div>
+
 </section>

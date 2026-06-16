@@ -1,219 +1,553 @@
 ---
 layout: default
-title: "3. z-Statistic & Confidence Intervals"
-description: "Standardization with known σ: z-statistic, Normal sampling distribution of the mean, and confidence interval construction."
+title: Z Statistic and Confidence Intervals
+description: Learn how z-statistics standardize estimates and how confidence intervals are constructed from sampling distributions.
 permalink: /probability/sampling-distributions/z-statistic-and-ci/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem;">🚧 Lesson Under Construction</h2>
-      <p style="margin:0; font-size:1.05rem;">
-        Version 0 introduces the z-statistic and the logic of confidence intervals under known variance.
-        Worked examples and graphical illustrations will be added in Version 1.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Continue Reading Tracking -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_probability_sampling_distributions_lesson_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/probability/sampling-distributions/z-statistic-and-ci/",
-      label: "Lesson 3 — z-Statistic & Confidence Intervals",
-      ts: Date.now()
-    }));
-  })();
+(function () {
+
+  const KEY =
+    "esa_continue_probability_sampling_distributions_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/probability/sampling-distributions/z-statistic-and-ci/",
+    label: "Z Statistic and Confidence Intervals",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 7</span>
-        <span class="badge">Lesson 3</span>
-        <span class="badge">z</span>
-        <span class="badge">Confidence Intervals</span>
-      </div>
 
-      <h1>3. z-Statistic & Confidence Intervals</h1>
-
-      <p class="lead">
-        When the population variance \(\sigma^2\) is known (or the sample size is large),
-        we can standardize the estimator and use the
-        <strong>Normal distribution</strong> to perform inference.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/probability/sampling-distributions/">Back to Block 7</a>
-        <a class="btn btn-outline" href="/probability/">Probability home</a>
-      </div>
-
-      <p class="muted-mini">
-        Standardization transforms an estimator into a known reference distribution.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Probability</span>
+      <span class="badge">Block 7</span>
+      <span class="badge">Sampling Distributions</span>
+      <span class="badge">Inference</span>
     </div>
+
+    <h1>Z Statistic and Confidence Intervals</h1>
+
+    <p class="lead">
+      Estimators vary from sample to sample, but standard errors tell us how much variation to expect.
+    </p>
+
+    <p class="lead">
+      Z-statistics and confidence intervals use that information to measure uncertainty and draw conclusions about unknown population parameters.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/probability/sampling-distributions/standard-error-and-estimators/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/probability/sampling-distributions/t-distribution-and-t-test/">
+         Next: t Distribution and t Test →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>Why Standardization Matters</h2>
+
     <p>
-      By the end of this lesson, you should be able to derive the z-statistic,
-      construct confidence intervals for a mean with known \(\sigma\),
-      and interpret coverage probability correctly.
+      Different variables use different units.
     </p>
-  </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Key idea</h2>
-      <p style="margin:0;">
-        Inference = estimate ± (critical value × standard error).
-        The z-statistic standardizes the estimator so that it follows \(N(0,1)\).
+    <div class="example-box">
+
+      <p>
+        Dollars
       </p>
-    </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) Sampling distribution of the mean</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      If \(X_1,\dots,X_n\) are i.i.d. with mean \(\mu\) and variance \(\sigma^2\),
-      then:
-      \[
-      \mathbb{E}[\overline{X}] = \mu,
-      \qquad
-      \operatorname{Var}(\overline{X}) = \frac{\sigma^2}{n}.
-      \]
-    </p>
-  </div>
-
-  <div class="card" style="margin-top:1rem;">
-    <p style="margin:0;">
-      If the population is Normal (or \(n\) is large),
-      \[
-      \overline{X} \sim N\!\left(\mu,\frac{\sigma^2}{n}\right).
-      \]
-    </p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>2) The z-statistic</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0; font-size:1.05rem;">
-      \[
-      Z=\frac{\overline{X}-\mu}{\sigma/\sqrt{n}}.
-      \]
-    </p>
-  </div>
-
-  <p class="muted-mini" style="margin-top:.75rem;">
-    Under the assumptions above, \(Z \sim N(0,1)\).
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>3) Confidence interval construction</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      A \(100(1-\alpha)\%\) confidence interval for \(\mu\) is:
-      \[
-      \overline{X} \pm z_{1-\alpha/2}\frac{\sigma}{\sqrt{n}}.
-      \]
-    </p>
-  </div>
-
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Coverage meaning</h2>
-      <p style="margin:0;">
-        In repeated sampling, this procedure captures the true parameter
-        approximately \(100(1-\alpha)\%\) of the time.
+      <p>
+        Kilograms
       </p>
+
+      <p>
+        Test scores
+      </p>
+
+      <p>
+        Percentages
+      </p>
+
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>4) Hypothesis testing using z</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      To test \(H_0:\mu=\mu_0\), compute:
-      \[
-      Z=\frac{\overline{X}-\mu_0}{\sigma/\sqrt{n}}.
-      \]
+    <p>
+      To compare results fairly,
+      statisticians convert them to a common scale.
     </p>
-  </div>
 
-  <div class="card" style="margin-top:1rem;">
+    <p>
+      This process is called standardization.
+    </p>
+
+    <h2>The Z Statistic</h2>
+
+    <p>
+      A z-statistic measures how far an estimate lies from a target value in units of standard error.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Definition:</strong>
+
+      <p>
+        A z-statistic tells us how many standard errors an estimate is above or below a reference value.
+      </p>
+
+    </div>
+
+    <h2>The Formula</h2>
+
+    <p>
+      The general z-statistic is:
+    </p>
+
+    0
+
+    <p>
+      The numerator measures distance from the target.
+    </p>
+
+    <p>
+      The denominator scales that distance using expected sampling variability.
+    </p>
+
+    <h2>Interpreting Z Values</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Z Value</th>
+            <th>Interpretation</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>0</td>
+            <td>Exactly at the reference value</td>
+          </tr>
+
+          <tr>
+            <td>1</td>
+            <td>One standard error above</td>
+          </tr>
+
+          <tr>
+            <td>-1</td>
+            <td>One standard error below</td>
+          </tr>
+
+          <tr>
+            <td>2</td>
+            <td>Two standard errors above</td>
+          </tr>
+
+          <tr>
+            <td>-2</td>
+            <td>Two standard errors below</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>Example: Sample Mean</h2>
+
+    <p>
+      Suppose:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Sample mean = 105
+      </p>
+
+      <p>
+        Reference value = 100
+      </p>
+
+      <p>
+        Standard error = 2
+      </p>
+
+    </div>
+
+    <p>
+      Then:
+    </p>
+
+    1
+
+    <p>
+      The estimate is 2.5 standard errors above the reference value.
+    </p>
+
+    <h2>The Standard Normal Distribution</h2>
+
+    <p>
+      Under many conditions,
+      z-statistics follow the standard normal distribution:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Mean = 0
+      </p>
+
+      <p>
+        Standard deviation = 1
+      </p>
+
+    </div>
+
+    <p>
+      This allows probabilities to be calculated using standard normal tables or software.
+    </p>
+
+    <h2>The 95% Rule</h2>
+
+    <p>
+      For a standard normal distribution:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        About 95% of values lie within ±1.96 standard deviations of the mean.
+      </p>
+
+    </div>
+
+    <p>
+      This fact is the foundation of the most common confidence interval.
+    </p>
+
+    <h2>What Is a Confidence Interval?</h2>
+
+    <p>
+      A confidence interval provides a range of plausible values for an unknown population parameter.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Definition:</strong>
+
+      <p>
+        A confidence interval combines an estimate with a margin of error to express uncertainty.
+      </p>
+
+    </div>
+
+    <h2>The General Structure</h2>
+
+    <p>
+      Confidence intervals have the form:
+    </p>
+
+    2
+
+    <p>
+      The margin of error depends on the standard error and confidence level.
+    </p>
+
+    <h2>The 95% Confidence Interval Formula</h2>
+
+    <p>
+      For many large-sample situations:
+    </p>
+
+    3
+
+    <p>
+      This produces an approximate 95% confidence interval.
+    </p>
+
+    <h2>Example Confidence Interval</h2>
+
+    <p>
+      Suppose:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Sample mean = 50
+      </p>
+
+      <p>
+        Standard error = 3
+      </p>
+
+    </div>
+
+    <p>
+      The margin of error is:
+    </p>
+
+    4
+
+    <p>
+      Therefore:
+    </p>
+
+    5
+
+    <p>
+      giving:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        [44.12, 55.88]
+      </p>
+
+    </div>
+
+    <h2>Interpreting a Confidence Interval</h2>
+
+    <p>
+      A common interpretation is:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        We are 95% confident that the population parameter lies within the interval.
+      </p>
+
+    </div>
+
+    <p>
+      The interval reflects uncertainty from sampling variability.
+    </p>
+
+    <h2>What Confidence Does NOT Mean</h2>
+
+    <p>
+      Confidence intervals are often misunderstood.
+    </p>
+
+    <p>
+      A 95% confidence interval does not mean:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        There is a 95% probability the parameter is inside this particular interval.
+      </p>
+
+    </div>
+
+    <p>
+      The parameter is fixed.
+    </p>
+
+    <p>
+      The interval is random because it depends on the sample.
+    </p>
+
+    <h2>Confidence Level and Width</h2>
+
+    <p>
+      Higher confidence requires wider intervals.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Confidence Level</th>
+            <th>Approximate Multiplier</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>90%</td>
+            <td>1.645</td>
+          </tr>
+
+          <tr>
+            <td>95%</td>
+            <td>1.96</td>
+          </tr>
+
+          <tr>
+            <td>99%</td>
+            <td>2.576</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      Greater confidence means accepting a wider range of plausible values.
+    </p>
+
+    <h2>The Role of Sample Size</h2>
+
+    <p>
+      Since:
+    </p>
+
+    6
+
+    <p>
+      larger samples reduce standard error.
+    </p>
+
+    <p>
+      Smaller standard errors produce narrower confidence intervals.
+    </p>
+
+    <p>
+      Larger samples therefore provide more precise estimates.
+    </p>
+
+    <h2>Why Z Statistics Matter</h2>
+
+    <p>
+      Z-statistics provide a common language for measuring evidence and uncertainty.
+    </p>
+
+    <p>
+      They appear throughout:
+    </p>
+
     <ul class="bullets">
-      <li>Reject if \(|Z| > z_{1-\alpha/2}\) (two-sided test).</li>
-      <li>\(\alpha\) controls Type I error.</li>
+
+      <li>Confidence intervals</li>
+
+      <li>Hypothesis testing</li>
+
+      <li>Regression analysis</li>
+
+      <li>Machine learning evaluation</li>
+
     </ul>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+    <h2>The Big Picture</h2>
+
+    <p>
+      Estimators provide numerical summaries.
+    </p>
+
+    <p>
+      Standard errors measure uncertainty.
+    </p>
+
+    <p>
+      Z-statistics standardize results.
+    </p>
+
+    <p>
+      Confidence intervals combine all three to communicate what the data suggest about unknown population parameters.
+    </p>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      The z-statistic works well when population variability is known or sample sizes are large.
+    </p>
+
+    <p>
+      In practice,
+      population variability is often unknown.
+    </p>
+
+    <p>
+      The next lesson introduces the t-distribution and t-tests, which address this common situation.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Derive and interpret the z-statistic</li>
-        <li>Construct confidence intervals with known variance</li>
-        <li>Understand long-run coverage logic</li>
-        <li>Perform basic hypothesis testing with z</li>
-        <li>Prepare for the t-distribution case (unknown \(\sigma\))</li>
+
+        <li>Z-statistics measure distance in units of standard error</li>
+
+        <li>The standard normal distribution is the basis for many inferential methods</li>
+
+        <li>Confidence intervals provide ranges of plausible parameter values</li>
+
+        <li>A 95% confidence interval often uses the multiplier 1.96</li>
+
+        <li>Confidence intervals combine estimates and margins of error</li>
+
+        <li>Larger samples produce narrower confidence intervals</li>
+
+        <li>Z-statistics and confidence intervals are fundamental inferential tools</li>
+
+        <li>They rely directly on sampling distributions and standard errors</li>
+
       </ul>
+
     </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/probability/sampling-distributions/standard-error-and-estimators/">
+         ← Previous: Standard Error and Estimators
+      </a>
+
+      <a class="btn"
+         href="/probability/sampling-distributions/t-distribution-and-t-test/">
+         Next: t Distribution and t Test →
+      </a>
+
+    </div>
+
   </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next step</h2>
-      <p style="margin:0;">
-        In practice, \(\sigma\) is usually unknown.
-        Next, we introduce the <strong>t-distribution</strong>.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/probability/sampling-distributions/t-distribution-and-t-test/">
-          Next lesson: 4. t-Distribution & the t-Statistic →
-        </a>
-      </div>
-    </div>
-
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/probability/sampling-distributions/standard-error-and-estimators/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 2 — Standard Error & Estimators
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>

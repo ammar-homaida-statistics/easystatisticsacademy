@@ -1,231 +1,598 @@
 ---
 layout: default
-title: "9. CI for Difference of Proportions"
-description: "Construct and interpret a confidence interval for the difference between two independent population proportions."
+title: Confidence Interval for Difference of Proportions
+description: Learn how to construct and interpret confidence intervals for the difference between two population proportions.
 permalink: /inference/confidence-intervals/ci-for-difference-of-proportions/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 establishes the structure of the two-proportion confidence interval.
-        Exact and Wilson-based refinements will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_confidence_intervals_lesson_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/confidence-intervals/ci-for-difference-of-proportions/",
-      label: "Lesson 9 — CI for Difference of Proportions",
-      ts: Date.now()
-    }));
+(function () {
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/confidence-intervals/",
-      label: "Block 2 — Confidence Intervals",
-      ts: Date.now()
-    }));
-  })();
+  const KEY =
+    "esa_continue_inference_confidence_intervals_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/confidence-intervals/ci-for-difference-of-proportions/",
+    label: "Confidence Interval for Difference of Proportions",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 2</span>
-        <span class="badge">Lesson 9</span>
-        <span class="badge">Two Proportions</span>
-        <span class="badge">z Interval</span>
-      </div>
 
-      <h1>9. CI for Difference of Proportions</h1>
-
-      <p class="lead">
-        We often compare two independent groups using proportions.
-        This lesson constructs a confidence interval for 
-        \( p_1 - p_2 \).
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/confidence-intervals/">Back to Block 2</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        Large-sample normal approximation method.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 2</span>
+      <span class="badge">Confidence Intervals</span>
+      <span class="badge">Comparing Percentages</span>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
-    <p>
-      Construct and interpret a confidence interval for the difference
-      between two independent population proportions.
+    <h1>Confidence Interval for Difference of Proportions</h1>
+
+    <p class="lead">
+      Many important statistical questions compare percentages between two groups.
     </p>
-  </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Key idea</h2>
-      <p style="margin:0;">
-        The difference between two sample proportions is approximately normal
-        when sample sizes are sufficiently large.
-      </p>
-    </div>
-  </div>
-</section>
+    <p class="lead">
+      Confidence intervals for differences in proportions help estimate how much two population proportions differ while accounting for sampling uncertainty.
+    </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) The estimator</h2>
-  </div>
+    <div class="hero-actions">
 
-  <div class="card">
-    \[
-    \hat p_1 - \hat p_2
-    \]
-  </div>
+      <a class="btn"
+         href="/inference/confidence-intervals/ci-for-difference-of-means-independent/">
+         ← Previous Lesson
+      </a>
 
-  <p class="muted-mini">
-    Target parameter: \( p_1 - p_2 \)
-  </p>
-</section>
+      <a class="btn btn-outline"
+         href="/inference/confidence-intervals/ci-for-paired-mean-difference/">
+         Next: CI for Paired Mean Difference →
+      </a>
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) Standard error</h2>
-  </div>
-
-  <div class="card">
-    \[
-    SE =
-    \sqrt{
-      \frac{\hat p_1 (1-\hat p_1)}{n_1}
-      +
-      \frac{\hat p_2 (1-\hat p_2)}{n_2}
-    }
-    \]
-  </div>
-
-  <p class="muted-mini">
-    Assumes independence between the two samples.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>3) Confidence interval formula</h2>
-  </div>
-
-  <div class="card">
-    <strong>
-    \[
-    (\hat p_1 - \hat p_2)
-    \pm
-    z_{\alpha/2}
-    \cdot SE
-    \]
-    </strong>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>4) Conditions</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Independence within groups</h3>
-      <p>Random sampling or assignment.</p>
     </div>
 
-    <div class="card">
-      <h3>Independence between groups</h3>
-      <p>Groups must not overlap.</p>
-    </div>
+  </div>
 
-    <div class="card">
-      <h3>Large counts condition</h3>
+</section>
+
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>The Research Question</h2>
+
+    <p>
+      Instead of comparing averages,
+      we now compare proportions.
+    </p>
+
+    <div class="example-box">
+
       <p>
-        \( n_1\hat p_1 ≥ 10 \),  
-        \( n_1(1-\hat p_1) ≥ 10 \),  
-        \( n_2\hat p_2 ≥ 10 \),  
-        \( n_2(1-\hat p_2) ≥ 10 \)
+        Approval rates for two political candidates
       </p>
+
+      <p>
+        Conversion rates for two website designs
+      </p>
+
+      <p>
+        Recovery rates for two medical treatments
+      </p>
+
+      <p>
+        Defect rates from two manufacturing processes
+      </p>
+
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>5) Interpretation</h2>
-  </div>
+    <p>
+      The goal is to estimate how different the population proportions are.
+    </p>
 
-  <div class="card">
-    A 95% CI for \( p_1 - p_2 \) gives plausible values
-    for the true difference in population proportions.
-  </div>
+    <h2>The Parameter of Interest</h2>
 
-  <p class="muted-mini">
-    If 0 is inside the interval, the data are consistent
-    with no difference.
-  </p>
-</section>
+    <p>
+      Let:
+    </p>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+    <ul class="bullets">
+
+      <li>p₁ = population proportion for Group 1</li>
+
+      <li>p₂ = population proportion for Group 2</li>
+
+    </ul>
+
+    <p>
+      The parameter of interest is:
+    </p>
+
+    0
+
+    <p>
+      which represents the true difference between the two population proportions.
+    </p>
+
+    <h2>The Estimator</h2>
+
+    <p>
+      We estimate the population difference using:
+    </p>
+
+    1
+
+    <p>
+      where each sample proportion is calculated separately from its own sample.
+    </p>
+
+    <h2>Interpreting the Difference</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Difference</th>
+            <th>Interpretation</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Positive</td>
+            <td>Group 1 has the larger proportion</td>
+          </tr>
+
+          <tr>
+            <td>Negative</td>
+            <td>Group 2 has the larger proportion</td>
+          </tr>
+
+          <tr>
+            <td>Zero</td>
+            <td>No population proportion difference</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>The Confidence Interval Blueprint</h2>
+
+    <p>
+      Once again:
+    </p>
+
+    2
+
+    <p>
+      The estimate becomes:
+    </p>
+
+    3
+
+    <p>
+      and the margin of error is based on the standard error of the difference.
+    </p>
+
+    <h2>The Standard Error</h2>
+
+    <p>
+      For independent samples:
+    </p>
+
+    4
+
+    <p>
+      This combines uncertainty from both sample proportions.
+    </p>
+
+    <h2>The Confidence Interval Formula</h2>
+
+    <p>
+      The standard confidence interval becomes:
+    </p>
+
+    5
+
+    <p>
+      This is the most common confidence interval for differences between two population proportions.
+    </p>
+
+    <h2>Why z Critical Values Are Used</h2>
+
+    <p>
+      The sampling distribution of the difference in sample proportions is approximately normal when sample sizes are sufficiently large.
+    </p>
+
+    <p>
+      Therefore:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        z critical values are used rather than t critical values.
+      </p>
+
+    </div>
+
+    <h2>Example Setup</h2>
+
+    <p>
+      Suppose an A/B test compares two website versions.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Version A: 240 conversions out of 600 visitors
+      </p>
+
+      <p>
+        Version B: 180 conversions out of 600 visitors
+      </p>
+
+      <p>
+        Confidence level = 95%
+      </p>
+
+    </div>
+
+    <h2>Step 1: Compute the Sample Proportions</h2>
+
+    <p>
+      For Version A:
+    </p>
+
+    6
+
+    <p>
+      For Version B:
+    </p>
+
+    7
+
+    <h2>Step 2: Compute the Estimated Difference</h2>
+
+    <p>
+      Difference:
+    </p>
+
+    8
+
+    <p>
+      The sample suggests a 10 percentage-point advantage for Version A.
+    </p>
+
+    <h2>Step 3: Compute the Standard Error</h2>
+
+    <p>
+      Using:
+    </p>
+
+    9
+
+    <p>
+      gives approximately:
+    </p>
+
+    10
+
+    <h2>Step 4: Compute the Margin of Error</h2>
+
+    <p>
+      For 95% confidence:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        z* = 1.96
+      </p>
+
+    </div>
+
+    <p>
+      Therefore:
+    </p>
+
+    11
+
+    <h2>Step 5: Construct the Interval</h2>
+
+    <p>
+      Therefore:
+    </p>
+
+    12
+
+    <p>
+      yielding:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        (0.0463, 0.1537)
+      </p>
+
+    </div>
+
+    <h2>Interpreting the Interval</h2>
+
+    <p>
+      Plausible values for:
+    </p>
+
+    13
+
+    <p>
+      range from approximately:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        4.6% to 15.4%
+      </p>
+
+    </div>
+
+    <p>
+      The data suggest Version A's conversion rate exceeds Version B's by somewhere between about 5 and 15 percentage points.
+    </p>
+
+    <h2>The Importance of Zero</h2>
+
+    <p>
+      Just as with mean differences,
+      zero has a special interpretation.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Zero difference:</strong>
+
+      <p>
+        A difference of zero means the population proportions are equal.
+      </p>
+
+    </div>
+
+    <h2>When Zero Is Not in the Interval</h2>
+
+    <p>
+      Consider:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        (0.046, 0.154)
+      </p>
+
+    </div>
+
+    <p>
+      Since zero is excluded,
+      equal population proportions are not among the plausible values.
+    </p>
+
+    <p>
+      Evidence suggests a genuine difference exists.
+    </p>
+
+    <h2>When Zero Is in the Interval</h2>
+
+    <p>
+      Suppose instead the interval were:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        (-0.04, 0.08)
+      </p>
+
+    </div>
+
+    <p>
+      Since zero lies inside the interval,
+      equal population proportions remain plausible.
+    </p>
+
+    <p>
+      Strong evidence for a difference is lacking.
+    </p>
+
+    <h2>Conditions for the Interval</h2>
+
+    <p>
+      Several assumptions should be checked.
+    </p>
+
+    <ul class="bullets">
+
+      <li>Random sampling or random assignment</li>
+
+      <li>Independent observations within each group</li>
+
+      <li>Independent groups</li>
+
+      <li>Large enough sample sizes for normal approximations</li>
+
+    </ul>
+
+    <h2>The Success-Failure Conditions</h2>
+
+    <p>
+      For each sample:
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Check both:</strong>
+
+      <p>
+        n₁p̂₁ ≥ 10 and n₁(1−p̂₁) ≥ 10
+      </p>
+
+      <p>
+        n₂p̂₂ ≥ 10 and n₂(1−p̂₂) ≥ 10
+      </p>
+
+    </div>
+
+    <p>
+      These conditions support the normal approximation.
+    </p>
+
+    <h2>Where These Intervals Are Used</h2>
+
+    <ul class="bullets">
+
+      <li>Election polling</li>
+
+      <li>A/B testing</li>
+
+      <li>Clinical trials</li>
+
+      <li>Marketing studies</li>
+
+      <li>Quality-control comparisons</li>
+
+    </ul>
+
+    <p>
+      Comparing percentages is one of the most common tasks in applied statistics.
+    </p>
+
+    <h2>Difference of Means vs Difference of Proportions</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Feature</th>
+            <th>Means</th>
+            <th>Proportions</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Parameter</td>
+            <td>μ₁ − μ₂</td>
+            <td>p₁ − p₂</td>
+          </tr>
+
+          <tr>
+            <td>Estimator</td>
+            <td>x̄₁ − x̄₂</td>
+            <td>p̂₁ − p̂₂</td>
+          </tr>
+
+          <tr>
+            <td>Critical Value</td>
+            <td>Usually t</td>
+            <td>z</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Confidence intervals for differences in proportions estimate how much two population percentages differ while accounting for uncertainty from both samples.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Not all comparisons involve independent groups.
+    </p>
+
+    <p>
+      Many studies measure the same subjects twice, such as before-and-after experiments.
+    </p>
+
+    <p>
+      The next lesson introduces confidence intervals for paired mean differences, where observations are naturally linked rather than independent.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Construct CI for \( p_1 - p_2 \)</li>
-        <li>Compute correct standard error</li>
-        <li>Check large-count conditions</li>
-        <li>Interpret inclusion of 0</li>
+
+        <li>The parameter of interest is p₁ − p₂</li>
+
+        <li>The estimator is p̂₁ − p̂₂</li>
+
+        <li>The standard error combines uncertainty from both samples</li>
+
+        <li>The interval uses z critical values</li>
+
+        <li>Zero represents equal population proportions</li>
+
+        <li>If zero is outside the interval, evidence suggests a true difference</li>
+
+        <li>Success-failure conditions should be checked in both groups</li>
+
+        <li>Difference-of-proportion intervals are widely used in polling, experiments, and A/B testing</li>
+
       </ul>
-    </div>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next step</h2>
-      <p style="margin:0;">
-        Now we consider dependent samples
-        and construct a confidence interval for paired differences.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/confidence-intervals/ci-for-paired-mean-difference/">
-          Next lesson: 10. CI for Paired Mean Difference →
-        </a>
-      </div>
     </div>
 
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/confidence-intervals/ci-for-difference-of-means-independent/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 8: CI for Difference of Means (Independent)
-          </a>
-        </div>
-      </div>
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/confidence-intervals/ci-for-difference-of-means-independent/">
+         ← Previous: CI for Difference of Means
+      </a>
+
+      <a class="btn"
+         href="/inference/confidence-intervals/ci-for-paired-mean-difference/">
+         Next: CI for Paired Mean Difference →
+      </a>
+
     </div>
 
   </div>
+
 </section>

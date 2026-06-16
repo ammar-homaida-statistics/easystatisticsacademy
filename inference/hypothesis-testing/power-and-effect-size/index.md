@@ -1,306 +1,582 @@
 ---
 layout: default
-title: "7. Power and Effect Size"
-description: "Define statistical power formally, understand its relationship with Type II error (β), and explain how effect size, sample size, variability, and α determine detectability."
+title: Power and Effect Size
+description: Learn what statistical power means, how it relates to Type II errors, and why effect size is crucial for detecting meaningful differences.
 permalink: /inference/hypothesis-testing/power-and-effect-size/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 establishes the formal definitions of statistical power and effect size.
-        Numerical examples and power-curve visualizations will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update continue-reading keys -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_hypothesis_testing_lesson_v0";
+(function () {
 
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/hypothesis-testing/power-and-effect-size/",
-      label: "Lesson 7 — Power and Effect Size",
-      ts: Date.now()
-    }));
+  const KEY =
+    "esa_continue_inference_hypothesis_testing_lesson_v0";
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/hypothesis-testing/",
-      label: "Block 3 — Hypothesis Testing",
-      ts: Date.now()
-    }));
-  })();
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/hypothesis-testing/power-and-effect-size/",
+    label: "Power and Effect Size",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 3</span>
-        <span class="badge">Lesson 7</span>
-        <span class="badge">Power</span>
-        <span class="badge">Effect Size</span>
-      </div>
 
-      <h1>7. Power and Effect Size</h1>
-
-      <p class="lead">
-        Statistical power measures a test’s ability to detect real effects.
-        It depends on the size of the true effect,
-        the sample size,
-        the variability,
-        and the chosen significance level \( \alpha \).
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/hypothesis-testing/">Back to Block 3</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        Detectability is a joint property of design and effect magnitude.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 3</span>
+      <span class="badge">Hypothesis Testing</span>
+      <span class="badge">Study Design</span>
     </div>
+
+    <h1>Power and Effect Size</h1>
+
+    <p class="lead">
+      A good hypothesis test should detect real effects when they exist.
+    </p>
+
+    <p class="lead">
+      Statistical power measures a test's ability to discover genuine effects, while effect size measures the magnitude of those effects.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/hypothesis-testing/type1-type2-errors/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/hypothesis-testing/one-sided-vs-two-sided/">
+         Next: One-Sided vs Two-Sided Tests →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>Why Power Matters</h2>
+
     <p>
-      Define statistical power formally,
-      relate it to Type II error,
-      and explain how design choices influence detectability.
+      Suppose a new treatment genuinely improves patient outcomes.
     </p>
-  </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Core definition</h2>
-      <p style="margin:0;">
-        Statistical power is the probability of correctly rejecting a false null hypothesis.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>1) Formal definition</h2>
-  </div>
-
-  <div class="card">
-    \[
-    \text{Power} = P(\text{Reject } H_0 \mid H_0 \text{ is false})
-    \]
-  </div>
-
-  <div class="card" style="margin-top:1rem;">
-    \[
-    \text{Power} = 1 - \beta
-    \]
-  </div>
-
-  <p class="muted-mini">
-    Here, \( \beta \) is the probability of a Type II error.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>2) What power represents</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>High power</h3>
-      <p style="margin:0;">
-        The test is likely to detect a real effect.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Low power</h3>
-      <p style="margin:0;">
-        The test often misses real effects.
-      </p>
-    </div>
-  </div>
-
-  <p class="muted-mini">
-    Power is evaluated under a specific alternative parameter value.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>3) Effect size</h2>
     <p>
-      Effect size quantifies how far the true parameter lies from the null value.
+      Ideally,
+      a statistical study should detect that improvement.
     </p>
-  </div>
 
-  <div class="card">
-    \[
-    \text{Effect size (raw)} = \theta_{\text{true}} - \theta_0
-    \]
-  </div>
-
-  <div class="card" style="margin-top:1rem;">
-    \[
-    \text{Standardized effect size} =
-    \frac{\theta_{\text{true}} - \theta_0}{\sigma}
-    \]
-  </div>
-
-  <p class="muted-mini">
-    Larger effect sizes increase power.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>4) What determines power?</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Effect size</h3>
-      <p style="margin:0;">
-        Larger effects are easier to detect.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Sample size (n)</h3>
-      <p style="margin:0;">
-        Larger samples reduce standard error and increase power.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Variability (σ)</h3>
-      <p style="margin:0;">
-        Greater variability reduces power.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Significance level (α)</h3>
-      <p style="margin:0;">
-        Larger α increases power but raises Type I error risk.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>5) Trade-offs</h2>
-  </div>
-
-  <div class="card">
-    <p style="margin:0;">
-      For fixed sample size:
-      decreasing α reduces power.
+    <p>
+      However,
+      because of random sampling variability,
+      a study can sometimes miss a real effect.
     </p>
-  </div>
 
-  <div class="card" style="margin-top:1rem;">
-    <p style="margin:0;">
-      Increasing sample size improves power
-      without increasing Type I error.
+    <p>
+      Statistical power measures how likely a study is to avoid that mistake.
     </p>
-  </div>
 
-  <p class="muted-mini">
-    Sample size is the main design tool for controlling power.
-  </p>
-</section>
+    <h2>The Definition of Power</h2>
 
-<section class="section">
-  <div class="section-head">
-    <h2>6) Why power matters</h2>
-  </div>
+    <div class="concept-box">
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Scientific validity</h3>
-      <p style="margin:0;">
-        Low power increases false negatives.
+      <strong>Definition:</strong>
+
+      <p>
+        Statistical power is the probability that a hypothesis test correctly rejects a false null hypothesis.
+      </p>
+
+    </div>
+
+    <p>
+      In simple language:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Power measures a study's ability to detect real effects.
       </p>
     </div>
 
-    <div class="card">
-      <h3>Replicability</h3>
-      <p style="margin:0;">
-        Underpowered studies produce unstable results.
+    <h2>The Connection to Type II Errors</h2>
+
+    <p>
+      In the previous lesson,
+      we learned that:
+    </p>
+
+    0
+
+    <p>
+      Power is simply the complement:
+    </p>
+
+    1
+
+    <p>
+      Therefore:
+    </p>
+
+    <ul class="bullets">
+
+      <li>High power means few missed effects.</li>
+
+      <li>Low power means many missed effects.</li>
+
+    </ul>
+
+    <h2>The Decision Table Revisited</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Reality</th>
+            <th>Reject H₀</th>
+            <th>Fail to Reject H₀</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>H₀ True</td>
+            <td>Type I Error</td>
+            <td>Correct Decision</td>
+          </tr>
+
+          <tr>
+            <td>H₀ False</td>
+            <td>Power</td>
+            <td>Type II Error</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      Power represents the desirable outcome when the null hypothesis is actually false.
+    </p>
+
+    <h2>An Example</h2>
+
+    <p>
+      Suppose a study has:
+    </p>
+
+    2
+
+    <p>
+      This means:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        If a real effect exists, the study will detect it about 80% of the time.
       </p>
     </div>
 
-    <div class="card">
-      <h3>Ethical considerations</h3>
-      <p style="margin:0;">
-        Inadequate power may waste resources.
+    <p>
+      The corresponding Type II error probability is:
+    </p>
+
+    3
+
+    <h2>What Is Effect Size?</h2>
+
+    <p>
+      Detecting an effect depends not only on the quality of the study,
+      but also on how large the effect actually is.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Effect Size:</strong>
+
+      <p>
+        Effect size measures the magnitude of a difference, relationship, or change.
+      </p>
+
+    </div>
+
+    <p>
+      It describes practical size rather than statistical evidence.
+    </p>
+
+    <h2>Examples of Effect Size</h2>
+
+    <div class="example-box">
+
+      <p>
+        Mean difference between treatments
+      </p>
+
+      <p>
+        Difference in conversion rates
+      </p>
+
+      <p>
+        Correlation strength
+      </p>
+
+      <p>
+        Improvement in exam scores
+      </p>
+
+    </div>
+
+    <h2>Small vs Large Effects</h2>
+
+    <p>
+      Consider two drugs:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Drug A reduces blood pressure by 1 mmHg.
+      </p>
+
+      <p>
+        Drug B reduces blood pressure by 15 mmHg.
+      </p>
+
+    </div>
+
+    <p>
+      Drug B has a much larger effect size.
+    </p>
+
+    <p>
+      Larger effects are generally easier to detect statistically.
+    </p>
+
+    <h2>Why Effect Size Affects Power</h2>
+
+    <p>
+      When the true effect is large,
+      the observed data tend to fall farther from the null hypothesis.
+    </p>
+
+    <p>
+      Larger departures produce larger test statistics and smaller p-values.
+    </p>
+
+    <p>
+      As a result,
+      power increases.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Key idea:</strong>
+
+      <p>
+        Large effects are easier to detect than small effects.
+      </p>
+
+    </div>
+
+    <h2>The Four Main Factors Affecting Power</h2>
+
+    <p>
+      Statistical power depends primarily on four quantities.
+    </p>
+
+    <h3>1. Effect Size</h3>
+
+    <p>
+      Larger effects increase power.
+    </p>
+
+    <h3>2. Sample Size</h3>
+
+    <p>
+      Larger samples reduce uncertainty and increase power.
+    </p>
+
+    <h3>3. Variability</h3>
+
+    <p>
+      Greater variability makes effects harder to detect and reduces power.
+    </p>
+
+    <h3>4. Significance Level</h3>
+
+    <p>
+      Larger:
+    </p>
+
+    4
+
+    <p>
+      makes rejection easier and increases power.
+    </p>
+
+    <h2>How Sample Size Influences Power</h2>
+
+    <p>
+      Increasing sample size is often the most effective way to improve power.
+    </p>
+
+    <p>
+      Larger samples:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Reduce standard errors</li>
+
+      <li>Increase test statistics</li>
+
+      <li>Improve precision</li>
+
+      <li>Increase power</li>
+
+    </ul>
+
+    <h2>The Power Tradeoff</h2>
+
+    <p>
+      Reducing Type I errors often increases Type II errors.
+    </p>
+
+    <p>
+      Therefore:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Smaller α → lower power</li>
+
+      <li>Larger α → higher power</li>
+
+    </ul>
+
+    <p>
+      Statistical design often involves balancing these competing goals.
+    </p>
+
+    <h2>The Common 80% Rule</h2>
+
+    <p>
+      Many scientific studies aim for:
+    </p>
+
+    5
+
+    <p>
+      or:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        80% power
       </p>
     </div>
 
-    <div class="card">
-      <h3>Design planning</h3>
-      <p style="margin:0;">
-        Power analysis guides required sample size.
+    <p>
+      This means researchers accept approximately a 20% chance of missing a real effect of a specified size.
+    </p>
+
+    <h2>Power Analysis</h2>
+
+    <p>
+      Before collecting data,
+      researchers often perform a power analysis.
+    </p>
+
+    <p>
+      A power analysis estimates the sample size needed to achieve a desired power level.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Desired power = 80%
+      </p>
+
+      <p>
+        Desired α = 0.05
+      </p>
+
+      <p>
+        Expected effect size = specified in advance
+      </p>
+
+    </div>
+
+    <p>
+      These inputs determine the required sample size.
+    </p>
+
+    <h2>Statistical Significance vs Effect Size</h2>
+
+    <p>
+      Statistical significance and effect size are not the same thing.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Concept</th>
+            <th>Measures</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>p-value</td>
+            <td>Evidence against H₀</td>
+          </tr>
+
+          <tr>
+            <td>Effect size</td>
+            <td>Magnitude of the effect</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      A tiny effect can become statistically significant if the sample size is extremely large.
+    </p>
+
+    <h2>Practical Importance</h2>
+
+    <p>
+      Researchers should ask:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Is the detected effect large enough to matter in practice?
       </p>
     </div>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+    <p>
+      Power helps detect effects.
+    </p>
+
+    <p>
+      Effect size helps judge whether those effects are meaningful.
+    </p>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      Hypothesis testing is not merely about obtaining significant p-values.
+    </p>
+
+    <p>
+      A useful study should have enough power to detect meaningful effects while controlling error rates.
+    </p>
+
+    <p>
+      Effect size and power therefore play central roles in study design.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Statistical power is the probability of detecting a real effect when one exists. Power increases with larger effect sizes, larger samples, lower variability, and less stringent significance thresholds.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Not all hypothesis tests ask the same question.
+    </p>
+
+    <p>
+      Some tests look for effects in either direction,
+      while others focus on a specific direction.
+    </p>
+
+    <p>
+      The next lesson explores one-sided and two-sided tests and how the choice affects statistical inference.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Define power as \(1 - \beta\)</li>
-        <li>Understand the role of effect size</li>
-        <li>Explain how sample size affects detectability</li>
-        <li>Recognize the α–β trade-off</li>
+
+        <li>Power is the probability of correctly rejecting a false null hypothesis</li>
+
+        <li>Power equals 1 − β</li>
+
+        <li>Effect size measures the magnitude of an effect</li>
+
+        <li>Larger effects are easier to detect</li>
+
+        <li>Larger samples generally increase power</li>
+
+        <li>Greater variability decreases power</li>
+
+        <li>Power analysis helps determine required sample sizes</li>
+
+        <li>Statistical significance and practical importance are distinct concepts</li>
+
       </ul>
+
     </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/hypothesis-testing/type1-type2-errors/">
+         ← Previous: Type I and Type II Errors
+      </a>
+
+      <a class="btn"
+         href="/inference/hypothesis-testing/one-sided-vs-two-sided/">
+         Next: One-Sided vs Two-Sided Tests →
+      </a>
+
+    </div>
+
   </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next step</h2>
-      <p style="margin:0;">
-        Next, we compare one-sided and two-sided tests
-        and examine their implications for power.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/hypothesis-testing/one-sided-vs-two-sided/">
-          Next lesson: 8. One-Sided vs Two-Sided Tests →
-        </a>
-      </div>
-    </div>
-
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/hypothesis-testing/type1-type2-errors/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 6: Type I and Type II Errors
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>

@@ -1,245 +1,549 @@
 ---
 layout: default
-title: "12. Post-Hoc Tests and Multiple Comparisons (Preview)"
-description: "Understand why post-hoc tests are needed after ANOVA and how multiple comparisons affect Type I error."
+title: Post-Hoc Tests and Multiple Comparisons
+description: Learn why post-hoc tests are needed after ANOVA and how statisticians control error rates when making multiple comparisons.
 permalink: /inference/classical-tests/post-hoc-tests-and-multiple-comparisons-preview/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 introduces the logic of post-hoc testing and multiple-comparison control.
-        Detailed procedures and software demonstrations will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update continue-reading keys -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_classical_tests_lesson_v0";
+(function () {
 
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/classical-tests/post-hoc-tests-and-multiple-comparisons-preview/",
-      label: "Lesson 12 — Post-Hoc Tests & Multiple Comparisons",
-      ts: Date.now()
-    }));
+  const KEY =
+    "esa_continue_inference_classical_tests_lesson_v0";
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/classical-tests/",
-      label: "Block 4 — Classical Tests",
-      ts: Date.now()
-    }));
-  })();
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/classical-tests/post-hoc-tests-and-multiple-comparisons-preview/",
+    label: "Post-Hoc Tests and Multiple Comparisons",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 4</span>
-        <span class="badge">Lesson 12</span>
-        <span class="badge">ANOVA</span>
-        <span class="badge">Multiple Comparisons</span>
-      </div>
 
-      <h1>12. Post-Hoc Tests and Multiple Comparisons (Preview)</h1>
-
-      <p class="lead">
-        When ANOVA rejects the null hypothesis,
-        we know that not all means are equal —
-        but we do not yet know <strong>which</strong> means differ.
-        Post-hoc procedures address this question
-        while controlling error rates.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/classical-tests/">Back to Block 4</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        Multiple testing inflates Type I error if not controlled.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 4</span>
+      <span class="badge">Classical Tests</span>
+      <span class="badge">ANOVA Follow-Up</span>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
-    <p>
-      Understand why post-hoc tests are necessary,
-      how multiple comparisons inflate Type I error,
-      and how adjustment procedures control it.
+    <h1>Post-Hoc Tests and Multiple Comparisons</h1>
+
+    <p class="lead">
+      A significant ANOVA result tells us that at least one group mean differs, but it does not identify which groups are different.
     </p>
-  </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Core problem</h2>
-      <p style="margin:0;">
-        Performing many pairwise t tests increases
-        the probability of at least one false positive.
-      </p>
+    <p class="lead">
+      Post-hoc procedures provide a systematic way to investigate specific group differences while controlling the risk of false discoveries.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/classical-tests/one-way-anova-f-test/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/power-sample-size/">
+         Next Block: Power & Sample Size →
+      </a>
+
     </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) Why ANOVA is not enough</h2>
-  </div>
+<!-- LESSON -->
 
-  <div class="card">
-    ANOVA tests:
-    <br><br>
-    \[
-    H_0: \mu_1 = \mu_2 = \dots = \mu_k
-    \]
-  </div>
+<section>
 
-  <p>
-    A significant F statistic indicates that
-    at least one mean differs,
-    but does not specify which pair(s) differ.
-  </p>
-</section>
+  <div class="content-narrow">
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) Multiple comparisons problem</h2>
-  </div>
+    <h2>What ANOVA Does Not Tell Us</h2>
 
-  <div class="card">
-    If k groups exist,
-    the number of pairwise comparisons is:
-    <br><br>
-    \[
-    \frac{k(k-1)}{2}
-    \]
-  </div>
+    <p>
+      Recall that a significant ANOVA result leads us to reject:
+    </p>
 
-  <p>
-    Each additional test increases
-    the overall probability of a Type I error
-    across the family of tests.
-  </p>
+    0
 
-  <div class="card" style="margin-top:1rem;">
-    Familywise error rate (FWER):
-    <br><br>
-    Probability of at least one false rejection.
-  </div>
-</section>
+    <p>
+      However, ANOVA does not reveal:
+    </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) Adjustment strategies</h2>
-  </div>
+    <ul class="bullets">
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Bonferroni correction</h3>
+      <li>Which groups differ</li>
+
+      <li>How many groups differ</li>
+
+      <li>The magnitude of those differences</li>
+
+    </ul>
+
+    <p>
+      Additional analysis is required.
+    </p>
+
+    <h2>A Motivating Example</h2>
+
+    <p>
+      Suppose an ANOVA compares four teaching methods:
+    </p>
+
+    <div class="example-box">
+
+      <p>Method A</p>
+      <p>Method B</p>
+      <p>Method C</p>
+      <p>Method D</p>
+
+    </div>
+
+    <p>
+      The ANOVA result is statistically significant.
+    </p>
+
+    <p>
+      We now know that at least one mean differs, but we do not know whether:
+    </p>
+
+    <div class="example-box">
+
+      <p>A differs from B</p>
+      <p>A differs from C</p>
+      <p>B differs from D</p>
+      <p>Several pairs differ simultaneously</p>
+
+    </div>
+
+    <h2>The Temptation</h2>
+
+    <p>
+      One simple idea is to perform many pairwise t tests.
+    </p>
+
+    <p>
+      For four groups, we could compare:
+    </p>
+
+    <ul class="bullets">
+
+      <li>A vs B</li>
+
+      <li>A vs C</li>
+
+      <li>A vs D</li>
+
+      <li>B vs C</li>
+
+      <li>B vs D</li>
+
+      <li>C vs D</li>
+
+    </ul>
+
+    <p>
+      Unfortunately, this creates a new problem.
+    </p>
+
+    <h2>The Multiple Comparisons Problem</h2>
+
+    <p>
+      Every hypothesis test carries a chance of making a Type I error.
+    </p>
+
+    <p>
+      If each test uses:
+    </p>
+
+    1
+
+    <p>
+      then conducting many tests increases the probability of obtaining at least one false positive.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Key issue:</strong>
+
       <p>
-        Use adjusted significance level:
-        <br>
-        \[
-        \alpha^* = \frac{\alpha}{m}
-        \]
-        where m = number of comparisons.
+        The more tests we perform, the greater the overall probability of incorrectly rejecting at least one true null hypothesis.
       </p>
+
     </div>
 
-    <div class="card">
-      <h3>Tukey’s HSD</h3>
+    <h2>Family-Wise Error Rate</h2>
+
+    <p>
+      The probability of making one or more Type I errors across a family of tests is called the:
+    </p>
+
+    <div class="example-box">
+
       <p>
-        Designed for pairwise comparisons
-        while maintaining overall error control.
+        Family-Wise Error Rate (FWER)
       </p>
     </div>
 
-    <div class="card">
-      <h3>Holm method</h3>
+    <p>
+      Controlling this error rate is one of the primary goals of post-hoc procedures.
+    </p>
+
+    <h2>Why Control Error Rates?</h2>
+
+    <p>
+      Consider conducting 20 independent tests using:
+    </p>
+
+    2
+
+    <p>
+      Even if every null hypothesis is true, obtaining at least one significant result becomes surprisingly likely.
+    </p>
+
+    <p>
+      Multiple-comparison procedures help prevent misleading conclusions.
+    </p>
+
+    <h2>What Are Post-Hoc Tests?</h2>
+
+    <div class="concept-box">
+
+      <strong>Definition:</strong>
+
       <p>
-        Sequential adjustment
-        less conservative than Bonferroni.
+        Post-hoc tests are follow-up procedures performed after a significant omnibus test such as ANOVA.
       </p>
+
     </div>
 
-    <div class="card">
-      <h3>False discovery rate</h3>
+    <p>
+      They identify which specific comparisons are statistically significant while controlling overall error rates.
+    </p>
+
+    <h2>Common Post-Hoc Procedures</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Procedure</th>
+            <th>Main Purpose</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Tukey HSD</td>
+            <td>All pairwise comparisons</td>
+          </tr>
+
+          <tr>
+            <td>Bonferroni Correction</td>
+            <td>General error control</td>
+          </tr>
+
+          <tr>
+            <td>Holm Procedure</td>
+            <td>Improved Bonferroni approach</td>
+          </tr>
+
+          <tr>
+            <td>Scheffé Method</td>
+            <td>Flexible contrasts</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>Tukey's HSD</h2>
+
+    <p>
+      Tukey's Honestly Significant Difference procedure is one of the most commonly used post-hoc methods.
+    </p>
+
+    <p>
+      It is specifically designed for:
+    </p>
+
+    <div class="example-box">
+
       <p>
-        Controls expected proportion of false discoveries
-        among rejected hypotheses.
+        All pairwise mean comparisons
       </p>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>4) Interpretation</h2>
-  </div>
+    <p>
+      while controlling the overall Type I error rate.
+    </p>
 
-  <div class="card">
-    Post-hoc tests identify
-    which specific group means differ
-    while maintaining control over error rates.
-  </div>
+    <h2>The Bonferroni Idea</h2>
 
-  <p class="muted-mini">
-    Choice of adjustment depends on research goals
-    and tolerance for Type I error.
-  </p>
-</section>
+    <p>
+      Bonferroni correction adjusts the significance level according to the number of comparisons.
+    </p>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+    <p>
+      The adjusted threshold becomes:
+    </p>
+
+    3
+
+    <p>
+      where:
+    </p>
+
+    <ul class="bullets">
+
+      <li>α = desired family-wise error rate</li>
+
+      <li>m = number of comparisons</li>
+
+    </ul>
+
+    <h2>Trade-Offs</h2>
+
+    <p>
+      Stronger error control often reduces statistical power.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Approach</th>
+            <th>Type I Error</th>
+            <th>Power</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Loose control</td>
+            <td>Higher</td>
+            <td>Higher</td>
+          </tr>
+
+          <tr>
+            <td>Strict control</td>
+            <td>Lower</td>
+            <td>Lower</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      Choosing a procedure often involves balancing these competing goals.
+    </p>
+
+    <h2>Planned vs Post-Hoc Comparisons</h2>
+
+    <p>
+      Some comparisons are specified before data collection.
+    </p>
+
+    <p>
+      These are called:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Planned Comparisons
+      </p>
+    </div>
+
+    <p>
+      Others are chosen after inspecting results.
+    </p>
+
+    <p>
+      These are:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Post-Hoc Comparisons
+      </p>
+    </div>
+
+    <p>
+      Post-hoc analyses typically require stronger error control because they are data-driven.
+    </p>
+
+    <h2>Effect Size Still Matters</h2>
+
+    <p>
+      Statistical significance does not automatically imply practical importance.
+    </p>
+
+    <p>
+      After identifying significant differences, researchers often evaluate:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Mean differences</li>
+
+      <li>Confidence intervals</li>
+
+      <li>Effect sizes</li>
+
+    </ul>
+
+    <p>
+      These quantities help assess practical significance.
+    </p>
+
+    <h2>Modern Perspective</h2>
+
+    <p>
+      Modern statistical reporting often combines:
+    </p>
+
+    <ul class="bullets">
+
+      <li>ANOVA results</li>
+
+      <li>Post-hoc comparisons</li>
+
+      <li>Confidence intervals</li>
+
+      <li>Effect-size measures</li>
+
+    </ul>
+
+    <p>
+      This provides a more complete understanding of group differences.
+    </p>
+
+    <h2>Relationship to Future Topics</h2>
+
+    <p>
+      Multiple-comparison ideas extend far beyond ANOVA.
+    </p>
+
+    <p>
+      They appear in:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Clinical trials</li>
+
+      <li>Genomics</li>
+
+      <li>A/B testing</li>
+
+      <li>Large-scale experimentation</li>
+
+      <li>Machine learning evaluation</li>
+
+    </ul>
+
+    <p>
+      Whenever many hypotheses are tested simultaneously, multiplicity becomes an important concern.
+    </p>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      ANOVA provides an overall test for mean differences, but additional procedures are needed to identify where those differences occur.
+    </p>
+
+    <p>
+      Post-hoc methods help researchers explore specific comparisons while maintaining appropriate control over false-positive findings.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Post-hoc tests are follow-up procedures used after significant omnibus tests such as ANOVA. They identify specific group differences while controlling the increased risk of Type I errors caused by multiple comparisons.
+      </p>
+
+    </div>
+
+    <h2>Completing the Classical Tests Block</h2>
+
+    <p>
+      You have now completed the major classical hypothesis-testing procedures covered in introductory statistical inference.
+    </p>
+
+    <p>
+      The next block focuses on power analysis and sample-size determination—tools that help researchers design studies before data collection begins.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Recognize the multiple testing problem</li>
-        <li>Understand familywise error rate</li>
-        <li>Know major adjustment methods</li>
-        <li>Understand the role of post-hoc tests after ANOVA</li>
+
+        <li>ANOVA identifies whether any group differences exist but not which groups differ</li>
+
+        <li>Multiple comparisons increase the risk of Type I errors</li>
+
+        <li>The family-wise error rate measures overall false-positive risk</li>
+
+        <li>Post-hoc procedures control error rates while identifying specific differences</li>
+
+        <li>Tukey, Bonferroni, Holm, and Scheffé are common approaches</li>
+
+        <li>Stronger error control often reduces statistical power</li>
+
+        <li>Planned comparisons differ from post-hoc comparisons</li>
+
+        <li>Practical interpretation should include effect sizes and confidence intervals</li>
+
       </ul>
+
     </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/classical-tests/one-way-anova-f-test/">
+         ← Previous: One-Way ANOVA and the F Test
+      </a>
+
+      <a class="btn"
+         href="/inference/power-sample-size/">
+         Next Block: Power &amp; Sample Size →
+      </a>
+
+    </div>
+
   </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next block</h2>
-      <p style="margin:0;">
-        We now move to planning studies:
-        statistical power and required sample size.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/power-sample-size/">
-          Next block: Block 5 — Power & Sample Size →
-        </a>
-      </div>
-    </div>
-
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/classical-tests/one-way-anova-f-test/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 11: One-Way ANOVA (F Test)
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>

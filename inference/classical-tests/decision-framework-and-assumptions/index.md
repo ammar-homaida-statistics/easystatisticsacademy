@@ -1,242 +1,558 @@
 ---
 layout: default
-title: "1. Decision Framework and Assumptions (Quick Review)"
-description: "Review how classical tests fit into the hypothesis testing framework and clarify the core assumptions that make test results valid."
+title: Decision Framework and Assumptions
+description: Learn the general workflow behind classical hypothesis tests and the assumptions required for valid statistical conclusions.
 permalink: /inference/classical-tests/decision-framework-and-assumptions/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 aligns classical tests with the hypothesis testing framework
-        and clarifies the assumptions that justify their sampling distributions.
-        Detailed worked examples will be added later.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update continue-reading keys -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_classical_tests_lesson_v0";
+(function () {
 
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/classical-tests/decision-framework-and-assumptions/",
-      label: "Lesson 1 — Decision Framework and Assumptions",
-      ts: Date.now()
-    }));
+  const KEY =
+    "esa_continue_inference_classical_tests_lesson_v0";
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/classical-tests/",
-      label: "Block 4 — Classical Tests",
-      ts: Date.now()
-    }));
-  })();
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/classical-tests/decision-framework-and-assumptions/",
+    label: "Decision Framework and Assumptions",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 4</span>
-        <span class="badge">Lesson 1</span>
-        <span class="badge">Framework</span>
-        <span class="badge">Assumptions</span>
-      </div>
 
-      <h1>1. Decision Framework and Assumptions (Quick Review)</h1>
-
-      <p class="lead">
-        Classical tests are standardized hypothesis tests
-        with known sampling distributions.
-        This lesson connects the general testing logic
-        to the specific procedures used in practice.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/classical-tests/">Back to Block 4</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        All classical tests follow the same logical structure.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 4</span>
+      <span class="badge">Classical Tests</span>
+      <span class="badge">Foundations</span>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
-    <p>
-      Revisit the general hypothesis testing framework
-      and identify the assumptions that justify classical test statistics.
+    <h1>Decision Framework and Assumptions</h1>
+
+    <p class="lead">
+      Although many hypothesis tests exist, they all follow the same underlying decision framework.
     </p>
+
+    <p class="lead">
+      Before learning individual tests, it is important to understand the common workflow and the assumptions that make statistical conclusions trustworthy.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/classical-tests/">
+         ← Block Home
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/classical-tests/one-sample-z-test-for-mean/">
+         Next: One-Sample Z Test for a Mean →
+      </a>
+
+    </div>
+
   </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Core structure</h2>
-      <p style="margin:0;">
-        Every classical test follows:
-        Hypotheses → Test statistic → Sampling distribution → p-value → Decision.
-      </p>
-    </div>
-  </div>
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) The universal testing structure</h2>
-  </div>
+<!-- LESSON -->
 
-  <div class="card">
-    Step 1: State \(H_0\) and \(H_1\). <br>
-    Step 2: Compute a test statistic \(T\). <br>
-    Step 3: Determine its distribution under \(H_0\). <br>
-    Step 4: Compute p-value. <br>
-    Step 5: Compare to \( \alpha \) and conclude.
-  </div>
+<section>
 
-  <p class="muted-mini">
-    What differs across tests is the form of the test statistic and its distribution.
-  </p>
-</section>
+  <div class="content-narrow">
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) Sampling distributions used in Block 4</h2>
-  </div>
+    <h2>Why Learn a General Framework?</h2>
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>z distribution</h3>
-      <p style="margin:0;">
-        Used when variance is known or normal approximation applies.
+    <p>
+      The next lessons introduce several classical hypothesis tests.
+    </p>
+
+    <p>
+      At first they may appear different,
+      but most follow nearly identical logic.
+    </p>
+
+    <p>
+      Understanding the common structure makes learning individual tests much easier.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Key idea:</strong>
+
+      <p>
+        Classical hypothesis tests differ mainly in their formulas. Their decision process is largely the same.
+      </p>
+
+    </div>
+
+    <h2>The Universal Testing Workflow</h2>
+
+    <p>
+      Most hypothesis tests follow six major steps.
+    </p>
+
+    <ol>
+
+      <li>Define the research question.</li>
+
+      <li>State the hypotheses.</li>
+
+      <li>Check assumptions.</li>
+
+      <li>Compute a test statistic.</li>
+
+      <li>Compute a p-value.</li>
+
+      <li>Make a decision and interpret the result.</li>
+
+    </ol>
+
+    <h2>Step 1: Define the Research Question</h2>
+
+    <p>
+      Every statistical test begins with a substantive question.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Is the mean different from a target value?
+      </p>
+
+      <p>
+        Are two population means equal?
+      </p>
+
+      <p>
+        Is a population proportion larger than 50%?
+      </p>
+
+      <p>
+        Are two variables independent?
+      </p>
+
+    </div>
+
+    <p>
+      The question determines the appropriate test.
+    </p>
+
+    <h2>Step 2: State the Hypotheses</h2>
+
+    <p>
+      Next, formulate:
+    </p>
+
+    0
+
+    <p>
+      and:
+    </p>
+
+    1
+
+    <p>
+      The hypotheses translate the research question into statistical language.
+    </p>
+
+    <h2>Example</h2>
+
+    <p>
+      If a company claims its average bottle fill is:
+    </p>
+
+    2
+
+    <p>
+      then:
+    </p>
+
+    3
+
+    <br><br>
+
+    4
+
+    <h2>Step 3: Check Assumptions</h2>
+
+    <p>
+      Every hypothesis test relies on assumptions.
+    </p>
+
+    <p>
+      If important assumptions fail,
+      conclusions may become unreliable.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Important:</strong>
+
+      <p>
+        A statistically correct calculation can still produce misleading conclusions if assumptions are violated.
+      </p>
+
+    </div>
+
+    <h2>Common Assumption Categories</h2>
+
+    <ul class="bullets">
+
+      <li>Random sampling</li>
+
+      <li>Independence</li>
+
+      <li>Normality (or large-sample approximation)</li>
+
+      <li>Equal variances (for some tests)</li>
+
+      <li>Adequate sample size</li>
+
+    </ul>
+
+    <h2>Random Sampling</h2>
+
+    <p>
+      Most inference procedures assume the sample represents the population fairly.
+    </p>
+
+    <p>
+      Random sampling helps justify that assumption.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Biased samples can produce biased conclusions regardless of sample size.
       </p>
     </div>
 
-    <div class="card">
-      <h3>t distribution</h3>
-      <p style="margin:0;">
-        Used when variance is unknown and estimated from data.
+    <h2>Independence</h2>
+
+    <p>
+      Many statistical formulas assume observations do not influence one another.
+    </p>
+
+    <p>
+      Independence is often justified through:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Random sampling</li>
+
+      <li>Random assignment</li>
+
+      <li>Appropriate study design</li>
+
+    </ul>
+
+    <h2>Normality</h2>
+
+    <p>
+      Some tests assume the underlying population is approximately normal.
+    </p>
+
+    <p>
+      Others rely on the Central Limit Theorem when sample sizes are sufficiently large.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Rule of thumb:</strong>
+
+      <p>
+        Larger samples generally make normal approximations more reliable.
       </p>
+
     </div>
 
-    <div class="card">
-      <h3>Chi-square distribution</h3>
-      <p style="margin:0;">
-        Used for categorical count data.
+    <h2>Step 4: Compute a Test Statistic</h2>
+
+    <p>
+      After assumptions are checked,
+      the observed sample is compared to the null hypothesis.
+    </p>
+
+    <p>
+      Most test statistics follow:
+    </p>
+
+    5
+
+    <p>
+      The statistic measures how far the data depart from the null hypothesis.
+    </p>
+
+    <h2>Step 5: Compute a p-Value</h2>
+
+    <p>
+      Once the test statistic is known,
+      we calculate the probability of obtaining results at least as extreme under:
+    </p>
+
+    6
+
+    <p>
+      This probability is the p-value.
+    </p>
+
+    <h2>Step 6: Make a Decision</h2>
+
+    <p>
+      Compare:
+    </p>
+
+    <p>
+      p-value and significance level:
+    </p>
+
+    7
+
+    <div class="concept-box">
+
+      <strong>Decision Rule:</strong>
+
+      <p>
+        Reject H₀ if p ≤ α.
       </p>
+
+      <p>
+        Fail to reject H₀ if p > α.
+      </p>
+
     </div>
 
-    <div class="card">
-      <h3>F distribution</h3>
-      <p style="margin:0;">
-        Used for comparing multiple means (ANOVA).
-      </p>
-    </div>
-  </div>
-</section>
+    <h2>Interpretation Comes Last</h2>
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) Core assumptions across tests</h2>
-  </div>
+    <p>
+      The statistical decision itself is not the final goal.
+    </p>
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Independence</h3>
-      <p style="margin:0;">
-        Observations must be independent within and across groups.
-      </p>
-    </div>
+    <p>
+      Researchers must translate the result back into the original context.
+    </p>
 
-    <div class="card">
-      <h3>Random sampling / assignment</h3>
-      <p style="margin:0;">
-        Ensures validity of probability statements.
-      </p>
-    </div>
+    <div class="example-box">
 
-    <div class="card">
-      <h3>Normality (when required)</h3>
-      <p style="margin:0;">
-        Needed for small-sample mean tests.
+      <p>
+        Statistical conclusion:
       </p>
+
+      <p>
+        Reject H₀.
+      </p>
+
+      <hr>
+
+      <p>
+        Practical conclusion:
+      </p>
+
+      <p>
+        The data provide evidence that average bottle fills differ from 500 mL.
+      </p>
+
     </div>
 
-    <div class="card">
-      <h3>Equal variance (in some tests)</h3>
-      <p style="margin:0;">
-        Required for pooled two-sample t tests and ANOVA.
-      </p>
+    <h2>The Role of Assumptions</h2>
+
+    <p>
+      Assumptions are often treated as a checklist,
+      but they are more than that.
+    </p>
+
+    <p>
+      Assumptions justify the probability calculations used to obtain p-values.
+    </p>
+
+    <p>
+      Without them,
+      the theoretical sampling distributions may no longer apply.
+    </p>
+
+    <h2>What Happens When Assumptions Fail?</h2>
+
+    <p>
+      Violations can lead to:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Incorrect p-values</li>
+
+      <li>Incorrect confidence intervals</li>
+
+      <li>Inflated Type I error rates</li>
+
+      <li>Reduced statistical power</li>
+
+    </ul>
+
+    <h2>Different Tests, Same Logic</h2>
+
+    <p>
+      The specific formulas change across tests:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Z tests</li>
+
+      <li>T tests</li>
+
+      <li>Chi-square tests</li>
+
+      <li>ANOVA</li>
+
+      <li>Proportion tests</li>
+
+    </ul>
+
+    <p>
+      But the decision framework remains remarkably similar.
+    </p>
+
+    <h2>A Quick Framework Summary</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Step</th>
+            <th>Purpose</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>1</td>
+            <td>Define question</td>
+          </tr>
+
+          <tr>
+            <td>2</td>
+            <td>State hypotheses</td>
+          </tr>
+
+          <tr>
+            <td>3</td>
+            <td>Check assumptions</td>
+          </tr>
+
+          <tr>
+            <td>4</td>
+            <td>Compute test statistic</td>
+          </tr>
+
+          <tr>
+            <td>5</td>
+            <td>Compute p-value</td>
+          </tr>
+
+          <tr>
+            <td>6</td>
+            <td>Make and interpret decision</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>4) What happens when assumptions fail?</h2>
-  </div>
+    <h2>The Bigger Picture</h2>
 
-  <div class="card">
-    If assumptions are violated,
-    the sampling distribution of the test statistic may no longer be valid.
-    This affects p-values and conclusions.
-  </div>
+    <p>
+      Statistical tests are not isolated formulas.
+    </p>
 
-  <p class="muted-mini">
-    Later blocks address robustness and alternatives.
-  </p>
-</section>
+    <p>
+      They are applications of a general inferential framework built on probability, sampling distributions, and uncertainty.
+    </p>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+    <p>
+      Understanding this framework makes every subsequent test easier to learn and interpret.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Every classical hypothesis test follows the same basic process: define a question, state hypotheses, verify assumptions, compute a test statistic, calculate a p-value, and make a decision. Assumptions are essential because they justify the probability calculations behind the test.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      The first classical hypothesis test we will study is the one-sample Z test for a population mean.
+    </p>
+
+    <p>
+      This test applies when population variability is known and serves as the foundation for many other inferential procedures.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Connect classical tests to general testing logic</li>
-        <li>Identify relevant sampling distributions</li>
-        <li>Recognize core assumptions</li>
-        <li>Understand why assumptions matter</li>
+
+        <li>Most hypothesis tests follow the same six-step workflow</li>
+
+        <li>Research questions determine the appropriate test</li>
+
+        <li>Hypotheses formalize competing explanations</li>
+
+        <li>Assumptions justify probability calculations</li>
+
+        <li>Test statistics measure departure from the null hypothesis</li>
+
+        <li>p-values quantify evidence against H₀</li>
+
+        <li>Decisions are based on comparing p-values to α</li>
+
+        <li>Interpretation must connect statistical conclusions to the original problem</li>
+
       </ul>
+
     </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/classical-tests/">
+         ← Block Home
+      </a>
+
+      <a class="btn"
+         href="/inference/classical-tests/one-sample-z-test-for-mean/">
+         Next: One-Sample Z Test for a Mean →
+      </a>
+
+    </div>
+
   </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next lesson</h2>
-      <p style="margin:0;">
-        We begin with the simplest classical test:
-        the one-sample z test for a mean (σ known).
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/classical-tests/one-sample-z-test-for-mean/">
-          Next lesson: 2. One-Sample z Test for a Mean →
-        </a>
-      </div>
-    </div>
-
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous block</div>
-        <div class="mini-body">
-          <a href="/inference/hypothesis-testing/" style="color:#1a73e8; text-decoration:underline;">
-            Block 3 — Hypothesis Testing
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>

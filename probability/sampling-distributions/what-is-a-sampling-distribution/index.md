@@ -1,291 +1,471 @@
 ---
 layout: default
-title: "1. What Is a Sampling Distribution?"
-description: "Sampling distributions: the distribution of a statistic under repeated sampling; variability, standard error idea, and why inference is possible."
+title: What Is a Sampling Distribution?
+description: Learn what a sampling distribution is and why it is one of the most important ideas in statistical inference.
 permalink: /probability/sampling-distributions/what-is-a-sampling-distribution/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">🚧 Lesson Under Construction</h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 is published first to lock the structure and the correct conceptual flow.
-        Visual intuition, worked examples, and simulations will be added in Version 1.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update "last visited lesson" for Block 7 -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_probability_sampling_distributions_lesson_v0";
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/probability/sampling-distributions/what-is-a-sampling-distribution/",
-      label: "Lesson 1 — What Is a Sampling Distribution?",
-      ts: Date.now()
-    }));
-  })();
+(function () {
+
+  const KEY =
+    "esa_continue_probability_sampling_distributions_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/probability/sampling-distributions/what-is-a-sampling-distribution/",
+    label: "What Is a Sampling Distribution?",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 7</span>
-        <span class="badge">Lesson 1</span>
-        <span class="badge">Sampling</span>
-        <span class="badge">Foundations</span>
-      </div>
 
-      <h1>1. What Is a Sampling Distribution?</h1>
-
-      <p class="lead">
-        A statistic (like \(\overline{X}\) or \(\hat{p}\)) is a random variable because it depends on a random sample.
-        The <strong>sampling distribution</strong> describes how that statistic varies across repeated samples.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/probability/sampling-distributions/">Back to Block 7</a>
-        <a class="btn btn-outline" href="/probability/">Probability home</a>
-      </div>
-
-      <p class="muted-mini">
-        Inference works because sampling distributions create probability guarantees.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Probability</span>
+      <span class="badge">Block 7</span>
+      <span class="badge">Sampling Distributions</span>
+      <span class="badge">Foundations</span>
     </div>
+
+    <h1>What Is a Sampling Distribution?</h1>
+
+    <p class="lead">
+      Every sample produces slightly different results.
+    </p>
+
+    <p class="lead">
+      A sampling distribution describes how a statistic varies across all possible samples and provides the foundation for confidence intervals, hypothesis tests, and statistical inference.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/probability/sampling-distributions/">
+         ← Back to Sampling Distributions
+      </a>
+
+      <a class="btn btn-outline"
+         href="/probability/sampling-distributions/standard-error-and-estimators/">
+         Next: Standard Error and Estimators →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
+<!-- LESSON -->
+
+<section>
+
+  <div class="content-narrow">
+
+    <h2>Why Sampling Distributions Exist</h2>
+
     <p>
-      By the end of this lesson, you should be able to define a sampling distribution,
-      distinguish it from the population distribution, and explain why it is the engine of
-      confidence intervals and hypothesis tests.
+      Imagine drawing a sample from a population and calculating a statistic.
     </p>
-  </div>
 
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Key idea</h2>
-      <p style="margin:0;">
-        The population distribution describes <strong>data values</strong>.
-        The sampling distribution describes <strong>a statistic</strong> computed from data.
+    <div class="example-box">
+
+      <p>
+        Sample mean
       </p>
-    </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) Population vs sample vs statistic</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Population model</h3>
-      <p style="margin:0;">
-        A random variable \(X\) has a population distribution, e.g.
-        \(X \sim N(\mu,\sigma^2)\) or \(X \sim \text{Bernoulli}(p)\).
+      <p>
+        Sample proportion
       </p>
+
+      <p>
+        Sample variance
+      </p>
+
     </div>
 
-    <div class="card">
-      <h3>Sample</h3>
-      <p style="margin:0;">
-        We observe \(X_1,\dots,X_n\) drawn from the same population model.
-      </p>
-    </div>
-  </div>
-
-  <div class="card" style="margin-top:1rem;">
-    <h3>Statistic</h3>
-    <p style="margin:0;">
-      A statistic is any function of the sample:
-      \[
-      T=T(X_1,\dots,X_n).
-      \]
-      Examples: \(\overline{X}\), \(S^2\), \(\hat{p}\).
-    </p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>2) Definition of sampling distribution</h2>
     <p>
-      Fix the population model (the “true” distribution). Now imagine repeating the sampling process many times.
-      Each time we compute the statistic \(T\), we get a different value.
+      If you drew a different sample,
+      the statistic would usually have a different value.
     </p>
-  </div>
 
-  <div class="card">
-    <p style="margin:0; font-size:1.05rem;">
-      The <strong>sampling distribution of \(T\)</strong> is the probability distribution of \(T\)
-      across repeated samples of size \(n\) from the same population model.
-    </p>
-  </div>
-
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Short form</h2>
-      <p style="margin:0;">
-        Population distribution = distribution of <strong>data</strong>. <br/>
-        Sampling distribution = distribution of a <strong>statistic</strong>.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>3) Core example: the sample mean</h2>
     <p>
-      The sample mean is
+      Sampling distributions describe this natural variation.
     </p>
-  </div>
 
-  <div class="card">
-    <p style="margin:0; font-size:1.1rem;">
-      \[
-      \overline{X}=\frac{1}{n}\sum_{i=1}^n X_i.
-      \]
-    </p>
-  </div>
+    <h2>A Simple Example</h2>
 
-  <div class="card" style="margin-top:1rem;">
-    <p style="margin:0;">
-      If \(X_1,\dots,X_n\) are i.i.d. with mean \(\mu\) and variance \(\sigma^2\), then:
-      \[
-      \mathbb{E}[\overline{X}] = \mu,
-      \qquad
-      \operatorname{Var}(\overline{X}) = \frac{\sigma^2}{n}.
-      \]
-    </p>
-  </div>
-
-  <p class="muted-mini" style="margin-top:.75rem;">
-    This variance shrinkage is the mathematical reason why larger samples give more precise estimates.
-  </p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>4) Shape: exact vs approximate</h2>
-  </div>
-
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Exact sampling distribution</h3>
-      <p style="margin:0;">
-        Sometimes we can derive the exact distribution of \(T\)
-        (e.g., Normal data → \(\overline{X}\) is Normal).
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Approximate sampling distribution</h3>
-      <p style="margin:0;">
-        Often we use the CLT:
-        \[
-        \frac{\overline{X}-\mu}{\sigma/\sqrt{n}}\approx N(0,1)
-        \quad (\text{for large } n).
-        \]
-      </p>
-    </div>
-  </div>
-
-  <div class="callout" style="margin-top:1rem;">
-    <div class="callout-copy">
-      <h2>Why this matters</h2>
-      <p style="margin:0;">
-        Confidence intervals and hypothesis tests depend on knowing (exactly or approximately)
-        the sampling distribution of the statistic you use.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <h2>5) Standard error (preview)</h2>
     <p>
-      The standard deviation of a statistic’s sampling distribution is called its <strong>standard error</strong>.
+      Suppose a population contains:
     </p>
-  </div>
 
-  <div class="card">
-    <p style="margin:0;">
-      For the sample mean:
-      \[
-      \operatorname{SE}(\overline{X})=\sqrt{\operatorname{Var}(\overline{X})}=\frac{\sigma}{\sqrt{n}}.
-      \]
+    <div class="example-box">
+
+      <p>
+        2, 4, 6, 8
+      </p>
+
+    </div>
+
+    <p>
+      Draw samples of size 2 and calculate the sample mean each time.
     </p>
-  </div>
 
-  <p class="muted-mini" style="margin-top:.75rem;">
-    In practice, \(\sigma\) is usually unknown and replaced by \(S\), leading to t-based inference later.
-  </p>
-</section>
+    <p>
+      Different samples produce different means.
+    </p>
 
-<section class="section">
-  <div class="section-head">
-    <h2>6) Common confusion to avoid</h2>
-  </div>
+    <div class="example-box">
 
-  <div class="card">
+      <p>
+        (2,4) → Mean = 3
+      </p>
+
+      <p>
+        (2,6) → Mean = 4
+      </p>
+
+      <p>
+        (2,8) → Mean = 5
+      </p>
+
+      <p>
+        (4,6) → Mean = 5
+      </p>
+
+      <p>
+        (4,8) → Mean = 6
+      </p>
+
+      <p>
+        (6,8) → Mean = 7
+      </p>
+
+    </div>
+
+    <p>
+      These means themselves form a distribution.
+    </p>
+
+    <p>
+      That distribution is a sampling distribution.
+    </p>
+
+    <h2>Formal Definition</h2>
+
+    <div class="concept-box">
+
+      <strong>Definition:</strong>
+
+      <p>
+        A sampling distribution is the probability distribution of a statistic computed from all possible samples of a fixed size from a population.
+      </p>
+
+    </div>
+
+    <h2>Population Distribution vs Sampling Distribution</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Population Distribution</th>
+            <th>Sampling Distribution</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Distribution of individual observations</td>
+            <td>Distribution of a statistic</td>
+          </tr>
+
+          <tr>
+            <td>Describes data values</td>
+            <td>Describes sample summaries</td>
+          </tr>
+
+          <tr>
+            <td>Usually unknown</td>
+            <td>Can often be modeled mathematically</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>The Statistic Is Random</h2>
+
+    <p>
+      Before a sample is collected,
+      the value of a statistic is unknown.
+    </p>
+
+    <p>
+      Different samples lead to different outcomes.
+    </p>
+
+    <p>
+      Therefore statistics are random variables.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Key idea:</strong>
+
+      <p>
+        Sampling distributions exist because sample statistics are random variables.
+      </p>
+
+    </div>
+
+    <h2>Common Sampling Distributions</h2>
+
     <ul class="bullets">
-      <li><strong>Histogram of data</strong> ≠ sampling distribution.</li>
-      <li>The sampling distribution is about <strong>the statistic across samples</strong>, not the raw values in one sample.</li>
-      <li>Changing \(n\) changes the sampling distribution (variance typically decreases as \(n\) increases).</li>
+
+      <li>Sampling distribution of the sample mean</li>
+
+      <li>Sampling distribution of a sample proportion</li>
+
+      <li>Sampling distribution of a sample variance</li>
+
+      <li>Sampling distribution of regression coefficients</li>
+
     </ul>
-  </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
-      <ul class="bullets">
-        <li>Define “sampling distribution” precisely</li>
-        <li>Distinguish population distribution vs sampling distribution</li>
-        <li>Know why \(\operatorname{Var}(\overline{X})=\sigma^2/n\) is fundamental</li>
-        <li>Understand why inference relies on sampling distributions</li>
-        <li>Prepare for standard error and estimator properties</li>
-      </ul>
-    </div>
-  </div>
-</section>
+    <p>
+      These distributions play a central role in inference.
+    </p>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next step</h2>
-      <p style="margin:0;">
-        Next, we define <strong>estimators</strong> and formalize uncertainty using <strong>standard error</strong>.
+    <h2>The Sampling Distribution of the Mean</h2>
+
+    <p>
+      One of the most important examples is the distribution of:
+    </p>
+
+    0
+
+    <p>
+      across repeated samples.
+    </p>
+
+    <p>
+      The Central Limit Theorem tells us that this distribution often becomes approximately normal.
+    </p>
+
+    <h2>The Center of a Sampling Distribution</h2>
+
+    <p>
+      For the sample mean:
+    </p>
+
+    1
+
+    <p>
+      This means sample means are centered on the population mean.
+    </p>
+
+    <p>
+      On average,
+      the sample mean hits the correct target.
+    </p>
+
+    <h2>The Spread of a Sampling Distribution</h2>
+
+    <p>
+      Sample means vary from sample to sample.
+    </p>
+
+    <p>
+      Their variability is measured by:
+    </p>
+
+    2
+
+    <p>
+      which is called the standard error.
+    </p>
+
+    <h2>Why Larger Samples Help</h2>
+
+    <p>
+      As sample size increases:
+    </p>
+
+    3
+
+    <p>
+      becomes smaller.
+    </p>
+
+    <p>
+      Sampling distributions become narrower and estimates become more precise.
+    </p>
+
+    <h2>The Central Role in Inference</h2>
+
+    <p>
+      Sampling distributions allow us to answer questions such as:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        How accurate is this estimate?
       </p>
 
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/probability/sampling-distributions/standard-error-and-estimators/">
-          Next lesson: 2. Standard Error &amp; Estimators →
-        </a>
-      </div>
+      <p>
+        How much uncertainty is present?
+      </p>
+
+      <p>
+        Is this result surprising?
+      </p>
+
+      <p>
+        Could this difference be due to chance?
+      </p>
+
     </div>
 
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous block</div>
-        <div class="mini-body">
-          <a href="/probability/lln-clt/" style="color:#1a73e8; text-decoration:underline;">
-            Block 6 — Law of Large Numbers &amp; CLT
-          </a>
-        </div>
-      </div>
+    <p>
+      These are the core questions of statistical inference.
+    </p>
+
+    <h2>Confidence Intervals Depend on Sampling Distributions</h2>
+
+    <p>
+      Confidence intervals use the variability of a statistic to create a range of plausible parameter values.
+    </p>
+
+    <p>
+      Without a sampling distribution,
+      confidence intervals could not be constructed.
+    </p>
+
+    <h2>Hypothesis Tests Depend on Sampling Distributions</h2>
+
+    <p>
+      Hypothesis testing asks whether an observed statistic is unusual.
+    </p>
+
+    <p>
+      To answer that question,
+      we must know the distribution of the statistic under repeated sampling.
+    </p>
+
+    <p>
+      That information comes from the sampling distribution.
+    </p>
+
+    <h2>Sampling Distributions Are Usually Theoretical</h2>
+
+    <p>
+      In practice,
+      we rarely generate all possible samples.
+    </p>
+
+    <p>
+      Instead,
+      probability theory provides mathematical formulas that describe the sampling distribution.
+    </p>
+
+    <p>
+      The Central Limit Theorem is one of the most important tools for doing this.
+    </p>
+
+    <h2>The Big Picture</h2>
+
+    <p>
+      Data values vary.
+    </p>
+
+    <p>
+      Statistics vary because samples vary.
+    </p>
+
+    <p>
+      Sampling distributions quantify that variation.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Statistical inference is fundamentally the study of sampling distributions.
+      </p>
+
     </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Understanding a sampling distribution requires understanding its variability.
+    </p>
+
+    <p>
+      The next lesson introduces estimators and standard errors, which measure how much estimates vary across samples.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>A sampling distribution is the distribution of a statistic across all possible samples</li>
+
+        <li>Statistics are random variables because samples vary</li>
+
+        <li>Population distributions and sampling distributions are different concepts</li>
+
+        <li>The sampling distribution of the mean is especially important</li>
+
+        <li>Sample means are centered at the population mean</li>
+
+        <li>Sampling distributions become narrower as sample size increases</li>
+
+        <li>Confidence intervals and hypothesis tests rely on sampling distributions</li>
+
+        <li>Statistical inference is built on understanding sampling variability</li>
+
+      </ul>
+
+    </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/probability/sampling-distributions/">
+         ← Back to Sampling Distributions
+      </a>
+
+      <a class="btn"
+         href="/probability/sampling-distributions/standard-error-and-estimators/">
+         Next: Standard Error and Estimators →
+      </a>
+
+    </div>
+
   </div>
+
 </section>
