@@ -550,6 +550,7 @@ sidebar: false
     <p style="text-align:center;">
       Histogram with normal curve overlay
     </p>
+  </div>
 
   <h3>Python Example</h3>
 
