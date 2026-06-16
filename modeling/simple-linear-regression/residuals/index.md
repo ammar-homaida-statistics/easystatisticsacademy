@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Residuals and Least Squares
-description: Learn what residuals are, why they matter in regression, and how the least-squares method finds the regression line that best fits the data.
-permalink: /modeling/simple-linear-regression/residuals-and-least-squares/
+title: Residuals
+description: Learn what residuals are, how they measure prediction errors, and why they are essential for evaluating regression models.
+permalink: /modeling/simple-linear-regression/residuals/
 sidebar: false
 ---
 
@@ -14,8 +14,8 @@ sidebar: false
     "esa_continue_modeling_simple_linear_regression_lesson_v0";
 
   localStorage.setItem(KEY, JSON.stringify({
-    url: "/modeling/simple-linear-regression/residuals-and-least-squares/",
-    label: "Residuals and Least Squares",
+    url: "/modeling/simple-linear-regression/residuals/",
+    label: "Residuals",
     ts: Date.now()
   }));
 
@@ -35,14 +35,14 @@ sidebar: false
       <span class="badge">Residuals</span>
     </div>
 
-    <h1>Residuals and Least Squares</h1>
+    <h1>Residuals</h1>
 
     <p class="lead">
-      Regression models rarely predict every observation perfectly.
+      No regression model predicts every observation perfectly.
     </p>
 
     <p class="lead">
-      Residuals measure prediction errors, and the least-squares method uses those errors to find the regression line that best fits the data.
+      Residuals measure the difference between observed outcomes and the values predicted by the regression model, providing a direct way to assess model performance.
     </p>
 
     <div class="hero-actions">
@@ -53,8 +53,8 @@ sidebar: false
       </a>
 
       <a class="btn btn-outline"
-         href="/modeling/simple-linear-regression/r-squared/">
-         Next: R-Squared →
+         href="/modeling/simple-linear-regression/least-squares/">
+         Next: Least Squares →
       </a>
 
     </div>
@@ -69,18 +69,18 @@ sidebar: false
 
   <div class="content-narrow">
 
-    <h2>Why Prediction Errors Matter</h2>
+    <h2>Why Residuals Matter</h2>
 
     <p>
-      Even when a regression model captures an important relationship, actual observations rarely fall exactly on the regression line.
+      Regression models describe average relationships rather than perfectly fitting every observation.
     </p>
 
     <p>
-      Real-world data contain noise, measurement error, and unobserved influences.
+      As a result, actual outcomes usually differ from predicted outcomes.
     </p>
 
     <p>
-      As a result, some prediction error is unavoidable.
+      Residuals quantify those differences.
     </p>
 
     <div class="concept-box">
@@ -88,19 +88,27 @@ sidebar: false
       <strong>Main idea:</strong>
 
       <p>
-        Residuals measure the difference between observed outcomes and the values predicted by a regression model.
+        A residual is the difference between an observed value and the value predicted by a regression model.
       </p>
 
     </div>
 
-    <h2>What Is a Residual?</h2>
+    <h2>The Basic Definition</h2>
 
     <p>
-      A residual is the prediction error for a single observation.
+      For every observation, we can compare:
     </p>
 
+    <ul class="bullets">
+
+      <li>The actual observed value</li>
+
+      <li>The predicted value from the model</li>
+
+    </ul>
+
     <p>
-      It measures how far an observed value lies above or below the regression line.
+      The residual measures the gap between the two.
     </p>
 
     <div class="example-box">
@@ -110,14 +118,10 @@ sidebar: false
       </p>
     </div>
 
-    <p>
-      Every observation in a dataset has its own residual.
-    </p>
-
     <h2>Residual Notation</h2>
 
     <p>
-      Residuals are commonly denoted by:
+      In regression, residuals are often represented by:
     </p>
 
     <div class="example-box">
@@ -141,15 +145,33 @@ sidebar: false
 
     </ul>
 
+    <p>
+      Each observation has its own residual.
+    </p>
+
     <h2>A Simple Example</h2>
 
     <p>
-      Suppose a regression model predicts an exam score of 80.
+      Suppose a regression model predicts an exam score of:
     </p>
 
+    <div class="example-box">
+
+      <p>
+        ŷ = 82
+      </p>
+    </div>
+
     <p>
-      A student actually scores 86.
+      The student's actual score is:
     </p>
+
+    <div class="example-box">
+
+      <p>
+        y = 87
+      </p>
+    </div>
 
     <p>
       The residual is:
@@ -158,12 +180,12 @@ sidebar: false
     <div class="example-box">
 
       <p>
-        86 − 80 = 6
+        e = 87 − 82 = 5
       </p>
     </div>
 
     <p>
-      The observation lies 6 points above the regression line.
+      The model underpredicted the score by 5 points.
     </p>
 
     <h2>Positive Residuals</h2>
@@ -180,11 +202,11 @@ sidebar: false
     </div>
 
     <p>
-      This means the model underestimated the outcome.
+      This means the actual outcome was larger than expected.
     </p>
 
     <p>
-      The observation appears above the regression line.
+      The model underestimated the observation.
     </p>
 
     <h2>Negative Residuals</h2>
@@ -201,281 +223,269 @@ sidebar: false
     </div>
 
     <p>
-      This means the model overestimated the outcome.
+      This means the actual outcome was smaller than expected.
     </p>
 
     <p>
-      The observation appears below the regression line.
+      The model overestimated the observation.
     </p>
 
-    <h2>Zero Residual</h2>
+    <h2>Zero Residuals</h2>
 
     <p>
-      If the observed value equals the predicted value:
+      A residual equal to zero means:
     </p>
 
     <div class="example-box">
 
       <p>
-        Residual = 0
+        Observed Value = Predicted Value
       </p>
     </div>
 
     <p>
-      The observation falls exactly on the regression line.
+      The model predicted that observation perfectly.
     </p>
 
     <p>
-      Perfect predictions produce zero residuals.
+      Perfect residuals are uncommon in real-world datasets.
     </p>
 
-    <h2>Residuals Measure Unexplained Variation</h2>
+    <h2>Residuals Represent Unexplained Variation</h2>
 
     <p>
       Recall the distinction between signal and noise.
     </p>
 
     <p>
-      The regression line represents the systematic signal.
+      The regression line attempts to capture the signal.
     </p>
 
     <p>
-      Residuals represent variation not explained by the model.
+      Residuals represent the remaining variation that the model does not explain.
     </p>
 
     <div class="concept-box">
 
-      <strong>Key interpretation:</strong>
+      <strong>Key connection:</strong>
 
       <p>
-        Residuals capture the portion of the outcome that remains unexplained after accounting for the predictor variable.
+        Residuals measure the noise left over after the model captures the signal.
       </p>
 
     </div>
 
-    <h2>Why We Need a Best-Fitting Line</h2>
+    <h2>Visualizing Residuals</h2>
 
     <p>
-      Many different lines can be drawn through a scatterplot.
-    </p>
-
-    <p>
-      The question becomes:
-    </p>
-
-    <div class="example-box">
-
-      <p>
-        Which line fits the data best?
-      </p>
-    </div>
-
-    <p>
-      Regression answers this question using the least-squares principle.
-    </p>
-
-    <h2>The Problem With Raw Residuals</h2>
-
-    <p>
-      One possible idea would be to add all residuals together.
-    </p>
-
-    <p>
-      However, positive and negative residuals cancel each other out.
-    </p>
-
-    <p>
-      A model with large errors could still produce a residual sum near zero.
-    </p>
-
-    <p>
-      We therefore need a different measure of overall error.
-    </p>
-
-    <h2>Squaring the Residuals</h2>
-
-    <p>
-      To prevent cancellation, regression squares every residual.
-    </p>
-
-    <p>
-      Squaring produces two useful effects:
+      On a scatterplot with a regression line:
     </p>
 
     <ul class="bullets">
 
-      <li>All values become positive</li>
+      <li>Each point has an observed value</li>
 
-      <li>Large errors receive greater weight</li>
+      <li>The line provides a predicted value</li>
 
-    </ul>
-
-    <p>
-      This creates a meaningful measure of total prediction error.
-    </p>
-
-    <h2>The Least-Squares Criterion</h2>
-
-    <p>
-      The least-squares method selects the regression line that minimizes:
-    </p>
-
-    <div class="example-box">
-
-      <p>
-        Sum of Squared Residuals
-      </p>
-    </div>
-
-    <p>
-      This quantity is often abbreviated:
-    </p>
-
-    <div class="example-box">
-
-      <p>
-        SSR = Σe²
-      </p>
-    </div>
-
-    <p>
-      Smaller values indicate a better-fitting regression line.
-    </p>
-
-    <h2>Why Least Squares Is Popular</h2>
-
-    <p>
-      Least squares has several important advantages:
-    </p>
-
-    <ul class="bullets">
-
-      <li>Simple mathematical properties</li>
-
-      <li>Unique best-fitting solution</li>
-
-      <li>Penalizes large errors strongly</li>
-
-      <li>Works well in many applications</li>
+      <li>The vertical distance between the point and the line is the residual</li>
 
     </ul>
 
     <p>
-      These advantages explain its widespread use in statistics.
+      Residuals can be viewed as prediction errors measured vertically from the line.
     </p>
 
-    <h2>Visual Interpretation</h2>
+    <h2>Large vs Small Residuals</h2>
 
     <p>
-      On a scatterplot, residuals appear as vertical distances between observed points and the regression line.
+      Residual magnitude indicates prediction accuracy.
     </p>
 
-    <p>
-      The least-squares line is the line that makes the total squared distances as small as possible.
-    </p>
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Residual Size</th>
+            <th>Interpretation</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Small</td>
+            <td>Prediction is close to observation</td>
+          </tr>
+
+          <tr>
+            <td>Large</td>
+            <td>Prediction is far from observation</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
 
     <p>
-      No other straight line achieves a smaller total squared error.
+      Better-fitting models generally have smaller residuals.
     </p>
 
     <h2>Residuals and Model Quality</h2>
 
     <p>
-      Large residuals indicate poor predictions for specific observations.
-    </p>
-
-    <p>
-      Small residuals indicate predictions that closely match observed values.
-    </p>
-
-    <p>
-      Examining residuals helps analysts evaluate model performance.
-    </p>
-
-    <h2>Residuals Reveal Problems</h2>
-
-    <p>
-      Residual analysis can uncover issues such as:
+      Residuals help answer questions such as:
     </p>
 
     <ul class="bullets">
+
+      <li>How accurate are predictions?</li>
+
+      <li>Are important patterns being missed?</li>
+
+      <li>Is a linear model appropriate?</li>
+
+      <li>Do unusual observations exist?</li>
+
+    </ul>
+
+    <p>
+      Much of regression diagnostics relies on residual analysis.
+    </p>
+
+    <h2>Residual Patterns Matter</h2>
+
+    <p>
+      Ideally, residuals should appear random.
+    </p>
+
+    <p>
+      Systematic patterns may indicate:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Missing variables</li>
 
       <li>Nonlinear relationships</li>
 
-      <li>Outliers</li>
-
-      <li>Changing variability</li>
-
       <li>Model misspecification</li>
+
+      <li>Violations of assumptions</li>
 
     </ul>
 
     <p>
-      Residuals are therefore a critical diagnostic tool.
+      Residual plots are therefore powerful diagnostic tools.
     </p>
 
-    <h2>Residuals and Prediction</h2>
+    <h2>Residuals and Prediction Error</h2>
 
     <p>
-      Even excellent models typically produce nonzero residuals.
-    </p>
-
-    <p>
-      Prediction errors are a natural consequence of uncertainty and noise.
+      Every residual is a prediction error for a particular observation.
     </p>
 
     <p>
-      The goal is not perfect prediction but useful prediction.
+      Collectively, residuals summarize how well the model performs across the entire dataset.
     </p>
 
-    <div class="concept-box">
+    <p>
+      Smaller residuals generally indicate better predictive performance.
+    </p>
 
-      <strong>Important perspective:</strong>
+    <h2>Why Residuals Sum to Zero</h2>
+
+    <p>
+      In ordinary least squares regression with an intercept, positive and negative residuals balance each other.
+    </p>
+
+    <p>
+      As a result:
+    </p>
+
+    <div class="example-box">
 
       <p>
-        A good regression model minimizes error, but it does not eliminate uncertainty.
+        Sum of Residuals = 0
       </p>
+    </div>
+
+    <p>
+      This property follows from the way the regression line is fitted.
+    </p>
+
+    <p>
+      The next lesson explains exactly how that fitting process works.
+    </p>
+
+    <h2>Residuals vs Errors</h2>
+
+    <p>
+      Although the terms are sometimes used interchangeably, they are not identical.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Quantity</th>
+            <th>Observed?</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Error</td>
+            <td>Usually unobservable</td>
+          </tr>
+
+          <tr>
+            <td>Residual</td>
+            <td>Calculated from sample data</td>
+          </tr>
+
+        </tbody>
+
+      </table>
 
     </div>
 
-    <h2>Connection to Future Lessons</h2>
+    <p>
+      Residuals are estimates of the underlying model errors.
+    </p>
+
+    <h2>Residuals and Learning</h2>
 
     <p>
-      Residuals play a central role throughout regression analysis.
+      Many statistical and machine-learning methods improve models by analyzing residuals.
     </p>
 
     <p>
-      Many measures of model performance are based on residuals, including:
+      If residuals contain patterns, the model may still have information left to learn.
     </p>
 
-    <ul class="bullets">
-
-      <li>R-squared</li>
-
-      <li>Residual standard error</li>
-
-      <li>Diagnostic plots</li>
-
-      <li>Model comparison metrics</li>
-
-    </ul>
-
     <p>
-      Understanding residuals is therefore essential for evaluating regression models.
+      If residuals appear random, the model may already be capturing most of the available signal.
     </p>
 
     <h2>The Bigger Picture</h2>
 
     <p>
-      Regression models attempt to explain variation in an outcome variable.
+      Residuals reveal what the regression model fails to explain.
     </p>
 
     <p>
-      Residuals measure the variation that remains unexplained.
+      They quantify prediction errors, measure unexplained variation, and provide critical information for assessing model quality.
     </p>
 
     <p>
-      The least-squares method finds the regression line that minimizes total squared prediction error, providing the foundation for modern regression analysis.
+      Understanding residuals is essential because nearly every regression diagnostic is built around them.
     </p>
 
     <div class="concept-box">
@@ -483,7 +493,7 @@ sidebar: false
       <strong>Core message:</strong>
 
       <p>
-        Residuals are prediction errors equal to observed values minus predicted values. The least-squares method chooses the regression line that minimizes the sum of squared residuals, producing the best-fitting linear model.
+        Residuals are the differences between observed and predicted values. They measure prediction error, represent unexplained variation, and play a central role in evaluating regression models.
       </p>
 
     </div>
@@ -491,15 +501,22 @@ sidebar: false
     <h2>Looking Ahead</h2>
 
     <p>
-      Once a regression line has been fitted, analysts want to know how much variation in the outcome it actually explains.
+      If residuals measure prediction error, an obvious question arises:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        How is the regression line chosen in the first place?
+      </p>
+    </div>
+
+    <p>
+      The answer lies in the least-squares principle, the most common method for fitting regression models.
     </p>
 
     <p>
-      One of the most widely used measures for answering this question is R-squared.
-    </p>
-
-    <p>
-      The next lesson introduces R-squared and explains how it measures model fit.
+      The next lesson explains how least squares uses residuals to determine the best-fitting regression line.
     </p>
 
     <!-- TAKEAWAYS -->
@@ -510,21 +527,21 @@ sidebar: false
 
       <ul class="bullets">
 
-        <li>Residuals are prediction errors for individual observations</li>
+        <li>A residual equals the observed value minus the predicted value</li>
 
-        <li>Residual = Observed Value − Predicted Value</li>
+        <li>Residuals measure prediction error for individual observations</li>
 
         <li>Positive residuals indicate underprediction</li>
 
         <li>Negative residuals indicate overprediction</li>
 
-        <li>Residuals represent unexplained variation</li>
+        <li>Zero residuals indicate perfect predictions</li>
 
-        <li>Least squares minimizes the sum of squared residuals</li>
+        <li>Residuals represent unexplained variation in the data</li>
 
-        <li>Squaring prevents positive and negative errors from canceling</li>
+        <li>Residual patterns help diagnose model problems</li>
 
-        <li>Residual analysis is essential for evaluating model quality</li>
+        <li>Residuals are central to evaluating regression performance</li>
 
       </ul>
 
@@ -540,8 +557,8 @@ sidebar: false
       </a>
 
       <a class="btn"
-         href="/modeling/simple-linear-regression/r-squared/">
-         Next: R-Squared →
+         href="/modeling/simple-linear-regression/least-squares/">
+         Next: Least Squares →
       </a>
 
     </div>
