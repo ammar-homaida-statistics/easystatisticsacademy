@@ -1,245 +1,548 @@
 ---
 layout: default
-title: "9. Sensitivity Analysis and Specification"
-description: "Assess how sensitive your conclusions are to modeling choices, assumptions, and analytic decisions."
+title: Sensitivity Analysis and Specification
+description: Learn how sensitivity analysis evaluates the stability of statistical conclusions under alternative assumptions, models, and analytical decisions.
 permalink: /inference/assumptions-robustness/sensitivity-analysis-and-specification/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 formalizes sensitivity analysis as a disciplined robustness practice:
-        vary reasonable assumptions and check whether conclusions materially change.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update continue-reading keys -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_assumptions_robustness_lesson_v0";
+(function () {
 
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/assumptions-robustness/sensitivity-analysis-and-specification/",
-      label: "Lesson 9 — Sensitivity Analysis & Specification",
-      ts: Date.now()
-    }));
+  const KEY =
+    "esa_continue_inference_assumptions_robustness_lesson_v0";
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/assumptions-robustness/",
-      label: "Block 7 — Assumptions & Robustness",
-      ts: Date.now()
-    }));
-  })();
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/assumptions-robustness/sensitivity-analysis-and-specification/",
+    label: "Sensitivity Analysis and Specification",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 7</span>
-        <span class="badge">Lesson 9</span>
-        <span class="badge">Sensitivity</span>
-        <span class="badge">Specification</span>
-      </div>
 
-      <h1>9. Sensitivity Analysis and Specification</h1>
-
-      <p class="lead">
-        Robust inference is not only about alternative estimators.
-        It is about asking: <em>Would my conclusion change under reasonable alternative choices?</em>
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/assumptions-robustness/">Back to Block 7</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        Stability of conclusions is stronger evidence than a single significant result.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 7</span>
+      <span class="badge">Assumptions & Robustness</span>
+      <span class="badge">Sensitivity Analysis</span>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
-    <p>
-      Understand how to evaluate whether results depend critically
-      on modeling assumptions, parameter choices, or analytic specifications.
+    <h1>Sensitivity Analysis and Specification</h1>
+
+    <p class="lead">
+      Statistical conclusions often depend on analytical choices.
     </p>
-  </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Core principle</h2>
-      <p style="margin:0;">
-        A result is more credible when it remains consistent
-        across plausible alternative specifications.
-      </p>
+    <p class="lead">
+      Sensitivity analysis evaluates whether conclusions remain stable when assumptions, models, variables, or methods are changed.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/assumptions-robustness/bootstrap-as-robust-tool/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/assumptions-robustness/reporting-assumptions-and-limitations/">
+         Next: Reporting Assumptions and Limitations →
+      </a>
+
     </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) What is sensitivity analysis?</h2>
-  </div>
+<!-- LESSON -->
 
-  <div class="card">
-    Sensitivity analysis evaluates how results change when:
-    <br><br>
-    • Assumptions are relaxed  
-    • Model form is altered  
-    • Outliers are excluded  
-    • Alternative estimators are used  
-  </div>
+<section>
 
-  <p>
-    It does not search for significance.
-    It tests stability.
-  </p>
-</section>
+  <div class="content-narrow">
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) Specification choices that matter</h2>
-  </div>
+    <h2>Why Sensitivity Analysis Matters</h2>
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Distributional assumptions</h3>
+    <p>
+      Statistical analyses involve many decisions.
+    </p>
+
+    <p>
+      Analysts choose:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Variables to include</li>
+
+      <li>Models to fit</li>
+
+      <li>Assumptions to adopt</li>
+
+      <li>Observations to analyze</li>
+
+      <li>Methods for handling missing data</li>
+
+    </ul>
+
+    <p>
+      Different decisions can sometimes lead to different conclusions.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Main idea:</strong>
+
       <p>
-        Normal vs nonparametric inference.
+        Sensitivity analysis asks whether conclusions remain similar when reasonable analytical choices are varied.
       </p>
+
     </div>
 
-    <div class="card">
-      <h3>Variance assumptions</h3>
+    <h2>What Is Sensitivity Analysis?</h2>
+
+    <div class="concept-box">
+
+      <strong>Definition:</strong>
+
       <p>
-        Equal vs unequal variances.
+        Sensitivity analysis is the process of evaluating how statistical results change when assumptions, inputs, methods, or model specifications are modified.
       </p>
+
     </div>
 
-    <div class="card">
-      <h3>Functional form</h3>
+    <p>
+      It helps determine whether findings are robust or fragile.
+    </p>
+
+    <h2>What Is a Specification?</h2>
+
+    <p>
+      In statistical modeling, a specification is a particular way of defining an analysis.
+    </p>
+
+    <p>
+      Examples include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Choice of predictors</li>
+
+      <li>Choice of outcome variable</li>
+
+      <li>Choice of statistical model</li>
+
+      <li>Choice of transformations</li>
+
+      <li>Choice of assumptions</li>
+
+    </ul>
+
+    <p>
+      Different specifications may produce different numerical results.
+    </p>
+
+    <h2>A Simple Example</h2>
+
+    <p>
+      Suppose a regression model estimates the effect of education on income.
+    </p>
+
+    <p>
+      An analyst might compare:
+    </p>
+
+    <ul class="bullets">
+
+      <li>A model with age included</li>
+
+      <li>A model without age included</li>
+
+      <li>A model with experience included</li>
+
+      <li>A model with both variables included</li>
+
+    </ul>
+
+    <p>
+      If conclusions remain similar, confidence increases.
+    </p>
+
+    <h2>Why Stability Is Important</h2>
+
+    <p>
+      Findings that appear only under a single specification may be less trustworthy.
+    </p>
+
+    <p>
+      Findings that persist across multiple reasonable specifications are generally more convincing.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Robustness principle:</strong>
+
       <p>
-        Linear vs nonlinear models.
+        Strong conclusions should not depend heavily on one arbitrary analytical decision.
       </p>
+
     </div>
 
-    <div class="card">
-      <h3>Outlier handling</h3>
+    <h2>Common Sources of Sensitivity</h2>
+
+    <p>
+      Results may change because of:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Outliers</li>
+
+      <li>Missing-data treatments</li>
+
+      <li>Variable selection</li>
+
+      <li>Model assumptions</li>
+
+      <li>Distributional choices</li>
+
+      <li>Sample restrictions</li>
+
+    </ul>
+
+    <p>
+      Sensitivity analysis investigates these possibilities systematically.
+    </p>
+
+    <h2>Outlier Sensitivity</h2>
+
+    <p>
+      One common approach is to compare results:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Using all observations</li>
+
+      <li>After removing influential observations</li>
+
+    </ul>
+
+    <p>
+      Large changes may indicate that conclusions depend heavily on a small number of data points.
+    </p>
+
+    <h2>Model Sensitivity</h2>
+
+    <p>
+      Analysts may compare:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Linear models</li>
+
+      <li>Nonlinear models</li>
+
+      <li>Parametric methods</li>
+
+      <li>Nonparametric methods</li>
+
+    </ul>
+
+    <p>
+      Similar conclusions across models strengthen confidence in results.
+    </p>
+
+    <h2>Assumption Sensitivity</h2>
+
+    <p>
+      Some conclusions rely heavily on assumptions.
+    </p>
+
+    <p>
+      Analysts may explore:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Alternative variance assumptions</li>
+
+      <li>Alternative distributional assumptions</li>
+
+      <li>Alternative dependence structures</li>
+
+    </ul>
+
+    <p>
+      This helps identify assumptions that materially influence results.
+    </p>
+
+    <h2>Missing Data Sensitivity</h2>
+
+    <p>
+      Missing values can affect analyses in important ways.
+    </p>
+
+    <p>
+      Sensitivity studies may compare:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Complete-case analysis</li>
+
+      <li>Imputation methods</li>
+
+      <li>Alternative missing-data assumptions</li>
+
+    </ul>
+
+    <p>
+      Different approaches can sometimes produce different conclusions.
+    </p>
+
+    <h2>Subgroup Sensitivity</h2>
+
+    <p>
+      Analysts may also examine whether results remain similar across:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Age groups</li>
+
+      <li>Regions</li>
+
+      <li>Treatment categories</li>
+
+      <li>Time periods</li>
+
+    </ul>
+
+    <p>
+      Large differences may reveal important heterogeneity.
+    </p>
+
+    <h2>The Idea of Specification Curves</h2>
+
+    <p>
+      Modern researchers sometimes evaluate many reasonable specifications simultaneously.
+    </p>
+
+    <p>
+      A specification curve displays how estimated effects change across a large collection of analytical choices.
+    </p>
+
+    <p>
+      This provides a transparent view of analytical sensitivity.
+    </p>
+
+    <h2>Fragile Conclusions</h2>
+
+    <p>
+      A result may be considered fragile if:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Small changes produce large differences</li>
+
+      <li>Significance appears only under one specification</li>
+
+      <li>Estimates vary dramatically across methods</li>
+
+    </ul>
+
+    <p>
+      Fragility does not necessarily invalidate a result, but it should be reported and interpreted carefully.
+    </p>
+
+    <h2>Robust Conclusions</h2>
+
+    <p>
+      A result may be considered robust if:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Estimates remain similar across specifications</li>
+
+      <li>Confidence intervals overlap substantially</li>
+
+      <li>Conclusions are consistent across methods</li>
+
+      <li>No single assumption dominates the result</li>
+
+    </ul>
+
+    <p>
+      Robust findings inspire greater confidence.
+    </p>
+
+    <h2>Sensitivity Analysis Is Not Fishing</h2>
+
+    <p>
+      A common misconception is that trying multiple analyses is always problematic.
+    </p>
+
+    <p>
+      The purpose of sensitivity analysis is not to search for significance.
+    </p>
+
+    <p>
+      Instead, the goal is to evaluate stability and transparency.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Important distinction:</strong>
+
       <p>
-        With vs without influential points.
+        Sensitivity analysis examines whether conclusions persist. P-hacking searches for conclusions that happen to appear.
       </p>
+
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) Example: two-sample mean test</h2>
-  </div>
+    <h2>Transparency Is Essential</h2>
 
-  <div class="card">
-    Compare:
-    <br><br>
-    • Classical pooled t-test  
-    • Welch unequal-variance t-test  
-    • Wilcoxon rank-sum test  
-  </div>
+    <p>
+      Good statistical practice includes reporting:
+    </p>
 
-  <p>
-    If all approaches yield similar conclusions,
-    inference is robust to specification.
-  </p>
-</section>
+    <ul class="bullets">
 
-<section class="section">
-  <div class="section-head">
-    <h2>4) Quantifying sensitivity</h2>
-  </div>
+      <li>Alternative specifications examined</li>
 
-  <div class="card">
-    Compare:
-    <br><br>
-    • Significance decision (reject / not reject)  
-    • Effect size estimates  
-    • Confidence interval overlap  
-  </div>
+      <li>Sensitivity analyses performed</li>
 
-  <p>
-    Large shifts in effect size or inference suggest fragile conclusions.
-  </p>
-</section>
+      <li>Changes in conclusions</li>
 
-<section class="section">
-  <div class="section-head">
-    <h2>5) Interpretation guideline</h2>
-  </div>
+      <li>Important uncertainties</li>
 
-  <div class="card">
-    Robust conclusion:
-    <br><br>
-    Same direction, similar magnitude,
-    similar decision across specifications.
-  </div>
+    </ul>
 
-  <div class="card" style="margin-top:1rem;">
-    Fragile conclusion:
-    <br><br>
-    Significance depends heavily on one modeling choice.
-  </div>
-</section>
+    <p>
+      Readers should understand how stable the findings are.
+    </p>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+    <h2>The Scientific Perspective</h2>
+
+    <p>
+      Scientific conclusions are strongest when they survive scrutiny from multiple angles.
+    </p>
+
+    <p>
+      Sensitivity analysis helps determine whether findings reflect genuine evidence or artifacts of modeling choices.
+    </p>
+
+    <h2>A Practical Checklist</h2>
+
+    <ol>
+
+      <li>Identify key assumptions</li>
+
+      <li>Identify important analytical decisions</li>
+
+      <li>Evaluate reasonable alternatives</li>
+
+      <li>Compare conclusions across specifications</li>
+
+      <li>Report any meaningful changes</li>
+
+    </ol>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      Statistical analyses inevitably involve judgment and choice.
+    </p>
+
+    <p>
+      Sensitivity analysis helps quantify how much those choices influence conclusions.
+    </p>
+
+    <p>
+      Stable findings are generally more trustworthy than findings that depend on a single specification.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Sensitivity analysis evaluates whether conclusions remain stable under alternative assumptions, models, and analytical choices. Robust findings persist across reasonable specifications, while fragile findings require greater caution.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Every statistical analysis relies on assumptions and faces limitations.
+    </p>
+
+    <p>
+      Responsible reporting requires communicating these assumptions clearly so readers can evaluate the strength and credibility of conclusions.
+    </p>
+
+    <p>
+      The next lesson focuses on reporting assumptions and limitations as an essential part of transparent statistical practice.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Define sensitivity analysis clearly</li>
-        <li>Identify key specification decisions</li>
-        <li>Compare classical and alternative methods</li>
-        <li>Assess stability of conclusions</li>
+
+        <li>Sensitivity analysis evaluates the stability of conclusions</li>
+
+        <li>Specifications are alternative analytical choices or model definitions</li>
+
+        <li>Robust conclusions remain similar across reasonable specifications</li>
+
+        <li>Outliers, assumptions, and model choices can influence results</li>
+
+        <li>Missing-data handling can affect inference</li>
+
+        <li>Specification curves provide a transparent view of analytical choices</li>
+
+        <li>Sensitivity analysis promotes transparency rather than significance hunting</li>
+
+        <li>Stable conclusions generally inspire greater confidence</li>
+
       </ul>
+
     </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/assumptions-robustness/bootstrap-as-robust-tool/">
+         ← Previous: Bootstrap as a Robust Tool
+      </a>
+
+      <a class="btn"
+         href="/inference/assumptions-robustness/reporting-assumptions-and-limitations/">
+         Next: Reporting Assumptions and Limitations →
+      </a>
+
+    </div>
+
   </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next lesson</h2>
-      <p style="margin:0;">
-        Finally, we discuss how to report assumptions,
-        robustness checks, and limitations transparently.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/assumptions-robustness/reporting-assumptions-and-limitations/">
-          Next lesson: 10. Reporting Assumptions & Limitations →
-        </a>
-      </div>
-    </div>
-
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/assumptions-robustness/bootstrap-as-robust-tool/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 8: Bootstrap as a Robust Tool
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>
