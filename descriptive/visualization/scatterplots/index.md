@@ -87,6 +87,18 @@ sidebar: false
 
     <div class="concept-box">
 
+  <strong>Important insight:</strong>
+
+  <p>
+    Each point represents one observation.
+    For example, a point might represent one student's study hours and exam score,
+    or one person's height and weight.
+  </p>
+
+</div>
+
+    <div class="concept-box">
+
       <strong>Key idea:</strong>
 
       <p>
@@ -101,11 +113,13 @@ sidebar: false
       Suppose we record study hours and exam scores for several students.
     </p>
 
-    0
-
     <p>
       The pattern suggests that students who study more tend to achieve higher scores.
     </p>
+
+    <img src="{{ 'descriptive/images/study-hours-scatterplot.png' | relative_url }}"
+     alt="Scatterplot of study hours and exam scores"
+     style="margin-top:15px; max-width:100%; height:auto;">
 
     <h2>The Two Axes</h2>
 
@@ -223,7 +237,25 @@ sidebar: false
       Not all variables are related.
     </p>
 
+    <img src="{{ 'descriptive/images/types-of-association.png' | relative_url }}"
+     alt="Positive, negative, and no association"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
     <h2>Direction of Association</h2>
+
+    <div class="example-box">
+
+  <p>
+    A quick rule:
+  </p>
+
+  <ul class="bullets">
+    <li>Upward trend → positive association</li>
+    <li>Downward trend → negative association</li>
+    <li>No visible trend → little or no association</li>
+  </ul>
+
+</div>
 
     <p>
       Scatterplots help answer:
@@ -244,6 +276,10 @@ sidebar: false
     </p>
 
     <h2>Strength of Association</h2>
+
+    <img src="{{ 'descriptive/images/strong-vs-weak-association.png' | relative_url }}"
+     alt="Strong and weak associations"
+     style="margin-top:15px; max-width:100%; height:auto;">
 
     <p>
       Relationships may be:
@@ -267,6 +303,22 @@ sidebar: false
       Weak relationships show much more scatter.
     </p>
 
+    <h2>Form of the Relationship</h2>
+
+<p>
+  In addition to direction and strength,
+  statisticians examine the form of a relationship.
+</p>
+
+<ul class="bullets">
+  <li>Linear patterns follow an approximate straight line</li>
+  <li>Nonlinear patterns follow a curve or changing trend</li>
+</ul>
+
+<p>
+  Identifying the form helps determine which statistical methods are appropriate.
+</p>
+
     <h2>Linear Relationships</h2>
 
     <p>
@@ -284,6 +336,10 @@ sidebar: false
 
     <h2>Nonlinear Relationships</h2>
 
+    <img src="{{ 'descriptive/images/linear-vs-nonlinear.png' | relative_url }}"
+     alt="Linear and nonlinear relationships"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
     <p>
       Not all relationships are linear.
     </p>
@@ -299,6 +355,10 @@ sidebar: false
     </p>
 
     <h2>Clusters</h2>
+
+    <img src="{{ 'descriptive/images/scatterplot-clusters.png' | relative_url }}"
+     alt="Clusters in a scatterplot"
+     style="margin-top:15px; max-width:100%; height:auto;">
 
     <p>
       Sometimes points form separate groups.
@@ -324,6 +384,10 @@ sidebar: false
     </ul>
 
     <h2>Outliers</h2>
+
+    <img src="{{ 'descriptive/images/scatterplot-outlier.png' | relative_url }}"
+     alt="Outlier in a scatterplot"
+     style="margin-top:15px; max-width:100%; height:auto;">
 
     <p>
       Scatterplots are excellent tools for detecting outliers.
@@ -362,6 +426,13 @@ sidebar: false
     </div>
 
     <p>
+  For example,
+  ice cream sales and drowning incidents may both increase during summer.
+  The association exists,
+  but ice cream does not cause drowning.
+</p>
+
+    <p>
       Even if two variables move together,
       this does not prove that one causes the other.
     </p>
@@ -371,6 +442,10 @@ sidebar: false
     </p>
 
     <h2>Scatterplots and Correlation</h2>
+
+    <img src="{{ 'descriptive/images/correlation-preview.png' | relative_url }}"
+     alt="Scatterplot showing strong positive correlation"
+     style="margin-top:15px; max-width:100%; height:auto;">
 
     <p>
       Later lessons will introduce
@@ -429,6 +504,10 @@ sidebar: false
     <h2>Why Scatterplots Are Important</h2>
 
     <p>
+  Scatterplots often provide the first indication that one variable may help predict another.
+</p>
+
+    <p>
       Scatterplots are among the most important visualizations in statistics.
     </p>
 
@@ -443,6 +522,85 @@ sidebar: false
     <p>
       Much of modern data analysis begins with a scatterplot.
     </p>
+
+    <div class="concept-box">
+
+  <strong>When interpreting a scatterplot, look for:</strong>
+
+  <ul class="bullets">
+    <li>Direction</li>
+    <li>Strength</li>
+    <li>Form</li>
+    <li>Outliers</li>
+  </ul>
+
+</div>
+
+<div class="example-box">
+
+  <h3>SPSS Application</h3>
+
+  <p>
+    To create a scatterplot in SPSS:
+  </p>
+
+  <ol>
+    <li>Click <strong>Graphs → Chart Builder</strong></li>
+    <li>Select <strong>Scatter/Dot</strong></li>
+    <li>Choose <strong>Simple Scatter</strong></li>
+    <li>Drag one variable to the X-axis</li>
+    <li>Drag the second variable to the Y-axis</li>
+    <li>Click <strong>OK</strong></li>
+  </ol>
+
+  <p>
+    SPSS will generate a scatterplot showing the relationship between the two variables.
+  </p>
+
+</div>
+
+ <div style="flex:1; min-width:300px;">
+    <img src="{{ '/descriptive/images/spss_scatterplot_output.png' | relative_url }}"
+         alt="SPSS scatterplot output"
+         style="width:100%; height:auto;">
+    <p style="text-align:center;">
+      Scatterplot showing the relationship between study hours and exam scores
+    </p>
+  </div>
+
+  <h3>Python Example</h3>
+
+<p>
+This example creates a scatterplot of study hours and exam scores.
+</p>
+
+<pre><code>import matplotlib.pyplot as plt
+
+hours = [1,2,2,3,4,4,5,6,7,8]
+scores = [55,60,63,65,70,72,78,82,88,92]
+
+plt.scatter(hours, scores)
+
+plt.xlabel("Study Hours")
+plt.ylabel("Exam Score")
+
+plt.show()
+</code></pre>
+
+<h3>R Example</h3>
+
+<p>
+This example creates a scatterplot of study hours and exam scores.
+</p>
+
+<pre><code>hours <- c(1,2,2,3,4,4,5,6,7,8)
+scores <- c(55,60,63,65,70,72,78,82,88,92)
+
+plot(hours,
+     scores,
+     xlab = "Study Hours",
+     ylab = "Exam Score")
+</code></pre>
 
     <!-- TAKEAWAYS -->
 
