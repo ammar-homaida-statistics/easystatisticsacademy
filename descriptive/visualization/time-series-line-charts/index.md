@@ -554,6 +554,46 @@ sidebar: false
 
 </div>
 
+ <div style="flex:1; min-width:300px;">
+    <img src="{{ 'descriptive/images/spss_line_chart_output.png' | relative_url }}"
+         alt="SPSS line chart output"
+         style="width:100%; height:auto;">
+    <p style="text-align:center;">
+      Line chart showing change over time
+    </p>
+  </div>
+
+  <h3>Python Example</h3>
+
+<p>
+This example creates a line chart of monthly sales.
+</p>
+
+<pre><code>import matplotlib.pyplot as plt
+
+sales = [100,120,145,160,185,210]
+
+plt.plot(sales, marker="o")
+
+plt.ylabel("Sales")
+
+plt.show()
+</code></pre>
+
+<h3>R Example</h3>
+
+<p>
+This example creates a line chart of monthly sales.
+</p>
+
+<pre><code>sales <- c(100,120,145,160,185,210)
+
+plot(sales,
+     type = "b",
+     pch = 19,
+     ylab = "Sales")
+</code></pre>
+
     <!-- TAKEAWAYS -->
 
     <div class="summary-box">
