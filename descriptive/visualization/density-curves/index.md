@@ -475,9 +475,18 @@ sidebar: false
 
     </ul>
 
-    <img src="{{ 'descriptive/images/normal-density-curve.png' | relative_url }}"
-     alt="Normal density curve"
-     style="margin-top:15px; max-width:100%; height:auto;">
+    <div style="display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap;">
+
+  <div style="flex:1; min-width:300px;">
+    <img src="{{ 'descriptive/images/spss_histogram_normal_curve.png' | relative_url }}"
+         alt="Histogram with normal curve"
+         style="width:100%; height:auto;">
+    <p style="text-align:center;">
+      Histogram with normal curve overlay
+    </p>
+  </div>
+
+</div>
 
     <p>
       Entire fields of statistics rely on properties of this distribution.
