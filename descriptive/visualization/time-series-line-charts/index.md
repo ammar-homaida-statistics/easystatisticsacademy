@@ -152,11 +152,13 @@ sidebar: false
       Consider monthly sales for a small business.
     </p>
 
-    0
-
     <p>
       The upward movement suggests sales are increasing over time.
     </p>
+
+    <img src="{{ 'descriptive/images/monthly-sales-line-chart.png' | relative_url }}"
+     alt="Monthly sales line chart"
+     style="margin-top:15px; max-width:100%; height:auto;">
 
     <h2>Why Line Charts Work Well</h2>
 
@@ -185,6 +187,10 @@ sidebar: false
     </p>
 
     <h2>Recognizing Trends</h2>
+
+    <img src="{{ 'descriptive/images/types-of-trends.png' | relative_url }}"
+     alt="Upward, downward, and stable trends"
+     style="margin-top:15px; max-width:100%; height:auto;">
 
     <p>
       One of the main goals of a line chart is identifying trends.
@@ -215,6 +221,10 @@ sidebar: false
 
     <h2>Short-Term Fluctuations</h2>
 
+    <img src="{{ 'descriptive/images/trend-vs-noise.png' | relative_url }}"
+     alt="Trend with short-term fluctuations"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
     <p>
       Not every change is part of a trend.
     </p>
@@ -238,6 +248,21 @@ sidebar: false
     </p>
 
     <h2>Seasonality</h2>
+
+    <img src="{{ 'descriptive/images/seasonal-pattern.png' | relative_url }}"
+     alt="Seasonal pattern in a time series"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+    <div class="example-box">
+
+  <strong>Example:</strong>
+
+  <p>
+    Retail sales often increase every December because of holiday shopping.
+    This pattern repeats each year and is an example of seasonality.
+  </p>
+
+</div>
 
     <p>
       Some time series exhibit repeating patterns.
@@ -270,6 +295,10 @@ sidebar: false
 
     <h2>Cycles</h2>
 
+    <img src="{{ 'descriptive/images/cyclical-pattern.png' | relative_url }}"
+     alt="Cyclical pattern in a time series"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
     <p>
       Cycles resemble seasonality,
       but occur over longer and less regular periods.
@@ -294,6 +323,10 @@ sidebar: false
     </p>
 
     <h2>Sudden Changes</h2>
+
+    <img src="{{ 'descriptive/images/sudden-change-series.png' | relative_url }}"
+     alt="Sudden change in a time series"
+     style="margin-top:15px; max-width:100%; height:auto;">
 
     <p>
       Time series plots help identify unusual events.
@@ -321,6 +354,10 @@ sidebar: false
 
     <h2>Comparing Multiple Time Series</h2>
 
+    <img src="{{ 'descriptive/images/multiple-time-series.png' | relative_url }}"
+     alt="Multiple time series on one graph"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
     <p>
       Sometimes several variables are observed over time.
     </p>
@@ -344,6 +381,10 @@ sidebar: false
     </p>
 
     <h2>Line Charts vs Bar Charts</h2>
+
+    <img src="{{ 'descriptive/images/line-chart-vs-bar-chart.png' | relative_url }}"
+     alt="Line chart compared with bar chart"
+     style="margin-top:15px; max-width:100%; height:auto;">
 
     <div class="table-wrap">
 
@@ -387,6 +428,19 @@ sidebar: false
     </div>
 
     <h2>Interpreting a Time Series Graph</h2>
+
+    <div class="concept-box">
+
+  <strong>When reading a line chart, look for:</strong>
+
+  <ul class="bullets">
+    <li>Trend</li>
+    <li>Seasonality</li>
+    <li>Cycles</li>
+    <li>Outliers or sudden changes</li>
+  </ul>
+
+</div>
 
     <p>
       When examining a line chart,
@@ -476,6 +530,29 @@ sidebar: false
     <p>
       Understanding change through time is one of the most important goals in applied statistics.
     </p>
+
+    <h2>SPSS Application</h2>
+
+<div class="example-box">
+
+  <p>
+    To create a line chart in SPSS:
+  </p>
+
+  <ol>
+    <li>Click <strong>Graphs → Chart Builder</strong></li>
+    <li>Select <strong>Line</strong></li>
+    <li>Choose a Simple Line Chart</li>
+    <li>Place the time variable on the X-axis</li>
+    <li>Place the measured variable on the Y-axis</li>
+    <li>Click <strong>OK</strong></li>
+  </ol>
+
+  <p>
+    SPSS will generate a line chart showing how the variable changes over time.
+  </p>
+
+</div>
 
     <!-- TAKEAWAYS -->
 
