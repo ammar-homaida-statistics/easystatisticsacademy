@@ -1,259 +1,516 @@
 ---
 layout: default
-title: "2. Model Assumptions vs Design Assumptions"
-description: "Distinguish between statistical model assumptions and study design assumptions, and understand which violations threaten validity most."
+title: Model Assumptions vs Design Assumptions
+description: Learn the difference between model assumptions and design assumptions, and why both influence the validity of statistical conclusions.
 permalink: /inference/assumptions-robustness/model-assumptions-vs-design-assumptions/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <div class="callout-copy">
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 Lesson Under Construction
-      </h2>
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        Version 0 clarifies the distinction between model-based assumptions
-        and design-based assumptions, and why design violations are often more serious.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ✅ Update continue-reading keys -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
-  (function () {
-    var KEY = "esa_continue_inference_assumptions_robustness_lesson_v0";
+(function () {
 
-    localStorage.setItem(KEY, JSON.stringify({
-      url: "/inference/assumptions-robustness/model-assumptions-vs-design-assumptions/",
-      label: "Lesson 2 — Model vs Design Assumptions",
-      ts: Date.now()
-    }));
+  const KEY =
+    "esa_continue_inference_assumptions_robustness_lesson_v0";
 
-    localStorage.setItem("esa_continue_inference_last_block_v0", JSON.stringify({
-      url: "/inference/assumptions-robustness/",
-      label: "Block 7 — Assumptions & Robustness",
-      ts: Date.now()
-    }));
-  })();
+  localStorage.setItem(KEY, JSON.stringify({
+    url: "/inference/assumptions-robustness/model-assumptions-vs-design-assumptions/",
+    label: "Model Assumptions vs Design Assumptions",
+    ts: Date.now()
+  }));
+
+})();
 </script>
 
+<!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
-    <div class="hero-copy">
-      <div class="badge-row">
-        <span class="badge">Block 7</span>
-        <span class="badge">Lesson 2</span>
-        <span class="badge">Model</span>
-        <span class="badge">Design</span>
-      </div>
 
-      <h1>2. Model Assumptions vs Design Assumptions</h1>
-
-      <p class="lead">
-        Not all assumptions are equally important.
-        Violations of study design assumptions often threaten validity
-        more seriously than violations of distributional assumptions.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="/inference/assumptions-robustness/">Back to Block 7</a>
-        <a class="btn btn-outline" href="/inference/">Statistical Inference home</a>
-      </div>
-
-      <p class="muted-mini">
-        Good design can rescue weak models; weak design cannot be fixed by modeling.
-      </p>
+    <div class="badge-row">
+      <span class="badge">Inference</span>
+      <span class="badge">Block 7</span>
+      <span class="badge">Assumptions & Robustness</span>
+      <span class="badge">Foundations</span>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>Learning objective</h2>
-    <p>
-      Distinguish between model-based and design-based assumptions,
-      and evaluate their relative importance for valid inference.
+    <h1>Model Assumptions vs Design Assumptions</h1>
+
+    <p class="lead">
+      Not all assumptions in statistics come from the same place.
     </p>
-  </div>
 
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Core distinction</h2>
-      <p style="margin:0;">
-        Model assumptions describe probability structure.  
-        Design assumptions describe how data were generated.
-      </p>
+    <p class="lead">
+      Some assumptions concern the mathematical model used for analysis, while others concern how data were collected. Understanding the distinction is essential for valid inference.
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn"
+         href="/inference/assumptions-robustness/assumptions-vs-robustness-mindset/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/inference/assumptions-robustness/checking-normality-what-and-why/">
+         Next: Checking Normality: What and Why →
+      </a>
+
     </div>
+
   </div>
+
 </section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>1) Model assumptions</h2>
-  </div>
+<!-- LESSON -->
 
-  <div class="card">
-    Examples:
-    <br><br>
-    • Normality of errors  
-    • Equal variances  
-    • Linearity  
-    • Homoscedasticity  
-  </div>
+<section>
 
-  <p>
-    These assumptions determine the sampling distribution
-    of estimators and test statistics.
-  </p>
+  <div class="content-narrow">
 
-  <div class="card" style="margin-top:1rem;">
-    Example (linear model):
-    \[
-    Y = X\beta + \varepsilon,
-    \quad
-    \varepsilon \sim \mathcal{N}(0, \sigma^2)
-    \]
-  </div>
-</section>
+    <h2>Two Sources of Assumptions</h2>
 
-<section class="section">
-  <div class="section-head">
-    <h2>2) Design assumptions</h2>
-  </div>
+    <p>
+      Statistical methods rely on assumptions, but those assumptions arise from two different sources.
+    </p>
 
-  <div class="card">
-    Examples:
-    <br><br>
-    • Random sampling  
-    • Random assignment  
-    • Independence between units  
-    • No selection bias  
-  </div>
+    <div class="table-wrap">
 
-  <p>
-    These assumptions justify generalization and causal interpretation.
-  </p>
-</section>
+      <table>
 
-<section class="section">
-  <div class="section-head">
-    <h2>3) Which matters more?</h2>
-  </div>
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Main Question</th>
+          </tr>
+        </thead>
 
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>Minor non-normality</h3>
+        <tbody>
+
+          <tr>
+            <td>Design Assumptions</td>
+            <td>How were the data collected?</td>
+          </tr>
+
+          <tr>
+            <td>Model Assumptions</td>
+            <td>How are the data represented mathematically?</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      Both types influence the quality of statistical conclusions.
+    </p>
+
+    <h2>What Are Design Assumptions?</h2>
+
+    <p>
+      Design assumptions concern the process used to obtain data.
+    </p>
+
+    <p>
+      They focus on whether observations provide a trustworthy representation of the population or phenomenon being studied.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Definition:</strong>
+
       <p>
-        Often harmless with moderate or large n.
+        Design assumptions describe how observations enter the dataset and whether the sampling or experimental process supports valid inference.
       </p>
+
     </div>
 
-    <div class="card">
-      <h3>Biased sampling</h3>
+    <h2>Common Design Assumptions</h2>
+
+    <p>
+      Examples include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Random sampling</li>
+
+      <li>Random assignment</li>
+
+      <li>Representative observations</li>
+
+      <li>Independent selection of units</li>
+
+      <li>Minimal nonresponse bias</li>
+
+    </ul>
+
+    <p>
+      These assumptions are primarily about data collection rather than mathematics.
+    </p>
+
+    <h2>Why Design Assumptions Matter</h2>
+
+    <p>
+      Even a mathematically perfect model cannot rescue poor data collection.
+    </p>
+
+    <p>
+      If a sample is badly biased:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Estimates may be misleading</li>
+
+      <li>Confidence intervals may be irrelevant</li>
+
+      <li>Hypothesis tests may answer the wrong question</li>
+
+    </ul>
+
+    <h2>An Example of Design Failure</h2>
+
+    <p>
+      Suppose a survey is conducted only through a social-media platform.
+    </p>
+
+    <p>
+      Even if the statistical calculations are flawless:
+    </p>
+
+    <div class="example-box">
+
       <p>
-        Invalidates generalization completely.
+        The sample may not represent the target population.
       </p>
     </div>
 
-    <div class="card">
-      <h3>Mild heteroscedasticity</h3>
+    <p>
+      The problem arises before any analysis begins.
+    </p>
+
+    <h2>What Are Model Assumptions?</h2>
+
+    <p>
+      Model assumptions concern the mathematical framework used to analyze data.
+    </p>
+
+    <p>
+      They specify how variables, errors, and probabilities behave within a statistical procedure.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Definition:</strong>
+
       <p>
-        Can be corrected with robust standard errors.
+        Model assumptions describe the probabilistic structure that allows statistical formulas and theoretical results to work.
       </p>
+
     </div>
 
-    <div class="card">
-      <h3>Lack of independence</h3>
+    <h2>Common Model Assumptions</h2>
+
+    <p>
+      Examples include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Normality</li>
+
+      <li>Equal variances</li>
+
+      <li>Linearity</li>
+
+      <li>Independent errors</li>
+
+      <li>Specified probability distributions</li>
+
+    </ul>
+
+    <p>
+      These assumptions appear inside statistical models and methods.
+    </p>
+
+    <h2>An Example of a Model Assumption</h2>
+
+    <p>
+      A classical t-test assumes that observations come from populations that are approximately normal, particularly for small sample sizes.
+    </p>
+
+    <p>
+      This assumption affects the accuracy of the test procedure itself.
+    </p>
+
+    <h2>The Key Difference</h2>
+
+    <p>
+      Design assumptions concern:
+    </p>
+
+    <div class="example-box">
+
       <p>
-        Severely distorts standard errors and inference.
+        Whether the data are trustworthy.
       </p>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-head">
-    <h2>4) Example comparison</h2>
-  </div>
+    <p>
+      Model assumptions concern:
+    </p>
 
-  <div class="card">
-    Scenario A:
-    <br>
-    Data slightly skewed but randomly sampled.
-  </div>
+    <div class="example-box">
 
-  <div class="card" style="margin-top:1rem;">
-    Scenario B:
-    <br>
-    Perfectly normal data but non-random convenience sample.
-  </div>
+      <p>
+        Whether the mathematical analysis is appropriate.
+      </p>
+    </div>
 
-  <p>
-    Scenario B poses a larger threat to validity.
-  </p>
-</section>
+    <h2>Which Type Is More Important?</h2>
 
-<section class="section">
-  <div class="section-head">
-    <h2>5) Practical guideline</h2>
-  </div>
+    <p>
+      Both matter, but design assumptions are often more fundamental.
+    </p>
 
-  <div class="card">
-    Priority order:
-    <br><br>
-    1. Design validity  
-    2. Independence  
-    3. Correct model form  
-    4. Distributional details  
-  </div>
+    <p>
+      A strong design can sometimes tolerate imperfect models.
+    </p>
 
-  <p class="muted-mini">
-    Distributional assumptions are often the most robust.
-  </p>
-</section>
+    <p>
+      A weak design can undermine even sophisticated analyses.
+    </p>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Outcome of this lesson</h2>
+    <div class="concept-box">
+
+      <strong>Important principle:</strong>
+
+      <p>
+        Good modeling cannot fully compensate for poor study design.
+      </p>
+
+    </div>
+
+    <h2>Design Before Analysis</h2>
+
+    <p>
+      Statistical inference begins long before calculations.
+    </p>
+
+    <p>
+      Questions about:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Who was sampled?</li>
+
+      <li>How were units selected?</li>
+
+      <li>How were treatments assigned?</li>
+
+      <li>Who did not respond?</li>
+
+    </ul>
+
+    <p>
+      often have greater consequences than model details.
+    </p>
+
+    <h2>A Comparison</h2>
+
+    
+
+    <p>
+      Both contribute to valid inference, but failures in study design often have broader consequences.
+    </p>
+
+    <h2>Can Model Assumptions Be Checked?</h2>
+
+    <p>
+      Often, yes.
+    </p>
+
+    <p>
+      Analysts may inspect:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Residual plots</li>
+
+      <li>Histograms</li>
+
+      <li>QQ plots</li>
+
+      <li>Variance diagnostics</li>
+
+    </ul>
+
+    <p>
+      These tools help evaluate whether assumptions appear reasonable.
+    </p>
+
+    <h2>Can Design Assumptions Be Checked?</h2>
+
+    <p>
+      Usually, only partially.
+    </p>
+
+    <p>
+      For example, we may know:
+    </p>
+
+    <ul class="bullets">
+
+      <li>How sampling occurred</li>
+
+      <li>How randomization was performed</li>
+
+      <li>Response rates</li>
+
+    </ul>
+
+    <p>
+      But some biases may remain difficult to measure directly.
+    </p>
+
+    <h2>Why the Distinction Matters</h2>
+
+    <p>
+      Analysts sometimes focus heavily on model diagnostics while ignoring design weaknesses.
+    </p>
+
+    <p>
+      This can create false confidence in conclusions.
+    </p>
+
+    <p>
+      Strong inference requires attention to both types of assumptions.
+    </p>
+
+    <h2>A Practical Example</h2>
+
+    <p>
+      Imagine two studies:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Study A has excellent random sampling but mildly non-normal data.</li>
+
+      <li>Study B has perfect normality but severe selection bias.</li>
+
+    </ul>
+
+    <p>
+      In many situations, Study A may produce more trustworthy conclusions because the design problem in Study B affects representativeness.
+    </p>
+
+    <h2>The Robustness Perspective</h2>
+
+    <p>
+      Robustness applies differently to the two types of assumptions.
+    </p>
+
+    <ul class="bullets">
+
+      <li>Many methods are robust to mild model-assumption violations.</li>
+
+      <li>Few methods are robust to severe design flaws.</li>
+
+    </ul>
+
+    <p>
+      This distinction is one reason design quality is often emphasized in statistical practice.
+    </p>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      Statistical validity depends on both how data are collected and how they are analyzed.
+    </p>
+
+    <p>
+      Design assumptions determine whether data support meaningful inference.
+    </p>
+
+    <p>
+      Model assumptions determine whether analytical procedures operate as intended.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Design assumptions concern the quality of data collection, while model assumptions concern the mathematical structure of analysis. Sound statistical conclusions require attention to both.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      One of the most frequently discussed model assumptions is normality.
+    </p>
+
+    <p>
+      Many classical methods refer to normal distributions, yet the importance of normality is often misunderstood.
+    </p>
+
+    <p>
+      The next lesson examines what normality means, why it matters, and when departures from normality become a concern.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
       <ul class="bullets">
-        <li>Differentiate model vs design assumptions</li>
-        <li>Recognize threats to validity</li>
-        <li>Prioritize independence and sampling</li>
-        <li>Interpret assumption violations correctly</li>
+
+        <li>Statistical assumptions come from both study design and mathematical models</li>
+
+        <li>Design assumptions concern how data are collected</li>
+
+        <li>Model assumptions concern how data are analyzed</li>
+
+        <li>Random sampling and random assignment are design assumptions</li>
+
+        <li>Normality and equal variances are model assumptions</li>
+
+        <li>Strong models cannot fully correct weak study designs</li>
+
+        <li>Model assumptions are often easier to diagnose than design assumptions</li>
+
+        <li>Reliable inference requires attention to both types of assumptions</li>
+
       </ul>
+
     </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/inference/assumptions-robustness/assumptions-vs-robustness-mindset/">
+         ← Previous: Assumptions vs Robustness Mindset
+      </a>
+
+      <a class="btn"
+         href="/inference/assumptions-robustness/checking-normality-what-and-why/">
+         Next: Checking Normality: What and Why →
+      </a>
+
+    </div>
+
   </div>
-</section>
 
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>Next lesson</h2>
-      <p style="margin:0;">
-        We now examine what “normality” really means
-        and how to check it responsibly.
-      </p>
-
-      <div class="pill-row" style="margin-top:1rem;">
-        <a class="btn" href="/inference/assumptions-robustness/checking-normality-what-and-why/">
-          Next lesson: 3. Checking Normality — What and Why →
-        </a>
-      </div>
-    </div>
-
-    <div class="callout-side">
-      <div class="mini" style="border-left:4px solid #1a73e8; padding-left:12px;">
-        <div class="mini-title" style="color:#1a73e8;">Previous lesson</div>
-        <div class="mini-body">
-          <a href="/inference/assumptions-robustness/assumptions-vs-robustness-mindset/" style="color:#1a73e8; text-decoration:underline;">
-            Lesson 1: Assumptions vs Robustness
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>
