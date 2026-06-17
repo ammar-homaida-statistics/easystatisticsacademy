@@ -1,181 +1,534 @@
 ---
 layout: default
-title: 9. Model Building
+title: Model Building
+description: Learn how regression models are constructed, how predictors are selected, and how analysts balance simplicity, interpretability, and predictive performance.
 permalink: /modeling/multiple-regression/model-building/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <h2 style="color:#e65100;">🚧 Lesson Under Construction</h2>
-    <p>
-      Version 0 focuses on the conceptual process of building regression models.
-      Formal selection methods and diagnostics will be added later.
-    </p>
-  </div>
-</section>
-
-<!-- ✅ Update last visited lesson -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
 (function () {
-  localStorage.setItem("esa_continue_modeling_mr_lesson_v0", JSON.stringify({
+
+  const KEY =
+    "esa_continue_modeling_multiple_regression_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
     url: "/modeling/multiple-regression/model-building/",
-    label: "Lesson 9 — Model Building",
+    label: "Model Building",
     ts: Date.now()
   }));
+
 })();
 </script>
 
 <!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
 
     <div class="badge-row">
+      <span class="badge">Modeling</span>
       <span class="badge">Block 3</span>
-      <span class="badge">Lesson 9</span>
+      <span class="badge">Multiple Regression</span>
       <span class="badge">Model Building</span>
-      <span class="badge">Practice</span>
     </div>
 
-    <h1>9. Model Building</h1>
+    <h1>Model Building</h1>
 
     <p class="lead">
-      Building a regression model involves selecting variables,
-      specifying structure, and balancing simplicity with explanatory power.
+      Building a regression model involves more than fitting an equation to data.
+    </p>
+
+    <p class="lead">
+      Analysts must decide which predictors to include, how complex the model should be, and whether the model serves its intended purpose effectively.
     </p>
 
     <div class="hero-actions">
-      <a class="btn btn-outline" href="/modeling/multiple-regression/">Back to Block 3</a>
-      <a class="btn" href="#lesson">Start lesson</a>
+
+      <a class="btn"
+         href="/modeling/multiple-regression/interactions/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/modeling/assumptions/">
+         Continue to Assumptions →
+      </a>
+
     </div>
 
-    <p class="muted-mini">
-      Version 0: conceptual workflow before formal selection techniques.
-    </p>
-
   </div>
+
 </section>
 
 <!-- LESSON -->
-<section class="section" id="lesson">
 
-  <h2>Learning objective</h2>
-  <p>
-    By the end of this lesson, you should understand the process of building
-    a multiple regression model and the decisions involved.
-  </p>
+<section>
 
-  <div class="card">
-    <h3>Key idea</h3>
+  <div class="content-narrow">
+
+    <h2>What Is Model Building?</h2>
+
     <p>
-      Model building is a structured process of choosing predictors and model form
-      to represent relationships in data.
+      Model building is the process of selecting predictors, defining relationships, estimating parameters, and evaluating performance.
     </p>
-  </div>
 
-  <h2>1) Start with a question</h2>
-  <div class="card">
     <p>
-      Every model should be guided by a clear question:
-      prediction, explanation, or both.
+      The goal is not simply to maximize complexity.
     </p>
-  </div>
 
-  <h2>2) Select variables</h2>
-  <div class="card">
     <p>
-      Choose predictors based on:
+      Instead, the goal is to develop a model that is useful, interpretable, and appropriate for the problem being studied.
     </p>
-    <ul>
-      <li>Domain knowledge</li>
-      <li>Theoretical relevance</li>
-      <li>Data availability</li>
+
+    <div class="concept-box">
+
+      <strong>Main idea:</strong>
+
+      <p>
+        Good model building balances explanatory power, predictive performance, simplicity, and interpretability.
+      </p>
+
+    </div>
+
+    <h2>Why Model Building Matters</h2>
+
+    <p>
+      Different modeling choices can lead to different conclusions.
+    </p>
+
+    <p>
+      Decisions about which variables to include, how to represent them, and whether to add interaction terms all affect the final model.
+    </p>
+
+    <p>
+      Thoughtful model building helps produce more reliable analyses.
+    </p>
+
+    <h2>Start With the Research Question</h2>
+
+    <p>
+      Effective model building begins with a clear objective.
+    </p>
+
+    <p>
+      Common goals include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Prediction</li>
+
+      <li>Explanation</li>
+
+      <li>Policy evaluation</li>
+
+      <li>Causal investigation</li>
+
+      <li>Scientific understanding</li>
+
     </ul>
-  </div>
 
-  <h2>3) Specify the model</h2>
-  <div class="card">
-    <ul>
-      <li>Include relevant predictors</li>
-      <li>Consider transformations</li>
-      <li>Include interactions if needed</li>
+    <p>
+      Different objectives often require different modeling strategies.
+    </p>
+
+    <h2>Selecting Predictors</h2>
+
+    <p>
+      One of the first decisions involves determining which variables should be included.
+    </p>
+
+    <p>
+      Candidate predictors often come from:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Subject-matter knowledge</li>
+
+      <li>Previous research</li>
+
+      <li>Theoretical reasoning</li>
+
+      <li>Exploratory analysis</li>
+
     </ul>
-  </div>
 
-  <h2>4) Avoid overfitting</h2>
-  <div class="card">
     <p>
-      Adding too many variables can lead to models that fit the data well
-      but perform poorly on new data.
+      Predictor selection should not rely solely on automated procedures.
     </p>
-  </div>
 
-  <h2>5) Simplicity vs complexity</h2>
-  <div class="card">
+    <div class="concept-box">
+
+      <strong>Important principle:</strong>
+
+      <p>
+        Statistical significance alone should not determine which variables belong in a model.
+      </p>
+
+    </div>
+
+    <h2>Including Relevant Variables</h2>
+
     <p>
-      A good model balances:
+      Omitting important predictors can create:
     </p>
-    <ul>
-      <li>Simplicity (interpretability)</li>
-      <li>Accuracy (fit to data)</li>
+
+    <ul class="bullets">
+
+      <li>Bias</li>
+
+      <li>Confounding</li>
+
+      <li>Poor predictions</li>
+
     </ul>
-  </div>
 
-  <h2>6) Iterative process</h2>
-  <div class="card">
     <p>
-      Model building is not one step:
-      models are refined, evaluated, and improved over time.
+      Including relevant variables often improves both interpretation and performance.
     </p>
-  </div>
 
-  <h2>7) Role of assumptions</h2>
-  <div class="card">
+    <h2>Avoiding Irrelevant Variables</h2>
+
     <p>
-      A model is only valid if its assumptions are satisfied.
-      This leads to the next block.
+      Adding predictors that contribute little useful information can:
     </p>
-  </div>
 
-  <h2>8) Common mistakes</h2>
-  <div class="card">
-    <ul>
-      <li>Including irrelevant variables</li>
-      <li>Ignoring important predictors</li>
-      <li>Overfitting</li>
-      <li>Building models without a clear purpose</li>
+    <ul class="bullets">
+
+      <li>Increase complexity</li>
+
+      <li>Reduce interpretability</li>
+
+      <li>Increase uncertainty</li>
+
+      <li>Encourage overfitting</li>
+
     </ul>
-  </div>
 
-  <h2>9) Why this matters</h2>
-  <div class="card">
     <p>
-      Model building connects statistical theory to real-world applications,
-      making it one of the most important skills in data analysis.
+      More variables do not automatically produce a better model.
     </p>
-  </div>
 
-  <div class="card">
-    <h3>Outcome of this lesson</h3>
-    <ul>
-      <li>Understand the model building process</li>
-      <li>Select variables appropriately</li>
-      <li>Balance simplicity and complexity</li>
-      <li>Understand iterative modeling</li>
-      <li>Prepare for model validation</li>
+    <h2>The Simplicity Principle</h2>
+
+    <p>
+      Analysts often prefer simpler models when performance is similar.
+    </p>
+
+    <p>
+      Simpler models are usually:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Easier to interpret</li>
+
+      <li>Easier to communicate</li>
+
+      <li>Easier to maintain</li>
+
+      <li>Less prone to overfitting</li>
+
     </ul>
-  </div>
 
-  <div class="card">
-    <h3>Next step</h3>
     <p>
-      Now we examine the assumptions required for regression models
-      to be valid and reliable.
+      This idea is sometimes associated with Occam's Razor.
     </p>
-    <a class="btn" href="/modeling/assumptions/">
-      Go to Block 4 — Model Assumptions →
-    </a>
+
+    <h2>Balancing Complexity and Performance</h2>
+
+    <p>
+      Increasing model complexity often improves fit to the observed data.
+    </p>
+
+    <p>
+      However, improvements on training data do not always translate to future data.
+    </p>
+
+    <p>
+      Analysts must balance:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Model fit</li>
+
+      <li>Generalization</li>
+
+      <li>Interpretability</li>
+
+    </ul>
+
+    <p>
+      This trade-off is central to statistical modeling.
+    </p>
+
+    <h2>Considering Interactions</h2>
+
+    <p>
+      Interaction terms should be included when theory or evidence suggests that effects vary across conditions.
+    </p>
+
+    <p>
+      Unnecessary interactions can complicate interpretation without improving usefulness.
+    </p>
+
+    <p>
+      Interactions should be purposeful rather than automatic.
+    </p>
+
+    <h2>Considering Categorical Variables</h2>
+
+    <p>
+      Dummy variables allow categorical information to be incorporated into regression models.
+    </p>
+
+    <p>
+      Choices regarding reference categories and coding schemes affect interpretation.
+    </p>
+
+    <p>
+      These decisions are part of the model-building process.
+    </p>
+
+    <h2>Evaluating Model Fit</h2>
+
+    <p>
+      Once a model is estimated, analysts evaluate how well it performs.
+    </p>
+
+    <p>
+      Common evaluation tools include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Residual analysis</li>
+
+      <li>R-squared</li>
+
+      <li>Prediction accuracy measures</li>
+
+      <li>Validation procedures</li>
+
+    </ul>
+
+    <p>
+      No single metric provides a complete assessment.
+    </p>
+
+    <h2>Checking Assumptions</h2>
+
+    <p>
+      A model may appear successful while violating important assumptions.
+    </p>
+
+    <p>
+      Analysts therefore examine:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Linearity</li>
+
+      <li>Independence</li>
+
+      <li>Variance assumptions</li>
+
+      <li>Residual behavior</li>
+
+    </ul>
+
+    <p>
+      Assumption checking is a critical stage of model building.
+    </p>
+
+    <h2>Overfitting</h2>
+
+    <p>
+      Overfitting occurs when a model becomes excessively tailored to a particular dataset.
+    </p>
+
+    <p>
+      Such models may:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Fit training data extremely well</li>
+
+      <li>Perform poorly on new data</li>
+
+    </ul>
+
+    <p>
+      Good model building seeks patterns that generalize beyond the observed sample.
+    </p>
+
+    <h2>Model Building Is Iterative</h2>
+
+    <p>
+      Regression modeling is rarely a one-step process.
+    </p>
+
+    <p>
+      Analysts often:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Fit an initial model</li>
+
+      <li>Evaluate diagnostics</li>
+
+      <li>Revise predictors</li>
+
+      <li>Reassess performance</li>
+
+    </ul>
+
+    <p>
+      This cycle continues until a satisfactory model is obtained.
+    </p>
+
+    <h2>Different Models for Different Goals</h2>
+
+    <p>
+      A model optimized for prediction may differ from a model optimized for explanation.
+    </p>
+
+    <p>
+      Predictive models prioritize future performance.
+    </p>
+
+    <p>
+      Explanatory models prioritize interpretation and understanding.
+    </p>
+
+    <p>
+      The intended purpose should guide modeling decisions.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Key insight:</strong>
+
+      <p>
+        There is rarely a single "best" model. The best model depends on the goals of the analysis.
+      </p>
+
+    </div>
+
+    <h2>Common Mistakes in Model Building</h2>
+
+    <ul class="bullets">
+
+      <li>Including variables without substantive justification</li>
+
+      <li>Ignoring confounding variables</li>
+
+      <li>Overfitting the data</li>
+
+      <li>Relying exclusively on automated selection procedures</li>
+
+      <li>Ignoring assumption violations</li>
+
+    </ul>
+
+    <p>
+      Careful model construction helps avoid these problems.
+    </p>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      Multiple regression provides a flexible framework for understanding relationships and making predictions.
+    </p>
+
+    <p>
+      However, useful results depend on thoughtful model building rather than blindly fitting equations.
+    </p>
+
+    <p>
+      Good models balance complexity, interpretability, performance, and scientific reasoning.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Model building is the process of selecting variables, defining relationships, evaluating performance, and checking assumptions. Effective models balance predictive ability, interpretability, simplicity, and relevance to the research question.
+      </p>
+
+    </div>
+
+    <h2>Completing the Multiple Regression Block</h2>
+
+    <p>
+      You have now completed the Multiple Regression block.
+    </p>
+
+    <p>
+      This block introduced the structure of multiple regression, adjusted effects, confounding, coefficient interpretation, multicollinearity, dummy variables, interactions, and model-building principles.
+    </p>
+
+    <p>
+      These concepts form the foundation for understanding more advanced regression methods and applied statistical modeling.
+    </p>
+
+    <p>
+      Before exploring additional modeling techniques, it is important to understand the assumptions that make regression analysis trustworthy.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>Model building balances performance, interpretability, and simplicity</li>
+
+        <li>Predictor selection should be guided by theory and subject knowledge</li>
+
+        <li>Important variables should be included to reduce bias and confounding</li>
+
+        <li>Irrelevant variables can increase complexity and overfitting</li>
+
+        <li>Model evaluation requires multiple diagnostic tools</li>
+
+        <li>Assumption checking is a critical component of model building</li>
+
+        <li>Model development is typically iterative rather than one-time</li>
+
+        <li>The best model depends on the goals of the analysis</li>
+
+      </ul>
+
+    </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/modeling/multiple-regression/interactions/">
+         ← Previous: Interactions
+      </a>
+
+      <a class="btn"
+         href="/modeling/assumptions/">
+         Continue to Assumptions →
+      </a>
+
+    </div>
+
   </div>
 
 </section>
