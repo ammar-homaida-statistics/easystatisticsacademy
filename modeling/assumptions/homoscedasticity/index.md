@@ -1,178 +1,504 @@
 ---
 layout: default
-title: 4. Homoscedasticity
+title: Homoscedasticity
+description: Learn the homoscedasticity assumption, why constant residual variance matters in regression, and how analysts detect and address heteroscedasticity.
 permalink: /modeling/assumptions/homoscedasticity/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <h2 style="color:#e65100;">🚧 Lesson Under Construction</h2>
-    <p>
-      Version 0 focuses on understanding constant variance of residuals.
-      Diagnostics and remedies will be developed in later sections.
-    </p>
-  </div>
-</section>
-
-<!-- ✅ Update last visited lesson -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
 (function () {
-  localStorage.setItem("esa_continue_modeling_assumptions_lesson_v0", JSON.stringify({
+
+  const KEY =
+    "esa_continue_modeling_assumptions_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
     url: "/modeling/assumptions/homoscedasticity/",
-    label: "Lesson 4 — Homoscedasticity",
+    label: "Homoscedasticity",
     ts: Date.now()
   }));
+
 })();
 </script>
 
 <!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
 
     <div class="badge-row">
+      <span class="badge">Modeling</span>
       <span class="badge">Block 4</span>
-      <span class="badge">Lesson 4</span>
+      <span class="badge">Assumptions</span>
       <span class="badge">Homoscedasticity</span>
-      <span class="badge">Variance</span>
     </div>
 
-    <h1>4. Homoscedasticity</h1>
+    <h1>Homoscedasticity</h1>
 
     <p class="lead">
-      The homoscedasticity assumption requires that the variance of residuals
-      is constant across all levels of the predictors.
+      Regression assumes that residual variability remains roughly constant across the range of predictor values.
+    </p>
+
+    <p class="lead">
+      When residual spread changes systematically, statistical inference can become unreliable even if the regression equation itself appears reasonable.
     </p>
 
     <div class="hero-actions">
-      <a class="btn btn-outline" href="/modeling/assumptions/">Back to Block 4</a>
-      <a class="btn" href="#lesson">Start lesson</a>
+
+      <a class="btn"
+         href="/modeling/assumptions/independence/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/modeling/assumptions/normality/">
+         Next: Normality →
+      </a>
+
     </div>
 
-    <p class="muted-mini">
-      Version 0: conceptual understanding of variance consistency.
-    </p>
-
   </div>
+
 </section>
 
 <!-- LESSON -->
-<section class="section" id="lesson">
 
-  <h2>Learning objective</h2>
-  <p>
-    By the end of this lesson, you should understand what homoscedasticity means,
-    how violations occur, and why it matters.
-  </p>
+<section>
 
-  <div class="card">
-    <h3>Key idea</h3>
+  <div class="content-narrow">
+
+    <h2>What Is Homoscedasticity?</h2>
+
     <p>
-      The spread of residuals should remain approximately constant across all predicted values.
+      Homoscedasticity means that residuals have approximately the same variance across all levels of the predictors.
     </p>
-  </div>
 
-  <h2>1) What is homoscedasticity?</h2>
-  <div class="card">
     <p>
-      Homoscedasticity means that the variance of the errors is constant:
+      In other words, the amount of unexplained variation remains relatively constant throughout the dataset.
     </p>
-    <p><strong>Var(ε | X) = constant</strong></p>
-  </div>
 
-  <h2>2) What is heteroscedasticity?</h2>
-  <div class="card">
-    <p>
-      When the variance changes across levels of X,
-      the data exhibit heteroscedasticity.
-    </p>
-  </div>
+    <div class="concept-box">
 
-  <h2>3) Example</h2>
-  <div class="card">
+      <strong>Main idea:</strong>
+
+      <p>
+        Homoscedasticity means that residuals maintain roughly constant variability across the range of fitted values or predictor values.
+      </p>
+
+    </div>
+
+    <h2>Understanding Residual Variability</h2>
+
     <p>
-      In income data:
+      Recall that residuals represent prediction errors:
     </p>
-    <ul>
-      <li>Low-income observations → small variability</li>
-      <li>High-income observations → large variability</li>
+
+    
+
+    <p>
+      Some residuals are positive and some are negative.
+    </p>
+
+    <p>
+      Homoscedasticity concerns the spread of these residuals rather than their average value.
+    </p>
+
+    <h2>A Visual Intuition</h2>
+
+    <p>
+      Imagine a scatterplot with a regression line.
+    </p>
+
+    <p>
+      If residuals are evenly spread around the line from left to right, homoscedasticity is likely reasonable.
+    </p>
+
+    <p>
+      The amount of scatter remains approximately constant throughout the predictor range.
+    </p>
+
+    <h2>Why It Matters</h2>
+
+    <p>
+      Regression formulas for standard errors, confidence intervals, and hypothesis tests assume constant residual variance.
+    </p>
+
+    <p>
+      When this assumption holds, uncertainty estimates tend to be reliable.
+    </p>
+
+    <p>
+      When it fails, statistical inference may become inaccurate.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Key insight:</strong>
+
+      <p>
+        Homoscedasticity mainly affects uncertainty estimation rather than the basic structure of the regression equation.
+      </p>
+
+    </div>
+
+    <h2>What Is Heteroscedasticity?</h2>
+
+    <p>
+      The opposite of homoscedasticity is heteroscedasticity.
+    </p>
+
+    <p>
+      Heteroscedasticity occurs when residual variance changes across the range of predictor values.
+    </p>
+
+    <p>
+      Some regions of the data exhibit more variability than others.
+    </p>
+
+    <h2>A Common Example</h2>
+
+    <p>
+      Suppose we predict household spending using income.
+    </p>
+
+    <p>
+      Lower-income households may have relatively similar spending patterns.
+    </p>
+
+    <p>
+      Higher-income households may exhibit much greater variability in spending.
+    </p>
+
+    <p>
+      Residual spread therefore increases with income.
+    </p>
+
+    <p>
+      This is a classic example of heteroscedasticity.
+    </p>
+
+    <h2>The Funnel Pattern</h2>
+
+    <p>
+      One common visual sign of heteroscedasticity is a funnel-shaped residual plot.
+    </p>
+
+    <p>
+      Residuals may:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Start narrowly clustered</li>
+
+      <li>Spread outward as fitted values increase</li>
+
     </ul>
-  </div>
 
-  <h2>4) How violations appear</h2>
-  <div class="card">
     <p>
-      Residual plots show patterns such as:
+      Or the reverse pattern may occur.
     </p>
-    <ul>
-      <li>Funnel shape</li>
-      <li>Increasing or decreasing spread</li>
-    </ul>
-  </div>
 
-  <h2>5) Why it is a problem</h2>
-  <div class="card">
-    <ul>
-      <li>Standard errors become unreliable</li>
-      <li>Confidence intervals become inaccurate</li>
-      <li>Hypothesis tests may be misleading</li>
-    </ul>
-  </div>
-
-  <h2>6) What is NOT affected</h2>
-  <div class="card">
     <p>
-      Coefficient estimates themselves may still be unbiased,
-      but their reliability is affected.
+      Either situation indicates changing variance.
     </p>
-  </div>
 
-  <h2>7) Common causes</h2>
-  <div class="card">
-    <ul>
-      <li>Scale effects (larger values → more variability)</li>
-      <li>Missing variables</li>
-      <li>Incorrect model form</li>
+    <h2>Residual Plots</h2>
+
+    <p>
+      The primary diagnostic tool for assessing homoscedasticity is the residual plot.
+    </p>
+
+    <p>
+      Analysts often plot:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Residuals versus fitted values</li>
+
+      <li>Residuals versus predictors</li>
+
     </ul>
-  </div>
 
-  <h2>8) Fixing heteroscedasticity</h2>
-  <div class="card">
-    <ul>
-      <li>Transform variables (e.g., log)</li>
+    <p>
+      The goal is to evaluate whether residual spread remains relatively constant.
+    </p>
+
+    <h2>What Good Residual Plots Look Like</h2>
+
+    <p>
+      When homoscedasticity holds:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Residuals are centered around zero</li>
+
+      <li>No systematic pattern is visible</li>
+
+      <li>Residual spread appears roughly constant</li>
+
+    </ul>
+
+    <p>
+      The residual cloud should look fairly uniform.
+    </p>
+
+    <h2>Signs of Heteroscedasticity</h2>
+
+    <p>
+      Residual plots may reveal:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Funnel shapes</li>
+
+      <li>Fan patterns</li>
+
+      <li>Increasing variance</li>
+
+      <li>Decreasing variance</li>
+
+      <li>Clusters with different spreads</li>
+
+    </ul>
+
+    <p>
+      Such patterns suggest that the assumption may be violated.
+    </p>
+
+    <h2>Effects on Coefficient Estimates</h2>
+
+    <p>
+      Unlike some assumption violations, heteroscedasticity does not necessarily bias coefficient estimates.
+    </p>
+
+    <p>
+      The estimated regression line may still be reasonable.
+    </p>
+
+    <p>
+      The larger concern involves uncertainty estimates.
+    </p>
+
+    <h2>Effects on Statistical Inference</h2>
+
+    <p>
+      Heteroscedasticity can distort:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Standard errors</li>
+
+      <li>Confidence intervals</li>
+
+      <li>P-values</li>
+
+      <li>Hypothesis tests</li>
+
+    </ul>
+
+    <p>
+      These quantities may become too optimistic or too conservative.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Important warning:</strong>
+
+      <p>
+        Heteroscedasticity often affects inference more than coefficient estimation.
+      </p>
+
+    </div>
+
+    <h2>Formal Tests</h2>
+
+    <p>
+      Analysts sometimes use statistical tests to assess heteroscedasticity.
+    </p>
+
+    <p>
+      Common examples include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Breusch–Pagan test</li>
+
+      <li>White test</li>
+
+    </ul>
+
+    <p>
+      These tests provide evidence regarding whether residual variance changes systematically.
+    </p>
+
+    <h2>How Serious Is Heteroscedasticity?</h2>
+
+    <p>
+      Small departures from constant variance are often acceptable.
+    </p>
+
+    <p>
+      Regression methods are frequently robust to minor violations.
+    </p>
+
+    <p>
+      Severe heteroscedasticity is more concerning because it can substantially affect uncertainty estimates.
+    </p>
+
+    <h2>Possible Solutions</h2>
+
+    <p>
+      When heteroscedasticity is detected, analysts may:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Transform variables</li>
+
       <li>Use weighted regression</li>
-      <li>Improve model specification</li>
+
+      <li>Use robust standard errors</li>
+
+      <li>Fit alternative models</li>
+
     </ul>
-  </div>
 
-  <h2>9) Why this matters</h2>
-  <div class="card">
     <p>
-      Homoscedasticity ensures that uncertainty is measured correctly,
-      which is essential for reliable statistical conclusions.
+      The appropriate solution depends on the source and severity of the problem.
     </p>
-  </div>
 
-  <div class="card">
-    <h3>Outcome of this lesson</h3>
-    <ul>
-      <li>Define homoscedasticity</li>
-      <li>Recognize heteroscedasticity</li>
-      <li>Understand consequences of violations</li>
-      <li>Interpret residual patterns</li>
-      <li>Prepare for normality assumption</li>
-    </ul>
-  </div>
+    <h2>Robust Standard Errors</h2>
 
-  <div class="card">
-    <h3>Next step</h3>
     <p>
-      We now examine the normality assumption of residuals.
+      One common approach is the use of heteroscedasticity-robust standard errors.
     </p>
-    <a class="btn" href="/modeling/assumptions/normality/">
-      Next lesson: Normality →
-    </a>
+
+    <p>
+      These methods adjust uncertainty calculations without changing the coefficient estimates.
+    </p>
+
+    <p>
+      They are widely used in applied research.
+    </p>
+
+    <h2>Prediction and Heteroscedasticity</h2>
+
+    <p>
+      Heteroscedasticity does not always harm prediction substantially.
+    </p>
+
+    <p>
+      However, prediction intervals may become inaccurate if changing variance is ignored.
+    </p>
+
+    <p>
+      Understanding residual variability remains important for predictive modeling.
+    </p>
+
+    <h2>Homoscedasticity vs Independence</h2>
+
+    <p>
+      Independence concerns relationships among observations.
+    </p>
+
+    <p>
+      Homoscedasticity concerns the spread of residuals.
+    </p>
+
+    <p>
+      Both assumptions affect uncertainty estimates, but they address different aspects of model behavior.
+    </p>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      Constant residual variance is an important assumption supporting the reliability of regression inference.
+    </p>
+
+    <p>
+      When residual variability changes systematically, standard errors and hypothesis tests may become unreliable.
+    </p>
+
+    <p>
+      Evaluating homoscedasticity helps analysts determine whether reported uncertainty measures can be trusted.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Homoscedasticity means that residuals have approximately constant variance across the range of predictor or fitted values. Violations primarily affect standard errors, confidence intervals, and hypothesis tests rather than the basic regression line itself.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Another frequently discussed regression assumption concerns normality.
+    </p>
+
+    <p>
+      Rather than focusing on predictor relationships or residual variance, the normality assumption examines the distribution of residuals.
+    </p>
+
+    <p>
+      The next lesson explains what normality means in regression and when it matters for statistical inference.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>Homoscedasticity means residual variance remains approximately constant</li>
+
+        <li>Heteroscedasticity occurs when residual variance changes across the data range</li>
+
+        <li>Residual plots are the primary diagnostic tool for assessing variance patterns</li>
+
+        <li>Funnel-shaped residual plots often indicate heteroscedasticity</li>
+
+        <li>Heteroscedasticity mainly affects standard errors and inference</li>
+
+        <li>Coefficient estimates may remain reasonable despite variance violations</li>
+
+        <li>Robust standard errors are a common solution</li>
+
+        <li>Evaluating residual variance helps ensure reliable statistical conclusions</li>
+
+      </ul>
+
+    </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/modeling/assumptions/independence/">
+         ← Previous: Independence
+      </a>
+
+      <a class="btn"
+         href="/modeling/assumptions/normality/">
+         Next: Normality →
+      </a>
+
+    </div>
+
   </div>
 
 </section>
