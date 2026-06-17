@@ -1,175 +1,520 @@
 ---
 layout: default
-title: 5. Interpreting Coefficients
+title: Coefficients
+description: Learn how to interpret coefficients in multiple regression and understand what regression estimates reveal about relationships among variables.
 permalink: /modeling/multiple-regression/coefficients/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <h2 style="color:#e65100;">🚧 Lesson Under Construction</h2>
-    <p>
-      Version 0 focuses on correct interpretation of coefficients in multiple regression.
-      Statistical inference and significance will be added later.
-    </p>
-  </div>
-</section>
-
-<!-- ✅ Update last visited lesson -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
 (function () {
-  localStorage.setItem("esa_continue_modeling_mr_lesson_v0", JSON.stringify({
+
+  const KEY =
+    "esa_continue_modeling_multiple_regression_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
     url: "/modeling/multiple-regression/coefficients/",
-    label: "Lesson 5 — Coefficients",
+    label: "Coefficients",
     ts: Date.now()
   }));
+
 })();
 </script>
 
 <!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
 
     <div class="badge-row">
+      <span class="badge">Modeling</span>
       <span class="badge">Block 3</span>
-      <span class="badge">Lesson 5</span>
+      <span class="badge">Multiple Regression</span>
       <span class="badge">Coefficients</span>
-      <span class="badge">Interpretation</span>
     </div>
 
-    <h1>5. Interpreting Coefficients</h1>
+    <h1>Coefficients</h1>
 
     <p class="lead">
-      Each coefficient represents the change in the response variable
-      associated with a one-unit change in a predictor, holding all other variables constant.
+      Regression coefficients are the primary outputs of a multiple regression model.
+    </p>
+
+    <p class="lead">
+      They quantify how predictors relate to an outcome and provide the foundation for interpretation, explanation, and prediction.
     </p>
 
     <div class="hero-actions">
-      <a class="btn btn-outline" href="/modeling/multiple-regression/">Back to Block 3</a>
-      <a class="btn" href="#lesson">Start lesson</a>
+
+      <a class="btn"
+         href="/modeling/multiple-regression/confounding/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/modeling/multiple-regression/multicollinearity/">
+         Next: Multicollinearity →
+      </a>
+
     </div>
 
-    <p class="muted-mini">
-      Version 0: interpretation-first approach before statistical testing.
-    </p>
-
   </div>
+
 </section>
 
 <!-- LESSON -->
-<section class="section" id="lesson">
 
-  <h2>Learning objective</h2>
-  <p>
-    By the end of this lesson, you should be able to interpret regression coefficients
-    correctly in a multiple regression model.
-  </p>
+<section>
 
-  <div class="card">
-    <h3>Key idea</h3>
-    <p>
-      A coefficient measures the expected change in Y for a one-unit increase in a predictor,
-      holding all other predictors constant.
-    </p>
-  </div>
+  <div class="content-narrow">
 
-  <h2>1) General form of interpretation</h2>
-  <div class="card">
-    <p>
-      For coefficient β₁:
-    </p>
-    <p>
-      “A one-unit increase in X₁ is associated with a β₁-unit change in Y,
-      holding all other variables constant.”
-    </p>
-  </div>
-
-  <h2>2) Example</h2>
-  <div class="card">
-    <p>
-      Model:
-    </p>
-    <p><strong>Score = 40 + 3(Hours) + 2(Sleep)</strong></p>
+    <h2>Why Coefficients Matter</h2>
 
     <p>
-      Interpretation of Hours coefficient:
+      The purpose of a regression model is not merely to generate predictions.
     </p>
-    <p>
-      Increasing study hours by one unit increases score by 3 units,
-      <strong>holding sleep constant</strong>.
-    </p>
-  </div>
 
-  <h2>3) Intercept interpretation</h2>
-  <div class="card">
     <p>
-      The intercept represents the expected value of Y when all predictors are zero.
+      Analysts often want to understand how predictors relate to outcomes.
     </p>
-    <p>
-      In practice, it may not always have meaningful interpretation.
-    </p>
-  </div>
 
-  <h2>4) Continuous predictors</h2>
-  <div class="card">
     <p>
-      Interpretation is based on unit changes in the predictor.
+      Regression coefficients provide this information.
     </p>
-  </div>
 
-  <h2>5) Units matter</h2>
-  <div class="card">
+    <div class="concept-box">
+
+      <strong>Main idea:</strong>
+
+      <p>
+        A regression coefficient represents the expected change in the outcome associated with a one-unit increase in a predictor, holding the other predictors constant.
+      </p>
+
+    </div>
+
+    <h2>Where Coefficients Appear</h2>
+
     <p>
-      The meaning of a coefficient depends on the units of the variables.
+      Recall the multiple regression equation:
     </p>
-  </div>
 
-  <h2>6) Multiple predictors context</h2>
-  <div class="card">
+    <div class="example-box">
+
+      <p>
+        y = β₀ + β₁x₁ + β₂x₂ + ... + βₖxₖ
+      </p>
+    </div>
+
     <p>
-      Coefficients must always be interpreted in the context of the other variables in the model.
+      The coefficients are:
     </p>
-  </div>
 
-  <h2>7) Common mistakes</h2>
-  <div class="card">
-    <ul>
-      <li>Ignoring “holding others constant”</li>
-      <li>Interpreting coefficients as causal effects</li>
-      <li>Ignoring units of measurement</li>
-      <li>Interpreting coefficients without context</li>
+    <div class="example-box">
+
+      <p>
+        β₁, β₂, β₃, ..., βₖ
+      </p>
+    </div>
+
+    <p>
+      Each coefficient corresponds to a specific predictor variable.
+    </p>
+
+    <h2>The Basic Interpretation</h2>
+
+    <p>
+      Every coefficient answers a question of the form:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        How is the outcome expected to change when this predictor increases by one unit while all other predictors remain constant?
+      </p>
+    </div>
+
+    <p>
+      This adjusted interpretation is the hallmark of multiple regression.
+    </p>
+
+    <h2>A Salary Example</h2>
+
+    <p>
+      Suppose a model predicts annual salary using:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Years of education</li>
+
+      <li>Years of work experience</li>
+
     </ul>
-  </div>
 
-  <h2>8) Why this matters</h2>
-  <div class="card">
     <p>
-      Correct interpretation of coefficients is essential for making valid conclusions
-      in statistical modeling and applied analysis.
+      Assume the education coefficient equals:
     </p>
-  </div>
 
-  <div class="card">
-    <h3>Outcome of this lesson</h3>
-    <ul>
-      <li>Interpret coefficients in multiple regression</li>
-      <li>Understand the role of units</li>
-      <li>Interpret intercepts correctly</li>
-      <li>Avoid common interpretation errors</li>
-      <li>Prepare for multicollinearity issues</li>
+    <div class="example-box">
+
+      <p>
+        β₁ = 2,500
+      </p>
+    </div>
+
+    <p>
+      Interpretation:
+    </p>
+
+    <p>
+      Holding work experience constant, one additional year of education is associated with an expected increase of $2,500 in annual salary.
+    </p>
+
+    <h2>Positive Coefficients</h2>
+
+    <p>
+      A positive coefficient indicates that larger predictor values are associated with larger expected outcomes.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        β &gt; 0
+      </p>
+    </div>
+
+    <p>
+      Examples:
+    </p>
+
+    <ul class="bullets">
+
+      <li>More education → Higher salary</li>
+
+      <li>More advertising → Higher sales</li>
+
+      <li>More study hours → Higher exam scores</li>
+
     </ul>
-  </div>
 
-  <div class="card">
-    <h3>Next step</h3>
+    <h2>Negative Coefficients</h2>
+
     <p>
-      Now we examine what happens when predictors are highly correlated
-      and how it affects coefficient stability.
+      A negative coefficient indicates that larger predictor values are associated with smaller expected outcomes.
     </p>
-    <a class="btn" href="/modeling/multiple-regression/multicollinearity/">
-      Next lesson: Multicollinearity →
-    </a>
+
+    <div class="example-box">
+
+      <p>
+        β &lt; 0
+      </p>
+    </div>
+
+    <p>
+      Examples:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Higher prices → Lower demand</li>
+
+      <li>Greater age of equipment → Lower productivity</li>
+
+      <li>Longer commute times → Lower satisfaction</li>
+
+    </ul>
+
+    <h2>Zero Coefficients</h2>
+
+    <p>
+      A coefficient near zero suggests little or no linear relationship after adjustment for the other predictors.
+    </p>
+
+    <p>
+      This does not necessarily mean the variable is irrelevant.
+    </p>
+
+    <p>
+      Interpretation depends on uncertainty, sample size, and context.
+    </p>
+
+    <h2>Units Are Essential</h2>
+
+    <p>
+      Regression coefficients always carry units.
+    </p>
+
+    <p>
+      The units are:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Outcome Units ÷ Predictor Units
+      </p>
+    </div>
+
+    <p>
+      For example:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Dollars per year of education
+      </p>
+    </div>
+
+    <p>
+      Ignoring units often leads to incorrect interpretations.
+    </p>
+
+    <h2>Magnitude and Practical Importance</h2>
+
+    <p>
+      Larger coefficients indicate larger expected changes per unit increase in the predictor.
+    </p>
+
+    <p>
+      However, practical importance depends on:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Measurement units</li>
+
+      <li>Typical predictor ranges</li>
+
+      <li>Context of the problem</li>
+
+    </ul>
+
+    <p>
+      A seemingly small coefficient can have substantial real-world impact.
+    </p>
+
+    <h2>Adjusted Effects Revisited</h2>
+
+    <p>
+      Multiple regression coefficients are adjusted effects.
+    </p>
+
+    <p>
+      This means each coefficient reflects the relationship after accounting for the other predictors in the model.
+    </p>
+
+    <p>
+      The interpretation is never purely bivariate.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Key insight:</strong>
+
+      <p>
+        A coefficient describes a predictor's unique contribution after the model accounts for the other included predictors.
+      </p>
+
+    </div>
+
+    <h2>Comparing Coefficients Carefully</h2>
+
+    <p>
+      A common mistake is comparing coefficient sizes directly.
+    </p>
+
+    <p>
+      This can be misleading because predictors may use different units.
+    </p>
+
+    <p>
+      For example:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Age measured in years</li>
+
+      <li>Income measured in dollars</li>
+
+      <li>Distance measured in kilometers</li>
+
+    </ul>
+
+    <p>
+      Different measurement scales make direct comparisons difficult.
+    </p>
+
+    <h2>Estimated vs True Coefficients</h2>
+
+    <p>
+      The coefficients reported by regression software are estimates.
+    </p>
+
+    <p>
+      The true population coefficients are generally unknown.
+    </p>
+
+    <p>
+      Different samples may produce slightly different coefficient estimates because of sampling variability.
+    </p>
+
+    <h2>Coefficients and Prediction</h2>
+
+    <p>
+      Every prediction generated by the model depends on the estimated coefficients.
+    </p>
+
+    <p>
+      Together, the coefficients determine how much each predictor contributes to the predicted outcome.
+    </p>
+
+    <p>
+      Changing a coefficient changes the model's predictions.
+    </p>
+
+    <h2>Coefficients and Statistical Inference</h2>
+
+    <p>
+      In addition to estimating coefficients, analysts often ask:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Is the coefficient significantly different from zero?</li>
+
+      <li>How precise is the estimate?</li>
+
+      <li>How much uncertainty surrounds the coefficient?</li>
+
+    </ul>
+
+    <p>
+      Confidence intervals and hypothesis tests help answer these questions.
+    </p>
+
+    <h2>Interpreting the Intercept</h2>
+
+    <p>
+      The intercept is also a coefficient.
+    </p>
+
+    <p>
+      It represents the expected outcome when all predictors equal zero.
+    </p>
+
+    <p>
+      Depending on the context, this interpretation may or may not be meaningful.
+    </p>
+
+    <h2>When Interpretation Becomes Difficult</h2>
+
+    <p>
+      Coefficient interpretation becomes challenging when predictors are highly related to one another.
+    </p>
+
+    <p>
+      In such situations:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Effects become unstable</li>
+
+      <li>Uncertainty increases</li>
+
+      <li>Interpretation becomes less reliable</li>
+
+    </ul>
+
+    <p>
+      This problem is known as multicollinearity.
+    </p>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      Regression coefficients are the fundamental quantities used to interpret multiple regression models.
+    </p>
+
+    <p>
+      They summarize adjusted relationships between predictors and outcomes, support prediction, and help answer important scientific and business questions.
+    </p>
+
+    <p>
+      Understanding coefficients is one of the most important skills in regression analysis.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Multiple regression coefficients quantify adjusted relationships between predictors and outcomes. Each coefficient measures the expected change in the outcome associated with a one-unit increase in a predictor while holding the other predictors constant.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Multiple regression works best when predictors provide distinct information.
+    </p>
+
+    <p>
+      When predictors become highly correlated with one another, coefficient estimates can become unstable and difficult to interpret.
+    </p>
+
+    <p>
+      The next lesson introduces multicollinearity and explains why highly related predictors create challenges for regression analysis.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>Regression coefficients are the primary outputs of multiple regression</li>
+
+        <li>Each coefficient measures an adjusted effect</li>
+
+        <li>Coefficients describe expected outcome changes for one-unit predictor increases</li>
+
+        <li>Positive coefficients indicate positive relationships</li>
+
+        <li>Negative coefficients indicate negative relationships</li>
+
+        <li>Coefficient interpretations must include units</li>
+
+        <li>Estimated coefficients contain sampling uncertainty</li>
+
+        <li>Coefficient interpretation becomes more difficult when predictors are highly correlated</li>
+
+      </ul>
+
+    </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/modeling/multiple-regression/confounding/">
+         ← Previous: Confounding
+      </a>
+
+      <a class="btn"
+         href="/modeling/multiple-regression/multicollinearity/">
+         Next: Multicollinearity →
+      </a>
+
+    </div>
+
   </div>
 
 </section>
