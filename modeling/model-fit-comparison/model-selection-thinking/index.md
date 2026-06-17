@@ -1,187 +1,521 @@
 ---
 layout: default
-title: 9. Model Selection Thinking
+title: Model Selection Thinking
+description: Learn how experienced analysts think about model selection, balance competing objectives, and choose models that are useful rather than merely statistically impressive.
 permalink: /modeling/model-fit-comparison/model-selection-thinking/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <h2 style="color:#e65100;">🚧 Lesson Under Construction</h2>
-    <p>
-      Version 0 develops the mindset required for model selection.
-      This lesson integrates all previous concepts into a coherent strategy.
-    </p>
-  </div>
-</section>
-
-<!-- ✅ Update last visited lesson -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
 (function () {
-  localStorage.setItem("esa_continue_modeling_model_fit_lesson_v0", JSON.stringify({
+
+  const KEY =
+    "esa_continue_modeling_model_fit_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
     url: "/modeling/model-fit-comparison/model-selection-thinking/",
-    label: "Lesson 9 — Model Selection Thinking",
+    label: "Model Selection Thinking",
     ts: Date.now()
   }));
+
 })();
 </script>
 
 <!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
 
     <div class="badge-row">
+      <span class="badge">Modeling</span>
       <span class="badge">Block 6</span>
-      <span class="badge">Lesson 9</span>
-      <span class="badge">Strategy</span>
-      <span class="badge">Judgment</span>
+      <span class="badge">Model Fit & Comparison</span>
+      <span class="badge">Decision Making</span>
     </div>
 
-    <h1>9. Model Selection Thinking</h1>
+    <h1>Model Selection Thinking</h1>
 
     <p class="lead">
-      Model selection is not about maximizing a single number.
-      It is about balancing fit, complexity, interpretability, and purpose.
+      Statistical software can calculate dozens of fit statistics, but choosing a model ultimately requires judgment.
+    </p>
+
+    <p class="lead">
+      Effective model selection is not about finding the model with the largest R-squared or the smallest AIC. It is about choosing a model that best serves the purpose of the analysis.
     </p>
 
     <div class="hero-actions">
-      <a class="btn btn-outline" href="/modeling/model-fit-comparison/">Back to Block 6</a>
-      <a class="btn" href="#lesson">Start lesson</a>
+
+      <a class="btn"
+         href="/modeling/model-fit-comparison/aic-bic/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/modeling/extensions/">
+         Continue to Extensions →
+      </a>
+
     </div>
 
-    <p class="muted-mini">
-      Version 0: modeling mindset before advanced techniques.
-    </p>
-
   </div>
+
 </section>
 
 <!-- LESSON -->
-<section class="section" id="lesson">
 
-  <h2>Learning objective</h2>
-  <p>
-    By the end of this lesson, you should be able to approach model selection
-    as a structured reasoning process rather than a mechanical task.
-  </p>
+<section>
 
-  <div class="card">
-    <h3>Key idea</h3>
+  <div class="content-narrow">
+
+    <h2>Why Model Selection Is Difficult</h2>
+
     <p>
-      There is no single “best model” — only models that are more or less appropriate
-      for a given purpose.
+      Real datasets often support multiple reasonable models.
     </p>
-  </div>
 
-  <h2>1) Model selection is not automatic</h2>
-  <div class="card">
     <p>
-      Metrics like R², adjusted R², AIC, and BIC guide decisions,
-      but do not replace judgment.
+      One model may have slightly better fit.
     </p>
-  </div>
 
-  <h2>2) Define the goal first</h2>
-  <div class="card">
-    <ul>
-      <li>Prediction → focus on generalization</li>
-      <li>Explanation → focus on interpretation</li>
+    <p>
+      Another may be easier to interpret.
+    </p>
+
+    <p>
+      A third may predict future observations more accurately.
+    </p>
+
+    <p>
+      Model selection therefore involves balancing competing priorities.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Main idea:</strong>
+
+      <p>
+        Good model selection focuses on usefulness, not merely statistical optimization.
+      </p>
+
+    </div>
+
+    <h2>Start With the Goal</h2>
+
+    <p>
+      Before comparing models, analysts should clarify the purpose of the analysis.
+    </p>
+
+    <p>
+      Common goals include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Prediction</li>
+
+      <li>Explanation</li>
+
+      <li>Causal understanding</li>
+
+      <li>Decision support</li>
+
+      <li>Scientific discovery</li>
+
     </ul>
-  </div>
 
-  <h2>3) Balance key components</h2>
-  <div class="card">
-    <ul>
-      <li>Fit (how well it explains data)</li>
-      <li>Complexity (number of predictors)</li>
-      <li>Generalization (performance on new data)</li>
-      <li>Interpretability (clarity of results)</li>
+    <p>
+      Different goals often favor different models.
+    </p>
+
+    <h2>Prediction and Explanation Are Different</h2>
+
+    <p>
+      A model that predicts extremely well may be difficult to interpret.
+    </p>
+
+    <p>
+      Conversely, a simple explanatory model may provide valuable insight while sacrificing some predictive accuracy.
+    </p>
+
+    <p>
+      The best choice depends on the analytical objective.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Key insight:</strong>
+
+      <p>
+        The best predictive model and the best explanatory model are not always the same model.
+      </p>
+
+    </div>
+
+    <h2>Do Not Chase Statistics Blindly</h2>
+
+    <p>
+      Analysts sometimes become overly focused on improving fit measures.
+    </p>
+
+    <p>
+      Small improvements in R-squared, AIC, or other metrics may have little practical importance.
+    </p>
+
+    <p>
+      Statistical gains should be weighed against added complexity.
+    </p>
+
+    <h2>The Principle of Parsimony</h2>
+
+    <p>
+      When two models perform similarly, the simpler model is often preferred.
+    </p>
+
+    <p>
+      Simpler models tend to be:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Easier to understand</li>
+
+      <li>Easier to communicate</li>
+
+      <li>Less vulnerable to overfitting</li>
+
+      <li>More stable across datasets</li>
+
     </ul>
-  </div>
 
-  <h2>4) Avoid single-metric decisions</h2>
-  <div class="card">
     <p>
-      No single number should determine model choice.
+      Parsimony remains one of the central ideas in model selection.
     </p>
-  </div>
 
-  <h2>5) Use multiple tools</h2>
-  <div class="card">
-    <ul>
-      <li>R² / adjusted R²</li>
-      <li>Train vs test performance</li>
-      <li>AIC / BIC</li>
-      <li>Diagnostic checks</li>
+    <h2>Think Beyond Fit</h2>
+
+    <p>
+      Good model selection considers multiple dimensions simultaneously.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Consideration</th>
+            <th>Question</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Fit</td>
+            <td>Does the model represent the data well?</td>
+          </tr>
+
+          <tr>
+            <td>Prediction</td>
+            <td>Does it generalize to new data?</td>
+          </tr>
+
+          <tr>
+            <td>Interpretability</td>
+            <td>Can people understand it?</td>
+          </tr>
+
+          <tr>
+            <td>Complexity</td>
+            <td>Is the model unnecessarily complicated?</td>
+          </tr>
+
+          <tr>
+            <td>Robustness</td>
+            <td>Are conclusions stable?</td>
+          </tr>
+
+          <tr>
+            <td>Theory</td>
+            <td>Does the model make substantive sense?</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>Respect Subject-Matter Knowledge</h2>
+
+    <p>
+      Statistical evidence should be combined with domain expertise.
+    </p>
+
+    <p>
+      Variables that are theoretically important should not necessarily be discarded simply because their statistical contribution appears modest in one dataset.
+    </p>
+
+    <p>
+      Models should make sense scientifically as well as statistically.
+    </p>
+
+    <h2>Beware of Data Mining</h2>
+
+    <p>
+      Repeatedly testing large numbers of models can produce apparently impressive results by chance alone.
+    </p>
+
+    <p>
+      This increases the risk of:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Overfitting</li>
+
+      <li>False discoveries</li>
+
+      <li>Unstable conclusions</li>
+
     </ul>
-  </div>
 
-  <h2>6) Start simple</h2>
-  <div class="card">
     <p>
-      Begin with a simple model and increase complexity only when justified.
+      Responsible model selection requires discipline.
     </p>
-  </div>
 
-  <h2>7) Interpretability matters</h2>
-  <div class="card">
+    <div class="concept-box">
+
+      <strong>Important warning:</strong>
+
+      <p>
+        A model that appears optimal after extensive searching may simply reflect chance patterns in the dataset.
+      </p>
+
+    </div>
+
+    <h2>Think About Future Use</h2>
+
     <p>
-      A slightly less accurate model may be preferable if it is easier to interpret.
+      Models are often used beyond the original analysis.
     </p>
-  </div>
 
-  <h2>8) Context matters</h2>
-  <div class="card">
     <p>
-      Domain knowledge should guide model selection decisions.
+      Consider:
     </p>
-  </div>
 
-  <h2>9) Iterative process</h2>
-  <div class="card">
-    <p>
-      Model selection is iterative:
-      build → evaluate → refine → repeat.
-    </p>
-  </div>
+    <ul class="bullets">
 
-  <h2>10) Common mistake</h2>
-  <div class="card">
-    <p>
-      Treating model selection as a purely technical problem
-      rather than a reasoning process.
-    </p>
-  </div>
+      <li>Will the model be updated?</li>
 
-  <h2>11) Why this matters</h2>
-  <div class="card">
-    <p>
-      Good model selection leads to reliable conclusions,
-      better predictions, and stronger scientific reasoning.
-    </p>
-  </div>
+      <li>Will others use it?</li>
 
-  <div class="card">
-    <h3>Outcome of this lesson</h3>
-    <ul>
-      <li>Think critically about model selection</li>
-      <li>Balance multiple evaluation criteria</li>
-      <li>Avoid common selection mistakes</li>
-      <li>Apply structured reasoning</li>
-      <li>Transition to advanced modeling</li>
+      <li>Will future data resemble the current sample?</li>
+
+      <li>Can the required variables be collected reliably?</li>
+
     </ul>
-  </div>
 
-  <div class="card">
-    <h3>Next step</h3>
     <p>
-      We now move beyond linear regression
-      to more flexible modeling frameworks.
+      Practical considerations matter.
     </p>
-    <a class="btn" href="/modeling/extensions/">
-      Next block: Extensions →
-    </a>
+
+    <h2>Model Selection Is Iterative</h2>
+
+    <p>
+      Analysts rarely choose a final model immediately.
+    </p>
+
+    <p>
+      A typical process may involve:
+    </p>
+
+    <ol>
+
+      <li>Building candidate models.</li>
+
+      <li>Comparing diagnostics.</li>
+
+      <li>Evaluating assumptions.</li>
+
+      <li>Assessing predictive performance.</li>
+
+      <li>Refining the model.</li>
+
+    </ol>
+
+    <p>
+      Model development is often a cycle rather than a single decision.
+    </p>
+
+    <h2>No Model Is Perfect</h2>
+
+    <p>
+      Every model simplifies reality.
+    </p>
+
+    <p>
+      All models contain assumptions and limitations.
+    </p>
+
+    <p>
+      The objective is not perfection but usefulness.
+    </p>
+
+    <h2>A Practical Framework</h2>
+
+    <p>
+      When comparing models, analysts often ask:
+    </p>
+
+    <ol>
+
+      <li>Does the model fit reasonably well?</li>
+
+      <li>Does it generalize to new data?</li>
+
+      <li>Does it align with theory?</li>
+
+      <li>Is it interpretable?</li>
+
+      <li>Is additional complexity justified?</li>
+
+      <li>Are conclusions robust?</li>
+
+    </ol>
+
+    <p>
+      These questions provide a balanced approach to model selection.
+    </p>
+
+    <h2>Model Selection Is About Trade-Offs</h2>
+
+    <p>
+      Nearly every modeling decision involves trade-offs.
+    </p>
+
+    <p>
+      Improving one aspect of a model may worsen another.
+    </p>
+
+    <p>
+      Experienced analysts recognize these trade-offs and make decisions deliberately rather than automatically.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Important perspective:</strong>
+
+      <p>
+        Model selection is as much about reasoning and judgment as it is about computation.
+      </p>
+
+    </div>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      Throughout this block, you have encountered many tools for evaluating model quality:
+    </p>
+
+    <ul class="bullets">
+
+      <li>R-squared</li>
+
+      <li>Adjusted R-squared</li>
+
+      <li>Train-test comparisons</li>
+
+      <li>AIC</li>
+
+      <li>BIC</li>
+
+      <li>Diagnostic evaluation</li>
+
+    </ul>
+
+    <p>
+      These tools are valuable, but none can choose a model automatically.
+    </p>
+
+    <p>
+      Effective model selection requires integrating statistical evidence, substantive knowledge, and practical goals.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Good model selection balances fit, prediction, interpretability, complexity, and practical usefulness. The best model is not necessarily the one with the strongest statistics—it is the one that best serves the goals of the analysis.
+      </p>
+
+    </div>
+
+    <h2>Completing the Model Fit & Comparison Block</h2>
+
+    <p>
+      You have now completed the Model Fit & Comparison block.
+    </p>
+
+    <p>
+      This block explored model fit, R-squared, adjusted R-squared, overfitting, underfitting, train-test evaluation, model comparison, information criteria, and model selection strategies.
+    </p>
+
+    <p>
+      Together, these ideas provide a framework for evaluating and choosing statistical models responsibly.
+    </p>
+
+    <p>
+      The next block introduces extensions to basic regression modeling, including more advanced approaches for handling different types of outcomes, relationships, and modeling challenges.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>Model selection should begin with a clear analytical goal</li>
+
+        <li>Prediction and explanation may favor different models</li>
+
+        <li>Fit statistics should not be the sole basis for model choice</li>
+
+        <li>Parsimony encourages simpler models when performance is similar</li>
+
+        <li>Subject-matter knowledge should inform model decisions</li>
+
+        <li>Overfitting can result from excessive model searching</li>
+
+        <li>Model selection involves balancing competing priorities</li>
+
+        <li>The best model is the one that best serves the purpose of the analysis</li>
+
+      </ul>
+
+    </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/modeling/model-fit-comparison/aic-bic/">
+         ← Previous: AIC and BIC
+      </a>
+
+      <a class="btn"
+         href="/modeling/extensions/">
+         Continue to Extensions →
+      </a>
+
+    </div>
+
   </div>
 
 </section>
