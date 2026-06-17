@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Outliers
-description: Learn what outliers are, why they matter in regression analysis, and how unusual observations can influence model estimates and conclusions.
+description: Learn what outliers are, why they matter in regression analysis, how they influence models, and how analysts investigate unusual observations.
 permalink: /modeling/assumptions/outliers/
 sidebar: false
 ---
@@ -38,11 +38,11 @@ sidebar: false
     <h1>Outliers</h1>
 
     <p class="lead">
-      Most observations in a dataset follow the general pattern represented by a regression model.
+      Most observations follow the general pattern present in a dataset.
     </p>
 
     <p class="lead">
-      Some observations, however, are unusually different from the rest. These observations are called outliers and can have a substantial impact on regression results.
+      Occasionally, however, individual observations differ substantially from the rest. These unusual cases are known as outliers and can have a major impact on regression results.
     </p>
 
     <div class="hero-actions">
@@ -53,7 +53,7 @@ sidebar: false
       </a>
 
       <a class="btn btn-outline"
-         href="/modeling/assumptions/violation/">
+         href="/modeling/assumptions/violations/">
          Next: Assumption Violations →
       </a>
 
@@ -85,16 +85,14 @@ sidebar: false
 
       <li>Data entry mistakes</li>
 
-      <li>Rare events</li>
+      <li>Rare but legitimate events</li>
 
-      <li>Natural variation</li>
-
-      <li>Previously unknown processes</li>
+      <li>Important underlying processes</li>
 
     </ul>
 
     <p>
-      Not every outlier represents a problem.
+      Not all outliers are mistakes.
     </p>
 
     <div class="concept-box">
@@ -102,7 +100,7 @@ sidebar: false
       <strong>Main idea:</strong>
 
       <p>
-        Outliers are observations that depart markedly from the general pattern of the dataset and may influence regression estimates, diagnostics, and conclusions.
+        Outliers are observations that are unusually distant from the general pattern of the data and may exert disproportionate influence on regression results.
       </p>
 
     </div>
@@ -110,291 +108,39 @@ sidebar: false
     <h2>Why Outliers Matter</h2>
 
     <p>
-      Regression models are estimated using all available observations.
+      Regression models attempt to fit a relationship that best represents the entire dataset.
     </p>
 
     <p>
-      Because outliers can be far from the majority of the data, they sometimes exert disproportionate influence on the fitted model.
+      Extreme observations can pull the fitted line toward themselves.
     </p>
 
     <p>
-      A single unusual observation may alter coefficients, predictions, and statistical conclusions.
+      As a result, a small number of unusual points may strongly affect model estimates.
     </p>
 
-    <h2>An Example</h2>
+    <h2>A Simple Example</h2>
 
     <p>
-      Imagine a dataset relating study hours to exam scores.
-    </p>
-
-    <p>
-      Most students who study more tend to score higher.
+      Imagine a scatterplot where most observations cluster around a straight-line trend.
     </p>
 
     <p>
-      Suppose one student studies extensively but receives a very low score because of illness during the exam.
+      One observation appears far above the rest of the data.
     </p>
 
     <p>
-      This observation may appear as an outlier relative to the overall trend.
-    </p>
-
-    <h2>Outliers and Residuals</h2>
-
-    <p>
-      Outliers are often associated with unusually large residuals.
+      That single point may substantially change the estimated regression line.
     </p>
 
     <p>
-      Recall:
+      The effect can be surprisingly large.
     </p>
 
-    
+    <h2>Outliers in the Outcome Variable</h2>
 
     <p>
-      Observations with large positive or negative residuals differ substantially from model predictions.
-    </p>
-
-    <p>
-      Such observations deserve closer examination.
-    </p>
-
-    <h2>Not All Outliers Are Equal</h2>
-
-    <p>
-      Some outliers have little impact on the fitted model.
-    </p>
-
-    <p>
-      Others can substantially alter results.
-    </p>
-
-    <p>
-      Understanding this distinction is important when evaluating unusual observations.
-    </p>
-
-    <h2>Response Outliers</h2>
-
-    <p>
-      One type of outlier occurs when an observation has an unusual outcome value relative to the fitted regression line.
-    </p>
-
-    <p>
-      These observations often have large residuals.
-    </p>
-
-    <p>
-      They may affect model fit and inference.
-    </p>
-
-    <h2>Predictor Outliers</h2>
-
-    <p>
-      Another type occurs when an observation has an unusually large or small predictor value.
-    </p>
-
-    <p>
-      These observations lie far from the bulk of the predictor data.
-    </p>
-
-    <p>
-      Such observations may have substantial leverage.
-    </p>
-
-    <h2>What Is Leverage?</h2>
-
-    <p>
-      Leverage measures how unusual an observation's predictor values are relative to the rest of the dataset.
-    </p>
-
-    <p>
-      Observations with extreme predictor values often have higher leverage.
-    </p>
-
-    <p>
-      High leverage does not necessarily imply a problem, but it increases the potential for influence.
-    </p>
-
-    <div class="concept-box">
-
-      <strong>Key insight:</strong>
-
-      <p>
-        An observation can have high leverage even if its residual is small.
-      </p>
-
-    </div>
-
-    <h2>Influential Observations</h2>
-
-    <p>
-      An influential observation is one whose inclusion or removal substantially changes the regression results.
-    </p>
-
-    <p>
-      Influence depends on a combination of:
-    </p>
-
-    <ul class="bullets">
-
-      <li>Residual size</li>
-
-      <li>Leverage</li>
-
-      <li>Position in the dataset</li>
-
-    </ul>
-
-    <p>
-      Not every outlier is influential, and not every influential point is an obvious outlier.
-    </p>
-
-    <h2>Why Influence Matters</h2>
-
-    <p>
-      Influential observations can affect:
-    </p>
-
-    <ul class="bullets">
-
-      <li>Coefficient estimates</li>
-
-      <li>Standard errors</li>
-
-      <li>P-values</li>
-
-      <li>Predictions</li>
-
-      <li>Overall conclusions</li>
-
-    </ul>
-
-    <p>
-      Analysts should understand whether conclusions depend heavily on a small number of observations.
-    </p>
-
-    <h2>Visual Detection</h2>
-
-    <p>
-      Scatterplots are often the first tool used to identify potential outliers.
-    </p>
-
-    <p>
-      Analysts look for observations that appear far from the general pattern of the data.
-    </p>
-
-    <p>
-      Visual inspection is frequently informative.
-    </p>
-
-    <h2>Residual Plots</h2>
-
-    <p>
-      Residual plots can reveal observations with unusually large errors.
-    </p>
-
-    <p>
-      Points that stand apart from the residual cloud often warrant further investigation.
-    </p>
-
-    <p>
-      Such diagnostics help identify observations that may influence results.
-    </p>
-
-    <h2>Formal Diagnostic Measures</h2>
-
-    <p>
-      Regression software often provides measures such as:
-    </p>
-
-    <ul class="bullets">
-
-      <li>Standardized residuals</li>
-
-      <li>Studentized residuals</li>
-
-      <li>Leverage values</li>
-
-      <li>Cook's Distance</li>
-
-    </ul>
-
-    <p>
-      These diagnostics help quantify unusual observations and influence.
-    </p>
-
-    <h2>Cook's Distance</h2>
-
-    <p>
-      Cook's Distance is one of the most widely used influence measures.
-    </p>
-
-    <p>
-      It evaluates how much regression estimates change when an observation is removed.
-    </p>
-
-    <p>
-      Larger values suggest greater influence.
-    </p>
-
-    <h2>Should Outliers Be Removed?</h2>
-
-    <p>
-      Automatically removing outliers is usually a mistake.
-    </p>
-
-    <p>
-      Outliers often contain important information.
-    </p>
-
-    <p>
-      Before removing an observation, analysts should investigate:
-    </p>
-
-    <ul class="bullets">
-
-      <li>Data quality issues</li>
-
-      <li>Measurement errors</li>
-
-      <li>Contextual explanations</li>
-
-      <li>Scientific relevance</li>
-
-    </ul>
-
-    <p>
-      Deletion should be justified rather than automatic.
-    </p>
-
-    <div class="concept-box">
-
-      <strong>Important warning:</strong>
-
-      <p>
-        Outliers should be investigated, not automatically discarded.
-      </p>
-
-    </div>
-
-    <h2>Robust Methods</h2>
-
-    <p>
-      In situations where outliers strongly affect results, analysts may use robust regression methods.
-    </p>
-
-    <p>
-      These approaches reduce the influence of extreme observations while retaining information from the entire dataset.
-    </p>
-
-    <p>
-      Robust methods provide an alternative to simply removing observations.
-    </p>
-
-    <h2>Outliers and Assumptions</h2>
-
-    <p>
-      Outliers can contribute to violations of several assumptions.
+      Some outliers have unusual outcome values.
     </p>
 
     <p>
@@ -403,44 +149,321 @@ sidebar: false
 
     <ul class="bullets">
 
-      <li>Non-normal residuals</li>
+      <li>An unusually high salary</li>
 
-      <li>Heteroscedasticity</li>
+      <li>An exceptionally large sales figure</li>
 
-      <li>Distorted regression relationships</li>
+      <li>An extreme medical measurement</li>
 
     </ul>
 
     <p>
-      This is why outlier diagnostics are often part of assumption checking.
+      These observations can produce large residuals.
     </p>
 
-    <h2>Prediction vs Interpretation</h2>
+    <h2>Outliers in Predictor Variables</h2>
 
     <p>
-      Outliers can affect both prediction and interpretation.
-    </p>
-
-    <p>
-      In predictive settings, extreme observations may represent important future cases.
+      Outliers may also occur in predictor variables.
     </p>
 
     <p>
-      In explanatory settings, influential outliers may alter scientific conclusions.
+      Examples include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>An unusually old participant</li>
+
+      <li>An extremely large company</li>
+
+      <li>An exceptionally expensive house</li>
+
+    </ul>
+
+    <p>
+      Such observations may have important effects on model estimation.
+    </p>
+
+    <h2>Outliers vs Influential Observations</h2>
+
+    <p>
+      Not every outlier has a large impact on the regression model.
+    </p>
+
+    <p>
+      Likewise, not every influential observation is necessarily an obvious outlier.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Concept</th>
+            <th>Meaning</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Outlier</td>
+            <td>Observation unusually distant from others</td>
+          </tr>
+
+          <tr>
+            <td>Influential Observation</td>
+            <td>Observation that strongly affects model estimates</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      The distinction is important in regression diagnostics.
+    </p>
+
+    <h2>Leverage</h2>
+
+    <p>
+      One important concept is leverage.
+    </p>
+
+    <p>
+      High-leverage observations have unusual predictor values compared with the rest of the dataset.
+    </p>
+
+    <p>
+      These observations can strongly influence the fitted regression line.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Key insight:</strong>
+
+      <p>
+        Observations with unusual predictor values often have greater potential to influence regression results.
+      </p>
+
+    </div>
+
+    <h2>Influence</h2>
+
+    <p>
+      Influence refers to how much a particular observation affects model estimates.
+    </p>
+
+    <p>
+      A highly influential observation may:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Change coefficients substantially</li>
+
+      <li>Alter significance tests</li>
+
+      <li>Shift predictions</li>
+
+      <li>Modify conclusions</li>
+
+    </ul>
+
+    <p>
+      Influence is often a combination of leverage and residual size.
+    </p>
+
+    <h2>Why Outliers Occur</h2>
+
+    <p>
+      Outliers may arise from several sources:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Recording errors</li>
+
+      <li>Instrument problems</li>
+
+      <li>Sampling mistakes</li>
+
+      <li>Rare but valid observations</li>
+
+      <li>Previously unknown phenomena</li>
+
+    </ul>
+
+    <p>
+      Understanding their origin is crucial.
+    </p>
+
+    <h2>Should Outliers Be Removed?</h2>
+
+    <p>
+      A common mistake is automatically deleting outliers.
+    </p>
+
+    <p>
+      Outliers should not be removed solely because they are unusual.
+    </p>
+
+    <p>
+      Legitimate extreme observations may contain important information.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Important warning:</strong>
+
+      <p>
+        Outlier removal should be based on clear justification, not simply on a desire to improve statistical results.
+      </p>
+
+    </div>
+
+    <h2>Detecting Outliers</h2>
+
+    <p>
+      Analysts often begin with graphical methods.
+    </p>
+
+    <p>
+      Common tools include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Scatterplots</li>
+
+      <li>Boxplots</li>
+
+      <li>Residual plots</li>
+
+      <li>Histograms</li>
+
+    </ul>
+
+    <p>
+      Visual inspection frequently reveals unusual observations quickly.
+    </p>
+
+    <h2>Standardized Residuals</h2>
+
+    <p>
+      Large residuals may indicate potential outliers.
+    </p>
+
+    <p>
+      Analysts often examine standardized residuals to identify observations that differ substantially from model expectations.
+    </p>
+
+    <p>
+      Extremely large absolute values warrant investigation.
+    </p>
+
+    <h2>Cook's Distance</h2>
+
+    <p>
+      One of the most widely used influence measures is Cook's Distance.
+    </p>
+
+    <p>
+      It quantifies how much the regression model changes when a particular observation is removed.
+    </p>
+
+    <p>
+      Larger values suggest greater influence.
+    </p>
+
+    <h2>DFBETAs and Influence Measures</h2>
+
+    <p>
+      Additional diagnostics examine how individual observations affect specific coefficients.
+    </p>
+
+    <p>
+      These tools help analysts identify observations that disproportionately influence parameter estimates.
+    </p>
+
+    <h2>Outliers and Assumptions</h2>
+
+    <p>
+      Outliers can contribute to:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Non-normal residuals</li>
+
+      <li>Heteroscedasticity</li>
+
+      <li>Poor model fit</li>
+
+      <li>Misleading coefficient estimates</li>
+
+    </ul>
+
+    <p>
+      Consequently, outlier assessment is often part of broader assumption checking.
+    </p>
+
+    <h2>Robust Methods</h2>
+
+    <p>
+      When outliers are common or unavoidable, analysts may use robust statistical methods.
+    </p>
+
+    <p>
+      These methods reduce the influence of extreme observations while retaining valuable information.
+    </p>
+
+    <p>
+      Robust approaches are especially useful when unusual observations are legitimate rather than erroneous.
+    </p>
+
+    <h2>Outliers and Scientific Discovery</h2>
+
+    <p>
+      Sometimes the most interesting observations are outliers.
+    </p>
+
+    <p>
+      An unexpected observation may reveal:
+    </p>
+
+    <ul class="bullets">
+
+      <li>A new phenomenon</li>
+
+      <li>A subgroup of interest</li>
+
+      <li>A flaw in assumptions</li>
+
+      <li>A measurement issue</li>
+
+    </ul>
+
+    <p>
+      Outliers deserve investigation rather than automatic elimination.
     </p>
 
     <h2>The Bigger Picture</h2>
 
     <p>
-      Outliers are a natural part of many datasets.
+      Outliers are an unavoidable feature of many real-world datasets.
     </p>
 
     <p>
-      Their presence does not automatically invalidate a regression model.
+      Some are errors, some are rare events, and some contain valuable information.
     </p>
 
     <p>
-      However, because unusual observations can influence estimates and inference, analysts should identify, understand, and evaluate them carefully.
+      Careful analysis helps determine whether unusual observations should be corrected, retained, or modeled differently.
     </p>
 
     <div class="concept-box">
@@ -448,7 +471,7 @@ sidebar: false
       <strong>Core message:</strong>
 
       <p>
-        Outliers are observations that differ substantially from the overall data pattern. Some outliers exert strong influence on regression results, making diagnostic evaluation an essential part of responsible modeling.
+        Outliers are unusual observations that may exert substantial influence on regression models. Identifying and understanding them is essential because they can affect coefficients, residual behavior, and statistical conclusions.
       </p>
 
     </div>
@@ -456,15 +479,15 @@ sidebar: false
     <h2>Looking Ahead</h2>
 
     <p>
-      Individual assumptions are rarely perfectly satisfied in real-world datasets.
+      Individual assumption violations rarely occur in isolation.
     </p>
 
     <p>
-      Analysts must therefore determine how serious assumption violations are and how to respond when they occur.
+      Real datasets often exhibit multiple issues simultaneously, including nonlinearity, heteroscedasticity, dependence, and influential observations.
     </p>
 
     <p>
-      The next lesson examines assumption violations more broadly and discusses practical strategies for handling them.
+      The next lesson explores assumption violations more broadly and discusses how analysts respond when assumptions are not fully satisfied.
     </p>
 
     <!-- TAKEAWAYS -->
@@ -477,19 +500,19 @@ sidebar: false
 
         <li>Outliers are observations that differ substantially from the general data pattern</li>
 
-        <li>Outliers may arise from errors, rare events, or genuine variation</li>
+        <li>Outliers are not necessarily errors</li>
 
-        <li>Some outliers are influential while others are not</li>
+        <li>Some outliers can strongly influence regression results</li>
 
-        <li>Leverage measures how unusual predictor values are</li>
+        <li>Leverage refers to unusual predictor values</li>
 
-        <li>Influential observations can alter regression results significantly</li>
+        <li>Influence measures how strongly an observation affects model estimates</li>
 
-        <li>Cook's Distance is a common measure of influence</li>
+        <li>Cook's Distance is a common influence diagnostic</li>
 
-        <li>Outliers should be investigated rather than automatically removed</li>
+        <li>Outlier removal requires justification</li>
 
-        <li>Diagnostic evaluation helps determine whether unusual observations affect conclusions</li>
+        <li>Investigating unusual observations often improves understanding of the data and model</li>
 
       </ul>
 
@@ -505,7 +528,7 @@ sidebar: false
       </a>
 
       <a class="btn"
-         href="/modeling/assumptions/violation/">
+         href="/modeling/assumptions/violations/">
          Next: Assumption Violations →
       </a>
 
