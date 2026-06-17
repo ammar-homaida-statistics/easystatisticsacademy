@@ -1,173 +1,508 @@
 ---
 layout: default
-title: 3. Independence
+title: Independence
+description: Learn the independence assumption in regression, why dependent observations create problems, and how analysts detect and address violations.
 permalink: /modeling/assumptions/independence/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <h2 style="color:#e65100;">🚧 Lesson Under Construction</h2>
-    <p>
-      Version 0 focuses on understanding the independence assumption conceptually.
-      Time series and advanced dependence structures will be added later.
-    </p>
-  </div>
-</section>
-
-<!-- ✅ Update last visited lesson -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
 (function () {
-  localStorage.setItem("esa_continue_modeling_assumptions_lesson_v0", JSON.stringify({
+
+  const KEY =
+    "esa_continue_modeling_assumptions_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
     url: "/modeling/assumptions/independence/",
-    label: "Lesson 3 — Independence",
+    label: "Independence",
     ts: Date.now()
   }));
+
 })();
 </script>
 
 <!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
 
     <div class="badge-row">
+      <span class="badge">Modeling</span>
       <span class="badge">Block 4</span>
-      <span class="badge">Lesson 3</span>
+      <span class="badge">Assumptions</span>
       <span class="badge">Independence</span>
-      <span class="badge">Residuals</span>
     </div>
 
-    <h1>3. Independence</h1>
+    <h1>Independence</h1>
 
     <p class="lead">
-      The independence assumption requires that residuals are not related to each other.
-      Violations can lead to misleading conclusions even if the model appears to fit well.
+      Regression assumes that observations contribute independent pieces of information.
+    </p>
+
+    <p class="lead">
+      When observations influence one another or share hidden connections, statistical conclusions can become misleading even if the regression equation appears reasonable.
     </p>
 
     <div class="hero-actions">
-      <a class="btn btn-outline" href="/modeling/assumptions/">Back to Block 4</a>
-      <a class="btn" href="#lesson">Start lesson</a>
+
+      <a class="btn"
+         href="/modeling/assumptions/linearity/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/modeling/assumptions/homoscedasticity/">
+         Next: Homoscedasticity →
+      </a>
+
     </div>
 
-    <p class="muted-mini">
-      Version 0: conceptual understanding before time-series extensions.
-    </p>
-
   </div>
+
 </section>
 
 <!-- LESSON -->
-<section class="section" id="lesson">
 
-  <h2>Learning objective</h2>
-  <p>
-    By the end of this lesson, you should understand what independence means in regression
-    and why it is essential for valid inference.
-  </p>
+<section>
 
-  <div class="card">
-    <h3>Key idea</h3>
+  <div class="content-narrow">
+
+    <h2>What Is Independence?</h2>
+
     <p>
-      The errors (residuals) in a regression model should be independent of each other.
+      The independence assumption states that observations are not systematically related to one another.
     </p>
-  </div>
 
-  <h2>1) What does independence mean?</h2>
-  <div class="card">
     <p>
-      Independence means that the error for one observation does not depend on
-      the error of another observation.
+      Each observation should contribute unique information to the analysis.
     </p>
-  </div>
 
-  <h2>2) Important clarification</h2>
-  <div class="card">
     <p>
-      Independence refers to <strong>residuals</strong>, not necessarily the predictors.
+      Knowing one observation should not automatically reveal information about another observation.
     </p>
-  </div>
 
-  <h2>3) Example of independence</h2>
-  <div class="card">
-    <p>
-      Observations collected randomly from a population are often approximately independent.
-    </p>
-  </div>
+    <div class="concept-box">
 
-  <h2>4) Example of violation</h2>
-  <div class="card">
+      <strong>Main idea:</strong>
+
+      <p>
+        Independence means that observations do not exhibit systematic dependence that would distort estimation, uncertainty calculations, or statistical inference.
+      </p>
+
+    </div>
+
+    <h2>Why Independence Matters</h2>
+
     <p>
-      Time series data:
+      Many regression formulas assume that observations provide separate pieces of evidence.
     </p>
-    <ul>
-      <li>Today’s value depends on yesterday’s value</li>
-      <li>Errors are correlated over time</li>
+
+    <p>
+      When observations are dependent, the effective amount of information in the dataset becomes smaller than the sample size suggests.
+    </p>
+
+    <p>
+      As a result, uncertainty may be underestimated.
+    </p>
+
+    <h2>An Everyday Example</h2>
+
+    <p>
+      Imagine surveying 100 individuals from different households.
+    </p>
+
+    <p>
+      Their responses may reasonably be treated as independent.
+    </p>
+
+    <p>
+      Now imagine surveying 100 members of the same family.
+    </p>
+
+    <p>
+      Responses would likely be much more similar because family members share common environments and experiences.
+    </p>
+
+    <p>
+      Independence would be questionable.
+    </p>
+
+    <h2>Dependence Creates Redundant Information</h2>
+
+    <p>
+      When observations are strongly related, they often contain overlapping information.
+    </p>
+
+    <p>
+      The dataset appears larger than it effectively is.
+    </p>
+
+    <p>
+      This can lead to overconfidence in results.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Key insight:</strong>
+
+      <p>
+        Dependence reduces the amount of truly independent information available for estimation.
+      </p>
+
+    </div>
+
+    <h2>Common Sources of Dependence</h2>
+
+    <p>
+      Independence violations arise in many settings.
+    </p>
+
+    <p>
+      Common examples include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Repeated measurements on the same individual</li>
+
+      <li>Family or household data</li>
+
+      <li>Students within the same classroom</li>
+
+      <li>Patients within the same hospital</li>
+
+      <li>Geographically clustered observations</li>
+
+      <li>Time-series data</li>
+
     </ul>
-  </div>
 
-  <h2>5) Consequences of violation</h2>
-  <div class="card">
-    <ul>
-      <li>Standard errors become incorrect</li>
-      <li>Confidence intervals become unreliable</li>
-      <li>Hypothesis tests may be invalid</li>
+    <p>
+      These situations often create shared influences among observations.
+    </p>
+
+    <h2>Time-Series Dependence</h2>
+
+    <p>
+      One of the most common violations occurs in time-series data.
+    </p>
+
+    <p>
+      Observations recorded over time often resemble nearby observations.
+    </p>
+
+    <p>
+      Examples include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Daily stock prices</li>
+
+      <li>Monthly unemployment rates</li>
+
+      <li>Annual economic indicators</li>
+
     </ul>
-  </div>
 
-  <h2>6) What independence does NOT affect</h2>
-  <div class="card">
     <p>
-      Model predictions may still be reasonable,
-      but inference becomes unreliable.
+      Values today are often related to values yesterday.
     </p>
-  </div>
 
-  <h2>7) How violations appear</h2>
-  <div class="card">
+    <h2>Autocorrelation</h2>
+
     <p>
-      Residuals show patterns over time or ordering,
-      instead of random behavior.
+      Dependence across time is commonly called autocorrelation.
     </p>
-  </div>
 
-  <h2>8) Common situations</h2>
-  <div class="card">
-    <ul>
-      <li>Time series data</li>
-      <li>Repeated measurements</li>
-      <li>Clustered or grouped data</li>
+    <p>
+      Autocorrelation occurs when residuals or observations are correlated with their past values.
+    </p>
+
+    <p>
+      This violates the independence assumption.
+    </p>
+
+    <h2>Clustered Data</h2>
+
+    <p>
+      Dependence can also arise from grouping structures.
+    </p>
+
+    <p>
+      For example:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Employees within the same company</li>
+
+      <li>Students within the same school</li>
+
+      <li>Patients within the same clinic</li>
+
     </ul>
-  </div>
 
-  <h2>9) Why this matters</h2>
-  <div class="card">
     <p>
-      Independence is crucial for valid statistical inference,
-      even if the model appears to fit the data well.
+      Individuals in the same group often share characteristics that create dependence.
     </p>
-  </div>
 
-  <div class="card">
-    <h3>Outcome of this lesson</h3>
-    <ul>
-      <li>Understand independence of residuals</li>
-      <li>Distinguish data vs error independence</li>
-      <li>Recognize violations conceptually</li>
-      <li>Understand consequences for inference</li>
-      <li>Prepare for variance-related assumptions</li>
+    <h2>What Happens When Independence Fails?</h2>
+
+    <p>
+      Violations of independence often affect:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Standard errors</li>
+
+      <li>Confidence intervals</li>
+
+      <li>Hypothesis tests</li>
+
+      <li>P-values</li>
+
     </ul>
-  </div>
 
-  <div class="card">
-    <h3>Next step</h3>
     <p>
-      We now examine homoscedasticity,
-      which concerns the consistency of variance in residuals.
+      Coefficient estimates themselves may remain reasonable, but measures of uncertainty can become inaccurate.
     </p>
-    <a class="btn" href="/modeling/assumptions/homoscedasticity/">
-      Next lesson: Homoscedasticity →
-    </a>
+
+    <h2>False Precision</h2>
+
+    <p>
+      A common consequence is false precision.
+    </p>
+
+    <p>
+      The model may report:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Confidence intervals that are too narrow</li>
+
+      <li>P-values that are too small</li>
+
+      <li>Excessive statistical significance</li>
+
+    </ul>
+
+    <p>
+      Analysts may become more confident than the data actually justify.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Important warning:</strong>
+
+      <p>
+        Independence violations often make uncertainty appear smaller than it truly is.
+      </p>
+
+    </div>
+
+    <h2>How Independence Is Assessed</h2>
+
+    <p>
+      Evaluating independence often depends on understanding how the data were collected.
+    </p>
+
+    <p>
+      Important questions include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Were observations sampled independently?</li>
+
+      <li>Are there repeated measurements?</li>
+
+      <li>Do observations belong to groups?</li>
+
+      <li>Is there a time component?</li>
+
+    </ul>
+
+    <p>
+      Study design often provides the first clues.
+    </p>
+
+    <h2>Residual Diagnostics</h2>
+
+    <p>
+      Residual plots can sometimes reveal dependence.
+    </p>
+
+    <p>
+      For time-ordered data, analysts often examine:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Residuals over time</li>
+
+      <li>Residual autocorrelation patterns</li>
+
+      <li>Runs of positive or negative residuals</li>
+
+    </ul>
+
+    <p>
+      Systematic patterns may suggest violations.
+    </p>
+
+    <h2>The Durbin–Watson Statistic</h2>
+
+    <p>
+      One commonly used diagnostic for time-series residual dependence is the Durbin–Watson statistic.
+    </p>
+
+    <p>
+      It helps identify autocorrelation in regression residuals.
+    </p>
+
+    <p>
+      Values indicating strong autocorrelation suggest that independence may not hold.
+    </p>
+
+    <h2>Addressing Dependence</h2>
+
+    <p>
+      When dependence is present, analysts may:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Use clustered standard errors</li>
+
+      <li>Fit mixed-effects models</li>
+
+      <li>Use time-series methods</li>
+
+      <li>Incorporate grouping structures</li>
+
+      <li>Model autocorrelation directly</li>
+
+    </ul>
+
+    <p>
+      The appropriate approach depends on the source of dependence.
+    </p>
+
+    <h2>Independence and Prediction</h2>
+
+    <p>
+      Dependence often affects inference more than prediction.
+    </p>
+
+    <p>
+      However, ignoring important dependence structures can still reduce predictive performance.
+    </p>
+
+    <p>
+      Properly accounting for dependence frequently improves model accuracy.
+    </p>
+
+    <h2>Independence in Practice</h2>
+
+    <p>
+      Independence is often easier to justify through good study design than through statistical diagnostics alone.
+    </p>
+
+    <p>
+      Random sampling and careful data collection procedures help support the assumption.
+    </p>
+
+    <p>
+      Understanding the context of the data remains essential.
+    </p>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      Regression assumes that observations provide independent information.
+    </p>
+
+    <p>
+      When observations are connected through time, groups, geography, or repeated measurements, this assumption may fail.
+    </p>
+
+    <p>
+      Recognizing and addressing dependence helps ensure that uncertainty estimates and statistical conclusions remain trustworthy.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        The independence assumption requires observations to contribute separate information. Violations often affect standard errors, confidence intervals, and hypothesis tests by making uncertainty appear smaller than it truly is.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Another important regression assumption concerns the variability of residuals.
+    </p>
+
+    <p>
+      Regression assumes that residuals have roughly constant variance across different predictor values.
+    </p>
+
+    <p>
+      The next lesson introduces homoscedasticity and explains why changing residual variability can create challenges for regression analysis.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>Independence means observations do not provide redundant information</li>
+
+        <li>Dependence reduces the effective amount of information in a dataset</li>
+
+        <li>Common sources include repeated measures, clusters, and time-series data</li>
+
+        <li>Autocorrelation is a common form of dependence in time-series data</li>
+
+        <li>Violations often affect standard errors and hypothesis tests more than coefficient estimates</li>
+
+        <li>Dependence can produce confidence intervals that are too narrow and p-values that are too small</li>
+
+        <li>Study design is an important tool for evaluating independence</li>
+
+        <li>Addressing dependence improves the reliability of statistical inference</li>
+
+      </ul>
+
+    </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/modeling/assumptions/linearity/">
+         ← Previous: Linearity
+      </a>
+
+      <a class="btn"
+         href="/modeling/assumptions/homoscedasticity/">
+         Next: Homoscedasticity →
+      </a>
+
+    </div>
+
   </div>
 
 </section>
