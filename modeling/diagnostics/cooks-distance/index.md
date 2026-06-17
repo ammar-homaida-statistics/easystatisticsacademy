@@ -1,175 +1,490 @@
 ---
 layout: default
-title: 8. Cook’s Distance
+title: Cook's Distance
+description: Learn what Cook's Distance measures, how it combines leverage and residual information, and how analysts identify influential observations in regression models.
 permalink: /modeling/diagnostics/cooks-distance/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <h2 style="color:#e65100;">🚧 Lesson Under Construction</h2>
-    <p>
-      Version 0 introduces Cook’s Distance as a measure of influence.
-      Advanced interpretation and thresholds will be expanded later.
-    </p>
-  </div>
-</section>
-
-<!-- ✅ Update last visited lesson -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
 (function () {
-  localStorage.setItem("esa_continue_modeling_diagnostics_lesson_v0", JSON.stringify({
+
+  const KEY =
+    "esa_continue_modeling_diagnostics_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
     url: "/modeling/diagnostics/cooks-distance/",
-    label: "Lesson 8 — Cook’s Distance",
+    label: "Cook's Distance",
     ts: Date.now()
   }));
+
 })();
 </script>
 
 <!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
 
     <div class="badge-row">
+      <span class="badge">Modeling</span>
       <span class="badge">Block 5</span>
-      <span class="badge">Lesson 8</span>
-      <span class="badge">Cook’s Distance</span>
-      <span class="badge">Influence Measure</span>
+      <span class="badge">Diagnostics</span>
+      <span class="badge">Influence Analysis</span>
     </div>
 
-    <h1>8. Cook’s Distance</h1>
+    <h1>Cook's Distance</h1>
 
     <p class="lead">
-      Cook’s Distance is a numerical measure that identifies influential observations.
-      It combines residual size and leverage into a single diagnostic value.
+      Some observations affect a regression model far more than others.
+    </p>
+
+    <p class="lead">
+      Cook's Distance is one of the most widely used diagnostics for identifying observations that have unusually large influence on regression results.
     </p>
 
     <div class="hero-actions">
-      <a class="btn btn-outline" href="/modeling/diagnostics/">Back to Block 5</a>
-      <a class="btn" href="#lesson">Start lesson</a>
+
+      <a class="btn"
+         href="/modeling/diagnostics/influence/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/modeling/diagnostics/diagnostic-workflow/">
+         Next: Diagnostic Workflow →
+      </a>
+
     </div>
 
-    <p class="muted-mini">
-      Version 0: conceptual understanding before formal computation details.
-    </p>
-
   </div>
+
 </section>
 
 <!-- LESSON -->
-<section class="section" id="lesson">
 
-  <h2>Learning objective</h2>
-  <p>
-    By the end of this lesson, you should understand what Cook’s Distance measures
-    and how to use it to detect influential observations.
-  </p>
+<section>
 
-  <div class="card">
-    <h3>Key idea</h3>
+  <div class="content-narrow">
+
+    <h2>What Is Cook's Distance?</h2>
+
     <p>
-      Cook’s Distance measures how much the regression model changes
-      when a single observation is removed.
+      Cook's Distance is a diagnostic measure that evaluates how much a regression model changes when a particular observation is removed.
     </p>
-  </div>
 
-  <h2>1) What is Cook’s Distance?</h2>
-  <div class="card">
     <p>
-      It is a summary measure of influence for each observation.
+      It summarizes the overall influence of an observation on the fitted model.
     </p>
-  </div>
 
-  <h2>2) What it combines</h2>
-  <div class="card">
-    <ul>
-      <li>Residual size (error)</li>
-      <li>Leverage (position in X)</li>
+    <p>
+      Larger values indicate observations that have greater impact on model results.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Main idea:</strong>
+
+      <p>
+        Cook's Distance measures the influence of an observation by assessing how much the fitted regression model changes when that observation is excluded.
+      </p>
+
+    </div>
+
+    <h2>Why Cook's Distance Matters</h2>
+
+    <p>
+      Analysts often want to know whether important conclusions depend heavily on a small number of observations.
+    </p>
+
+    <p>
+      Cook's Distance helps answer that question.
+    </p>
+
+    <p>
+      It identifies observations that deserve additional investigation because they may be driving the results.
+    </p>
+
+    <h2>The Basic Idea</h2>
+
+    <p>
+      Imagine fitting a regression model using all observations.
+    </p>
+
+    <p>
+      Next, remove a single observation and refit the model.
+    </p>
+
+    <p>
+      If the new model differs substantially from the original model, that observation has high influence.
+    </p>
+
+    <p>
+      Cook's Distance quantifies this change.
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Large model change → Large Cook's Distance
+      </p>
+
+      <p>
+        Small model change → Small Cook's Distance
+      </p>
+
+    </div>
+
+    <h2>What Does Cook's Distance Combine?</h2>
+
+    <p>
+      Cook's Distance incorporates two important diagnostic concepts:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Residual size</li>
+
+      <li>Leverage</li>
+
     </ul>
-  </div>
 
-  <h2>3) Interpretation</h2>
-  <div class="card">
     <p>
-      Large Cook’s Distance → observation strongly affects the model.
+      Observations that have both unusual predictor values and large residuals often produce the largest Cook's Distance values.
     </p>
-  </div>
 
-  <h2>4) Rule of thumb</h2>
-  <div class="card">
-    <ul>
-      <li>D > 1 → potentially influential</li>
-      <li>Compare values relative to others</li>
+    <div class="concept-box">
+
+      <strong>Key insight:</strong>
+
+      <p>
+        Influence is often strongest when an observation combines high leverage with a large prediction error.
+      </p>
+
+    </div>
+
+    <h2>Why Leverage Alone Is Not Enough</h2>
+
+    <p>
+      An observation may have high leverage because its predictor values are unusual.
+    </p>
+
+    <p>
+      However, if it lies close to the regression line, it may have little effect on the fitted model.
+    </p>
+
+    <p>
+      Cook's Distance accounts for both leverage and model fit simultaneously.
+    </p>
+
+    <h2>Why Residuals Alone Are Not Enough</h2>
+
+    <p>
+      An observation may have a large residual but still possess little influence if it lies near the center of the predictor space.
+    </p>
+
+    <p>
+      Large residuals do not automatically imply that model estimates change substantially.
+    </p>
+
+    <p>
+      Cook's Distance helps identify observations that truly affect the model.
+    </p>
+
+    <h2>Interpreting Cook's Distance</h2>
+
+    <p>
+      Cook's Distance values are nonnegative.
+    </p>
+
+    <p>
+      Larger values indicate greater influence.
+    </p>
+
+    <p>
+      Most observations in a dataset typically have relatively small Cook's Distance values.
+    </p>
+
+    <h2>Relative Rather Than Absolute Interpretation</h2>
+
+    <p>
+      Analysts often focus on observations that stand out relative to the rest of the dataset.
+    </p>
+
+    <p>
+      A value that is unusually large compared with other observations may deserve investigation.
+    </p>
+
+    <p>
+      Context matters more than rigid thresholds.
+    </p>
+
+    <h2>Common Rules of Thumb</h2>
+
+    <p>
+      Several heuristic guidelines are frequently used.
+    </p>
+
+    <p>
+      For example:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Cook's Distance greater than 1 may indicate substantial influence</li>
+
+      <li>Values notably larger than the majority of observations may deserve attention</li>
+
+      <li>Software often highlights unusually influential observations automatically</li>
+
     </ul>
-  </div>
 
-  <h2>5) What it tells you</h2>
-  <div class="card">
-    <ul>
-      <li>Which observations affect the model most</li>
-      <li>Where to investigate further</li>
+    <p>
+      These guidelines are diagnostic tools rather than strict rules.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Important warning:</strong>
+
+      <p>
+        Large Cook's Distance values identify observations for investigation. They do not automatically justify removing observations.
+      </p>
+
+    </div>
+
+    <h2>Cook's Distance Plot</h2>
+
+    <p>
+      Analysts often visualize Cook's Distance values using a diagnostic plot.
+    </p>
+
+    <p>
+      Each observation is assigned a Cook's Distance value and displayed on a graph.
+    </p>
+
+    <p>
+      Observations with unusually large values become easy to identify.
+    </p>
+
+    <h2>Example Interpretation</h2>
+
+    <p>
+      Suppose a dataset contains 200 observations.
+    </p>
+
+    <p>
+      Most Cook's Distance values are near zero.
+    </p>
+
+    <p>
+      Two observations stand substantially above all others.
+    </p>
+
+    <p>
+      These observations deserve additional examination because they may strongly affect model results.
+    </p>
+
+    <h2>Investigating Influential Observations</h2>
+
+    <p>
+      When a large Cook's Distance value is detected, analysts often ask:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Is the observation valid?</li>
+
+      <li>Was there a measurement error?</li>
+
+      <li>Does the observation belong to the target population?</li>
+
+      <li>Does it reveal a weakness in the model?</li>
+
     </ul>
-  </div>
 
-  <h2>6) What it does NOT tell you</h2>
-  <div class="card">
     <p>
-      It does not tell you whether the observation is correct or should be removed.
+      These questions help guide appropriate responses.
     </p>
-  </div>
 
-  <h2>7) Visual interpretation</h2>
-  <div class="card">
+    <h2>Cook's Distance and Robustness</h2>
+
     <p>
-      Cook’s Distance is often visualized as a plot,
-      where large spikes indicate influential points.
+      Cook's Distance supports robustness analysis.
     </p>
-  </div>
 
-  <h2>8) Common mistake</h2>
-  <div class="card">
     <p>
-      Automatically removing points based only on Cook’s Distance.
+      Analysts often compare results with and without influential observations.
     </p>
-  </div>
 
-  <h2>9) What to do instead</h2>
-  <div class="card">
-    <ul>
-      <li>Investigate the observation</li>
-      <li>Compare models with and without it</li>
-      <li>Check data quality</li>
+    <p>
+      Stable conclusions increase confidence in the model.
+    </p>
+
+    <p>
+      Dramatic changes may suggest sensitivity.
+    </p>
+
+    <h2>Influence Does Not Mean Error</h2>
+
+    <p>
+      Influential observations are not necessarily incorrect.
+    </p>
+
+    <p>
+      Some may represent:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Rare but legitimate cases</li>
+
+      <li>Boundary conditions</li>
+
+      <li>Important subgroups</li>
+
+      <li>New scientific insights</li>
+
     </ul>
-  </div>
 
-  <h2>10) Why this matters</h2>
-  <div class="card">
     <p>
-      Cook’s Distance provides a practical way to identify observations
-      that control the regression model.
+      Such observations may contain valuable information.
     </p>
-  </div>
 
-  <div class="card">
-    <h3>Outcome of this lesson</h3>
-    <ul>
-      <li>Understand Cook’s Distance conceptually</li>
-      <li>Interpret influence values</li>
-      <li>Identify influential observations</li>
-      <li>Avoid common misuse</li>
-      <li>Prepare for full diagnostic workflow</li>
+    <h2>Cook's Distance and Model Improvement</h2>
+
+    <p>
+      Influential observations sometimes reveal model deficiencies.
+    </p>
+
+    <p>
+      They may indicate:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Missing predictors</li>
+
+      <li>Nonlinear relationships</li>
+
+      <li>Population heterogeneity</li>
+
+      <li>Alternative model structures</li>
+
     </ul>
-  </div>
 
-  <div class="card">
-    <h3>Next step</h3>
     <p>
-      We now integrate all diagnostic tools into a complete workflow.
+      Diagnostic investigation often leads to stronger models.
     </p>
-    <a class="btn" href="/modeling/diagnostics/diagnostic-workflow/">
-      Next lesson: Diagnostic Workflow →
-    </a>
+
+    <h2>Cook's Distance vs Other Influence Measures</h2>
+
+    <p>
+      Cook's Distance is one of several influence diagnostics.
+    </p>
+
+    <p>
+      Other measures include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>DFFITS</li>
+
+      <li>DFBETAs</li>
+
+      <li>COVRATIO</li>
+
+    </ul>
+
+    <p>
+      Cook's Distance remains popular because it summarizes overall influence in a single statistic.
+    </p>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      Regression conclusions should ideally reflect the overall dataset rather than a handful of observations.
+    </p>
+
+    <p>
+      Cook's Distance helps analysts identify cases that may disproportionately affect results.
+    </p>
+
+    <p>
+      By examining influential observations carefully, analysts can better understand the reliability and stability of their models.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Cook's Distance measures how much a regression model changes when an observation is removed. Large values identify observations with substantial influence and help analysts assess the robustness of model conclusions.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Individual diagnostic tools are useful, but effective model evaluation usually involves combining multiple diagnostics into a systematic process.
+    </p>
+
+    <p>
+      Analysts rarely examine residuals, leverage, influence, or variance patterns in isolation.
+    </p>
+
+    <p>
+      The next lesson introduces a practical diagnostic workflow that brings these tools together into a structured approach for evaluating regression models.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>Cook's Distance measures the influence of observations on a regression model</li>
+
+        <li>It evaluates how much the model changes when an observation is removed</li>
+
+        <li>Cook's Distance combines leverage and residual information</li>
+
+        <li>Large values indicate observations that deserve investigation</li>
+
+        <li>Influential observations are not necessarily errors</li>
+
+        <li>Cook's Distance supports robustness assessment</li>
+
+        <li>Diagnostic interpretation requires context rather than rigid thresholds</li>
+
+        <li>Cook's Distance is one of the most widely used influence diagnostics in regression analysis</li>
+
+      </ul>
+
+    </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/modeling/diagnostics/influence/">
+         ← Previous: Influence
+      </a>
+
+      <a class="btn"
+         href="/modeling/diagnostics/diagnostic-workflow/">
+         Next: Diagnostic Workflow →
+      </a>
+
+    </div>
+
   </div>
 
 </section>
