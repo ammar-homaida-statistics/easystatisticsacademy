@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Outliers
-description: Learn what outliers are, why they matter in regression analysis, how they influence models, and how analysts investigate unusual observations.
-permalink: /modeling/assumptions/outliers/
+title: Assumption Violations
+description: Learn what happens when regression assumptions are violated and how analysts evaluate, interpret, and respond to model problems.
+permalink: /modeling/assumptions/violations/
 sidebar: false
 ---
 
@@ -14,8 +14,8 @@ sidebar: false
     "esa_continue_modeling_assumptions_lesson_v0";
 
   localStorage.setItem(KEY, JSON.stringify({
-    url: "/modeling/assumptions/outliers/",
-    label: "Outliers",
+    url: "/modeling/assumptions/violations/",
+    label: "Assumption Violations",
     ts: Date.now()
   }));
 
@@ -32,29 +32,29 @@ sidebar: false
       <span class="badge">Modeling</span>
       <span class="badge">Block 4</span>
       <span class="badge">Assumptions</span>
-      <span class="badge">Outliers</span>
+      <span class="badge">Diagnostics</span>
     </div>
 
-    <h1>Outliers</h1>
+    <h1>Assumption Violations</h1>
 
     <p class="lead">
-      Most observations follow the general pattern present in a dataset.
+      In real-world data, regression assumptions are rarely satisfied perfectly.
     </p>
 
     <p class="lead">
-      Occasionally, however, individual observations differ substantially from the rest. These unusual cases are known as outliers and can have a major impact on regression results.
+      The goal of assumption checking is not to find perfect datasets, but to understand whether violations are severe enough to affect conclusions and whether corrective action is needed.
     </p>
 
     <div class="hero-actions">
 
       <a class="btn"
-         href="/modeling/assumptions/normality/">
+         href="/modeling/assumptions/outliers/">
          ← Previous Lesson
       </a>
 
       <a class="btn btn-outline"
-         href="/modeling/assumptions/violations/">
-         Next: Assumption Violations →
+         href="/modeling/assumptions/robustness/">
+         Next: Robustness →
       </a>
 
     </div>
@@ -69,30 +69,18 @@ sidebar: false
 
   <div class="content-narrow">
 
-    <h2>What Is an Outlier?</h2>
+    <h2>Why Violations Matter</h2>
 
     <p>
-      An outlier is an observation that differs substantially from the overall pattern of the data.
+      Regression assumptions support the validity of coefficient estimates, standard errors, confidence intervals, hypothesis tests, and predictions.
     </p>
 
     <p>
-      Outliers may occur because of:
+      When assumptions are violated, some of these results may become less reliable.
     </p>
 
-    <ul class="bullets">
-
-      <li>Measurement errors</li>
-
-      <li>Data entry mistakes</li>
-
-      <li>Rare but legitimate events</li>
-
-      <li>Important underlying processes</li>
-
-    </ul>
-
     <p>
-      Not all outliers are mistakes.
+      The severity of the impact depends on both the type and magnitude of the violation.
     </p>
 
     <div class="concept-box">
@@ -100,99 +88,37 @@ sidebar: false
       <strong>Main idea:</strong>
 
       <p>
-        Outliers are observations that are unusually distant from the general pattern of the data and may exert disproportionate influence on regression results.
+        Assumption violations do not automatically invalidate a model, but they can reduce the reliability of interpretations, inferences, and predictions.
       </p>
 
     </div>
 
-    <h2>Why Outliers Matter</h2>
+    <h2>Perfect Assumptions Are Rare</h2>
 
     <p>
-      Regression models attempt to fit a relationship that best represents the entire dataset.
+      Real datasets almost always deviate from ideal statistical assumptions.
     </p>
 
     <p>
-      Extreme observations can pull the fitted line toward themselves.
+      Small departures are expected.
     </p>
 
     <p>
-      As a result, a small number of unusual points may strongly affect model estimates.
+      Experienced analysts focus on whether violations are practically important rather than whether assumptions are satisfied exactly.
     </p>
 
-    <h2>A Simple Example</h2>
+    <h2>Different Violations Have Different Consequences</h2>
 
     <p>
-      Imagine a scatterplot where most observations cluster around a straight-line trend.
-    </p>
-
-    <p>
-      One observation appears far above the rest of the data.
+      Not all assumption violations are equally serious.
     </p>
 
     <p>
-      That single point may substantially change the estimated regression line.
+      Some primarily affect interpretation.
     </p>
 
     <p>
-      The effect can be surprisingly large.
-    </p>
-
-    <h2>Outliers in the Outcome Variable</h2>
-
-    <p>
-      Some outliers have unusual outcome values.
-    </p>
-
-    <p>
-      For example:
-    </p>
-
-    <ul class="bullets">
-
-      <li>An unusually high salary</li>
-
-      <li>An exceptionally large sales figure</li>
-
-      <li>An extreme medical measurement</li>
-
-    </ul>
-
-    <p>
-      These observations can produce large residuals.
-    </p>
-
-    <h2>Outliers in Predictor Variables</h2>
-
-    <p>
-      Outliers may also occur in predictor variables.
-    </p>
-
-    <p>
-      Examples include:
-    </p>
-
-    <ul class="bullets">
-
-      <li>An unusually old participant</li>
-
-      <li>An extremely large company</li>
-
-      <li>An exceptionally expensive house</li>
-
-    </ul>
-
-    <p>
-      Such observations may have important effects on model estimation.
-    </p>
-
-    <h2>Outliers vs Influential Observations</h2>
-
-    <p>
-      Not every outlier has a large impact on the regression model.
-    </p>
-
-    <p>
-      Likewise, not every influential observation is necessarily an obvious outlier.
+      Others mainly affect uncertainty estimates or predictive performance.
     </p>
 
     <div class="table-wrap">
@@ -201,21 +127,36 @@ sidebar: false
 
         <thead>
           <tr>
-            <th>Concept</th>
-            <th>Meaning</th>
+            <th>Violation</th>
+            <th>Common Consequence</th>
           </tr>
         </thead>
 
         <tbody>
 
           <tr>
-            <td>Outlier</td>
-            <td>Observation unusually distant from others</td>
+            <td>Nonlinearity</td>
+            <td>Biased relationships and predictions</td>
           </tr>
 
           <tr>
-            <td>Influential Observation</td>
-            <td>Observation that strongly affects model estimates</td>
+            <td>Dependence</td>
+            <td>Misleading standard errors and p-values</td>
+          </tr>
+
+          <tr>
+            <td>Heteroscedasticity</td>
+            <td>Unreliable inference</td>
+          </tr>
+
+          <tr>
+            <td>Non-normality</td>
+            <td>Potential inference issues in small samples</td>
+          </tr>
+
+          <tr>
+            <td>Influential outliers</td>
+            <td>Distorted coefficient estimates</td>
           </tr>
 
         </tbody>
@@ -224,246 +165,314 @@ sidebar: false
 
     </div>
 
-    <p>
-      The distinction is important in regression diagnostics.
-    </p>
-
-    <h2>Leverage</h2>
+    <h2>Nonlinearity Violations</h2>
 
     <p>
-      One important concept is leverage.
+      When a true relationship is curved but a straight line is fitted, regression coefficients may fail to represent the underlying pattern.
     </p>
 
     <p>
-      High-leverage observations have unusual predictor values compared with the rest of the dataset.
+      Predictions may become systematically biased.
     </p>
 
     <p>
-      These observations can strongly influence the fitted regression line.
+      Residual plots often reveal these problems through visible patterns.
     </p>
 
-    <div class="concept-box">
-
-      <strong>Key insight:</strong>
-
-      <p>
-        Observations with unusual predictor values often have greater potential to influence regression results.
-      </p>
-
-    </div>
-
-    <h2>Influence</h2>
+    <h2>Independence Violations</h2>
 
     <p>
-      Influence refers to how much a particular observation affects model estimates.
+      Dependent observations provide less information than their number suggests.
     </p>
 
     <p>
-      A highly influential observation may:
+      As a result:
     </p>
 
     <ul class="bullets">
 
-      <li>Change coefficients substantially</li>
+      <li>Standard errors may be underestimated</li>
 
-      <li>Alter significance tests</li>
+      <li>Confidence intervals may be too narrow</li>
 
-      <li>Shift predictions</li>
-
-      <li>Modify conclusions</li>
+      <li>P-values may appear smaller than they should be</li>
 
     </ul>
 
     <p>
-      Influence is often a combination of leverage and residual size.
+      This often creates false confidence.
     </p>
 
-    <h2>Why Outliers Occur</h2>
+    <h2>Heteroscedasticity Violations</h2>
 
     <p>
-      Outliers may arise from several sources:
+      Changing residual variance typically affects uncertainty calculations more than coefficient estimates.
+    </p>
+
+    <p>
+      The fitted regression line may still be useful.
+    </p>
+
+    <p>
+      However, reported standard errors may become unreliable.
+    </p>
+
+    <h2>Normality Violations</h2>
+
+    <p>
+      Non-normal residuals primarily affect statistical inference.
+    </p>
+
+    <p>
+      Their impact is often modest in large samples because of the Central Limit Theorem.
+    </p>
+
+    <p>
+      In smaller samples, normality violations can be more consequential.
+    </p>
+
+    <h2>Outlier Problems</h2>
+
+    <p>
+      Influential observations can alter:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Regression coefficients</li>
+
+      <li>Significance tests</li>
+
+      <li>Predictions</li>
+
+      <li>Model conclusions</li>
+
+    </ul>
+
+    <p>
+      Outlier diagnostics help determine whether such observations require attention.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Important insight:</strong>
+
+      <p>
+        Some violations mainly affect uncertainty, while others can fundamentally alter the estimated relationships themselves.
+      </p>
+
+    </div>
+
+    <h2>Multiple Violations Often Occur Together</h2>
+
+    <p>
+      Assumption violations rarely appear in isolation.
+    </p>
+
+    <p>
+      For example:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Outliers may contribute to non-normality</li>
+
+      <li>Nonlinearity may create heteroscedasticity</li>
+
+      <li>Dependence may produce unusual residual patterns</li>
+
+    </ul>
+
+    <p>
+      Diagnostics should therefore be interpreted holistically.
+    </p>
+
+    <h2>How Analysts Respond</h2>
+
+    <p>
+      When violations are detected, analysts have several options.
+    </p>
+
+    <ul class="bullets">
+
+      <li>Investigate data quality</li>
+
+      <li>Transform variables</li>
+
+      <li>Add missing predictors</li>
+
+      <li>Modify the model structure</li>
+
+      <li>Use robust methods</li>
+
+      <li>Adjust interpretations</li>
+
+    </ul>
+
+    <p>
+      The best response depends on the specific problem.
+    </p>
+
+    <h2>Data Quality Checks</h2>
+
+    <p>
+      Before changing a model, analysts often verify the data itself.
+    </p>
+
+    <p>
+      Apparent violations may originate from:
     </p>
 
     <ul class="bullets">
 
       <li>Recording errors</li>
 
-      <li>Instrument problems</li>
+      <li>Data entry mistakes</li>
 
-      <li>Sampling mistakes</li>
+      <li>Incorrect coding</li>
 
-      <li>Rare but valid observations</li>
-
-      <li>Previously unknown phenomena</li>
+      <li>Measurement problems</li>
 
     </ul>
 
     <p>
-      Understanding their origin is crucial.
+      Addressing these issues can sometimes resolve the problem entirely.
     </p>
 
-    <h2>Should Outliers Be Removed?</h2>
+    <h2>Transforming Variables</h2>
 
     <p>
-      A common mistake is automatically deleting outliers.
-    </p>
-
-    <p>
-      Outliers should not be removed solely because they are unusual.
+      Transformations can help address several assumption violations.
     </p>
 
     <p>
-      Legitimate extreme observations may contain important information.
+      Common transformations include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Logarithms</li>
+
+      <li>Square roots</li>
+
+      <li>Reciprocals</li>
+
+    </ul>
+
+    <p>
+      These transformations may improve linearity, stabilize variance, or reduce skewness.
+    </p>
+
+    <h2>Changing the Model</h2>
+
+    <p>
+      Sometimes the model itself is too simple.
+    </p>
+
+    <p>
+      Analysts may improve performance by:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Adding interaction terms</li>
+
+      <li>Including polynomial terms</li>
+
+      <li>Using alternative regression methods</li>
+
+    </ul>
+
+    <p>
+      Model revision is often part of the normal analytical process.
+    </p>
+
+    <h2>Using Robust Methods</h2>
+
+    <p>
+      Many modern statistical methods are designed to remain useful even when assumptions are imperfect.
+    </p>
+
+    <p>
+      Examples include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Robust standard errors</li>
+
+      <li>Robust regression</li>
+
+      <li>Bootstrap methods</li>
+
+    </ul>
+
+    <p>
+      These approaches help reduce sensitivity to assumption violations.
+    </p>
+
+    <h2>When Violations Are Acceptable</h2>
+
+    <p>
+      Not every violation requires correction.
+    </p>
+
+    <p>
+      Analysts often evaluate:
+    </p>
+
+    <ul class="bullets">
+
+      <li>The severity of the violation</li>
+
+      <li>The sample size</li>
+
+      <li>The analysis objective</li>
+
+      <li>The robustness of conclusions</li>
+
+    </ul>
+
+    <p>
+      Minor violations may have negligible practical consequences.
     </p>
 
     <div class="concept-box">
 
-      <strong>Important warning:</strong>
+      <strong>Practical perspective:</strong>
 
       <p>
-        Outlier removal should be based on clear justification, not simply on a desire to improve statistical results.
+        Statistical modeling is often about managing imperfections rather than eliminating them completely.
       </p>
 
     </div>
 
-    <h2>Detecting Outliers</h2>
+    <h2>Assumption Checking as Risk Assessment</h2>
 
     <p>
-      Analysts often begin with graphical methods.
+      Assumption diagnostics can be viewed as a form of risk assessment.
     </p>
 
     <p>
-      Common tools include:
-    </p>
-
-    <ul class="bullets">
-
-      <li>Scatterplots</li>
-
-      <li>Boxplots</li>
-
-      <li>Residual plots</li>
-
-      <li>Histograms</li>
-
-    </ul>
-
-    <p>
-      Visual inspection frequently reveals unusual observations quickly.
-    </p>
-
-    <h2>Standardized Residuals</h2>
-
-    <p>
-      Large residuals may indicate potential outliers.
+      Analysts evaluate whether model weaknesses are severe enough to threaten conclusions.
     </p>
 
     <p>
-      Analysts often examine standardized residuals to identify observations that differ substantially from model expectations.
-    </p>
-
-    <p>
-      Extremely large absolute values warrant investigation.
-    </p>
-
-    <h2>Cook's Distance</h2>
-
-    <p>
-      One of the most widely used influence measures is Cook's Distance.
-    </p>
-
-    <p>
-      It quantifies how much the regression model changes when a particular observation is removed.
-    </p>
-
-    <p>
-      Larger values suggest greater influence.
-    </p>
-
-    <h2>DFBETAs and Influence Measures</h2>
-
-    <p>
-      Additional diagnostics examine how individual observations affect specific coefficients.
-    </p>
-
-    <p>
-      These tools help analysts identify observations that disproportionately influence parameter estimates.
-    </p>
-
-    <h2>Outliers and Assumptions</h2>
-
-    <p>
-      Outliers can contribute to:
-    </p>
-
-    <ul class="bullets">
-
-      <li>Non-normal residuals</li>
-
-      <li>Heteroscedasticity</li>
-
-      <li>Poor model fit</li>
-
-      <li>Misleading coefficient estimates</li>
-
-    </ul>
-
-    <p>
-      Consequently, outlier assessment is often part of broader assumption checking.
-    </p>
-
-    <h2>Robust Methods</h2>
-
-    <p>
-      When outliers are common or unavoidable, analysts may use robust statistical methods.
-    </p>
-
-    <p>
-      These methods reduce the influence of extreme observations while retaining valuable information.
-    </p>
-
-    <p>
-      Robust approaches are especially useful when unusual observations are legitimate rather than erroneous.
-    </p>
-
-    <h2>Outliers and Scientific Discovery</h2>
-
-    <p>
-      Sometimes the most interesting observations are outliers.
-    </p>
-
-    <p>
-      An unexpected observation may reveal:
-    </p>
-
-    <ul class="bullets">
-
-      <li>A new phenomenon</li>
-
-      <li>A subgroup of interest</li>
-
-      <li>A flaw in assumptions</li>
-
-      <li>A measurement issue</li>
-
-    </ul>
-
-    <p>
-      Outliers deserve investigation rather than automatic elimination.
+      The goal is informed judgment rather than blind rule-following.
     </p>
 
     <h2>The Bigger Picture</h2>
 
     <p>
-      Outliers are an unavoidable feature of many real-world datasets.
+      Every regression model is an approximation of reality.
     </p>
 
     <p>
-      Some are errors, some are rare events, and some contain valuable information.
+      Assumption violations are common, but their practical importance varies widely.
     </p>
 
     <p>
-      Careful analysis helps determine whether unusual observations should be corrected, retained, or modeled differently.
+      Effective analysts recognize violations, understand their consequences, and choose appropriate responses rather than automatically discarding a model.
     </p>
 
     <div class="concept-box">
@@ -471,7 +480,7 @@ sidebar: false
       <strong>Core message:</strong>
 
       <p>
-        Outliers are unusual observations that may exert substantial influence on regression models. Identifying and understanding them is essential because they can affect coefficients, residual behavior, and statistical conclusions.
+        Assumption violations are common in real-world data. The key question is not whether violations exist, but whether they are serious enough to affect conclusions and whether corrective action is necessary.
       </p>
 
     </div>
@@ -479,15 +488,15 @@ sidebar: false
     <h2>Looking Ahead</h2>
 
     <p>
-      Individual assumption violations rarely occur in isolation.
+      The existence of assumption violations raises an important question:
     </p>
 
     <p>
-      Real datasets often exhibit multiple issues simultaneously, including nonlinearity, heteroscedasticity, dependence, and influential observations.
+      How sensitive are statistical conclusions to imperfections in the data and model?
     </p>
 
     <p>
-      The next lesson explores assumption violations more broadly and discusses how analysts respond when assumptions are not fully satisfied.
+      The next lesson introduces robustness and explains why some methods remain reliable even when assumptions are not perfectly satisfied.
     </p>
 
     <!-- TAKEAWAYS -->
@@ -498,21 +507,21 @@ sidebar: false
 
       <ul class="bullets">
 
-        <li>Outliers are observations that differ substantially from the general data pattern</li>
+        <li>Assumption violations do not automatically invalidate regression models</li>
 
-        <li>Outliers are not necessarily errors</li>
+        <li>Different violations affect different aspects of analysis</li>
 
-        <li>Some outliers can strongly influence regression results</li>
+        <li>Nonlinearity can bias relationships and predictions</li>
 
-        <li>Leverage refers to unusual predictor values</li>
+        <li>Dependence and heteroscedasticity often affect uncertainty estimates</li>
 
-        <li>Influence measures how strongly an observation affects model estimates</li>
+        <li>Normality violations are often less serious in large samples</li>
 
-        <li>Cook's Distance is a common influence diagnostic</li>
+        <li>Influential outliers can substantially affect results</li>
 
-        <li>Outlier removal requires justification</li>
+        <li>Model diagnostics help determine whether violations matter in practice</li>
 
-        <li>Investigating unusual observations often improves understanding of the data and model</li>
+        <li>Effective analysts focus on the practical consequences of violations rather than perfection</li>
 
       </ul>
 
@@ -523,13 +532,13 @@ sidebar: false
     <div class="lesson-nav">
 
       <a class="btn btn-outline"
-         href="/modeling/assumptions/normality/">
-         ← Previous: Normality
+         href="/modeling/assumptions/outliers/">
+         ← Previous: Outliers
       </a>
 
       <a class="btn"
-         href="/modeling/assumptions/violations/">
-         Next: Assumption Violations →
+         href="/modeling/assumptions/robustness/">
+         Next: Robustness →
       </a>
 
     </div>
