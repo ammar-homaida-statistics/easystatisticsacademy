@@ -1,180 +1,475 @@
 ---
 layout: default
-title: 1. Residuals
+title: Residuals
+description: Learn what residuals are, why they are central to regression diagnostics, and how they help evaluate model performance.
 permalink: /modeling/diagnostics/residuals/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <h2 style="color:#e65100;">🚧 Lesson Under Construction</h2>
-    <p>
-      Version 0 introduces residuals as the central tool for diagnosing regression models.
-      Visualization and formal diagnostics will follow in the next lessons.
-    </p>
-  </div>
-</section>
-
-<!-- ✅ Update last visited lesson -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
 (function () {
-  localStorage.setItem("esa_continue_modeling_diagnostics_lesson_v0", JSON.stringify({
+
+  const KEY =
+    "esa_continue_modeling_diagnostics_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
     url: "/modeling/diagnostics/residuals/",
-    label: "Lesson 1 — Residuals",
+    label: "Residuals",
     ts: Date.now()
   }));
+
 })();
 </script>
 
 <!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
 
     <div class="badge-row">
+      <span class="badge">Modeling</span>
       <span class="badge">Block 5</span>
-      <span class="badge">Lesson 1</span>
-      <span class="badge">Residuals</span>
       <span class="badge">Diagnostics</span>
+      <span class="badge">Residuals</span>
     </div>
 
-    <h1>1. Residuals</h1>
+    <h1>Residuals</h1>
 
     <p class="lead">
-      Residuals are the foundation of regression diagnostics.
-      They represent the difference between observed and predicted values,
-      revealing how well the model captures the data.
+      Every regression model makes prediction errors.
+    </p>
+
+    <p class="lead">
+      These errors, known as residuals, provide some of the most important information for evaluating whether a model is working well and whether its assumptions are reasonable.
     </p>
 
     <div class="hero-actions">
-      <a class="btn btn-outline" href="/modeling/diagnostics/">Back to Block 5</a>
-      <a class="btn" href="#lesson">Start lesson</a>
+
+      <a class="btn"
+         href="/modeling/diagnostics/">
+         ← Block Home
+      </a>
+
+      <a class="btn btn-outline"
+         href="/modeling/diagnostics/residual-plot/">
+         Next: Residual Plot →
+      </a>
+
     </div>
 
-    <p class="muted-mini">
-      Version 0: conceptual understanding before visual diagnostics.
-    </p>
-
   </div>
+
 </section>
 
 <!-- LESSON -->
-<section class="section" id="lesson">
 
-  <h2>Learning objective</h2>
-  <p>
-    By the end of this lesson, you should understand what residuals are,
-    how they are computed, and why they are essential for model evaluation.
-  </p>
+<section>
 
-  <div class="card">
-    <h3>Key idea</h3>
+  <div class="content-narrow">
+
+    <h2>What Is a Residual?</h2>
+
     <p>
-      A residual is the difference between the observed value and the predicted value:
+      A residual is the difference between an observed outcome and the value predicted by a regression model.
     </p>
-    <p><strong>Residual = Observed − Predicted</strong></p>
-  </div>
 
-  <h2>1) What is a residual?</h2>
-  <div class="card">
     <p>
-      For each observation:
+      It measures how far the model's prediction is from reality for a particular observation.
     </p>
-    <p><strong>e = y − ŷ</strong></p>
-    <p>
-      It measures how far the model's prediction is from the actual value.
-    </p>
-  </div>
 
-  <h2>2) Interpretation</h2>
-  <div class="card">
-    <ul>
-      <li>Positive residual → model underestimates</li>
-      <li>Negative residual → model overestimates</li>
-      <li>Zero residual → perfect prediction</li>
+    <div class="concept-box">
+
+      <strong>Main idea:</strong>
+
+      <p>
+        Residuals represent prediction errors and provide a direct way to assess how well a regression model fits the data.
+      </p>
+
+    </div>
+
+    <h2>The Residual Formula</h2>
+
+    <p>
+      Residuals are calculated as:
+    </p>
+
+    0
+
+    <p>
+      where:
+    </p>
+
+    <ul class="bullets">
+
+      <li><strong>y</strong> is the observed value</li>
+
+      <li><strong>ŷ</strong> is the predicted value</li>
+
+      <li><strong>e</strong> is the residual</li>
+
     </ul>
-  </div>
 
-  <h2>3) Why residuals matter</h2>
-  <div class="card">
     <p>
-      Residuals contain the information not explained by the model.
-      They reveal whether the model assumptions are satisfied.
+      Positive residuals indicate underprediction, while negative residuals indicate overprediction.
     </p>
-  </div>
 
-  <h2>4) Residuals vs errors</h2>
-  <div class="card">
+    <h2>A Simple Example</h2>
+
     <p>
-      Residuals are estimates of the true errors.
-      True errors are unobservable; residuals are what we can compute.
+      Suppose a regression model predicts an exam score of 82.
     </p>
-  </div>
 
-  <h2>5) Good model behavior</h2>
-  <div class="card">
-    <ul>
-      <li>Residuals are centered around zero</li>
-      <li>No clear patterns</li>
-      <li>Constant spread</li>
+    <p>
+      A student actually scores 88.
+    </p>
+
+    <p>
+      The residual equals:
+    </p>
+
+    <p>
+      Residual = 88 − 82 = 6
+    </p>
+
+    <p>
+      The model underpredicted the score by 6 points.
+    </p>
+
+    <h2>Positive and Negative Residuals</h2>
+
+    <p>
+      Residuals can be:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Positive</li>
+
+      <li>Negative</li>
+
+      <li>Zero</li>
+
     </ul>
-  </div>
 
-  <h2>6) Bad model behavior</h2>
-  <div class="card">
-    <ul>
-      <li>Systematic patterns</li>
-      <li>Trends or curves</li>
-      <li>Unequal spread</li>
-    </ul>
-  </div>
-
-  <h2>7) Residuals and assumptions</h2>
-  <div class="card">
-    <ul>
-      <li>Linearity → no pattern</li>
-      <li>Independence → no structure</li>
-      <li>Homoscedasticity → constant spread</li>
-      <li>Normality → symmetric distribution</li>
-    </ul>
-  </div>
-
-  <h2>8) Residuals and model fit</h2>
-  <div class="card">
     <p>
-      Residuals help evaluate how well the model captures the underlying relationship,
-      beyond summary statistics like R².
+      A positive residual means the observed value exceeds the prediction.
     </p>
-  </div>
 
-  <h2>9) Why this matters</h2>
-  <div class="card">
     <p>
-      Residuals are the primary tool for diagnosing model problems
-      and improving model quality.
+      A negative residual means the prediction exceeds the observed value.
     </p>
-  </div>
 
-  <div class="card">
-    <h3>Outcome of this lesson</h3>
-    <ul>
-      <li>Define residuals clearly</li>
-      <li>Interpret residual values</li>
-      <li>Distinguish residuals vs errors</li>
-      <li>Understand their diagnostic role</li>
-      <li>Prepare for residual plots</li>
+    <p>
+      A residual of zero indicates a perfect prediction.
+    </p>
+
+    <h2>Why Residuals Matter</h2>
+
+    <p>
+      The regression line itself only shows predicted values.
+    </p>
+
+    <p>
+      Residuals reveal what the model fails to explain.
+    </p>
+
+    <p>
+      By studying residuals, analysts can identify weaknesses that are invisible when examining coefficients alone.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Key insight:</strong>
+
+      <p>
+        Much of regression diagnostics focuses on residual behavior because residuals contain evidence about assumption violations and model quality.
+      </p>
+
+    </div>
+
+    <h2>Residuals Measure Unexplained Variation</h2>
+
+    <p>
+      No regression model perfectly explains every observation.
+    </p>
+
+    <p>
+      Residuals represent the portion of variability that remains unexplained after fitting the model.
+    </p>
+
+    <p>
+      Smaller residuals generally indicate better model fit.
+    </p>
+
+    <h2>The Goal Is Not Zero Residuals</h2>
+
+    <p>
+      Many beginners assume a good model should produce residuals equal to zero.
+    </p>
+
+    <p>
+      This is unrealistic.
+    </p>
+
+    <p>
+      Real-world data contain noise, measurement error, and natural variability.
+    </p>
+
+    <p>
+      A useful model typically leaves some residual variation unexplained.
+    </p>
+
+    <h2>Residuals and Model Fit</h2>
+
+    <p>
+      Large residuals suggest observations that are poorly predicted.
+    </p>
+
+    <p>
+      Small residuals suggest observations that closely follow the model.
+    </p>
+
+    <p>
+      Examining residual size helps evaluate overall model performance.
+    </p>
+
+    <h2>Residuals and Assumptions</h2>
+
+    <p>
+      Many regression assumptions concern residuals rather than the raw data.
+    </p>
+
+    <p>
+      For example:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Linearity is evaluated using residual patterns</li>
+
+      <li>Normality concerns residual distributions</li>
+
+      <li>Homoscedasticity concerns residual variance</li>
+
+      <li>Independence often involves residual dependence</li>
+
     </ul>
-  </div>
 
-  <div class="card">
-    <h3>Next step</h3>
     <p>
-      We now visualize residuals using residual plots,
-      the most important diagnostic tool in regression.
+      Residual analysis therefore connects directly to assumption checking.
     </p>
-    <a class="btn" href="/modeling/diagnostics/residual-plots/">
-      Next lesson: Residual Plots →
-    </a>
+
+    <h2>Residuals Should Appear Random</h2>
+
+    <p>
+      When a model is working well, residuals should look random.
+    </p>
+
+    <p>
+      They should not display obvious trends or systematic patterns.
+    </p>
+
+    <p>
+      Patterns often indicate that important information has been missed.
+    </p>
+
+    <h2>Large Residuals and Outliers</h2>
+
+    <p>
+      Observations with unusually large residuals may be:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Outliers</li>
+
+      <li>Data errors</li>
+
+      <li>Special cases</li>
+
+      <li>Evidence of model misspecification</li>
+
+    </ul>
+
+    <p>
+      These observations often deserve further investigation.
+    </p>
+
+    <h2>Residuals and Prediction Accuracy</h2>
+
+    <p>
+      Prediction quality depends directly on residual size.
+    </p>
+
+    <p>
+      Models with smaller residuals generally provide more accurate predictions.
+    </p>
+
+    <p>
+      Many prediction metrics are based on residuals.
+    </p>
+
+    <h2>Residuals vs Errors</h2>
+
+    <p>
+      The terms "error" and "residual" are related but not identical.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Concept</th>
+            <th>Meaning</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Error</td>
+            <td>True unknown deviation from reality</td>
+          </tr>
+
+          <tr>
+            <td>Residual</td>
+            <td>Observed estimate of that deviation</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      Residuals are observable, whereas true errors are generally unknown.
+    </p>
+
+    <h2>Residuals in Multiple Regression</h2>
+
+    <p>
+      The concept remains the same regardless of model complexity.
+    </p>
+
+    <p>
+      Whether a model contains one predictor or twenty predictors, residuals still measure the difference between observed and predicted values.
+    </p>
+
+    <p>
+      Residual analysis remains fundamental.
+    </p>
+
+    <h2>Residuals as Diagnostic Tools</h2>
+
+    <p>
+      Residuals are often called the "window into the model."
+    </p>
+
+    <p>
+      Instead of focusing only on what the model explains, analysts examine what the model fails to explain.
+    </p>
+
+    <p>
+      This perspective frequently reveals hidden problems.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Important perspective:</strong>
+
+      <p>
+        Good regression diagnostics begin with residuals because residual behavior often reveals issues that coefficient estimates cannot.
+      </p>
+
+    </div>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      Residuals represent the unexplained component of a regression model.
+    </p>
+
+    <p>
+      They quantify prediction errors, help assess model fit, and provide the foundation for most regression diagnostics.
+    </p>
+
+    <p>
+      Understanding residuals is essential because nearly every assumption-checking technique relies on analyzing their behavior.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Residuals are the differences between observed and predicted values. They measure prediction errors, reveal unexplained variation, and serve as the primary tool for evaluating regression assumptions and model quality.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Residuals become especially useful when visualized.
+    </p>
+
+    <p>
+      One of the most important diagnostic tools in regression is the residual plot.
+    </p>
+
+    <p>
+      The next lesson explores residual plots and explains how they help identify assumption violations, model weaknesses, and opportunities for improvement.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>Residuals are differences between observed and predicted values</li>
+
+        <li>Residuals measure prediction errors</li>
+
+        <li>Positive residuals indicate underprediction</li>
+
+        <li>Negative residuals indicate overprediction</li>
+
+        <li>Residuals represent unexplained variation</li>
+
+        <li>Many regression assumptions are evaluated using residuals</li>
+
+        <li>Large residuals may indicate outliers or model problems</li>
+
+        <li>Residual analysis forms the foundation of regression diagnostics</li>
+
+      </ul>
+
+    </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/modeling/diagnostics/">
+         ← Back to Block Home
+      </a>
+
+      <a class="btn"
+         href="/modeling/diagnostics/residual-plot/">
+         Next: Residual Plot →
+      </a>
+
+    </div>
+
   </div>
 
 </section>
