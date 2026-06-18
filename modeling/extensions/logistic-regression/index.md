@@ -1,184 +1,544 @@
 ---
 layout: default
-title: 2. Logistic Regression
+title: Logistic Regression
+description: Learn what logistic regression is, why it is used for binary outcomes, and how it extends regression ideas beyond continuous outcomes.
 permalink: /modeling/extensions/logistic-regression/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <h2 style="color:#e65100;">🚧 Lesson Under Construction</h2>
-    <p>
-      Version 0 introduces logistic regression conceptually.
-      Mathematical formulation and estimation will be expanded later.
-    </p>
-  </div>
-</section>
-
-<!-- ✅ Update last visited lesson -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
 (function () {
-  localStorage.setItem("esa_continue_modeling_extensions_lesson_v0", JSON.stringify({
+
+  const KEY =
+    "esa_continue_modeling_extensions_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
     url: "/modeling/extensions/logistic-regression/",
-    label: "Lesson 2 — Logistic Regression",
+    label: "Logistic Regression",
     ts: Date.now()
   }));
+
 })();
 </script>
 
 <!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
 
     <div class="badge-row">
+      <span class="badge">Modeling</span>
       <span class="badge">Block 7</span>
-      <span class="badge">Lesson 2</span>
+      <span class="badge">Extensions</span>
       <span class="badge">Logistic Regression</span>
-      <span class="badge">Binary Outcomes</span>
     </div>
 
-    <h1>2. Logistic Regression</h1>
+    <h1>Logistic Regression</h1>
 
     <p class="lead">
-      Logistic regression is used when the outcome is binary.
-      Instead of modeling the outcome directly, it models the probability of an event.
+      Many important questions involve outcomes with only two possible categories.
+    </p>
+
+    <p class="lead">
+      Examples include whether a customer makes a purchase, whether a patient survives treatment, or whether a loan defaults.
+    </p>
+
+    <p class="lead">
+      Logistic regression extends regression modeling to handle these binary outcomes appropriately.
     </p>
 
     <div class="hero-actions">
-      <a class="btn btn-outline" href="/modeling/extensions/">Back to Block 7</a>
-      <a class="btn" href="#lesson">Start lesson</a>
+
+      <a class="btn"
+         href="/modeling/extensions/why-extensions/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/modeling/extensions/probability-vs-logit/">
+         Next: Probability vs Logit →
+      </a>
+
     </div>
 
-    <p class="muted-mini">
-      Version 0: conceptual understanding of binary outcome modeling.
-    </p>
-
   </div>
+
 </section>
 
 <!-- LESSON -->
-<section class="section" id="lesson">
 
-  <h2>Learning objective</h2>
-  <p>
-    By the end of this lesson, you should understand what logistic regression is
-    and why it is used for binary outcomes.
-  </p>
+<section>
 
-  <div class="card">
-    <h3>Key idea</h3>
+  <div class="content-narrow">
+
+    <h2>What Is Logistic Regression?</h2>
+
     <p>
-      Logistic regression models the probability of an outcome, not the outcome itself.
+      Logistic regression is a statistical model used when the outcome variable has two possible categories.
     </p>
-  </div>
 
-  <h2>1) The problem with linear regression</h2>
-  <div class="card">
     <p>
-      When the outcome is binary (0 or 1),
-      linear regression can produce invalid predictions:
+      These categories are often coded as:
     </p>
-    <ul>
-      <li>Predicted values less than 0</li>
-      <li>Predicted values greater than 1</li>
+
+    <ul class="bullets">
+
+      <li>0 = No</li>
+
+      <li>1 = Yes</li>
+
     </ul>
-  </div>
 
-  <h2>2) What we want instead</h2>
-  <div class="card">
     <p>
-      We want a model that:
+      The model estimates the probability that an observation belongs to one of the categories.
     </p>
-    <ul>
-      <li>Predicts probabilities</li>
-      <li>Keeps values between 0 and 1</li>
-      <li>Reflects nonlinear relationships</li>
-    </ul>
-  </div>
 
-  <h2>3) What logistic regression does</h2>
-  <div class="card">
+    <div class="concept-box">
+
+      <strong>Main idea:</strong>
+
+      <p>
+        Logistic regression models the probability of a binary outcome using predictor variables.
+      </p>
+
+    </div>
+
+    <h2>Why Not Use Linear Regression?</h2>
+
     <p>
-      Logistic regression models the probability that the outcome equals 1.
+      Suppose we want to predict whether a customer will make a purchase.
     </p>
-  </div>
 
-  <h2>4) Output of the model</h2>
-  <div class="card">
     <p>
-      The model produces values between 0 and 1,
-      interpreted as probabilities.
+      A probability must always lie between 0 and 1.
     </p>
-  </div>
 
-  <h2>5) Shape of the relationship</h2>
-  <div class="card">
     <p>
-      Instead of a straight line,
-      logistic regression produces an S-shaped curve.
+      Ordinary linear regression does not guarantee this.
     </p>
-  </div>
 
-  <h2>6) Interpretation</h2>
-  <div class="card">
     <p>
-      The model describes how predictors affect the probability of an event.
+      It can produce impossible predictions such as:
     </p>
-  </div>
 
-  <h2>7) Examples of use</h2>
-  <div class="card">
-    <ul>
+    <div class="example-box">
+
+      <p>
+        Probability = -0.15
+      </p>
+
+      <p>
+        Probability = 1.27
+      </p>
+
+    </div>
+
+    <p>
+      Because these values are not valid probabilities, a different approach is needed.
+    </p>
+
+    <h2>Binary Outcomes Are Everywhere</h2>
+
+    <p>
+      Logistic regression is widely used because many real-world outcomes are binary.
+    </p>
+
+    <p>
+      Examples include:
+    </p>
+
+    <ul class="bullets">
+
       <li>Disease vs no disease</li>
-      <li>Purchase vs no purchase</li>
+
       <li>Pass vs fail</li>
+
+      <li>Click vs no click</li>
+
+      <li>Default vs no default</li>
+
+      <li>Purchase vs no purchase</li>
+
     </ul>
-  </div>
 
-  <h2>8) Key difference from linear regression</h2>
-  <div class="card">
-    <ul>
-      <li>Linear regression → continuous outcome</li>
-      <li>Logistic regression → probability of binary outcome</li>
+    <p>
+      These situations naturally lead to probability modeling.
+    </p>
+
+    <h2>The Goal of Logistic Regression</h2>
+
+    <p>
+      Rather than predicting the outcome directly, logistic regression predicts:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        The probability that the outcome equals 1
+      </p>
+    </div>
+
+    <p>
+      This probability can then be used to classify observations or estimate risk.
+    </p>
+
+    <h2>A Probability-Based Model</h2>
+
+    <p>
+      Imagine predicting whether a student passes an exam.
+    </p>
+
+    <p>
+      Instead of predicting:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Pass = 0.82
+      </p>
+    </div>
+
+    <p>
+      the model predicts:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Probability of passing = 82%
+      </p>
+    </div>
+
+    <p>
+      This interpretation is more meaningful for binary outcomes.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Key insight:</strong>
+
+      <p>
+        Logistic regression focuses on probabilities rather than directly predicting category labels.
+      </p>
+
+    </div>
+
+    <h2>The Logistic Curve</h2>
+
+    <p>
+      Logistic regression uses an S-shaped relationship known as the logistic curve.
+    </p>
+
+    <p>
+      This curve has two important properties:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Predicted probabilities remain between 0 and 1</li>
+
+      <li>Changes in predictors can have nonlinear effects on probability</li>
+
     </ul>
-  </div>
 
-  <h2>9) Why this matters</h2>
-  <div class="card">
     <p>
-      Logistic regression allows valid modeling of binary outcomes,
-      which are common in real-world problems.
+      These properties make logistic regression suitable for probability modeling.
     </p>
-  </div>
 
-  <h2>10) What comes next</h2>
-  <div class="card">
+    <h2>Probabilities Change Gradually</h2>
+
     <p>
-      To understand logistic regression fully,
-      we need to connect probabilities to a linear model using the logit transformation.
+      As predictor values increase, predicted probabilities typically move smoothly between:
     </p>
-  </div>
 
-  <div class="card">
-    <h3>Outcome of this lesson</h3>
-    <ul>
-      <li>Understand logistic regression conceptually</li>
-      <li>Recognize limitations of linear regression for binary data</li>
-      <li>Interpret probabilities as model outputs</li>
-      <li>Understand the S-shaped relationship</li>
-      <li>Prepare for logit transformation</li>
+    <ul class="bullets">
+
+      <li>Near 0</li>
+
+      <li>Near 1</li>
+
     </ul>
-  </div>
 
-  <div class="card">
-    <h3>Next step</h3>
     <p>
-      We now explain how probabilities are transformed into a linear form using the logit.
+      The transition occurs gradually rather than abruptly.
     </p>
-    <a class="btn" href="/modeling/extensions/probability-vs-logit/">
-      Next lesson: Probability vs Logit →
-    </a>
+
+    <h2>Inputs and Outputs</h2>
+
+    <p>
+      Logistic regression uses predictor variables in much the same way as ordinary regression.
+    </p>
+
+    <p>
+      Inputs might include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Age</li>
+
+      <li>Income</li>
+
+      <li>Education</li>
+
+      <li>Study hours</li>
+
+    </ul>
+
+    <p>
+      The output is a probability rather than a continuous numerical prediction.
+    </p>
+
+    <h2>A Medical Example</h2>
+
+    <p>
+      Researchers may wish to predict whether a patient develops a disease.
+    </p>
+
+    <p>
+      Predictors might include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Age</li>
+
+      <li>Blood pressure</li>
+
+      <li>Smoking status</li>
+
+      <li>Body mass index</li>
+
+    </ul>
+
+    <p>
+      Logistic regression estimates the probability of disease for each patient.
+    </p>
+
+    <h2>A Business Example</h2>
+
+    <p>
+      A company may wish to predict whether a customer will purchase a product.
+    </p>
+
+    <p>
+      Predictors might include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Previous purchases</li>
+
+      <li>Website activity</li>
+
+      <li>Customer demographics</li>
+
+      <li>Marketing exposure</li>
+
+    </ul>
+
+    <p>
+      The model produces a purchase probability for each customer.
+    </p>
+
+    <h2>How Predictions Become Decisions</h2>
+
+    <p>
+      Predicted probabilities can be converted into classifications.
+    </p>
+
+    <p>
+      For example:
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Predicted Probability</th>
+            <th>Classification</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>0.90</td>
+            <td>Likely Yes</td>
+          </tr>
+
+          <tr>
+            <td>0.70</td>
+            <td>Likely Yes</td>
+          </tr>
+
+          <tr>
+            <td>0.45</td>
+            <td>Likely No</td>
+          </tr>
+
+          <tr>
+            <td>0.10</td>
+            <td>Likely No</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      Classification rules are often based on probability thresholds.
+    </p>
+
+    <h2>Logistic Regression Still Uses Predictors and Coefficients</h2>
+
+    <p>
+      Despite being designed for binary outcomes, logistic regression retains many familiar regression concepts.
+    </p>
+
+    <ul class="bullets">
+
+      <li>Predictors</li>
+
+      <li>Coefficients</li>
+
+      <li>Model fitting</li>
+
+      <li>Prediction</li>
+
+      <li>Inference</li>
+
+    </ul>
+
+    <p>
+      This makes it a natural extension of ordinary regression.
+    </p>
+
+    <h2>Common Applications</h2>
+
+    <p>
+      Logistic regression is used extensively in:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Medicine</li>
+
+      <li>Public health</li>
+
+      <li>Finance</li>
+
+      <li>Marketing</li>
+
+      <li>Social science</li>
+
+      <li>Machine learning</li>
+
+    </ul>
+
+    <p>
+      It remains one of the most widely used classification models.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Important perspective:</strong>
+
+      <p>
+        Logistic regression is often the first model analysts consider when dealing with binary outcomes because it combines interpretability with strong predictive performance.
+      </p>
+
+    </div>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      Logistic regression extends the core ideas of regression to situations where outcomes have only two categories.
+    </p>
+
+    <p>
+      By modeling probabilities rather than continuous outcomes, it solves a problem that ordinary linear regression cannot handle effectively.
+    </p>
+
+    <p>
+      This makes it one of the most important and widely applied extensions in modern statistics.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Logistic regression is a regression-based method for modeling binary outcomes. It predicts probabilities that remain between 0 and 1 and provides a principled way to analyze yes/no, success/failure, and similar outcomes.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      Logistic regression predicts probabilities, but the model itself is built around a transformed quantity called the logit.
+    </p>
+
+    <p>
+      Understanding the distinction between probability and logit is essential for interpreting logistic regression coefficients.
+    </p>
+
+    <p>
+      The next lesson introduces the relationship between probabilities and logits and explains why this transformation is used.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>Logistic regression is designed for binary outcomes</li>
+
+        <li>It predicts probabilities rather than continuous outcomes</li>
+
+        <li>Predicted probabilities always remain between 0 and 1</li>
+
+        <li>It solves problems that linear regression cannot handle properly</li>
+
+        <li>Binary outcomes are common in many real-world applications</li>
+
+        <li>Probabilities can be converted into classifications</li>
+
+        <li>Logistic regression retains many familiar regression concepts</li>
+
+        <li>It is one of the most widely used statistical modeling techniques</li>
+
+      </ul>
+
+    </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/modeling/extensions/why-extensions/">
+         ← Previous: Why Extensions?
+      </a>
+
+      <a class="btn"
+         href="/modeling/extensions/probability-vs-logit/">
+         Next: Probability vs Logit →
+      </a>
+
+    </div>
+
   </div>
 
 </section>
