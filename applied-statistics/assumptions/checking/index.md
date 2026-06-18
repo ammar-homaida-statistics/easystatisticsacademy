@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Checking Assumptions
-description: Learn how analysts evaluate statistical assumptions using visualizations, diagnostics, and practical reasoning before interpreting results.
+description: Learn how analysts evaluate statistical assumptions using graphical diagnostics, numerical summaries, and practical reasoning before interpreting results.
 permalink: /applied-statistics/assumptions/checking/
 sidebar: false
 ---
@@ -38,15 +38,15 @@ sidebar: false
     <h1>Checking Assumptions</h1>
 
     <p class="lead">
-      Statistical assumptions should not simply be accepted without examination.
+      Understanding assumptions is important, but analysts must also determine whether those assumptions are reasonable for the data being analyzed.
     </p>
 
     <p class="lead">
-      Before interpreting results, analysts evaluate whether the conditions required by a method are reasonably satisfied.
+      This process is known as assumption checking.
     </p>
 
     <p class="lead">
-      This process is known as assumption checking and is a standard part of statistical analysis.
+      Assumption checks help analysts identify potential problems before drawing conclusions from statistical results.
     </p>
 
     <div class="hero-actions">
@@ -57,8 +57,8 @@ sidebar: false
       </a>
 
       <a class="btn btn-outline"
-         href="/applied-statistics/effect-size/">
-         Next: Effect Size →
+         href="/applied-statistics/effect-sizes/">
+         Next: Effect Sizes →
       </a>
 
     </div>
@@ -76,15 +76,15 @@ sidebar: false
     <h2>Why Check Assumptions?</h2>
 
     <p>
-      Statistical methods rely on assumptions because their mathematical properties depend on certain conditions.
+      Statistical methods rely on assumptions about how data behave.
     </p>
 
     <p>
-      If those conditions are seriously violated, results may become unreliable.
+      Before interpreting results, analysts need evidence that these assumptions are reasonably satisfied.
     </p>
 
     <p>
-      Assumption checking helps analysts determine whether conclusions can be trusted.
+      Assumption checking helps determine whether a chosen method is appropriate for a particular dataset.
     </p>
 
     <div class="concept-box">
@@ -92,63 +92,43 @@ sidebar: false
       <strong>Main idea:</strong>
 
       <p>
-        Assumption checking evaluates whether the data are reasonably consistent with the requirements of a statistical method.
+        Assumption checking is the process of evaluating whether the conditions required by a statistical method are reasonably supported by the data.
       </p>
 
     </div>
 
-    <h2>Assumption Checking Is Part of Analysis</h2>
+    <h2>Checking Is Part of the Workflow</h2>
 
     <p>
-      Statistical analysis involves more than producing estimates and p-values.
+      Statistical analysis is not simply:
     </p>
 
-    <p>
-      Analysts must also evaluate whether the chosen method is appropriate for the data.
-    </p>
-
-    <p>
-      Assumption checking is therefore an essential step between fitting a model and interpreting results.
-    </p>
-
-    <h2>Common Questions Analysts Ask</h2>
-
-    <p>
-      During assumption checking, analysts often ask:
-    </p>
-
-    <ul class="bullets">
-
-      <li>Are observations independent?</li>
-
-      <li>Are distributions approximately normal?</li>
-
-      <li>Is variability reasonably constant?</li>
-
-      <li>Are relationships approximately linear?</li>
-
-      <li>Are there influential outliers?</li>
-
-    </ul>
-
-    <p>
-      The answers help determine whether a method remains appropriate.
-    </p>
-
-    <div class="concept-box">
-
-      <strong>Key insight:</strong>
+    <div class="example-box">
 
       <p>
-        Assumption checking is not about proving assumptions are true. It is about evaluating whether they are reasonable enough for the analysis.
+        Collect Data → Run Test → Report Results
       </p>
-
     </div>
+
+    <p>
+      A more realistic workflow is:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Collect Data → Explore Data → Check Assumptions → Run Analysis → Interpret Results
+      </p>
+    </div>
+
+    <p>
+      Assumption checking acts as an important quality-control step.
+    </p>
 
     <h2>Graphical Diagnostics</h2>
 
     <p>
-      Visual inspection is one of the most powerful tools for checking assumptions.
+      Visualizations are among the most powerful tools for evaluating assumptions.
     </p>
 
     <p>
@@ -156,7 +136,7 @@ sidebar: false
     </p>
 
     <p>
-      Common graphical tools include:
+      Common graphical diagnostics include:
     </p>
 
     <ul class="bullets">
@@ -174,13 +154,13 @@ sidebar: false
     </ul>
 
     <p>
-      These visualizations are widely used across applied statistics.
+      Visual inspection is often the first step in assumption evaluation.
     </p>
 
     <h2>Checking Normality</h2>
 
     <p>
-      Analysts often assess normality using:
+      Normality is frequently evaluated using:
     </p>
 
     <ul class="bullets">
@@ -194,70 +174,38 @@ sidebar: false
     </ul>
 
     <p>
-      The goal is to determine whether the distribution appears approximately consistent with a normal shape.
+      Analysts look for substantial departures from the bell-shaped pattern expected under normality.
     </p>
 
     <p>
-      Minor departures are often acceptable, particularly with larger samples.
+      Small departures are often acceptable.
     </p>
 
-    <h2>Checking Independence</h2>
+    <h2>Checking Linearity</h2>
 
     <p>
-      Independence is frequently assessed through study design rather than graphics.
+      Scatterplots provide a useful way to evaluate linearity.
     </p>
 
     <p>
-      Analysts consider:
+      Analysts examine whether relationships appear approximately straight.
     </p>
 
-    <ul class="bullets">
-
-      <li>How data were collected</li>
-
-      <li>Whether observations are clustered</li>
-
-      <li>Whether repeated measurements exist</li>
-
-      <li>Whether temporal dependence is present</li>
-
-    </ul>
-
     <p>
-      Understanding the data-generating process is critical.
-    </p>
-
-    <h2>Checking Equal Variance</h2>
-
-    <p>
-      Constant variability is often evaluated using:
-    </p>
-
-    <ul class="bullets">
-
-      <li>Residual plots</li>
-
-      <li>Group comparisons</li>
-
-      <li>Spread patterns across predictor values</li>
-
-    </ul>
-
-    <p>
-      Analysts look for evidence that variability changes systematically across conditions.
+      Strong curves or systematic patterns may indicate nonlinearity.
     </p>
 
     <div class="example-box">
 
       <p>
-        A widening funnel-shaped pattern in a residual plot may indicate unequal variance.
+        A curved relationship suggests that a simple linear model may not be appropriate.
       </p>
     </div>
 
-    <h2>Checking Linearity</h2>
+    <h2>Checking Equal Variance</h2>
 
     <p>
-      Linearity can often be assessed through scatterplots and residual plots.
+      Equal variance is often evaluated using residual plots.
     </p>
 
     <p>
@@ -266,26 +214,62 @@ sidebar: false
 
     <ul class="bullets">
 
-      <li>Straight-line patterns</li>
+      <li>Consistent spread of residuals</li>
 
-      <li>Curvature</li>
+      <li>No funnel-shaped patterns</li>
 
-      <li>Systematic trends</li>
+      <li>No systematic increase in variability</li>
 
     </ul>
 
     <p>
-      Strong curvature may indicate that a linear model is not appropriate.
+      Unequal spread may indicate heteroscedasticity.
     </p>
+
+    <h2>Checking Independence</h2>
+
+    <p>
+      Independence is often evaluated through study design rather than graphs alone.
+    </p>
+
+    <p>
+      Analysts ask questions such as:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Were observations collected independently?</li>
+
+      <li>Are repeated measurements present?</li>
+
+      <li>Could clustering exist?</li>
+
+      <li>Does time ordering matter?</li>
+
+    </ul>
+
+    <p>
+      Knowledge of how data were collected is often essential.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Key insight:</strong>
+
+      <p>
+        Some assumptions are evaluated primarily through data visualization, while others require understanding the study design itself.
+      </p>
+
+    </div>
 
     <h2>Checking for Outliers</h2>
 
     <p>
-      Outliers are observations that differ substantially from the majority of the data.
+      Outliers can affect multiple assumptions simultaneously.
     </p>
 
     <p>
-      Analysts often use:
+      Common tools for identifying unusual observations include:
     </p>
 
     <ul class="bullets">
@@ -294,18 +278,18 @@ sidebar: false
 
       <li>Scatterplots</li>
 
-      <li>Residual diagnostics</li>
+      <li>Residual analyses</li>
 
     </ul>
 
     <p>
-      The goal is not necessarily to remove outliers but to understand their influence.
+      Not all outliers are problematic, but they deserve attention.
     </p>
 
     <h2>Formal Statistical Tests</h2>
 
     <p>
-      Some assumptions can also be evaluated using formal tests.
+      In addition to visual diagnostics, analysts sometimes use formal assumption tests.
     </p>
 
     <p>
@@ -323,7 +307,21 @@ sidebar: false
     </ul>
 
     <p>
-      These tests provide additional evidence but should rarely replace graphical evaluation entirely.
+      These tests can provide useful information, but they should not replace thoughtful interpretation.
+    </p>
+
+    <h2>Why Visual Methods Remain Important</h2>
+
+    <p>
+      Formal tests can be sensitive to sample size.
+    </p>
+
+    <p>
+      Large samples may detect trivial departures, while small samples may fail to detect meaningful problems.
+    </p>
+
+    <p>
+      Graphical diagnostics often provide a more practical perspective.
     </p>
 
     <div class="concept-box">
@@ -331,76 +329,42 @@ sidebar: false
       <strong>Important principle:</strong>
 
       <p>
-        Statistical tests and graphical diagnostics are most effective when used together.
+        Assumption checking should combine statistical evidence, visual inspection, and subject-matter knowledge.
       </p>
 
     </div>
 
-    <h2>Sample Size Matters</h2>
+    <h2>Reasonable Rather Than Perfect</h2>
 
     <p>
-      The interpretation of diagnostics often depends on sample size.
+      Analysts rarely expect assumptions to hold perfectly.
     </p>
 
     <p>
-      For example:
-    </p>
-
-    <ul class="bullets">
-
-      <li>Large samples may reveal trivial departures from assumptions</li>
-
-      <li>Small samples may hide important problems</li>
-
-    </ul>
-
-    <p>
-      Analysts should always consider practical significance rather than relying solely on formal criteria.
-    </p>
-
-    <h2>Assumption Checking Is Not Mechanical</h2>
-
-    <p>
-      Effective assumption evaluation requires judgment.
+      The goal is to determine whether assumptions are satisfied well enough for the chosen method to perform reliably.
     </p>
 
     <p>
-      Analysts must consider:
+      Statistical judgment is often more important than strict rules.
+    </p>
+
+    <h2>When Problems Are Found</h2>
+
+    <p>
+      If assumption checks reveal concerns, analysts may:
     </p>
 
     <ul class="bullets">
 
-      <li>The severity of violations</li>
+      <li>Use a different method</li>
 
-      <li>The robustness of the method</li>
+      <li>Transform variables</li>
 
-      <li>The purpose of the analysis</li>
+      <li>Apply robust procedures</li>
 
-      <li>The consequences of potential errors</li>
+      <li>Investigate data quality issues</li>
 
-    </ul>
-
-    <p>
-      Statistical reasoning is often more important than following a rigid checklist.
-    </p>
-
-    <h2>What Happens After Checking?</h2>
-
-    <p>
-      After evaluating assumptions, analysts may:
-    </p>
-
-    <ul class="bullets">
-
-      <li>Proceed with the chosen method</li>
-
-      <li>Use a transformed variable</li>
-
-      <li>Apply a robust procedure</li>
-
-      <li>Choose an alternative model</li>
-
-      <li>Interpret results more cautiously</li>
+      <li>Interpret findings more cautiously</li>
 
     </ul>
 
@@ -408,30 +372,64 @@ sidebar: false
       Assumption checking informs these decisions.
     </p>
 
-    <h2>Documenting Assumption Checks</h2>
+    <h2>Documentation Matters</h2>
 
     <p>
-      Good statistical practice includes reporting how assumptions were evaluated.
+      Good statistical practice includes documenting how assumptions were evaluated.
     </p>
 
     <p>
-      Researchers often describe:
+      Analysts should be able to explain:
     </p>
 
     <ul class="bullets">
 
-      <li>Diagnostic plots examined</li>
+      <li>What assumptions were checked</li>
 
-      <li>Tests performed</li>
+      <li>How they were evaluated</li>
 
-      <li>Violations observed</li>
-
-      <li>Corrective actions taken</li>
+      <li>What conclusions were reached</li>
 
     </ul>
 
     <p>
-      This transparency improves the credibility of findings.
+      This improves transparency and reproducibility.
+    </p>
+
+    <h2>Common Mistakes</h2>
+
+    <p>
+      Analysts sometimes:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Ignore assumptions entirely</li>
+
+      <li>Rely only on formal tests</li>
+
+      <li>Assume software automatically solves violations</li>
+
+      <li>Reject analyses because of tiny, inconsequential departures</li>
+
+    </ul>
+
+    <p>
+      Effective assumption checking requires balanced judgment.
+    </p>
+
+    <h2>Assumption Checking as Evidence Evaluation</h2>
+
+    <p>
+      Checking assumptions is not merely a technical requirement.
+    </p>
+
+    <p>
+      It is part of evaluating the credibility of statistical evidence.
+    </p>
+
+    <p>
+      Analysts who understand assumptions are better equipped to interpret results responsibly.
     </p>
 
     <div class="concept-box">
@@ -439,49 +437,23 @@ sidebar: false
       <strong>Important perspective:</strong>
 
       <p>
-        Assumption checking is not about finding perfect data. It is about understanding the limitations of the data and determining whether conclusions remain trustworthy.
+        Assumption checking is one of the ways analysts determine whether statistical conclusions deserve confidence.
       </p>
 
     </div>
 
-    <h2>A Practical Workflow</h2>
-
-    <p>
-      A common assumption-checking workflow is:
-    </p>
-
-    <ol>
-
-      <li>Fit the statistical model.</li>
-
-      <li>Inspect diagnostic plots.</li>
-
-      <li>Evaluate key assumptions.</li>
-
-      <li>Assess the severity of any violations.</li>
-
-      <li>Modify the analysis if necessary.</li>
-
-      <li>Interpret results in context.</li>
-
-    </ol>
-
-    <p>
-      This process helps ensure responsible statistical practice.
-    </p>
-
     <h2>The Bigger Picture</h2>
 
     <p>
-      Assumption checking connects statistical methods to real-world data.
+      Assumption checking connects statistical theory with real-world data.
     </p>
 
     <p>
-      Because assumptions are rarely perfectly satisfied, analysts must evaluate whether methods remain appropriate under actual conditions.
+      By examining whether assumptions are reasonably satisfied, analysts can identify potential problems, select appropriate methods, and interpret findings more accurately.
     </p>
 
     <p>
-      Diagnostic tools, graphical assessments, and thoughtful reasoning help ensure that conclusions are supported by both data and methodology.
+      It is an essential part of responsible statistical practice.
     </p>
 
     <div class="concept-box">
@@ -489,7 +461,7 @@ sidebar: false
       <strong>Core message:</strong>
 
       <p>
-        Assumption checking is a critical step in statistical analysis. Analysts use diagnostics, visualizations, and contextual reasoning to evaluate whether assumptions are sufficiently satisfied for reliable interpretation.
+        Assumption checking involves evaluating whether the conditions required by a statistical method are reasonably satisfied. Analysts use graphical diagnostics, formal tests, and contextual knowledge to determine whether results can be interpreted confidently.
       </p>
 
     </div>
@@ -501,15 +473,15 @@ sidebar: false
     </p>
 
     <p>
-      In this block, you learned what assumptions are, why they matter, the most common assumptions used in statistics, how violations occur, and how analysts evaluate them.
+      In this block, you learned what assumptions are, why they matter, the most common assumptions in applied statistics, how violations occur, and how analysts evaluate them.
     </p>
 
     <p>
-      These concepts provide an essential foundation for understanding the strengths and limitations of statistical methods.
+      These ideas form an important foundation for understanding when statistical methods can be trusted and how conclusions should be interpreted.
     </p>
 
     <p>
-      The next block introduces effect sizes, which help analysts move beyond statistical significance and evaluate the practical importance of findings.
+      The next block introduces effect sizes, which help analysts evaluate the practical importance of findings rather than focusing only on statistical significance.
     </p>
 
     <!-- TAKEAWAYS -->
@@ -520,21 +492,21 @@ sidebar: false
 
       <ul class="bullets">
 
-        <li>Assumption checking evaluates whether statistical methods are appropriate for the data</li>
+        <li>Assumption checking evaluates whether a method's conditions are reasonably satisfied</li>
 
-        <li>Graphical diagnostics are powerful tools for assessing assumptions</li>
+        <li>Graphical diagnostics are important tools for assumption evaluation</li>
 
-        <li>Normality, independence, variance, linearity, and outliers are commonly evaluated</li>
+        <li>Normality is commonly assessed using histograms and Q-Q plots</li>
 
-        <li>Formal tests can complement visual inspection</li>
+        <li>Linearity is often evaluated with scatterplots</li>
 
-        <li>The importance of violations depends on their practical impact</li>
+        <li>Equal variance is frequently assessed using residual plots</li>
 
-        <li>Assumption checking requires judgment as well as technical tools</li>
+        <li>Independence often requires understanding study design</li>
 
-        <li>Diagnostic findings guide method selection and interpretation</li>
+        <li>Formal tests can supplement visual diagnostics</li>
 
-        <li>Transparent reporting of assumption checks improves credibility</li>
+        <li>Assumption checking supports trustworthy statistical conclusions</li>
 
       </ul>
 
@@ -550,8 +522,8 @@ sidebar: false
       </a>
 
       <a class="btn"
-         href="/applied-statistics/effect-size/">
-         Next: Effect Size →
+         href="/applied-statistics/effect-sizes/">
+         Next: Effect Sizes →
       </a>
 
     </div>
