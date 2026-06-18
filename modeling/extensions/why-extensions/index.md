@@ -1,206 +1,504 @@
 ---
 layout: default
-title: 1. Why Do We Need Extensions?
+title: Why Extensions?
+description: Learn why basic linear regression is not sufficient for every problem and how regression extensions allow analysts to model a wider variety of real-world situations.
 permalink: /modeling/extensions/why-extensions/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <h2 style="color:#e65100;">🚧 Lesson Under Construction</h2>
-    <p>
-      Version 0 explains why ordinary linear regression is not sufficient for every modeling problem.
-      Specific extensions will be introduced in the next lessons.
-    </p>
-  </div>
-</section>
-
-<!-- ✅ Update last visited lesson -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
 (function () {
-  localStorage.setItem("esa_continue_modeling_extensions_lesson_v0", JSON.stringify({
+
+  const KEY =
+    "esa_continue_modeling_extensions_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
     url: "/modeling/extensions/why-extensions/",
-    label: "Lesson 1 — Why Do We Need Extensions?",
+    label: "Why Extensions?",
     ts: Date.now()
   }));
+
 })();
 </script>
 
 <!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
 
     <div class="badge-row">
+      <span class="badge">Modeling</span>
       <span class="badge">Block 7</span>
-      <span class="badge">Lesson 1</span>
       <span class="badge">Extensions</span>
-      <span class="badge">Limits of Linear Models</span>
+      <span class="badge">Foundations</span>
     </div>
 
-    <h1>1. Why Do We Need Extensions?</h1>
+    <h1>Why Extensions?</h1>
 
     <p class="lead">
-      Linear regression is powerful, but it is not suitable for every kind of outcome or relationship.
-      Extensions are needed when the structure of the data goes beyond what ordinary linear regression can handle.
+      Linear regression is one of the most important statistical tools, but it cannot solve every modeling problem.
+    </p>
+
+    <p class="lead">
+      Real-world data often involve binary outcomes, counts, nonlinear relationships, hierarchical structures, and many other situations that require more specialized methods.
+    </p>
+
+    <p class="lead">
+      Regression extensions were developed to address these challenges.
     </p>
 
     <div class="hero-actions">
-      <a class="btn btn-outline" href="/modeling/extensions/">Back to Block 7</a>
-      <a class="btn" href="#lesson">Start lesson</a>
+
+      <a class="btn"
+         href="/modeling/extensions/">
+         ← Block Home
+      </a>
+
+      <a class="btn btn-outline"
+         href="/modeling/extensions/logistic-regression/">
+         Next: Logistic Regression →
+      </a>
+
     </div>
 
-    <p class="muted-mini">
-      Version 0: conceptual bridge from linear regression to broader modeling frameworks.
-    </p>
-
   </div>
+
 </section>
 
 <!-- LESSON -->
-<section class="section" id="lesson">
 
-  <h2>Learning objective</h2>
-  <p>
-    By the end of this lesson, you should understand why ordinary linear regression has limits
-    and why statistical modeling needs extensions.
-  </p>
+<section>
 
-  <div class="card">
-    <h3>Key idea</h3>
+  <div class="content-narrow">
+
+    <h2>Why Linear Regression Is Not Always Enough</h2>
+
     <p>
-      Different kinds of data require different kinds of models.
-      A single modeling framework cannot solve every problem.
+      Linear regression assumes that the outcome variable is continuous and that relationships can be represented using a linear model with normally distributed errors.
     </p>
-  </div>
 
-  <h2>1) What linear regression does well</h2>
-  <div class="card">
     <p>
-      Ordinary linear regression works well when:
+      These assumptions work well in many situations, but they do not fit every type of data.
     </p>
-    <ul>
-      <li>The outcome is continuous</li>
-      <li>The relationship is modeled appropriately</li>
-      <li>The assumptions are reasonably satisfied</li>
+
+    <p>
+      Many important research questions require different approaches.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Main idea:</strong>
+
+      <p>
+        Statistical extensions exist because real-world problems often violate the assumptions or requirements of basic linear regression.
+      </p>
+
+    </div>
+
+    <h2>Different Types of Outcomes</h2>
+
+    <p>
+      Consider the following outcomes:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Whether a patient survives or not</li>
+
+      <li>Whether a customer makes a purchase</li>
+
+      <li>The number of accidents at an intersection</li>
+
+      <li>The probability of default on a loan</li>
+
     </ul>
-  </div>
 
-  <h2>2) Where linear regression begins to fail</h2>
-  <div class="card">
     <p>
-      Problems arise when the outcome variable or the data structure
-      no longer fits the assumptions of ordinary linear regression.
+      These outcomes are not continuous measurements like height, income, or exam scores.
     </p>
-  </div>
 
-  <h2>3) Example: binary outcomes</h2>
-  <div class="card">
     <p>
-      Suppose the outcome is:
+      Special modeling approaches are needed.
     </p>
-    <ul>
-      <li>Pass / Fail</li>
-      <li>Yes / No</li>
-      <li>Disease / No disease</li>
+
+    <h2>The Binary Outcome Problem</h2>
+
+    <p>
+      Suppose the outcome can only take two values:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Success or Failure
+      </p>
+
+      <p>
+        Yes or No
+      </p>
+
+      <p>
+        Purchased or Not Purchased
+      </p>
+
+    </div>
+
+    <p>
+      Ordinary linear regression is poorly suited for these situations because predictions can fall outside the valid range of probabilities.
+    </p>
+
+    <p>
+      Logistic regression was developed to address this challenge.
+    </p>
+
+    <h2>The Count Data Problem</h2>
+
+    <p>
+      Some outcomes represent counts.
+    </p>
+
+    <p>
+      Examples include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Number of hospital visits</li>
+
+      <li>Number of defects</li>
+
+      <li>Number of website clicks</li>
+
+      <li>Number of customer complaints</li>
+
     </ul>
-    <p>
-      Linear regression is not appropriate here because predictions can fall below 0 or above 1.
-    </p>
-  </div>
 
-  <h2>4) Why this is a problem</h2>
-  <div class="card">
-    <ul>
-      <li>Predicted values may be impossible</li>
-      <li>Error structure changes</li>
-      <li>Interpretation becomes misleading</li>
+    <p>
+      Count data often require specialized models such as Poisson regression.
+    </p>
+
+    <h2>The Nonlinear Relationship Problem</h2>
+
+    <p>
+      Not every relationship follows a straight line.
+    </p>
+
+    <p>
+      Some relationships:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Curve upward</li>
+
+      <li>Curve downward</li>
+
+      <li>Plateau over time</li>
+
+      <li>Change direction</li>
+
     </ul>
-  </div>
 
-  <h2>5) More kinds of outcomes</h2>
-  <div class="card">
     <p>
-      Extensions are also needed for outcomes such as:
+      Extensions allow analysts to model these more complex patterns.
     </p>
-    <ul>
-      <li>Counts</li>
-      <li>Probabilities</li>
-      <li>Proportions</li>
-      <li>Ordered categories</li>
+
+    <div class="concept-box">
+
+      <strong>Key insight:</strong>
+
+      <p>
+        Real-world relationships are often more complicated than a single straight line.
+      </p>
+
+    </div>
+
+    <h2>The Grouped Data Problem</h2>
+
+    <p>
+      Many datasets contain natural groupings.
+    </p>
+
+    <p>
+      Examples include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Students within schools</li>
+
+      <li>Patients within hospitals</li>
+
+      <li>Employees within companies</li>
+
+      <li>Repeated observations on the same person</li>
+
     </ul>
-  </div>
 
-  <h2>6) Different data structures</h2>
-  <div class="card">
     <p>
-      Some problems also require extensions because of how the data are organized:
+      These structures violate assumptions of independence and require specialized modeling techniques.
     </p>
-    <ul>
-      <li>Repeated measurements</li>
-      <li>Grouped data</li>
-      <li>Nonlinear relationships</li>
+
+    <h2>The Time Dimension</h2>
+
+    <p>
+      Some datasets involve observations collected over time.
+    </p>
+
+    <p>
+      Examples include:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Stock prices</li>
+
+      <li>Economic indicators</li>
+
+      <li>Weather measurements</li>
+
+      <li>Population trends</li>
+
     </ul>
-  </div>
 
-  <h2>7) Core modeling idea remains the same</h2>
-  <div class="card">
     <p>
-      Even when we move beyond linear regression,
-      the main goal is still the same:
-      describe relationships, explain variation, and make useful predictions.
+      Time-dependent data often require dedicated methods that account for temporal structure.
     </p>
-  </div>
 
-  <h2>8) Extensions are not “completely different”</h2>
-  <div class="card">
+    <h2>Why Not Use Linear Regression Anyway?</h2>
+
     <p>
-      Extensions build on the same statistical thinking you already learned:
+      Applying inappropriate models can produce:
     </p>
-    <ul>
-      <li>parameters</li>
-      <li>predictors and outcomes</li>
-      <li>fit</li>
-      <li>interpretation</li>
+
+    <ul class="bullets">
+
+      <li>Biased estimates</li>
+
+      <li>Invalid predictions</li>
+
+      <li>Misleading inference</li>
+
+      <li>Poor decision-making</li>
+
     </ul>
-  </div>
 
-  <h2>9) The first major extension</h2>
-  <div class="card">
     <p>
-      The first important extension is logistic regression,
-      which is designed for binary outcomes.
+      Choosing a model that matches the data-generating process is important for reliable analysis.
     </p>
-  </div>
 
-  <h2>10) Why this matters</h2>
-  <div class="card">
+    <h2>Extensions Build on Familiar Ideas</h2>
+
     <p>
-      Understanding the limits of linear regression is essential for choosing models responsibly.
-      Good modeling begins by matching the model to the problem.
+      Although advanced models may appear very different, many are built on concepts already introduced.
     </p>
-  </div>
 
-  <div class="card">
-    <h3>Outcome of this lesson</h3>
-    <ul>
-      <li>Understand the limits of ordinary linear regression</li>
-      <li>Recognize when extensions are needed</li>
-      <li>Identify outcome types that require different models</li>
-      <li>See extensions as a continuation of modeling, not a separate topic</li>
-      <li>Prepare for logistic regression</li>
+    <p>
+      Most extensions still involve:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Predictors</li>
+
+      <li>Outcomes</li>
+
+      <li>Parameters</li>
+
+      <li>Model fitting</li>
+
+      <li>Prediction</li>
+
     </ul>
-  </div>
 
-  <div class="card">
-    <h3>Next step</h3>
     <p>
-      We now begin with the most important extension:
-      logistic regression for binary outcomes.
+      The core modeling framework remains familiar.
     </p>
-    <a class="btn" href="/modeling/extensions/logistic-regression/">
-      Next lesson: Logistic Regression →
-    </a>
+
+    <h2>A Growing Toolkit</h2>
+
+    <p>
+      Analysts choose tools based on the problem they face.
+    </p>
+
+    <p>
+      Linear regression is one tool within a much larger toolkit.
+    </p>
+
+    <p>
+      Extensions provide additional options when basic regression assumptions are no longer appropriate.
+    </p>
+
+    <h2>Examples of Common Extensions</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>Common Use</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Logistic Regression</td>
+            <td>Binary outcomes</td>
+          </tr>
+
+          <tr>
+            <td>Poisson Regression</td>
+            <td>Count outcomes</td>
+          </tr>
+
+          <tr>
+            <td>Multilevel Models</td>
+            <td>Grouped data</td>
+          </tr>
+
+          <tr>
+            <td>Time Series Models</td>
+            <td>Temporal data</td>
+          </tr>
+
+          <tr>
+            <td>Nonlinear Models</td>
+            <td>Curved relationships</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>Learning Extensions Broadens Perspective</h2>
+
+    <p>
+      Understanding extensions helps analysts recognize when basic regression is appropriate and when alternative methods are needed.
+    </p>
+
+    <p>
+      It also highlights the flexibility of statistical modeling.
+    </p>
+
+    <p>
+      Many seemingly different techniques are connected through shared underlying principles.
+    </p>
+
+    <h2>What This Block Covers</h2>
+
+    <p>
+      This block introduces several important extensions beyond basic linear regression.
+    </p>
+
+    <p>
+      The focus is conceptual rather than mathematical.
+    </p>
+
+    <p>
+      The goal is to understand:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Why each extension exists</li>
+
+      <li>What problems it solves</li>
+
+      <li>When it should be used</li>
+
+      <li>How it relates to familiar regression ideas</li>
+
+    </ul>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      Statistical modeling is not about forcing every problem into a single framework.
+    </p>
+
+    <p>
+      Different types of data require different approaches.
+    </p>
+
+    <p>
+      Regression extensions expand the analyst's toolkit and make it possible to model a much wider variety of real-world phenomena.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Extensions exist because real-world data often involve outcomes, relationships, and structures that basic linear regression cannot handle effectively. These methods allow analysts to address a broader range of practical problems.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      One of the most widely used regression extensions is logistic regression.
+    </p>
+
+    <p>
+      Logistic regression is designed for situations where the outcome has only two possible categories, such as success versus failure or yes versus no.
+    </p>
+
+    <p>
+      The next lesson introduces logistic regression and explains how it extends regression ideas to binary outcomes.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>Linear regression cannot solve every modeling problem</li>
+
+        <li>Different outcome types often require specialized models</li>
+
+        <li>Binary outcomes motivate logistic regression</li>
+
+        <li>Count outcomes motivate Poisson regression</li>
+
+        <li>Grouped and time-dependent data require additional techniques</li>
+
+        <li>Using inappropriate models can produce misleading results</li>
+
+        <li>Most extensions build on familiar regression concepts</li>
+
+        <li>Extensions expand the range of problems that statistical models can address</li>
+
+      </ul>
+
+    </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/modeling/extensions/">
+         ← Back to Block Home
+      </a>
+
+      <a class="btn"
+         href="/modeling/extensions/logistic-regression/">
+         Next: Logistic Regression →
+      </a>
+
+    </div>
+
   </div>
 
 </section>
