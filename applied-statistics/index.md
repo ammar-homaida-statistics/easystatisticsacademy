@@ -6,29 +6,6 @@ permalink: /applied-statistics/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION NOTICE -->
-<section class="section section-slim">
-
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:1.5rem; border-radius:10px;">
-
-    <div class="callout-copy">
-
-      <h2 style="margin-top:0; color:#e65100; font-size:1.8rem; letter-spacing:0.5px;">
-        🚧 This Section Is Under Construction
-      </h2>
-
-      <p style="margin:0; font-size:1.05rem; color:#5d4037; line-height:1.6;">
-        The Applied Statistics unit is being developed in a structured, block-by-block format.
-        Lessons are published in a fixed pedagogical order to ensure correct understanding,
-        real-world applicability, and long-term academic consistency.
-      </p>
-
-    </div>
-
-  </div>
-
-</section>
-
 <!-- HERO -->
 <section class="hero hero-section">
 
