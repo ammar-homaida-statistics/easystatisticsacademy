@@ -1,189 +1,561 @@
 ---
 layout: default
-title: 6. Generalized Linear Models (GLM)
+title: Generalized Linear Models (GLMs)
+description: Learn what Generalized Linear Models are, why they were developed, and how they unify many important statistical models within a single framework.
 permalink: /modeling/extensions/glm/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <h2 style="color:#e65100;">🚧 Lesson Under Construction</h2>
-    <p>
-      Version 0 introduces the Generalized Linear Model (GLM) framework.
-      Formal theory and estimation details will be expanded later.
-    </p>
-  </div>
-</section>
-
-<!-- ✅ Update last visited lesson -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
 (function () {
-  localStorage.setItem("esa_continue_modeling_extensions_lesson_v0", JSON.stringify({
+
+  const KEY =
+    "esa_continue_modeling_extensions_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
     url: "/modeling/extensions/glm/",
-    label: "Lesson 6 — Generalized Linear Models",
+    label: "Generalized Linear Models (GLMs)",
     ts: Date.now()
   }));
+
 })();
 </script>
 
 <!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
 
     <div class="badge-row">
+      <span class="badge">Modeling</span>
       <span class="badge">Block 7</span>
-      <span class="badge">Lesson 6</span>
-      <span class="badge">GLM</span>
-      <span class="badge">Unified Framework</span>
+      <span class="badge">Extensions</span>
+      <span class="badge">GLMs</span>
     </div>
 
-    <h1>6. Generalized Linear Models (GLM)</h1>
+    <h1>Generalized Linear Models (GLMs)</h1>
 
     <p class="lead">
-      Generalized Linear Models extend linear regression to handle different types of outcomes
-      by combining a linear predictor with a link function and an appropriate distribution.
+      Linear regression and logistic regression may seem like completely different techniques.
+    </p>
+
+    <p class="lead">
+      In reality, both belong to a broader family called Generalized Linear Models (GLMs).
+    </p>
+
+    <p class="lead">
+      GLMs provide a unified framework for modeling many different types of outcomes while preserving familiar regression ideas.
     </p>
 
     <div class="hero-actions">
-      <a class="btn btn-outline" href="/modeling/extensions/">Back to Block 7</a>
-      <a class="btn" href="#lesson">Start lesson</a>
+
+      <a class="btn"
+         href="/modeling/extensions/interpreting-logistic-coefficients/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/modeling/extensions/link-functions/">
+         Next: Link Functions →
+      </a>
+
     </div>
 
-    <p class="muted-mini">
-      Version 0: conceptual overview of the GLM framework.
-    </p>
-
   </div>
+
 </section>
 
 <!-- LESSON -->
-<section class="section" id="lesson">
 
-  <h2>Learning objective</h2>
-  <p>
-    By the end of this lesson, you should understand the structure of generalized linear models
-    and how they unify different modeling approaches.
-  </p>
+<section>
 
-  <div class="card">
-    <h3>Key idea</h3>
+  <div class="content-narrow">
+
+    <h2>Why Were GLMs Developed?</h2>
+
     <p>
-      GLMs generalize linear regression by allowing different outcome types
-      through link functions and distributions.
+      Ordinary linear regression works well for continuous outcomes under certain assumptions.
     </p>
-  </div>
 
-  <h2>1) Why GLMs are needed</h2>
-  <div class="card">
     <p>
-      Different types of data require different modeling approaches:
+      However, many real-world outcomes do not satisfy those assumptions.
     </p>
-    <ul>
-      <li>Continuous outcomes</li>
+
+    <p>
+      Examples include:
+    </p>
+
+    <ul class="bullets">
+
       <li>Binary outcomes</li>
-      <li>Count data</li>
+
+      <li>Count outcomes</li>
+
+      <li>Proportions</li>
+
+      <li>Rates</li>
+
     </ul>
-  </div>
 
-  <h2>2) Core structure of GLM</h2>
-  <div class="card">
     <p>
-      A GLM consists of three components:
+      Researchers needed a framework that could accommodate different types of data while retaining the structure of regression analysis.
     </p>
-    <ul>
-      <li>Linear predictor (Xβ)</li>
-      <li>Link function</li>
-      <li>Probability distribution</li>
+
+    <div class="concept-box">
+
+      <strong>Main idea:</strong>
+
+      <p>
+        Generalized Linear Models extend regression ideas so that many different outcome types can be modeled within a common framework.
+      </p>
+
+    </div>
+
+    <h2>The Core Idea</h2>
+
+    <p>
+      GLMs preserve the central regression concept:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Predict an outcome using one or more predictors.
+      </p>
+    </div>
+
+    <p>
+      What changes is how the outcome is connected to the predictors.
+    </p>
+
+    <p>
+      Different outcome types require different probability distributions and transformations.
+    </p>
+
+    <h2>Three Components of a GLM</h2>
+
+    <p>
+      Every GLM contains three fundamental components:
+    </p>
+
+    <ol>
+
+      <li>A random component</li>
+
+      <li>A systematic component</li>
+
+      <li>A link function</li>
+
+    </ol>
+
+    <p>
+      Together these components define the model.
+    </p>
+
+    <h2>The Random Component</h2>
+
+    <p>
+      The random component specifies the probability distribution of the outcome variable.
+    </p>
+
+    <p>
+      Different outcomes require different distributions.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Outcome Type</th>
+            <th>Common Distribution</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Continuous</td>
+            <td>Normal</td>
+          </tr>
+
+          <tr>
+            <td>Binary</td>
+            <td>Binomial</td>
+          </tr>
+
+          <tr>
+            <td>Counts</td>
+            <td>Poisson</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>The Systematic Component</h2>
+
+    <p>
+      The systematic component is the familiar linear predictor:
+    </p>
+
+    
+
+    <p>
+      This part closely resembles ordinary regression.
+    </p>
+
+    <p>
+      Predictors and coefficients are combined into a linear expression.
+    </p>
+
+    <h2>The Link Function</h2>
+
+    <p>
+      The link function connects the expected outcome to the linear predictor.
+    </p>
+
+    <p>
+      It transforms the outcome scale into a form suitable for regression modeling.
+    </p>
+
+    <p>
+      Different GLMs use different link functions.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Key insight:</strong>
+
+      <p>
+        The link function is what allows the same regression framework to handle many different outcome types.
+      </p>
+
+    </div>
+
+    <h2>Linear Regression as a GLM</h2>
+
+    <p>
+      Ordinary linear regression is actually a special case of a GLM.
+    </p>
+
+    <p>
+      It uses:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Normal distribution</li>
+
+      <li>Identity link function</li>
+
     </ul>
-  </div>
 
-  <h2>3) Linear predictor</h2>
-  <div class="card">
     <p>
-      Same as linear regression:
-      a weighted combination of predictors.
+      In this case, no transformation is required.
     </p>
-  </div>
 
-  <h2>4) Link function</h2>
-  <div class="card">
     <p>
-      Connects the linear predictor to the expected value of the outcome.
+      The outcome is modeled directly.
     </p>
-  </div>
 
-  <h2>5) Distribution</h2>
-  <div class="card">
+    <h2>Logistic Regression as a GLM</h2>
+
     <p>
-      Specifies the type of outcome:
+      Logistic regression is another GLM.
     </p>
-    <ul>
-      <li>Normal → linear regression</li>
-      <li>Binomial → logistic regression</li>
-      <li>Poisson → count models</li>
+
+    <p>
+      It uses:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Binomial distribution</li>
+
+      <li>Logit link function</li>
+
     </ul>
-  </div>
 
-  <h2>6) Examples</h2>
-  <div class="card">
-    <ul>
-      <li>Linear regression → identity link</li>
-      <li>Logistic regression → logit link</li>
+    <p>
+      The logit transformation allows probabilities to be modeled using a linear predictor.
+    </p>
+
+    <h2>Poisson Regression as a GLM</h2>
+
+    <p>
+      Poisson regression is used for count data.
+    </p>
+
+    <p>
+      It uses:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Poisson distribution</li>
+
+      <li>Log link function</li>
+
     </ul>
-  </div>
 
-  <h2>7) What GLM changes</h2>
-  <div class="card">
     <p>
-      It changes how the outcome is modeled,
-      while keeping the linear structure in predictors.
+      This combination is appropriate for nonnegative count outcomes.
     </p>
-  </div>
 
-  <h2>8) What stays the same</h2>
-  <div class="card">
-    <ul>
-      <li>Interpretation of predictors (conceptually)</li>
-      <li>Model-building logic</li>
-      <li>Statistical reasoning</li>
+    <h2>A Unified Framework</h2>
+
+    <p>
+      One of the greatest strengths of GLMs is that they place many models under a single conceptual umbrella.
+    </p>
+
+    <p>
+      Rather than learning completely unrelated methods, analysts learn variations of the same underlying framework.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>Distribution</th>
+            <th>Link Function</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Linear Regression</td>
+            <td>Normal</td>
+            <td>Identity</td>
+          </tr>
+
+          <tr>
+            <td>Logistic Regression</td>
+            <td>Binomial</td>
+            <td>Logit</td>
+          </tr>
+
+          <tr>
+            <td>Poisson Regression</td>
+            <td>Poisson</td>
+            <td>Log</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>Why This Matters</h2>
+
+    <p>
+      Without GLMs, analysts would need entirely separate theories for different outcome types.
+    </p>
+
+    <p>
+      GLMs show that many commonly used statistical models are variations of the same basic idea.
+    </p>
+
+    <p>
+      This creates a more coherent understanding of statistical modeling.
+    </p>
+
+    <h2>Choosing the Right GLM</h2>
+
+    <p>
+      Model choice depends largely on the outcome variable.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Outcome</th>
+            <th>Common GLM</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Continuous measurement</td>
+            <td>Linear regression</td>
+          </tr>
+
+          <tr>
+            <td>Yes/No outcome</td>
+            <td>Logistic regression</td>
+          </tr>
+
+          <tr>
+            <td>Count data</td>
+            <td>Poisson regression</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p>
+      Selecting an appropriate model begins with understanding the nature of the outcome.
+    </p>
+
+    <h2>GLMs Preserve Familiar Concepts</h2>
+
+    <p>
+      Despite their flexibility, GLMs still rely on familiar statistical ideas:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Predictors</li>
+
+      <li>Coefficients</li>
+
+      <li>Hypothesis testing</li>
+
+      <li>Confidence intervals</li>
+
+      <li>Model comparison</li>
+
     </ul>
-  </div>
 
-  <h2>9) Why this matters</h2>
-  <div class="card">
     <p>
-      GLMs provide a unified framework for modeling different types of data.
+      The framework extends regression rather than replacing it.
     </p>
-  </div>
 
-  <h2>10) What comes next</h2>
-  <div class="card">
+    <h2>GLMs in Practice</h2>
+
     <p>
-      We now examine link functions in more detail.
+      Generalized Linear Models are widely used throughout:
     </p>
-  </div>
 
-  <div class="card">
-    <h3>Outcome of this lesson</h3>
-    <ul>
-      <li>Understand GLM structure</li>
-      <li>Recognize components of a model</li>
-      <li>See connection between linear and logistic regression</li>
-      <li>Understand role of distributions</li>
-      <li>Prepare for link functions</li>
+    <ul class="bullets">
+
+      <li>Medicine</li>
+
+      <li>Public health</li>
+
+      <li>Economics</li>
+
+      <li>Social science</li>
+
+      <li>Marketing</li>
+
+      <li>Machine learning</li>
+
     </ul>
-  </div>
 
-  <div class="card">
-    <h3>Next step</h3>
     <p>
-      We now explore link functions,
-      which connect predictors to outcomes.
+      They form the foundation of many applied statistical analyses.
     </p>
-    <a class="btn" href="/modeling/extensions/link-functions/">
-      Next lesson: Link Functions →
-    </a>
+
+    <div class="concept-box">
+
+      <strong>Important perspective:</strong>
+
+      <p>
+        GLMs are powerful because they preserve the simplicity of regression while dramatically expanding the range of outcomes that can be modeled.
+      </p>
+
+    </div>
+
+    <h2>The Bigger Picture</h2>
+
+    <p>
+      Generalized Linear Models provide a unifying framework that connects linear regression, logistic regression, Poisson regression, and many other techniques.
+    </p>
+
+    <p>
+      By combining distributions, linear predictors, and link functions, GLMs allow analysts to model diverse types of data using a common conceptual structure.
+    </p>
+
+    <p>
+      Understanding GLMs reveals the deeper connections between many statistical methods that initially appear unrelated.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Generalized Linear Models extend regression ideas to different outcome types by combining an appropriate probability distribution, a linear predictor, and a link function. Many important statistical models are special cases of the GLM framework.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
+    <p>
+      One of the defining features of a GLM is the link function.
+    </p>
+
+    <p>
+      Link functions connect outcomes to linear predictors and make it possible to model probabilities, counts, and other non-continuous outcomes.
+    </p>
+
+    <p>
+      The next lesson explores link functions in greater detail and explains how they enable different types of generalized linear models.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>GLMs extend regression to many different outcome types</li>
+
+        <li>Linear regression and logistic regression are both GLMs</li>
+
+        <li>Every GLM contains a distribution, a linear predictor, and a link function</li>
+
+        <li>Different outcomes require different probability distributions</li>
+
+        <li>Link functions connect outcomes to linear predictors</li>
+
+        <li>GLMs provide a unified framework for many statistical models</li>
+
+        <li>Model selection often depends on the outcome type being analyzed</li>
+
+        <li>GLMs preserve familiar regression concepts while increasing flexibility</li>
+
+      </ul>
+
+    </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/modeling/extensions/interpreting-logistic-coefficients/">
+         ← Previous: Interpreting Logistic Coefficients
+      </a>
+
+      <a class="btn"
+         href="/modeling/extensions/link-functions/">
+         Next: Link Functions →
+      </a>
+
+    </div>
+
   </div>
 
 </section>
