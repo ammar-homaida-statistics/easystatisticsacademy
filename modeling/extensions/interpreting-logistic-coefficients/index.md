@@ -1,177 +1,561 @@
 ---
 layout: default
-title: 5. Interpreting Logistic Coefficients
+title: Interpreting Logistic Coefficients
+description: Learn how to interpret logistic regression coefficients, understand their relationship to odds and odds ratios, and avoid common interpretation mistakes.
 permalink: /modeling/extensions/interpreting-logistic-coefficients/
 sidebar: false
 ---
 
-<!-- UNDER CONSTRUCTION -->
-<section class="section section-slim">
-  <div class="callout" style="background:#fff4e5; border:2px solid #ff9800; padding:2rem; border-radius:12px;">
-    <h2 style="color:#e65100;">🚧 Lesson Under Construction</h2>
-    <p>
-      Version 0 focuses on interpreting coefficients in logistic regression.
-      Mathematical derivations will be expanded later.
-    </p>
-  </div>
-</section>
-
-<!-- ✅ Update last visited lesson -->
+<!-- SAVE LESSON PROGRESS -->
 <script>
 (function () {
-  localStorage.setItem("esa_continue_modeling_extensions_lesson_v0", JSON.stringify({
+
+  const KEY =
+    "esa_continue_modeling_extensions_lesson_v0";
+
+  localStorage.setItem(KEY, JSON.stringify({
     url: "/modeling/extensions/interpreting-logistic-coefficients/",
-    label: "Lesson 5 — Interpreting Logistic Coefficients",
+    label: "Interpreting Logistic Coefficients",
     ts: Date.now()
   }));
+
 })();
 </script>
 
 <!-- HERO -->
+
 <section class="hero hero-section">
+
   <div class="hero-card">
 
     <div class="badge-row">
+      <span class="badge">Modeling</span>
       <span class="badge">Block 7</span>
-      <span class="badge">Lesson 5</span>
-      <span class="badge">Interpretation</span>
-      <span class="badge">Odds Ratios</span>
+      <span class="badge">Extensions</span>
+      <span class="badge">Logistic Regression</span>
     </div>
 
-    <h1>5. Interpreting Logistic Coefficients</h1>
+    <h1>Interpreting Logistic Coefficients</h1>
 
     <p class="lead">
-      Logistic regression coefficients describe how predictors affect the log-odds of an outcome.
-      These effects are interpreted through odds ratios, not direct probability changes.
+      Logistic regression coefficients are often more difficult to interpret than coefficients from ordinary linear regression.
+    </p>
+
+    <p class="lead">
+      Unlike linear regression, coefficients do not represent direct changes in the outcome variable.
+    </p>
+
+    <p class="lead">
+      Instead, they describe changes in the log-odds of the outcome occurring.
     </p>
 
     <div class="hero-actions">
-      <a class="btn btn-outline" href="/modeling/extensions/">Back to Block 7</a>
-      <a class="btn" href="#lesson">Start lesson</a>
+
+      <a class="btn"
+         href="/modeling/extensions/odds/">
+         ← Previous Lesson
+      </a>
+
+      <a class="btn btn-outline"
+         href="/modeling/extensions/glm/">
+         Next: Generalized Linear Models →
+      </a>
+
     </div>
 
-    <p class="muted-mini">
-      Version 0: correct interpretation of coefficients using odds and odds ratios.
-    </p>
-
   </div>
+
 </section>
 
 <!-- LESSON -->
-<section class="section" id="lesson">
 
-  <h2>Learning objective</h2>
-  <p>
-    By the end of this lesson, you should understand how to interpret logistic regression coefficients
-    using odds and odds ratios.
-  </p>
+<section>
 
-  <div class="card">
-    <h3>Key idea</h3>
+  <div class="content-narrow">
+
+    <h2>Why Interpretation Is Different</h2>
+
     <p>
-      Logistic coefficients represent changes in log-odds,
-      which translate into multiplicative changes in odds.
+      In linear regression, a coefficient directly represents the expected change in the outcome associated with a one-unit increase in a predictor.
     </p>
-  </div>
 
-  <h2>1) What the model estimates</h2>
-  <div class="card">
     <p>
-      Logistic regression models the log-odds of the outcome.
+      Logistic regression works differently because the model is built on the logit scale.
     </p>
-  </div>
 
-  <h2>2) Coefficients are not probabilities</h2>
-  <div class="card">
     <p>
-      A coefficient does NOT represent a change in probability.
+      As a result, coefficients describe changes in log-odds rather than changes in probability.
     </p>
-  </div>
 
-  <h2>3) From coefficient to odds ratio</h2>
-  <div class="card">
+    <div class="concept-box">
+
+      <strong>Main idea:</strong>
+
+      <p>
+        Logistic regression coefficients represent changes in log-odds, not direct changes in probabilities.
+      </p>
+
+    </div>
+
+    <h2>The Logistic Regression Equation</h2>
+
     <p>
-      Exponentiating a coefficient gives the odds ratio:
+      A logistic regression model has the form:
     </p>
-    <p><strong>odds ratio = e^(coefficient)</strong></p>
-  </div>
 
-  <h2>4) Interpretation of odds ratio</h2>
-  <div class="card">
-    <ul>
-      <li>OR = 1 → no effect</li>
-      <li>OR > 1 → increase in odds</li>
-      <li>OR < 1 → decrease in odds</li>
+    
+
+    <p>
+      The left side represents the logit, which is the logarithm of the odds.
+    </p>
+
+    <p>
+      The coefficients describe how predictors influence that logit.
+    </p>
+
+    <h2>What a Coefficient Means</h2>
+
+    <p>
+      Suppose a predictor has a coefficient of:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        β = 0.50
+      </p>
+    </div>
+
+    <p>
+      This means that a one-unit increase in the predictor increases the log-odds of the outcome by 0.50.
+    </p>
+
+    <p>
+      While mathematically correct, this interpretation is often difficult to communicate.
+    </p>
+
+    <h2>Why Log-Odds Are Difficult</h2>
+
+    <p>
+      Most people think naturally in terms of probabilities.
+    </p>
+
+    <p>
+      Log-odds are less intuitive because they involve logarithmic transformations.
+    </p>
+
+    <p>
+      For this reason, analysts frequently convert coefficients into odds ratios.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Key insight:</strong>
+
+      <p>
+        Odds ratios are often easier to interpret than raw logistic regression coefficients.
+      </p>
+
+    </div>
+
+    <h2>From Coefficients to Odds Ratios</h2>
+
+    <p>
+      An odds ratio is obtained by exponentiating a coefficient:
+    </p>
+
+    
+
+    <p>
+      This transformation converts log-odds effects into multiplicative effects on odds.
+    </p>
+
+    <h2>An Example</h2>
+
+    <p>
+      Suppose:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        β = 0.69
+      </p>
+    </div>
+
+    <p>
+      Then:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        OR = e<sup>0.69</sup> ≈ 2.0
+      </p>
+    </div>
+
+    <p>
+      A one-unit increase in the predictor doubles the odds of the outcome occurring.
+    </p>
+
+    <h2>Positive Coefficients</h2>
+
+    <p>
+      Positive coefficients indicate that larger predictor values increase the likelihood of the outcome.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Coefficient</th>
+            <th>Effect on Odds</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Positive</td>
+            <td>Odds increase</td>
+          </tr>
+
+          <tr>
+            <td>Zero</td>
+            <td>No change</td>
+          </tr>
+
+          <tr>
+            <td>Negative</td>
+            <td>Odds decrease</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>Negative Coefficients</h2>
+
+    <p>
+      Suppose:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        β = -0.69
+      </p>
+    </div>
+
+    <p>
+      Then:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        OR = e<sup>-0.69</sup> ≈ 0.50
+      </p>
+    </div>
+
+    <p>
+      A one-unit increase in the predictor halves the odds of the outcome occurring.
+    </p>
+
+    <h2>Interpreting Odds Ratios</h2>
+
+    <p>
+      Odds ratios are centered around 1.
+    </p>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Odds Ratio</th>
+            <th>Interpretation</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>1.00</td>
+            <td>No effect</td>
+          </tr>
+
+          <tr>
+            <td>Greater than 1</td>
+            <td>Odds increase</td>
+          </tr>
+
+          <tr>
+            <td>Less than 1</td>
+            <td>Odds decrease</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <h2>A Medical Example</h2>
+
+    <p>
+      Suppose a treatment variable has:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Odds Ratio = 1.8
+      </p>
+    </div>
+
+    <p>
+      Patients receiving the treatment have 1.8 times the odds of recovery compared with patients not receiving the treatment.
+    </p>
+
+    <p>
+      This corresponds to an 80% increase in odds.
+    </p>
+
+    <h2>A Business Example</h2>
+
+    <p>
+      Suppose a marketing variable has:
+    </p>
+
+    <div class="example-box">
+
+      <p>
+        Odds Ratio = 1.25
+      </p>
+    </div>
+
+    <p>
+      Each one-unit increase in the predictor increases the odds of purchase by 25%.
+    </p>
+
+    <p>
+      The effect is expressed in terms of odds rather than probability.
+    </p>
+
+    <h2>Odds Ratios Are Not Probability Changes</h2>
+
+    <p>
+      This is one of the most common interpretation mistakes.
+    </p>
+
+    <p>
+      An odds ratio of 2 does not mean probability doubles.
+    </p>
+
+    <p>
+      The effect on probability depends on the starting probability.
+    </p>
+
+    <div class="concept-box">
+
+      <strong>Important warning:</strong>
+
+      <p>
+        Odds ratios describe multiplicative changes in odds, not additive changes in probability.
+      </p>
+
+    </div>
+
+    <h2>Why Probability Changes Depend on Context</h2>
+
+    <p>
+      Consider two situations:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Starting probability = 10%</li>
+
+      <li>Starting probability = 80%</li>
+
     </ul>
-  </div>
 
-  <h2>5) Example</h2>
-  <div class="card">
     <p>
-      If a coefficient = 0.7:
+      The same odds ratio can produce very different probability changes in these two cases.
     </p>
-    <ul>
-      <li>OR = e^0.7 ≈ 2.01</li>
-      <li>Odds are approximately doubled</li>
+
+    <p>
+      Probability effects are therefore context dependent.
+    </p>
+
+    <h2>Continuous Predictors</h2>
+
+    <p>
+      For continuous variables, coefficients describe the effect of a one-unit increase in the predictor.
+    </p>
+
+    <p>
+      The interpretation is otherwise unchanged.
+    </p>
+
+    <p>
+      Odds ratios remain useful summaries of effect size.
+    </p>
+
+    <h2>Categorical Predictors</h2>
+
+    <p>
+      For categorical variables, coefficients compare one category against a reference category.
+    </p>
+
+    <p>
+      Odds ratios then describe differences in odds between groups.
+    </p>
+
+    <p>
+      This interpretation is common in medical and social science research.
+    </p>
+
+    <h2>Confidence Intervals for Odds Ratios</h2>
+
+    <p>
+      Odds ratios are often reported with confidence intervals.
+    </p>
+
+    <p>
+      These intervals communicate uncertainty in the estimated effect.
+    </p>
+
+    <p>
+      If a confidence interval includes 1, evidence for an effect may be weak.
+    </p>
+
+    <h2>Why Odds Ratios Are Popular</h2>
+
+    <p>
+      Odds ratios translate logistic regression results into a scale that is easier to communicate than raw logits.
+    </p>
+
+    <p>
+      They are widely reported in:
+    </p>
+
+    <ul class="bullets">
+
+      <li>Medicine</li>
+
+      <li>Epidemiology</li>
+
+      <li>Public health</li>
+
+      <li>Economics</li>
+
+      <li>Social science</li>
+
     </ul>
-  </div>
 
-  <h2>6) Interpretation in words</h2>
-  <div class="card">
     <p>
-      “For a one-unit increase in X,
-      the odds of the outcome are multiplied by OR.”
+      Understanding them is an essential skill for interpreting applied research.
     </p>
-  </div>
 
-  <h2>7) Important distinction</h2>
-  <div class="card">
+    <div class="concept-box">
+
+      <strong>Important perspective:</strong>
+
+      <p>
+        Logistic regression coefficients may appear abstract, but odds ratios translate them into meaningful statements about how predictors change the odds of an outcome.
+      </p>
+
+    </div>
+
+    <h2>The Bigger Picture</h2>
+
     <p>
-      Odds ratios are multiplicative, not additive.
+      Logistic regression coefficients describe changes in log-odds.
     </p>
-  </div>
 
-  <h2>8) Common misunderstanding</h2>
-  <div class="card">
     <p>
-      Odds ratios are often incorrectly interpreted as probability changes.
+      By converting coefficients into odds ratios, analysts obtain more interpretable measures of association.
     </p>
-  </div>
 
-  <h2>9) Why interpretation is harder</h2>
-  <div class="card">
     <p>
-      The relationship between predictors and probability is nonlinear.
+      These interpretations connect the mathematical structure of logistic regression to real-world questions about risk, success, failure, and decision-making.
     </p>
-  </div>
 
-  <h2>10) Why this matters</h2>
-  <div class="card">
+    <div class="concept-box">
+
+      <strong>Core message:</strong>
+
+      <p>
+        Logistic regression coefficients operate on the logit scale, but exponentiating them produces odds ratios that describe how predictors change the odds of an outcome. Odds ratios are usually the most practical way to interpret logistic regression effects.
+      </p>
+
+    </div>
+
+    <h2>Looking Ahead</h2>
+
     <p>
-      Correct interpretation is essential for making valid conclusions
-      from logistic regression models.
+      Logistic regression is one member of a larger family of models known as Generalized Linear Models (GLMs).
     </p>
-  </div>
 
-  <div class="card">
-    <h3>Outcome of this lesson</h3>
-    <ul>
-      <li>Understand log-odds interpretation</li>
-      <li>Convert coefficients to odds ratios</li>
-      <li>Interpret multiplicative effects</li>
-      <li>Avoid common interpretation mistakes</li>
-      <li>Prepare for generalized models</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <h3>Next step</h3>
     <p>
-      We now generalize this framework to a broader class of models.
+      GLMs provide a unified framework for modeling many different types of outcomes, including binary outcomes, counts, and continuous variables.
     </p>
-    <a class="btn" href="/modeling/extensions/glm/">
-      Next lesson: Generalized Linear Models →
-    </a>
+
+    <p>
+      The next lesson introduces GLMs and explains how they connect many important statistical models under a common framework.
+    </p>
+
+    <!-- TAKEAWAYS -->
+
+    <div class="summary-box">
+
+      <h2>Lesson Takeaways</h2>
+
+      <ul class="bullets">
+
+        <li>Logistic regression coefficients represent changes in log-odds</li>
+
+        <li>Raw coefficients are often difficult to interpret directly</li>
+
+        <li>Exponentiating coefficients produces odds ratios</li>
+
+        <li>Odds ratios greater than 1 indicate increasing odds</li>
+
+        <li>Odds ratios less than 1 indicate decreasing odds</li>
+
+        <li>Odds ratios are not the same as probability changes</li>
+
+        <li>Probability effects depend on the starting probability level</li>
+
+        <li>Odds ratios are widely used to communicate logistic regression results</li>
+
+      </ul>
+
+    </div>
+
+    <!-- NAVIGATION -->
+
+    <div class="lesson-nav">
+
+      <a class="btn btn-outline"
+         href="/modeling/extensions/odds/">
+         ← Previous: Odds
+      </a>
+
+      <a class="btn"
+         href="/modeling/extensions/glm/">
+         Next: Generalized Linear Models →
+      </a>
+
+    </div>
+
   </div>
 
 </section>
