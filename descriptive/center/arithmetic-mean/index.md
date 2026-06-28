@@ -98,7 +98,11 @@ sidebar: false
       For a dataset containing <em>n</em> observations:
     </p>
 
-    0
+    <div class="formula-box">
+$$
+\bar{x}=\frac{\sum_{i=1}^{n}x_i}{n}
+$$
+</div>
 
     <p>
       The symbol
@@ -185,7 +189,11 @@ sidebar: false
       Step 3: Divide the total by the number of observations.
     </p>
 
-    1
+    <div class="formula-box">
+$$
+\bar{x}=\frac{40}{5}=8
+$$
+</div>
 
     <p>
       Therefore,
@@ -222,13 +230,25 @@ sidebar: false
       Dividing by the number of students:
     </p>
 
-    2
+    <div class="formula-box">
+$$
+\bar{x}=\frac{400}{5}=80
+$$
+</div>
 
     <p>
       The average score is 80.
     </p>
 
     <h2>The Mean as a Balance Point</h2>
+
+    <img src="{{ 'descriptive/images/mean-balance-point.png' | relative_url }}"
+     alt="Mean as the balance point of a distribution"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+The arithmetic mean can be viewed as the balance point of a distribution.
+</p>
 
     <p>
       The mean is not just a computational formula.
@@ -277,6 +297,17 @@ sidebar: false
 
     <h2>The Mean Uses All Observations</h2>
 
+    <div class="example-box">
+
+  <strong>Important:</strong>
+
+  <p>
+    Because every observation contributes to the calculation,
+    the mean may not correspond to an actual observed value.
+  </p>
+
+</div>
+
     <p>
       Unlike some other measures of center,
       the mean depends on every value in the dataset.
@@ -308,7 +339,19 @@ sidebar: false
       The mean is:
     </p>
 
-    3
+    <div class="formula-box">
+$$
+\bar{x}=\frac{10+11+12+13+14}{5}=12
+$$
+</div>
+
+<img src="{{ 'descriptive/images/outlier-effect-on-mean.png' | relative_url }}"
+     alt="Effect of an outlier on the arithmetic mean"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+A single extreme observation can substantially change the mean.
+</p>
 
     <p>
       Now replace 14 with 100.
@@ -326,7 +369,11 @@ sidebar: false
       The new mean becomes:
     </p>
 
-    4
+    <div class="formula-box">
+$$
+\bar{x}=\frac{10+11+12+13+100}{5}=29.2
+$$
+</div>
 
     <p>
       A single extreme value dramatically changes the mean.
@@ -360,6 +407,10 @@ sidebar: false
 
     <h2>When the Mean Works Well</h2>
 
+    <img src="{{ 'descriptive/images/mean-symmetric-distribution.png' | relative_url }}"
+     alt="Mean in a symmetric distribution"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
     <p>
       The arithmetic mean performs particularly well when:
     </p>
@@ -376,7 +427,7 @@ sidebar: false
 
     </ul>
 
-    <h2>When the Mean May Be Misleading</h2>
+    <h2>Situations Where the Mean Can Be Misleading</h2>
 
     <p>
       The mean can be misleading when:
@@ -439,6 +490,31 @@ sidebar: false
       while the sample mean can be calculated from observed data.
     </p>
 
+    <h2>SPSS Application</h2>
+
+<p>
+SPSS can calculate the arithmetic mean automatically.
+</p>
+
+<p>
+To compute means in SPSS:
+</p>
+
+<div class="example-box">
+
+<p>
+
+<strong>Analyze → Descriptive Statistics → Descriptives</strong>
+
+</p>
+
+</div>
+
+<p>
+Select one or more numerical variables and move them into the analysis box.
+SPSS will report the mean along with other descriptive statistics.
+</p>
+
     <h2>Applications of the Mean</h2>
 
     <p>
@@ -489,6 +565,30 @@ sidebar: false
     <p>
       Understanding the mean thoroughly is essential for advanced statistics.
     </p>
+
+    <h3>Python Example</h3>
+
+<p>
+This example calculates the arithmetic mean of exam scores.
+</p>
+
+<pre><code>import statistics
+
+scores = [70, 75, 80, 85, 90]
+
+print("Mean =", statistics.mean(scores))
+</code></pre>
+
+<h3>R Example</h3>
+
+<p>
+This example calculates the arithmetic mean of exam scores.
+</p>
+
+<pre><code>scores <- c(70, 75, 80, 85, 90)
+
+mean(scores)
+</code></pre>
 
     <!-- TAKEAWAYS -->
 
