@@ -98,7 +98,7 @@ sidebar: false
 
     </div>
 
-    <h2>Graphs Should Clarify, Not Persuade</h2>
+    <h2>Graphs Should Inform, Not Manipulate</h2>
 
     <p>
       The purpose of statistical visualization is to communicate information accurately.
@@ -153,6 +153,14 @@ sidebar: false
       the visual difference may appear enormous.
     </p>
 
+    <img src="{{ 'descriptive/images/truncated-axis-comparison.png' | relative_url }}"
+     alt="Effect of truncating a graph axis"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+The same data can appear dramatically different depending on where the axis begins.
+</p>
+
     <div class="example-box">
 
       <strong>Warning:</strong>
@@ -164,6 +172,10 @@ sidebar: false
     </div>
 
     <h2>Misleading Technique #2: Unequal Scales</h2>
+
+    <img src="{{ 'descriptive/images/unequal-scale-example.png' | relative_url }}"
+     alt="Example of unequal scales"
+     style="margin-top:15px; max-width:100%; height:auto;">
 
     <p>
       Graph axes should use consistent intervals.
@@ -188,6 +200,10 @@ sidebar: false
     </p>
 
     <h2>Misleading Technique #3: Distorted Time Axes</h2>
+
+    <img src="{{ 'descriptive/images/distorted-time-axis.png' | relative_url }}"
+     alt="Distorted time axis example"
+     style="margin-top:15px; max-width:100%; height:auto;">
 
     <p>
       Time series graphs require careful spacing.
@@ -216,6 +232,10 @@ sidebar: false
 
     <h2>Misleading Technique #4: 3D Effects</h2>
 
+    <img src="{{ 'descriptive/images/3d-vs-2d-chart.png' | relative_url }}"
+     alt="Three-dimensional versus two-dimensional chart"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
     <p>
       Three-dimensional charts often look impressive,
       but they can distort perception.
@@ -241,6 +261,10 @@ sidebar: false
     </p>
 
     <h2>Misleading Technique #5: Decorative Graphics</h2>
+
+    <img src="{{ 'descriptive/images/pictograph-example.png' | relative_url }}"
+     alt="Decorative pictograph example"
+     style="margin-top:15px; max-width:100%; height:auto;">
 
     <p>
       Sometimes bars are replaced with pictures or icons.
@@ -299,6 +323,10 @@ sidebar: false
 
     <h2>Misleading Technique #7: Missing Context</h2>
 
+    <img src="{{ 'descriptive/images/missing-context-graph.png' | relative_url }}"
+     alt="Graph without labels and context"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
     <p>
       Graphs require context.
     </p>
@@ -326,6 +354,10 @@ sidebar: false
     </ul>
 
     <h2>Misleading Technique #8: Cherry-Picking Data</h2>
+
+    <img src="{{ 'descriptive/images/cherry-picking-example.png' | relative_url }}"
+     alt="Cherry-picking data example"
+     style="margin-top:15px; max-width:100%; height:auto;">
 
     <p>
       Sometimes only selected observations are displayed.
@@ -356,6 +388,10 @@ sidebar: false
 
     <h2>Misleading Technique #9: Wrong Graph Type</h2>
 
+    <img src="{{ 'descriptive/images/wrong-graph-type-example.png' | relative_url }}"
+     alt="Wrong versus appropriate graph type"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
     <p>
       Even a perfectly constructed graph can mislead if the wrong graph is chosen.
     </p>
@@ -381,6 +417,10 @@ sidebar: false
     </p>
 
     <h2>Misleading Technique #10: Ignoring Sample Size</h2>
+
+    <img src="{{ 'descriptive/images/sample-size-matters.png' | relative_url }}"
+     alt="Identical percentages with different sample sizes"
+     style="margin-top:15px; max-width:100%; height:auto;">
 
     <p>
       Percentages alone can be deceptive.
@@ -421,6 +461,21 @@ sidebar: false
     <p>
       Then examine whether the data actually support that impression.
     </p>
+
+    <div class="concept-box">
+
+  <strong>Critical Graph Checklist:</strong>
+
+  <ul class="bullets">
+    <li>Does the axis begin at an appropriate value?</li>
+    <li>Are scales equally spaced?</li>
+    <li>Are labels and units present?</li>
+    <li>Is the graph type appropriate?</li>
+    <li>Is important information omitted?</li>
+    <li>Is the graph trying to persuade rather than inform?</li>
+  </ul>
+
+</div>
 
     <h2>How Statisticians Read Graphs</h2>
 
@@ -498,6 +553,34 @@ sidebar: false
       government,
       and everyday decision-making.
     </p>
+
+    <h2>SPSS Application</h2>
+
+<div class="example-box">
+
+  <p>
+    SPSS allows extensive customization of charts.
+    When editing SPSS graphs, always verify that:
+  </p>
+
+  <ul class="bullets">
+    <li>Axes are appropriately scaled</li>
+    <li>Labels are complete</li>
+    <li>Visual effects do not distort interpretation</li>
+  </ul>
+
+</div>
+
+<div class="example-box">
+
+  <strong>Final Principle:</strong>
+
+  <p>
+    A graph should help readers understand the data,
+    not persuade them to reach a predetermined conclusion.
+  </p>
+
+</div>
 
     <!-- TAKEAWAYS -->
 
