@@ -85,6 +85,14 @@ sidebar: false
 
     </div>
 
+    <img src="{{ 'descriptive/images/center-typical-value.png' | relative_url }}"
+     alt="Center represents the typical value in a dataset"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+Measures of center attempt to summarize where observations tend to cluster.
+</p>
+
     <p>
       The dataset contains useful information,
       but it requires effort to understand.
@@ -119,6 +127,17 @@ sidebar: false
     </div>
 
     <h2>Center Is About Typicality</h2>
+
+    <div class="example-box">
+
+  <strong>Important:</strong>
+
+  <p>
+    "Typical" does not necessarily mean that an actual observation exists at the center.
+    For example, the mean of a dataset may not correspond to any observed value.
+  </p>
+
+</div>
 
     <p>
       When statisticians talk about center,
@@ -216,6 +235,14 @@ sidebar: false
 
     </div>
 
+    <img src="{{ 'descriptive/images/same-center-different-spread.png' | relative_url }}"
+     alt="Datasets with similar centers but different variability"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+Datasets can have similar centers while differing substantially in variability.
+</p>
+
     <p>
       Both datasets have a center near 50,
       but their variability is very different.
@@ -226,6 +253,10 @@ sidebar: false
     </p>
 
     <h2>The Three Major Measures of Center</h2>
+
+    <img src="{{ 'descriptive/images/three-measures-of-center.png' | relative_url }}"
+     alt="Mean, median, and mode as measures of center"
+     style="margin-top:15px; max-width:100%; height:auto;">
 
     <p>
       Statistics commonly uses three measures of center:
@@ -315,6 +346,10 @@ sidebar: false
 
     <h2>Center in Skewed Distributions</h2>
 
+    <img src="{{ 'descriptive/images/symmetric-vs-skewed-center.png' | relative_url }}"
+     alt="Center in symmetric and skewed distributions"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
     <p>
       Real-world data are often skewed.
     </p>
@@ -356,7 +391,11 @@ sidebar: false
       large datasets would be difficult to interpret.
     </p>
 
-    <h2>Center Is Everywhere</h2>
+    <h2>Measures of Center in Everyday Life</h2>
+
+    <img src="{{ 'descriptive/images/everyday-measures-of-center.png' | relative_url }}"
+     alt="Examples of measures of center in everyday life"
+     style="margin-top:15px; max-width:100%; height:auto;">
 
     <p>
       Measures of center appear throughout everyday life.
@@ -412,6 +451,34 @@ sidebar: false
       Later lessons will compare these measures in detail.
     </p>
 
+    <h2>SPSS Application</h2>
+
+<p>
+SPSS can automatically compute measures of center for numerical variables.
+Throughout this block, you will learn how to use SPSS to obtain:
+</p>
+
+<ul class="bullets">
+
+  <li>Mean</li>
+
+  <li>Median</li>
+
+  <li>Mode</li>
+
+  <li>Additional descriptive summaries</li>
+
+</ul>
+
+<div class="example-box">
+
+  <p>
+    In SPSS, measures of center are commonly obtained through
+    <strong>Analyze → Descriptive Statistics</strong>.
+  </p>
+
+</div>
+
     <h2>The Goal of This Block</h2>
 
     <p>
@@ -437,6 +504,46 @@ sidebar: false
     <p>
       These ideas form the foundation of statistical summarization.
     </p>
+
+    <div class="example-box">
+
+  <strong>Final Insight:</strong>
+
+  <p>
+    A measure of center does not replace the full dataset.
+    It provides a useful summary, but meaningful statistical interpretation always considers both center and variability.
+  </p>
+
+</div>
+
+<h3>Python Example</h3>
+
+<p>
+This example calculates the mean, median, and mode of exam scores.
+</p>
+
+<pre><code>import statistics
+
+scores = [68,72,74,77,80,82,85,88,91]
+
+print("Mean =", statistics.mean(scores))
+print("Median =", statistics.median(scores))
+print("Mode =", statistics.mode(scores))
+</code></pre>
+
+<h3>R Example</h3>
+
+<p>
+This example calculates the mean, median, and mode of exam scores.
+</p>
+
+<pre><code>scores <- c(68,72,74,77,80,82,85,88,91)
+
+mean(scores)
+median(scores)
+
+table(scores)
+</code></pre>
 
     <!-- TAKEAWAYS -->
 
