@@ -98,10 +98,12 @@ sidebar: false
       For a dataset containing <em>n</em> observations:
     </p>
 
-    <div class="formula-box">
-$$
-\bar{x}=\frac{\sum_{i=1}^{n}x_i}{n}
-$$
+  <div class="formula-box">
+
+\[
+\bar{x}=\frac{\sum_{i=1}^{n} x_i}{n}
+\]
+
 </div>
 
     <p>
@@ -189,10 +191,12 @@ $$
       Step 3: Divide the total by the number of observations.
     </p>
 
-    <div class="formula-box">
-$$
+   <div class="formula-box">
+
+\[
 \bar{x}=\frac{40}{5}=8
-$$
+\]
+
 </div>
 
     <p>
@@ -230,10 +234,12 @@ $$
       Dividing by the number of students:
     </p>
 
-    <div class="formula-box">
-$$
+   <div class="formula-box">
+
+\[
 \bar{x}=\frac{400}{5}=80
-$$
+\]
+
 </div>
 
     <p>
@@ -340,9 +346,11 @@ The arithmetic mean can be viewed as the balance point of a distribution.
     </p>
 
     <div class="formula-box">
-$$
+
+\[
 \bar{x}=\frac{10+11+12+13+14}{5}=12
-$$
+\]
+
 </div>
 
 <img src="{{ 'descriptive/images/outlier-effect-on-mean.png' | relative_url }}"
@@ -369,10 +377,12 @@ A single extreme observation can substantially change the mean.
       The new mean becomes:
     </p>
 
-    <div class="formula-box">
-$$
+  <div class="formula-box">
+
+\[
 \bar{x}=\frac{10+11+12+13+100}{5}=29.2
-$$
+\]
+
 </div>
 
     <p>
