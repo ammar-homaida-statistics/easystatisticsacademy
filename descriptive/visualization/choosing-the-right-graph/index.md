@@ -72,7 +72,7 @@ sidebar: false
 
   <div class="content-narrow">
 
-    <h2>The Most Important Rule</h2>
+    <h2>The Golden Rule of Visualization</h2>
 
     <p>
       Never choose a graph because it looks attractive.
@@ -114,6 +114,10 @@ sidebar: false
     <p>
       These questions usually determine the best visualization.
     </p>
+
+    <img src="{{ 'descriptive/images/graph-selection-flowchart.png' | relative_url }}"
+     alt="Flowchart for selecting the appropriate graph"
+     style="margin-top:15px; max-width:100%; height:auto;">
 
     <h2>Step 1: Identify the Variable Type</h2>
 
@@ -376,6 +380,10 @@ sidebar: false
 
     </div>
 
+    <img src="{{ 'descriptive/images/graph-types-overview.png' | relative_url }}"
+     alt="Overview of common statistical graphs"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
     <h2>The Same Data Can Have Different Graphs</h2>
 
     <p>
@@ -396,11 +404,23 @@ sidebar: false
 
     </ul>
 
+    <img src="{{ 'descriptive/images/same-data-different-graphs.png' | relative_url }}"
+     alt="Same data displayed using different graphs"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+Different visualizations emphasize different characteristics of the same dataset.
+</p>
+
     <p>
       The best choice depends on what you want to communicate.
     </p>
 
     <h2>Think About the Audience</h2>
+
+    <img src="{{ 'descriptive/images/audience-and-graphs.png' | relative_url }}"
+     alt="Different audiences may prefer different graphs"
+     style="margin-top:15px; max-width:100%; height:auto;">
 
     <p>
       Different audiences need different visualizations.
@@ -420,7 +440,25 @@ sidebar: false
       Effective communication considers the reader.
     </p>
 
+    <div class="concept-box">
+
+  <strong>Graph Selection Checklist</strong>
+
+  <ul class="bullets">
+    <li>What type of variable do I have?</li>
+    <li>How many variables are involved?</li>
+    <li>Am I comparing, summarizing, or exploring relationships?</li>
+    <li>Who is the audience?</li>
+    <li>Will this graph communicate clearly?</li>
+  </ul>
+
+</div>
+
     <h2>Common Mistakes in Graph Selection</h2>
+
+    <img src="{{ 'descriptive/images/common-graph-selection-mistakes.png' | relative_url }}"
+     alt="Examples of common graph selection mistakes"
+     style="margin-top:15px; max-width:100%; height:auto;">
 
     <ul class="bullets">
 
@@ -494,6 +532,62 @@ sidebar: false
       Good graph selection is a critical step in this process.
     </p>
 
+    <h2>SPSS Application</h2>
+
+<p>
+SPSS provides many graphing options through the
+<strong>Graphs</strong> menu and the
+<strong>Chart Builder</strong>.
+Choosing the correct graph follows the same principles discussed in this lesson.
+</p>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+<tr>
+<th>Goal</th>
+<th>SPSS Graph</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Compare categories</td>
+<td>Bar Chart</td>
+</tr>
+
+<tr>
+<td>Show distributions</td>
+<td>Histogram / Boxplot</td>
+</tr>
+
+<tr>
+<td>Study relationships</td>
+<td>Scatterplot</td>
+</tr>
+
+<tr>
+<td>Analyze time trends</td>
+<td>Line Chart</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<div class="example-box">
+
+<p>
+Before creating any graph in SPSS, first identify the variable type and the statistical question.
+</p>
+
+</div>
+
     <h2>Looking Ahead</h2>
 
     <p>
@@ -519,6 +613,17 @@ sidebar: false
     <p>
       These measures help quantify where data tend to be located.
     </p>
+
+    <div class="example-box">
+
+  <strong>Final Insight:</strong>
+
+  <p>
+    There is no universally best graph.
+    The best graph is the one that answers the statistical question most clearly and honestly.
+  </p>
+
+</div>
 
     <!-- TAKEAWAYS -->
 
