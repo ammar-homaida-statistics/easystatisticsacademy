@@ -98,13 +98,11 @@ sidebar: false
       For a dataset containing <em>n</em> observations:
     </p>
 
-    \[
-\bar{x}=\frac{\sum_{i=1}^{n} x_i}{n}
-\]
-
   <div class="formula-box">
 
-
+$$
+\bar{x}=\frac{\sum_{i=1}^{n} x_i}{n}
+$$
 
 </div>
 
