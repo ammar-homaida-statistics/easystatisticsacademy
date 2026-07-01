@@ -68,6 +68,32 @@ sidebar: false
 
 <!-- LESSON -->
 
+<!-- LEARNING OBJECTIVES -->
+
+<section class="section section-slim">
+
+  <div class="content-narrow">
+
+    <div class="objectives-box">
+
+      <h2>Learning Objectives</h2>
+
+      <p>By the end of this lesson, you should be able to:</p>
+
+      <ul class="bullets">
+        <li>Define the median as a measure of center.</li>
+        <li>Calculate the median for datasets with odd and even numbers of observations.</li>
+        <li>Explain why observations must be ordered before finding the median.</li>
+        <li>Describe why the median is resistant to outliers.</li>
+        <li>Decide when the median is more appropriate than the mean.</li>
+      </ul>
+
+    </div>
+
+  </div>
+
+</section>
+
 <section class="section">
 
   <div class="content-narrow">
@@ -115,6 +141,14 @@ sidebar: false
       Without ordering,
       the median cannot be determined correctly.
     </p>
+
+    <img src="{{ 'descriptive/images/finding-median-ordering.png' | relative_url }}"
+     alt="Finding the median by ordering the observations"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+Ordering the observations makes it easy to identify the middle value.
+</p>
 
     <h2>Finding the Median: Odd Number of Observations</h2>
 
@@ -175,6 +209,10 @@ sidebar: false
 
     <h2>Finding the Median: Even Number of Observations</h2>
 
+    <img src="{{ 'descriptive/images/odd-vs-even-median.png' | relative_url }}"
+     alt="Median for odd and even sample sizes"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
     <p>
       Consider:
     </p>
@@ -204,7 +242,13 @@ sidebar: false
 
     </div>
 
-    0
+    <div class="formula-box">
+
+\[
+\text{Median}=\frac{6+8}{2}=7
+\]
+
+</div>
 
     <p>
       Therefore,
@@ -320,6 +364,14 @@ sidebar: false
     </p>
 
     <h2>Comparing Mean and Median</h2>
+
+    <img src="{{ 'descriptive/images/mean-vs-median-outlier.png' | relative_url }}"
+     alt="Mean and median after introducing an outlier"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+The outlier pulls the mean upward, while the median remains unchanged.
+</p>
 
     <p>
       Recall that the mean for:
@@ -473,6 +525,10 @@ sidebar: false
 
     <h2>Mean and Median Together</h2>
 
+    <img src="{{ 'descriptive/images/mean-median-distributions.png' | relative_url }}"
+     alt="Mean and median in symmetric and skewed distributions"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
     <p>
       Statisticians frequently examine both measures.
     </p>
@@ -494,6 +550,24 @@ sidebar: false
     <p>
       This idea becomes important when studying distributions.
     </p>
+
+    <h2>Common Mistakes</h2>
+
+<div class="warning-box">
+
+  <ul class="bullets">
+
+    <li>Finding the median before sorting the data.</li>
+
+    <li>Assuming the median must be one of the observed values (it may not be when the sample size is even).</li>
+
+    <li>Confusing the median with the mean.</li>
+
+    <li>Using the median for categorical variables, where it is not meaningful.</li>
+
+  </ul>
+
+</div>
 
     <h2>Applications of the Median</h2>
 
@@ -519,9 +593,89 @@ sidebar: false
       It is one of the most trusted descriptive statistics.
     </p>
 
+    <h3>Python Example</h3>
+
+<p>
+This example calculates the median of a numerical dataset.
+</p>
+
+<pre><code>import statistics
+
+income = [25,28,30,32,35,38,40,250]
+
+print("Median =", statistics.median(income))
+</code></pre>
+
+<h3>R Example</h3>
+
+<p>
+This example calculates the median of a numerical dataset.
+</p>
+
+<pre><code>income <- c(25,28,30,32,35,38,40,250)
+
+median(income)
+</code></pre>
+
     <!-- TAKEAWAYS -->
 
     <div class="summary-box">
+
+    <h2>Finding the Median in SPSS</h2>
+
+<p>
+SPSS can calculate the median automatically as part of its descriptive statistics procedures.
+</p>
+
+<div class="step-box">
+
+  <h3>Method 1: Frequencies</h3>
+
+  <ol>
+
+    <li>Select <strong>Analyze → Descriptive Statistics → Frequencies</strong>.</li>
+
+    <li>Move the numerical variable into the <strong>Variable(s)</strong> box.</li>
+
+    <li>Click <strong>Statistics...</strong>.</li>
+
+    <li>Check <strong>Median</strong>.</li>
+
+    <li>Click <strong>Continue</strong>, then <strong>OK</strong>.</li>
+
+  </ol>
+
+</div>
+
+<div class="step-box">
+
+  <h3>Method 2: Explore</h3>
+
+  <ol>
+
+    <li>Select <strong>Analyze → Descriptive Statistics → Explore</strong>.</li>
+
+    <li>Move the numerical variable into the <strong>Dependent List</strong>.</li>
+
+    <li>Click <strong>OK</strong>.</li>
+
+  </ol>
+
+  <p>
+  The output includes the median along with other descriptive statistics and graphical summaries.
+  </p>
+
+</div>
+
+<div class="tip-box">
+
+<strong>Tip:</strong>
+
+<p>
+When your data contain extreme values or are strongly skewed, compare the mean and median in the SPSS output. A large difference between them often indicates that the distribution is skewed or contains outliers.
+</p>
+
+</div>
 
       <h2>Lesson Takeaways</h2>
 

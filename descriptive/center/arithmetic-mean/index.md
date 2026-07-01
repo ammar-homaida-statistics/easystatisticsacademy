@@ -100,9 +100,9 @@ sidebar: false
 
   <div class="formula-box">
 
-\[
+$$
 \bar{x}=\frac{\sum_{i=1}^{n} x_i}{n}
-\]
+$$
 
 </div>
 
