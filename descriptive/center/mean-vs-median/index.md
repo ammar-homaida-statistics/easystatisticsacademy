@@ -67,6 +67,38 @@ sidebar: false
 
 <!-- LESSON -->
 
+<!-- LEARNING OBJECTIVES -->
+
+<section class="section section-slim">
+
+  <div class="content-narrow">
+
+    <div class="objectives-box">
+
+      <h2>Learning Objectives</h2>
+
+      <p>By the end of this lesson, you should be able to:</p>
+
+      <ul class="bullets">
+
+        <li>Compare the arithmetic mean and the median.</li>
+
+        <li>Explain why the two measures may differ.</li>
+
+        <li>Recognize the effect of outliers on each measure.</li>
+
+        <li>Choose the most appropriate measure based on the distribution.</li>
+
+        <li>Use the relationship between the mean and median to describe skewness.</li>
+
+      </ul>
+
+    </div>
+
+  </div>
+
+</section>
+
 <section class="section">
 
   <div class="content-narrow">
@@ -153,7 +185,13 @@ sidebar: false
       The mean is:
     </p>
 
-    0
+    <div class="formula-box">
+
+\[
+\bar{x}=\frac{10+12+14+16+18}{5}=14
+\]
+
+</div>
 
     <p>
       The median is:
@@ -170,6 +208,14 @@ sidebar: false
     <p>
       Both measures produce the same result.
     </p>
+
+    <img src="{{ 'descriptive/images/mean-equals-median.png' | relative_url }}"
+     alt="Mean and median in a symmetric distribution"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+For symmetric data, the mean and median are usually the same or very close.
+</p>
 
     <h2>Why They Often Agree</h2>
 
@@ -189,6 +235,14 @@ sidebar: false
 
     <h2>A Dataset With an Outlier</h2>
 
+    <img src="{{ 'descriptive/images/outlier-pulls-mean.png' | relative_url }}"
+     alt="Outlier affects the mean more than the median"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+The outlier shifts the mean toward the extreme value, while the median remains stable.
+</p>
+
     <p>
       Now consider:
     </p>
@@ -205,7 +259,13 @@ sidebar: false
       The mean becomes:
     </p>
 
-    1
+    <div class="formula-box">
+
+\[
+\bar{x}=\frac{10+12+14+16+100}{5}=30.4
+\]
+
+</div>
 
     <p>
       The median remains:
@@ -363,6 +423,14 @@ sidebar: false
 
     <h2>Mean and Median as Indicators of Shape</h2>
 
+    <img src="{{ 'descriptive/images/mean-median-skewness.png' | relative_url }}"
+     alt="Relationship between the mean and median in different distribution shapes"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+The relative positions of the mean and median provide clues about distribution shape.
+</p>
+
     <p>
       Comparing the two measures often reveals information about distribution shape.
     </p>
@@ -404,6 +472,14 @@ sidebar: false
     </div>
 
     <h2>Income: A Famous Example</h2>
+
+    <img src="{{ 'descriptive/images/income-mean-vs-median.png' | relative_url }}"
+     alt="Income distribution showing the difference between mean and median"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+A very high income increases the mean substantially, while the median remains closer to a typical income.
+</p>
 
     <p>
       Suppose five people earn:
@@ -467,6 +543,10 @@ sidebar: false
 
     <h2>Can One Be Better Than the Other?</h2>
 
+    <img src="{{ 'descriptive/images/mean-vs-median-decision-guide.png' | relative_url }}"
+     alt="Decision guide for choosing between the mean and median"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
     <p>
       Neither measure is universally better.
     </p>
@@ -478,6 +558,26 @@ sidebar: false
     <p>
       Skilled statisticians evaluate both the distribution and the research question before deciding.
     </p>
+
+    <h2>Common Mistakes</h2>
+
+<div class="warning-box">
+
+  <ul class="bullets">
+
+    <li>Assuming the mean is always the best measure of center.</li>
+
+    <li>Ignoring the presence of outliers before choosing a measure.</li>
+
+    <li>Using only one measure without examining the distribution.</li>
+
+    <li>Thinking that the mean and median should always be equal.</li>
+
+    <li>Interpreting a large difference between the mean and median without considering skewness or unusual observations.</li>
+
+  </ul>
+
+</div>
 
     <h2>Why This Comparison Matters</h2>
 
@@ -492,6 +592,74 @@ sidebar: false
     <p>
       Statistical thinking requires choosing the right summary rather than blindly applying formulas.
     </p>
+
+    <h2>Comparing the Mean and Median in SPSS</h2>
+
+<p>
+SPSS can calculate both the mean and median in a single analysis, making it easy to compare these measures of center.
+</p>
+
+<div class="step-box">
+
+  <h3>Using Frequencies</h3>
+
+  <ol>
+
+    <li>Select <strong>Analyze → Descriptive Statistics → Frequencies</strong>.</li>
+
+    <li>Move the numerical variable into the <strong>Variable(s)</strong> box.</li>
+
+    <li>Click <strong>Statistics...</strong>.</li>
+
+    <li>Select both <strong>Mean</strong> and <strong>Median</strong>.</li>
+
+    <li>Click <strong>Continue</strong>, then <strong>OK</strong>.</li>
+
+  </ol>
+
+</div>
+
+<div class="tip-box">
+
+<strong>Interpretation Tip:</strong>
+
+<p>
+
+If the mean and median are nearly equal, the distribution is often approximately symmetric.
+
+If the mean is noticeably larger than the median, the distribution may be right-skewed.
+
+If the mean is noticeably smaller than the median, the distribution may be left-skewed.
+
+</p>
+
+</div>
+
+<h3>Python Example</h3>
+
+<p>
+This example compares the mean and median of an income dataset.
+</p>
+
+<pre><code>import statistics
+
+income = [30000,35000,40000,45000,500000]
+
+print("Mean =", statistics.mean(income))
+print("Median =", statistics.median(income))
+</code></pre>
+
+<h3>R Example</h3>
+
+<p>
+This example compares the mean and median of an income dataset.
+</p>
+
+<pre><code>income <- c(30000,35000,40000,45000,500000)
+
+mean(income)
+median(income)
+</code></pre>
 
     <!-- TAKEAWAYS -->
 
