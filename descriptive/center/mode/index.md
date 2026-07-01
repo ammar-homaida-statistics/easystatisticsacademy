@@ -68,11 +68,51 @@ sidebar: false
 
 <!-- LESSON -->
 
+<!-- LEARNING OBJECTIVES -->
+
+<section class="section section-slim">
+
+  <div class="content-narrow">
+
+    <div class="objectives-box">
+
+      <h2>Learning Objectives</h2>
+
+      <p>By the end of this lesson, you should be able to:</p>
+
+      <ul class="bullets">
+
+        <li>Define the mode as the most frequently occurring value in a dataset.</li>
+
+        <li>Identify datasets with one mode, multiple modes, or no mode.</li>
+
+        <li>Explain why the mode is useful for categorical data.</li>
+
+        <li>Recognize situations where the mode provides meaningful information.</li>
+
+        <li>Compare the mode with the mean and median.</li>
+
+      </ul>
+
+    </div>
+
+  </div>
+
+</section>
+
 <section class="section">
 
   <div class="content-narrow">
 
     <h2>What Is the Mode?</h2>
+
+    <img src="{{ 'descriptive/images/mode-frequency-example.png' | relative_url }}"
+     alt="The mode is the most frequently occurring value"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+The tallest bar represents the value that occurs most frequently, which is the mode.
+</p>
 
     <p>
       The <strong>mode</strong>
@@ -193,6 +233,10 @@ sidebar: false
 
     <h2>Datasets Can Have More Than One Mode</h2>
 
+    <img src="{{ 'descriptive/images/no-mode-one-mode-bimodal.png' | relative_url }}"
+     alt="Datasets with no mode, one mode, and two modes"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
     <p>
       It is possible for multiple values to share the highest frequency.
     </p>
@@ -226,6 +270,10 @@ sidebar: false
     </div>
 
     <h2>Bimodal Distributions</h2>
+
+    <img src="{{ 'descriptive/images/bimodal-distribution.png' | relative_url }}"
+     alt="Histogram of a bimodal distribution"
+     style="margin-top:15px; max-width:100%; height:auto;">
 
     <p>
       A dataset with two modes is called
@@ -266,6 +314,26 @@ sidebar: false
     </p>
 
     <h2>The Mode and Categorical Data</h2>
+
+    <img src="{{ 'descriptive/images/mode-categorical-example.png' | relative_url }}"
+     alt="Mode for categorical variables"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+For categorical data, the mode identifies the most common category.
+</p>
+
+    <div class="example-box">
+
+<strong>Interpretation Example:</strong>
+
+<p>
+
+If the mode of customers' preferred payment method is <strong>Credit Card</strong>, this means that credit cards are used more often than any other payment method in the dataset.
+
+</p>
+
+</div>
 
     <p>
       One major advantage of the mode is that it works for categorical variables.
@@ -368,6 +436,14 @@ sidebar: false
 
     <h2>Mode vs Mean and Median</h2>
 
+    <img src="{{ 'descriptive/images/mean-median-mode-comparison.png' | relative_url }}"
+     alt="Comparison of mean, median, and mode"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+The three measures summarize different aspects of the same dataset.
+</p>
+
     <p>
       Consider:
     </p>
@@ -420,6 +496,26 @@ sidebar: false
       Notice that the three measures do not necessarily produce the same result.
     </p>
 
+    <h2>Common Mistakes</h2>
+
+<div class="warning-box">
+
+  <ul class="bullets">
+
+    <li>Assuming every dataset has a mode.</li>
+
+    <li>Thinking the mode must be unique—datasets may be bimodal or multimodal.</li>
+
+    <li>Confusing the mode with the median or mean.</li>
+
+    <li>Using the mode as the best measure of center when it is not representative of the data.</li>
+
+    <li>Ignoring multiple modes, which may indicate different groups within the dataset.</li>
+
+  </ul>
+
+</div>
+
     <h2>When Is the Mode Most Useful?</h2>
 
     <p>
@@ -465,6 +561,42 @@ sidebar: false
       the mode often provides meaningful information.
     </p>
 
+    <h2>Finding the Mode in SPSS</h2>
+
+<p>
+SPSS can identify the mode automatically when producing descriptive statistics.
+</p>
+
+<div class="step-box">
+
+  <h3>Method 1: Frequencies</h3>
+
+  <ol>
+
+    <li>Select <strong>Analyze → Descriptive Statistics → Frequencies</strong>.</li>
+
+    <li>Move the variable into the <strong>Variable(s)</strong> box.</li>
+
+    <li>Click <strong>Statistics...</strong>.</li>
+
+    <li>Select <strong>Mode</strong>.</li>
+
+    <li>Click <strong>Continue</strong>, then <strong>OK</strong>.</li>
+
+  </ol>
+
+</div>
+
+<div class="tip-box">
+
+<strong>Tip:</strong>
+
+<p>
+For categorical variables, the Frequencies procedure reports both the frequency table and the mode, making it easy to identify the most common category.
+</p>
+
+</div>
+
     <h2>The Three Measures Together</h2>
 
     <p>
@@ -485,6 +617,32 @@ sidebar: false
       The next lesson directly compares the mean and median,
       helping determine when each should be preferred.
     </p>
+
+    <h3>Python Example</h3>
+
+<p>
+This example finds the mode of a categorical dataset.
+</p>
+
+<pre><code>from statistics import multimode
+
+colors = ["Blue","Blue","Red",
+          "Green","Blue","Red"]
+
+print(multimode(colors))
+</code></pre>
+
+<h3>R Example</h3>
+
+<p>
+This example identifies the mode by counting category frequencies.
+</p>
+
+<pre><code>colors <- c("Blue","Blue","Red",
+            "Green","Blue","Red")
+
+table(colors)
+</code></pre>
 
     <!-- TAKEAWAYS -->
 
