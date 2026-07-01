@@ -70,6 +70,38 @@ sidebar: false
 
 <section class="section">
 
+<!-- LEARNING OBJECTIVES -->
+
+<section class="section section-slim">
+
+  <div class="content-narrow">
+
+    <div class="objectives-box">
+
+      <h2>Learning Objectives</h2>
+
+      <p>By the end of this lesson, you should be able to:</p>
+
+      <ul class="bullets">
+
+        <li>Explain why trimmed means are used.</li>
+
+        <li>Calculate a trimmed mean for a simple dataset.</li>
+
+        <li>Describe how trimming reduces the influence of outliers.</li>
+
+        <li>Compare the trimmed mean with the arithmetic mean and the median.</li>
+
+        <li>Recognize situations where a trimmed mean is appropriate.</li>
+
+      </ul>
+
+    </div>
+
+  </div>
+
+</section>
+
   <div class="content-narrow">
 
     <h2>Why Was the Trimmed Mean Created?</h2>
@@ -142,7 +174,14 @@ sidebar: false
       The ordinary mean is:
     </p>
 
-    0
+    <div class="formula-box">
+
+\[
+\bar{x}=\frac{10+11+12+13+14+15+100}{7}
+=\frac{175}{7}=25
+\]
+
+</div>
 
     <p>
       The mean of 25 is much larger than most observations.
@@ -178,13 +217,39 @@ sidebar: false
       The trimmed mean is:
     </p>
 
-    1
+    <div class="formula-box">
+
+\[
+\bar{x}_{\text{trimmed}}
+=
+\frac{11+12+13+14+15}{5}
+=
+13
+\]
+
+</div>
 
     <p>
       This value better reflects where most observations are located.
     </p>
 
+    <img src="{{ 'descriptive/images/trimmed-mean-example.png' | relative_url }}"
+     alt="Dataset before and after trimming"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+The smallest and largest observations are removed before calculating the trimmed mean.
+</p>
+
     <h2>How Much Data Should Be Trimmed?</h2>
+
+    <img src="{{ 'descriptive/images/trimming-percentages.png' | relative_url }}"
+     alt="Illustration of common trimming percentages"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+Common trimming levels remove equal percentages from both ends of the ordered data.
+</p>
 
     <p>
       There is no single rule.
@@ -302,6 +367,18 @@ sidebar: false
       Modern data analysis frequently relies on robust techniques.
     </p>
 
+    <div class="concept-box">
+
+<strong>Remember:</strong>
+
+<p>
+
+A statistic is considered <strong>robust</strong> if it continues to provide reliable results even when the data contain outliers or deviate from ideal assumptions.
+
+</p>
+
+</div>
+
     <h2>Advantages of the Trimmed Mean</h2>
 
     <ul class="bullets">
@@ -333,6 +410,14 @@ sidebar: false
     </ul>
 
     <h2>Trimmed Mean and Skewed Data</h2>
+
+    <img src="{{ 'descriptive/images/trimmed-mean-robustness.png' | relative_url }}"
+     alt="Trimmed mean is less affected by an outlier"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+The trimmed mean is less influenced by extreme values than the arithmetic mean.
+</p>
 
     <p>
       In highly skewed distributions,
@@ -376,6 +461,14 @@ sidebar: false
 
     <h2>Mean, Median, and Trimmed Mean</h2>
 
+    <img src="{{ 'descriptive/images/mean-trimmed-median-comparison.png' | relative_url }}"
+     alt="Comparison of mean, trimmed mean, and median"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+The trimmed mean usually falls between the arithmetic mean and the median when outliers are present.
+</p>
+
     <p>
       These three measures form a useful progression:
     </p>
@@ -411,6 +504,91 @@ sidebar: false
       Instead of removing extreme values,
       it replaces them with less extreme values before averaging.
     </p>
+
+    <h2>Common Mistakes</h2>
+
+<div class="warning-box">
+
+  <ul class="bullets">
+
+    <li>Removing observations without first sorting the data.</li>
+
+    <li>Using different trimming percentages for the lower and upper tails unless there is a justified reason.</li>
+
+    <li>Trimming too many observations, which may discard valuable information.</li>
+
+    <li>Confusing a trimmed mean with a winsorized mean.</li>
+
+    <li>Assuming a trimmed mean completely eliminates the effect of unusual observations.</li>
+
+  </ul>
+
+</div>
+
+<h2>Calculating a Trimmed Mean in SPSS</h2>
+
+<p>
+SPSS can compute trimmed means automatically as part of several descriptive procedures.
+A common choice is the 5% trimmed mean, which removes the lowest and highest 5% of observations before calculating the average.
+</p>
+
+<div class="step-box">
+
+  <h3>Using Explore</h3>
+
+  <ol>
+
+    <li>Select <strong>Analyze → Descriptive Statistics → Explore...</strong>.</li>
+
+    <li>Move the numerical variable into the <strong>Dependent List</strong>.</li>
+
+    <li>Click <strong>Statistics...</strong> if needed and ensure descriptive statistics are selected.</li>
+
+    <li>Click <strong>OK</strong>.</li>
+
+  </ol>
+
+</div>
+
+<div class="tip-box">
+
+<strong>Interpretation Tip:</strong>
+
+<p>
+
+Compare the trimmed mean with the arithmetic mean. If the two values are very similar, outliers are unlikely to have much influence. A noticeable difference suggests that extreme observations may be affecting the ordinary mean.
+
+</p>
+
+</div>
+
+<h3>Python Example</h3>
+
+<p>
+This example compares the arithmetic mean with a 10% trimmed mean.
+</p>
+
+<pre><code>from scipy.stats import trim_mean
+import numpy as np
+
+scores = [10,11,12,13,14,15,100]
+
+print("Mean =", np.mean(scores))
+print("20% Trimmed Mean =", trim_mean(scores, 0.20))
+</code></pre>
+
+<h3>R Example</h3>
+
+<p>
+This example compares the arithmetic mean with a trimmed mean.
+</p>
+
+<pre><code>scores <- c(10,11,12,13,14,15,100)
+
+mean(scores)
+
+mean(scores, trim = 1/7)
+</code></pre>
 
     <!-- TAKEAWAYS -->
 
