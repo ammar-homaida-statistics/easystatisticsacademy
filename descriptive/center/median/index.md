@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: default 
 title: Median
 description: Learn what the median is, how it is calculated, and why it is often preferred when data contain outliers or skewed distributions.
 permalink: /descriptive/center/median/
