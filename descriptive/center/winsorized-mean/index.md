@@ -69,6 +69,38 @@ sidebar: false
 
 <section class="section">
 
+<!-- LEARNING OBJECTIVES -->
+
+<section class="section section-slim">
+
+  <div class="content-narrow">
+
+    <div class="objectives-box">
+
+      <h2>Learning Objectives</h2>
+
+      <p>By the end of this lesson, you should be able to:</p>
+
+      <ul class="bullets">
+
+        <li>Explain the purpose of a winsorized mean.</li>
+
+        <li>Describe how winsorization modifies extreme values.</li>
+
+        <li>Calculate a winsorized mean for a simple dataset.</li>
+
+        <li>Compare winsorized and trimmed means.</li>
+
+        <li>Identify situations where winsorization is appropriate.</li>
+
+      </ul>
+
+    </div>
+
+  </div>
+
+</section>
+
   <div class="content-narrow">
 
     <h2>Why Was the Winsorized Mean Developed?</h2>
@@ -116,6 +148,10 @@ sidebar: false
       but extreme values become less influential.
     </p>
 
+    <p>
+Unlike trimming, no observations are discarded; only their values are modified at the chosen cutoffs.
+</p>
+
     <h2>A Simple Example</h2>
 
     <p>
@@ -138,7 +174,19 @@ sidebar: false
       The ordinary mean is:
     </p>
 
-    0
+    <div class="formula-box">
+
+\[
+\bar{x}
+=
+\frac{10+11+12+13+14+15+100}{7}
+=
+\frac{175}{7}
+=
+25
+\]
+
+</div>
 
     <p>
       The mean of 25 is strongly influenced by the outlier.
@@ -214,13 +262,41 @@ sidebar: false
       The winsorized mean is:
     </p>
 
-    1
+    <div class="formula-box">
+
+\[
+\bar{x}_{\text{winsorized}}
+=
+\frac{11+11+12+13+14+15+15}{7}
+=
+\frac{91}{7}
+=
+13
+\]
+
+</div>
 
     <p>
       This result is much closer to the center of the majority of observations.
     </p>
 
+    <img src="{{ 'descriptive/images/winsorization-example.png' | relative_url }}"
+     alt="Dataset before and after winsorization"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+Winsorization keeps all observations but replaces extreme values with the nearest remaining values.
+</p>
+
     <h2>Trimmed Mean vs Winsorized Mean</h2>
+
+    <img src="{{ 'descriptive/images/trimmed-vs-winsorized.png' | relative_url }}"
+     alt="Comparison of trimmed and winsorized means"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+Trimmed means remove observations, whereas winsorized means replace them while keeping the sample size unchanged.
+</p>
 
     <p>
       These two methods are closely related,
@@ -376,6 +452,14 @@ sidebar: false
 
     <h2>Winsorization in Financial Data</h2>
 
+    <img src="{{ 'descriptive/images/winsorized-finance.png' | relative_url }}"
+     alt="Financial returns before and after winsorization"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+Winsorization reduces the influence of unusually large gains and losses while preserving the number of observations.
+</p>
+
     <p>
       Financial returns sometimes contain unusually large gains or losses.
     </p>
@@ -389,6 +473,14 @@ sidebar: false
     </p>
 
     <h2>Mean, Trimmed Mean, and Winsorized Mean</h2>
+
+    <img src="{{ 'descriptive/images/mean-vs-winsorized.png' | relative_url }}"
+     alt="Mean and winsorized mean comparison"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+Replacing extreme observations reduces their influence while retaining all data points.
+</p>
 
     <div class="table-wrap">
 
@@ -425,6 +517,26 @@ sidebar: false
       </table>
 
     </div>
+
+    <h2>Common Mistakes</h2>
+
+<div class="warning-box">
+
+  <ul class="bullets">
+
+    <li>Confusing winsorization with trimming.</li>
+
+    <li>Replacing extreme values before sorting the data.</li>
+
+    <li>Choosing a winsorization level without justification.</li>
+
+    <li>Assuming winsorization removes outliers from the dataset.</li>
+
+    <li>Believing winsorization completely eliminates the influence of unusual observations.</li>
+
+  </ul>
+
+</div>
 
     <h2>Choosing Among Them</h2>
 
@@ -466,6 +578,76 @@ sidebar: false
     <p>
       This highlights the important connection between measurement scales and statistical summaries.
     </p>
+
+    <h2>Winsorization in SPSS</h2>
+
+<p>
+Unlike the trimmed mean, SPSS does not provide a built-in procedure for calculating a winsorized mean.
+Winsorization is typically performed by creating a new variable in which extreme values are replaced before calculating descriptive statistics.
+</p>
+
+<div class="step-box">
+
+  <h3>General Procedure</h3>
+
+  <ol>
+
+    <li>Identify the lower and upper cutoff values (for example, the 5th and 95th percentiles).</li>
+
+    <li>Create a new variable using <strong>Transform → Compute Variable...</strong>.</li>
+
+    <li>Replace values below the lower cutoff with the lower cutoff value.</li>
+
+    <li>Replace values above the upper cutoff with the upper cutoff value.</li>
+
+    <li>Calculate the arithmetic mean of the new winsorized variable using <strong>Analyze → Descriptive Statistics → Descriptives</strong>.</li>
+
+  </ol>
+
+</div>
+
+<div class="tip-box">
+
+<strong>Interpretation Tip:</strong>
+
+<p>
+
+Compare the winsorized mean with the ordinary mean. A substantial difference suggests that extreme observations have an important influence on the original average.
+
+</p>
+
+</div>
+
+<h3>Python Example</h3>
+
+<p>
+This example manually winsorizes the smallest and largest observations before calculating the mean.
+</p>
+
+<pre><code>import numpy as np
+
+scores = np.array([10,11,12,13,14,15,100])
+
+winsorized = np.array([11,11,12,13,14,15,15])
+
+print("Mean =", np.mean(scores))
+print("Winsorized Mean =", np.mean(winsorized))
+</code></pre>
+
+<h3>R Example</h3>
+
+<p>
+This example manually creates a winsorized dataset and compares the resulting mean.
+</p>
+
+<pre><code>scores <- c(10,11,12,13,14,15,100)
+
+winsorized <- c(11,11,12,13,14,15,15)
+
+mean(scores)
+
+mean(winsorized)
+</code></pre>
 
     <!-- TAKEAWAYS -->
 
