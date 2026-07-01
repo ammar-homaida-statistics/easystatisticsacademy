@@ -70,6 +70,38 @@ sidebar: false
 
 <section class="section">
 
+<!-- LEARNING OBJECTIVES -->
+
+<section class="section section-slim">
+
+  <div class="content-narrow">
+
+    <div class="objectives-box">
+
+      <h2>Learning Objectives</h2>
+
+      <p>By the end of this lesson, you should be able to:</p>
+
+      <ul class="bullets">
+
+        <li>Explain why weighted means are used.</li>
+
+        <li>Calculate a weighted mean using the appropriate formula.</li>
+
+        <li>Interpret weighted averages in practical situations.</li>
+
+        <li>Distinguish between arithmetic and weighted means.</li>
+
+        <li>Recognize situations where weighting is appropriate.</li>
+
+      </ul>
+
+    </div>
+
+  </div>
+
+</section>
+
   <div class="content-narrow">
 
     <h2>Why Do We Need a Weighted Mean?</h2>
@@ -131,7 +163,13 @@ sidebar: false
       The weighted mean is calculated as:
     </p>
 
-    0
+    <div class="formula-box">
+
+\[
+\bar{x}_w=\frac{\sum_{i=1}^{n}w_i x_i}{\sum_{i=1}^{n}w_i}
+\]
+
+</div>
 
     <p>
       where:
@@ -190,6 +228,14 @@ sidebar: false
     </p>
 
     <h2>Example: Course Grades</h2>
+
+    <img src="{{ 'descriptive/images/course-grade-weights.png' | relative_url }}"
+     alt="Course components with different weights"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+The final examination contributes the largest share to the overall course grade.
+</p>
 
     <p>
       Suppose a student receives:
@@ -272,7 +318,13 @@ sidebar: false
       If we ignored the weights:
     </p>
 
-    1
+    <div class="formula-box">
+
+\[
+\bar{x}=\frac{90+80+70}{3}=80
+\]
+
+</div>
 
     <p>
       The ordinary mean would be 80.
@@ -285,6 +337,14 @@ sidebar: false
     <p>
       The difference occurs because the lowest score received the largest weight.
     </p>
+
+    <img src="{{ 'descriptive/images/arithmetic-vs-weighted-mean.png' | relative_url }}"
+     alt="Comparison of arithmetic and weighted means"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+When observations have different importance, the weighted mean shifts toward the values with larger weights.
+</p>
 
     <h2>When Are Weighted Means Used?</h2>
 
@@ -338,6 +398,14 @@ sidebar: false
     </p>
 
     <h2>Equal Weights Produce the Arithmetic Mean</h2>
+
+    <img src="{{ 'descriptive/images/equal-weights-arithmetic-mean.png' | relative_url }}"
+     alt="Equal weights produce the arithmetic mean"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+When every observation has the same weight, the weighted mean equals the arithmetic mean.
+</p>
 
     <p>
       If every observation has the same weight,
@@ -425,6 +493,14 @@ sidebar: false
 
     <h2>Interpreting a Weighted Mean</h2>
 
+    <img src="{{ 'descriptive/images/large-weight-influence.png' | relative_url }}"
+     alt="Influence of a large weight on the weighted mean"
+     style="margin-top:15px; max-width:100%; height:auto;">
+
+<p>
+Observations with larger weights pull the weighted mean closer to their values.
+</p>
+
     <p>
       A weighted mean should be interpreted as a balance point that reflects the assigned weights.
     </p>
@@ -480,6 +556,26 @@ sidebar: false
 
     </div>
 
+    <h2>Common Mistakes</h2>
+
+<div class="warning-box">
+
+  <ul class="bullets">
+
+    <li>Using a simple mean when observations have different weights.</li>
+
+    <li>Assigning arbitrary or incorrect weights.</li>
+
+    <li>Forgetting to divide by the sum of the weights.</li>
+
+    <li>Confusing percentages with decimal weights in calculations.</li>
+
+    <li>Assuming a weighted mean is always more appropriate than an arithmetic mean.</li>
+
+  </ul>
+
+</div>
+
     <h2>Why Weighted Means Matter</h2>
 
     <p>
@@ -496,6 +592,75 @@ sidebar: false
     <p>
       It is one of the most practical applications of measures of center.
     </p>
+
+    <h2>Calculating a Weighted Mean in SPSS</h2>
+
+<p>
+SPSS can calculate weighted statistics after you specify a weighting variable.
+Each case is then counted according to its assigned weight.
+</p>
+
+<div class="step-box">
+
+  <h3>Using Case Weights</h3>
+
+  <ol>
+
+    <li>Select <strong>Data → Weight Cases...</strong>.</li>
+
+    <li>Choose <strong>Weight cases by</strong>.</li>
+
+    <li>Select the variable containing the weights.</li>
+
+    <li>Click <strong>OK</strong>.</li>
+
+    <li>Then choose <strong>Analyze → Descriptive Statistics → Descriptives</strong> (or another descriptive procedure) to calculate the weighted mean.</li>
+
+  </ol>
+
+</div>
+
+<div class="tip-box">
+
+<strong>Interpretation Tip:</strong>
+
+<p>
+
+Always verify that the weighting variable is appropriate before enabling case weights.
+When you are finished, return to <strong>Data → Weight Cases...</strong> and select <strong>Do not weight cases</strong> to prevent weights from affecting later analyses unintentionally.
+
+</p>
+
+</div>
+
+<h3>Python Example</h3>
+
+<p>
+This example calculates both the arithmetic mean and the weighted mean.
+</p>
+
+<pre><code>import numpy as np
+
+scores = [90, 80, 70]
+weights = [0.20, 0.30, 0.50]
+
+print("Arithmetic Mean =", np.mean(scores))
+print("Weighted Mean =", np.average(scores, weights=weights))
+</code></pre>
+
+<h3>R Example</h3>
+
+<p>
+This example compares the arithmetic mean and the weighted mean.
+</p>
+
+<pre><code>scores <- c(90, 80, 70)
+weights <- c(0.20, 0.30, 0.50)
+
+mean(scores)
+
+weighted.mean(scores, weights)
+</code></pre>
 
     <!-- TAKEAWAYS -->
 
