@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Block 4 — Classical Tests
-description: Learn the classical hypothesis tests used everywhere: z and t tests, chi-square tests, ANOVA (F tests), and the core assumptions and interpretations behind them.
+description: "Learn the classical hypothesis tests used everywhere: z and t tests, chi-square tests, ANOVA (F tests), and the core assumptions and interpretations behind them."
 permalink: /inference/classical-tests/
 sidebar: false
 ---

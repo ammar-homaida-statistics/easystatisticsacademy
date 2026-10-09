@@ -1,6 +1,6 @@
 ---
 layout: default
-title: What Comes Next: Descriptive Statistics
+title: "What Comes Next: Descriptive Statistics"
 description: An overview of the next section, what knowledge is assumed, and how the foundations support everything that follows.
 permalink: /foundations/what-comes-next-descriptive-statistics/
 section: foundations

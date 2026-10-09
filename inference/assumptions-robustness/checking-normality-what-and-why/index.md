@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Checking Normality: What and Why
+title: "Checking Normality: What and Why"
 description: Learn what the normality assumption means, why it appears in statistical methods, and how to evaluate whether departures from normality are important.
 permalink: /inference/assumptions-robustness/checking-normality-what-and-why/
 sidebar: false

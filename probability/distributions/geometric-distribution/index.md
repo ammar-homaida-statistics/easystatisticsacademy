@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Geometric Distribution
-description: Learn how the geometric distribution models waiting times and answers the question: how many trials are needed until the first success occurs?
+description: "Learn how the geometric distribution models waiting times and answers the question: how many trials are needed until the first success occurs?"
 permalink: /probability/distributions/geometric-distribution/
 sidebar: false
 ---

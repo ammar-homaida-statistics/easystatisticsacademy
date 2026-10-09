@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Block 2 — Simple Linear Regression
-description: Learn simple linear regression from first principles: regression equations, slope, intercept, residuals, least squares, prediction, and explained variation.
+description: "Learn simple linear regression from first principles: regression equations, slope, intercept, residuals, least squares, prediction, and explained variation."
 permalink: /modeling/simple-linear-regression/
 sidebar: false
 ---

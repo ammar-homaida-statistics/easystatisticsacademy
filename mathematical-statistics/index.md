@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Mathematical Statistics
-description: The theory of estimation: statistical models, likelihood, estimator properties, Fisher information, and asymptotic results.
+description: "The theory of estimation: statistical models, likelihood, estimator properties, Fisher information, and asymptotic results."
 permalink: /mathematical-statistics/
 sidebar: false
 ---

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Standardization: When and When Not
+title: "Standardization: When and When Not"
 description: Learn when standardization and z-scores are useful, when they can be misleading, and how to decide whether standardization is appropriate.
 permalink: /descriptive/shape/standardization-when-and-when-not/
 sidebar: false

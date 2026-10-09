@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Applied Statistics
-description: Learn applied statistics correctly: choosing methods, understanding study design, checking assumptions, interpreting results, and reporting findings clearly.
+description: "Learn applied statistics correctly: choosing methods, understanding study design, checking assumptions, interpreting results, and reporting findings clearly."
 permalink: /applied-statistics/
 sidebar: false
 ---

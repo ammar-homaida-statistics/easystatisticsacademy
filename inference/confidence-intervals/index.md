@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Block 2 — Confidence Intervals
-description: Build confidence intervals correctly: the logic of coverage, margin of error, critical values (z/t), and interval construction for means, proportions, and comparisons.
+description: "Build confidence intervals correctly: the logic of coverage, margin of error, critical values (z/t), and interval construction for means, proportions, and comparisons."
 permalink: /inference/confidence-intervals/
 sidebar: false
 ---

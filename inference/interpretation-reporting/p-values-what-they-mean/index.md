@@ -1,6 +1,6 @@
 ---
 layout: default
-title: P-Values: What They Mean
+title: "P-Values: What They Mean"
 description: Learn what p-values measure, how they are interpreted in hypothesis testing, and the common misconceptions surrounding them.
 permalink: /inference/interpretation-reporting/p-values-what-they-mean/
 sidebar: false
