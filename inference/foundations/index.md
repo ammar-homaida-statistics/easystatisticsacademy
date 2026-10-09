@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Block 1 — Inference Foundations
-description: Build the core logic of inference: parameters vs statistics, estimators, sampling variability, and standard error as the unit of uncertainty.
+description: "Build the core logic of inference: parameters vs statistics, estimators, sampling variability, and standard error as the unit of uncertainty."
 permalink: /inference/foundations/
 sidebar: false
 ---

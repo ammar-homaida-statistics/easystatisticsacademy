@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Statistical Modeling
-description: Learn statistical modeling correctly: regression, assumptions, diagnostics, interpretation, model comparison, and responsible modeling practice.
+description: "Learn statistical modeling correctly: regression, assumptions, diagnostics, interpretation, model comparison, and responsible modeling practice."
 permalink: /modeling/
 sidebar: false
 ---

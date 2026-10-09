@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Block 6 — Interpretation & Reporting
-description: Interpret and report inference correctly: what p-values and confidence intervals mean, effect sizes, practical significance, multiple testing, and clear scientific communication.
+description: "Interpret and report inference correctly: what p-values and confidence intervals mean, effect sizes, practical significance, multiple testing, and clear scientific communication."
 permalink: /inference/interpretation-reporting/
 sidebar: false
 ---

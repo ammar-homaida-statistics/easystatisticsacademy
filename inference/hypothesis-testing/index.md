@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Block 3 — Hypothesis Testing
-description: Learn the logic of hypothesis testing: null models, test statistics, p-values, Type I and II errors, power, and decision-making under uncertainty.
+description: "Learn the logic of hypothesis testing: null models, test statistics, p-values, Type I and II errors, power, and decision-making under uncertainty."
 permalink: /inference/hypothesis-testing/
 sidebar: false
 ---

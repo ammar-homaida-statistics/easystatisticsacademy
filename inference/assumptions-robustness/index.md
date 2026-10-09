@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Block 7 — Assumptions & Robustness
-description: Learn what can break inference and how to be robust: assumptions vs design, diagnostics, outliers, bootstrap methods, and sensitivity analysis.
+description: "Learn what can break inference and how to be robust: assumptions vs design, diagnostics, outliers, bootstrap methods, and sensitivity analysis."
 permalink: /inference/assumptions-robustness/
 sidebar: false
 ---

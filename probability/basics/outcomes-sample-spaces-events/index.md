@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Outcomes, Sample Spaces, and Events
-description: Learn the fundamental building blocks of probability: outcomes, sample spaces, and events.
+description: "Learn the fundamental building blocks of probability: outcomes, sample spaces, and events."
 permalink: /probability/basics/outcomes-sample-spaces-events/
 sidebar: false
 ---

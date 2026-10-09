@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Linearity of Expectation
-description: Learn one of the most powerful results in probability: the expectation of a sum equals the sum of expectations.
+description: "Learn one of the most powerful results in probability: the expectation of a sum equals the sum of expectations."
 permalink: /probability/expectation-variance/linearity-of-expectation/
 sidebar: false
 ---
