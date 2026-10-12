@@ -105,7 +105,16 @@ class SearchTests(unittest.TestCase):
             if 'id="site-search"' in source:
                 self.assertEqual(source.count('src="/js/search.js"'), 1)
                 self.assertNotIn("SimpleJekyllSearch(", source)
-        self.assertEqual(styles, {"/css/style.css"})
+        # The refreshed homepage alone also loads a page-scoped stylesheet.
+        self.assertEqual(styles, {"/css/style.css", "/css/home.css"})
+        home_links = Stylesheets()
+        home_links.feed((SITE / "index.html").read_text())
+        self.assertEqual({urlsplit(url).path for url in home_links.urls},
+                         {"/css/style.css", "/css/home.css"})
+        lesson_links = Stylesheets()
+        lesson_links.feed((SITE / "descriptive/spread/variance/index.html").read_text())
+        self.assertEqual({urlsplit(url).path for url in lesson_links.urls},
+                         {"/css/style.css"})
 
     def test_representative_lessons_and_navigation(self):
         self.open()
