@@ -96,6 +96,12 @@
   .esa-home-steps div { padding:8px 5px; font-size:.7rem; }
   .esa-home-topic { padding:15px; }
 }
+@media(max-width:480px) {
+  /* Keep the existing site brand inside narrow phone viewports on the homepage. */
+  .site-header .brand { gap:8px; }
+  .site-header .brand img { height:32px; }
+  .site-header .brand-text { font-size:.82rem; }
+}
 @media(prefers-reduced-motion:reduce) {
   .esa-home a { transition:none; }
   .esa-home a:hover { transform:none; }
