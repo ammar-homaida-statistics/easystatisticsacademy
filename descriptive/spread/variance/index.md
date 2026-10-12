@@ -88,7 +88,7 @@ sidebar: false
       <strong>Key idea:</strong>
 
       <p>
-        Variance measures the average squared distance between observations and their mean.
+        Variance uses squared deviations from the mean to summarize variability.
       </p>
 
     </div>
@@ -170,7 +170,11 @@ sidebar: false
       The mean is:
     </p>
 
-    0
+    <div class="formula-box">
+      \[
+      \bar{x} = \frac{4 + 6 + 8}{3} = 6
+      \]
+    </div>
 
     <p>
       The deviations are:
@@ -233,18 +237,42 @@ sidebar: false
     <h2>The Variance Formula</h2>
 
     <p>
-      For a sample,
-      variance is calculated as:
+      For a sample of <em>n</em> numerical observations, with <em>n</em> at least 2,
+      the usual sample variance is calculated as:
     </p>
 
-    1
+    <div class="formula-box">
+      \[
+      s^2 = \frac{\sum_{i=1}^{n}(x_i - \bar{x})^2}{n - 1}
+      \]
+    </div>
 
     <p>
-      For a population,
+      Here, <em>x<sub>i</sub></em> is the <em>i</em>th observation and x̄ is the sample mean.
+    </p>
+
+    <p>
+      For a complete population of <em>N</em> equally weighted numerical values,
+      with <em>N</em> at least 1,
       variance is:
     </p>
 
-    2
+    <div class="formula-box">
+      \[
+      \sigma^2 = \frac{\sum_{i=1}^{N}(x_i - \mu)^2}{N}
+      \]
+    </div>
+
+    <p>
+      Here, μ is the mean of all <em>N</em> population values.
+      Calculating these descriptive measures does not require a normal distribution.
+    </p>
+
+    <p>
+      For independent observations drawn from the same distribution with finite variance,
+      the sample formula with denominator <em>n</em> − 1 is an unbiased estimator of
+      that distribution's variance. Normality is not required for this result.
+    </p>
 
     <h2>Sample Variance vs Population Variance</h2>
 
@@ -352,7 +380,11 @@ sidebar: false
       Sample variance:
     </p>
 
-    3
+    <div class="formula-box">
+      \[
+      s^2 = \frac{(-2)^2 + 0^2 + 2^2}{3 - 1} = \frac{8}{2} = 4
+      \]
+    </div>
 
     <p>
       The variance equals 4.
@@ -521,7 +553,7 @@ sidebar: false
 
       <ul class="bullets">
 
-        <li>Variance measures the average squared distance from the mean</li>
+        <li>Variance summarizes squared deviations from the mean</li>
 
         <li>Variance uses every observation in the dataset</li>
 
