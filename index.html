@@ -1,208 +1,193 @@
 ---
 layout: default
-title: EasyStatisticsAcademy
-description: Learn statistics the clear and practical way — concepts explained simply, then implemented in SPSS, R, Python, and Excel.
+title: Easy Statistics Academy
+description: Build statistics skills with clear theory, guided learning paths, worked examples, and practical applications in SPSS, R, Python, and Excel.
 permalink: /
+home_styles: true
 ---
 
-<!-- HERO -->
-<section class="hero hero-home">
-  <div class="hero-card hero-split">
-    <div class="hero-copy">
+<div class="esa-home">
 
-      <div class="badge-row">
-        <span class="badge">Practical</span>
-        <span class="badge">Academic</span>
-        <span class="badge">Step-by-step</span>
-      </div>
-
-      <h1>Learn Statistics the Clear and Practical Way</h1>
-
-      <p class="lead">
-        A structured learning platform for beginners, researchers, and applied users.
-        Concepts are explained clearly (with correct theory), then implemented in SPSS, R, Python, and Excel.
+  <!-- Homepage hero -->
+  <section class="esa-home-hero" aria-labelledby="esa-home-title">
+    <div>
+      <p class="esa-home-label esa-home-label--light">Easy Statistics Academy</p>
+      <h1 id="esa-home-title">Understand statistics.<br><em>Use it with confidence.</em></h1>
+      <p class="esa-home-summary">
+        Go from the foundations to inference, modeling, and data science with clear explanations,
+        worked examples, and a learning path you can follow at your own pace.
       </p>
 
-      <p class="micro">
-        Structured like a course — but free and continuously growing.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn" href="/learning-paths/beginner/">Start Learning</a>
-        <a class="btn btn-outline" href="/learning-paths/">View All Paths</a>
+      <div class="esa-home-actions">
+        <a class="esa-home-action esa-home-action--primary" href="/learning-paths/beginner/">Start learning <span aria-hidden="true">&nbsp;→</span></a>
+        <a class="esa-home-action esa-home-action--secondary" href="/learning-paths/">Explore learning paths</a>
       </div>
 
-      <!-- ✅ CONTINUE LEARNING (CORRECT PLACEMENT) -->
-      <div id="continue-home" style="display:none; margin-top:12px;">
-        <a id="continueBtn" class="btn btn-outline">Continue Learning</a>
-        <div id="continueLabel" class="muted-mini" style="margin-top:6px;"></div>
-      </div>
-
-      <div class="hero-notes">
-        <div class="note">
-          <strong>New here?</strong> Start with the Beginner Path.
-        </div>
-        <div class="note">
-          <strong>Already familiar?</strong> Jump to Inference or Modeling.
-        </div>
-      </div>
-
-    </div>
-
-    <div class="hero-panel">
-      <div class="panel-card">
-        <h2 class="panel-title">Quick start</h2>
-        <ol class="quickstart">
-          <li><a href="/foundations/">Foundations</a></li>
-          <li><a href="/descriptive/">Descriptive</a></li>
-          <li><a href="/probability/">Probability</a></li>
-          <li><a href="/inference/">Inference</a></li>
-          <li><a href="/modeling/">Modeling</a></li>
-        </ol>
-
-        <div class="panel-cta">
-          <a class="btn btn-outline" href="/learning-paths/">Browse Paths</a>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- LEARNING PATHS -->
-<section class="section">
-  <div class="section-head">
-    <h2>Start Here</h2>
-    <p>Follow a structured path based on your level.</p>
-  </div>
-
-  <div class="grid grid-3">
-    <a class="card card-link" href="/learning-paths/beginner/">
-      <h3>Beginner</h3>
-      <p>Start from zero — concepts explained step by step.</p>
-      <span class="card-foot">Start →</span>
-    </a>
-
-    <a class="card card-link" href="/learning-paths/intermediate/">
-      <h3>Intermediate</h3>
-      <p>Move to inference, modeling, and applied analysis.</p>
-      <span class="card-foot">Continue →</span>
-    </a>
-
-    <a class="card card-link" href="/learning-paths/advanced/">
-      <h3>Advanced</h3>
-      <p>Deep dive into theory, ML, and advanced methods.</p>
-      <span class="card-foot">Explore →</span>
-    </a>
-  </div>
-</section>
-
-<!-- CORE STRUCTURE -->
-<section class="section section-soft">
-  <div class="section-head">
-    <h2>Core Learning Structure</h2>
-    <p>The complete statistical journey — from basics to advanced modeling.</p>
-  </div>
-
-  <div class="grid grid-3">
-    <a class="card card-link" href="/foundations/">
-      <h3>Foundations</h3>
-      <p>Core concepts and statistical thinking.</p>
-    </a>
-
-    <a class="card card-link" href="/descriptive/">
-      <h3>Descriptive</h3>
-      <p>Summarize and explore data.</p>
-    </a>
-
-    <a class="card card-link" href="/probability/">
-      <h3>Probability</h3>
-      <p>Model uncertainty and distributions.</p>
-    </a>
-
-    <a class="card card-link" href="/inference/">
-      <h3>Inference</h3>
-      <p>Draw conclusions from data.</p>
-    </a>
-
-    <a class="card card-link" href="/modeling/">
-      <h3>Modeling</h3>
-      <p>Regression and relationships.</p>
-    </a>
-
-    <a class="card card-link" href="/software/">
-      <h3>Software</h3>
-      <p>Apply everything in practice.</p>
-    </a>
-  </div>
-</section>
-
-<!-- ADVANCED + DATA SCIENCE -->
-<section class="section">
-  <div class="section-head">
-    <h2>Advanced & Data Science</h2>
-    <p>Extend your knowledge into theory and modern data analysis.</p>
-  </div>
-
-  <div class="grid grid-3">
-    <a class="card card-link" href="/mathematical-statistics/">
-      <h3>Mathematical Statistics</h3>
-      <p>Theoretical foundations of estimation.</p>
-    </a>
-
-    <a class="card card-link" href="/machine-learning/">
-      <h3>Machine Learning</h3>
-      <p>Prediction, validation, and evaluation.</p>
-    </a>
-
-    <a class="card card-link" href="/data-mining/">
-      <h3>Data Mining</h3>
-      <p>Pattern discovery and exploration.</p>
-    </a>
-  </div>
-</section>
-
-<!-- VALUE -->
-<section class="section section-slim">
-  <div class="callout">
-    <div class="callout-copy">
-      <h2>What you’ll get</h2>
-      <ul class="bullets">
-        <li>Clear explanations without losing correctness</li>
-        <li>Real examples and common mistakes explained</li>
-        <li>Hands-on implementation in SPSS, R, Python, and Excel</li>
-        <li>Structured learning paths for different goals</li>
+      <ul class="esa-home-support" aria-label="Learning highlights">
+        <li>Free to explore</li>
+        <li>Structured learning</li>
+        <li>Theory and applications</li>
       </ul>
-    </div>
 
-    <div class="callout-side">
-      <div class="mini">
-        <div class="mini-title">Contact</div>
-        <div class="mini-body">
-          contact@easystatisticsacademy.com
-        </div>
+      <div class="esa-home-resume" id="continue-home" hidden>
+        <a id="continueBtn" href="/learning-paths/">Continue learning →</a>
+        <small id="continueLabel"></small>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- VIDEO -->
-<section class="section section-soft">
-  <div class="content-narrow">
-    <h2>Introduction</h2>
+    <div class="esa-home-preview">
+      <div class="esa-home-preview-top">
+        <span>From data to insight</span>
+        <span>Learn by doing</span>
+      </div>
+      <div class="esa-home-graph" role="img" aria-label="Illustrative symmetric distribution of data, with bars rising toward the center and falling afterward">
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <p class="esa-home-preview-note">Illustration of a distribution — not real observations.</p>
+      <div class="esa-home-steps" aria-label="Our learning approach">
+        <div><strong>01</strong>Understand the idea</div>
+        <div><strong>02</strong>Work an example</div>
+        <div><strong>03</strong>Apply the method</div>
+      </div>
+    </div>
+  </section>
 
+  <!-- Learning paths -->
+  <section class="esa-home-section" aria-labelledby="esa-home-paths-title">
+    <div class="esa-home-intro">
+      <div>
+        <p class="esa-home-label">Your next step</p>
+        <h2 id="esa-home-paths-title">A learning path for every stage.</h2>
+      </div>
+      <p>Start with the essentials or pick up where your statistical training left off.</p>
+    </div>
+
+    <div class="esa-home-paths">
+      <a class="esa-home-path" href="/learning-paths/beginner/">
+        <span class="esa-home-path-number">01</span>
+        <h3>Beginner</h3>
+        <p>Start with data, distributions, and the essential language of statistics.</p>
+        <span class="esa-home-path-link">Start from the beginning →</span>
+      </a>
+
+      <a class="esa-home-path" href="/learning-paths/intermediate/">
+        <span class="esa-home-path-number">02</span>
+        <h3>Intermediate</h3>
+        <p>Connect descriptive methods to inference, relationships, and applied analysis.</p>
+        <span class="esa-home-path-link">Build your skills →</span>
+      </a>
+
+      <a class="esa-home-path" href="/learning-paths/advanced/">
+        <span class="esa-home-path-number">03</span>
+        <h3>Advanced</h3>
+        <p>Explore mathematical statistics, advanced methods, and modern data analysis.</p>
+        <span class="esa-home-path-link">Go deeper →</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Explore subject areas -->
+  <section class="esa-home-section" aria-labelledby="esa-home-topics-title">
+    <div class="esa-home-intro">
+      <div>
+        <p class="esa-home-label">Explore the curriculum</p>
+        <h2 id="esa-home-topics-title">Find the topic you need.</h2>
+      </div>
+      <p>Browse the core subjects in a natural progression, from statistical thinking to software.</p>
+    </div>
+
+    <div class="esa-home-topic-grid">
+      <a class="esa-home-topic" href="/foundations/">
+        <span class="esa-home-topic-symbol" aria-hidden="true">01</span>
+        <span><strong>Foundations</strong><small>Concepts, data, and statistical thinking</small></span>
+      </a>
+      <a class="esa-home-topic" href="/descriptive/">
+        <span class="esa-home-topic-symbol" aria-hidden="true">x̄</span>
+        <span><strong>Descriptive statistics</strong><small>Summaries, charts, and variability</small></span>
+      </a>
+      <a class="esa-home-topic" href="/probability/">
+        <span class="esa-home-topic-symbol" aria-hidden="true">P</span>
+        <span><strong>Probability</strong><small>Uncertainty and distributions</small></span>
+      </a>
+      <a class="esa-home-topic" href="/inference/">
+        <span class="esa-home-topic-symbol" aria-hidden="true">CI</span>
+        <span><strong>Statistical inference</strong><small>Estimation and hypothesis testing</small></span>
+      </a>
+      <a class="esa-home-topic" href="/modeling/">
+        <span class="esa-home-topic-symbol" aria-hidden="true">ƒ</span>
+        <span><strong>Modeling</strong><small>Regression and statistical relationships</small></span>
+      </a>
+      <a class="esa-home-topic" href="/software/">
+        <span class="esa-home-topic-symbol" aria-hidden="true">{ }</span>
+        <span><strong>Statistical software</strong><small>SPSS, R, Python, and Excel</small></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- What makes the material useful -->
+  <section class="esa-home-section" aria-labelledby="esa-home-approach-title">
+    <div class="esa-home-feature">
+      <div>
+        <p class="esa-home-label">Built for understanding</p>
+        <h2 id="esa-home-approach-title">Not just formulas. The reasoning behind them.</h2>
+        <p>Learn what a method measures, when its assumptions matter, and how to interpret the result in practice.</p>
+        <a class="esa-home-action esa-home-action--primary" href="/learning-paths/">See all learning paths →</a>
+      </div>
+      <ol>
+        <li><strong>01</strong> Build a sound conceptual foundation.</li>
+        <li><strong>02</strong> Follow worked examples and interpretation.</li>
+        <li><strong>03</strong> Connect methods to practical software.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Advanced topics -->
+  <section class="esa-home-section" aria-labelledby="esa-home-advanced-title">
+    <div class="esa-home-intro">
+      <div>
+        <p class="esa-home-label">Keep exploring</p>
+        <h2 id="esa-home-advanced-title">Beyond the fundamentals.</h2>
+      </div>
+      <p>Continue into theoretical and computational approaches when you're ready.</p>
+    </div>
+    <div class="esa-home-deeper">
+      <a href="/mathematical-statistics/">
+        <strong>Mathematical statistics ↗</strong>
+        <span>Go further with estimation and theoretical foundations.</span>
+      </a>
+      <a href="/machine-learning/">
+        <strong>Machine learning ↗</strong>
+        <span>Study prediction, evaluation, and model validation.</span>
+      </a>
+      <a href="/data-mining/">
+        <strong>Data mining ↗</strong>
+        <span>Explore pattern discovery and data-driven insights.</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Existing introduction video and contact details -->
+  <section class="esa-home-last" aria-labelledby="esa-home-intro-video">
+    <div>
+      <p class="esa-home-label esa-home-label--light">Meet the academy</p>
+      <h2 id="esa-home-intro-video">Learn clearly. Think critically. Apply confidently.</h2>
+      <p>Watch our introduction, or get in touch about the learning materials.</p>
+      <a class="esa-home-contact" href="mailto:contact@easystatisticsacademy.com">contact@easystatisticsacademy.com</a>
+    </div>
     <div class="video-container">
       <iframe
         src="https://www.youtube.com/embed/5gRE3K1L9Ss"
-        title="EasyStatisticsAcademy – Introduction"
-        frameborder="0"
-        allowfullscreen>
-      </iframe>
+        title="Easy Statistics Academy introduction video"
+        loading="lazy"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen></iframe>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- CONTINUE LEARNING SCRIPT -->
+</div>
+
+<!-- Preserve the existing continue-learning preference, only for internal paths. -->
 <script>
 (function () {
   try {
@@ -211,18 +196,17 @@ permalink: /
     const wrap = document.getElementById("continue-home");
     const label = document.getElementById("continueLabel");
 
-    if (!last || !btn || !wrap) return;
+    if (!last || !btn || !wrap || !label) return;
+    if (!/^\/(?!\/)[a-z0-9\/-]+\/?$/i.test(last) || last === "/") return;
 
-    const name = last
-      .replace(/\//g, "")
-      .replace(/-/g, " ")
+    const name = last.replace(/^\/|\/$/g, "").replace(/\//g, " › ").replace(/-/g, " ")
       .replace(/\b\w/g, c => c.toUpperCase());
 
     btn.href = last;
-    label.textContent = "Continue where you left: " + name;
-
-    wrap.style.display = "block";
-
-  } catch (e) {}
+    label.textContent = "Your last visited lesson: " + name;
+    wrap.hidden = false;
+  } catch (e) {
+    // Browsers may disable local storage. The rest of the page still works.
+  }
 })();
 </script>

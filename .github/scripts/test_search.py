@@ -105,7 +105,39 @@ class SearchTests(unittest.TestCase):
             if 'id="site-search"' in source:
                 self.assertEqual(source.count('src="/js/search.js"'), 1)
                 self.assertNotIn("SimpleJekyllSearch(", source)
-        self.assertEqual(styles, {"/css/style.css"})
+        # The refreshed homepage alone also loads a page-scoped stylesheet.
+        self.assertEqual(styles, {"/css/style.css", "/css/home.css"})
+        home_links = Stylesheets()
+        home_links.feed((SITE / "index.html").read_text())
+        self.assertEqual({urlsplit(url).path for url in home_links.urls},
+                         {"/css/style.css", "/css/home.css"})
+        lesson_links = Stylesheets()
+        lesson_links.feed((SITE / "descriptive/spread/variance/index.html").read_text())
+        self.assertEqual({urlsplit(url).path for url in lesson_links.urls},
+                         {"/css/style.css"})
+
+    def test_homepage_responsive_layout(self):
+        self.open()
+        expect(self.page.locator(".esa-home-hero h1")).to_be_visible()
+        expect(self.page.locator('link[href^="/css/home.css"]')).to_have_count(1)
+        for width in (375, 768, 1280):
+            self.page.set_viewport_size({"width": width, "height": 850})
+            overflow = self.page.evaluate("""() => ({
+                documentWidth: document.documentElement.scrollWidth,
+                viewportWidth: window.innerWidth,
+                outliers: [...document.querySelectorAll("body *")].map(el => {
+                    const r = el.getBoundingClientRect();
+                    return {tag: el.tagName, className: String(el.className || "").slice(0, 90),
+                            right: Math.round(r.right), left: Math.round(r.left)};
+                }).filter(x => x.right > window.innerWidth + 1 || x.left < -1).slice(0, 12)
+            })""")
+            self.assertLessEqual(
+                overflow["documentWidth"], overflow["viewportWidth"],
+                f"Homepage overflows at {width}px: {overflow}",
+            )
+            expect(self.page.locator(".esa-home-hero")).to_be_visible()
+        self.page.goto(self.origin + "/descriptive/spread/variance/", wait_until="networkidle")
+        expect(self.page.locator('link[href^="/css/home.css"]')).to_have_count(0)
 
     def test_representative_lessons_and_navigation(self):
         self.open()
