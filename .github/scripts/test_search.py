@@ -116,6 +116,20 @@ class SearchTests(unittest.TestCase):
         self.assertEqual({urlsplit(url).path for url in lesson_links.urls},
                          {"/css/style.css"})
 
+    def test_homepage_responsive_layout(self):
+        self.open()
+        expect(self.page.locator(".esa-home-hero h1")).to_be_visible()
+        expect(self.page.locator('link[href^="/css/home.css"]')).to_have_count(1)
+        for width in (375, 768, 1280):
+            self.page.set_viewport_size({"width": width, "height": 850})
+            self.assertFalse(
+                self.page.evaluate("document.documentElement.scrollWidth > window.innerWidth"),
+                f"Homepage overflows horizontally at {width}px",
+            )
+            expect(self.page.locator(".esa-home-hero")).to_be_visible()
+        self.page.goto(self.origin + "/descriptive/spread/variance/", wait_until="networkidle")
+        expect(self.page.locator('link[href^="/css/home.css"]')).to_have_count(0)
+
     def test_representative_lessons_and_navigation(self):
         self.open()
         cases = {
