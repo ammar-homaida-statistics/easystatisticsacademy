@@ -2,13 +2,16 @@
 layout: null
 ---
 [
+{% assign first = true %}
 {% for page in site.pages %}
   {% if page.title and page.url %}
+  {% unless first %},{% endunless %}
   {
     "title": {{ page.title | jsonify }},
     "url": {{ page.url | jsonify }},
-    "content": {{ page.content | strip_html | strip_newlines | jsonify }}
-  }{% unless forloop.last %},{% endunless %}
+    "content": {{ page.content | strip_html | normalize_whitespace | jsonify }}
+  }
+  {% assign first = false %}
   {% endif %}
 {% endfor %}
 ]

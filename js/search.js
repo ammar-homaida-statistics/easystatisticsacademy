@@ -1,85 +1,109 @@
 (async function () {
   const input = document.getElementById("site-search");
   const box = document.getElementById("search-results");
-  if (!input || !box) return;
+  const status = document.getElementById("search-status");
+  if (!input || !box || !status) return;
 
   let pages = [];
-  let ready = false;
+  let state = "loading";
+  let dismissed = false;
+  const normalize = (text) => text.normalize("NFKC")
+    .replace(/[‘’]/g, "'").replace(/\s+/g, " ").trim().toLowerCase();
 
-  async function loadIndex() {
-    try {
-      const res = await fetch("/search.json", { cache: "no-store" });
-      if (!res.ok) throw new Error("search.json not found");
-      pages = await res.json();
-      ready = true;
-    } catch (e) {
-      // If this happens, your /search.json is missing or invalid.
-      box.hidden = false;
-      box.innerHTML = `<div class="search-empty">Search index not available. Check /search.json.</div>`;
-    }
+  function decodeEntities(text) {
+    const decoder = document.createElement("textarea");
+    decoder.innerHTML = text;
+    return decoder.value;
   }
 
-  function escapeHtml(s) {
-    return s.replace(/[&<>"']/g, (c) => ({
-      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
-    }[c]));
+  function close() {
+    dismissed = true;
+    box.hidden = true;
+    box.replaceChildren();
+    status.textContent = "";
   }
 
-  function render(results) {
-    if (!results.length) {
-      box.innerHTML = `<div class="search-empty">No results</div>`;
-      return;
-    }
-    box.innerHTML = results.map(r => `
-      <a class="search-item" href="${r.url}">
-        <div class="search-title">${escapeHtml(r.title)}</div>
-        <div class="search-snippet">${escapeHtml(r.snippet)}</div>
-      </a>
-    `).join("");
-  }
-
-  function search(q) {
-    q = q.trim().toLowerCase();
-    if (!q) {
-      box.hidden = true;
-      box.innerHTML = "";
-      return;
-    }
-    if (!ready) {
-      box.hidden = false;
-      box.innerHTML = `<div class="search-empty">Loading…</div>`;
-      return;
-    }
-
-    const out = [];
-    for (const p of pages) {
-      const title = (p.title || "").toLowerCase();
-      const content = (p.content || "").toLowerCase();
-      if (title.includes(q) || content.includes(q)) {
-        const raw = p.content || "";
-        const pos = content.indexOf(q);
-        const start = Math.max(0, pos - 50);
-        const snippet = raw.substring(start, start + 140).replace(/\s+/g, " ").trim();
-        out.push({ title: p.title || p.url, url: p.url, snippet: snippet || "" });
-      }
-      if (out.length >= 8) break;
-    }
-
+  function message(text) {
+    const notice = document.createElement("div");
+    notice.className = "search-empty";
+    notice.textContent = text;
+    box.replaceChildren(notice);
     box.hidden = false;
-    render(out);
+    status.textContent = text;
   }
 
-  // Close results when clicking outside
-  document.addEventListener("click", (e) => {
-    if (!box.contains(e.target) && e.target !== input) {
-      box.hidden = true;
+  function search(query) {
+    const q = normalize(query);
+    if (!q) return close();
+    dismissed = false;
+    if (state === "loading") return message("Loading search…");
+    if (state === "error") return message("Search is temporarily unavailable. Please try again.");
+
+    const matches = pages.map((page) => {
+      const title = normalize(page.title);
+      const content = normalize(page.content);
+      const rank = title === q ? 0 : title.startsWith(q) ? 1 : title.includes(q) ? 2 : content.includes(q) ? 3 : 4;
+      return { page, rank };
+    }).filter((match) => match.rank < 4)
+      .sort((a, b) => a.rank - b.rank).slice(0, 8);
+
+    if (!matches.length) return message("No results found.");
+    box.replaceChildren();
+    for (const { page } of matches) {
+      const link = document.createElement("a");
+      link.className = "search-item";
+      link.href = page.url;
+      const title = document.createElement("div");
+      title.className = "search-title";
+      title.textContent = page.title;
+      const snippet = document.createElement("div");
+      snippet.className = "search-snippet";
+      const pos = normalize(page.content).indexOf(q);
+      snippet.textContent = page.content.substring(Math.max(0, pos - 50), Math.max(0, pos - 50) + 140);
+      link.append(title, snippet);
+      box.append(link);
+    }
+    box.hidden = false;
+    status.textContent = matches.length + (matches.length === 1 ? " result shown." : " results shown.");
+  }
+
+  input.addEventListener("input", () => search(input.value));
+  input.addEventListener("focus", () => search(input.value));
+  input.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") close();
+    if (event.key === "ArrowDown" && !box.hidden) {
+      const first = box.querySelector("a");
+      if (first) { event.preventDefault(); first.focus(); }
     }
   });
-
-  input.addEventListener("input", (e) => search(e.target.value));
-  input.addEventListener("focus", () => {
-    if (input.value.trim()) search(input.value);
+  box.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      input.focus();
+      close();
+    }
+  });
+  document.addEventListener("click", (event) => {
+    if (!box.contains(event.target) && event.target !== input) close();
+  });
+  document.addEventListener("focusin", (event) => {
+    if (!box.contains(event.target) && event.target !== input) close();
   });
 
-  await loadIndex();
+  try {
+    const response = await fetch("/search.json", { cache: "no-store" });
+    if (!response.ok) throw new Error("Search index request failed");
+    const index = await response.json();
+    if (!Array.isArray(index) || !index.every((page) =>
+      typeof page.title === "string" && typeof page.content === "string" &&
+      typeof page.url === "string" && page.url.startsWith("/") &&
+      !page.url.startsWith("//") && new URL(page.url, location.origin).origin === location.origin)) {
+      throw new Error("Invalid search index");
+    }
+    pages = index.map((page) => ({ ...page, title: decodeEntities(page.title), content: decodeEntities(page.content) }));
+    state = "ready";
+  } catch (error) {
+    state = "error";
+  }
+  // Re-run the current query, including one entered before the index arrived.
+  if (!dismissed) search(input.value);
 })();

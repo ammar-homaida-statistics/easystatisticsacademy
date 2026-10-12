@@ -13,13 +13,17 @@
 
       <!-- SEARCH -->
       <div class="header-search">
+        <label class="sr-only" for="site-search">Search statistical lessons</label>
         <input 
           id="site-search"
           type="search"
           placeholder="Search topics…"
           autocomplete="off"
+          aria-controls="search-results"
+          aria-describedby="search-status"
         />
-        <div id="search-results" class="search-results" hidden></div>
+        <div id="search-results" class="search-results" role="region" aria-label="Search results" hidden></div>
+        <p id="search-status" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
       </div>
 
       <!-- MOBILE TOGGLE -->

@@ -13,7 +13,6 @@
 
   <!-- CSS -->
   <link rel="stylesheet" href="/css/style.css?v=6" />
-  <link rel="stylesheet" href="/css/home.css?v=1" />
 
   {% include schema-org.html %}
 
@@ -61,21 +60,6 @@
 
   <!-- SEARCH -->
   <script src="/js/search.js"></script>
-  <script>
-    const searchInput = document.getElementById('site-search');
-    const resultsContainer = document.getElementById('search-results');
-
-    if (searchInput && resultsContainer) {
-      SimpleJekyllSearch({
-        searchInput: searchInput,
-        resultsContainer: resultsContainer,
-        json: '/search.json',
-        searchResultTemplate: '<li><a href="{url}">{title}</a></li>',
-        noResultsText: '<li>No results found</li>',
-        limit: 8
-      });
-    }
-  </script>
 
   <script src="/js/js/site.js"></script>
 

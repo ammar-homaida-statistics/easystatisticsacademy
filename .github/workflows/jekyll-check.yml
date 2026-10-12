@@ -34,3 +34,11 @@ jobs:
           PAGES_REPO_NWO: ${{ github.repository }}
           JEKYLL_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: bundle exec jekyll build --strict_front_matter --trace
+      - name: Check search template edge cases
+        run: bundle exec ruby .github/scripts/test_search_template.rb
+      - name: Install search test browser
+        run: |
+          python -m pip install playwright==1.62.0
+          python -m playwright install --with-deps chromium
+      - name: Check generated search, CSS assets, and browser behavior
+        run: python .github/scripts/test_search.py --site _site
