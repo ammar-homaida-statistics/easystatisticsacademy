@@ -122,9 +122,18 @@ class SearchTests(unittest.TestCase):
         expect(self.page.locator('link[href^="/css/home.css"]')).to_have_count(1)
         for width in (375, 768, 1280):
             self.page.set_viewport_size({"width": width, "height": 850})
-            self.assertFalse(
-                self.page.evaluate("document.documentElement.scrollWidth > window.innerWidth"),
-                f"Homepage overflows horizontally at {width}px",
+            overflow = self.page.evaluate("""() => ({
+                documentWidth: document.documentElement.scrollWidth,
+                viewportWidth: window.innerWidth,
+                outliers: [...document.querySelectorAll("body *")].map(el => {
+                    const r = el.getBoundingClientRect();
+                    return {tag: el.tagName, className: String(el.className || "").slice(0, 90),
+                            right: Math.round(r.right), left: Math.round(r.left)};
+                }).filter(x => x.right > window.innerWidth + 1 || x.left < -1).slice(0, 12)
+            })""")
+            self.assertLessEqual(
+                overflow["documentWidth"], overflow["viewportWidth"],
+                f"Homepage overflows at {width}px: {overflow}",
             )
             expect(self.page.locator(".esa-home-hero")).to_be_visible()
         self.page.goto(self.origin + "/descriptive/spread/variance/", wait_until="networkidle")
