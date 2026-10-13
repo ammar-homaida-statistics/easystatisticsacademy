@@ -100,19 +100,40 @@
     status.textContent = matches.length + (matches.length === 1 ? " result shown." : " results shown.");
   }
 
+  // Search results are ordinary links: retain Tab/Enter semantics while
+  // adding arrow-key traversal, including an accessible focus return.
+  const visibleLinks = () => box.hidden ? [] : Array.from(box.querySelectorAll("a.search-item"));
   input.addEventListener("input", () => search(input.value));
   input.addEventListener("focus", () => search(input.value));
   input.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") close();
-    if (event.key === "ArrowDown" && !box.hidden) {
-      const first = box.querySelector("a");
-      if (first) { event.preventDefault(); first.focus(); }
+    if (event.key === "Escape") {
+      close();
+      return;
+    }
+    if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+      const links = visibleLinks();
+      if (!links.length) return;
+      event.preventDefault();
+      (event.key === "ArrowDown" ? links[0] : links[links.length - 1]).focus();
     }
   });
   box.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
       input.focus();
       close();
+      return;
+    }
+    if (event.key !== "ArrowUp" && event.key !== "ArrowDown") return;
+    const links = visibleLinks();
+    const current = links.indexOf(document.activeElement);
+    if (current < 0) return;
+    event.preventDefault();
+    const next = current + (event.key === "ArrowDown" ? 1 : -1);
+    // ArrowUp from the first result returns to the query field.
+    if (next < 0) {
+      input.focus();
+    } else {
+      links[next % links.length].focus();
     }
   });
   document.addEventListener("click", (event) => {

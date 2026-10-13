@@ -1155,6 +1155,33 @@ pre code{
   display: none !important;
 }
 
+
+/* Back to Top: appears only on genuinely long, scrolled pages. */
+.back-to-top{
+  position: fixed;
+  z-index: 80;
+  inset: auto max(14px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) auto;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border: 1px solid rgba(255,255,255,.65);
+  border-radius: 50%;
+  background: var(--brand-strong);
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(11,45,95,.24);
+  font-size: 1.5rem;
+  cursor: pointer;
+  opacity: .94;
+}
+.back-to-top[hidden]{display:none}
+.back-to-top:hover{background:var(--accent);opacity:1}
+.back-to-top:focus-visible{outline:3px solid #0b8f89;outline-offset:3px}
+@media(max-width:600px){
+  .back-to-top{width:42px;height:42px;font-size:1.25rem;opacity:.9}
+}
+
 /* =========================================================
    REDUCED MOTION
    ========================================================= */
