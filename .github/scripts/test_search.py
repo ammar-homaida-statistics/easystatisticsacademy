@@ -711,6 +711,79 @@ class SearchTests(unittest.TestCase):
         self.page.emulate_media(media="screen")
         expect(self.page.locator(".site-header")).to_be_visible()
 
+    def test_mobile_search_scrolls_within_viewport(self):
+        """Eight results remain navigable without covering the mobile screen."""
+        records = [
+            {"title": f"Statistics lesson {i}", "url": "/foundations/what-is-statistics/",
+             "content": "Statistics tutorial and mathematical ideas"}
+            for i in range(12)
+        ]
+        self.page.route("**/search.json", lambda route: route.fulfill(
+            content_type="application/json", body=json.dumps(records)
+        ))
+        for width, height in ((320, 560), (375, 667)):
+            with self.subTest(size=(width, height)):
+                self.page.set_viewport_size({"width": width, "height": height})
+                self.open()
+                self.input.fill("statistics")
+                links = self.results.locator("a.search-item")
+                expect(links).to_have_count(8)
+                values = self.results.evaluate("""node => ({
+                    visible: getComputedStyle(node).overflowY,
+                    height: node.getBoundingClientRect().height,
+                    bottom: node.getBoundingClientRect().bottom,
+                    scroll: node.scrollHeight,
+                    client: node.clientHeight
+                })""")
+                self.assertEqual(values["visible"], "auto")
+                self.assertGreater(values["scroll"], values["client"])
+                self.assertLessEqual(values["bottom"], height + 1)
+                self.input.press("ArrowDown")
+                for _ in range(7):
+                    self.page.keyboard.press("ArrowDown")
+                expect(links.nth(7)).to_be_focused()
+                self.assertGreater(self.results.evaluate("node => node.scrollTop"), 0)
+                # A focused last result must remain visible within the panel.
+                self.assertTrue(links.nth(7).evaluate("""node => {
+                    const item = node.getBoundingClientRect();
+                    const panel = node.closest('.search-results').getBoundingClientRect();
+                    return item.bottom <= panel.bottom + 1 && item.top >= panel.top - 1;
+                }"""))
+                self.page.unroute("**/search.json")
+
+    def test_long_lesson_toc_generated_without_content_changes(self):
+        """Long lessons get a TOC; short pages do not; headings remain intact."""
+        self.page.goto(self.origin + "/descriptive/spread/variance/",
+                       wait_until="networkidle")
+        toc = self.page.get_by_role("navigation", name="On this page")
+        expect(toc).to_have_count(1)
+        headings = self.page.locator("main h2")
+        count = headings.count()
+        self.assertGreaterEqual(count, 7)
+        links = toc.locator("li a")
+        expect(links).to_have_count(count)
+        for i in range(count):
+            heading = headings.nth(i)
+            link = links.nth(i)
+            ident = heading.get_attribute("id")
+            self.assertTrue(ident)
+            expect(link).to_have_attribute("href", "#" + ident)
+            self.assertEqual(link.text_content(), heading.inner_text().strip())
+        self.assertEqual(len(self.page.locator("main h2[id]").evaluate_all(
+            "nodes => nodes.map(n => n.id)"
+        )), len(set(self.page.locator("main h2[id]").evaluate_all(
+            "nodes => nodes.map(n => n.id)"
+        ))))
+        toc.locator("summary").click()
+        expect(links.nth(1)).to_be_visible()
+        links.nth(1).click()
+        self.assertEqual(self.page.evaluate("decodeURIComponent(location.hash.slice(1))"),
+                         headings.nth(1).get_attribute("id"))
+        for path in ("/", "/about/", "/learning-paths/", "/404.html"):
+            with self.subTest(no_toc=path):
+                self.page.goto(self.origin + path, wait_until="networkidle")
+                expect(self.page.locator(".esa-lesson-toc")).to_have_count(0)
+
     def test_representative_lessons_and_navigation(self):
         self.open()
         cases = {
