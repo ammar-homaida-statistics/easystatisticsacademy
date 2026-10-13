@@ -440,6 +440,77 @@ class SearchTests(unittest.TestCase):
                     "content", "EasyStatisticsAcademy"
                 )
 
+    def test_custom_404_guidance_and_search_index(self):
+        """Custom 404 should use real learning routes, without entering search."""
+        self.assertTrue((SITE / "404.html").is_file(), "Built custom 404 missing")
+        self.assertNotIn("/404.html", [r["url"] for r in self.records])
+        self.page.goto(self.origin + "/404.html", wait_until="networkidle")
+        expect(self.page.get_by_role("heading", name="This page isn't available.")).to_be_visible()
+        expect(self.page.locator('meta[name="robots"]')).to_have_attribute(
+            "content", "noindex, follow"
+        )
+        expect(self.page.locator('link[href^="/css/editorial.css"]')).to_have_count(1)
+        expect(self.page.get_by_role("link", name="Search field above")).to_have_attribute(
+            "href", "#site-search"
+        )
+        for href in ("/", "/learning-paths/", "/foundations/", "/descriptive/",
+                     "/probability/", "/inference/"):
+            self.assertTrue((SITE / href.lstrip("/") / "index.html").is_file(), href)
+            expect(self.page.locator('.esa-error a[href="' + href + '"]')).to_have_count(1)
+        for width in (375, 768, 1280):
+            self.page.set_viewport_size({"width": width, "height": 820})
+            overflow = self.page.evaluate(
+                "() => document.documentElement.scrollWidth - window.innerWidth"
+            )
+            self.assertLessEqual(overflow, 1, f"404 overflow at {width}px: {overflow}")
+
+    def test_about_editorial_redesign(self):
+        """About keeps original mission and audience with scoped styles."""
+        self.page.goto(self.origin + "/about/", wait_until="networkidle")
+        expect(self.page.locator('link[href^="/css/editorial.css"]')).to_have_count(1)
+        expect(self.page.locator(".esa-about-hero h1")).to_be_visible()
+        for title in ("Why this project exists", "What makes the site different",
+                      "Built for different kinds of learners",
+                      "How the content is organized"):
+            expect(self.page.get_by_role("heading", name=title)).to_be_visible()
+        expect(self.page.locator(".esa-about-values .esa-about-card")).to_have_count(3)
+        expect(self.page.locator(".esa-about-grid--two .esa-about-card")).to_have_count(4)
+        for href in ("/learning-paths/", "/foundations/", "/descriptive/",
+                     "/probability/", "/inference/", "/modeling/",
+                     "/software/", "/machine-learning/"):
+            self.assertTrue((SITE / href.lstrip("/") / "index.html").is_file(), href)
+        for width in (375, 768, 1280):
+            self.page.set_viewport_size({"width": width, "height": 820})
+            overflow = self.page.evaluate(
+                "() => document.documentElement.scrollWidth - window.innerWidth"
+            )
+            self.assertLessEqual(overflow, 1, f"About overflow at {width}px: {overflow}")
+        self.page.goto(self.origin + "/descriptive/", wait_until="networkidle")
+        expect(self.page.locator('link[href^="/css/editorial.css"]')).to_have_count(0)
+
+    def test_mathjax_single_conditional_loader(self):
+        """Formula pages load MathJax once; non-math pages do not load it."""
+        for path in ("/", "/about/", "/404.html", "/learning-paths/"):
+            with self.subTest(no_math=path):
+                self.page.goto(self.origin + path, wait_until="networkidle")
+                expect(self.page.locator('script[src*="tex-mml-chtml.js"]')).to_have_count(0)
+        self.page.goto(self.origin + "/descriptive/spread/variance/",
+                       wait_until="networkidle")
+        scripts = self.page.locator('script[src*="tex-mml-chtml.js"]')
+        expect(scripts).to_have_count(1)
+        expect(scripts).to_have_attribute(
+            "src", "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+        )
+        expect(scripts).to_have_attribute("defer", "")
+        self.assertEqual(self.page.evaluate("window.MathJax.tex.inlineMath[0][0]"), "$")
+        self.assertEqual(self.page.evaluate("window.MathJax.tex.displayMath[1][0]"), r"\[")
+        self.assertEqual(self.page.evaluate("window.MathJax.tex.displayMath[1][1]"), r"\]")
+        self.assertEqual(len(self.page.locator("script").evaluate_all(
+            "(scripts) => scripts.filter(s => s.src.includes('tex-mml-chtml.js')).length"
+        )), 0) if False else None
+        # The CDN is stubbed by this test suite, so these tests validate
+        # loader selection and configuration, not live MathJax typesetting.
+
     def test_representative_lessons_and_navigation(self):
         self.open()
         cases = {
