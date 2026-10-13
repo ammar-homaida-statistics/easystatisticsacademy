@@ -73,9 +73,10 @@
     if (state === "loading") return message("Loading search…");
     if (state === "error") return message("Search is temporarily unavailable. Please try again.");
 
+    // Normalized fields are computed once after fetch, not on each keystroke.
     const matches = pages.map((page) => {
-      const title = normalize(page.title);
-      const content = normalize(page.content);
+      const title = page.normalizedTitle;
+      const content = page.normalizedContent;
       const rank = title === q ? 0 : title.startsWith(q) ? 1 : title.includes(q) ? 2 : content.includes(q) ? 3 : 4;
       return { page, rank };
     }).filter((match) => match.rank < 4)
@@ -153,7 +154,15 @@
       !page.url.startsWith("//") && new URL(page.url, location.origin).origin === location.origin)) {
       throw new Error("Invalid search index");
     }
-    pages = index.map((page) => ({ ...page, title: decodeEntities(page.title), content: decodeEntities(page.content) }));
+    pages = index.map((page) => {
+      const title = decodeEntities(page.title);
+      const content = decodeEntities(page.content);
+      return {
+        title, content, url: page.url,
+        normalizedTitle: normalize(title),
+        normalizedContent: normalize(content)
+      };
+    });
     state = "ready";
   } catch (error) {
     state = "error";
