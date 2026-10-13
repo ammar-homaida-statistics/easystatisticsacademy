@@ -503,9 +503,20 @@ class SearchTests(unittest.TestCase):
         )
         self.assertTrue(scripts.evaluate("(node) => node.async"),
                         "Dynamically loaded MathJax script should be async")
-        self.assertEqual(self.page.evaluate("window.MathJax.tex.inlineMath[0][0]"), "$")
-        self.assertEqual(self.page.evaluate("window.MathJax.tex.displayMath[1][0]"), r"\[")
-        self.assertEqual(self.page.evaluate("window.MathJax.tex.displayMath[1][1]"), r"\]")
+        runtime = self.page.evaluate("""() => {
+            const m = window.MathJax || {};
+            return {
+                keys: Object.keys(m),
+                tex: m.tex || (m.config && m.config.tex) || null
+            };
+        }""")
+        self.assertIsNotNone(runtime["tex"],
+                             f"Missing MathJax configuration: {runtime['keys']}")
+        tex = runtime["tex"]
+        self.assertEqual(tex["inlineMath"][0], ["$", "$"])
+        self.assertEqual(tex["inlineMath"][1], [r"\(", r"\)"])
+        self.assertEqual(tex["displayMath"][0], ["$$", "$$"])
+        self.assertEqual(tex["displayMath"][1], [r"\[", r"\]"])
         # The CDN is stubbed by this test suite, so these tests validate
         # loader selection and configuration, not live MathJax typesetting.
 
