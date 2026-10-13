@@ -405,7 +405,23 @@ sidebar: false
 
     const data = JSON.parse(raw);
 
-    if (!data || !data.url || !data.label) return;
+    // Only resume one of the seven actual descriptive block pages.
+    // Local storage is user-controlled and must not determine arbitrary links.
+    const allowedBlocks = new Set([
+      "/descriptive/data-variables/",
+      "/descriptive/tabular-summaries/",
+      "/descriptive/visualization/",
+      "/descriptive/center/",
+      "/descriptive/spread/",
+      "/descriptive/shape/",
+      "/descriptive/reporting/"
+    ]);
+
+    if (!data ||
+        typeof data.url !== "string" ||
+        !allowedBlocks.has(data.url) ||
+        typeof data.label !== "string" ||
+        !data.label.trim()) return;
 
     const wrap = document.getElementById("continue-reading-descriptive");
     const label = document.getElementById("continue-reading-descriptive-label");
@@ -413,8 +429,11 @@ sidebar: false
 
     if (!wrap || !label || !btn) return;
 
-    label.innerHTML =
-      "You last visited: <strong>" + data.label + "</strong>";
+    // Preserve the bold label without interpreting stored text as HTML.
+    label.textContent = "You last visited: ";
+    const name = document.createElement("strong");
+    name.textContent = data.label;
+    label.appendChild(name);
 
     btn.href = data.url;
 
