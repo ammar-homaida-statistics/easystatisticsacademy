@@ -106,7 +106,7 @@ class SearchTests(unittest.TestCase):
                 self.assertEqual(source.count('src="/js/search.js"'), 1)
                 self.assertNotIn("SimpleJekyllSearch(", source)
         # The refreshed homepage alone also loads a page-scoped stylesheet.
-        self.assertEqual(styles, {"/css/style.css", "/css/home.css", "/css/paths.css"})
+        self.assertEqual(styles, {"/css/style.css", "/css/home.css", "/css/paths.css", "/css/editorial.css"})
         home_links = Stylesheets()
         home_links.feed((SITE / "index.html").read_text())
         self.assertEqual({urlsplit(url).path for url in home_links.urls},
@@ -501,7 +501,8 @@ class SearchTests(unittest.TestCase):
         expect(scripts).to_have_attribute(
             "src", "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
         )
-        expect(scripts).to_have_attribute("defer", "")
+        self.assertTrue(scripts.evaluate("(node) => node.async"),
+                        "Dynamically loaded MathJax script should be async")
         self.assertEqual(self.page.evaluate("window.MathJax.tex.inlineMath[0][0]"), "$")
         self.assertEqual(self.page.evaluate("window.MathJax.tex.displayMath[1][0]"), r"\[")
         self.assertEqual(self.page.evaluate("window.MathJax.tex.displayMath[1][1]"), r"\]")
