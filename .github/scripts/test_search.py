@@ -15,6 +15,7 @@ from pathlib import Path
 import threading
 import unittest
 from urllib.parse import unquote, urlsplit
+from xml.etree import ElementTree
 
 from playwright.sync_api import expect, sync_playwright
 
@@ -519,6 +520,97 @@ class SearchTests(unittest.TestCase):
         self.assertEqual(tex["displayMath"][1], [r"\[", r"\]"])
         # The CDN is stubbed by this test suite, so these tests validate
         # loader selection and configuration, not live MathJax typesetting.
+
+    def test_search_arrow_navigation_between_results(self):
+        """Arrow keys traverse every result, including keyboard focus recovery."""
+        fixture = [
+            {"title": "Statistics basics", "url": "/foundations/what-is-statistics/",
+             "content": "Statistics in the foundations"},
+            {"title": "Statistics probability", "url": "/probability/",
+             "content": "Statistics and probability"},
+            {"title": "Statistics inference", "url": "/inference/",
+             "content": "Statistics and inference"},
+        ]
+        self.page.route("**/search.json", lambda route: route.fulfill(
+            content_type="application/json", body=json.dumps(fixture)
+        ))
+        self.open()
+        self.input.fill("statistics")
+        links = self.results.locator("a.search-item")
+        expect(links).to_have_count(3)
+        self.input.press("ArrowDown")
+        expect(links.nth(0)).to_be_focused()
+        links.nth(0).press("ArrowDown")
+        expect(links.nth(1)).to_be_focused()
+        links.nth(1).press("ArrowDown")
+        expect(links.nth(2)).to_be_focused()
+        links.nth(2).press("ArrowDown")
+        expect(links.nth(0)).to_be_focused()
+        links.nth(0).press("ArrowUp")
+        expect(self.input).to_be_focused()
+        self.input.press("ArrowUp")
+        expect(links.nth(2)).to_be_focused()
+        links.nth(2).press("ArrowUp")
+        expect(links.nth(1)).to_be_focused()
+        links.nth(1).press("Escape")
+        expect(self.input).to_be_focused()
+        expect(self.results).to_be_hidden()
+        self.input.fill("statistics")
+        self.input.press("ArrowDown")
+        expect(links.nth(0)).to_be_focused()
+        links.nth(0).press("Enter")
+        expect(self.page).to_have_url(self.origin + fixture[0]["url"])
+
+    def test_back_to_top_long_lesson_and_mobile(self):
+        """Scroll-only button must be keyboard operable and avoid narrow overflow."""
+        for width in (375, 1280):
+            with self.subTest(width=width):
+                self.page.set_viewport_size({"width": width, "height": 640})
+                self.page.goto(self.origin + "/descriptive/spread/variance/",
+                               wait_until="networkidle")
+                button = self.page.get_by_role("button", name="Back to top", include_hidden=True)
+                expect(button).to_have_count(1)
+                expect(button).to_be_hidden()
+                self.page.evaluate("window.scrollTo(0, 1200)")
+                expect(button).to_be_visible()
+                expect(button).to_have_attribute("type", "button")
+                bounding = button.bounding_box()
+                self.assertGreaterEqual(bounding["x"], 0)
+                self.assertLessEqual(bounding["x"] + bounding["width"], width + 1)
+                button.focus()
+                button.press("Enter")
+                expect(self.page.locator(".site-header .brand")).to_be_focused()
+                self.page.wait_for_function("window.scrollY <= 10")
+                expect(button).to_be_hidden()
+        self.page.goto(self.origin + "/learning-paths/", wait_until="networkidle")
+        expect(self.page.get_by_role("button", name="Back to top",
+                                     include_hidden=True)).to_be_hidden()
+
+    def test_sitemap_only_public_html_pages(self):
+        """Parse emitted XML and verify unique, real, canonical content routes."""
+        sitemap = SITE / "sitemap.xml"
+        root = ElementTree.fromstring(sitemap.read_text(encoding="utf-8"))
+        ns = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+        self.assertEqual(root.tag, "{http://www.sitemaps.org/schemas/sitemap/0.9}urlset")
+        locations = [e.text for e in root.findall("s:url/s:loc", ns)]
+        self.assertGreater(len(locations), 100)
+        self.assertEqual(len(locations), len(set(locations)))
+        base = "https://easystatisticsacademy.com"
+        for location in locations:
+            parts = urlsplit(location)
+            self.assertEqual(parts.scheme + "://" + parts.netloc, base)
+            self.assertEqual((parts.query, parts.fragment), ("", ""))
+            route = unquote(parts.path)
+            self.assertNotIn(route, ("/404.html", "/search.json", "/sitemap.xml",
+                                     "/feed.xml"))
+            self.assertTrue(route.endswith("/") or route.endswith(".html"), route)
+            target = SITE / route.lstrip("/")
+            if route.endswith("/"):
+                target = target / "index.html"
+            self.assertTrue(target.is_file(), location)
+        for required in ("/", "/about/", "/learning-paths/", "/foundations/",
+                         "/descriptive/spread/variance/"):
+            self.assertIn(base + required, locations)
 
     def test_representative_lessons_and_navigation(self):
         self.open()
