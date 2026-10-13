@@ -690,7 +690,9 @@ class SearchTests(unittest.TestCase):
         formulas = self.page.locator(".formula-box")
         self.assertGreater(formulas.count(), 0)
         expect(formulas.first).to_be_visible()
-        self.assertIn(r"\[", formulas.first.inner_text())
+        # TeX may be typeset into MathJax glyphs; require visible math, not raw delimiters.
+        self.assertTrue(formulas.first.inner_text().strip())
+        expect(formulas.first).to_contain_text("6")
         wrap = self.page.locator(".table-wrap").first
         table = wrap.locator("table")
         expect(table).to_be_visible()
