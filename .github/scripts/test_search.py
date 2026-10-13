@@ -612,6 +612,105 @@ class SearchTests(unittest.TestCase):
                          "/descriptive/spread/variance/"):
             self.assertIn(base + required, locations)
 
+    def test_primary_nav_active_on_mobile_and_desktop(self):
+        """Highlight only exact header routes; keep aria-current unique."""
+        routes = {
+            "/": "/",
+            "/about/": "/about/",
+            "/learning-paths/": "/learning-paths/",
+            "/learning-paths/beginner/": "/learning-paths/beginner/",
+            "/learning-paths/intermediate/": "/learning-paths/intermediate/",
+            "/learning-paths/advanced/": "/learning-paths/advanced/",
+            "/descriptive/": None,
+        }
+        for path, expected in routes.items():
+            with self.subTest(path=path):
+                self.page.goto(self.origin + path, wait_until="networkidle")
+                nav = self.page.get_by_role("navigation", name="Primary navigation")
+                active = nav.locator('[aria-current="page"]')
+                expect(active).to_have_count(1 if expected else 0)
+                if expected:
+                    expect(active).to_have_attribute("href", expected)
+                    expect(active).to_have_class("is-active")
+                    self.assertGreaterEqual(int(active.evaluate(
+                        "(node) => getComputedStyle(node).fontWeight"
+                    )), 800)
+                for width in (375, 1280):
+                    self.page.set_viewport_size({"width": width, "height": 850})
+                    if width == 375:
+                        self.page.get_by_role("button", name="Toggle menu").click()
+                    expect(nav).to_be_visible()
+                    expect(active).to_have_count(1 if expected else 0)
+
+    def test_search_caches_normalized_page_fields(self):
+        """Typing several times must not re-normalize every indexed page."""
+        fixture = [
+            {"title": f"Statistics topic {i}",
+             "url": "/foundations/what-is-statistics/",
+             "content": f"Statistics probability methods and topic {i}"}
+            for i in range(80)
+        ]
+        self.page.add_init_script("""(() => {
+            const original = String.prototype.normalize;
+            window.__esaNormalizations = 0;
+            String.prototype.normalize = function (...args) {
+                window.__esaNormalizations++;
+                return original.apply(this, args);
+            };
+        })();""")
+        self.page.route("**/search.json", lambda route: route.fulfill(
+            content_type="application/json", body=json.dumps(fixture)
+        ))
+        self.open()
+        initial_calls = self.page.evaluate("window.__esaNormalizations")
+        self.assertGreaterEqual(initial_calls, 160,
+                                "Index fields were not normalized during load")
+        for q in ("statistics", "stat", "probability", "methods", "topic"):
+            self.input.fill(q)
+            expect(self.results.locator("a.search-item")).to_have_count(8)
+        extra_calls = self.page.evaluate("window.__esaNormalizations") - initial_calls
+        self.assertLess(extra_calls, 80,
+                        f"Typing reprocessed the indexed page content: {extra_calls} calls")
+        expect(self.results.locator("a.search-item").first).to_have_attribute(
+            "href", "/foundations/what-is-statistics/"
+        )
+
+    def test_print_friendly_variance_lesson(self):
+        """Print styles keep formulas and full tables, without site chrome."""
+        self.page.goto(self.origin + "/descriptive/spread/variance/",
+                       wait_until="networkidle")
+        expect(self.page.locator(".site-header")).to_be_visible()
+        self.page.emulate_media(media="print")
+        for selector in (".site-header", ".site-footer", "#back-to-top",
+                         ".skip-link"):
+            self.assertEqual(self.page.locator(selector).evaluate(
+                "(node) => getComputedStyle(node).display"
+            ), "none", f"Print chrome should be hidden: {selector}")
+        expect(self.page.get_by_role("heading", name="Variance", exact=True)).to_be_visible()
+        formulas = self.page.locator(".formula-box")
+        self.assertGreater(formulas.count(), 0)
+        expect(formulas.first).to_be_visible()
+        # TeX may be typeset into MathJax glyphs; require visible math, not raw delimiters.
+        self.assertTrue(formulas.first.inner_text().strip())
+        expect(formulas.first).to_contain_text("6")
+        wrap = self.page.locator(".table-wrap").first
+        table = wrap.locator("table")
+        expect(table).to_be_visible()
+        self.assertEqual(wrap.evaluate(
+            "(node) => getComputedStyle(node).overflowX"
+        ), "visible")
+        self.assertEqual(table.evaluate(
+            "(node) => getComputedStyle(node).display"
+        ), "table")
+        self.assertEqual(table.evaluate(
+            "(node) => getComputedStyle(node).minWidth"
+        ), "0px")
+        self.assertLessEqual(table.bounding_box()["width"],
+                             self.page.locator("main").bounding_box()["width"] + 1)
+        expect(table.locator("th")).to_have_count(3)
+        self.page.emulate_media(media="screen")
+        expect(self.page.locator(".site-header")).to_be_visible()
+
     def test_representative_lessons_and_navigation(self):
         self.open()
         cases = {

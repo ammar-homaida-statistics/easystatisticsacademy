@@ -40,15 +40,15 @@
 
       <nav id="site-primary-nav" class="nav" aria-label="Primary navigation">
 
-        <a href="/">Home</a>
+        <a href="/"{% if page.url == '/' %} class="is-active" aria-current="page"{% endif %}>Home</a>
 
-        <a href="/learning-paths/beginner/">Beginner</a>
-        <a href="/learning-paths/intermediate/">Intermediate</a>
-        <a href="/learning-paths/advanced/">Advanced</a>
+        <a href="/learning-paths/beginner/"{% if page.url == '/learning-paths/beginner/' %} class="is-active" aria-current="page"{% endif %}>Beginner</a>
+        <a href="/learning-paths/intermediate/"{% if page.url == '/learning-paths/intermediate/' %} class="is-active" aria-current="page"{% endif %}>Intermediate</a>
+        <a href="/learning-paths/advanced/"{% if page.url == '/learning-paths/advanced/' %} class="is-active" aria-current="page"{% endif %}>Advanced</a>
 
-        <a href="/learning-paths/">Paths</a>
+        <a href="/learning-paths/"{% if page.url == '/learning-paths/' %} class="is-active" aria-current="page"{% endif %}>Paths</a>
 
-        <a href="/about/">About</a>
+        <a href="/about/"{% if page.url == '/about/' %} class="is-active" aria-current="page"{% endif %}>About</a>
 
       </nav>
 
