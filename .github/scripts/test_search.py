@@ -768,7 +768,7 @@ class SearchTests(unittest.TestCase):
             ident = heading.get_attribute("id")
             self.assertTrue(ident)
             expect(link).to_have_attribute("href", "#" + ident)
-            self.assertEqual(link.inner_text(), heading.inner_text().strip())
+            self.assertEqual(link.text_content(), heading.inner_text().strip())
         self.assertEqual(len(self.page.locator("main h2[id]").evaluate_all(
             "nodes => nodes.map(n => n.id)"
         )), len(set(self.page.locator("main h2[id]").evaluate_all(
