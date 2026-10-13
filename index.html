@@ -187,9 +187,9 @@ home_styles: true
 
 </div>
 
-<!-- Preserve the existing continue-learning preference, only for internal paths. -->
+<!-- Resume only verified, existing learning pages; never trust stored URLs. -->
 <script>
-(function () {
+(async function () {
   try {
     const last = localStorage.getItem("esa:lastPage");
     const btn = document.getElementById("continueBtn");
@@ -197,16 +197,22 @@ home_styles: true
     const label = document.getElementById("continueLabel");
 
     if (!last || !btn || !wrap || !label) return;
-    if (!/^\/(?!\/)[a-z0-9\/-]+\/?$/i.test(last) || last === "/") return;
+    const learningRoute = /^\/(?:foundations|descriptive|probability|inference|modeling|applied-statistics|mathematical-statistics|machine-learning|data-mining|artificial-intelligence|software)(?:\/[a-z0-9-]+)+\/$/;
+    if (!learningRoute.test(last)) return;
 
-    const name = last.replace(/^\/|\/$/g, "").replace(/\//g, " › ").replace(/-/g, " ")
-      .replace(/\b\w/g, c => c.toUpperCase());
+    // An old or tampered-with storage value must not lead to a missing page.
+    const response = await fetch(last, { method: "HEAD" });
+    if (!response.ok || new URL(response.url).origin !== location.origin) return;
 
+    const storedTitle = localStorage.getItem("esa:lastTitle");
+    const readable = last.replace(/^\/|\/$/g, "").split("/").pop()
+      .replace(/-/g, " ").replace(/\b\w/g, char => char.toUpperCase());
+    const name = (storedTitle && storedTitle.trim() ? storedTitle.trim().slice(0, 120) : readable);
     btn.href = last;
-    label.textContent = "Your last visited lesson: " + name;
+    label.textContent = "Pick up where you left off: " + name;
     wrap.hidden = false;
   } catch (e) {
-    // Browsers may disable local storage. The rest of the page still works.
+    // Offline mode or disabled browser storage must not affect other content.
   }
 })();
 </script>

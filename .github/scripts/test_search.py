@@ -280,6 +280,89 @@ class SearchTests(unittest.TestCase):
             destination = SITE / href.lstrip("/") / "index.html"
             self.assertTrue(destination.is_file(), f"Broken Learning Paths link: {href}")
 
+    def test_sidebar_links_are_live(self):
+        """Only real pages are linked; the active sidebar entry is marked."""
+        self.page.goto(self.origin + "/foundations/", wait_until="networkidle")
+        links = self.page.locator(".sidebar .nav-link")
+        self.assertGreater(links.count(), 10)
+        hrefs = links.evaluate_all(
+            "(elements) => elements.map(el => el.getAttribute('href'))"
+        )
+        self.assertEqual(len(hrefs), len(set(hrefs)))
+        for href in hrefs:
+            self.assertTrue(href.startswith("/") and href.endswith("/"), href)
+            self.assertTrue((SITE / href.lstrip("/") / "index.html").is_file(),
+                            f"Sidebar target missing: {href}")
+        expect(self.page.locator('.sidebar [aria-current="page"]')).to_have_count(1)
+        expect(self.page.locator('.sidebar [aria-current="page"]')).to_have_attribute(
+            "href", "/foundations/"
+        )
+        self.assertEqual(self.page.locator('.sidebar a[href="#"]').count(), 0)
+
+    def test_homepage_resume_only_existing_learning_pages(self):
+        """Real lessons resume; irrelevant, missing and unsafe URLs are ignored."""
+        self.page.goto(self.origin + "/foundations/what-is-statistics/",
+                       wait_until="networkidle")
+        self.assertEqual(self.page.evaluate("localStorage.getItem('esa:lastPage')"),
+                         "/foundations/what-is-statistics/")
+        self.page.goto(self.origin + "/about/", wait_until="networkidle")
+        self.assertEqual(self.page.evaluate("localStorage.getItem('esa:lastPage')"),
+                         "/foundations/what-is-statistics/")
+
+        self.page.goto(self.origin + "/", wait_until="networkidle")
+        wrap = self.page.locator("#continue-home")
+        link = self.page.locator("#continueBtn")
+        label = self.page.locator("#continueLabel")
+        expect(wrap).to_be_visible()
+        expect(link).to_have_attribute("href", "/foundations/what-is-statistics/")
+        expect(label).to_contain_text("What Is Statistics?")
+
+        self.page.evaluate("""() => {
+            localStorage.setItem('esa:lastTitle',
+                '<img src=x onerror="window.esaInjected=true">');
+        }""")
+        self.page.reload(wait_until="networkidle")
+        expect(label).to_contain_text('<img src=x onerror="window.esaInjected=true">')
+        self.assertEqual(label.locator("img, script").count(), 0)
+        self.assertIsNone(self.page.evaluate("window.esaInjected"))
+
+        for invalid in ("https://example.com/", "//example.com/",
+                        "javascript:alert(1)", "/about/", "/learning-paths/",
+                        "/foundations/not-a-real-lesson/", "/",
+                        "/foundations/what-is-statistics/?next=other"):
+            with self.subTest(invalid=invalid):
+                self.page.evaluate(
+                    "url => localStorage.setItem('esa:lastPage', url)", invalid
+                )
+                self.page.reload(wait_until="networkidle")
+                expect(wrap).to_be_hidden()
+                expect(link).to_have_attribute("href", "/learning-paths/")
+
+    def test_search_snippets_follow_normalized_matches(self):
+        """Unicode folding and whitespace must not shift result previews."""
+        content = ("Unrelated introduction and preliminary remarks. " * 7
+                   + "The CENTRAL \n       LIMIT theorem is a key result. "
+                   + "Discussion of a \ufb01nite population correction follows.")
+        fixture = [{
+            "title": "A statistical tutorial",
+            "url": "/foundations/what-is-statistics/",
+            "content": content,
+        }]
+        self.page.route("**/search.json", lambda route: route.fulfill(
+            content_type="application/json", body=json.dumps(fixture)))
+        self.open()
+        self.input.fill("central limit")
+        preview = self.results.locator(".search-snippet")
+        expect(preview).to_contain_text("CENTRAL LIMIT theorem")
+        self.assertLess(len(preview.inner_text()), 190)
+        self.assertTrue(preview.inner_text().startswith("…"))
+        self.assertNotIn("\n", preview.inner_text())
+
+        self.input.fill("finite population")
+        expect(preview).to_contain_text("finite population correction")
+        self.assertLess(len(preview.inner_text()), 190)
+        self.assertEqual(self.results.locator("a").count(), 1)
+
     def test_representative_lessons_and_navigation(self):
         self.open()
         cases = {

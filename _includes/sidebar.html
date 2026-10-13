@@ -6,9 +6,10 @@
       <summary>Foundations</summary>
       <div class="nav-list">
         <a class="nav-link" href="/foundations/">Statistics Foundations</a>
-        <a class="nav-link" href="/foundations/what-is-statistics.html">What is Statistics?</a>
-        <a class="nav-link" href="/foundations/population-vs-sample.html">Population vs Sample</a>
-        <a class="nav-link" href="/foundations/types-of-data.html">Types of Data</a>
+        <a class="nav-link" href="/foundations/what-is-statistics/">What Is Statistics?</a>
+        <a class="nav-link" href="/foundations/populations/">Populations</a>
+        <a class="nav-link" href="/foundations/samples/">Samples</a>
+        <a class="nav-link" href="/foundations/types-of-data/">Types of Data</a>
       </div>
     </details>
 
@@ -16,8 +17,8 @@
       <summary>Probability</summary>
       <div class="nav-list">
         <a class="nav-link" href="/probability/">Probability &amp; Theory</a>
-        <a class="nav-link" href="#">Probability basics (coming soon)</a>
-        <a class="nav-link" href="#">Random variables (coming soon)</a>
+        <a class="nav-link" href="/probability/basics/">Probability Basics</a>
+        <a class="nav-link" href="/probability/random-variables/">Random Variables</a>
       </div>
     </details>
 
@@ -25,7 +26,7 @@
       <summary>Inference</summary>
       <div class="nav-list">
         <a class="nav-link" href="/inference/">Statistical Inference</a>
-        <a class="nav-link" href="#">Hypothesis testing (coming soon)</a>
+        <a class="nav-link" href="/inference/hypothesis-testing/">Hypothesis Testing</a>
       </div>
     </details>
 
@@ -33,7 +34,7 @@
       <summary>Modeling</summary>
       <div class="nav-list">
         <a class="nav-link" href="/modeling/">Regression &amp; Modeling</a>
-        <a class="nav-link" href="#">Linear regression (coming soon)</a>
+        <a class="nav-link" href="/modeling/simple-linear-regression/">Simple Linear Regression</a>
       </div>
     </details>
 
@@ -41,7 +42,7 @@
       <summary>Learning Paths</summary>
       <div class="nav-list">
         <a class="nav-link" href="/learning-paths/">Learning Paths</a>
-        <a class="nav-link" href="#">Beginner path (coming soon)</a>
+        <a class="nav-link" href="/learning-paths/beginner/">Beginner Learning Path</a>
       </div>
     </details>
   </div>
@@ -50,11 +51,13 @@
 <script>
   // Active link highlight
   (function () {
-    const current = window.location.pathname.replace(/\/$/, "");
-    document.querySelectorAll(".nav-link").forEach(a => {
-      const href = (a.getAttribute("href") || "").replace(/\/$/, "");
+    const canonical = path => path.replace(/\/+$/, "") || "/";
+    const current = canonical(window.location.pathname);
+    document.querySelectorAll(".sidebar .nav-link").forEach(a => {
+      const href = canonical(a.getAttribute("href") || "");
       if (href && href !== "#" && href === current) {
         a.classList.add("active");
+        a.setAttribute("aria-current", "page");
         // expand the accordion group that contains the active link
         const details = a.closest("details");
         if (details) details.open = true;

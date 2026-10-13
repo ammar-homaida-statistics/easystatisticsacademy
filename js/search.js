@@ -32,6 +32,40 @@
     status.textContent = text;
   }
 
+  function readableSnippet(content, query) {
+    // Match against normalized text, while remembering the corresponding
+    // display offsets. Original source offsets diverge after whitespace,
+    // Unicode compatibility characters and case-fold expansions.
+    const display = content.normalize("NFKC").replace(/\s+/g, " ").trim();
+    if (!display) return "";
+
+    let folded = "";
+    const offsets = [];
+    for (let i = 0; i < display.length;) {
+      const character = String.fromCodePoint(display.codePointAt(i));
+      const lower = character.replace(/[‘’]/g, "'").toLowerCase();
+      for (let j = 0; j < lower.length; j++) offsets.push(i);
+      folded += lower;
+      i += character.length;
+    }
+
+    const position = folded.indexOf(query);
+    const matchStart = position < 0 ? 0 : offsets[position];
+    let start = Math.max(0, matchStart - 50);
+    if (start > 0) {
+      const nextSpace = display.indexOf(" ", start);
+      if (nextSpace > 0 && nextSpace - start < 24) start = nextSpace + 1;
+    }
+    let end = Math.min(display.length, start + 160);
+    if (end < display.length) {
+      const wordEnd = display.lastIndexOf(" ", end);
+      if (wordEnd > start + 95) end = wordEnd;
+    }
+
+    return (start ? "…" : "") + display.slice(start, end) +
+      (end < display.length ? "…" : "");
+  }
+
   function search(query) {
     const q = normalize(query);
     if (!q) return close();
@@ -58,8 +92,7 @@
       title.textContent = page.title;
       const snippet = document.createElement("div");
       snippet.className = "search-snippet";
-      const pos = normalize(page.content).indexOf(q);
-      snippet.textContent = page.content.substring(Math.max(0, pos - 50), Math.max(0, pos - 50) + 140);
+      snippet.textContent = readableSnippet(page.content, q);
       link.append(title, snippet);
       box.append(link);
     }
