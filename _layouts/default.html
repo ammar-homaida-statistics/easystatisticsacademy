@@ -37,11 +37,17 @@
   <meta name="robots" content="noindex, follow" />
   {% endif %}
 
-  <!-- Configure MathJax before any optional loader runs. -->
+  {% include schema-org.html %}
+
+  <!-- TeX configuration is cheap; only math pages fetch the MathJax library. -->
   <script>
     window.MathJax = {
       tex: {
-        inlineMath: [['
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
 
 </head>
 
@@ -99,7 +105,7 @@
 
   <script src="/js/js/site.js"></script>
 
-  <!-- Load the MathJax library only when visible lesson text contains TeX. -->
+  <!-- Inspect lesson text, excluding code and scripts, before loading MathJax. -->
   <script>
     (function () {
       const main = document.getElementById("main-content");
@@ -120,181 +126,13 @@
         }
       }
       if (needsMathJax) {
-        const loader = document.createElement("script");
-        loader.src = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js";
-        loader.async = true;
-        document.body.appendChild(loader);
+        const script = document.createElement("script");
+        script.src = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js";
+        script.async = true;
+        document.body.appendChild(script);
       }
     })();
   </script>
-
-</body>
-</html>
-, '
-
-</head>
-
-<body>
-
-  <a class="skip-link" href="#main-content">Skip to main content</a>
-  {% include header.html %}
-
-  <!-- MAIN CONTENT -->
-  <main id="main-content" class="container" tabindex="-1">
-
-    {% if page.sidebar %}
-      <div class="layout-two-col">
-        {% include sidebar.html %}
-        <div class="content">
-          {{ content }}
-        </div>
-      </div>
-    {% else %}
-      {{ content }}
-    {% endif %}
-
-  </main>
-
-  {% include footer.html %}
-
-  <!-- MOBILE NAV -->
-  <script>
-    const header = document.querySelector(".site-header");
-    const toggle = document.querySelector(".nav-toggle");
-
-    if (header && toggle) {
-      toggle.addEventListener("click", () => {
-        const isOpen = header.classList.toggle("nav-open");
-        toggle.setAttribute("aria-expanded", String(isOpen));
-      });
-      document.addEventListener("keydown", event => {
-        if (event.key === "Escape" && header.classList.contains("nav-open")) {
-          header.classList.remove("nav-open");
-          toggle.setAttribute("aria-expanded", "false");
-          toggle.focus();
-        }
-      });
-      header.querySelectorAll(".nav a").forEach(link => {
-        link.addEventListener("click", () => {
-          header.classList.remove("nav-open");
-          toggle.setAttribute("aria-expanded", "false");
-        });
-      });
-    }
-  </script>
-
-  <!-- SEARCH -->
-  <script src="/js/search.js"></script>
-
-  <script src="/js/js/site.js"></script>
-
-  {% comment %}
-  MathJax is required by existing lessons even without page.math front matter.
-  Check rendered lesson content conservatively; false positives only cost a load.
-  This keeps TeX delimiters working while omitting MathJax on non-math pages.
-  {% endcomment %}
-  {% assign math_in_content = false %}
-  {% if content contains '\[' or content contains '\(' or content contains '$' or content contains '\begin{' %}
-    {% assign math_in_content = true %}
-  {% endif %}
-  {% if page.math or math_in_content %}
-  <script>
-    window.MathJax = {
-      tex: {
-        inlineMath: [['$', '$'], ['\\(', '\\)']],
-        displayMath: [['$$', '$$'], ['\\[', '\\]']]
-      }
-    };
-  </script>
-  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-  {% endif %}
-
-</body>
-</html>
-], ['\\(', '\\)']],
-        displayMath: [['$', '$'], ['\\[', '\\]']]
-      }
-    };
-  </script>
-
-  {% include schema-org.html %}
-
-</head>
-
-<body>
-
-  <a class="skip-link" href="#main-content">Skip to main content</a>
-  {% include header.html %}
-
-  <!-- MAIN CONTENT -->
-  <main id="main-content" class="container" tabindex="-1">
-
-    {% if page.sidebar %}
-      <div class="layout-two-col">
-        {% include sidebar.html %}
-        <div class="content">
-          {{ content }}
-        </div>
-      </div>
-    {% else %}
-      {{ content }}
-    {% endif %}
-
-  </main>
-
-  {% include footer.html %}
-
-  <!-- MOBILE NAV -->
-  <script>
-    const header = document.querySelector(".site-header");
-    const toggle = document.querySelector(".nav-toggle");
-
-    if (header && toggle) {
-      toggle.addEventListener("click", () => {
-        const isOpen = header.classList.toggle("nav-open");
-        toggle.setAttribute("aria-expanded", String(isOpen));
-      });
-      document.addEventListener("keydown", event => {
-        if (event.key === "Escape" && header.classList.contains("nav-open")) {
-          header.classList.remove("nav-open");
-          toggle.setAttribute("aria-expanded", "false");
-          toggle.focus();
-        }
-      });
-      header.querySelectorAll(".nav a").forEach(link => {
-        link.addEventListener("click", () => {
-          header.classList.remove("nav-open");
-          toggle.setAttribute("aria-expanded", "false");
-        });
-      });
-    }
-  </script>
-
-  <!-- SEARCH -->
-  <script src="/js/search.js"></script>
-
-  <script src="/js/js/site.js"></script>
-
-  {% comment %}
-  MathJax is required by existing lessons even without page.math front matter.
-  Check rendered lesson content conservatively; false positives only cost a load.
-  This keeps TeX delimiters working while omitting MathJax on non-math pages.
-  {% endcomment %}
-  {% assign math_in_content = false %}
-  {% if content contains '\[' or content contains '\(' or content contains '$' or content contains '\begin{' %}
-    {% assign math_in_content = true %}
-  {% endif %}
-  {% if page.math or math_in_content %}
-  <script>
-    window.MathJax = {
-      tex: {
-        inlineMath: [['$', '$'], ['\\(', '\\)']],
-        displayMath: [['$$', '$$'], ['\\[', '\\]']]
-      }
-    };
-  </script>
-  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-  {% endif %}
 
 </body>
 </html>
