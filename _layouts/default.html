@@ -16,6 +16,9 @@
   {% if page.home_styles %}
   <link rel="stylesheet" href="/css/home.css?v=1" />
   {% endif %}
+  {% if page.paths_styles %}
+  <link rel="stylesheet" href="/css/paths.css?v=1" />
+  {% endif %}
 
   {% include schema-org.html %}
 
@@ -57,6 +60,19 @@
       toggle.addEventListener("click", () => {
         const isOpen = header.classList.toggle("nav-open");
         toggle.setAttribute("aria-expanded", String(isOpen));
+      });
+      document.addEventListener("keydown", event => {
+        if (event.key === "Escape" && header.classList.contains("nav-open")) {
+          header.classList.remove("nav-open");
+          toggle.setAttribute("aria-expanded", "false");
+          toggle.focus();
+        }
+      });
+      header.querySelectorAll(".nav a").forEach(link => {
+        link.addEventListener("click", () => {
+          header.classList.remove("nav-open");
+          toggle.setAttribute("aria-expanded", "false");
+        });
       });
     }
   </script>
