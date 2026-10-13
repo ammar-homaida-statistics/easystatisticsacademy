@@ -1,0 +1,112 @@
+/* Learning Paths overview only; preserves shared and lesson styles. */
+.esa-paths {
+  --paths-ink: #102a43;
+  --paths-muted: #50647a;
+  --paths-teal: #087f7a;
+  color: var(--paths-ink);
+}
+.esa-paths a:focus-visible { outline: 3px solid #0ba49b; outline-offset: 4px; }
+.esa-paths-hero {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(28px, 5vw, 58px);
+  border: 1px solid #1e5871;
+  border-radius: 28px;
+  background: radial-gradient(circle at 100% 0%, rgba(20,170,154,.24), transparent 45%),
+              linear-gradient(128deg, #0c213d, #133950 70%, #12565c);
+  color: #fff;
+  box-shadow: 0 18px 46px rgba(12,40,63,.12);
+}
+.esa-paths-eyebrow {
+  margin: 0 0 13px;
+  color: #a2eadd;
+  font-size: .79rem;
+  font-weight: 850;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.esa-paths-hero h1 {
+  max-width: 820px;
+  margin: 0 0 18px;
+  color: #fff;
+  font-size: clamp(2.1rem, 4.5vw, 3.7rem);
+  letter-spacing: -.05em;
+  line-height: 1.12;
+}
+.esa-paths-lead {
+  max-width: 700px;
+  margin: 0;
+  color: #d9e9ef;
+  font-size: 1.06rem;
+  line-height: 1.8;
+}
+.esa-paths-actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 24px 0 33px; }
+.esa-paths-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 47px;
+  padding: 12px 18px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  font-weight: 800;
+  text-decoration: none;
+}
+.esa-paths-button--primary { background: #fff; color: #123650; }
+.esa-paths-button--primary:hover { background: #e9fcf4; color: #123650; text-decoration: none; }
+.esa-paths-button--secondary { border-color: #86b1b8; color: #fff; background: rgba(255,255,255,.07); }
+.esa-paths-button--secondary:hover { color: #fff; background: rgba(255,255,255,.16); text-decoration: none; }
+.esa-paths-route { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
+.esa-paths-route a {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 19px;
+  border: 1px solid rgba(255,255,255,.24);
+  border-radius: 18px;
+  background: rgba(255,255,255,.09);
+  text-decoration: none;
+}
+.esa-paths-route a:hover { background: rgba(255,255,255,.17); text-decoration: none; }
+.esa-paths-route span { color: #a7efdf; font-size: .72rem; font-weight: 850; letter-spacing: .09em; }
+.esa-paths-route strong { margin: 8px 0 5px; color: #fff; font-size: 1.28rem; }
+.esa-paths-route small { color: #d3e2ed; font-size: .86rem; }
+.esa-paths .section { padding-top: 54px; padding-bottom: 5px; }
+.esa-paths .section-head { margin-bottom: 22px; }
+.esa-paths .section-head h2 {
+  margin-bottom: 8px;
+  color: var(--paths-ink);
+  font-size: clamp(1.7rem, 3vw, 2.25rem);
+  letter-spacing: -.038em;
+}
+.esa-paths .section-head p { max-width: 780px; color: var(--paths-muted); }
+.esa-paths-detail-link { display: inline-block; color: var(--paths-teal); font-weight: 800; }
+.esa-paths .grid { margin: 18px 0 0; gap: 14px; }
+.esa-paths .card {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  min-height: 172px;
+  border: 1px solid #dce7ec;
+  border-radius: 19px;
+  background: #fff;
+  box-shadow: 0 7px 22px rgba(13,37,65,.04);
+}
+.esa-paths .card:hover { border-color: #a2d4cd; box-shadow: 0 13px 29px rgba(13,37,65,.08); }
+.esa-paths .card h3 { color: var(--paths-ink); font-size: 1.1rem; }
+.esa-paths .card p { margin: 2px 0 18px; color: var(--paths-muted); line-height: 1.6; }
+.esa-paths .card-foot { margin-top: auto; color: var(--paths-teal); font-weight: 850; }
+.esa-paths .section-soft { border-radius: 22px; background: #edf7f6; padding: 35px 20px 28px; }
+.esa-paths .callout { border-radius: 23px; }
+.esa-paths .section-slim { padding-bottom: 28px; }
+@media (max-width: 760px) {
+  .esa-paths-hero { padding: 27px 22px; border-radius: 22px; }
+  .esa-paths-hero h1 { font-size: clamp(2rem, 8.5vw, 2.8rem); }
+  .esa-paths-route { grid-template-columns: 1fr; }
+  .esa-paths-route a { padding: 14px 17px; }
+  .esa-paths .section { padding-top: 42px; }
+  .esa-paths .section-soft { padding: 30px 16px 22px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .esa-paths a { transition: none; }
+}
