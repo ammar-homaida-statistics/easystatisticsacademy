@@ -129,6 +129,35 @@ hr{
   border: 0;
 }
 
+/* Keyboard-first shortcut to the main content on every page. */
+.skip-link{
+  position: fixed;
+  z-index: 2100;
+  top: 10px;
+  left: 10px;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.skip-link:focus-visible{
+  width: auto;
+  height: auto;
+  padding: 12px 18px;
+  clip-path: none;
+  overflow: visible;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  background: #0b2d5f;
+  color: #fff;
+  font-weight: 800;
+  box-shadow: 0 0 0 3px #0b8f89;
+  text-decoration: none;
+}
+#main-content:focus{ outline: none; }
+
 /* =========================================================
    LAYOUT
    ========================================================= */
@@ -1066,6 +1095,16 @@ pre code{
   color: var(--brand);
   font-size: 1rem;
   transition: transform 0.16s ease, background 0.16s ease, border-color 0.16s ease;
+}
+
+.footer-social svg{
+  display: block;
+  width: 21px;
+  height: 21px;
+}
+.footer-social a:focus-visible{
+  outline: 3px solid #0b8f89;
+  outline-offset: 3px;
 }
 
 .footer-social a:hover{

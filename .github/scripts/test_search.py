@@ -363,6 +363,83 @@ class SearchTests(unittest.TestCase):
         self.assertLess(len(preview.inner_text()), 190)
         self.assertEqual(self.results.locator("a").count(), 1)
 
+    def test_footer_social_icons_and_destinations(self):
+        """All social links have self-contained icons and accessible labels."""
+        expected = {
+            "YouTube": "https://www.youtube.com/@EasyStatisticsAcademy",
+            "LinkedIn": "https://www.linkedin.com/company/easystatisticsacademy",
+            "Facebook": "https://www.facebook.com/profile.php?id=61586090026121",
+        }
+        for path in ("/", "/foundations/", "/learning-paths/"):
+            with self.subTest(path=path):
+                self.page.goto(self.origin + path, wait_until="networkidle")
+                footer = self.page.locator(".footer-social")
+                expect(footer.locator("a")).to_have_count(3)
+                expect(footer.locator("i")).to_have_count(0)
+                for name, href in expected.items():
+                    link = self.page.get_by_role("link", name=name + " (opens in a new tab)")
+                    expect(link).to_have_attribute("href", href)
+                    expect(link).to_have_attribute("target", "_blank")
+                    expect(link).to_have_attribute("rel", "noopener noreferrer")
+                    symbol = link.locator("svg")
+                    expect(symbol).to_have_count(1)
+                    expect(symbol).to_have_attribute("aria-hidden", "true")
+                for width in (375, 1280):
+                    self.page.set_viewport_size({"width": width, "height": 800})
+                    for icon in footer.locator("svg").all():
+                        expect(icon).to_be_visible()
+                        self.assertGreaterEqual(icon.bounding_box()["width"], 20)
+
+    def test_skip_to_main_keyboard_navigation(self):
+        """The first keyboard Tab reveals a skip link that focuses main."""
+        for path in ("/", "/foundations/", "/learning-paths/"):
+            with self.subTest(path=path):
+                self.page.goto(self.origin + path, wait_until="networkidle")
+                skip = self.page.get_by_role("link", name="Skip to main content")
+                main = self.page.locator("main#main-content")
+                expect(skip).to_have_attribute("href", "#main-content")
+                expect(main).to_have_attribute("tabindex", "-1")
+                self.page.keyboard.press("Tab")
+                expect(skip).to_be_focused()
+                self.assertEqual(self.page.evaluate(
+                    "getComputedStyle(document.querySelector('.skip-link')).clipPath"
+                ), "none")
+                self.page.keyboard.press("Enter")
+                expect(main).to_be_focused()
+
+    def test_site_canonical_and_social_metadata(self):
+        """Canonical, Open Graph and Twitter metadata must match each page."""
+        base = "https://easystatisticsacademy.com"
+        for path in ("/", "/foundations/", "/learning-paths/",
+                     "/probability/", "/descriptive/spread/variance/"):
+            with self.subTest(path=path):
+                self.page.goto(self.origin + path, wait_until="networkidle")
+                canonical = self.page.locator('head link[rel="canonical"]')
+                expect(canonical).to_have_count(1)
+                expected_url = base + path
+                expect(canonical).to_have_attribute("href", expected_url)
+                expect(self.page.locator('meta[property="og:url"]')).to_have_attribute(
+                    "content", expected_url
+                )
+                title = self.page.title()
+                description = self.page.locator(
+                    'head meta[name="description"]').get_attribute("content")
+                self.assertTrue(description)
+                for selector in ('meta[property="og:title"]',
+                                 'meta[name="twitter:title"]'):
+                    expect(self.page.locator(selector)).to_have_attribute("content", title)
+                for selector in ('meta[property="og:description"]',
+                                 'meta[name="twitter:description"]'):
+                    expect(self.page.locator(selector)).to_have_attribute(
+                        "content", description
+                    )
+                expect(self.page.locator('meta[name="twitter:card"]')).to_have_attribute(
+                    "content", "summary"
+                )
+                expect(self.page.locator('meta[property="og:site_name"]')).to_have_attribute(
+                    "content", "EasyStatisticsAcademy"
+                )
+
     def test_representative_lessons_and_navigation(self):
         self.open()
         cases = {
