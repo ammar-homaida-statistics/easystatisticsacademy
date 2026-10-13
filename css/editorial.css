@@ -1,0 +1,58 @@
+/* Editorial About + 404 styles only; no impact on lesson pages. */
+.esa-about,.esa-error{--editorial-ink:#102a43;--editorial-muted:#53687c;--editorial-teal:#087f7a;color:var(--editorial-ink)}
+.esa-about a:focus-visible,.esa-error a:focus-visible{outline:3px solid #0b938c;outline-offset:4px}
+.esa-editorial-eyebrow{margin:0 0 14px;font-size:.78rem;font-weight:850;letter-spacing:.12em;text-transform:uppercase;color:#087f7a}
+.esa-editorial-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:27px}
+.esa-editorial-button{display:inline-flex;justify-content:center;align-items:center;min-height:46px;padding:12px 18px;border-radius:13px;border:1px solid transparent;font-weight:800;text-decoration:none}
+.esa-editorial-button--primary{background:#fff;color:#0d304b}
+.esa-editorial-button--primary:hover{background:#ecfffa;color:#0d304b;text-decoration:none}
+.esa-editorial-button--outline{border-color:rgba(229,251,251,.67);color:#fff;background:rgba(255,255,255,.06)}
+.esa-editorial-button--outline:hover{background:rgba(255,255,255,.17);color:#fff;text-decoration:none}
+.esa-about-hero,.esa-error-hero{overflow:hidden;position:relative;background:radial-gradient(circle at 95% 10%,rgba(22,165,154,.23),transparent 48%),linear-gradient(127deg,#10253f 0%,#143954 70%,#155359 100%);color:#fff;border:1px solid #2f6373;border-radius:27px;padding:clamp(28px,5vw,59px)}
+.esa-about-hero{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(230px,.7fr);gap:clamp(20px,3vw,45px);align-items:center}
+.esa-about-hero .esa-editorial-eyebrow,.esa-error-hero .esa-editorial-eyebrow{color:#9beddf}
+.esa-about-hero h1,.esa-error-hero h1{color:#fff;max-width:790px;font-size:clamp(2rem,4.6vw,3.65rem);line-height:1.14;letter-spacing:-.048em;margin:0 0 20px}
+.esa-about-lead,.esa-error-lead{color:#d8e7ee;line-height:1.8;font-size:1.06rem;max-width:710px;margin:0}
+.esa-about-hero-aside{border-radius:20px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.24);padding:20px}
+.esa-about-hero-aside p{color:#9beddf;font-size:.76rem;font-weight:850;text-transform:uppercase;letter-spacing:.1em}
+.esa-about-hero-aside ol{list-style:none;margin:0;padding:0}
+.esa-about-hero-aside li{display:flex;gap:13px;align-items:center;padding:13px 0;color:#fff;border-top:1px solid rgba(255,255,255,.15);font-weight:650}
+.esa-about-hero-aside li span{color:#9beddf;font-weight:900}
+.esa-about-section{padding:clamp(36px,5vw,66px) 0 8px}
+.esa-about-section--soft{margin-top:28px;padding:clamp(28px,4vw,48px);border-radius:23px;background:#eaf5f5}
+.esa-about-heading{max-width:740px;margin-bottom:25px}
+.esa-about-heading h2{font-size:clamp(1.7rem,3.6vw,2.55rem);line-height:1.22;letter-spacing:-.04em;color:var(--editorial-ink);margin:0 0 13px}
+.esa-about-heading p:not(.esa-editorial-eyebrow){color:var(--editorial-muted);line-height:1.8;margin:0}
+.esa-about-values,.esa-about-grid{display:grid;gap:16px}
+.esa-about-values,.esa-about-grid--three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.esa-about-grid--two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.esa-about-card{background:#fff;border:1px solid #dce7ee;border-radius:19px;padding:24px;box-shadow:0 8px 24px rgba(13,42,62,.045)}
+.esa-about-card>span{display:block;font-weight:900;color:#087f7a;font-size:.85rem;margin-bottom:10px}
+.esa-about-card h3{color:var(--editorial-ink);font-size:1.14rem;margin:0 0 9px}
+.esa-about-card p{color:var(--editorial-muted);line-height:1.68;margin:0}
+.esa-about-curriculum{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 18px;margin:0;padding:0;list-style:none}
+.esa-about-curriculum li{min-width:0}
+.esa-about-curriculum a{display:flex;align-items:center;min-height:55px;border:1px solid #cbdfdf;border-radius:13px;background:#fff;padding:13px 17px;color:#0e5660;font-weight:750;text-decoration:none}
+.esa-about-curriculum a:hover{border-color:#0f9690;background:#f5fffd;text-decoration:none}
+.esa-about-final{margin-top:60px;padding:clamp(28px,5vw,55px);border-radius:24px;background:#102b47;color:#e0edf2;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(220px,.6fr);gap:28px;align-items:center}
+.esa-about-final h2{color:#fff;font-size:clamp(1.7rem,3.4vw,2.6rem);letter-spacing:-.04em;line-height:1.22;margin:0 0 15px}
+.esa-about-final p{line-height:1.8;color:#d4e4eb}
+.esa-about-final .esa-editorial-eyebrow{color:#9beddf}
+.esa-about-final a{color:#9beddf;overflow-wrap:anywhere;font-weight:750}
+.esa-about-final-note{padding:20px;border:1px solid rgba(255,255,255,.2);border-radius:18px;background:rgba(255,255,255,.08)}
+.esa-about-final-note strong{color:#fff}
+.esa-about-final-note p{margin:7px 0 0}
+.esa-error{max-width:960px;margin:auto}
+.esa-error-hero{text-align:center}
+.esa-error-code{font-size:clamp(4rem,13vw,8rem);font-weight:900;letter-spacing:-.06em;line-height:1;margin:0 0 14px;color:#9beddf}
+.esa-error-hero h1{margin-left:auto;margin-right:auto}
+.esa-error-lead{margin-left:auto;margin-right:auto}
+.esa-error-hero .esa-editorial-actions{justify-content:center}
+.esa-error-next{padding:35px 0 20px}
+.esa-error-next h2{font-size:clamp(1.45rem,3vw,2rem);color:var(--editorial-ink);margin:0 0 10px}
+.esa-error-next p{color:var(--editorial-muted)}
+.esa-error-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:20px}
+.esa-error-links a{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 18px;background:#fff;border:1px solid #dce7ee;border-radius:14px;color:#0b5764;font-weight:800;text-decoration:none}
+.esa-error-links a:hover{background:#eef9f7;border-color:#9ed9d2;text-decoration:none}
+@media(max-width:830px){.esa-about-hero{grid-template-columns:1fr}.esa-about-hero-aside{max-width:510px}.esa-about-values,.esa-about-grid--three{grid-template-columns:1fr}.esa-about-final{grid-template-columns:1fr}.esa-about-curriculum{grid-template-columns:1fr}}
+@media(max-width:590px){.esa-about-hero,.esa-error-hero{border-radius:19px;padding:26px 21px}.esa-about-grid--two,.esa-error-links{grid-template-columns:1fr}.esa-about-section--soft{padding:25px 17px}.esa-about-final{margin-top:38px;padding:26px 21px}.esa-editorial-actions{flex-direction:column}.esa-editorial-button{width:100%}}

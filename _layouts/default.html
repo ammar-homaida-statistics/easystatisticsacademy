@@ -30,12 +30,24 @@
   <link rel="stylesheet" href="/css/paths.css?v=1" />
   {% endif %}
 
+  {% if page.editorial_styles %}
+  <link rel="stylesheet" href="/css/editorial.css?v=1" />
+  {% endif %}
+  {% if page.robots_noindex %}
+  <meta name="robots" content="noindex, follow" />
+  {% endif %}
+
   {% include schema-org.html %}
 
-  <!-- Load MathJax ONLY if needed -->
-  {% if page.math %}
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-  {% endif %}
+  <!-- TeX configuration is cheap; only math pages fetch the MathJax library. -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
 
 </head>
 
@@ -93,18 +105,34 @@
 
   <script src="/js/js/site.js"></script>
 
+  <!-- Inspect lesson text, excluding code and scripts, before loading MathJax. -->
   <script>
-window.MathJax = {
-  tex: {
-    inlineMath: [['$', '$'], ['\\(', '\\)']],
-    displayMath: [['$$', '$$'], ['\\[', '\\]']]
-  }
-};
-</script>
-
-<script defer
-src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-</script>
+    (function () {
+      const main = document.getElementById("main-content");
+      if (!main) return;
+      let needsMathJax = {{ page.math | default: false | jsonify }};
+      if (!needsMathJax) {
+        const nodes = document.createTreeWalker(main, NodeFilter.SHOW_TEXT);
+        let node;
+        while ((node = nodes.nextNode())) {
+          if (node.parentElement &&
+              node.parentElement.closest("script, style, pre, code, textarea")) continue;
+          const text = node.nodeValue || "";
+          if (text.includes("\\[") || text.includes("\\(") ||
+              text.includes("$") || text.includes("\\begin{")) {
+            needsMathJax = true;
+            break;
+          }
+        }
+      }
+      if (needsMathJax) {
+        const script = document.createElement("script");
+        script.src = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js";
+        script.async = true;
+        document.body.appendChild(script);
+      }
+    })();
+  </script>
 
 </body>
 </html>
