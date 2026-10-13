@@ -4,48 +4,27 @@ title: Learning Paths
 description: Structured learning paths in statistics — from beginner to advanced, with clear progression and real understanding.
 permalink: /learning-paths/
 sidebar: false
+paths_styles: true
 ---
 
-<!-- HERO -->
-<section class="hero hero-section">
-  <div class="hero-card hero-split">
-    <div class="hero-copy">
+<div class="esa-paths">
 
-      <div class="badge-row">
-        <span class="badge">Structured</span>
-        <span class="badge">Step-by-step</span>
-        <span class="badge">Practical + Theory</span>
-      </div>
-
-      <h1>Learning Paths</h1>
-
-      <p class="lead">
-        Follow a clear path based on your level. Each path is designed so concepts build correctly —
-        no guessing, no jumping randomly between topics.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn" href="#beginner">Start Beginner Path</a>
-        <a class="btn btn-outline" href="/foundations/">Go to Foundations</a>
-      </div>
-
-      <p class="muted-mini">
-        Paths are structured now. Lessons are continuously added.
-      </p>
-
-    </div>
-
-    <div class="hero-panel">
-      <div class="panel-card">
-        <h2 class="panel-title">How to use this</h2>
-        <ol class="quickstart">
-          <li>Pick your level</li>
-          <li>Follow the steps in order</li>
-          <li>Use software alongside theory</li>
-          <li>Don’t skip foundational topics</li>
-        </ol>
-      </div>
-    </div>
+<!-- Structured learning hero -->
+<section class="esa-paths-hero" aria-labelledby="esa-paths-title">
+  <p class="esa-paths-eyebrow">A clear route through statistics</p>
+  <h1 id="esa-paths-title">Your next step in statistics starts here.</h1>
+  <p class="esa-paths-lead">
+    Choose a level, follow a thoughtful learning order, and connect statistical ideas
+    to real applications. Move from data fundamentals to inference, modeling, and beyond.
+  </p>
+  <div class="esa-paths-actions">
+    <a class="esa-paths-button esa-paths-button--primary" href="/learning-paths/beginner/">Start Beginner Path →</a>
+    <a class="esa-paths-button esa-paths-button--secondary" href="#beginner">Browse the curriculum</a>
+  </div>
+  <div class="esa-paths-route" aria-label="Three learning levels">
+    <a href="#beginner"><span>01 · START</span><strong>Beginner</strong><small>Build foundations</small></a>
+    <a href="#intermediate"><span>02 · GROW</span><strong>Intermediate</strong><small>Connect the methods</small></a>
+    <a href="#advanced"><span>03 · DEEPEN</span><strong>Advanced</strong><small>Explore the theory</small></a>
   </div>
 </section>
 
@@ -53,7 +32,7 @@ sidebar: false
 <section class="section" id="beginner">
   <div class="section-head">
     <h2>Beginner Path</h2>
-    <p>Start from zero and build a solid foundation.</p>
+    <p>Start from zero and build a solid foundation. <a class="esa-paths-detail-link" href="/learning-paths/beginner/">Open the complete beginner path →</a></p>
   </div>
 
   <div class="grid grid-3">
@@ -101,7 +80,7 @@ sidebar: false
 <section class="section section-soft" id="intermediate">
   <div class="section-head">
     <h2>Intermediate Path</h2>
-    <p>Strengthen inference, modeling, and real-world analysis.</p>
+    <p>Strengthen inference, modeling, and real-world analysis. <a class="esa-paths-detail-link" href="/learning-paths/intermediate/">Open the complete intermediate path →</a></p>
   </div>
 
   <div class="grid grid-3">
@@ -131,7 +110,7 @@ sidebar: false
 <section class="section" id="advanced">
   <div class="section-head">
     <h2>Advanced Path</h2>
-    <p>Theory, machine learning, and advanced statistical thinking.</p>
+    <p>Theory, machine learning, and advanced statistical thinking. <a class="esa-paths-detail-link" href="/learning-paths/advanced/">Open the complete advanced path →</a></p>
   </div>
 
   <div class="grid grid-3">
@@ -182,3 +161,4 @@ sidebar: false
     </div>
   </div>
 </section>
+</div>
