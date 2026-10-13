@@ -106,7 +106,7 @@ class SearchTests(unittest.TestCase):
                 self.assertEqual(source.count('src="/js/search.js"'), 1)
                 self.assertNotIn("SimpleJekyllSearch(", source)
         # The refreshed homepage alone also loads a page-scoped stylesheet.
-        self.assertEqual(styles, {"/css/style.css", "/css/home.css"})
+        self.assertEqual(styles, {"/css/style.css", "/css/home.css", "/css/paths.css"})
         home_links = Stylesheets()
         home_links.feed((SITE / "index.html").read_text())
         self.assertEqual({urlsplit(url).path for url in home_links.urls},
@@ -115,6 +115,10 @@ class SearchTests(unittest.TestCase):
         lesson_links.feed((SITE / "descriptive/spread/variance/index.html").read_text())
         self.assertEqual({urlsplit(url).path for url in lesson_links.urls},
                          {"/css/style.css"})
+        paths_links = Stylesheets()
+        paths_links.feed((SITE / "learning-paths/index.html").read_text())
+        self.assertEqual({urlsplit(url).path for url in paths_links.urls},
+                         {"/css/style.css", "/css/paths.css"})
 
     def test_homepage_responsive_layout(self):
         self.open()
@@ -185,6 +189,96 @@ class SearchTests(unittest.TestCase):
                 set_stored(payload)
                 expect(panel).to_be_hidden()
                 expect(link).to_have_attribute("href", "#")
+
+    def test_foundations_continue_reading_storage(self):
+        """Resume a real Foundations lesson, never stored markup or outside links."""
+        self.page.goto(self.origin + "/foundations/", wait_until="networkidle")
+        panel = self.page.locator("#continue-reading")
+        expect(panel).to_be_hidden()
+
+        def set_stored(payload):
+            self.page.evaluate(
+                "value => localStorage.setItem('esa_last_lesson', JSON.stringify(value))",
+                payload,
+            )
+            self.page.reload(wait_until="networkidle")
+
+        safe = "/foundations/what-is-statistics/"
+        set_stored({"section": "foundations", "url": safe, "title": "What Is Statistics?"})
+        expect(panel).to_be_visible()
+        expect(panel.locator("strong")).to_have_text("What Is Statistics?")
+        expect(panel.locator("a.btn")).to_have_attribute("href", safe)
+
+        payload_title = '<img src=x onerror="window.esaInjected=true"> & more'
+        set_stored({"section": "foundations", "url": safe, "title": payload_title})
+        expect(panel.locator("strong")).to_have_text(payload_title)
+        self.assertEqual(panel.locator("img,script").count(), 0)
+        self.assertIsNone(self.page.evaluate("window.esaInjected"))
+
+        for invalid in (
+            {"section": "foundations", "url": "javascript:alert(1)", "title": "Unsafe"},
+            {"section": "foundations", "url": "//example.com", "title": "Outside"},
+            {"section": "foundations", "url": "/foundations/missing/", "title": "Not listed"},
+            {"section": "foundations", "url": "/foundations/what-is-statistics/../", "title": "Traversal"},
+            {"section": "foundations", "url": safe, "title": 17},
+            {"section": "probability", "url": safe, "title": "Other section"},
+        ):
+            with self.subTest(invalid=invalid):
+                set_stored(invalid)
+                expect(panel).to_be_hidden()
+
+    def test_shared_mobile_header_and_menu(self):
+        """Check header width, mobile menu keyboard behavior and desktop navigation."""
+        for path in ("/", "/foundations/", "/descriptive/", "/learning-paths/"):
+            with self.subTest(path=path):
+                self.page.goto(self.origin + path, wait_until="networkidle")
+                toggle = self.page.get_by_role("button", name="Toggle menu")
+                search = self.page.get_by_role("searchbox", name="Search statistical lessons")
+                nav = self.page.get_by_role("navigation", name="Primary navigation")
+                for width in (320, 375, 768, 1280):
+                    self.page.set_viewport_size({"width": width, "height": 850})
+                    expect(search).to_be_visible()
+                    dims = self.page.evaluate("""() => ({
+                        width: document.querySelector('.site-header').scrollWidth,
+                        viewport: window.innerWidth
+                    })""")
+                    self.assertLessEqual(dims["width"], dims["viewport"],
+                                         f"Header overflows {path} at {width}px: {dims}")
+                    if width <= 760:
+                        expect(toggle).to_be_visible()
+                        expect(nav).to_be_hidden()
+                        toggle.click()
+                        expect(toggle).to_have_attribute("aria-expanded", "true")
+                        expect(nav).to_be_visible()
+                        toggle.press("Escape")
+                        expect(toggle).to_have_attribute("aria-expanded", "false")
+                        expect(nav).to_be_hidden()
+                    else:
+                        expect(toggle).to_be_hidden()
+                        expect(nav).to_be_visible()
+
+    def test_learning_paths_navigation_and_responsive_layout(self):
+        self.page.goto(self.origin + "/learning-paths/", wait_until="networkidle")
+        expect(self.page.locator(".esa-paths-hero h1")).to_be_visible()
+        expect(self.page.locator('link[href^="/css/paths.css"]')).to_have_count(1)
+        expect(self.page.locator('link[href^="/css/home.css"]')).to_have_count(0)
+        expect(self.page.locator(".esa-paths-route a")).to_have_count(3)
+        for anchor in ("beginner", "intermediate", "advanced"):
+            expect(self.page.locator("#" + anchor + " h2")).to_be_visible()
+        for width in (375, 768, 1280):
+            self.page.set_viewport_size({"width": width, "height": 850})
+            dims = self.page.evaluate("""() => ({
+                document: document.documentElement.scrollWidth,
+                viewport: window.innerWidth
+            })""")
+            self.assertLessEqual(dims["document"], dims["viewport"],
+                                 f"Learning Paths overflows at {width}px: {dims}")
+        hrefs = self.page.locator(".esa-paths a[href^='/']").evaluate_all(
+            "(links) => links.map(link => link.getAttribute('href'))"
+        )
+        for href in hrefs:
+            destination = SITE / href.lstrip("/") / "index.html"
+            self.assertTrue(destination.is_file(), f"Broken Learning Paths link: {href}")
 
     def test_representative_lessons_and_navigation(self):
         self.open()
