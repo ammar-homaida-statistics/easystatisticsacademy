@@ -450,7 +450,7 @@ class SearchTests(unittest.TestCase):
             "content", "noindex, follow"
         )
         expect(self.page.locator('link[href^="/css/editorial.css"]')).to_have_count(1)
-        expect(self.page.get_by_role("link", name="Search field above")).to_have_attribute(
+        expect(self.page.get_by_role("link", name="search field above")).to_have_attribute(
             "href", "#site-search"
         )
         for href in ("/", "/learning-paths/", "/foundations/", "/descriptive/",
@@ -505,9 +505,6 @@ class SearchTests(unittest.TestCase):
         self.assertEqual(self.page.evaluate("window.MathJax.tex.inlineMath[0][0]"), "$")
         self.assertEqual(self.page.evaluate("window.MathJax.tex.displayMath[1][0]"), r"\[")
         self.assertEqual(self.page.evaluate("window.MathJax.tex.displayMath[1][1]"), r"\]")
-        self.assertEqual(len(self.page.locator("script").evaluate_all(
-            "(scripts) => scripts.filter(s => s.src.includes('tex-mml-chtml.js')).length"
-        )), 0) if False else None
         # The CDN is stubbed by this test suite, so these tests validate
         # loader selection and configuration, not live MathJax typesetting.
 
