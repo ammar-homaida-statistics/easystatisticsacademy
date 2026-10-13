@@ -139,6 +139,53 @@ class SearchTests(unittest.TestCase):
         self.page.goto(self.origin + "/descriptive/spread/variance/", wait_until="networkidle")
         expect(self.page.locator('link[href^="/css/home.css"]')).to_have_count(0)
 
+    def test_descriptive_continue_reading_storage(self):
+        """Resume only known descriptive blocks and treat stored labels as plain text."""
+        self.page.goto(self.origin + "/descriptive/", wait_until="networkidle")
+        key = "esa_continue_descriptive_last_block_v0"
+        panel = self.page.locator("#continue-reading-descriptive")
+        label = self.page.locator("#continue-reading-descriptive-label")
+        link = self.page.locator("#continue-reading-descriptive-btn")
+        expect(panel).to_be_hidden()
+
+        def set_stored(payload):
+            self.page.evaluate(
+                "([key, value]) => localStorage.setItem(key, JSON.stringify(value))",
+                [key, payload],
+            )
+            self.page.reload(wait_until="networkidle")
+
+        for path in ("/descriptive/data-variables/", "/descriptive/spread/",
+                     "/descriptive/shape/", "/descriptive/reporting/"):
+            with self.subTest(valid_path=path):
+                set_stored({"url": path, "label": "Last block"})
+                expect(panel).to_be_visible()
+                expect(label.locator("strong")).to_have_text("Last block")
+                expect(link).to_have_attribute("href", path)
+
+        malicious_label = '<img src=x onerror="window.esaInjected=true"> & statistics'
+        set_stored({"url": "/descriptive/spread/", "label": malicious_label})
+        expect(panel).to_be_visible()
+        expect(label.locator("strong")).to_have_text(malicious_label)
+        self.assertEqual(label.locator("img, script").count(), 0)
+        self.assertIsNone(self.page.evaluate("window.esaInjected"))
+
+        invalid = (
+            {"url": "https://example.com", "label": "External"},
+            {"url": "//example.com/path", "label": "Protocol-relative"},
+            {"url": "javascript:alert(1)", "label": "JavaScript"},
+            {"url": "/descriptive/spread/../shape/", "label": "Traversal"},
+            {"url": "/descriptive/spread/?next=elsewhere", "label": "Extra query"},
+            {"url": "/descriptive/not-a-block/", "label": "Unknown"},
+            {"url": "/descriptive/spread/", "label": 42},
+            {"url": "/descriptive/spread/", "label": "  "},
+        )
+        for payload in invalid:
+            with self.subTest(invalid_payload=payload):
+                set_stored(payload)
+                expect(panel).to_be_hidden()
+                expect(link).to_have_attribute("href", "#")
+
     def test_representative_lessons_and_navigation(self):
         self.open()
         cases = {
