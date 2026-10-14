@@ -49,7 +49,7 @@ permalink: /learning-paths/beginner/
         <li>Basic statistical thinking</li>
       </ul>
 
-      <a class="card-foot" href="/foundations/">Start →</a>
+      <a class="card-foot" href="/foundations/what-is-statistics/">Start with What Is Statistics? →</a>
     </div>
 
     <!-- STEP 2 -->
@@ -64,7 +64,7 @@ permalink: /learning-paths/beginner/
         <li>Data visualization</li>
       </ul>
 
-      <a class="card-foot" href="/descriptive/">Explore →</a>
+      <a class="card-foot" href="/descriptive/data-variables/">Start with Data & Variables →</a>
     </div>
 
     <!-- STEP 3 -->
@@ -79,7 +79,7 @@ permalink: /learning-paths/beginner/
         <li>Distributions</li>
       </ul>
 
-      <a class="card-foot" href="/probability/">Explore →</a>
+      <a class="card-foot" href="/probability/basics/">Start Probability Basics →</a>
     </div>
 
     <!-- STEP 4 -->
@@ -94,7 +94,7 @@ permalink: /learning-paths/beginner/
         <li>p-values and interpretation</li>
       </ul>
 
-      <a class="card-foot" href="/inference/">Explore →</a>
+      <a class="card-foot" href="/inference/foundations/">Start Inference Foundations →</a>
     </div>
 
     <!-- STEP 5 -->
@@ -109,14 +109,15 @@ permalink: /learning-paths/beginner/
         <li>Simple models</li>
       </ul>
 
-      <a class="card-foot" href="/modeling/">Explore →</a>
+      <a class="card-foot" href="/modeling/foundations/">Start Modeling Foundations →</a>
     </div>
 
     <!-- PRACTICE -->
     <div class="card card-highlight">
       <div class="pill">Practice</div>
       <h3>Software Implementation</h3>
-      <p>Apply everything you learn using real tools.</p>
+      <p>Prepare to apply what you learn using real tools.</p>
+      <p class="muted-mini">Software tutorials are planned. The linked page is a curriculum overview, not yet a hands-on exercise.</p>
 
       <ul class="bullets">
         <li>SPSS</li>
@@ -125,7 +126,7 @@ permalink: /learning-paths/beginner/
         <li>Excel</li>
       </ul>
 
-      <a class="card-foot" href="/software/">Practice →</a>
+      <a class="card-foot" href="/software/">View software curriculum →</a>
     </div>
 
   </div>
