@@ -146,41 +146,44 @@ sidebar: true
   </div>
 </section>
 
+
 <script>
+/* Resume a real listed Foundations lesson using plain text and validated local links.
+   The site footer maintains esa:lastPage; the older Foundations-only key remains
+   a read-only fallback for existing readers. */
 (function () {
+  const container = document.getElementById("continue-reading");
+  if (!container) return;
+
   try {
-    const path = window.location.pathname;
+    const stored = localStorage.getItem("esa:lastPage") ||
+                   localStorage.getItem("esa:lastFoundationLesson");
+    if (!stored || !/^\/foundations\/[a-z0-9-]+\/$/.test(stored)) return;
 
-    if (path.startsWith("/foundations/") && path !== "/foundations/") {
-      localStorage.setItem("esa:lastFoundationLesson", path);
-    }
+    // Only an actual published lesson linked from this page can be resumed.
+    const listedLesson = Array.from(
+      document.querySelectorAll("#lessons .lesson-card a[href]")
+    ).find(link => link.getAttribute("href") === stored);
+    if (!listedLesson) return;
 
-    const last = localStorage.getItem("esa:lastFoundationLesson");
-    const container = document.getElementById("continue-reading");
+    const card = document.createElement("div");
+    card.className = "card";
+    card.style.margin = "20px 0";
 
-    if (last && container) {
-      function getLabel(url) {
-        const parts = url.split("/").filter(Boolean);
-        let name = parts[parts.length - 1] || "";
-        name = name.replace(/-/g, " ");
-        name = name.charAt(0).toUpperCase() + name.slice(1);
-        return name;
-      }
+    const heading = document.createElement("strong");
+    heading.textContent = "Continue Reading";
+    const summary = document.createElement("p");
+    summary.textContent = "You last visited: " + listedLesson.textContent.trim();
+    const button = document.createElement("a");
+    button.className = "btn";
+    button.href = stored;
+    button.textContent = "Continue: " + listedLesson.textContent.trim();
 
-      const label = getLabel(last);
-
-      container.innerHTML = `
-        <div class="card" style="margin:20px 0;">
-          <strong>Continue Reading</strong><br>
-          <a href="${last}" class="btn" style="margin-top:10px;">
-            ${label}
-          </a>
-        </div>
-      `;
-
-      container.style.display = "block";
-    }
-
-  } catch (e) {}
+    card.append(heading, summary, button);
+    container.replaceChildren(card);
+    container.style.display = "block";
+  } catch (_) {
+    // Disabled, corrupt, or unavailable storage must never disrupt the page.
+  }
 })();
 </script>
