@@ -209,6 +209,39 @@ sidebar: false
     </p>
   </div>
 
+
+  <!-- Accessible concept check; answers never leave the learner's browser. -->
+  <div class="section-block esa-self-check" id="esa-self-check" aria-labelledby="esa-self-check-heading">
+    <h2 id="esa-self-check-heading">Check Your Understanding</h2>
+    <p>Choose an answer to see an explanation. You can change it at any time.</p>
+
+    <fieldset data-answer="b"
+      data-explanation="Observations differ and information is incomplete. Statistics helps us learn responsibly from variability and uncertainty.">
+      <legend>1. Why do we need statistical reasoning?</legend>
+      <label><input type="radio" name="esa-check-1" value="a"> Every observation is identical.</label>
+      <label><input type="radio" name="esa-check-1" value="b"> Data vary and information is incomplete.</label>
+      <label><input type="radio" name="esa-check-1" value="c"> Mathematical formulas remove all uncertainty.</label>
+      <p class="esa-check-feedback" role="status" aria-live="polite"></p>
+    </fieldset>
+
+    <fieldset data-answer="a"
+      data-explanation="A sample mean is an estimate of a population mean. Sampling variability means the estimate need not equal the unknown population value.">
+      <legend>2. What does a sample mean tell us about a population mean?</legend>
+      <label><input type="radio" name="esa-check-2" value="a"> It provides an estimate that can differ from the population mean.</label>
+      <label><input type="radio" name="esa-check-2" value="b"> It is always the exact population mean.</label>
+      <label><input type="radio" name="esa-check-2" value="c"> It proves that one variable causes another.</label>
+      <p class="esa-check-feedback" role="status" aria-live="polite"></p>
+    </fieldset>
+
+    <fieldset data-answer="c"
+      data-explanation="Samples contain partial information. Sampling variability, potential bias, and other limitations affect what we can conclude about a population.">
+      <legend>3. Why should we be cautious when generalizing sample results?</legend>
+      <label><input type="radio" name="esa-check-3" value="a"> Statistical calculations are never possible.</label>
+      <label><input type="radio" name="esa-check-3" value="b"> A larger population always has identical measurements.</label>
+      <label><input type="radio" name="esa-check-3" value="c"> Sampling variability and potential bias can affect conclusions.</label>
+      <p class="esa-check-feedback" role="status" aria-live="polite"></p>
+    </fieldset>
+  </div>
 </section>
 
 <!-- NAVIGATION -->
@@ -234,3 +267,22 @@ sidebar: false
 
   </div>
 </section>
+
+<script>
+(function () {
+  const check = document.getElementById("esa-self-check");
+  if (!check) return;
+  check.querySelectorAll("fieldset").forEach(question => {
+    question.addEventListener("change", event => {
+      const option = event.target;
+      if (!option.matches('input[type="radio"]') || !option.checked) return;
+      const feedback = question.querySelector(".esa-check-feedback");
+      if (!feedback) return;
+      const correct = option.value === question.dataset.answer;
+      feedback.textContent = (correct ? "Correct. " : "Not quite. ") +
+                             question.dataset.explanation;
+      feedback.dataset.state = correct ? "correct" : "incorrect";
+    });
+  });
+})();
+</script>
