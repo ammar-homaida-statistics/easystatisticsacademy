@@ -1384,3 +1384,41 @@ main .esa-lesson-anchor{scroll-margin-top: 120px}
 }
 @media print{.esa-lesson-toc{display:none !important}}
 
+
+/* Native, accessible answer choices for the first Foundations self-check. */
+.esa-self-check fieldset{
+  min-width:0;
+  border:1px solid var(--border-strong);
+  border-radius:12px;
+  padding:16px;
+  margin:18px 0;
+}
+.esa-self-check legend{
+  padding:0 5px;
+  font-weight:700;
+}
+.esa-self-check label{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  padding:9px 7px;
+  border-radius:7px;
+  cursor:pointer;
+}
+.esa-self-check label:focus-within{
+  outline:2px solid var(--accent);
+  outline-offset:2px;
+}
+.esa-self-check input[type="radio"]{
+  flex-shrink:0;
+  margin-top:5px;
+  accent-color:var(--brand);
+}
+.esa-self-check .esa-check-feedback{
+  margin:9px 5px 0;
+  min-height:1.5em;
+  font-weight:600;
+}
+.esa-self-check .esa-check-feedback[data-state="incorrect"]{
+  color:var(--text);
+}
