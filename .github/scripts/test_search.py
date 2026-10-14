@@ -933,6 +933,103 @@ class SearchTests(unittest.TestCase):
             "() => getComputedStyle(document.documentElement).scrollBehavior"
         ), "smooth")
 
+    def test_contextual_seo_titles_preserve_visible_lesson_headings(self):
+        """Context-specific metadata should not rename the educational lesson."""
+        cases = (
+            ("/foundations/variables/", "Variables and Measurement in Statistical Foundations"),
+            ("/modeling/foundations/variables/", "Variables in Statistical Modeling"),
+            ("/descriptive/", "Descriptive Statistics Course Overview"),
+        )
+        for route, title in cases:
+            with self.subTest(route=route):
+                self.page.goto(self.origin + route, wait_until="networkidle")
+                self.assertEqual(self.page.title(), title + " | EasyStatisticsAcademy")
+        self.page.goto(self.origin + "/foundations/variables/", wait_until="networkidle")
+        expect(self.page.locator("h1")).to_have_text("Variables")
+        self.page.goto(self.origin + "/modeling/foundations/variables/", wait_until="networkidle")
+        expect(self.page.locator("h1")).to_have_text("Variables")
+
+    def test_internal_navigation_document_excluded_from_public_site(self):
+        """Planning Markdown remains in GitHub but not the generated website."""
+        self.assertFalse((SITE / "navigation-map" / "index.html").exists())
+        self.assertFalse((SITE / "navigation-map.md").exists())
+        self.assertNotIn("/navigation-map/", {r["url"] for r in self.records})
+        self.assertNotIn("https://easystatisticsacademy.com/navigation-map/",
+                         (SITE / "sitemap.xml").read_text(encoding="utf-8"))
+        self.assertEqual(
+            json.loads((SITE.parent / ".github/seo-baseline.json").read_text()), []
+        )
+
+    def test_data_variables_continue_reading_progress_and_safety(self):
+        """Block 1 resumes listed lessons only, with literal saved labels."""
+        lesson = "/descriptive/data-variables/categorical-vs-numerical/"
+        block = "/descriptive/data-variables/"
+        key = "esa_continue_descriptive_data_variables_lesson_v0"
+        self.page.goto(self.origin + lesson, wait_until="networkidle")
+        self.assertEqual(self.page.evaluate(
+            "key => JSON.parse(localStorage.getItem(key)).url", key), lesson)
+        self.page.goto(self.origin + block, wait_until="networkidle")
+        panel = self.page.locator("#continue-reading-block1")
+        link = self.page.locator("#continue-reading-block1-btn")
+        label = self.page.locator("#continue-reading-block1-label")
+        expect(panel).to_be_visible()
+        expect(link).to_have_attribute("href", lesson)
+        expect(label.locator("strong")).to_have_text("Categorical vs Numerical Data")
+
+        def save(payload):
+            self.page.evaluate(
+                "([key, obj]) => localStorage.setItem(key, JSON.stringify(obj))",
+                [key, payload])
+            self.page.reload(wait_until="networkidle")
+
+        malicious_label = '<img src=x onerror="window.esaInjected=true"> & analysis'
+        save({"url": lesson, "label": malicious_label})
+        expect(panel).to_be_visible()
+        expect(label.locator("strong")).to_have_text(malicious_label)
+        self.assertEqual(label.locator("img, script").count(), 0)
+        self.assertIsNone(self.page.evaluate("window.esaInjected"))
+
+        for payload in (
+            {"url": "javascript:alert(1)", "label": "unsafe"},
+            {"url": "//elsewhere.example/abc", "label": "outside"},
+            {"url": "/descriptive/data-variables/unpublished/", "label": "missing"},
+            {"url": lesson + "../", "label": "traversal"},
+            {"url": lesson, "label": 15},
+            {"url": lesson, "label": "  "},
+        ):
+            with self.subTest(payload=payload):
+                save(payload)
+                expect(panel).to_be_hidden()
+                expect(link).to_have_attribute("href", "#")
+        self.page.evaluate("key => localStorage.setItem(key, '{invalid')", key)
+        self.page.reload(wait_until="networkidle")
+        expect(panel).to_be_hidden()
+
+        save({"url": lesson, "label": "Resume lesson"})
+        self.page.set_viewport_size({"width": 375, "height": 750})
+        expect(panel).to_be_visible()
+        link.click()
+        expect(self.page).to_have_url(self.origin + lesson)
+
+    def test_data_variables_lessons_load_without_browser_storage(self):
+        """Blocked localStorage must not prevent navigation or render."""
+        self.page.add_init_script("""
+            Object.defineProperty(window, 'localStorage', {
+              configurable: true,
+              get() { throw new DOMException('Storage denied', 'SecurityError'); }
+            });
+        """)
+        for route in (
+            "/descriptive/data-variables/",
+            "/descriptive/data-variables/categorical-vs-numerical/",
+            "/descriptive/data-variables/measurement-scales/",
+            "/descriptive/data-variables/valid-vs-invalid-operations/",
+        ):
+            with self.subTest(route=route):
+                self.page.goto(self.origin + route, wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+        expect(self.page.locator('a[href="/descriptive/data-variables/measurement-scales/"]').first).to_be_visible()
+
     def test_representative_lessons_and_navigation(self):
         self.open()
         cases = {
