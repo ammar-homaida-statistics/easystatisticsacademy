@@ -404,16 +404,49 @@ sidebar: false
     <h2>The Empirical Rule</h2>
 
     <p>
-      For many approximately bell-shaped distributions,
-      standard deviation has a particularly useful interpretation.
+      For a <strong>normal distribution</strong>, which is symmetric and bell-shaped,
+      the <strong>68–95–99.7 rule</strong> describes the approximate proportion of
+      individual observations within one, two, or three population standard
+      deviations of the population mean.
+    </p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Interval around the population mean</th><th>Approximate percentage</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Mean ± 1 standard deviation</td><td>68% (about 68.27%)</td></tr>
+          <tr><td>Mean ± 2 standard deviations</td><td>95% (about 95.45%)</td></tr>
+          <tr><td>Mean ± 3 standard deviations</td><td>99.7% (about 99.73%)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="example-box">
+      <p><strong>Numerical example (hypothetical):</strong>
+        Suppose individual measurements follow a normal distribution with
+        population mean 100 and population standard deviation 15.
+      </p>
+      <ul class="bullets">
+        <li>About 68% fall between <strong>85 and 115</strong> (100 ± 15).</li>
+        <li>About 95% fall between <strong>70 and 130</strong> (100 ± 30).</li>
+        <li>About 99.7% fall between <strong>55 and 145</strong> (100 ± 45).</li>
+      </ul>
+    </div>
+
+    <p>
+      These percentages are exact only to the stated approximations for a
+      normal distribution. They can be useful approximations when the data
+      distribution is close to normal, but they are <strong>not guaranteed</strong>
+      for skewed, heavy-tailed, or other nonnormal distributions.
+      They describe the spread of <strong>individual values</strong>, not a
+      confidence interval for an unknown population mean.
     </p>
 
     <p>
-      A large proportion of observations tend to lie within a few standard deviations of the mean.
-    </p>
-
-    <p>
-      This idea becomes important when studying normal distributions later.
+      For more detail about this assumption, continue to the
+      <a href="/probability/distributions/normal-distribution/">Normal Distribution lesson</a>.
     </p>
 
     <h2>Applications of Standard Deviation</h2>

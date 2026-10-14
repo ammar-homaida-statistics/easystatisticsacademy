@@ -1363,6 +1363,155 @@ class SearchTests(unittest.TestCase):
                 })""")
                 self.assertLessEqual(dims["document"], dims["viewport"], dims)
 
+    def test_remaining_overview_resume_is_safe(self):
+        """Three last overview widgets only resume published cards as plain text."""
+        configurations = (
+            ("/applied-statistics/", "esa_continue_applied_last_block_v0",
+             "continue-reading-applied", "#blocks .lesson-block-card h3 a"),
+            ("/mathematical-statistics/", "esa_continue_ms_last_block_v0",
+             "continue-reading-ms", "#blocks .lesson-card h3 a"),
+            ("/descriptive/spread/", "esa_continue_descriptive_spread_lesson_v0",
+             "continue-reading-block5", "#lessons .lesson-card h3 a"),
+        )
+        malicious = '<img src=x onerror="window.esaInjected=true"> & labels'
+        for route, key, panel_id, selector in configurations:
+            with self.subTest(route=route):
+                self.page.goto(self.origin + route, wait_until="networkidle")
+                panel = self.page.locator("#" + panel_id)
+                label = self.page.locator("#" + panel_id + "-label")
+                action = self.page.locator("#" + panel_id + "-btn")
+                listed = self.page.locator(selector + "[href]").first.get_attribute("href")
+                self.assertTrue((SITE / listed.lstrip("/") / "index.html").is_file())
+                expect(panel).to_be_hidden()
+
+                def save(data):
+                    self.page.evaluate(
+                        "([key, data]) => localStorage.setItem(key, JSON.stringify(data))",
+                        [key, data])
+                    self.page.reload(wait_until="networkidle")
+
+                save({"url": listed, "label": malicious})
+                expect(panel).to_be_visible()
+                expect(action).to_have_attribute("href", listed)
+                expect(label.locator("strong")).to_have_text(malicious)
+                self.assertEqual(label.locator("img, script").count(), 0)
+                self.assertIsNone(self.page.evaluate("window.esaInjected"))
+
+                invalid = (
+                    {"url": "javascript:alert(1)", "label": "Script"},
+                    {"url": "//example.com/path/", "label": "External"},
+                    {"url": "https://example.com/path/", "label": "External"},
+                    {"url": route + "not-published/", "label": "Not listed"},
+                    {"url": listed + "?next=elsewhere", "label": "Query"},
+                    {"url": listed + "../", "label": "Traversal"},
+                    {"url": listed, "label": 25},
+                    {"url": listed, "label": " "},
+                )
+                for payload in invalid:
+                    with self.subTest(route=route, invalid=payload):
+                        save(payload)
+                        expect(panel).to_be_hidden()
+                        expect(action).to_have_attribute("href", "#")
+                self.page.evaluate(
+                    "key => localStorage.setItem(key, '{bad json')", key)
+                self.page.reload(wait_until="networkidle")
+                expect(panel).to_be_hidden()
+
+    def test_remaining_overviews_work_with_blocked_storage(self):
+        """Blocked storage cannot disrupt reading or saving existing progress."""
+        self.page.add_init_script("""
+            Object.defineProperty(window, 'localStorage', {
+              configurable: true,
+              get() { throw new DOMException('Denied', 'SecurityError'); }
+            });
+        """)
+        for route, selector, panel in (
+            ("/applied-statistics/", "#blocks .lesson-block-card h3 a",
+             "#continue-reading-applied"),
+            ("/mathematical-statistics/", "#blocks .lesson-card h3 a",
+             "#continue-reading-ms"),
+            ("/descriptive/spread/", "#lessons .lesson-card h3 a",
+             "#continue-reading-block5"),
+        ):
+            with self.subTest(route=route):
+                self.page.goto(self.origin + route, wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+                expect(self.page.locator(selector).first).to_be_visible()
+                expect(self.page.locator(panel)).to_be_hidden()
+                self.page.evaluate("""selector => {
+                    document.addEventListener('click', e => e.preventDefault(), true);
+                    document.querySelector(selector).click();
+                }""", selector)
+
+    def test_paths_landing_matches_current_learning_levels(self):
+        """The landing cards lead to the same published starting points."""
+        self.page.goto(self.origin + "/learning-paths/", wait_until="networkidle")
+        expected = (
+            ("Step 1: Foundations", "/foundations/what-is-statistics/"),
+            ("Step 2: Descriptive Statistics", "/descriptive/data-variables/"),
+            ("Step 3: Probability", "/probability/basics/"),
+            ("Step 4: Inference", "/inference/foundations/"),
+            ("Step 5: Intro to Modeling", "/modeling/foundations/"),
+            ("Software Practice", "/software/"),
+            ("Statistical Inference", "/inference/hypothesis-testing/"),
+            ("Regression & Modeling", "/modeling/simple-linear-regression/"),
+            ("Applied Statistics", "/applied-statistics/study-design/"),
+            ("Mathematical Statistics", "/mathematical-statistics/"),
+            ("Machine Learning", "/machine-learning/"),
+            ("Data Mining", "/data-mining/"),
+        )
+        for title, url in expected:
+            with self.subTest(card=title):
+                card = self.page.locator(".esa-paths .card").filter(
+                    has=self.page.get_by_role("heading", name=title, exact=True))
+                expect(card.locator("a.card-foot")).to_have_attribute("href", url)
+                self.assertTrue((SITE / url.lstrip("/") / "index.html").is_file(),
+                                "Unpublished learning path destination: " + url)
+        for title in ("Software Practice", "Mathematical Statistics",
+                      "Machine Learning", "Data Mining"):
+            card = self.page.locator(".esa-paths .card").filter(
+                has=self.page.get_by_role("heading", name=title, exact=True))
+            expect(card.locator("p.muted-mini")).to_contain_text("overview")
+        for width in (320, 375, 768, 1280):
+            with self.subTest(width=width):
+                self.page.set_viewport_size({"width": width, "height": 850})
+                dims = self.page.evaluate("""() => ({
+                    viewport: window.innerWidth,
+                    document: document.documentElement.scrollWidth
+                })""")
+                self.assertLessEqual(dims["document"], dims["viewport"], dims)
+
+    def test_standard_deviation_empirical_rule_normal_only(self):
+        """Normal coverage approximations, numerical bounds and caveats match."""
+        from math import erf, sqrt
+        self.page.goto(self.origin + "/descriptive/spread/standard-deviation/",
+                       wait_until="networkidle")
+        rule = self.page.get_by_role("heading", name="The Empirical Rule")
+        expect(rule).to_be_visible()
+        table = rule.locator("xpath=following-sibling::div[contains(@class, 'table-wrap')][1]")
+        rows = table.locator("tbody tr")
+        expect(rows).to_have_count(3)
+        for idx, (z, approx, low, high) in enumerate((
+            (1, 68.27, 85, 115), (2, 95.45, 70, 130),
+            (3, 99.73, 55, 145),
+        )):
+            with self.subTest(sigma_count=z):
+                probability = 100 * erf(z / sqrt(2))
+                self.assertAlmostEqual(probability, approx, delta=0.01)
+                self.assertEqual((100 - z * 15, 100 + z * 15), (low, high))
+                expect(rows.nth(idx)).to_contain_text(str(approx) + "%")
+        main = self.page.locator("main")
+        for phrase in ("68–95–99.7 rule", "population mean 100",
+                       "population standard deviation 15",
+                       "85 and 115", "70 and 130", "55 and 145",
+                       "not guaranteed", "not a confidence interval"):
+            with self.subTest(phrase=phrase):
+                expect(main).to_contain_text(phrase)
+        link = main.get_by_role("link", name="Normal Distribution lesson")
+        expect(link).to_have_attribute("href",
+            "/probability/distributions/normal-distribution/")
+        self.assertTrue((SITE / "probability/distributions/normal-distribution/index.html").is_file())
+
     def test_representative_lessons_and_navigation(self):
         self.open()
         cases = {

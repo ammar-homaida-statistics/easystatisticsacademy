@@ -197,21 +197,29 @@ sidebar: false
     const KEY = "esa_continue_ms_last_block_v0";
     const raw = localStorage.getItem(KEY);
     if (!raw) return;
-
     const data = JSON.parse(raw);
-    if (!data || !data.url || !data.label) return;
+    if (!data || typeof data.url !== "string" ||
+        typeof data.label !== "string" || !data.label.trim()) return;
+
+    // Resume only a canonical, published lesson or block listed on this page.
+    if (!/^\/mathematical-statistics\/[a-z0-9-]+\/$/.test(data.url)) return;
+    const published = Array.from(document.querySelectorAll("#blocks .lesson-card h3 a[href]"))
+      .some(link => link.getAttribute("href") === data.url);
+    if (!published) return;
 
     const wrap = document.getElementById("continue-reading-ms");
     const label = document.getElementById("continue-reading-ms-label");
     const btn = document.getElementById("continue-reading-ms-btn");
-
     if (!wrap || !label || !btn) return;
 
-    label.innerHTML = "You last visited: <strong>" + data.label + "</strong>";
+    const strong = document.createElement("strong");
+    strong.textContent = data.label;
+    label.replaceChildren(document.createTextNode("You last visited: "), strong);
     btn.href = data.url;
     wrap.style.display = "block";
-
-  } catch (e) {}
+  } catch (_) {
+    // Unavailable storage or invalid JSON must not break the learning page.
+  }
 })();
 </script>
 
@@ -224,10 +232,14 @@ sidebar: false
 
   links.forEach(function(link) {
     link.addEventListener("click", function () {
-      localStorage.setItem(KEY, JSON.stringify({
-        url: link.getAttribute("href"),
-        label: link.textContent.trim()
-      }));
+      try {
+        localStorage.setItem(KEY, JSON.stringify({
+                url: link.getAttribute("href"),
+                label: link.textContent.trim()
+              }));
+      } catch (_) {
+        // Progress history is optional when browser storage is disabled.
+      }
     });
   });
 })();
