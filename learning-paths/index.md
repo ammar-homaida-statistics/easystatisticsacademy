@@ -40,37 +40,38 @@ paths_styles: true
     <div class="card">
       <h3>Step 1: Foundations</h3>
       <p>Basic concepts, data types, variables, and statistical thinking.</p>
-      <a class="card-foot" href="/foundations/">Start →</a>
+      <a class="card-foot" href="/foundations/what-is-statistics/">Start with What Is Statistics? →</a>
     </div>
 
     <div class="card">
       <h3>Step 2: Descriptive Statistics</h3>
       <p>Summarize and visualize data correctly.</p>
-      <a class="card-foot" href="/descriptive/">Explore →</a>
+      <a class="card-foot" href="/descriptive/data-variables/">Start with Data & Variables →</a>
     </div>
 
     <div class="card">
       <h3>Step 3: Probability</h3>
       <p>Understand randomness, distributions, and expectation.</p>
-      <a class="card-foot" href="/probability/">Explore →</a>
+      <a class="card-foot" href="/probability/basics/">Start with Probability Basics →</a>
     </div>
 
     <div class="card">
       <h3>Step 4: Inference</h3>
       <p>Confidence intervals and hypothesis testing.</p>
-      <a class="card-foot" href="/inference/">Explore →</a>
+      <a class="card-foot" href="/inference/foundations/">Start with Inference Foundations →</a>
     </div>
 
     <div class="card">
       <h3>Step 5: Intro to Modeling</h3>
       <p>Basic regression and interpretation.</p>
-      <a class="card-foot" href="/modeling/">Explore →</a>
+      <a class="card-foot" href="/modeling/foundations/">Start with Modeling Foundations →</a>
     </div>
 
     <div class="card card-muted">
       <h3>Software Practice</h3>
       <p>Use SPSS, R, Python, or Excel alongside each step.</p>
-      <a class="card-foot" href="/software/">Practice →</a>
+      <p class="muted-mini">SPSS, R, Python, and Excel tutorials are planned; this is the curriculum overview.</p>
+      <a class="card-foot" href="/software/">View software overview →</a>
     </div>
 
   </div>
@@ -88,19 +89,19 @@ paths_styles: true
     <div class="card">
       <h3>Statistical Inference</h3>
       <p>Deep understanding of tests and assumptions.</p>
-      <a class="card-foot" href="/inference/">Explore →</a>
+      <a class="card-foot" href="/inference/hypothesis-testing/">Explore hypothesis testing →</a>
     </div>
 
     <div class="card">
       <h3>Regression & Modeling</h3>
       <p>Linear models, diagnostics, and interpretation.</p>
-      <a class="card-foot" href="/modeling/">Explore →</a>
+      <a class="card-foot" href="/modeling/simple-linear-regression/">Explore linear regression →</a>
     </div>
 
     <div class="card">
       <h3>Applied Statistics</h3>
       <p>Real-world studies and analysis patterns.</p>
-      <a class="card-foot" href="/applied-statistics/">Explore →</a>
+      <a class="card-foot" href="/applied-statistics/study-design/">Explore study design →</a>
     </div>
 
   </div>
@@ -118,19 +119,22 @@ paths_styles: true
     <div class="card">
       <h3>Mathematical Statistics</h3>
       <p>Theoretical foundations behind estimators and distributions.</p>
-      <a class="card-foot" href="/mathematical-statistics/">Explore →</a>
+      <p class="muted-mini">Curriculum overview; several mathematical-statistics blocks are under construction.</p>
+      <a class="card-foot" href="/mathematical-statistics/">View theory overview →</a>
     </div>
 
     <div class="card">
       <h3>Machine Learning</h3>
       <p>Statistical perspective on ML methods.</p>
-      <a class="card-foot" href="/machine-learning/">Explore →</a>
+      <p class="muted-mini">Curriculum overview; detailed machine-learning lessons are planned.</p>
+      <a class="card-foot" href="/machine-learning/">View ML overview →</a>
     </div>
 
     <div class="card">
       <h3>Data Mining</h3>
       <p>Pattern discovery and advanced data techniques.</p>
-      <a class="card-foot" href="/data-mining/">Explore →</a>
+      <p class="muted-mini">Curriculum overview; detailed data-mining lessons are planned.</p>
+      <a class="card-foot" href="/data-mining/">View data-mining overview →</a>
     </div>
 
   </div>
