@@ -73,13 +73,21 @@
     if (state === "loading") return message("Loading search…");
     if (state === "error") return message("Search is temporarily unavailable. Please try again.");
 
-    // Normalized fields are computed once after fetch, not on each keystroke.
+    // Favor exact and contiguous matches. Only if a phrase is absent, match
+    // every unique query word across title/content, irrespective of word order.
+    // Index normalization remains a one-time operation after fetch.
+    const terms = [...new Set(q.split(" ").filter(Boolean))];
     const matches = pages.map((page) => {
       const title = page.normalizedTitle;
       const content = page.normalizedContent;
-      const rank = title === q ? 0 : title.startsWith(q) ? 1 : title.includes(q) ? 2 : content.includes(q) ? 3 : 4;
+      const rank = title === q ? 0 :
+        title.startsWith(q) ? 1 :
+        title.includes(q) ? 2 :
+        content.includes(q) ? 3 :
+        terms.length > 1 && terms.every(term => title.includes(term)) ? 4 :
+        terms.length > 1 && terms.every(term => title.includes(term) || content.includes(term)) ? 5 : 6;
       return { page, rank };
-    }).filter((match) => match.rank < 4)
+    }).filter((match) => match.rank < 6)
       .sort((a, b) => a.rank - b.rank).slice(0, 8);
 
     if (!matches.length) return message("No results found.");
@@ -93,7 +101,9 @@
       title.textContent = page.title;
       const snippet = document.createElement("div");
       snippet.className = "search-snippet";
-      snippet.textContent = readableSnippet(page.content, q);
+      const preferred = page.normalizedContent.includes(q) ? q :
+        terms.find(term => page.normalizedContent.includes(term)) || q;
+      snippet.textContent = readableSnippet(page.content, preferred);
       link.append(title, snippet);
       box.append(link);
     }

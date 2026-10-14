@@ -857,6 +857,82 @@ class SearchTests(unittest.TestCase):
         self.page.go_forward(wait_until="domcontentloaded")
         check_alignment(second)
 
+    def test_multi_keyword_search_ranking(self):
+        """Prioritize exact/phrase matches, then words in either order/field."""
+        fixture = [
+            {"title": "Mixed sampling", "url": "/foundations/",
+             "content": "Variance formula for samples"},
+            {"title": "Sample variance formula", "url": "/descriptive/spread/variance/",
+             "content": "Sample variance is a statistical measure"},
+            {"title": "Sample variance formula explained", "url": "/descriptive/",
+             "content": "Learn about sample variance"},
+            {"title": "Understanding sample variance formula", "url": "/probability/",
+             "content": "Statistical principles"},
+            {"title": "Variance sample formula", "url": "/inference/",
+             "content": "Explained with examples"},
+            {"title": "Statistics handbook", "url": "/modeling/",
+             "content": "The sample variance formula is fundamental"},
+            {"title": "Sample size only", "url": "/software/",
+             "content": "Statistical learning"},
+        ]
+        self.page.route("**/search.json", lambda route: route.fulfill(
+            content_type="application/json", body=json.dumps(fixture)
+        ))
+        self.open()
+        self.input.fill(" SAMPLE  VARIANCE   FORMULA ")
+        result = self.results.locator("a.search-item")
+        expect(result).to_have_count(6)
+        self.assertEqual(result.evaluate_all(
+            "(links) => links.map(link => new URL(link.href).pathname)"
+        ), ["/descriptive/spread/variance/", "/descriptive/", "/probability/",
+            "/modeling/", "/inference/", "/foundations/"])
+        # A phrase that is absent from every page still finds all word matches.
+        self.input.fill("formula variance sample")
+        expect(result).to_have_count(6)
+        self.assertEqual(result.first.get_attribute("href"), "/descriptive/spread/variance/")
+        self.input.press("ArrowDown")
+        expect(result.first).to_be_focused()
+        result.first.press("Escape")
+        expect(self.results).to_be_hidden()
+
+    def test_reduced_motion_and_keyboard_focus_indicators(self):
+        """Respect OS motion settings while keeping active results legible."""
+        self.page.emulate_media(reduced_motion="reduce")
+        self.page.set_viewport_size({"width": 375, "height": 700})
+        self.open()
+        self.assertEqual(self.page.evaluate(
+            "() => getComputedStyle(document.documentElement).scrollBehavior"
+        ), "auto")
+        self.assertTrue(self.page.evaluate(
+            "() => window.matchMedia('(prefers-reduced-motion: reduce)').matches"
+        ))
+        self.input.fill("variance")
+        self.input.press("ArrowDown")
+        link = self.results.locator("a.search-item").first
+        expect(link).to_be_focused()
+        focused = link.evaluate("""node => ({
+            visible: node.matches(':focus-visible'),
+            style: getComputedStyle(node).outlineStyle,
+            width: parseFloat(getComputedStyle(node).outlineWidth),
+            background: getComputedStyle(node).backgroundColor
+        })""")
+        self.assertTrue(focused["visible"])
+        self.assertEqual(focused["style"], "solid")
+        self.assertGreaterEqual(focused["width"], 3)
+        self.page.goto(self.origin + "/descriptive/spread/variance/",
+                       wait_until="networkidle")
+        self.assertEqual(self.page.evaluate(
+            "() => getComputedStyle(document.documentElement).scrollBehavior"
+        ), "auto")
+        self.assertGreater(self.page.locator(".esa-lesson-toc summary").count(), 0)
+        # The TOC remains functional with motion disabled.
+        self.page.locator(".esa-lesson-toc summary").click()
+        expect(self.page.locator(".esa-lesson-toc li a").first).to_be_visible()
+        self.page.emulate_media(reduced_motion="no-preference")
+        self.assertEqual(self.page.evaluate(
+            "() => getComputedStyle(document.documentElement).scrollBehavior"
+        ), "smooth")
+
     def test_representative_lessons_and_navigation(self):
         self.open()
         cases = {
