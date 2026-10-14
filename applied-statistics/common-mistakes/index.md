@@ -57,7 +57,7 @@ sidebar: false
       </p>
 
       <p class="muted-mini">
-        5 lessons • Statistical pitfalls • Builds on Effect Sizes & Interpretation • Prepares for Reporting Results
+        5 planned lessons • Statistical pitfalls • Builds on Effect Sizes & Interpretation • Prepares for Reporting Results
       </p>
 
       <div class="hero-actions">
@@ -104,7 +104,7 @@ sidebar: false
 
         <div class="mini">
           <div class="mini-title">Lessons</div>
-          <div class="mini-body">5 structured lessons</div>
+          <div class="mini-body">5 planned lessons</div>
         </div>
 
         <div class="mini">
@@ -182,6 +182,8 @@ sidebar: false
 
   </div>
 
+  <p class="planned-lessons-note">These lesson topics are planned; the individual pages are not published yet.</p>
+
   <div class="grid grid-2">
 
     <!-- LESSON 1 -->
@@ -189,9 +191,9 @@ sidebar: false
     <div class="card lesson-card lesson-block-card">
 
       <h3>
-        <a href="/applied-statistics/common-mistakes/wrong-test/">
+        <span class="planned-lesson-title">
           Choosing the Wrong Statistical Test
-        </a>
+        </span>
       </h3>
 
       <p>
@@ -205,12 +207,7 @@ sidebar: false
         <span class="pill">Validity</span>
       </div>
 
-      <a
-        class="btn btn-outline"
-        href="/applied-statistics/common-mistakes/wrong-test/"
-      >
-        Open lesson
-      </a>
+      <span class="planned-lesson-status" aria-label="Lesson not yet available">Planned lesson</span>
 
     </div>
 
@@ -219,9 +216,9 @@ sidebar: false
     <div class="card lesson-card lesson-block-card">
 
       <h3>
-        <a href="/applied-statistics/common-mistakes/pvalues/">
+        <span class="planned-lesson-title">
           Misinterpreting P-values
-        </a>
+        </span>
       </h3>
 
       <p>
@@ -235,12 +232,7 @@ sidebar: false
         <span class="pill">Inference</span>
       </div>
 
-      <a
-        class="btn btn-outline"
-        href="/applied-statistics/common-mistakes/pvalues/"
-      >
-        Open lesson
-      </a>
+      <span class="planned-lesson-status" aria-label="Lesson not yet available">Planned lesson</span>
 
     </div>
 
@@ -249,9 +241,9 @@ sidebar: false
     <div class="card lesson-card lesson-block-card">
 
       <h3>
-        <a href="/applied-statistics/common-mistakes/multiple-testing/">
+        <span class="planned-lesson-title">
           Multiple Comparisons Problem
-        </a>
+        </span>
       </h3>
 
       <p>
@@ -265,12 +257,7 @@ sidebar: false
         <span class="pill">Inference</span>
       </div>
 
-      <a
-        class="btn btn-outline"
-        href="/applied-statistics/common-mistakes/multiple-testing/"
-      >
-        Open lesson
-      </a>
+      <span class="planned-lesson-status" aria-label="Lesson not yet available">Planned lesson</span>
 
     </div>
 
@@ -279,9 +266,9 @@ sidebar: false
     <div class="card lesson-card lesson-block-card">
 
       <h3>
-        <a href="/applied-statistics/common-mistakes/non-significant/">
+        <span class="planned-lesson-title">
           Misinterpreting Non-Significant Results
-        </a>
+        </span>
       </h3>
 
       <p>
@@ -295,12 +282,7 @@ sidebar: false
         <span class="pill">Interpretation</span>
       </div>
 
-      <a
-        class="btn btn-outline"
-        href="/applied-statistics/common-mistakes/non-significant/"
-      >
-        Open lesson
-      </a>
+      <span class="planned-lesson-status" aria-label="Lesson not yet available">Planned lesson</span>
 
     </div>
 
@@ -309,9 +291,9 @@ sidebar: false
     <div class="card lesson-card lesson-block-card">
 
       <h3>
-        <a href="/applied-statistics/common-mistakes/overinterpretation/">
+        <span class="planned-lesson-title">
           Overinterpretation of Results
-        </a>
+        </span>
       </h3>
 
       <p>
@@ -325,12 +307,7 @@ sidebar: false
         <span class="pill">Evidence</span>
       </div>
 
-      <a
-        class="btn btn-outline"
-        href="/applied-statistics/common-mistakes/overinterpretation/"
-      >
-        Open lesson
-      </a>
+      <span class="planned-lesson-status" aria-label="Lesson not yet available">Planned lesson</span>
 
     </div>
 
