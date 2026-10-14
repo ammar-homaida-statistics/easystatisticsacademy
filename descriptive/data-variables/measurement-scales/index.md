@@ -14,11 +14,15 @@ sidebar: false
   const KEY =
     "esa_continue_descriptive_data_variables_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
     url: "/descriptive/data-variables/measurement-scales/",
     label: "Measurement Scales",
     ts: Date.now()
-  }));
+    }));
+  } catch (e) {
+    // Browser storage can be disabled; lesson navigation must still work.
+  }
 
 })();
 </script>
