@@ -1030,6 +1030,107 @@ class SearchTests(unittest.TestCase):
                 expect(self.page.locator("main h1")).to_be_visible()
         expect(self.page.locator('a[href="/descriptive/data-variables/measurement-scales/"]').first).to_be_visible()
 
+    def test_new_foundations_resume_validates_saved_lesson(self):
+        """Generic reading history only resumes known Foundations lesson links."""
+        route = "/foundations/what-is-statistics/"
+        self.page.goto(self.origin + route, wait_until="networkidle")
+        self.page.goto(self.origin + "/foundations/", wait_until="networkidle")
+        panel = self.page.locator("#continue-reading")
+        expect(panel).to_be_visible()
+        expect(panel.locator("a.btn")).to_have_attribute("href", route)
+        expect(panel).to_contain_text("What Is Statistics?")
+
+        for invalid in ("javascript:alert(1)", "//evil.example/lesson",
+                        "/foundations/unpublished/", "/foundations/../about/",
+                        "/foundations/what-is-statistics/?test=1", "/about/"):
+            with self.subTest(invalid=invalid):
+                self.page.evaluate("value => localStorage.setItem('esa:lastPage', value)", invalid)
+                self.page.reload(wait_until="networkidle")
+                expect(panel).to_be_hidden()
+
+        # Even the legacy Foundations-specific key must never create HTML or outside links.
+        self.page.evaluate("""() => {
+            localStorage.removeItem('esa:lastPage');
+            localStorage.setItem('esa:lastFoundationLesson',
+              '<img src=x onerror="window.esaInjected=true">');
+        }""")
+        self.page.reload(wait_until="networkidle")
+        expect(panel).to_be_hidden()
+        self.assertIsNone(self.page.evaluate("window.esaInjected"))
+
+        self.page.evaluate("""() => {
+            localStorage.setItem('esa:lastFoundationLesson',
+              '/foundations/what-is-statistics/');
+        }""")
+        self.page.reload(wait_until="networkidle")
+        expect(panel).to_be_visible()
+        expect(panel.locator("a.btn")).to_have_attribute("href", route)
+
+    def test_new_foundations_resume_handles_disabled_storage(self):
+        self.page.add_init_script("""
+            Object.defineProperty(window, 'localStorage', {
+              configurable: true,
+              get() { throw new DOMException('Storage denied', 'SecurityError'); }
+            });
+        """)
+        for route in ("/foundations/", "/foundations/what-is-statistics/"):
+            with self.subTest(route=route):
+                self.page.goto(self.origin + route, wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+        expect(self.page.locator("#continue-reading")).to_have_count(0)
+
+    def test_intermediate_path_uses_published_specific_blocks(self):
+        self.page.goto(self.origin + "/learning-paths/intermediate/",
+                       wait_until="networkidle")
+        expected = (
+            ("Statistical Inference (Deep Dive)", "/inference/hypothesis-testing/"),
+            ("Regression & Modeling", "/modeling/simple-linear-regression/"),
+            ("Applied Statistics", "/applied-statistics/study-design/"),
+            ("Diagnostics & Validation", "/modeling/diagnostics/"),
+            ("Interpretation & Reporting", "/applied-statistics/reporting/"),
+        )
+        for heading, destination in expected:
+            with self.subTest(heading=heading):
+                card = self.page.locator(".card").filter(
+                    has=self.page.get_by_role("heading", name=heading, exact=True))
+                expect(card.locator("a.card-foot")).to_have_attribute("href", destination)
+                self.assertTrue((SITE / destination.lstrip("/") / "index.html").is_file(),
+                                f"Unpublished curriculum destination: {destination}")
+
+    def test_first_foundations_self_check_feedback_and_mobile(self):
+        self.page.goto(self.origin + "/foundations/what-is-statistics/",
+                       wait_until="networkidle")
+        quiz = self.page.locator("#esa-self-check")
+        questions = quiz.locator("fieldset")
+        expect(questions).to_have_count(3)
+        expected = [("b", "a"), ("a", "b"), ("c", "a")]
+        for idx, (correct, incorrect) in enumerate(expected):
+            with self.subTest(question=idx + 1):
+                question = questions.nth(idx)
+                expect(question.locator("legend")).to_be_visible()
+                feedback = question.locator(".esa-check-feedback")
+                question.locator('input[value="' + incorrect + '"]').check()
+                expect(feedback).to_contain_text("Not quite.")
+                question.locator('input[value="' + correct + '"]').check()
+                expect(feedback).to_contain_text("Correct.")
+                self.assertGreater(len(feedback.inner_text()), 35)
+
+        # Keyboard interaction should update explanation like pointer selection.
+        first = questions.first
+        first.locator('input[value="b"]').focus()
+        first.locator('input[value="b"]').press("ArrowRight")
+        expect(first.locator(".esa-check-feedback")).to_contain_text("Not quite.")
+
+        for width in (320, 375, 1280):
+            with self.subTest(width=width):
+                self.page.set_viewport_size({"width": width, "height": 820})
+                dims = self.page.evaluate("""() => ({
+                    viewport: window.innerWidth,
+                    document: document.documentElement.scrollWidth
+                })""")
+                self.assertLessEqual(dims["document"], dims["viewport"], dims)
+
+
     def test_representative_lessons_and_navigation(self):
         self.open()
         cases = {
