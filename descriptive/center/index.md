@@ -12,11 +12,15 @@ sidebar: false
 
   const KEY = "esa_continue_descriptive_last_block_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
-    url: "/descriptive/center/",
-    label: "Block 4 — Measures of Center",
-    ts: Date.now()
-  }));
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
+      url: "/descriptive/center/",
+      label: "Block 4 — Measures of Center",
+      ts: Date.now()
+    }));
+  } catch (_) {
+    // Private browsing or disabled storage must not interrupt the block.
+  }
 
 })();
 </script>
@@ -550,39 +554,34 @@ sidebar: false
 <!-- CONTINUE READING -->
 <script>
 (function () {
-
   try {
-
-    const KEY =
-      "esa_continue_descriptive_center_lesson_v0";
-
+    const KEY = "esa_continue_descriptive_center_lesson_v0";
     const raw = localStorage.getItem(KEY);
-
     if (!raw) return;
-
     const data = JSON.parse(raw);
+    if (!data || typeof data.url !== "string" ||
+        typeof data.label !== "string" || !data.label.trim()) return;
 
-    if (!data || !data.url || !data.label) return;
+    // Only exact canonical routes to published lessons listed in this block.
+    const allowed = /^\/descriptive\/center\/[a-z0-9-]+\/$/.test(data.url);
+    if (!allowed) return;
+    const listed = Array.from(
+      document.querySelectorAll("#lessons .lesson-card h3 a[href]")
+    ).some(link => link.getAttribute("href") === data.url);
+    if (!listed) return;
 
-    const wrap =
-      document.getElementById("continue-reading-block4");
-
-    const label =
-      document.getElementById("continue-reading-block4-label");
-
-    const btn =
-      document.getElementById("continue-reading-block4-btn");
-
+    const wrap = document.getElementById("continue-reading-block4");
+    const label = document.getElementById("continue-reading-block4-label");
+    const btn = document.getElementById("continue-reading-block4-btn");
     if (!wrap || !label || !btn) return;
 
-    label.innerHTML =
-      'You last visited: <strong>' + data.label + '</strong>';
-
+    const emphasis = document.createElement("strong");
+    emphasis.textContent = data.label;
+    label.replaceChildren(document.createTextNode("You last visited: "), emphasis);
     btn.href = data.url;
-
     wrap.style.display = "block";
-
-  } catch (e) {}
-
+  } catch (_) {
+    // Corrupt JSON or unavailable storage must not disrupt lesson navigation.
+  }
 })();
 </script>
