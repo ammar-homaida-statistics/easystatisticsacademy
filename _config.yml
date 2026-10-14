@@ -4,3 +4,7 @@ url: "https://easystatisticsacademy.com"
 timezone: UTC
 markdown: kramdown
 permalink: pretty
+
+# Keep internal planning documentation out of the public Jekyll build.
+exclude:
+  - navigation-map.md

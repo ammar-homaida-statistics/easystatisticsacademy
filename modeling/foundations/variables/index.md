@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Variables
+seo_title: Variables in Statistical Modeling
 description: Learn what variables are, why they are fundamental to statistical models, and how different types of variables are used in analysis.
 permalink: /modeling/foundations/variables/
 sidebar: false

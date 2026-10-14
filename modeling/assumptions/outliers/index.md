@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Outliers
+seo_title: Outliers in Regression Modeling
 description: Learn what outliers are, why they matter in regression analysis, how they influence models, and how analysts investigate unusual observations.
 permalink: /modeling/assumptions/outliers/
 sidebar: false

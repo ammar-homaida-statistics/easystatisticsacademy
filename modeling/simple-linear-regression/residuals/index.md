@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Residuals
+seo_title: Residuals in Simple Linear Regression
 description: Learn what residuals are, how they measure prediction errors, and why they are essential for evaluating regression models.
 permalink: /modeling/simple-linear-regression/residuals/
 sidebar: false

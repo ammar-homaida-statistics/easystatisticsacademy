@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Assumption Violations
+seo_title: Regression Assumption Violations
 description: Learn what happens when regression assumptions are violated and how analysts evaluate, interpret, and respond to model problems.
 permalink: /modeling/assumptions/violations/
 sidebar: false
