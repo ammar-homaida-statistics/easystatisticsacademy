@@ -41,6 +41,7 @@ permalink: /learning-paths/advanced/
     <div class="card">
       <div class="pill">Step 1</div>
       <h3>Mathematical Statistics</h3>
+      <p class="muted-mini">Theory curriculum overview; several blocks are under construction.</p>
       <p>Understand the theory behind statistical methods.</p>
 
       <ul class="bullets">
@@ -49,7 +50,7 @@ permalink: /learning-paths/advanced/
         <li>Theoretical properties</li>
       </ul>
 
-      <a class="card-foot" href="/mathematical-statistics/">Explore →</a>
+      <a class="card-foot" href="/mathematical-statistics/">View theory overview →</a>
     </div>
 
     <!-- STEP 2 -->
@@ -64,13 +65,14 @@ permalink: /learning-paths/advanced/
         <li>Complex regression</li>
       </ul>
 
-      <a class="card-foot" href="/modeling/">Explore →</a>
+      <a class="card-foot" href="/modeling/extensions/">Explore modeling extensions →</a>
     </div>
 
     <!-- STEP 3 -->
     <div class="card">
       <div class="pill">Step 3</div>
       <h3>Machine Learning</h3>
+      <p class="muted-mini">Curriculum overview; detailed lessons are planned.</p>
       <p>Learn statistical foundations of ML methods.</p>
 
       <ul class="bullets">
@@ -79,13 +81,14 @@ permalink: /learning-paths/advanced/
         <li>Model evaluation</li>
       </ul>
 
-      <a class="card-foot" href="/machine-learning/">Explore →</a>
+      <a class="card-foot" href="/machine-learning/">View curriculum overview →</a>
     </div>
 
     <!-- STEP 4 -->
     <div class="card">
       <div class="pill">Step 4</div>
       <h3>Data Mining</h3>
+      <p class="muted-mini">Curriculum overview; detailed lessons are planned.</p>
       <p>Discover patterns and structure in data.</p>
 
       <ul class="bullets">
@@ -94,7 +97,7 @@ permalink: /learning-paths/advanced/
         <li>Anomaly detection</li>
       </ul>
 
-      <a class="card-foot" href="/data-mining/">Explore →</a>
+      <a class="card-foot" href="/data-mining/">View curriculum overview →</a>
     </div>
 
     <!-- STEP 5 -->
@@ -109,13 +112,14 @@ permalink: /learning-paths/advanced/
         <li>Practical decision-making</li>
       </ul>
 
-      <a class="card-foot" href="/machine-learning/">Explore →</a>
+      <a class="card-foot" href="/modeling/model-fit-comparison/">Explore model evaluation →</a>
     </div>
 
     <!-- PRACTICE -->
     <div class="card card-highlight">
       <div class="pill">Practice</div>
       <h3>Advanced Workflows</h3>
+      <p class="muted-mini">Software curriculum overview; tutorials are planned.</p>
       <p>Combine theory and implementation.</p>
 
       <ul class="bullets">
@@ -124,7 +128,7 @@ permalink: /learning-paths/advanced/
         <li>Real-world datasets</li>
       </ul>
 
-      <a class="card-foot" href="/software/">Practice →</a>
+      <a class="card-foot" href="/software/">View software overview →</a>
     </div>
 
   </div>
