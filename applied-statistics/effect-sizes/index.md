@@ -495,6 +495,12 @@ sidebar: false
 
     if (!data || !data.url || !data.label) return;
 
+    // Never revive stale links to unpublished lessons from browser storage.
+    const availableLessons = Array.from(
+      document.querySelectorAll("#lessons .lesson-card a[href]")
+    );
+    if (!availableLessons.some(link => link.getAttribute("href") === data.url)) return;
+
     const wrap =
       document.getElementById(
         "continue-reading-effect-sizes"
