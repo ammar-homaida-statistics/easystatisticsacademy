@@ -1131,6 +1131,112 @@ class SearchTests(unittest.TestCase):
                 self.assertLessEqual(dims["document"], dims["viewport"], dims)
 
 
+    def test_secure_descriptive_resume_five_blocks(self):
+        """Progress stays within listed lessons; saved labels are never HTML."""
+        blocks = (
+            ("tabular-summaries", "block2", "tabular_summaries"),
+            ("visualization", "block3", "visualization"),
+            ("center", "block4", "center"),
+            ("shape", "block6", "shape"),
+            ("reporting", "block7", "reporting"),
+        )
+        malicious_label = '<img src=x onerror="window.esaInjected=true"> & text'
+        for slug, number, key_slug in blocks:
+            with self.subTest(block=slug):
+                self.page.goto(self.origin + "/descriptive/" + slug + "/",
+                               wait_until="networkidle")
+                key = "esa_continue_descriptive_" + key_slug + "_lesson_v0"
+                panel = self.page.locator("#continue-reading-" + number)
+                label = self.page.locator("#continue-reading-" + number + "-label")
+                link = self.page.locator("#continue-reading-" + number + "-btn")
+                valid = self.page.locator("#lessons .lesson-card h3 a[href]").first.get_attribute("href")
+                self.assertTrue((SITE / valid.lstrip("/") / "index.html").is_file())
+                expect(panel).to_be_hidden()
+
+                def save(payload):
+                    self.page.evaluate(
+                        "([key, value]) => localStorage.setItem(key, JSON.stringify(value))",
+                        [key, payload])
+                    self.page.reload(wait_until="networkidle")
+
+                save({"url": valid, "label": malicious_label})
+                expect(panel).to_be_visible()
+                expect(link).to_have_attribute("href", valid)
+                expect(label.locator("strong")).to_have_text(malicious_label)
+                self.assertEqual(label.locator("img, script").count(), 0)
+                self.assertIsNone(self.page.evaluate("window.esaInjected"))
+
+                for invalid in (
+                    {"url": "javascript:alert(1)", "label": "Unsafe"},
+                    {"url": "//external.example/lesson/", "label": "External"},
+                    {"url": "/descriptive/" + slug + "/not-published/", "label": "Missing"},
+                    {"url": valid + "?next=elsewhere", "label": "Query"},
+                    {"url": valid, "label": 17},
+                    {"url": valid, "label": "  "},
+                ):
+                    with self.subTest(block=slug, invalid=invalid):
+                        save(invalid)
+                        expect(panel).to_be_hidden()
+
+                self.page.evaluate(
+                    "key => localStorage.setItem(key, '{broken json')", key)
+                self.page.reload(wait_until="networkidle")
+                expect(panel).to_be_hidden()
+
+    def test_descriptive_overview_pages_survive_blocked_storage(self):
+        """Save and resume scripts fail gracefully when storage throws."""
+        self.page.add_init_script("""
+            Object.defineProperty(window, 'localStorage', {
+              configurable: true,
+              get() { throw new DOMException('Storage denied', 'SecurityError'); }
+            });
+        """)
+        for slug in ("tabular-summaries", "visualization", "center",
+                     "shape", "reporting"):
+            with self.subTest(block=slug):
+                self.page.goto(self.origin + "/descriptive/" + slug + "/",
+                               wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+                expect(self.page.locator("#lessons .lesson-card h3 a").first).to_be_visible()
+
+    def test_variables_example_count_and_sample_variation(self):
+        self.page.goto(self.origin + "/foundations/variables/",
+                       wait_until="networkidle")
+        example = self.page.locator(".section-block").filter(
+            has=self.page.get_by_role("heading", name="Numerical Example"))
+        expect(example).to_contain_text("Suppose we collect data on 2 people:")
+        expect(example.locator("tbody tr")).to_have_count(2)
+        expect(example.locator("tbody tr").first.locator("td").first).to_have_text("A")
+        expect(example.locator("tbody tr").last.locator("td").first).to_have_text("B")
+        variable = self.page.locator(".section-block").filter(
+            has=self.page.get_by_role("heading", name="Variable vs Constant"))
+        expect(variable).to_contain_text("even if its values happen to be identical")
+        expect(variable).to_contain_text("within this sample")
+        expect(variable).to_contain_text("cannot explain differences")
+
+    def test_advanced_path_specific_links_and_honest_overviews(self):
+        self.page.goto(self.origin + "/learning-paths/advanced/",
+                       wait_until="networkidle")
+        expected = (
+            ("Mathematical Statistics", "/mathematical-statistics/", True),
+            ("Advanced Modeling", "/modeling/extensions/", False),
+            ("Machine Learning", "/machine-learning/", True),
+            ("Data Mining", "/data-mining/", True),
+            ("Evaluation & Strategy", "/modeling/model-fit-comparison/", False),
+            ("Advanced Workflows", "/software/", True),
+        )
+        for title, route, overview in expected:
+            with self.subTest(title=title):
+                card = self.page.locator(".card").filter(
+                    has=self.page.get_by_role("heading", name=title, exact=True))
+                expect(card.locator("a.card-foot")).to_have_attribute("href", route)
+                self.assertTrue((SITE / route.lstrip("/") / "index.html").is_file(),
+                                f"Advanced Path points to missing route: {route}")
+                if overview:
+                    expect(card.locator("p.muted-mini")).to_have_count(1)
+                    expect(card.locator("p.muted-mini")).to_contain_text(
+                        "overview")
+
     def test_representative_lessons_and_navigation(self):
         self.open()
         cases = {

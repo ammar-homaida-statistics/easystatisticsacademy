@@ -110,22 +110,22 @@ sidebar: false
     <h2>Variable vs Constant</h2>
 
     <p>
-      A variable changes across units, while a constant does not.
+      A variable is a characteristic that can take different values across units, even if its values happen to be identical in a particular sample.
     </p>
 
     <p><strong>Example:</strong></p>
 
     <ul class="bullets">
       <li>Height → variable (different for each person)</li>
-      <li>Country (if all students are from the same country) → constant</li>
+      <li>Country (if all sampled students are from the same country) → constant within this sample</li>
     </ul>
 
     <p>
-      Only variables provide useful information for statistical analysis.
+      A characteristic with the same observed value for everyone cannot explain differences between those sampled units, but it may still describe the sample or define its scope.
     </p>
 
     <p>
-      A variable must vary across units to be informative.
+      A variable need not vary in every sample to remain a variable; its usefulness depends on the statistical question and the population being studied.
     </p>
   </div>
 
@@ -198,7 +198,7 @@ sidebar: false
     <h2>Numerical Example</h2>
 
     <p>
-      Suppose we collect data on 4 people:
+      Suppose we collect data on 2 people:
     </p>
 
     <table style="width:100%; border-collapse:collapse; margin-top:10px;">
