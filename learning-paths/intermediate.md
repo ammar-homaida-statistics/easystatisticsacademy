@@ -49,7 +49,7 @@ permalink: /learning-paths/intermediate/
         <li>Limitations of p-values</li>
       </ul>
 
-      <a class="card-foot" href="/inference/">Explore →</a>
+      <a class="card-foot" href="/inference/hypothesis-testing/">Explore →</a>
     </div>
 
     <!-- STEP 2 -->
@@ -64,7 +64,7 @@ permalink: /learning-paths/intermediate/
         <li>Diagnostics</li>
       </ul>
 
-      <a class="card-foot" href="/modeling/">Explore →</a>
+      <a class="card-foot" href="/modeling/simple-linear-regression/">Explore →</a>
     </div>
 
     <!-- STEP 3 -->
@@ -79,7 +79,7 @@ permalink: /learning-paths/intermediate/
         <li>Interpretation of results</li>
       </ul>
 
-      <a class="card-foot" href="/applied-statistics/">Explore →</a>
+      <a class="card-foot" href="/applied-statistics/study-design/">Explore →</a>
     </div>
 
     <!-- STEP 4 -->
@@ -94,7 +94,7 @@ permalink: /learning-paths/intermediate/
         <li>Model validation</li>
       </ul>
 
-      <a class="card-foot" href="/modeling/">Explore →</a>
+      <a class="card-foot" href="/modeling/diagnostics/">Explore →</a>
     </div>
 
     <!-- STEP 5 -->
@@ -109,7 +109,7 @@ permalink: /learning-paths/intermediate/
         <li>Scientific reasoning</li>
       </ul>
 
-      <a class="card-foot" href="/applied-statistics/">Explore →</a>
+      <a class="card-foot" href="/applied-statistics/reporting/">Explore →</a>
     </div>
 
     <!-- PRACTICE -->
