@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Measurement Scales
+seo_title: Measurement Scales in Descriptive Statistics
 description: Learn the four classical measurement scales — nominal, ordinal, interval, and ratio — and why measurement level determines valid statistical analysis.
 permalink: /descriptive/data-variables/measurement-scales/
 sidebar: false

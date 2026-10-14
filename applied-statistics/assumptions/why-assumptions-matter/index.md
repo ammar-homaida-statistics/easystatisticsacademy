@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Why Assumptions Matter
+seo_title: Why Assumptions Matter in Applied Statistics
 description: Learn why statistical assumptions matter, how violations can affect results, and why assumption checking is an important part of statistical practice.
 permalink: /applied-statistics/assumptions/why-assumptions-matter/
 sidebar: false

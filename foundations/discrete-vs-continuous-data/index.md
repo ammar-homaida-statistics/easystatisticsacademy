@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Discrete vs Continuous Data
+seo_title: Discrete vs Continuous Data in Foundations
 description: Understand the difference between discrete and continuous data and why it matters for probability, modeling, and analysis.
 permalink: /foundations/discrete-vs-continuous-data/
 sidebar: false

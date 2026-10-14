@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Measurement Scales
+seo_title: Measurement Scales in Statistical Foundations
 description: Understand nominal, ordinal, interval, and ratio scales and why they determine valid statistical operations and analysis.
 permalink: /foundations/measurement-scales/
 sidebar: false

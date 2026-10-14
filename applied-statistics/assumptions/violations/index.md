@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Assumption Violations
+seo_title: Assumption Violations in Applied Statistical Analysis
 description: Learn what assumption violations are, why they occur, and how they can affect statistical analyses and conclusions.
 permalink: /applied-statistics/assumptions/violations/
 sidebar: false

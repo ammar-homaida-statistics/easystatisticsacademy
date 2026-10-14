@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Discrete vs Continuous Data
+seo_title: Discrete vs Continuous Variables in Descriptive Statistics
 description: Learn the difference between discrete and continuous numerical variables and why this distinction matters in statistics and data analysis.
 permalink: /descriptive/data-variables/discrete-vs-continuous/
 sidebar: false
