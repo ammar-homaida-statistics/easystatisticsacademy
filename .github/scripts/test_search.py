@@ -1237,6 +1237,132 @@ class SearchTests(unittest.TestCase):
                     expect(card.locator("p.muted-mini")).to_contain_text(
                         "overview")
 
+    def test_core_section_resume_validates_published_blocks(self):
+        """Saved core-section destinations must be real blocks with literal labels."""
+        malicious = '<img src=x onerror="window.esaInjected=true"> & text'
+        for section in ("probability", "inference", "modeling"):
+            with self.subTest(section=section):
+                route = "/" + section + "/"
+                key = "esa_continue_" + section + "_last_block_v0"
+                self.page.goto(self.origin + route, wait_until="networkidle")
+                panel = self.page.locator("#continue-reading-" + section)
+                label = self.page.locator("#continue-reading-" + section + "-label")
+                link = self.page.locator("#continue-reading-" + section + "-btn")
+                first = self.page.locator("#blocks .lesson-block-card h3 a[href]").first
+                valid = first.get_attribute("href")
+                self.assertTrue((SITE / valid.lstrip("/") / "index.html").is_file())
+                expect(panel).to_be_hidden()
+
+                def save(payload):
+                    self.page.evaluate(
+                        "([key, value]) => localStorage.setItem(key, JSON.stringify(value))",
+                        [key, payload])
+                    self.page.reload(wait_until="networkidle")
+
+                save({"url": valid, "label": malicious})
+                expect(panel).to_be_visible()
+                expect(link).to_have_attribute("href", valid)
+                expect(label.locator("strong")).to_have_text(malicious)
+                self.assertEqual(label.locator("img, script").count(), 0)
+                self.assertIsNone(self.page.evaluate("window.esaInjected"))
+
+                for invalid in (
+                    {"url": "javascript:alert(1)", "label": "JS"},
+                    {"url": "//external.example/path", "label": "External"},
+                    {"url": "https://external.example/path", "label": "External"},
+                    {"url": "/" + section + "/not-listed/", "label": "Missing"},
+                    {"url": valid + "?redirect=external", "label": "Query"},
+                    {"url": valid + "../", "label": "Traversal"},
+                    {"url": valid, "label": 42},
+                    {"url": valid, "label": "  "},
+                ):
+                    with self.subTest(section=section, invalid=invalid):
+                        save(invalid)
+                        expect(panel).to_be_hidden()
+                        expect(link).to_have_attribute("href", "#")
+
+                self.page.evaluate("key => localStorage.setItem(key, '{broken')", key)
+                self.page.reload(wait_until="networkidle")
+                expect(panel).to_be_hidden()
+
+    def test_core_section_overviews_work_without_storage(self):
+        """Progress writing must not break Modeling links if storage is disabled."""
+        self.page.add_init_script("""
+            Object.defineProperty(window, 'localStorage', {
+              configurable: true,
+              get() { throw new DOMException('Storage denied', 'SecurityError'); }
+            });
+        """)
+        for section in ("probability", "inference", "modeling"):
+            with self.subTest(section=section):
+                self.page.goto(self.origin + "/" + section + "/", wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+                expect(self.page.locator("#blocks .lesson-block-card h3 a").first).to_be_visible()
+                expect(self.page.locator("#continue-reading-" + section)).to_be_hidden()
+                if section == "modeling":
+                    self.page.evaluate("""() => {
+                      // Exercise the progress-saving click listener without navigating
+                      // into unrelated lesson scripts.
+                      document.addEventListener('click', e => e.preventDefault(), true);
+                      document.querySelector('#blocks .lesson-block-card h3 a').click();
+                    }""")
+
+    def test_intro_confidence_interval_is_derived_and_explained(self):
+        self.page.goto(self.origin + "/foundations/what-is-statistics/",
+                       wait_until="networkidle")
+        example = self.page.locator(".section-block").filter(
+            has=self.page.get_by_role("heading", name="Example", exact=True))
+        expect(example).to_contain_text("Sample heights (cm): 170, 175, 168, 180, 172")
+        heights = [170, 175, 168, 180, 172]
+        average = sum(heights) / len(heights)
+        sample_variance = sum((x - average) ** 2 for x in heights) / (len(heights) - 1)
+        margin = 2.7764451051977987 * (sample_variance / len(heights)) ** 0.5
+        self.assertEqual(average, 173)
+        self.assertEqual(sample_variance, 22)
+        self.assertAlmostEqual(average - margin, 167.18, places=2)
+        self.assertAlmostEqual(average + margin, 178.82, places=2)
+        for part in ("independent random", "approximately normal",
+                     "four degrees of freedom", "88 cm²", "22 cm²",
+                     "167.18 cm to 178.82 cm", "about 95% of intervals",
+                     "not a claim that 95% of individual heights"):
+            with self.subTest(part=part):
+                expect(example).to_contain_text(part)
+        self.assertNotIn("170 cm to 176 cm", example.inner_text())
+        expect(self.page.locator("#esa-self-check fieldset")).to_have_count(3)
+
+    def test_beginner_path_starts_at_published_blocks_and_labels_software(self):
+        self.page.goto(self.origin + "/learning-paths/beginner/",
+                       wait_until="networkidle")
+        steps = (
+            ("Foundations", "/foundations/what-is-statistics/"),
+            ("Descriptive Statistics", "/descriptive/data-variables/"),
+            ("Probability", "/probability/basics/"),
+            ("Statistical Inference", "/inference/foundations/"),
+            ("Introduction to Modeling", "/modeling/foundations/"),
+            ("Software Implementation", "/software/"),
+        )
+        for title, route in steps:
+            with self.subTest(step=title):
+                card = self.page.locator(".card").filter(
+                    has=self.page.get_by_role("heading", name=title, exact=True))
+                expect(card.locator("a.card-foot")).to_have_attribute("href", route)
+                self.assertTrue((SITE / route.lstrip("/") / "index.html").is_file(),
+                                "Missing Beginner step: " + route)
+        practice = self.page.locator(".card").filter(
+            has=self.page.get_by_role("heading", name="Software Implementation"))
+        expect(practice.locator(".muted-mini")).to_contain_text(
+            "tutorials are planned", ignore_case=True)
+        expect(practice.locator("a.card-foot")).to_contain_text(
+            "View software curriculum")
+        for width in (375, 768, 1280):
+            with self.subTest(width=width):
+                self.page.set_viewport_size({"width": width, "height": 850})
+                dims = self.page.evaluate("""() => ({
+                  viewport: window.innerWidth,
+                  document: document.documentElement.scrollWidth
+                })""")
+                self.assertLessEqual(dims["document"], dims["viewport"], dims)
+
     def test_representative_lessons_and_navigation(self):
         self.open()
         cases = {
