@@ -841,7 +841,7 @@ class SearchTests(unittest.TestCase):
                 return window.scrollY > 150 &&
                     top >= header.getBoundingClientRect().bottom - 3 &&
                     top <= header.getBoundingClientRect().bottom + 125;
-            }""", ident)
+            }""", arg=ident)
 
         self.page.goto(self.origin + route + "#" + first, wait_until="networkidle")
         check_alignment(first)
