@@ -56,7 +56,7 @@ sidebar: false
       </p>
 
       <p class="muted-mini">
-        5 lessons • Applied decision-making • Builds on Reporting Results • Completes Applied Statistics
+        5 planned lessons • Applied decision-making • Builds on Reporting Results • Completes Applied Statistics
       </p>
 
       <div class="hero-actions">
@@ -105,7 +105,7 @@ sidebar: false
 
         <div class="mini">
           <div class="mini-title">Lessons</div>
-          <div class="mini-body">5 structured lessons</div>
+          <div class="mini-body">5 planned lessons</div>
         </div>
 
         <div class="mini">
@@ -183,6 +183,8 @@ sidebar: false
 
   </div>
 
+  <p class="planned-lessons-note">These lesson topics are planned; the individual pages are not published yet.</p>
+
   <div class="grid grid-2">
 
     <!-- LESSON 1 -->
@@ -190,9 +192,9 @@ sidebar: false
     <div class="card lesson-card lesson-block-card">
 
       <h3>
-        <a href="/applied-statistics/practice/results-to-decisions/">
+        <span class="planned-lesson-title">
           From Results to Decisions
-        </a>
+        </span>
       </h3>
 
       <p>
@@ -206,12 +208,7 @@ sidebar: false
         <span class="pill">Application</span>
       </div>
 
-      <a
-        class="btn btn-outline"
-        href="/applied-statistics/practice/results-to-decisions/"
-      >
-        Open lesson
-      </a>
+      <span class="planned-lesson-status" aria-label="Lesson not yet available">Planned lesson</span>
 
     </div>
 
@@ -220,9 +217,9 @@ sidebar: false
     <div class="card lesson-card lesson-block-card">
 
       <h3>
-        <a href="/applied-statistics/practice/practical-significance/">
+        <span class="planned-lesson-title">
           Practical vs Statistical Significance
-        </a>
+        </span>
       </h3>
 
       <p>
@@ -236,12 +233,7 @@ sidebar: false
         <span class="pill">Interpretation</span>
       </div>
 
-      <a
-        class="btn btn-outline"
-        href="/applied-statistics/practice/practical-significance/"
-      >
-        Open lesson
-      </a>
+      <span class="planned-lesson-status" aria-label="Lesson not yet available">Planned lesson</span>
 
     </div>
 
@@ -250,9 +242,9 @@ sidebar: false
     <div class="card lesson-card lesson-block-card">
 
       <h3>
-        <a href="/applied-statistics/practice/uncertainty/">
+        <span class="planned-lesson-title">
           Decisions Under Uncertainty
-        </a>
+        </span>
       </h3>
 
       <p>
@@ -266,12 +258,7 @@ sidebar: false
         <span class="pill">Decision-Making</span>
       </div>
 
-      <a
-        class="btn btn-outline"
-        href="/applied-statistics/practice/uncertainty/"
-      >
-        Open lesson
-      </a>
+      <span class="planned-lesson-status" aria-label="Lesson not yet available">Planned lesson</span>
 
     </div>
 
@@ -280,9 +267,9 @@ sidebar: false
     <div class="card lesson-card lesson-block-card">
 
       <h3>
-        <a href="/applied-statistics/practice/limitations/">
+        <span class="planned-lesson-title">
           Understanding Limitations
-        </a>
+        </span>
       </h3>
 
       <p>
@@ -296,12 +283,7 @@ sidebar: false
         <span class="pill">Scope</span>
       </div>
 
-      <a
-        class="btn btn-outline"
-        href="/applied-statistics/practice/limitations/"
-      >
-        Open lesson
-      </a>
+      <span class="planned-lesson-status" aria-label="Lesson not yet available">Planned lesson</span>
 
     </div>
 
@@ -310,9 +292,9 @@ sidebar: false
     <div class="card lesson-card lesson-block-card">
 
       <h3>
-        <a href="/applied-statistics/practice/context/">
+        <span class="planned-lesson-title">
           Context and Domain Knowledge
-        </a>
+        </span>
       </h3>
 
       <p>
@@ -326,12 +308,7 @@ sidebar: false
         <span class="pill">Application</span>
       </div>
 
-      <a
-        class="btn btn-outline"
-        href="/applied-statistics/practice/context/"
-      >
-        Open lesson
-      </a>
+      <span class="planned-lesson-status" aria-label="Lesson not yet available">Planned lesson</span>
 
     </div>
 
