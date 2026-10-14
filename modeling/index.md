@@ -442,33 +442,35 @@ sidebar: false
 <!-- CONTINUE READING SCRIPT -->
 <script>
 (function () {
-
   try {
-
     const KEY = "esa_continue_modeling_last_block_v0";
     const raw = localStorage.getItem(KEY);
-
     if (!raw) return;
 
     const data = JSON.parse(raw);
+    if (!data || typeof data.url !== "string" ||
+        typeof data.label !== "string" || !data.label.trim()) return;
 
-    if (!data || !data.url || !data.label) return;
+    // Allow only exact canonical URLs linked by published block cards.
+    if (!/^\/modeling\/[a-z0-9-]+\/$/.test(data.url)) return;
+    const published = Array.from(
+      document.querySelectorAll("#blocks .lesson-block-card h3 a[href]")
+    ).some(link => link.getAttribute("href") === data.url);
+    if (!published) return;
 
     const wrap = document.getElementById("continue-reading-modeling");
     const label = document.getElementById("continue-reading-modeling-label");
     const btn = document.getElementById("continue-reading-modeling-btn");
-
     if (!wrap || !label || !btn) return;
 
-    label.innerHTML =
-      "You last visited: <strong>" + data.label + "</strong>";
-
+    const name = document.createElement("strong");
+    name.textContent = data.label;
+    label.replaceChildren(document.createTextNode("You last visited: "), name);
     btn.href = data.url;
-
     wrap.style.display = "block";
-
-  } catch (e) {}
-
+  } catch (_) {
+    // Malformed history and blocked browser storage must not interrupt learning.
+  }
 })();
 </script>
 
@@ -487,11 +489,15 @@ sidebar: false
       const card = link.closest(".lesson-block-card");
       const title = card ? card.querySelector("h3 a") : null;
 
-      localStorage.setItem(KEY, JSON.stringify({
-        url: link.getAttribute("href"),
-        label: title ? title.textContent.trim() : link.textContent.trim(),
-        ts: Date.now()
-      }));
+      try {
+        localStorage.setItem(KEY, JSON.stringify({
+          url: link.getAttribute("href"),
+          label: title ? title.textContent.trim() : link.textContent.trim(),
+          ts: Date.now()
+        }));
+      } catch (_) {
+        // Saving progress is optional if browser storage is disabled.
+      }
 
     });
 
