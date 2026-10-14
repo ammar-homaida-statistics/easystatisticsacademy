@@ -130,15 +130,39 @@ sidebar: false
     </p>
 
     <p>
-      We could also quantify uncertainty, for example using a confidence interval.
+      The sample mean (173 cm) is a <strong>point estimate</strong> of the unknown
+      average height of all students. To quantify sampling uncertainty,
+      we can calculate a confidence interval.
     </p>
 
     <p>
-      For example, a 95% confidence interval might be: 170 cm to 176 cm.
+      For this illustration, assume the five students are an independent random
+      sample from an approximately normal distribution of student heights.
+      With only five observations, this normality assumption matters; a
+      nonrandom sample would not justify the same inference.
     </p>
 
     <p>
-      But this is not the exact truth — it is an <strong>estimate</strong>.
+      The squared deviations from 173 sum to 88 cm². Dividing by
+      5 − 1 = 4 gives the sample variance, 22 cm²; hence the sample
+      standard deviation is approximately 4.69 cm and the standard
+      error of the mean is 4.69 / √5 ≈ 2.10 cm.
+    </p>
+
+    <p>
+      Using a Student's t distribution with four degrees of freedom,
+      the two-sided 95% critical value is approximately 2.776.
+      The interval is 173 ± 2.776 × √(22 / 5), giving a
+      <strong>95% confidence interval of approximately 167.18 cm to 178.82 cm</strong>
+      for the population mean under these assumptions.
+    </p>
+
+    <p>
+      The interval does not establish the exact population mean.
+      If we repeatedly took independent samples under the same assumptions,
+      about 95% of intervals constructed this way would contain that
+      fixed, unknown mean. This is not a claim that 95% of individual heights
+      fall between these limits.
     </p>
 
     <p>
