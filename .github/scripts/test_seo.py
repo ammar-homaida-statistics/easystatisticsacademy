@@ -39,6 +39,9 @@ class SeoAuditTests(unittest.TestCase):
         with TemporaryDirectory() as folder:
             root = Path(folder)
             (root / "lesson").mkdir()
+            (root / "copy").mkdir()
+            (root / "copy" / "index.html").write_text(html(
+                canonical="/copy/"), encoding="utf-8")
             (root / "index.html").write_text(html(
                 description="", headings=0, canonical="/wrong/"), encoding="utf-8")
             (root / "lesson" / "index.html").write_text(html(
@@ -57,6 +60,9 @@ class SeoAuditTests(unittest.TestCase):
                 ("lesson/index.html", "multiple-h1"),
                 ("lesson/index.html", "noindex-in-sitemap"),
                 ("404.html", "404-missing-noindex"),
+                ("index.html", "duplicate-title"),
+                ("copy/index.html", "duplicate-title"),
+                ("copy/index.html", "indexable-not-in-sitemap"),
             ]:
                 self.assertIn(entry, found)
 
