@@ -1,6 +1,7 @@
 ---
 layout: default
 title: R-Squared
+seo_title: R-Squared in Simple Linear Regression
 description: Learn what R-squared measures, how it summarizes regression model fit, and how to interpret the proportion of variation explained by a regression model.
 permalink: /modeling/simple-linear-regression/r-squared/
 sidebar: false

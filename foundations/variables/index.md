@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Variables
+seo_title: Variables and Measurement in Statistical Foundations
 description: Understand what variables are, how they differ from constants, and why they are central to statistical analysis.
 permalink: /foundations/variables/
 sidebar: false

@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Descriptive Statistics
+seo_title: Descriptive Statistics Course Overview
 description: Summarize and explore data correctly using tables, plots, and clear numerical summaries.
 permalink: /descriptive/
 sidebar: false

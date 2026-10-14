@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Descriptive Statistics
+seo_title: Introduction to Descriptive Statistics in Foundations
 description: Understand how descriptive statistics summarize and organize data using tables, graphs, and numerical measures.
 permalink: /foundations/descriptive-statistics-conceptual-overview/
 sidebar: false

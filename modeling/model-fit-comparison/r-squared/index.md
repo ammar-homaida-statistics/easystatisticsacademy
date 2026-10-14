@@ -1,6 +1,7 @@
 ---
 layout: default
 title: R-Squared
+seo_title: R-Squared for Model Fit Comparison
 description: Learn what R-squared measures, how it is interpreted, and why it is one of the most commonly reported statistics in regression analysis.
 permalink: /modeling/model-fit-comparison/r-squared/
 sidebar: false

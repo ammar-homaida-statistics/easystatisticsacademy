@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Why Assumptions Matter
+seo_title: Why Assumptions Matter in Regression Modeling
 description: Learn why regression assumptions exist, how they affect statistical conclusions, and why checking assumptions is a fundamental part of modeling.
 permalink: /modeling/assumptions/why-assumptions/
 sidebar: false

@@ -4,3 +4,15 @@ url: "https://easystatisticsacademy.com"
 timezone: UTC
 markdown: kramdown
 permalink: pretty
+
+# Keep internal planning documentation out of the public Jekyll build.
+# Jekyll 3 replaces (rather than extends) default excludes, so retain them.
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - navigation-map.md

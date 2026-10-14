@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Outliers
+seo_title: Understanding Outliers in Statistical Foundations
 description: Understand what outliers are, how they arise, and when they should be investigated, kept, or removed.
 permalink: /foundations/outliers-conceptual-introduction/
 sidebar: false

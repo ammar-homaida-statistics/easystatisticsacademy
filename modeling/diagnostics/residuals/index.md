@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Residuals
+seo_title: Residuals for Regression Diagnostics
 description: Learn what residuals are, why they are central to regression diagnostics, and how they help analysts evaluate model quality.
 permalink: /modeling/diagnostics/residuals/
 sidebar: false

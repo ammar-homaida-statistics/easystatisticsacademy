@@ -12,11 +12,15 @@ sidebar: false
 
   const KEY = "esa_continue_descriptive_last_block_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
     url: "/descriptive/data-variables/",
     label: "Block 1 — Data & Variables",
     ts: Date.now()
-  }));
+    }));
+  } catch (e) {
+    // Browser storage can be disabled; lesson navigation must still work.
+  }
 
 })();
 </script>
@@ -493,7 +497,16 @@ sidebar: false
 
     const data = JSON.parse(raw);
 
-    if (!data || !data.url || !data.label) return;
+    if (!data || typeof data.url !== "string" ||
+        typeof data.label !== "string" || !data.label.trim()) return;
+
+    // Stored URLs are untrusted: permit only lessons listed in this block.
+    const isListedLesson = Array.from(
+      document.querySelectorAll("#lessons .lesson-card a[href]")
+    ).some(link => link.getAttribute("href") === data.url);
+
+    if (!/^\/descriptive\/data-variables\/[a-z0-9-]+\/$/.test(data.url) ||
+        !isListedLesson) return;
 
     const wrap =
       document.getElementById("continue-reading-block1");
@@ -506,8 +519,9 @@ sidebar: false
 
     if (!wrap || !label || !btn) return;
 
-    label.innerHTML =
-      'You last visited: <strong>' + data.label + '</strong>';
+    const title = document.createElement("strong");
+    title.textContent = data.label;
+    label.replaceChildren(document.createTextNode("You last visited: "), title);
 
     btn.href = data.url;
 

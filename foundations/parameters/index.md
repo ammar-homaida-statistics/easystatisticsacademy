@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Parameters
+seo_title: Statistical Parameters in Foundations
 description: Understanding what parameters are, why they are fixed but unknown, and why parameters cannot be directly observed.
 permalink: /foundations/parameters/
 section: foundations
