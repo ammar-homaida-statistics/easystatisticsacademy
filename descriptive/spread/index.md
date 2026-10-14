@@ -12,11 +12,15 @@ sidebar: false
 
   const KEY = "esa_continue_descriptive_last_block_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
-    url: "/descriptive/spread/",
-    label: "Block 5 — Measures of Spread",
-    ts: Date.now()
-  }));
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
+      url: "/descriptive/spread/",
+      label: "Block 5 — Measures of Spread",
+      ts: Date.now()
+    }));
+  } catch (_) {
+    // Block navigation still works when storage is unavailable.
+  }
 
 })();
 </script>
@@ -471,39 +475,33 @@ sidebar: false
 <!-- CONTINUE READING -->
 <script>
 (function () {
-
   try {
-
-    const KEY =
-      "esa_continue_descriptive_spread_lesson_v0";
-
+    const KEY = "esa_continue_descriptive_spread_lesson_v0";
     const raw = localStorage.getItem(KEY);
-
     if (!raw) return;
-
     const data = JSON.parse(raw);
+    if (!data || typeof data.url !== "string" ||
+        typeof data.label !== "string" || !data.label.trim()) return;
 
-    if (!data || !data.url || !data.label) return;
+    // Resume only a canonical, published lesson or block listed on this page.
+    if (!/^\/descriptive\/spread\/[a-z0-9-]+\/$/.test(data.url)) return;
+    const published = Array.from(document.querySelectorAll("#lessons .lesson-card h3 a[href]"))
+      .some(link => link.getAttribute("href") === data.url);
+    if (!published) return;
 
-    const wrap =
-      document.getElementById("continue-reading-block5");
-
-    const label =
-      document.getElementById("continue-reading-block5-label");
-
-    const btn =
-      document.getElementById("continue-reading-block5-btn");
-
+    const wrap = document.getElementById("continue-reading-block5");
+    const label = document.getElementById("continue-reading-block5-label");
+    const btn = document.getElementById("continue-reading-block5-btn");
     if (!wrap || !label || !btn) return;
 
-    label.innerHTML =
-      'You last visited: <strong>' + data.label + '</strong>';
-
+    const strong = document.createElement("strong");
+    strong.textContent = data.label;
+    label.replaceChildren(document.createTextNode("You last visited: "), strong);
     btn.href = data.url;
-
     wrap.style.display = "block";
-
-  } catch (e) {}
-
+  } catch (_) {
+    // Unavailable storage or invalid JSON must not break the learning page.
+  }
 })();
 </script>
+
