@@ -20,6 +20,8 @@
   const claimed = new Set(Array.from(document.querySelectorAll("[id]"), element => element.id));
 
   headings.forEach((heading, index) => {
+    // All generated and existing IDs need space below the sticky site header.
+    heading.classList.add("esa-lesson-anchor");
     if (!heading.id) {
       const slug = heading.textContent.trim().normalize("NFKD")
         .toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0,65);
@@ -49,5 +51,29 @@
       node.querySelector && node.querySelector("h1"));
     if (hero) hero.after(toc);
     else main.prepend(toc);
+  }
+
+  // The browser may attempt to resolve an incoming #fragment before this
+  // script has assigned IDs to headings. Re-align after generation, and again
+  // when page resources finish loading (which can change heading positions).
+  const knownHeadings = new Map(headings.map(heading => [heading.id, heading]));
+  function alignCurrentSection() {
+    let id;
+    try {
+      id = decodeURIComponent(window.location.hash.slice(1));
+    } catch (_) {
+      return;
+    }
+    const heading = knownHeadings.get(id);
+    if (heading) heading.scrollIntoView({ block: "start", behavior: "instant" });
+  }
+  const scheduleSectionAlignment = () => requestAnimationFrame(alignCurrentSection);
+  window.addEventListener("hashchange", scheduleSectionAlignment);
+  window.addEventListener("popstate", scheduleSectionAlignment);
+  if (window.location.hash) {
+    scheduleSectionAlignment();
+    if (document.readyState !== "complete") {
+      window.addEventListener("load", scheduleSectionAlignment, { once: true });
+    }
   }
 })();

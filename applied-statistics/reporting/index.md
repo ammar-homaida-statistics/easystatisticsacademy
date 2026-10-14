@@ -59,7 +59,7 @@ sidebar: false
       </p>
 
       <p class="muted-mini">
-        5 lessons • Statistical communication • Builds on Common Mistakes & Pitfalls • Prepares for From Analysis to Practice
+        5 planned lessons • Statistical communication • Builds on Common Mistakes & Pitfalls • Prepares for From Analysis to Practice
       </p>
 
       <div class="hero-actions">
@@ -107,7 +107,7 @@ sidebar: false
 
         <div class="mini">
           <div class="mini-title">Lessons</div>
-          <div class="mini-body">5 structured lessons</div>
+          <div class="mini-body">5 planned lessons</div>
         </div>
 
         <div class="mini">
@@ -187,6 +187,8 @@ sidebar: false
 
   </div>
 
+  <p class="planned-lessons-note">These lesson topics are planned; the individual pages are not published yet.</p>
+
   <div class="grid grid-2">
 
     <!-- LESSON 1 -->
@@ -194,9 +196,9 @@ sidebar: false
     <div class="card lesson-card lesson-block-card">
 
       <h3>
-        <a href="/applied-statistics/reporting/statements/">
+        <span class="planned-lesson-title">
           Writing Statistical Statements
-        </a>
+        </span>
       </h3>
 
       <p>
@@ -210,12 +212,7 @@ sidebar: false
         <span class="pill">Communication</span>
       </div>
 
-      <a
-        class="btn btn-outline"
-        href="/applied-statistics/reporting/statements/"
-      >
-        Open lesson
-      </a>
+      <span class="planned-lesson-status" aria-label="Lesson not yet available">Planned lesson</span>
 
     </div>
 
@@ -224,9 +221,9 @@ sidebar: false
     <div class="card lesson-card lesson-block-card">
 
       <h3>
-        <a href="/applied-statistics/reporting/tables/">
+        <span class="planned-lesson-title">
           Presenting Results in Tables
-        </a>
+        </span>
       </h3>
 
       <p>
@@ -241,12 +238,7 @@ sidebar: false
         <span class="pill">Presentation</span>
       </div>
 
-      <a
-        class="btn btn-outline"
-        href="/applied-statistics/reporting/tables/"
-      >
-        Open lesson
-      </a>
+      <span class="planned-lesson-status" aria-label="Lesson not yet available">Planned lesson</span>
 
     </div>
 
@@ -255,9 +247,9 @@ sidebar: false
     <div class="card lesson-card lesson-block-card">
 
       <h3>
-        <a href="/applied-statistics/reporting/figures/">
+        <span class="planned-lesson-title">
           Presenting Results in Figures
-        </a>
+        </span>
       </h3>
 
       <p>
@@ -271,12 +263,7 @@ sidebar: false
         <span class="pill">Graphs</span>
       </div>
 
-      <a
-        class="btn btn-outline"
-        href="/applied-statistics/reporting/figures/"
-      >
-        Open lesson
-      </a>
+      <span class="planned-lesson-status" aria-label="Lesson not yet available">Planned lesson</span>
 
     </div>
 
@@ -285,9 +272,9 @@ sidebar: false
     <div class="card lesson-card lesson-block-card">
 
       <h3>
-        <a href="/applied-statistics/reporting/effect-sizes/">
+        <span class="planned-lesson-title">
           Reporting Effect Sizes and Confidence Intervals
-        </a>
+        </span>
       </h3>
 
       <p>
@@ -302,12 +289,7 @@ sidebar: false
         <span class="pill">Precision</span>
       </div>
 
-      <a
-        class="btn btn-outline"
-        href="/applied-statistics/reporting/effect-sizes/"
-      >
-        Open lesson
-      </a>
+      <span class="planned-lesson-status" aria-label="Lesson not yet available">Planned lesson</span>
 
     </div>
 
@@ -316,9 +298,9 @@ sidebar: false
     <div class="card lesson-card lesson-block-card">
 
       <h3>
-        <a href="/applied-statistics/reporting/transparency/">
+        <span class="planned-lesson-title">
           Transparency and Reproducibility
-        </a>
+        </span>
       </h3>
 
       <p>
@@ -333,12 +315,7 @@ sidebar: false
         <span class="pill">Credibility</span>
       </div>
 
-      <a
-        class="btn btn-outline"
-        href="/applied-statistics/reporting/transparency/"
-      >
-        Open lesson
-      </a>
+      <span class="planned-lesson-status" aria-label="Lesson not yet available">Planned lesson</span>
 
     </div>
 
@@ -519,6 +496,12 @@ sidebar: false
     const data = JSON.parse(raw);
 
     if (!data || !data.url || !data.label) return;
+
+    // Never revive stale links to unpublished lessons from browser storage.
+    const availableLessons = Array.from(
+      document.querySelectorAll("#lessons .lesson-card a[href]")
+    );
+    if (!availableLessons.some(link => link.getAttribute("href") === data.url)) return;
 
     const wrap =
       document.getElementById(

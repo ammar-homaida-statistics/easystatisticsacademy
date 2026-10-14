@@ -784,6 +784,79 @@ class SearchTests(unittest.TestCase):
                 self.page.goto(self.origin + path, wait_until="networkidle")
                 expect(self.page.locator(".esa-lesson-toc")).to_have_count(0)
 
+    def test_planned_lesson_overviews_have_no_broken_links(self):
+        """Keep lesson descriptions and progress status, but never link to a 404."""
+        areas = {
+            "common-mistakes": "wrong-test",
+            "effect-sizes": "what-is-effect-size",
+            "practice": "results-to-decisions",
+            "reporting": "statements",
+        }
+        for area, stale in areas.items():
+            with self.subTest(area=area):
+                route = "/applied-statistics/" + area + "/"
+                self.page.goto(self.origin + route, wait_until="networkidle")
+                cards = self.page.locator("#lessons .lesson-card")
+                expect(cards).to_have_count(5)
+                expect(cards.locator("h3 .planned-lesson-title")).to_have_count(5)
+                expect(cards.locator(".planned-lesson-status")).to_have_count(5)
+                expect(cards.locator("a[href]")).to_have_count(0)
+                expect(self.page.locator(".planned-lessons-note")).to_contain_text(
+                    "not published yet"
+                )
+                expect(cards.locator("p")).to_have_count(5)
+                # A visitor's stale local progress must not resurrect a missing
+                # destination or insert HTML from untrusted localStorage data.
+                key = "esa_continue_applied_" + area + "_lesson_v0"
+                self.page.evaluate("""([key, url]) => localStorage.setItem(
+                    key, JSON.stringify({
+                        url, label: '<img src=x onerror="window.esaInjected=true">'
+                    })
+                )""", [key, route + stale + "/"])
+                self.page.reload(wait_until="networkidle")
+                expect(cards.locator("a[href]")).to_have_count(0)
+                expect(self.page.locator("#continue-reading-" + area)).to_be_hidden()
+                self.assertIsNone(self.page.evaluate("window.esaInjected"))
+
+    def test_long_lesson_deep_links_reload_and_history(self):
+        """Dynamic heading IDs must resolve deep links after load and Back/Forward."""
+        route = "/descriptive/spread/variance/"
+        self.page.set_viewport_size({"width": 375, "height": 650})
+        self.page.goto(self.origin + route, wait_until="networkidle")
+        headings = self.page.locator("main h2")
+        self.assertGreaterEqual(headings.count(), 13)
+        first = headings.nth(7).get_attribute("id")
+        second = headings.nth(11).get_attribute("id")
+        self.assertTrue(first and second and first != second)
+
+        def check_alignment(ident):
+            expect(self.page).to_have_url(self.origin + route + "#" + ident)
+            target = self.page.locator("main h2[id='" + ident + "']")
+            expect(target).to_have_class("esa-lesson-anchor")
+            self.page.wait_for_function("""id => {
+                const node = document.getElementById(id);
+                const header = document.querySelector(".site-header");
+                if (!node || !header) return false;
+                const top = node.getBoundingClientRect().top;
+                return window.scrollY > 150 &&
+                    top >= header.getBoundingClientRect().bottom - 3 &&
+                    top <= header.getBoundingClientRect().bottom + 125;
+            }""", arg=ident)
+
+        self.page.goto(self.origin + route + "#" + first, wait_until="networkidle")
+        check_alignment(first)
+        self.page.reload(wait_until="networkidle")
+        check_alignment(first)
+        # The site's generated TOC should still work with a collapsed panel.
+        toc = self.page.get_by_role("navigation", name="On this page")
+        toc.locator("summary").click()
+        toc.locator('a[href="#' + second + '"]').click()
+        check_alignment(second)
+        self.page.go_back(wait_until="domcontentloaded")
+        check_alignment(first)
+        self.page.go_forward(wait_until="domcontentloaded")
+        check_alignment(second)
+
     def test_representative_lessons_and_navigation(self):
         self.open()
         cases = {
