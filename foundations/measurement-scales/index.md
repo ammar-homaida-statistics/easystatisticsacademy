@@ -316,7 +316,7 @@ sidebar: false
       <p class="esa-check-feedback" role="status" aria-live="polite"></p>
     </fieldset>
 
-    <fieldset data-answer="b" data-explanation="Celsius has meaningful differences but an arbitrary zero. Ratios of Celsius readings are not physically meaningful.">
+    <fieldset data-answer="b" data-explanation="Celsius has meaningful differences but an arbitrary zero, so 20 degrees Celsius is not twice 10 degrees Celsius. Kelvin temperature has an absolute zero, and ratios of thermodynamic temperatures expressed in Kelvin are meaningful in appropriate physical contexts.">
       <legend>3. Which statement about Celsius temperature is meaningful?</legend>
       <label><input type="radio" name="esa-scale-check-3" value="a"> 20 degrees Celsius is twice as hot as 10 degrees Celsius.</label>
       <label><input type="radio" name="esa-scale-check-3" value="b"> 20 degrees Celsius is 10 degrees warmer than 10 degrees Celsius.</label>
