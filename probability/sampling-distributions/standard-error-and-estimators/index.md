@@ -172,7 +172,9 @@ sidebar: false
       the sample mean:
     </p>
 
-    0
+    \[
+\bar X=\frac{1}{n}\sum_{i=1}^{n}X_i
+\]
 
     <p>
       has a distribution across repeated samples.
@@ -245,10 +247,13 @@ sidebar: false
     <h2>Standard Error of the Mean</h2>
 
     <p>
-      For independent observations:
+      For independent, identically distributed observations with finite
+      population variance σ² (and sample size n ≥ 1):
     </p>
 
-    1
+    \[
+\operatorname{SE}(\bar X)=\sqrt{\operatorname{Var}(\bar X)}=\frac{\sigma}{\sqrt n}
+\]
 
     <p>
       where:
@@ -262,6 +267,12 @@ sidebar: false
 
     </ul>
 
+    <p>
+      When σ is unknown, the usual plug-in estimate of the mean's
+      standard error is s/√n, where s is the sample standard deviation.
+      This estimated SE differs from the theoretical SE that uses σ.
+    </p>
+
     <h2>Understanding the Formula</h2>
 
     <p>
@@ -269,14 +280,17 @@ sidebar: false
     </p>
 
     <p>
-      Increasing sample size decreases uncertainty.
+      With the same population distribution and independent sampling,
+      increasing sample size decreases the sampling uncertainty of the mean.
     </p>
 
     <p>
       Because:
     </p>
 
-    2
+    \[
+\operatorname{SE}(\bar X)\propto\frac{1}{\sqrt n}\qquad(\sigma\text{ fixed})
+\]
 
     <p>
       larger samples produce more precise estimates.
@@ -304,7 +318,9 @@ sidebar: false
       Then:
     </p>
 
-    3
+    \[
+\operatorname{SE}(\bar X)=\frac{20}{\sqrt{100}}=2
+\]
 
     <p>
       Sample means typically fluctuate by about 2 units around the population mean.
@@ -380,10 +396,18 @@ sidebar: false
       For a sample proportion:
     </p>
 
-    4
+    \[
+\operatorname{SE}(\widehat p)=\sqrt{\frac{p(1-p)}{n}},\qquad
+\widehat{\operatorname{SE}}(\widehat p)=\sqrt{\frac{\widehat p(1-\widehat p)}{n}}
+\]
 
     <p>
-      This formula describes how sample proportions vary across samples.
+      For n independent, identically distributed Bernoulli trials,
+      p is the true population success probability and p̂ is the sample
+      proportion. The first formula is the theoretical SE; the second is
+      its plug-in estimate using p̂ when p is unknown.
+      These expressions do not apply unchanged to dependent draws or
+      sampling without replacement from a small finite population.
     </p>
 
     <h2>Why Sample Size Is Powerful</h2>
@@ -466,7 +490,9 @@ sidebar: false
     </div>
 
     <p>
-      Confidence intervals are built directly from standard errors.
+      Many common normal- and t-based confidence intervals use a
+      critical value multiplied by an estimated standard error;
+      not every confidence interval uses this symmetric form.
     </p>
 
     <h2>Connection to Hypothesis Testing</h2>
@@ -480,8 +506,9 @@ sidebar: false
     </p>
 
     <p>
-      Without standard error,
-      significance testing would not be possible.
+      Standard errors are central to common z- and t-based tests, but
+      exact and randomization-based tests need not be expressed using
+      a standard error.
     </p>
 
     <h2>The Big Picture</h2>
