@@ -2007,6 +2007,140 @@ class SearchTests(unittest.TestCase):
                 self.assertEqual(progress["url"], route)
                 self.assertIsInstance(progress["ts"], (int, float))
 
+    def test_restored_z_t_critical_values_and_margins(self):
+        """Five formulas: two-sided z coverage, margin, σ, and one-sample df."""
+        from math import erf, sqrt
+        route = "/inference/confidence-intervals/critical-values-z-and-t/"
+        self.page.goto(self.origin + route, wait_until="networkidle")
+        expect(self.page.locator("main h1")).to_have_text("Critical Values — z and t")
+        html = (SITE / route.lstrip("/") / "index.html").read_text()
+        main = html.split('<main id="main-content"', 1)[1].split("</main>", 1)[0]
+        for formula in (
+            r"\text{CI}=\widehat{\theta}\ \pm\ c\,\operatorname{SE}(\widehat{\theta})",
+            r"P(-1.96\le Z\le1.96)\approx0.95",
+            r"\text{Margin of error}=z^*\times\operatorname{SE}=1.96\times2=3.92",
+            r"\sigma=\sqrt{\operatorname{Var}(X)}",
+            r"\operatorname{df}=n-1,\qquad n\ge2",
+        ):
+            with self.subTest(formula=formula):
+                self.assertIn(formula, main)
+        self.assertEqual(main.count(r"\["), 5)
+        self.assertEqual(main.count(r"\]"), 5)
+        self.assertAlmostEqual(erf(1.96 / sqrt(2)), 0.95, delta=0.0001)
+        self.assertAlmostEqual(1.96 * 2, 3.92)
+        self.assertEqual(11 - 1, 10)
+        content = self.page.locator("main")
+        for phrase in (
+            "common symmetric, normal- or t-based confidence interval",
+            "known population",
+            "sample standard deviation s",
+            "Unknown σ alone does not guarantee",
+        ):
+            with self.subTest(phrase=phrase):
+                expect(content).to_contain_text(phrase)
+        self.assertNotIn("\uea01", main)
+        self.assertNotIn("\uea02", main)
+
+    def test_restored_hypergeometric_pmf_moments_and_support(self):
+        """PMF normalizes and derives its mean/variance for 100/10/5."""
+        from math import comb
+        route = "/probability/distributions/hypergeometric-distribution/"
+        self.page.goto(self.origin + route, wait_until="networkidle")
+        expect(self.page.locator("main h1")).to_have_text(
+            "Hypergeometric Distribution")
+        html = (SITE / route.lstrip("/") / "index.html").read_text()
+        main = html.split('<main id="main-content"', 1)[1].split("</main>", 1)[0]
+        for formula in (
+            r"P(X=x)=\frac{\binom{K}{x}\binom{N-K}{n-x}}{\binom{N}{n}}",
+            r"\max(0,n-(N-K))\le x\le\min(n,K)",
+            r"\operatorname{E}(X)=n\frac{K}{N}",
+            r"\operatorname{E}(X)=5\left(\frac{10}{100}\right)=0.5",
+            r"\operatorname{Var}(X)=n\frac{K}{N}\left(1-\frac{K}{N}\right)",
+            r"\frac{N-n}{N-1}",
+        ):
+            with self.subTest(formula=formula):
+                self.assertIn(formula, main)
+        self.assertEqual(main.count(r"\["), 4)
+        self.assertEqual(main.count(r"\]"), 4)
+        N, K, n = 100, 10, 5
+        support = range(max(0, n - (N - K)), min(n, K) + 1)
+        pmf = {x: comb(K, x) * comb(N - K, n - x) / comb(N, n)
+               for x in support}
+        self.assertAlmostEqual(sum(pmf.values()), 1)
+        expected = sum(x * p for x, p in pmf.items())
+        variance = sum((x - expected)**2 * p for x, p in pmf.items())
+        self.assertAlmostEqual(expected, n * K / N)
+        self.assertAlmostEqual(expected, 0.5)
+        self.assertAlmostEqual(
+            variance, n * (K / N) * (1 - K / N) * (N - n) / (N - 1))
+        self.assertAlmostEqual(variance, 0.4318181818181818)
+        content = self.page.locator("main")
+        for phrase in (
+            "three parameters (N, K, n)",
+            "x is a possible observed value",
+            "individual sample still contains a whole-number count",
+            "N = 1 the draw count is deterministic",
+        ):
+            with self.subTest(phrase=phrase):
+                expect(content).to_contain_text(phrase)
+        self.assertNotIn("\uea01", main)
+        self.assertNotIn("\uea02", main)
+
+    def test_restored_total_probability_partition_and_examples(self):
+        """Check two pathways, 0.70 calculation, and finite partition sum."""
+        route = "/probability/conditional/law-of-total-probability/"
+        self.page.goto(self.origin + route, wait_until="networkidle")
+        expect(self.page.locator("main h1")).to_have_text(
+            "Law of Total Probability")
+        html = (SITE / route.lstrip("/") / "index.html").read_text()
+        main = html.split('<main id="main-content"', 1)[1].split("</main>", 1)[0]
+        for formula in (
+            r"P(A)=P(A\cap B)+P(A\cap B^{c})",
+            r"P(A)=P(A\mid B)P(B)+P(A\mid B^{c})P(B^{c})",
+            r"P(\text{Pass})=P(\text{Pass}\mid\text{Study})P(\text{Study})",
+            r"P(\text{Pass})=0.90(0.60)+0.40(0.40)=0.54+0.16=0.70",
+            r"P(A)=\sum_{i=1}^{m}P(A\mid B_i)P(B_i)",
+        ):
+            with self.subTest(formula=formula):
+                self.assertIn(formula, main)
+        self.assertEqual(main.count(r"\["), 5)
+        self.assertEqual(main.count(r"\]"), 5)
+        passing = 0.60 * 0.90 + 0.40 * 0.40
+        self.assertAlmostEqual(passing, 0.70)
+        self.assertAlmostEqual(0.54 + 0.16, passing)
+        path_prob = [0.2, 0.3, 0.5]
+        cond_prob = [0.1, 0.5, 0.8]
+        self.assertAlmostEqual(sum(path_prob), 1)
+        self.assertAlmostEqual(
+            sum(w * c for w, c in zip(path_prob, cond_prob)), 0.57)
+        content = self.page.locator("main")
+        expect(content).to_contain_text(
+            "mutually exclusive and collectively exhaustive")
+        expect(content).to_contain_text("zero-probability pathways")
+        self.assertNotIn("\uea01", main)
+        self.assertNotIn("\uea02", main)
+
+    def test_three_new_math_repairs_keep_navigation_and_progress(self):
+        """Repairs retain existing storage-key contracts and lesson links."""
+        routes = (
+            ("/inference/confidence-intervals/critical-values-z-and-t/",
+             "esa_continue_inference_confidence_intervals_lesson_v0"),
+            ("/probability/distributions/hypergeometric-distribution/",
+             "esa_continue_probability_distributions_lesson_v0"),
+            ("/probability/conditional/law-of-total-probability/",
+             "esa_continue_probability_conditional_lesson_v0"),
+        )
+        for route, key in routes:
+            with self.subTest(route=route):
+                self.page.goto(self.origin + route, wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+                self.assertGreater(
+                    self.page.locator("main .lesson-nav a[href]").count(), 0)
+                progress = self.page.evaluate(
+                    "key => JSON.parse(localStorage.getItem(key))", key)
+                self.assertEqual(progress["url"], route)
+                self.assertIsInstance(progress["ts"], (int, float))
+
     def test_representative_lessons_and_navigation(self):
         self.open()
         cases = {
