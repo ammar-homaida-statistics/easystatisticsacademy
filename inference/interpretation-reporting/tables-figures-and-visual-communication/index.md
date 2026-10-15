@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_inference_interpretation_reporting_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
     url: "/inference/interpretation-reporting/tables-figures-and-visual-communication/",
     label: "Tables, Figures, and Visual Communication",
     ts: Date.now()
-  }));
+    }));
+  } catch (_) {
+    // Browser storage may be disabled; keep the lesson readable.
+  }
 
 })();
 </script>
