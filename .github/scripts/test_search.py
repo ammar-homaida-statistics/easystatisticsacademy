@@ -1617,6 +1617,146 @@ class SearchTests(unittest.TestCase):
         expect(self.page.locator("#continue-reading-ms-btn")
                ).to_have_attribute("href", first_url)
 
+    def test_restored_shape_math_is_verifiable(self):
+        """Six reconstructed formulas are present and agree with the given data."""
+        z_source = (SITE / "descriptive/shape/z-scores/index.html").read_text()
+        empirical_source = (SITE / "descriptive/shape/empirical-rule/index.html").read_text()
+        self.assertEqual((80 - 70) / 10, 1)
+        self.assertEqual((70 - 70) / 10, 0)
+        self.assertIn(r"z=\frac{x-\mu}{\sigma}", z_source)
+        self.assertIn(r"\sigma>0", z_source)
+        self.assertIn(r"z=\frac{80-70}{10}=\frac{10}{10}=1", z_source)
+        self.assertIn(r"z=\frac{\mu-\mu}{\sigma}=0", z_source)
+        self.assertEqual(z_source.count(r"\["), 3)
+        self.assertEqual(z_source.count(r"\]"), 3)
+        for sigma_count, lower, upper in (
+            (1, 60, 80), (2, 50, 90), (3, 40, 100)
+        ):
+            with self.subTest(sigma_count=sigma_count):
+                self.assertEqual((70 - sigma_count * 10,
+                                  70 + sigma_count * 10), (lower, upper))
+                boundary = (
+                    (r"[\mu-\sigma,\ \mu+\sigma]" if sigma_count == 1 else
+                     r"[\mu-" + str(sigma_count) + r"\sigma,\ \mu+" +
+                     str(sigma_count) + r"\sigma]")
+                )
+                self.assertIn(boundary, empirical_source)
+                self.assertIn(
+                    r"=[" + str(lower) + r",\ " + str(upper) + "]",
+                    empirical_source)
+        self.assertIn("approximately normally distributed", empirical_source)
+        self.assertIn("not guaranteed for nonnormal distributions",
+                      empirical_source)
+        self.assertEqual(empirical_source.count(r"\["), 3)
+        self.assertEqual(empirical_source.count(r"\]"), 3)
+        self.assertNotIn("\uea01", z_source + empirical_source)
+        self.assertNotIn("\uea02", z_source + empirical_source)
+
+    def test_empirical_rule_normal_coverage(self):
+        """The named 68/95/99.7 percentages agree with normal probabilities."""
+        from math import erf, sqrt
+        for z, target in ((1, 68.27), (2, 95.45), (3, 99.73)):
+            with self.subTest(z=z):
+                self.assertAlmostEqual(100 * erf(z / sqrt(2)), target,
+                                       delta=0.01)
+
+    def test_applied_overview_resume_uses_published_lesson_keys(self):
+        """Three block overviews resume real lessons using safe saved labels."""
+        cases = (
+            ("method-selection", "method_selection",
+             "esa_continue_applied_method-selection_lesson_v0"),
+            ("study-design", "study_design",
+             "esa_continue_applied_study-design_lesson_v0"),
+            ("assumptions", "assumptions",
+             "esa_continue_applied_assumptions_lesson_v0"),
+        )
+        malicious = '<img src=x onerror="window.esaInjected=true"> & test'
+        for slug, storage_slug, legacy_key in cases:
+            with self.subTest(block=slug):
+                overview = "/applied-statistics/" + slug + "/"
+                current_key = (
+                    "esa_continue_applied_statistics_" + storage_slug +
+                    "_lesson_v0")
+                self.page.goto(self.origin + overview, wait_until="networkidle")
+                panel = self.page.locator("#continue-reading-" + slug)
+                btn = self.page.locator("#continue-reading-" + slug + "-btn")
+                label = self.page.locator("#continue-reading-" + slug + "-label")
+                first = self.page.locator(
+                    "#lessons .lesson-card h3 a[href]").first
+                url = first.get_attribute("href")
+                self.assertTrue(
+                    (SITE / url.lstrip("/") / "index.html").is_file(), url)
+                expect(panel).to_be_hidden()
+
+                # The real published lesson should write its existing key.
+                self.page.goto(self.origin + url, wait_until="networkidle")
+                stored = self.page.evaluate(
+                    "key => JSON.parse(localStorage.getItem(key))",
+                    current_key)
+                self.assertEqual(stored["url"], url)
+                self.page.goto(self.origin + overview, wait_until="networkidle")
+                expect(panel).to_be_visible()
+                expect(btn).to_have_attribute("href", url)
+
+                def save(key, value):
+                    self.page.evaluate(
+                        "([key, value]) => localStorage.setItem(key, JSON.stringify(value))",
+                        [key, value])
+                    self.page.reload(wait_until="networkidle")
+
+                save(current_key, {"url": url, "label": malicious})
+                expect(panel).to_be_visible()
+                expect(label.locator("strong")).to_have_text(malicious)
+                self.assertEqual(label.locator("img, script").count(), 0)
+                self.assertIsNone(self.page.evaluate("window.esaInjected"))
+
+                for invalid in (
+                    {"url": "javascript:alert(1)", "label": "JS"},
+                    {"url": "//elsewhere.test", "label": "External"},
+                    {"url": "https://elsewhere.test/", "label": "External"},
+                    {"url": overview + "unlisted/", "label": "Missing"},
+                    {"url": url + "?redirect=unsafe", "label": "Query"},
+                    {"url": url + "../", "label": "Traversal"},
+                    {"url": url, "label": 8},
+                    {"url": url, "label": " "},
+                ):
+                    with self.subTest(block=slug, invalid=invalid):
+                        save(current_key, invalid)
+                        expect(panel).to_be_hidden()
+                        expect(btn).to_have_attribute("href", "#")
+
+                # Older overview key remains readable, without changing it.
+                self.page.evaluate(
+                    "key => localStorage.removeItem(key)", current_key)
+                save(legacy_key, {"url": url, "label": "Legacy progress"})
+                expect(panel).to_be_visible()
+                expect(btn).to_have_attribute("href", url)
+                expect(label).to_contain_text("Legacy progress")
+                self.page.evaluate(
+                    "([a, b]) => {localStorage.removeItem(a); localStorage.removeItem(b);}",
+                    [current_key, legacy_key])
+                self.page.reload(wait_until="networkidle")
+                expect(panel).to_be_hidden()
+
+    def test_applied_overviews_load_without_storage(self):
+        """Denied storage cannot interrupt the progress-saving overview scripts."""
+        self.page.add_init_script("""
+            Object.defineProperty(window, 'localStorage', {
+              configurable: true,
+              get() { throw new DOMException('Denied', 'SecurityError'); }
+            });
+        """)
+        for slug in ("method-selection", "study-design", "assumptions"):
+            with self.subTest(block=slug):
+                self.page.goto(
+                    self.origin + "/applied-statistics/" + slug + "/",
+                    wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+                expect(self.page.locator("#lessons .lesson-card h3 a").first
+                       ).to_be_visible()
+                expect(self.page.locator("#continue-reading-" + slug)
+                       ).to_be_hidden()
+
     def test_representative_lessons_and_navigation(self):
         self.open()
         cases = {
