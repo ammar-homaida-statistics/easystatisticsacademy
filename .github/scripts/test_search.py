@@ -2729,6 +2729,143 @@ class SearchTests(unittest.TestCase):
                 self.assertGreater(
                     self.page.locator("main .lesson-nav a[href]").count(), 0)
 
+    def test_restored_bayes_seven_formulas_medical_example(self):
+        """Check Bayes derivation, positive conditioning and the 19% posterior."""
+        from html import unescape
+        route = "/probability/conditional/bayes-theorem/"
+        self.page.goto(self.origin + route, wait_until="networkidle")
+        expect(self.page.locator("main h1")).to_have_text("Bayes' Theorem")
+        html = (SITE / route.lstrip("/") / "index.html").read_text()
+        main = unescape(
+            html.split('<main id="main-content"', 1)[1].split("</main>", 1)[0])
+        for formula in (
+            r"P(A\mid B)=\frac{P(A\cap B)}{P(B)}",
+            r"P(B)>0",
+            r"P(B\mid A)=\frac{P(A\cap B)}{P(A)}",
+            r"P(A)>0",
+            r"P(A\cap B)=P(B\mid A)\,P(A)",
+            r"P(A\mid B)=\frac{P(B\mid A)\,P(A)}{P(B)}",
+            r"\underbrace{P(A\mid B)}_{\text{posterior}}",
+            r"\overbrace{P(B\mid A)}^{\text{likelihood}}",
+            r"\overbrace{P(A)}^{\text{prior}}",
+            r"P(D\mid +)=\frac{P(+\mid D)\,P(D)}{P(+)}",
+            r"\frac{0.95\times0.01}{0.05}",
+            r"=0.19=19\%",
+            r"P(+)=P(+\mid D)\,P(D)+P(+\mid D^{c})\,P(D^{c})",
+        ):
+            with self.subTest(formula=formula):
+                self.assertIn(formula, main)
+        self.assertEqual(main.count(r"\["), 7)
+        self.assertEqual(main.count(r"\]"), 7)
+        prevalence, sensitivity, positive_rate = .01, .95, .05
+        posterior = sensitivity * prevalence / positive_rate
+        false_positive_rate = (
+            positive_rate - sensitivity * prevalence) / (1 - prevalence)
+        self.assertAlmostEqual(posterior, .19)
+        self.assertAlmostEqual(false_positive_rate, .04090909090909091)
+        self.assertAlmostEqual(
+            sensitivity * prevalence +
+            false_positive_rate * (1 - prevalence), positive_rate)
+        for phrase in (
+            "Overall positive-test probability across the whole population = 5%",
+            "not a 5% false-positive rate",
+            "19% of people who test positive have the disease",
+            "4.09%",
+            "distinct from the overall 5% positive-test probability",
+            "conditioning event has positive probability",
+        ):
+            with self.subTest(phrase=phrase):
+                expect(self.page.locator("main")).to_contain_text(phrase)
+        self.assertNotIn("\uea01", main)
+        self.assertNotIn("\uea02", main)
+
+    def test_bayes_restoration_preserves_progress_and_navigation(self):
+        """Keep existing conditional-probability resume schema and lesson links."""
+        route = "/probability/conditional/bayes-theorem/"
+        key = "esa_continue_probability_conditional_lesson_v0"
+        self.page.goto(self.origin + route, wait_until="networkidle")
+        progress = self.page.evaluate(
+            "key => JSON.parse(localStorage.getItem(key))", key)
+        self.assertEqual(progress["url"], route)
+        self.assertEqual(progress["label"], "Bayes' Theorem")
+        self.assertIsInstance(progress["ts"], (int, float))
+        self.assertGreater(
+            self.page.locator("main .lesson-nav a[href]").count(), 0)
+
+    def test_intermediate_path_has_real_lessons_and_study_checkpoints(self):
+        """Every new study anchor resolves; existing steps remain usable."""
+        route = "/learning-paths/intermediate/"
+        self.page.goto(self.origin + route, wait_until="networkidle")
+        expect(self.page.locator("main h1")).to_have_text(
+            "Intermediate Learning Path")
+        cards = self.page.locator("#start .card")
+        expect(cards).to_have_count(6)
+        targets = (
+            "/inference/hypothesis-testing/type1-type2-errors/",
+            "/inference/hypothesis-testing/p-value-meaning/",
+            "/modeling/simple-linear-regression/regression-equation/",
+            "/modeling/simple-linear-regression/residuals/",
+            "/applied-statistics/study-design/experimental-vs-observational/",
+            "/applied-statistics/study-design/bias-confounding/",
+            "/modeling/diagnostics/residual-plots/",
+            "/modeling/model-fit-comparison/overfitting/",
+            "/inference/interpretation-reporting/interpreting-confidence-intervals/",
+            "/inference/interpretation-reporting/reporting-results-clear-language/",
+            "/applied-statistics/practice/",
+        )
+        for dest in targets:
+            with self.subTest(destination=dest):
+                expect(cards.locator("a[href='" + dest + "']")).to_have_count(1)
+                self.assertTrue(
+                    (SITE / dest.lstrip("/") / "index.html").is_file(),
+                    "Unpublished study target: " + dest)
+        expect(cards.locator("p").filter(
+            has_text="Checkpoint:")).to_have_count(5)
+        self.assertEqual(cards.locator("a.card-foot").count(), 6)
+        for width in (375, 768, 1280):
+            self.page.set_viewport_size({"width": width, "height": 850})
+            overflow = self.page.evaluate(
+                "() => document.documentElement.scrollWidth - innerWidth")
+            self.assertLessEqual(
+                overflow, 1, f"Intermediate path overflow at {width}: {overflow}")
+
+    def test_mathjax_loader_distinguishes_currency_from_math(self):
+        """Do not fetch MathJax for prices; preserve supported TeX delimiters."""
+        route = "/learning-paths/intermediate/"
+        html = (SITE / route.lstrip("/") / "index.html").read_text()
+        self.assertIn("</main>", html)
+        samples = (
+            ("Single price $25, with no TeX.", False),
+            ("The prices are $5 and $10 for two items.", False),
+            ("Amounts are $5, $10, and $20.", False),
+            (r"A literal escaped dollar sign \$25 is not TeX.", False),
+            (r"The formula is $x^2+y^2$.", True),
+            (r"The formula is $2+2$.", True),
+            (r"Mathematics can also contain $2$.", True),
+            (r"A spaced expression $ x $ works.", True),
+            (r"MathJax inline \(\alpha+\beta\) appears.", True),
+            (r"MathJax display \[\alpha+\beta\] appears.", True),
+            (r"An environment \begin{aligned}x&=1\end{aligned} appears.", True),
+            ("Display math $x^2+y^2$ appears.", True),
+        )
+        for content, expect_math in samples:
+            with self.subTest(sample=content):
+                fixture = html.replace(
+                    "</main>", '<p id="math-detection-case">' +
+                    content + '</p></main>', 1)
+                self.page.route(
+                    "**/learning-paths/intermediate/",
+                    lambda route, body=fixture: route.fulfill(
+                        status=200, content_type="text/html", body=body))
+                try:
+                    self.page.goto(self.origin + route, wait_until="networkidle")
+                    expect(self.page.locator("#math-detection-case")).to_be_visible()
+                    expect(self.page.locator(
+                        'script[src*="tex-mml-chtml.js"]'
+                    )).to_have_count(1 if expect_math else 0)
+                finally:
+                    self.page.unroute("**/learning-paths/intermediate/")
+
     def test_representative_lessons_and_navigation(self):
         self.open()
         cases = {
