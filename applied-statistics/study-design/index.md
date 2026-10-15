@@ -12,11 +12,15 @@ sidebar: false
 
   const KEY = "esa_continue_applied_last_block_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
-    url: "/applied-statistics/study-design/",
-    label: "Block 2 — Study Design & Data Context",
-    ts: Date.now()
-  }));
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
+      url: "/applied-statistics/study-design/",
+      label: "Block 2 — Study Design & Data Context",
+      ts: Date.now()
+    }));
+  } catch (_) {
+    // Keep reading and navigation functional when progress storage is disabled.
+  }
 
 })();
 </script>
@@ -503,47 +507,39 @@ sidebar: false
 
 <script>
 (function () {
+  // Lesson pages use the first key; retain the earlier overview key as a fallback.
+  const KEYS = [
+    "esa_continue_applied_statistics_study_design_lesson_v0",
+    "esa_continue_applied_study-design_lesson_v0"
+  ];
+  const allowed = Array.from(
+    document.querySelectorAll("#lessons .lesson-card h3 a[href]")
+  ).map(link => link.getAttribute("href"));
+  const wrap = document.getElementById("continue-reading-study-design");
+  const label = document.getElementById("continue-reading-study-design-label");
+  const btn = document.getElementById("continue-reading-study-design-btn");
+  if (!wrap || !label || !btn) return;
 
-  try {
+  for (const key of KEYS) {
+    try {
+      const raw = localStorage.getItem(key);
+      if (!raw) continue;
+      const data = JSON.parse(raw);
+      if (!data || typeof data.url !== "string" ||
+          typeof data.label !== "string" || !data.label.trim()) continue;
+      // Exact published lesson URLs only: reject external, query and traversal URLs.
+      if (!/^\/applied-statistics\/study-design\/[a-z0-9-]+\/$/.test(data.url)) continue;
+      if (!allowed.includes(data.url)) continue;
 
-    const KEY =
-      "esa_continue_applied_study-design_lesson_v0";
-
-    const raw = localStorage.getItem(KEY);
-
-    if (!raw) return;
-
-    const data = JSON.parse(raw);
-
-    if (!data || !data.url || !data.label) return;
-
-    const wrap =
-      document.getElementById(
-        "continue-reading-study-design"
-      );
-
-    const label =
-      document.getElementById(
-        "continue-reading-study-design-label"
-      );
-
-    const btn =
-      document.getElementById(
-        "continue-reading-study-design-btn"
-      );
-
-    if (!wrap || !label || !btn) return;
-
-    label.innerHTML =
-      "You last visited: <strong>" +
-      data.label +
-      "</strong>";
-
-    btn.href = data.url;
-
-    wrap.style.display = "block";
-
-  } catch (e) {}
-
+      const strong = document.createElement("strong");
+      strong.textContent = data.label;
+      label.replaceChildren(document.createTextNode("You last visited: "), strong);
+      btn.href = data.url;
+      wrap.style.display = "block";
+      return;
+    } catch (_) {
+      // Corrupt or inaccessible saved progress must not affect the page.
+    }
+  }
 })();
 </script>
