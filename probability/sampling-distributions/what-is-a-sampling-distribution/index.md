@@ -115,7 +115,10 @@ sidebar: false
     </div>
 
     <p>
-      Draw samples of size 2 and calculate the sample mean each time.
+      Draw samples of size 2 without replacement and calculate the
+      sample mean for each of the six equally likely unordered pairs.
+      This finite-population illustration differs from the independent
+      sampling model used for the standard-error formula below.
     </p>
 
     <p>
@@ -257,23 +260,32 @@ sidebar: false
       One of the most important examples is the distribution of:
     </p>
 
-    0
+    \[
+\bar X_n=\frac{1}{n}\sum_{i=1}^{n}X_i
+\]
 
     <p>
       across repeated samples.
     </p>
 
     <p>
-      The Central Limit Theorem tells us that this distribution often becomes approximately normal.
+      Under independent, identically distributed sampling with finite,
+      positive variance, the Central Limit Theorem gives an approximately
+      normal sampling distribution for the standardized sample mean as n
+      grows. This asymptotic approximation is distinct from the exact
+      expectation and variance results below.
     </p>
 
     <h2>The Center of a Sampling Distribution</h2>
 
     <p>
-      For the sample mean:
+      For independent, identically distributed observations with finite
+      mean μ, linearity of expectation gives the exact result:
     </p>
 
-    1
+    \[
+\operatorname{E}(\bar X_n)=\mu
+\]
 
     <p>
       This means sample means are centered on the population mean.
@@ -291,29 +303,45 @@ sidebar: false
     </p>
 
     <p>
-      Their variability is measured by:
+      For independent, identically distributed observations with finite
+      population variance σ², their theoretical sampling variability is:
     </p>
 
-    2
+    \[
+\operatorname{SE}(\bar X_n)
+=\sqrt{\operatorname{Var}(\bar X_n)}
+=\frac{\sigma}{\sqrt n}
+\]
 
     <p>
-      which is called the standard error.
+      This is the theoretical standard error of the mean. If σ is
+      unknown, s/√n is the usual sample-based estimate of this SE.
+      Dependent sampling and sampling without replacement from a finite
+      population require an appropriate variance calculation.
     </p>
 
     <h2>Why Larger Samples Help</h2>
 
     <p>
-      As sample size increases:
+      Under the same i.i.d. sampling model and population variance,
+      quadrupling the sample size gives:
     </p>
 
-    3
+    \[
+\operatorname{SE}(\bar X_{4n})
+=\frac12\,\operatorname{SE}(\bar X_n)
+\qquad(\sigma\text{ fixed})
+\]
 
     <p>
-      becomes smaller.
+      Thus the standard error is halved. It decreases with n as
+      1/√n when the population SD remains fixed.
     </p>
 
     <p>
-      Sampling distributions become narrower and estimates become more precise.
+      In this model, sample means become more concentrated around μ as
+      n increases. The scaling need not hold unchanged for dependent data
+      or a different sampling design.
     </p>
 
     <h2>The Central Role in Inference</h2>
