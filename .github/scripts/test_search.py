@@ -1627,8 +1627,10 @@ class SearchTests(unittest.TestCase):
         self.assertIn(r"\sigma>0", z_source)
         self.assertIn(r"z=\frac{80-70}{10}=\frac{10}{10}=1", z_source)
         self.assertIn(r"z=\frac{\mu-\mu}{\sigma}=0", z_source)
-        self.assertEqual(z_source.count(r"\["), 3)
-        self.assertEqual(z_source.count(r"\]"), 3)
+        # Count displayed equations inside lesson content, not MathJax scripts.
+        z_main = z_source.split('<main id="main-content"', 1)[1].split("</main>", 1)[0]
+        self.assertEqual(z_main.count(r"\["), 3)
+        self.assertEqual(z_main.count(r"\]"), 3)
         for sigma_count, lower, upper in (
             (1, 60, 80), (2, 50, 90), (3, 40, 100)
         ):
@@ -1647,8 +1649,9 @@ class SearchTests(unittest.TestCase):
         self.assertIn("approximately normally distributed", empirical_source)
         self.assertIn("not guaranteed for nonnormal distributions",
                       empirical_source)
-        self.assertEqual(empirical_source.count(r"\["), 3)
-        self.assertEqual(empirical_source.count(r"\]"), 3)
+        empirical_main = empirical_source.split('<main id="main-content"', 1)[1].split("</main>", 1)[0]
+        self.assertEqual(empirical_main.count(r"\["), 3)
+        self.assertEqual(empirical_main.count(r"\]"), 3)
         self.assertNotIn("\uea01", z_source + empirical_source)
         self.assertNotIn("\uea02", z_source + empirical_source)
 
