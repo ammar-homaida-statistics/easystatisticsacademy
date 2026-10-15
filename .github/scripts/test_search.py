@@ -1875,6 +1875,138 @@ class SearchTests(unittest.TestCase):
                 self.assertEqual(progress["url"], route)
                 self.assertIsInstance(progress["ts"], (int, float))
 
+    def test_restored_standard_deviation_four_expressions(self):
+        """Check the two distinct SD denominators and both worked examples."""
+        from math import sqrt
+        route = "/descriptive/spread/standard-deviation/"
+        self.page.goto(self.origin + route, wait_until="networkidle")
+        expect(self.page.locator("main h1")).to_have_text("Standard Deviation")
+        html = (SITE / route.lstrip("/") / "index.html").read_text()
+        main = html.split('<main id="main-content"', 1)[1].split("</main>", 1)[0]
+        for formula in (
+            r"s=\sqrt{\frac{\sum_{i=1}^{n}(x_i-\bar{x})^2}{n-1}}",
+            r"\sigma=\sqrt{\frac{\sum_{i=1}^{N}(x_i-\mu)^2}{N}}",
+            r"\sqrt{\text{variance}}=\sqrt{25}=5",
+            r"s=\sqrt{\frac{\sum_{i=1}^{5}(10-10)^2}{5-1}}=0",
+        ):
+            with self.subTest(formula=formula):
+                self.assertIn(formula, main)
+        self.assertEqual(main.count(r"\["), 4)
+        self.assertEqual(main.count(r"\]"), 4)
+        self.assertIn(r"n\ge 2", main)
+        self.assertIn(r"N\ge 1", main)
+        expect(self.page.locator("main")).to_contain_text(
+            "sample mean and the sample variance")
+        expect(self.page.locator("main")).to_contain_text(
+            "population mean and denominator N")
+        self.assertAlmostEqual(sqrt(25), 5)
+        values = [2, 4, 6]
+        avg = sum(values) / len(values)
+        deviations_sq = sum((x - avg)**2 for x in values)
+        self.assertEqual(deviations_sq, 8)
+        self.assertAlmostEqual(sqrt(deviations_sq / (len(values) - 1)), 2)
+        self.assertAlmostEqual(sqrt(deviations_sq / len(values)), sqrt(8 / 3))
+        constant = [10] * 5
+        self.assertEqual(
+            sqrt(sum((x - 10)**2 for x in constant) / (len(constant) - 1)), 0)
+        self.assertNotIn("\uea01", main)
+        self.assertNotIn("\uea02", main)
+
+    def test_restored_normal_distribution_three_expressions(self):
+        """Check normal PDF, positive scale, standard normal and z scores."""
+        from math import erf, exp, pi, sqrt
+        route = "/probability/distributions/normal-distribution/"
+        self.page.goto(self.origin + route, wait_until="networkidle")
+        expect(self.page.locator("main h1")).to_have_text("Normal Distribution")
+        html = (SITE / route.lstrip("/") / "index.html").read_text()
+        main = html.split('<main id="main-content"', 1)[1].split("</main>", 1)[0]
+        for formula in (
+            r"f_X(x)=\frac{1}{\sigma\sqrt{2\pi}}\exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)",
+            r"\mu=0,\qquad \sigma=1,\qquad Z\sim N(0,1)",
+            r"Z=\frac{X-\mu}{\sigma}\sim N(0,1)",
+        ):
+            with self.subTest(formula=formula):
+                self.assertIn(formula, main)
+        self.assertIn(r"\sigma&gt;0", main)
+        self.assertEqual(main.count(r"\["), 3)
+        self.assertEqual(main.count(r"\]"), 3)
+        self.assertAlmostEqual(exp(0) / sqrt(2 * pi), 0.3989422804014327)
+        mu, sigma = 70, 10
+        self.assertEqual((80 - mu) / sigma, 1)
+        for z, approximate_percent in ((1, 68.27), (2, 95.45), (3, 99.73)):
+            with self.subTest(z=z):
+                self.assertAlmostEqual(
+                    100 * erf(z / sqrt(2)), approximate_percent, delta=0.01)
+        expect(self.page.locator("main")).to_contain_text(
+            "not guaranteed percentages")
+        expect(self.page.locator("main")).to_contain_text(
+            "exactly standard normal only when X is normal")
+        self.assertNotIn("\uea01", main)
+        self.assertNotIn("\uea02", main)
+
+    def test_restored_clt_four_formulas_and_finite_sample_distinction(self):
+        """Verify standardized limit, exact iid moments, SE and n=30 caveat."""
+        from math import sqrt
+        route = "/probability/lln-clt/central-limit-theorem/"
+        self.page.goto(self.origin + route, wait_until="networkidle")
+        expect(self.page.locator("main h1")).to_have_text(
+            "Central Limit Theorem")
+        html = (SITE / route.lstrip("/") / "index.html").read_text()
+        main = html.split('<main id="main-content"', 1)[1].split("</main>", 1)[0]
+        for formula in (
+            r"\frac{\sqrt{n}(\bar{X}_n-\mu)}{\sigma}\xrightarrow{d}N(0,1)",
+            r"\operatorname{E}(\bar{X}_n)=\mu",
+            r"\operatorname{Var}(\bar{X}_n)=\frac{\sigma^2}{n}",
+            r"\operatorname{SE}(\bar{X}_n)=\sqrt{\operatorname{Var}(\bar{X}_n)}",
+            r"=\frac{\sigma}{\sqrt{n}}",
+        ):
+            with self.subTest(formula=formula):
+                self.assertIn(formula, main)
+        self.assertEqual(main.count(r"\["), 4)
+        self.assertEqual(main.count(r"\]"), 4)
+        expect(self.page.locator("main")).to_contain_text(
+            "independent and identically distributed")
+        expect(self.page.locator("main")).to_contain_text(
+            "This is an asymptotic limit")
+        expect(self.page.locator("main")).to_contain_text(
+            "rule of thumb, not a universal threshold")
+        expect(self.page.locator("main")).to_contain_text(
+            "not guaranteed to be a good approximation")
+        expect(self.page.locator("main")).to_contain_text(
+            "infinite-variance distributions")
+        # Independent discrete Xi in {0, 2}, equally likely; μ=1, σ²=1.
+        population = [0, 2]
+        mu = sum(population) / len(population)
+        sigma2 = sum((x - mu)**2 for x in population) / len(population)
+        sample_means = [(a + b) / 2 for a in population for b in population]
+        sample_mu = sum(sample_means) / len(sample_means)
+        sample_var = sum((x - sample_mu)**2 for x in sample_means) / 4
+        self.assertEqual((mu, sigma2, sample_mu, sample_var), (1, 1, 1, 0.5))
+        self.assertEqual(sqrt(sample_var), sqrt(sigma2 / 2))
+        self.assertNotIn("\uea01", main)
+        self.assertNotIn("\uea02", main)
+
+    def test_three_repaired_lessons_keep_progress_keys_and_navigation(self):
+        """The changed probability and descriptive lessons remain navigable."""
+        cases = (
+            ("/descriptive/spread/standard-deviation/",
+             "esa_continue_descriptive_spread_lesson_v0"),
+            ("/probability/distributions/normal-distribution/",
+             "esa_continue_probability_distributions_lesson_v0"),
+            ("/probability/lln-clt/central-limit-theorem/",
+             "esa_continue_probability_lln_clt_lesson_v0"),
+        )
+        for route, key in cases:
+            with self.subTest(route=route):
+                self.page.goto(self.origin + route, wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+                self.assertGreater(
+                    self.page.locator("main .lesson-nav a[href]").count(), 0)
+                progress = self.page.evaluate(
+                    "key => JSON.parse(localStorage.getItem(key))", key)
+                self.assertEqual(progress["url"], route)
+                self.assertIsInstance(progress["ts"], (int, float))
+
     def test_representative_lessons_and_navigation(self):
         self.open()
         cases = {
