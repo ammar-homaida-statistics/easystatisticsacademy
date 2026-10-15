@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Interval Blueprint — Estimate ± Margin of Error
-description: Learn the universal blueprint behind confidence intervals and how nearly every interval follows the same structure.
+description: Learn the common symmetric estimate-plus-or-minus-margin-of-error confidence interval blueprint, its assumptions and limitations.
 permalink: /inference/confidence-intervals/interval-blueprint-estimate-plus-minus/
 sidebar: false
 ---
@@ -42,7 +42,7 @@ sidebar: false
     </p>
 
     <p class="lead">
-      However, almost every confidence interval follows the same fundamental blueprint: an estimate plus or minus a margin of error.
+      Many familiar intervals use an estimate plus or minus a margin of error, although other valid methods produce asymmetric intervals.
     </p>
 
     <div class="hero-actions">
@@ -69,16 +69,21 @@ sidebar: false
 
   <div class="content-narrow">
 
-    <h2>The Universal Confidence Interval Formula</h2>
+    <h2>A Common Symmetric Confidence Interval Formula</h2>
 
     <p>
-      Nearly every confidence interval in statistics can be written as:
+      Many introductory confidence intervals use an estimate plus or minus
+      a margin of error, producing a symmetric interval:
     </p>
 
-    0
+    \[
+\text{CI}=\widehat{\theta}\ \pm\ \text{margin of error}
+\]
 
     <p>
-      This simple structure appears throughout statistical inference.
+      This form is common in statistical inference, but it is not universal:
+      exact, bootstrap, transformed-scale, and other confidence intervals
+      can be asymmetric or use different constructions.
     </p>
 
     <p>
@@ -89,7 +94,7 @@ sidebar: false
       the basic idea remains the same.
     </p>
 
-    <h2>Two Parts of Every Interval</h2>
+    <h2>Two Parts of This Symmetric Interval</h2>
 
     <div class="table-wrap">
 
@@ -151,7 +156,7 @@ sidebar: false
     </ul>
 
     <p>
-      The estimate represents the interval's midpoint.
+      In this symmetric construction, the estimate represents the interval's midpoint.
     </p>
 
     <h2>The Margin of Error</h2>
@@ -192,7 +197,8 @@ sidebar: false
     </div>
 
     <p>
-      If the margin of error is:
+      If an appropriate confidence-interval procedure gives a margin of error
+      of 4 percentage points (not 4% of 62%):
     </p>
 
     <div class="example-box">
@@ -220,7 +226,9 @@ sidebar: false
     </p>
 
     <p>
-      This occurs because many sampling distributions are approximately symmetric.
+      This often follows from a suitable normal or t-based approximation
+      to the estimator's sampling distribution, together with the method's
+      assumptions. Other methods may yield asymmetric limits.
     </p>
 
     <p>
@@ -256,16 +264,23 @@ sidebar: false
       The margin of error itself can be written as:
     </p>
 
-    1
+    \[
+\text{Margin of error}=c\times\operatorname{SE}(\widehat{\theta})
+\]
 
     <p>
       Substituting this into the confidence interval formula gives:
     </p>
 
-    2
+    \[
+\text{CI}=\left[\widehat{\theta}-c\operatorname{SE}(\widehat{\theta}),\ \widehat{\theta}+c\operatorname{SE}(\widehat{\theta})\right]
+\]
 
     <p>
-      This is one of the most important formulas in all of inference.
+      Here c is the chosen critical value and SE is the standard error
+      of the estimate. This blueprint applies when the method justifies
+      a symmetric critical-value-times-standard-error margin; it is
+      not a formula for every confidence interval.
     </p>
 
     <h2>The Role of the Standard Error</h2>
@@ -434,7 +449,7 @@ sidebar: false
       while the margin of error determines the range.
     </p>
 
-    <h2>Why This Formula Appears Everywhere</h2>
+    <h2>Where This Blueprint Is Useful</h2>
 
     <p>
       As you progress through statistical inference,
@@ -458,8 +473,9 @@ sidebar: false
     </ul>
 
     <p>
-      The details change,
-      but the blueprint remains remarkably consistent.
+      The symmetric blueprint often applies to normal- or t-based confidence intervals.
+      Other methods, including intervals for odds ratios or parameters near
+      a boundary, may be asymmetric on the reporting scale.
     </p>
 
     <h2>The Bigger Picture</h2>
@@ -482,7 +498,8 @@ sidebar: false
       <strong>Core message:</strong>
 
       <p>
-        Nearly every confidence interval is simply an estimate surrounded by a margin of error that reflects uncertainty.
+        Many introductory confidence intervals are symmetric around an estimate,
+        but this is a useful special case rather than a universal formula.
       </p>
 
     </div>
@@ -509,15 +526,15 @@ sidebar: false
 
       <ul class="bullets">
 
-        <li>Most confidence intervals follow the same blueprint</li>
+        <li>Many familiar normal- or t-based confidence intervals use a symmetric blueprint</li>
 
-        <li>Confidence intervals consist of an estimate and a margin of error</li>
+        <li>This symmetric blueprint uses an estimate and a margin of error</li>
 
-        <li>The estimate determines the center of the interval</li>
+        <li>For this construction, the estimate determines the center of the interval</li>
 
         <li>The margin of error determines the width</li>
 
-        <li>Margin of error equals critical value times standard error</li>
+        <li>In this construction, margin of error equals critical value times standard error</li>
 
         <li>Larger standard errors produce wider intervals</li>
 

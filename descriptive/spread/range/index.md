@@ -101,7 +101,9 @@ sidebar: false
       The range is calculated as:
     </p>
 
-    0
+    \[
+\operatorname{Range}=\max(x_1,\ldots,x_n)-\min(x_1,\ldots,x_n)
+\]
 
     <p>
       Only two observations are needed:
@@ -157,7 +159,9 @@ sidebar: false
       Therefore:
     </p>
 
-    1
+    \[
+\operatorname{Range}=12-4=8
+\]
 
     <p>
       The range equals 8.
@@ -189,7 +193,9 @@ sidebar: false
       Therefore:
     </p>
 
-    2
+    \[
+\operatorname{Range}=95-65=30
+\]
 
     <p>
       The range is 30 points.
@@ -335,7 +341,9 @@ sidebar: false
       The range is:
     </p>
 
-    3
+    \[
+\operatorname{Range}=14-10=4
+\]
 
     <p>
       Now replace 14 with 100.
@@ -353,7 +361,9 @@ sidebar: false
       The range becomes:
     </p>
 
-    4
+    \[
+\operatorname{Range}=100-10=90
+\]
 
     <p>
       A single extreme observation changes the range dramatically.

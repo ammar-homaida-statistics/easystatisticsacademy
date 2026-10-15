@@ -1760,6 +1760,121 @@ class SearchTests(unittest.TestCase):
                 expect(self.page.locator("#continue-reading-" + slug)
                        ).to_be_hidden()
 
+    def test_range_all_five_restored_equations(self):
+        """Check five display formulas and their dataset arithmetic."""
+        url = "/descriptive/spread/range/"
+        self.page.goto(self.origin + url, wait_until="networkidle")
+        expect(self.page.locator("main h1")).to_have_text("Range")
+        html = (SITE / url.lstrip("/") / "index.html").read_text()
+        main = html.split('<main id="main-content"', 1)[1].split("</main>", 1)[0]
+        self.assertEqual(main.count(r"\["), 5)
+        self.assertEqual(main.count(r"\]"), 5)
+        formulas = (
+            r"\operatorname{Range}=\max(x_1,\ldots,x_n)-\min(x_1,\ldots,x_n)",
+            r"\operatorname{Range}=12-4=8",
+            r"\operatorname{Range}=95-65=30",
+            r"\operatorname{Range}=14-10=4",
+            r"\operatorname{Range}=100-10=90",
+        )
+        for formula in formulas:
+            with self.subTest(formula=formula):
+                self.assertIn(formula, main)
+        examples = (
+            ([4, 6, 8, 10, 12], 8),
+            ([65, 70, 75, 80, 95], 30),
+            ([10, 11, 12, 13, 14], 4),
+            ([10, 11, 12, 13, 100], 90),
+        )
+        for data, result in examples:
+            with self.subTest(data=data):
+                self.assertEqual(max(data) - min(data), result)
+        self.assertEqual(
+            (max(examples[-1][0]) - min(examples[-1][0])) -
+            (max(examples[-2][0]) - min(examples[-2][0])), 86)
+        self.assertNotIn("\uea01", main)
+        self.assertNotIn("\uea02", main)
+
+    def test_iqr_quartile_convention_and_restored_equations(self):
+        """The stated median-of-halves rule yields Q1=5, Q3=15 and IQR=10."""
+        url = "/descriptive/spread/interquartile-range/"
+        self.page.goto(self.origin + url, wait_until="networkidle")
+        expect(self.page.locator("main h1")).to_have_text("Interquartile Range (IQR)")
+        html = (SITE / url.lstrip("/") / "index.html").read_text()
+        main = html.split('<main id="main-content"', 1)[1].split("</main>", 1)[0]
+        data = [2, 4, 6, 8, 10, 12, 14, 16, 18]
+        self.assertEqual(len(data), 9)
+        self.assertEqual(data[4], 10)
+        lower, upper = data[:4], data[5:]
+        q1 = (lower[1] + lower[2]) / 2
+        q3 = (upper[1] + upper[2]) / 2
+        self.assertEqual((q1, q3, q3 - q1), (5, 15, 10))
+        self.assertIn(r"\operatorname{IQR}=Q_3-Q_1", main)
+        self.assertIn(r"\operatorname{IQR}=15-5=10", main)
+        self.assertEqual(main.count(r"\["), 2)
+        self.assertEqual(main.count(r"\]"), 2)
+        visible = self.page.locator("main")
+        for phrase in ("median-of-halves convention",
+                       "exclude the overall median (10)",
+                       "Other quartile", "different Q1, Q3, and IQR"):
+            with self.subTest(phrase=phrase):
+                expect(visible).to_contain_text(phrase)
+        self.assertNotIn("\uea01", main)
+        self.assertNotIn("\uea02", main)
+
+    def test_symmetric_ci_blueprint_three_formulas_and_poll_example(self):
+        """Three formulas and 62% ± 4 percentage points are consistent."""
+        url = "/inference/confidence-intervals/interval-blueprint-estimate-plus-minus/"
+        self.page.goto(self.origin + url, wait_until="networkidle")
+        expect(self.page.get_by_role(
+            "heading", name="A Common Symmetric Confidence Interval Formula")
+        ).to_be_visible()
+        html = (SITE / url.lstrip("/") / "index.html").read_text()
+        main = html.split('<main id="main-content"', 1)[1].split("</main>", 1)[0]
+        for formula in (
+            r"\text{CI}=\widehat{\theta}\ \pm\ \text{margin of error}",
+            r"\text{Margin of error}=c\times\operatorname{SE}(\widehat{\theta})",
+            r"\text{CI}=\left[\widehat{\theta}-c\operatorname{SE}(\widehat{\theta}),\ \widehat{\theta}+c\operatorname{SE}(\widehat{\theta})\right]",
+        ):
+            with self.subTest(formula=formula):
+                self.assertIn(formula, main)
+        self.assertEqual(main.count(r"\["), 3)
+        self.assertEqual(main.count(r"\]"), 3)
+        self.assertEqual((62 - 4, 62 + 4), (58, 66))
+        self.assertEqual((52 - 3, 52 + 3), (49, 55))
+        content = self.page.locator("main")
+        for phrase in (
+            "4 percentage points (not 4% of 62%)",
+            "58% to 66%",
+            "49% to 55%",
+            "normal- or t-based",
+            "not universal",
+            "not a formula for every confidence interval",
+        ):
+            with self.subTest(phrase=phrase):
+                expect(content).to_contain_text(phrase)
+        self.assertNotIn("almost every confidence interval", content.inner_text().lower())
+        self.assertNotIn("\uea01", main)
+        self.assertNotIn("\uea02", main)
+
+    def test_restored_lessons_preserve_progress_and_navigation(self):
+        """The repaired lessons remain navigable and keep progress keys."""
+        cases = (
+            ("/descriptive/spread/range/", "esa_continue_descriptive_spread_lesson_v0"),
+            ("/descriptive/spread/interquartile-range/", "esa_continue_descriptive_spread_lesson_v0"),
+            ("/inference/confidence-intervals/interval-blueprint-estimate-plus-minus/",
+             "esa_continue_inference_confidence_intervals_lesson_v0"),
+        )
+        for route, key in cases:
+            with self.subTest(route=route):
+                self.page.goto(self.origin + route, wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+                self.assertGreater(
+                    self.page.locator("main .lesson-nav a[href]").count(), 0)
+                progress = self.page.evaluate(
+                    "key => JSON.parse(localStorage.getItem(key))", key)
+                self.assertEqual(progress["url"], route)
+                self.assertIsInstance(progress["ts"], (int, float))
+
     def test_representative_lessons_and_navigation(self):
         self.open()
         cases = {
