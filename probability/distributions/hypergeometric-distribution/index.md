@@ -143,7 +143,8 @@ sidebar: false
     <h2>The Four Parameters</h2>
 
     <p>
-      A hypergeometric distribution is determined by four values.
+      A hypergeometric distribution has three parameters (N, K, n);
+      x is a possible observed value of the random variable X.
     </p>
 
     <div class="table-wrap">
@@ -202,7 +203,8 @@ sidebar: false
     </div>
 
     <p>
-      The parameters describe the population and sample structure.
+      The parameters N, K, and n describe the population and sampling
+      design, with integer N ≥ 1, 0 ≤ K ≤ N, and 0 ≤ n ≤ N.
     </p>
 
     <h2>Understanding the Population</h2>
@@ -233,10 +235,15 @@ sidebar: false
       The probability of observing exactly x successes is:
     </p>
 
-    0
+    \[
+P(X=x)=\frac{\binom{K}{x}\binom{N-K}{n-x}}{\binom{N}{n}},
+\qquad \max(0,n-(N-K))\le x\le\min(n,K)
+\]
 
     <p>
-      This is the hypergeometric probability mass function.
+      This is the hypergeometric probability mass function. The possible
+      values of x are integers within the displayed limits; values
+      outside this support have probability zero.
     </p>
 
     <h2>Interpreting the Formula</h2>
@@ -322,7 +329,9 @@ sidebar: false
     </ul>
 
     <p>
-      Therefore possible values depend on N, K, and n.
+      A sample must also contain at least n − (N − K) successes if too few
+      failures are available. Thus the valid integer support is
+      max(0, n − (N − K)) through min(n, K).
     </p>
 
     <h2>The Mean</h2>
@@ -331,7 +340,9 @@ sidebar: false
       The expected value is:
     </p>
 
-    1
+    \[
+\operatorname{E}(X)=n\frac{K}{N}
+\]
 
     <div class="concept-box">
 
@@ -369,11 +380,13 @@ sidebar: false
       We obtain:
     </p>
 
-    2
+    \[
+\operatorname{E}(X)=5\left(\frac{10}{100}\right)=0.5
+\]
 
     <p>
-      On average,
-      half a defective product is expected per sample.
+      The expected count is 0.5 defective products per sample across
+      repeated draws; an individual sample still contains a whole-number count.
     </p>
 
     <h2>The Variance</h2>
@@ -382,10 +395,15 @@ sidebar: false
       The variance is:
     </p>
 
-    3
+    \[
+\operatorname{Var}(X)=n\frac{K}{N}\left(1-\frac{K}{N}\right)
+\frac{N-n}{N-1},\qquad N>1
+\]
 
     <p>
-      The final fraction is called the finite population correction factor.
+      The final fraction, (N − n)/(N − 1), is the finite population
+      correction factor for this count variance when N &gt; 1.
+      For N = 1 the draw count is deterministic and its variance is zero.
     </p>
 
     <h2>The Finite Population Correction</h2>
@@ -404,7 +422,10 @@ sidebar: false
       <strong>Important:</strong>
 
       <p>
-        Hypergeometric variance is smaller than comparable binomial variance because sampling without replacement reduces uncertainty.
+        For the same n and success fraction K/N, hypergeometric variance is
+        no greater than binomial variance. It is strictly smaller when
+        1 &lt; n ≤ N and 0 &lt; K &lt; N (with N &gt; 1);
+        at n = 1 the two variances agree.
       </p>
 
     </div>
