@@ -8,12 +8,6 @@
       "\uea014\uea02": 1,
       "\uea015\uea02": 1
     },
-    "descriptive/spread/standard-deviation/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1
-    },
     "inference/assumptions-robustness/heteroscedasticity-variance-issues/index.md": {
       "\uea010\uea02": 1
     },
@@ -676,11 +670,6 @@
       "\uea015\uea02": 1,
       "\uea016\uea02": 1
     },
-    "probability/distributions/normal-distribution/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1
-    },
     "probability/distributions/poisson-distribution/index.md": {
       "\uea010\uea02": 1,
       "\uea011\uea02": 1,
@@ -773,12 +762,6 @@
       "\uea017\uea02": 1,
       "\uea018\uea02": 1,
       "\uea019\uea02": 1
-    },
-    "probability/lln-clt/central-limit-theorem/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1
     },
     "probability/lln-clt/convergence-intuition/index.md": {
       "\uea010\uea02": 1,

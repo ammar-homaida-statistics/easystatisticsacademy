@@ -123,18 +123,25 @@ sidebar: false
     <h2>The Main Result</h2>
 
     <p>
-      If observations are independent and identically distributed with finite mean and variance,
-      then the distribution of sample means becomes approximately normal as sample size grows.
+      Let X₁, …, Xₙ be independent and identically distributed with
+      E(Xᵢ) = μ and 0 &lt; Var(Xᵢ) = σ² &lt; ∞.
+      The standardized sample mean converges in distribution to a standard
+      normal random variable as n grows.
     </p>
 
     <p>
       Symbolically:
     </p>
 
-    0
+    \[
+\frac{\sqrt{n}(\bar{X}_n-\mu)}{\sigma}\xrightarrow{d}N(0,1)
+\qquad\text{as }n\to\infty
+\]
 
     <p>
-      for sufficiently large sample sizes.
+      This is an asymptotic limit, not a promise of a normal distribution
+      at any fixed sample size. For i.i.d. observations, the mean and variance
+      identities below are exact at every positive integer n.
     </p>
 
     <h2>What Is Changing?</h2>
@@ -228,7 +235,9 @@ sidebar: false
       The center of the sampling distribution equals the population mean.
     </p>
 
-    1
+    \[
+\operatorname{E}(\bar{X}_n)=\mu
+\]
 
     <p>
       Sample means are centered correctly on average.
@@ -240,13 +249,18 @@ sidebar: false
       The variance of sample means is:
     </p>
 
-    2
+    \[
+\operatorname{Var}(\bar{X}_n)=\frac{\sigma^2}{n}
+\]
 
     <p>
       Therefore the standard deviation of sample means is:
     </p>
 
-    3
+    \[
+\operatorname{SE}(\bar{X}_n)=\sqrt{\operatorname{Var}(\bar{X}_n)}
+=\frac{\sigma}{\sqrt{n}}
+\]
 
     <p>
       This quantity is called the standard error.
@@ -306,17 +320,17 @@ sidebar: false
 
           <tr>
             <td>n = 5</td>
-            <td>Less skewed</td>
+            <td>May be less skewed, depending on the population</td>
           </tr>
 
           <tr>
             <td>n = 30</td>
-            <td>Often approximately normal</td>
+            <td>Can be approximately normal; check population shape and tails</td>
           </tr>
 
           <tr>
             <td>n = 100</td>
-            <td>Very close to normal</td>
+            <td>Often closer, but not guaranteed to be a good approximation</td>
           </tr>
 
         </tbody>
@@ -344,8 +358,10 @@ sidebar: false
     </p>
 
     <p>
-      However,
-      the required sample size depends on how non-normal the population is.
+      The value 30 is a rule of thumb, not a universal threshold.
+      The sample size needed for a reliable normal approximation depends
+      on skewness, tail behavior, and the required accuracy; highly skewed
+      or heavy-tailed populations may need far more than 30 observations.
     </p>
 
     <h2>When the CLT Works Well</h2>
@@ -382,8 +398,9 @@ sidebar: false
     </ul>
 
     <p>
-      In such situations,
-      convergence may be slower.
+      For i.i.d. data with finite variance, heavy tails may cause slow convergence.
+      Strong dependence can invalidate the i.i.d. theorem altogether, and
+      infinite-variance distributions are outside the stated CLT assumptions.
     </p>
 
     <h2>Why the CLT Is So Important</h2>

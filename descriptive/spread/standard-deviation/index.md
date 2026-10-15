@@ -118,16 +118,23 @@ sidebar: false
       For a sample:
     </p>
 
-    0
+    \[
+s=\sqrt{\frac{\sum_{i=1}^{n}(x_i-\bar{x})^2}{n-1}},\qquad n\ge 2
+\]
 
     <p>
       For a population:
     </p>
 
-    1
+    \[
+\sigma=\sqrt{\frac{\sum_{i=1}^{N}(x_i-\mu)^2}{N}},\qquad N\ge 1
+\]
 
     <p>
-      Standard deviation is simply the square root of variance.
+      Here, <strong>s</strong> uses the sample mean and the sample variance
+      denominator n − 1 (so n must be at least 2), whereas
+      <strong>σ</strong> uses the population mean and denominator N.
+      Standard deviation is the nonnegative square root of variance.
     </p>
 
     <h2>Connecting Variance and Standard Deviation</h2>
@@ -189,7 +196,9 @@ sidebar: false
       Then:
     </p>
 
-    2
+    \[
+\text{Standard deviation}=\sqrt{\text{variance}}=\sqrt{25}=5
+\]
 
     <p>
       The standard deviation equals 5.
@@ -288,7 +297,9 @@ sidebar: false
       Therefore:
     </p>
 
-    3
+    \[
+s=\sqrt{\frac{\sum_{i=1}^{5}(10-10)^2}{5-1}}=0
+\]
 
     <p>
       Standard deviation equals zero.
