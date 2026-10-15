@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_probability_distributions_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
     url: "/probability/distributions/lognormal-distribution/",
     label: "Lognormal Distribution",
     ts: Date.now()
-  }));
+    }));
+  } catch (_) {
+    // Storage may be disabled; the page still works without saved progress.
+  }
 
 })();
 </script>
