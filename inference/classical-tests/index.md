@@ -162,6 +162,28 @@ sidebar: false
 
 </section>
 
+<style>
+  #test-selection-guide, #test-selection-guide .content-narrow, #esa-test-guide {
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  #esa-test-guide select {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  #esa-test-result {
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-wrap: anywhere;
+  }
+</style>
 <!-- METHOD-SELECTION GUIDE: explanatory, non-diagnostic learning aid -->
 <section class="section" id="test-selection-guide" aria-labelledby="esa-test-guide-heading">
   <div class="content-narrow">
