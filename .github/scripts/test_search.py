@@ -885,7 +885,7 @@ class SearchTests(unittest.TestCase):
         self.assertEqual(result.evaluate_all(
             "(links) => links.map(link => new URL(link.href).pathname)"
         ), ["/descriptive/spread/variance/", "/descriptive/", "/probability/",
-            "/modeling/", "/inference/", "/foundations/"])
+            "/inference/", "/modeling/", "/foundations/"])
         # A phrase that is absent from every page still finds all word matches.
         self.input.fill("formula variance sample")
         expect(result).to_have_count(6)
