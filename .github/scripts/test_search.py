@@ -3236,7 +3236,8 @@ class SearchTests(unittest.TestCase):
             with self.subTest(choice=slug):
                 outcome.select_option(kind)
                 design.select_option(structure)
-                sigma.select_option(known)
+                if kind == "mean" and structure == "one":
+                    sigma.select_option(known)
                 link = status.get_by_role("link")
                 expect(link).to_have_attribute(
                     "href", "/inference/classical-tests/" + slug + "/")
