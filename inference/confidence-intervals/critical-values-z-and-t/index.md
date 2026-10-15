@@ -72,10 +72,13 @@ sidebar: false
     <h2>Recall the Confidence Interval Blueprint</h2>
 
     <p>
-      In the previous lesson we learned that confidence intervals generally follow:
+      For a common symmetric, normal- or t-based confidence interval,
+      the previous lesson introduced the blueprint:
     </p>
 
-    0
+    \[
+\text{CI}=\widehat{\theta}\ \pm\ c\,\operatorname{SE}(\widehat{\theta})
+\]
 
     <p>
       The standard error measures uncertainty.
@@ -193,7 +196,9 @@ sidebar: false
       the middle 95% of the standard normal distribution lies approximately between:
     </p>
 
-    1
+    \[
+P(-1.96\le Z\le1.96)\approx0.95,\qquad Z\sim N(0,1)
+\]
 
     <p>
       Therefore the critical value is:
@@ -285,7 +290,9 @@ sidebar: false
       Then:
     </p>
 
-    2
+    \[
+\text{Margin of error}=z^*\times\operatorname{SE}=1.96\times2=3.92
+\]
 
     <p>
       The interval extends 3.92 units above and below the estimate.
@@ -308,8 +315,14 @@ sidebar: false
     </ul>
 
     <p>
-      However,
-      another distribution is often needed in practice.
+      For a one-sample population mean, a z interval uses known population
+      standard deviation with a normal population model, or a justified
+      large-sample normal approximation. The choice is not based on
+      sample size alone.
+    </p>
+
+    <p>
+      However, another distribution is often needed in practice.
     </p>
 
     <h2>The Problem With Unknown Population Variability</h2>
@@ -319,7 +332,9 @@ sidebar: false
       the population standard deviation:
     </p>
 
-    3
+    \[
+\sigma=\sqrt{\operatorname{Var}(X)}
+\]
 
     <p>
       is usually unknown.
@@ -362,7 +377,8 @@ sidebar: false
     </p>
 
     <p>
-      This produces wider intervals.
+      For the same standard error and confidence level, this produces wider
+      two-sided intervals when comparing finite-df t with z critical values.
     </p>
 
     <h2>The Role of Degrees of Freedom</h2>
@@ -383,7 +399,9 @@ sidebar: false
       For one-sample mean intervals:
     </p>
 
-    4
+    \[
+\operatorname{df}=n-1,\qquad n\ge2
+\]
 
     <h2>How Sample Size Changes t</h2>
 
@@ -479,6 +497,14 @@ sidebar: false
       </table>
 
     </div>
+
+    <p>
+      For independent observations from a normal population, a one-sample
+      mean t interval uses the sample standard deviation s in its standard
+      error and n − 1 degrees of freedom; for nonnormal populations the
+      accuracy may depend on sample size and distribution shape.
+      Unknown σ alone does not guarantee the t method's assumptions.
+    </p>
 
     <p>
       In practice,
