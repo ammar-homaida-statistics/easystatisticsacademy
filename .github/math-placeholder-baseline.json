@@ -1,916 +1,906 @@
 {
   "pages": {
-    "descriptive/shape/empirical-rule/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1
-    },
-    "descriptive/shape/z-scores/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1
-    },
     "descriptive/spread/coefficient-of-variation/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1
     },
     "descriptive/spread/interquartile-range/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1
+      "0": 1,
+      "1": 1
     },
     "descriptive/spread/range/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1
     },
     "descriptive/spread/standard-deviation/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1
     },
     "inference/assumptions-robustness/heteroscedasticity-variance-issues/index.md": {
-      "\uea010\uea02": 1
+      "0": 1
     },
     "inference/assumptions-robustness/independence-and-dependence/index.md": {
-      "\uea010\uea02": 1
+      "0": 1
     },
     "inference/assumptions-robustness/outliers-and-influence/index.md": {
-      "\uea010\uea02": 1
+      "0": 1
     },
     "inference/classical-tests/chi-square-goodness-of-fit/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1,
-      "\uea017\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 1
     },
     "inference/classical-tests/chi-square-homogeneity-test/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1,
-      "\uea017\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 1
     },
     "inference/classical-tests/chi-square-independence-test/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1,
-      "\uea017\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 1
     },
     "inference/classical-tests/decision-framework-and-assumptions/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1,
-      "\uea017\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 1
     },
     "inference/classical-tests/one-proportion-z-test/index.md": {
-      "\uea010\uea02": 1,
-      "\uea0110\uea02": 1,
-      "\uea0111\uea02": 1,
-      "\uea0112\uea02": 1,
-      "\uea0113\uea02": 1,
-      "\uea0114\uea02": 1,
-      "\uea0115\uea02": 1,
-      "\uea0116\uea02": 1,
-      "\uea0117\uea02": 1,
-      "\uea0118\uea02": 1,
-      "\uea0119\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea0120\uea02": 1,
-      "\uea0121\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1,
-      "\uea017\uea02": 1,
-      "\uea018\uea02": 1,
-      "\uea019\uea02": 1
+      "0": 1,
+      "10": 1,
+      "11": 1,
+      "12": 1,
+      "13": 1,
+      "14": 1,
+      "15": 1,
+      "16": 1,
+      "17": 1,
+      "18": 1,
+      "19": 1,
+      "1": 1,
+      "20": 1,
+      "21": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 1,
+      "8": 1,
+      "9": 1
     },
     "inference/classical-tests/one-sample-t-test-for-mean/index.md": {
-      "\uea010\uea02": 1,
-      "\uea0110\uea02": 1,
-      "\uea0111\uea02": 1,
-      "\uea0112\uea02": 1,
-      "\uea0113\uea02": 1,
-      "\uea0114\uea02": 1,
-      "\uea0115\uea02": 1,
-      "\uea0116\uea02": 1,
-      "\uea0117\uea02": 1,
-      "\uea0118\uea02": 1,
-      "\uea0119\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1,
-      "\uea017\uea02": 1,
-      "\uea018\uea02": 1,
-      "\uea019\uea02": 1
+      "0": 1,
+      "10": 1,
+      "11": 1,
+      "12": 1,
+      "13": 1,
+      "14": 1,
+      "15": 1,
+      "16": 1,
+      "17": 1,
+      "18": 1,
+      "19": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 1,
+      "8": 1,
+      "9": 1
     },
     "inference/classical-tests/one-sample-z-test-for-mean/index.md": {
-      "\uea010\uea02": 1,
-      "\uea0110\uea02": 1,
-      "\uea0111\uea02": 1,
-      "\uea0112\uea02": 1,
-      "\uea0113\uea02": 1,
-      "\uea0114\uea02": 1,
-      "\uea0115\uea02": 1,
-      "\uea0116\uea02": 1,
-      "\uea0117\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1,
-      "\uea017\uea02": 1,
-      "\uea018\uea02": 1,
-      "\uea019\uea02": 1
+      "0": 1,
+      "10": 1,
+      "11": 1,
+      "12": 1,
+      "13": 1,
+      "14": 1,
+      "15": 1,
+      "16": 1,
+      "17": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 1,
+      "8": 1,
+      "9": 1
     },
     "inference/classical-tests/one-way-anova-f-test/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1
     },
     "inference/classical-tests/paired-t-test/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1,
-      "\uea017\uea02": 1,
-      "\uea018\uea02": 1,
-      "\uea019\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 1,
+      "8": 1,
+      "9": 1
     },
     "inference/classical-tests/post-hoc-tests-and-multiple-comparisons-preview/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1
     },
     "inference/classical-tests/two-proportion-z-test/index.md": {
-      "\uea010\uea02": 1,
-      "\uea0110\uea02": 1,
-      "\uea0111\uea02": 1,
-      "\uea0112\uea02": 1,
-      "\uea0113\uea02": 1,
-      "\uea0114\uea02": 1,
-      "\uea0115\uea02": 1,
-      "\uea0116\uea02": 1,
-      "\uea0117\uea02": 1,
-      "\uea0118\uea02": 1,
-      "\uea0119\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea0120\uea02": 1,
-      "\uea0121\uea02": 1,
-      "\uea0122\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1,
-      "\uea017\uea02": 1,
-      "\uea018\uea02": 1,
-      "\uea019\uea02": 1
+      "0": 1,
+      "10": 1,
+      "11": 1,
+      "12": 1,
+      "13": 1,
+      "14": 1,
+      "15": 1,
+      "16": 1,
+      "17": 1,
+      "18": 1,
+      "19": 1,
+      "1": 1,
+      "20": 1,
+      "21": 1,
+      "22": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 1,
+      "8": 1,
+      "9": 1
     },
     "inference/classical-tests/two-sample-t-test-independent/index.md": {
-      "\uea010\uea02": 1,
-      "\uea0110\uea02": 1,
-      "\uea0111\uea02": 1,
-      "\uea0112\uea02": 1,
-      "\uea0113\uea02": 1,
-      "\uea0114\uea02": 1,
-      "\uea0115\uea02": 1,
-      "\uea0116\uea02": 1,
-      "\uea0117\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1,
-      "\uea017\uea02": 1,
-      "\uea018\uea02": 1,
-      "\uea019\uea02": 1
+      "0": 1,
+      "10": 1,
+      "11": 1,
+      "12": 1,
+      "13": 1,
+      "14": 1,
+      "15": 1,
+      "16": 1,
+      "17": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 1,
+      "8": 1,
+      "9": 1
     },
     "inference/confidence-intervals/ci-for-difference-of-means-independent/index.md": {
-      "\uea010\uea02": 1,
-      "\uea0110\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1,
-      "\uea017\uea02": 1,
-      "\uea018\uea02": 1,
-      "\uea019\uea02": 1
+      "0": 1,
+      "10": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 1,
+      "8": 1,
+      "9": 1
     },
     "inference/confidence-intervals/ci-for-difference-of-proportions/index.md": {
-      "\uea010\uea02": 1,
-      "\uea0110\uea02": 1,
-      "\uea0111\uea02": 1,
-      "\uea0112\uea02": 1,
-      "\uea0113\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1,
-      "\uea017\uea02": 1,
-      "\uea018\uea02": 1,
-      "\uea019\uea02": 1
+      "0": 1,
+      "10": 1,
+      "11": 1,
+      "12": 1,
+      "13": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 1,
+      "8": 1,
+      "9": 1
     },
     "inference/confidence-intervals/ci-for-mean-sigma-known-z/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1,
-      "\uea017\uea02": 1,
-      "\uea018\uea02": 1,
-      "\uea019\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 1,
+      "8": 1,
+      "9": 1
     },
     "inference/confidence-intervals/ci-for-mean-sigma-unknown-t/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1,
-      "\uea017\uea02": 1,
-      "\uea018\uea02": 1,
-      "\uea019\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 1,
+      "8": 1,
+      "9": 1
     },
     "inference/confidence-intervals/ci-for-paired-mean-difference/index.md": {
-      "\uea010\uea02": 1,
-      "\uea0110\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1,
-      "\uea017\uea02": 1,
-      "\uea018\uea02": 1,
-      "\uea019\uea02": 1
+      "0": 1,
+      "10": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 1,
+      "8": 1,
+      "9": 1
     },
     "inference/confidence-intervals/ci-for-proportion/index.md": {
-      "\uea010\uea02": 1,
-      "\uea0110\uea02": 1,
-      "\uea0111\uea02": 1,
-      "\uea0112\uea02": 1,
-      "\uea0113\uea02": 1,
-      "\uea0114\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1,
-      "\uea017\uea02": 1,
-      "\uea018\uea02": 1,
-      "\uea019\uea02": 1
+      "0": 1,
+      "10": 1,
+      "11": 1,
+      "12": 1,
+      "13": 1,
+      "14": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 1,
+      "8": 1,
+      "9": 1
     },
     "inference/confidence-intervals/critical-values-z-and-t/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1
     },
     "inference/confidence-intervals/interval-blueprint-estimate-plus-minus/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1
     },
     "inference/confidence-intervals/width-and-precision-what-controls/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1,
-      "\uea017\uea02": 1,
-      "\uea018\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 1,
+      "8": 1
     },
     "inference/foundations/bias-and-variance-intuition/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1
     },
     "inference/foundations/estimators-vs-estimates/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1
+      "0": 1,
+      "1": 1
     },
     "inference/foundations/inference-pipeline-estimator-se-ci-test/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1
     },
     "inference/foundations/point-vs-interval-estimation/index.md": {
-      "\uea010\uea02": 1
+      "0": 1
     },
     "inference/foundations/sampling-bias-vs-statistical-bias/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1
     },
     "inference/foundations/sampling-distributions-bridge/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1
     },
     "inference/foundations/sd-vs-se-common-confusion/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1
     },
     "inference/foundations/standard-error-unit-of-uncertainty/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1
     },
     "inference/foundations/statistics-as-random-variables/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1
     },
     "inference/foundations/what-makes-good-estimator/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1
+      "0": 1,
+      "1": 1
     },
     "inference/hypothesis-testing/ci-and-test-connection/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1,
-      "\uea017\uea02": 1,
-      "\uea018\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 1,
+      "8": 1
     },
     "inference/hypothesis-testing/null-and-alternative/index.md": {
-      "\uea010\uea02": 1,
-      "\uea0110\uea02": 1,
-      "\uea0111\uea02": 1,
-      "\uea0112\uea02": 1,
-      "\uea0113\uea02": 1,
-      "\uea0114\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1,
-      "\uea017\uea02": 1,
-      "\uea018\uea02": 1,
-      "\uea019\uea02": 1
+      "0": 1,
+      "10": 1,
+      "11": 1,
+      "12": 1,
+      "13": 1,
+      "14": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 1,
+      "8": 1,
+      "9": 1
     },
     "inference/hypothesis-testing/one-sided-vs-two-sided/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1,
-      "\uea017\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 1
     },
     "inference/hypothesis-testing/p-value-meaning/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1
+      "0": 1,
+      "1": 1
     },
     "inference/hypothesis-testing/power-and-effect-size/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1
     },
     "inference/hypothesis-testing/practical-significance/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1
+      "0": 1,
+      "1": 1
     },
     "inference/hypothesis-testing/significance-level-alpha/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1
     },
     "inference/hypothesis-testing/test-statistic-standardization/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1,
-      "\uea017\uea02": 1,
-      "\uea018\uea02": 1,
-      "\uea019\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 1,
+      "8": 1,
+      "9": 1
     },
     "inference/hypothesis-testing/type1-type2-errors/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1
     },
     "inference/hypothesis-testing/what-is-a-hypothesis-test/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1
+      "0": 1,
+      "1": 1
     },
     "inference/power-sample-size/effect-size-and-practical-importance/index.md": {
-      "\uea010\uea02": 1
+      "0": 1
     },
     "inference/power-sample-size/power-curve-and-tradeoffs/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1
     },
     "inference/power-sample-size/precision-vs-detectability/index.md": {
-      "\uea010\uea02": 1
+      "0": 1
     },
     "inference/power-sample-size/sample-size-for-mean/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1
     },
     "inference/power-sample-size/sample-size-for-proportion/index.md": {
-      "\uea010\uea02": 1,
-      "\uea0110\uea02": 1,
-      "\uea0111\uea02": 1,
-      "\uea0112\uea02": 1,
-      "\uea0113\uea02": 1,
-      "\uea0114\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1,
-      "\uea017\uea02": 1,
-      "\uea018\uea02": 1,
-      "\uea019\uea02": 1
+      "0": 1,
+      "10": 1,
+      "11": 1,
+      "12": 1,
+      "13": 1,
+      "14": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 1,
+      "8": 1,
+      "9": 1
     },
     "inference/power-sample-size/underpowered-studies/index.md": {
-      "\uea010\uea02": 1
+      "0": 1
     },
     "inference/power-sample-size/what-is-statistical-power/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1
     },
     "modeling/extensions/comparing-linear-and-logistic/index.md": {
-      "\uea010\uea02": 1
+      "0": 1
     },
     "modeling/extensions/link-functions/index.md": {
-      "\uea010\uea02": 1
+      "0": 1
     },
     "modeling/model-fit-comparison/aic-bic/index.md": {
-      "\uea010\uea02": 1
+      "0": 1
     },
     "modeling/simple-linear-regression/intercept/index.md": {
-      "\uea010\uea02": 1
+      "0": 1
     },
     "modeling/simple-linear-regression/regression-equation/index.md": {
-      "\uea010\uea02": 1
+      "0": 1
     },
     "modeling/simple-linear-regression/slope/index.md": {
-      "\uea010\uea02": 1
+      "0": 1
     },
     "probability/basics/equally-likely-and-counting-intuition/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1
     },
     "probability/basics/independence-vs-disjointness/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1,
-      "\uea017\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 1
     },
     "probability/basics/probability-axioms-and-basic-rules/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1,
-      "\uea017\uea02": 1,
-      "\uea018\uea02": 1,
-      "\uea019\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 1,
+      "8": 1,
+      "9": 1
     },
     "probability/basics/union-intersection-and-venn-thinking/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1
     },
     "probability/conditional/base-rate-neglect-and-fallacies/index.md": {
-      "\uea010\uea02": 1
+      "0": 1
     },
     "probability/conditional/bayes-theorem/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1
     },
     "probability/conditional/law-of-total-probability/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1
     },
     "probability/conditional/multiplication-rule/index.md": {
-      "\uea010\uea02": 1,
-      "\uea0110\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1,
-      "\uea017\uea02": 1,
-      "\uea018\uea02": 1,
-      "\uea019\uea02": 1
+      "0": 1,
+      "10": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 1,
+      "8": 1,
+      "9": 1
     },
     "probability/conditional/tree-diagrams/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1
+      "0": 1,
+      "1": 1
     },
     "probability/conditional/what-is-conditional-probability/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1
     },
     "probability/distributions/bernoulli-distribution/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1,
-      "\uea017\uea02": 1,
-      "\uea018\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 1,
+      "8": 1
     },
     "probability/distributions/beta-distribution/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1
     },
     "probability/distributions/binomial-distribution/index.md": {
-      "\uea010\uea02": 1,
-      "\uea0110\uea02": 1,
-      "\uea0111\uea02": 1,
-      "\uea0112\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1,
-      "\uea017\uea02": 1,
-      "\uea018\uea02": 1,
-      "\uea019\uea02": 1
+      "0": 1,
+      "10": 1,
+      "11": 1,
+      "12": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 1,
+      "8": 1,
+      "9": 1
     },
     "probability/distributions/exponential-distribution/index.md": {
-      "\uea010\uea02": 1,
-      "\uea0110\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1,
-      "\uea017\uea02": 1,
-      "\uea018\uea02": 1,
-      "\uea019\uea02": 1
+      "0": 1,
+      "10": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 1,
+      "8": 1,
+      "9": 1
     },
     "probability/distributions/gamma-distribution/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1,
-      "\uea017\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 1
     },
     "probability/distributions/geometric-distribution/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1,
-      "\uea017\uea02": 1,
-      "\uea018\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 1,
+      "8": 1
     },
     "probability/distributions/hypergeometric-distribution/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1
     },
     "probability/distributions/lognormal-distribution/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1
     },
     "probability/distributions/negative-binomial-distribution/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1
     },
     "probability/distributions/normal-distribution/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1
     },
     "probability/distributions/poisson-distribution/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1,
-      "\uea017\uea02": 1,
-      "\uea018\uea02": 1,
-      "\uea019\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 1,
+      "8": 1,
+      "9": 1
     },
     "probability/distributions/uniform-distribution/index.md": {
-      "\uea010\uea02": 1,
-      "\uea0110\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1,
-      "\uea017\uea02": 1,
-      "\uea018\uea02": 1,
-      "\uea019\uea02": 1
+      "0": 1,
+      "10": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 1,
+      "8": 1,
+      "9": 1
     },
     "probability/expectation-variance/applications-mini-cases/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1
     },
     "probability/expectation-variance/correlation/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1,
-      "\uea017\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 1
     },
     "probability/expectation-variance/covariance/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1,
-      "\uea017\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 1
     },
     "probability/expectation-variance/indicator-random-variables/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1,
-      "\uea017\uea02": 1,
-      "\uea018\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 1,
+      "8": 1
     },
     "probability/expectation-variance/linearity-of-expectation/index.md": {
-      "\uea010\uea02": 1,
-      "\uea0110\uea02": 1,
-      "\uea0111\uea02": 1,
-      "\uea0112\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1,
-      "\uea017\uea02": 1,
-      "\uea018\uea02": 1,
-      "\uea019\uea02": 1
+      "0": 1,
+      "10": 1,
+      "11": 1,
+      "12": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 1,
+      "8": 1,
+      "9": 1
     },
     "probability/expectation-variance/variance-rules-and-sums/index.md": {
-      "\uea010\uea02": 1,
-      "\uea0110\uea02": 1,
-      "\uea0111\uea02": 1,
-      "\uea0112\uea02": 1,
-      "\uea0113\uea02": 1,
-      "\uea0114\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1,
-      "\uea017\uea02": 1,
-      "\uea018\uea02": 1,
-      "\uea019\uea02": 1
+      "0": 1,
+      "10": 1,
+      "11": 1,
+      "12": 1,
+      "13": 1,
+      "14": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 1,
+      "8": 1,
+      "9": 1
     },
     "probability/lln-clt/central-limit-theorem/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1
     },
     "probability/lln-clt/convergence-intuition/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1
+      "0": 1,
+      "1": 1
     },
     "probability/lln-clt/law-of-large-numbers/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1
     },
     "probability/lln-clt/normal-approximation/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1,
-      "\uea017\uea02": 1,
-      "\uea018\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 1,
+      "8": 1
     },
     "probability/lln-clt/weak-vs-strong-lln/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1
     },
     "probability/random-variables/continuous-random-variables/index.md": {
-      "\uea010\uea02": 1
+      "0": 1
     },
     "probability/random-variables/cumulative-distribution-function/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1
     },
     "probability/random-variables/discrete-random-variables/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1
     },
     "probability/random-variables/expectation/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1
     },
     "probability/random-variables/variance-and-standard-deviation/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1
     },
     "probability/sampling-distributions/chi-square-and-variance/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1
     },
     "probability/sampling-distributions/f-distribution-and-anova-preview/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1
+      "0": 1,
+      "1": 1
     },
     "probability/sampling-distributions/standard-error-and-estimators/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1
     },
     "probability/sampling-distributions/t-distribution-and-t-test/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1
     },
     "probability/sampling-distributions/what-is-a-sampling-distribution/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1
     },
     "probability/sampling-distributions/z-statistic-and-ci/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1
     }
   },
   "schema_version": 1,
