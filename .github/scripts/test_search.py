@@ -3012,7 +3012,7 @@ class SearchTests(unittest.TestCase):
               r"Z=\frac{\bar X-\mu_0}{\sigma/\sqrt{n}}",
               r"Z=-4",
               r"z_{1-\alpha/2}=z_{0.975}\approx1.96",
-              r"|Z|=4>1.96",
+              r"|Z|=4&gt;1.96",
               r"\bar X\pm z_{1-\alpha/2}"),
              ("two-sided p-value ≈ 0.0000633", "[488.08, 495.92]", "excludes 500")),
             ("/inference/classical-tests/one-sample-t-test-for-mean/", 20,
