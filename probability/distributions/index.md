@@ -12,11 +12,15 @@ sidebar: false
 
   const KEY = "esa_continue_probability_last_block_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
     url: "/probability/distributions/",
     label: "Block 5 — Common Distributions",
     ts: Date.now()
-  }));
+    }));
+  } catch (_) {
+    // Storage may be disabled; the page still works without saved progress.
+  }
 
 })();
 </script>
