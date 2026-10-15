@@ -69,16 +69,21 @@ sidebar: false
 
   <div class="content-narrow">
 
-    <h2>The Universal Confidence Interval Formula</h2>
+    <h2>A Common Symmetric Confidence Interval Formula</h2>
 
     <p>
-      Nearly every confidence interval in statistics can be written as:
+      Many introductory confidence intervals use an estimate plus or minus
+      a margin of error, producing a symmetric interval:
     </p>
 
-    0
+    \[
+\text{CI}=\widehat{\theta}\ \pm\ \text{margin of error}
+\]
 
     <p>
-      This simple structure appears throughout statistical inference.
+      This form is common in statistical inference, but it is not universal:
+      exact, bootstrap, transformed-scale, and other confidence intervals
+      can be asymmetric or use different constructions.
     </p>
 
     <p>
@@ -89,7 +94,7 @@ sidebar: false
       the basic idea remains the same.
     </p>
 
-    <h2>Two Parts of Every Interval</h2>
+    <h2>Two Parts of This Symmetric Interval</h2>
 
     <div class="table-wrap">
 
@@ -151,7 +156,7 @@ sidebar: false
     </ul>
 
     <p>
-      The estimate represents the interval's midpoint.
+      In this symmetric construction, the estimate represents the interval's midpoint.
     </p>
 
     <h2>The Margin of Error</h2>
@@ -192,7 +197,8 @@ sidebar: false
     </div>
 
     <p>
-      If the margin of error is:
+      If an appropriate confidence-interval procedure gives a margin of error
+      of 4 percentage points (not 4% of 62%):
     </p>
 
     <div class="example-box">
@@ -220,7 +226,9 @@ sidebar: false
     </p>
 
     <p>
-      This occurs because many sampling distributions are approximately symmetric.
+      This often follows from a suitable normal or t-based approximation
+      to the estimator's sampling distribution, together with the method's
+      assumptions. Other methods may yield asymmetric limits.
     </p>
 
     <p>
@@ -256,16 +264,23 @@ sidebar: false
       The margin of error itself can be written as:
     </p>
 
-    1
+    \[
+\text{Margin of error}=c\times\operatorname{SE}(\widehat{\theta})
+\]
 
     <p>
       Substituting this into the confidence interval formula gives:
     </p>
 
-    2
+    \[
+\text{CI}=\left[\widehat{\theta}-c\operatorname{SE}(\widehat{\theta}),\ \widehat{\theta}+c\operatorname{SE}(\widehat{\theta})\right]
+\]
 
     <p>
-      This is one of the most important formulas in all of inference.
+      Here c is the chosen critical value and SE is the standard error
+      of the estimate. This blueprint applies when the method justifies
+      a symmetric critical-value-times-standard-error margin; it is
+      not a formula for every confidence interval.
     </p>
 
     <h2>The Role of the Standard Error</h2>
