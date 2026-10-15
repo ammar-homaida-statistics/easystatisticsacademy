@@ -103,13 +103,17 @@ sidebar: false
       Let:
     </p>
 
-    0
+    \[
+p_1
+\]
 
     <p>
       represent the population proportion for Group 1 and:
     </p>
 
-    1
+    \[
+p_2
+\]
 
     <p>
       represent the population proportion for Group 2.
@@ -119,7 +123,9 @@ sidebar: false
       The parameter of interest is:
     </p>
 
-    2
+    \[
+p_1-p_2
+\]
 
     <h2>The Hypotheses</h2>
 
@@ -127,11 +133,15 @@ sidebar: false
       The standard two-sided hypotheses are:
     </p>
 
-    3
+    \[
+H_0:p_1=p_2
+\]
 
     <br><br>
 
-    4
+    \[
+H_1:p_1\ne p_2
+\]
 
     <p>
       Under the null hypothesis, both population proportions are equal.
@@ -179,11 +189,15 @@ sidebar: false
       From the two samples we compute:
     </p>
 
-    5
+    \[
+\hat p_1=\frac{x_1}{n_1}
+\]
 
     <br><br>
 
-    6
+    \[
+\hat p_2=\frac{x_2}{n_2}
+\]
 
     <p>
       where:
@@ -207,13 +221,17 @@ sidebar: false
       The observed estimate of:
     </p>
 
-    7
+    \[
+p_1-p_2
+\]
 
     <p>
       is:
     </p>
 
-    8
+    \[
+\hat p_1-\hat p_2
+\]
 
     <h2>Why a Pooled Proportion?</h2>
 
@@ -221,7 +239,9 @@ sidebar: false
       Under:
     </p>
 
-    9
+    \[
+H_0:p_1=p_2
+\]
 
     <p>
       both samples are assumed to come from populations with the same proportion.
@@ -233,10 +253,12 @@ sidebar: false
 
     <h2>The Pooled Proportion</h2>
 
-    10
+    \[
+\hat p=\frac{x_1+x_2}{n_1+n_2}
+\]
 
     <p>
-      This pooled estimate is used only for hypothesis testing.
+      This pooled estimate is used for the standard uncorrected Z test of equality under the null; it is not used for the ordinary unpooled Wald confidence interval below.
     </p>
 
     <h2>The Standard Error Under H₀</h2>
@@ -245,7 +267,9 @@ sidebar: false
       Using the pooled proportion:
     </p>
 
-    11
+    \[
+\operatorname{SE}_0(\hat p_1-\hat p_2)=\sqrt{\hat p(1-\hat p)\left(\frac1{n_1}+\frac1{n_2}\right)}
+\]
 
     <p>
       This measures expected variability when the null hypothesis is true.
@@ -257,13 +281,17 @@ sidebar: false
       The two-proportion Z statistic is:
     </p>
 
-    12
+    \[
+Z=\frac{\hat p_1-\hat p_2}{\sqrt{\hat p(1-\hat p)(1/n_1+1/n_2)}}
+\]
 
     <p>
       Large absolute values indicate stronger evidence against:
     </p>
 
-    13
+    \[
+H_0
+\]
 
     <h2>Worked Example</h2>
 
@@ -282,21 +310,29 @@ sidebar: false
 
     <h2>Compute the Sample Proportions</h2>
 
-    14
+    \[
+\hat p_1=\frac{120}{200}=0.60
+\]
 
     <br><br>
 
-    15
+    \[
+\hat p_2=\frac{90}{200}=0.45
+\]
 
     <p>
       Therefore:
     </p>
 
-    16
+    \[
+\hat p_1-\hat p_2=0.60-0.45=0.15
+\]
 
     <h2>Compute the Pooled Proportion</h2>
 
-    17
+    \[
+\hat p=\frac{120+90}{200+200}=\frac{210}{400}=0.525
+\]
 
     <h2>Compute the Standard Error</h2>
 
@@ -304,11 +340,15 @@ sidebar: false
       Substituting into the formula yields:
     </p>
 
-    18
+    \[
+\operatorname{SE}_0=\sqrt{0.525(0.475)\left(\frac1{200}+\frac1{200}\right)}\approx0.04994
+\]
 
     <h2>Compute the Z Statistic</h2>
 
-    19
+    \[
+Z=\frac{0.15}{0.04993746\ldots}\approx3.0038
+\]
 
     <h2>The p-Value</h2>
 
@@ -319,7 +359,7 @@ sidebar: false
     <div class="example-box">
 
       <p>
-        Two-sided p-value ≈ 0.003
+        Two-sided p-value ≈ 0.0027 (using the pooled-null Z statistic)
       </p>
     </div>
 
@@ -340,13 +380,17 @@ sidebar: false
       then:
     </p>
 
-    20
+    \[
+0.0027<0.05
+\]
 
     <p>
       so we reject:
     </p>
 
-    21
+    \[
+H_0
+\]
 
     <h2>Interpretation</h2>
 
@@ -369,13 +413,13 @@ sidebar: false
 
     <ul class="bullets">
 
-      <li>n₁p̂ ≥ 10</li>
+      <li>\(n_1\hat p\ge10\)</li>
 
-      <li>n₁(1−p̂) ≥ 10</li>
+      <li>\(n_1(1-\hat p)\ge10\)</li>
 
-      <li>n₂p̂ ≥ 10</li>
+      <li>\(n_2\hat p\ge10\)</li>
 
-      <li>n₂(1−p̂) ≥ 10</li>
+      <li>\(n_2(1-\hat p)\ge10\)</li>
 
     </ul>
 
@@ -389,10 +433,12 @@ sidebar: false
       Instead, the standard error is:
     </p>
 
-    22
+    \[
+\operatorname{SE}_{\mathrm{CI}}=\sqrt{\frac{\hat p_1(1-\hat p_1)}{n_1}+\frac{\hat p_2(1-\hat p_2)}{n_2}}
+\]
 
     <p>
-      This distinction is important.
+      For a conventional Wald confidence interval, use \((\hat p_1-\hat p_2)\pm z_{1-\alpha/2}\operatorname{SE}_{\mathrm{CI}}\). This unpooled interval is not an exact inversion of the pooled-null test; score-based intervals for a difference in proportions can be more reliable, especially with small counts or boundary proportions. The two samples must be independent, with observations independent within each group.
     </p>
 
     <h2>Applications</h2>
