@@ -1624,7 +1624,7 @@ class SearchTests(unittest.TestCase):
         self.assertEqual((80 - 70) / 10, 1)
         self.assertEqual((70 - 70) / 10, 0)
         self.assertIn(r"z=\frac{x-\mu}{\sigma}", z_source)
-        self.assertIn(r"\sigma>0", z_source)
+        self.assertIn(r"\sigma&gt;0", z_source)
         self.assertIn(r"z=\frac{80-70}{10}=\frac{10}{10}=1", z_source)
         self.assertIn(r"z=\frac{\mu-\mu}{\sigma}=0", z_source)
         # Count displayed equations inside lesson content, not MathJax scripts.
