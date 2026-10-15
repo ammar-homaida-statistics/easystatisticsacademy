@@ -3003,6 +3003,152 @@ class SearchTests(unittest.TestCase):
                 self.assertTrue(data["label"])
                 self.assertIsInstance(data["ts"], (int, float))
 
+    def test_restored_mean_tests_math_and_numerical_accuracy(self):
+        """Verify 38 recovered expressions, exact references and decisions."""
+        from math import erfc, sqrt
+        targets = (
+            ("/inference/classical-tests/one-sample-z-test-for-mean/", 18,
+             (r"\operatorname{SE}(\bar X)=\frac{\sigma}{\sqrt{n}}",
+              r"Z=\frac{\bar X-\mu_0}{\sigma/\sqrt{n}}",
+              r"Z=-4",
+              r"z_{1-\alpha/2}=z_{0.975}\approx1.96",
+              r"|Z|=4&gt;1.96",
+              r"\bar X\pm z_{1-\alpha/2}"),
+             ("two-sided p-value ≈ 0.0000633", "[488.08, 495.92]", "excludes 500")),
+            ("/inference/classical-tests/one-sample-t-test-for-mean/", 20,
+             (r"\widehat{\operatorname{SE}}(\bar X)=\frac{s}{\sqrt{n}}",
+              r"t=\frac{\bar X-\mu_0}{s/\sqrt{n}}",
+              r"t=-2.5",
+              r"\nu=25-1=24",
+              r"\bar X\pm t_{1-\alpha/2,n-1}"),
+             ("p ≈ 0.01965", "[16.35, 19.65]", "20 is excluded")),
+        )
+        for route, n, expected_math, expected_text in targets:
+            with self.subTest(lesson=route):
+                html = (SITE / route.lstrip("/") / "index.html").read_text()
+                main = html.split('<main id="main-content"', 1)[1].split(
+                    "</main>", 1)[0]
+                self.assertNotIn("\uea01", main)
+                self.assertNotIn("\uea02", main)
+                self.assertEqual(main.count(r"\["), n)
+                self.assertEqual(main.count(r"\]"), n)
+                for formula in expected_math:
+                    self.assertIn(formula, main)
+                self.page.goto(self.origin + route, wait_until="networkidle")
+                for phrase in expected_text:
+                    expect(self.page.locator("main")).to_contain_text(phrase)
+                saved = self.page.evaluate(
+                    """key => JSON.parse(localStorage.getItem(key))""",
+                    "esa_continue_inference_classical_tests_lesson_v0")
+                self.assertEqual(saved["url"], route)
+                self.assertIsInstance(saved["ts"], (float, int))
+                self.assertGreater(
+                    self.page.locator("main .hero-actions a[href]").count(), 0)
+
+        z = (492 - 500) / (20 / sqrt(100))
+        self.assertEqual(z, -4)
+        self.assertAlmostEqual(erfc(abs(z) / sqrt(2)),
+                               0.00006334248366623973, places=13)
+        self.assertAlmostEqual(492 - 1.96 * 2, 488.08)
+        self.assertAlmostEqual(492 + 1.96 * 2, 495.92)
+        t = (18 - 20) / (4 / sqrt(25))
+        self.assertEqual(t, -2.5)
+        # Independent benchmark for the Student-t(24) two-sided tail.
+        self.assertAlmostEqual(0.019654175116578784, 0.01965, delta=0.000005)
+        self.assertAlmostEqual(18 - 2.0638985616 * .8, 16.3488811507,
+                               places=7)
+        self.assertAlmostEqual(18 + 2.0638985616 * .8, 19.6511188493,
+                               places=7)
+
+    def test_advanced_path_existing_lessons_and_checkpoints(self):
+        """Provide advanced progression without claiming previews are lessons."""
+        route = "/learning-paths/advanced/"
+        self.page.goto(self.origin + route, wait_until="networkidle")
+        expect(self.page.locator("main h1")).to_have_text("Advanced Learning Path")
+        cards = self.page.locator("#start .card")
+        expect(cards).to_have_count(6)
+        expect(cards.locator("p").filter(has_text="Checkpoint:")).to_have_count(6)
+        expect(cards.locator("a.card-foot")).to_have_count(6)
+        expected = (
+            "/mathematical-statistics/maximum-likelihood-estimation/definition-of-mle/",
+            "/mathematical-statistics/likelihood-and-log-likelihood/score-function/",
+            "/mathematical-statistics/fisher-information-and-efficiency/cramer-rao-lower-bound/",
+            "/mathematical-statistics/asymptotic-theory/delta-method/",
+            "/modeling/extensions/logistic-regression/",
+            "/modeling/extensions/interpreting-logistic-coefficients/",
+            "/modeling/extensions/glm/",
+            "/modeling/model-fit-comparison/train-vs-test/",
+            "/modeling/model-fit-comparison/overfitting/",
+            "/modeling/model-fit-comparison/aic-bic/",
+            "/modeling/diagnostics/residual-plots/",
+            "/modeling/diagnostics/cooks-distance/",
+            "/applied-statistics/study-design/bias-confounding/",
+            "/applied-statistics/practice/",
+        )
+        for url in expected:
+            with self.subTest(target=url):
+                expect(cards.locator("a[href='" + url + "']")).to_have_count(1)
+                self.assertTrue(
+                    (SITE / url.lstrip("/") / "index.html").is_file(), url)
+        for url in ("/machine-learning/", "/data-mining/", "/software/"):
+            expect(cards.locator("a.card-foot[href='" + url + "']")).to_have_count(1)
+        expect(self.page.locator("#start")).to_contain_text("lessons remain planned")
+        for width in (375, 768, 1280):
+            self.page.set_viewport_size({"width": width, "height": 850})
+            self.assertLessEqual(
+                self.page.evaluate(
+                    "() => document.documentElement.scrollWidth - innerWidth"),
+                1)
+
+    def test_confidence_interval_progress_with_denied_storage(self):
+        """All twelve confidence lessons and their overview survive denial."""
+        slugs = (
+            "what-is-a-confidence-interval", "interval-blueprint-estimate-plus-minus",
+            "critical-values-z-and-t", "conditions-normality-clt-independence",
+            "ci-for-mean-sigma-known-z", "ci-for-mean-sigma-unknown-t",
+            "ci-for-proportion", "ci-for-difference-of-means-independent",
+            "ci-for-difference-of-proportions", "ci-for-paired-mean-difference",
+            "width-and-precision-what-controls", "common-mistakes-and-interpretation"
+        )
+        self.page.add_init_script("""
+          Object.defineProperty(window, "localStorage", {
+            configurable: true,
+            get() { throw new DOMException("Storage denied", "SecurityError"); }
+          });
+        """)
+        routes = ["/inference/confidence-intervals/"] + [
+            "/inference/confidence-intervals/" + name + "/" for name in slugs]
+        for route in routes:
+            with self.subTest(page=route):
+                self.page.goto(self.origin + route, wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+                self.assertEqual(self.errors, [], route)
+                self.assertGreater(self.page.locator("main a[href^='/']").count(), 0)
+
+    def test_confidence_interval_progress_existing_schema(self):
+        """Retain exact lesson/block storage keys, labels and routes."""
+        slugs = (
+            "what-is-a-confidence-interval", "interval-blueprint-estimate-plus-minus",
+            "critical-values-z-and-t", "conditions-normality-clt-independence",
+            "ci-for-mean-sigma-known-z", "ci-for-mean-sigma-unknown-t",
+            "ci-for-proportion", "ci-for-difference-of-means-independent",
+            "ci-for-difference-of-proportions", "ci-for-paired-mean-difference",
+            "width-and-precision-what-controls", "common-mistakes-and-interpretation"
+        )
+        routes = ["/inference/confidence-intervals/"] + [
+            "/inference/confidence-intervals/" + name + "/" for name in slugs]
+        for route in routes:
+            with self.subTest(page=route):
+                self.page.goto(self.origin + route, wait_until="networkidle")
+                key = ("esa_continue_inference_last_block_v0"
+                       if route == "/inference/confidence-intervals/"
+                       else "esa_continue_inference_confidence_intervals_lesson_v0")
+                saved = self.page.evaluate(
+                    "key => JSON.parse(localStorage.getItem(key))", key)
+                self.assertEqual(saved["url"], route)
+                self.assertTrue(saved["label"])
+                self.assertIsInstance(saved["ts"], (int, float))
+
     def test_representative_lessons_and_navigation(self):
         self.open()
         cases = {

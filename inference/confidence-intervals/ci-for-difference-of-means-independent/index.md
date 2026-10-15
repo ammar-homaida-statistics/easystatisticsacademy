@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_inference_confidence_intervals_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
     url: "/inference/confidence-intervals/ci-for-difference-of-means-independent/",
     label: "Confidence Interval for Difference of Means (Independent Samples)",
     ts: Date.now()
   }));
+  } catch (_) {
+    // Gracefully continue when the browser denies persistent storage.
+  }
 
 })();
 </script>

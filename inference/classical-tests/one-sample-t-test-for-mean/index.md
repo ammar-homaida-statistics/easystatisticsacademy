@@ -75,7 +75,9 @@ sidebar: false
       The Z test assumes the population standard deviation:
     </p>
 
-    0
+    \[
+\sigma
+\]
 
     <p>
       is known.
@@ -89,7 +91,9 @@ sidebar: false
       Instead, we estimate population variability using the sample standard deviation:
     </p>
 
-    1
+    \[
+s
+\]
 
     <p>
       This additional uncertainty changes the sampling distribution and leads to the t test.
@@ -101,7 +105,9 @@ sidebar: false
       Suppose a university claims that students study an average of:
     </p>
 
-    2
+    \[
+\mu_0=20\ \text{hours/week}
+\]
 
     <p>
       A researcher collects a sample and wants to determine whether the true population mean differs from this value.
@@ -135,11 +141,15 @@ sidebar: false
       The standard hypotheses are:
     </p>
 
-    3
+    \[
+H_0:\mu=\mu_0
+\]
 
     <br><br>
 
-    4
+    \[
+H_1:\mu\ne\mu_0
+\]
 
     <p>
       where:
@@ -195,7 +205,9 @@ sidebar: false
       Since σ is unknown, we estimate it using:
     </p>
 
-    5
+    \[
+\widehat{\operatorname{SE}}(\bar X)=\frac{s}{\sqrt{n}}
+\]
 
     <p>
       This estimate introduces additional uncertainty.
@@ -207,7 +219,9 @@ sidebar: false
       The test statistic becomes:
     </p>
 
-    6
+    \[
+t=\frac{\bar X-\mu_0}{s/\sqrt{n}}
+\]
 
     <p>
       Just like the Z statistic, it measures how many standard errors separate the sample mean from the null value.
@@ -219,20 +233,22 @@ sidebar: false
       Because:
     </p>
 
-    7
+    \[
+\sigma
+\]
 
     <p>
-      is estimated from the sample, the resulting statistic has more variability than a Z statistic.
+      is estimated from the sample, the exact null distribution under normal sampling has heavier tails than the standard normal distribution.
     </p>
 
     <p>
-      Therefore, the standard normal distribution is no longer appropriate.
+      Therefore, use the Student's t reference distribution when normal sampling is justified. For larger samples, an approximate t analysis can also be appropriate under regularity conditions.
     </p>
 
     <h2>The t Distribution</h2>
 
     <p>
-      The t statistic follows a t distribution under the null hypothesis.
+      For independent observations from a normal population, the statistic follows a Student's t distribution with n − 1 degrees of freedom exactly under the null hypothesis. With nonnormal data it is an approximation that needs suitable conditions; n = 25 alone does not guarantee validity.
     </p>
 
     <p>
@@ -255,7 +271,9 @@ sidebar: false
       Every t distribution is identified by its degrees of freedom:
     </p>
 
-    8
+    \[
+\nu=n-1
+\]
 
     <p>
       Different sample sizes produce different t distributions.
@@ -303,13 +321,17 @@ sidebar: false
       Using:
     </p>
 
-    9
+    \[
+\widehat{\operatorname{SE}}(\bar X)=\frac{s}{\sqrt{n}}
+\]
 
     <p>
       gives:
     </p>
 
-    10
+    \[
+\widehat{\operatorname{SE}}(\bar X)=\frac{4}{\sqrt{25}}=0.8
+\]
 
     <h2>Step 2: Compute the t Statistic</h2>
 
@@ -317,13 +339,17 @@ sidebar: false
       Substitute into the formula:
     </p>
 
-    11
+    \[
+t=\frac{18-20}{4/\sqrt{25}}=\frac{-2}{0.8}
+\]
 
     <p>
       Therefore:
     </p>
 
-    12
+    \[
+t=-2.5
+\]
 
     <h2>Step 3: Determine Degrees of Freedom</h2>
 
@@ -331,13 +357,17 @@ sidebar: false
       Using:
     </p>
 
-    13
+    \[
+\nu=n-1
+\]
 
     <p>
       gives:
     </p>
 
-    14
+    \[
+\nu=25-1=24
+\]
 
     <h2>Step 4: Compute the p-Value</h2>
 
@@ -345,7 +375,9 @@ sidebar: false
       Using the t distribution with:
     </p>
 
-    15
+    \[
+\nu=24
+\]
 
     <p>
       the two-sided p-value is approximately:
@@ -354,7 +386,7 @@ sidebar: false
     <div class="example-box">
 
       <p>
-        p ≈ 0.020
+        p ≈ 0.01965
       </p>
     </div>
 
@@ -366,7 +398,7 @@ sidebar: false
 
     <div class="example-box">
 
-      <p>p ≈ 0.020</p>
+      <p>p ≈ 0.01965</p>
       <p>α = 0.05</p>
 
     </div>
@@ -375,13 +407,17 @@ sidebar: false
       Since:
     </p>
 
-    16
+    \[
+p\approx0.01965<\alpha=0.05
+\]
 
     <p>
       we reject:
     </p>
 
-    17
+    \[
+H_0
+\]
 
     <h2>Step 6: Interpret the Result</h2>
 
@@ -431,20 +467,24 @@ sidebar: false
       The corresponding confidence interval is:
     </p>
 
-    18
+    \[
+\bar X\pm t_{1-\alpha/2,n-1}\frac{s}{\sqrt{n}}
+\]
 
     <p>
       where:
     </p>
 
-    19
+    \[
+t_{1-\alpha/2,n-1}\ \text{is the t critical value with }n-1\text{ degrees of freedom}
+\]
 
     <p>
       comes from the t distribution.
     </p>
 
     <p>
-      As with all classical tests, confidence intervals and hypothesis tests produce matching conclusions at corresponding confidence levels.
+      As with all classical tests, the standard two-sided one-sample t test and this t interval produce matching decisions at corresponding confidence levels under the same assumptions. Here, using t₀.₉₇₅,₂₄ ≈ 2.0639 gives a 95% interval of approximately [16.35, 19.65] hours/week; 20 is excluded.
     </p>
 
     <h2>Assumptions Revisited</h2>

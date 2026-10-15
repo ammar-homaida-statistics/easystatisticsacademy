@@ -75,7 +75,9 @@ sidebar: false
       Suppose a manufacturer claims that bottles contain an average of:
     </p>
 
-    0
+    \[
+\mu_0=500\ \text{mL}
+\]
 
     <p>
       A quality-control analyst collects a sample and wants to determine whether the true population mean differs from that value.
@@ -111,11 +113,15 @@ sidebar: false
       A typical two-sided test is:
     </p>
 
-    1
+    \[
+H_0:\mu=\mu_0
+\]
 
     <br><br>
 
-    2
+    \[
+H_1:\mu\ne\mu_0
+\]
 
     <p>
       where:
@@ -175,7 +181,9 @@ sidebar: false
       Because the population standard deviation is assumed known:
     </p>
 
-    3
+    \[
+\operatorname{SE}(\bar X)=\frac{\sigma}{\sqrt{n}}
+\]
 
     <p>
       where:
@@ -195,7 +203,9 @@ sidebar: false
       The Z statistic standardizes the difference between the sample mean and the null value.
     </p>
 
-    4
+    \[
+Z=\frac{\bar X-\mu_0}{\sigma/\sqrt{n}}
+\]
 
     <p>
       This tells us how many standard errors the sample mean lies from the null hypothesis.
@@ -259,13 +269,17 @@ sidebar: false
       Using:
     </p>
 
-    5
+    \[
+\operatorname{SE}(\bar X)=\frac{\sigma}{\sqrt{n}}
+\]
 
     <p>
       gives:
     </p>
 
-    6
+    \[
+\operatorname{SE}(\bar X)=\frac{20}{\sqrt{100}}=2\ \text{mL}
+\]
 
     <h2>Step 2: Compute the Test Statistic</h2>
 
@@ -273,13 +287,17 @@ sidebar: false
       Substitute into the formula:
     </p>
 
-    7
+    \[
+Z=\frac{492-500}{20/\sqrt{100}}=\frac{-8}{2}
+\]
 
     <p>
       Therefore:
     </p>
 
-    8
+    \[
+Z=-4
+\]
 
     <h2>Step 3: Compute the p-Value</h2>
 
@@ -287,10 +305,12 @@ sidebar: false
       Under:
     </p>
 
-    9
+    \[
+H_0:\mu=500\ \text{mL}
+\]
 
     <p>
-      the statistic follows the standard normal distribution.
+      the statistic follows a standard normal distribution exactly for independent observations from a normal population (with known σ), or approximately for an adequately large independent sample under suitable Central Limit Theorem conditions.
     </p>
 
     <p>
@@ -300,7 +320,7 @@ sidebar: false
     <div class="example-box">
 
       <p>
-        p-value &lt; 0.001
+        two-sided p-value ≈ 0.0000633 (&lt; 0.001)
       </p>
     </div>
 
@@ -317,7 +337,7 @@ sidebar: false
     <div class="example-box">
 
       <p>
-        p &lt; 0.001
+        p ≈ 0.0000633
       </p>
 
       <p>
@@ -330,13 +350,17 @@ sidebar: false
       Since:
     </p>
 
-    10
+    \[
+p\approx0.0000633<\alpha=0.05
+\]
 
     <p>
       we reject:
     </p>
 
-    11
+    \[
+H_0
+\]
 
     <h2>Step 5: Interpret the Result</h2>
 
@@ -373,22 +397,28 @@ sidebar: false
       For:
     </p>
 
-    12
+    \[
+\alpha=0.05
+\]
 
     <p>
       and a two-sided test:
     </p>
 
-    13
+    \[
+z_{1-\alpha/2}=z_{0.975}\approx1.96
+\]
 
     <p>
       Since:
     </p>
 
-    14
+    \[
+|Z|=4>1.96
+\]
 
     <p>
-      the statistic falls inside the rejection region.
+      the statistic falls in the rejection region (outside the interval from −1.96 to +1.96).
     </p>
 
     <p>
@@ -420,7 +450,9 @@ sidebar: false
       the population standard deviation:
     </p>
 
-    15
+    \[
+\sigma
+\]
 
     <p>
       is usually unknown.
@@ -431,7 +463,9 @@ sidebar: false
       researchers estimate variability using the sample standard deviation:
     </p>
 
-    16
+    \[
+s
+\]
 
     <p>
       This leads to the one-sample t test,
@@ -444,11 +478,13 @@ sidebar: false
       The corresponding confidence interval is:
     </p>
 
-    17
+    \[
+\bar X\pm z_{1-\alpha/2}\frac{\sigma}{\sqrt{n}}
+\]
 
     <p>
       As discussed previously,
-      the confidence interval and hypothesis test produce equivalent conclusions at matching confidence levels and significance levels.
+      the two-sided Z test and this corresponding normal-theory interval give equivalent decisions at matching confidence levels and significance levels, under the same known-σ assumptions. In the example, the 95% interval is 492 ± 1.96 × 2 = [488.08, 495.92] mL; it excludes 500 mL.
     </p>
 
     <h2>The Bigger Picture</h2>
