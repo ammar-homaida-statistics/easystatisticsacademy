@@ -72,10 +72,13 @@ sidebar: false
     <h2>What ANOVA Does Not Tell Us</h2>
 
     <p>
-      Recall that a significant ANOVA result leads us to reject:
+      In the example of four teaching methods, a valid significant
+      one-way ANOVA leads us to reject the joint null hypothesis:
     </p>
 
-    0
+    \[
+H_0:\ \mu_A=\mu_B=\mu_C=\mu_D
+\]
 
     <p>
       However, ANOVA does not reveal:
@@ -167,10 +170,15 @@ sidebar: false
       If each test uses:
     </p>
 
-    1
+    \[
+\alpha_{\mathrm{per\ test}}=0.05
+\]
 
     <p>
-      then conducting many tests increases the probability of obtaining at least one false positive.
+      then testing many true null hypotheses can increase the probability
+      of at least one false positive. The exact family-wise error
+      probability depends on dependence between rejection events and
+      on the actual sizes of the individual tests.
     </p>
 
     <div class="concept-box">
@@ -178,7 +186,10 @@ sidebar: false
       <strong>Key issue:</strong>
 
       <p>
-        The more tests we perform, the greater the overall probability of incorrectly rejecting at least one true null hypothesis.
+        When many true hypotheses are tested, the chance of one or more
+        false positives can exceed the per-test error rate.
+        Adding a test cannot decrease the family-wise error probability,
+        but dependence may prevent a strict increase.
       </p>
 
     </div>
@@ -203,13 +214,21 @@ sidebar: false
     <h2>Why Control Error Rates?</h2>
 
     <p>
-      Consider conducting 20 independent tests using:
+      Consider 20 tests with mutually independent rejection events
+      under their true null hypotheses, each of exact Type I error
+      probability 0.05. In this illustrative case:
     </p>
 
-    2
+    \[
+P(\text{at least one false positive})
+=1-(1-0.05)^{20}=1-0.95^{20}\approx0.642
+\]
 
     <p>
-      Even if every null hypothesis is true, obtaining at least one significant result becomes surprisingly likely.
+      The probability of at least one false positive is approximately
+      0.6415, or 64.2%. The formula 1 − (1 − α)ᵐ requires independent
+      rejection events of the specified exact size; a nominal test
+      level alone does not guarantee that numerical value.
     </p>
 
     <p>
@@ -297,14 +316,20 @@ sidebar: false
     <h2>The Bonferroni Idea</h2>
 
     <p>
-      Bonferroni correction adjusts the significance level according to the number of comparisons.
+      Bonferroni correction divides the desired family-wise level α
+      among m pre-specified tests, m ≥ 1. Applying an individual
+      test level α/m controls family-wise Type I error at or below α
+      when each component test is valid. This follows from the union
+      bound and does not require independent tests.
     </p>
 
     <p>
       The adjusted threshold becomes:
     </p>
 
-    3
+    \[
+\alpha_{\mathrm{Bonferroni}}=\frac{\alpha}{m}
+\]
 
     <p>
       where:
@@ -321,7 +346,9 @@ sidebar: false
     <h2>Trade-Offs</h2>
 
     <p>
-      Stronger error control often reduces statistical power.
+      With a fixed design and comparable tests, stronger family-wise
+      error control often reduces the chance of detecting a true
+      difference. Other designs or sample sizes can change that trade-off.
     </p>
 
     <div class="table-wrap">
