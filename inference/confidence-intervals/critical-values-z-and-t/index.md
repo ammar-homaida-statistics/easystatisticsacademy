@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_inference_confidence_intervals_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
     url: "/inference/confidence-intervals/critical-values-z-and-t/",
     label: "Critical Values — z and t",
     ts: Date.now()
   }));
+  } catch (_) {
+    // Gracefully continue when the browser denies persistent storage.
+  }
 
 })();
 </script>
