@@ -885,7 +885,7 @@ class SearchTests(unittest.TestCase):
         self.assertEqual(result.evaluate_all(
             "(links) => links.map(link => new URL(link.href).pathname)"
         ), ["/descriptive/spread/variance/", "/descriptive/", "/probability/",
-            "/modeling/", "/inference/", "/foundations/"])
+            "/inference/", "/modeling/", "/foundations/"])
         # A phrase that is absent from every page still finds all word matches.
         self.input.fill("formula variance sample")
         expect(result).to_have_count(6)
@@ -3148,6 +3148,157 @@ class SearchTests(unittest.TestCase):
                 self.assertEqual(saved["url"], route)
                 self.assertTrue(saved["label"])
                 self.assertIsInstance(saved["ts"], (int, float))
+
+    def test_welch_and_paired_repaired_mathematics_and_numeric_examples(self):
+        """Recalculate Welch and paired inferences against lesson statements."""
+        from math import sqrt, isclose
+        a = "/inference/classical-tests/two-sample-t-test-independent/"
+        b = "/inference/classical-tests/paired-t-test/"
+        required = (
+            (a, 18, (
+                r"\operatorname{SE}_{W}=\sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}",
+                r"\nu_W=\frac{(s_1^2/n_1+s_2^2/n_2)^2}",
+                r"t_W=\frac{6}{3.1241}\approx1.9206",
+                "[−0.287, 12.287]",
+                "p-value is approximately 0.0609",
+                "fail to reject equality")),
+            (b, 10, (
+                r"D_i=Y_{i,\mathrm{after}}-Y_{i,\mathrm{before}}",
+                r"\bar D=\frac1n\sum_{i=1}^n D_i",
+                r"\bar D\pm t_{1-\alpha/2,\,n-1}",
+                "0.00036",
+                "[3.16, 5.24]",
+                "11.225"))
+        )
+        for route, restored, phrases in required:
+            with self.subTest(lesson=route):
+                html = (SITE / route.lstrip("/") / "index.html").read_text()
+                main = html.split('<main id="main-content"', 1)[1].split(
+                    "</main>", 1)[0]
+                self.assertNotIn("\uea01", main)
+                self.assertNotIn("\uea02", main)
+                # Jekyll-generated pages preserve 2 raw TeX delimiters per expression;
+                # Welch and paired additions also contain verified explanatory TeX.
+                self.assertGreaterEqual(main.count(r"\["), restored)
+                self.assertEqual(main.count(r"\["), main.count(r"\]"))
+                for phrase in phrases:
+                    with self.subTest(required=phrase):
+                        self.assertIn(phrase, main)
+                self.page.goto(self.origin + route, wait_until="networkidle")
+                saved = self.page.evaluate(
+                    'key => JSON.parse(localStorage.getItem(key))',
+                    "esa_continue_inference_classical_tests_lesson_v0")
+                self.assertEqual(saved["url"], route)
+                self.assertGreater(self.page.locator("main a[href]").count(), 0)
+
+        se = sqrt(10**2/25 + 12**2/25)
+        v1, v2 = 10**2/25, 12**2/25
+        df = (v1+v2)**2/(v1**2/24+v2**2/24)
+        t = 6/se
+        self.assertTrue(isclose(se, 3.1240998703626617, abs_tol=1e-12))
+        self.assertTrue(isclose(df, 46.48828735033837, abs_tol=1e-10))
+        self.assertTrue(isclose(t, 1.9205531989934397, abs_tol=1e-12))
+        critical = 2.0123252171461927
+        self.assertTrue(isclose(6-critical*se, -0.28670495001393537, abs_tol=1e-9))
+        self.assertTrue(isclose(6+critical*se, 12.286704950013934, abs_tol=1e-9))
+        differences = [5, 4, 4, 3, 5]
+        avg = sum(differences)/len(differences)
+        variance = sum((x-avg)**2 for x in differences)/(len(differences)-1)
+        paired_t = avg/sqrt(variance/len(differences))
+        self.assertTrue(isclose(avg, 4.2))
+        self.assertTrue(isclose(variance, 0.7))
+        self.assertTrue(isclose(paired_t, 11.224972160321826, abs_tol=1e-12))
+
+    def test_test_selection_guide_assumptions_keyboard_and_mobile(self):
+        """10 supported scenarios, unsupported cases and semantic accessible links."""
+        route = "/inference/classical-tests/"
+        self.page.goto(self.origin + route, wait_until="networkidle")
+        guide = self.page.locator("#esa-test-guide")
+        outcome = guide.get_by_label("What outcome are you analyzing?")
+        design = guide.get_by_label("Which study design or question?")
+        sigma = guide.get_by_label("For a one-sample mean, is population σ known?")
+        status = guide.locator('[role="status"][aria-live="polite"]')
+        self.assertEqual(self.page.locator("#test-selection-guide").count(), 1)
+        self.assertEqual(status.count(), 1)
+        cases = (
+            ("mean", "one", "unknown", "one-sample-t-test-for-mean"),
+            ("mean", "one", "known", "one-sample-z-test-for-mean"),
+            ("mean", "paired", "unknown", "paired-t-test"),
+            ("mean", "independent", "unknown", "two-sample-t-test-independent"),
+            ("mean", "multiple", "unknown", "one-way-anova-f-test"),
+            ("binary", "one", "unknown", "one-proportion-z-test"),
+            ("binary", "independent", "unknown", "two-proportion-z-test"),
+            ("categorical", "one", "unknown", "chi-square-goodness-of-fit"),
+            ("categorical", "independent", "unknown", "chi-square-homogeneity-test"),
+            ("categorical", "association", "unknown", "chi-square-independence-test"),
+        )
+        for kind, structure, known, slug in cases:
+            with self.subTest(choice=slug):
+                outcome.select_option(kind)
+                design.select_option(structure)
+                if kind == "mean" and structure == "one":
+                    sigma.select_option(known)
+                link = status.get_by_role("link")
+                expect(link).to_have_attribute(
+                    "href", "/inference/classical-tests/" + slug + "/")
+                self.assertGreater(len(status.inner_text()), 100)
+                self.assertTrue(
+                    (SITE/"inference/classical-tests"/slug/"index.html").is_file())
+        outcome.select_option("binary")
+        design.select_option("paired")
+        expect(status.get_by_role("link")).to_have_count(0)
+        expect(status).to_contain_text("different design-specific method")
+        outcome.select_option("mean")
+        design.select_option("one")
+        sigma.focus()
+        self.page.keyboard.press("End")
+        self.page.keyboard.press("Home")
+        expect(status.get_by_role("link")).to_have_attribute(
+            "href", "/inference/classical-tests/one-sample-t-test-for-mean/")
+        for width in (375, 768, 1280):
+            self.page.set_viewport_size({"width": width, "height": 850})
+            overflow = self.page.evaluate(
+                "() => document.documentElement.scrollWidth-innerWidth")
+            offenders = self.page.evaluate("""() =>
+              [...document.querySelectorAll('body *')]
+                .filter(e => e.getBoundingClientRect().right > innerWidth + 1)
+                .map(e => ({tag:e.tagName, id:e.id, className:
+                  typeof e.className === 'string' ? e.className.slice(0,70) : '',
+                  right:Math.round(e.getBoundingClientRect().right)}))
+                .slice(0, 8)
+            """) if overflow > 1 else []
+            self.assertLessEqual(overflow, 1,
+                                 f"Guide overflow at {width}px: {offenders}")
+
+    def test_search_index_excludes_lesson_navigation_and_progress_noise(self):
+        """Index remains discoverable while snippets prioritize lesson content."""
+        sample_url = "/inference/classical-tests/two-sample-t-test-independent/"
+        records = {r["url"]: r for r in self.records}
+        self.assertIn(sample_url, records)
+        body = records[sample_url]["content"]
+        self.assertNotIn("esa_continue_inference_classical_tests_lesson_v0", body)
+        self.assertNotIn("Previous Lesson", body)
+        self.assertIn("Welch", body)
+        self.assertIn("p-value", body)
+        for query, expected in (
+            ("two-sample t test", sample_url),
+            ("paired t test", "/inference/classical-tests/paired-t-test/"),
+            ("chi-square independence", "/inference/classical-tests/chi-square-independence-test/"),
+            ("measurement scales", "/foundations/measurement-scales/"),
+        ):
+            with self.subTest(query=query):
+                self.open()
+                self.input.fill(query)
+                if query == "measurement scales":
+                    # Both Foundations and Descriptive Statistics publish
+                    # a lesson with this exact title; either may rank first.
+                    self.assertIn(expected, self.results.locator(
+                        "a.search-item").evaluate_all(
+                        "links => links.map(link => link.getAttribute('href'))"))
+                else:
+                    expect(self.results.locator("a.search-item").first).to_have_attribute(
+                        "href", expected)
+                self.assertEqual(self.errors, [])
 
     def test_representative_lessons_and_navigation(self):
         self.open()

@@ -5,11 +5,18 @@ layout: null
 {% assign first = true %}
 {% for page in site.pages %}
   {% if page.title and page.url and page.url != '/404.html' %}
+  {% assign search_text = page.content %}
+  {% if search_text contains '<!-- LESSON -->' %}
+    {% assign search_text = search_text | split: '<!-- LESSON -->' | last %}
+  {% elsif search_text contains '<!-- HERO -->' %}
+    {% assign search_text = search_text | split: '<!-- HERO -->' | last %}
+  {% endif %}
+  {% assign search_text = search_text | split: '<!-- NAVIGATION -->' | first | split: '<!-- CONTINUE READING SCRIPT -->' | first %}
   {% unless first %},{% endunless %}
   {
     "title": {{ page.title | jsonify }},
     "url": {{ page.url | jsonify }},
-    "content": {{ page.content | strip_html | normalize_whitespace | jsonify }}
+    "content": {{ search_text | strip_html | normalize_whitespace | jsonify }}
   }
   {% assign first = false %}
   {% endif %}

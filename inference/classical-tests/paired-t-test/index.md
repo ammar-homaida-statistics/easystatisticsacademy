@@ -121,7 +121,9 @@ sidebar: false
       For each pair:
     </p>
 
-    0
+    \[
+D_i=Y_{i,\mathrm{after}}-Y_{i,\mathrm{before}}
+\]
 
     <p>
       This creates a new sample consisting entirely of differences.
@@ -133,7 +135,9 @@ sidebar: false
       The paired t test focuses on:
     </p>
 
-    1
+    \[
+\mu_D=E[D_i]
+\]
 
     <p>
       where:
@@ -162,11 +166,15 @@ sidebar: false
       The standard paired t test uses:
     </p>
 
-    2
+    \[
+H_0:\mu_D=0
+\]
 
     <br><br>
 
-    3
+    \[
+H_1:\mu_D\ne0
+\]
 
     <p>
       Zero corresponds to no average change.
@@ -291,7 +299,9 @@ sidebar: false
       Let:
     </p>
 
-    4
+    \[
+\bar D=\frac1n\sum_{i=1}^n D_i
+\]
 
     <p>
       denote the sample mean difference.
@@ -301,13 +311,16 @@ sidebar: false
       This measures the average change observed in the sample.
     </p>
 
+    <p>For the five displayed paired changes (5, 4, 4, 3, 5), the mean change is <strong>4.2</strong> and the sample standard deviation of changes is <strong>√0.7 ≈ 0.8367</strong>. The test concerns the population mean of within-person differences, not two unpaired group means.</p>
     <h2>The Standard Error</h2>
 
     <p>
       The standard error of the mean difference is:
     </p>
 
-    5
+    \[
+\widehat{\operatorname{SE}}(\bar D)=\frac{s_D}{\sqrt n}
+\]
 
     <p>
       where:
@@ -327,20 +340,25 @@ sidebar: false
       The paired t statistic is:
     </p>
 
-    6
+    \[
+t=\frac{\bar D-0}{s_D/\sqrt n}
+\]
 
     <p>
       Since the null value is usually zero,
       the formula simplifies naturally.
     </p>
 
+    <p>For the displayed sample, the standard error is 0.8367/√5 ≈ 0.3742, so the t statistic is about <strong>11.225</strong> under the zero-change null. The exact two-sided t(4) reference p-value is approximately <strong>0.00036</strong>, assuming the population of paired differences is normally distributed.</p>
     <h2>Degrees of Freedom</h2>
 
     <p>
       As with a one-sample t test:
     </p>
 
-    7
+    \[
+\nu=n-1
+\]
 
     <p>
       where n represents the number of pairs.
@@ -427,7 +445,7 @@ sidebar: false
 
       <li>Differences are independent across pairs</li>
 
-      <li>The population of differences is approximately normal (or sample size is large)</li>
+      <li>A normally distributed population of differences for exact small-sample t inference; a large-sample approximation may be used under suitable conditions</li>
 
       <li>Pairs are randomly sampled</li>
 
@@ -439,18 +457,23 @@ sidebar: false
       The corresponding confidence interval is:
     </p>
 
-    8
+    \[
+\bar D\pm t_{1-\alpha/2,\,n-1}\frac{s_D}{\sqrt n}
+\]
 
     <p>
       This interval estimates plausible values for:
     </p>
 
-    9
+    \[
+\mu_D
+\]
 
+    <p>Applied to the five displayed pairs, the 95% Student-t interval is approximately <strong>[3.16, 5.24]</strong> for the mean after-minus-before change. This does not include zero.</p>
     <h2>Interpretation Example</h2>
 
     <p>
-      Suppose a study finds:
+      For the five paired changes shown in the example above:
     </p>
 
     <div class="example-box">
@@ -460,7 +483,7 @@ sidebar: false
       </p>
 
       <p>
-        p = 0.003
+        two-sided p ≈ 0.00036 (for the five displayed pairs)
       </p>
 
     </div>

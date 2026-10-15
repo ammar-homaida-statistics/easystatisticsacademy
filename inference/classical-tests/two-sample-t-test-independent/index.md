@@ -157,13 +157,17 @@ sidebar: false
       Let:
     </p>
 
-    0
+    \[
+\mu_1
+\]
 
     <p>
       denote the mean of population 1 and:
     </p>
 
-    1
+    \[
+\mu_2
+\]
 
     <p>
       denote the mean of population 2.
@@ -173,7 +177,9 @@ sidebar: false
       The quantity of interest is:
     </p>
 
-    2
+    \[
+\mu_1-\mu_2
+\]
 
     <h2>The Hypotheses</h2>
 
@@ -181,11 +187,15 @@ sidebar: false
       The standard two-sided hypotheses are:
     </p>
 
-    3
+    \[
+H_0:\mu_1-\mu_2=0
+\]
 
     <br><br>
 
-    4
+    \[
+H_1:\mu_1-\mu_2\ne0
+\]
 
     <p>
       Under the null hypothesis, the two population means are equal.
@@ -255,13 +265,17 @@ sidebar: false
       The observed estimate of:
     </p>
 
-    5
+    \[
+\mu_1-\mu_2
+\]
 
     <p>
       is:
     </p>
 
-    6
+    \[
+\bar X_1-\bar X_2
+\]
 
     <p>
       This quantity measures the observed difference between groups.
@@ -273,7 +287,9 @@ sidebar: false
       For the common Welch two-sample t test:
     </p>
 
-    7
+    \[
+\operatorname{SE}_{W}=\sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}
+\]
 
     <p>
       This combines uncertainty from both samples.
@@ -285,7 +301,9 @@ sidebar: false
       The two-sample t statistic is:
     </p>
 
-    8
+    \[
+t_W=\frac{(\bar X_1-\bar X_2)-0}{\sqrt{s_1^2/n_1+s_2^2/n_2}}
+\]
 
     <p>
       Under the null hypothesis, the expected difference equals zero.
@@ -330,7 +348,9 @@ sidebar: false
       The estimated difference is:
     </p>
 
-    9
+    \[
+\bar x_1-\bar x_2=82-76=6
+\]
 
     <p>
       The sample suggests group 1 scores higher on average.
@@ -342,13 +362,17 @@ sidebar: false
       Using:
     </p>
 
-    10
+    \[
+\operatorname{SE}_{W}=\sqrt{\frac{10^2}{25}+\frac{12^2}{25}}
+\]
 
     <p>
       gives approximately:
     </p>
 
-    11
+    \[
+\operatorname{SE}_{W}=\sqrt{9.76}\approx3.1241
+\]
 
     <h2>Calculating the t Statistic</h2>
 
@@ -356,11 +380,20 @@ sidebar: false
       Therefore:
     </p>
 
-    12
+    \[
+t_W=\frac{6}{3.1241}\approx1.9206
+\]
 
     <p>
       This statistic is evaluated using the appropriate t distribution.
     </p>
+
+    <h2>Welch–Satterthwaite Degrees of Freedom</h2>
+    <p>Welch's reference distribution uses an estimated degrees-of-freedom parameter, not automatically <em>n₁ + n₂ − 2</em>:</p>
+    \[
+    \nu_W=\frac{(s_1^2/n_1+s_2^2/n_2)^2}{(s_1^2/n_1)^2/(n_1-1)+(s_2^2/n_2)^2/(n_2-1)}
+    \]
+    <p>For the example, \(\nu_W\approx46.4883\), \(t_W\approx1.9206\), and the <strong>two-sided p-value is approximately 0.0609</strong>. At α = 0.05, we <strong>fail to reject equality of the population means</strong>; lack of rejection is not proof that the means are equal.</p>
 
     <h2>The p-Value</h2>
 
@@ -368,7 +401,9 @@ sidebar: false
       The p-value measures how unusual a difference this large would be if:
     </p>
 
-    13
+    \[
+H_0:\mu_1-\mu_2=0
+\]
 
     <p>
       were actually true.
@@ -378,19 +413,24 @@ sidebar: false
       Small p-values indicate evidence that the population means differ.
     </p>
 
+    <p>For this example, the Welch 95% critical value is approximately 2.0123, giving an interval of roughly <strong>[−0.287, 12.287]</strong> for μ₁ − μ₂. This interval includes zero, agreeing with the two-sided test decision.</p>
     <h2>Confidence Interval Connection</h2>
 
     <p>
       The corresponding confidence interval is:
     </p>
 
-    14
+    \[
+(\bar x_1-\bar x_2)\pm t_{1-\alpha/2,\,\nu_W}\sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}
+\]
 
     <p>
       This interval estimates plausible values for:
     </p>
 
-    15
+    \[
+\mu_1-\mu_2
+\]
 
     <h2>Interpreting the Confidence Interval</h2>
 
@@ -398,14 +438,18 @@ sidebar: false
       If:
     </p>
 
-    16
+    \[
+0
+\]
 
     <p>
       is outside the interval,
       the corresponding hypothesis test rejects:
     </p>
 
-    17
+    \[
+H_0
+\]
 
     <p>
       at the matching significance level.
@@ -423,9 +467,9 @@ sidebar: false
 
       <li>Independent observations within groups</li>
 
-      <li>Independent groups</li>
+      <li>Independent groups; the Welch calculation does not require equal population variances</li>
 
-      <li>Approximately normal populations or sufficiently large samples</li>
+      <li>For small samples, approximately normal distributions within each group; large samples can support approximate inference under suitable regularity conditions</li>
 
     </ul>
 
