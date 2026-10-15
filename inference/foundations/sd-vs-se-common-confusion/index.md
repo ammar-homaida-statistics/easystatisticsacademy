@@ -229,19 +229,27 @@ sidebar: false
     <h2>The Relationship Between SD and SE</h2>
 
     <p>
-      For sample means:
+      For independent, identically distributed observations with finite
+      population variance, the theoretical standard error of the sample mean is:
     </p>
 
-    0
+    \[
+\operatorname{SE}(\bar X)=\frac{\sigma}{\sqrt n}
+\]
 
     <p>
-      or equivalently:
+      When the population standard deviation σ is unknown, estimate it
+      using the sample standard deviation s:
     </p>
 
-    1
+    \[
+\widehat{\operatorname{SE}}(\bar X)=\frac{s}{\sqrt n}
+\]
 
     <p>
-      when the population standard deviation is known.
+      The first expression describes sampling variability using the population SD;
+      the second is an estimated standard error based on the observed sample.
+      Both rely on the independent, identically distributed sampling assumption.
     </p>
 
     <h2>What the Formula Reveals</h2>
@@ -275,7 +283,7 @@ sidebar: false
     <div class="example-box">
 
       <p>
-        SD = 20
+        Sample SD (s) = 20
       </p>
 
       <p>
@@ -288,14 +296,17 @@ sidebar: false
       Then:
     </p>
 
-    2
+    \[
+\widehat{\operatorname{SE}}(\bar X)=\frac{20}{\sqrt{100}}=2
+\]
 
     <p>
       Individual observations vary by about 20 units.
     </p>
 
     <p>
-      Sample means vary by only about 2 units.
+      Using the sample SD, the estimated standard error of the mean
+      is 2 units, describing precision across hypothetical repeated samples.
     </p>
 
     <h2>Why Standard Error Is Usually Smaller</h2>
@@ -432,7 +443,10 @@ sidebar: false
     </div>
 
     <p>
-      This can make data appear far less variable than they actually are.
+      Mean ± SD describes spread in the observations, whereas Mean ± SE
+      shows uncertainty in a sample mean. Both can be useful when clearly
+      labelled, but substituting SE for SD can misleadingly understate
+      data spread. Mean ± SE alone is not generally a 95% confidence interval.
     </p>
 
     <h2>Inference Uses Standard Error</h2>
