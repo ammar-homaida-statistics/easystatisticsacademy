@@ -2610,6 +2610,125 @@ class SearchTests(unittest.TestCase):
                 self.assertEqual(progress["url"], route)
                 self.assertIsInstance(progress["ts"], (int, float))
 
+    def test_coefficient_of_variation_six_restored_formulas(self):
+        """Verify all six CV repairs, calculations and meaningful-zero caveats."""
+        from html import unescape
+        route = "/descriptive/spread/coefficient-of-variation/"
+        self.page.goto(self.origin + route, wait_until="networkidle")
+        expect(self.page.locator("main h1")).to_have_text("Coefficient of Variation")
+        html = (SITE / route.lstrip("/") / "index.html").read_text()
+        main = unescape(
+            html.split('<main id="main-content"', 1)[1].split("</main>", 1)[0])
+        for formula in (
+            r"\mathrm{CV}=\frac{s}{\bar{x}}",
+            r"\bar{x}>0",
+            r"\mathrm{CV}_{\%}=\frac{s}{\bar{x}}\times 100\%",
+            r"\mathrm{CV}=\frac{10}{50}=0.20",
+            r"\mathrm{CV}_{\%}=0.20\times100\%=20\%",
+            r"\mathrm{CV}_{A,\%}=\frac{4}{20}\times100\%=20\%",
+            r"\mathrm{CV}_{B,\%}=\frac{10}{100}\times100\%=10\%",
+        ):
+            with self.subTest(formula=formula):
+                self.assertIn(formula, main)
+        self.assertEqual(main.count(r"\["), 6)
+        self.assertEqual(main.count(r"\]"), 6)
+        self.assertAlmostEqual(10 / 50, .2)
+        self.assertAlmostEqual(4 / 20, .2)
+        self.assertAlmostEqual(10 / 100, .1)
+        self.assertAlmostEqual(5 / .5 * 100, 1000)
+        for phrase in ("ratio-scale", "meaningful zero",
+                       "Celsius instead of Kelvin", "positive expected return",
+                       "1000%", "Undefined when the mean is zero"):
+            with self.subTest(phrase=phrase):
+                expect(self.page.locator("main")).to_contain_text(phrase)
+        self.assertNotIn("\uea01", main)
+        self.assertNotIn("\uea02", main)
+
+    def test_chi_square_goodness_of_fit_eight_formulas_and_die(self):
+        """Verify hypotheses, test statistic, df and die-count arithmetic."""
+        from html import unescape
+        route = "/inference/classical-tests/chi-square-goodness-of-fit/"
+        self.page.goto(self.origin + route, wait_until="networkidle")
+        expect(self.page.locator("main h1")).to_have_text(
+            "Chi-Square Goodness-of-Fit Test")
+        html = (SITE / route.lstrip("/") / "index.html").read_text()
+        main = unescape(
+            html.split('<main id="main-content"', 1)[1].split("</main>", 1)[0])
+        for formula in (
+            r"p_i=\frac16",
+            r"E_i=n\,p_i",
+            r"E_i=120\times\frac16=20",
+            r"\chi^2=\sum_{i=1}^{k}\frac{(O_i-E_i)^2}{E_i}",
+            r"H_0:\ p_i=p_i^{(0)}",
+            r"\mathrm{df}=k-1",
+            r"\mathrm{df}=6-1=5",
+            r"\chi^2_{\mathrm{obs}}=\frac{4+1+1+9+0+1}{10}=1.6",
+        ):
+            with self.subTest(formula=formula):
+                self.assertIn(formula, main)
+        self.assertEqual(main.count(r"\["), 8)
+        self.assertEqual(main.count(r"\]"), 8)
+        observed = (8, 11, 9, 13, 10, 9)
+        expected = (10,) * 6
+        self.assertEqual(sum(observed), 60)
+        self.assertEqual(sum(expected), 60)
+        statistic = sum((o - e)**2 / e for o, e in zip(observed, expected))
+        self.assertAlmostEqual(statistic, 1.6)
+        self.assertEqual(6 - 1, 5)
+        for phrase in ("approximately chi-square distributed",
+                       "asymptotic approximation",
+                       "Nonnegative (zero is possible",
+                       "parameters are estimated from the same data",
+                       "0.901", "conservative rule of thumb",
+                       "sparse counts"):
+            with self.subTest(phrase=phrase):
+                expect(self.page.locator("main")).to_contain_text(phrase)
+        self.assertNotIn("\uea01", main)
+        self.assertNotIn("\uea02", main)
+
+    def test_reporting_lessons_preserve_saved_progress_and_navigation(self):
+        """Retain each existing reporting lesson's route and shared save key."""
+        root = "/inference/interpretation-reporting/"
+        names = (
+            ("reporting-results-clear-language", "Reporting Results in Clear Language"),
+            ("tables-figures-and-visual-communication",
+             "Tables, Figures, and Visual Communication"),
+            ("multiple-testing-and-false-positives",
+             "Multiple Testing and False Positives"),
+        )
+        key = "esa_continue_inference_interpretation_reporting_lesson_v0"
+        for slug, label in names:
+            route = root + slug + "/"
+            with self.subTest(route=route):
+                self.page.goto(self.origin + route, wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_have_text(label)
+                progress = self.page.evaluate(
+                    "key => JSON.parse(localStorage.getItem(key))", key)
+                self.assertEqual(progress["url"], route)
+                self.assertEqual(progress["label"], label)
+                self.assertIsInstance(progress["ts"], (int, float))
+                self.assertGreater(
+                    self.page.locator("main .lesson-nav a[href]").count(), 0)
+
+    def test_reporting_lessons_work_with_storage_denied(self):
+        """A SecurityError on localStorage must not break reporting lessons."""
+        self.page.add_init_script("""
+            Object.defineProperty(window, 'localStorage', {
+              configurable: true,
+              get() { throw new DOMException('Denied', 'SecurityError'); }
+            });
+        """)
+        root = "/inference/interpretation-reporting/"
+        for slug in ("reporting-results-clear-language",
+                     "tables-figures-and-visual-communication",
+                     "multiple-testing-and-false-positives"):
+            with self.subTest(slug=slug):
+                self.page.goto(self.origin + root + slug + "/",
+                               wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+                self.assertGreater(
+                    self.page.locator("main .lesson-nav a[href]").count(), 0)
+
     def test_representative_lessons_and_navigation(self):
         self.open()
         cases = {

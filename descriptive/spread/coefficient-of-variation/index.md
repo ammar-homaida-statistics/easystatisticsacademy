@@ -157,22 +157,27 @@ sidebar: false
     </p>
 
     <p>
-      This allows comparisons across different scales and units.
+      For ratio-scale measurements with a meaningful zero and a positive mean, this allows comparisons of relative variation across scales and units.
+      Shifting the origin (for example, measuring temperature in Celsius instead of Kelvin) changes CV and can invalidate such comparisons.
     </p>
 
     <h2>The Formula</h2>
 
     <p>
-      For a sample:
+      For a sample with at least two observations and a positive sample mean, let \(s\) be the sample standard deviation and \(\bar{x}\) the sample mean:
     </p>
 
-    0
+    \[
+\mathrm{CV}=\frac{s}{\bar{x}},\qquad \bar{x}>0
+\]
 
     <p>
       When expressed as a percentage:
     </p>
 
-    1
+    \[
+\mathrm{CV}_{\%}=\frac{s}{\bar{x}}\times 100\%
+\]
 
     <p>
       The percentage form is the most commonly reported version.
@@ -222,13 +227,17 @@ sidebar: false
       Then:
     </p>
 
-    2
+    \[
+\mathrm{CV}=\frac{10}{50}=0.20
+\]
 
     <p>
       Converting to a percentage:
     </p>
 
-    3
+    \[
+\mathrm{CV}_{\%}=0.20\times100\%=20\%
+\]
 
     <p>
       The standard deviation is 20% of the mean.
@@ -278,13 +287,17 @@ sidebar: false
       Dataset A:
     </p>
 
-    4
+    \[
+\mathrm{CV}_{A,\%}=\frac{4}{20}\times100\%=20\%
+\]
 
     <p>
       Dataset B:
     </p>
 
-    5
+    \[
+\mathrm{CV}_{B,\%}=\frac{10}{100}\times100\%=10\%
+\]
 
     <p>
       Even though Dataset B has a larger standard deviation,
@@ -306,7 +319,7 @@ sidebar: false
 
       <li>Heights and weights</li>
 
-      <li>Temperatures and incomes</li>
+      <li>Absolute (Kelvin) temperatures and incomes, interpreted in their own contexts</li>
 
       <li>Sales and production levels</li>
 
@@ -321,7 +334,7 @@ sidebar: false
     <h2>CV and Consistency</h2>
 
     <p>
-      Lower coefficients of variation indicate greater consistency.
+      When both means are positive and CV is appropriate for the measurements, smaller coefficients of variation indicate less relative variability.
     </p>
 
     <p>
@@ -356,7 +369,7 @@ sidebar: false
     </p>
 
     <p>
-      Smaller CV values generally indicate more favorable risk-return tradeoffs.
+      A smaller CV can indicate less volatility per unit of positive expected return, but this comparison is not meaningful with zero or negative expected returns and is not a complete measure of investment risk.
     </p>
 
     <h2>Applications in Science</h2>
@@ -382,9 +395,9 @@ sidebar: false
 
       <li>Can become unstable when the mean is close to zero</li>
 
-      <li>Not appropriate when the mean may be zero</li>
+      <li>Undefined when the mean is zero; comparisons can be misleading for negative or near-zero means</li>
 
-      <li>Less meaningful for some types of data</li>
+      <li>Not suitable for interval-scale measurements (such as Celsius temperatures) without a meaningful absolute zero</li>
 
     </ul>
 
@@ -411,7 +424,7 @@ sidebar: false
     </div>
 
     <p>
-      The coefficient of variation becomes extremely large.
+      The computed ratio is \(5/0.5=10\), or 1000%—extremely large because the mean is close to zero.
     </p>
 
     <p>

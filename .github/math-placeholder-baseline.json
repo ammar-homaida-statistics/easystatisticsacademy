@@ -1,13 +1,5 @@
 {
   "pages": {
-    "descriptive/spread/coefficient-of-variation/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1
-    },
     "inference/assumptions-robustness/heteroscedasticity-variance-issues/index.md": {
       "\uea010\uea02": 1
     },
@@ -16,16 +8,6 @@
     },
     "inference/assumptions-robustness/outliers-and-influence/index.md": {
       "\uea010\uea02": 1
-    },
-    "inference/classical-tests/chi-square-goodness-of-fit/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1,
-      "\uea015\uea02": 1,
-      "\uea016\uea02": 1,
-      "\uea017\uea02": 1
     },
     "inference/classical-tests/chi-square-homogeneity-test/index.md": {
       "\uea010\uea02": 1,

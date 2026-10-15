@@ -207,7 +207,9 @@ sidebar: false
       Each face should occur with probability:
     </p>
 
-    0
+    \[
+p_i=\frac16,\qquad i=1,\ldots,6
+\]
 
     <p>
       Therefore:
@@ -226,7 +228,9 @@ sidebar: false
       Expected counts are obtained from:
     </p>
 
-    1
+    \[
+E_i=n\,p_i,\qquad i=1,\ldots,k
+\]
 
     <p>
       where:
@@ -257,7 +261,9 @@ sidebar: false
       Then for each face:
     </p>
 
-    2
+    \[
+E_i=120\times\frac16=20
+\]
 
     <p>
       Every category has an expected count of 20.
@@ -269,10 +275,12 @@ sidebar: false
       The goodness-of-fit test statistic is:
     </p>
 
-    3
+    \[
+\chi^2=\sum_{i=1}^{k}\frac{(O_i-E_i)^2}{E_i}
+\]
 
     <p>
-      This formula measures total discrepancy between observed and expected counts.
+      Here \(O_i\) is the observed count and \(E_i\) the expected count for category \(i\). The sum requires positive expected counts and measures discrepancy between observed and expected frequencies.
     </p>
 
     <h2>Understanding the Formula</h2>
@@ -362,7 +370,7 @@ sidebar: false
     </div>
 
     <p>
-      The chi-square statistic summarizes the overall discrepancy across all categories.
+      The six observed counts sum to 60 and all six expected counts equal 10. Their contributions are 0.4, 0.1, 0.1, 0.9, 0 and 0.1, summing to \(\chi^2=1.6\).
     </p>
 
     <h2>The Chi-Square Distribution</h2>
@@ -371,10 +379,12 @@ sidebar: false
       Under:
     </p>
 
-    4
+    \[
+H_0:\ p_i=p_i^{(0)}\quad(i=1,\ldots,k)
+\]
 
     <p>
-      the test statistic follows a chi-square distribution approximately.
+      with independently sampled categorical outcomes, fixed pre-specified category probabilities, and sufficiently large expected counts, the Pearson statistic is approximately chi-square distributed with \(k-1\) degrees of freedom. This is an asymptotic approximation, not an exact finite-sample distribution.
     </p>
 
     <p>
@@ -383,7 +393,7 @@ sidebar: false
 
     <ul class="bullets">
 
-      <li>Always positive</li>
+      <li>Nonnegative (zero is possible if observed and expected counts match)</li>
 
       <li>Right-skewed</li>
 
@@ -394,10 +404,12 @@ sidebar: false
     <h2>Degrees of Freedom</h2>
 
     <p>
-      For a goodness-of-fit test:
+      When all \(k\) null probabilities are specified before observing the data:
     </p>
 
-    5
+    \[
+\mathrm{df}=k-1\quad\text{(all probabilities specified in advance)}
+\]
 
     <p>
       where:
@@ -405,7 +417,8 @@ sidebar: false
 
     <ul class="bullets">
 
-      <li>k = number of categories</li>
+      <li>\(k\) = number of mutually exclusive, exhaustive categories with positive null probabilities</li>
+      <li>If parameters are estimated from the same data, the degrees of freedom may need adjustment, depending on the model and estimation procedure.</li>
 
     </ul>
 
@@ -415,7 +428,9 @@ sidebar: false
       For a six-sided die:
     </p>
 
-    6
+    \[
+\mathrm{df}=6-1=5
+\]
 
     <h2>The p-Value</h2>
 
@@ -423,14 +438,16 @@ sidebar: false
       Once:
     </p>
 
-    7
+    \[
+\chi^2_{\mathrm{obs}}=\frac{4+1+1+9+0+1}{10}=1.6
+\]
 
     <p>
       and degrees of freedom are known, the p-value is obtained from the chi-square distribution.
     </p>
 
     <p>
-      Large χ² values correspond to small p-values.
+      Under the specified six-category null model, the upper-tail p-value is \(P(\chi^2_5\ge 1.6)\approx0.901\). Larger observed chi-square values yield smaller upper-tail p-values for a fixed reference distribution.
     </p>
 
     <h2>Decision Rule</h2>
@@ -455,9 +472,9 @@ sidebar: false
 
       <li>Random sampling</li>
 
-      <li>Independent observations</li>
+      <li>Independent observations drawn under a fixed categorical probability model</li>
 
-      <li>Categorical outcomes</li>
+      <li>Mutually exclusive, exhaustive categories with positive expected counts</li>
 
       <li>Expected counts sufficiently large</li>
 
@@ -477,7 +494,7 @@ sidebar: false
     </div>
 
     <p>
-      This helps justify the chi-square approximation.
+      This is a conservative rule of thumb rather than an absolute mathematical requirement. The quality of the approximation depends on the expected-count pattern and model; sparse counts may require an exact or simulation-based approach.
     </p>
 
     <h2>Common Applications</h2>
