@@ -3092,7 +3092,7 @@ class SearchTests(unittest.TestCase):
                     (SITE / url.lstrip("/") / "index.html").is_file(), url)
         for url in ("/machine-learning/", "/data-mining/", "/software/"):
             expect(cards.locator("a.card-foot[href='" + url + "']")).to_have_count(1)
-        expect(cards).to_contain_text("lessons remain planned")
+        expect(self.page.locator("#start")).to_contain_text("lessons remain planned")
         for width in (375, 768, 1280):
             self.page.set_viewport_size({"width": width, "height": 850})
             self.assertLessEqual(
