@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_descriptive_spread_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
-    url: "/descriptive/spread/coefficient-of-variation/",
-    label: "Coefficient of Variation",
-    ts: Date.now()
-  }));
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
+      url: "/descriptive/spread/coefficient-of-variation/",
+      label: "Coefficient of Variation",
+      ts: Date.now()
+    }));
+  } catch (_) {
+    // Progress storage is optional; the lesson remains readable when blocked.
+  }
 
 })();
 </script>
