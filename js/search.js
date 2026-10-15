@@ -83,8 +83,8 @@
       const rank = title === q ? 0 :
         title.startsWith(q) ? 1 :
         title.includes(q) ? 2 :
-        content.includes(q) ? 3 :
-        terms.length > 1 && terms.every(term => title.includes(term)) ? 4 :
+        terms.length > 1 && terms.every(term => title.includes(term)) ? 3 :
+        content.includes(q) ? 4 :
         terms.length > 1 && terms.every(term => title.includes(term) || content.includes(term)) ? 5 : 6;
       return { page, rank };
     }).filter((match) => match.rank < 6)
