@@ -157,7 +157,9 @@ sidebar: false
       Therefore:
     </p>
 
-    0
+    \[
+P(A)=P(A\cap B)+P(A\cap B^{c})
+\]
 
     <h2>Applying the Multiplication Rule</h2>
 
@@ -165,10 +167,15 @@ sidebar: false
       Using the multiplication rule:
     </p>
 
-    1
+    \[
+P(A)=P(A\mid B)P(B)+P(A\mid B^{c})P(B^{c})
+\]
 
     <p>
       This is the simplest form of the Law of Total Probability.
+      The conditional probabilities require P(B) &gt; 0 and
+      P(Bᶜ) &gt; 0; a zero-probability pathway contributes zero
+      and should be omitted from the conditional-probability sum.
     </p>
 
     <h2>Interpreting the Formula</h2>
@@ -231,13 +238,18 @@ sidebar: false
       Applying the law:
     </p>
 
-    2
+    \[
+P(\text{Pass})=P(\text{Pass}\mid\text{Study})P(\text{Study})
++P(\text{Pass}\mid\text{No Study})P(\text{No Study})
+\]
 
     <p>
       Therefore:
     </p>
 
-    3
+    \[
+P(\text{Pass})=0.90(0.60)+0.40(0.40)=0.54+0.16=0.70
+\]
 
     <p>
       The overall probability of passing is 0.70.
@@ -287,14 +299,19 @@ sidebar: false
     </div>
 
     <p>
-      form a partition of the sample space.
+      form a partition of the sample space: they are mutually exclusive
+      and collectively exhaustive. For the conditional form shown,
+      assume P(Bᵢ) &gt; 0 for each included pathway; omit
+      zero-probability pathways.
     </p>
 
     <p>
       Then:
     </p>
 
-    4
+    \[
+P(A)=\sum_{i=1}^{m}P(A\mid B_i)P(B_i)
+\]
 
     <p>
       This is the general form of the Law of Total Probability.
