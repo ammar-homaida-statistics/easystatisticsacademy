@@ -2866,6 +2866,143 @@ class SearchTests(unittest.TestCase):
                 finally:
                     self.page.unroute("**/learning-paths/intermediate/")
 
+    def test_restored_one_and_two_proportion_math_and_numeric_examples(self):
+        """Validate 45 repaired expressions and distinguish pooled test from CI."""
+        from math import erfc, sqrt
+        examples = (
+            ("/inference/classical-tests/one-proportion-z-test/", 22, (
+                r"\hat p=\frac{x}{n}",
+                r"\operatorname{SE}_0(\hat p)=\sqrt{\frac{p_0(1-p_0)}{n}}",
+                r"Z=\frac{\hat p-p_0}",
+                r"Z\approx2.8284",
+                r"np_0\ge10",
+                r"n(1-p_0)\ge10",
+                r"\hat p\pm z_{1-\alpha/2}",
+            ), ("p-value ≈ 0.0047", "Wilson score interval",
+                "not the exact inversion")),
+            ("/inference/classical-tests/two-proportion-z-test/", 23, (
+                r"\hat p_1=\frac{x_1}{n_1}",
+                r"\hat p_2=\frac{x_2}{n_2}",
+                r"\hat p=\frac{x_1+x_2}{n_1+n_2}",
+                r"Z=\frac{\hat p_1-\hat p_2}",
+                r"\operatorname{SE}_{\mathrm{CI}}=",
+                r"\hat p_1(1-\hat p_1)",
+            ), ("Two-sided p-value ≈ 0.0027",
+                "not an exact inversion", "samples must be independent")),
+        )
+        for route, number, formulas, messages in examples:
+            with self.subTest(lesson=route):
+                page = (SITE / route.lstrip("/") / "index.html").read_text()
+                self.assertIn('<main id="main-content"', page)
+                lesson = page.split('<main id="main-content"', 1)[1].split(
+                    "</main>", 1)[0]
+                self.assertNotIn("\uea01", lesson)
+                self.assertNotIn("\uea02", lesson)
+                self.assertEqual(lesson.count(r"\["), number)
+                self.assertEqual(lesson.count(r"\]"), number)
+                for formula in formulas:
+                    self.assertIn(formula, lesson)
+                self.page.goto(self.origin + route, wait_until="networkidle")
+                for phrase in messages:
+                    expect(self.page.locator("main")).to_contain_text(phrase)
+                key = "esa_continue_inference_classical_tests_lesson_v0"
+                resume = self.page.evaluate(
+                    "key => JSON.parse(localStorage.getItem(key))", key)
+                self.assertEqual(resume["url"], route)
+                expect(self.page.get_by_role(
+                    "link", name="Next:", exact=False).first).to_be_visible()
+
+        n, x, null = 200, 120, .5
+        observed = x / n
+        se = sqrt(null * (1-null) / n)
+        z = (observed-null)/se
+        self.assertAlmostEqual(se, 0.03535533905932738)
+        self.assertAlmostEqual(z, 2.82842712474619)
+        self.assertAlmostEqual(erfc(abs(z)/sqrt(2)), 0.004677734981047275)
+        n1, n2, x1, x2 = 200, 200, 120, 90
+        p1, p2 = x1/n1, x2/n2
+        pooled = (x1+x2)/(n1+n2)
+        se_null = sqrt(pooled*(1-pooled)*(1/n1+1/n2))
+        z2 = (p1-p2)/se_null
+        self.assertAlmostEqual(pooled, .525)
+        self.assertAlmostEqual(se_null, .04993746088859544)
+        self.assertAlmostEqual(z2, 3.003757045930553)
+        self.assertAlmostEqual(erfc(abs(z2)/sqrt(2)), .0026666817936140935)
+        se_ci = sqrt(p1*(1-p1)/n1 + p2*(1-p2)/n2)
+        self.assertGreater(abs(se_ci-se_null), .00001)
+
+    def test_measurement_scales_interactive_self_check_accessibility(self):
+        """Five accurate explanations, native keyboard input and mobile layout."""
+        self.page.goto(self.origin + "/foundations/measurement-scales/",
+                       wait_until="networkidle")
+        quiz = self.page.locator("#esa-self-check")
+        expect(quiz.get_by_role("heading", name="Check Your Understanding")).to_be_visible()
+        fields = quiz.locator("fieldset")
+        expect(fields).to_have_count(5)
+        expected = (("b", "a"), ("c", "a"), ("b", "a"),
+                    ("a", "c"), ("b", "c"))
+        for idx, (correct, incorrect) in enumerate(expected):
+            with self.subTest(question=idx+1):
+                field = fields.nth(idx)
+                expect(field.get_by_role("radio")).to_have_count(3)
+                feedback = field.locator('[role="status"][aria-live="polite"]')
+                field.locator(f'input[value="{incorrect}"]').check()
+                expect(feedback).to_contain_text("Not quite.")
+                expect(feedback).not_to_have_text("Not quite. ")
+                self.assertEqual(feedback.get_attribute("data-state"), "incorrect")
+                field.locator(f'input[value="{correct}"]').focus()
+                self.page.keyboard.press("Space")
+                expect(field.locator(f'input[value="{correct}"]')).to_be_checked()
+                expect(feedback).to_contain_text("Correct.")
+                self.assertGreater(len(feedback.inner_text()), 30)
+                self.assertEqual(feedback.get_attribute("data-state"), "correct")
+        for width in (375, 768, 1280):
+            self.page.set_viewport_size({"width": width, "height": 850})
+            self.assertLessEqual(self.page.evaluate(
+                "() => document.documentElement.scrollWidth - innerWidth"), 1)
+
+    def test_distributions_progress_survives_denied_storage(self):
+        """All published distributions and overview remain usable when denied."""
+        slugs = ("bernoulli", "binomial", "geometric", "negative-binomial",
+                 "poisson", "hypergeometric", "uniform", "exponential",
+                 "gamma", "beta", "normal", "lognormal")
+        self.page.add_init_script("""
+          Object.defineProperty(window, "localStorage", {
+            configurable: true,
+            get() { throw new DOMException("Storage blocked", "SecurityError"); }
+          });
+        """)
+        routes = ["/probability/distributions/"] + [
+            "/probability/distributions/" + slug + "-distribution/"
+            for slug in slugs]
+        for route in routes:
+            with self.subTest(route=route):
+                self.page.goto(self.origin + route, wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+                self.assertEqual(self.errors, [], route)
+                self.assertGreater(
+                    self.page.locator("main a[href^='/']").count(), 0)
+
+    def test_distributions_progress_preserves_existing_keys(self):
+        """Overview and 12 lesson pages still save exact old resume routes."""
+        slugs = ("bernoulli", "binomial", "geometric", "negative-binomial",
+                 "poisson", "hypergeometric", "uniform", "exponential",
+                 "gamma", "beta", "normal", "lognormal")
+        routes = ["/probability/distributions/"] + [
+            "/probability/distributions/" + slug + "-distribution/"
+            for slug in slugs]
+        for route in routes:
+            with self.subTest(route=route):
+                self.page.goto(self.origin + route, wait_until="networkidle")
+                key = ("esa_continue_probability_last_block_v0"
+                       if route == "/probability/distributions/"
+                       else "esa_continue_probability_distributions_lesson_v0")
+                data = self.page.evaluate(
+                    "key => JSON.parse(localStorage.getItem(key))", key)
+                self.assertEqual(data["url"], route)
+                self.assertTrue(data["label"])
+                self.assertIsInstance(data["ts"], (int, float))
+
     def test_representative_lessons_and_navigation(self):
         self.open()
         cases = {
