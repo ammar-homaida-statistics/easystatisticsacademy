@@ -316,11 +316,6 @@
       "\uea011\uea02": 1,
       "\uea012\uea02": 1
     },
-    "inference/foundations/sd-vs-se-common-confusion/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1
-    },
     "inference/foundations/standard-error-unit-of-uncertainty/index.md": {
       "\uea010\uea02": 1,
       "\uea011\uea02": 1,
@@ -411,12 +406,6 @@
       "\uea017\uea02": 1,
       "\uea018\uea02": 1,
       "\uea019\uea02": 1
-    },
-    "inference/hypothesis-testing/type1-type2-errors/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1
     },
     "inference/hypothesis-testing/what-is-a-hypothesis-test/index.md": {
       "\uea010\uea02": 1,
@@ -818,13 +807,6 @@
     "probability/sampling-distributions/f-distribution-and-anova-preview/index.md": {
       "\uea010\uea02": 1,
       "\uea011\uea02": 1
-    },
-    "probability/sampling-distributions/standard-error-and-estimators/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1
     },
     "probability/sampling-distributions/t-distribution-and-t-test/index.md": {
       "\uea010\uea02": 1,
