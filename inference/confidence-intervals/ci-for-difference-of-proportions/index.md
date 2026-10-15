@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_inference_confidence_intervals_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
     url: "/inference/confidence-intervals/ci-for-difference-of-proportions/",
     label: "Confidence Interval for Difference of Proportions",
     ts: Date.now()
   }));
+  } catch (_) {
+    // Gracefully continue when the browser denies persistent storage.
+  }
 
 })();
 </script>
