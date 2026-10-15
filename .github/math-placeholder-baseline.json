@@ -288,12 +288,6 @@
       "\uea017\uea02": 1,
       "\uea018\uea02": 1
     },
-    "inference/foundations/bias-and-variance-intuition/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1
-    },
     "inference/foundations/estimators-vs-estimates/index.md": {
       "\uea010\uea02": 1,
       "\uea011\uea02": 1
@@ -388,13 +382,6 @@
       "\uea010\uea02": 1,
       "\uea011\uea02": 1
     },
-    "inference/hypothesis-testing/significance-level-alpha/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1
-    },
     "inference/hypothesis-testing/test-statistic-standardization/index.md": {
       "\uea010\uea02": 1,
       "\uea011\uea02": 1,
@@ -451,13 +438,6 @@
     },
     "inference/power-sample-size/underpowered-studies/index.md": {
       "\uea010\uea02": 1
-    },
-    "inference/power-sample-size/what-is-statistical-power/index.md": {
-      "\uea010\uea02": 1,
-      "\uea011\uea02": 1,
-      "\uea012\uea02": 1,
-      "\uea013\uea02": 1,
-      "\uea014\uea02": 1
     },
     "modeling/extensions/comparing-linear-and-logistic/index.md": {
       "\uea010\uea02": 1
