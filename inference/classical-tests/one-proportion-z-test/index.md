@@ -105,7 +105,9 @@ sidebar: false
       The symbol:
     </p>
 
-    0
+    \[
+p\in[0,1]
+\]
 
     <p>
       represents the true population proportion.
@@ -133,7 +135,9 @@ sidebar: false
       Suppose a company claims:
     </p>
 
-    1
+    \[
+p_0=0.50
+\]
 
     <p>
       meaning that 50% of customers prefer a new product design.
@@ -149,11 +153,15 @@ sidebar: false
       The standard two-sided hypotheses are:
     </p>
 
-    2
+    \[
+H_0:p=p_0
+\]
 
     <br><br>
 
-    3
+    \[
+H_1:p\ne p_0
+\]
 
     <p>
       where:
@@ -209,7 +217,9 @@ sidebar: false
       The observed sample proportion is:
     </p>
 
-    4
+    \[
+\hat p=\frac{x}{n}
+\]
 
     <p>
       where:
@@ -240,7 +250,9 @@ sidebar: false
       Then:
     </p>
 
-    5
+    \[
+\hat p=\frac{120}{200}=0.60
+\]
 
     <h2>The Standard Error Under H₀</h2>
 
@@ -248,19 +260,25 @@ sidebar: false
       Under the null hypothesis:
     </p>
 
-    6
+    \[
+p=p_0
+\]
 
     <p>
       the standard error becomes:
     </p>
 
-    7
+    \[
+\operatorname{SE}_0(\hat p)=\sqrt{\frac{p_0(1-p_0)}{n}}
+\]
 
     <p>
       Notice that the null value:
     </p>
 
-    8
+    \[
+p_0
+\]
 
     <p>
       appears in the formula.
@@ -272,7 +290,9 @@ sidebar: false
       The one-proportion Z statistic is:
     </p>
 
-    9
+    \[
+Z=\frac{\hat p-p_0}{\sqrt{p_0(1-p_0)/n}}
+\]
 
     <p>
       This measures how many standard errors separate the observed sample proportion from the null value.
@@ -296,7 +316,9 @@ sidebar: false
       The sample proportion is:
     </p>
 
-    10
+    \[
+\hat p=\frac{120}{200}=0.60
+\]
 
     <h2>Compute the Standard Error</h2>
 
@@ -304,13 +326,17 @@ sidebar: false
       Using:
     </p>
 
-    11
+    \[
+\operatorname{SE}_0(\hat p)=\sqrt{\frac{0.50(1-0.50)}{200}}
+\]
 
     <p>
       gives:
     </p>
 
-    12
+    \[
+\operatorname{SE}_0(\hat p)=\sqrt{0.00125}\approx0.03536
+\]
 
     <h2>Compute the Test Statistic</h2>
 
@@ -318,13 +344,17 @@ sidebar: false
       Therefore:
     </p>
 
-    13
+    \[
+Z=\frac{0.60-0.50}{0.035355\ldots}
+\]
 
     <p>
       which gives approximately:
     </p>
 
-    14
+    \[
+Z\approx2.8284
+\]
 
     <h2>The p-Value</h2>
 
@@ -332,7 +362,9 @@ sidebar: false
       Under:
     </p>
 
-    15
+    \[
+H_0:p=p_0=0.50
+\]
 
     <p>
       the statistic follows the standard normal distribution approximately.
@@ -345,7 +377,7 @@ sidebar: false
     <div class="example-box">
 
       <p>
-        p-value ≈ 0.0046
+        p-value ≈ 0.0047 (two-sided normal approximation)
       </p>
     </div>
 
@@ -366,13 +398,17 @@ sidebar: false
       Since:
     </p>
 
-    16
+    \[
+0.0047<0.05
+\]
 
     <p>
       we reject:
     </p>
 
-    17
+    \[
+H_0
+\]
 
     <h2>Interpretation</h2>
 
@@ -389,7 +425,9 @@ sidebar: false
       The sampling distribution of:
     </p>
 
-    18
+    \[
+\hat p
+\]
 
     <p>
       becomes approximately normal when the sample size is sufficiently large.
@@ -405,16 +443,20 @@ sidebar: false
       The normal approximation is generally considered reasonable when:
     </p>
 
-    19
+    \[
+np_0\ge10
+\]
 
     <p>
       and:
     </p>
 
-    20
+    \[
+n(1-p_0)\ge10
+\]
 
     <p>
-      under the null hypothesis.
+      under the null hypothesis. Here, \(np_0=100\) and \(n(1-p_0)=100\), satisfying the usual rule of thumb.
     </p>
 
     <h2>Assumptions</h2>
@@ -439,11 +481,12 @@ sidebar: false
       The corresponding confidence interval for a population proportion is:
     </p>
 
-    21
+    \[
+\hat p\pm z_{1-\alpha/2}\sqrt{\frac{\hat p(1-\hat p)}{n}}
+\]
 
     <p>
-      As with other classical procedures,
-      confidence intervals and hypothesis tests provide matching conclusions at corresponding confidence levels.
+      This familiar unpooled Wald interval is an approximation, not the exact inversion of the null-pooled Z test above. Inverting the score test gives the Wilson score interval; Wald and score methods can differ, especially for small samples or proportions near 0 or 1. For this example, the Wald interval excludes 0.50 at 95% confidence.
     </p>
 
     <h2>Common Applications</h2>
