@@ -295,6 +295,51 @@ sidebar: false
     </p>
   </div>
 
+  <!-- Native radio questions; results remain in the browser and require no storage. -->
+  <div class="section-block esa-self-check" id="esa-self-check" aria-labelledby="esa-self-check-heading">
+    <h2 id="esa-self-check-heading">Check Your Understanding</h2>
+    <p>Choose an answer to read the reasoning. You can revise your choice at any time.</p>
+
+    <fieldset data-answer="b" data-explanation="Blood types are categories without an inherent ranking. They are nominal, even if encoded with numbers.">
+      <legend>1. Which measurement scale describes blood type (A, B, AB, or O)?</legend>
+      <label><input type="radio" name="esa-scale-check-1" value="a"> Ordinal</label>
+      <label><input type="radio" name="esa-scale-check-1" value="b"> Nominal</label>
+      <label><input type="radio" name="esa-scale-check-1" value="c"> Ratio</label>
+      <p class="esa-check-feedback" role="status" aria-live="polite"></p>
+    </fieldset>
+
+    <fieldset data-answer="c" data-explanation="Ordinal scales preserve ordering, but equal spacings and ratios are not guaranteed.">
+      <legend>2. What can you conclude from an ordinal satisfaction rating of 1 to 5?</legend>
+      <label><input type="radio" name="esa-scale-check-2" value="a"> The difference between 4 and 5 must equal the difference between 1 and 2.</label>
+      <label><input type="radio" name="esa-scale-check-2" value="b"> A rating of 4 is necessarily twice a rating of 2.</label>
+      <label><input type="radio" name="esa-scale-check-2" value="c"> A rating of 4 indicates a higher ordered category than 2.</label>
+      <p class="esa-check-feedback" role="status" aria-live="polite"></p>
+    </fieldset>
+
+    <fieldset data-answer="b" data-explanation="Celsius has meaningful differences but an arbitrary zero. Ratios of Celsius readings are not physically meaningful.">
+      <legend>3. Which statement about Celsius temperature is meaningful?</legend>
+      <label><input type="radio" name="esa-scale-check-3" value="a"> 20 degrees Celsius is twice as hot as 10 degrees Celsius.</label>
+      <label><input type="radio" name="esa-scale-check-3" value="b"> 20 degrees Celsius is 10 degrees warmer than 10 degrees Celsius.</label>
+      <label><input type="radio" name="esa-scale-check-3" value="c"> Zero Celsius means the absence of all thermal energy.</label>
+      <p class="esa-check-feedback" role="status" aria-live="polite"></p>
+    </fieldset>
+
+    <fieldset data-answer="a" data-explanation="Zero kilograms represents absence of mass, so 60 kg is twice 30 kg. Years and response ranks lack meaningful ratio interpretations.">
+      <legend>4. Which variable has a meaningful absolute zero and supports ratio comparisons?</legend>
+      <label><input type="radio" name="esa-scale-check-4" value="a"> Mass measured in kilograms</label>
+      <label><input type="radio" name="esa-scale-check-4" value="b"> Calendar year</label>
+      <label><input type="radio" name="esa-scale-check-4" value="c"> Survey response rank</label>
+      <p class="esa-check-feedback" role="status" aria-live="polite"></p>
+    </fieldset>
+
+    <fieldset data-answer="b" data-explanation="A single ordered response item does not establish equal intervals. Whether an average is useful depends on a defensible modeling assumption, not the numerical labels alone.">
+      <legend>5. Why is it usually risky to treat a single 1-to-5 Likert item as interval data?</legend>
+      <label><input type="radio" name="esa-scale-check-5" value="a"> Its recorded numbers are always random.</label>
+      <label><input type="radio" name="esa-scale-check-5" value="b"> Its ordered response categories need not be equally spaced.</label>
+      <label><input type="radio" name="esa-scale-check-5" value="c"> It must be a nominal variable with no order.</label>
+      <p class="esa-check-feedback" role="status" aria-live="polite"></p>
+    </fieldset>
+  </div>
 </section>
 
 <!-- NAVIGATION -->
@@ -324,3 +369,22 @@ sidebar: false
 
   </div>
 </section>
+<script>
+(function () {
+  const check = document.getElementById("esa-self-check");
+  if (!check) return;
+  check.querySelectorAll("fieldset").forEach(question => {
+    question.addEventListener("change", event => {
+      const choice = event.target;
+      if (!choice.matches('input[type="radio"]') || !choice.checked) return;
+      const feedback = question.querySelector(".esa-check-feedback");
+      if (!feedback) return;
+      const correct = choice.value === question.dataset.answer;
+      feedback.textContent = (correct ? "Correct. " : "Not quite. ") +
+                             question.dataset.explanation;
+      feedback.dataset.state = correct ? "correct" : "incorrect";
+    });
+  });
+})();
+</script>
+
