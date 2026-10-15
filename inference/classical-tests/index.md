@@ -650,7 +650,26 @@ sidebar: false
 
 <!-- BLOCK MAP -->
 
-<section class="section section-slim">
+<style>
+  /* The existing 640px comparison table must scroll inside its grid item,
+     not widen the whole page on mobile screens. */
+  @media (max-width: 900px) {
+    #esa-classical-block-map .callout {
+      grid-template-columns: minmax(0, 1fr);
+      max-width: 100%;
+      min-width: 0;
+    }
+    #esa-classical-block-map .callout-copy,
+    #esa-classical-block-map .table-wrap {
+      min-width: 0;
+      max-width: 100%;
+    }
+    #esa-classical-block-map .table-wrap {
+      overflow-x: auto;
+    }
+  }
+</style>
+<section class="section section-slim" id="esa-classical-block-map">
 
   <div class="callout">
 
