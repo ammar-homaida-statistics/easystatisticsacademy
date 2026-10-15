@@ -2294,6 +2294,155 @@ class SearchTests(unittest.TestCase):
                 self.assertEqual(progress["url"], route)
                 self.assertIsInstance(progress["ts"], (int, float))
 
+    def test_restored_significance_alpha_five_expressions(self):
+        """Five formulas: p-value decisions, level-versus-size, test/CI duality."""
+        route = "/inference/hypothesis-testing/significance-level-alpha/"
+        self.page.goto(self.origin + route, wait_until="networkidle")
+        expect(self.page.locator("main h1")).to_have_text("Significance Level (α)")
+        html = (SITE / route.lstrip("/") / "index.html").read_text()
+        main = html.split('<main id="main-content"', 1)[1].split("</main>", 1)[0]
+        for formula in (
+            r"\alpha\in(0,1)",
+            r"\alpha=0.05",
+            r"p=0.03&lt;\alpha=0.05",
+            r"p=0.18&gt;\alpha=0.05",
+            r"\sup_{\theta\in\Theta_0}P_\theta(\text{reject }H_0)\le0.05",
+        ):
+            with self.subTest(formula=formula):
+                self.assertIn(formula, main)
+        self.assertEqual(main.count(r"\["), 5)
+        self.assertEqual(main.count(r"\]"), 5)
+        alpha = 0.05
+        self.assertTrue(0.03 <= alpha)
+        self.assertFalse(0.18 <= alpha)
+        # A discrete test can have size strictly below nominal alpha.
+        self.assertLessEqual(0.5**5, alpha)
+        self.assertLess(0.5**5, alpha)
+        self.assertEqual(0.05, alpha)  # exact-size test, if attained
+        body = self.page.locator("main")
+        for phrase in (
+            "Exact equality requires an exact-size test",
+            "two-sided test and its compatible two-sided 95% confidence",
+            "inverting the same test",
+            "at most about 5%",
+            "conservative or discrete test may reject less often",
+        ):
+            with self.subTest(phrase=phrase):
+                expect(body).to_contain_text(phrase)
+        self.assertNotIn(
+            "then approximately 5% of those studies would incorrectly reject",
+            body.inner_text())
+        self.assertNotIn("\uea01", main)
+        self.assertNotIn("\uea02", main)
+
+    def test_restored_statistical_power_five_expressions(self):
+        """Alternative-specific beta, long-run power and planning conventions."""
+        route = "/inference/power-sample-size/what-is-statistical-power/"
+        self.page.goto(self.origin + route, wait_until="networkidle")
+        expect(self.page.locator("main h1")).to_have_text("What Is Statistical Power?")
+        html = (SITE / route.lstrip("/") / "index.html").read_text()
+        main = html.split('<main id="main-content"', 1)[1].split("</main>", 1)[0]
+        for formula in (
+            r"\beta(\theta)=P_\theta(\text{fail to reject }H_0)",
+            r"\operatorname{Power}(\theta)=P_\theta(\text{reject }H_0)",
+            r"=1-\beta(\theta),\quad\theta\in\Theta_1",
+            r"\operatorname{Power}(\theta_*)=0.80",
+            r"\beta(\theta_*)=1-0.80=0.20",
+            r"\sup_{\theta\in\Theta_0}P_\theta(\text{reject }H_0)\le\alpha",
+            r"\beta(\theta)=1-\operatorname{Power}(\theta)",
+        ):
+            with self.subTest(formula=formula):
+                self.assertIn(formula, main)
+        self.assertEqual(main.count(r"\["), 5)
+        self.assertEqual(main.count(r"\]"), 5)
+        self.assertAlmostEqual(0.8 + 0.2, 1)
+        self.assertAlmostEqual(1 - 0.2, 0.8)
+        # Toy test, reject H0 (Bernoulli p=.5) for five successes out of five.
+        # Power and beta depend on the true alternative success probability.
+        power_08 = 0.8**5
+        power_09 = 0.9**5
+        self.assertNotAlmostEqual(power_08, power_09)
+        self.assertAlmostEqual(power_08 + (1 - power_08), 1)
+        self.assertLessEqual(0.5**5, 0.05)
+        body = self.page.locator("main")
+        for phrase in (
+            "alternative-hypothesis set",
+            "specified alternative",
+            "At another true effect size",
+            "Common planning target, not a universal minimum",
+            "not a guarantee for a single study",
+            "does not guarantee replication",
+        ):
+            with self.subTest(phrase=phrase):
+                expect(body).to_contain_text(phrase)
+        self.assertNotIn("\uea01", main)
+        self.assertNotIn("\uea02", main)
+
+    def test_restored_bias_variance_four_expressions_and_examples(self):
+        """Verify signed bias -5 and finite illustrative variances."""
+        route = "/inference/foundations/bias-and-variance-intuition/"
+        self.page.goto(self.origin + route, wait_until="networkidle")
+        expect(self.page.locator("main h1")).to_have_text("Bias and Variance Intuition")
+        html = (SITE / route.lstrip("/") / "index.html").read_text()
+        main = html.split('<main id="main-content"', 1)[1].split("</main>", 1)[0]
+        for formula in (
+            r"\widehat{\theta}",
+            r"\theta",
+            r"\operatorname{Bias}_{\theta}(\widehat{\theta})",
+            r"=\operatorname{E}_{\theta}(\widehat{\theta})-\theta",
+            r"\operatorname{E}_{\theta}(\widehat{\theta})=\theta",
+            r"\operatorname{Bias}_{\theta}(\widehat{\theta})=0",
+        ):
+            with self.subTest(formula=formula):
+                self.assertIn(formula, main)
+        self.assertEqual(main.count(r"\["), 4)
+        self.assertEqual(main.count(r"\]"), 4)
+        self.assertEqual(95 - 100, -5)
+        high = [70, 110, 95, 130, 85]
+        low = [99, 101, 100, 98, 102]
+        high_average = sum(high) / len(high)
+        low_average = sum(low) / len(low)
+        high_variance = sum((v - high_average)**2 for v in high) / len(high)
+        low_variance = sum((v - low_average)**2 for v in low) / len(low)
+        self.assertEqual((high_average, low_average), (98, 100))
+        self.assertEqual((high_variance, low_variance), (426, 2))
+        self.assertGreater(high_variance, low_variance)
+        body = self.page.locator("main")
+        for phrase in (
+            "numerical bias is 95 − 100 = −5 units",
+            "error in an individual observed estimate",
+            "average is 98",
+            "illustration is 426",
+            "average is 100",
+            "values is 2",
+            "five values alone do not establish the exact",
+        ):
+            with self.subTest(phrase=phrase):
+                expect(body).to_contain_text(phrase)
+        self.assertNotIn("\uea01", main)
+        self.assertNotIn("\uea02", main)
+
+    def test_alpha_power_bias_repairs_preserve_navigation_and_progress(self):
+        """Check existing lesson routes, navigation and progress storage keys."""
+        cases = (
+            ("/inference/hypothesis-testing/significance-level-alpha/",
+             "esa_continue_inference_hypothesis_testing_lesson_v0"),
+            ("/inference/power-sample-size/what-is-statistical-power/",
+             "esa_continue_inference_power_sample_size_lesson_v0"),
+            ("/inference/foundations/bias-and-variance-intuition/",
+             "esa_continue_inference_foundations_lesson_v0"),
+        )
+        for route, key in cases:
+            with self.subTest(route=route):
+                self.page.goto(self.origin + route, wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+                self.assertGreater(
+                    self.page.locator("main .lesson-nav a[href]").count(), 0)
+                progress = self.page.evaluate(
+                    "key => JSON.parse(localStorage.getItem(key))", key)
+                self.assertEqual(progress["url"], route)
+                self.assertIsInstance(progress["ts"], (int, float))
+
     def test_representative_lessons_and_navigation(self):
         self.open()
         cases = {

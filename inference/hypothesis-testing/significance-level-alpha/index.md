@@ -111,7 +111,9 @@ sidebar: false
       It is denoted by:
     </p>
 
-    0
+    \[
+\alpha\in(0,1)
+\]
 
     <h2>The Basic Decision Rule</h2>
 
@@ -144,7 +146,9 @@ sidebar: false
       the standard choice is:
     </p>
 
-    1
+    \[
+\alpha=0.05
+\]
 
     <p>
       This convention became widespread through historical statistical practice.
@@ -211,7 +215,9 @@ sidebar: false
       <strong>Interpretation:</strong>
 
       <p>
-        α controls the long-run probability of falsely rejecting a true null hypothesis.
+        For a correctly calibrated level-α test, the long-run probability
+        of falsely rejecting a true null hypothesis is at most α.
+        Exact equality requires an exact-size test.
       </p>
 
     </div>
@@ -238,7 +244,9 @@ sidebar: false
       Since:
     </p>
 
-    2
+    \[
+p=0.03<\alpha=0.05
+\]
 
     <p>
       we reject the null hypothesis.
@@ -270,7 +278,9 @@ sidebar: false
       Since:
     </p>
 
-    3
+    \[
+p=0.18>\alpha=0.05
+\]
 
     <p>
       we fail to reject the null hypothesis.
@@ -377,14 +387,19 @@ sidebar: false
     <div class="example-box">
 
       <p>
-        A null value outside a 95% confidence interval corresponds to rejection at α = 0.05.
+        For a two-sided test and its compatible two-sided 95% confidence
+        interval (constructed by inverting the same test), a null value
+        excluded by the interval corresponds to rejection at α = 0.05.
+        This duality need not hold for mismatched procedures,
+        one-sided tests, or different assumptions.
       </p>
     </div>
 
     <h2>Why Not Always Use a Tiny α?</h2>
 
     <p>
-      A very small significance level reduces false rejections.
+      With a properly calibrated testing procedure, lowering α lowers
+      the permitted Type I error rate.
     </p>
 
     <p>
@@ -401,7 +416,9 @@ sidebar: false
       <strong>Tradeoff:</strong>
 
       <p>
-        Smaller α decreases false alarms but increases the chance of missing real effects.
+        With other conditions fixed and nested rejection regions, a smaller
+        α cannot increase false-alarm probability and can increase the
+        probability of missing a specified real effect.
       </p>
 
     </div>
@@ -455,17 +472,23 @@ sidebar: false
     <h2>The Long-Run Perspective</h2>
 
     <p>
-      Imagine repeating the same study thousands of times when the null hypothesis is actually true.
+      Imagine repeating the same correctly calibrated study thousands of
+      times under the null hypothesis. Let Θ₀ denote its null parameter space.
     </p>
 
     <p>
       If:
     </p>
 
-    4
+    \[
+\alpha=0.05\quad\Longrightarrow\quad
+\sup_{\theta\in\Theta_0}P_\theta(\text{reject }H_0)\le0.05
+\]
 
     <p>
-      then approximately 5% of those studies would incorrectly reject H₀.
+      then at most about 5% of repeated studies would incorrectly reject H₀,
+      in the long run. An exact-size 0.05 test reaches 5% at a least-favorable
+      null parameter value; a conservative or discrete test may reject less often.
     </p>
 
     <p>
@@ -528,7 +551,7 @@ sidebar: false
 
         <li>α = 0.05 is the most common choice</li>
 
-        <li>α controls the long-run probability of falsely rejecting a true H₀</li>
+        <li>A calibrated level-α test controls long-run false rejections at or below α</li>
 
         <li>Smaller α requires stronger evidence</li>
 

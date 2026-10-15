@@ -158,7 +158,10 @@ sidebar: false
     </p>
 
     <p>
-      This is bias.
+      The example's numerical bias is 95 − 100 = −5 units.
+      The negative sign indicates underestimation on average.
+      Bias refers to the average over repeated samples, not the
+      error in an individual observed estimate.
     </p>
 
     <h2>Mathematical Definition of Bias</h2>
@@ -167,19 +170,26 @@ sidebar: false
       For an estimator:
     </p>
 
-    0
+    \[
+\widehat{\theta}
+\]
 
     <p>
       estimating parameter:
     </p>
 
-    1
+    \[
+\theta
+\]
 
     <p>
       bias is:
     </p>
 
-    2
+    \[
+\operatorname{Bias}_{\theta}(\widehat{\theta})
+=\operatorname{E}_{\theta}(\widehat{\theta})-\theta
+\]
 
     <h2>Unbiased Estimators</h2>
 
@@ -187,11 +197,17 @@ sidebar: false
       An estimator is unbiased if:
     </p>
 
-    3
+    \[
+\operatorname{E}_{\theta}(\widehat{\theta})=\theta
+\quad\Longleftrightarrow\quad
+\operatorname{Bias}_{\theta}(\widehat{\theta})=0
+\]
 
     <p>
-      On average,
-      it hits the correct target.
+      An unbiased estimator hits the target on average over repeated
+      samples under the stated statistical model; an individual estimate
+      need not equal the target. The expectation must exist, and the
+      unbiasedness property is defined for the parameter values of interest.
     </p>
 
     <p>
@@ -245,11 +261,15 @@ sidebar: false
     </div>
 
     <p>
-      These estimates fluctuate dramatically.
+      These hypothetical estimates fluctuate substantially between samples.
+      Their average is 98, and their population-style variance as a finite
+      illustration is 426.
     </p>
 
     <p>
-      The estimator has high variance.
+      These five illustrative estimates show much greater spread than the
+      low-variance example; five values alone do not establish the exact
+      sampling variance of an estimator.
     </p>
 
     <h2>Low Variance</h2>
@@ -283,11 +303,14 @@ sidebar: false
     </div>
 
     <p>
-      These estimates cluster tightly together.
+      These hypothetical estimates cluster tightly together.
+      Their average is 100, and the corresponding variance over these
+      five illustrative values is 2.
     </p>
 
     <p>
-      The estimator has low variance.
+      This illustrative set is much less variable; genuine estimator
+      variance is defined over the sampling distribution.
     </p>
 
     <h2>Bias and Variance Are Different</h2>

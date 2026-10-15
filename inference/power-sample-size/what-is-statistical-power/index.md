@@ -116,22 +116,30 @@ sidebar: false
     </ul>
 
     <p>
-      The probability of a Type II error is denoted by:
+      At a specified alternative parameter value θ in the
+      alternative-hypothesis set Θ₁, the Type II error probability is:
     </p>
 
-    0
+    \[
+\beta(\theta)=P_\theta(\text{fail to reject }H_0),
+\qquad\theta\in\Theta_1
+\]
 
     <h2>Defining Statistical Power</h2>
 
     <p>
-      Statistical power is the probability of correctly detecting a real effect.
+      Statistical power is the probability that a test rejects the null
+      hypothesis at a specified true alternative parameter θ.
     </p>
 
     <p>
       Mathematically:
     </p>
 
-    1
+    \[
+\operatorname{Power}(\theta)=P_\theta(\text{reject }H_0)
+=1-\beta(\theta),\quad\theta\in\Theta_1
+\]
 
     <p>
       where:
@@ -139,19 +147,23 @@ sidebar: false
 
     <ul class="bullets">
 
-      <li>β = probability of a Type II error</li>
+      <li>β(θ) = probability of a Type II error at the chosen alternative θ</li>
 
-      <li>1 − β = probability of correctly rejecting a false null hypothesis</li>
+      <li>1 − β(θ) = probability of correctly rejecting a false null hypothesis at that θ</li>
 
     </ul>
 
     <h2>Interpreting Power</h2>
 
     <p>
-      Suppose:
+      Suppose the design achieves the following power at a specified
+      alternative θ* (a particular effect size):
     </p>
 
-    2
+    \[
+\operatorname{Power}(\theta_*)=0.80,\qquad
+\beta(\theta_*)=1-0.80=0.20
+\]
 
     <p>
       This means:
@@ -160,12 +172,14 @@ sidebar: false
     <div class="example-box">
 
       <p>
-        If the effect truly exists, the study will detect it about 80% of the time.
+        If the specified effect θ* is the true alternative, this
+        procedure rejects H₀ in about 80% of repeated studies.
       </p>
     </div>
 
     <p>
-      The remaining 20% corresponds to Type II errors.
+      At that same alternative θ*, the remaining 20% corresponds to
+      Type II errors. At another true effect size, power and β may differ.
     </p>
 
     <h2>Visualizing the Idea</h2>
@@ -256,7 +270,7 @@ sidebar: false
 
           <tr>
             <td>0.80</td>
-            <td>Common minimum standard</td>
+            <td>Common planning target, not a universal minimum</td>
           </tr>
 
           <tr>
@@ -281,7 +295,9 @@ sidebar: false
       Traditional hypothesis testing focuses heavily on:
     </p>
 
-    3
+    \[
+\sup_{\theta\in\Theta_0}P_\theta(\text{reject }H_0)\le\alpha
+\]
 
     <p>
       which controls Type I errors.
@@ -291,10 +307,14 @@ sidebar: false
       Power focuses on the other side of the problem:
     </p>
 
-    4
+    \[
+\beta(\theta)=1-\operatorname{Power}(\theta),
+\qquad\theta\in\Theta_1
+\]
 
     <p>
-      and the ability to detect real effects.
+      A lower β(θ) indicates a greater chance of detecting that specified
+      alternative; both quantities must refer to the same θ.
     </p>
 
     <div class="concept-box">
@@ -362,7 +382,9 @@ sidebar: false
     </p>
 
     <p>
-      Larger samples generally increase power.
+      With a fixed alternative, significance level, distributional model,
+      and comparable study design, larger samples generally increase power.
+      Sample size alone cannot remedy selection bias or incorrect assumptions.
     </p>
 
     <h2>Power and Evidence</h2>
@@ -407,7 +429,8 @@ sidebar: false
     </p>
 
     <p>
-      Well-powered studies produce more reliable and stable conclusions.
+      Adequate power reduces the chance of overlooking the chosen effect,
+      but does not guarantee replication or protect against study bias.
     </p>
 
     <h2>The Bigger Picture</h2>
@@ -429,7 +452,10 @@ sidebar: false
       <strong>Core message:</strong>
 
       <p>
-        Statistical power is the probability of detecting a real effect. It equals 1 − β, where β is the probability of a Type II error. High power makes meaningful effects easier to detect and helps ensure that studies provide informative results.
+        At a stated alternative parameter θ, statistical power is the
+        probability of rejecting H₀. It equals 1 − β(θ), where β(θ)
+        denotes the probability of failing to reject at the same alternative.
+        Power is a planning property, not a guarantee for a single study.
       </p>
 
     </div>
@@ -458,13 +484,13 @@ sidebar: false
 
         <li>Statistical power is the probability of detecting a real effect</li>
 
-        <li>Power equals 1 − β</li>
+        <li>At a specified alternative θ, power equals 1 − β(θ)</li>
 
         <li>β represents the probability of a Type II error</li>
 
         <li>Low power increases the chance of missing meaningful effects</li>
 
-        <li>Common target power levels are 0.80 and 0.90</li>
+        <li>Common planning targets include 0.80 and 0.90, not universal requirements</li>
 
         <li>Power depends on effect size, sample size, significance level, and variability</li>
 
