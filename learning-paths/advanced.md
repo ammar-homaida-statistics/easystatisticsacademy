@@ -50,7 +50,7 @@ permalink: /learning-paths/advanced/
         <li>Theoretical properties</li>
       </ul>
 
-      <p class="muted-mini"><strong>Study:</strong> <a href="/mathematical-statistics/maximum-likelihood-estimation/definition-of-mle/">maximum likelihood estimation</a>, <a href="/mathematical-statistics/likelihood-and-log-likelihood/score-function/">the score function</a>, <a href="/mathematical-statistics/fisher-information-and-efficiency/cramer-rao-lower-bound/">the Cramér–Rao bound</a>, and <a href="/mathematical-statistics/asymptotic-theory/delta-method/">the delta method</a>.</p>
+      <p class="esa-advanced-study"><strong>Study:</strong> <a href="/mathematical-statistics/maximum-likelihood-estimation/definition-of-mle/">maximum likelihood estimation</a>, <a href="/mathematical-statistics/likelihood-and-log-likelihood/score-function/">the score function</a>, <a href="/mathematical-statistics/fisher-information-and-efficiency/cramer-rao-lower-bound/">the Cramér–Rao bound</a>, and <a href="/mathematical-statistics/asymptotic-theory/delta-method/">the delta method</a>.</p>
       <p><strong>Checkpoint:</strong> Explain when an estimator is unbiased or asymptotically normal, and why the Cramér–Rao bound requires regularity conditions.</p>
 
       <a class="card-foot" href="/mathematical-statistics/">View theory overview →</a>
@@ -68,7 +68,7 @@ permalink: /learning-paths/advanced/
         <li>Complex regression</li>
       </ul>
 
-      <p class="muted-mini"><strong>Study:</strong> <a href="/modeling/extensions/logistic-regression/">logistic regression</a>, <a href="/modeling/extensions/interpreting-logistic-coefficients/">odds-ratio interpretation</a>, and <a href="/modeling/extensions/glm/">generalized linear models</a>.</p>
+      <p class="esa-advanced-study"><strong>Study:</strong> <a href="/modeling/extensions/logistic-regression/">logistic regression</a>, <a href="/modeling/extensions/interpreting-logistic-coefficients/">odds-ratio interpretation</a>, and <a href="/modeling/extensions/glm/">generalized linear models</a>.</p>
       <p><strong>Checkpoint:</strong> Explain why logistic coefficients are log-odds effects rather than changes in probability.</p>
 
       <a class="card-foot" href="/modeling/extensions/">Explore modeling extensions →</a>
@@ -87,7 +87,7 @@ permalink: /learning-paths/advanced/
         <li>Model evaluation</li>
       </ul>
 
-      <p class="muted-mini"><strong>Study now:</strong> <a href="/modeling/model-fit-comparison/train-vs-test/">training versus test evaluation</a> and <a href="/modeling/model-fit-comparison/overfitting/">overfitting</a> (published). Supervised and unsupervised machine-learning lessons remain planned.</p>
+      <p class="esa-advanced-study"><strong>Study now:</strong> <a href="/modeling/model-fit-comparison/train-vs-test/">training versus test evaluation</a> and <a href="/modeling/model-fit-comparison/overfitting/">overfitting</a> (published). Supervised and unsupervised machine-learning lessons remain planned.</p>
       <p><strong>Checkpoint:</strong> Identify why tuning and evaluating on the same test data can lead to optimistic performance estimates.</p>
 
       <a class="card-foot" href="/machine-learning/">View curriculum overview →</a>
@@ -106,7 +106,7 @@ permalink: /learning-paths/advanced/
         <li>Anomaly detection</li>
       </ul>
 
-      <p class="muted-mini"><strong>Study now:</strong> <a href="/applied-statistics/study-design/bias-confounding/">bias and confounding</a> (published). Detailed clustering, association-rule and anomaly-detection lessons remain planned.</p>
+      <p class="esa-advanced-study"><strong>Study now:</strong> <a href="/applied-statistics/study-design/bias-confounding/">bias and confounding</a> (published). Detailed clustering, association-rule and anomaly-detection lessons remain planned.</p>
       <p><strong>Checkpoint:</strong> Explain why finding a pattern in observational data does not by itself establish a causal mechanism.</p>
 
       <a class="card-foot" href="/data-mining/">View curriculum overview →</a>
@@ -124,7 +124,7 @@ permalink: /learning-paths/advanced/
         <li>Practical decision-making</li>
       </ul>
 
-      <p class="muted-mini"><strong>Study:</strong> <a href="/modeling/model-fit-comparison/aic-bic/">AIC and BIC</a>, <a href="/modeling/diagnostics/residual-plots/">residual diagnostics</a>, and <a href="/modeling/diagnostics/cooks-distance/">Cook's distance</a>.</p>
+      <p class="esa-advanced-study"><strong>Study:</strong> <a href="/modeling/model-fit-comparison/aic-bic/">AIC and BIC</a>, <a href="/modeling/diagnostics/residual-plots/">residual diagnostics</a>, and <a href="/modeling/diagnostics/cooks-distance/">Cook's distance</a>.</p>
       <p><strong>Checkpoint:</strong> Distinguish predictive performance, model-selection criteria and influential-observation diagnostics.</p>
 
       <a class="card-foot" href="/modeling/model-fit-comparison/">Explore model evaluation →</a>
@@ -143,7 +143,7 @@ permalink: /learning-paths/advanced/
         <li>Real-world datasets</li>
       </ul>
 
-      <p class="muted-mini"><strong>Practice now:</strong> Work through the <a href="/applied-statistics/practice/">published applied-statistics practice overview</a>; advanced software tutorials and complete ML workflows are planned.</p>
+      <p class="esa-advanced-study"><strong>Practice now:</strong> Work through the <a href="/applied-statistics/practice/">published applied-statistics practice overview</a>; advanced software tutorials and complete ML workflows are planned.</p>
       <p><strong>Checkpoint:</strong> Outline a defensible workflow from research design through diagnostics, model comparison and reporting.</p>
 
       <a class="card-foot" href="/software/">View software overview →</a>
