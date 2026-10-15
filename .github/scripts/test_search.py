@@ -3259,7 +3259,16 @@ class SearchTests(unittest.TestCase):
             self.page.set_viewport_size({"width": width, "height": 850})
             overflow = self.page.evaluate(
                 "() => document.documentElement.scrollWidth-innerWidth")
-            self.assertLessEqual(overflow, 1, f"Guide overflow at {width}px")
+            offenders = self.page.evaluate("""() =>
+              [...document.querySelectorAll('body *')]
+                .filter(e => e.getBoundingClientRect().right > innerWidth + 1)
+                .map(e => ({tag:e.tagName, id:e.id, className:
+                  typeof e.className === 'string' ? e.className.slice(0,70) : '',
+                  right:Math.round(e.getBoundingClientRect().right)}))
+                .slice(0, 8)
+            """) if overflow > 1 else []
+            self.assertLessEqual(overflow, 1,
+                                 f"Guide overflow at {width}px: {offenders}")
 
     def test_search_index_excludes_lesson_navigation_and_progress_noise(self):
         """Index remains discoverable while snippets prioritize lesson content."""
@@ -3280,8 +3289,15 @@ class SearchTests(unittest.TestCase):
             with self.subTest(query=query):
                 self.open()
                 self.input.fill(query)
-                expect(self.results.locator("a.search-item").first).to_have_attribute(
-                    "href", expected)
+                if query == "measurement scales":
+                    # Both Foundations and Descriptive Statistics publish
+                    # a lesson with this exact title; either may rank first.
+                    self.assertIn(expected, self.results.locator(
+                        "a.search-item").evaluate_all(
+                        "links => links.map(link => link.getAttribute('href'))"))
+                else:
+                    expect(self.results.locator("a.search-item").first).to_have_attribute(
+                        "href", expected)
                 self.assertEqual(self.errors, [])
 
     def test_representative_lessons_and_navigation(self):
