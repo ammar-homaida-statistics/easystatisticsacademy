@@ -1846,7 +1846,7 @@ class SearchTests(unittest.TestCase):
             "4 percentage points (not 4% of 62%)",
             "58% to 66%",
             "49% to 55%",
-            "normal or t-based",
+            "normal- or t-based",
             "not universal",
             "not a formula for every confidence interval",
         ):
