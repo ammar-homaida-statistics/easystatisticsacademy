@@ -2074,12 +2074,19 @@ class SearchTests(unittest.TestCase):
         self.assertAlmostEqual(
             variance, n * (K / N) * (1 - K / N) * (N - n) / (N - 1))
         self.assertAlmostEqual(variance, 0.4318181818181818)
+        p = K / N
+        self.assertAlmostEqual(1 * p * (1 - p) * (N - 1) / (N - 1),
+                               1 * p * (1 - p))
+        self.assertLess(2 * p * (1 - p) * (N - 2) / (N - 1),
+                        2 * p * (1 - p))
         content = self.page.locator("main")
         for phrase in (
             "three parameters (N, K, n)",
             "x is a possible observed value",
             "individual sample still contains a whole-number count",
             "N = 1 the draw count is deterministic",
+            "no greater than binomial variance",
+            "at n = 1 the two variances agree",
         ):
             with self.subTest(phrase=phrase):
                 expect(content).to_contain_text(phrase)
