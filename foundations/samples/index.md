@@ -94,17 +94,24 @@ sidebar: false
     <h2>The Goal of Sampling</h2>
 
     <p>
-      A good sample should:
+      First define the <strong>target population</strong>: the group we want
+      to describe. The way participants are selected matters because it
+      determines which parts of that population can enter the sample.
+    </p>
+
+    <p>
+      A useful sampling design aims to:
     </p>
 
     <ul class="bullets">
-      <li>Represent the population</li>
-      <li>Capture its variability</li>
-      <li>Allow reliable conclusions</li>
+      <li>Give relevant members of the target population a suitable chance to be included</li>
+      <li>Capture important differences among those members</li>
+      <li>Support conclusions with clearly stated assumptions and limitations</li>
     </ul>
 
     <p>
-      If the sample is not representative, results will be misleading.
+      A poorly matched selection process can produce <strong>selection bias</strong>;
+      representativeness is not determined by sample size alone.
     </p>
   </div>
 
@@ -142,17 +149,22 @@ sidebar: false
     <h2>Representativeness</h2>
 
     <p>
-      A sample must reflect the population.
+      Whether a sample is representative depends on the <strong>target population</strong>,
+      the characteristic being measured, and the <strong>selection mechanism</strong>.
     </p>
 
-    <p><strong>Bad example:</strong></p>
-
-    <ul class="bullets">
-      <li>Survey only athletes to estimate average height ❌</li>
-    </ul>
+    <p><strong>Example:</strong> Suppose we want to estimate the average height
+      of <em>all university students</em> but recruit only athletes.
+      If athletes differ systematically in height from other students,
+      this selection can bias our estimate of the university-wide mean.
+      The direction and size of any bias depend on the population and selection process;
+      bias is a risk, not an automatic certainty.
+    </p>
 
     <p>
-      This produces biased results.
+      If our target population is <em>university athletes</em> instead,
+      recruiting athletes may be appropriate, provided the recruitment method
+      adequately represents that target group.
     </p>
   </div>
 
@@ -161,16 +173,15 @@ sidebar: false
     <h2>Sample Size</h2>
 
     <p>
-      Larger samples tend to give better estimates.
-    </p>
-
-    <p>
-      But:
+      With a suitable sampling design, larger samples generally reduce
+      <strong>random sampling variability</strong> and improve precision.
+      This does not guarantee accuracy if the sample is systematically unrepresentative.
     </p>
 
     <ul class="bullets">
-      <li>Size alone does not guarantee accuracy</li>
-      <li>Bias cannot be fixed by large samples</li>
+      <li>Sample size mainly affects random sampling error under appropriate assumptions</li>
+      <li>Selection bias can remain even in a very large sample</li>
+      <li>Address potential bias by improving the selection process, not only by recruiting more people</li>
     </ul>
   </div>
 
