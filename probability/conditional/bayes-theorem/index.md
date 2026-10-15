@@ -149,19 +149,23 @@ sidebar: false
     <h2>Starting from Conditional Probability</h2>
 
     <p>
-      Recall the conditional probability formula.
+      Recall the conditional probability formula for events \(A\) and \(B\), provided that \(P(B)>0\).
     </p>
 
-    0
+    \[
+P(A\mid B)=\frac{P(A\cap B)}{P(B)},\qquad P(B)>0
+\]
 
     <p>
       We can also write:
     </p>
 
-    1
+    \[
+P(B\mid A)=\frac{P(A\cap B)}{P(A)},\qquad P(A)>0
+\]
 
     <p>
-      Both formulas involve the same intersection probability.
+      Both expressions describe the same intersection probability, \(P(A\cap B)\), but their denominators differ. They are valid only when the relevant conditioning event has positive probability.
     </p>
 
     <h2>Deriving Bayes' Theorem</h2>
@@ -170,21 +174,30 @@ sidebar: false
       From the multiplication rule:
     </p>
 
-    2
+    \[
+P(A\cap B)=P(B\mid A)\,P(A)
+\]
 
     <p>
       Substituting into the conditional probability formula gives:
     </p>
 
-    3
+    \[
+P(A\mid B)=\frac{P(B\mid A)\,P(A)}{P(B)}
+\]
 
     <p>
-      This is Bayes' theorem.
+      This is Bayes' theorem for \(P(B)>0\), obtained by substituting the multiplication rule into the definition of conditional probability.
     </p>
 
     <h2>The Bayes Formula</h2>
 
-    4
+    \[
+\underbrace{P(A\mid B)}_{\text{posterior}}
+=\frac{\overbrace{P(B\mid A)}^{\text{likelihood}}\,
+\overbrace{P(A)}^{\text{prior}}}
+{\underbrace{P(B)}_{\text{evidence}}}
+\]
 
     <p>
       Although the formula appears simple,
@@ -271,7 +284,7 @@ sidebar: false
       </p>
 
       <p>
-        Positive-test probability = 5%
+        Overall positive-test probability across the whole population = 5% (not a 5% false-positive rate)
       </p>
 
     </div>
@@ -296,10 +309,18 @@ sidebar: false
       Bayes' theorem becomes:
     </p>
 
-    5
+    \[
+P(D\mid +)=\frac{P(+\mid D)\,P(D)}{P(+)}
+=\frac{0.95\times0.01}{0.05}
+=0.19=19\%
+\]
 
     <p>
-      This calculation updates the probability of disease after observing a positive test result.
+      Therefore 19% of people who test positive have the disease under these illustrative assumptions. The result is not the 95% sensitivity: \(P(D\mid +)\) and \(P(+\mid D)\) condition on different events.
+    </p>
+
+    <p>
+      For internal consistency, these three inputs imply a false-positive rate of \(P(+\mid D^{c})=(0.05-0.95\times0.01)/0.99\approx0.0409\), or about 4.09%. This is distinct from the overall 5% positive-test probability.
     </p>
 
     <h2>The Role of the Prior</h2>
@@ -400,10 +421,12 @@ sidebar: false
       For example:
     </p>
 
-    6
+    \[
+P(+)=P(+\mid D)\,P(D)+P(+\mid D^{c})\,P(D^{c})
+\]
 
     <p>
-      This calculation accounts for all ways the evidence could occur.
+      Here \(D^{c}\) denotes not having the disease. The two mutually exclusive cases, disease and no disease, exhaust the population; their contributions add to the overall positive-test probability.
     </p>
 
     <h2>Applications of Bayes' Theorem</h2>

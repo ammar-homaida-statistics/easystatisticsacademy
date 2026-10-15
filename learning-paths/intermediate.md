@@ -32,7 +32,7 @@ permalink: /learning-paths/intermediate/
 <section class="section" id="start">
   <div class="section-head">
     <h2>Learning Steps</h2>
-    <p>Focus on deeper understanding, assumptions, and correct application.</p>
+    <p>Work through the existing lessons in order. Each step includes a concrete study target and a checkpoint to test understanding.</p>
   </div>
 
   <div class="grid grid-3">
@@ -49,7 +49,9 @@ permalink: /learning-paths/intermediate/
         <li>Limitations of p-values</li>
       </ul>
 
-      <a class="card-foot" href="/inference/hypothesis-testing/">Explore →</a>
+      <p class="muted-mini"><strong>Study:</strong> <a href="/inference/hypothesis-testing/type1-type2-errors/">Type I &amp; Type II Errors</a>, then <a href="/inference/hypothesis-testing/p-value-meaning/">P-Value Meaning</a>.</p>
+      <p class="muted-mini"><strong>Checkpoint:</strong> Explain why a p-value is not the probability that the null hypothesis is true.</p>
+      <a class="card-foot" href="/inference/hypothesis-testing/">Explore Hypothesis Testing →</a>
     </div>
 
     <!-- STEP 2 -->
@@ -64,7 +66,9 @@ permalink: /learning-paths/intermediate/
         <li>Diagnostics</li>
       </ul>
 
-      <a class="card-foot" href="/modeling/simple-linear-regression/">Explore →</a>
+      <p class="muted-mini"><strong>Study:</strong> <a href="/modeling/simple-linear-regression/regression-equation/">Regression Equation</a>, then <a href="/modeling/simple-linear-regression/residuals/">Residuals</a>.</p>
+      <p class="muted-mini"><strong>Checkpoint:</strong> Interpret a fitted slope and identify what a residual measures.</p>
+      <a class="card-foot" href="/modeling/simple-linear-regression/">Explore Linear Regression →</a>
     </div>
 
     <!-- STEP 3 -->
@@ -79,7 +83,9 @@ permalink: /learning-paths/intermediate/
         <li>Interpretation of results</li>
       </ul>
 
-      <a class="card-foot" href="/applied-statistics/study-design/">Explore →</a>
+      <p class="muted-mini"><strong>Study:</strong> <a href="/applied-statistics/study-design/experimental-vs-observational/">Experimental vs Observational</a>, then <a href="/applied-statistics/study-design/bias-confounding/">Bias &amp; Confounding</a>.</p>
+      <p class="muted-mini"><strong>Checkpoint:</strong> Identify which causal claims a study design can and cannot support.</p>
+      <a class="card-foot" href="/applied-statistics/study-design/">Explore Study Design →</a>
     </div>
 
     <!-- STEP 4 -->
@@ -94,7 +100,9 @@ permalink: /learning-paths/intermediate/
         <li>Model validation</li>
       </ul>
 
-      <a class="card-foot" href="/modeling/diagnostics/">Explore →</a>
+      <p class="muted-mini"><strong>Study:</strong> <a href="/modeling/diagnostics/residual-plots/">Residual Plots</a>, then <a href="/modeling/model-fit-comparison/overfitting/">Overfitting</a>.</p>
+      <p class="muted-mini"><strong>Checkpoint:</strong> Identify a residual pattern and explain why training fit alone is insufficient.</p>
+      <a class="card-foot" href="/modeling/diagnostics/">Explore Diagnostics →</a>
     </div>
 
     <!-- STEP 5 -->
@@ -109,7 +117,9 @@ permalink: /learning-paths/intermediate/
         <li>Scientific reasoning</li>
       </ul>
 
-      <a class="card-foot" href="/applied-statistics/reporting/">Explore →</a>
+      <p class="muted-mini"><strong>Study:</strong> <a href="/inference/interpretation-reporting/interpreting-confidence-intervals/">Interpreting Confidence Intervals</a>, then <a href="/inference/interpretation-reporting/reporting-results-clear-language/">Reporting Results in Clear Language</a>.</p>
+      <p class="muted-mini"><strong>Checkpoint:</strong> Write a plain-language conclusion that reports an estimate, uncertainty, and limitations.</p>
+      <a class="card-foot" href="/applied-statistics/reporting/">Explore Reporting →</a>
     </div>
 
     <!-- PRACTICE -->
@@ -124,7 +134,8 @@ permalink: /learning-paths/intermediate/
         <li>End-to-end analysis</li>
       </ul>
 
-      <a class="card-foot" href="/software/">Practice →</a>
+      <p class="muted-mini">Software tutorials are planned. For now, use the <a href="/applied-statistics/practice/">Applied Statistics practice overview</a> to connect the concepts.</p>
+      <a class="card-foot" href="/software/">View Software Curriculum →</a>
     </div>
 
   </div>
