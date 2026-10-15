@@ -2304,8 +2304,8 @@ class SearchTests(unittest.TestCase):
         for formula in (
             r"\alpha\in(0,1)",
             r"\alpha=0.05",
-            r"p=0.03<\alpha=0.05",
-            r"p=0.18>\alpha=0.05",
+            r"p=0.03&lt;\alpha=0.05",
+            r"p=0.18&gt;\alpha=0.05",
             r"\sup_{\theta\in\Theta_0}P_\theta(\text{reject }H_0)\le0.05",
         ):
             with self.subTest(formula=formula):
