@@ -105,25 +105,39 @@ sidebar: false
       the sample mean is:
     </p>
 
-    0
+    \[
+\bar X_n=\frac{1}{n}\sum_{i=1}^{n}X_i
+\]
 
     <p>
-      Both laws describe what happens to this quantity as:
+      For independent and identically distributed (i.i.d.) observations
+      with a finite absolute first moment E|X₁| &lt; ∞,
+      both laws apply as:
     </p>
 
-    1
+    \[
+n\longrightarrow\infty
+\]
 
     <h2>The Weak Law of Large Numbers</h2>
 
     <p>
-      The Weak Law states that the sample mean converges to the population mean in probability.
+      For the stated i.i.d. integrable observations with mean μ = E(X₁),
+      the Weak Law states that the sample mean converges in probability
+      to the population mean. A finite variance is sufficient but not
+      necessary for this version.
     </p>
 
     <p>
       Symbolically:
     </p>
 
-    2
+    \[
+\bar X_n\xrightarrow{P}\mu
+\quad\Longleftrightarrow\quad
+P\!\left(\lvert\bar X_n-\mu\rvert>\varepsilon\right)\longrightarrow0
+\quad\text{for every }\varepsilon>0
+\]
 
     <div class="concept-box">
 
@@ -160,14 +174,20 @@ sidebar: false
     <h2>The Strong Law of Large Numbers</h2>
 
     <p>
-      The Strong Law states that the sample mean converges almost surely to the population mean.
+      Under the same i.i.d. integrability assumption, the Strong Law
+      states that the sample mean converges almost surely to μ.
+      It does not require finite variance.
     </p>
 
     <p>
       Symbolically:
     </p>
 
-    3
+    \[
+\bar X_n\xrightarrow{\mathrm{a.s.}}\mu
+\quad\Longleftrightarrow\quad
+P\!\left(\lim_{n\to\infty}\bar X_n=\mu\right)=1
+\]
 
     <div class="concept-box">
 
@@ -199,8 +219,10 @@ sidebar: false
     </div>
 
     <p>
-      In practical applications,
-      probability-zero exceptions can usually be ignored.
+      Almost sure convergence is a mathematical statement about entire
+      infinite sample paths, not a guarantee that every finite sample mean
+      is close to μ. A probability-zero exceptional event is still
+      logically possible.
     </p>
 
     <h2>An Intuitive Comparison</h2>
@@ -248,7 +270,9 @@ sidebar: false
     <h2>A Coin Toss Example</h2>
 
     <p>
-      Suppose we repeatedly toss a fair coin.
+      Suppose we repeatedly toss a fair coin independently, coding each
+      head as 1 and each tail as 0. These are i.i.d. Bernoulli trials with
+      mean 0.5, so their sample mean is also the proportion of heads.
     </p>
 
     <p>
@@ -271,7 +295,11 @@ sidebar: false
       Then:
     </p>
 
-    4
+    \[
+X_i\overset{\mathrm{iid}}{\sim}\mathrm{Bernoulli}\!\left(\tfrac12\right),
+\qquad \bar X_n=\frac1n\sum_{i=1}^n X_i
+\xrightarrow{\mathrm{a.s.}}\frac12
+\]
 
     <p>
       The sequence of sample proportions of heads illustrates both laws.
@@ -314,8 +342,9 @@ sidebar: false
     <h2>Do Practitioners Need Both?</h2>
 
     <p>
-      In many applied settings,
-      the distinction has little practical impact.
+      In many introductory applications, both versions motivate
+      consistency of sample averages. The mode of convergence and the
+      theorem's assumptions still matter when making a rigorous claim.
     </p>
 
     <p>
