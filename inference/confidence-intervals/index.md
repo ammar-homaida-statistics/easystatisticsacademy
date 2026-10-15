@@ -12,11 +12,15 @@ sidebar: false
 
   const KEY = "esa_continue_inference_last_block_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
     url: "/inference/confidence-intervals/",
     label: "Block 2 — Confidence Intervals",
     ts: Date.now()
   }));
+  } catch (_) {
+    // Gracefully continue when the browser denies persistent storage.
+  }
 
 })();
 </script>
