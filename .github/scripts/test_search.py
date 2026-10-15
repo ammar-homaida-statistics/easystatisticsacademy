@@ -2443,6 +2443,173 @@ class SearchTests(unittest.TestCase):
                 self.assertEqual(progress["url"], route)
                 self.assertIsInstance(progress["ts"], (int, float))
 
+    def test_restored_weak_strong_lln_five_expressions(self):
+        """Validate i.i.d. LLN hypotheses, distinct convergence and coin mean."""
+        from html import unescape
+        from math import comb
+        route = "/probability/lln-clt/weak-vs-strong-lln/"
+        self.page.goto(self.origin + route, wait_until="networkidle")
+        expect(self.page.locator("main h1")).to_have_text("Weak vs Strong LLN")
+        html = (SITE / route.lstrip("/") / "index.html").read_text()
+        main = unescape(
+            html.split('<main id="main-content"', 1)[1].split("</main>", 1)[0])
+        for formula in (
+            r"\bar X_n=\frac{1}{n}\sum_{i=1}^{n}X_i",
+            r"n\longrightarrow\infty",
+            r"\bar X_n\xrightarrow{P}\mu",
+            r"P\!\left(\lvert\bar X_n-\mu\rvert>\varepsilon\right)\longrightarrow0",
+            r"\bar X_n\xrightarrow{\mathrm{a.s.}}\mu",
+            r"P\!\left(\lim_{n\to\infty}\bar X_n=\mu\right)=1",
+            r"X_i\overset{\mathrm{iid}}{\sim}\mathrm{Bernoulli}",
+            r"\xrightarrow{\mathrm{a.s.}}\frac12",
+        ):
+            with self.subTest(formula=formula):
+                self.assertIn(formula, main)
+        self.assertEqual(main.count(r"\["), 5)
+        self.assertEqual(main.count(r"\]"), 5)
+        # Independent, fair Bernoulli outcomes have E(X)=1/2.
+        self.assertEqual((0 + 1) / 2, 0.5)
+        # Exact coin-toss binomial tails decrease markedly in this example.
+        def outside_tolerance(n, tolerance=0.2):
+            return sum(comb(n, k) / 2**n
+                       for k in range(n + 1)
+                       if abs(k / n - 0.5) > tolerance + 1e-12)
+        self.assertLess(outside_tolerance(100), outside_tolerance(10))
+        body = self.page.locator("main")
+        for phrase in (
+            "independent and identically distributed",
+            "finite absolute first moment",
+            "finite variance is sufficient but not",
+            "does not require finite variance",
+            "not a guarantee that every finite sample",
+            "almost surely",
+            "the reverse statement is not always true",
+        ):
+            with self.subTest(phrase=phrase):
+                expect(body).to_contain_text(phrase)
+        self.assertNotIn("\uea01", main)
+        self.assertNotIn("\uea02", main)
+
+    def test_restored_sampling_distribution_four_expressions(self):
+        """Check exact iid mean and SE versus asymptotic CLT and design caveat."""
+        from html import unescape
+        from math import sqrt
+        route = "/probability/sampling-distributions/what-is-a-sampling-distribution/"
+        self.page.goto(self.origin + route, wait_until="networkidle")
+        expect(self.page.locator("main h1")).to_have_text(
+            "What Is a Sampling Distribution?")
+        html = (SITE / route.lstrip("/") / "index.html").read_text()
+        main = unescape(
+            html.split('<main id="main-content"', 1)[1].split("</main>", 1)[0])
+        for formula in (
+            r"\bar X_n=\frac{1}{n}\sum_{i=1}^{n}X_i",
+            r"\operatorname{E}(\bar X_n)=\mu",
+            r"\operatorname{SE}(\bar X_n)",
+            r"=\sqrt{\operatorname{Var}(\bar X_n)}",
+            r"=\frac{\sigma}{\sqrt n}",
+            r"\operatorname{SE}(\bar X_{4n})",
+            r"=\frac12\,\operatorname{SE}(\bar X_n)",
+            r"(\sigma\text{ fixed})",
+        ):
+            with self.subTest(formula=formula):
+                self.assertIn(formula, main)
+        self.assertEqual(main.count(r"\["), 4)
+        self.assertEqual(main.count(r"\]"), 4)
+        # The existing four-value population samples pairs without replacement.
+        vals = [2, 4, 6, 8]
+        means = [(vals[i] + vals[j]) / 2
+                 for i in range(4) for j in range(i + 1, 4)]
+        self.assertEqual(means, [3, 4, 5, 5, 6, 7])
+        self.assertEqual(sum(means) / len(means), 5)
+        self.assertEqual(sum(vals) / len(vals), 5)
+        self.assertEqual((sum((x - 5)**2 for x in means) / 6), 5 / 3)
+        # The formula in the lesson assumes independent sampling instead.
+        sigma, n = 20, 25
+        self.assertEqual(sigma / sqrt(n), 4)
+        self.assertEqual(sigma / sqrt(4 * n), 2)
+        body = self.page.locator("main")
+        for phrase in (
+            "without replacement",
+            "six equally likely unordered pairs",
+            "independent, identically distributed sampling",
+            "asymptotic approximation is distinct from the exact",
+            "theoretical standard error of the mean",
+            "s/√n",
+            "standard error is halved",
+        ):
+            with self.subTest(phrase=phrase):
+                expect(body).to_contain_text(phrase)
+        self.assertNotIn("\uea01", main)
+        self.assertNotIn("\uea02", main)
+
+    def test_restored_post_hoc_four_expressions_and_fwer(self):
+        """Verify ANOVA H0, 20-test false positives and Bonferroni union bound."""
+        from html import unescape
+        from math import comb
+        route = "/inference/classical-tests/post-hoc-tests-and-multiple-comparisons-preview/"
+        self.page.goto(self.origin + route, wait_until="networkidle")
+        expect(self.page.locator("main h1")).to_have_text(
+            "Post-Hoc Tests and Multiple Comparisons")
+        html = (SITE / route.lstrip("/") / "index.html").read_text()
+        main = unescape(
+            html.split('<main id="main-content"', 1)[1].split("</main>", 1)[0])
+        for formula in (
+            r"H_0:\ \mu_A=\mu_B=\mu_C=\mu_D",
+            r"\alpha_{\mathrm{per\ test}}=0.05",
+            r"P(\text{at least one false positive})",
+            r"=1-(1-0.05)^{20}=1-0.95^{20}\approx0.642",
+            r"\alpha_{\mathrm{Bonferroni}}=\frac{\alpha}{m}",
+        ):
+            with self.subTest(formula=formula):
+                self.assertIn(formula, main)
+        self.assertEqual(main.count(r"\["), 4)
+        self.assertEqual(main.count(r"\]"), 4)
+        self.assertEqual(comb(4, 2), 6)  # four-group pairwise comparisons
+        fwer_independent = 1 - 0.95**20
+        self.assertAlmostEqual(fwer_independent, 0.6415140775914581)
+        self.assertAlmostEqual(fwer_independent, 0.642, delta=0.001)
+        alpha, m = 0.05, 20
+        self.assertAlmostEqual(alpha / m, 0.0025)
+        self.assertLessEqual(m * (alpha / m), alpha)
+        # Union bound also applies to dependent (even identical) rejection events.
+        p = 0.0025
+        self.assertLessEqual(p, m * p)
+        body = self.page.locator("main")
+        for phrase in (
+            "mutually independent rejection events",
+            "exact Type I error",
+            "0.6415, or 64.2%",
+            "nominal test",
+            "union bound",
+            "does not require independent tests",
+            "m ≥ 1",
+        ):
+            with self.subTest(phrase=phrase):
+                expect(body).to_contain_text(phrase)
+        self.assertNotIn("\uea01", main)
+        self.assertNotIn("\uea02", main)
+
+    def test_lln_sampling_posthoc_preserve_progress_and_navigation(self):
+        """Preserve routes, current lesson continuation and next/previous links."""
+        cases = (
+            ("/probability/lln-clt/weak-vs-strong-lln/",
+             "esa_continue_probability_lln_clt_lesson_v0"),
+            ("/probability/sampling-distributions/what-is-a-sampling-distribution/",
+             "esa_continue_probability_sampling_distributions_lesson_v0"),
+            ("/inference/classical-tests/post-hoc-tests-and-multiple-comparisons-preview/",
+             "esa_continue_inference_classical_tests_lesson_v0"),
+        )
+        for route, key in cases:
+            with self.subTest(route=route):
+                self.page.goto(self.origin + route, wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+                self.assertGreater(
+                    self.page.locator("main .lesson-nav a[href]").count(), 0)
+                progress = self.page.evaluate(
+                    "key => JSON.parse(localStorage.getItem(key))", key)
+                self.assertEqual(progress["url"], route)
+                self.assertIsInstance(progress["ts"], (int, float))
+
     def test_representative_lessons_and_navigation(self):
         self.open()
         cases = {
