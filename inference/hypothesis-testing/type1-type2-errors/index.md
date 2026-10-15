@@ -219,10 +219,14 @@ sidebar: false
     <h2>The Probability of a Type I Error</h2>
 
     <p>
-      The significance level directly controls the probability of a Type I error.
+      For a test calibrated to significance level α, the Type I error
+      probability is at most α for every parameter value θ allowed under
+      the null hypothesis (the set Θ₀):
     </p>
 
-    0
+    \[
+\sup_{\theta\in\Theta_0}P_{\theta}(\text{reject }H_0)\le\alpha
+\]
 
     <p>
       For example:
@@ -236,7 +240,10 @@ sidebar: false
     </div>
 
     <p>
-      implies a long-run Type I error rate of approximately 5%.
+      means a Type I error rate of at most 5% under the null model,
+      provided the test is correctly calibrated. Equality holds for
+      a test with exact size 0.05, but discrete or conservative tests
+      can have a smaller Type I error probability.
     </p>
 
     <h2>Type II Error</h2>
@@ -268,7 +275,7 @@ sidebar: false
     <div class="example-box">
 
       <p>
-        Concluding a drug does not work when it actually does.
+        Failing to detect a genuine drug effect when the null hypothesis is false.
       </p>
 
       <p>
@@ -276,7 +283,7 @@ sidebar: false
       </p>
 
       <p>
-        Concluding two teaching methods are equivalent when one truly performs better.
+        Failing to detect a genuine difference between two teaching methods.
       </p>
 
     </div>
@@ -287,11 +294,15 @@ sidebar: false
       The probability of a Type II error is denoted by:
     </p>
 
-    1
+    \[
+\beta(\theta)=P_{\theta}(\text{fail to reject }H_0),
+\qquad\theta\in\Theta_1
+\]
 
     <p>
-      Unlike α,
-      β depends on several factors:
+      Here θ lies in the alternative-hypothesis set Θ₁. The Type II
+      error probability β(θ) is defined at a particular alternative
+      and depends on several factors:
     </p>
 
     <ul class="bullets">
@@ -367,14 +378,19 @@ sidebar: false
       lowering:
     </p>
 
-    2
+    \[
+\alpha:\ 0.05\longrightarrow0.01
+\]
 
     <p>
       makes rejection more difficult.
     </p>
 
     <p>
-      This reduces Type I errors but may increase Type II errors.
+      For a fixed sample size and a family of tests whose rejection regions
+      are nested, this cannot increase Type I error and can increase Type II
+      error for a given alternative. It is not an unavoidable tradeoff
+      if the study design or sample size can also change.
     </p>
 
     <div class="concept-box">
@@ -485,7 +501,17 @@ sidebar: false
       Power is directly related to Type II error:
     </p>
 
-    3
+    \[
+\operatorname{Power}(\theta)=P_{\theta}(\text{reject }H_0)
+=1-\beta(\theta),\qquad\theta\in\Theta_1
+\]
+
+    <p>
+      Power and Type II error are evaluated at the same specified alternative θ.
+      Failure to reject H₀ does not prove that H₀ is true or that treatments
+      are equivalent. Establishing equivalence requires a separate equivalence
+      design and a pre-specified equivalence margin.
+    </p>
 
     <p>
       This relationship becomes a major topic in the next lesson.
@@ -547,7 +573,7 @@ sidebar: false
 
         <li>A Type II error fails to reject a false null hypothesis</li>
 
-        <li>The probability of a Type I error equals α</li>
+        <li>A calibrated level-α test has Type I error probability at most α; exact-size tests attain equality</li>
 
         <li>The probability of a Type II error is denoted by β</li>
 

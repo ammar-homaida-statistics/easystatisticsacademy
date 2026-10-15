@@ -2148,6 +2148,152 @@ class SearchTests(unittest.TestCase):
                 self.assertEqual(progress["url"], route)
                 self.assertIsInstance(progress["ts"], (int, float))
 
+    def test_restored_standard_error_estimators_five_expressions(self):
+        """Restore mean, true and estimated SE, sample size, and Bernoulli p."""
+        from math import sqrt
+        route = "/probability/sampling-distributions/standard-error-and-estimators/"
+        self.page.goto(self.origin + route, wait_until="networkidle")
+        expect(self.page.locator("main h1")).to_have_text(
+            "Standard Error and Estimators")
+        html = (SITE / route.lstrip("/") / "index.html").read_text()
+        main = html.split('<main id="main-content"', 1)[1].split("</main>", 1)[0]
+        for formula in (
+            r"\bar X=\frac{1}{n}\sum_{i=1}^{n}X_i",
+            r"\operatorname{SE}(\bar X)=\sqrt{\operatorname{Var}(\bar X)}=\frac{\sigma}{\sqrt n}",
+            r"\operatorname{SE}(\bar X)\propto\frac{1}{\sqrt n}",
+            r"\operatorname{SE}(\bar X)=\frac{20}{\sqrt{100}}=2",
+            r"\operatorname{SE}(\widehat p)=\sqrt{\frac{p(1-p)}{n}}",
+            r"\widehat{\operatorname{SE}}(\widehat p)=\sqrt{\frac{\widehat p(1-\widehat p)}{n}}",
+        ):
+            with self.subTest(formula=formula):
+                self.assertIn(formula, main)
+        self.assertEqual(main.count(r"\["), 5)
+        self.assertEqual(main.count(r"\]"), 5)
+        self.assertAlmostEqual(sum([2, 4, 6]) / 3, 4)
+        self.assertEqual([20 / sqrt(n) for n in (25, 100, 400)], [4, 2, 1])
+        p, n = 0.3, 100
+        self.assertAlmostEqual(sqrt(p * (1 - p) / n), sqrt(0.0021))
+        phat = 30 / n
+        self.assertAlmostEqual(
+            sqrt(phat * (1 - phat) / n), sqrt(0.0021))
+        content = self.page.locator("main")
+        for phrase in (
+            "independent, identically distributed observations",
+            "theoretical SE",
+            "plug-in estimate",
+            "sampling without replacement",
+            "not every confidence interval uses this symmetric form",
+            "exact and randomization-based tests",
+        ):
+            with self.subTest(phrase=phrase):
+                expect(content).to_contain_text(phrase)
+        self.assertNotIn("\uea01", main)
+        self.assertNotIn("\uea02", main)
+
+    def test_restored_sd_vs_se_three_expressions(self):
+        """Differentiate population SD, sample SD and mean uncertainty."""
+        from math import sqrt
+        route = "/inference/foundations/sd-vs-se-common-confusion/"
+        self.page.goto(self.origin + route, wait_until="networkidle")
+        expect(self.page.locator("main h1")).to_have_text(
+            "SD vs SE — Common Confusion")
+        html = (SITE / route.lstrip("/") / "index.html").read_text()
+        main = html.split('<main id="main-content"', 1)[1].split("</main>", 1)[0]
+        for formula in (
+            r"\operatorname{SE}(\bar X)=\frac{\sigma}{\sqrt n}",
+            r"\widehat{\operatorname{SE}}(\bar X)=\frac{s}{\sqrt n}",
+            r"\widehat{\operatorname{SE}}(\bar X)=\frac{20}{\sqrt{100}}=2",
+        ):
+            with self.subTest(formula=formula):
+                self.assertIn(formula, main)
+        self.assertEqual(main.count(r"\["), 3)
+        self.assertEqual(main.count(r"\]"), 3)
+        self.assertAlmostEqual(20 / sqrt(100), 2)
+        self.assertAlmostEqual(20 / sqrt(25), 4)
+        self.assertAlmostEqual(20 / sqrt(400), 1)
+        content = self.page.locator("main")
+        for phrase in (
+            "population standard deviation σ",
+            "sample standard deviation s",
+            "Sample SD (s) = 20",
+            "estimated standard error of the mean",
+            "Mean ± SE alone is not generally a 95% confidence interval",
+        ):
+            with self.subTest(phrase=phrase):
+                expect(content).to_contain_text(phrase)
+        self.assertNotIn("\uea01", main)
+        self.assertNotIn("\uea02", main)
+
+    def test_restored_type_one_two_error_probabilities_and_power(self):
+        """Validate alpha control, alternative-dependent beta and 1-beta."""
+        route = "/inference/hypothesis-testing/type1-type2-errors/"
+        self.page.goto(self.origin + route, wait_until="networkidle")
+        expect(self.page.locator("main h1")).to_have_text(
+            "Type I and Type II Errors")
+        html = (SITE / route.lstrip("/") / "index.html").read_text()
+        main = html.split('<main id="main-content"', 1)[1].split("</main>", 1)[0]
+        for formula in (
+            r"\sup_{\theta\in\Theta_0}P_{\theta}(\text{reject }H_0)\le\alpha",
+            r"\beta(\theta)=P_{\theta}(\text{fail to reject }H_0)",
+            r"\alpha:\ 0.05\longrightarrow0.01",
+            r"\operatorname{Power}(\theta)=P_{\theta}(\text{reject }H_0)",
+            r"=1-\beta(\theta),\qquad\theta\in\Theta_1",
+        ):
+            with self.subTest(formula=formula):
+                self.assertIn(formula, main)
+        self.assertEqual(main.count(r"\["), 4)
+        self.assertEqual(main.count(r"\]"), 4)
+        # H0: Bernoulli p=0.5, n=5; reject only if all five are successes.
+        alpha_actual = 0.5 ** 5
+        self.assertLessEqual(alpha_actual, 0.05)
+        alternative_p = 0.8
+        power = alternative_p ** 5
+        beta = 1 - power
+        self.assertAlmostEqual(power + beta, 1)
+        self.assertAlmostEqual(power, 1 - beta)
+        self.assertLess(0.01, 0.05)
+        content = self.page.locator("main")
+        for phrase in (
+            "at most 5% under the null model",
+            "exact size 0.05",
+            "discrete or conservative tests",
+            "particular alternative",
+            "nested",
+            "does not prove that H₀ is true",
+            "equivalence margin",
+        ):
+            with self.subTest(phrase=phrase):
+                expect(content).to_contain_text(phrase)
+        self.assertNotIn(
+            "Concluding two teaching methods are equivalent",
+            content.inner_text())
+        self.assertNotIn(
+            "The probability of a Type I error equals α",
+            content.inner_text())
+        self.assertNotIn("\uea01", main)
+        self.assertNotIn("\uea02", main)
+
+    def test_new_se_and_error_lessons_preserve_navigation_and_progress(self):
+        """Three repaired lessons keep their routes, navigation and keys."""
+        cases = (
+            ("/probability/sampling-distributions/standard-error-and-estimators/",
+             "esa_continue_probability_sampling_distributions_lesson_v0"),
+            ("/inference/foundations/sd-vs-se-common-confusion/",
+             "esa_continue_inference_foundations_lesson_v0"),
+            ("/inference/hypothesis-testing/type1-type2-errors/",
+             "esa_continue_inference_hypothesis_testing_lesson_v0"),
+        )
+        for route, key in cases:
+            with self.subTest(route=route):
+                self.page.goto(self.origin + route, wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+                self.assertGreater(
+                    self.page.locator("main .lesson-nav a[href]").count(), 0)
+                progress = self.page.evaluate(
+                    "key => JSON.parse(localStorage.getItem(key))", key)
+                self.assertEqual(progress["url"], route)
+                self.assertIsInstance(progress["ts"], (int, float))
+
     def test_representative_lessons_and_navigation(self):
         self.open()
         cases = {
