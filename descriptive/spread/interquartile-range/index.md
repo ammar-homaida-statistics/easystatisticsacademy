@@ -150,7 +150,9 @@ sidebar: false
       The Interquartile Range is calculated as:
     </p>
 
-    0
+    \[
+\operatorname{IQR}=Q_3-Q_1
+\]
 
     <p>
       The result represents the spread of the middle half of the observations.
@@ -196,6 +198,14 @@ sidebar: false
       </p>
 
     </div>
+
+    <p>
+      This example uses the <strong>median-of-halves convention</strong>: because
+      there are nine observations, exclude the overall median (10) and take
+      the medians of the four observations below and above it. Other quartile
+      conventions, including some software percentile methods, may give
+      different Q1, Q3, and IQR values for the same dataset.
+    </p>
 
     <p>
       The lower half is:
@@ -249,7 +259,9 @@ sidebar: false
       Therefore:
     </p>
 
-    1
+    \[
+\operatorname{IQR}=15-5=10
+\]
 
     <p>
       The Interquartile Range is 10.
