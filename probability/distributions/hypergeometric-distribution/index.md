@@ -422,7 +422,10 @@ P(X=x)=\frac{\binom{K}{x}\binom{N-K}{n-x}}{\binom{N}{n}},
       <strong>Important:</strong>
 
       <p>
-        Hypergeometric variance is smaller than comparable binomial variance because sampling without replacement reduces uncertainty.
+        For the same n and success fraction K/N, hypergeometric variance is
+        no greater than binomial variance. It is strictly smaller when
+        1 &lt; n ≤ N and 0 &lt; K &lt; N (with N &gt; 1);
+        at n = 1 the two variances agree.
       </p>
 
     </div>
