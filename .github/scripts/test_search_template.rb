@@ -99,8 +99,8 @@ rank = lambda do |records, query|
     priority = if title == q then 0
     elsif title.start_with?(q) then 1
     elsif title.include?(q) then 2
-    elsif content.include?(q) then 3
-    elsif terms.size > 1 && terms.all? { |t| title.include?(t) } then 4
+    elsif terms.size > 1 && terms.all? { |t| title.include?(t) } then 3
+    elsif content.include?(q) then 4
     elsif terms.size > 1 && terms.all? { |t| title.include?(t) || content.include?(t) } then 5
     else 6 end
     [priority, page["url"]] if priority < 6
