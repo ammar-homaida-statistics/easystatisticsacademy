@@ -187,7 +187,15 @@ sidebar: false
       The normal density function is:
     </p>
 
-    0
+    \[
+f_X(x)=\frac{1}{\sigma\sqrt{2\pi}}\exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right),
+\qquad x\in\mathbb{R},\quad \sigma>0
+\]
+
+    <p>
+      Here μ is the real-valued mean and σ is the strictly positive
+      standard deviation. The density integrates to one over the real line.
+    </p>
 
     <p>
       Although the formula appears complex,
@@ -277,7 +285,9 @@ sidebar: false
       A particularly important normal distribution has:
     </p>
 
-    1
+    \[
+\mu=0,\qquad \sigma=1,\qquad Z\sim N(0,1)
+\]
 
     <p>
       This distribution is called the standard normal distribution.
@@ -315,10 +325,15 @@ sidebar: false
       Any normal observation can be converted into a standard normal value using:
     </p>
 
-    2
+    \[
+Z=\frac{X-\mu}{\sigma}\sim N(0,1)
+\quad\text{if }X\sim N(\mu,\sigma^2),\ \sigma>0
+\]
 
     <p>
       This transformation measures how many standard deviations an observation lies from the mean.
+      A z-score can be computed for any distribution with a finite, positive
+      standard deviation, but it is exactly standard normal only when X is normal.
     </p>
 
     <h2>Interpreting Z-Scores</h2>
@@ -420,6 +435,12 @@ sidebar: false
       </p>
 
     </div>
+
+    <p>
+      The 68%, 95%, and 99.7% figures are rounded probabilities under
+      a normal model (about 68.27%, 95.45%, and 99.73%).
+      They are not guaranteed percentages in a finite sample or for a nonnormal distribution.
+    </p>
 
     <h2>The Central Limit Theorem</h2>
 
