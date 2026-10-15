@@ -2855,8 +2855,8 @@ class SearchTests(unittest.TestCase):
                     content + '</p></main>', 1)
                 self.page.route(
                     "**/learning-paths/intermediate/",
-                    lambda route, body=fixture: route.fulfill(
-                        status=200, content_type="text/html", body=body))
+                    lambda route: route.fulfill(
+                        status=200, content_type="text/html", body=fixture))
                 try:
                     self.page.goto(self.origin + route, wait_until="networkidle")
                     expect(self.page.locator("#math-detection-case")).to_be_visible()
