@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_descriptive_spread_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
-    url: "/descriptive/spread/what-is-variability/",
-    label: "What Is Variability?",
-    ts: Date.now()
-  }));
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
+      url: "/descriptive/spread/what-is-variability/",
+      label: "What Is Variability?",
+      ts: Date.now()
+    }));
+  } catch (_) {
+    // Progress storage is optional; the lesson remains readable when blocked.
+  }
 
 })();
 </script>

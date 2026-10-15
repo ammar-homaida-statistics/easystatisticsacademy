@@ -1512,6 +1512,111 @@ class SearchTests(unittest.TestCase):
             "/probability/distributions/normal-distribution/")
         self.assertTrue((SITE / "probability/distributions/normal-distribution/index.html").is_file())
 
+    def test_spread_lessons_save_and_resume(self):
+        """Each lesson records its own canonical URL and keeps resume working."""
+        key = "esa_continue_descriptive_spread_lesson_v0"
+        lessons = (
+            ("what-is-variability", "What Is Variability?"),
+            ("range", "Range"),
+            ("interquartile-range", "Interquartile Range (IQR)"),
+            ("variance", "Variance"),
+            ("standard-deviation", "Standard Deviation"),
+            ("coefficient-of-variation", "Coefficient of Variation"),
+            ("reporting-spread-properly", "Reporting Spread Properly"),
+        )
+        for slug, title in lessons:
+            with self.subTest(lesson=slug):
+                url = "/descriptive/spread/" + slug + "/"
+                self.page.goto(self.origin + url, wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_have_text(title)
+                state = self.page.evaluate(
+                    "key => JSON.parse(localStorage.getItem(key))", key)
+                self.assertEqual(state["url"], url)
+                self.assertEqual(state["label"], title)
+                self.assertIsInstance(state["ts"], (int, float))
+                self.page.goto(self.origin + "/descriptive/spread/",
+                               wait_until="networkidle")
+                panel = self.page.locator("#continue-reading-block5")
+                expect(panel).to_be_visible()
+                expect(self.page.locator("#continue-reading-block5-btn")
+                       ).to_have_attribute("href", url)
+                expect(self.page.locator("#continue-reading-block5-label strong")
+                       ).to_have_text(title)
+
+    def test_spread_lessons_work_when_storage_denied(self):
+        """Blocked localStorage does not prevent loading or navigating any lesson."""
+        self.page.add_init_script("""
+            Object.defineProperty(window, 'localStorage', {
+              configurable: true,
+              get() { throw new DOMException('Denied', 'SecurityError'); }
+            });
+        """)
+        for slug in ("what-is-variability", "range", "interquartile-range",
+                     "variance", "standard-deviation",
+                     "coefficient-of-variation", "reporting-spread-properly"):
+            with self.subTest(lesson=slug):
+                self.page.goto(
+                    self.origin + "/descriptive/spread/" + slug + "/",
+                    wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+                self.assertGreater(self.page.locator("main a[href]").count(), 0)
+        self.page.goto(self.origin + "/descriptive/spread/",
+                       wait_until="networkidle")
+        expect(self.page.locator("main h1")).to_be_visible()
+        expect(self.page.locator("#continue-reading-block5")).to_be_hidden()
+
+    def test_samples_target_population_and_numerical_example(self):
+        """Sampling claims are conditional, and the original heights are correct."""
+        self.page.goto(self.origin + "/foundations/samples/",
+                       wait_until="networkidle")
+        text = self.page.locator("main").inner_text()
+        heights = [170, 172, 168, 171, 169]
+        self.assertEqual(sum(heights) / len(heights), 170)
+        self.assertIn("Heights: 170, 172, 168, 171, 169", text)
+        self.assertIn("(170 + 172 + 168 + 171 + 169) / 5 = 170", text)
+        for phrase in ("target population", "selection mechanism",
+                       "selection bias", "all university students",
+                       "university athletes", "not an automatic certainty",
+                       "random sampling variability",
+                       "Selection bias can remain even in a very large sample"):
+            with self.subTest(phrase=phrase):
+                self.assertIn(phrase, text)
+        self.assertNotIn("This produces biased results.", text)
+        self.assertNotIn("A sample must reflect the population.", text)
+
+    def test_mathematical_statistics_previews_and_resume(self):
+        """Every theory block is explicitly marked as an unfinished preview."""
+        self.page.goto(self.origin + "/mathematical-statistics/",
+                       wait_until="networkidle")
+        cards = self.page.locator("#blocks .lesson-card")
+        expect(cards).to_have_count(7)
+        expect(self.page.locator("#blocks .section-head")).to_contain_text(
+            "All seven published block pages are currently under construction")
+        for index in range(7):
+            with self.subTest(block=index + 1):
+                card = cards.nth(index)
+                expect(card.locator(".muted-mini")).to_contain_text(
+                    "Under construction")
+                title_link = card.locator("h3 a")
+                url = title_link.get_attribute("href")
+                expect(card.locator("a.btn")).to_have_text("Preview block")
+                expect(card.locator("a.btn")).to_have_attribute("href", url)
+                file = SITE / url.lstrip("/") / "index.html"
+                self.assertTrue(file.is_file(), url)
+                self.assertIn("under construction", file.read_text().lower())
+        first_url = cards.first.locator("h3 a").get_attribute("href")
+        # Existing click handler keeps the saved progress key and destination.
+        self.page.locator("a[href='" + first_url + "']").first.click()
+        state = self.page.evaluate(
+            "key => JSON.parse(localStorage.getItem(key))",
+            "esa_continue_ms_last_block_v0")
+        self.assertEqual(state["url"], first_url)
+        self.page.goto(self.origin + "/mathematical-statistics/",
+                       wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-ms")).to_be_visible()
+        expect(self.page.locator("#continue-reading-ms-btn")
+               ).to_have_attribute("href", first_url)
+
     def test_representative_lessons_and_navigation(self):
         self.open()
         cases = {

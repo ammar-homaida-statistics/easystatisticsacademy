@@ -28,7 +28,7 @@ sidebar: false
       </p>
 
       <p class="muted-mini">
-        7 structured blocks • Theory-focused • Advanced track
+        7 planned theory blocks • All currently under construction • Advanced track
       </p>
 
       <div class="hero-actions">
@@ -73,6 +73,8 @@ sidebar: false
     <p>
       This unit builds the theoretical foundation of statistical inference.
       Each block develops formal tools used to justify estimation procedures.
+      All seven published block pages are currently <strong>under construction</strong>.
+      Their links open curriculum previews, not completed theory lessons.
     </p>
   </div>
 
@@ -96,7 +98,8 @@ sidebar: false
         Formalize parametric models, parameter spaces, identifiability,
         and assumptions defining statistical experiments.
       </p>
-      <a class="btn btn-outline" href="/mathematical-statistics/statistical-models/">Open block</a>
+      <p class="muted-mini">Under construction — curriculum preview, not a completed lesson.</p>
+      <a class="btn btn-outline" href="/mathematical-statistics/statistical-models/">Preview block</a>
     </div>
 
     <!-- BLOCK 2 -->
@@ -106,7 +109,8 @@ sidebar: false
         Develop likelihood, log-likelihood, score functions,
         and information as the core structure of estimation.
       </p>
-      <a class="btn btn-outline" href="/mathematical-statistics/likelihood-and-log-likelihood/">Open block</a>
+      <p class="muted-mini">Under construction — curriculum preview, not a completed lesson.</p>
+      <a class="btn btn-outline" href="/mathematical-statistics/likelihood-and-log-likelihood/">Preview block</a>
     </div>
 
     <!-- BLOCK 3 -->
@@ -115,7 +119,8 @@ sidebar: false
       <p>
         Derive estimators via likelihood equations and analyze their properties.
       </p>
-      <a class="btn btn-outline" href="/mathematical-statistics/maximum-likelihood-estimation/">Open block</a>
+      <p class="muted-mini">Under construction — curriculum preview, not a completed lesson.</p>
+      <a class="btn btn-outline" href="/mathematical-statistics/maximum-likelihood-estimation/">Preview block</a>
     </div>
 
     <!-- BLOCK 4 -->
@@ -124,7 +129,8 @@ sidebar: false
       <p>
         Study bias, variance, MSE, consistency, and efficiency.
       </p>
-      <a class="btn btn-outline" href="/mathematical-statistics/estimator-properties/">Open block</a>
+      <p class="muted-mini">Under construction — curriculum preview, not a completed lesson.</p>
+      <a class="btn btn-outline" href="/mathematical-statistics/estimator-properties/">Preview block</a>
     </div>
 
     <!-- BLOCK 5 -->
@@ -133,7 +139,8 @@ sidebar: false
       <p>
         Analyze Fisher information and the Cramér–Rao lower bound.
       </p>
-      <a class="btn btn-outline" href="/mathematical-statistics/fisher-information-and-efficiency/">Open block</a>
+      <p class="muted-mini">Under construction — curriculum preview, not a completed lesson.</p>
+      <a class="btn btn-outline" href="/mathematical-statistics/fisher-information-and-efficiency/">Preview block</a>
     </div>
 
     <!-- BLOCK 6 -->
@@ -142,7 +149,8 @@ sidebar: false
       <p>
         Develop consistency, asymptotic normality, and delta method.
       </p>
-      <a class="btn btn-outline" href="/mathematical-statistics/asymptotic-theory/">Open block</a>
+      <p class="muted-mini">Under construction — curriculum preview, not a completed lesson.</p>
+      <a class="btn btn-outline" href="/mathematical-statistics/asymptotic-theory/">Preview block</a>
     </div>
 
     <!-- BLOCK 7 -->
@@ -151,7 +159,8 @@ sidebar: false
       <p>
         Explore method of moments and alternative estimation approaches.
       </p>
-      <a class="btn btn-outline" href="/mathematical-statistics/alternative-estimation-methods/">Open block</a>
+      <p class="muted-mini">Under construction — curriculum preview, not a completed lesson.</p>
+      <a class="btn btn-outline" href="/mathematical-statistics/alternative-estimation-methods/">Preview block</a>
     </div>
 
   </div>
