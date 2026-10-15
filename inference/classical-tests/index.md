@@ -162,6 +162,89 @@ sidebar: false
 
 </section>
 
+<!-- METHOD-SELECTION GUIDE: explanatory, non-diagnostic learning aid -->
+<section class="section" id="test-selection-guide" aria-labelledby="esa-test-guide-heading">
+  <div class="content-narrow">
+    <h2 id="esa-test-guide-heading">Choose a Statistical Test</h2>
+    <p>Explore which classical test matches a research question. The result is a starting point: verify study design, independence, distributional assumptions and sample size before applying any procedure.</p>
+    <div class="card" id="esa-test-guide">
+      <label for="esa-test-outcome"><strong>What outcome are you analyzing?</strong></label>
+      <select id="esa-test-outcome" style="display:block;width:100%;max-width:100%;padding:10px;margin:8px 0 16px">
+        <option value="mean">A numerical measurement / population mean</option>
+        <option value="binary">A yes/no outcome / population proportion</option>
+        <option value="categorical">Categorical counts / category distribution</option>
+      </select>
+      <label for="esa-test-design"><strong>Which study design or question?</strong></label>
+      <select id="esa-test-design" style="display:block;width:100%;max-width:100%;padding:10px;margin:8px 0 16px">
+        <option value="one">One sample compared with a reference</option>
+        <option value="paired">Paired / matched observations</option>
+        <option value="independent">Two independent samples or groups</option>
+        <option value="multiple">Three or more independent groups</option>
+        <option value="association">Association between two categorical variables</option>
+      </select>
+      <div id="esa-test-sigma-wrapper">
+        <label for="esa-test-sigma"><strong>For a one-sample mean, is population σ known?</strong></label>
+        <select id="esa-test-sigma" style="display:block;width:100%;max-width:100%;padding:10px;margin:8px 0 16px">
+          <option value="unknown">No — use the sample standard deviation</option>
+          <option value="known">Yes — population σ is genuinely known</option>
+        </select>
+      </div>
+      <div id="esa-test-result" role="status" aria-live="polite" aria-atomic="true" style="padding:12px;border:1px solid currentColor;border-radius:8px;margin-top:12px">
+        Select your outcome and design to see a recommendation.
+      </div>
+    </div>
+    <p class="muted-mini">This guide covers the classical methods taught in this block. Repeated-measures ANOVA, clustered designs, nonparametric tests and small-count exact methods require separate consideration; incompatible combinations show an explanation rather than a misleading recommendation.</p>
+    <noscript>JavaScript is required for the interactive guide. Use the linked test lessons below to compare assumptions and methods.</noscript>
+  </div>
+</section>
+<script>
+(function () {
+  const guide = document.getElementById("esa-test-guide");
+  if (!guide) return;
+  const outcome = guide.querySelector("#esa-test-outcome");
+  const design = guide.querySelector("#esa-test-design");
+  const sigma = guide.querySelector("#esa-test-sigma");
+  const sigmaWrapper = guide.querySelector("#esa-test-sigma-wrapper");
+  const result = guide.querySelector("#esa-test-result");
+  const root = "/inference/classical-tests/";
+  // Entries are educational choices, not automatic statistical analyses.
+  const methods = {
+    "mean-one-unknown": ["One-Sample t Test for a Mean", "one-sample-t-test-for-mean/", "Use when observations are independent and population σ is unknown. Exact small-sample t inference assumes a normally distributed population; assess outliers and sampling."],
+    "mean-one-known": ["One-Sample Z Test for a Mean", "one-sample-z-test-for-mean/", "Requires genuinely known population σ, independent observations and a normal sampling distribution (exact for normal data, approximate under suitable large-sample conditions)."],
+    "mean-paired": ["Paired t Test", "paired-t-test/", "Analyze within-pair numerical differences. Pairs should be independent of other pairs; small-sample inference assumes approximately normal differences."],
+    "mean-independent": ["Two-Sample t Test (Welch)", "two-sample-t-test-independent/", "For independent groups, Welch's test estimates separate variances; check independent observations, outliers and normality or adequate sample sizes."],
+    "mean-multiple": ["One-Way ANOVA", "one-way-anova-f-test/", "Compare means across three or more independent groups. Standard ANOVA assumes independent errors, approximately normal errors within groups and common within-group variance; otherwise consider alternatives."],
+    "binary-one": ["One-Proportion Z Test", "one-proportion-z-test/", "Use for independent binary trials with sufficient expected successes and failures under the null hypothesis. Sparse counts may need exact methods."],
+    "binary-independent": ["Two-Proportion Z Test", "two-proportion-z-test/", "Compare independent groups' event proportions when expected counts justify the pooled-null normal approximation. Small samples may require exact methods."],
+    "categorical-one": ["Chi-Square Goodness-of-Fit", "chi-square-goodness-of-fit/", "Compare observed category counts against a pre-specified probability distribution; independent observations and adequate expected counts are important."],
+    "categorical-independent": ["Chi-Square Homogeneity Test", "chi-square-homogeneity-test/", "Compare categorical distributions across independently sampled populations or groups; inspect expected counts."],
+    "categorical-association": ["Chi-Square Independence Test", "chi-square-independence-test/", "Test association between two categorical variables measured on independent observations in one sampled population; check expected counts."]
+  };
+  function update() {
+    sigmaWrapper.hidden = !(outcome.value === "mean" && design.value === "one");
+    const suffix = outcome.value === "mean" && design.value === "one" ? "-" + sigma.value : "";
+    const choice = methods[outcome.value + "-" + design.value + suffix];
+    result.replaceChildren();
+    if (!choice) {
+      result.textContent = "This combination needs a different design-specific method. Reconsider the outcome and sampling structure; see the lessons below or consult a statistical reference.";
+      return;
+    }
+    const heading = document.createElement("strong");
+    heading.textContent = "Suggested starting point: ";
+    const link = document.createElement("a");
+    link.href = root + choice[1];
+    link.textContent = choice[0];
+    const explanation = document.createElement("p");
+    explanation.textContent = choice[2];
+    result.append(heading, link, explanation);
+  }
+  outcome.addEventListener("change", update);
+  design.addEventListener("change", update);
+  sigma.addEventListener("change", update);
+  update();
+})();
+</script>
+
 <!-- LESSONS -->
 
 <section class="section" id="lessons">
