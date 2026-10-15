@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_probability_distributions_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
     url: "/probability/distributions/uniform-distribution/",
     label: "Uniform Distribution",
     ts: Date.now()
-  }));
+    }));
+  } catch (_) {
+    // Storage may be disabled; the lesson must still load and remain navigable.
+  }
 
 })();
 </script>
