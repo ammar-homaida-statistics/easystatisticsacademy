@@ -205,7 +205,7 @@ sidebar: false
     <h2>An Example Using Exam Scores</h2>
 
     <p>
-      Suppose exam scores have:
+      Suppose exam scores are approximately normally distributed and have:
     </p>
 
     <div class="example-box">
@@ -230,7 +230,9 @@ sidebar: false
       Scores between:
     </p>
 
-    0
+    \[
+[\mu-\sigma,\ \mu+\sigma]=[70-10,\ 70+10]=[60,\ 80]
+\]
 
     <p>
       or:
@@ -245,7 +247,7 @@ sidebar: false
     </div>
 
     <p>
-      contain approximately 68% of students.
+      would be expected to contain approximately 68% of individual scores.
     </p>
 
     <h3>Within Two Standard Deviations</h3>
@@ -254,7 +256,9 @@ sidebar: false
       Scores between:
     </p>
 
-    1
+    \[
+[\mu-2\sigma,\ \mu+2\sigma]=[70-20,\ 70+20]=[50,\ 90]
+\]
 
     <div class="example-box">
 
@@ -265,7 +269,7 @@ sidebar: false
     </div>
 
     <p>
-      contain approximately 95% of students.
+      would be expected to contain approximately 95% of individual scores.
     </p>
 
     <h3>Within Three Standard Deviations</h3>
@@ -274,7 +278,9 @@ sidebar: false
       Scores between:
     </p>
 
-    2
+    \[
+[\mu-3\sigma,\ \mu+3\sigma]=[70-30,\ 70+30]=[40,\ 100]
+\]
 
     <div class="example-box">
 
@@ -285,7 +291,13 @@ sidebar: false
     </div>
 
     <p>
-      contain approximately 99.7% of students.
+      would be expected to contain approximately 99.7% of individual scores.
+    </p>
+
+    <p>
+      These percentages describe a normal-distribution model for individual scores.
+      Actual sample proportions can differ, and the 68–95–99.7 percentages
+      are not guaranteed for nonnormal distributions.
     </p>
 
     <h2>Interpreting Unusual Values</h2>

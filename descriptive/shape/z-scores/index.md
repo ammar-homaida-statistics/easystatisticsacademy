@@ -118,7 +118,9 @@ sidebar: false
       The z-score of an observation is calculated by subtracting the mean and dividing by the standard deviation.
     </p>
 
-    0
+    \[
+z=\frac{x-\mu}{\sigma},\qquad \sigma>0
+\]
 
     <p>
       For sample-based calculations,
@@ -200,7 +202,9 @@ sidebar: false
       The z-score is:
     </p>
 
-    1
+    \[
+z=\frac{80-70}{10}=\frac{10}{10}=1
+\]
 
     <p>
       This score is one standard deviation above the mean.
@@ -265,7 +269,9 @@ sidebar: false
       the numerator becomes zero.
     </p>
 
-    2
+    \[
+x=\mu\quad\Longrightarrow\quad z=\frac{\mu-\mu}{\sigma}=0,\qquad \sigma>0
+\]
 
     <p>
       Therefore,
