@@ -97,7 +97,9 @@ sidebar: false
       Suppose we want to estimate a population proportion:
     </p>
 
-    0
+    \[
+p
+\]
 
     <p>
       with a specified margin of error.
@@ -120,13 +122,17 @@ sidebar: false
       For large samples, a confidence interval for a proportion has the form:
     </p>
 
-    1
+    \[
+\hat p\ \pm\ z_{1-\alpha/2}\sqrt{\frac{\hat p(1-\hat p)}{n}}
+\]
 
     <p>
       The margin of error is therefore:
     </p>
 
-    2
+    \[
+E\ \approx\ z_{1-\alpha/2}\sqrt{\frac{p_{\mathrm{plan}}(1-p_{\mathrm{plan}})}{n}}
+\]
 
     <h2>Solving for Sample Size</h2>
 
@@ -134,10 +140,12 @@ sidebar: false
       Rearranging the margin-of-error formula gives:
     </p>
 
-    3
+    \[
+n_0=\frac{z_{1-\alpha/2}^{\,2}\,p_{\mathrm{plan}}(1-p_{\mathrm{plan}})}{E^2}
+\]
 
     <p>
-      This is the classic sample-size formula for estimating a population proportion.
+      This is the classical planning formula for the large-sample Wald margin of error for one population proportion. Choose the planning value p_plan before collecting data; the formula estimates precision, not the sample size needed for statistical hypothesis-testing power.
     </p>
 
     <h2>The Unknown Proportion Problem</h2>
@@ -146,7 +154,9 @@ sidebar: false
       The formula requires a value of:
     </p>
 
-    4
+    \[
+p_{\mathrm{plan}}
+\]
 
     <p>
       but the true population proportion is usually unknown before data collection.
@@ -176,20 +186,24 @@ sidebar: false
       When no information is available, a common strategy is:
     </p>
 
-    5
+    \[
+p_{\mathrm{plan}}=0.5
+\]
 
     <p>
       because:
     </p>
 
-    6
+    \[
+p_{\mathrm{plan}}(1-p_{\mathrm{plan}})\le\frac14
+\]
 
     <p>
       is maximized at 0.5.
     </p>
 
     <p>
-      This produces the largest required sample size and ensures adequate precision regardless of the true proportion.
+      This maximizes the variance factor in this approximate formula, making it conservative with respect to the unknown planning proportion. It does not guarantee actual interval coverage, especially near 0 or 1, or correct for nonrandom sampling or design effects.
     </p>
 
     <h2>The Conservative Formula</h2>
@@ -198,16 +212,20 @@ sidebar: false
       Substituting:
     </p>
 
-    7
+    \[
+p_{\mathrm{plan}}=\frac12
+\]
 
     <p>
       yields:
     </p>
 
-    8
+    \[
+n_0=\frac{z_{1-\alpha/2}^{\,2}}{4E^2}
+\]
 
     <p>
-      This is frequently used in survey design.
+      This is frequently used as a preliminary sample-size calculation for simple random sampling. Real surveys may need finite-population corrections, clustering/design-effect inflation, and allowances for expected nonresponse.
     </p>
 
     <h2>Example Calculation</h2>
@@ -227,19 +245,25 @@ sidebar: false
       Using:
     </p>
 
-    9
+    \[
+z_{0.975}\approx1.96
+\]
 
     <p>
       and the conservative assumption:
     </p>
 
-    10
+    \[
+p_{\mathrm{plan}}=0.5
+\]
 
     <p>
       gives:
     </p>
 
-    11
+    \[
+n_0=\frac{(1.96)^2(0.5)(0.5)}{(0.03)^2}\approx1067.111,\qquad n=\lceil n_0\rceil=1068
+\]
 
     <p>
       Therefore:
@@ -263,7 +287,7 @@ sidebar: false
       <strong>Rule:</strong>
 
       <p>
-        Always round upward to ensure the desired precision is achieved.
+        Always round the calculated n₀ upward, since rounding down would exceed the planned margin of error in this approximation. The actual sampling error and realized interval width still vary from sample to sample.
       </p>
 
     </div>
@@ -274,7 +298,9 @@ sidebar: false
       Notice that:
     </p>
 
-    12
+    \[
+n_0\propto\frac{1}{E^2}
+\]
 
     <p>
       Just as with means, halving the margin of error approximately quadruples the required sample size.
@@ -363,7 +389,7 @@ sidebar: false
     </div>
 
     <p>
-      Smaller effects require larger samples to detect reliably.
+      Smaller effects generally require larger samples to detect at fixed significance level, power, and experimental design. The precision calculator below is not a power calculator.
     </p>
 
     <h2>The Role of Baseline Proportion</h2>
@@ -372,13 +398,17 @@ sidebar: false
       Variability for proportions depends on:
     </p>
 
-    13
+    \[
+p_{\mathrm{plan}}(1-p_{\mathrm{plan}})
+\]
 
     <p>
       Variability is highest near:
     </p>
 
-    14
+    \[
+p_{\mathrm{plan}}=0.5
+\]
 
     <p>
       and decreases as proportions approach 0 or 1.
@@ -444,7 +474,7 @@ sidebar: false
     </p>
 
     <p>
-      However, researchers must still choose meaningful targets for precision, effect size, confidence, and power.
+      Researchers must still specify meaningful design targets. The confidence-interval precision formula here does not address effect-size/power calculations for hypothesis tests.
     </p>
 
     <h2>The Bigger Picture</h2>
@@ -491,7 +521,7 @@ sidebar: false
 
         <li>Sample-size planning for proportions often focuses on confidence intervals or power</li>
 
-        <li>The classic proportion formula is based on the desired margin of error</li>
+        <li>The classic formula approximates a desired Wald margin of error under simple random sampling</li>
 
         <li>When p is unknown, p = 0.5 provides a conservative sample-size estimate</li>
 
