@@ -76,7 +76,9 @@ sidebar: false
       we learned that expectations always add.
     </p>
 
-    0
+    \[
+\operatorname{E}(X+Y)=\operatorname{E}(X)+\operatorname{E}(Y)
+\]
 
     <p>
       Variance is more complicated because it depends not only on individual variability but also on how variables move together.
@@ -98,7 +100,9 @@ sidebar: false
       Variance measures the average squared distance from the mean.
     </p>
 
-    1
+    \[
+\operatorname{Var}(X)=\operatorname{E}\big[(X-\operatorname{E}X)^2\big]
+\]
 
     <p>
       Larger variances indicate greater spread around the expected value.
@@ -115,7 +119,9 @@ sidebar: false
       it has no variability.
     </p>
 
-    2
+    \[
+\operatorname{Var}(c)=0
+\]
 
     <p>
       for any constant c.
@@ -127,7 +133,9 @@ sidebar: false
       Adding a constant shifts the center of a distribution but does not change its spread.
     </p>
 
-    3
+    \[
+\operatorname{Var}(X+c)=\operatorname{Var}(X)
+\]
 
     <p>
       The variability remains exactly the same.
@@ -143,7 +151,9 @@ sidebar: false
       The variance rule is:
     </p>
 
-    4
+    \[
+\operatorname{Var}(cX)=c^2\operatorname{Var}(X)
+\]
 
     <p>
       Notice the square.
@@ -183,7 +193,9 @@ sidebar: false
       Then:
     </p>
 
-    5
+    \[
+\operatorname{Var}(Y)=\operatorname{Var}(3X)=3^2\cdot4=36
+\]
 
     <p>
       The variance increases by a factor of nine.
@@ -211,7 +223,9 @@ sidebar: false
       What is:
     </p>
 
-    6
+    \[
+\operatorname{Var}(X+Y)
+\]
 
     <p>
       Unlike expectation,
@@ -224,11 +238,12 @@ sidebar: false
       The complete variance rule is:
     </p>
 
-    7
+    \[
+\operatorname{Var}(X+Y)=\operatorname{Var}(X)+\operatorname{Var}(Y)+2\operatorname{Cov}(X,Y)
+\]
 
     <p>
-      The additional term involves covariance,
-      which measures how variables move together.
+      The additional term involves covariance, which measures their joint linear variation. This identity requires finite second moments but not independence.
     </p>
 
     <h2>Why the Extra Term Appears</h2>
@@ -253,13 +268,17 @@ sidebar: false
       When X and Y are independent:
     </p>
 
-    8
+    \[
+\operatorname{Cov}(X,Y)=0
+\]
 
     <p>
       Therefore:
     </p>
 
-    9
+    \[
+\operatorname{Var}(X+Y)=\operatorname{Var}(X)+\operatorname{Var}(Y)
+\]
 
     <p>
       This is the variance rule most frequently used in introductory probability.
@@ -270,7 +289,7 @@ sidebar: false
       <strong>Important:</strong>
 
       <p>
-        Variances add only when variables are independent (or at least uncorrelated).
+        Variances add when the variables have zero covariance. Independence is sufficient, but not necessary: dependent random variables can also be uncorrelated.
       </p>
 
     </div>
@@ -297,13 +316,17 @@ sidebar: false
       Each die has variance:
     </p>
 
-    10
+    \[
+\operatorname{Var}(X)=\operatorname{Var}(Y)=\frac{1^2+2^2+3^2+4^2+5^2+6^2}{6}-3.5^2=\frac{35}{12}
+\]
 
     <p>
       Since the dice are independent:
     </p>
 
-    11
+    \[
+\operatorname{Var}(X+Y)=\frac{35}{12}+\frac{35}{12}=\frac{35}{6}\approx5.8333
+\]
 
     <p>
       The variances simply add.
@@ -315,7 +338,9 @@ sidebar: false
       A similar rule applies to subtraction.
     </p>
 
-    12
+    \[
+\operatorname{Var}(X-Y)=\operatorname{Var}(X)+\operatorname{Var}(Y)-2\operatorname{Cov}(X,Y)
+\]
 
     <p>
       The covariance term changes sign.
@@ -327,7 +352,9 @@ sidebar: false
       If X and Y are independent:
     </p>
 
-    13
+    \[
+\operatorname{Var}(X-Y)=\operatorname{Var}(X)+\operatorname{Var}(Y)
+\]
 
     <p>
       Surprisingly,
@@ -335,16 +362,18 @@ sidebar: false
     </p>
 
     <p>
-      Variance does not care whether the variables are added or subtracted when independence holds.
+      Under zero covariance, the variance of a sum and the variance of a difference both equal the sum of the individual variances. Without this condition, the covariance terms have opposite signs.
     </p>
 
     <h2>Extending to Many Variables</h2>
 
     <p>
-      For independent variables:
+      For variables with zero pairwise covariances (including mutually independent variables):
     </p>
 
-    14
+    \[
+\operatorname{Var}\!\left(\sum_{i=1}^{n}X_i\right)=\sum_{i=1}^{n}\operatorname{Var}(X_i)\quad\text{if all pairwise covariances vanish}
+\]
 
     <p>
       This rule is essential in probability theory,
@@ -427,9 +456,7 @@ sidebar: false
     </p>
 
     <p>
-      Covariance is the quantity that explains whether variables move together,
-      move apart,
-      or behave independently.
+      Covariance measures how variables co-vary linearly, but covariance equal to zero does not in general establish independence.
     </p>
 
     <p>
