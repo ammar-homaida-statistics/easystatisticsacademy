@@ -76,7 +76,7 @@ sidebar: false
     <h2>What Is a Binomial Distribution?</h2>
 
     <p>
-      A binomial distribution describes the number of successes obtained in a fixed number of independent Bernoulli trials.
+      A binomial distribution describes the number of successes in a fixed number of independent, identically distributed Bernoulli trials with common success probability p. Differing success probabilities lead to a Poisson-binomial model, and dependence generally requires a different model.
     </p>
 
     <div class="concept-box">
@@ -84,7 +84,7 @@ sidebar: false
       <strong>Definition:</strong>
 
       <p>
-        A binomial random variable counts how many successes occur in n independent trials when each trial has success probability p.
+        A binomial random variable counts successes in n independent trials, each with exactly two outcomes and the same success probability p (0 ≤ p ≤ 1). The count is a sum of n Bernoulli indicators.
       </p>
 
     </div>
@@ -173,7 +173,9 @@ sidebar: false
       A binomial random variable is written as:
     </p>
 
-    0
+    \[
+X\sim\operatorname{Binomial}(n,p)
+\]
 
     <p>
       where:
@@ -193,10 +195,12 @@ sidebar: false
       A binomial variable can take values:
     </p>
 
-    1
+    \[
+X\in\{0,1,\ldots,n\}
+\]
 
     <p>
-      because any number of successes from zero to n is possible.
+      because counts from zero to n are the mathematical range. When p = 0 or p = 1, however, only one endpoint count has positive probability.
     </p>
 
     <h2>The Probability Formula</h2>
@@ -205,7 +209,9 @@ sidebar: false
       The probability of observing exactly k successes is:
     </p>
 
-    2
+    \[
+P(X=k)=\binom{n}{k}p^k(1-p)^{n-k},\quad k=0,\ldots,n
+\]
 
     <p>
       This is called the binomial probability mass function.
@@ -214,7 +220,7 @@ sidebar: false
     <h2>Understanding the Formula</h2>
 
     <p>
-      The formula contains three parts.
+      For 0 < p < 1, the formula contains three factors. At p = 0 or p = 1 the distribution is degenerate (all failures or all successes), which is handled directly by its limiting probabilities.
     </p>
 
     <div class="table-wrap">
@@ -257,7 +263,9 @@ sidebar: false
       The notation:
     </p>
 
-    3
+    \[
+\binom{n}{k}=\frac{n!}{k!(n-k)!}
+\]
 
     <p>
       counts the number of ways k successes can be placed among n trials.
@@ -301,19 +309,25 @@ sidebar: false
       Applying the formula:
     </p>
 
-    4
+    \[
+P(X=2)=\binom{3}{2}(0.5)^2(0.5)^{3-2}
+\]
 
     <p>
       Since:
     </p>
 
-    5
+    \[
+\binom{3}{2}=3
+\]
 
     <p>
       the probability becomes:
     </p>
 
-    6
+    \[
+P(X=2)=3(0.5)^3=0.375
+\]
 
     <h2>Mean of a Binomial Distribution</h2>
 
@@ -321,7 +335,9 @@ sidebar: false
       The expected value is:
     </p>
 
-    7
+    \[
+\operatorname{E}(X)=np
+\]
 
     <div class="concept-box">
 
@@ -355,10 +371,12 @@ sidebar: false
       Then:
     </p>
 
-    8
+    \[
+\operatorname{E}(X)=100(0.2)=20
+\]
 
     <p>
-      We expect about 20 successes.
+      The expected count is exactly 20; any observed count still varies from sample to sample.
     </p>
 
     <h2>Variance of a Binomial Distribution</h2>
@@ -367,13 +385,17 @@ sidebar: false
       The variance is:
     </p>
 
-    9
+    \[
+\operatorname{Var}(X)=np(1-p)
+\]
 
     <p>
       The standard deviation is:
     </p>
 
-    10
+    \[
+\operatorname{SD}(X)=\sqrt{np(1-p)}
+\]
 
     <h2>Why the Formula Makes Sense</h2>
 
@@ -385,13 +407,175 @@ sidebar: false
       Since each Bernoulli trial has:
     </p>
 
-    11
+    \[
+\operatorname{Var}(I_i)=p(1-p)
+\]
 
     <p>
       the variances add together:
     </p>
 
-    12
+    \[
+\operatorname{Var}(X)=\operatorname{Var}\!\left(\sum_{i=1}^{n}I_i\right)=\sum_{i=1}^{n}\operatorname{Var}(I_i)=np(1-p)
+\]
+
+
+    <!-- INTERACTIVE BINOMIAL PROBABILITY CALCULATOR -->
+    <section class="concept-box" id="esa-binomial-calculator"
+             aria-labelledby="esa-binomial-calculator-heading">
+      <h2 id="esa-binomial-calculator-heading">Interactive Binomial Probability Calculator</h2>
+      <p>For <strong>n independent, identically distributed Bernoulli trials</strong>
+         with common success probability p, calculate exact and inclusive tail probabilities
+         for the number of successes X. The calculator supports 1 to 1,000 trials.</p>
+      <form id="esa-binomial-calculator-form" novalidate>
+        <div class="esa-binomial-input-grid">
+          <div>
+            <label for="esa-binomial-n">Number of trials (n)</label>
+            <input type="number" id="esa-binomial-n" inputmode="numeric"
+                   min="1" max="1000" step="1" value="3" required>
+          </div>
+          <div>
+            <label for="esa-binomial-p">Success probability (p)</label>
+            <input type="number" id="esa-binomial-p" inputmode="decimal"
+                   min="0" max="1" step="any" value="0.5" required>
+          </div>
+          <div>
+            <label for="esa-binomial-k">Success count (k)</label>
+            <input type="number" id="esa-binomial-k" inputmode="numeric"
+                   min="0" max="1000" step="1" value="2" required>
+          </div>
+        </div>
+        <p class="esa-binomial-math-note"><strong>Probability rule:</strong>
+          P(X = k) = C(n,k) × p<sup>k</sup> × (1 − p)<sup>n−k</sup>.
+          Both cumulative results include k.
+        </p>
+        <div class="example-box" id="esa-binomial-result-region" role="status" aria-live="polite">
+          <div class="esa-binomial-result-grid">
+            <p>P(X = k): <strong><output id="esa-binomial-exact">0.375</output></strong></p>
+            <p>P(X ≤ k): <strong><output id="esa-binomial-cdf">0.875</output></strong></p>
+            <p>P(X ≥ k): <strong><output id="esa-binomial-upper">0.5</output></strong></p>
+            <p>Mean (np): <strong><output id="esa-binomial-mean">1.5</output></strong></p>
+            <p>Variance (np(1−p)): <strong><output id="esa-binomial-variance">0.75</output></strong></p>
+          </div>
+          <p id="esa-binomial-explanation">With n = 3, p = 0.5 and k = 2, exactly two successes have probability 0.375.</p>
+        </div>
+        <p id="esa-binomial-error" role="alert" hidden></p>
+      </form>
+      <p class="muted-mini"><strong>Assumptions and limits:</strong>
+        n is a fixed positive integer, every trial is binary, trials are independent,
+        and p stays constant. When n = 1 this is exactly a Bernoulli distribution.
+        At p = 0 all counts are zero; at p = 1 all counts equal n.
+        The three probabilities are computed by log-space summation, avoiding
+        subtracting near-one cumulative probabilities. Values smaller than the
+        floating-point representation limit may display as zero.
+        Dependent trials or independent trials with different probabilities generally
+        require a different model.
+      </p>
+    </section>
+    <style>
+      #esa-binomial-calculator{max-width:100%;min-width:0;overflow-wrap:anywhere}
+      #esa-binomial-calculator .esa-binomial-input-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:16px 0}
+      #esa-binomial-calculator .esa-binomial-input-grid>div{min-width:0}
+      #esa-binomial-calculator label{display:block;font-weight:650;margin:0 0 6px}
+      #esa-binomial-calculator input[type="number"]{display:block;width:100%;max-width:100%;min-width:0;box-sizing:border-box;background:var(--surface);color:var(--text);border:1px solid var(--border-strong);border-radius:8px;padding:10px;font:inherit}
+      #esa-binomial-calculator input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+      #esa-binomial-calculator .esa-binomial-result-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 16px}
+      #esa-binomial-calculator .esa-binomial-result-grid>*{min-width:0;margin:4px 0}
+      #esa-binomial-calculator .esa-binomial-math-note{overflow-wrap:anywhere}
+      #esa-binomial-calculator #esa-binomial-error{color:#b42318;font-weight:650}
+      @media(max-width:620px){
+        #esa-binomial-calculator .esa-binomial-input-grid{grid-template-columns:minmax(0,1fr)}
+        #esa-binomial-calculator .esa-binomial-result-grid{grid-template-columns:minmax(0,1fr)}
+      }
+    </style>
+    <script>
+    (function () {
+      const form = document.getElementById("esa-binomial-calculator-form");
+      if (!form) return;
+      const nInput = document.getElementById("esa-binomial-n");
+      const pInput = document.getElementById("esa-binomial-p");
+      const kInput = document.getElementById("esa-binomial-k");
+      const exact = document.getElementById("esa-binomial-exact");
+      const cumulative = document.getElementById("esa-binomial-cdf");
+      const upper = document.getElementById("esa-binomial-upper");
+      const mean = document.getElementById("esa-binomial-mean");
+      const variance = document.getElementById("esa-binomial-variance");
+      const explanation = document.getElementById("esa-binomial-explanation");
+      const error = document.getElementById("esa-binomial-error");
+      const outputs = [exact,cumulative,upper,mean,variance];
+
+      function format(x) {
+        if (x === 0) return "0";
+        if (Math.abs(x) < 1e-8) return x.toExponential(8);
+        return Number(x.toPrecision(12)).toLocaleString("en-US",{maximumFractionDigits:12});
+      }
+      function inclusiveLogSum(logTerms, start, end) {
+        let peak = -Infinity;
+        for (let i = start; i <= end; ++i) peak = Math.max(peak,logTerms[i]);
+        let total = 0;
+        for (let i = start; i <= end; ++i) total += Math.exp(logTerms[i] - peak);
+        return Math.min(1, Math.max(0, Math.exp(peak) * total));
+      }
+      function render() {
+        const n = Number(nInput.value);
+        const p = Number(pInput.value);
+        const k = Number(kInput.value);
+        let problem = "";
+        if (!nInput.value.trim() || !Number.isSafeInteger(n) || n < 1 || n > 1000) {
+          problem = "Enter a whole number of trials from 1 to 1,000.";
+        } else if (!pInput.value.trim() || !Number.isFinite(p) || p < 0 || p > 1) {
+          problem = "Enter a success probability between 0 and 1 inclusive.";
+        } else if (!kInput.value.trim() || !Number.isSafeInteger(k) || k < 0 || k > n) {
+          problem = "Enter a whole number of successes between 0 and n inclusive.";
+        }
+        if (problem) {
+          outputs.forEach(out => { out.textContent = "—"; });
+          explanation.textContent = "";
+          error.textContent = problem;
+          error.hidden = false;
+          return;
+        }
+        error.textContent = "";
+        error.hidden = true;
+        let px, lower, greater;
+        if (p === 0 || p === 1) {
+          const determined = p === 0 ? 0 : n;
+          px = k === determined ? 1 : 0;
+          lower = determined <= k ? 1 : 0;
+          greater = determined >= k ? 1 : 0;
+        } else {
+          // Log factorials and log-sum-exp keep inclusive tails stable even
+          // when subtracting from 1 would lose the small tail probability.
+          const logFactorial = [0];
+          for (let j = 1; j <= n; ++j)
+            logFactorial[j] = logFactorial[j-1] + Math.log(j);
+          const logP = Math.log(p), logQ = Math.log1p(-p);
+          const terms = [];
+          for (let j = 0; j <= n; ++j) {
+            terms[j] = logFactorial[n] - logFactorial[j] - logFactorial[n-j] +
+                       j*logP + (n-j)*logQ;
+          }
+          px = Math.exp(terms[k]);
+          lower = inclusiveLogSum(terms, 0, k);
+          greater = inclusiveLogSum(terms, k, n);
+        }
+        exact.textContent = format(px);
+        cumulative.textContent = format(lower);
+        upper.textContent = format(greater);
+        mean.textContent = format(n*p);
+        variance.textContent = format(n*p*(1-p));
+        explanation.textContent = "For " + n + " trials with p = " + p +
+          ", the chance of exactly " + k + " successes is " + format(px) +
+          ". P(X ≤ " + k + ") includes up to " + k +
+          " successes; P(X ≥ " + k + ") includes " + k +
+          " and larger counts. These are probabilities, not predictions of a guaranteed count.";
+      }
+      form.addEventListener("input",render);
+      form.addEventListener("change",render);
+      form.addEventListener("submit",e => { e.preventDefault(); render(); });
+      render();
+    })();
+    </script>
 
     <h2>Shape of the Distribution</h2>
 
@@ -416,8 +600,7 @@ sidebar: false
     </div>
 
     <p>
-      As n increases,
-      the distribution becomes more bell-shaped.
+      As n grows, a normal approximation may become useful when both np and n(1 − p) are sufficiently large. Increasing n alone does not guarantee an approximately symmetric bell shape, especially if p is near 0 or 1.
     </p>
 
     <h2>Real-World Applications</h2>
@@ -437,7 +620,7 @@ sidebar: false
     </ul>
 
     <p>
-      Any situation involving repeated success/failure trials may be modeled with a binomial distribution.
+      Repeated success/failure outcomes follow a binomial count model only if the number of trials is fixed, each trial is binary, trials are independent, and all share the same success probability.
     </p>
 
     <h2>Bernoulli Versus Binomial</h2>
@@ -472,7 +655,7 @@ sidebar: false
     </div>
 
     <p>
-      The binomial distribution is essentially a collection of Bernoulli trials summarized by their total number of successes.
+      The binomial distribution is the sum of independent Bernoulli trials with the same p. With n = 1, the binomial distribution is exactly Bernoulli(p). With unequal probabilities, even independent trials generally have a different success-count distribution.
     </p>
 
     <h2>The Limitation</h2>
