@@ -303,7 +303,11 @@ sidebar: false
       then:
     </p>
 
-    0
+    
+    \[
+    E[I_{\text{click}}]=P(\text{click})=0.08
+    \]
+
 
     <p>
       The expected value equals the click probability.
@@ -339,13 +343,21 @@ sidebar: false
       Total defects:
     </p>
 
-    1
+    
+    \[
+    D=\sum_{i=1}^{1000}I_i
+    \]
+
 
     <p>
       Using linearity of expectation:
     </p>
 
-    2
+    
+    \[
+    E[D]=\sum_{i=1}^{1000}E[I_i]=1000(0.02)=20
+    \]
+
 
     <p>
       The factory expects approximately 20 defective products.
