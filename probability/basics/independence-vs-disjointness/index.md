@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_probability_basics_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
     url: "/probability/basics/independence-vs-disjointness/",
     label: "Independence vs Disjointness",
     ts: Date.now()
-  }));
+    }));
+  } catch (_) {
+    // Continue Reading progress is optional when browser storage is unavailable.
+  }
 
 })();
 </script>
@@ -134,7 +138,11 @@ sidebar: false
       For independent events:
     </p>
 
-    0
+    
+    \[
+    P(A\cap B)=P(A)P(B)
+    \]
+
 
     <p>
       The probability that both events occur equals the product of their individual probabilities.
@@ -162,7 +170,11 @@ sidebar: false
       Since the events are independent:
     </p>
 
-    1
+    
+    \[
+    P(A\cap B)=0.5\times0.5=0.25
+    \]
+
 
     <p>
       The probability of obtaining heads on both tosses is 0.25.
@@ -206,7 +218,11 @@ sidebar: false
       For mutually exclusive events:
     </p>
 
-    2
+    
+    \[
+    A\cap B=\varnothing\quad\Longrightarrow\quad P(A\cap B)=0
+    \]
+
 
     <p>
       There is no overlap between the events.
@@ -325,23 +341,35 @@ sidebar: false
       Then:
     </p>
 
-    3
+    
+    \[
+    P(A\cap B)=0
+    \]
+
 
     <p>
       But if they are also independent:
     </p>
 
-    4
+    
+    \[
+    P(A\cap B)=P(A)P(B)
+    \]
+
 
     <p>
       Combining these statements gives:
     </p>
 
-    5
+    
+    \[
+    P(A)P(B)=0
+    \]
+
 
     <p>
-      Therefore,
-      at least one event must have probability zero.
+      Therefore, at least one event must have probability zero. Conversely, any probability-zero event
+      is independent of every event and is disjoint from every event precisely when its intersection is empty.
     </p>
 
     <p>
@@ -380,13 +408,21 @@ sidebar: false
       Therefore:
     </p>
 
-    6
+    
+    \[
+    P(A\cap B)=P(\text{Heads}\cap\text{Tails})=0
+    \]
+
 
     <p>
       However:
     </p>
 
-    7
+    
+    \[
+    P(A)P(B)=0.5\times0.5=0.25
+    \]
+
 
     <p>
       The values are not equal.
