@@ -222,7 +222,11 @@ sidebar: false
       For example:
     </p>
 
-    0
+    
+    \[
+    P(X=170\ \mathrm{cm})=0\quad\text{for an idealized continuous height variable}
+    \]
+
 
     <p>
       even though 170 cm is a possible height.
