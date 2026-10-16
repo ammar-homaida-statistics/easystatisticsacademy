@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_probability_conditional_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
     url: "/probability/conditional/multiplication-rule/",
     label: "Multiplication Rule",
     ts: Date.now()
-  }));
+    }));
+  } catch (_) {
+    // Persisting progress is optional; unavailable storage must not interrupt lessons.
+  }
 
 })();
 </script>
@@ -112,10 +116,14 @@ sidebar: false
     <h2>Starting with Conditional Probability</h2>
 
     <p>
-      Recall the definition of conditional probability.
+      Recall the definition of conditional probability; the condition P(B) must have positive probability.
     </p>
 
-    0
+    
+    \[
+    P(A\mid B)=\frac{P(A\cap B)}{P(B)},\quad P(B)>0
+    \]
+
 
     <p>
       This formula describes the probability of A given that B has occurred.
@@ -127,7 +135,11 @@ sidebar: false
       Multiplying both sides by P(B) gives:
     </p>
 
-    1
+    
+    \[
+    P(A\cap B)=P(A\mid B)P(B),\quad P(B)>0
+    \]
+
 
     <p>
       This is the multiplication rule.
@@ -140,11 +152,14 @@ sidebar: false
     <h2>An Equivalent Version</h2>
 
     <p>
-      Because the roles of A and B can be reversed,
-      another equivalent form is:
+      When P(A) is positive, the roles of A and B can be reversed to give:
     </p>
 
-    2
+    
+    \[
+    P(A\cap B)=P(B\mid A)P(A),\quad P(A)>0
+    \]
+
 
     <p>
       Both forms are correct.
@@ -202,19 +217,31 @@ sidebar: false
       First:
     </p>
 
-    3
+    
+    \[
+    P(A)=\frac{4}{52}=\frac{1}{13}
+    \]
+
 
     <p>
       After one ace has been removed:
     </p>
 
-    4
+    
+    \[
+    P(B\mid A)=\frac{3}{51}=\frac{1}{17}
+    \]
+
 
     <p>
       Therefore:
     </p>
 
-    5
+    
+    \[
+    P(A\cap B)=\frac{4}{52}\cdot\frac{3}{51}=\frac{1}{221}\approx0.004525
+    \]
+
 
     <p>
       The multiplication rule gives the probability of drawing two aces consecutively.
@@ -230,7 +257,11 @@ sidebar: false
       For independent events:
     </p>
 
-    6
+    
+    \[
+    P(A\mid B)=P(A)\quad\text{when }P(B)>0
+    \]
+
 
     <p>
       The occurrence of B does not affect A.
@@ -242,7 +273,11 @@ sidebar: false
       Substituting independence into the multiplication rule gives:
     </p>
 
-    7
+    
+    \[
+    P(A\cap B)=P(A)P(B)
+    \]
+
 
     <p>
       This is the familiar independence formula introduced earlier.
@@ -286,7 +321,11 @@ sidebar: false
       Therefore:
     </p>
 
-    8
+    
+    \[
+    P(A\cap B)=0.5\times0.5=0.25
+    \]
+
 
     <h2>Dependent Events</h2>
 
@@ -341,7 +380,11 @@ sidebar: false
       Then:
     </p>
 
-    9
+    
+    \[
+    P(\mathrm{Study}\cap\mathrm{Pass})=P(\mathrm{Study})P(\mathrm{Pass}\mid\mathrm{Study})=0.60(0.90)=0.54
+    \]
+
 
     <p>
       The probability that a student studies and passes is 0.54.
@@ -357,10 +400,14 @@ sidebar: false
       For three events:
     </p>
 
-    10
+    
+    \[
+    P(A\cap B\cap C)=P(A)\,P(B\mid A)\,P(C\mid A\cap B)
+    \]
+
 
     <p>
-      Each step conditions on the events that have already occurred.
+      Each step conditions on the events that have already occurred. The displayed conditional factors require P(A) &gt; 0 and P(A ∩ B) &gt; 0. If a conditioning event has probability zero, use an appropriate unconditional formulation instead.
     </p>
 
     <h2>A Sequential View</h2>
