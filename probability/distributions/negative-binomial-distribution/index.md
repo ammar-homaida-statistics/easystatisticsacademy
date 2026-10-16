@@ -352,6 +352,169 @@ sidebar: false
       Variability increases when successes become rarer.
     </p>
 
+
+    <!-- INTERACTIVE NEGATIVE BINOMIAL WAITING-TIME EXPLORER -->
+    <div class="concept-box esa-negbin-lab" id="esa-negbin-wait-explorer"
+         role="group" aria-labelledby="esa-negbin-lab-heading">
+      <h2 id="esa-negbin-lab-heading">Interactive Negative Binomial Waiting-Time Explorer</h2>
+      <p>Model independent Bernoulli trials with constant success probability
+         <strong>0 &lt; p &le; 1</strong>. Here X counts <strong>all trials,
+         including the final successful trial</strong>, until the r-th success:
+         k &ge; r. This differs from the failures-before-r-successes convention.</p>
+      <div class="esa-negbin-fields">
+        <div>
+          <label for="esa-negbin-r">Required successes r:
+            <output for="esa-negbin-r" id="esa-negbin-r-value">3</output></label>
+          <input type="range" min="1" max="6" step="1" value="3" id="esa-negbin-r"/>
+        </div>
+        <div>
+          <label for="esa-negbin-p">Success probability p:
+            <output for="esa-negbin-p" id="esa-negbin-p-value">0.50</output></label>
+          <input type="range" min="0.05" max="1" step="0.05" value="0.5" id="esa-negbin-p"/>
+        </div>
+        <div>
+          <label for="esa-negbin-k">Trial of r-th success k:
+            <output for="esa-negbin-k" id="esa-negbin-k-value">5</output></label>
+          <input type="range" min="3" max="30" step="1" value="5" id="esa-negbin-k"/>
+        </div>
+      </div>
+      <h3>Possible completion trials (from r through r + 11)</h3>
+      <svg id="esa-negbin-chart" viewBox="0 0 360 176" role="img"
+           aria-label="Probability of third success on successive trials; success chance 0.50; selected trial 5"
+           width="360" height="176">
+        <line x1="30" y1="135" x2="347" y2="135" stroke="currentColor" stroke-width="1.4"/>
+        <line x1="30" y1="135" x2="30" y2="16" stroke="currentColor" stroke-width="1.4"/>
+        <text x="8" y="15" fill="currentColor" font-size="10">PMF</text>
+        <g id="esa-negbin-bars"></g>
+        <text x="344" y="159" fill="currentColor" font-size="10">k</text>
+      </svg>
+      <p class="muted-mini">Bars display only 12 possible completion trials.
+         Probabilities after the displayed trials remain included in the
+         CDF and tail calculations; bar heights use an absolute 0–1 scale.</p>
+      <div class="esa-negbin-results" role="status" aria-live="polite" aria-atomic="true">
+        <p><strong>Exact:</strong> P(X = k) =
+          <output id="esa-negbin-pmf">0.187500</output>.</p>
+        <p><strong>By trial k:</strong> P(X &le; k) =
+          <output id="esa-negbin-cdf">0.500000</output>.</p>
+        <p><strong>After trial k:</strong> P(X &gt; k) =
+          <output id="esa-negbin-tail">0.500000</output>.</p>
+        <p><strong>Mean:</strong> E[X] = r/p =
+          <output id="esa-negbin-mean">6.0000</output> trials.
+          <strong>Variance:</strong> r(1 − p)/p² =
+          <output id="esa-negbin-variance">6.0000</output> trials².</p>
+        <p id="esa-negbin-special">When r = 1, this is exactly the
+          geometric trials-to-first-success distribution.</p>
+      </div>
+      <div class="esa-negbin-presets">
+        <button type="button" class="btn btn-outline" id="esa-negbin-reset">Reset example</button>
+        <button type="button" class="btn btn-outline" id="esa-negbin-geometric">Geometric: r = 1</button>
+      </div>
+      <p class="muted-mini">The general PMF is
+         P(X = k) = C(k − 1, r − 1) p<sup>r</sup>(1 − p)<sup>k − r</sup>.
+         Cumulative probability is summed over k = r, ..., selected k.
+         At p = 1 all probability is concentrated at k = r.</p>
+    </div>
+    <style>
+      #esa-negbin-wait-explorer {box-sizing:border-box;width:100%;max-width:100%;min-width:0;overflow-wrap:anywhere}
+      #esa-negbin-wait-explorer .esa-negbin-fields {
+        display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,185px),1fr));
+        gap:14px;margin:16px 0
+      }
+      #esa-negbin-wait-explorer .esa-negbin-fields>div {min-width:0}
+      #esa-negbin-wait-explorer label {display:block;margin-bottom:8px}
+      #esa-negbin-wait-explorer input[type="range"] {
+        display:block;box-sizing:border-box;width:100%;max-width:100%;
+        min-width:0;margin:0;padding:0
+      }
+      #esa-negbin-wait-explorer h3 {font-size:1.05em;margin:16px 0 10px}
+      #esa-negbin-wait-explorer svg {display:block;width:100%;height:auto;max-width:520px;margin:0 auto;overflow:visible}
+      #esa-negbin-wait-explorer .esa-negbin-results p {margin:11px 0}
+      #esa-negbin-wait-explorer .esa-negbin-presets {display:flex;flex-wrap:wrap;gap:8px}
+    </style>
+    <script>
+    (function () {
+      "use strict";
+      const root=document.getElementById("esa-negbin-wait-explorer");
+      if (!root) return;
+      const byId=id=>root.querySelector("#"+id);
+      const rInput=byId("esa-negbin-r"),pInput=byId("esa-negbin-p"),
+            kInput=byId("esa-negbin-k");
+      const CHART_BASE=135;
+      function choose(n,k) {
+        if (k<0 || k>n) return 0;
+        const count=Math.min(k,n-k);
+        let result=1;
+        for(let i=1;i<=count;i++)result*= (n-count+i)/i;
+        return result;
+      }
+      function mass(k,r,p) {
+        if(k<r) return 0;
+        return choose(k-1,r-1)*Math.pow(p,r)*Math.pow(1-p,k-r);
+      }
+      function update() {
+        const r=Number(rInput.value),p=Number(pInput.value);
+        // Set current feasibility constraints before obtaining/assigning k:
+        // native range inputs otherwise clamp against obsolete bounds.
+        kInput.min=String(r);
+        const k=Math.max(r,Math.min(30,Number(kInput.value)));
+        kInput.value=String(k);
+        let cdf=0;
+        for(let j=r;j<=k;j++)cdf+=mass(j,r,p);
+        cdf=Math.max(0,Math.min(1,cdf));
+        const tail=Math.max(0,1-cdf);
+        const pmf=mass(k,r,p);
+        byId("esa-negbin-r-value").textContent=String(r);
+        byId("esa-negbin-p-value").textContent=p.toFixed(2);
+        byId("esa-negbin-k-value").textContent=String(k);
+        byId("esa-negbin-pmf").textContent=pmf.toFixed(6);
+        byId("esa-negbin-cdf").textContent=cdf.toFixed(6);
+        byId("esa-negbin-tail").textContent=tail.toFixed(6);
+        byId("esa-negbin-mean").textContent=(r/p).toFixed(4);
+        byId("esa-negbin-variance").textContent=(r*(1-p)/(p*p)).toFixed(4);
+        byId("esa-negbin-special").textContent=r===1?
+          "With r = 1, this is exactly the geometric trials-to-first-success distribution.":
+          "For r > 1, the completion trial includes all r successful trials; set r = 1 to recover the geometric distribution.";
+        const chart=byId("esa-negbin-bars");
+        const svgNS="http://www.w3.org/2000/svg";
+        const newElements=[];
+        for(let j=r;j<r+12;j++){
+          const x=40+(j-r)*24;
+          const height=110*mass(j,r,p);
+          const bar=document.createElementNS(svgNS,"rect");
+          bar.setAttribute("x",String(x));bar.setAttribute("width","17");
+          bar.setAttribute("y",String(CHART_BASE-height));
+          bar.setAttribute("height",String(height));
+          bar.setAttribute("fill",j===k?"#0d9488":"#64748b");
+          bar.setAttribute("data-trial",String(j));
+          newElements.push(bar);
+          if(j===r||j===r+5||j===r+11){
+            const label=document.createElementNS(svgNS,"text");
+            label.setAttribute("x",String(x+8.5));label.setAttribute("y","152");
+            label.setAttribute("fill","currentColor");
+            label.setAttribute("font-size","10");
+            label.setAttribute("text-anchor","middle");
+            label.textContent=String(j);newElements.push(label);
+          }
+        }
+        chart.replaceChildren(...newElements);
+        byId("esa-negbin-chart").setAttribute("aria-label",
+          "Negative binomial completion-trial PMF for r = "+r+
+          " successes with p = "+p.toFixed(2)+
+          ". Selected trial k = "+k+", P(X = k) = "+pmf.toFixed(6)+
+          ". Twelve displayed bars, with all trials included in cumulative results.");
+      }
+      [rInput,pInput,kInput].forEach(input=>input.addEventListener("input",update));
+      function preset(r,p,k) {
+        rInput.value=String(r);pInput.value=String(p);
+        kInput.min=String(r);kInput.value=String(k);
+        update();
+      }
+      byId("esa-negbin-reset").addEventListener("click",()=>preset(3,0.5,5));
+      byId("esa-negbin-geometric").addEventListener("click",()=>preset(1,0.5,3));
+      update();
+    })();
+    </script>
+
     <h2>Comparing Geometric and Negative Binomial</h2>
 
     <div class="table-wrap">
