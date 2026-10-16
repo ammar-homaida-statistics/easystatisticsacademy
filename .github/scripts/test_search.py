@@ -3515,6 +3515,253 @@ class SearchTests(unittest.TestCase):
                 if slug == "classical-tests":
                     expect(self.page.locator("#esa-test-guide")).to_be_visible()
 
+
+    def test_restored_linearity_and_variance_rules_math(self):
+        """Independently check 28 restored expressions and dice/indicator examples."""
+        from html import unescape
+        from fractions import Fraction
+        cases = (
+            ("/probability/expectation-variance/linearity-of-expectation/", 13, (
+                r"\operatorname{E}(X+Y)=\operatorname{E}(X)+\operatorname{E}(Y)",
+                r"\operatorname{E}(aX+b)=a\operatorname{E}(X)+b",
+                r"\operatorname{E}(X+Y)=3.5+3.5=7",
+                r"\operatorname{E}(Y)=\operatorname{E}(X+5)=70+5=75",
+                r"\operatorname{E}(I_A)=1\cdot P(A)+0\cdot(1-P(A))=P(A)",
+                r"\operatorname{E}(H)=10\cdot0.5=5",
+                "provided the expectations exist and are finite",
+                "independent or dependent")),
+            ("/probability/expectation-variance/variance-rules-and-sums/", 15, (
+                r"\operatorname{Var}(X)=\operatorname{E}\big[(X-\operatorname{E}X)^2\big]",
+                r"\operatorname{Var}(c)=0",
+                r"\operatorname{Var}(X+c)=\operatorname{Var}(X)",
+                r"\operatorname{Var}(cX)=c^2\operatorname{Var}(X)",
+                r"\operatorname{Var}(Y)=\operatorname{Var}(3X)=3^2\cdot4=36",
+                r"\operatorname{Cov}(X,Y)",
+                r"\operatorname{Var}(X+Y)=",
+                r"\operatorname{Var}(X-Y)=",
+                r"\frac{35}{12}",
+                r"\frac{35}{6}\approx5.8333",
+                "Independence is sufficient, but not necessary"))
+        )
+        for route, n, expected in cases:
+            with self.subTest(route=route):
+                source = (SITE / route.lstrip("/") / "index.html").read_text()
+                main = unescape(source.split('<main id="main-content"', 1)[1]
+                                       .split("</main>", 1)[0])
+                self.assertNotIn("\uea01", main)
+                self.assertNotIn("\uea02", main)
+                self.assertEqual(main.count(r"\["), n)
+                self.assertEqual(main.count(r"\]"), n)
+                for fragment in expected:
+                    self.assertIn(fragment, main)
+                self.page.goto(self.origin + route, wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+                key = "esa_continue_probability_expectation_variance_lesson_v0"
+                stored = self.page.evaluate(
+                    "k => JSON.parse(localStorage.getItem(k))", key)
+                self.assertEqual(stored["url"], route)
+                self.assertIsInstance(stored["ts"], (int, float))
+
+        outcomes = tuple(range(1, 7))
+        mean = Fraction(sum(outcomes), len(outcomes))
+        variance = sum((Fraction(i) - mean)**2 for i in outcomes) / len(outcomes)
+        self.assertEqual(mean, Fraction(7, 2))
+        self.assertEqual(variance, Fraction(35, 12))
+        self.assertEqual(2 * variance, Fraction(35, 6))
+        self.assertEqual(3**2 * 4, 36)
+        self.assertEqual(sum(Fraction(1, 2) for _ in range(10)), 5)
+        for sx, sy, rho, expected_cov, expected_sum, expected_diff in (
+            (2, 3, -1, -6, 1, 25),
+            (2, 3, 0, 0, 13, 13),
+            (2, 3, 1, 6, 25, 1),
+            (1, 1, -1, -1, 0, 4),
+            (1, 1, 1, 1, 4, 0),
+        ):
+            with self.subTest(rho=rho, sdx=sx, sdy=sy):
+                covariance = sx * sy * rho
+                self.assertEqual(covariance, expected_cov)
+                self.assertEqual(sx*sx + sy*sy + 2*covariance, expected_sum)
+                self.assertEqual(sx*sx + sy*sy - 2*covariance, expected_diff)
+
+    def test_variance_explorer_accessible_numerical_keyboard_and_mobile(self):
+        """Native labelled inputs, preset extremes, slider keyboard and responsive layout."""
+        route = "/probability/expectation-variance/variance-rules-and-sums/"
+        self.page.goto(self.origin + route, wait_until="networkidle")
+        box = self.page.locator("#esa-variance-explorer")
+        expect(box.get_by_role("heading",
+             name="Interactive Variance of Sums and Differences")).to_be_visible()
+        x = self.page.get_by_label("Standard deviation of X")
+        y = self.page.get_by_label("Standard deviation of Y")
+        rho = self.page.get_by_role("slider", name="Correlation ρ")
+        cov = self.page.locator("#esa-variance-cov")
+        plus = self.page.locator("#esa-variance-plus")
+        minus = self.page.locator("#esa-variance-minus")
+        message = self.page.locator("#esa-variance-error")
+        expect(x).to_have_value("2")
+        expect(y).to_have_value("3")
+        expect(rho).to_have_value("0")
+        expect(cov).to_have_text("0")
+        expect(plus).to_have_text("13")
+        expect(minus).to_have_text("13")
+        expect(self.page.locator("#esa-variance-explanation")).to_contain_text(
+            "does not prove independence")
+
+        for choice, expected in (("−1", ("-6", "1", "25")),
+                                 ("0", ("0", "13", "13")),
+                                 ("+1", ("6", "25", "1"))):
+            with self.subTest(preset=choice):
+                box.get_by_role("button", name="ρ = " + choice).click()
+                expect(cov).to_have_text(expected[0])
+                expect(plus).to_have_text(expected[1])
+                expect(minus).to_have_text(expected[2])
+        rho.focus()
+        rho.press("Home")
+        expect(rho).to_have_value("-1")
+        rho.press("ArrowRight")
+        expect(rho).to_have_value("-0.95")
+        expect(self.page.locator("#esa-variance-rho-label")).to_have_text("-0.95")
+        box.get_by_role("button", name="ρ = 0").click()
+        x.fill("1")
+        y.fill("1")
+        box.get_by_role("button", name="ρ = −1").click()
+        expect(plus).to_have_text("0")
+        expect(minus).to_have_text("4")
+        box.get_by_role("button", name="ρ = +1").click()
+        expect(plus).to_have_text("4")
+        expect(minus).to_have_text("0")
+
+        x.fill("0")
+        expect(plus).to_have_text("—")
+        expect(message).to_contain_text("positive standard deviations")
+        x.fill("-1")
+        expect(plus).to_have_text("—")
+        x.fill("")
+        expect(plus).to_have_text("—")
+        x.fill("1000001")
+        expect(plus).to_have_text("—")
+        x.fill("2")
+        y.fill("3")
+        expect(message).to_be_hidden()
+        expect(plus).to_have_text("25")
+        for width in (320, 375, 768, 1280):
+            with self.subTest(width=width):
+                self.page.set_viewport_size({"width":width, "height":850})
+                bounds = box.evaluate("""e => ({
+                    scroll:e.scrollWidth,client:e.clientWidth,
+                    left:e.getBoundingClientRect().left,
+                    right:e.getBoundingClientRect().right
+                })""")
+                self.assertLessEqual(bounds["scroll"]-bounds["client"], 1, bounds)
+                self.assertGreaterEqual(bounds["left"], -1, bounds)
+                self.assertLessEqual(bounds["right"], width+1, bounds)
+
+    def test_variance_explorer_survives_blocked_localstorage(self):
+        """Denied storage cannot hide the variance explorer or prevent calculations."""
+        self.page.add_init_script("""
+            Object.defineProperty(window, "localStorage", {
+              configurable:true,
+              get() { throw new DOMException("Storage blocked", "SecurityError"); }
+            });
+        """)
+        self.page.goto(self.origin + "/probability/expectation-variance/variance-rules-and-sums/",
+                       wait_until="networkidle")
+        expect(self.page.locator("main h1")).to_be_visible()
+        expect(self.page.locator("#esa-variance-plus")).to_have_text("13")
+        self.page.get_by_role("button", name="ρ = −1").click()
+        expect(self.page.locator("#esa-variance-plus")).to_have_text("1")
+        expect(self.page.locator("#esa-variance-minus")).to_have_text("25")
+
+    def test_seven_probability_overviews_resume_rejects_injection_and_unsafe_links(self):
+        """Exact same-block published links and literal saved labels only."""
+        names = (
+            ("basics","basics","basics"),
+            ("conditional","conditional","conditional"),
+            ("random-variables","random_variables","rv"),
+            ("expectation-variance","expectation_variance","ev"),
+            ("distributions","distributions","distributions"),
+            ("lln-clt","lln_clt","lln"),
+            ("sampling-distributions","sampling_distributions","sampling")
+        )
+        malicious = '<img src=x onerror="window.esaInjected=true"><script>window.esaInjected=true</script> & text'
+        for slug, keyslug, suffix in names:
+            with self.subTest(block=slug):
+                url = "/probability/" + slug + "/"
+                key = "esa_continue_probability_" + keyslug + "_lesson_v0"
+                self.page.goto(self.origin + url, wait_until="networkidle")
+                panel = self.page.locator("#continue-reading-probability-" + suffix)
+                label = self.page.locator("#continue-reading-probability-" + suffix + "-label")
+                link = self.page.locator("#continue-reading-probability-" + suffix + "-btn")
+                valid = self.page.locator("#lessons .lesson-card h3 a[href]").first.get_attribute("href")
+                self.assertTrue((SITE / valid.lstrip("/") / "index.html").is_file())
+                expect(panel).to_be_hidden()
+
+                def set_history(data):
+                    self.page.evaluate(
+                        "([key,data]) => localStorage.setItem(key, JSON.stringify(data))",
+                        [key, data])
+                    self.page.reload(wait_until="networkidle")
+
+                set_history({"url":valid,"label":malicious})
+                expect(panel).to_be_visible()
+                expect(link).to_have_attribute("href", valid)
+                expect(label.locator("strong")).to_have_text(malicious)
+                self.assertEqual(label.locator("img,script").count(), 0)
+                self.assertIsNone(self.page.evaluate("window.esaInjected"))
+                for invalid in (
+                    {"url":"javascript:alert(1)","label":"Bad"},
+                    {"url":"//example.com/lesson/","label":"Bad"},
+                    {"url":"/probability/unpublished-block/lesson/","label":"Bad"},
+                    {"url":"/probability/expectation-variance/variance-rules-and-sums/"
+                           if slug != "expectation-variance"
+                           else "/probability/distributions/binomial-distribution/",
+                     "label":"Cross-block"},
+                    {"url":url+"not-published/","label":"Not published"},
+                    {"url":valid+"?next=evil","label":"Query"},
+                    {"url":valid+"#lesson","label":"Anchor"},
+                    {"url":url+"../about/","label":"Traversal"},
+                    {"url":valid,"label":123},
+                    {"url":valid,"label":"   "},
+                ):
+                    with self.subTest(block=slug,invalid=invalid):
+                        set_history(invalid)
+                        expect(panel).to_be_hidden()
+                self.page.evaluate(
+                    "key => localStorage.setItem(key, '{bad json')", key)
+                self.page.reload(wait_until="networkidle")
+                expect(panel).to_be_hidden()
+                # A saved ordinary label must still work after invalid data is rejected.
+                set_history({"url":valid,"label":"Continue a published lesson"})
+                expect(panel).to_be_visible()
+                expect(link).to_have_attribute("href", valid)
+                expect(label.locator("strong")).to_have_text("Continue a published lesson")
+
+    def test_seven_probability_overviews_denied_storage_remain_usable(self):
+        """All block overview pages keep lessons and navigation when storage is denied."""
+        self.page.add_init_script("""
+            Object.defineProperty(window, "localStorage", {
+              configurable:true,
+              get() { throw new DOMException("Storage denied", "SecurityError"); }
+            });
+        """)
+        names = (
+            ("basics","basics"),
+            ("conditional","conditional"),
+            ("random-variables","rv"),
+            ("expectation-variance","ev"),
+            ("distributions","distributions"),
+            ("lln-clt","lln"),
+            ("sampling-distributions","sampling")
+        )
+        for slug,suffix in names:
+            with self.subTest(block=slug):
+                self.page.goto(self.origin + "/probability/" + slug + "/",
+                               wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+                expect(self.page.locator("#lessons .lesson-card h3 a").first).to_be_visible()
+                expect(self.page.locator("#continue-reading-probability-" + suffix)).to_be_hidden()
+                self.assertEqual(self.errors, [])
+                self.assertGreater(self.page.locator("#lessons .lesson-card").count(), 0)
+
     def test_welch_and_paired_repaired_mathematics_and_numeric_examples(self):
         """Recalculate Welch and paired inferences against lesson statements."""
         from math import sqrt, isclose
