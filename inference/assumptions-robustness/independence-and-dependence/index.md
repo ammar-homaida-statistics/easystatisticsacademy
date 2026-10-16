@@ -99,7 +99,11 @@ sidebar: false
       In probability theory, independence means:
     </p>
 
-    0
+    
+    \[
+    P(A\cap B)=P(A)P(B)\quad\text{for all relevant events }A,B
+    \]
+
 
     <p>
       Knowledge about one event provides no information about the occurrence of the other.
