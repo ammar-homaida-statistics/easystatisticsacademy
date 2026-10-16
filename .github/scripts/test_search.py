@@ -3959,7 +3959,7 @@ class SearchTests(unittest.TestCase):
         selector=self.page.get_by_label("What best describes your random outcome?")
         lessons=self.page.locator("#lessons .lesson-card h3 a[href]")
         expect(lessons).to_have_count(12)
-        expect(selector.locator('option[value!=""]')).to_have_count(12)
+        expect(selector.locator('option:not([value=""])')).to_have_count(12)
         link=self.page.locator("#esa-distribution-lesson-link")
         title=self.page.locator("#esa-distribution-model")
         assumptions=self.page.locator("#esa-distribution-assumptions")
@@ -3967,7 +3967,7 @@ class SearchTests(unittest.TestCase):
         caveat=self.page.locator("#esa-distribution-caveat")
         expect(link).to_be_hidden()
         models=(
-          ("bernoulli","Bernoulli","bernoulli-distribution","success probability"),
+          ("bernoulli","Bernoulli","bernoulli-distribution","binary"),
           ("binomial","Binomial","binomial-distribution","independent"),
           ("geometric","Geometric","geometric-distribution","first success"),
           ("negative-binomial","Negative binomial","negative-binomial-distribution","r-th"),
