@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_inference_power_sample_size_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
     url: "/inference/power-sample-size/sample-size-for-proportion/",
     label: "Sample Size for a Proportion",
     ts: Date.now()
   }));
+  } catch (_) {
+    // The lesson and calculator remain available when persistence is blocked.
+  }
 
 })();
 </script>
@@ -291,6 +295,142 @@ n_0=\frac{(1.96)^2(0.5)(0.5)}{(0.03)^2}\approx1067.111,\qquad n=\lceil n_0\rceil
       </p>
 
     </div>
+
+
+    <!-- PROPORTION SAMPLE SIZE CALCULATOR -->
+    <section id="esa-proportion-calculator" class="esa-proportion-calculator concept-box"
+             aria-labelledby="esa-proportion-calculator-heading">
+      <h2 id="esa-proportion-calculator-heading">Interactive Sample Size for a Proportion</h2>
+      <p>Plan an approximate <strong>two-sided confidence interval for one population proportion</strong>.
+         Enter a planning proportion and an absolute margin of error (for example, 0.03 means ±3 percentage points).</p>
+      <form id="esa-proportion-calculator-form" novalidate>
+        <div class="esa-proportion-calculator-fields">
+          <div>
+            <label for="esa-sample-confidence">Confidence level</label>
+            <select id="esa-sample-confidence" name="confidence">
+              <option value="90">90% (z = 1.645)</option>
+              <option value="95" selected>95% (z = 1.96)</option>
+              <option value="99">99% (z = 2.576)</option>
+            </select>
+          </div>
+          <div>
+            <label for="esa-sample-margin">Target margin of error E (0–1)</label>
+            <input type="number" inputmode="decimal" id="esa-sample-margin"
+                   name="margin" required min="0.000001" max="0.999999" step="any" value="0.03">
+          </div>
+          <div>
+            <label for="esa-sample-proportion">Expected proportion p (0–1)</label>
+            <input type="number" inputmode="decimal" id="esa-sample-proportion"
+                   name="proportion" required min="0.000001" max="0.999999" step="any"
+                   value="0.5" disabled>
+          </div>
+          <div class="esa-proportion-checkbox">
+            <label for="esa-sample-conservative">
+              <input type="checkbox" id="esa-sample-conservative" name="conservative" checked>
+              Use conservative p = 0.5 when the proportion is unknown
+            </label>
+          </div>
+        </div>
+        <p class="esa-proportion-formula">Planning formula: <strong>n = ⌈z² × p(1 − p) / E²⌉</strong>,
+          where E is the desired half-width, z is the two-sided critical value, and n is always rounded up.</p>
+        <div class="example-box">
+          <p><strong>Required minimum: <output id="esa-sample-result" for="esa-sample-confidence esa-sample-margin esa-sample-proportion esa-sample-conservative" role="status" aria-live="polite">1,068</output> observations</strong></p>
+          <p id="esa-sample-details">The 95% planning calculation uses p = 0.5 and E = 0.03.</p>
+          <p id="esa-sample-warning"></p>
+        </div>
+        <p id="esa-sample-error" role="alert" hidden></p>
+      </form>
+      <p class="muted-mini"><strong>Assumptions and exclusions:</strong> This is an approximate,
+        large-sample Wald-interval precision calculation for independent Bernoulli observations
+        under simple random sampling (or a comparable design). It does not apply a
+        finite-population correction, complex-sample design effect, anticipated nonresponse
+        inflation, or guaranteed-coverage/Wilson adjustment. It is not a hypothesis-test power
+        calculator or a guarantee that any realized confidence interval meets the chosen margin.
+        In particular, Wald coverage may be poor near p = 0 or p = 1.</p>
+    </section>
+    <style>
+      #esa-proportion-calculator {max-width:100%; min-width:0; overflow-wrap:anywhere;}
+      .esa-proportion-calculator-fields {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:16px 0;}
+      .esa-proportion-calculator-fields > div {min-width:0;}
+      #esa-proportion-calculator label {display:block;font-weight:650;margin:0 0 7px;}
+      #esa-proportion-calculator input[type="number"],#esa-proportion-calculator select {
+        width:100%;max-width:100%;min-width:0;box-sizing:border-box;border:1px solid var(--border-strong);
+        background:var(--surface);color:var(--text);border-radius:8px;padding:10px;font:inherit;
+      }
+      #esa-proportion-calculator input:focus-visible,#esa-proportion-calculator select:focus-visible {
+        outline:2px solid var(--accent);outline-offset:2px;
+      }
+      #esa-proportion-calculator .esa-proportion-checkbox {align-self:center;}
+      #esa-proportion-calculator .esa-proportion-checkbox label {display:flex;align-items:flex-start;gap:10px;cursor:pointer;}
+      #esa-proportion-calculator input[type="checkbox"] {margin:5px 0 0;flex:0 0 auto;accent-color:var(--brand);}
+      #esa-proportion-calculator .esa-proportion-formula {overflow-wrap:anywhere;}
+      #esa-sample-error {color:#b42318;font-weight:650;}
+      @media (max-width:600px) {
+        .esa-proportion-calculator-fields {grid-template-columns:minmax(0,1fr);}
+      }
+    </style>
+    <script>
+    (function () {
+      const form = document.getElementById("esa-proportion-calculator-form");
+      if (!form) return;
+      const confidence = document.getElementById("esa-sample-confidence");
+      const margin = document.getElementById("esa-sample-margin");
+      const proportion = document.getElementById("esa-sample-proportion");
+      const conservative = document.getElementById("esa-sample-conservative");
+      const result = document.getElementById("esa-sample-result");
+      const details = document.getElementById("esa-sample-details");
+      const warning = document.getElementById("esa-sample-warning");
+      const error = document.getElementById("esa-sample-error");
+      // Deliberately use the rounded critical values taught in this lesson.
+      const criticalValues = Object.freeze({"90":1.645,"95":1.96,"99":2.576});
+      function render() {
+        proportion.disabled = conservative.checked;
+        const z = criticalValues[confidence.value];
+        const p = conservative.checked ? 0.5 : Number(proportion.value);
+        const e = Number(margin.value);
+        let message = "";
+        if (!z) message = "Choose a supported confidence level (90%, 95%, or 99%).";
+        else if (!conservative.checked &&
+                 (proportion.value.trim() === "" || !Number.isFinite(p) || p <= 0 || p >= 1)) {
+          message = "Enter an expected proportion strictly between 0 and 1.";
+        } else if (margin.value.trim() === "" || !Number.isFinite(e) || e <= 0 || e >= 1) {
+          message = "Enter an absolute margin of error strictly between 0 and 1.";
+        }
+        if (message) {
+          result.textContent = "—";
+          details.textContent = "";
+          warning.textContent = "";
+          error.textContent = message;
+          error.hidden = false;
+          return;
+        }
+        const unrounded = z * z * p * (1 - p) / (e * e);
+        const n = Math.ceil(unrounded);
+        if (!Number.isFinite(unrounded) || !Number.isSafeInteger(n) || n < 1) {
+          result.textContent = "—";
+          details.textContent = "";
+          warning.textContent = "";
+          error.textContent = "These inputs exceed the calculator's reliable numerical range.";
+          error.hidden = false;
+          return;
+        }
+        error.textContent = "";
+        error.hidden = true;
+        result.textContent = n.toLocaleString("en-US");
+        details.textContent = confidence.value + "% confidence: z = " + z +
+          ", planning p = " + p + ", E = " + e +
+          ". Unrounded n = " + unrounded.toFixed(3) + "; round up to " +
+          n.toLocaleString("en-US") + ".";
+        warning.textContent = (n * p < 10 || n * (1 - p) < 10)
+          ? "Caution: fewer than 10 expected successes or failures under the planning values; the Wald normal approximation can be poor."
+          : "";
+      }
+      form.addEventListener("submit", event => { event.preventDefault(); render(); });
+      form.addEventListener("input", render);
+      form.addEventListener("change", render);
+      render();
+    })();
+    </script>
 
     <h2>Effect of Margin of Error</h2>
 
