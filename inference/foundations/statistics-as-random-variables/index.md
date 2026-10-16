@@ -147,7 +147,11 @@ sidebar: false
       Draw a random sample and calculate:
     </p>
 
-    0
+    
+    \[
+    \bar X=\frac1n\sum_{i=1}^nX_i
+    \]
+
 
     <p>
       One sample may produce:
@@ -200,7 +204,11 @@ sidebar: false
       Therefore:
     </p>
 
-    1
+    
+    \[
+    \bar X
+    \]
+
 
     <p>
       is a random variable.
@@ -327,7 +335,11 @@ sidebar: false
       For the sample mean:
     </p>
 
-    2
+    
+    \[
+    E[\bar X]=\mu
+    \]
+
 
     <p>
       The sample mean is centered on the population mean.
@@ -343,7 +355,11 @@ sidebar: false
       For the sample mean:
     </p>
 
-    3
+    
+    \[
+    \operatorname{Var}(\bar X)=\frac{\sigma^2}{n}\quad(\text{iid sample, finite variance})
+    \]
+
 
     <p>
       This tells us how much sample means fluctuate across repeated samples.
