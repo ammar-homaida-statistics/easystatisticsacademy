@@ -79,7 +79,9 @@ sidebar: false
       When studying proportions, the population parameter is:
     </p>
 
-    0
+    \[
+p\in[0,1]
+\]
 
     <p>
       representing the proportion of the population possessing a particular characteristic.
@@ -112,13 +114,17 @@ sidebar: false
       we estimate it using the sample proportion:
     </p>
 
-    1
+    \[
+\hat p
+\]
 
     <p>
       which equals:
     </p>
 
-    2
+    \[
+\hat p=\frac{x}{n}
+\]
 
     <p>
       where:
@@ -142,7 +148,9 @@ sidebar: false
       If 310 people support it:
     </p>
 
-    3
+    \[
+\hat p=\frac{310}{500}=0.62
+\]
 
     <p>
       The sample proportion estimates the population proportion.
@@ -154,7 +162,9 @@ sidebar: false
       As always:
     </p>
 
-    4
+    \[
+\text{Estimate}\ \pm\ \text{Margin of error}
+\]
 
     <p>
       For proportions:
@@ -174,10 +184,12 @@ sidebar: false
       The estimated standard error is:
     </p>
 
-    5
+    \[
+\widehat{\operatorname{SE}}(\hat p)=\sqrt{\frac{\hat p(1-\hat p)}{n}}
+\]
 
     <p>
-      This measures how much sample proportions vary across repeated samples.
+      This estimates how much the sample proportion varies across repeated independent samples; the true standard error uses the unknown population proportion p instead of p̂.
     </p>
 
     <h2>The Confidence Interval Formula</h2>
@@ -188,10 +200,12 @@ sidebar: false
       and z critical value gives:
     </p>
 
-    6
+    \[
+\hat p\ \pm\ z_{1-\alpha/2}\sqrt{\frac{\hat p(1-\hat p)}{n}}
+\]
 
     <p>
-      This is the standard large-sample confidence interval for a population proportion.
+      This is the familiar large-sample Wald confidence interval for a population proportion. Its actual coverage can be poor, especially with small samples or a true proportion near 0 or 1. Wilson (score) intervals are often preferable; the calculations here specifically illustrate the Wald method.
     </p>
 
     <h2>Why z Critical Values Are Used</h2>
@@ -242,13 +256,17 @@ sidebar: false
       Using:
     </p>
 
-    7
+    \[
+\widehat{\operatorname{SE}}(\hat p)=\sqrt{\frac{\hat p(1-\hat p)}{n}}
+\]
 
     <p>
       gives approximately:
     </p>
 
-    8
+    \[
+\sqrt{\frac{0.62(0.38)}{500}}\approx0.0217071
+\]
 
     <h2>Step 2: Find the Critical Value</h2>
 
@@ -270,7 +288,9 @@ sidebar: false
       Margin of error:
     </p>
 
-    9
+    \[
+\operatorname{ME}=1.96(0.0217071)\approx0.04255
+\]
 
     <h2>Step 4: Construct the Interval</h2>
 
@@ -278,7 +298,9 @@ sidebar: false
       Therefore:
     </p>
 
-    10
+    \[
+0.62\pm0.04255\approx(0.57745,\ 0.66255)
+\]
 
     <p>
       yielding:
@@ -369,7 +391,7 @@ sidebar: false
     </div>
 
     <p>
-      This ensures the sampling distribution is approximately normal.
+      This is a useful rule of thumb supporting the normal approximation, but it does not guarantee accurate Wald-interval coverage. The original study design and independence assumptions still matter.
     </p>
 
     <h2>Checking the Condition in Our Example</h2>
@@ -378,13 +400,17 @@ sidebar: false
       Successes:
     </p>
 
-    11
+    \[
+n\hat p=500(0.62)=310\ge10
+\]
 
     <p>
       Failures:
     </p>
 
-    12
+    \[
+n(1-\hat p)=500(0.38)=190\ge10
+\]
 
     <p>
       Both values exceed 10,
@@ -431,16 +457,20 @@ sidebar: false
       The quantity:
     </p>
 
-    13
+    \[
+\hat p(1-\hat p)
+\]
 
     <p>
       reaches its maximum when:
     </p>
 
-    14
+    \[
+\hat p=0.5\quad\text{(maximum: }0.25\text{)}
+\]
 
     <p>
-      This means proportions near 50% tend to produce the largest standard errors and widest intervals.
+      For a fixed sample size, sample proportions near 50% give the largest plug-in standard errors and widest Wald intervals. Near 0 or 1 the Wald interval can be misleadingly narrow or extend beyond [0, 1]; a Wilson interval is often better.
     </p>
 
     <h2>Why Proportion Intervals Matter</h2>
