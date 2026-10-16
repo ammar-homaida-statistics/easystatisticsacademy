@@ -4573,7 +4573,8 @@ class SearchTests(unittest.TestCase):
             with self.subTest(outcome=outcome,design=structure,known=known):
                 goal.select_option(outcome)
                 design.select_option(structure)
-                sigma.select_option(known)
+                if outcome=="mean" and structure=="one":
+                    sigma.select_option(known)
                 expect(link).to_have_count(1)
                 self.assertEqual(link.get_attribute("href"),
                     "/inference/confidence-intervals/"+slug+"/")
