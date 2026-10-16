@@ -290,7 +290,7 @@ sidebar: false
 
     
     \[
-    Z=2
+    Z=z_{\mathrm{obs}}>0
     \]
 
 
