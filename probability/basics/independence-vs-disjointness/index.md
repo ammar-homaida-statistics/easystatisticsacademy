@@ -537,7 +537,12 @@ sidebar: false
           "The events are neither independent nor mutually exclusive.";
       }
       function preset(pa,pb,pab) {
-        a.value=pa.toFixed(2);b.value=pb.toFixed(2);both.value=pab.toFixed(2);update();
+        a.value=pa.toFixed(2);b.value=pb.toFixed(2);
+        // Refresh the feasible overlap bounds before assigning the requested
+        // overlap: native range inputs clamp assignments using their old bounds.
+        update();
+        both.value=pab.toFixed(2);
+        update();
       }
       [a,b,both].forEach(input=>input.addEventListener("input",update));
       field("esa-basics-preset-independent").addEventListener("click",()=>preset(.5,.5,.25));
