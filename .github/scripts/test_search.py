@@ -5325,9 +5325,12 @@ class SearchTests(unittest.TestCase):
           "modeling/model-fit-comparison/aic-bic/index.html":(
             "Hirotugu Akaike",),
         }
+        from html import unescape
         for source,fragments in representative.items():
             with self.subTest(page=source):
-                html=(SITE/source).read_text(encoding="utf-8")
+                # Jekyll escapes '<' and '>' in text nodes. Compare the
+                # decoded HTML text against the original mathematical TeX.
+                html=unescape((SITE/source).read_text(encoding="utf-8"))
                 for fragment in fragments:
                     self.assertIn(fragment,html)
 
