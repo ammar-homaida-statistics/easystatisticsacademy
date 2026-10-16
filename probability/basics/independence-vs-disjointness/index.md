@@ -368,14 +368,185 @@ sidebar: false
 
 
     <p>
-      Therefore, at least one event must have probability zero. Conversely, any probability-zero event
-      is independent of every event and is disjoint from every event precisely when its intersection is empty.
+      Therefore, at least one event must have probability zero. A probability-zero event is independent
+      of every event, but independence does not imply that its intersection with another event is empty.
+      Disjointness still requires an empty intersection.
     </p>
 
     <p>
       Otherwise,
       both conditions cannot be true simultaneously.
     </p>
+
+
+    <!-- EVENT RELATIONSHIP EXPLORER: independent, disjoint, both or neither -->
+    <div class="concept-box esa-basics-event-lab" id="esa-basics-event-lab"
+         role="group" aria-labelledby="esa-basics-lab-heading">
+      <h2 id="esa-basics-lab-heading">Explore Independence versus Disjointness</h2>
+      <p>Move the sliders to define two events A and B. The intersection is constrained to
+         the mathematically feasible range; the four non-overlapping regions always sum to 1.
+         Independence is a probability relationship, while disjointness is a set relationship.</p>
+      <div class="esa-basics-lab-fields">
+        <div>
+          <label for="esa-basics-p-a"><strong>Probability of A:
+            <output for="esa-basics-p-a" id="esa-basics-p-a-value">0.50</output></strong></label>
+          <input type="range" min="0" max="1" step="0.05" value="0.5" id="esa-basics-p-a">
+        </div>
+        <div>
+          <label for="esa-basics-p-b"><strong>Probability of B:
+            <output for="esa-basics-p-b" id="esa-basics-p-b-value">0.50</output></strong></label>
+          <input type="range" min="0" max="1" step="0.05" value="0.5" id="esa-basics-p-b">
+        </div>
+        <div>
+          <label for="esa-basics-p-ab"><strong>Probability of A and B:
+            <output for="esa-basics-p-ab" id="esa-basics-p-ab-value">0.25</output></strong></label>
+          <input type="range" min="0" max="0.5" step="0.01" value="0.25"
+                 id="esa-basics-p-ab" aria-describedby="esa-basics-lab-range">
+        </div>
+      </div>
+      <p class="muted-mini" id="esa-basics-lab-range">
+        Feasible overlap: <output id="esa-basics-overlap-min">0.00</output>
+        through <output id="esa-basics-overlap-max">0.50</output>.
+        The bounds are max(0, P(A) + P(B) − 1) and min(P(A), P(B)).
+      </p>
+      <h3>Partition of the sample space</h3>
+      <div class="esa-basics-regions" id="esa-basics-region-bars"
+           role="img" aria-label="Four mutually exclusive regions: both 0.25, A only 0.25, B only 0.25, neither 0.25">
+        <span id="esa-basics-bar-both" class="esa-basics-bar esa-basics-bar-both" style="width:25%"></span>
+        <span id="esa-basics-bar-only-a" class="esa-basics-bar esa-basics-bar-a" style="width:25%"></span>
+        <span id="esa-basics-bar-only-b" class="esa-basics-bar esa-basics-bar-b" style="width:25%"></span>
+        <span id="esa-basics-bar-neither" class="esa-basics-bar esa-basics-bar-neither" style="width:25%"></span>
+      </div>
+      <dl class="esa-basics-lab-legend">
+        <div><dt><span class="esa-basics-swatch esa-basics-bar-both"></span>Both A and B</dt>
+          <dd><output id="esa-basics-both">0.25</output></dd></div>
+        <div><dt><span class="esa-basics-swatch esa-basics-bar-a"></span>A only</dt>
+          <dd><output id="esa-basics-only-a">0.25</output></dd></div>
+        <div><dt><span class="esa-basics-swatch esa-basics-bar-b"></span>B only</dt>
+          <dd><output id="esa-basics-only-b">0.25</output></dd></div>
+        <div><dt><span class="esa-basics-swatch esa-basics-bar-neither"></span>Neither A nor B</dt>
+          <dd><output id="esa-basics-neither">0.25</output></dd></div>
+      </dl>
+      <div class="esa-basics-lab-results" role="status" aria-live="polite" aria-atomic="true">
+        <p><strong>Check independence:</strong> P(A)P(B) =
+          <output id="esa-basics-product">0.2500</output>;
+          actual P(A ∩ B) = <output id="esa-basics-joint">0.2500</output>.
+          <strong id="esa-basics-independent">Independent: Yes</strong>.</p>
+        <p><strong>Check disjointness:</strong> P(A ∩ B) = 0 is required.
+          <strong id="esa-basics-disjoint">Disjoint: No</strong>.</p>
+        <p><strong id="esa-basics-verdict">These events are independent but not mutually exclusive.</strong></p>
+      </div>
+      <div class="esa-basics-lab-presets">
+        <button type="button" class="btn btn-outline" id="esa-basics-preset-independent">Independent example</button>
+        <button type="button" class="btn btn-outline" id="esa-basics-preset-disjoint">Disjoint example</button>
+        <button type="button" class="btn btn-outline" id="esa-basics-preset-both">Both (zero-probability event)</button>
+        <button type="button" class="btn btn-outline" id="esa-basics-preset-neither">Neither example</button>
+      </div>
+      <p class="muted-mini">
+        At least one zero-probability event is necessary for two events to be both
+        independent and disjoint. Zero probability does not by itself imply an
+        empty set or that the event is disjoint from every other event.
+        This explorer represents probability masses; it does not depict the
+        underlying outcomes or prove set disjointness from probability zero alone.
+        The label "Disjoint" here denotes a four-region example where the
+        intersection is modeled as empty, not merely an arbitrary zero-measure
+        intersection in a continuous sample space.
+      </p>
+    </div>
+    <style>
+      #esa-basics-event-lab {box-sizing:border-box;width:100%;max-width:100%;min-width:0;overflow-wrap:anywhere}
+      #esa-basics-event-lab .esa-basics-lab-fields {
+        display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));
+        gap:14px;margin:18px 0
+      }
+      #esa-basics-event-lab .esa-basics-lab-fields>div {min-width:0}
+      #esa-basics-event-lab label {display:block;margin-bottom:9px}
+      #esa-basics-event-lab input[type="range"] {
+        display:block;box-sizing:border-box;width:100%;max-width:100%;min-width:0;
+        margin:0;padding:0
+      }
+      #esa-basics-event-lab h3 {font-size:1.05em;margin:15px 0 10px}
+      #esa-basics-event-lab .esa-basics-regions {
+        display:flex;box-sizing:border-box;width:100%;max-width:100%;height:35px;
+        border-radius:5px;overflow:hidden;margin:8px 0 12px
+      }
+      #esa-basics-event-lab .esa-basics-bar {box-sizing:border-box;display:block;height:100%;min-width:0}
+      #esa-basics-event-lab .esa-basics-bar-both {background-color:#0d9488}
+      #esa-basics-event-lab .esa-basics-bar-a {background-color:#64748b}
+      #esa-basics-event-lab .esa-basics-bar-b {background-color:#a3a3a3}
+      #esa-basics-event-lab .esa-basics-bar-neither {background-color:#d4d4d8}
+      #esa-basics-event-lab .esa-basics-lab-legend {
+        display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:10px;margin:0
+      }
+      #esa-basics-event-lab .esa-basics-lab-legend>div {
+        display:flex;justify-content:space-between;align-items:center;gap:10px;min-width:0
+      }
+      #esa-basics-event-lab .esa-basics-lab-legend dt,
+      #esa-basics-event-lab .esa-basics-lab-legend dd {margin:0}
+      #esa-basics-event-lab .esa-basics-swatch {
+        display:inline-block;width:12px;height:12px;margin-right:7px;border-radius:2px;vertical-align:middle
+      }
+      #esa-basics-event-lab .esa-basics-lab-results {margin:15px 0}
+      #esa-basics-event-lab .esa-basics-lab-results p {margin:10px 0}
+      #esa-basics-event-lab .esa-basics-lab-presets {
+        display:flex;flex-wrap:wrap;gap:8px;margin:15px 0
+      }
+    </style>
+    <script>
+    (function () {
+      "use strict";
+      const root=document.getElementById("esa-basics-event-lab");
+      if (!root) return;
+      const field=id=>root.querySelector("#"+id);
+      const a=field("esa-basics-p-a"),b=field("esa-basics-p-b"),both=field("esa-basics-p-ab");
+      const round=v=>Math.round(v*100)/100;
+      const display=(id,v,precision=2)=>{field(id).textContent=v.toFixed(precision);};
+      function update() {
+        const pa=round(Number(a.value)),pb=round(Number(b.value));
+        const lower=round(Math.max(0,pa+pb-1));
+        const upper=round(Math.min(pa,pb));
+        const pab=round(Math.max(lower,Math.min(upper,Number(both.value))));
+        both.min=lower.toFixed(2);both.max=upper.toFixed(2);both.value=pab.toFixed(2);
+        const regions={
+          both:pab,a:round(pa-pab),b:round(pb-pab),
+          neither:round(Math.max(0,1-pa-pb+pab))
+        };
+        display("esa-basics-p-a-value",pa);display("esa-basics-p-b-value",pb);
+        display("esa-basics-p-ab-value",pab);display("esa-basics-overlap-min",lower);
+        display("esa-basics-overlap-max",upper);
+        const names=[["both","Both A and B"],["a","A only"],["b","B only"],["neither","Neither"]];
+        const cells={both:"esa-basics-both",a:"esa-basics-only-a",b:"esa-basics-only-b",neither:"esa-basics-neither"};
+        const bars={both:"esa-basics-bar-both",a:"esa-basics-bar-only-a",
+                    b:"esa-basics-bar-only-b",neither:"esa-basics-bar-neither"};
+        names.forEach(([key])=>{
+          display(cells[key],regions[key]);
+          field(bars[key]).style.width=(regions[key]*100).toFixed(0)+"%";
+        });
+        field("esa-basics-region-bars").setAttribute("aria-label",
+          "Four mutually exclusive regions: "+names.map(([key,name])=>name+" "+regions[key].toFixed(2)).join(", "));
+        const product=pa*pb;
+        const independent=Math.abs(pab-product)<1e-9;
+        const disjoint=Math.abs(pab)<1e-9;
+        display("esa-basics-product",product,4);display("esa-basics-joint",pab,4);
+        field("esa-basics-independent").textContent="Independent: "+(independent?"Yes":"No");
+        field("esa-basics-disjoint").textContent="Disjoint: "+(disjoint?"Yes":"No");
+        field("esa-basics-verdict").textContent=independent&&disjoint?
+          "Both independence and a disjoint event model are possible because at least one event has zero probability.":
+          independent?"The events are independent but not mutually exclusive.":
+          disjoint?"The events are mutually exclusive but not independent.":
+          "The events are neither independent nor mutually exclusive.";
+      }
+      function preset(pa,pb,pab) {
+        a.value=pa.toFixed(2);b.value=pb.toFixed(2);both.value=pab.toFixed(2);update();
+      }
+      [a,b,both].forEach(input=>input.addEventListener("input",update));
+      field("esa-basics-preset-independent").addEventListener("click",()=>preset(.5,.5,.25));
+      field("esa-basics-preset-disjoint").addEventListener("click",()=>preset(.3,.4,0));
+      field("esa-basics-preset-both").addEventListener("click",()=>preset(0,.4,0));
+      field("esa-basics-preset-neither").addEventListener("click",()=>preset(.5,.5,.10));
+      update();
+    })();
+    </script>
 
     <h2>A Coin Toss Example</h2>
 
