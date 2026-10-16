@@ -76,7 +76,7 @@ sidebar: false
     <h2>What Is a Binomial Distribution?</h2>
 
     <p>
-      A binomial distribution describes the number of successes obtained in a fixed number of independent Bernoulli trials.
+      A binomial distribution describes the number of successes in a fixed number of independent, identically distributed Bernoulli trials with common success probability p. Differing success probabilities lead to a Poisson-binomial model, and dependence generally requires a different model.
     </p>
 
     <div class="concept-box">
@@ -84,7 +84,7 @@ sidebar: false
       <strong>Definition:</strong>
 
       <p>
-        A binomial random variable counts how many successes occur in n independent trials when each trial has success probability p.
+        A binomial random variable counts successes in n independent trials, each with exactly two outcomes and the same success probability p (0 ≤ p ≤ 1). The count is a sum of n Bernoulli indicators.
       </p>
 
     </div>
@@ -173,7 +173,9 @@ sidebar: false
       A binomial random variable is written as:
     </p>
 
-    0
+    \[
+X\sim\operatorname{Binomial}(n,p)
+\]
 
     <p>
       where:
@@ -193,7 +195,9 @@ sidebar: false
       A binomial variable can take values:
     </p>
 
-    1
+    \[
+X\in\{0,1,\ldots,n\}
+\]
 
     <p>
       because any number of successes from zero to n is possible.
@@ -205,7 +209,9 @@ sidebar: false
       The probability of observing exactly k successes is:
     </p>
 
-    2
+    \[
+P(X=k)=\binom{n}{k}p^k(1-p)^{n-k},\quad k=0,\ldots,n
+\]
 
     <p>
       This is called the binomial probability mass function.
@@ -214,7 +220,7 @@ sidebar: false
     <h2>Understanding the Formula</h2>
 
     <p>
-      The formula contains three parts.
+      For 0 < p < 1, the formula contains three factors. At p = 0 or p = 1 the distribution is degenerate (all failures or all successes), which is handled directly by its limiting probabilities.
     </p>
 
     <div class="table-wrap">
@@ -257,7 +263,9 @@ sidebar: false
       The notation:
     </p>
 
-    3
+    \[
+\binom{n}{k}=\frac{n!}{k!(n-k)!}
+\]
 
     <p>
       counts the number of ways k successes can be placed among n trials.
@@ -301,19 +309,25 @@ sidebar: false
       Applying the formula:
     </p>
 
-    4
+    \[
+P(X=2)=\binom{3}{2}(0.5)^2(0.5)^{3-2}
+\]
 
     <p>
       Since:
     </p>
 
-    5
+    \[
+\binom{3}{2}=3
+\]
 
     <p>
       the probability becomes:
     </p>
 
-    6
+    \[
+P(X=2)=3(0.5)^3=0.375
+\]
 
     <h2>Mean of a Binomial Distribution</h2>
 
@@ -321,7 +335,9 @@ sidebar: false
       The expected value is:
     </p>
 
-    7
+    \[
+\operatorname{E}(X)=np
+\]
 
     <div class="concept-box">
 
@@ -355,10 +371,12 @@ sidebar: false
       Then:
     </p>
 
-    8
+    \[
+\operatorname{E}(X)=100(0.2)=20
+\]
 
     <p>
-      We expect about 20 successes.
+      The expected count is exactly 20; any observed count still varies from sample to sample.
     </p>
 
     <h2>Variance of a Binomial Distribution</h2>
@@ -367,13 +385,17 @@ sidebar: false
       The variance is:
     </p>
 
-    9
+    \[
+\operatorname{Var}(X)=np(1-p)
+\]
 
     <p>
       The standard deviation is:
     </p>
 
-    10
+    \[
+\operatorname{SD}(X)=\sqrt{np(1-p)}
+\]
 
     <h2>Why the Formula Makes Sense</h2>
 
@@ -385,13 +407,17 @@ sidebar: false
       Since each Bernoulli trial has:
     </p>
 
-    11
+    \[
+\operatorname{Var}(I_i)=p(1-p)
+\]
 
     <p>
       the variances add together:
     </p>
 
-    12
+    \[
+\operatorname{Var}(X)=\operatorname{Var}\!\left(\sum_{i=1}^{n}I_i\right)=\sum_{i=1}^{n}\operatorname{Var}(I_i)=np(1-p)
+\]
 
     <h2>Shape of the Distribution</h2>
 
@@ -416,8 +442,7 @@ sidebar: false
     </div>
 
     <p>
-      As n increases,
-      the distribution becomes more bell-shaped.
+      As n grows, a normal approximation may become useful when both np and n(1 − p) are sufficiently large. Increasing n alone does not guarantee an approximately symmetric bell shape, especially if p is near 0 or 1.
     </p>
 
     <h2>Real-World Applications</h2>
@@ -437,7 +462,7 @@ sidebar: false
     </ul>
 
     <p>
-      Any situation involving repeated success/failure trials may be modeled with a binomial distribution.
+      Repeated success/failure outcomes follow a binomial count model only if the number of trials is fixed, each trial is binary, trials are independent, and all share the same success probability.
     </p>
 
     <h2>Bernoulli Versus Binomial</h2>
@@ -472,7 +497,7 @@ sidebar: false
     </div>
 
     <p>
-      The binomial distribution is essentially a collection of Bernoulli trials summarized by their total number of successes.
+      The binomial distribution is the sum of independent Bernoulli trials with the same p. With n = 1, the binomial distribution is exactly Bernoulli(p). With unequal probabilities, even independent trials generally have a different success-count distribution.
     </p>
 
     <h2>The Limitation</h2>
