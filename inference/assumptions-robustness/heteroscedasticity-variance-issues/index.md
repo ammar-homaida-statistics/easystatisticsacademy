@@ -107,7 +107,11 @@ sidebar: false
       Smaller variance indicates tighter clustering around the mean.
     </p>
 
-    0
+    
+    \[
+    \operatorname{Var}(X)=E[(X-E[X])^2]
+    \]
+
 
     <h2>Homoscedasticity</h2>
 
