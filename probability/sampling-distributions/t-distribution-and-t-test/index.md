@@ -75,7 +75,11 @@ sidebar: false
       Earlier confidence intervals and z-statistics used:
     </p>
 
-    0
+    
+    \[
+    Z=\frac{\bar X-\mu_0}{\sigma/\sqrt n}
+    \]
+
 
     <p>
       where:
@@ -102,7 +106,11 @@ sidebar: false
       we estimate it using the sample standard deviation:
     </p>
 
-    1
+    
+    \[
+    s
+    \]
+
 
     <p>
       This replacement introduces additional uncertainty.
@@ -205,7 +213,11 @@ sidebar: false
       For a one-sample mean:
     </p>
 
-    2
+    
+    \[
+    \nu=n-1
+    \]
+
 
     <p>
       where:
@@ -247,7 +259,11 @@ sidebar: false
       The difference is that the sample standard deviation is used.
     </p>
 
-    3
+    
+    \[
+    T=\frac{\bar X-\mu_0}{S/\sqrt n}\sim t_{n-1}\quad(\text{iid normal population under }H_0)
+    \]
+
 
     <p>
       This statistic follows a t-distribution under appropriate assumptions.
@@ -338,7 +354,11 @@ sidebar: false
       The general structure is:
     </p>
 
-    4
+    
+    \[
+    \bar x\pm t_{n-1,\,1-\alpha/2}\frac{s}{\sqrt n}
+    \]
+
 
     <p>
       where:
@@ -404,7 +424,11 @@ sidebar: false
       As sample size grows:
     </p>
 
-    5
+    
+    \[
+    t_{\nu}\ \xrightarrow{d}\ N(0,1)\quad\text{as }\nu\to\infty
+    \]
+
 
     <p>
       The distinction between z and t procedures becomes increasingly small.
