@@ -138,7 +138,11 @@ sidebar: false
       Most confidence intervals have the form:
     </p>
 
-    0
+    
+    \[
+    \text{estimate}\pm(\text{critical value})(\text{standard error})
+    \]
+
 
     <p>
       Therefore interval width is determined by:
@@ -159,7 +163,11 @@ sidebar: false
       total width is:
     </p>
 
-    1
+    
+    \[
+    \text{interval width}=2(\text{critical value})(\text{standard error})
+    \]
+
 
     <p>
       Any factor that changes the critical value or standard error changes the interval width.
@@ -264,7 +272,11 @@ sidebar: false
       For many estimators:
     </p>
 
-    2
+    
+    \[
+    \operatorname{SE}\propto\frac{1}{\sqrt n}
+    \]
+
 
     <p>
       This relationship explains why larger samples increase precision.
@@ -356,13 +368,21 @@ sidebar: false
       For means:
     </p>
 
-    3
+    
+    \[
+    \operatorname{SE}(\bar X)=\frac{\sigma}{\sqrt n}
+    \]
+
 
     <p>
       Notice that larger:
     </p>
 
-    4
+    
+    \[
+    \sigma
+    \]
+
 
     <p>
       directly increases uncertainty.
@@ -374,13 +394,21 @@ sidebar: false
       For proportions:
     </p>
 
-    5
+    
+    \[
+    \widehat{\operatorname{SE}}(\hat p)=\sqrt{\frac{\hat p(1-\hat p)}{n}}
+    \]
+
 
     <p>
       Variability depends on:
     </p>
 
-    6
+    
+    \[
+    \hat p(1-\hat p)
+    \]
+
 
     <h2>When Proportion Variability Is Largest</h2>
 
@@ -388,13 +416,21 @@ sidebar: false
       The quantity:
     </p>
 
-    7
+    
+    \[
+    p(1-p)
+    \]
+
 
     <p>
       is largest when:
     </p>
 
-    8
+    
+    \[
+    p=0.5
+    \]
+
 
     <p>
       Therefore proportions near 50% often produce the widest intervals.
