@@ -3188,9 +3188,9 @@ class SearchTests(unittest.TestCase):
         p, n = 310 / 500, 500
         se = sqrt(p * (1-p) / n)
         self.assertAlmostEqual(se, 0.021707141681944216, places=12)
-        self.assertAlmostEqual(1.96*se, 0.04254599369661066, places=10)
-        self.assertAlmostEqual(p - 1.96*se, 0.5774540063033893, places=9)
-        self.assertAlmostEqual(p + 1.96*se, 0.6625459936966107, places=9)
+        self.assertAlmostEqual(1.96*se, 0.04254599769661066, places=10)
+        self.assertAlmostEqual(p - 1.96*se, 0.5774540023033894, places=9)
+        self.assertAlmostEqual(p + 1.96*se, 0.6625459976966106, places=9)
         self.assertGreater(n*p, 10)
         self.assertGreater(n*(1-p), 10)
         p1, p2, n1, n2 = 240 / 600, 180 / 600, 600, 600
