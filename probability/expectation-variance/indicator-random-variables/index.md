@@ -175,7 +175,11 @@ sidebar: false
       One of the most important results in probability is:
     </p>
 
-    0
+    
+    \[
+    E[I_A]=P(A)
+    \]
+
 
     <p>
       The expected value of an indicator equals the probability of the event.
@@ -221,7 +225,11 @@ sidebar: false
       Therefore:
     </p>
 
-    1
+    
+    \[
+    E[I_A]=1\cdot P(A)+0\cdot[1-P(A)]=P(A)
+    \]
+
 
     <p>
       This simple result is extremely useful.
@@ -257,7 +265,11 @@ sidebar: false
       The total number of events that occur is:
     </p>
 
-    2
+    
+    \[
+    N=\sum_{i=1}^{n}I_i
+    \]
+
 
     <p>
       We have transformed a counting problem into a sum.
@@ -269,13 +281,21 @@ sidebar: false
       Since expectations are linear:
     </p>
 
-    3
+    
+    \[
+    E[N]=E\!\left[\sum_{i=1}^{n}I_i\right]=\sum_{i=1}^{n}E[I_i]
+    \]
+
 
     <p>
       Using the indicator property:
     </p>
 
-    4
+    
+    \[
+    E[N]=\sum_{i=1}^{n}P(A_i)
+    \]
+
 
     <p>
       This result often avoids complicated probability calculations.
@@ -307,13 +327,21 @@ sidebar: false
       Total heads:
     </p>
 
-    5
+    
+    \[
+    N=\sum_{i=1}^{10}I_i
+    \]
+
 
     <p>
       Then:
     </p>
 
-    6
+    
+    \[
+    E[N]=\sum_{i=1}^{10}E[I_i]=10(0.5)=5
+    \]
+
 
     <p>
       On average,
@@ -346,7 +374,11 @@ sidebar: false
       If there are 100 students:
     </p>
 
-    7
+    
+    \[
+    E[N]=100(0.8)=80
+    \]
+
 
     <p>
       We expect approximately 80 students to pass.
@@ -420,7 +452,11 @@ sidebar: false
       The variance is:
     </p>
 
-    8
+    
+    \[
+    \operatorname{Var}(I_A)=p(1-p),\qquad p=P(A)
+    \]
+
 
     <p>
       This result appears frequently in probability theory and statistics.
