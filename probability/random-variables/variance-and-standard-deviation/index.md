@@ -187,7 +187,11 @@ sidebar: false
       For a random variable X:
     </p>
 
-    0
+    
+    \[
+    \operatorname{Var}(X)=E[(X-E[X])^2]
+    \]
+
 
     <p>
       This formula represents the expected squared distance from the mean.
@@ -199,7 +203,11 @@ sidebar: false
       Variance is often written using the symbol:
     </p>
 
-    1
+    
+    \[
+    \sigma^2=\operatorname{Var}(X)
+    \]
+
 
     <p>
       when referring to a population distribution.
@@ -249,7 +257,11 @@ sidebar: false
       We already know:
     </p>
 
-    2
+    
+    \[
+    E[X]=0.5
+    \]
+
 
     <p>
       The variance can be calculated using the variance formula.
@@ -259,7 +271,11 @@ sidebar: false
       The result is:
     </p>
 
-    3
+    
+    \[
+    \operatorname{Var}(X)=(1-0.5)^2(0.5)+(0-0.5)^2(0.5)=0.25
+    \]
+
 
     <p>
       This value measures the variability of the coin toss outcomes.
@@ -298,7 +314,11 @@ sidebar: false
       Standard deviation solves this problem by taking the square root of variance.
     </p>
 
-    4
+    
+    \[
+    \operatorname{SD}(X)=\sqrt{\operatorname{Var}(X)}
+    \]
+
 
     <p>
       Standard deviation returns the measure of spread to the original units.
@@ -371,7 +391,11 @@ sidebar: false
 
     <h3>Variance Is Never Negative</h3>
 
-    5
+    
+    \[
+    \operatorname{Var}(X)\ge0
+    \]
+
 
     <p>
       Because squared values cannot be negative,
@@ -385,7 +409,11 @@ sidebar: false
       there is no variability.
     </p>
 
-    6
+    
+    \[
+    \operatorname{Var}(c)=0\quad\text{for every constant }c
+    \]
+
 
     <p>
       when every observation is identical.
