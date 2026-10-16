@@ -3469,7 +3469,9 @@ class SearchTests(unittest.TestCase):
                 for value in (
                     {"url":"javascript:alert(1)", "label":"bad"},
                     {"url":"//external.example/lesson/", "label":"bad"},
-                    {"url":"/inference/other-block/lesson/", "label":"bad"},
+                    {"url": ("/inference/hypothesis-testing/null-and-alternative/"
+                             if slug == "confidence-intervals"
+                             else "/inference/confidence-intervals/ci-for-proportion/"), "label":"Cross-block"},
                     {"url":"/inference/" + slug + "/unpublished/", "label":"bad"},
                     {"url":valid+"?next=evil", "label":"bad"},
                     {"url":valid+"#anchor", "label":"bad"},
