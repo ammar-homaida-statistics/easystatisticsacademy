@@ -200,7 +200,7 @@ X\in\{0,1,\ldots,n\}
 \]
 
     <p>
-      because any number of successes from zero to n is possible.
+      because counts from zero to n are the mathematical range. When p = 0 or p = 1, however, only one endpoint count has positive probability.
     </p>
 
     <h2>The Probability Formula</h2>
