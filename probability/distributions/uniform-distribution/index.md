@@ -46,7 +46,7 @@ sidebar: false
     </p>
 
     <p class="lead">
-      The uniform distribution is unique because every value within a specified range is equally likely.
+      In a continuous uniform distribution, every equal-length interval within the range has equal probability. Individual values have probability zero.
     </p>
 
     <div class="hero-actions">
@@ -84,7 +84,7 @@ sidebar: false
       <strong>Definition:</strong>
 
       <p>
-        In a uniform distribution, every value in the interval has the same probability density.
+        In a continuous uniform distribution, the probability density is constant throughout a nondegenerate interval (a, b) with a &lt; b.
       </p>
 
     </div>
@@ -92,11 +92,11 @@ sidebar: false
     <h2>A Simple Example</h2>
 
     <p>
-      Suppose a random number is selected between 0 and 10.
+      Suppose a random number is selected uniformly between 0 and 10.
     </p>
 
     <p>
-      Every value inside that interval is equally likely.
+      The density is equal everywhere in the interval, so equal-length subintervals have equal probabilities. Individual points still have probability zero.
     </p>
 
     <div class="example-box">
@@ -125,7 +125,11 @@ sidebar: false
       It is defined on an interval:
     </p>
 
-    0
+    
+    \[
+    a\le X\le b,\qquad a<b
+    \]
+
 
     <p>
       where:
@@ -163,13 +167,21 @@ sidebar: false
       The probability density is constant throughout the interval.
     </p>
 
-    1
+    
+    \[
+    f_X(x)=\frac{1}{b-a}
+    \]
+
 
     <p>
       for:
     </p>
 
-    2
+    
+    \[
+    a\le x\le b
+    \]
+
 
     <p>
       and zero elsewhere.
@@ -178,8 +190,8 @@ sidebar: false
     <h2>Why the Density Is Constant</h2>
 
     <p>
-      Since all values are equally likely,
-      the graph of the density is a horizontal line.
+      Since the probability density is constant,
+      its graph is a horizontal line over the interval.
     </p>
 
     <p>
@@ -190,7 +202,11 @@ sidebar: false
       Therefore the height must be:
     </p>
 
-    3
+    
+    \[
+    \text{density height}=\frac{1}{b-a}
+    \]
+
 
     <h2>The Shape</h2>
 
@@ -229,7 +245,11 @@ sidebar: false
       Therefore:
     </p>
 
-    4
+    
+    \[
+    P(c\le X\le d)=\frac{d-c}{b-a},\quad a\le c\le d\le b
+    \]
+
 
     <p>
       whenever c and d lie inside the interval.
@@ -265,7 +285,11 @@ sidebar: false
       Using the interval-length rule:
     </p>
 
-    5
+    
+    \[
+    P(2\le X\le5)=\frac{5-2}{10-0}=0.30
+    \]
+
 
     <p>
       The probability equals 0.3.
@@ -281,7 +305,11 @@ sidebar: false
       For any specific value:
     </p>
 
-    6
+    
+    \[
+    P(X=x)=0\quad\text{for any fixed real }x
+    \]
+
 
     <p>
       because individual points have zero area.
@@ -303,7 +331,11 @@ sidebar: false
       The expected value is:
     </p>
 
-    7
+    
+    \[
+    E[X]=\frac{a+b}{2}
+    \]
+
 
     <p>
       This is simply the midpoint of the interval.
@@ -327,7 +359,11 @@ sidebar: false
       Then:
     </p>
 
-    8
+    
+    \[
+    E[X]=\frac{0+10}{2}=5
+    \]
+
 
     <p>
       The center lies exactly in the middle.
@@ -339,7 +375,11 @@ sidebar: false
       The variance of a continuous uniform distribution is:
     </p>
 
-    9
+    
+    \[
+    \operatorname{Var}(X)=\frac{(b-a)^2}{12}
+    \]
+
 
     <p>
       The spread depends only on the interval width.
@@ -351,7 +391,11 @@ sidebar: false
       Taking the square root gives:
     </p>
 
-    10
+    
+    \[
+    \operatorname{SD}(X)=\sqrt{\operatorname{Var}(X)}=\frac{b-a}{\sqrt{12}}
+    \]
+
 
     <p>
       Wider intervals produce larger variability.
