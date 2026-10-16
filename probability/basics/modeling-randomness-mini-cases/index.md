@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_probability_basics_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
     url: "/probability/basics/modeling-randomness-mini-cases/",
     label: "Modeling Randomness (Mini Cases)",
     ts: Date.now()
-  }));
+    }));
+  } catch (_) {
+    // Continue Reading progress is optional when browser storage is unavailable.
+  }
 
 })();
 </script>
