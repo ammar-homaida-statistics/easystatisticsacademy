@@ -122,7 +122,9 @@ sidebar: false
       The parameter of interest is:
     </p>
 
-    0
+    \[
+p_1-p_2
+\]
 
     <p>
       which represents the true difference between the two population proportions.
@@ -134,7 +136,9 @@ sidebar: false
       We estimate the population difference using:
     </p>
 
-    1
+    \[
+\hat p_1-\hat p_2
+\]
 
     <p>
       where each sample proportion is calculated separately from its own sample.
@@ -182,13 +186,17 @@ sidebar: false
       Once again:
     </p>
 
-    2
+    \[
+\text{Estimate}\ \pm\ \text{Margin of error}
+\]
 
     <p>
       The estimate becomes:
     </p>
 
-    3
+    \[
+\hat p_1-\hat p_2
+\]
 
     <p>
       and the margin of error is based on the standard error of the difference.
@@ -200,7 +208,9 @@ sidebar: false
       For independent samples:
     </p>
 
-    4
+    \[
+\widehat{\operatorname{SE}}(\hat p_1-\hat p_2)=\sqrt{\frac{\hat p_1(1-\hat p_1)}{n_1}+\frac{\hat p_2(1-\hat p_2)}{n_2}}
+\]
 
     <p>
       This combines uncertainty from both sample proportions.
@@ -212,16 +222,18 @@ sidebar: false
       The standard confidence interval becomes:
     </p>
 
-    5
+    \[
+(\hat p_1-\hat p_2)\pm z_{1-\alpha/2}\sqrt{\frac{\hat p_1(1-\hat p_1)}{n_1}+\frac{\hat p_2(1-\hat p_2)}{n_2}}
+\]
 
     <p>
-      This is the most common confidence interval for differences between two population proportions.
+      This is the standard large-sample unpooled Wald confidence interval for a difference of two independent population proportions. It can have poor coverage, particularly for small samples or proportions near 0 or 1; score-based methods such as Newcombe's interval are useful alternatives.
     </p>
 
     <h2>Why z Critical Values Are Used</h2>
 
     <p>
-      The sampling distribution of the difference in sample proportions is approximately normal when sample sizes are sufficiently large.
+      The sampling distribution of the difference in sample proportions is approximately normal with independent groups and sufficiently many successes and failures in each group; this approximation and Wald coverage must still be assessed in context.
     </p>
 
     <p>
@@ -264,13 +276,17 @@ sidebar: false
       For Version A:
     </p>
 
-    6
+    \[
+\hat p_1=\frac{240}{600}=0.40
+\]
 
     <p>
       For Version B:
     </p>
 
-    7
+    \[
+\hat p_2=\frac{180}{600}=0.30
+\]
 
     <h2>Step 2: Compute the Estimated Difference</h2>
 
@@ -278,7 +294,9 @@ sidebar: false
       Difference:
     </p>
 
-    8
+    \[
+\hat p_1-\hat p_2=0.40-0.30=0.10
+\]
 
     <p>
       The sample suggests a 10 percentage-point advantage for Version A.
@@ -290,13 +308,17 @@ sidebar: false
       Using:
     </p>
 
-    9
+    \[
+\widehat{\operatorname{SE}}=\sqrt{\frac{0.40(0.60)}{600}+\frac{0.30(0.70)}{600}}
+\]
 
     <p>
       gives approximately:
     </p>
 
-    10
+    \[
+\widehat{\operatorname{SE}}=\sqrt{0.00075}\approx0.0273861
+\]
 
     <h2>Step 4: Compute the Margin of Error</h2>
 
@@ -316,7 +338,9 @@ sidebar: false
       Therefore:
     </p>
 
-    11
+    \[
+\operatorname{ME}=1.96(0.0273861)\approx0.053676
+\]
 
     <h2>Step 5: Construct the Interval</h2>
 
@@ -324,7 +348,9 @@ sidebar: false
       Therefore:
     </p>
 
-    12
+    \[
+0.10\pm0.053676\approx(0.046324,\ 0.153676)
+\]
 
     <p>
       yielding:
@@ -344,7 +370,9 @@ sidebar: false
       Plausible values for:
     </p>
 
-    13
+    \[
+p_1-p_2
+\]
 
     <p>
       range from approximately:
@@ -359,7 +387,7 @@ sidebar: false
     </div>
 
     <p>
-      The data suggest Version A's conversion rate exceeds Version B's by somewhere between about 5 and 15 percentage points.
+      Under the independent-sample conditions and with a large-sample Wald procedure, the data suggest that Version A's population conversion rate exceeds Version B's by roughly 4.6 to 15.4 percentage points.
     </p>
 
     <h2>The Importance of Zero</h2>
@@ -433,7 +461,7 @@ sidebar: false
 
     <ul class="bullets">
 
-      <li>Random sampling or random assignment</li>
+      <li>Random sampling for population inference; random assignment for a randomized experiment (assignment alone does not ensure population representativeness)</li>
 
       <li>Independent observations within each group</li>
 
