@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_probability_basics_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
     url: "/probability/basics/probability-axioms-and-basic-rules/",
     label: "Probability Axioms and Basic Rules",
     ts: Date.now()
-  }));
+    }));
+  } catch (_) {
+    // Continue Reading progress is optional when browser storage is unavailable.
+  }
 
 })();
 </script>
@@ -97,8 +101,8 @@ sidebar: false
     <h2>The Three Probability Axioms</h2>
 
     <p>
-      Modern probability theory is based on three fundamental axioms introduced by the mathematician
-      0.
+      The modern measure-theoretic foundations of probability were formalized in 1933 by the mathematician
+      Andrey Kolmogorov.
     </p>
 
     <p>
@@ -111,7 +115,11 @@ sidebar: false
       The probability of any event must be greater than or equal to zero.
     </p>
 
-    1
+    
+    \[
+    P(A)\ge 0\quad\text{for every event }A
+    \]
+
 
     <p>
       Negative probabilities are not meaningful.
@@ -139,7 +147,11 @@ sidebar: false
       The probability that some outcome from the sample space occurs is always 1.
     </p>
 
-    2
+    
+    \[
+    P(S)=1
+    \]
+
 
     <p>
       Since the sample space contains all possible outcomes,
@@ -165,14 +177,22 @@ sidebar: false
     <h2>Axiom 3: Addition for Mutually Exclusive Events</h2>
 
     <p>
-      If two events cannot occur at the same time,
-      their probabilities add.
+      The third axiom is <strong>countable additivity</strong>: probabilities add across any countable sequence of pairwise disjoint events.
+      The familiar two-event version follows immediately.
     </p>
 
-    3
+    
+    \[
+    \begin{aligned}
+P\left(\bigcup_{i=1}^{\infty}A_i\right)&=\sum_{i=1}^{\infty}P(A_i)\quad\text{for pairwise disjoint }A_i,\\
+P(A\cup B)&=P(A)+P(B)\quad\text{when }A\cap B=\varnothing.
+\end{aligned}
+    \]
+
 
     <p>
-      This rule applies only when the events are mutually exclusive.
+      The simple two-event addition formula shown here applies when A and B are mutually exclusive (disjoint).
+      For overlapping events, the overlap must be subtracted.
     </p>
 
     <div class="example-box">
@@ -233,7 +253,11 @@ sidebar: false
       Every probability must lie between 0 and 1.
     </p>
 
-    4
+    
+    \[
+    0\le P(A)\le 1
+    \]
+
 
     <p>
       This rule applies to every event.
@@ -256,7 +280,11 @@ sidebar: false
       Since the outcome cannot occur:
     </p>
 
-    5
+    
+    \[
+    P(\text{rolling a 7 on one fair six-sided die})=0
+    \]
+
 
     <h2>Certain Events</h2>
 
@@ -275,7 +303,11 @@ sidebar: false
       Since this event must occur:
     </p>
 
-    6
+    
+    \[
+    P(\text{rolling a number from 1 to 6})=1
+    \]
+
 
     <h2>Probabilities of All Outcomes Must Add to 1</h2>
 
@@ -333,7 +365,11 @@ sidebar: false
       Notice:
     </p>
 
-    7
+    
+    \[
+    P(H)+P(T)=0.5+0.5=1
+    \]
+
 
     <h2>The Complement Rule</h2>
 
@@ -369,7 +405,11 @@ sidebar: false
       Probabilities of an event and its complement must sum to 1.
     </p>
 
-    8
+    
+    \[
+    P(A)+P(A^{c})=1,\qquad P(A^{c})=1-P(A)
+    \]
+
 
     <h2>Complement Example</h2>
 
@@ -388,7 +428,11 @@ sidebar: false
       Then:
     </p>
 
-    9
+    
+    \[
+    P(\text{No Rain})=1-P(\text{Rain})=1-0.30=0.70
+    \]
+
 
     <p>
       The probability of no rain is 0.70.
