@@ -116,7 +116,9 @@ sidebar: false
       If X and Y are random variables:
     </p>
 
-    0
+    \[
+\operatorname{E}(X+Y)=\operatorname{E}(X)+\operatorname{E}(Y)
+\]
 
     <p>
       This is called the linearity of expectation.
@@ -132,17 +134,18 @@ sidebar: false
       The rule applies to any number of random variables.
     </p>
 
-    1
+    \[
+\operatorname{E}\!\left(\sum_{i=1}^{n}X_i\right)=\sum_{i=1}^{n}\operatorname{E}(X_i)
+\]
 
     <p>
-      Regardless of how many variables are involved,
-      their expectations simply add.
+      For a finite collection of random variables with finite expectations, their expectations simply add regardless of dependence.
     </p>
 
     <h2>The Surprising Part</h2>
 
     <p>
-      Many probability rules require independence.
+      Some probability rules require independence or assumptions about dependence.
     </p>
 
     <p>
@@ -154,7 +157,7 @@ sidebar: false
       <strong>Important:</strong>
 
       <p>
-        Linearity of expectation works whether variables are independent or dependent.
+        Linearity of expectation works whether variables are independent or dependent, provided the expectations exist and are finite; no independence assumption is needed.
       </p>
 
     </div>
@@ -185,19 +188,25 @@ sidebar: false
       We know:
     </p>
 
-    2
+    \[
+\operatorname{E}(X)=3.5
+\]
 
     <p>
       and:
     </p>
 
-    3
+    \[
+\operatorname{E}(Y)=3.5
+\]
 
     <p>
       Therefore:
     </p>
 
-    4
+    \[
+\operatorname{E}(X+Y)=3.5+3.5=7
+\]
 
     <p>
       The average total of two dice is 7.
@@ -209,7 +218,9 @@ sidebar: false
       Linearity also applies to subtraction.
     </p>
 
-    5
+    \[
+\operatorname{E}(X-Y)=\operatorname{E}(X)-\operatorname{E}(Y)
+\]
 
     <p>
       Expectations behave just like ordinary algebra.
@@ -221,7 +232,9 @@ sidebar: false
       Constants can be factored out of expectations.
     </p>
 
-    6
+    \[
+\operatorname{E}(aX)=a\operatorname{E}(X)
+\]
 
     <p>
       This property is often used when transforming variables.
@@ -233,7 +246,9 @@ sidebar: false
       For a linear transformation:
     </p>
 
-    7
+    \[
+\operatorname{E}(aX+b)=a\operatorname{E}(X)+b
+\]
 
     <p>
       The expected value transforms in exactly the same way.
@@ -269,7 +284,9 @@ sidebar: false
       Then:
     </p>
 
-    8
+    \[
+\operatorname{E}(Y)=\operatorname{E}(X+5)=70+5=75
+\]
 
     <p>
       The average score increases by exactly five points.
@@ -301,7 +318,9 @@ sidebar: false
       For an indicator variable I:
     </p>
 
-    9
+    \[
+\operatorname{E}(I_A)=1\cdot P(A)+0\cdot(1-P(A))=P(A)
+\]
 
     <p>
       This simple relationship is extremely useful in counting problems.
@@ -333,19 +352,25 @@ sidebar: false
       The total number of heads is:
     </p>
 
-    10
+    \[
+H=\sum_{i=1}^{10}I_i
+\]
 
     <p>
       Applying linearity:
     </p>
 
-    11
+    \[
+\operatorname{E}(H)=\sum_{i=1}^{10}\operatorname{E}(I_i)
+\]
 
     <p>
       Since each expectation equals 0.5:
     </p>
 
-    12
+    \[
+\operatorname{E}(H)=10\cdot0.5=5
+\]
 
     <p>
       On average,
@@ -406,7 +431,7 @@ sidebar: false
       </p>
 
       <p>
-        Variances require additional conditions.
+        Variances of sums require a covariance term; direct addition of individual variances holds when the covariances vanish.
       </p>
 
     </div>
