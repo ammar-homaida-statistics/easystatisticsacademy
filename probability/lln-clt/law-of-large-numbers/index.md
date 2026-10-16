@@ -145,7 +145,11 @@ sidebar: false
       The population mean is:
     </p>
 
-    0
+    
+    \[
+    \mu=E[X]=1(0.5)+0(0.5)=0.5
+    \]
+
 
     <p>
       because a fair coin lands heads with probability 0.5.
@@ -199,7 +203,11 @@ sidebar: false
       the sample mean is:
     </p>
 
-    1
+    
+    \[
+    \bar X_n=\frac1n\sum_{i=1}^{n}X_i
+    \]
+
 
     <p>
       The Law of Large Numbers concerns the behavior of this quantity as n becomes large.
@@ -215,7 +223,11 @@ sidebar: false
       then:
     </p>
 
-    2
+    
+    \[
+    \bar X_n\xrightarrow{P}\mu\quad\text{as }n\to\infty
+    \]
+
 
     <p>
       as the sample size increases.
@@ -285,13 +297,21 @@ sidebar: false
       The population mean equals:
     </p>
 
-    3
+    
+    \[
+    \mu=E[X]=3.5
+    \]
+
 
     <p>
       because:
     </p>
 
-    4
+    
+    \[
+    E[X]=\frac{1+2+3+4+5+6}{6}=3.5
+    \]
+
 
     <p>
       Early averages may fluctuate considerably.
@@ -327,10 +347,14 @@ sidebar: false
       Specifically:
     </p>
 
-    5
+    
+    \[
+    \operatorname{Var}(\bar X_n)=\frac{\sigma^2}{n}\quad(\text{i.i.d., finite variance})
+    \]
+
 
     <p>
-      for independent observations.
+      when the observations are independent and identically distributed with a common finite variance.
     </p>
 
     <p>
