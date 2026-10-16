@@ -80,7 +80,11 @@ sidebar: false
       Suppose a test produces:
     </p>
 
-    0
+    
+    \[
+    z_{\mathrm{obs}}\ \text{(the observed standardized statistic)}
+    \]
+
 
     <p>
       Is that unusual?
@@ -116,7 +120,11 @@ sidebar: false
       Every p-value calculation begins by assuming:
     </p>
 
-    1
+    
+    \[
+    H_0\ \text{(null hypothesis)}
+    \]
+
 
     <p>
       is true.
