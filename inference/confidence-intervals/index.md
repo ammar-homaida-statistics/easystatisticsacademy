@@ -629,7 +629,7 @@ sidebar: false
 
   <div class="callout">
 
-    <div class="callout-copy">
+    <div class="callout-copy" style="min-width:0;">
 
       <h2>How this block fits into inference</h2>
 
