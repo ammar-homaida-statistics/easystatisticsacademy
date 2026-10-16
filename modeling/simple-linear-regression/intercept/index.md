@@ -75,7 +75,11 @@ sidebar: false
       Recall the simple linear regression equation:
     </p>
 
-    0
+    
+    \[
+    y=a+bx
+    \]
+
 
     <p>
       In regression notation, the equation is commonly written as:
