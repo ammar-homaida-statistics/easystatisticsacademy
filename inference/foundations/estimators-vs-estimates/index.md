@@ -182,7 +182,11 @@ sidebar: false
       The estimator is:
     </p>
 
-    0
+    
+    \[
+    \bar X=\frac1n\sum_{i=1}^{n}X_i
+    \]
+
 
     <p>
       After collecting a sample,
@@ -386,7 +390,11 @@ sidebar: false
       Estimator:
     </p>
 
-    1
+    
+    \[
+    \bar X=\frac1n\sum_{i=1}^{n}X_i
+    \]
+
 
     <p>
       Sample collected:
