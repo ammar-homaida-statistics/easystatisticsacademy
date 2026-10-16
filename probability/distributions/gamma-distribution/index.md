@@ -532,7 +532,7 @@ sidebar: false
           "Shape 1 is exactly the Exponential distribution with rate λ.":
           "With positive integer shape r = "+r+
           ", this is waiting for the r-th event in a Poisson process.";
-        const samples=120,all=[];
+        const samples=480,all=[];
         let maximum=0;
         for(let i=0;i<=samples;i++){
           const time=maxTime*i/samples;
