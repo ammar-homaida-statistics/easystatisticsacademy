@@ -95,7 +95,11 @@ sidebar: false
       The most common form of simple linear regression is:
     </p>
 
-    0
+    
+    \[
+    y=a+bx
+    \]
+
 
     <p>
       In regression, the symbols are typically written as:
