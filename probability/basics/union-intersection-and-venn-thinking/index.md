@@ -145,7 +145,11 @@ sidebar: false
       The union is written as:
     </p>
 
-    0
+    
+    \[
+    A\cup B
+    \]
+
 
     <p>
       The symbol ∪ can be interpreted as "or."
@@ -195,7 +199,11 @@ sidebar: false
       The intersection is written as:
     </p>
 
-    1
+    
+    \[
+    A\cap B
+    \]
+
 
     <p>
       The symbol ∩ can be interpreted as "and."
@@ -371,7 +379,11 @@ sidebar: false
       Their intersection is empty.
     </p>
 
-    2
+    
+    \[
+    A\cap B=\varnothing
+    \]
+
 
     <h2>Union Rule for Mutually Exclusive Events</h2>
 
@@ -380,7 +392,11 @@ sidebar: false
       probabilities simply add.
     </p>
 
-    3
+    
+    \[
+    P(A\cup B)=P(A)+P(B)\quad\text{if }A\cap B=\varnothing
+    \]
+
 
     <p>
       This rule was introduced in the previous lesson.
@@ -408,7 +424,11 @@ sidebar: false
       For any two events:
     </p>
 
-    4
+    
+    \[
+    P(A\cup B)=P(A)+P(B)-P(A\cap B)
+    \]
+
 
     <p>
       The overlap is subtracted once to avoid double counting.
@@ -456,7 +476,11 @@ sidebar: false
       Applying the addition rule:
     </p>
 
-    5
+    
+    \[
+    P(A\cup B)=0.50+0.40-0.10=0.80
+    \]
+
 
     <p>
       The correct probability is 0.80.
