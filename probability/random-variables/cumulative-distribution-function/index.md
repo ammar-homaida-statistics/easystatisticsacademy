@@ -111,7 +111,11 @@ sidebar: false
       The cumulative distribution function of a random variable X is defined as:
     </p>
 
-    0
+    
+    \[
+    F_X(x)=P(X\le x)
+    \]
+
 
     <p>
       This formula represents the probability that X takes a value less than or equal to x.
@@ -170,7 +174,11 @@ sidebar: false
       By definition:
     </p>
 
-    1
+    
+    \[
+    F_X(3)=P(X\le3)
+    \]
+
 
     <p>
       The values satisfying this condition are:
@@ -188,7 +196,11 @@ sidebar: false
       Therefore:
     </p>
 
-    2
+    
+    \[
+    F_X(3)=P(X\in\{1,2,3\})=\frac36=0.5
+    \]
+
 
     <h2>A Continuous Example</h2>
 
@@ -255,7 +267,11 @@ sidebar: false
 
     <h3>Property 1: Values Are Between 0 and 1</h3>
 
-    3
+    
+    \[
+    0\le F_X(x)\le1\quad\text{for all }x
+    \]
+
 
     <p>
       Since probabilities range from 0 to 1,
@@ -375,7 +391,11 @@ sidebar: false
       For any two values a and b:
     </p>
 
-    4
+    
+    \[
+    P(a<X\le b)=F_X(b)-F_X(a)\quad(a<b)
+    \]
+
 
     <p>
       This formula works for many probability calculations.
@@ -403,10 +423,14 @@ sidebar: false
       Then:
     </p>
 
-    5
+    
+    \[
+    P(5<X\le10)=F_X(10)-F_X(5)=0.80-0.35=0.45
+    \]
+
 
     <p>
-      The probability that X falls between 5 and 10 is 0.45.
+      The probability that X is greater than 5 and at most 10 is 0.45. For a continuous variable, including the lower endpoint does not change the probability; for a discrete variable it can.
     </p>
 
     <h2>Why the CDF Is Important</h2>
