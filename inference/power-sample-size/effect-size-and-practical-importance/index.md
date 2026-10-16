@@ -249,7 +249,11 @@ sidebar: false
       One of the most common standardized measures is:
     </p>
 
-    0
+    
+    \[
+    d=\frac{\bar x_1-\bar x_2}{s_{\mathrm{pooled}}},\quad s_{\mathrm{pooled}}>0
+    \]
+
 
     <p>
       Cohen's d measures the size of a mean difference relative to variability.
