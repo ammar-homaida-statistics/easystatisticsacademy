@@ -208,7 +208,11 @@ sidebar: false
       The frequencies in the table are the observed counts:
     </p>
 
-    0
+    
+    \[
+    O_{ij}=\text{observed frequency in row }i\text{ and column }j
+    \]
+
 
     <p>
       These represent the actual data collected from the populations.
@@ -221,7 +225,11 @@ sidebar: false
       expected counts are calculated using:
     </p>
 
-    1
+    
+    \[
+    E_{ij}=\frac{(\text{row }i\text{ total})(\text{column }j\text{ total})}{N}
+    \]
+
 
     <p>
       This formula is identical to the one used in the chi-square test of independence.
@@ -233,7 +241,11 @@ sidebar: false
       For City 1 and Product A:
     </p>
 
-    2
+    
+    \[
+    E_{\text{City 1, Product A}}=\frac{100\times120}{300}=40
+    \]
+
 
     <p>
       Under homogeneity, 40 observations would be expected in that cell.
@@ -245,7 +257,11 @@ sidebar: false
       The test statistic is:
     </p>
 
-    3
+    
+    \[
+    \chi^2=\sum_{i=1}^{r}\sum_{j=1}^{c}\frac{(O_{ij}-E_{ij})^2}{E_{ij}}
+    \]
+
 
     <p>
       The sum is computed across all cells in the table.
@@ -292,7 +308,11 @@ sidebar: false
       Under:
     </p>
 
-    4
+    
+    \[
+    H_0:\ \text{all population category distributions are equal}
+    \]
+
 
     <p>
       the test statistic follows a chi-square distribution approximately.
@@ -320,7 +340,11 @@ sidebar: false
       the degrees of freedom are:
     </p>
 
-    5
+    
+    \[
+    \operatorname{df}=(r-1)(c-1)
+    \]
+
 
     <h2>Example</h2>
 
@@ -339,7 +363,11 @@ sidebar: false
       therefore:
     </p>
 
-    6
+    
+    \[
+    \operatorname{df}=(3-1)(3-1)=4
+    \]
+
 
     <h2>The p-Value</h2>
 
@@ -385,7 +413,11 @@ sidebar: false
       Rejecting:
     </p>
 
-    7
+    
+    \[
+    H_0:\ \text{all populations have the same category proportions}
+    \]
+
 
     <p>
       means the data provide evidence that at least one population has a different categorical distribution.
