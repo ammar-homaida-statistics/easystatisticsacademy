@@ -468,7 +468,7 @@ sidebar: false
       }
       #esa-conditional-tree-explorer .esa-conditional-tree-fields>div {min-width:0}
       #esa-conditional-tree-explorer label {display:block;margin-bottom:10px}
-      #esa-conditional-tree-explorer input[type="range"] {box-sizing:border-box;display:block;width:100%;max-width:100%;min-width:0}
+      #esa-conditional-tree-explorer input[type="range"] {box-sizing:border-box;display:block;width:100%;max-width:100%;min-width:0;margin:0;padding:0}
       #esa-conditional-tree-explorer .esa-tree-root,
       #esa-conditional-tree-explorer .esa-tree-root ul {list-style:none;padding:0;margin:12px 0}
       #esa-conditional-tree-explorer .esa-tree-root>li {margin:14px 0;padding-left:12px;border-left:3px solid #64748b}
