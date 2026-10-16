@@ -128,13 +128,21 @@ sidebar: false
       Suppose there are:
     </p>
 
-    0
+    
+    \[
+    k\ge2\quad\text{populations}
+    \]
+
 
     <p>
       populations with means:
     </p>
 
-    1
+    
+    \[
+    \mu_1,\mu_2,\ldots,\mu_k
+    \]
+
 
     <p>
       We want to determine whether all means are equal.
@@ -146,7 +154,11 @@ sidebar: false
       The null hypothesis is:
     </p>
 
-    2
+    
+    \[
+    H_0:\mu_1=\mu_2=\cdots=\mu_k
+    \]
+
 
     <p>
       The alternative hypothesis is:
@@ -223,7 +235,11 @@ sidebar: false
       ANOVA summarizes this comparison using:
     </p>
 
-    3
+    
+    \[
+    F=\frac{\operatorname{MS}_{\text{between}}}{\operatorname{MS}_{\text{within}}}
+    \]
+
 
     <p>
       The F statistic is a ratio of variances.
@@ -391,7 +407,11 @@ sidebar: false
       Under:
     </p>
 
-    4
+    
+    \[
+    H_0:\mu_1=\mu_2=\cdots=\mu_k
+    \]
+
 
     <p>
       the test statistic follows an F distribution.
@@ -443,7 +463,11 @@ sidebar: false
       Rejecting:
     </p>
 
-    5
+    
+    \[
+    H_0:\mu_1=\mu_2=\cdots=\mu_k
+    \]
+
 
     <p>
       means the data provide evidence that at least one population mean differs.
