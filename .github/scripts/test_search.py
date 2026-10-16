@@ -4455,5 +4455,186 @@ class SearchTests(unittest.TestCase):
                 self.assertGreater(self.page.locator("main a[href]").count(),0)
                 self.assertEqual(self.errors,[])
 
+
+    def test_ci_independent_and_paired_restored_math_and_numerical_examples(self):
+        """Recover all 22 damaged expressions and validate independent numerical benchmarks."""
+        from html import unescape
+        from math import sqrt, isclose
+        cases=(
+            ("/inference/confidence-intervals/ci-for-difference-of-means-independent/",
+             (r"\Delta=\mu_1-\mu_2",
+              r"\widehat{\operatorname{SE}}(\bar X_1-\bar X_2)",
+              r"t_{1-\alpha/2,\,\widehat{\nu}}",
+              r"\bar x_1-\bar x_2=82-76=6",
+              r"\text{Margin of error}",
+              r"\mu_1-\mu_2")),
+            ("/inference/confidence-intervals/ci-for-paired-mean-difference/",
+             (r"d_i=\text{after}_i-\text{before}_i",
+              r"\mu_d=\operatorname{E}(D)",
+              r"\widehat{\operatorname{SE}}(\bar d)",
+              r"t_{1-\alpha/2,\,n-1}",
+              r"\nu=36-1=35",
+              r"-4.5\pm2.71")),
+        )
+        for route,formulas in cases:
+            with self.subTest(route=route):
+                source=(SITE/route.lstrip("/")/"index.html").read_text()
+                main=unescape(source.split('<main id="main-content"',1)[1].split("</main>",1)[0])
+                self.assertNotIn("\uea01",main)
+                self.assertNotIn("\uea02",main)
+                self.assertEqual(main.count(r"\["),11)
+                self.assertEqual(main.count(r"\]"),11)
+                for item in formulas:
+                    self.assertIn(item,main)
+                self.page.goto(self.origin+route,wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+        se=sqrt(10**2/40+12**2/35)
+        df=(10**2/40+12**2/35)**2 / ((10**2/40)**2/39+(12**2/35)**2/34)
+        self.assertTrue(isclose(se,2.5718253662108777,abs_tol=1e-12))
+        self.assertTrue(isclose(df,66.47542250283321,abs_tol=1e-9))
+        self.assertTrue(isclose(6-2*se,.8563492675782447,abs_tol=1e-12))
+        self.assertTrue(isclose(6+2*se,11.143650732421754,abs_tol=1e-12))
+        paired=8/sqrt(36)
+        self.assertTrue(isclose(paired,4/3,abs_tol=1e-12))
+        self.assertTrue(isclose(-4.5-2.03*paired,-7.206666666666667,abs_tol=1e-12))
+        self.assertEqual(sum((-8,-5,-8,-6,-9))/5,-7.2)
+
+    def test_ci_paired_vs_independent_se_explorer_interaction_and_mobile(self):
+        """Numerical standard errors, disabled fields, keyboard controls and no overflow."""
+        from math import sqrt,isclose
+        route="/inference/confidence-intervals/ci-for-paired-mean-difference/"
+        self.page.goto(self.origin+route,wait_until="networkidle")
+        root=self.page.locator("#esa-ci-design-explorer")
+        expect(root.get_by_role("heading",name="Explore Paired versus Independent Standard Errors")).to_be_visible()
+        a=self.page.get_by_label("Standard deviation of measurement A")
+        b=self.page.get_by_label("Standard deviation of measurement B")
+        n=self.page.get_by_label("Number of pairs / observations per group")
+        rho=self.page.locator("#esa-ci-rho")
+        si=self.page.locator("#esa-ci-independent-se")
+        sp=self.page.locator("#esa-ci-paired-se")
+        ratio=self.page.locator("#esa-ci-se-ratio")
+        expect(si).to_have_text("2.8284")
+        expect(sp).to_have_text("1.5492")
+        expect(ratio).to_have_text("0.5477")
+        for aval,bval,nn,rr in ((10,10,25,0),(10,10,25,-0.5),(4,7,40,0.9),
+                                 (3,5,2,-0.9),(0.01,5,10000,0.7)):
+            with self.subTest(a=aval,b=bval,n=nn,rho=rr):
+                a.fill(str(aval));b.fill(str(bval));n.fill(str(nn))
+                rho.evaluate("""(node,value)=>{
+                   node.value=String(value);
+                   node.dispatchEvent(new Event('input',{bubbles:true}));
+                }""",rr)
+                expectedI=sqrt((aval*aval+bval*bval)/nn)
+                expectedP=sqrt((aval*aval+bval*bval-2*rr*aval*bval)/nn)
+                self.assertTrue(isclose(float(si.inner_text()),expectedI,abs_tol=5.1e-5))
+                self.assertTrue(isclose(float(sp.inner_text()),expectedP,abs_tol=5.1e-5))
+                self.assertTrue(isclose(float(ratio.inner_text()),expectedP/expectedI,abs_tol=5.1e-5))
+        n.fill("1")
+        expect(self.page.locator("#esa-ci-design-error")).to_be_visible()
+        expect(sp).to_have_text("—")
+        n.fill("")
+        expect(sp).to_have_text("—")
+        root.get_by_role("button",name="Reset example").click()
+        expect(n).to_have_value("25")
+        expect(sp).to_have_text("1.5492")
+        rho.focus()
+        rho.press("Home")
+        expect(self.page.locator("#esa-ci-rho-value")).to_have_text("-0.90")
+        for width in (320,375,768,1280):
+            with self.subTest(width=width):
+                self.page.set_viewport_size({"width":width,"height":850})
+                bounds=root.evaluate("""e=>({
+                    left:e.getBoundingClientRect().left,
+                    right:e.getBoundingClientRect().right,
+                    scroll:e.scrollWidth,client:e.clientWidth
+                })""")
+                self.assertGreaterEqual(bounds["left"],-1,bounds)
+                self.assertLessEqual(bounds["right"],width+1,bounds)
+                self.assertLessEqual(bounds["scroll"]-bounds["client"],1,bounds)
+
+    def test_ci_selection_guide_six_methods_and_unsupported(self):
+        """All published CI methods, design-specific caveats and no fake links."""
+        self.page.goto(self.origin+"/inference/confidence-intervals/",wait_until="networkidle")
+        root=self.page.locator("#esa-ci-method-guide")
+        expect(root.get_by_role("heading",name="Which Confidence Interval Should I Study?")).to_be_visible()
+        goal=self.page.locator("#esa-ci-goal")
+        design=self.page.locator("#esa-ci-design")
+        sigma=self.page.locator("#esa-ci-known-sigma")
+        link=self.page.locator("#esa-ci-method-link-wrapper a")
+        cases=(
+           ("mean","one","unknown","ci-for-mean-sigma-unknown-t"),
+           ("mean","one","known","ci-for-mean-sigma-known-z"),
+           ("mean","independent","unknown","ci-for-difference-of-means-independent"),
+           ("mean","paired","unknown","ci-for-paired-mean-difference"),
+           ("proportion","one","unknown","ci-for-proportion"),
+           ("proportion","independent","unknown","ci-for-difference-of-proportions"),
+        )
+        for outcome,structure,known,slug in cases:
+            with self.subTest(outcome=outcome,design=structure,known=known):
+                goal.select_option(outcome)
+                design.select_option(structure)
+                if outcome=="mean" and structure=="one":
+                    sigma.select_option(known)
+                expect(link).to_have_count(1)
+                self.assertEqual(link.get_attribute("href"),
+                    "/inference/confidence-intervals/"+slug+"/")
+                expect(self.page.locator("#esa-ci-method-assumptions")).not_to_be_empty()
+                expect(self.page.locator("#esa-ci-method-caution")).not_to_be_empty()
+                expect(self.page.locator("#esa-ci-known-sigma-wrapper")).to_be_visible() if (
+                    outcome=="mean" and structure=="one") else expect(
+                    self.page.locator("#esa-ci-known-sigma-wrapper")).to_be_hidden()
+        goal.select_option("proportion")
+        design.select_option("paired")
+        expect(link).to_have_count(0)
+        expect(self.page.locator("#esa-ci-method-name")).to_contain_text("No direct method")
+        expect(self.page.locator("#esa-ci-method-caution")).to_contain_text("does not invent")
+        for width in (320,375,768,1280):
+            with self.subTest(width=width):
+                self.page.set_viewport_size({"width":width,"height":850})
+                bounds=root.evaluate("""e=>({
+                    left:e.getBoundingClientRect().left,
+                    right:e.getBoundingClientRect().right,
+                    scroll:e.scrollWidth,client:e.clientWidth
+                })""")
+                self.assertGreaterEqual(bounds["left"],-1,bounds)
+                self.assertLessEqual(bounds["right"],width+1,bounds)
+                self.assertLessEqual(bounds["scroll"]-bounds["client"],1,bounds)
+
+    def test_ci_guide_respects_existing_continue_reading(self):
+        """New navigation must preserve existing valid confidence-interval progress."""
+        route="/inference/confidence-intervals/"
+        self.page.goto(self.origin+route,wait_until="networkidle")
+        destination=route+"ci-for-paired-mean-difference/"
+        self.page.evaluate("""url=>{
+            localStorage.setItem('esa_continue_inference_confidence_intervals_lesson_v0',
+                JSON.stringify({url,label:'Paired Mean Difference',ts:123456789}));
+        }""",destination)
+        self.page.reload(wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-inference-ci")).to_be_visible()
+        self.assertEqual(self.page.locator("#continue-reading-inference-ci-btn").get_attribute("href"),destination)
+        expect(self.page.locator("#continue-reading-inference-ci-label")).to_contain_text("Paired Mean Difference")
+        expect(self.page.locator("#esa-ci-method-link-wrapper a")).to_have_count(1)
+
+    def test_ci_explorer_and_selection_guide_under_denied_storage(self):
+        """Both tools and existing lesson navigation survive denied storage access."""
+        self.page.add_init_script("""
+           Object.defineProperty(window,'localStorage',{
+               configurable:true,
+               get(){throw new DOMException('Denied','SecurityError');}
+           });
+        """)
+        for route in ("/inference/confidence-intervals/",
+                      "/inference/confidence-intervals/ci-for-paired-mean-difference/"):
+            with self.subTest(route=route):
+                self.page.goto(self.origin+route,wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+                self.assertEqual(self.errors,[])
+        self.page.locator("#esa-ci-sigma-a").fill("8")
+        expect(self.page.locator("#esa-ci-paired-se")).not_to_have_text("—")
+        self.page.goto(self.origin+"/inference/confidence-intervals/",wait_until="networkidle")
+        self.page.locator("#esa-ci-design").select_option("paired")
+        expect(self.page.locator("#esa-ci-method-link-wrapper a")).to_have_count(1)
+
+
 if __name__ == "__main__":
     unittest.main(argv=[__file__], verbosity=2)

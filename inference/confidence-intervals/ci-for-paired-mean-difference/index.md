@@ -138,7 +138,11 @@ sidebar: false
       For each subject:
     </p>
 
-    0
+    
+    \[
+    d_i=\text{after}_i-\text{before}_i
+    \]
+
 
     <p>
       The analysis then proceeds using these differences.
@@ -150,7 +154,11 @@ sidebar: false
       Let:
     </p>
 
-    1
+    
+    \[
+    \mu_d=\operatorname{E}(D)
+    \]
+
 
     <p>
       denote the population mean difference.
@@ -166,7 +174,11 @@ sidebar: false
       The sample estimate is:
     </p>
 
-    2
+    
+    \[
+    \bar d=\frac{1}{n}\sum_{i=1}^{n}d_i
+    \]
+
 
     <p>
       the average of the observed differences.
@@ -257,7 +269,11 @@ sidebar: false
       The estimated standard error is:
     </p>
 
-    3
+    
+    \[
+    \widehat{\operatorname{SE}}(\bar d)=\frac{s_d}{\sqrt n}
+    \]
+
 
     <p>
       where:
@@ -278,7 +294,11 @@ sidebar: false
       a t interval is used:
     </p>
 
-    4
+    
+    \[
+    \bar d\pm t_{1-\alpha/2,\,n-1}\frac{s_d}{\sqrt n}
+    \]
+
 
     <p>
       This is the standard confidence interval for a paired mean difference.
@@ -290,7 +310,11 @@ sidebar: false
       As with a one-sample t interval:
     </p>
 
-    5
+    
+    \[
+    \nu=n-1
+    \]
+
 
     <p>
       where n refers to the number of pairs.
@@ -298,6 +322,9 @@ sidebar: false
 
     <h2>Example Setup</h2>
 
+    <p>
+      The following summary-data example is separate from the five-person table above; its mean difference, standard deviation, and sample size are not calculated from those five observations.
+    </p>
     <p>
       Suppose a study produces:
     </p>
@@ -328,13 +355,21 @@ sidebar: false
       Using:
     </p>
 
-    6
+    
+    \[
+    \widehat{\operatorname{SE}}=\frac{8}{\sqrt{36}}
+    \]
+
 
     <p>
       gives:
     </p>
 
-    7
+    
+    \[
+    \widehat{\operatorname{SE}}=\frac{8}{6}\approx1.3333
+    \]
+
 
     <h2>Step 2: Find the Critical Value</h2>
 
@@ -342,7 +377,11 @@ sidebar: false
       Degrees of freedom:
     </p>
 
-    8
+    
+    \[
+    \nu=36-1=35
+    \]
+
 
     <p>
       For 95% confidence:
@@ -362,7 +401,11 @@ sidebar: false
       Margin of error:
     </p>
 
-    9
+    
+    \[
+    \text{Margin of error}\approx 2.03(1.3333)\approx2.71
+    \]
+
 
     <h2>Step 4: Construct the Interval</h2>
 
@@ -370,7 +413,11 @@ sidebar: false
       Therefore:
     </p>
 
-    10
+    
+    \[
+    -4.5\pm2.71\approx(-7.21,\,-1.79)
+    \]
+
 
     <p>
       yielding:
@@ -476,6 +523,97 @@ sidebar: false
       <li>Greater statistical precision</li>
 
     </ul>
+
+
+    <!-- INTERACTIVE PAIRED VS INDEPENDENT STANDARD ERROR EXPLORER -->
+    <section class="section" id="esa-ci-design-explorer" aria-labelledby="esa-ci-design-heading">
+      <h2 id="esa-ci-design-heading">Explore Paired versus Independent Standard Errors</h2>
+      <p>Compare the standard error of two independent sample means (n observations per group)
+        with the standard error of n matched within-pair differences. Both measurements
+        have the same marginal standard deviations in the comparison; only the pairing
+        correlation changes.</p>
+      <div class="concept-box esa-ci-design-card">
+        <div class="esa-ci-design-fields">
+          <div><label for="esa-ci-sigma-a"><strong>Standard deviation of measurement A</strong></label>
+            <input id="esa-ci-sigma-a" type="number" min="0.01" max="100000" step="any" value="10"></div>
+          <div><label for="esa-ci-sigma-b"><strong>Standard deviation of measurement B</strong></label>
+            <input id="esa-ci-sigma-b" type="number" min="0.01" max="100000" step="any" value="10"></div>
+          <div><label for="esa-ci-n"><strong>Number of pairs / observations per group</strong></label>
+            <input id="esa-ci-n" type="number" min="2" max="10000" step="1" value="25"></div>
+          <div><label for="esa-ci-rho"><strong>Within-pair correlation (ρ): <output id="esa-ci-rho-value" for="esa-ci-rho">0.70</output></strong></label>
+            <input id="esa-ci-rho" type="range" min="-0.9" max="0.9" step="0.1" value="0.7"></div>
+        </div>
+        <p id="esa-ci-design-error" role="alert" hidden></p>
+        <div class="esa-ci-design-results" role="status" aria-live="polite">
+          <p><strong>Independent-group standard error:</strong> <output id="esa-ci-independent-se">2.8284</output></p>
+          <p><strong>Paired-difference standard error:</strong> <output id="esa-ci-paired-se">1.5492</output></p>
+          <p><strong>Paired SE / Independent SE:</strong> <output id="esa-ci-se-ratio">0.5477</output></p>
+          <p id="esa-ci-design-interpretation">Positive within-pair correlation reduces the paired standard error.</p>
+        </div>
+        <button class="btn btn-outline" id="esa-ci-design-reset" type="button">Reset example</button>
+        <p class="muted-mini">These are estimated standard-error illustrations—not complete t confidence intervals.
+          The independent case assumes independence within and between groups. The paired case assumes
+          independence across pairs, meaningful matched measurements, and common within-pair correlation.
+          Actual CI widths also depend on critical values and degrees of freedom.
+          Pairing does not always improve precision.</p>
+      </div>
+    </section>
+    <style>
+      #esa-ci-design-explorer, #esa-ci-design-explorer .esa-ci-design-card {min-width:0;max-width:100%;overflow-wrap:anywhere}
+      #esa-ci-design-explorer .esa-ci-design-fields {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:14px}
+      #esa-ci-design-explorer label {display:block;margin-bottom:7px}
+      #esa-ci-design-explorer input {display:block;box-sizing:border-box;width:100%;max-width:100%;min-width:0;padding:9px;margin:0}
+      #esa-ci-design-explorer input[type="range"] {padding:0;cursor:pointer}
+      #esa-ci-design-explorer .esa-ci-design-results {margin:12px 0}
+      #esa-ci-design-explorer .esa-ci-design-results p {margin:6px 0}
+      #esa-ci-design-explorer #esa-ci-design-error {color:#b42318}
+      #esa-ci-design-explorer [hidden] {display:none!important}
+    </style>
+    <script>
+    (function () {
+      "use strict";
+      const root=document.getElementById("esa-ci-design-explorer");
+      if (!root) return;
+      const field=id=>root.querySelector("#"+id);
+      const sigmaA=field("esa-ci-sigma-a"), sigmaB=field("esa-ci-sigma-b"),
+            n=field("esa-ci-n"), rho=field("esa-ci-rho");
+      const error=field("esa-ci-design-error");
+      const outputs=["esa-ci-independent-se","esa-ci-paired-se","esa-ci-se-ratio"].map(field);
+      function update() {
+        const a=Number(sigmaA.value),b=Number(sigmaB.value),
+              m=Number(n.value),c=Number(rho.value);
+        field("esa-ci-rho-value").textContent=c.toFixed(2);
+        const valid=sigmaA.value.trim()!=="" && sigmaB.value.trim()!=="" && n.value.trim()!=="" &&
+          Number.isFinite(a) && a>0 && a<=100000 &&
+          Number.isFinite(b) && b>0 && b<=100000 &&
+          Number.isInteger(m) && m>=2 && m<=10000 &&
+          Number.isFinite(c) && c>=-1 && c<=1;
+        if (!valid) {
+          error.textContent="Enter positive standard deviations no greater than 100,000 and an integer sample size from 2 to 10,000.";
+          error.hidden=false;
+          outputs.forEach(node=>node.textContent="—");
+          field("esa-ci-design-interpretation").textContent="Correct the input values to see valid standard errors.";
+          return;
+        }
+        error.hidden=true;error.textContent="";
+        const vi=(a*a+b*b)/m;
+        const vp=Math.max(0,a*a+b*b-2*c*a*b)/m;
+        const sei=Math.sqrt(vi),sep=Math.sqrt(vp);
+        outputs[0].textContent=sei.toFixed(4);
+        outputs[1].textContent=sep.toFixed(4);
+        outputs[2].textContent=(sep/sei).toFixed(4);
+        field("esa-ci-design-interpretation").textContent=
+          c>0.000001?"Positive within-pair correlation reduces the paired standard error.":
+          c< -0.000001?"Negative within-pair correlation increases the paired standard error.":
+          "At zero correlation, the standard errors agree under these equal-size assumptions.";
+      }
+      [sigmaA,sigmaB,n,rho].forEach(input=>input.addEventListener("input",update));
+      field("esa-ci-design-reset").addEventListener("click",()=>{
+        sigmaA.value="10";sigmaB.value="10";n.value="25";rho.value="0.7";update();
+      });
+      update();
+    })();
+    </script>
 
     <h2>Conditions for the Interval</h2>
 

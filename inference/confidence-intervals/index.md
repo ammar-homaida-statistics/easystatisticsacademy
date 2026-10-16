@@ -241,6 +241,145 @@ sidebar: false
 })();
 </script>
 
+
+<!-- CONFIDENCE INTERVAL METHOD SELECTION GUIDE -->
+<section class="section" id="esa-ci-method-guide" aria-labelledby="esa-ci-method-guide-heading">
+  <div class="content-narrow">
+    <h2 id="esa-ci-method-guide-heading">Which Confidence Interval Should I Study?</h2>
+    <p>Choose the quantity you want to estimate and how the data were collected.
+      This guide points to an existing lesson; a valid method still depends on
+      sampling design, independence, sample size and distributional assumptions.</p>
+    <div class="concept-box esa-ci-method-card">
+      <div class="esa-ci-method-fields">
+        <div>
+          <label for="esa-ci-goal"><strong>What are you estimating?</strong></label>
+          <select id="esa-ci-goal">
+            <option value="mean">A population mean or difference of means</option>
+            <option value="proportion">A population proportion or difference of proportions</option>
+          </select>
+        </div>
+        <div>
+          <label for="esa-ci-design"><strong>What is the sample design?</strong></label>
+          <select id="esa-ci-design">
+            <option value="one">One sample</option>
+            <option value="independent">Two independent groups</option>
+            <option value="paired">Paired or matched observations</option>
+          </select>
+        </div>
+        <div id="esa-ci-known-sigma-wrapper">
+          <label for="esa-ci-known-sigma"><strong>For one population mean, is population σ genuinely known?</strong></label>
+          <select id="esa-ci-known-sigma">
+            <option value="unknown">No, σ is estimated from the sample</option>
+            <option value="known">Yes, σ is known independently of the sample</option>
+          </select>
+        </div>
+      </div>
+      <div id="esa-ci-method-result" role="status" aria-live="polite">
+        <p id="esa-ci-method-name"></p>
+        <p id="esa-ci-method-assumptions"></p>
+        <p id="esa-ci-method-caution"></p>
+        <p id="esa-ci-method-link-wrapper"></p>
+      </div>
+      <p class="muted-mini">This learning guide covers the confidence interval methods
+        taught in this block. Paired binary proportions, clustered designs,
+        repeated measures, sparse count methods and complex sampling require
+        specialized methods outside this selection tool.</p>
+      <noscript>JavaScript is required for this selection guide. The published confidence
+        interval lessons remain available below.</noscript>
+    </div>
+  </div>
+</section>
+<style>
+  #esa-ci-method-guide,#esa-ci-method-guide .esa-ci-method-card {min-width:0;max-width:100%;overflow-wrap:anywhere}
+  #esa-ci-method-guide .esa-ci-method-fields {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:14px}
+  #esa-ci-method-guide label {display:block;margin-bottom:7px}
+  #esa-ci-method-guide select {display:block;box-sizing:border-box;width:100%;max-width:100%;min-width:0;padding:10px;margin:0}
+  #esa-ci-method-guide #esa-ci-method-result p {margin:8px 0}
+  #esa-ci-method-guide #esa-ci-method-result a {display:inline-block}
+  #esa-ci-method-guide [hidden] {display:none!important}
+</style>
+<script>
+(function () {
+  "use strict";
+  function init() {
+    const root=document.getElementById("esa-ci-method-guide");
+    if (!root) return;
+    const field=id=>root.querySelector("#"+id);
+    const goal=field("esa-ci-goal"),design=field("esa-ci-design"),
+          sigma=field("esa-ci-known-sigma");
+    const published=new Set(Array.from(document.querySelectorAll(
+      "#lessons .lesson-card h3 a[href]"),a=>a.getAttribute("href"))
+      .filter(path=>typeof path==="string" &&
+       /^\/inference\/confidence-intervals\/[a-z0-9-]+\/$/.test(path)));
+    const base="/inference/confidence-intervals/";
+    const methods={
+      "mean-one-known":{
+        name:"Z confidence interval for a mean (known σ)",
+        path:base+"ci-for-mean-sigma-known-z/",
+        assumptions:"Genuinely known population σ; independent observations and a normal sampling distribution, either exactly under normal sampling or approximately with suitable sample size.",
+        caution:"Do not treat a sample standard deviation as a known population σ."
+      },
+      "mean-one-unknown":{
+        name:"One-sample t confidence interval for a mean",
+        path:base+"ci-for-mean-sigma-unknown-t/",
+        assumptions:"Independent observations; a nearly normal population for small samples, or appropriate large-sample justification.",
+        caution:"Assess strong skewness, influential outliers and the sample design."
+      },
+      "mean-independent":{
+        name:"Welch confidence interval for independent mean differences",
+        path:base+"ci-for-difference-of-means-independent/",
+        assumptions:"Independent groups and observations within groups; use separate sample variances and Welch–Satterthwaite degrees of freedom.",
+        caution:"Paired data must not be treated as independent. Extremely small samples require appropriate distributional conditions."
+      },
+      "mean-paired":{
+        name:"Paired t confidence interval for a mean difference",
+        path:base+"ci-for-paired-mean-difference/",
+        assumptions:"Meaningfully matched observations; independence across pairs; approximately normal differences for small samples, or suitable large-sample justification.",
+        caution:"Calculate within-pair differences first and analyze their variability, not the marginal group standard deviations."
+      },
+      "proportion-one":{
+        name:"Confidence interval for one population proportion",
+        path:base+"ci-for-proportion/",
+        assumptions:"Independent binary observations and an appropriate sampling design; choose an interval method whose coverage is justified for the expected counts.",
+        caution:"The simple Wald interval can have poor coverage near 0 or 1 and with small samples. Consider Wilson or exact methods as appropriate."
+      },
+      "proportion-independent":{
+        name:"Confidence interval for two independent proportions",
+        path:base+"ci-for-difference-of-proportions/",
+        assumptions:"Independent binary observations within each of two independent groups; sufficient sample sizes for the chosen approximation.",
+        caution:"Paired proportions and sparse counts need different procedures; a normal Wald interval can perform poorly near boundaries."
+      }
+    };
+    function update() {
+      const showSigma=goal.value==="mean"&&design.value==="one";
+      field("esa-ci-known-sigma-wrapper").hidden=!showSigma;
+      const key=goal.value+"-"+design.value+(showSigma?"-"+sigma.value:"");
+      const item=methods[key];
+      const name=field("esa-ci-method-name"),assumptions=field("esa-ci-method-assumptions"),
+            caution=field("esa-ci-method-caution"),link=field("esa-ci-method-link-wrapper");
+      link.replaceChildren();
+      if (!item || !published.has(item.path)) {
+        name.textContent="No direct method in this block for this combination.";
+        assumptions.textContent="Reconsider the sampling design and consult a design-specific statistical reference.";
+        caution.textContent="This guide does not invent a method or link to an unpublished lesson.";
+        return;
+      }
+      name.textContent="Suggested lesson: "+item.name;
+      assumptions.textContent="Conditions: "+item.assumptions;
+      caution.textContent="Caution: "+item.caution;
+      const a=document.createElement("a");
+      a.href=item.path;a.className="btn btn-outline";
+      a.textContent="Open "+item.name+" lesson";
+      link.appendChild(a);
+    }
+    [goal,design,sigma].forEach(input=>input.addEventListener("change",update));
+    update();
+  }
+  if (document.readyState==="loading") document.addEventListener("DOMContentLoaded",init,{once:true});
+  else init();
+})();
+</script>
+
 <!-- LESSONS -->
 
 <section class="section" id="lessons">

@@ -118,7 +118,11 @@ sidebar: false
       The parameter of interest is:
     </p>
 
-    0
+    
+    \[
+    \Delta=\mu_1-\mu_2
+    \]
+
 
     <p>
       which represents the true difference between population means.
@@ -130,7 +134,11 @@ sidebar: false
       We estimate the population difference using:
     </p>
 
-    1
+    
+    \[
+    \widehat{\Delta}=\bar X_1-\bar X_2
+    \]
+
 
     <p>
       the difference between the two sample means.
@@ -178,7 +186,11 @@ sidebar: false
       The same confidence interval structure remains:
     </p>
 
-    2
+    
+    \[
+    \text{Confidence interval}=\text{estimate}\pm\text{margin of error}
+    \]
+
 
     <p>
       Only the estimate and standard error change.
@@ -195,7 +207,11 @@ sidebar: false
       The estimated standard error is:
     </p>
 
-    3
+    
+    \[
+    \widehat{\operatorname{SE}}(\bar X_1-\bar X_2)=\sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}
+    \]
+
 
     <p>
       where:
@@ -236,10 +252,14 @@ sidebar: false
     <h2>The Confidence Interval Formula</h2>
 
     <p>
-      The general t interval is:
+      The Welch t interval, which does not require equal population variances, is:
     </p>
 
-    4
+    
+    \[
+    (\bar X_1-\bar X_2)\pm t_{1-\alpha/2,\,\widehat{\nu}}\sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}
+    \]
+
 
     <p>
       This is the standard confidence interval for two independent population means.
@@ -285,7 +305,11 @@ sidebar: false
       Difference:
     </p>
 
-    5
+    
+    \[
+    \bar x_1-\bar x_2=82-76=6
+    \]
+
 
     <p>
       The sample suggests Group 1 scores higher by 6 points.
@@ -297,13 +321,21 @@ sidebar: false
       Using:
     </p>
 
-    6
+    
+    \[
+    \widehat{\operatorname{SE}}=\sqrt{\frac{10^2}{40}+\frac{12^2}{35}}
+    \]
+
 
     <p>
       gives approximately:
     </p>
 
-    7
+    
+    \[
+    \widehat{\operatorname{SE}}\approx2.5718
+    \]
+
 
     <h2>Step 3: Find the Critical Value</h2>
 
@@ -313,7 +345,7 @@ sidebar: false
     </p>
 
     <p>
-      Exact degrees of freedom are typically computed by software.
+      Welch–Satterthwaite degrees of freedom account for the two estimated variances and sample sizes; for these inputs they are approximately 66.48. The resulting two-sided t critical value is approximately 1.9963 (rounded to 2 here).
     </p>
 
     <p>
@@ -334,7 +366,11 @@ sidebar: false
       Margin of error:
     </p>
 
-    8
+    
+    \[
+    \text{Margin of error}\approx 2(2.5718)\approx5.14
+    \]
+
 
     <h2>Step 5: Construct the Interval</h2>
 
@@ -342,7 +378,11 @@ sidebar: false
       Therefore:
     </p>
 
-    9
+    
+    \[
+    6\pm5.14\approx(0.86,\,11.14)
+    \]
+
 
     <p>
       yielding:
@@ -362,7 +402,11 @@ sidebar: false
       The interval suggests plausible values for:
     </p>
 
-    10
+    
+    \[
+    \mu_1-\mu_2
+    \]
+
 
     <p>
       lie between approximately:
@@ -481,6 +525,12 @@ sidebar: false
 
     <p>
       Paired measurements require different methods that account for the matching structure.
+    </p>
+
+    <p>
+      For matched observations, see the
+      <a href="/inference/confidence-intervals/ci-for-paired-mean-difference/#esa-ci-design-explorer">paired-versus-independent standard error explorer</a>.
+      It illustrates why the correlation within pairs affects precision.
     </p>
 
     <h2>Where These Intervals Are Used</h2>
