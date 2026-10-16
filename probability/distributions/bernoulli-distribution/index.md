@@ -116,7 +116,7 @@ sidebar: false
     </div>
 
     <p>
-      Each situation has only two possible outcomes.
+      Each example can be encoded into two categories, success and failure. The labels must be defined for the question being studied.
     </p>
 
     <h2>The Bernoulli Random Variable</h2>
@@ -145,7 +145,9 @@ sidebar: false
       The probability of failure is:
     </p>
 
-    0
+    \[
+P(\text{failure})=1-p
+\]
 
     <h2>The Probability Mass Function</h2>
 
@@ -153,13 +155,17 @@ sidebar: false
       The Bernoulli distribution has the following probability mass function:
     </p>
 
-    1
+    \[
+P(X=1)=p
+\]
 
     <p>
       and:
     </p>
 
-    2
+    \[
+P(X=0)=1-p
+\]
 
     <p>
       These two probabilities always sum to one.
@@ -191,7 +197,9 @@ sidebar: false
       Since the coin is fair:
     </p>
 
-    3
+    \[
+p=\tfrac12
+\]
 
     <p>
       Therefore:
@@ -252,13 +260,17 @@ sidebar: false
       Using the expectation formula:
     </p>
 
-    4
+    \[
+\operatorname{E}(X)=0(1-p)+1p
+\]
 
     <p>
       Simplifying:
     </p>
 
-    5
+    \[
+\operatorname{E}(X)=p
+\]
 
     <div class="concept-box">
 
@@ -273,7 +285,7 @@ sidebar: false
     <h2>Interpreting the Mean</h2>
 
     <p>
-      The expected value represents the long-run proportion of successes.
+      For repeated identically distributed Bernoulli trials, the expected value equals the success probability; with independent repetitions, the observed proportion also converges to p in the long run.
     </p>
 
     <div class="example-box">
@@ -291,7 +303,9 @@ sidebar: false
       The variance of a Bernoulli random variable is:
     </p>
 
-    6
+    \[
+\operatorname{Var}(X)=\operatorname{E}(X^2)-[\operatorname{E}(X)]^2=p-p^2=p(1-p)
+\]
 
     <p>
       This formula appears frequently throughout probability theory.
@@ -327,13 +341,17 @@ sidebar: false
       Variance is largest when:
     </p>
 
-    7
+    \[
+p=\frac12
+\]
 
     <p>
       In that case:
     </p>
 
-    8
+    \[
+\operatorname{Var}(X)=\tfrac12(1-\tfrac12)=\tfrac14=0.25
+\]
 
     <p>
       This is the maximum possible Bernoulli variance.
@@ -358,7 +376,7 @@ sidebar: false
     </div>
 
     <p>
-      The indicator variables studied previously follow Bernoulli distributions.
+      Each zero–one event indicator has a Bernoulli distribution with p equal to that event's probability; indicators need not be independent of each other.
     </p>
 
     <h2>Why Bernoulli Distributions Matter</h2>
@@ -419,7 +437,7 @@ sidebar: false
     </div>
 
     <p>
-      The resulting count of successes follows a different distribution.
+      If those trials are independent and have the same success probability p, their total successes follow a binomial distribution. Without these conditions, the count need not be binomial.
     </p>
 
     <p>
