@@ -3234,7 +3234,21 @@ class SearchTests(unittest.TestCase):
                 self.page.set_viewport_size({"width":width,"height":850})
                 overflow = self.page.evaluate(
                     "() => document.documentElement.scrollWidth - innerWidth")
-                self.assertLessEqual(overflow, 1, f"Viewport {width}, overflow {overflow}")
+                if overflow > 1:
+                    offending = self.page.evaluate("""() =>
+                      [...document.querySelectorAll('body *')]
+                        .map(e => ({tag:e.tagName, id:e.id,
+                                    cls:(typeof e.className === 'string' ? e.className : ''),
+                                    width:Math.round(e.getBoundingClientRect().width),
+                                    right:Math.round(e.getBoundingClientRect().right),
+                                    text:(e.textContent||'').trim().slice(0,50)}))
+                        .filter(e => e.right > innerWidth + 1)
+                        .slice(0,16)
+                    """)
+                    quiz_width = self.page.locator("#esa-ci-self-check").evaluate(
+                        "e => ({scroll:e.scrollWidth, client:e.clientWidth})")
+                    self.fail(f"Viewport {width} overflow {overflow}; "
+                              f"quiz={quiz_width}; offenders={offending}")
 
     def test_six_inference_overviews_keep_original_resume_schema(self):
         """No change to shared key, labels, URLs or recent progress behavior."""
