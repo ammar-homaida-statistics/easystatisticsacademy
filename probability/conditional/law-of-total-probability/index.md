@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_probability_conditional_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
     url: "/probability/conditional/law-of-total-probability/",
     label: "Law of Total Probability",
     ts: Date.now()
-  }));
+    }));
+  } catch (_) {
+    // Persisting progress is optional; unavailable storage must not interrupt lessons.
+  }
 
 })();
 </script>

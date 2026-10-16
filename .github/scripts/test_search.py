@@ -4636,5 +4636,184 @@ class SearchTests(unittest.TestCase):
         expect(self.page.locator("#esa-ci-method-link-wrapper a")).to_have_count(1)
 
 
+
+    def test_conditional_probability_seventeen_restored_formulas_and_examples(self):
+        """All seventeen expressions are legible, and the probability examples agree."""
+        from html import unescape
+        from math import isclose
+        cases=(
+          ("/probability/conditional/what-is-conditional-probability/",6,(
+            r"P(A\mid B)",r"\frac{4}{12}=\frac{1}{3}",
+            r"\frac{P(A\cap B)}{P(B)}",r"P(B)>0",
+            r"\frac{0.20}{0.50}=0.40",
+            r"P(A\mid B)=P(A)")),
+          ("/probability/conditional/multiplication-rule/",11,(
+            r"P(A\cap B)=P(A\mid B)P(B)",
+            r"P(A\cap B)=P(B\mid A)P(A)",
+            r"\frac{4}{52}",r"\frac{3}{51}",
+            r"\frac{1}{221}",r"0.004525",
+            r"0.5\times0.5=0.25",
+            r"0.60(0.90)=0.54",
+            r"P(A\cap B\cap C)"))
+        )
+        for route,count,fragments in cases:
+            with self.subTest(route=route):
+                source=(SITE/route.lstrip("/")/"index.html").read_text()
+                main=unescape(source.split('<main id="main-content"',1)[1]
+                                     .split("</main>",1)[0])
+                self.assertNotIn("\uea01",main)
+                self.assertNotIn("\uea02",main)
+                self.assertEqual(main.count(r"\["),count)
+                self.assertEqual(main.count(r"\]"),count)
+                for fragment in fragments:
+                    self.assertIn(fragment,main)
+                self.page.goto(self.origin+route,wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+        self.assertAlmostEqual(4/12,1/3,delta=1e-14)
+        self.assertAlmostEqual(.20/.50,.40,delta=1e-14)
+        self.assertTrue(isclose((4/52)*(3/51),1/221,abs_tol=1e-14))
+        self.assertAlmostEqual((4/52)*(3/51),.004524886877828055,delta=1e-14)
+        self.assertAlmostEqual(.60*.90,.54,delta=1e-14)
+        intro=(SITE/"probability/conditional/what-is-conditional-probability/index.html").read_text()
+        self.assertIn("This does not determine the unconditional probability P(A)",intro)
+
+    def test_conditional_tree_explorer_path_sums_bayes_and_boundaries(self):
+        """Four leaves form a partition; posterior becomes undefined if evidence is impossible."""
+        from math import isclose
+        route="/probability/conditional/multiplication-rule/"
+        self.page.goto(self.origin+route,wait_until="networkidle")
+        root=self.page.locator("#esa-conditional-tree-explorer")
+        expect(root.get_by_role("heading",name="Interactive Conditional Probability Tree")).to_be_visible()
+        inputs=[root.locator("#"+part) for part in
+                ("esa-tree-study","esa-tree-pass-study","esa-tree-pass-no-study")]
+        ids=("esa-tree-joint-study-pass","esa-tree-joint-study-fail",
+             "esa-tree-joint-no-study-pass","esa-tree-joint-no-study-fail")
+        leaves=[root.locator("#"+item) for item in ids]
+        total=root.locator("#esa-tree-total-pass")
+        posterior=root.locator("#esa-tree-bayes")
+        note=root.locator("#esa-tree-undefined-note")
+        self.assertEqual([x.input_value() for x in inputs],["0.6","0.9","0.4"])
+        expect(total).to_have_text("0.7000")
+        expect(posterior).to_have_text("0.7714")
+        def update(s,conditional1,conditional0):
+            for node,value in zip(inputs,(s,conditional1,conditional0)):
+                node.evaluate("""(el,value)=>{
+                  el.value=String(value);
+                  el.dispatchEvent(new Event('input',{bubbles:true}));
+                }""",value)
+            expected=(s*conditional1,s*(1-conditional1),
+                      (1-s)*conditional0,(1-s)*(1-conditional0))
+            actual=tuple(float(node.inner_text()) for node in leaves)
+            for observed,truth in zip(actual,expected):
+                self.assertTrue(isclose(observed,truth,abs_tol=5.1e-5),
+                                (s,conditional1,conditional0,observed,truth))
+            self.assertTrue(isclose(sum(actual),1,abs_tol=0.00021))
+            prob=expected[0]+expected[2]
+            self.assertTrue(isclose(float(total.inner_text()),prob,abs_tol=5.1e-5))
+            self.assertEqual(root.locator("#esa-tree-multiply").inner_text(),leaves[0].inner_text())
+            if prob==0:
+                expect(posterior).to_have_text("Undefined")
+                expect(note).to_be_visible()
+            else:
+                self.assertTrue(isclose(float(posterior.inner_text()),
+                          expected[0]/prob,abs_tol=5.1e-5))
+                expect(note).to_be_hidden()
+        for parameters in ((0.6,.9,.4),(.05,0,0),(.95,1,1),(.4,.15,.85),(.8,0,1),(.1,1,0)):
+            with self.subTest(parameters=parameters):
+                update(*parameters)
+        root.get_by_role("button",name="Reset probability tree").click()
+        self.assertEqual([x.input_value() for x in inputs],["0.6","0.9","0.4"])
+        expect(total).to_have_text("0.7000")
+        expect(posterior).to_have_text("0.7714")
+        self.assertEqual(root.locator('a[href*="law-of-total-probability"]').count(),1)
+        self.assertEqual(root.locator('a[href*="bayes-theorem"]').count(),1)
+
+    def test_conditional_tree_explorer_keyboard_and_mobile(self):
+        """A real two-stage tree, native slider keys, and no horizontal overflow."""
+        self.page.goto(self.origin+"/probability/conditional/multiplication-rule/",
+                       wait_until="networkidle")
+        root=self.page.locator("#esa-conditional-tree-explorer")
+        self.assertEqual(root.locator(".esa-tree-root>li").count(),2)
+        self.assertEqual(root.locator(".esa-tree-root>li>ul>li").count(),4)
+        study=root.get_by_role("slider",name="Probability of studying:")
+        study.focus()
+        study.press("Home")
+        expect(study).to_have_value("0.05")
+        expect(root.locator("#esa-tree-study-value")).to_have_text("0.05")
+        study.press("ArrowRight")
+        expect(study).to_have_value("0.1")
+        expect(root.locator("#esa-tree-study-value")).to_have_text("0.10")
+        root.get_by_role("slider",name="Probability of passing given studying:").focus()
+        root.get_by_role("slider",name="Probability of passing given studying:").press("End")
+        expect(root.locator("#esa-tree-pass-study-value")).to_have_text("1.00")
+        for width in (320,375,768,1280):
+            with self.subTest(width=width):
+                self.page.set_viewport_size({"width":width,"height":850})
+                bounds=root.evaluate("""e=>({
+                   left:e.getBoundingClientRect().left,
+                   right:e.getBoundingClientRect().right,
+                   scroll:e.scrollWidth,client:e.clientWidth
+                })""")
+                self.assertGreaterEqual(bounds["left"],-1,bounds)
+                self.assertLessEqual(bounds["right"],width+1,bounds)
+                self.assertLessEqual(bounds["scroll"]-bounds["client"],1,bounds)
+
+    def test_conditional_six_lessons_progress_and_continue_reading(self):
+        """All six original URLs, labels and timestamps persist without schema changes."""
+        lessons=(
+          ("what-is-conditional-probability","What Is Conditional Probability?"),
+          ("multiplication-rule","Multiplication Rule"),
+          ("law-of-total-probability","Law of Total Probability"),
+          ("bayes-theorem","Bayes' Theorem"),
+          ("tree-diagrams","Tree Diagrams"),
+          ("base-rate-neglect-and-fallacies","Base-Rate Neglect and Fallacies"),
+        )
+        key="esa_continue_probability_conditional_lesson_v0"
+        for slug,label in lessons:
+            with self.subTest(lesson=slug):
+                route="/probability/conditional/"+slug+"/"
+                self.page.goto(self.origin+route,wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+                saved=self.page.evaluate("""key=>JSON.parse(localStorage.getItem(key))""",key)
+                self.assertEqual(saved["url"],route)
+                self.assertEqual(saved["label"],label)
+                self.assertIsInstance(saved["ts"],int)
+                self.assertGreater(saved["ts"],0)
+                self.page.goto(self.origin+"/probability/conditional/",wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-probability-conditional")).to_be_visible()
+                self.assertEqual(self.page.locator(
+                    "#continue-reading-probability-conditional-btn").get_attribute("href"),route)
+                expect(self.page.locator("#continue-reading-probability-conditional-label")
+                       ).to_contain_text(label)
+
+    def test_conditional_six_lessons_and_tree_survive_denied_storage(self):
+        """Lessons, navigation, and live tree arithmetic remain usable if localStorage throws."""
+        self.page.add_init_script("""
+          Object.defineProperty(window,'localStorage',{
+            configurable:true,
+            get(){throw new DOMException('Denied','SecurityError');}
+          });
+        """)
+        for slug in ("what-is-conditional-probability","multiplication-rule",
+                     "law-of-total-probability","bayes-theorem","tree-diagrams",
+                     "base-rate-neglect-and-fallacies"):
+            with self.subTest(lesson=slug):
+                route="/probability/conditional/"+slug+"/"
+                self.page.goto(self.origin+route,wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+                self.assertGreater(self.page.locator("main a[href]").count(),0)
+                self.assertEqual(self.errors,[])
+        self.page.goto(self.origin+"/probability/conditional/multiplication-rule/",
+                       wait_until="networkidle")
+        root=self.page.locator("#esa-conditional-tree-explorer")
+        expect(root.locator("#esa-tree-total-pass")).to_have_text("0.7000")
+        root.locator("#esa-tree-pass-no-study").evaluate("""el=>{
+          el.value="0.5";el.dispatchEvent(new Event('input',{bubbles:true}));
+        }""")
+        expect(root.locator("#esa-tree-total-pass")).to_have_text("0.7400")
+        expect(root.locator("#esa-tree-bayes")).to_have_text("0.7297")
+        self.assertEqual(self.errors,[])
+
+
 if __name__ == "__main__":
     unittest.main(argv=[__file__], verbosity=2)

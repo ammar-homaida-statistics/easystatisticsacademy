@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_probability_conditional_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
     url: "/probability/conditional/what-is-conditional-probability/",
     label: "What Is Conditional Probability?",
     ts: Date.now()
-  }));
+    }));
+  } catch (_) {
+    // Persisting progress is optional; unavailable storage must not interrupt lessons.
+  }
 
 })();
 </script>
@@ -194,7 +198,11 @@ sidebar: false
       Conditional probability is written using a vertical bar.
     </p>
 
-    0
+    
+    \[
+    P(A\mid B)
+    \]
+
 
     <p>
       This is read as:
@@ -254,7 +262,11 @@ sidebar: false
       Therefore:
     </p>
 
-    1
+    
+    \[
+    P(A\mid B)=\frac{4}{12}=\frac{1}{3}
+    \]
+
 
     <h2>The Formal Definition</h2>
 
@@ -262,13 +274,21 @@ sidebar: false
       Conditional probability is defined mathematically as:
     </p>
 
-    2
+    
+    \[
+    P(A\mid B)=\frac{P(A\cap B)}{P(B)}
+    \]
+
 
     <p>
       provided that:
     </p>
 
-    3
+    
+    \[
+    P(B)>0
+    \]
+
 
     <p>
       This formula is one of the most important formulas in probability.
@@ -334,11 +354,14 @@ sidebar: false
       Then:
     </p>
 
-    4
+    
+    \[
+    P(A\mid B)=\frac{0.20}{0.50}=0.40
+    \]
+
 
     <p>
-      Given that B occurred,
-      the probability of A is 0.40.
+      Given that B occurred, the conditional probability of A given B is 0.40. This does not determine the unconditional probability P(A).
     </p>
 
     <h2>Conditional Probability Can Increase</h2>
@@ -415,7 +438,11 @@ sidebar: false
       Therefore:
     </p>
 
-    5
+    
+    \[
+    P(A\mid B)=P(A)\quad\text{for independent events with }P(B)>0
+    \]
+
 
     <p>
       when events are independent.

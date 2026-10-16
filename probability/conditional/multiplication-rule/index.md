@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_probability_conditional_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
     url: "/probability/conditional/multiplication-rule/",
     label: "Multiplication Rule",
     ts: Date.now()
-  }));
+    }));
+  } catch (_) {
+    // Persisting progress is optional; unavailable storage must not interrupt lessons.
+  }
 
 })();
 </script>
@@ -112,10 +116,14 @@ sidebar: false
     <h2>Starting with Conditional Probability</h2>
 
     <p>
-      Recall the definition of conditional probability.
+      Recall the definition of conditional probability; the condition P(B) must have positive probability.
     </p>
 
-    0
+    
+    \[
+    P(A\mid B)=\frac{P(A\cap B)}{P(B)},\quad P(B)>0
+    \]
+
 
     <p>
       This formula describes the probability of A given that B has occurred.
@@ -127,7 +135,11 @@ sidebar: false
       Multiplying both sides by P(B) gives:
     </p>
 
-    1
+    
+    \[
+    P(A\cap B)=P(A\mid B)P(B),\quad P(B)>0
+    \]
+
 
     <p>
       This is the multiplication rule.
@@ -140,11 +152,14 @@ sidebar: false
     <h2>An Equivalent Version</h2>
 
     <p>
-      Because the roles of A and B can be reversed,
-      another equivalent form is:
+      When P(A) is positive, the roles of A and B can be reversed to give:
     </p>
 
-    2
+    
+    \[
+    P(A\cap B)=P(B\mid A)P(A),\quad P(A)>0
+    \]
+
 
     <p>
       Both forms are correct.
@@ -202,19 +217,31 @@ sidebar: false
       First:
     </p>
 
-    3
+    
+    \[
+    P(A)=\frac{4}{52}=\frac{1}{13}
+    \]
+
 
     <p>
       After one ace has been removed:
     </p>
 
-    4
+    
+    \[
+    P(B\mid A)=\frac{3}{51}=\frac{1}{17}
+    \]
+
 
     <p>
       Therefore:
     </p>
 
-    5
+    
+    \[
+    P(A\cap B)=\frac{4}{52}\cdot\frac{3}{51}=\frac{1}{221}\approx0.004525
+    \]
+
 
     <p>
       The multiplication rule gives the probability of drawing two aces consecutively.
@@ -230,7 +257,11 @@ sidebar: false
       For independent events:
     </p>
 
-    6
+    
+    \[
+    P(A\mid B)=P(A)\quad\text{when }P(B)>0
+    \]
+
 
     <p>
       The occurrence of B does not affect A.
@@ -242,7 +273,11 @@ sidebar: false
       Substituting independence into the multiplication rule gives:
     </p>
 
-    7
+    
+    \[
+    P(A\cap B)=P(A)P(B)
+    \]
+
 
     <p>
       This is the familiar independence formula introduced earlier.
@@ -286,7 +321,11 @@ sidebar: false
       Therefore:
     </p>
 
-    8
+    
+    \[
+    P(A\cap B)=0.5\times0.5=0.25
+    \]
+
 
     <h2>Dependent Events</h2>
 
@@ -341,11 +380,142 @@ sidebar: false
       Then:
     </p>
 
-    9
+    
+    \[
+    P(\mathrm{Study}\cap\mathrm{Pass})=P(\mathrm{Study})P(\mathrm{Pass}\mid\mathrm{Study})=0.60(0.90)=0.54
+    \]
+
 
     <p>
       The probability that a student studies and passes is 0.54.
     </p>
+
+
+    <!-- INTERACTIVE CONDITIONAL PROBABILITY TREE -->
+    <div class="concept-box esa-conditional-tree" id="esa-conditional-tree-explorer"
+         role="group" aria-labelledby="esa-conditional-tree-heading">
+      <h2 id="esa-conditional-tree-heading">Interactive Conditional Probability Tree</h2>
+      <p>Explore a hypothetical population of students. A student either studies or does not study,
+         and then either passes or does not pass. Multiply down a branch, add disjoint
+         passing branches, and use Bayes' theorem to reverse a conditional probability.</p>
+      <div class="esa-conditional-tree-fields">
+        <div>
+          <label for="esa-tree-study"><strong>Probability of studying:
+            <output id="esa-tree-study-value" for="esa-tree-study">0.60</output></strong></label>
+          <input id="esa-tree-study" type="range" min="0.05" max="0.95" step="0.05" value="0.6">
+        </div>
+        <div>
+          <label for="esa-tree-pass-study"><strong>Probability of passing given studying:
+            <output id="esa-tree-pass-study-value" for="esa-tree-pass-study">0.90</output></strong></label>
+          <input id="esa-tree-pass-study" type="range" min="0" max="1" step="0.05" value="0.9">
+        </div>
+        <div>
+          <label for="esa-tree-pass-no-study"><strong>Probability of passing given no studying:
+            <output id="esa-tree-pass-no-study-value" for="esa-tree-pass-no-study">0.40</output></strong></label>
+          <input id="esa-tree-pass-no-study" type="range" min="0" max="1" step="0.05" value="0.4">
+        </div>
+      </div>
+      <p class="muted-mini">All three sliders describe illustrative probabilities, not causal effects.
+         Each second-stage split has complementary pass and fail probabilities. The first-stage
+         branches have positive probability, so the input conditional probabilities are defined.</p>
+      <div class="esa-tree-results" role="status" aria-live="polite" aria-atomic="true">
+        <h3>Two-stage probability tree</h3>
+        <ul class="esa-tree-root">
+          <li>
+            <strong>Studies — P(Study) = <output id="esa-tree-p-study">0.6000</output></strong>
+            <ul>
+              <li>Pass: P(Pass | Study) = <output id="esa-tree-p-pass-study">0.9000</output>
+                <span class="esa-tree-path">Joint P(Study and Pass) = <output id="esa-tree-joint-study-pass">0.5400</output></span>
+              </li>
+              <li>No pass: P(No Pass | Study) = <output id="esa-tree-p-fail-study">0.1000</output>
+                <span class="esa-tree-path">Joint P(Study and No Pass) = <output id="esa-tree-joint-study-fail">0.0600</output></span>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <strong>No study — P(No Study) = <output id="esa-tree-p-no-study">0.4000</output></strong>
+            <ul>
+              <li>Pass: P(Pass | No Study) = <output id="esa-tree-p-pass-no-study">0.4000</output>
+                <span class="esa-tree-path">Joint P(No Study and Pass) = <output id="esa-tree-joint-no-study-pass">0.1600</output></span>
+              </li>
+              <li>No pass: P(No Pass | No Study) = <output id="esa-tree-p-fail-no-study">0.6000</output>
+                <span class="esa-tree-path">Joint P(No Study and No Pass) = <output id="esa-tree-joint-no-study-fail">0.2400</output></span>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <h3>Follow the paths</h3>
+        <p><strong>Multiply:</strong> P(Study and Pass) = P(Study) × P(Pass | Study) =
+          <output id="esa-tree-multiply">0.5400</output>.</p>
+        <p><strong>Add:</strong> P(Pass) = P(Study and Pass) + P(No Study and Pass) =
+          <output id="esa-tree-total-pass">0.7000</output>.</p>
+        <p><strong>Bayes:</strong> P(Study | Pass) = P(Study and Pass) / P(Pass) =
+          <output id="esa-tree-bayes">0.7714</output>.</p>
+        <p id="esa-tree-undefined-note" hidden>
+          A reverse conditional probability given Pass is undefined when P(Pass) = 0:
+          an event with zero probability cannot be used as the conditioning event.</p>
+      </div>
+      <button id="esa-tree-reset" class="btn btn-outline" type="button">Reset probability tree</button>
+      <p class="muted-mini">The four final joint probabilities sum to 1 (apart from displayed rounding).
+         This same example appears in the <a href="/probability/conditional/law-of-total-probability/">Law of Total Probability</a> lesson.
+         See <a href="/probability/conditional/bayes-theorem/">Bayes' Theorem</a> to interpret the reverse conditional.</p>
+    </div>
+    <style>
+      #esa-conditional-tree-explorer {box-sizing:border-box;width:100%;max-width:100%;min-width:0;overflow-wrap:anywhere}
+      #esa-conditional-tree-explorer .esa-conditional-tree-fields {
+        display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,225px),1fr));gap:14px;
+        margin:16px 0
+      }
+      #esa-conditional-tree-explorer .esa-conditional-tree-fields>div {min-width:0}
+      #esa-conditional-tree-explorer label {display:block;margin-bottom:10px}
+      #esa-conditional-tree-explorer input[type="range"] {box-sizing:border-box;display:block;width:100%;max-width:100%;min-width:0;margin:0;padding:0}
+      #esa-conditional-tree-explorer .esa-tree-root,
+      #esa-conditional-tree-explorer .esa-tree-root ul {list-style:none;padding:0;margin:12px 0}
+      #esa-conditional-tree-explorer .esa-tree-root>li {margin:14px 0;padding-left:12px;border-left:3px solid #64748b}
+      #esa-conditional-tree-explorer .esa-tree-root>li>ul {padding-left:12px;margin:8px 0;border-left:2px solid #0d9488}
+      #esa-conditional-tree-explorer .esa-tree-root>li>ul>li {margin:10px 0;padding-left:8px}
+      #esa-conditional-tree-explorer .esa-tree-path {display:block;font-size:.94em}
+      #esa-conditional-tree-explorer .esa-tree-results h3 {font-size:1.05em;margin:12px 0 6px}
+      #esa-conditional-tree-explorer .esa-tree-results p {margin:10px 0}
+      #esa-conditional-tree-explorer [hidden] {display:none!important}
+    </style>
+    <script>
+    (function () {
+      "use strict";
+      const root=document.getElementById("esa-conditional-tree-explorer");
+      if (!root) return;
+      const field=id=>root.querySelector("#"+id);
+      const study=field("esa-tree-study");
+      const passStudy=field("esa-tree-pass-study");
+      const passNoStudy=field("esa-tree-pass-no-study");
+      const display=(id,value)=>{field(id).textContent=value.toFixed(4);};
+      function update() {
+        const s=Number(study.value),q1=Number(passStudy.value),q0=Number(passNoStudy.value);
+        field("esa-tree-study-value").textContent=s.toFixed(2);
+        field("esa-tree-pass-study-value").textContent=q1.toFixed(2);
+        field("esa-tree-pass-no-study-value").textContent=q0.toFixed(2);
+        const ns=1-s;
+        const sp=s*q1,sf=s*(1-q1),np=ns*q0,nf=ns*(1-q0);
+        const overall=sp+np;
+        const cells=[
+          ["esa-tree-p-study",s],["esa-tree-p-no-study",ns],
+          ["esa-tree-p-pass-study",q1],["esa-tree-p-fail-study",1-q1],
+          ["esa-tree-p-pass-no-study",q0],["esa-tree-p-fail-no-study",1-q0],
+          ["esa-tree-joint-study-pass",sp],["esa-tree-joint-study-fail",sf],
+          ["esa-tree-joint-no-study-pass",np],["esa-tree-joint-no-study-fail",nf],
+          ["esa-tree-multiply",sp],["esa-tree-total-pass",overall]
+        ];
+        cells.forEach(([id,value])=>display(id,value));
+        field("esa-tree-bayes").textContent=overall>0?(sp/overall).toFixed(4):"Undefined";
+        field("esa-tree-undefined-note").hidden=overall>0;
+      }
+      [study,passStudy,passNoStudy].forEach(control=>control.addEventListener("input",update));
+      field("esa-tree-reset").addEventListener("click",()=>{
+        study.value="0.6";passStudy.value="0.9";passNoStudy.value="0.4";update();
+      });
+      update();
+    })();
+    </script>
 
     <h2>Extending to Three Events</h2>
 
@@ -357,10 +527,14 @@ sidebar: false
       For three events:
     </p>
 
-    10
+    
+    \[
+    P(A\cap B\cap C)=P(A)\,P(B\mid A)\,P(C\mid A\cap B)
+    \]
+
 
     <p>
-      Each step conditions on the events that have already occurred.
+      Each step conditions on the events that have already occurred. The displayed conditional factors require P(A) &gt; 0 and P(A ∩ B) &gt; 0. If a conditioning event has probability zero, use an appropriate unconditional formulation instead.
     </p>
 
     <h2>A Sequential View</h2>
