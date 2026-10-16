@@ -244,13 +244,21 @@ sidebar: false
       Suppose a manufacturer claims that a machine fills bottles with an average of:
     </p>
 
-    0
+    
+    \[
+    \mu_0=500\ \mathrm{mL}
+    \]
+
 
     <p>
       A quality-control analyst collects a sample and finds an average of:
     </p>
 
-    1
+    
+    \[
+    \bar x=492\ \mathrm{mL}
+    \]
+
 
     <p>
       The question becomes:

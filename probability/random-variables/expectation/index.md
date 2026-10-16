@@ -125,7 +125,11 @@ sidebar: false
       For a discrete random variable:
     </p>
 
-    0
+    
+    \[
+    E[X]=\sum_{x}x\,P(X=x)
+    \]
+
 
     <p>
       This formula multiplies each possible value by its probability and then sums the results.
@@ -179,13 +183,21 @@ sidebar: false
       Therefore:
     </p>
 
-    1
+    
+    \[
+    E[X]=\sum_{x=1}^{6}x\left(\frac16\right)
+    \]
+
 
     <p>
       Simplifying:
     </p>
 
-    2
+    
+    \[
+    E[X]=\frac{1+2+3+4+5+6}{6}=3.5
+    \]
+
 
     <h2>A Common Question</h2>
 
@@ -252,7 +264,11 @@ sidebar: false
       The expected value is:
     </p>
 
-    3
+    
+    \[
+    E[X]=1(0.5)+0(0.5)=0.5
+    \]
+
 
     <p>
       This reflects the long-run proportion of heads.
@@ -324,7 +340,11 @@ sidebar: false
       The expected payout is:
     </p>
 
-    4
+    
+    \[
+    E[\text{payout}]=100(0.10)+0(0.90)=\$10
+    \]
+
 
     <p>
       The average payout over many plays is $10.
@@ -377,7 +397,11 @@ sidebar: false
 
     <h3>Adding a Constant</h3>
 
-    5
+    
+    \[
+    E[X+c]=E[X]+c
+    \]
+
 
     <p>
       Adding a constant shifts the expected value by that amount.
@@ -385,7 +409,11 @@ sidebar: false
 
     <h3>Multiplying by a Constant</h3>
 
-    6
+    
+    \[
+    E[cX]=cE[X]
+    \]
+
 
     <p>
       Scaling the variable scales its expectation.

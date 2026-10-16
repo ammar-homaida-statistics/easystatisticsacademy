@@ -245,19 +245,31 @@ sidebar: false
       For an estimator:
     </p>
 
-    0
+    
+    \[
+    \widehat{\theta}
+    \]
+
 
     <p>
       estimating:
     </p>
 
-    1
+    
+    \[
+    \theta
+    \]
+
 
     <p>
       statistical bias is:
     </p>
 
-    2
+    
+    \[
+    \operatorname{Bias}(\widehat\theta)=E[\widehat\theta]-\theta
+    \]
+
 
     <h2>A Statistical Bias Example</h2>
 

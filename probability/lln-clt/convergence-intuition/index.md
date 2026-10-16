@@ -147,7 +147,11 @@ sidebar: false
       the proportion typically becomes very close to:
     </p>
 
-    0
+    
+    \[
+    p=0.5
+    \]
+
 
     <p>
       The sample proportion appears to settle near the true probability.
@@ -219,7 +223,11 @@ sidebar: false
       The symbol:
     </p>
 
-    1
+    
+    \[
+    n\to\infty
+    \]
+
 
     <p>
       appears throughout probability because convergence concerns long-run behavior.

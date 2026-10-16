@@ -125,11 +125,19 @@ sidebar: false
       A typical two-sided hypothesis pair is:
     </p>
 
-    0
+    
+    \[
+    H_0:\mu=\mu_0
+    \]
+
 
     <br><br>
 
-    1
+    
+    \[
+    H_a:\mu\ne\mu_0
+    \]
+
 
     <p>
       The alternative hypothesis allows values above or below the null value.
@@ -180,11 +188,19 @@ sidebar: false
       A right-tailed test looks for values larger than the null value.
     </p>
 
-    2
+    
+    \[
+    H_0:\mu\le\mu_0
+    \]
+
 
     <br><br>
 
-    3
+    
+    \[
+    H_a:\mu>\mu_0
+    \]
+
 
     <p>
       Only unusually large observations provide evidence against H₀.
@@ -196,11 +212,19 @@ sidebar: false
       A left-tailed test looks for values smaller than the null value.
     </p>
 
-    4
+    
+    \[
+    H_0:\mu\ge\mu_0
+    \]
+
 
     <br><br>
 
-    5
+    
+    \[
+    H_a:\mu<\mu_0
+    \]
+
 
     <p>
       Only unusually small observations provide evidence against H₀.
@@ -264,7 +288,11 @@ sidebar: false
       Suppose a test statistic equals:
     </p>
 
-    6
+    
+    \[
+    Z=z_{\mathrm{obs}}>0
+    \]
+
 
     <p>
       For a right-tailed test,
@@ -287,7 +315,11 @@ sidebar: false
       Because all of the significance level:
     </p>
 
-    7
+    
+    \[
+    \alpha
+    \]
+
 
     <p>
       is placed in a single tail,

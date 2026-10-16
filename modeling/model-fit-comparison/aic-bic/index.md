@@ -131,7 +131,7 @@ sidebar: false
 
     <p>
       It was developed by the Japanese statistician
-      0.
+      Hirotugu Akaike.
     </p>
 
     <p>

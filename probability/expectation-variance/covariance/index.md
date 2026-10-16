@@ -139,7 +139,11 @@ sidebar: false
       Covariance between X and Y is defined as:
     </p>
 
-    0
+    
+    \[
+    \operatorname{Cov}(X,Y)=E[(X-E[X])(Y-E[Y])]
+    \]
+
 
     <p>
       This formula measures the average product of the deviations from their respective means.
@@ -151,7 +155,11 @@ sidebar: false
       Consider the product:
     </p>
 
-    1
+    
+    \[
+    (X-E[X])(Y-E[Y])
+    \]
+
 
     <p>
       This product can be positive or negative.
@@ -193,7 +201,11 @@ sidebar: false
       In such cases:
     </p>
 
-    2
+    
+    \[
+    \operatorname{Cov}(X,Y)>0
+    \]
+
 
     <h2>Negative Covariance</h2>
 
@@ -217,7 +229,11 @@ sidebar: false
       In these situations:
     </p>
 
-    3
+    
+    \[
+    \operatorname{Cov}(X,Y)<0
+    \]
+
 
     <h2>Zero Covariance</h2>
 
@@ -226,7 +242,11 @@ sidebar: false
       covariance may be zero.
     </p>
 
-    4
+    
+    \[
+    \operatorname{Cov}(X,Y)=0
+    \]
+
 
     <p>
       This means positive and negative joint deviations balance one another.
@@ -238,7 +258,11 @@ sidebar: false
       If two random variables are independent:
     </p>
 
-    5
+    
+    \[
+    X\perp Y\quad\Longrightarrow\quad\operatorname{Cov}(X,Y)=0
+    \]
+
 
     <p>
       Independence guarantees zero covariance.
@@ -264,7 +288,11 @@ sidebar: false
       Covariance is often computed using:
     </p>
 
-    6
+    
+    \[
+    \operatorname{Cov}(X,Y)=E[XY]-E[X]E[Y]
+    \]
+
 
     <p>
       This equivalent formula is frequently easier to apply in calculations.
@@ -277,7 +305,11 @@ sidebar: false
       we saw:
     </p>
 
-    7
+    
+    \[
+    \operatorname{Var}(X+Y)=\operatorname{Var}(X)+\operatorname{Var}(Y)+2\operatorname{Cov}(X,Y)
+    \]
+
 
     <p>
       Covariance determines whether combining variables increases or decreases overall variability.

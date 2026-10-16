@@ -75,19 +75,31 @@ sidebar: false
       Suppose a manufacturer claims:
     </p>
 
-    0
+    
+    \[
+    \mu_0=500
+    \]
+
 
     <p>
       and a sample produces:
     </p>
 
-    1
+    
+    \[
+    \bar x=492
+    \]
+
 
     <p>
       The sample mean differs from the claimed value by:
     </p>
 
-    2
+    
+    \[
+    \bar x-\mu_0=492-500=-8
+    \]
+
 
     <p>
       Is a difference of 8 large?
@@ -142,7 +154,11 @@ sidebar: false
       Most test statistics have the form:
     </p>
 
-    3
+    
+    \[
+    \text{test statistic}=\frac{\text{estimate}-\text{null value}}{\text{standard error}}
+    \]
+
 
     <p>
       where:
@@ -187,7 +203,11 @@ sidebar: false
       a common test statistic is:
     </p>
 
-    4
+    
+    \[
+    Z=\frac{\bar X-\mu_0}{\sigma/\sqrt n}
+    \]
+
 
     <p>
       where:
@@ -229,7 +249,11 @@ sidebar: false
       Then:
     </p>
 
-    5
+    
+    \[
+    Z=\frac{492-500}{2}=-4
+    \]
+
 
     <p>
       The observed mean is four standard errors below the null expectation.
@@ -241,7 +265,11 @@ sidebar: false
       Consider the same observed difference:
     </p>
 
-    6
+    
+    \[
+    \bar x-\mu_0=-8
+    \]
+
 
     <p>
       but now suppose:
@@ -259,7 +287,11 @@ sidebar: false
       Then:
     </p>
 
-    7
+    
+    \[
+    Z=\frac{-8}{20}=-0.4
+    \]
+
 
     <p>
       Suddenly the same difference appears quite ordinary.
@@ -355,7 +387,11 @@ sidebar: false
       This produces the t statistic:
     </p>
 
-    8
+    
+    \[
+    T=\frac{\bar X-\mu_0}{s/\sqrt n}
+    \]
+
 
     <p>
       The logic remains identical.
@@ -371,7 +407,11 @@ sidebar: false
       Nearly every classical test statistic follows the same blueprint:
     </p>
 
-    9
+    
+    \[
+    \text{standardized discrepancy}=\frac{\text{observed}-\text{expected under }H_0}{\text{standard error}}
+    \]
+
 
     <p>
       This pattern appears throughout statistics.

@@ -146,17 +146,29 @@ sidebar: false
       Suppose we are testing:
     </p>
 
-    0
+    
+    \[
+    H_0:\theta=\theta_0
+    \]
+
 
     <br><br>
 
-    1
+    
+    \[
+    H_a:\theta\ne\theta_0
+    \]
+
 
     <p>
       The value:
     </p>
 
-    2
+    
+    \[
+    \theta_0
+    \]
+
 
     <p>
       is called the null value.
@@ -203,7 +215,11 @@ sidebar: false
       and we test:
     </p>
 
-    3
+    
+    \[
+    H_0:\mu=100
+    \]
+
 
     <p>
       Because:
@@ -220,7 +236,11 @@ sidebar: false
       We reject the null hypothesis at:
     </p>
 
-    4
+    
+    \[
+    \alpha=0.05
+    \]
+
 
     <h2>Example 2: Failing to Reject</h2>
 
@@ -250,7 +270,11 @@ sidebar: false
       We fail to reject:
     </p>
 
-    5
+    
+    \[
+    H_0:\mu=100
+    \]
+
 
     <h2>Why This Happens</h2>
 
@@ -370,7 +394,11 @@ sidebar: false
       the null hypothesis corresponds to:
     </p>
 
-    6
+    
+    \[
+    H_0:\Delta=0
+    \]
+
 
     <p>
       because zero represents:
@@ -405,14 +433,22 @@ sidebar: false
       Since:
     </p>
 
-    7
+    
+    \[
+    0
+    \]
+
 
     <p>
       is not contained in the interval,
       the corresponding hypothesis test rejects:
     </p>
 
-    8
+    
+    \[
+    H_0:\Delta=0
+    \]
+
 
     <h2>Example: No Significant Difference</h2>
 

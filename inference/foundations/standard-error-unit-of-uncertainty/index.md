@@ -221,7 +221,11 @@ sidebar: false
       For the sample mean:
     </p>
 
-    0
+    
+    \[
+    \operatorname{SE}(\bar X)=\frac{\sigma}{\sqrt n}
+    \]
+
 
     <p>
       where:
@@ -247,7 +251,11 @@ sidebar: false
       Larger values of:
     </p>
 
-    1
+    
+    \[
+    \sigma
+    \]
+
 
     <p>
       produce larger standard errors.
@@ -263,7 +271,11 @@ sidebar: false
       Increasing:
     </p>
 
-    2
+    
+    \[
+    n
+    \]
+
 
     <p>
       reduces the standard error.
@@ -279,7 +291,11 @@ sidebar: false
       Standard error decreases according to:
     </p>
 
-    3
+    
+    \[
+    \operatorname{SE}(\bar X)\propto\frac{1}{\sqrt n}\quad(\sigma\text{ fixed})
+    \]
+
 
     <p>
       This means precision improves slowly as sample size grows.
@@ -316,7 +332,11 @@ sidebar: false
       Then:
     </p>
 
-    4
+    
+    \[
+    \operatorname{SE}(\bar X)=\frac{20}{\sqrt{100}}=2
+    \]
+
 
     <p>
       Sample means typically vary by about 2 units around the true population mean.
@@ -385,7 +405,11 @@ sidebar: false
       A common structure is:
     </p>
 
-    5
+    
+    \[
+    \text{confidence interval}\approx\text{estimate}\pm(\text{critical value})\times\operatorname{SE}
+    \]
+
 
     <p>
       Larger standard errors produce wider intervals.

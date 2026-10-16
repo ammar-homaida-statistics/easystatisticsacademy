@@ -340,7 +340,11 @@ sidebar: false
       In geometry, slope is often defined as rise divided by run:
     </p>
 
-    0
+    
+    \[
+    m=\frac{y_2-y_1}{x_2-x_1},\qquad x_1\ne x_2
+    \]
+
 
     <p>
       Regression extends this idea by estimating the average rate of change across many observations.

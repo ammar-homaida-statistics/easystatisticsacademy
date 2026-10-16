@@ -142,13 +142,21 @@ sidebar: false
       For a mean with known population standard deviation:
     </p>
 
-    0
+    
+    \[
+    \bar x\pm z_{1-\alpha/2}\frac{\sigma}{\sqrt n}
+    \]
+
 
     <p>
       The margin of error is:
     </p>
 
-    1
+    
+    \[
+    E=z_{1-\alpha/2}\frac{\sigma}{\sqrt n}
+    \]
+
 
     <h2>Solving for Sample Size</h2>
 
@@ -156,7 +164,11 @@ sidebar: false
       Rearranging the margin-of-error formula gives:
     </p>
 
-    2
+    
+    \[
+    n=\left(\frac{z_{1-\alpha/2}\sigma}{E}\right)^2
+    \]
+
 
     <p>
       This is the classic sample-size formula for estimating a population mean.
@@ -200,13 +212,21 @@ sidebar: false
       Using:
     </p>
 
-    3
+    
+    \[
+    n=\left(\frac{1.96\times20}{4}\right)^2
+    \]
+
 
     <p>
       gives:
     </p>
 
-    4
+    
+    \[
+    n=96.04\quad\Longrightarrow\quad n_{\min}=\lceil96.04\rceil=97
+    \]
+
 
     <p>
       Since sample size must be an integer and rounding down could reduce precision:
@@ -235,7 +255,11 @@ sidebar: false
       Notice that:
     </p>
 
-    5
+    
+    \[
+    n\propto\frac{1}{E^2}\quad(\sigma\text{ and confidence fixed})
+    \]
+
 
     <p>
       This means reducing the margin of error by half requires approximately four times the sample size.

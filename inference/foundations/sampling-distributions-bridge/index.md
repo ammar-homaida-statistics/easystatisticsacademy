@@ -256,7 +256,11 @@ sidebar: false
       For the sample mean:
     </p>
 
-    0
+    
+    \[
+    E[\bar X]=\mu
+    \]
+
 
     <p>
       On average,
@@ -273,7 +277,11 @@ sidebar: false
       For the sample mean:
     </p>
 
-    1
+    
+    \[
+    \operatorname{Var}(\bar X)=\frac{\sigma^2}{n}
+    \]
+
 
     <p>
       This quantity measures sampling uncertainty.
@@ -290,7 +298,11 @@ sidebar: false
       This occurs because:
     </p>
 
-    2
+    
+    \[
+    \operatorname{SE}(\bar X)=\frac{\sigma}{\sqrt n}
+    \]
+
 
     <p>
       decreases as n increases.

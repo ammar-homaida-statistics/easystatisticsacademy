@@ -145,7 +145,11 @@ sidebar: false
       Then:
     </p>
 
-    0
+    
+    \[
+    \sum_{i=1}^{k}Z_i^2\sim\chi^2_{k},\qquad Z_i\overset{\mathrm{iid}}{\sim}N(0,1)
+    \]
+
 
     <p>
       follows a chi-square distribution with:
@@ -199,7 +203,11 @@ sidebar: false
       For variance estimation:
     </p>
 
-    1
+    
+    \[
+    \nu=n-1
+    \]
+
 
     <p>
       where:
@@ -217,7 +225,11 @@ sidebar: false
       One of the most important results in statistics is:
     </p>
 
-    2
+    
+    \[
+    \frac{(n-1)S^2}{\sigma^2}\sim\chi^2_{n-1}\quad(\text{normal iid sample})
+    \]
+
 
     <p>
       when data come from a normal population.
@@ -233,7 +245,11 @@ sidebar: false
       The sample variance:
     </p>
 
-    3
+    
+    \[
+    S^2
+    \]
+
 
     <p>
       changes from sample to sample.
@@ -249,7 +265,11 @@ sidebar: false
       Most studies do not know:
     </p>
 
-    4
+    
+    \[
+    \sigma^2
+    \]
+
 
     <p>
       the true population variance.
@@ -260,7 +280,11 @@ sidebar: false
       researchers estimate it using:
     </p>
 
-    5
+    
+    \[
+    S^2=\frac{1}{n-1}\sum_{i=1}^{n}(X_i-\bar X)^2
+    \]
+
 
     <p>
       from the sample.

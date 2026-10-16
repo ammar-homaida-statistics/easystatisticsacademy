@@ -213,7 +213,11 @@ sidebar: false
       The result is not statistically significant at:
     </p>
 
-    0
+    
+    \[
+    \alpha=0.05
+    \]
+
 
     <p>
       Yet the effect may still be practically important.
@@ -225,7 +229,11 @@ sidebar: false
       Statistical significance measures evidence against:
     </p>
 
-    1
+    
+    \[
+    H_0\ \text{(null hypothesis)}
+    \]
+
 
     <p>
       Practical significance measures usefulness, impact, or relevance.

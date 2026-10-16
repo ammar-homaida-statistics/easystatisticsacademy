@@ -201,7 +201,11 @@ sidebar: false
       Both models use a linear predictor:
     </p>
 
-    0
+    
+    \[
+    \eta=\beta_0+\beta_1x_1+\cdots+\beta_px_p
+    \]
+
 
     <p>
       However, logistic regression adds a transformation that converts the linear predictor into a probability.

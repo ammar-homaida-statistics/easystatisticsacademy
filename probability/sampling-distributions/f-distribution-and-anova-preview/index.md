@@ -133,7 +133,11 @@ sidebar: false
       then:
     </p>
 
-    0
+    
+    \[
+    F=\frac{U/d_1}{V/d_2}\sim F_{d_1,d_2},\quad U\sim\chi^2_{d_1},\ V\sim\chi^2_{d_2},\ U\perp V
+    \]
+
 
     <p>
       follows an F distribution.
@@ -241,7 +245,11 @@ sidebar: false
       Conceptually:
     </p>
 
-    1
+    
+    \[
+    F=\frac{\operatorname{MS}_{\text{between}}}{\operatorname{MS}_{\text{within}}}
+    \]
+
 
     <p>
       Large F values indicate stronger evidence that group means differ.

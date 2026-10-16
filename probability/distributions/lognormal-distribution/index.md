@@ -100,7 +100,11 @@ sidebar: false
       If:
     </p>
 
-    0
+    
+    \[
+    \ln X\sim N(\mu,\sigma^2),\qquad \sigma>0
+    \]
+
 
     <p>
       then:
@@ -192,13 +196,21 @@ sidebar: false
       The lognormal density is:
     </p>
 
-    1
+    
+    \[
+    f_X(x)=\frac{1}{x\sigma\sqrt{2\pi}}\exp\!\left(-\frac{(\ln x-\mu)^2}{2\sigma^2}\right)
+    \]
+
 
     <p>
       for:
     </p>
 
-    2
+    
+    \[
+    x>0
+    \]
+
 
     <p>
       and zero otherwise.
@@ -271,7 +283,11 @@ sidebar: false
       The median of a lognormal distribution is:
     </p>
 
-    3
+    
+    \[
+    \operatorname{Median}(X)=e^\mu
+    \]
+
 
     <p>
       Half the observations lie below this value.
@@ -283,13 +299,21 @@ sidebar: false
       The expected value is:
     </p>
 
-    4
+    
+    \[
+    E[X]=e^{\mu+\sigma^2/2}
+    \]
+
 
     <p>
       Notice that the mean exceeds the median whenever:
     </p>
 
-    5
+    
+    \[
+    \sigma>0
+    \]
+
 
     <h2>The Variance</h2>
 
@@ -297,7 +321,11 @@ sidebar: false
       The variance is:
     </p>
 
-    6
+    
+    \[
+    \operatorname{Var}(X)=(e^{\sigma^2}-1)e^{2\mu+\sigma^2}
+    \]
+
 
     <p>
       Larger σ values create dramatically larger variability.

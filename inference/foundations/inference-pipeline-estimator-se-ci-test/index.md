@@ -236,7 +236,11 @@ sidebar: false
       For the sample mean:
     </p>
 
-    0
+    
+    \[
+    \operatorname{SE}(\bar X)=\frac{\sigma}{\sqrt n}
+    \]
+
 
     <p>
       Larger samples produce smaller standard errors and therefore more precise estimates.
@@ -253,7 +257,11 @@ sidebar: false
       A common form is:
     </p>
 
-    1
+    
+    \[
+    \text{estimate}\pm(\text{critical value})\times\operatorname{SE}
+    \]
+
 
     <p>
       Confidence intervals provide a range of plausible values for the parameter.
@@ -317,7 +325,11 @@ sidebar: false
       A generic test statistic looks like:
     </p>
 
-    2
+    
+    \[
+    \text{test statistic}=\frac{\text{estimate}-\text{null value}}{\operatorname{SE}(\text{estimate})}
+    \]
+
 
     <p>
       Large values indicate stronger evidence against the null hypothesis.

@@ -150,7 +150,11 @@ sidebar: false
       The linear predictor remains familiar:
     </p>
 
-    0
+    
+    \[
+    \eta=\beta_0+\beta_1x_1+\cdots+\beta_px_p
+    \]
+
 
     <p>
       The link function determines how the outcome is connected to that predictor.

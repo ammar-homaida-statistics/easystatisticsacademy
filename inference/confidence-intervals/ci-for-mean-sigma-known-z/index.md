@@ -79,7 +79,11 @@ sidebar: false
       Suppose we want to estimate an unknown population mean:
     </p>
 
-    0
+    
+    \[
+    \mu
+    \]
+
 
     <p>
       using a random sample.
@@ -101,7 +105,11 @@ sidebar: false
       This method assumes the population standard deviation is known:
     </p>
 
-    1
+    
+    \[
+    \sigma\ \text{known}
+    \]
+
 
     <p>
       This assumption is rare in real applications,
@@ -125,13 +133,21 @@ sidebar: false
       For a sample mean:
     </p>
 
-    2
+    
+    \[
+    \bar X=\frac{1}{n}\sum_{i=1}^{n}X_i
+    \]
+
 
     <p>
       the standard error is:
     </p>
 
-    3
+    
+    \[
+    \operatorname{SE}(\bar X)=\frac{\sigma}{\sqrt n}
+    \]
+
 
     <p>
       This measures the typical variability of sample means across repeated samples.
@@ -143,7 +159,11 @@ sidebar: false
       Applying the confidence interval blueprint:
     </p>
 
-    4
+    
+    \[
+    \bar x\pm z_{1-\alpha/2}\frac{\sigma}{\sqrt n}
+    \]
+
 
     <p>
       This is the z confidence interval for a population mean.
@@ -260,13 +280,21 @@ sidebar: false
       Using:
     </p>
 
-    5
+    
+    \[
+    \operatorname{SE}(\bar X)=\frac{\sigma}{\sqrt n}
+    \]
+
 
     <p>
       we obtain:
     </p>
 
-    6
+    
+    \[
+    \operatorname{SE}(\bar X)=\frac{12}{\sqrt{36}}=2
+    \]
+
 
     <h2>Step 2: Find the Critical Value</h2>
 
@@ -288,7 +316,11 @@ sidebar: false
       Margin of error:
     </p>
 
-    7
+    
+    \[
+    \operatorname{ME}=z_{0.975}\operatorname{SE}=1.96(2)=3.92
+    \]
+
 
     <h2>Step 4: Construct the Interval</h2>
 
@@ -296,7 +328,11 @@ sidebar: false
       Therefore:
     </p>
 
-    8
+    
+    \[
+    [\,50-3.92,\ 50+3.92\,]=[\,46.08,\ 53.92\,]
+    \]
+
 
     <p>
       giving:
@@ -384,7 +420,11 @@ sidebar: false
       Increasing sample size reduces:
     </p>
 
-    9
+    
+    \[
+    \operatorname{SE}(\bar X)=\frac{\sigma}{\sqrt n}\ \propto\ n^{-1/2}
+    \]
+
 
     <p>
       and therefore narrows the interval.

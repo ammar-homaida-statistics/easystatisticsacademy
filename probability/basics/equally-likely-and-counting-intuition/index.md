@@ -138,7 +138,11 @@ sidebar: false
       probability can be calculated using a simple formula.
     </p>
 
-    0
+    
+    \[
+    P(A)=\frac{\#\{\text{favorable outcomes}\}}{\#\{\text{equally likely outcomes}\}}
+    \]
+
 
     <p>
       This formula is known as the classical definition of probability.
@@ -182,7 +186,11 @@ sidebar: false
       Therefore:
     </p>
 
-    1
+    
+    \[
+    P(\text{roll a 4})=\frac16
+    \]
+
 
     <h2>Example: Rolling an Even Number</h2>
 
@@ -214,7 +222,11 @@ sidebar: false
       Therefore:
     </p>
 
-    2
+    
+    \[
+    P(\text{even})=\frac36=\frac12
+    \]
+
 
     <h2>Example: Drawing a Card</h2>
 
@@ -230,7 +242,11 @@ sidebar: false
       Therefore:
     </p>
 
-    3
+    
+    \[
+    P(\text{ace})=\frac4{52}=\frac1{13}
+    \]
+
 
     <p>
       Counting provides the answer immediately.
@@ -380,7 +396,11 @@ sidebar: false
       This corresponds to:
     </p>
 
-    4
+    
+    \[
+    P(A)=\frac36=0.5
+    \]
+
 
     <p>
       Half of the possible outcomes satisfy the event.
@@ -460,7 +480,11 @@ sidebar: false
       Therefore:
     </p>
 
-    5
+    
+    \[
+    P(\text{win})=\frac5{100}=0.05
+    \]
+
 
     <p>
       Your probability of winning is 5%.

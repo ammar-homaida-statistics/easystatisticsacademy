@@ -5291,5 +5291,266 @@ class SearchTests(unittest.TestCase):
         self.assertEqual(self.errors,[])
 
 
+
+    def test_all_former_math_placeholders_removed_site_wide(self):
+        """No damaged math markers survive in generated pages; audit representative repairs."""
+        import re
+        markers=re.compile(r"[\uea01\uea02]")
+        affected=[]
+        count=0
+        for source in SITE.rglob("*.html"):
+            count+=1
+            if markers.search(source.read_text(encoding="utf-8-sig")):
+                affected.append(source.relative_to(SITE).as_posix())
+        self.assertGreater(count,100,"Expected a full generated Jekyll site")
+        self.assertEqual(affected,[],"Damaged mathematical-marker characters still present")
+        representative={
+          "probability/distributions/negative-binomial-distribution/index.html":(
+            r"\binom{k-1}{r-1}",r"E[X]=\frac rp",r"\operatorname{Var}(X)="),
+          "probability/distributions/gamma-distribution/index.html":(
+            r"\Gamma(n)=(n-1)!",r"E[X]=\frac{\alpha}{\lambda}",
+            r"\frac{\alpha}{\lambda^2}"),
+          "inference/confidence-intervals/ci-for-mean-sigma-known-z/index.html":(
+            r"\frac{\sigma}{\sqrt n}",r"46.08,\ 53.92"),
+          "inference/confidence-intervals/ci-for-mean-sigma-unknown-t/index.html":(
+            r"\frac{s}{\sqrt n}",r"73.81,\ 86.19"),
+          "inference/classical-tests/chi-square-independence-test/index.html":(
+            r"\chi^2=",r"\frac{100\times110}{200}=55"),
+          "probability/lln-clt/law-of-large-numbers/index.html":(
+            r"\bar X_n\xrightarrow{P}\mu",),
+          "probability/expectation-variance/covariance/index.html":(
+            r"E[XY]-E[X]E[Y]",),
+          "probability/random-variables/cumulative-distribution-function/index.html":(
+            r"P(a<X\le b)=F_X(b)-F_X(a)",),
+          "modeling/model-fit-comparison/aic-bic/index.html":(
+            "Hirotugu Akaike",),
+        }
+        from html import unescape
+        for source,fragments in representative.items():
+            with self.subTest(page=source):
+                # Jekyll escapes '<' and '>' in text nodes. Compare the
+                # decoded HTML text against the original mathematical TeX.
+                html=unescape((SITE/source).read_text(encoding="utf-8"))
+                for fragment in fragments:
+                    self.assertIn(fragment,html)
+
+    def test_negbin_waiting_time_explorer_exact_probabilities_and_boundaries(self):
+        """Check negative binomial PMF, CDF, tail, moments, geometric limit, and p=1."""
+        from math import comb,isclose
+        self.page.goto(self.origin+"/probability/distributions/negative-binomial-distribution/",
+                       wait_until="networkidle")
+        root=self.page.locator("#esa-negbin-wait-explorer")
+        expect(root.get_by_role("heading",name="Interactive Negative Binomial Waiting-Time Explorer")).to_be_visible()
+        r=root.locator("#esa-negbin-r")
+        p=root.locator("#esa-negbin-p")
+        k=root.locator("#esa-negbin-k")
+        out=lambda id_:float(root.locator("#"+id_).inner_text())
+        self.assertEqual([r.input_value(),p.input_value(),k.input_value()],["3","0.5","5"])
+        def set_value(slider,value):
+            slider.evaluate("""(el,v)=>{
+              el.value=String(v);el.dispatchEvent(new Event('input',{bubbles:true}));
+            }""",value)
+        def verify(needed,success,trial):
+            for slider,value in ((r,needed),(p,success),(k,trial)):
+                set_value(slider,value)
+            self.assertEqual(int(r.input_value()),needed)
+            self.assertTrue(isclose(float(p.input_value()),success,abs_tol=1e-12))
+            self.assertEqual(int(k.input_value()),trial)
+            self.assertEqual(k.get_attribute("min"),str(needed))
+            def mass(j):
+                return comb(j-1,needed-1)*(success**needed)*((1-success)**(j-needed))
+            pmf=mass(trial)
+            cdf=sum(mass(j) for j in range(needed,trial+1))
+            tail=1-cdf
+            for id_,expected,tolerance in (
+              ("esa-negbin-pmf",pmf,5.1e-7),
+              ("esa-negbin-cdf",cdf,5.1e-7),
+              ("esa-negbin-tail",tail,5.1e-7),
+              ("esa-negbin-mean",needed/success,5.1e-5),
+              ("esa-negbin-variance",needed*(1-success)/(success**2),5.1e-5)
+            ):
+                self.assertTrue(isclose(out(id_),expected,abs_tol=tolerance),
+                                (needed,success,trial,id_,out(id_),expected))
+            self.assertTrue(isclose(cdf+tail,1,abs_tol=1e-12))
+            bars=root.locator("#esa-negbin-bars rect")
+            self.assertEqual(bars.count(),12)
+            for idx in range(12):
+                rect=bars.nth(idx)
+                j=needed+idx
+                self.assertEqual(rect.get_attribute("data-trial"),str(j))
+                self.assertTrue(isclose(float(rect.get_attribute("height")),
+                                        110*mass(j),abs_tol=1e-6))
+                self.assertEqual(rect.get_attribute("fill"),"#0d9488" if j==trial else "#64748b")
+            self.assertIn(f"r = {needed}",root.locator("#esa-negbin-chart").get_attribute("aria-label"))
+        for args in ((3,.5,5),(1,.5,3),(1,.25,1),(1,.25,20),
+                     (3,.2,3),(3,.2,10),(6,.05,30),(6,1,6),
+                     (1,1,1),(1,1,20),(5,.8,12)):
+            with self.subTest(parameters=args):
+                verify(*args)
+        root.get_by_role("button",name="Geometric: r = 1").click()
+        self.assertEqual([r.input_value(),p.input_value(),k.input_value()],["1","0.5","3"])
+        self.assertTrue(isclose(out("esa-negbin-pmf"),.125,abs_tol=5.1e-7))
+        expect(root.locator("#esa-negbin-special")).to_contain_text("exactly the geometric")
+        root.get_by_role("button",name="Reset example").click()
+        self.assertEqual([r.input_value(),p.input_value(),k.input_value()],["3","0.5","5"])
+        self.assertTrue(isclose(out("esa-negbin-pmf"),.1875,abs_tol=5.1e-7))
+        self.assertTrue(isclose(out("esa-negbin-cdf"),.5,abs_tol=5.1e-7))
+
+    def test_negbin_waiting_time_keyboard_mobile_and_storage_denial(self):
+        """Native range sliders and navigation work despite denied localStorage."""
+        self.page.add_init_script("""
+          Object.defineProperty(window,'localStorage',{
+            configurable:true,
+            get(){throw new DOMException('Denied','SecurityError');}
+          });
+        """)
+        self.page.goto(self.origin+"/probability/distributions/negative-binomial-distribution/",
+                       wait_until="networkidle")
+        root=self.page.locator("#esa-negbin-wait-explorer")
+        r=root.get_by_role("slider",name="Required successes r:")
+        p=root.get_by_role("slider",name="Success probability p:")
+        k=root.get_by_role("slider",name="Trial of r-th success k:")
+        r.focus()
+        r.press("End")
+        expect(r).to_have_value("6")
+        expect(k).to_have_value("6")
+        k.focus()
+        k.press("Home")
+        expect(k).to_have_value("6")
+        p.focus()
+        p.press("End")
+        expect(p).to_have_value("1")
+        expect(root.locator("#esa-negbin-pmf")).to_have_text("1.000000")
+        for width in (320,375,768,1280):
+            with self.subTest(width=width):
+                self.page.set_viewport_size({"width":width,"height":850})
+                bounds=root.evaluate("""el=>({
+                  left:el.getBoundingClientRect().left,
+                  right:el.getBoundingClientRect().right,
+                  client:el.clientWidth,scroll:el.scrollWidth
+                })""")
+                self.assertGreaterEqual(bounds["left"],-1,bounds)
+                self.assertLessEqual(bounds["right"],width+1,bounds)
+                self.assertLessEqual(bounds["scroll"]-bounds["client"],1,bounds)
+        root.get_by_role("button",name="Reset example").click()
+        expect(root.locator("#esa-negbin-pmf")).to_have_text("0.187500")
+        self.assertGreater(self.page.locator("main a[href]").count(),0)
+        self.assertEqual(self.errors,[])
+
+    def test_erlang_waiting_time_explorer_exact_pdf_cdf_and_survival(self):
+        """Integer-shape Erlang sums agree with independent reference expressions."""
+        from math import exp,factorial,isclose
+        self.page.goto(self.origin+"/probability/distributions/gamma-distribution/",
+                       wait_until="networkidle")
+        root=self.page.locator("#esa-erlang-wait-explorer")
+        expect(root.get_by_role("heading",name="Interactive Gamma/Erlang Waiting-Time Explorer")).to_be_visible()
+        shape=root.locator("#esa-erlang-r")
+        rate=root.locator("#esa-erlang-rate")
+        time=root.locator("#esa-erlang-time")
+        out=lambda id_:float(root.locator("#"+id_).inner_text())
+        self.assertEqual([shape.input_value(),rate.input_value(),time.input_value()],
+                         ["4","2","2"])
+        def update(el,value):
+            el.evaluate("""(node,v)=>{
+              node.value=String(v);node.dispatchEvent(new Event('input',{bubbles:true}));
+            }""",value)
+        def verify(r,lam,t):
+            for el,value in ((shape,r),(rate,lam),(time,t)):
+                update(el,value)
+            self.assertEqual(int(shape.input_value()),r)
+            self.assertTrue(isclose(float(rate.input_value()),lam,abs_tol=1e-12))
+            self.assertTrue(isclose(float(time.input_value()),t,abs_tol=1e-12))
+            z=lam*t
+            survival=exp(-z)*sum(z**j/factorial(j) for j in range(r))
+            cdf=1-survival
+            pdf=lam**r*t**(r-1)*exp(-z)/factorial(r-1) if t>0 else (lam if r==1 else 0)
+            for label,want,tol in (
+              ("esa-erlang-pdf",pdf,5.1e-6),
+              ("esa-erlang-cdf",cdf,5.1e-7),
+              ("esa-erlang-survival",survival,5.1e-7),
+              ("esa-erlang-mean",r/lam,5.1e-5),
+              ("esa-erlang-variance",r/(lam**2),5.1e-5),
+              ("esa-erlang-scale",1/lam,5.1e-5)
+            ):
+                self.assertTrue(isclose(out(label),want,abs_tol=tol),
+                                (r,lam,t,label,out(label),want))
+            self.assertTrue(isclose(cdf+survival,1,abs_tol=1e-12))
+            self.assertIn(f"shape {r}",root.locator("#esa-erlang-chart").get_attribute("aria-label"))
+            self.assertGreater(len(root.locator("#esa-erlang-density-path").get_attribute("d")),100)
+            self.assertIn("Z",root.locator("#esa-erlang-shade").get_attribute("d"))
+            expectedX=34+296*t/12
+            self.assertTrue(isclose(float(root.locator("#esa-erlang-time-marker").get_attribute("x1")),
+                                    expectedX,abs_tol=1e-6))
+        for args in ((4,2,2),(1,2,2),(1,.5,0),(1,4,0),(7,.5,12),
+                     (2,4,.25),(7,4,12),(3,1,0),(3,1,3),(4,4,1)):
+            with self.subTest(values=args):
+                verify(*args)
+        root.get_by_role("button",name="Exponential: shape 1").click()
+        self.assertEqual([shape.input_value(),rate.input_value(),time.input_value()],
+                         ["1","2","2"])
+        expect(root.locator("#esa-erlang-special")).to_contain_text("exactly the Exponential")
+        self.assertTrue(isclose(out("esa-erlang-cdf"),1-exp(-4),abs_tol=5.1e-7))
+        root.get_by_role("button",name="Reset Erlang example").click()
+        self.assertEqual([shape.input_value(),rate.input_value(),time.input_value()],
+                         ["4","2","2"])
+
+    def test_erlang_waiting_time_keyboard_mobile_progress_and_denied_storage(self):
+        """Keyboard, responsive shaded chart, saved progress and blocked-storage fallback."""
+        route="/probability/distributions/gamma-distribution/"
+        self.page.goto(self.origin+route,wait_until="networkidle")
+        key="esa_continue_probability_distributions_lesson_v0"
+        saved=self.page.evaluate("""key=>JSON.parse(localStorage.getItem(key))""",key)
+        self.assertEqual(saved["url"],route)
+        self.assertEqual(saved["label"],"Gamma Distribution")
+        self.assertIsInstance(saved["ts"],int)
+        self.assertGreater(saved["ts"],0)
+        root=self.page.locator("#esa-erlang-wait-explorer")
+        shape=root.get_by_role("slider",name="Event count / shape r:")
+        rate=root.get_by_role("slider",name="Event rate")
+        time=root.get_by_role("slider",name="Elapsed time t:")
+        shape.focus()
+        shape.press("Home")
+        expect(shape).to_have_value("1")
+        expect(root.locator("#esa-erlang-special")).to_contain_text("exactly the Exponential")
+        rate.focus()
+        rate.press("Home")
+        expect(rate).to_have_value("0.5")
+        time.focus()
+        time.press("Home")
+        expect(time).to_have_value("0")
+        expect(root.locator("#esa-erlang-cdf")).to_have_text("0.000000")
+        expect(root.locator("#esa-erlang-survival")).to_have_text("1.000000")
+        for width in (320,375,768,1280):
+            with self.subTest(width=width):
+                self.page.set_viewport_size({"width":width,"height":850})
+                bounds=root.evaluate("""el=>({
+                  left:el.getBoundingClientRect().left,
+                  right:el.getBoundingClientRect().right,
+                  scroll:el.scrollWidth,client:el.clientWidth
+                })""")
+                self.assertGreaterEqual(bounds["left"],-1,bounds)
+                self.assertLessEqual(bounds["right"],width+1,bounds)
+                self.assertLessEqual(bounds["scroll"]-bounds["client"],1,bounds)
+        root.get_by_role("button",name="Reset Erlang example").click()
+        expect(root.locator("#esa-erlang-mean")).to_have_text("2.0000")
+        self.page.goto(self.origin+"/probability/distributions/",wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-probability-distributions")).to_be_visible()
+        self.assertEqual(self.page.locator(
+            "#continue-reading-probability-distributions-btn").get_attribute("href"),route)
+        self.page.add_init_script("""
+          Object.defineProperty(window,'localStorage',{
+            configurable:true,
+            get(){throw new DOMException('Denied','SecurityError');}
+          });
+        """)
+        self.page.goto(self.origin+route,wait_until="networkidle")
+        root=self.page.locator("#esa-erlang-wait-explorer")
+        expect(root.locator("#esa-erlang-mean")).to_have_text("2.0000")
+        root.get_by_role("button",name="Exponential: shape 1").click()
+        expect(root.locator("#esa-erlang-mean")).to_have_text("0.5000")
+        self.assertGreater(self.page.locator("main a[href]").count(),0)
+        self.assertEqual(self.errors,[])
+
+
 if __name__ == "__main__":
     unittest.main(argv=[__file__], verbosity=2)

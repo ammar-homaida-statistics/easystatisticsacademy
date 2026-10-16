@@ -79,7 +79,11 @@ sidebar: false
       The z interval assumes the population standard deviation:
     </p>
 
-    0
+    
+    \[
+    \sigma
+    \]
+
 
     <p>
       is known.
@@ -99,7 +103,11 @@ sidebar: false
       Since σ is unknown, we replace it with the sample standard deviation:
     </p>
 
-    1
+    
+    \[
+    s
+    \]
+
 
     <p>
       This estimate introduces additional uncertainty because:
@@ -158,7 +166,11 @@ sidebar: false
       When σ is unknown, the estimated standard error becomes:
     </p>
 
-    2
+    
+    \[
+    \widehat{\operatorname{SE}}(\bar X)=\frac{s}{\sqrt n}
+    \]
+
 
     <p>
       This is the estimated variability of the sample mean.
@@ -170,7 +182,11 @@ sidebar: false
       Applying the confidence interval blueprint gives:
     </p>
 
-    3
+    
+    \[
+    \bar x\pm t_{n-1,\,1-\alpha/2}\frac{s}{\sqrt n}
+    \]
+
 
     <p>
       This is the one-sample t confidence interval for a population mean.
@@ -228,7 +244,11 @@ sidebar: false
       For a one-sample mean interval:
     </p>
 
-    4
+    
+    \[
+    \operatorname{df}=n-1
+    \]
+
 
     <p>
       The degrees of freedom determine the exact shape of the t distribution.
@@ -288,13 +308,21 @@ sidebar: false
       Using:
     </p>
 
-    5
+    
+    \[
+    \widehat{\operatorname{SE}}(\bar X)=\frac{s}{\sqrt n}
+    \]
+
 
     <p>
       gives:
     </p>
 
-    6
+    
+    \[
+    \widehat{\operatorname{SE}}(\bar X)=\frac{15}{\sqrt{25}}=3
+    \]
+
 
     <h2>Step 2: Determine Degrees of Freedom</h2>
 
@@ -302,7 +330,11 @@ sidebar: false
       Since:
     </p>
 
-    7
+    
+    \[
+    \operatorname{df}=25-1=24
+    \]
+
 
     <p>
       we use a t critical value based on 24 degrees of freedom.
@@ -344,7 +376,11 @@ sidebar: false
       Margin of error:
     </p>
 
-    8
+    
+    \[
+    \operatorname{ME}\approx2.064(3)=6.192\approx6.19
+    \]
+
 
     <h2>Step 5: Construct the Interval</h2>
 
@@ -352,7 +388,11 @@ sidebar: false
       Therefore:
     </p>
 
-    9
+    
+    \[
+    80\pm6.192\approx[\,73.81,\ 86.19\,]
+    \]
+
 
     <p>
       giving:

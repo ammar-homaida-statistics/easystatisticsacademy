@@ -126,7 +126,11 @@ sidebar: false
       The general z-statistic is:
     </p>
 
-    0
+    
+    \[
+    Z=\frac{\text{estimate}-\text{reference value}}{\operatorname{SE}(\text{estimate})}
+    \]
+
 
     <p>
       The numerator measures distance from the target.
@@ -210,7 +214,11 @@ sidebar: false
       Then:
     </p>
 
-    1
+    
+    \[
+    Z=\frac{105-100}{2}=2.5
+    \]
+
 
     <p>
       The estimate is 2.5 standard errors above the reference value.
@@ -279,7 +287,11 @@ sidebar: false
       Confidence intervals have the form:
     </p>
 
-    2
+    
+    \[
+    \text{estimate}\pm(\text{critical value})\,\operatorname{SE}(\text{estimate})
+    \]
+
 
     <p>
       The margin of error depends on the standard error and confidence level.
@@ -291,7 +303,11 @@ sidebar: false
       For many large-sample situations:
     </p>
 
-    3
+    
+    \[
+    \text{estimate}\pm1.96\,\operatorname{SE}(\text{estimate})
+    \]
+
 
     <p>
       This produces an approximate 95% confidence interval.
@@ -319,13 +335,21 @@ sidebar: false
       The margin of error is:
     </p>
 
-    4
+    
+    \[
+    \operatorname{ME}=1.96\,\operatorname{SE}
+    \]
+
 
     <p>
       Therefore:
     </p>
 
-    5
+    
+    \[
+    \text{estimate}\pm\operatorname{ME}
+    \]
+
 
     <p>
       giving:
@@ -435,7 +459,11 @@ sidebar: false
       Since:
     </p>
 
-    6
+    
+    \[
+    \operatorname{SE}(\bar X)=\frac{\sigma}{\sqrt n}
+    \]
+
 
     <p>
       larger samples reduce standard error.

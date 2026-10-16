@@ -381,7 +381,11 @@ sidebar: false
       General structure:
     </p>
 
-    0
+    
+    \[
+    \text{confidence interval}\approx\text{estimate}\pm(\text{critical value})\times\operatorname{SE}
+    \]
+
 
     <h2>What Interval Width Tells Us</h2>
 

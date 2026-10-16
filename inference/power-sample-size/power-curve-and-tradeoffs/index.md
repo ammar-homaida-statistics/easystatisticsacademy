@@ -79,7 +79,11 @@ sidebar: false
       It is defined as:
     </p>
 
-    0
+    
+    \[
+    \text{Power}=P(\text{reject }H_0\mid H_0\text{ false; specified alternative})=1-\beta
+    \]
+
 
     <p>
       where:
@@ -232,13 +236,21 @@ sidebar: false
       Recall that many standard errors include:
     </p>
 
-    1
+    
+    \[
+    \operatorname{SE}(\bar X)=\frac{\sigma}{\sqrt n}
+    \]
+
 
     <p>
       As:
     </p>
 
-    2
+    
+    \[
+    n
+    \]
+
 
     <p>
       grows, standard errors shrink.
@@ -254,7 +266,11 @@ sidebar: false
       The significance level:
     </p>
 
-    3
+    
+    \[
+    \alpha
+    \]
+
 
     <p>
       determines how much evidence is required to reject the null hypothesis.
@@ -280,7 +296,11 @@ sidebar: false
       Raising:
     </p>
 
-    4
+    
+    \[
+    \alpha
+    \]
+
 
     <p>
       increases power, but it also increases the probability of Type I errors.

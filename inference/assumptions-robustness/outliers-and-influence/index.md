@@ -265,7 +265,11 @@ sidebar: false
       Standardized values help identify observations that are unusually far from the center.
     </p>
 
-    0
+    
+    \[
+    z_i=\frac{x_i-\bar x}{s},\quad s>0
+    \]
+
 
     <h2>Outliers in Regression</h2>
 
