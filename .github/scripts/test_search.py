@@ -4815,5 +4815,212 @@ class SearchTests(unittest.TestCase):
         self.assertEqual(self.errors,[])
 
 
+
+    def test_basics_18_restorations_attribution_axioms_and_independence(self):
+        """Nine axioms formulas, eight independence formulas, one 1933 attribution."""
+        from html import unescape
+        from math import isclose
+        cases=(
+          ("/probability/basics/probability-axioms-and-basic-rules/",9,(
+            r"P(A)\ge 0",r"P(S)=1",
+            r"\sum_{i=1}^{\infty}P(A_i)",
+            r"P(A\cup B)&=P(A)+P(B)",
+            r"0\le P(A)\le 1",
+            r"\text{rolling a 7 on one fair six-sided die}",
+            r"\text{rolling a number from 1 to 6}",
+            r"P(H)+P(T)=0.5+0.5=1",
+            r"P(A^{c})=1-P(A)",
+            r"1-0.30=0.70")),
+          ("/probability/basics/independence-vs-disjointness/",8,(
+            r"P(A\cap B)=P(A)P(B)",
+            r"P(A\cap B)=0.5\times0.5=0.25",
+            r"A\cap B=\varnothing",
+            r"P(A)P(B)=0",
+            r"P(\text{Heads}\cap\text{Tails})=0"))
+        )
+        for route,count,formula_fragments in cases:
+            with self.subTest(lesson=route):
+                source=(SITE/route.lstrip("/")/"index.html").read_text()
+                main=unescape(source.split('<main id="main-content"',1)[1].split("</main>",1)[0])
+                self.assertNotIn("\uea01",main)
+                self.assertNotIn("\uea02",main)
+                self.assertEqual(main.count(r"\["),count)
+                self.assertEqual(main.count(r"\]"),count)
+                for fragment in formula_fragments:
+                    self.assertIn(fragment,main)
+                self.page.goto(self.origin+route,wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+        axioms=(SITE/"probability/basics/probability-axioms-and-basic-rules/index.html").read_text()
+        self.assertIn("Andrey Kolmogorov",axioms)
+        self.assertIn("1933",axioms)
+        self.assertIn("countable additivity",axioms)
+        self.assertTrue(isclose(.5+.5,1,abs_tol=1e-14))
+        self.assertTrue(isclose(1-.3,.7,abs_tol=1e-14))
+        self.assertTrue(isclose(.5*.5,.25,abs_tol=1e-14))
+        self.assertEqual(0*.4,0)
+
+    def test_basics_event_relationship_explorer_probabilities_and_constraints(self):
+        """Check feasible overlap, four masses, product, and classification boundary cases."""
+        from math import isclose
+        route="/probability/basics/independence-vs-disjointness/"
+        self.page.goto(self.origin+route,wait_until="networkidle")
+        root=self.page.locator("#esa-basics-event-lab")
+        expect(root.get_by_role("heading",name="Explore Independence versus Disjointness")).to_be_visible()
+        pa=root.locator("#esa-basics-p-a")
+        pb=root.locator("#esa-basics-p-b")
+        joint=root.locator("#esa-basics-p-ab")
+        region_ids=("esa-basics-both","esa-basics-only-a",
+                    "esa-basics-only-b","esa-basics-neither")
+        regions=[root.locator("#"+i) for i in region_ids]
+        label_ind=root.locator("#esa-basics-independent")
+        label_dis=root.locator("#esa-basics-disjoint")
+        bars=root.locator("#esa-basics-region-bars")
+        def set_slider(el,value):
+            el.evaluate("""(node,value)=>{
+              node.value=String(value);
+              node.dispatchEvent(new Event('input',{bubbles:true}));
+            }""",value)
+        def verify(a,b,j):
+            for element,value in ((pa,a),(pb,b),(joint,j)):
+                set_slider(element,value)
+            low=max(0,round(a+b-1,2))
+            high=min(a,b)
+            effective=min(high,max(low,j))
+            self.assertTrue(isclose(float(joint.input_value()),effective,abs_tol=1e-9))
+            self.assertTrue(isclose(float(joint.get_attribute("min")),low,abs_tol=1e-9))
+            self.assertTrue(isclose(float(joint.get_attribute("max")),high,abs_tol=1e-9))
+            expect(root.locator("#esa-basics-overlap-min")).to_have_text(f"{low:.2f}")
+            expect(root.locator("#esa-basics-overlap-max")).to_have_text(f"{high:.2f}")
+            expected=(effective,a-effective,b-effective,1-a-b+effective)
+            observed=tuple(float(el.inner_text()) for el in regions)
+            for actual,want in zip(observed,expected):
+                self.assertTrue(isclose(actual,want,abs_tol=0.000001),(a,b,j,actual,want))
+                self.assertGreaterEqual(actual,-0.000001)
+            self.assertTrue(isclose(sum(observed),1,abs_tol=0.000001))
+            product=a*b
+            expect(root.locator("#esa-basics-product")).to_have_text(f"{product:.4f}")
+            expect(root.locator("#esa-basics-joint")).to_have_text(f"{effective:.4f}")
+            independent=isclose(effective,product,abs_tol=1e-10)
+            disjoint=effective==0
+            expect(label_ind).to_have_text("Independent: "+("Yes" if independent else "No"))
+            expect(label_dis).to_have_text("Disjoint: "+("Yes" if disjoint else "No"))
+            self.assertIn("Four mutually exclusive regions",bars.get_attribute("aria-label"))
+            for part,key in zip(expected,("esa-basics-bar-both","esa-basics-bar-only-a",
+                                          "esa-basics-bar-only-b","esa-basics-bar-neither")):
+                percentage=root.locator("#"+key).evaluate("el=>el.style.width")
+                self.assertEqual(percentage,f"{round(100*part):d}%")
+        for values in ((.5,.5,.25),(.3,.4,0),(0,.4,0),(.5,.5,.1),
+                       (.85,.85,0),(1,1,1),(0,0,0),(.2,.9,.2)):
+            with self.subTest(inputs=values):
+                verify(*values)
+        for id_,values in (
+            ("esa-basics-preset-independent",(.5,.5,.25)),
+            ("esa-basics-preset-disjoint",(.3,.4,0)),
+            ("esa-basics-preset-both",(0,.4,0)),
+            ("esa-basics-preset-neither",(.5,.5,.1))
+        ):
+            with self.subTest(preset=id_):
+                root.locator("#"+id_).click()
+                self.assertEqual([pa.input_value(),pb.input_value(),joint.input_value()],
+                    [f"{v:g}" if v else "0" for v in values])
+        expect(root.locator("#esa-basics-verdict")).to_contain_text("neither")
+
+    def test_basics_event_relationship_keyboard_and_mobile(self):
+        """Native slider accessibility, clamping, fixed regions, and 320px layout."""
+        self.page.goto(self.origin+"/probability/basics/independence-vs-disjointness/",
+                       wait_until="networkidle")
+        root=self.page.locator("#esa-basics-event-lab")
+        first=root.get_by_role("slider",name="Probability of A:")
+        first.focus()
+        first.press("Home")
+        expect(first).to_have_value("0")
+        expect(root.locator("#esa-basics-p-ab")).to_have_value("0")
+        expect(root.locator("#esa-basics-independent")).to_have_text("Independent: Yes")
+        expect(root.locator("#esa-basics-disjoint")).to_have_text("Disjoint: Yes")
+        first.press("ArrowRight")
+        expect(first).to_have_value("0.05")
+        expect(root.locator("#esa-basics-p-a-value")).to_have_text("0.05")
+        second=root.get_by_role("slider",name="Probability of B:")
+        second.focus()
+        second.press("End")
+        expect(second).to_have_value("1")
+        expect(root.locator("#esa-basics-p-ab")).to_have_value("0.05")
+        root.locator("#esa-basics-preset-independent").click()
+        for width in (320,375,768,1280):
+            with self.subTest(width=width):
+                self.page.set_viewport_size({"width":width,"height":850})
+                b=root.evaluate("""e=>({
+                  left:e.getBoundingClientRect().left,
+                  right:e.getBoundingClientRect().right,
+                  scroll:e.scrollWidth,
+                  client:e.clientWidth,
+                  viewport:window.innerWidth
+                })""")
+                self.assertGreaterEqual(b["left"],-1,b)
+                self.assertLessEqual(b["right"],width+1,b)
+                self.assertLessEqual(b["scroll"]-b["client"],1,b)
+
+    def test_basics_eight_lessons_preserve_progress_and_resume(self):
+        """Existing keys, exact lesson labels, timestamps and Continue Reading remain intact."""
+        lessons=(
+          ("what-is-probability","What Is Probability?"),
+          ("outcomes-sample-spaces-events","Outcomes, Sample Spaces, and Events"),
+          ("probability-axioms-and-basic-rules","Probability Axioms and Basic Rules"),
+          ("union-intersection-and-venn-thinking","Union, Intersection, and Venn Thinking"),
+          ("equally-likely-and-counting-intuition","Equally Likely and Counting Intuition"),
+          ("independence-vs-disjointness","Independence vs Disjointness"),
+          ("conditional-language-traps","Conditional Language Traps"),
+          ("modeling-randomness-mini-cases","Modeling Randomness (Mini Cases)")
+        )
+        key="esa_continue_probability_basics_lesson_v0"
+        for slug,label in lessons:
+            with self.subTest(slug=slug):
+                route="/probability/basics/"+slug+"/"
+                self.page.goto(self.origin+route,wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+                saved=self.page.evaluate("""key=>JSON.parse(localStorage.getItem(key))""",key)
+                self.assertEqual(saved["url"],route)
+                self.assertEqual(saved["label"],label)
+                self.assertIsInstance(saved["ts"],int)
+                self.assertGreater(saved["ts"],0)
+                self.page.goto(self.origin+"/probability/basics/",wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-probability-basics")).to_be_visible()
+                self.assertEqual(
+                    self.page.locator("#continue-reading-probability-basics-btn").get_attribute("href"),
+                    route)
+                expect(self.page.locator("#continue-reading-probability-basics-label")).to_contain_text(label)
+
+    def test_basics_eight_lessons_and_explorer_survive_denied_storage(self):
+        """Eight lesson pages and event explorer work when accessing localStorage throws."""
+        self.page.add_init_script("""
+          Object.defineProperty(window,'localStorage',{
+            configurable:true,
+            get(){throw new DOMException('Denied','SecurityError');}
+          });
+        """)
+        for slug in ("what-is-probability","outcomes-sample-spaces-events",
+                     "probability-axioms-and-basic-rules",
+                     "union-intersection-and-venn-thinking",
+                     "equally-likely-and-counting-intuition",
+                     "independence-vs-disjointness",
+                     "conditional-language-traps","modeling-randomness-mini-cases"):
+            with self.subTest(lesson=slug):
+                self.page.goto(self.origin+"/probability/basics/"+slug+"/",
+                               wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+                self.assertGreater(self.page.locator("main a[href]").count(),0)
+                self.assertEqual(self.errors,[])
+        self.page.goto(self.origin+"/probability/basics/independence-vs-disjointness/",
+                       wait_until="networkidle")
+        root=self.page.locator("#esa-basics-event-lab")
+        expect(root.locator("#esa-basics-joint")).to_have_text("0.2500")
+        root.locator("#esa-basics-preset-disjoint").click()
+        expect(root.locator("#esa-basics-joint")).to_have_text("0.0000")
+        expect(root.locator("#esa-basics-disjoint")).to_have_text("Disjoint: Yes")
+        self.page.goto(self.origin+"/probability/basics/",wait_until="networkidle")
+        expect(self.page.locator("main h1")).to_be_visible()
+        self.assertEqual(self.errors,[])
+
+
 if __name__ == "__main__":
     unittest.main(argv=[__file__], verbosity=2)
