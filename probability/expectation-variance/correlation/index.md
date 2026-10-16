@@ -113,7 +113,11 @@ sidebar: false
       The correlation between two random variables X and Y is:
     </p>
 
-    0
+    
+    \[
+    \rho_{X,Y}=\frac{\operatorname{Cov}(X,Y)}{\sigma_X\sigma_Y},\qquad \sigma_X,\sigma_Y>0
+    \]
+
 
     <p>
       where:
@@ -139,7 +143,11 @@ sidebar: false
       Correlation is commonly represented by:
     </p>
 
-    1
+    
+    \[
+    \rho_{X,Y}
+    \]
+
 
     <p>
       for population correlation.
@@ -163,7 +171,11 @@ sidebar: false
       Correlation always satisfies:
     </p>
 
-    2
+    
+    \[
+    -1\le\rho_{X,Y}\le1
+    \]
+
 
     <p>
       This fixed range makes interpretation straightforward.
@@ -191,7 +203,11 @@ sidebar: false
       Positive correlations satisfy:
     </p>
 
-    3
+    
+    \[
+    \rho_{X,Y}>0
+    \]
+
 
     <h2>Negative Correlation</h2>
 
@@ -215,7 +231,11 @@ sidebar: false
       Negative correlations satisfy:
     </p>
 
-    4
+    
+    \[
+    \rho_{X,Y}<0
+    \]
+
 
     <h2>Zero Correlation</h2>
 
@@ -223,7 +243,11 @@ sidebar: false
       A correlation of zero indicates no linear relationship.
     </p>
 
-    5
+    
+    \[
+    \rho_{X,Y}=0
+    \]
+
 
     <p>
       Knowledge of one variable does not provide information about a linear trend in the other.
@@ -297,7 +321,11 @@ sidebar: false
       When:
     </p>
 
-    6
+    
+    \[
+    \rho_{X,Y}=1
+    \]
+
 
     <p>
       all observations lie exactly on an increasing straight line.
@@ -321,7 +349,11 @@ sidebar: false
       When:
     </p>
 
-    7
+    
+    \[
+    \rho_{X,Y}=-1
+    \]
+
 
     <p>
       all observations lie exactly on a decreasing straight line.
