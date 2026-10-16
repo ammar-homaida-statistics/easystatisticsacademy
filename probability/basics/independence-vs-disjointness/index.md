@@ -383,8 +383,11 @@ sidebar: false
     <div class="concept-box esa-basics-event-lab" id="esa-basics-event-lab"
          role="group" aria-labelledby="esa-basics-lab-heading">
       <h2 id="esa-basics-lab-heading">Explore Independence versus Disjointness</h2>
-      <p>Move the sliders to define two events A and B. The intersection is constrained to
-         the mathematically feasible range; the four non-overlapping regions always sum to 1.
+      <p>Move the sliders to define two events A and B in an illustrative model with
+         100 equally likely elementary outcomes. Each 0.01 represents one outcome,
+         so a region of probability zero is empty in this model.
+         The intersection is constrained to the mathematically feasible range;
+         the four non-overlapping regions always sum to 1.
          Independence is a probability relationship, while disjointness is a set relationship.</p>
       <div class="esa-basics-lab-fields">
         <div>
@@ -444,13 +447,10 @@ sidebar: false
       </div>
       <p class="muted-mini">
         At least one zero-probability event is necessary for two events to be both
-        independent and disjoint. Zero probability does not by itself imply an
-        empty set or that the event is disjoint from every other event.
-        This explorer represents probability masses; it does not depict the
-        underlying outcomes or prove set disjointness from probability zero alone.
-        The label "Disjoint" here denotes a four-region example where the
-        intersection is modeled as empty, not merely an arbitrary zero-measure
-        intersection in a continuous sample space.
+        independent and disjoint. In this discrete model of 100 equally likely outcomes,
+        zero probability means an empty region. In general probability spaces, an event
+        may have probability zero without being empty; outside this finite model,
+        zero overlap probability alone does not establish set disjointness.
       </p>
     </div>
     <style>
