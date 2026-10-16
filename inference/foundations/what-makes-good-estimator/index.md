@@ -138,7 +138,11 @@ sidebar: false
       Mathematically:
     </p>
 
-    0
+    
+    \[
+    E[\widehat\theta]=\theta
+    \]
+
 
     <h2>Why Unbiasedness Matters</h2>
 
@@ -407,7 +411,11 @@ sidebar: false
       The sample mean:
     </p>
 
-    1
+    
+    \[
+    \bar X=\frac1n\sum_{i=1}^{n}X_i
+    \]
+
 
     <p>
       is widely used because it possesses several desirable properties.
