@@ -3296,6 +3296,225 @@ class SearchTests(unittest.TestCase):
                     expect(self.page.locator("#esa-test-guide")).to_be_visible()
                     expect(self.page.locator("#esa-test-result")).to_be_visible()
 
+
+    def test_hypotheses_and_proportion_sample_size_restored_math(self):
+        """Restore 30 independently checked formulas, with correct inequalities and n."""
+        from math import ceil
+        from html import unescape
+        definitions = (
+            ("/inference/hypothesis-testing/null-and-alternative/", 15, (
+                r"H_0:\ \mu=500\ \mathrm{mL}",
+                r"H_a:\ \mu\neq500\ \mathrm{mL}",
+                r"H_0:\ \mu=\mu_0",
+                r"H_a:\ \mu\neq\mu_0",
+                r"H_0:\ \mu\le\mu_0",
+                r"H_a:\ \mu>\mu_0",
+                r"H_0:\ \mu\ge\mu_0",
+                r"H_a:\ \mu<\mu_0",
+                r"H_0:\ p\le0.50",
+                r"H_a:\ p>0.50",
+                "equality boundary", "before inspecting the sample results")),
+            ("/inference/power-sample-size/sample-size-for-proportion/", 15, (
+                r"\frac{z_{1-\alpha/2}^{\,2}\,p_{\mathrm{plan}}(1-p_{\mathrm{plan}})}{E^2}",
+                r"p_{\mathrm{plan}}(1-p_{\mathrm{plan}})\le\frac14",
+                r"\lceil n_0\rceil=1068",
+                "Required sample size = 1068",
+                "finite-population", "simple random sampling",
+                "Wald", "hypothesis-test power"))
+        )
+        for route, expected, phrases in definitions:
+            with self.subTest(route=route):
+                html = (SITE / route.lstrip("/") / "index.html").read_text()
+                main = unescape(html.split('<main id="main-content"', 1)[1].split("</main>", 1)[0])
+                self.assertNotIn("\uea01", main)
+                self.assertNotIn("\uea02", main)
+                self.assertEqual(main.count(r"\["), expected)
+                self.assertEqual(main.count(r"\]"), expected)
+                for phrase in phrases:
+                    self.assertIn(phrase, main)
+                self.page.goto(self.origin + route, wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+        for z, p, e, required in (
+            (1.96, 0.5, 0.03, 1068),
+            (1.645, 0.5, 0.03, 752),
+            (2.576, 0.5, 0.03, 1844),
+            (1.96, 0.4, 0.03, 1025),
+            (1.645, 0.4, 0.03, 722),
+            (2.576, 0.4, 0.03, 1770),
+            (1.96, 0.5, 0.06, 267),
+        ):
+            with self.subTest(z=z, p=p, e=e):
+                raw = z*z*p*(1-p)/(e*e)
+                self.assertEqual(ceil(raw), required)
+                self.assertLessEqual(z*(p*(1-p)/required)**0.5, e)
+                if required > 1:
+                    self.assertGreater(z*(p*(1-p)/(required-1))**0.5, e)
+
+    def test_sample_size_proportion_calculator_input_keyboard_mobile(self):
+        """Confidence presets, n ceiling, conservative option, errors and preserved progress."""
+        route = "/inference/power-sample-size/sample-size-for-proportion/"
+        self.page.goto(self.origin + route, wait_until="networkidle")
+        section = self.page.locator("#esa-proportion-calculator")
+        expect(section.get_by_role("heading", name="Interactive Sample Size for a Proportion")).to_be_visible()
+        z = self.page.get_by_label("Confidence level", exact=True)
+        e = self.page.get_by_label("Target margin of error E (0–1)")
+        p = self.page.get_by_label("Expected proportion p (0–1)")
+        conservative = self.page.get_by_role("checkbox", name="Use conservative p = 0.5 when the proportion is unknown")
+        result = self.page.locator("#esa-sample-result")
+        error = self.page.locator("#esa-sample-error")
+        expect(conservative).to_be_checked()
+        expect(p).to_be_disabled()
+        expect(result).to_have_text("1,068")
+        expect(self.page.locator("#esa-sample-details")).to_contain_text("1067.111")
+        z.select_option("90")
+        expect(result).to_have_text("752")
+        z.select_option("99")
+        expect(result).to_have_text("1,844")
+        z.select_option("95")
+        conservative.focus()
+        self.page.keyboard.press("Space")
+        expect(conservative).not_to_be_checked()
+        expect(p).to_be_enabled()
+        p.fill("0.4")
+        expect(result).to_have_text("1,025")
+        z.select_option("90")
+        expect(result).to_have_text("722")
+        z.select_option("99")
+        expect(result).to_have_text("1,770")
+        z.select_option("95")
+        p.fill("0")
+        expect(result).to_have_text("—")
+        expect(error).to_contain_text("strictly between 0 and 1")
+        p.fill("1")
+        expect(result).to_have_text("—")
+        p.fill("0.5")
+        e.fill("0")
+        expect(result).to_have_text("—")
+        expect(error).to_contain_text("margin of error")
+        e.fill("1")
+        expect(result).to_have_text("—")
+        e.fill("")
+        expect(result).to_have_text("—")
+        e.fill("0.03")
+        expect(result).to_have_text("1,068")
+        conservative.check()
+        expect(p).to_be_disabled()
+        expect(result).to_have_text("1,068")
+        saved = self.page.evaluate(
+            "() => JSON.parse(localStorage.getItem('esa_continue_inference_power_sample_size_lesson_v0'))")
+        self.assertEqual(saved["url"], route)
+        self.assertEqual(saved["label"], "Sample Size for a Proportion")
+        self.assertIsInstance(saved["ts"], (int, float))
+        for phrase in ("simple random sampling", "finite-population correction",
+                       "design effect", "nonresponse", "not a hypothesis-test power"):
+            expect(section).to_contain_text(phrase)
+        for width in (320, 375, 768, 1280):
+            with self.subTest(viewport=width):
+                self.page.set_viewport_size({"width": width, "height": 860})
+                dimensions = section.evaluate("""e => ({
+                    scroll: e.scrollWidth, client: e.clientWidth,
+                    right: e.getBoundingClientRect().right
+                })""")
+                self.assertLessEqual(dimensions["scroll"]-dimensions["client"], 1, dimensions)
+                self.assertLessEqual(dimensions["right"], width + 1, dimensions)
+
+    def test_sample_size_proportion_calculator_with_denied_storage(self):
+        """The calculation still works when browsers deny the lesson progress write."""
+        self.page.add_init_script("""
+            Object.defineProperty(window, 'localStorage', {
+              configurable: true,
+              get() { throw new DOMException('Denied', 'SecurityError'); }
+            });
+        """)
+        self.page.goto(self.origin + "/inference/power-sample-size/sample-size-for-proportion/",
+                       wait_until="networkidle")
+        expect(self.page.locator("#esa-sample-result")).to_have_text("1,068")
+        self.page.locator("#esa-sample-confidence").select_option("99")
+        expect(self.page.locator("#esa-sample-result")).to_have_text("1,844")
+        expect(self.page.locator("main h1")).to_be_visible()
+
+    def test_seven_inference_resume_uses_published_lessons_and_safe_text(self):
+        """Valid progress survives; stored markup and external/cross-block links cannot execute."""
+        blocks = (
+            ("foundations", "foundations", "foundations"),
+            ("confidence-intervals", "confidence_intervals", "ci"),
+            ("hypothesis-testing", "hypothesis_testing", "testing"),
+            ("classical-tests", "classical_tests", "classical"),
+            ("power-sample-size", "power_sample_size", "power"),
+            ("interpretation-reporting", "interpretation_reporting", "reporting"),
+            ("assumptions-robustness", "assumptions_robustness", "robustness"),
+        )
+        malicious = '<img src=x onerror="window.esaInjected=true"><script>window.esaInjected=true</script> & good'
+        for slug, keyslug, panelname in blocks:
+            with self.subTest(block=slug):
+                route = "/inference/" + slug + "/"
+                key = "esa_continue_inference_" + keyslug + "_lesson_v0"
+                self.page.goto(self.origin + route, wait_until="networkidle")
+                panel = self.page.locator("#continue-reading-inference-" + panelname)
+                label = self.page.locator("#continue-reading-inference-" + panelname + "-label")
+                button = self.page.locator("#continue-reading-inference-" + panelname + "-btn")
+                valid = self.page.locator("#lessons .lesson-card h3 a[href]").first.get_attribute("href")
+                self.assertTrue((SITE / valid.lstrip("/") / "index.html").is_file())
+                expect(panel).to_be_hidden()
+                def save(value):
+                    self.page.evaluate(
+                        "([key, value]) => localStorage.setItem(key, JSON.stringify(value))",
+                        [key, value])
+                    self.page.reload(wait_until="networkidle")
+                save({"url":valid, "label":malicious})
+                expect(panel).to_be_visible()
+                expect(button).to_have_attribute("href", valid)
+                expect(label.locator("strong")).to_have_text(malicious)
+                self.assertEqual(label.locator("img,script").count(), 0)
+                self.assertIsNone(self.page.evaluate("window.esaInjected"))
+                for value in (
+                    {"url":"javascript:alert(1)", "label":"bad"},
+                    {"url":"//external.example/lesson/", "label":"bad"},
+                    {"url": ("/inference/hypothesis-testing/null-and-alternative/"
+                             if slug == "confidence-intervals"
+                             else "/inference/confidence-intervals/ci-for-proportion/"), "label":"Cross-block"},
+                    {"url":"/inference/" + slug + "/unpublished/", "label":"bad"},
+                    {"url":valid+"?next=evil", "label":"bad"},
+                    {"url":valid+"#anchor", "label":"bad"},
+                    {"url":"/inference/" + slug + "/../other-block/", "label":"bad"},
+                    {"url":valid, "label":17},
+                    {"url":valid, "label":"   "},
+                ):
+                    with self.subTest(block=slug, invalid=value):
+                        save(value)
+                        expect(panel).to_be_hidden()
+                self.page.evaluate(
+                    "key => localStorage.setItem(key, '{malformed json')", key)
+                self.page.reload(wait_until="networkidle")
+                expect(panel).to_be_hidden()
+
+    def test_seven_inference_resume_denied_storage_keeps_navigation(self):
+        """All seven overviews remain functional if localStorage throws SecurityError."""
+        self.page.add_init_script("""
+            Object.defineProperty(window, "localStorage", {
+              configurable: true,
+              get() { throw new DOMException("Storage denied", "SecurityError"); }
+            });
+        """)
+        block_to_panel = (
+            ("foundations","foundations"),("confidence-intervals","ci"),
+            ("hypothesis-testing","testing"),("classical-tests","classical"),
+            ("power-sample-size","power"),("interpretation-reporting","reporting"),
+            ("assumptions-robustness","robustness")
+        )
+        for slug, panelname in block_to_panel:
+            with self.subTest(block=slug):
+                self.page.goto(self.origin + "/inference/" + slug + "/",
+                               wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+                expect(self.page.locator("#lessons .lesson-card h3 a").first).to_be_visible()
+                expect(self.page.locator("#continue-reading-inference-" + panelname)).to_be_hidden()
+                self.assertEqual(self.errors, [])
+                if slug == "confidence-intervals":
+                    expect(self.page.locator("#esa-ci-self-check fieldset")).to_have_count(6)
+                if slug == "classical-tests":
+                    expect(self.page.locator("#esa-test-guide")).to_be_visible()
+
     def test_welch_and_paired_repaired_mathematics_and_numeric_examples(self):
         """Recalculate Welch and paired inferences against lesson statements."""
         from math import sqrt, isclose

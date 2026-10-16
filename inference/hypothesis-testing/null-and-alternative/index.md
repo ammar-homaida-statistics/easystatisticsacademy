@@ -100,7 +100,7 @@ sidebar: false
       <strong>Null Hypothesis:</strong>
 
       <p>
-        The null hypothesis is the default claim that represents no effect, no difference, or no change.
+        The null hypothesis is the reference claim tested against the data. It often represents no effect or no difference, but it can also specify an inequality or a practical threshold.
       </p>
 
     </div>
@@ -109,7 +109,9 @@ sidebar: false
       It is denoted by:
     </p>
 
-    0
+    \[
+H_0
+\]
 
     <p>
       The null hypothesis serves as the assumption under which the probability calculations of a hypothesis test are performed.
@@ -122,7 +124,7 @@ sidebar: false
       <strong>Alternative Hypothesis:</strong>
 
       <p>
-        The alternative hypothesis represents the claim that an effect, difference, or relationship exists.
+        The alternative hypothesis specifies the competing parameter values that the study seeks evidence for, including a difference in either direction or a prespecified direction.
       </p>
 
     </div>
@@ -131,13 +133,17 @@ sidebar: false
       It is denoted by:
     </p>
 
-    1
+    \[
+H_1
+\]
 
     <p>
       or sometimes:
     </p>
 
-    2
+    \[
+H_a
+\]
 
     <p>
       The alternative represents the explanation supported when the data are sufficiently inconsistent with the null hypothesis.
@@ -149,27 +155,33 @@ sidebar: false
       Suppose a manufacturer claims that a machine fills bottles with an average of:
     </p>
 
-    3
+    \[
+\mu_0=500\ \mathrm{mL}
+\]
 
     <p>
       The hypotheses might be:
     </p>
 
-    4
+    \[
+H_0:\ \mu=500\ \mathrm{mL}
+\]
 
     <br><br>
 
-    5
+    \[
+H_a:\ \mu\neq500\ \mathrm{mL}
+\]
 
     <p>
-      Here the null states that the machine is operating correctly,
+      Here the null specifies the target population mean (which by itself does not guarantee that every aspect of the machine operates correctly),
       while the alternative suggests that the average fill amount differs from the target.
     </p>
 
     <h2>Why Equality Appears in the Null</h2>
 
     <p>
-      The null hypothesis always contains an equality statement.
+      For these classical tests, the null includes equality (as an equality or within an inequality), while the competing alternative excludes the null boundary.
     </p>
 
     <div class="table-wrap">
@@ -207,7 +219,7 @@ sidebar: false
     </div>
 
     <p>
-      This requirement allows probability calculations to be made under a specific assumption.
+      For composite one-sided null hypotheses, the reference distribution and p-value are often evaluated at the equality boundary, where the rejection probability is largest under standard monotone testing assumptions. This does not mean the full null consists of that boundary alone.
     </p>
 
     <h2>The Three Common Forms</h2>
@@ -222,11 +234,15 @@ sidebar: false
       Tests whether the parameter differs in either direction.
     </p>
 
-    6
+    \[
+H_0:\ \mu=\mu_0
+\]
 
     <br><br>
 
-    7
+    \[
+H_a:\ \mu\neq\mu_0
+\]
 
     <h3>Right-Tailed Alternative</h3>
 
@@ -234,11 +250,15 @@ sidebar: false
       Tests whether the parameter is larger than the null value.
     </p>
 
-    8
+    \[
+H_0:\ \mu\le\mu_0
+\]
 
     <br><br>
 
-    9
+    \[
+H_a:\ \mu>\mu_0
+\]
 
     <h3>Left-Tailed Alternative</h3>
 
@@ -246,16 +266,20 @@ sidebar: false
       Tests whether the parameter is smaller than the null value.
     </p>
 
-    10
+    \[
+H_0:\ \mu\ge\mu_0
+\]
 
     <br><br>
 
-    11
+    \[
+H_a:\ \mu<\mu_0
+\]
 
     <h2>Choosing the Alternative</h2>
 
     <p>
-      The research question determines the alternative hypothesis.
+      The research question should determine the direction of the alternative before inspecting the sample results; selecting a tail afterward changes the test's error properties.
     </p>
 
     <div class="table-wrap">
@@ -304,14 +328,18 @@ sidebar: false
       The hypotheses might be:
     </p>
 
-    12
+    \[
+H_0:\ p\le0.50
+\]
 
     <br><br>
 
-    13
+    \[
+H_a:\ p>0.50
+\]
 
     <p>
-      The alternative directly reflects the question of interest.
+      Here p denotes the population support proportion. A right-tailed test asks whether support exceeds 0.50; a sample proportion above 0.50 by itself does not establish statistical significance.
     </p>
 
     <h2>The Legal-System Analogy</h2>
@@ -384,7 +412,9 @@ sidebar: false
       Statistical tests calculate probabilities assuming:
     </p>
 
-    14
+    \[
+H_0
+\]
 
     <p>
       is true.
@@ -445,7 +475,7 @@ sidebar: false
       <strong>Core message:</strong>
 
       <p>
-        Every hypothesis test compares a null hypothesis representing a default claim against an alternative hypothesis representing a competing explanation. The evidence in the data determines whether the null remains plausible.
+        Every hypothesis test compares a null hypothesis representing a default claim against an alternative hypothesis representing a competing explanation. The observed evidence determines whether to reject the null; failure to reject is not evidence that the null has been proved true.
       </p>
 
     </div>
