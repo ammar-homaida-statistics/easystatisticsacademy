@@ -824,7 +824,17 @@ sidebar: false
 
     const data = JSON.parse(raw);
 
-    if (!data || !data.url || !data.label) return;
+    // Trust only exact published lesson hrefs in this block's own lesson cards.
+    // Do not allow external schemes, traversal, query strings, anchors, or other blocks.
+    const published = new Set(
+      Array.from(document.querySelectorAll("#lessons .lesson-card h3 a[href]"),
+        link => link.getAttribute("href"))
+        .filter(url => typeof url === "string" &&
+          /^\/inference\/foundations\/[a-z0-9-]+\/$/.test(url))
+    );
+    if (!data || typeof data.url !== "string" ||
+        typeof data.label !== "string" || !data.label.trim() ||
+        data.label.length > 200 || !published.has(data.url)) return;
 
     const wrap =
       document.getElementById(
@@ -843,10 +853,9 @@ sidebar: false
 
     if (!wrap || !label || !btn) return;
 
-    label.innerHTML =
-      "You last visited: <strong>" +
-      data.label +
-      "</strong>";
+    const strong = document.createElement("strong");
+    strong.textContent = data.label;
+    label.replaceChildren("You last visited: ", strong);
 
     btn.href = data.url;
 
