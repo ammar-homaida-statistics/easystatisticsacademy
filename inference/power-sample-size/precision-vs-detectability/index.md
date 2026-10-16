@@ -159,7 +159,11 @@ sidebar: false
       Detectability is measured through:
     </p>
 
-    0
+    
+    \[
+    \text{Power}=P(\text{reject }H_0\mid H_0\text{ false; specified alternative})=1-\beta
+    \]
+
 
     <p>
       High power means real effects are more likely to be discovered.
