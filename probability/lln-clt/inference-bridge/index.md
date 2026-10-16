@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_probability_lln_clt_lesson_v0";
 
+  try {
   localStorage.setItem(KEY, JSON.stringify({
     url: "/probability/lln-clt/inference-bridge/",
     label: "Inference Bridge",
     ts: Date.now()
   }));
+  } catch (_) {
+    // Browser storage is optional; the lesson remains usable if it is denied.
+  }
 
 })();
 </script>
