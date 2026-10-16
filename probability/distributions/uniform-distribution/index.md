@@ -295,6 +295,149 @@ sidebar: false
       The probability equals 0.3.
     </p>
 
+
+    <!-- UNIFORM PROBABILITY AREA EXPLORER -->
+    <div class="concept-box esa-uniform-lab" id="esa-uniform-area-explorer"
+         role="group" aria-labelledby="esa-uniform-lab-heading">
+      <h2 id="esa-uniform-lab-heading">Interactive Uniform Probability Area Explorer</h2>
+      <p>Adjust the interval limits a and b, then select a subinterval from c to d.
+         The shaded rectangle shows probability as an <strong>area</strong>:
+         its width is d − c and its height is the density 1/(b − a).
+         A density value by itself is not a probability.</p>
+      <div class="esa-uniform-fields">
+        <div>
+          <label for="esa-uniform-a"><strong>Lower distribution bound a:
+            <output for="esa-uniform-a" id="esa-uniform-a-value">0</output></strong></label>
+          <input id="esa-uniform-a" type="range" min="0" max="9" step="1" value="0">
+        </div>
+        <div>
+          <label for="esa-uniform-b"><strong>Upper distribution bound b:
+            <output for="esa-uniform-b" id="esa-uniform-b-value">10</output></strong></label>
+          <input id="esa-uniform-b" type="range" min="1" max="20" step="1" value="10">
+        </div>
+        <div>
+          <label for="esa-uniform-c"><strong>Subinterval start c:
+            <output for="esa-uniform-c" id="esa-uniform-c-value">2</output></strong></label>
+          <input id="esa-uniform-c" type="range" min="0" max="10" step="0.5" value="2">
+        </div>
+        <div>
+          <label for="esa-uniform-d"><strong>Subinterval end d:
+            <output for="esa-uniform-d" id="esa-uniform-d-value">5</output></strong></label>
+          <input id="esa-uniform-d" type="range" min="2" max="10" step="0.5" value="5">
+        </div>
+      </div>
+      <svg id="esa-uniform-area-plot" viewBox="0 0 360 180" width="360" height="180"
+           role="img" aria-label="Uniform density from 0 to 10; shaded probability between 2 and 5 equals 0.30">
+        <line x1="36" y1="140" x2="341" y2="140" stroke="currentColor" stroke-width="1.5"/>
+        <line x1="36" y1="140" x2="36" y2="24" stroke="currentColor" stroke-width="1.5"/>
+        <rect x="50" y="40" width="280" height="100" fill="#94a3b8" fill-opacity=".17"
+              stroke="#64748b" stroke-width="1.6"/>
+        <rect id="esa-uniform-highlight" x="106" y="40" width="84" height="100"
+              fill="#0d9488" fill-opacity=".65"/>
+        <text id="esa-uniform-left-label" x="50" y="157" font-size="11" fill="currentColor" text-anchor="middle">0</text>
+        <text id="esa-uniform-right-label" x="330" y="157" font-size="11" fill="currentColor" text-anchor="middle">10</text>
+        <text x="37" y="18" font-size="11" fill="currentColor">Density</text>
+        <text x="340" y="157" font-size="11" fill="currentColor">X</text>
+      </svg>
+      <div class="esa-uniform-results" role="status" aria-live="polite" aria-atomic="true">
+        <p>Selected interval: <strong id="esa-uniform-interval">[2, 5]</strong>.
+           Width: <output id="esa-uniform-width">3.00</output>.</p>
+        <p>Constant density: <strong><output id="esa-uniform-density">0.1000</output></strong>.
+           Shaded area / probability: <strong><output id="esa-uniform-probability">0.3000</output></strong>.</p>
+        <p>Mean E[X] = <output id="esa-uniform-mean">5.00</output>.
+           Variance Var(X) = <output id="esa-uniform-variance">8.3333</output>.
+           Standard deviation = <output id="esa-uniform-sd">2.8868</output>.</p>
+        <p><strong>Point probability:</strong> P(X = c) = 0 for every individual point,
+           including both endpoints. Endpoints do not change an interval probability.</p>
+      </div>
+      <button type="button" class="btn btn-outline" id="esa-uniform-reset">Reset uniform example</button>
+      <p class="muted-mini">Valid inputs satisfy 0 ≤ a &lt; b ≤ 20 and a ≤ c ≤ d ≤ b.
+        The graph rescales the x-axis to the selected distribution interval.
+        All calculations describe a continuous uniform variable.</p>
+    </div>
+    <style>
+      #esa-uniform-area-explorer {box-sizing:border-box;width:100%;max-width:100%;min-width:0;overflow-wrap:anywhere}
+      #esa-uniform-area-explorer .esa-uniform-fields {
+        display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));
+        gap:12px;margin:14px 0
+      }
+      #esa-uniform-area-explorer .esa-uniform-fields>div {min-width:0}
+      #esa-uniform-area-explorer label {display:block;margin-bottom:8px}
+      #esa-uniform-area-explorer input[type="range"] {
+        display:block;box-sizing:border-box;width:100%;max-width:100%;
+        min-width:0;margin:0;padding:0
+      }
+      #esa-uniform-area-explorer svg {
+        display:block;width:100%;max-width:520px;height:auto;margin:12px auto;
+        overflow:visible
+      }
+      #esa-uniform-area-explorer .esa-uniform-results p {margin:10px 0}
+    </style>
+    <script>
+    (function () {
+      "use strict";
+      const root=document.getElementById("esa-uniform-area-explorer");
+      if (!root) return;
+      const el=id=>root.querySelector("#"+id);
+      const a=el("esa-uniform-a"),b=el("esa-uniform-b"),
+            c=el("esa-uniform-c"),d=el("esa-uniform-d");
+      const clamp=(value,low,high)=>Math.max(low,Math.min(high,value));
+      function bound(input,low,high,value) {
+        input.min=String(low);input.max=String(high);
+        input.value=String(clamp(value,low,high));
+      }
+      function update(source) {
+        // Change the dependent range bounds before assigning values; native
+        // sliders otherwise clamp against stale limits when presets change.
+        if (source===b) {
+          const upper=Number(b.value);
+          bound(a,0,Math.min(9,upper-1),Number(a.value));
+        } else {
+          const lower=Number(a.value);
+          bound(b,lower+1,20,Number(b.value));
+        }
+        const A=Number(a.value),B=Number(b.value);
+        const C=clamp(Number(c.value),A,B);
+        bound(c,A,B,C);
+        const D=clamp(Number(d.value),Number(c.value),B);
+        bound(d,Number(c.value),B,D);
+        const from=Number(c.value),to=Number(d.value);
+        const span=B-A,interval=to-from;
+        const density=1/span,probability=interval/span;
+        const mean=(A+B)/2,variance=span*span/12;
+        for(const [key,v] of [
+          ["esa-uniform-a-value",A],["esa-uniform-b-value",B],
+          ["esa-uniform-c-value",from],["esa-uniform-d-value",to]
+        ])el(key).textContent=String(v);
+        el("esa-uniform-interval").textContent="["+from+", "+to+"]";
+        el("esa-uniform-width").textContent=interval.toFixed(2);
+        el("esa-uniform-density").textContent=density.toFixed(4);
+        el("esa-uniform-probability").textContent=probability.toFixed(4);
+        el("esa-uniform-mean").textContent=mean.toFixed(2);
+        el("esa-uniform-variance").textContent=variance.toFixed(4);
+        el("esa-uniform-sd").textContent=Math.sqrt(variance).toFixed(4);
+        const offset=280*(from-A)/span;
+        el("esa-uniform-highlight").setAttribute("x",String(50+offset));
+        el("esa-uniform-highlight").setAttribute("width",String(280*probability));
+        el("esa-uniform-left-label").textContent=String(A);
+        el("esa-uniform-right-label").textContent=String(B);
+        el("esa-uniform-area-plot").setAttribute("aria-label",
+          "Uniform density from "+A+" to "+B+"; shaded probability between "+
+          from+" and "+to+" equals "+probability.toFixed(4));
+      }
+      [a,b,c,d].forEach(input=>input.addEventListener("input",()=>update(input)));
+      el("esa-uniform-reset").addEventListener("click",()=>{
+        a.value="0";b.value="10";
+        // Reset dependent bounds before restoring the original interval.
+        update(a);
+        c.value="2";update(c);
+        d.value="5";update(d);
+      });
+      update(a);
+    })();
+    </script>
+
+
     <h2>Single Values Have Zero Probability</h2>
 
     <p>
