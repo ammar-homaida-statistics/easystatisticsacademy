@@ -291,6 +291,150 @@ sidebar: false
       Two tails followed by one head.
     </p>
 
+
+    <!-- GEOMETRIC WAITING TIME EXPLORER -->
+    <div class="concept-box esa-geometric-lab" id="esa-geometric-wait-explorer"
+         role="group" aria-labelledby="esa-geometric-lab-heading">
+      <h2 id="esa-geometric-lab-heading">Interactive Geometric Waiting-Time Explorer</h2>
+      <p>Choose a constant success probability p and the trial number k.
+         This lesson counts the <strong>number of trials up to and including
+         the first success</strong>, so k starts at 1. Every trial is an
+         independent Bernoulli trial. The failures-before-success convention
+         uses X − 1 and starts at zero instead.</p>
+      <div class="esa-geometric-fields">
+        <div>
+          <label for="esa-geom-p"><strong>Success probability p:
+            <output id="esa-geom-p-value" for="esa-geom-p">0.25</output></strong></label>
+          <input id="esa-geom-p" type="range" min="0.05" max="1" step="0.05" value="0.25">
+        </div>
+        <div>
+          <label for="esa-geom-k"><strong>Trial number k:
+            <output id="esa-geom-k-value" for="esa-geom-k">3</output></strong></label>
+          <input id="esa-geom-k" type="range" min="1" max="20" step="1" value="3">
+        </div>
+      </div>
+      <h3>First-success probability by trial (first 12 trials)</h3>
+      <svg id="esa-geom-pmf-plot" viewBox="0 0 360 175" width="360" height="175"
+           role="img" aria-label="Geometric probabilities for the first 12 trials, p = 0.25; selected k = 3">
+        <line x1="31" y1="136" x2="343" y2="136" stroke="currentColor" stroke-width="1.4"/>
+        <line x1="31" y1="136" x2="31" y2="17" stroke="currentColor" stroke-width="1.4"/>
+        <text x="8" y="15" font-size="10" fill="currentColor">P(X=j)</text>
+        <text x="343" y="158" font-size="10" fill="currentColor">Trial</text>
+        <g id="esa-geom-bars">
+          <rect data-trial="1" x="40" width="17" y="108.5" height="27.5" fill="#64748b"/>
+          <rect data-trial="2" x="64" width="17" y="115.375" height="20.625" fill="#64748b"/>
+          <rect data-trial="3" x="88" width="17" y="120.53125" height="15.46875" fill="#0d9488"/>
+          <rect data-trial="4" x="112" width="17" y="124.3984375" height="11.6015625" fill="#64748b"/>
+          <rect data-trial="5" x="136" width="17" y="127.298828125" height="8.701171875" fill="#64748b"/>
+          <rect data-trial="6" x="160" width="17" y="129.474121094" height="6.525878906" fill="#64748b"/>
+          <rect data-trial="7" x="184" width="17" y="131.10559082" height="4.89440918" fill="#64748b"/>
+          <rect data-trial="8" x="208" width="17" y="132.32919312" height="3.67080688" fill="#64748b"/>
+          <rect data-trial="9" x="232" width="17" y="133.24689484" height="2.75310516" fill="#64748b"/>
+          <rect data-trial="10" x="256" width="17" y="133.93517113" height="2.06482887" fill="#64748b"/>
+          <rect data-trial="11" x="280" width="17" y="134.45137835" height="1.54862165" fill="#64748b"/>
+          <rect data-trial="12" x="304" width="17" y="134.83853376" height="1.16146624" fill="#64748b"/>
+        </g>
+        <text x="48" y="151" text-anchor="middle" font-size="10" fill="currentColor">1</text>
+        <text x="95" y="151" text-anchor="middle" font-size="10" fill="currentColor">3</text>
+        <text x="191" y="151" text-anchor="middle" font-size="10" fill="currentColor">7</text>
+        <text x="311" y="151" text-anchor="middle" font-size="10" fill="currentColor">12</text>
+      </svg>
+      <p class="muted-mini">Bar heights show actual probability (the y-axis spans 0 to 1).
+         The selected trial is highlighted when k ≤ 12.
+         Remaining probability beyond trial 12 is not displayed as a bar.</p>
+      <div class="esa-geometric-results" role="status" aria-live="polite" aria-atomic="true">
+        <p><strong>Exactly trial k:</strong>
+          P(X = k) = (1 − p)^(k − 1)p =
+          <output id="esa-geom-pmf">0.140625</output>.</p>
+        <p><strong>At or before trial k:</strong>
+          P(X ≤ k) = 1 − (1 − p)^k =
+          <output id="esa-geom-cdf">0.578125</output>.</p>
+        <p><strong>Later than trial k:</strong>
+          P(X &gt; k) = (1 − p)^k =
+          <output id="esa-geom-tail">0.421875</output>.</p>
+        <p>Expected trials E[X] = 1/p = <output id="esa-geom-mean">4.0000</output>.
+           Variance Var(X) = (1 − p)/p² = <output id="esa-geom-variance">12.0000</output>.</p>
+        <p><strong>Memorylessness:</strong> After ten failures, the conditional
+           probability of success on the next trial is
+           <output id="esa-geom-memoryless-next">0.2500</output>.
+           The conditional probability of waiting more than three further
+           trials is <output id="esa-geom-memoryless-tail">0.421875</output>.</p>
+        <p id="esa-geom-memoryless-note" hidden>
+          At p = 1, ten previous failures have probability zero; a conditional
+          probability given that impossible history is undefined.
+          An unconditional success on the next trial still has probability 1.</p>
+      </div>
+      <button type="button" class="btn btn-outline" id="esa-geom-reset">Reset geometric example</button>
+      <p class="muted-mini">Probabilities use the full infinite geometric distribution.
+         Displaying the first twelve bars does not truncate, renormalize,
+         or alter the reported cumulative and tail probabilities.</p>
+    </div>
+    <style>
+      #esa-geometric-wait-explorer {box-sizing:border-box;width:100%;max-width:100%;min-width:0;overflow-wrap:anywhere}
+      #esa-geometric-wait-explorer .esa-geometric-fields {
+        display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));
+        gap:12px;margin:15px 0
+      }
+      #esa-geometric-wait-explorer .esa-geometric-fields>div {min-width:0}
+      #esa-geometric-wait-explorer label {display:block;margin-bottom:8px}
+      #esa-geometric-wait-explorer input[type="range"] {
+        display:block;box-sizing:border-box;width:100%;max-width:100%;min-width:0;
+        margin:0;padding:0
+      }
+      #esa-geometric-wait-explorer svg {
+        display:block;width:100%;max-width:520px;height:auto;margin:10px auto;
+        overflow:visible
+      }
+      #esa-geometric-wait-explorer h3 {font-size:1.05em;margin:13px 0 9px}
+      #esa-geometric-wait-explorer .esa-geometric-results p {margin:11px 0}
+      #esa-geometric-wait-explorer [hidden] {display:none!important}
+    </style>
+    <script>
+    (function () {
+      "use strict";
+      const root=document.getElementById("esa-geometric-wait-explorer");
+      if (!root) return;
+      const el=id=>root.querySelector("#"+id);
+      const probability=el("esa-geom-p"),trial=el("esa-geom-k");
+      function update() {
+        const p=Number(probability.value),k=Number(trial.value);
+        const q=1-p,pmf=Math.pow(q,k-1)*p,tail=Math.pow(q,k);
+        const cdf=1-tail;
+        el("esa-geom-p-value").textContent=p.toFixed(2);
+        el("esa-geom-k-value").textContent=String(k);
+        el("esa-geom-pmf").textContent=pmf.toFixed(6);
+        el("esa-geom-cdf").textContent=cdf.toFixed(6);
+        el("esa-geom-tail").textContent=tail.toFixed(6);
+        el("esa-geom-mean").textContent=(1/p).toFixed(4);
+        el("esa-geom-variance").textContent=(q/(p*p)).toFixed(4);
+        const historyPossible=p<1;
+        el("esa-geom-memoryless-next").textContent=historyPossible?p.toFixed(4):"Undefined";
+        el("esa-geom-memoryless-tail").textContent=historyPossible?
+          Math.pow(q,3).toFixed(6):"Undefined";
+        el("esa-geom-memoryless-note").hidden=historyPossible;
+        for(const bar of root.querySelectorAll("#esa-geom-bars rect[data-trial]")) {
+          const j=Number(bar.getAttribute("data-trial"));
+          const pj=Math.pow(q,j-1)*p;
+          const height=110*pj;
+          bar.setAttribute("y",String(136-height));
+          bar.setAttribute("height",String(height));
+          bar.setAttribute("fill",j===k?"#0d9488":"#64748b");
+        }
+        el("esa-geom-pmf-plot").setAttribute("aria-label",
+          "Geometric probability of first success on each of the first twelve trials, p = "+
+          p.toFixed(2)+", selected trial k = "+k+
+          ", P(X=k) = "+pmf.toFixed(6)+
+          ". Cumulative and tail calculations use all possible trials.");
+      }
+      [probability,trial].forEach(input=>input.addEventListener("input",update));
+      el("esa-geom-reset").addEventListener("click",()=>{
+        probability.value="0.25";trial.value="3";update();
+      });
+      update();
+    })();
+    </script>
+
+
     <h2>The Mean of a Geometric Distribution</h2>
 
     <p>
@@ -503,7 +647,7 @@ sidebar: false
     <h2>The Shape of the Distribution</h2>
 
     <p>
-      Geometric distributions are always right-skewed.
+      For 0 &lt; p &lt; 1 the trial-count geometric mass decreases with k, producing a right-tailed distribution. At p = 1, success occurs on the first trial with certainty (a degenerate distribution).
     </p>
 
     <p>
