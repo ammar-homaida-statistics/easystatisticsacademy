@@ -5022,5 +5022,274 @@ class SearchTests(unittest.TestCase):
         self.assertEqual(self.errors,[])
 
 
+
+    def test_uniform_geometric_restored_math_and_example_benchmarks(self):
+        """Twenty recovered formulas and numeric examples are exact, with explicit support."""
+        from html import unescape
+        from math import isclose
+        cases=(
+          ("/probability/distributions/uniform-distribution/",11,(
+            r"a\le X\le b",r"f_X(x)=\frac{1}{b-a}",
+            r"a\le x\le b",r"\frac{d-c}{b-a}",
+            r"\frac{5-2}{10-0}=0.30",
+            r"P(X=x)=0",
+            r"\frac{a+b}{2}",r"\frac{0+10}{2}=5",
+            r"\frac{(b-a)^2}{12}",
+            r"\frac{b-a}{\sqrt{12}}")),
+          ("/probability/distributions/geometric-distribution/",9,(
+            r"X\sim\operatorname{Geom}(p)",
+            r"0<p\le1",
+            r"X\in\{1,2,3,\ldots\}",
+            r"P(X=k)=(1-p)^{k-1}p",
+            r"\frac18=0.125",
+            r"E[X]=\frac1p",
+            r"E[X]=\frac{1}{0.25}=4",
+            r"\operatorname{Var}(X)=\frac{1-p}{p^2}",
+            r"\text{10 previous tails}"))
+        )
+        for route,expected_count,fragments in cases:
+            with self.subTest(route=route):
+                source=(SITE/route.lstrip("/")/"index.html").read_text()
+                main=unescape(source.split('<main id="main-content"',1)[1].split("</main>",1)[0])
+                self.assertNotIn("\uea01",main)
+                self.assertNotIn("\uea02",main)
+                self.assertEqual(main.count(r"\["),expected_count)
+                self.assertEqual(main.count(r"\]"),expected_count)
+                for fragment in fragments:
+                    self.assertIn(fragment,main)
+                self.page.goto(self.origin+route,wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+        self.assertTrue(isclose((5-2)/(10-0),0.3,abs_tol=1e-14))
+        self.assertTrue(isclose((10-0)**2/12,25/3,abs_tol=1e-14))
+        self.assertTrue(isclose((1-.5)**2*.5,.125,abs_tol=1e-14))
+        self.assertTrue(isclose((1-.25)/(.25**2),12,abs_tol=1e-14))
+        self.assertTrue(isclose(1/.25,4,abs_tol=1e-14))
+        geometric=(SITE/"probability/distributions/geometric-distribution/index.html").read_text()
+        self.assertIn("including the successful trial",geometric)
+        self.assertIn("failures-before-success",geometric)
+
+    def test_uniform_probability_area_explorer_and_edge_cases(self):
+        """Area is density times width; sliders enforce a<b and a<=c<=d<=b."""
+        from math import isclose,sqrt
+        route="/probability/distributions/uniform-distribution/"
+        self.page.goto(self.origin+route,wait_until="networkidle")
+        root=self.page.locator("#esa-uniform-area-explorer")
+        expect(root.get_by_role("heading",name="Interactive Uniform Probability Area Explorer")).to_be_visible()
+        ids=("esa-uniform-a","esa-uniform-b","esa-uniform-c","esa-uniform-d")
+        sliders=[root.locator("#"+name) for name in ids]
+        output=lambda id_:root.locator("#"+id_).inner_text()
+        self.assertEqual([x.input_value() for x in sliders],["0","10","2","5"])
+        self.assertEqual(output("esa-uniform-density"),"0.1000")
+        self.assertEqual(output("esa-uniform-probability"),"0.3000")
+        self.assertEqual(output("esa-uniform-mean"),"5.00")
+        self.assertEqual(output("esa-uniform-variance"),"8.3333")
+        def set_slider(node,value):
+            node.evaluate("""(el,value)=>{
+              el.value=String(value);
+              el.dispatchEvent(new Event('input',{bubbles:true}));
+            }""",value)
+        def verify():
+            A,B,C,D=[float(el.input_value()) for el in sliders]
+            self.assertLess(A,B)
+            self.assertLessEqual(A,C)
+            self.assertLessEqual(C,D)
+            self.assertLessEqual(D,B)
+            width=D-C
+            density=1/(B-A)
+            area=width*density
+            self.assertTrue(isclose(float(output("esa-uniform-density")),density,abs_tol=5.1e-5))
+            self.assertTrue(isclose(float(output("esa-uniform-probability")),area,abs_tol=5.1e-5))
+            self.assertTrue(isclose(float(output("esa-uniform-mean")),(A+B)/2,abs_tol=0.0051))
+            self.assertTrue(isclose(float(output("esa-uniform-variance")),(B-A)**2/12,abs_tol=5.1e-5))
+            self.assertTrue(isclose(float(output("esa-uniform-sd")),(B-A)/sqrt(12),abs_tol=5.1e-5))
+            self.assertTrue(isclose(float(output("esa-uniform-width")),width,abs_tol=1e-10))
+            rect=root.locator("#esa-uniform-highlight")
+            self.assertTrue(isclose(float(rect.get_attribute("x")),50+280*(C-A)/(B-A),abs_tol=1e-7))
+            self.assertTrue(isclose(float(rect.get_attribute("width")),280*area,abs_tol=1e-7))
+            self.assertIn(f"between {C:g} and {D:g}",root.locator("#esa-uniform-area-plot").get_attribute("aria-label"))
+        verify()
+        set_slider(sliders[2],5)
+        verify()
+        self.assertEqual(output("esa-uniform-probability"),"0.0000")
+        set_slider(sliders[2],0)
+        set_slider(sliders[3],10)
+        verify()
+        self.assertEqual(output("esa-uniform-probability"),"1.0000")
+        set_slider(sliders[0],9)
+        verify()
+        self.assertEqual(sliders[2].input_value(),"9")
+        set_slider(sliders[1],11)
+        verify()
+        root.get_by_role("button",name="Reset uniform example").click()
+        self.assertEqual([x.input_value() for x in sliders],["0","10","2","5"])
+        verify()
+        expect(root.locator("#esa-uniform-probability")).to_have_text("0.3000")
+
+    def test_uniform_probability_area_explorer_keyboard_mobile_and_denied_storage(self):
+        """All sliders keyboard-operable, live values, stable layout, no storage dependency."""
+        self.page.add_init_script("""
+          Object.defineProperty(window,'localStorage',{
+            configurable:true,
+            get(){throw new DOMException('Denied','SecurityError');}
+          });
+        """)
+        self.page.goto(self.origin+"/probability/distributions/uniform-distribution/",
+                       wait_until="networkidle")
+        root=self.page.locator("#esa-uniform-area-explorer")
+        a=root.get_by_role("slider",name="Lower distribution bound a:")
+        a.focus()
+        a.press("ArrowRight")
+        expect(a).to_have_value("1")
+        expect(root.locator("#esa-uniform-a-value")).to_have_text("1")
+        c=root.get_by_role("slider",name="Subinterval start c:")
+        c.focus()
+        c.press("Home")
+        expect(c).to_have_value("1")
+        expect(root.locator("#esa-uniform-c-value")).to_have_text("1")
+        d=root.get_by_role("slider",name="Subinterval end d:")
+        d.focus()
+        d.press("End")
+        expect(d).to_have_value("10")
+        for width in (320,375,768,1280):
+            with self.subTest(width=width):
+                self.page.set_viewport_size({"width":width,"height":850})
+                b=root.evaluate("""e=>({
+                  left:e.getBoundingClientRect().left,
+                  right:e.getBoundingClientRect().right,
+                  scroll:e.scrollWidth,client:e.clientWidth
+                })""")
+                self.assertGreaterEqual(b["left"],-1,b)
+                self.assertLessEqual(b["right"],width+1,b)
+                self.assertLessEqual(b["scroll"]-b["client"],1,b)
+        root.get_by_role("button",name="Reset uniform example").click()
+        expect(root.locator("#esa-uniform-probability")).to_have_text("0.3000")
+        self.assertEqual(self.errors,[])
+
+    def test_geometric_wait_explorer_pmf_cdf_tail_and_memorylessness(self):
+        """Exact geometric arithmetic, normalization, alternative convention and p=1 case."""
+        from math import isclose
+        self.page.goto(self.origin+"/probability/distributions/geometric-distribution/",
+                       wait_until="networkidle")
+        root=self.page.locator("#esa-geometric-wait-explorer")
+        expect(root.get_by_role("heading",name="Interactive Geometric Waiting-Time Explorer")).to_be_visible()
+        p=root.locator("#esa-geom-p")
+        k=root.locator("#esa-geom-k")
+        output=lambda id_:root.locator("#"+id_).inner_text()
+        self.assertEqual([p.input_value(),k.input_value()],["0.25","3"])
+        def set_slider(el,value):
+            el.evaluate("""(node,value)=>{
+              node.value=String(value);
+              node.dispatchEvent(new Event('input',{bubbles:true}));
+            }""",value)
+        def verify(prob,trial):
+            set_slider(p,prob)
+            set_slider(k,trial)
+            observed=float(p.input_value())
+            n=int(k.input_value())
+            self.assertTrue(isclose(observed,prob,abs_tol=1e-12))
+            self.assertEqual(n,trial)
+            q=1-prob
+            pmf=q**(n-1)*prob
+            cdf=1-q**n
+            tail=q**n
+            mean=1/prob
+            variance=q/(prob**2)
+            for label,expected,tol in (
+              ("esa-geom-pmf",pmf,5.1e-7),
+              ("esa-geom-cdf",cdf,5.1e-7),
+              ("esa-geom-tail",tail,5.1e-7),
+              ("esa-geom-mean",mean,5.1e-5),
+              ("esa-geom-variance",variance,5.1e-5)
+            ):
+                self.assertTrue(isclose(float(output(label)),expected,abs_tol=tol),
+                                (prob,trial,label,output(label),expected))
+            self.assertTrue(isclose(cdf+tail,1,abs_tol=1e-12))
+            self.assertTrue(isclose(sum(q**(j-1)*prob for j in range(1,n+1)),cdf,abs_tol=1e-10))
+            bars=root.locator("#esa-geom-bars rect")
+            self.assertEqual(bars.count(),12)
+            for j in range(1,13):
+                bar=bars.nth(j-1)
+                expectedHeight=110*(q**(j-1)*prob)
+                self.assertTrue(isclose(float(bar.get_attribute("height")),expectedHeight,abs_tol=1e-7))
+                self.assertEqual(bar.get_attribute("fill"),"#0d9488" if j==n else "#64748b")
+            if prob==1:
+                expect(root.locator("#esa-geom-memoryless-note")).to_be_visible()
+                expect(root.locator("#esa-geom-memoryless-next")).to_have_text("Undefined")
+                expect(root.locator("#esa-geom-memoryless-tail")).to_have_text("Undefined")
+            else:
+                expect(root.locator("#esa-geom-memoryless-note")).to_be_hidden()
+                self.assertTrue(isclose(float(output("esa-geom-memoryless-next")),prob,abs_tol=5.1e-5))
+                self.assertTrue(isclose(float(output("esa-geom-memoryless-tail")),q**3,abs_tol=5.1e-7))
+        for args in ((.25,3),(.5,3),(.05,20),(.95,20),(1,1),(1,20),(.1,1),(.3,12)):
+            with self.subTest(p_k=args):
+                verify(*args)
+        root.get_by_role("button",name="Reset geometric example").click()
+        self.assertEqual([p.input_value(),k.input_value()],["0.25","3"])
+        expect(root.locator("#esa-geom-pmf")).to_have_text("0.140625")
+        expect(root.locator("#esa-geom-cdf")).to_have_text("0.578125")
+        expect(root.locator("#esa-geom-tail")).to_have_text("0.421875")
+
+    def test_geometric_wait_explorer_keyboard_mobile_and_progress(self):
+        """Keyboard and mobile work with blocked storage; ordinary storage retains resume."""
+        self.page.goto(self.origin+"/probability/distributions/geometric-distribution/",
+                       wait_until="networkidle")
+        key="esa_continue_probability_distributions_lesson_v0"
+        saved=self.page.evaluate("key=>JSON.parse(localStorage.getItem(key))",key)
+        self.assertEqual(saved["url"],"/probability/distributions/geometric-distribution/")
+        self.assertEqual(saved["label"],"Geometric Distribution")
+        self.assertIsInstance(saved["ts"],int)
+        self.assertGreater(saved["ts"],0)
+        root=self.page.locator("#esa-geometric-wait-explorer")
+        p=root.get_by_role("slider",name="Success probability p:")
+        k=root.get_by_role("slider",name="Trial number k:")
+        p.focus()
+        p.press("Home")
+        expect(p).to_have_value("0.05")
+        expect(root.locator("#esa-geom-p-value")).to_have_text("0.05")
+        p.press("End")
+        expect(p).to_have_value("1")
+        k.focus()
+        k.press("Home")
+        expect(k).to_have_value("1")
+        expect(root.locator("#esa-geom-pmf")).to_have_text("1.000000")
+        k.press("End")
+        expect(k).to_have_value("20")
+        expect(root.locator("#esa-geom-pmf")).to_have_text("0.000000")
+        for width in (320,375,768,1280):
+            with self.subTest(width=width):
+                self.page.set_viewport_size({"width":width,"height":850})
+                b=root.evaluate("""e=>({
+                  left:e.getBoundingClientRect().left,
+                  right:e.getBoundingClientRect().right,
+                  scroll:e.scrollWidth,client:e.clientWidth
+                })""")
+                self.assertGreaterEqual(b["left"],-1,b)
+                self.assertLessEqual(b["right"],width+1,b)
+                self.assertLessEqual(b["scroll"]-b["client"],1,b)
+        root.get_by_role("button",name="Reset geometric example").click()
+        expect(root.locator("#esa-geom-pmf")).to_have_text("0.140625")
+        self.page.goto(self.origin+"/probability/distributions/",wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-probability-distributions")).to_be_visible()
+        self.assertEqual(self.page.locator(
+            "#continue-reading-probability-distributions-btn").get_attribute("href"),
+            "/probability/distributions/geometric-distribution/")
+        self.page.add_init_script("""
+          Object.defineProperty(window,'localStorage',{
+            configurable:true,
+            get(){throw new DOMException('Denied','SecurityError');}
+          });
+        """)
+        self.page.goto(self.origin+"/probability/distributions/geometric-distribution/",
+                       wait_until="networkidle")
+        root=self.page.locator("#esa-geometric-wait-explorer")
+        expect(root.locator("#esa-geom-pmf")).to_have_text("0.140625")
+        root.locator("#esa-geom-k").evaluate("""node=>{
+          node.value="5";
+          node.dispatchEvent(new Event('input',{bubbles:true}));
+        }""")
+        expect(root.locator("#esa-geom-pmf")).to_have_text("0.079102")
+        self.assertEqual(self.errors,[])
+
+
 if __name__ == "__main__":
     unittest.main(argv=[__file__], verbosity=2)
