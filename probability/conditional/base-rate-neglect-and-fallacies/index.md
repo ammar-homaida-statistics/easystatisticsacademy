@@ -270,7 +270,11 @@ sidebar: false
       By definition:
     </p>
 
-    0
+    
+    \[
+    P(A\cap B)\le\min\{P(A),P(B)\}
+    \]
+
 
     <p>
       Adding conditions can never increase probability.
