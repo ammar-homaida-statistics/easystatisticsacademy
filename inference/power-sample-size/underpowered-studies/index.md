@@ -96,7 +96,11 @@ sidebar: false
       Recall that power is:
     </p>
 
-    0
+    
+    \[
+    \text{Power}=P(\text{reject }H_0\mid H_0\text{ false; specified alternative})=1-\beta
+    \]
+
 
     <p>
       where:
