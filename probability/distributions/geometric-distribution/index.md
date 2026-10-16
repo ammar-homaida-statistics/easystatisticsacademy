@@ -84,7 +84,7 @@ sidebar: false
       <strong>Definition:</strong>
 
       <p>
-        A geometric random variable counts how many trials occur before the first success is observed.
+        Here the geometric random variable counts the trial on which the first success occurs, <strong>including the successful trial</strong>. It does not count only the failures before success.
       </p>
 
     </div>
@@ -145,10 +145,14 @@ sidebar: false
       A geometric random variable is commonly written as:
     </p>
 
-    0
+    
+    \[
+    X\sim\operatorname{Geom}(p),\qquad 0<p\le1
+    \]
+
 
     <p>
-      where p represents the probability of success on each trial.
+      where p is the constant success probability on each independent trial, with 0 &lt; p &le; 1. We use the <strong>trials-until-first-success</strong> convention throughout; the alternative failures-before-success convention has support beginning at zero.
     </p>
 
     <h2>Possible Values</h2>
@@ -181,7 +185,11 @@ sidebar: false
       Therefore the possible values are:
     </p>
 
-    1
+    
+    \[
+    X\in\{1,2,3,\ldots\}
+    \]
+
 
     <h2>The Probability Formula</h2>
 
@@ -189,7 +197,11 @@ sidebar: false
       The probability that the first success occurs on trial k is:
     </p>
 
-    2
+    
+    \[
+    P(X=k)=(1-p)^{k-1}p,\quad k=1,2,\ldots
+    \]
+
 
     <p>
       This formula contains two parts:
@@ -259,13 +271,21 @@ sidebar: false
       Since:
     </p>
 
-    3
+    
+    \[
+    p=P(\text{Head})=\frac12
+    \]
+
 
     <p>
       The probability that the first head occurs on toss 3 is:
     </p>
 
-    4
+    
+    \[
+    P(X=3)=\left(1-\frac12\right)^{2}\frac12=\frac18=0.125
+    \]
+
 
     <p>
       Two tails followed by one head.
@@ -277,7 +297,11 @@ sidebar: false
       The expected value is:
     </p>
 
-    5
+    
+    \[
+    E[X]=\frac1p
+    \]
+
 
     <div class="concept-box">
 
@@ -307,7 +331,11 @@ sidebar: false
       Then:
     </p>
 
-    6
+    
+    \[
+    E[X]=\frac{1}{0.25}=4
+    \]
+
 
     <p>
       On average,
@@ -320,7 +348,11 @@ sidebar: false
       The variance of a geometric distribution is:
     </p>
 
-    7
+    
+    \[
+    \operatorname{Var}(X)=\frac{1-p}{p^2}
+    \]
+
 
     <p>
       Variability increases as successes become rarer.
@@ -372,10 +404,14 @@ sidebar: false
       The probability of success on the next trial remains:
     </p>
 
-    8
+    
+    \[
+    P(\text{Head on next toss}\mid\text{10 previous tails})=\frac12=p
+    \]
+
 
     <p>
-      exactly as before.
+      exactly as before, because independent trials have no memory. Here the conditioning event has positive probability (p = 0.5); for p = 1, a previous failure has probability zero and that conditional probability is undefined.
     </p>
 
     <p>
