@@ -12,11 +12,15 @@ sidebar: false
 
   const KEY = "esa_continue_probability_last_block_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
     url: "/probability/basics/",
     label: "Block 1 — Probability Basics",
     ts: Date.now()
   }));
+  } catch (_) {
+    // Progress is optional when browser storage access is blocked.
+  }
 
 })();
 </script>
@@ -505,32 +509,34 @@ sidebar: false
 <!-- CONTINUE READING SCRIPT -->
 <script>
 (function () {
-
   try {
-
     const KEY = "esa_continue_probability_basics_lesson_v0";
     const raw = localStorage.getItem(KEY);
-
     if (!raw) return;
-
     const data = JSON.parse(raw);
-
-    if (!data || !data.url || !data.label) return;
+    // Match only exact, published lesson hrefs belonging to this block.
+    // Prefix matches are insufficient: queries, fragments, traversal and other blocks are rejected.
+    const published = new Set(
+      Array.from(document.querySelectorAll("#lessons .lesson-card h3 a[href]"),
+        link => link.getAttribute("href"))
+        .filter(url => typeof url === "string" &&
+          /^\/probability\/basics\/[a-z0-9-]+\/$/.test(url))
+    );
+    if (!data || typeof data.url !== "string" ||
+        typeof data.label !== "string" || !data.label.trim() ||
+        data.label.length > 200 || !published.has(data.url)) return;
 
     const wrap = document.getElementById("continue-reading-probability-basics");
     const label = document.getElementById("continue-reading-probability-basics-label");
     const btn = document.getElementById("continue-reading-probability-basics-btn");
-
     if (!wrap || !label || !btn) return;
-
-    label.innerHTML =
-      "You last visited: <strong>" + data.label + "</strong>";
-
+    const strong = document.createElement("strong");
+    strong.textContent = data.label;
+    label.replaceChildren("You last visited: ", strong);
     btn.href = data.url;
-
     wrap.style.display = "block";
-
-  } catch (e) {}
-
+  } catch (_) {
+    // Malformed saved data and denied storage must never prevent navigation.
+  }
 })();
 </script>
