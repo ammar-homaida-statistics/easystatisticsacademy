@@ -125,7 +125,11 @@ sidebar: false
       Specifically:
     </p>
 
-    0
+    
+    \[
+    \frac{\sqrt n(\bar X-\mu)}{\sigma}\ \overset{d}{\longrightarrow}\ N(0,1)\quad(\sigma^2<\infty,\ \sigma>0)
+    \]
+
 
     <p>
       when the sample size is sufficiently large.
@@ -157,7 +161,11 @@ sidebar: false
       Then for large n:
     </p>
 
-    1
+    
+    \[
+    \bar X\ \dot\sim\ N\!\left(\mu,\frac{\sigma^2}{n}\right)
+    \]
+
 
     <p>
       approximately.
@@ -173,7 +181,11 @@ sidebar: false
       The standard deviation of the sampling distribution is:
     </p>
 
-    2
+    
+    \[
+    \operatorname{SE}(\bar X)=\frac{\sigma}{\sqrt n}
+    \]
+
 
     <p>
       called the standard error.
@@ -190,7 +202,11 @@ sidebar: false
       probabilities can be calculated using standardized values.
     </p>
 
-    3
+    
+    \[
+    Z=\frac{\bar X-\mu}{\sigma/\sqrt n}
+    \]
+
 
     <p>
       This converts sample means into standard normal values.
@@ -222,7 +238,11 @@ sidebar: false
       Then:
     </p>
 
-    4
+    
+    \[
+    \bar X\ \dot\sim\ N\!\left(170,\frac{12^2}{100}\right),\quad \operatorname{SE}(\bar X)=\frac{12}{10}=1.2\ \mathrm{cm}
+    \]
+
 
     <p>
       The distribution of sample means is much narrower than the original population distribution.
@@ -253,14 +273,22 @@ sidebar: false
       If:
     </p>
 
-    5
+    
+    \[
+    p=P(\text{success})
+    \]
+
 
     <p>
       is the true population proportion,
       then:
     </p>
 
-    6
+    
+    \[
+    \hat p\ \dot\sim\ N\!\left(p,\frac{p(1-p)}{n}\right)
+    \]
+
 
     <p>
       for sufficiently large sample sizes.
@@ -303,13 +331,21 @@ sidebar: false
       If:
     </p>
 
-    7
+    
+    \[
+    X\sim\operatorname{Binomial}(n,p)
+    \]
+
 
     <p>
       then for sufficiently large n:
     </p>
 
-    8
+    
+    \[
+    X\ \dot\sim\ N\!\left(np,np(1-p)\right)
+    \]
+
 
     <p>
       This approximation simplifies probability calculations substantially.
