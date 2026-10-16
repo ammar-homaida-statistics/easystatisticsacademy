@@ -120,13 +120,21 @@ sidebar: false
       we learned that:
     </p>
 
-    0
+    
+    \[
+    \beta=P(\text{fail to reject }H_0\mid H_0\text{ false; specified alternative})
+    \]
+
 
     <p>
       Power is simply the complement:
     </p>
 
-    1
+    
+    \[
+    \text{Power}=1-\beta
+    \]
+
 
     <p>
       Therefore:
@@ -186,7 +194,11 @@ sidebar: false
       Suppose a study has:
     </p>
 
-    2
+    
+    \[
+    \text{Power}=0.80
+    \]
+
 
     <p>
       This means:
@@ -203,7 +215,11 @@ sidebar: false
       The corresponding Type II error probability is:
     </p>
 
-    3
+    
+    \[
+    \beta=1-0.80=0.20
+    \]
+
 
     <h2>What Is Effect Size?</h2>
 
@@ -330,7 +346,11 @@ sidebar: false
       Larger:
     </p>
 
-    4
+    
+    \[
+    \alpha
+    \]
+
 
     <p>
       makes rejection easier and increases power.
@@ -386,7 +406,11 @@ sidebar: false
       Many scientific studies aim for:
     </p>
 
-    5
+    
+    \[
+    \text{target power}=0.80
+    \]
+
 
     <p>
       or:
