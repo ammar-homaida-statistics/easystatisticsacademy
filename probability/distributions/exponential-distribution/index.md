@@ -84,7 +84,7 @@ sidebar: false
       <strong>Definition:</strong>
 
       <p>
-        An exponential random variable measures the time between consecutive events in a Poisson process.
+        For a homogeneous Poisson process, an exponential variable measures the waiting time between consecutive events. This does not generally hold for other event-arrival mechanisms.
       </p>
 
     </div>
@@ -167,7 +167,7 @@ sidebar: false
       The exponential distribution uses the same rate parameter:
     </p>
 
-    0
+    \[\lambda>0\]
 
     <p>
       that appears in the Poisson distribution.
@@ -194,7 +194,7 @@ sidebar: false
     <div class="example-box">
 
       <p>
-        X ~ Exponential(λ)
+        X ~ Exponential(λ), with λ &gt; 0
       </p>
 
     </div>
@@ -209,13 +209,13 @@ sidebar: false
       The exponential density function is:
     </p>
 
-    1
+    \[f_X(x)=\lambda e^{-\lambda x},\qquad x\ge 0\]
 
     <p>
       for:
     </p>
 
-    2
+    \[x\ge 0\]
 
     <p>
       and zero otherwise.
@@ -249,7 +249,7 @@ sidebar: false
       The probability that an event occurs within time x is:
     </p>
 
-    3
+    \[F_X(x)=P(X\le x)=1-e^{-\lambda x},\qquad x\ge 0\]
 
     <p>
       This is the cumulative distribution function (CDF).
@@ -261,7 +261,7 @@ sidebar: false
       The probability of waiting more than x units of time is:
     </p>
 
-    4
+    \[P(X>x)=e^{-\lambda x},\qquad x\ge 0\]
 
     <p>
       This is called the survival function.
@@ -289,7 +289,7 @@ sidebar: false
       Using the CDF:
     </p>
 
-    5
+    \[P(X\le 1)=1-e^{-2}\approx 0.864665\]
 
     <p>
       This evaluates to approximately 0.865.
@@ -301,7 +301,7 @@ sidebar: false
       The expected value is:
     </p>
 
-    6
+    \[\operatorname{E}(X)=\frac{1}{\lambda}\]
 
     <div class="concept-box">
 
@@ -331,7 +331,7 @@ sidebar: false
       Then:
     </p>
 
-    7
+    \[\operatorname{E}(X)=\frac14\ \text{hour}=15\ \text{minutes}\]
 
     <p>
       hours,
@@ -344,13 +344,13 @@ sidebar: false
       The variance is:
     </p>
 
-    8
+    \[\operatorname{Var}(X)=\frac{1}{\lambda^2}\]
 
     <p>
       The standard deviation is:
     </p>
 
-    9
+    \[\operatorname{SD}(X)=\frac{1}{\lambda}\]
 
     <p>
       Interestingly,
@@ -379,7 +379,7 @@ sidebar: false
       Mathematically:
     </p>
 
-    10
+    \[P(X>s+t\mid X>s)=P(X>t)=e^{-\lambda t},\qquad s,t\ge 0\]
 
     <p>
       The remaining waiting time has the same distribution regardless of past waiting.
@@ -388,7 +388,7 @@ sidebar: false
     <h2>Understanding Memorylessness</h2>
 
     <p>
-      Suppose no customer has arrived for 20 minutes.
+      Under a constant event rate, suppose no customer has arrived for 20 minutes.
     </p>
 
     <p>
@@ -478,7 +478,7 @@ sidebar: false
     <h2>The Limitation</h2>
 
     <p>
-      The exponential distribution models waiting for a single event.
+      The exponential distribution models the waiting time to the next event under a constant hazard rate.
     </p>
 
     <p>
@@ -514,6 +514,8 @@ sidebar: false
     <p>
       It is one of the most flexible and useful continuous distributions in probability and statistics.
     </p>
+
+    <div class="concept-box"><p><strong>Explore the connection:</strong> Use the <a href="/probability/distributions/poisson-distribution/#esa-poisson-exponential-explorer">Poisson–Exponential interactive explorer</a> to compare the probability of zero events with the probability of waiting longer than the same observation time.</p></div>
 
     <!-- TAKEAWAYS -->
 
