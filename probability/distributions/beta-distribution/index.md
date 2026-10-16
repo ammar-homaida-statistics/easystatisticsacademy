@@ -169,19 +169,31 @@ sidebar: false
       The beta density function is:
     </p>
 
-    0
+    
+    \[
+    f_X(x)=\frac{x^{\alpha-1}(1-x)^{\beta-1}}{B(\alpha,\beta)}
+    \]
+
 
     <p>
       for:
     </p>
 
-    1
+    
+    \[
+    0<x<1,\qquad\alpha>0,\ \beta>0
+    \]
+
 
     <p>
       where:
     </p>
 
-    2
+    
+    \[
+    B(\alpha,\beta)=\frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha+\beta)}
+    \]
+
 
     <p>
       is the beta function.
@@ -213,7 +225,11 @@ sidebar: false
       When:
     </p>
 
-    3
+    
+    \[
+    \alpha=\beta=1
+    \]
+
 
     <p>
       the beta distribution becomes:
@@ -303,7 +319,11 @@ sidebar: false
       The expected value of a beta distribution is:
     </p>
 
-    4
+    
+    \[
+    E[X]=\frac{\alpha}{\alpha+\beta}
+    \]
+
 
     <div class="concept-box">
 
@@ -337,7 +357,11 @@ sidebar: false
       Then:
     </p>
 
-    5
+    
+    \[
+    E[X]=\frac8{8+2}=0.8
+    \]
+
 
     <p>
       The distribution is centered near 0.8.
@@ -349,7 +373,11 @@ sidebar: false
       The variance is:
     </p>
 
-    6
+    
+    \[
+    \operatorname{Var}(X)=\frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)}
+    \]
+
 
     <p>
       Variability depends on both parameters.
