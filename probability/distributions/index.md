@@ -682,50 +682,36 @@ sidebar: false
 </section>
 
 <!-- CONTINUE READING SCRIPT -->
-
 <script>
 (function () {
-
   try {
-
-    const KEY =
-      "esa_continue_probability_distributions_lesson_v0";
-
+    const KEY = "esa_continue_probability_distributions_lesson_v0";
     const raw = localStorage.getItem(KEY);
-
     if (!raw) return;
-
     const data = JSON.parse(raw);
+    // Match only exact, published lesson hrefs belonging to this block.
+    // Prefix matches are insufficient: queries, fragments, traversal and other blocks are rejected.
+    const published = new Set(
+      Array.from(document.querySelectorAll("#lessons .lesson-card h3 a[href]"),
+        link => link.getAttribute("href"))
+        .filter(url => typeof url === "string" &&
+          /^\/probability\/distributions\/[a-z0-9-]+\/$/.test(url))
+    );
+    if (!data || typeof data.url !== "string" ||
+        typeof data.label !== "string" || !data.label.trim() ||
+        data.label.length > 200 || !published.has(data.url)) return;
 
-    if (!data || !data.url || !data.label) return;
-
-    const wrap =
-      document.getElementById(
-        "continue-reading-probability-distributions"
-      );
-
-    const label =
-      document.getElementById(
-        "continue-reading-probability-distributions-label"
-      );
-
-    const btn =
-      document.getElementById(
-        "continue-reading-probability-distributions-btn"
-      );
-
+    const wrap = document.getElementById("continue-reading-probability-distributions");
+    const label = document.getElementById("continue-reading-probability-distributions-label");
+    const btn = document.getElementById("continue-reading-probability-distributions-btn");
     if (!wrap || !label || !btn) return;
-
-    label.innerHTML =
-      "You last visited: <strong>" +
-      data.label +
-      "</strong>";
-
+    const strong = document.createElement("strong");
+    strong.textContent = data.label;
+    label.replaceChildren("You last visited: ", strong);
     btn.href = data.url;
-
     wrap.style.display = "block";
-
-  } catch (e) {}
-
+  } catch (_) {
+    // Malformed saved data and denied storage must never prevent navigation.
+  }
 })();
 </script>
