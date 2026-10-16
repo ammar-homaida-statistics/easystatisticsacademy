@@ -215,7 +215,11 @@ sidebar: false
       The probability that a discrete random variable takes a specific value is written as:
     </p>
 
-    0
+    
+    \[
+    p_X(x)=P(X=x)
+    \]
+
 
     <p>
       where x is a particular possible value.
@@ -263,7 +267,11 @@ sidebar: false
       Every probability must be nonnegative.
     </p>
 
-    1
+    
+    \[
+    p_X(x)\ge0\quad\text{for all }x
+    \]
+
 
     <h3>Property 2: Total Probability Equals One</h3>
 
@@ -271,7 +279,11 @@ sidebar: false
       The probabilities of all possible outcomes must sum to one.
     </p>
 
-    2
+    
+    \[
+    \sum_x p_X(x)=1
+    \]
+
 
     <p>
       This reflects the fact that one of the possible outcomes must occur.
