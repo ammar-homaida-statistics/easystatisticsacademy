@@ -400,7 +400,7 @@ sidebar: false
         outline:2px solid var(--accent);outline-offset:2px;
       }
       #esa-variance-explorer .esa-variance-correlation {grid-column:1/-1;}
-      #esa-variance-explorer input[type="range"] {width:100%;accent-color:var(--brand);}
+      #esa-variance-explorer input[type="range"] {display:block;width:100%;max-width:100%;box-sizing:border-box;margin:0;accent-color:var(--brand);}
       #esa-variance-explorer .esa-variance-presets {display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;}
       #esa-variance-explorer .esa-variance-presets button {min-width:85px;}
       #esa-variance-explorer .esa-variance-formula {overflow-wrap:anywhere;}
