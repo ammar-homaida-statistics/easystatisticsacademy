@@ -3149,6 +3149,153 @@ class SearchTests(unittest.TestCase):
                 self.assertTrue(saved["label"])
                 self.assertIsInstance(saved["ts"], (int, float))
 
+    def test_restored_proportion_wald_math_and_numerical_examples(self):
+        """Inspect all 29 expressions and independently recompute both Wald CIs."""
+        from math import sqrt
+        cases = (
+            ("/inference/confidence-intervals/ci-for-proportion/", 15,
+             (r"\hat p=\frac{x}{n}",
+              r"\widehat{\operatorname{SE}}(\hat p)=\sqrt{\frac{\hat p(1-\hat p)}{n}}",
+              r"\hat p\ \pm\ z_{1-\alpha/2}",
+              r"n\hat p=500(0.62)=310"),
+             ("(0.5775, 0.6625)", "57.8% to 66.3%", "Wald", "Wilson")),
+            ("/inference/confidence-intervals/ci-for-difference-of-proportions/", 14,
+             (r"\hat p_1-\hat p_2",
+              r"\widehat{\operatorname{SE}}(\hat p_1-\hat p_2)",
+              r"\sqrt{0.00075}",
+              r"0.10\pm0.053676"),
+             ("(0.0463, 0.1537)", "4.6% to 15.4%", "Wald", "Newcombe"))
+        )
+        for route, n, formulas, phrases in cases:
+            with self.subTest(page=route):
+                html = (SITE / route.lstrip("/") / "index.html").read_text()
+                main = html.split('<main id="main-content"', 1)[1].split("</main>", 1)[0]
+                self.assertNotIn("\uea01", main)
+                self.assertNotIn("\uea02", main)
+                self.assertEqual(main.count(r"\["), n)
+                self.assertEqual(main.count(r"\]"), n)
+                for formula in formulas:
+                    self.assertIn(formula, main)
+                self.page.goto(self.origin + route, wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+                for phrase in phrases:
+                    expect(self.page.locator("main")).to_contain_text(phrase)
+                saved = self.page.evaluate(
+                    "key => JSON.parse(localStorage.getItem(key))",
+                    "esa_continue_inference_confidence_intervals_lesson_v0")
+                self.assertEqual(saved["url"], route)
+
+        p, n = 310 / 500, 500
+        se = sqrt(p * (1-p) / n)
+        self.assertAlmostEqual(se, 0.021707141681944216, places=12)
+        self.assertAlmostEqual(1.96*se, 0.04254599769661066, places=10)
+        self.assertAlmostEqual(p - 1.96*se, 0.5774540023033894, places=9)
+        self.assertAlmostEqual(p + 1.96*se, 0.6625459976966106, places=9)
+        self.assertGreater(n*p, 10)
+        self.assertGreater(n*(1-p), 10)
+        p1, p2, n1, n2 = 240 / 600, 180 / 600, 600, 600
+        se_diff = sqrt(p1*(1-p1)/n1 + p2*(1-p2)/n2)
+        self.assertAlmostEqual(se_diff, 0.027386127875258306, places=12)
+        self.assertAlmostEqual(1.96*se_diff, 0.05367681063550628, places=10)
+        self.assertAlmostEqual(p1-p2-1.96*se_diff, 0.04632318936449374, places=10)
+        self.assertAlmostEqual(p1-p2+1.96*se_diff, 0.15367681063550628, places=10)
+        for successes, total in ((240,600), (180,600)):
+            self.assertGreaterEqual(successes, 10)
+            self.assertGreaterEqual(total-successes, 10)
+
+    def test_confidence_interval_self_check_accessible_feedback_and_mobile(self):
+        """Six validated explanations; native radio keys, keyboard and mobile layout."""
+        self.page.goto(self.origin + "/inference/confidence-intervals/",
+                       wait_until="networkidle")
+        quiz = self.page.locator("#esa-ci-self-check")
+        expect(quiz.get_by_role("heading", name="Check Your Confidence Interval Understanding")).to_be_visible()
+        fields = quiz.locator("fieldset")
+        expect(fields).to_have_count(6)
+        correct = ("b", "a", "c", "a", "b", "c")
+        for idx, answer in enumerate(correct):
+            with self.subTest(question=idx+1):
+                field = fields.nth(idx)
+                expect(field.locator("legend")).to_be_visible()
+                expect(field.get_by_role("radio")).to_have_count(3)
+                feedback = field.locator('[role="status"][aria-live="polite"]')
+                wrong = "a" if answer != "a" else "b"
+                field.locator(f'input[value="{wrong}"]').check()
+                expect(feedback).to_contain_text("Not quite.")
+                self.assertEqual(feedback.get_attribute("data-state"), "incorrect")
+                field.locator(f'input[value="{answer}"]').focus()
+                self.page.keyboard.press("Space")
+                expect(field.locator(f'input[value="{answer}"]')).to_be_checked()
+                expect(feedback).to_contain_text("Correct.")
+                self.assertGreater(len(feedback.inner_text()), 55)
+                self.assertEqual(feedback.get_attribute("data-state"), "correct")
+        expect(self.page.locator("#lessons .lesson-card")).to_have_count(12)
+        for width in (320,375,768,1280):
+            with self.subTest(width=width):
+                self.page.set_viewport_size({"width":width,"height":850})
+                overflow = self.page.evaluate(
+                    "() => document.documentElement.scrollWidth - innerWidth")
+                if overflow > 1:
+                    offending = self.page.evaluate("""() =>
+                      [...document.querySelectorAll('body *')]
+                        .map(e => ({tag:e.tagName, id:e.id,
+                                    cls:(typeof e.className === 'string' ? e.className : ''),
+                                    width:Math.round(e.getBoundingClientRect().width),
+                                    right:Math.round(e.getBoundingClientRect().right),
+                                    text:(e.textContent||'').trim().slice(0,50)}))
+                        .filter(e => e.right > innerWidth + 1)
+                        .slice(0,16)
+                    """)
+                    quiz_width = self.page.locator("#esa-ci-self-check").evaluate(
+                        "e => ({scroll:e.scrollWidth, client:e.clientWidth})")
+                    self.fail(f"Viewport {width} overflow {overflow}; "
+                              f"quiz={quiz_width}; offenders={offending}")
+
+    def test_six_inference_overviews_keep_original_resume_schema(self):
+        """No change to shared key, labels, URLs or recent progress behavior."""
+        blocks = (
+            ("foundations", "Block 1 — Inference Foundations"),
+            ("hypothesis-testing", "Block 3 — Hypothesis Testing"),
+            ("classical-tests", "Block 4 — Classical Tests"),
+            ("power-sample-size", "Block 5 — Power and Sample Size"),
+            ("interpretation-reporting", "Block 6 — Interpretation & Reporting"),
+            ("assumptions-robustness", "Block 7 — Assumptions & Robustness"),
+        )
+        for slug, label in blocks:
+            route = "/inference/" + slug + "/"
+            with self.subTest(block=slug):
+                self.page.goto(self.origin + route, wait_until="networkidle")
+                data = self.page.evaluate(
+                    "() => JSON.parse(localStorage.getItem('esa_continue_inference_last_block_v0'))")
+                self.assertEqual(data["url"], route)
+                self.assertEqual(data["label"], label)
+                self.assertIsInstance(data["ts"], (int, float))
+                expect(self.page.locator("main h1")).to_be_visible()
+                if slug == "classical-tests":
+                    expect(self.page.locator("#esa-test-guide")).to_be_visible()
+                    expect(self.page.locator("#esa-test-result")).to_be_visible()
+
+    def test_six_inference_overviews_load_without_localstorage(self):
+        """Block navigation and the current test selector remain usable when denied."""
+        self.page.add_init_script("""
+          Object.defineProperty(window, "localStorage", {
+            configurable: true,
+            get() { throw new DOMException("Storage denied", "SecurityError"); }
+          });
+        """)
+        slugs = ("foundations", "hypothesis-testing", "classical-tests",
+                 "power-sample-size", "interpretation-reporting",
+                 "assumptions-robustness")
+        for slug in slugs:
+            route = "/inference/" + slug + "/"
+            with self.subTest(block=slug):
+                self.page.goto(self.origin + route, wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+                self.assertGreater(self.page.locator("main a[href^='/']").count(), 0)
+                self.assertEqual(self.errors, [], route)
+                if slug == "classical-tests":
+                    expect(self.page.locator("#esa-test-guide")).to_be_visible()
+                    expect(self.page.locator("#esa-test-result")).to_be_visible()
+
     def test_welch_and_paired_repaired_mathematics_and_numeric_examples(self):
         """Recalculate Welch and paired inferences against lesson statements."""
         from math import sqrt, isclose

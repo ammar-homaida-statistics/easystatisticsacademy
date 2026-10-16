@@ -167,6 +167,80 @@ sidebar: false
 
 </section>
 
+
+<!-- CONFIDENCE INTERVAL SELF-CHECK -->
+<section class="section" id="esa-ci-self-check-section" aria-labelledby="esa-ci-self-check-heading">
+  <div class="content-narrow esa-self-check" id="esa-ci-self-check">
+    <h2 id="esa-ci-self-check-heading">Check Your Confidence Interval Understanding</h2>
+    <p>Answer each question for immediate feedback and a short explanation. Use Tab and the arrow keys to navigate the choices. Answers are not saved or transmitted.</p>
+    <fieldset data-answer="b" data-explanation="A frequentist 95% procedure covers the fixed parameter in about 95% of repeated samples, under its model and sampling assumptions. It does not assign a 95% probability to the parameter after observing this particular interval.">
+      <legend>1. What does 95% confidence mean for a valid interval procedure?</legend>
+      <label><input type="radio" name="esa-ci-check-1" value="a"> The fixed population parameter has a 95% probability of changing between samples.</label>
+      <label><input type="radio" name="esa-ci-check-1" value="b"> Approximately 95% of intervals built by the same procedure would contain the fixed parameter in repeated sampling.</label>
+      <label><input type="radio" name="esa-ci-check-1" value="c"> 95% of all sample observations must lie inside each interval.</label>
+      <p class="esa-check-feedback" role="status" aria-live="polite"></p>
+    </fieldset>
+
+    <fieldset data-answer="a" data-explanation="Margin of error equals critical value times estimated standard error: 1.96 × 0.02 = 0.0392.">
+      <legend>2. If the standard error is 0.02 and the two-sided 95% z critical value is 1.96, what is the margin of error?</legend>
+      <label><input type="radio" name="esa-ci-check-2" value="a"> 0.0392</label>
+      <label><input type="radio" name="esa-ci-check-2" value="b"> 0.0200</label>
+      <label><input type="radio" name="esa-ci-check-2" value="c"> 0.0980</label>
+      <p class="esa-check-feedback" role="status" aria-live="polite"></p>
+    </fieldset>
+
+    <fieldset data-answer="c" data-explanation="A typical standard error is proportional to 1 divided by the square root of sample size. Increasing n fourfold halves the standard error and approximately halves the margin of error and width.">
+      <legend>3. Under independent sampling and the same variability, what happens to the approximate confidence interval width when sample size quadruples?</legend>
+      <label><input type="radio" name="esa-ci-check-3" value="a"> It doubles.</label>
+      <label><input type="radio" name="esa-ci-check-3" value="b"> It remains unchanged.</label>
+      <label><input type="radio" name="esa-ci-check-3" value="c"> It is approximately halved.</label>
+      <p class="esa-check-feedback" role="status" aria-live="polite"></p>
+    </fieldset>
+
+    <fieldset data-answer="a" data-explanation="At the same standard error, a higher confidence level requires a larger critical value and therefore a larger margin of error; coverage and precision trade off.">
+      <legend>4. With the same data and interval method, how does a 99% confidence interval compare with a 95% confidence interval?</legend>
+      <label><input type="radio" name="esa-ci-check-4" value="a"> It is wider because the critical value increases.</label>
+      <label><input type="radio" name="esa-ci-check-4" value="b"> It is narrower because 99% means higher precision.</label>
+      <label><input type="radio" name="esa-ci-check-4" value="c"> It has exactly the same width.</label>
+      <p class="esa-check-feedback" role="status" aria-live="polite"></p>
+    </fieldset>
+
+    <fieldset data-answer="b" data-explanation="For a two-sided test and its corresponding 95% interval under matching assumptions, excluding the null value 20 implies rejection at the 5% significance level. The point estimate is not proof of the exact parameter.">
+      <legend>5. A 95% confidence interval for a mean is [12, 18]. What follows for the matching two-sided test H₀: μ = 20 at α = 0.05?</legend>
+      <label><input type="radio" name="esa-ci-check-5" value="a"> Do not reject H₀ because the confidence level is high.</label>
+      <label><input type="radio" name="esa-ci-check-5" value="b"> Reject H₀ because the interval excludes 20.</label>
+      <label><input type="radio" name="esa-ci-check-5" value="c"> The interval proves that μ equals 15.</label>
+      <p class="esa-check-feedback" role="status" aria-live="polite"></p>
+    </fieldset>
+
+    <fieldset data-answer="c" data-explanation="The plug-in standard error is the square root of p̂ times (1 − p̂) divided by n. A Wald interval needs sufficient successes and failures and can under-cover, especially near 0 or 1; Wilson intervals are often better.">
+      <legend>6. In a simple 95% Wald interval for a sample proportion, which quantity is estimated using p̂ and n?</legend>
+      <label><input type="radio" name="esa-ci-check-6" value="a"> The population standard deviation of continuous observations.</label>
+      <label><input type="radio" name="esa-ci-check-6" value="b"> The exact realized sampling error of the point estimate.</label>
+      <label><input type="radio" name="esa-ci-check-6" value="c"> The standard error of the sample proportion.</label>
+      <p class="esa-check-feedback" role="status" aria-live="polite"></p>
+    </fieldset>
+  </div>
+</section>
+<script>
+(function () {
+  const quiz = document.getElementById("esa-ci-self-check");
+  if (!quiz) return;
+  quiz.querySelectorAll("fieldset").forEach(field => {
+    field.addEventListener("change", event => {
+      const choice = event.target;
+      if (!choice.matches('input[type="radio"]') || !choice.checked) return;
+      const feedback = field.querySelector(".esa-check-feedback");
+      if (!feedback) return;
+      const correct = choice.value === field.dataset.answer;
+      feedback.textContent = (correct ? "Correct. " : "Not quite. ") +
+        field.dataset.explanation;
+      feedback.dataset.state = correct ? "correct" : "incorrect";
+    });
+  });
+})();
+</script>
+
 <!-- LESSONS -->
 
 <section class="section" id="lessons">
@@ -555,7 +629,7 @@ sidebar: false
 
   <div class="callout">
 
-    <div class="callout-copy">
+    <div class="callout-copy" style="min-width:0;">
 
       <h2>How this block fits into inference</h2>
 
