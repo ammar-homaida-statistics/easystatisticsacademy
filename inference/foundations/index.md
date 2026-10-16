@@ -12,11 +12,15 @@ sidebar: false
 
   const KEY = "esa_continue_inference_last_block_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
     url: "/inference/foundations/",
     label: "Block 1 — Inference Foundations",
     ts: Date.now()
   }));
+  } catch (_) {
+    // Resume progress is optional when localStorage is denied.
+  }
 
 })();
 </script>
