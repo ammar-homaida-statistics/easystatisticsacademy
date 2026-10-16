@@ -246,7 +246,11 @@ sidebar: false
       has probability:
     </p>
 
-    0
+    
+    \[
+    P(HH)=0.5\times0.5=0.25
+    \]
+
 
     <h2>Why Multiplication Works</h2>
 
@@ -336,7 +340,11 @@ sidebar: false
       Therefore:
     </p>
 
-    1
+    
+    \[
+    P(\text{at least one head})=P(HH)+P(HT)+P(TH)=3(0.25)=0.75
+    \]
+
 
     <p>
       The probability is 0.75.
