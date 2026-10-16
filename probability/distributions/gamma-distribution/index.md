@@ -76,7 +76,7 @@ sidebar: false
     <h2>What Is a Gamma Distribution?</h2>
 
     <p>
-      The gamma distribution models the waiting time until a specified number of events occur in a Poisson process.
+      A gamma distribution with a positive integer shape models the waiting time until that many events occur in a homogeneous Poisson process. More generally, gamma shapes can be any positive real number.
     </p>
 
     <div class="concept-box">
@@ -84,7 +84,7 @@ sidebar: false
       <strong>Definition:</strong>
 
       <p>
-        A gamma random variable represents the total waiting time required for multiple random events to occur.
+        For integer shape, a gamma random variable gives the waiting time until the corresponding event in a Poisson process. For arbitrary positive shape, it is a continuous positive distribution without requiring an integer event count.
       </p>
 
     </div>
@@ -135,7 +135,7 @@ sidebar: false
       <strong>Key idea:</strong>
 
       <p>
-        A gamma distribution is the distribution of the sum of independent exponential waiting times.
+        For positive integer shape r, a gamma distribution with rate λ is the sum of r independent Exponential(λ) waiting times (the Erlang case).
       </p>
 
     </div>
@@ -155,7 +155,7 @@ sidebar: false
     </ul>
 
     <p>
-      The shape parameter determines how many events are being accumulated.
+      When α is a positive integer, the shape is the number of events waited for in a Poisson process. The general Gamma model also permits noninteger α.
     </p>
 
     <p>
@@ -182,13 +182,21 @@ sidebar: false
       The gamma density function is:
     </p>
 
-    0
+    
+    \[
+    f_X(x)=\frac{\lambda^\alpha}{\Gamma(\alpha)}x^{\alpha-1}e^{-\lambda x}
+    \]
+
 
     <p>
       for:
     </p>
 
-    1
+    
+    \[
+    x>0,\qquad\alpha>0,\ \lambda>0\quad(\lambda\text{ is the rate})
+    \]
+
 
     <p>
       where Γ(α) is the gamma function.
@@ -204,7 +212,11 @@ sidebar: false
       For positive integers:
     </p>
 
-    2
+    
+    \[
+    \Gamma(n)=(n-1)!\quad\text{for positive integers }n
+    \]
+
 
     <p>
       This connection explains the name of the distribution.
@@ -216,13 +228,21 @@ sidebar: false
       When:
     </p>
 
-    3
+    
+    \[
+    \alpha=1
+    \]
+
 
     <p>
       the gamma distribution becomes:
     </p>
 
-    4
+    
+    \[
+    f_X(x)=\lambda e^{-\lambda x},\quad x\ge0
+    \]
+
 
     <div class="concept-box">
 
@@ -237,7 +257,7 @@ sidebar: false
     <h2>Interpreting the Shape Parameter</h2>
 
     <p>
-      The shape parameter α determines how many events are being waited for.
+      For positive integer α, the shape determines the number of Poisson-process events being waited for. For noninteger α, the event-count interpretation does not apply.
     </p>
 
     <div class="table-wrap">
@@ -287,7 +307,11 @@ sidebar: false
       The expected value is:
     </p>
 
-    5
+    
+    \[
+    E[X]=\frac{\alpha}{\lambda}
+    \]
+
 
     <div class="concept-box">
 
@@ -321,7 +345,11 @@ sidebar: false
       Then:
     </p>
 
-    6
+    
+    \[
+    E[X]=\frac{4}{2}=2\ \text{time units}
+    \]
+
 
     <p>
       The average waiting time equals 2 time units.
@@ -333,7 +361,11 @@ sidebar: false
       The variance is:
     </p>
 
-    7
+    
+    \[
+    \operatorname{Var}(X)=\frac{\alpha}{\lambda^2}
+    \]
+
 
     <p>
       Greater shape values increase variability,
