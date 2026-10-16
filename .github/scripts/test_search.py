@@ -3300,6 +3300,7 @@ class SearchTests(unittest.TestCase):
     def test_hypotheses_and_proportion_sample_size_restored_math(self):
         """Restore 30 independently checked formulas, with correct inequalities and n."""
         from math import ceil
+        from html import unescape
         definitions = (
             ("/inference/hypothesis-testing/null-and-alternative/", 15, (
                 r"H_0:\ \mu=500\ \mathrm{mL}",
@@ -3324,7 +3325,7 @@ class SearchTests(unittest.TestCase):
         for route, expected, phrases in definitions:
             with self.subTest(route=route):
                 html = (SITE / route.lstrip("/") / "index.html").read_text()
-                main = html.split('<main id="main-content"', 1)[1].split("</main>", 1)[0]
+                main = unescape(html.split('<main id="main-content"', 1)[1].split("</main>", 1)[0])
                 self.assertNotIn("\uea01", main)
                 self.assertNotIn("\uea02", main)
                 self.assertEqual(main.count(r"\["), expected)
