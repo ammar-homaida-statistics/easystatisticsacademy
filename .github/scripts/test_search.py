@@ -3762,6 +3762,283 @@ class SearchTests(unittest.TestCase):
                 self.assertEqual(self.errors, [])
                 self.assertGreater(self.page.locator("#lessons .lesson-card").count(), 0)
 
+
+    def test_bernoulli_and_binomial_restored_math_and_calculations(self):
+        """22 source formula restorations and independent binomial PMF/CDF benchmarks."""
+        from html import unescape
+        from math import comb, fsum, sqrt
+        cases = (
+            ("/probability/distributions/bernoulli-distribution/", 9, (
+                r"P(\text{failure})=1-p",
+                r"P(X=1)=p",
+                r"P(X=0)=1-p",
+                r"\operatorname{E}(X)=p",
+                r"\operatorname{Var}(X)=\operatorname{E}(X^2)",
+                r"p(1-p)",
+                r"\tfrac14=0.25",
+                "need not be binomial")),
+            ("/probability/distributions/binomial-distribution/", 13, (
+                r"X\sim\operatorname{Binomial}(n,p)",
+                r"X\in\{0,1,\ldots,n\}",
+                r"P(X=k)=\binom{n}{k}p^k(1-p)^{n-k}",
+                r"\binom{n}{k}=\frac{n!}{k!(n-k)!}",
+                r"P(X=2)=3(0.5)^3=0.375",
+                r"\operatorname{E}(X)=100(0.2)=20",
+                r"\operatorname{Var}(X)=np(1-p)",
+                r"\operatorname{SD}(X)=\sqrt{np(1-p)}",
+                "independent, identically distributed",
+                "Poisson-binomial",
+                "With n = 1"))
+        )
+        for route, restored, checks in cases:
+            with self.subTest(lesson=route):
+                source = (SITE / route.lstrip("/") / "index.html").read_text()
+                main = unescape(source.split('<main id="main-content"', 1)[1]
+                                .split("</main>", 1)[0])
+                self.assertNotIn("\uea01", main)
+                self.assertNotIn("\uea02", main)
+                self.assertEqual(main.count(r"\["), restored)
+                self.assertEqual(main.count(r"\]"), restored)
+                for fragment in checks:
+                    self.assertIn(fragment, main)
+                self.page.goto(self.origin + route, wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+                self.assertEqual(
+                    self.page.evaluate("""() =>
+                      JSON.parse(localStorage.getItem(
+                        'esa_continue_probability_distributions_lesson_v0')).url"""),
+                    route)
+
+        self.assertAlmostEqual(0.5*(1-0.5), 0.25)
+        self.assertAlmostEqual(0.7*(1-0.7), 0.21)
+        self.assertEqual(100*0.2, 20)
+        self.assertAlmostEqual(3*0.5**3, 0.375)
+        self.assertAlmostEqual(sqrt(100*0.2*0.8), 4)
+        for n,p,k in ((3,0.5,2), (10,0.3,0), (10,0.3,10),
+                      (20,0.2,3), (1,0.2,1), (50,0.7,35)):
+            with self.subTest(n=n,p=p,k=k):
+                probabilities = [comb(n,j)*(p**j)*((1-p)**(n-j))
+                                 for j in range(n+1)]
+                self.assertAlmostEqual(fsum(probabilities), 1, places=12)
+                self.assertAlmostEqual(probabilities[k],
+                    comb(n,k)*(p**k)*((1-p)**(n-k)), places=12)
+                self.assertAlmostEqual(fsum(probabilities[:k+1]) +
+                                       fsum(probabilities[k:]) -
+                                       probabilities[k], 1, places=12)
+
+    def test_binomial_probability_calculator_numerics_validation_and_mobile(self):
+        """Inclusive tails, large n stability, Bernoulli, degenerate endpoints, errors."""
+        from math import comb, fsum
+        path = "/probability/distributions/binomial-distribution/"
+        self.page.goto(self.origin + path, wait_until="networkidle")
+        region = self.page.locator("#esa-binomial-calculator")
+        expect(region.get_by_role("heading", name="Interactive Binomial Probability Calculator")).to_be_visible()
+        n = self.page.get_by_label("Number of trials (n)")
+        p = self.page.get_by_label("Success probability (p)")
+        k = self.page.get_by_label("Success count (k)")
+        exact = self.page.locator("#esa-binomial-exact")
+        low = self.page.locator("#esa-binomial-cdf")
+        high = self.page.locator("#esa-binomial-upper")
+        mean = self.page.locator("#esa-binomial-mean")
+        variance = self.page.locator("#esa-binomial-variance")
+        error = self.page.locator("#esa-binomial-error")
+        expect(n).to_have_value("3")
+        expect(p).to_have_value("0.5")
+        expect(k).to_have_value("2")
+        expect(exact).to_have_text("0.375")
+        expect(low).to_have_text("0.875")
+        expect(high).to_have_text("0.5")
+        expect(mean).to_have_text("1.5")
+        expect(variance).to_have_text("0.75")
+
+        def set_case(trials, probability, successes):
+            n.fill(str(trials))
+            p.fill(str(probability))
+            k.fill(str(successes))
+            def val(locator):
+                return float(locator.inner_text().replace(",",""))
+            return val(exact),val(low),val(high),val(mean),val(variance)
+
+        for trials, probability, successes in (
+            (1,0.2,1),(1,0.2,0),(5,0,0),(5,0,1),(5,1,5),(5,1,3),
+            (10,0.3,0),(10,0.3,10),(20,0.2,3),(100,0.2,20),
+            (1000,0.5,500),(1000,0.001,0),
+        ):
+            with self.subTest(trials=trials,p=probability,k=successes):
+                observed = set_case(trials,probability,successes)
+                if probability in (0,1):
+                    deterministic = 0 if probability == 0 else trials
+                    expected = (
+                        1 if successes==deterministic else 0,
+                        1 if successes>=deterministic else 0,
+                        1 if successes<=deterministic else 0,
+                        trials*probability, trials*probability*(1-probability)
+                    )
+                else:
+                    weights = [comb(trials,j)*probability**j*
+                               (1-probability)**(trials-j) for j in range(trials+1)]
+                    expected = (weights[successes],
+                                fsum(weights[:successes+1]),
+                                fsum(weights[successes:]),
+                                trials*probability, trials*probability*(1-probability))
+                for actual,truth in zip(observed,expected):
+                    self.assertAlmostEqual(actual,truth,delta=5e-9)
+
+        n.fill("0")
+        expect(error).to_contain_text("whole number of trials")
+        expect(exact).to_have_text("—")
+        n.fill("1001")
+        expect(error).to_contain_text("whole number of trials")
+        n.fill("1.5")
+        expect(error).to_contain_text("whole number of trials")
+        n.fill("")
+        expect(error).to_contain_text("whole number of trials")
+        n.fill("3")
+        p.fill("-0.1")
+        expect(error).to_contain_text("probability")
+        p.fill("1.1")
+        expect(error).to_contain_text("probability")
+        p.fill("")
+        expect(error).to_contain_text("probability")
+        p.fill("0.5")
+        k.fill("-1")
+        expect(error).to_contain_text("whole number of successes")
+        k.fill("4")
+        expect(error).to_contain_text("whole number of successes")
+        k.fill("1.5")
+        expect(error).to_contain_text("whole number of successes")
+        k.fill("")
+        expect(error).to_contain_text("whole number of successes")
+        k.fill("2")
+        expect(error).to_be_hidden()
+        expect(exact).to_have_text("0.375")
+        p.focus()
+        p.press("Tab")
+        expect(k).to_be_focused()
+        expect(region.locator('[role="status"][aria-live="polite"]')).to_be_visible()
+
+        for width in (320,375,768,1280):
+            with self.subTest(width=width):
+                self.page.set_viewport_size({"width":width,"height":850})
+                bounds=region.evaluate("""e => ({
+                    left:e.getBoundingClientRect().left,
+                    right:e.getBoundingClientRect().right,
+                    scroll:e.scrollWidth, client:e.clientWidth
+                })""")
+                self.assertGreaterEqual(bounds["left"],-1,bounds)
+                self.assertLessEqual(bounds["right"],width+1,bounds)
+                self.assertLessEqual(bounds["scroll"]-bounds["client"],1,bounds)
+
+        self.assertEqual(self.page.evaluate("""() =>
+            JSON.parse(localStorage.getItem(
+              'esa_continue_probability_distributions_lesson_v0')).url"""),path)
+
+    def test_binomial_calculator_with_denied_browser_storage(self):
+        """Calculator works even when progress persistence throws SecurityError."""
+        self.page.add_init_script("""
+          Object.defineProperty(window,'localStorage',{
+            configurable:true,
+            get(){ throw new DOMException('Denied','SecurityError'); }
+          });
+        """)
+        self.page.goto(
+            self.origin + "/probability/distributions/binomial-distribution/",
+            wait_until="networkidle")
+        expect(self.page.locator("main h1")).to_be_visible()
+        expect(self.page.locator("#esa-binomial-exact")).to_have_text("0.375")
+        self.page.get_by_label("Number of trials (n)").fill("1")
+        self.page.get_by_label("Success count (k)").fill("1")
+        expect(self.page.locator("#esa-binomial-exact")).to_have_text("0.5")
+
+    def test_distribution_selection_guide_all_twelve_models_and_resume(self):
+        """Scenario guide only uses verified published lesson links and states assumptions."""
+        route="/probability/distributions/"
+        self.page.goto(self.origin + route,wait_until="networkidle")
+        guide=self.page.locator("#esa-distribution-guide")
+        expect(guide.get_by_role("heading",name="Find a Distribution to Study")).to_be_visible()
+        selector=self.page.get_by_label("What best describes your random outcome?")
+        lessons=self.page.locator("#lessons .lesson-card h3 a[href]")
+        expect(lessons).to_have_count(12)
+        expect(selector.locator('option[value!=""]')).to_have_count(12)
+        link=self.page.locator("#esa-distribution-lesson-link")
+        title=self.page.locator("#esa-distribution-model")
+        assumptions=self.page.locator("#esa-distribution-assumptions")
+        parameters=self.page.locator("#esa-distribution-parameters")
+        caveat=self.page.locator("#esa-distribution-caveat")
+        expect(link).to_be_hidden()
+        models=(
+          ("bernoulli","Bernoulli","bernoulli-distribution","success probability"),
+          ("binomial","Binomial","binomial-distribution","independent"),
+          ("geometric","Geometric","geometric-distribution","first success"),
+          ("negative-binomial","Negative binomial","negative-binomial-distribution","r-th"),
+          ("poisson","Poisson","poisson-distribution","Poisson"),
+          ("hypergeometric","Hypergeometric","hypergeometric-distribution","without replacement"),
+          ("uniform","Continuous uniform","uniform-distribution","constant"),
+          ("exponential","Exponential","exponential-distribution","constant"),
+          ("gamma","Gamma","gamma-distribution","shape"),
+          ("beta","Beta","beta-distribution","continuous"),
+          ("normal","Normal","normal-distribution","symmetric"),
+          ("lognormal","Lognormal","lognormal-distribution","logarithm"),
+        )
+        for value,name,slug,idea in models:
+            with self.subTest(model=value):
+                selector.select_option(value)
+                expect(title).to_have_text(name+" distribution")
+                expect(link).to_be_visible()
+                expected="/probability/distributions/"+slug+"/"
+                expect(link).to_have_attribute("href",expected)
+                self.assertTrue((SITE/expected.lstrip("/")/"index.html").is_file())
+                self.assertIn(expected,[a.get_attribute("href") for a in lessons.all()])
+                self.assertGreater(len(assumptions.inner_text()),35)
+                self.assertGreater(len(parameters.inner_text()),15)
+                expect(guide).to_contain_text(idea)
+                expect(caveat).to_contain_text("not a validated model selection")
+        selector.select_option("")
+        expect(link).to_be_hidden()
+        expect(title).to_have_text("Choose a scenario")
+        selector.focus()
+        selector.press("ArrowDown")
+        expect(selector).to_have_value("bernoulli")
+        expect(link).to_have_attribute("href","/probability/distributions/bernoulli-distribution/")
+
+        valid="/probability/distributions/binomial-distribution/"
+        self.page.evaluate("""([path]) =>
+           localStorage.setItem('esa_continue_probability_distributions_lesson_v0',
+             JSON.stringify({url:path,label:'Binomial Distribution',ts:1234567}))""",[valid])
+        self.page.reload(wait_until="networkidle")
+        resume=self.page.locator("#continue-reading-probability-distributions")
+        expect(resume).to_be_visible()
+        expect(self.page.locator("#continue-reading-probability-distributions-btn")).to_have_attribute("href",valid)
+        self.assertEqual(self.page.locator("#lessons .lesson-card").count(),12)
+        expect(self.page.locator("#esa-distribution-scenario")).to_be_visible()
+        for width in (320,375,768,1280):
+            with self.subTest(width=width):
+                self.page.set_viewport_size({"width":width,"height":850})
+                bounds=guide.evaluate("""e => ({
+                    left:e.getBoundingClientRect().left,
+                    right:e.getBoundingClientRect().right,
+                    scroll:e.scrollWidth,client:e.clientWidth
+                })""")
+                self.assertGreaterEqual(bounds["left"],-1,bounds)
+                self.assertLessEqual(bounds["right"],width+1,bounds)
+                self.assertLessEqual(bounds["scroll"]-bounds["client"],1,bounds)
+
+    def test_distribution_selection_guide_without_storage(self):
+        """Storage denial does not interrupt the model guide or lesson cards."""
+        self.page.add_init_script("""
+          Object.defineProperty(window,'localStorage',{
+            configurable:true,
+            get(){ throw new DOMException('Denied','SecurityError'); }
+          });
+        """)
+        self.page.goto(self.origin+"/probability/distributions/",wait_until="networkidle")
+        self.page.locator("#esa-distribution-scenario").select_option("hypergeometric")
+        expect(self.page.locator("#esa-distribution-model")).to_have_text("Hypergeometric distribution")
+        expect(self.page.locator("#esa-distribution-lesson-link")).to_have_attribute(
+            "href","/probability/distributions/hypergeometric-distribution/")
+        expect(self.page.locator("#lessons .lesson-card")).to_have_count(12)
+        expect(self.page.locator("#continue-reading-probability-distributions")).to_be_hidden()
+
     def test_welch_and_paired_repaired_mathematics_and_numeric_examples(self):
         """Recalculate Welch and paired inferences against lesson statements."""
         from math import sqrt, isclose
