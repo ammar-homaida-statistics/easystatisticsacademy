@@ -127,18 +127,18 @@ sidebar: false
 
     <ul class="bullets">
 
-      <li>Events occur randomly.</li>
+      <li>The average event intensity is constant over the interval.</li>
 
-      <li>Events occur independently.</li>
+      <li>Counts in disjoint intervals are independent (independent increments).</li>
 
       <li>The average rate remains constant.</li>
 
-      <li>Two events cannot occur at exactly the same instant.</li>
+      <li>Two or more events in a sufficiently short interval have probability negligible relative to its duration.</li>
 
     </ul>
 
     <p>
-      These assumptions define a Poisson process.
+      These are standard features of a homogeneous Poisson process. A Poisson count distribution alone does not establish that the underlying process is Poisson.
     </p>
 
     <h2>The Rate Parameter</h2>
@@ -147,14 +147,14 @@ sidebar: false
       The Poisson distribution is controlled by a single parameter:
     </p>
 
-    0
+    \[\lambda\ge 0\]
 
     <p>
       called the rate parameter.
     </p>
 
     <p>
-      λ represents the average number of events expected in the interval.
+      Here λ ≥ 0 is the expected event count for the specified interval. If r denotes the event rate per time unit and t the observation duration, λ = rt. Always state the exposure.
     </p>
 
     <div class="example-box">
@@ -171,7 +171,7 @@ sidebar: false
       A Poisson random variable is written as:
     </p>
 
-    1
+    \[X\sim\operatorname{Poisson}(\lambda)\]
 
     <p>
       where λ is the average event rate.
@@ -187,7 +187,7 @@ sidebar: false
       Therefore possible values are:
     </p>
 
-    2
+    \[X\in\{0,1,2,\ldots\}\]
 
     <p>
       There is no fixed upper limit.
@@ -199,7 +199,7 @@ sidebar: false
       The probability of observing exactly k events is:
     </p>
 
-    3
+    \[P(X=k)=\frac{e^{-\lambda}\lambda^k}{k!},\qquad k=0,1,2,\ldots\]
 
     <p>
       where:
@@ -211,9 +211,11 @@ sidebar: false
 
       <li>λ is the average rate</li>
 
-      <li>k is the number of observed events</li>
+      <li>k is a nonnegative integer counting events</li>
 
     </ul>
+
+    <p>At λ = 0, the count is identically zero: P(X = 0) = 1 and P(X &gt; 0) = 0. The PMF is interpreted by continuity at this endpoint.</p>
 
     <h2>Understanding the Formula</h2>
 
@@ -274,13 +276,13 @@ sidebar: false
       Then:
     </p>
 
-    4
+    \[\lambda=3\ \text{arrivals per hour}\]
 
     <p>
       The probability of exactly two arrivals is:
     </p>
 
-    5
+    \[P(X=2)=\frac{e^{-3}3^2}{2!}\approx 0.224042\]
 
     <p>
       The formula converts the average rate into a probability for a specific count.
@@ -292,7 +294,7 @@ sidebar: false
       One of the most elegant properties of the Poisson distribution is:
     </p>
 
-    6
+    \[\operatorname{E}(X)=\lambda\]
 
     <p>
       The mean equals the rate parameter.
@@ -304,7 +306,7 @@ sidebar: false
       Another remarkable property is:
     </p>
 
-    7
+    \[\operatorname{Var}(X)=\lambda\]
 
     <p>
       The variance also equals the rate parameter.
@@ -326,7 +328,7 @@ sidebar: false
       Since variance equals λ:
     </p>
 
-    8
+    \[\operatorname{SD}(X)=\sqrt{\lambda}\]
 
     <p>
       Standard deviation grows as the event rate increases.
@@ -394,13 +396,13 @@ sidebar: false
     </ul>
 
     <p>
-      and:
+      with the expected count:
     </p>
 
-    9
+    \[\lambda=np\]
 
     <p>
-      remains moderate.
+      remains moderate. The classical limit has n → ∞, p → 0, and np → λ; accuracy at finite n depends on n and p.
     </p>
 
     <p>
@@ -470,7 +472,7 @@ sidebar: false
     <h2>The Limitation</h2>
 
     <p>
-      Poisson models assume independent events occurring within a continuous domain.
+      Homogeneous Poisson processes have independent increments and a constant intensity. Some real event counts violate these assumptions.
     </p>
 
     <p>
@@ -503,6 +505,107 @@ sidebar: false
       The next lesson introduces the hypergeometric distribution,
       which models counts of successes when sampling without replacement from a finite population.
     </p>
+
+
+    <!-- POISSON–EXPONENTIAL EXPLORER -->
+    <section class="concept-box" id="esa-poisson-exponential-explorer"
+             aria-labelledby="esa-poisson-exponential-heading">
+      <h2 id="esa-poisson-exponential-heading">Interactive Poisson–Exponential Explorer</h2>
+      <p>In a homogeneous Poisson process with rate r events per minute,
+         N(t) has expected count rt, while T is the exponential waiting time
+         to the next event. Compare their probabilities for the same t.</p>
+      <form id="esa-event-explorer-form" novalidate>
+        <div class="esa-event-input-grid">
+          <div><label for="esa-event-rate">Rate (events per minute)</label>
+            <input id="esa-event-rate" type="number" inputmode="decimal"
+                   min="0.01" max="20" step="any" value="2" required></div>
+          <div><label for="esa-event-time">Observation time (minutes)</label>
+            <input id="esa-event-time" type="number" inputmode="decimal"
+                   min="0" max="60" step="any" value="1" required></div>
+        </div>
+        <p id="esa-event-error" role="alert" hidden></p>
+        <div id="esa-event-results" role="status" aria-live="polite" aria-atomic="true">
+          <div class="esa-event-result-grid">
+            <p>P(N(t) = 0): <strong><output id="esa-event-none">0.135335</output></strong></p>
+            <p>P(T &gt; t): <strong><output id="esa-event-survival">0.135335</output></strong></p>
+            <p>P(N(t) ≥ 1): <strong><output id="esa-event-at-least-one">0.864665</output></strong></p>
+            <p>Expected count (rt): <strong><output id="esa-event-expected">2.000000</output></strong></p>
+            <p>Mean waiting time (1/r), minutes: <strong><output id="esa-event-meanwait">0.500000</output></strong></p>
+          </div>
+          <p id="esa-event-explanation">The two no-event probabilities equal e<sup>−rt</sup>.</p>
+        </div>
+        <button type="button" id="esa-event-reset" class="btn btn-outline">Reset example</button>
+      </form>
+      <p><strong>Assumptions:</strong> These identities connect the two distributions
+         for a <em>homogeneous Poisson process</em>. Clustering, dependent increments,
+         or changing rates may invalidate the exponential waiting-time model.</p>
+    </section>
+    <style>
+      #esa-poisson-exponential-explorer{min-width:0;max-width:100%;overflow-wrap:anywhere}
+      #esa-poisson-exponential-explorer .esa-event-input-grid,
+      #esa-poisson-exponential-explorer .esa-event-result-grid{
+        display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 16px;margin:12px 0}
+      #esa-poisson-exponential-explorer .esa-event-input-grid>div,
+      #esa-poisson-exponential-explorer .esa-event-result-grid>p{min-width:0;margin:5px 0}
+      #esa-poisson-exponential-explorer label{display:block;font-weight:650;margin:0 0 6px}
+      #esa-poisson-exponential-explorer input[type="number"]{
+        display:block;width:100%;max-width:100%;min-width:0;box-sizing:border-box;
+        padding:10px;font:inherit;background:var(--surface);color:var(--text);
+        border:1px solid var(--border-strong);border-radius:8px}
+      #esa-poisson-exponential-explorer input:focus-visible,
+      #esa-poisson-exponential-explorer button:focus-visible{
+        outline:2px solid var(--accent);outline-offset:2px}
+      #esa-poisson-exponential-explorer #esa-event-error{color:#b42318;font-weight:650}
+      #esa-poisson-exponential-explorer [hidden]{display:none!important}
+      @media(max-width:600px){
+        #esa-poisson-exponential-explorer .esa-event-input-grid,
+        #esa-poisson-exponential-explorer .esa-event-result-grid{
+          grid-template-columns:minmax(0,1fr)}
+      }
+    </style>
+    <script>
+    (function () {
+      "use strict";
+      const form = document.getElementById("esa-event-explorer-form");
+      const rate = document.getElementById("esa-event-rate");
+      const time = document.getElementById("esa-event-time");
+      const error = document.getElementById("esa-event-error");
+      const outputs = ["esa-event-none","esa-event-survival","esa-event-at-least-one",
+                       "esa-event-expected","esa-event-meanwait"]
+                       .map(id => document.getElementById(id));
+      const explanation = document.getElementById("esa-event-explanation");
+      function render() {
+        const r = Number(rate.value), t = Number(time.value);
+        const invalidRate = rate.value.trim() === "" || !Number.isFinite(r) || r <= 0 || r > 20;
+        const invalidTime = time.value.trim() === "" || !Number.isFinite(t) || t < 0 || t > 60;
+        if (invalidRate || invalidTime) {
+          error.textContent = invalidRate
+            ? "Rate must be greater than 0 and at most 20 events per minute."
+            : "Time must be between 0 and 60 minutes.";
+          error.hidden = false;
+          outputs.forEach(out => { out.textContent = "—"; });
+          explanation.textContent = "Enter valid inputs to compare the distributions.";
+          return;
+        }
+        error.hidden = true;
+        const expected = r*t, noEvents = Math.exp(-expected);
+        // expm1 prevents catastrophic cancellation near zero.
+        const atLeastOne = -Math.expm1(-expected);
+        [noEvents,noEvents,atLeastOne,expected,1/r].forEach((value,i) => {
+          outputs[i].textContent = value.toFixed(6);
+        });
+        explanation.textContent = "With rate " + r + " events/minute over " + t +
+          " minutes, P(N(t) = 0) = P(T > t) = exp(−rt).";
+      }
+      form.addEventListener("submit", event => event.preventDefault());
+      rate.addEventListener("input",render);
+      time.addEventListener("input",render);
+      document.getElementById("esa-event-reset").addEventListener("click",() => {
+        rate.value = "2"; time.value = "1"; render();
+      });
+      render();
+    })();
+    </script>
 
     <!-- TAKEAWAYS -->
 
