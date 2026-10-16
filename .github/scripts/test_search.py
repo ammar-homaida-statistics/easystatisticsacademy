@@ -4290,5 +4290,170 @@ class SearchTests(unittest.TestCase):
         self.assertIsNone(self.page.evaluate("window.esaInjected"))
 
 
+    def test_poisson_exponential_formula_restorations_and_benchmarks(self):
+        """All 21 recovered formulas are present; key numerical claims checked independently."""
+        from html import unescape
+        from math import exp, factorial, fsum, isclose
+        cases = (
+            ("/probability/distributions/poisson-distribution/",10,(
+                r"\lambda\ge 0",r"X\sim\operatorname{Poisson}(\lambda)",
+                r"P(X=k)=\frac{e^{-\lambda}\lambda^k}{k!}",
+                r"P(X=2)=\frac{e^{-3}3^2}{2!}",
+                r"\operatorname{E}(X)=\lambda",
+                r"\operatorname{Var}(X)=\lambda",
+                r"\operatorname{SD}(X)=\sqrt{\lambda}",r"\lambda=np",
+                "independent increments")),
+            ("/probability/distributions/exponential-distribution/",11,(
+                r"\lambda>0",r"f_X(x)=\lambda e^{-\lambda x}",
+                r"F_X(x)=P(X\le x)=1-e^{-\lambda x}",
+                r"P(X>x)=e^{-\lambda x}",
+                r"P(X\le 1)=1-e^{-2}",
+                r"\operatorname{E}(X)=\frac{1}{\lambda}",
+                r"\operatorname{Var}(X)=\frac{1}{\lambda^2}",
+                r"\operatorname{SD}(X)=\frac{1}{\lambda}",
+                r"P(X>s+t\mid X>s)=P(X>t)"))
+        )
+        for route,count,fragments in cases:
+            with self.subTest(route=route):
+                source=(SITE/route.lstrip("/")/"index.html").read_text()
+                main=unescape(source.split('<main id="main-content"',1)[1]
+                              .split("</main>",1)[0])
+                self.assertNotIn("\uea01",main)
+                self.assertNotIn("\uea02",main)
+                self.assertEqual(main.count(r"\["),count)
+                self.assertEqual(main.count(r"\]"),count)
+                for fragment in fragments:
+                    self.assertIn(fragment,main)
+                self.page.goto(self.origin+route,wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+        for lam in (0,0.1,2,3,10):
+            probs=([1.0]+[0.0]*120) if lam==0 else [
+                exp(-lam)*lam**k/factorial(k) for k in range(121)]
+            self.assertTrue(isclose(fsum(probs),1,abs_tol=1e-12))
+            self.assertTrue(isclose(fsum(k*x for k,x in enumerate(probs)),lam,
+                                     abs_tol=1e-10))
+        self.assertAlmostEqual(exp(-3)*3**2/factorial(2),
+                               0.22404180765538775,delta=1e-14)
+        self.assertAlmostEqual(1-exp(-2),0.8646647167633873,delta=1e-14)
+        for lam in (0.25,1,2,20):
+            for t in (0,0.5,1,4):
+                survival=exp(-lam*t)
+                self.assertAlmostEqual(survival,1-(1-survival),delta=1e-14)
+                self.assertAlmostEqual(
+                    exp(-lam*(t+0.75))/survival,exp(-lam*0.75),delta=1e-12)
+
+    def test_poisson_exponential_explorer_numerics_limits_and_mobile(self):
+        """Accessible input controls, event identity, extreme cases, mobile overflow."""
+        from math import exp,expm1,isclose
+        route="/probability/distributions/poisson-distribution/"
+        self.page.goto(self.origin+route,wait_until="networkidle")
+        region=self.page.locator("#esa-poisson-exponential-explorer")
+        expect(region.get_by_role("heading",name="Interactive Poisson–Exponential Explorer")).to_be_visible()
+        rate=self.page.get_by_label("Rate (events per minute)")
+        time=self.page.get_by_label("Observation time (minutes)")
+        error=self.page.locator("#esa-event-error")
+        outputs=[self.page.locator("#"+id) for id in
+                 ("esa-event-none","esa-event-survival","esa-event-at-least-one",
+                  "esa-event-expected","esa-event-meanwait")]
+        self.assertEqual(region.locator('[role="status"][aria-live="polite"]').count(),1)
+        self.assertEqual(rate.input_value(),"2")
+        self.assertEqual(time.input_value(),"1")
+        def check(r,t):
+            rate.fill(str(r));time.fill(str(t))
+            observed=[float(x.inner_text()) for x in outputs]
+            truth=(exp(-r*t),exp(-r*t),-expm1(-r*t),r*t,1/r)
+            for got,expected in zip(observed,truth):
+                self.assertTrue(isclose(got,expected,abs_tol=5.1e-7),
+                                (r,t,got,expected))
+            expect(error).to_be_hidden()
+        for r,t in ((2,1),(0.01,0),(0.5,2),(1,1),(4,0.25),(20,60)):
+            with self.subTest(rate=r,time=t):
+                check(r,t)
+        for bad in ("0","-1","21",""):
+            rate.fill(bad)
+            expect(error).to_contain_text("Rate must")
+            expect(outputs[0]).to_have_text("—")
+        rate.fill("2")
+        for bad in ("-1","61",""):
+            time.fill(bad)
+            expect(error).to_contain_text("Time must")
+            expect(outputs[0]).to_have_text("—")
+        region.get_by_role("button",name="Reset example").click()
+        expect(rate).to_have_value("2")
+        expect(time).to_have_value("1")
+        check(2,1)
+        rate.focus()
+        rate.press("Tab")
+        expect(time).to_be_focused()
+        for width in (320,375,768,1280):
+            with self.subTest(width=width):
+                self.page.set_viewport_size({"width":width,"height":850})
+                bounds=region.evaluate("""e => ({
+                    left:e.getBoundingClientRect().left,
+                    right:e.getBoundingClientRect().right,
+                    scroll:e.scrollWidth,client:e.clientWidth
+                })""")
+                self.assertGreaterEqual(bounds["left"],-1,bounds)
+                self.assertLessEqual(bounds["right"],width+1,bounds)
+                self.assertLessEqual(bounds["scroll"]-bounds["client"],1,bounds)
+        self.assertEqual(self.page.evaluate("""() =>
+            JSON.parse(localStorage.getItem(
+            'esa_continue_probability_distributions_lesson_v0')).url"""),route)
+
+    def test_poisson_exponential_explorer_denied_localstorage(self):
+        """Failed localStorage writes must not break the explorer."""
+        self.page.add_init_script("""
+          Object.defineProperty(window,'localStorage',{
+            configurable:true,
+            get(){throw new DOMException('Denied','SecurityError');}
+          });
+        """)
+        self.page.goto(self.origin+"/probability/distributions/poisson-distribution/",
+                       wait_until="networkidle")
+        expect(self.page.locator("main h1")).to_be_visible()
+        expect(self.page.locator("#esa-event-none")).to_have_text("0.135335")
+        self.page.get_by_label("Rate (events per minute)").fill("1")
+        expect(self.page.locator("#esa-event-none")).to_have_text("0.367879")
+
+    def test_lln_clt_six_lessons_continue_reading_values(self):
+        """All six lesson URLs and labels persist using the original progress key."""
+        lessons=(
+            ("convergence-intuition","Convergence Intuition"),
+            ("law-of-large-numbers","Law of Large Numbers"),
+            ("weak-vs-strong-lln","Weak vs Strong LLN"),
+            ("central-limit-theorem","Central Limit Theorem"),
+            ("normal-approximation","Normal Approximation"),
+            ("inference-bridge","Inference Bridge"),
+        )
+        for slug,label in lessons:
+            with self.subTest(lesson=slug):
+                route="/probability/lln-clt/"+slug+"/"
+                self.page.goto(self.origin+route,wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+                saved=self.page.evaluate("""() => JSON.parse(
+                  localStorage.getItem('esa_continue_probability_lln_clt_lesson_v0'))""")
+                self.assertEqual(saved["url"],route)
+                self.assertEqual(saved["label"],label)
+                self.assertIsInstance(saved["ts"],int)
+                self.assertGreater(saved["ts"],0)
+
+    def test_lln_clt_six_lessons_denied_localstorage(self):
+        """No JavaScript errors or missing lesson navigation under denied storage."""
+        self.page.add_init_script("""
+          Object.defineProperty(window,'localStorage',{
+            configurable:true,
+            get(){throw new DOMException('Denied','SecurityError');}
+          });
+        """)
+        for slug in ("convergence-intuition","law-of-large-numbers",
+                     "weak-vs-strong-lln","central-limit-theorem",
+                     "normal-approximation","inference-bridge"):
+            with self.subTest(lesson=slug):
+                route="/probability/lln-clt/"+slug+"/"
+                self.page.goto(self.origin+route,wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+                self.assertGreater(self.page.locator("main a[href]").count(),0)
+                self.assertEqual(self.errors,[])
+
 if __name__ == "__main__":
     unittest.main(argv=[__file__], verbosity=2)
