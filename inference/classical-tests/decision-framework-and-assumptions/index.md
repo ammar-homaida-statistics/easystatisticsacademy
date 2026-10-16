@@ -152,13 +152,21 @@ sidebar: false
       Next, formulate:
     </p>
 
-    0
+    
+    \[
+    H_0\text{ (null hypothesis)}
+    \]
+
 
     <p>
       and:
     </p>
 
-    1
+    
+    \[
+    H_a\text{ (alternative hypothesis)}
+    \]
+
 
     <p>
       The hypotheses translate the research question into statistical language.
@@ -170,17 +178,29 @@ sidebar: false
       If a company claims its average bottle fill is:
     </p>
 
-    2
+    
+    \[
+    \mu_0=500\ \mathrm{mL}
+    \]
+
 
     <p>
       then:
     </p>
 
-    3
+    
+    \[
+    H_0:\mu=500\ \mathrm{mL}
+    \]
+
 
     <br><br>
 
-    4
+    
+    \[
+    H_a:\mu\ne500\ \mathrm{mL}
+    \]
+
 
     <h2>Step 3: Check Assumptions</h2>
 
@@ -287,7 +307,11 @@ sidebar: false
       Most test statistics follow:
     </p>
 
-    5
+    
+    \[
+    \text{test statistic}=\frac{\text{estimate}-\text{null value}}{\text{standard error}}
+    \]
+
 
     <p>
       The statistic measures how far the data depart from the null hypothesis.
@@ -300,7 +324,11 @@ sidebar: false
       we calculate the probability of obtaining results at least as extreme under:
     </p>
 
-    6
+    
+    \[
+    H_0
+    \]
+
 
     <p>
       This probability is the p-value.
@@ -316,7 +344,11 @@ sidebar: false
       p-value and significance level:
     </p>
 
-    7
+    
+    \[
+    \alpha
+    \]
+
 
     <div class="concept-box">
 
