@@ -84,7 +84,7 @@ sidebar: false
       <strong>Definition:</strong>
 
       <p>
-        A negative binomial random variable counts how many trials are needed to achieve r successes.
+        Here X is the total number of trials up to and including the r-th success, with positive integer r and constant success probability 0 &lt; p &le; 1. The failures-before-success convention is a different parameterization.
       </p>
 
     </div>
@@ -151,7 +151,11 @@ sidebar: false
       A negative binomial random variable is commonly written as:
     </p>
 
-    0
+    
+    \[
+    X\sim\operatorname{NegBin}(r,p),\quad r=1,2,\ldots,\ 0<p\le1
+    \]
+
 
     <p>
       where:
@@ -175,7 +179,11 @@ sidebar: false
       Therefore:
     </p>
 
-    1
+    
+    \[
+    X\in\{r,r+1,r+2,\ldots\}
+    \]
+
 
     <p>
       are the possible values of X.
@@ -187,7 +195,11 @@ sidebar: false
       The probability that the r-th success occurs on trial k is:
     </p>
 
-    2
+    
+    \[
+    P(X=k)=\binom{k-1}{r-1}p^r(1-p)^{k-r},\quad k=r,r+1,\ldots
+    \]
+
 
     <p>
       where:
@@ -235,7 +247,11 @@ sidebar: false
       When:
     </p>
 
-    3
+    
+    \[
+    r=1\quad\Longrightarrow\quad P(X=k)=(1-p)^{k-1}p
+    \]
+
 
     <p>
       the negative binomial formula reduces to the geometric distribution.
@@ -299,7 +315,11 @@ sidebar: false
       The expected value is:
     </p>
 
-    4
+    
+    \[
+    E[X]=\frac rp
+    \]
+
 
     <div class="concept-box">
 
@@ -333,7 +353,11 @@ sidebar: false
       Then:
     </p>
 
-    5
+    
+    \[
+    E[X]=\frac{5}{0.25}=20
+    \]
+
 
     <p>
       On average,
@@ -346,7 +370,11 @@ sidebar: false
       The variance is:
     </p>
 
-    6
+    
+    \[
+    \operatorname{Var}(X)=\frac{r(1-p)}{p^2}
+    \]
+
 
     <p>
       Variability increases when successes become rarer.
