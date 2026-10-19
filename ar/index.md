@@ -9,6 +9,6 @@ lang: ar
 <h1>أكاديمية الإحصاء المبسط — العربية</h1>
 <p class="lead">دروس إحصائية باللغة العربية بلغة أكاديمية واضحة. تُضاف الدروس المترجمة تدريجيًا بعد التحقق من محتواها الرياضي.</p>
 <h2>الدروس المتاحة</h2>
-<ul><li><a href="/ar/inference/assumptions-robustness/bootstrap-as-robust-tool/">بوتستراب: إعادة المعاينة لتقدير عدم اليقين — مع مختبر تفاعلي</a></li></ul>
+<ul><li><a href="/ar/inference/assumptions-robustness/bootstrap-as-robust-tool/">بوتستراب: إعادة المعاينة لتقدير عدم اليقين — مع مختبر تفاعلي</a></li><li><a href="/ar/foundations/sampling-variability/">تباين المعاينة — مع مختبر المحاكاة التفاعلي</a></li></ul>
 <p><a href="/" lang="en" dir="ltr">English homepage</a></p>
 </div></section>

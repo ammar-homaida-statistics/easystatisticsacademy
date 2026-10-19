@@ -4,6 +4,8 @@ title: Sampling Variability
 description: Understand why different samples give different results and why variability is fundamental to statistical inference.
 permalink: /foundations/sampling-variability/
 sidebar: false
+translation_pair: sampling-variability
+math: true
 ---
 
 <!-- HERO -->
@@ -17,6 +19,7 @@ sidebar: false
     </div>
 
     <h1>Sampling Variability</h1>
+    <p><a href="/ar/foundations/sampling-variability/" lang="ar" dir="rtl">اقرأ هذا الدرس بالعربية</a></p>
 
     <p class="lead">
       Learn why different samples produce different results — and why this variability
@@ -192,11 +195,11 @@ sidebar: false
     </ul>
 
     <p>
-      But variability never disappears completely.
+      Variability persists for partial random samples, but it disappears for a complete census drawn without replacement.
     </p>
 
     <p>
-  Larger samples better represent the population distribution.
+  Larger random samples tend to yield more precise estimates; size alone cannot correct nonrepresentative selection.
 </p>
   </div>
 
@@ -226,6 +229,58 @@ sidebar: false
     but produce very different estimates.
   </p>
 </div>
+
+
+<!-- An exact finite-population sampling experiment, shared with the Arabic lesson. -->
+<div class="section-block" id="esa-sv-lab" style="min-width:0;overflow-wrap:anywhere">
+  <h2>Interactive Sampling Variability Laboratory</h2>
+  <p>Sample repeatedly from the <strong>fixed finite population</strong>
+    <span dir="ltr">160, 165, 170, 175, 180</span> (<span dir="ltr">N = 5</span>).
+    Each run uses the same population, not bootstrap resampling from one observed sample.
+    All samples are independent of one another; choose whether values can repeat <em>within</em> a sample.</p>
+  <div style="display:flex;flex-wrap:wrap;align-items:end;gap:1rem">
+    <label>Sample size (<span dir="ltr">n</span>)
+      <select id="esa-sv-size"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option></select>
+    </label>
+    <label>Sampling method
+      <select id="esa-sv-method"><option value="without" selected>Without replacement</option><option value="with">With replacement</option></select>
+    </label>
+    <label>Number of samples
+      <select id="esa-sv-reps"><option>100</option><option selected>500</option><option>2000</option></select>
+    </label>
+    <label>Random seed <input id="esa-sv-seed" type="number" min="0" max="4294967295" step="1" value="2026" style="max-width:135px"></label>
+    <button class="btn" type="button" id="esa-sv-run">Run simulation</button>
+    <button class="btn btn-outline" type="button" id="esa-sv-reset">Reset</button>
+  </div>
+  <p id="esa-sv-status" role="status" aria-live="polite"></p>
+  <dl style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:.45rem">
+    <div><dt>Population mean</dt><dd id="esa-sv-mu">—</dd></div>
+    <div><dt>Population variance (divide by N)</dt><dd id="esa-sv-sigma2">—</dd></div>
+    <div><dt>Exact theoretical SE of sample mean</dt><dd id="esa-sv-theory">—</dd></div>
+    <div><dt>Simulated SE (B−1 divisor)</dt><dd id="esa-sv-simulated">—</dd></div>
+    <div><dt>Average simulated sample mean</dt><dd id="esa-sv-average">—</dd></div>
+    <div><dt>Monte Carlo difference (average − μ)</dt><dd id="esa-sv-bias">—</dd></div>
+  </dl>
+  <p>First sample drawn: <span id="esa-sv-preview" dir="ltr"></span></p>
+  <svg id="esa-sv-plot" role="img" aria-label="Histogram of repeated sample means" viewBox="0 0 680 276" style="display:block;width:100%;max-width:680px"></svg>
+  <div class="concept-box">
+    <p><strong>Analytical reference:</strong> Let population variance be
+    \(\sigma_N^2=\sum_{i=1}^N(x_i-\mu)^2/N\). For independent draws
+    <em>with replacement</em>, \(\operatorname{SE}(\bar X)=\sqrt{\sigma_N^2/n}\).
+    For simple random sampling <em>without replacement</em>,
+    \(\operatorname{SE}(\bar X)=\sqrt{(\sigma_N^2/n)\,(N-n)/(N-1)}\).
+    The finite-population correction applies only to the second design.</p>
+    <p>The exact theoretical standard error is fixed by the design. The simulated standard
+    deviation approximates it and may differ due to the finite number of runs.
+    At <span dir="ltr">n=N</span> without replacement, every draw is a census
+    and the standard error is exactly zero. With replacement, even <span dir="ltr">n=N</span>
+    can include repeated population members and has nonzero uncertainty here.</p>
+    <p>Sampling variability is variation across new population samples;
+    an ordinary bootstrap instead resamples an already observed sample to estimate an
+    unknown sampling distribution. Neither method repairs selection bias.</p>
+  </div>
+</div>
+<script src="/js/sampling-variability-lab.js" defer></script>
 
 <div class="section-block">
   <h2>Try It Yourself</h2>
