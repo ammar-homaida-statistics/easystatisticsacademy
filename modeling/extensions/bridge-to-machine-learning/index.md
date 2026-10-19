@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_modeling_extensions_lesson_v0";
 
+  try {
   localStorage.setItem(KEY, JSON.stringify({
     url: "/modeling/extensions/bridge-to-machine-learning/",
     label: "Bridge to Machine Learning",
     ts: Date.now()
   }));
+  } catch (_) {
+    // Browser storage may be denied; retain normal page navigation.
+  }
 
 })();
 </script>

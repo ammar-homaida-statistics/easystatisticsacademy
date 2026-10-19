@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_modeling_extensions_lesson_v0";
 
+  try {
   localStorage.setItem(KEY, JSON.stringify({
     url: "/modeling/extensions/why-extensions/",
     label: "Why Extensions?",
     ts: Date.now()
   }));
+  } catch (_) {
+    // Browser storage may be denied; retain normal page navigation.
+  }
 
 })();
 </script>

@@ -12,11 +12,15 @@ sidebar: false
 
   const KEY = "esa_continue_modeling_last_block_v0";
 
+  try {
   localStorage.setItem(KEY, JSON.stringify({
     url: "/modeling/extensions/",
     label: "Block 7 — Extensions",
     ts: Date.now()
   }));
+  } catch (_) {
+    // Browser storage may be denied; retain normal page navigation.
+  }
 
 })();
 </script>
@@ -585,7 +589,22 @@ sidebar: false
 
     const data = JSON.parse(raw);
 
-    if (!data || !data.url || !data.label) return;
+    // Restore only exact, published block destinations and their recorded labels.
+    const validLessons = new Map([
+      ["/modeling/extensions/why-extensions/", "Why Extensions?"],
+      ["/modeling/extensions/logistic-regression/", "Logistic Regression"],
+      ["/modeling/extensions/probability-vs-logit/", "Probability vs Logit"],
+      ["/modeling/extensions/odds/", "Odds"],
+      ["/modeling/extensions/interpreting-logistic-coefficients/", "Interpreting Logistic Coefficients"],
+      ["/modeling/extensions/glm/", "Generalized Linear Models (GLMs)"],
+      ["/modeling/extensions/link-functions/", "Link Functions"],
+      ["/modeling/extensions/comparing-linear-and-logistic/", "Comparing Linear and Logistic Regression"],
+      ["/modeling/extensions/bridge-to-machine-learning/", "Bridge to Machine Learning"]
+    ]);
+    if (!data || typeof data !== "object" ||
+        typeof data.url !== "string" || typeof data.label !== "string" ||
+        !validLessons.has(data.url) || validLessons.get(data.url) !== data.label ||
+        !Number.isSafeInteger(data.ts) || data.ts <= 0) return;
 
     const wrap =
       document.getElementById(
@@ -602,10 +621,9 @@ sidebar: false
         "continue-reading-modeling-extensions-btn"
       );
 
-    label.innerHTML =
-      "You last visited: <strong>" +
-      data.label +
-      "</strong>";
+    const strong = document.createElement("strong");
+    strong.textContent = data.label;
+    label.replaceChildren("You last visited: ", strong);
 
     btn.href = data.url;
 
