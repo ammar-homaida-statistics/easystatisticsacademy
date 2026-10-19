@@ -5552,5 +5552,235 @@ class SearchTests(unittest.TestCase):
         self.assertEqual(self.errors,[])
 
 
+
+    def test_p_value_binomial_exact_tails_and_directional_z_formulas(self):
+        """90 heads in 100 fair flips: exact two-sided/binomial tail, not posterior odds."""
+        from math import comb, isclose
+        from statistics import NormalDist
+        p_right=sum(comb(100,k) for k in range(90,101))/2**100
+        p_two=2*p_right
+        self.assertTrue(isclose(p_right,1.5316450877189926e-17,rel_tol=1e-13))
+        self.assertTrue(isclose(p_two,3.063290175437985e-17,rel_tol=1e-13))
+        self.assertEqual(sum(comb(100,k) for k in range(0,11)),
+                         sum(comb(100,k) for k in range(90,101)))
+        pvalue_url="/inference/hypothesis-testing/p-value-meaning/"
+        sides_url="/inference/hypothesis-testing/one-sided-vs-two-sided/"
+        self.page.goto(self.origin+pvalue_url,wait_until="networkidle")
+        main=self.page.locator("main")
+        expect(main.get_by_role("heading",name="A Coin-Flipping Example")).to_be_visible()
+        expect(main).to_contain_text("10 or fewer heads")
+        expect(main).to_contain_text("90 or more heads")
+        expect(main).to_contain_text("not evidence that H₀ is true")
+        text=(SITE/pvalue_url.lstrip("/")/"index.html").read_text()
+        for fragment in (r"\operatorname{Binomial}(100,0.5)",
+                         r"3.0632901754\times10^{-17}",
+                         r"1.5316450877\times10^{-17}"):
+            self.assertIn(fragment,text)
+        self.assertNotIn("Data are highly consistent with H₀",text)
+        self.assertNotIn("<td>Moderate</td>",text)
+        self.page.goto(self.origin+sides_url,wait_until="networkidle")
+        text=(SITE/sides_url.lstrip("/")/"index.html").read_text()
+        for term in (r"p_{\mathrm{right}}",r"p_{\mathrm{left}}",
+                     r"p_{\mathrm{two}}","0.02275","0.97725","0.04550"):
+            self.assertIn(term,text)
+        normal=NormalDist()
+        right=1-normal.cdf(2)
+        left=normal.cdf(2)
+        two=2*right
+        self.assertTrue(isclose(right,.022750131948,rel_tol=1e-8))
+        self.assertTrue(isclose(left,.977249868052,rel_tol=1e-8))
+        self.assertTrue(isclose(two,.045500263896,rel_tol=1e-8))
+        for url in (pvalue_url,sides_url):
+            self.page.goto(self.origin+url,wait_until="networkidle")
+            expect(self.page.locator("main h1")).to_be_visible()
+            self.assertGreaterEqual(self.page.locator("main a[href]").count(),2)
+
+    def test_normal_z_power_explorer_reference_values_boundaries_and_symmetry(self):
+        """Normal-model exact power is Phi(-c-delta)+Phi(delta-c); beta excludes H0."""
+        from math import isclose, sqrt
+        from statistics import NormalDist
+        route="/inference/power-sample-size/power-curve-and-tradeoffs/"
+        self.page.goto(self.origin+route,wait_until="networkidle")
+        root=self.page.locator("#esa-power-lab")
+        expect(root.get_by_role("heading",name="Interactive Two-Sided z-Test Power Explorer")).to_be_visible()
+        n=root.locator("#esa-power-n")
+        effect=root.locator("#esa-power-delta")
+        sigma=root.locator("#esa-power-sigma")
+        alpha=root.locator("#esa-power-alpha")
+        probability=root.locator("#esa-power-result-power")
+        beta=root.locator("#esa-power-result-beta")
+        c=root.locator("#esa-power-result-critical")
+        chart=root.locator("#esa-power-chart")
+        expected0=.9424375431875085
+        self.assertTrue(isclose(float(probability.inner_text()),expected0,abs_tol=.000051))
+        expect(beta).to_have_text("0.0576")
+        expect(root.locator("#esa-power-result-alpha")).to_have_text("0.0500")
+        expect(root.locator("#esa-power-result-effect")).to_have_text("0.5000")
+        expect(root.locator("#esa-power-result-noncentral")).to_have_text("3.5355")
+        expect(c).to_have_text("±1.9600")
+        def change(element,v,event="input"):
+            element.evaluate("""(el,args)=>{
+              el.value=String(args.value);
+              el.dispatchEvent(new Event(args.event,{bubbles:true}));
+            }""",{"value":v,"event":event})
+        def verify(nv,delta,sv,av):
+            change(n,nv)
+            change(effect,delta)
+            change(sigma,sv)
+            change(alpha,f"{av:.2f}","change")
+            q=NormalDist().inv_cdf(1-av/2)
+            noncentral=delta*sqrt(nv)/sv
+            truth=av if delta==0 else (NormalDist().cdf(-q-noncentral)+
+                                       NormalDist().cdf(noncentral-q))
+            self.assertTrue(isclose(float(probability.inner_text()),truth,
+                                    abs_tol=.000051),
+                                    (nv,delta,sv,av,probability.inner_text(),truth))
+            self.assertTrue(isclose(float(root.locator("#esa-power-result-alpha").inner_text()),
+                                    av,abs_tol=1e-7))
+            self.assertTrue(isclose(float(root.locator("#esa-power-result-effect").inner_text()),
+                                    delta/sv,abs_tol=.000051))
+            self.assertTrue(isclose(float(root.locator("#esa-power-result-noncentral").inner_text()),
+                                    noncentral,abs_tol=.000051))
+            self.assertTrue(isclose(float(c.inner_text().replace("±","")),q,
+                                    abs_tol=.000051))
+            if delta==0:
+                expect(beta).to_have_text("N/A (null true)")
+                expect(root.locator("#esa-power-rate-label")).to_contain_text("Type I error")
+            else:
+                self.assertTrue(isclose(float(beta.inner_text()),1-truth,
+                                        abs_tol=.000051))
+            curve=root.locator("#esa-power-curve").get_attribute("d")
+            self.assertEqual(curve.count("L"),120)
+            self.assertNotIn("NaN",curve)
+            self.assertNotIn("Infinity",curve)
+            aria=chart.get_attribute("aria-label")
+            self.assertIn(f"sample size {nv}".lower(),aria.lower())
+            self.assertIn("rejection probability",aria.lower())
+            marker=root.locator("#esa-power-marker")
+            for attr,lo,hi in (("cx",52,532),("cy",30,208)):
+                observed=float(marker.get_attribute(attr))
+                self.assertGreaterEqual(observed,lo-.01)
+                self.assertLessEqual(observed,hi+.01)
+            return truth
+        for values in ((50,.5,1,.05),(20,0,1,.05),(50,0,1,.01),
+                       (40,-.5,1,.05),(40,.5,1,.05),
+                       (200,1.5,.5,.10),(10,.05,3,.01),
+                       (100,.2,1,.10),(20,-1.5,2.5,.05)):
+            with self.subTest(parameters=values):
+                verify(*values)
+        plus=verify(40,.5,1,.05)
+        minus=verify(40,-.5,1,.05)
+        self.assertTrue(isclose(plus,minus,abs_tol=1e-10))
+        root.get_by_role("button",name="Reset power example").click()
+        self.assertEqual([n.input_value(),effect.input_value(),
+                          sigma.input_value(),alpha.input_value()],
+                         ["50","0.5","1","0.05"])
+        expect(probability).to_have_text("0.9424")
+
+    def test_normal_z_power_explorer_keyboard_mobile_and_null_case(self):
+        """Native slider arrows, live aria labels, reset, and horizontal mobile safety."""
+        self.page.goto(self.origin+"/inference/power-sample-size/power-curve-and-tradeoffs/",
+                       wait_until="networkidle")
+        root=self.page.locator("#esa-power-lab")
+        self.assertEqual(root.get_by_role("slider").count(),3)
+        n=root.locator("#esa-power-n")
+        delta=root.locator("#esa-power-delta")
+        sigma=root.locator("#esa-power-sigma")
+        alpha=root.locator("#esa-power-alpha")
+        n.focus()
+        n.press("Home")
+        expect(n).to_have_value("10")
+        n.press("ArrowRight")
+        expect(n).to_have_value("20")
+        delta.focus()
+        delta.press("Home")
+        expect(delta).to_have_value("-1.5")
+        delta.press("End")
+        expect(delta).to_have_value("1.5")
+        delta.evaluate("""e=>{e.value="0";e.dispatchEvent(new Event('input',{bubbles:true}));}""")
+        expect(root.locator("#esa-power-result-power")).to_have_text("0.0500")
+        expect(root.locator("#esa-power-result-beta")).to_have_text("N/A (null true)")
+        alpha.select_option("0.10")
+        expect(root.locator("#esa-power-result-power")).to_have_text("0.1000")
+        sigma.focus()
+        sigma.press("End")
+        expect(sigma).to_have_value("3")
+        for width in (320,375,768,1280):
+            with self.subTest(width=width):
+                self.page.set_viewport_size({"width":width,"height":850})
+                bounds=root.evaluate("""e=>({
+                  left:e.getBoundingClientRect().left,
+                  right:e.getBoundingClientRect().right,
+                  scroll:e.scrollWidth,client:e.clientWidth,
+                  viewport:window.innerWidth
+                })""")
+                self.assertGreaterEqual(bounds["left"],-1,bounds)
+                self.assertLessEqual(bounds["right"],width+1,bounds)
+                self.assertLessEqual(bounds["scroll"]-bounds["client"],1,bounds)
+        root.get_by_role("button",name="Reset power example").click()
+        expect(root.locator("#esa-power-result-power")).to_have_text("0.9424")
+
+    def test_power_sample_size_eight_progress_and_continue_reading(self):
+        """Legacy key, exact URLs, labels, timestamps and block resume for all eight lessons."""
+        lessons=(
+          ("what-is-statistical-power","What Is Statistical Power?"),
+          ("effect-size-and-practical-importance","Effect Size and Practical Importance"),
+          ("power-curve-and-tradeoffs","Power Curves and Trade-Offs"),
+          ("sample-size-for-mean","Sample Size for a Mean"),
+          ("sample-size-for-proportion","Sample Size for a Proportion"),
+          ("precision-vs-detectability","Precision vs Detectability"),
+          ("underpowered-studies","Underpowered Studies"),
+          ("software-and-power-analysis","Software and Power Analysis")
+        )
+        key="esa_continue_inference_power_sample_size_lesson_v0"
+        for slug,label in lessons:
+            with self.subTest(slug=slug):
+                url="/inference/power-sample-size/"+slug+"/"
+                self.page.goto(self.origin+url,wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+                data=self.page.evaluate("key=>JSON.parse(localStorage.getItem(key))",key)
+                self.assertEqual(data["url"],url)
+                self.assertEqual(data["label"],label)
+                self.assertIsInstance(data["ts"],int)
+                self.assertGreater(data["ts"],0)
+                self.page.goto(self.origin+"/inference/power-sample-size/",
+                               wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-inference-power")).to_be_visible()
+                self.assertEqual(self.page.locator(
+                    "#continue-reading-inference-power-btn").get_attribute("href"),url)
+                expect(self.page.locator(
+                    "#continue-reading-inference-power-label")).to_contain_text(label)
+
+    def test_power_sample_size_eight_lessons_survive_denied_storage(self):
+        """Denied localStorage never blocks headings, navigation, calculators, or power lab."""
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{
+            configurable:true,
+            get(){throw new DOMException("Denied","SecurityError");}
+          });
+        """)
+        for slug in ("what-is-statistical-power","effect-size-and-practical-importance",
+                     "power-curve-and-tradeoffs","sample-size-for-mean",
+                     "sample-size-for-proportion","precision-vs-detectability",
+                     "underpowered-studies","software-and-power-analysis"):
+            with self.subTest(slug=slug):
+                self.page.goto(self.origin+"/inference/power-sample-size/"+slug+"/",
+                               wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+                self.assertGreater(self.page.locator("main a[href]").count(),0)
+                self.assertEqual(self.errors,[])
+        self.page.goto(self.origin+"/inference/power-sample-size/power-curve-and-tradeoffs/",
+                       wait_until="networkidle")
+        root=self.page.locator("#esa-power-lab")
+        expect(root.locator("#esa-power-result-power")).to_have_text("0.9424")
+        root.locator("#esa-power-delta").evaluate("""el=>{
+            el.value="0";el.dispatchEvent(new Event('input',{bubbles:true}));
+        }""")
+        expect(root.locator("#esa-power-result-power")).to_have_text("0.0500")
+        self.page.goto(self.origin+"/inference/power-sample-size/",wait_until="networkidle")
+        expect(self.page.locator("main h1")).to_be_visible()
+        self.assertEqual(self.errors,[])
+
+
 if __name__ == "__main__":
     unittest.main(argv=[__file__], verbosity=2)
