@@ -7343,5 +7343,202 @@ class SearchTests(unittest.TestCase):
         expect(self.page.locator("main h1")).to_be_visible()
 
 
+    def test_sd_lab_exact_variance_population_sample_and_outlier(self):
+        """Independent reference: n=8, mean=5, SS=32, population SD=2."""
+        url="/descriptive/spread/standard-deviation/"
+        self.page.goto(self.origin+url,wait_until="networkidle")
+        expected={"esa-sd-count":"8","esa-sd-mean":"5.0000",
+                  "esa-sd-ss":"32.0000","esa-sd-pop-var":"4.0000",
+                  "esa-sd-pop-sd":"2.0000","esa-sd-samp-var":"4.5714",
+                  "esa-sd-samp-sd":"2.1381"}
+        for key,val in expected.items():
+            self.assertEqual(self.page.locator("#"+key).inner_text(),val)
+        self.assertEqual(self.page.locator("#esa-sd-table tr").count(),8)
+        self.assertEqual(self.page.locator("#esa-sd-table tr").first.locator("td").all_inner_texts(),
+                         ["1","2.0000","-3.0000","9.0000"])
+        self.page.locator("#esa-sd-outlier").click()
+        outlier={"esa-sd-mean":"7.6250","esa-sd-ss":"585.8750",
+                 "esa-sd-pop-var":"73.2344","esa-sd-pop-sd":"8.5577",
+                 "esa-sd-samp-var":"83.6964","esa-sd-samp-sd":"9.1486"}
+        for key,val in outlier.items():
+            self.assertEqual(self.page.locator("#"+key).inner_text(),val)
+        self.page.locator("#esa-sd-identical").click()
+        self.assertEqual(self.page.locator("#esa-sd-pop-sd").inner_text(),"0.0000")
+        self.assertEqual(self.page.locator("#esa-sd-samp-sd").inner_text(),"0.0000")
+        self.page.locator("#esa-sd-single").click()
+        self.assertEqual(self.page.locator("#esa-sd-pop-sd").inner_text(),"0.0000")
+        self.assertIn("Undefined",self.page.locator("#esa-sd-samp-var").inner_text())
+        self.page.locator("#esa-sd-reset").click()
+        self.assertEqual(self.page.locator("#esa-sd-mean").inner_text(),"5.0000")
+
+    def test_sd_lab_arabic_english_parity_metadata_and_navigation(self):
+        en="/descriptive/spread/standard-deviation/"
+        ar="/ar/descriptive/spread/standard-deviation/"
+        results=[]
+        for url,lang in ((en,"en"),(ar,"ar")):
+            self.page.goto(self.origin+url,wait_until="networkidle")
+            self.assertEqual(self.page.locator("html").get_attribute("lang"),lang)
+            self.assertEqual(self.page.locator("html").get_attribute("dir"),"rtl" if lang=="ar" else None)
+            self.assertEqual(self.page.locator('link[rel="canonical"]').get_attribute("href"),
+                             "https://easystatisticsacademy.com"+url)
+            for lng,route in (("en",en),("ar",ar)):
+                self.assertEqual(self.page.locator('link[rel="alternate"][hreflang="'+lng+'"]')
+                                 .get_attribute("href"),"https://easystatisticsacademy.com"+route)
+            group=self.page.get_by_role("group",name="Language selection")
+            self.assertEqual(group.locator('a[lang="ar"]').get_attribute("href"),ar)
+            self.assertEqual(group.locator('a[lang="en"]').get_attribute("href"),en)
+            results.append([self.page.locator("#esa-sd-"+metric).inner_text()
+                            for metric in ("mean","ss","pop-var","pop-sd","samp-var","samp-sd")])
+            self.page.locator("#esa-sd-values").fill("1, 3, 5, 7")
+            self.page.locator("#esa-sd-run").click()
+            self.assertEqual(self.page.locator("#esa-sd-mean").inner_text(),"4.0000")
+            self.assertEqual(self.page.locator("#esa-sd-pop-var").inner_text(),"5.0000")
+            self.assertEqual(self.page.locator("#esa-sd-samp-var").inner_text(),"6.6667")
+            results.append([self.page.locator("#esa-sd-"+metric).inner_text()
+                            for metric in ("mean","ss","pop-var","pop-sd","samp-var","samp-sd")])
+        self.assertEqual(results[0],results[2])
+        self.assertEqual(results[1],results[3])
+        self.page.goto(self.origin+"/ar/",wait_until="networkidle")
+        self.assertEqual(self.page.locator('a[href="'+ar+'"]').count(),1)
+
+    def test_sd_lab_mobile_keyboard_invalid_input_and_denied_storage(self):
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{
+            configurable:true,get(){throw new DOMException("Denied","SecurityError")}
+          });
+        """)
+        self.page.set_viewport_size({"width":320,"height":800})
+        self.page.goto(self.origin+"/ar/descriptive/spread/standard-deviation/",
+                       wait_until="networkidle")
+        self.page.locator("#esa-sd-values").fill("two, five")
+        self.page.locator("#esa-sd-run").focus()
+        self.page.keyboard.press("Enter")
+        self.assertIn("أدخل",self.page.locator("#esa-sd-status").inner_text())
+        self.assertEqual(self.page.locator("#esa-sd-pop-sd").inner_text(),"2.0000")
+        self.page.locator("#esa-sd-values").fill("2, 4, 6")
+        self.page.locator("#esa-sd-run").focus()
+        self.page.keyboard.press("Enter")
+        self.assertEqual(self.page.locator("#esa-sd-mean").inner_text(),"4.0000")
+        self.assertLessEqual(self.page.locator("#esa-sd-lab").evaluate(
+            "e=>e.scrollWidth-e.clientWidth"),1)
+        self.page.locator("#esa-sd-single").click()
+        self.assertIn("غير معرّف",self.page.locator("#esa-sd-samp-sd").inner_text())
+
+    def test_simpson_stratified_pooled_standardized_exact_benchmark(self):
+        self.page.goto(self.origin+"/applied-statistics/study-design/bias-confounding/",
+                       wait_until="networkidle")
+        expected={
+            "esa-sp-a1-rate":"93.10%","esa-sp-b1-rate":"86.67%",
+            "esa-sp-a2-rate":"73.00%","esa-sp-b2-rate":"68.75%",
+            "esa-sp-a-pooled":"78.00%","esa-sp-b-pooled":"82.57%",
+            "esa-sp-a-standard":"83.05%","esa-sp-b-standard":"77.71%",
+            "esa-sp-winner1":"A","esa-sp-winner2":"A",
+            "esa-sp-winner-pooled":"B","esa-sp-winner-standard":"A"
+        }
+        for key,val in expected.items():
+            self.assertEqual(self.page.locator("#"+key).inner_text(),val)
+        expect(self.page.locator("#esa-sp-explanation")).to_contain_text("Simpson's paradox")
+        self.page.locator("#esa-sp-balanced").click()
+        self.assertEqual(self.page.locator("#esa-sp-a-pooled").inner_text(),"79.47%")
+        self.assertEqual(self.page.locator("#esa-sp-b-pooled").inner_text(),"75.00%")
+        self.assertEqual(self.page.locator("#esa-sp-winner-pooled").inner_text(),"A")
+        expect(self.page.locator("#esa-sp-explanation")).to_contain_text("No strict Simpson reversal")
+        self.page.locator("#esa-sp-reset").click()
+        self.assertEqual(self.page.locator("#esa-sp-winner-pooled").inner_text(),"B")
+
+    def test_simpson_keyboard_invalid_denominator_mobile_denied_storage(self):
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{
+            configurable:true,get(){throw new DOMException("Denied","SecurityError")}
+          });
+        """)
+        self.page.set_viewport_size({"width":320,"height":800})
+        self.page.goto(self.origin+"/applied-statistics/study-design/bias-confounding/",
+                       wait_until="networkidle")
+        self.page.locator("#esa-sp-a1-s").fill("100")
+        self.page.locator("#esa-sp-a1-n").fill("50")
+        self.page.locator("#esa-sp-run").focus()
+        self.page.keyboard.press("Enter")
+        self.assertIn("Invalid counts",self.page.locator("#esa-sp-status").inner_text())
+        self.page.locator("#esa-sp-a1-s").fill("40")
+        self.page.locator("#esa-sp-run").focus()
+        self.page.keyboard.press("Enter")
+        self.assertEqual(self.page.locator("#esa-sp-a1-rate").inner_text(),"80.00%")
+        self.assertLessEqual(self.page.locator("#esa-simpson-lab").evaluate(
+            "e=>e.scrollWidth-e.clientWidth"),1)
+        self.page.locator("#esa-sp-reset").click()
+        self.assertEqual(self.page.locator("#esa-sp-a1-rate").inner_text(),"93.10%")
+
+    def test_likelihood_resume_all_five_existing_labels_and_paths(self):
+        path="/mathematical-statistics/likelihood-and-log-likelihood/"
+        key="esa_continue_ms_likelihood_last_lesson_v0"
+        lessons={
+            "probability-vs-likelihood":"Lesson 1 — Probability vs Likelihood",
+            "likelihood-and-log-likelihood":"Lesson 2 — Likelihood and Log-Likelihood",
+            "score-function":"Lesson 3 — Score Function",
+            "observed-vs-expected-information":"Lesson 4 — Observed vs Expected Information",
+            "regularity-conditions-preview":"Lesson 5 — Regularity Conditions"
+        }
+        for slug,label in lessons.items():
+            with self.subTest(slug=slug):
+                url=path+slug+"/"
+                self.page.goto(self.origin+url,wait_until="networkidle")
+                data=self.page.evaluate("k=>JSON.parse(localStorage.getItem(k))",key)
+                self.assertEqual(data["url"],url)
+                self.assertEqual(data["label"],label)
+                self.assertGreater(data["ts"],0)
+                self.page.goto(self.origin+path,wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-ms-b2")).to_be_visible()
+                self.assertEqual(self.page.locator("#continue-reading-ms-b2-btn")
+                                 .get_attribute("href"),url)
+                self.assertIn(label,self.page.locator("#continue-reading-ms-b2-label").inner_text())
+        self.assertEqual(self.page.locator("#continue-reading-ms-b2-label img").count(),0)
+
+    def test_likelihood_resume_rejects_injection_wrong_labels_times_invalid_json(self):
+        path="/mathematical-statistics/likelihood-and-log-likelihood/"
+        key="esa_continue_ms_likelihood_last_lesson_v0"
+        good={"url":path+"score-function/","label":"Lesson 3 — Score Function","ts":1730000000000}
+        self.page.goto(self.origin+path,wait_until="networkidle")
+        self.page.evaluate("([k,v])=>localStorage.setItem(k,JSON.stringify(v))",[key,good])
+        self.page.reload(wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-ms-b2")).to_be_visible()
+        cases=[
+            dict(good,url="javascript:alert(1)"),
+            dict(good,url="https://bad.example/"),
+            dict(good,url="/mathematical-statistics/maximum-likelihood-estimation/"),
+            dict(good,label="<img src=x onerror=alert(1)>"),
+            dict(good,label="Lesson 2 — Likelihood and Log-Likelihood"),
+            dict(good,ts="1730000000000"),
+            dict(good,ts=-1),
+            dict(good,ts=99999999999999),
+        ]
+        for data in cases:
+            with self.subTest(data=data):
+                self.page.evaluate("([k,v])=>localStorage.setItem(k,JSON.stringify(v))",[key,data])
+                self.page.reload(wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-ms-b2")).to_be_hidden()
+                self.assertEqual(self.page.locator("#continue-reading-ms-b2-label img").count(),0)
+        self.page.evaluate("k=>localStorage.setItem(k,'{bad-json')",key)
+        self.page.reload(wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-ms-b2")).to_be_hidden()
+
+    def test_likelihood_denied_storage_five_lessons_and_mobile_overview(self):
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{
+            configurable:true,get(){throw new DOMException("Denied","SecurityError")}
+          });
+        """)
+        self.page.set_viewport_size({"width":375,"height":760})
+        root="/mathematical-statistics/likelihood-and-log-likelihood/"
+        for slug in ("probability-vs-likelihood","likelihood-and-log-likelihood","score-function",
+                     "observed-vs-expected-information","regularity-conditions-preview"):
+            with self.subTest(slug=slug):
+                self.page.goto(self.origin+root+slug+"/",wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+        self.page.goto(self.origin+root,wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-ms-b2")).to_be_hidden()
+        expect(self.page.locator("main h1")).to_be_visible()
+
+
 if __name__ == "__main__":
     unittest.main(argv=[__file__], verbosity=2)

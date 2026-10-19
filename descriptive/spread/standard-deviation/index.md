@@ -4,6 +4,8 @@ title: Standard Deviation
 description: Learn what standard deviation is, how it relates to variance, and why it is the most widely used measure of variability in statistics.
 permalink: /descriptive/spread/standard-deviation/
 sidebar: false
+translation_pair: standard-deviation
+math: true
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -40,6 +42,7 @@ sidebar: false
     </div>
 
     <h1>Standard Deviation</h1>
+    <p><a href="/ar/descriptive/spread/standard-deviation/" lang="ar" dir="rtl">اقرأ هذا الدرس بالعربية</a></p>
 
     <p class="lead">
       Variance is one of the most important measures of variability,
@@ -136,6 +139,47 @@ s=\sqrt{\frac{\sum_{i=1}^{n}(x_i-\bar{x})^2}{n-1}},\qquad n\ge 2
       <strong>σ</strong> uses the population mean and denominator N.
       Standard deviation is the nonnegative square root of variance.
     </p>
+
+    
+    <!-- Interactive SD laboratory: shared numerics with Arabic -->
+    <section class="concept-box" id="esa-sd-lab" aria-labelledby="esa-sd-title" style="min-width:0;overflow-wrap:anywhere">
+      <h2 id="esa-sd-title">Interactive Standard Deviation Laboratory</h2>
+      <p>Edit the observations and calculate their mean, deviations, squared deviations, variance,
+      and standard deviation. Compare describing a <strong>complete population</strong> with using
+      <strong>n − 1</strong> for the sample variance when estimating population variance from independent,
+      identically distributed observations. The sample standard deviation is the square root of this
+      variance; it is not itself an unbiased estimator of the population standard deviation.</p>
+      <label for="esa-sd-values">Observations (2–20 numbers, comma or space separated; one value is allowed to demonstrate the edge case)</label>
+      <textarea id="esa-sd-values" rows="2" dir="ltr" style="display:block;width:100%;max-width:100%;box-sizing:border-box">2, 4, 4, 4, 5, 5, 7, 9</textarea>
+      <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0">
+        <button id="esa-sd-run" type="button" class="btn">Calculate</button>
+        <button id="esa-sd-outlier" type="button" class="btn btn-outline">Add an extreme observation</button>
+        <button id="esa-sd-identical" type="button" class="btn btn-outline">Identical values</button>
+        <button id="esa-sd-single" type="button" class="btn btn-outline">One observation</button>
+        <button id="esa-sd-reset" type="button" class="btn btn-outline">Reset</button>
+      </div>
+      <p id="esa-sd-status" role="status" aria-live="polite"></p>
+      <dl style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,155px),1fr));gap:.8rem">
+        <div><dt>Observations (n)</dt><dd id="esa-sd-count">—</dd></div>
+        <div><dt>Mean</dt><dd id="esa-sd-mean">—</dd></div>
+        <div><dt>Sum of squared deviations</dt><dd id="esa-sd-ss">—</dd></div>
+        <div><dt>Population variance (divide by n)</dt><dd id="esa-sd-pop-var">—</dd></div>
+        <div><dt>Population SD (σ)</dt><dd id="esa-sd-pop-sd">—</dd></div>
+        <div><dt>Sample variance (divide by n − 1)</dt><dd id="esa-sd-samp-var">—</dd></div>
+        <div><dt>Sample SD (s)</dt><dd id="esa-sd-samp-sd">—</dd></div>
+      </dl>
+      <div role="region" tabindex="0" aria-label="Scrollable deviations table" style="max-width:100%;overflow-x:auto;overscroll-behavior-x:contain">
+        <table style="width:100%;min-width:480px"><caption>Individual contributions to the sum of squared deviations</caption>
+          <thead><tr><th>i</th><th>Observation</th><th>Deviation from mean</th><th>Squared deviation</th></tr></thead>
+          <tbody id="esa-sd-table"></tbody>
+        </table>
+      </div>
+      <p><strong>Units:</strong> If the data are measured in centimeters, both SDs are in centimeters
+      but both variances are in square centimeters. Both SDs are zero for identical data.
+      With one observation, population SD is zero but sample variance and sample SD are undefined.</p>
+      <p id="esa-sd-note"></p>
+    </section>
+    <script src="/js/standard-deviation-lab.js" defer></script>
 
     <h2>Connecting Variance and Standard Deviation</h2>
 

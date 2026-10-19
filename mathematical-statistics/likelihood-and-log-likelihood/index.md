@@ -125,30 +125,40 @@ sidebar: false
 </section>
 
 <script>
-  (function () {
-    try {
-      localStorage.setItem("esa_continue_ms_last_block_v0", JSON.stringify({
-        label: "Block 2 — Likelihood & Log-Likelihood",
-        url: "/mathematical-statistics/likelihood-and-log-likelihood/"
-      }));
-    } catch (e) {}
-
-    var KEY = "esa_continue_ms_likelihood_last_lesson_v0";
-    var raw = localStorage.getItem(KEY);
-    if (!raw) return;
-
-    try {
-      var data = JSON.parse(raw);
-      if (!data || !data.url || !data.label) return;
-
-      var wrap = document.getElementById("continue-reading-ms-b2");
-      var label = document.getElementById("continue-reading-ms-b2-label");
-      var btn = document.getElementById("continue-reading-ms-b2-btn");
-      if (!wrap || !label || !btn) return;
-
-      label.innerHTML = 'You last visited: <strong>' + data.label + '</strong>';
-      btn.href = data.url;
-      wrap.style.display = "block";
-    } catch (e) {}
-  })();
+(function(){
+  "use strict";
+  // Continue Reading accepts only a published path and its historically stored exact label.
+  const KEY="esa_continue_ms_likelihood_last_lesson_v0";
+  const ALLOWED={
+      "/mathematical-statistics/likelihood-and-log-likelihood/probability-vs-likelihood/": "Lesson 1 — Probability vs Likelihood",
+      "/mathematical-statistics/likelihood-and-log-likelihood/likelihood-and-log-likelihood/": "Lesson 2 — Likelihood and Log-Likelihood",
+      "/mathematical-statistics/likelihood-and-log-likelihood/score-function/": "Lesson 3 — Score Function",
+      "/mathematical-statistics/likelihood-and-log-likelihood/observed-vs-expected-information/": "Lesson 4 — Observed vs Expected Information",
+      "/mathematical-statistics/likelihood-and-log-likelihood/regularity-conditions-preview/": "Lesson 5 — Regularity Conditions"
+  };
+  const wrap=document.getElementById("continue-reading-ms-b2");
+  const label=document.getElementById("continue-reading-ms-b2-label");
+  const link=document.getElementById("continue-reading-ms-b2-btn");
+  if(!wrap||!label||!link)return;
+  try {
+    localStorage.setItem("esa_continue_ms_last_block_v0",JSON.stringify({
+      label:"Block 2 — Likelihood & Log-Likelihood",
+      url:"/mathematical-statistics/likelihood-and-log-likelihood/"
+    }));
+    const raw=localStorage.getItem(KEY);
+    if(!raw)return;
+    const data=JSON.parse(raw);
+    if(!data||typeof data!=="object"||Array.isArray(data))return;
+    if(typeof data.url!=="string"||
+       !Object.prototype.hasOwnProperty.call(ALLOWED,data.url))return;
+    if(typeof data.label!=="string"||data.label!==ALLOWED[data.url])return;
+    if(typeof data.ts!=="number"||!Number.isFinite(data.ts)||
+       data.ts<=0||data.ts>Date.now()+86400000)return;
+    label.textContent="You last visited: "+data.label;
+    link.setAttribute("href",data.url);
+    wrap.style.display="block";
+  } catch (_) {
+    // Unsupported/denied storage and invalid historical JSON never block study.
+  }
+})();
 </script>
