@@ -487,7 +487,7 @@ math: true
         <thead><tr><th>Observation</th><th>Residual</th><th>Leverage</th><th>Cook's D</th></tr></thead>
         <tbody id="esa-cook-table"></tbody>
       </table></div>
-      <div class="concept-box">
+      <div class="concept-box" style="max-width:100%;overflow-x:auto;overscroll-behavior-x:contain" tabindex="0" role="region" aria-label="Cook distance equation">
         <p><strong>Definition:</strong> For a simple OLS regression with an intercept,
         \(p=2\) coefficients, \(n=8\) observations, residuals \(e_i\), leverage \(h_{ii}\),
         and full-model residual mean square \(\operatorname{MSE}=\operatorname{SSE}/(n-p)\),</p>

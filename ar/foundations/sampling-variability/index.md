@@ -96,7 +96,7 @@ translation_pair: sampling-variability
 </dl>
 <p>قيم العينة الأولى: <span id="esa-sv-preview" dir="ltr"></span></p>
 <svg id="esa-sv-plot" role="img" aria-label="مدرج تكراري لمتوسطات العينات المسحوبة" viewBox="0 0 680 276" style="display:block;width:100%;max-width:680px"></svg>
-<div class="concept-box">
+<div class="concept-box" style="max-width:100%;overflow-x:auto;overscroll-behavior-x:contain" tabindex="0" role="region" aria-label="معادلات تباين المعاينة">
 <p><strong>المرجع النظري:</strong> يُعرَّف تباين المجتمع المحدود بالصيغة
 \(\sigma_N^2=\sum_{i=1}^N(x_i-\mu)^2/N\).
 عند السحب المستقل <strong>مع الإرجاع</strong>، يكون

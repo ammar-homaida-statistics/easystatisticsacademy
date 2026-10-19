@@ -7006,6 +7006,9 @@ class SearchTests(unittest.TestCase):
         self.assertLessEqual(
             self.page.locator("#esa-sv-lab").evaluate("e => e.scrollWidth-e.clientWidth"),1,
             str(self._lab_mobile_overflow_sources("esa-sv-lab")))
+        formula_region=self.page.get_by_role("region",name="معادلات تباين المعاينة")
+        expect(formula_region).to_have_attribute("tabindex","0")
+        self.assertEqual(formula_region.evaluate("e=>getComputedStyle(e).overflowX"),"auto")
         self.assertLessEqual(self.page.evaluate("document.documentElement.scrollWidth-innerWidth"),2)
 
     def test_cooks_distance_independent_ols_numerical_benchmark(self):
@@ -7086,6 +7089,9 @@ class SearchTests(unittest.TestCase):
         self.assertLessEqual(self.page.locator("#esa-cook-lab").evaluate(
             "e=>e.scrollWidth-e.clientWidth"),1,
             str(self._lab_mobile_overflow_sources("esa-cook-lab")))
+        formula_region=self.page.get_by_role("region",name="Cook distance equation")
+        expect(formula_region).to_have_attribute("tabindex","0")
+        self.assertEqual(formula_region.evaluate("e=>getComputedStyle(e).overflowX"),"auto")
 
     def test_model_assumptions_safe_progress_all_eight_and_invalid_records(self):
         block="/modeling/assumptions/"

@@ -263,7 +263,7 @@ math: true
   </dl>
   <p>First sample drawn: <span id="esa-sv-preview" dir="ltr"></span></p>
   <svg id="esa-sv-plot" role="img" aria-label="Histogram of repeated sample means" viewBox="0 0 680 276" style="display:block;width:100%;max-width:680px"></svg>
-  <div class="concept-box">
+  <div class="concept-box" style="max-width:100%;overflow-x:auto;overscroll-behavior-x:contain" tabindex="0" role="region" aria-label="Sampling-variability equations">
     <p><strong>Analytical reference:</strong> Let population variance be
     \(\sigma_N^2=\sum_{i=1}^N(x_i-\mu)^2/N\). For independent draws
     <em>with replacement</em>, \(\operatorname{SE}(\bar X)=\sqrt{\sigma_N^2/n}\).
