@@ -6799,5 +6799,108 @@ class SearchTests(unittest.TestCase):
 
 
 
+    def test_bootstrap_lab_reproducibility_and_arabic_parity(self):
+        en="/inference/assumptions-robustness/bootstrap-as-robust-tool/"
+        ar="/ar"+en
+        values=[]
+        for url in (en, ar):
+            self.page.goto(self.origin+url,wait_until="networkidle")
+            self.assertEqual(self.page.locator("#esa-boot-run").count(),1)
+            self.page.locator("#esa-boot-run").click()
+            output=self.page.locator("#esa-boot-stats").inner_text()
+            self.assertIn("7.3333",output)
+            self.assertIn("1000",output)
+            self.assertEqual(self.page.locator("#esa-boot-plot rect").count(),20)
+            values.append(self.page.locator("#esa-boot-stats").inner_text())
+            self.page.locator("#esa-boot-run").click()
+            self.assertEqual(output,self.page.locator("#esa-boot-stats").inner_text())
+        import re
+        self.assertEqual(re.findall(r"-?\\d+\\.\\d{4}",values[0]),re.findall(r"-?\\d+\\.\\d{4}",values[1]))
+
+    def test_bootstrap_invalid_input_and_mobile_keyboard(self):
+        self.page.set_viewport_size({"width":320,"height":800})
+        self.page.goto(self.origin+"/inference/assumptions-robustness/bootstrap-as-robust-tool/",wait_until="networkidle")
+        self.page.locator("#esa-boot-data").fill("2, invalid, 4")
+        self.page.locator("#esa-boot-run").focus()
+        self.page.keyboard.press("Enter")
+        expect(self.page.locator("#esa-boot-status")).to_contain_text("finite")
+        self.assertEqual(self.page.locator("#esa-boot-plot rect").count(),0)
+        self.page.locator("#esa-boot-data").fill("5, 5, 5")
+        self.page.locator("#esa-boot-run").click()
+        expect(self.page.locator("#esa-boot-stats")).to_contain_text("0.0000")
+        self.assertLessEqual(self.page.locator("#esa-bootstrap-lab").evaluate("e=>e.scrollWidth-e.clientWidth"),1)
+
+    def test_arabic_pilot_language_rtl_and_metadata(self):
+        en="/inference/assumptions-robustness/bootstrap-as-robust-tool/"
+        ar="/ar"+en
+        for path,language in ((en,"en"),(ar,"ar")):
+            self.page.goto(self.origin+path,wait_until="networkidle")
+            self.assertEqual(self.page.locator("html").get_attribute("lang"),language)
+            self.assertEqual(self.page.locator("html").get_attribute("dir"),"rtl" if language=="ar" else None)
+            self.assertEqual(self.page.locator('link[rel="canonical"]').get_attribute("href"),
+                             "https://easystatisticsacademy.com"+path)
+            self.assertEqual(self.page.locator('link[rel="alternate"][hreflang="ar"]').get_attribute("href"),
+                             "https://easystatisticsacademy.com"+ar)
+            self.assertEqual(self.page.locator('link[rel="alternate"][hreflang="en"]').get_attribute("href"),
+                             "https://easystatisticsacademy.com"+en)
+        self.page.goto(self.origin+"/ar/",wait_until="networkidle")
+        self.assertEqual(self.page.locator('a[href="'+ar+'"]').count(),1)
+
+    def test_overfitting_polynomial_generalization_lab(self):
+        self.page.goto(self.origin+"/modeling/model-fit-comparison/overfitting/",wait_until="networkidle")
+        select=self.page.locator("#esa-overfit-degree")
+        values=[]
+        for d in ("0","1","2","3","4","5","6"):
+            select.select_option(d)
+            output=self.page.locator("#esa-overfit-status").inner_text()
+            self.assertIn("Training MSE",output)
+            self.assertIn("Test MSE",output)
+            self.assertEqual(self.page.locator("#esa-overfit-plot circle").count(),8)
+            self.assertEqual(self.page.locator("#esa-overfit-plot rect").count(),6)
+            import re
+            vals=re.findall(r"MSE: ([0-9]+\\.[0-9]+)",output)
+            self.assertEqual(len(vals),2)
+            values.append(tuple(map(float,vals)))
+        self.assertLess(values[-1][0],values[0][0])
+        self.page.locator("#esa-overfit-reset").click()
+        self.assertEqual(select.input_value(),"1")
+
+    def test_model_fit_progress_valid_legacy_and_malicious(self):
+        path="/modeling/model-fit-comparison/"
+        self.page.goto(self.origin+path,wait_until="networkidle")
+        good={"url":path+"overfitting/","label":"Overfitting","ts":1730000000000}
+        key="esa_continue_modeling_model_fit_lesson_v0"
+        legacy="esa_continue_modeling_fit_lesson_v0"
+        self.page.evaluate("([k,l,d])=>{localStorage.removeItem(k);localStorage.setItem(l,JSON.stringify(d));}",[key,legacy,good])
+        self.page.reload(wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-modeling-fit")).to_be_visible()
+        self.assertEqual(self.page.locator("#continue-reading-modeling-fit-btn").get_attribute("href"),good["url"])
+        self.assertIn("Overfitting",self.page.locator("#continue-reading-modeling-fit-label").inner_text())
+        bad=[{"url":"javascript:alert(1)","label":"Overfitting","ts":1730000000000},
+             {"url":good["url"],"label":"<img src=x onerror=alert(1)>","ts":1730000000000},
+             {"url":good["url"],"label":"Overfitting","ts":"invalid"},
+             {"url":good["url"],"label":"Overfitting","ts":-1}]
+        for value in bad:
+            self.page.evaluate("([k,l,d])=>{localStorage.setItem(k,JSON.stringify(d));localStorage.removeItem(l);}",[key,legacy,value])
+            self.page.reload(wait_until="networkidle")
+            expect(self.page.locator("#continue-reading-modeling-fit")).to_be_hidden()
+            self.assertEqual(self.page.locator("#continue-reading-modeling-fit-label img").count(),0)
+
+    def test_model_fit_all_lessons_denied_storage(self):
+        self.page.add_init_script("""
+            Object.defineProperty(window,"localStorage",{
+              configurable:true,get(){throw new DOMException("Denied","SecurityError")}
+            });
+        """)
+        for slug in ("what-is-model-fit","r-squared","adjusted-r-squared",
+                     "underfitting","overfitting","train-vs-test",
+                     "model-comparison","aic-bic","model-selection-thinking"):
+            with self.subTest(slug=slug):
+                self.page.goto(self.origin+"/modeling/model-fit-comparison/"+slug+"/",wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+        self.page.goto(self.origin+"/modeling/model-fit-comparison/",wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-modeling-fit")).to_be_hidden()
+
+
 if __name__ == "__main__":
     unittest.main(argv=[__file__], verbosity=2)
