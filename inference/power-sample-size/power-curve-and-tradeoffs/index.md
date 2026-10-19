@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_inference_power_sample_size_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
     url: "/inference/power-sample-size/power-curve-and-tradeoffs/",
     label: "Power Curves and Trade-Offs",
     ts: Date.now()
-  }));
+    }));
+  } catch (_) {
+    // Progress is optional if browser storage is denied or unavailable.
+  }
 
 })();
 </script>
