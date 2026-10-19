@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_inference_hypothesis_testing_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
     url: "/inference/hypothesis-testing/test-statistic-standardization/",
     label: "Test Statistic and Standardization",
     ts: Date.now()
   }));
+  } catch (_) {
+    // Lesson remains usable if persistent storage is denied.
+  }
 
 })();
 </script>
