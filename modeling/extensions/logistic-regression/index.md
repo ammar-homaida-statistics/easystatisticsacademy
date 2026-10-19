@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_modeling_extensions_lesson_v0";
 
+  try {
   localStorage.setItem(KEY, JSON.stringify({
     url: "/modeling/extensions/logistic-regression/",
     label: "Logistic Regression",
     ts: Date.now()
   }));
+  } catch (_) {
+    // Browser storage may be denied; keep the interactive lesson available.
+  }
 
 })();
 </script>
@@ -247,6 +251,106 @@ sidebar: false
     <p>
       These properties make logistic regression suitable for probability modeling.
     </p>
+
+
+    <!-- Interactive Logistic Regression Explorer -->
+    <section id="esa-logistic-lab" class="example-box" aria-labelledby="esa-logistic-title">
+      <h2 id="esa-logistic-title">Interactive Logistic Regression Explorer</h2>
+      <p>Adjust a hypothetical binary-response model. Coefficients are teaching examples, not estimates from observations.</p>
+      \[
+      \eta=\beta_0+\beta_1x
+      \]
+      \[
+      p(x)=\frac{1}{1+\exp(-\eta)}
+      \]
+      \[
+      \mathrm{odds}(x)=\exp(\eta)
+      \]
+      <div class="esa-logistic-controls">
+        <label>Intercept β₀ <input id="esa-logistic-b0" type="number" min="-10" max="10" step="0.1" value="-2"></label>
+        <label>Slope β₁ <input id="esa-logistic-b1" type="number" min="-10" max="10" step="0.1" value="1"></label>
+        <label>Predictor x <input id="esa-logistic-x" type="number" min="-8" max="8" step="0.5" value="2"></label>
+        <label>Classification threshold <input id="esa-logistic-threshold" type="number" min="0" max="1" step="0.05" value="0.5"></label>
+      </div>
+      <p id="esa-logistic-error" role="alert" hidden></p>
+      <svg id="esa-logistic-chart" viewBox="0 0 440 255" width="440" height="255" role="img"
+           aria-label="Logistic probability curve, selected predictor and classification threshold">
+        <line x1="44" y1="210" x2="414" y2="210" stroke="currentColor"></line>
+        <line x1="44" y1="20" x2="44" y2="210" stroke="currentColor"></line>
+        <text x="15" y="25" font-size="12" fill="currentColor">p</text>
+        <text x="414" y="240" font-size="12" text-anchor="end" fill="currentColor">x</text>
+        <text x="44" y="229" font-size="11" fill="currentColor">−8</text>
+        <text x="229" y="229" font-size="11" text-anchor="middle" fill="currentColor">0</text>
+        <text x="414" y="229" font-size="11" text-anchor="end" fill="currentColor">8</text>
+        <path id="esa-logistic-curve" stroke="#0d9488" stroke-width="2.5" fill="none"></path>
+        <line id="esa-logistic-threshold-line" x1="44" x2="414" stroke="#64748b" stroke-dasharray="6 4"></line>
+        <line id="esa-logistic-selected-line" stroke="#0d9488" stroke-dasharray="3 4"></line>
+        <circle id="esa-logistic-selected-dot" r="5" fill="#0d9488"></circle>
+      </svg>
+      <p class="muted-mini">Teal: probability and selected predictor. Horizontal dashed line: threshold used to convert a probability to a classification.</p>
+      <div role="status" aria-live="polite" aria-atomic="true">
+        <p>Log-odds η: <output id="esa-logistic-eta">0.000000</output>;
+          predicted probability p: <output id="esa-logistic-prob">0.500000</output>.</p>
+        <p>Odds: <output id="esa-logistic-odds">1.000000</output>;
+          odds ratio per one-unit increase in x: <output id="esa-logistic-or">2.718282</output>.</p>
+        <p>Threshold classification: <strong><output id="esa-logistic-class">1 (positive)</output></strong>.</p>
+      </div>
+      <button type="button" class="btn btn-outline" id="esa-logistic-reset">Reset logistic example</button>
+      <p class="muted-mini">Odds ratios describe multiplicative changes in odds, not changes in risk or probability. This threshold is illustrative; it has not been optimized. Associations are not automatically causal.</p>
+    </section>
+    <style>
+      #esa-logistic-lab{max-width:100%;min-width:0;box-sizing:border-box;overflow-wrap:anywhere}
+      #esa-logistic-lab .esa-logistic-controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:12px;margin:14px 0}
+      #esa-logistic-lab label{display:flex;flex-direction:column;min-width:0;gap:6px;font-weight:600}
+      #esa-logistic-lab input{box-sizing:border-box;width:100%;max-width:100%;min-width:0;padding:8px;font:inherit}
+      #esa-logistic-lab svg{display:block;max-width:540px;width:100%;height:auto;margin:12px auto}
+      #esa-logistic-lab mjx-container[display="true"]{max-width:100%;overflow-x:auto;overflow-y:hidden}
+      #esa-logistic-lab [hidden]{display:none!important}
+      #esa-logistic-lab p{margin:11px 0}
+    </style>
+    <script>
+    (function () {
+      "use strict";
+      const root=document.getElementById("esa-logistic-lab");if(!root)return;
+      const get=id=>root.querySelector("#esa-logistic-"+id);
+      const inputs=["b0","b1","x","threshold"].map(get);
+      const logistic=z=>z>=0?1/(1+Math.exp(-z)):Math.exp(z)/(1+Math.exp(z));
+      const X=v=>44+(v+8)*370/16,Y=p=>210-188*p;
+      function update(){
+        const values=inputs.map(i=>i.value.trim()===""?NaN:Number(i.value));
+        const [b0,b1,x,t]=values;
+        if(!values.every(Number.isFinite)||Math.abs(b0)>10||Math.abs(b1)>10||x< -8||x>8||t<0||t>1){
+          get("error").textContent="Enter finite intercept and slope between −10 and 10, x from −8 to 8, and threshold from 0 to 1.";
+          get("error").hidden=false;get("chart").setAttribute("hidden","");
+          ["eta","prob","odds","or","class"].forEach(k=>get(k).textContent="—");
+          return;
+        }
+        const eta=b0+b1*x,p=logistic(eta),odds=Math.exp(eta),OR=Math.exp(b1);
+        get("error").hidden=true;get("error").textContent="";get("chart").removeAttribute("hidden");
+        get("eta").textContent=eta.toFixed(6);get("prob").textContent=p.toFixed(6);
+        get("odds").textContent=odds>=1000000||odds<0.00001?odds.toExponential(4):odds.toFixed(6);
+        get("or").textContent=OR.toFixed(6);get("class").textContent=p>=t?"1 (positive)":"0 (negative)";
+        let d="";
+        for(let i=0;i<=160;i++){
+          const xx=-8+i/10;
+          d+=(i?" L ":"M ")+X(xx).toFixed(2)+" "+Y(logistic(b0+b1*xx)).toFixed(2);
+        }
+        get("curve").setAttribute("d",d);
+        get("threshold-line").setAttribute("y1",Y(t));get("threshold-line").setAttribute("y2",Y(t));
+        get("selected-line").setAttribute("x1",X(x));get("selected-line").setAttribute("x2",X(x));
+        get("selected-line").setAttribute("y1",Y(p));get("selected-line").setAttribute("y2",210);
+        get("selected-dot").setAttribute("cx",X(x));get("selected-dot").setAttribute("cy",Y(p));
+        get("chart").setAttribute("aria-label","Logistic model: at x "+x+", probability "+
+          p.toFixed(6)+", odds "+odds.toPrecision(5)+", threshold "+t+
+          ", classified "+(p>=t?"positive":"negative")+".");
+      }
+      inputs.forEach(i=>{i.addEventListener("input",update);i.addEventListener("change",update)});
+      get("reset").addEventListener("click",()=>{
+        [-2,1,2,0.5].forEach((v,i)=>inputs[i].value=String(v));update();
+      });
+      update();
+    })();
+    </script>
 
     <h2>Probabilities Change Gradually</h2>
 

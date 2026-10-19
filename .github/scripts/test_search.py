@@ -6427,6 +6427,185 @@ class SearchTests(unittest.TestCase):
 
 
 
+    def test_logistic_probability_explorer_reference_odds_and_threshold(self):
+        """At eta=0, p=.5, odds=1, one-unit OR=exp(1)."""
+        self.page.goto(self.origin+"/modeling/extensions/logistic-regression/", wait_until="networkidle")
+        lab=self.page.locator("#esa-logistic-lab")
+        expect(lab).to_be_visible()
+        self.assertAlmostEqual(float(lab.locator("#esa-logistic-eta").inner_text()),0,places=6)
+        self.assertAlmostEqual(float(lab.locator("#esa-logistic-prob").inner_text()),.5,places=6)
+        self.assertAlmostEqual(float(lab.locator("#esa-logistic-odds").inner_text()),1,places=6)
+        self.assertAlmostEqual(float(lab.locator("#esa-logistic-or").inner_text()),2.718281828459,delta=1e-6)
+        expect(lab.locator("#esa-logistic-class")).to_have_text("1 (positive)")
+        lab.locator("#esa-logistic-threshold").fill("0.6")
+        expect(lab.locator("#esa-logistic-class")).to_have_text("0 (negative)")
+        lab.locator("#esa-logistic-x").fill("0")
+        self.assertAlmostEqual(float(lab.locator("#esa-logistic-prob").inner_text()),.119202922022,delta=1e-6)
+        self.assertGreater(len(lab.locator("#esa-logistic-curve").get_attribute("d")),100)
+        self.assertIn("probability",lab.locator("#esa-logistic-chart").get_attribute("aria-label"))
+        saved=self.page.evaluate("""() => JSON.parse(localStorage.getItem(
+          "esa_continue_modeling_extensions_lesson_v0"))""")
+        self.assertEqual(saved["label"],"Logistic Regression")
+        self.assertEqual(saved["url"],"/modeling/extensions/logistic-regression/")
+        self.assertIsInstance(saved["ts"],int)
+
+    def test_logistic_explorer_invalid_inputs_keyboard_and_mobile(self):
+        self.page.goto(self.origin+"/modeling/extensions/logistic-regression/",wait_until="networkidle")
+        lab=self.page.locator("#esa-logistic-lab")
+        lab.locator("#esa-logistic-b1").fill("")
+        expect(lab.locator("#esa-logistic-error")).to_be_visible()
+        expect(lab.locator("#esa-logistic-chart")).to_be_hidden()
+        lab.get_by_role("button",name="Reset logistic example").focus()
+        lab.get_by_role("button",name="Reset logistic example").press("Enter")
+        expect(lab.locator("#esa-logistic-prob")).to_have_text("0.500000")
+        lab.locator("#esa-logistic-b0").fill("10")
+        lab.locator("#esa-logistic-b1").fill("10")
+        lab.locator("#esa-logistic-x").fill("8")
+        self.assertEqual(lab.locator("#esa-logistic-prob").inner_text(),"1.000000")
+        self.assertNotEqual(lab.locator("#esa-logistic-odds").inner_text(),"Infinity")
+        lab.locator("#esa-logistic-b0").fill("-10")
+        lab.locator("#esa-logistic-b1").fill("-10")
+        self.assertEqual(lab.locator("#esa-logistic-prob").inner_text(),"0.000000")
+        for width in (320,375,768):
+            self.page.set_viewport_size({"width":width,"height":850})
+            bounds=lab.evaluate("e=>({w:e.scrollWidth,c:e.clientWidth,right:e.getBoundingClientRect().right})")
+            self.assertLessEqual(bounds["w"]-bounds["c"],1,bounds)
+            self.assertLessEqual(bounds["right"],width+1,bounds)
+
+    def test_logistic_explorer_survives_denied_storage(self):
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{configurable:true,
+          get(){throw new DOMException("Storage blocked","SecurityError")}});
+        """)
+        self.page.goto(self.origin+"/modeling/extensions/logistic-regression/",wait_until="networkidle")
+        lab=self.page.locator("#esa-logistic-lab")
+        expect(lab.locator("#esa-logistic-prob")).to_have_text("0.500000")
+        lab.locator("#esa-logistic-x").fill("0")
+        self.assertAlmostEqual(float(lab.locator("#esa-logistic-prob").inner_text()),.119202922022,delta=1e-6)
+        self.assertEqual(self.errors,[])
+
+    def test_histogram_bin_counts_and_left_closed_rule(self):
+        """Twenty fixed scores: bins of width 10.2 contain 2,5,5,5,3 values."""
+        self.page.goto(self.origin+"/descriptive/visualization/histograms/",wait_until="networkidle")
+        lab=self.page.locator("#esa-histogram-lab")
+        expect(lab).to_be_visible()
+        self.assertEqual(lab.locator("#esa-histogram-n").inner_text(),"20")
+        self.assertAlmostEqual(float(lab.locator("#esa-histogram-width").inner_text()),10.2,places=4)
+        self.assertEqual(lab.locator("#esa-histogram-sum").inner_text(),"20")
+        self.assertEqual([int(x) for x in lab.locator("#esa-histogram-frequency-table td").all_inner_texts()],
+                         [2,5,5,5,3])
+        lab.locator("#esa-histogram-data").fill("0, 1, 2, 3, 4")
+        lab.locator("#esa-histogram-bins").fill("2")
+        self.assertEqual([int(x) for x in lab.locator("#esa-histogram-frequency-table td").all_inner_texts()],
+                         [2,3])
+        self.assertEqual(lab.locator("#esa-histogram-sum").inner_text(),"5")
+        expect(lab.locator("#esa-histogram-bars rect")).to_have_count(2)
+        self.assertIn("frequencies",lab.locator("#esa-histogram-chart").get_attribute("aria-label"))
+
+    def test_histogram_invalid_constant_keyboard_mobile_and_storage(self):
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{configurable:true,
+          get(){throw new DOMException("Storage blocked","SecurityError")}});
+        """)
+        self.page.goto(self.origin+"/descriptive/visualization/histograms/",wait_until="networkidle")
+        lab=self.page.locator("#esa-histogram-lab")
+        expect(lab).to_be_visible()
+        lab.locator("#esa-histogram-data").fill("3, 3, 3, 3")
+        self.assertEqual(lab.locator("#esa-histogram-sum").inner_text(),"4")
+        lab.locator("#esa-histogram-bins").fill("1")
+        expect(lab.locator("#esa-histogram-error")).to_be_visible()
+        expect(lab.locator("#esa-histogram-chart")).to_be_hidden()
+        lab.get_by_role("button",name="Reset histogram example").focus()
+        lab.get_by_role("button",name="Reset histogram example").press("Enter")
+        self.assertEqual(lab.locator("#esa-histogram-sum").inner_text(),"20")
+        lab.locator("#esa-histogram-data").fill("4, bad")
+        expect(lab.locator("#esa-histogram-error")).to_be_visible()
+        lab.get_by_role("button",name="Reset histogram example").click()
+        for width in (320,375,768):
+            self.page.set_viewport_size({"width":width,"height":850})
+            bounds=lab.evaluate("e=>({w:e.scrollWidth,c:e.clientWidth,right:e.getBoundingClientRect().right})")
+            self.assertLessEqual(bounds["w"]-bounds["c"],1,bounds)
+            self.assertLessEqual(bounds["right"],width+1,bounds)
+        self.assertEqual(self.errors,[])
+
+    def test_extensions_nine_lessons_resume_exact_legacy_schema(self):
+        lessons=(
+            ("why-extensions","Why Extensions?"),
+            ("logistic-regression","Logistic Regression"),
+            ("probability-vs-logit","Probability vs Logit"),
+            ("odds","Odds"),
+            ("interpreting-logistic-coefficients","Interpreting Logistic Coefficients"),
+            ("glm","Generalized Linear Models (GLMs)"),
+            ("link-functions","Link Functions"),
+            ("comparing-linear-and-logistic","Comparing Linear and Logistic Regression"),
+            ("bridge-to-machine-learning","Bridge to Machine Learning")
+        )
+        key="esa_continue_modeling_extensions_lesson_v0"
+        for slug,label in lessons:
+            with self.subTest(slug=slug):
+                dest="/modeling/extensions/"+slug+"/"
+                self.page.goto(self.origin+dest,wait_until="networkidle")
+                saved=self.page.evaluate("key=>JSON.parse(localStorage.getItem(key))",key)
+                self.assertEqual((saved["url"],saved["label"]),(dest,label))
+                self.assertIsInstance(saved["ts"],int)
+                self.assertGreater(saved["ts"],0)
+                self.page.goto(self.origin+"/modeling/extensions/",wait_until="networkidle")
+                block=self.page.locator("#continue-reading-modeling-extensions")
+                expect(block).to_be_visible()
+                self.assertEqual(block.locator("#continue-reading-modeling-extensions-btn").get_attribute("href"),dest)
+                expect(block.locator("#continue-reading-modeling-extensions-label")).to_have_text(
+                    "You last visited: "+label)
+                link=block.locator("#continue-reading-modeling-extensions-btn")
+                link.focus()
+                self.assertTrue(link.evaluate("e=>document.activeElement===e"))
+
+    def test_extensions_resume_rejects_untrusted_saved_values(self):
+        key="esa_continue_modeling_extensions_lesson_v0"
+        self.page.goto(self.origin+"/modeling/extensions/",wait_until="networkidle")
+        bad=(
+            ("javascript:alert(1)","Odds",1730000000000),
+            ("https://bad.example/","Odds",1730000000000),
+            ("/modeling/extensions/odds/","<img src=x onerror=alert(1)>",1730000000000),
+            ("/modeling/extensions/odds/","Logistic Regression",1730000000000),
+            ("/modeling/extensions/odds/","Odds",0),
+            ("/modeling/extensions/odds/","Odds",None),
+            ("//bad.example","Odds",1730000000000)
+        )
+        for url,label,ts in bad:
+            with self.subTest(url=url,label=label,ts=ts):
+                self.page.evaluate("""({key,data})=>localStorage.setItem(key,JSON.stringify(data))""",
+                  {"key":key,"data":{"url":url,"label":label,"ts":ts}})
+                self.page.goto(self.origin+"/modeling/extensions/",wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-modeling-extensions")).to_be_hidden()
+                self.assertEqual(self.page.locator("#continue-reading-modeling-extensions img").count(),0)
+        self.page.evaluate("""key=>localStorage.setItem(key,JSON.stringify({
+          url:"/modeling/extensions/odds/",label:"Odds",ts:1730000000000}))""",key)
+        self.page.goto(self.origin+"/modeling/extensions/",wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-modeling-extensions strong")).to_have_text("Odds")
+
+    def test_extensions_nine_lessons_and_overview_denied_storage(self):
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{configurable:true,
+          get(){throw new DOMException("Storage blocked","SecurityError")}});
+        """)
+        self.page.set_viewport_size({"width":320,"height":800})
+        for slug in ("why-extensions","logistic-regression","probability-vs-logit",
+                     "odds","interpreting-logistic-coefficients","glm","link-functions",
+                     "comparing-linear-and-logistic","bridge-to-machine-learning"):
+            with self.subTest(slug=slug):
+                self.page.goto(self.origin+"/modeling/extensions/"+slug+"/",wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+                link=self.page.locator("main .hero-actions a").first
+                link.focus()
+                self.assertTrue(link.evaluate("e=>document.activeElement===e"))
+                self.assertEqual(self.errors,[],slug)
+        self.page.goto(self.origin+"/modeling/extensions/",wait_until="networkidle")
+        expect(self.page.locator("main h1")).to_be_visible()
+        expect(self.page.locator("#continue-reading-modeling-extensions")).to_be_hidden()
+        self.assertEqual(self.errors,[])
+
+
+
 
 if __name__ == "__main__":
     unittest.main(argv=[__file__], verbosity=2)
