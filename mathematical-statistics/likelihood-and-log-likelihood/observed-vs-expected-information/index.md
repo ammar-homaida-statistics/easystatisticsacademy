@@ -21,29 +21,25 @@ sidebar: false
   </div>
 </section>
 
-<!-- ✅ Update continue-reading keys -->
+<!-- SAVE STUDY PROGRESS; keep existing storage keys and labels -->
 <script>
-  (function () {
-
-    localStorage.setItem(
-      "esa_continue_ms_likelihood_last_lesson_v0",
-      JSON.stringify({
-        url: "/mathematical-statistics/likelihood-and-log-likelihood/observed-vs-expected-information/",
-        label: "Lesson 4 — Observed vs Expected Information",
-        ts: Date.now()
-      })
-    );
-
-    localStorage.setItem(
-      "esa_continue_ms_last_block_v0",
-      JSON.stringify({
-        url: "/mathematical-statistics/likelihood-and-log-likelihood/",
-        label: "Block 2 — Likelihood & Log-Likelihood",
-        ts: Date.now()
-      })
-    );
-
-  })();
+(function(){
+  "use strict";
+  try {
+    localStorage.setItem("esa_continue_ms_likelihood_last_lesson_v0",JSON.stringify({
+      url:"/mathematical-statistics/likelihood-and-log-likelihood/observed-vs-expected-information/",
+      label:"Lesson 4 — Observed vs Expected Information",
+      ts:Date.now()
+    }));
+    localStorage.setItem("esa_continue_ms_last_block_v0",JSON.stringify({
+      url:"/mathematical-statistics/likelihood-and-log-likelihood/",
+      label:"Block 2 — Likelihood & Log-Likelihood",
+      ts:Date.now()
+    }));
+  } catch (_) {
+    // All lessons must remain navigable if storage is disabled.
+  }
+})();
 </script>
 
 <section class="hero hero-section">
