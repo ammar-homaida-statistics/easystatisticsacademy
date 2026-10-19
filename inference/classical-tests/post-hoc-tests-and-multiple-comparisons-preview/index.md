@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_inference_classical_tests_lesson_v0";
 
+  try {
   localStorage.setItem(KEY, JSON.stringify({
     url: "/inference/classical-tests/post-hoc-tests-and-multiple-comparisons-preview/",
     label: "Post-Hoc Tests and Multiple Comparisons",
     ts: Date.now()
   }));
+  } catch (_) {
+    // Disabled browser storage must not interrupt the lesson.
+  }
 
 })();
 </script>

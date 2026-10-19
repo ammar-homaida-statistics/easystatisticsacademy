@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_inference_classical_tests_lesson_v0";
 
+  try {
   localStorage.setItem(KEY, JSON.stringify({
     url: "/inference/classical-tests/decision-framework-and-assumptions/",
     label: "Decision Framework and Assumptions",
     ts: Date.now()
   }));
+  } catch (_) {
+    // Disabled browser storage must not interrupt the lesson.
+  }
 
 })();
 </script>

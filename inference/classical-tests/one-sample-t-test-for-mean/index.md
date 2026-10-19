@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_inference_classical_tests_lesson_v0";
 
+  try {
   localStorage.setItem(KEY, JSON.stringify({
     url: "/inference/classical-tests/one-sample-t-test-for-mean/",
     label: "One-Sample t Test for a Mean",
     ts: Date.now()
   }));
+  } catch (_) {
+    // Disabled browser storage must not interrupt the lesson.
+  }
 
 })();
 </script>

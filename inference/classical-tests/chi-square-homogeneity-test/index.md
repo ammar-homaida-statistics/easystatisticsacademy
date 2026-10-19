@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_inference_classical_tests_lesson_v0";
 
+  try {
   localStorage.setItem(KEY, JSON.stringify({
     url: "/inference/classical-tests/chi-square-homogeneity-test/",
     label: "Chi-Square Test of Homogeneity",
     ts: Date.now()
   }));
+  } catch (_) {
+    // Disabled browser storage must not interrupt the lesson.
+  }
 
 })();
 </script>

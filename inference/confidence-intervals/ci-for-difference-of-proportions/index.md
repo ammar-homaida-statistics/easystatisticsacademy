@@ -248,6 +248,134 @@ p_1-p_2
 
     </div>
 
+
+    <!-- Interactive unpooled Wald difference-in-proportions teaching calculator. -->
+    <section class="example-box" id="esa-two-proportion-ci-calculator" aria-labelledby="esa-two-proportion-ci-heading">
+      <h2 id="esa-two-proportion-ci-heading">Interactive Two-Proportion Confidence Interval</h2>
+      <p>Enter independent-group conversion totals to compute the <strong>unpooled large-sample Wald interval</strong> for Group 1 minus Group 2. The initial values reproduce the A/B example below.</p>
+      <div class="esa-proportion-fields">
+        <label>Group 1 successes <input id="esa-prop-x1" type="number" min="0" max="10000000" step="1" inputmode="numeric" value="240"></label>
+        <label>Group 1 sample size <input id="esa-prop-n1" type="number" min="1" max="10000000" step="1" inputmode="numeric" value="600"></label>
+        <label>Group 2 successes <input id="esa-prop-x2" type="number" min="0" max="10000000" step="1" inputmode="numeric" value="180"></label>
+        <label>Group 2 sample size <input id="esa-prop-n2" type="number" min="1" max="10000000" step="1" inputmode="numeric" value="600"></label>
+        <label>Confidence level
+          <select id="esa-prop-level">
+            <option value="90">90%</option>
+            <option value="95" selected>95%</option>
+            <option value="99">99%</option>
+          </select>
+        </label>
+      </div>
+      <p role="alert" id="esa-prop-error" hidden></p>
+      <div role="status" aria-live="polite" aria-atomic="true" class="esa-proportion-results">
+        <p>Estimated Group 1 − Group 2 difference = <output id="esa-prop-difference">10.0000</output> percentage points.</p>
+        <p>Unpooled estimated SE = <output id="esa-prop-se">0.027386</output> (proportion units);
+           margin of error = <output id="esa-prop-margin">5.3676</output> percentage points.</p>
+        <p><output id="esa-prop-confidence">95</output>% Wald confidence interval =
+           [<output id="esa-prop-lower">4.6324</output>, <output id="esa-prop-upper">15.3676</output>] percentage points.</p>
+      </div>
+      <svg id="esa-prop-interval-chart" viewBox="0 0 360 112" width="360" height="112"
+           role="img" aria-label="95% confidence interval for Group 1 minus Group 2, 4.63 to 15.37 percentage points; zero is outside the interval">
+        <line x1="24" y1="62" x2="336" y2="62" stroke="currentColor"/>
+        <line x1="24" y1="57" x2="24" y2="67" stroke="currentColor"/>
+        <line x1="336" y1="57" x2="336" y2="67" stroke="currentColor"/>
+        <line id="esa-prop-zero" x1="100" x2="100" y1="20" y2="77" stroke="#64748b" stroke-dasharray="3 3"/>
+        <line id="esa-prop-range" x1="140" x2="270" y1="42" y2="42" stroke="#0d9488" stroke-width="5" stroke-linecap="round"/>
+        <circle id="esa-prop-point" cx="205" cy="42" r="6" fill="#0d9488"/>
+        <text id="esa-prop-axis-low" x="24" y="89" font-size="11" text-anchor="start" fill="currentColor">−5 pp</text>
+        <text id="esa-prop-axis-high" x="336" y="89" font-size="11" text-anchor="end" fill="currentColor">20 pp</text>
+        <text id="esa-prop-zero-label" x="100" y="103" font-size="11" text-anchor="middle" fill="currentColor">0 pp</text>
+      </svg>
+      <p id="esa-prop-zero-interpretation">Zero is outside this interval; the interval excludes no difference between the population proportions.</p>
+      <p id="esa-prop-warning">Each group has at least 10 successes and at least 10 failures.</p>
+      <p class="muted-mini">This calculator estimates a difference, not a pooled-null Z test, and does not establish causation. It assumes independent observations in two independent groups. Wald coverage can be poor even when a simple count rule is satisfied; use a score-based or other more reliable procedure when appropriate.</p>
+      <button type="button" class="btn btn-outline" id="esa-prop-reset">Reset worked example</button>
+    </section>
+    <style>
+      #esa-two-proportion-ci-calculator{box-sizing:border-box;max-width:100%;min-width:0;overflow-wrap:anywhere}
+      #esa-two-proportion-ci-calculator .esa-proportion-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,185px),1fr));gap:12px;margin:14px 0}
+      #esa-two-proportion-ci-calculator label{display:flex;flex-direction:column;gap:6px;font-weight:600;min-width:0}
+      #esa-two-proportion-ci-calculator input,#esa-two-proportion-ci-calculator select{box-sizing:border-box;width:100%;max-width:100%;padding:8px;font:inherit}
+      #esa-two-proportion-ci-calculator svg{display:block;width:100%;height:auto;max-width:550px;margin:12px auto;overflow:visible}
+      #esa-two-proportion-ci-calculator p{margin:10px 0}
+      #esa-two-proportion-ci-calculator [role="alert"]{font-weight:700}
+      @media print{#esa-two-proportion-ci-calculator button,#esa-two-proportion-ci-calculator .esa-proportion-fields{display:none}}
+    </style>
+    <script>
+    (function () {
+      "use strict";
+      const root=document.getElementById("esa-two-proportion-ci-calculator");
+      if(!root)return;
+      const el=id=>root.querySelector("#"+id);
+      const inputs=["x1","n1","x2","n2"].map(x=>el("esa-prop-"+x));
+      const level=el("esa-prop-level");
+      const Z={90:1.6448536269514722,95:1.959963984540054,99:2.5758293035489004};
+      const outputs=["difference","se","margin","confidence","lower","upper"];
+      function clear(message) {
+        el("esa-prop-error").hidden=false;
+        el("esa-prop-error").textContent=message;
+        outputs.forEach(s=>el("esa-prop-"+s).textContent="—");
+        el("esa-prop-interval-chart").hidden=true;
+        el("esa-prop-zero-interpretation").textContent="Provide valid counts to interpret the interval.";
+        el("esa-prop-warning").textContent="";
+      }
+      function update() {
+        const nums=inputs.map(input=>input.value.trim()===""?NaN:Number(input.value));
+        const [x1,n1,x2,n2]=nums;
+        if(nums.some(n=>!Number.isSafeInteger(n)||n<0||n>10000000)||
+           n1===0||n2===0||x1>n1||x2>n2) {
+          clear("Use positive whole-number sample sizes up to 10,000,000 and successes between 0 and the matching sample size.");
+          return;
+        }
+        const p1=x1/n1,p2=x2/n2,d=p1-p2;
+        const se=Math.sqrt(p1*(1-p1)/n1+p2*(1-p2)/n2);
+        const margin=Z[Number(level.value)]*se;
+        const lower=d-margin,upper=d+margin;
+        el("esa-prop-error").hidden=true;
+        el("esa-prop-error").textContent="";
+        el("esa-prop-difference").textContent=(100*d).toFixed(4);
+        el("esa-prop-se").textContent=se.toFixed(6);
+        el("esa-prop-margin").textContent=(100*margin).toFixed(4);
+        el("esa-prop-confidence").textContent=level.value;
+        el("esa-prop-lower").textContent=(100*lower).toFixed(4);
+        el("esa-prop-upper").textContent=(100*upper).toFixed(4);
+        const zeroIncluded=lower<=0&&upper>=0;
+        el("esa-prop-zero-interpretation").textContent=zeroIncluded?
+          "Zero lies inside this interval. The interval does not exclude equal population proportions at the selected confidence level.":
+          "Zero lies outside this interval. The interval excludes equal population proportions at the selected confidence level, subject to the method’s assumptions.";
+        const small=[x1,n1-x1,x2,n2-x2].some(n=>n<10);
+        el("esa-prop-warning").textContent=small?
+          "Warning: at least one group has fewer than 10 successes or fewer than 10 failures. The normal approximation and Wald coverage may be unreliable; consider a score-based interval such as Newcombe’s.":
+          "Both groups have at least 10 successes and 10 failures. This is a screening rule, not a guarantee of Wald interval coverage.";
+        const chart=el("esa-prop-interval-chart");
+        chart.hidden=false;
+        const pad=Math.max(0.03,margin*0.2);
+        const axisMin=Math.min(-0.03,lower-pad),axisMax=Math.max(0.03,upper+pad);
+        const sx=x=>24+(x-axisMin)*312/(axisMax-axisMin);
+        el("esa-prop-range").setAttribute("x1",sx(lower).toFixed(2));
+        el("esa-prop-range").setAttribute("x2",sx(upper).toFixed(2));
+        el("esa-prop-point").setAttribute("cx",sx(d).toFixed(2));
+        const zeroX=sx(0).toFixed(2);
+        ["x1","x2"].forEach(a=>el("esa-prop-zero").setAttribute(a,zeroX));
+        el("esa-prop-zero-label").setAttribute("x",zeroX);
+        el("esa-prop-axis-low").textContent=(100*axisMin).toFixed(1)+" pp";
+        el("esa-prop-axis-high").textContent=(100*axisMax).toFixed(1)+" pp";
+        chart.setAttribute("aria-label",level.value+"% Wald confidence interval for Group 1 minus Group 2: "+
+          (100*lower).toFixed(2)+" to "+(100*upper).toFixed(2)+
+          " percentage points; zero "+(zeroIncluded?"is included.":"is excluded."));
+      }
+      [...inputs,level].forEach(input=>{
+        input.addEventListener("input",update);
+        input.addEventListener("change",update);
+      });
+      el("esa-prop-reset").addEventListener("click",()=>{
+        [240,600,180,600].forEach((n,i)=>inputs[i].value=String(n));
+        level.value="95";update();
+      });
+      update();
+    })();
+    </script>
+
     <h2>Example Setup</h2>
 
     <p>
