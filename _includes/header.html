@@ -6,18 +6,18 @@
     <div class="header-top">
 
       <!-- BRAND -->
-      <a class="brand" href="/">
+      <a class="brand" href="{% if page.lang == 'ar' %}/ar/{% else %}/{% endif %}">
         <img src="/images/brand/logo.png?v=2" alt="EasyStatisticsAcademy" />
         <span class="brand-text">EasyStatisticsAcademy</span>
       </a>
 
       <!-- SEARCH -->
       <div class="header-search">
-        <label class="sr-only" for="site-search">Search statistical lessons</label>
+        <label class="sr-only" for="site-search">{% if page.lang == 'ar' %}ابحث عن درس إحصائي{% else %}Search statistical lessons{% endif %}</label>
         <input 
           id="site-search"
           type="search"
-          placeholder="Search topics…"
+          placeholder="{% if page.lang == 'ar' %}ابحث عن موضوع…{% else %}Search topics…{% endif %}"
           autocomplete="off"
           aria-controls="search-results"
           aria-describedby="search-status"
@@ -27,7 +27,7 @@
       </div>
 
       <!-- MOBILE TOGGLE -->
-      <button class="nav-toggle" type="button" aria-label="Toggle menu" aria-controls="site-primary-nav" aria-expanded="false">
+      <button class="nav-toggle" type="button" aria-label="{% if page.lang == 'ar' %}فتح القائمة{% else %}Toggle menu{% endif %}" aria-controls="site-primary-nav" aria-expanded="false">
         <span class="nav-toggle-bar"></span>
         <span class="nav-toggle-bar"></span>
         <span class="nav-toggle-bar"></span>
@@ -38,7 +38,12 @@
     <!-- ===== BOTTOM ROW ===== -->
     <div class="header-bottom">
 
-      <nav id="site-primary-nav" class="nav" aria-label="Primary navigation">
+      <nav id="site-primary-nav" class="nav" aria-label="{% if page.lang == 'ar' %}التنقل الرئيسي{% else %}Primary navigation{% endif %}">
+        {% if page.lang == 'ar' %}
+        <a href="/ar/"{% if page.url == '/ar/' %} class="is-active" aria-current="page"{% endif %}>الرئيسية العربية</a>
+        <a href="/ar/inference/assumptions-robustness/bootstrap-as-robust-tool/">درس بوتستراب</a>
+        <a href="/" lang="en" dir="ltr">English</a>
+        {% else %}
 
         <a href="/"{% if page.url == '/' %} class="is-active" aria-current="page"{% endif %}>Home</a>
 
@@ -50,6 +55,7 @@
 
         <a href="/about/"{% if page.url == '/about/' %} class="is-active" aria-current="page"{% endif %}>About</a>
 
+        {% endif %}
       </nav>
 
     </div>

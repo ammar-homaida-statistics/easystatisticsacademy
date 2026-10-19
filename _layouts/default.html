@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{ page.lang | default: 'en' }}"{% if page.lang == 'ar' %} dir="rtl"{% endif %}>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -10,6 +10,10 @@
   <title>{{ meta_title | escape }} | {{ site.title | escape }}</title>
   <meta name="description" content="{{ meta_description | escape }}" />
   <link rel="canonical" href="{{ canonical_url | escape }}" />
+  {% if page.alternate_en and page.alternate_ar %}
+  <link rel="alternate" hreflang="en" href="{{ site.url }}{{ page.alternate_en }}" />
+  <link rel="alternate" hreflang="ar" href="{{ site.url }}{{ page.alternate_ar }}" />
+  {% endif %}
 
   <!-- Page-specific social metadata; no imaginary preview image. -->
   <meta property="og:type" content="website" />
@@ -37,6 +41,14 @@
   <meta name="robots" content="noindex, follow" />
   {% endif %}
 
+  {% if page.lang == 'ar' %}
+  <style>
+    html[dir="rtl"] main { text-align:right; }
+    html[dir="rtl"] .hero-actions, html[dir="rtl"] .lesson-nav { direction:rtl; }
+    html[dir="rtl"] .content-narrow svg[dir="ltr"], html[dir="rtl"] .content-narrow [dir="ltr"] { direction:ltr; unicode-bidi:isolate; }
+    html[dir="rtl"] .content-narrow input[type="number"] { direction:ltr; }
+  </style>
+  {% endif %}
   {% include schema-org.html %}
 
   <!-- TeX configuration is cheap; only math pages fetch the MathJax library. -->
@@ -53,7 +65,7 @@
 
 <body>
 
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a class="skip-link" href="#main-content">{% if page.lang == 'ar' %}تجاوز إلى المحتوى{% else %}Skip to main content{% endif %}</a>
   {% include header.html %}
 
   <!-- MAIN CONTENT -->
