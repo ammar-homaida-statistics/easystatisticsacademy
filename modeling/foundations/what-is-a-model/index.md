@@ -9,16 +9,16 @@ sidebar: false
 <!-- SAVE LESSON PROGRESS -->
 <script>
 (function () {
-
-  const KEY =
-    "esa_continue_modeling_foundations_lesson_v0";
-
-  localStorage.setItem(KEY, JSON.stringify({
-    url: "/modeling/foundations/what-is-a-model/",
-    label: "What Is a Model?",
-    ts: Date.now()
-  }));
-
+  "use strict";
+  try {
+    localStorage.setItem("esa_continue_modeling_foundations_lesson_v0", JSON.stringify({
+      url: "/modeling/foundations/what-is-a-model/",
+      label: "What Is a Model?",
+      ts: Date.now()
+    }));
+  } catch (_) {
+    // Reading remains possible when localStorage is unavailable.
+  }
 })();
 </script>
 

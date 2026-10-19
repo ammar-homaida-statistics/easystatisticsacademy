@@ -4,6 +4,7 @@ title: Missing Data
 description: Understand why data is missing, different types of missingness, and why naive fixes can lead to incorrect conclusions.
 permalink: /foundations/missing-data/
 sidebar: false
+translation_pair: missing-data
 ---
 
 <!-- HERO -->
@@ -17,6 +18,7 @@ sidebar: false
     </div>
 
     <h1>Missing Data</h1>
+    <p><a href="/ar/foundations/missing-data/" lang="ar" dir="rtl">اقرأ هذا الدرس بالعربية</a></p>
 
     <p class="lead">
       Missing data is unavoidable in real datasets — but how you handle it can strongly affect your conclusions.
@@ -88,8 +90,8 @@ sidebar: false
     </p>
 
     <p>
-  When missingness is not random, it creates bias in estimates,
-  affecting statistical inference.
+  Depending on the mechanism and analysis, nonrandom missingness can bias estimates.
+  Even random missingness reduces information, and a single incomplete dataset cannot establish the mechanism.
 </p>
   </div>
 
@@ -124,8 +126,8 @@ sidebar: false
   </p>
 
   <p>
-    If the removed part is random → little distortion  
-    If the removed part is systematic → biased results
+    When records are missing independently of their values, complete-case estimators can remain unbiased over repeated sampling, but individual samples still fluctuate.
+    When missingness is selective, the observed distribution can differ systematically from the target distribution.
   </p>
 </div>
 
@@ -137,11 +139,69 @@ sidebar: false
   </p>
 
   <ul class="bullets">
-    <li>MCAR → usually does not introduce bias</li>
+    <li>MCAR → under valid sampling, complete-case means are unbiased on average, though less precise</li>
     <li>MAR → may introduce bias if not handled correctly</li>
-    <li>MNAR → often leads to strong bias</li>
+    <li>MNAR → can cause substantial bias and generally needs sensitivity analysis</li>
   </ul>
 </div>
+
+
+  <!-- FINITE DATASET MISSINGNESS LABORATORY -->
+  <div class="section-block" id="esa-md-lab" style="min-width:0;overflow-wrap:anywhere">
+    <h2>Interactive Missing Data and Bias Laboratory</h2>
+    <p>Use a <strong>known, fixed population of 10 values</strong> with an observed A/B group label.
+    Each simulated missingness mechanism hides some values while retaining the true values for comparison.
+    MCAR does not depend on records; MAR depends on the <em>observed group</em>; MNAR depends on the
+    potentially missing <em>outcome value itself</em>. The examples illustrate mechanisms rather than
+    proving a mechanism from a single incomplete dataset.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:end">
+      <label style="flex:1 1 150px">Missingness mechanism
+        <select id="esa-md-mode" style="max-width:100%">
+          <option value="mcar">MCAR</option><option value="mar">MAR</option><option value="mnar">MNAR</option>
+        </select>
+      </label>
+      <label style="flex:1 1 150px">Baseline probability
+        <select id="esa-md-level" style="max-width:100%">
+          <option value="0.1">10%</option><option value="0.3" selected>30%</option><option value="0.5">50%</option>
+        </select>
+      </label>
+      <label style="flex:1 1 150px">Random seed
+        <input id="esa-md-seed" type="number" inputmode="numeric" min="0" max="4294967295" step="1" value="2026" style="width:100%;max-width:160px">
+      </label>
+      <button class="btn" id="esa-md-run" type="button">Generate missingness</button>
+      <button class="btn btn-outline" id="esa-md-reset" type="button">Reset</button>
+    </div>
+    <p id="esa-md-status" role="status" aria-live="polite"></p>
+    <dl style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,165px),1fr));gap:.6rem">
+      <div><dt>Known population mean</dt><dd id="esa-md-true">—</dd></div>
+      <div><dt>Missing observations</dt><dd id="esa-md-fraction">—</dd></div>
+      <div><dt>Complete-case mean</dt><dd id="esa-md-observed">—</dd></div>
+      <div><dt>Mean-imputed mean</dt><dd id="esa-md-imputed">—</dd></div>
+      <div><dt>Signed estimation error (observed − true)</dt><dd id="esa-md-error">—</dd></div>
+      <div><dt>Variance after mean imputation (sample)</dt><dd id="esa-md-variance">—</dd></div>
+    </dl>
+    <div style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Observed and missing data table">
+      <table style="min-width:420px;width:100%">
+        <caption>Missing entries are hidden from the estimator; the true values are shown for teaching only.</caption>
+        <thead><tr><th>Record</th><th>Observed group</th><th>True value</th><th>Available value</th><th>Mean-imputed value</th></tr></thead>
+        <tbody id="esa-md-table"></tbody>
+      </table>
+    </div>
+    <p id="esa-md-notes"></p>
+    <div class="concept-box">
+      <p><strong>Important:</strong> In this single-variable demonstration, replacing all missing outcomes
+      with the complete-case mean leaves the overall mean <em>exactly unchanged</em> when any observations exist.
+      It does not correct missingness bias and typically understates variability. MCAR implies unbiased
+      complete-case means <em>over repeated samples</em> under valid random sampling, not zero error in each realization.
+      MAR may be handled using appropriate observed-data models, weighting or multiple imputation under assumptions;
+      MNAR generally requires extra untestable assumptions or sensitivity analysis.</p>
+      <p>The baseline probability is a control, not a promise of exactly that percentage missing.
+      MAR uses group A probability 0.55 × baseline and group B 1.6 × baseline (capped at 0.95).
+      MNAR uses value ≥ 70 probability 1.8 × baseline (capped at 0.95), otherwise 0.3 × baseline.
+      The examples do not prove that a mechanism can be identified from observed data alone.</p>
+    </div>
+  </div>
+  <script src="/js/missing-data-lab.js" defer></script>
 
   <!-- KEY INSIGHT -->
   <div class="section-block">

@@ -9,15 +9,16 @@ sidebar: false
 <!-- SAVE BLOCK PROGRESS -->
 <script>
 (function () {
-
-  const KEY = "esa_continue_modeling_last_block_v0";
-
-  localStorage.setItem(KEY, JSON.stringify({
-    url: "/modeling/foundations/",
-    label: "Block 1 — Modeling Foundations",
-    ts: Date.now()
-  }));
-
+  "use strict";
+  try {
+    localStorage.setItem("esa_continue_modeling_last_block_v0", JSON.stringify({
+      url:"/modeling/foundations/",
+      label:"Block 1 — Modeling Foundations",
+      ts:Date.now()
+    }));
+  } catch (_) {
+    // Reading and navigation must work when the browser denies storage.
+  }
 })();
 </script>
 
@@ -496,51 +497,37 @@ sidebar: false
 
 </section>
 
-<!-- CONTINUE READING SCRIPT -->
-
+<!-- CONTINUE READING SCRIPT: allowlisted, safe progress -->
 <script>
 (function () {
-
+  "use strict";
+  const KEY = "esa_continue_modeling_foundations_lesson_v0";
+  const ALLOWED = {
+    "/modeling/foundations/what-is-a-model/": "What Is a Model?",
+    "/modeling/foundations/variables/": "Variables",
+    "/modeling/foundations/signal-noise/": "Signal and Noise",
+    "/modeling/foundations/parameters/": "Parameters",
+    "/modeling/foundations/prediction-vs-explanation/": "Prediction vs Explanation"
+  };
+  const wrap = document.getElementById("continue-reading-modeling-foundations");
+  const label = document.getElementById("continue-reading-modeling-foundations-label");
+  const button = document.getElementById("continue-reading-modeling-foundations-btn");
+  if (!wrap || !label || !button) return;
   try {
-
-    const KEY =
-      "esa_continue_modeling_foundations_lesson_v0";
-
     const raw = localStorage.getItem(KEY);
-
     if (!raw) return;
-
     const data = JSON.parse(raw);
-
-    if (!data || !data.url || !data.label) return;
-
-    const wrap =
-      document.getElementById(
-        "continue-reading-modeling-foundations"
-      );
-
-    const label =
-      document.getElementById(
-        "continue-reading-modeling-foundations-label"
-      );
-
-    const btn =
-      document.getElementById(
-        "continue-reading-modeling-foundations-btn"
-      );
-
-    if (!wrap || !label || !btn) return;
-
-    label.innerHTML =
-      "You last visited: <strong>" +
-      data.label +
-      "</strong>";
-
-    btn.href = data.url;
-
+    if (!data || typeof data !== "object" || Array.isArray(data)) return;
+    if (typeof data.url !== "string" ||
+        !Object.prototype.hasOwnProperty.call(ALLOWED, data.url)) return;
+    if (typeof data.label !== "string" || data.label !== ALLOWED[data.url]) return;
+    if (typeof data.ts !== "number" || !Number.isFinite(data.ts) ||
+        data.ts<=0 || data.ts>Date.now()+86400000) return;
+    label.textContent = "You last visited: " + data.label;
+    button.setAttribute("href", data.url);
     wrap.style.display = "block";
-
-  } catch (e) {}
-
+  } catch (_) {
+    // Ignore invalid historical records and blocked storage without changing links.
+  }
 })();
 </script>

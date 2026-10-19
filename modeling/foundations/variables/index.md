@@ -10,16 +10,16 @@ sidebar: false
 <!-- SAVE LESSON PROGRESS -->
 <script>
 (function () {
-
-  const KEY =
-    "esa_continue_modeling_foundations_lesson_v0";
-
-  localStorage.setItem(KEY, JSON.stringify({
-    url: "/modeling/foundations/variables/",
-    label: "Variables",
-    ts: Date.now()
-  }));
-
+  "use strict";
+  try {
+    localStorage.setItem("esa_continue_modeling_foundations_lesson_v0", JSON.stringify({
+      url: "/modeling/foundations/variables/",
+      label: "Variables",
+      ts: Date.now()
+    }));
+  } catch (_) {
+    // Reading remains possible when localStorage is unavailable.
+  }
 })();
 </script>
 
