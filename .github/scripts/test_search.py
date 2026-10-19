@@ -6830,6 +6830,23 @@ class SearchTests(unittest.TestCase):
         expect(self.page.locator("#esa-boot-stats")).to_contain_text("0.0000")
         self.assertLessEqual(self.page.locator("#esa-bootstrap-lab").evaluate("e=>e.scrollWidth-e.clientWidth"),1)
 
+    def test_bilingual_navigation_keeps_compact_mobile_header(self):
+        self.page.set_viewport_size({"width":375,"height":650})
+        self.page.goto(self.origin+"/descriptive/spread/variance/",wait_until="networkidle")
+        header=self.page.locator(".site-header")
+        self.assertLessEqual(header.evaluate("e=>e.getBoundingClientRect().height"),125)
+        arabic=self.page.get_by_role("group",name="Language selection").locator('a[lang="ar"]')
+        expect(arabic).to_be_hidden()
+        toggle=self.page.get_by_role("button",name="Toggle menu")
+        toggle.focus()
+        self.page.keyboard.press("Enter")
+        expect(arabic).to_be_visible()
+        self.assertEqual(arabic.get_attribute("href"),"/ar/")
+        self.page.goto(self.origin+"/inference/assumptions-robustness/bootstrap-as-robust-tool/",wait_until="networkidle")
+        self.page.get_by_role("button",name="Toggle menu").click()
+        self.assertEqual(self.page.get_by_role("group",name="Language selection").locator('a[lang="ar"]').get_attribute("href"),
+                         "/ar/inference/assumptions-robustness/bootstrap-as-robust-tool/")
+
     def test_arabic_pilot_language_rtl_and_metadata(self):
         en="/inference/assumptions-robustness/bootstrap-as-robust-tool/"
         ar="/ar"+en
