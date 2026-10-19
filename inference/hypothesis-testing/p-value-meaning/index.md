@@ -183,7 +183,7 @@ sidebar: false
 
     \[
     \begin{aligned}
-    p_{\mathrm{two\mbox{-}sided}}
+    p_{\text{two-sided}}
     &=P_{H_0}(X\le10)+P_{H_0}(X\ge90)\\
     &=2\sum_{k=90}^{100}\binom{100}{k}(0.5)^{100}\\
     &\approx 3.0632901754\times10^{-17}.
@@ -196,7 +196,7 @@ sidebar: false
     </p>
 
     \[
-    p_{\mathrm{right\mbox{-}tailed}}=P_{H_0}(X\ge90)
+    p_{\text{right-tailed}}=P_{H_0}(X\ge90)
     =\sum_{k=90}^{100}\binom{100}{k}(0.5)^{100}
     \approx 1.5316450877\times10^{-17}.
     \]
