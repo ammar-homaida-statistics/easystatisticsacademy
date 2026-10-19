@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_modeling_simple_linear_regression_lesson_v0";
 
+  try {
   localStorage.setItem(KEY, JSON.stringify({
     url: "/modeling/simple-linear-regression/least-squares/",
     label: "Least Squares",
     ts: Date.now()
   }));
+  } catch (_) {
+    // The lesson remains usable when browser storage is blocked.
+  }
 
 })();
 </script>
@@ -211,7 +215,15 @@ sidebar: false
       The regression line is chosen to minimize:
     </p>
 
-    
+    \[
+    \operatorname{RSS}(b_0,b_1)=\sum_{i=1}^{n}\left[y_i-(b_0+b_1x_i)\right]^2
+    \]
+
+    <p>For a line with an intercept and distinct predictor values, the minimizing coefficients are:</p>
+    \[
+    \hat b_1=\frac{\sum_i(x_i-\bar x)(y_i-\bar y)}{\sum_i(x_i-\bar x)^2},
+    \qquad \hat b_0=\bar y-\hat b_1\bar x.
+    \]
 
     <p>
       This quantity is called the Sum of Squared Residuals (SSR) or Residual Sum of Squares (RSS).
@@ -234,6 +246,168 @@ sidebar: false
     <p>
       Least squares finds the line that makes the combined squared distances as small as possible.
     </p>
+
+
+    <section class="example-box" id="esa-ols-explorer" aria-labelledby="esa-ols-title">
+      <h2 id="esa-ols-title">Interactive Least-Squares Regression Explorer</h2>
+      <p>Edit five observed (x, y) pairs. The fitted line minimizes the residual sum of squares among lines with an intercept; compare its fit with any alternative intercept and slope.</p>
+      <div class="esa-ols-points" role="group" aria-label="Five editable observed data points">
+        <label>Point 1 x <input type="number" id="esa-ols-x1" step="any" value="1"></label>
+        <label>Point 1 y <input type="number" id="esa-ols-y1" step="any" value="2"></label>
+        <label>Point 2 x <input type="number" id="esa-ols-x2" step="any" value="2"></label>
+        <label>Point 2 y <input type="number" id="esa-ols-y2" step="any" value="4"></label>
+        <label>Point 3 x <input type="number" id="esa-ols-x3" step="any" value="3"></label>
+        <label>Point 3 y <input type="number" id="esa-ols-y3" step="any" value="5"></label>
+        <label>Point 4 x <input type="number" id="esa-ols-x4" step="any" value="4"></label>
+        <label>Point 4 y <input type="number" id="esa-ols-y4" step="any" value="4"></label>
+        <label>Point 5 x <input type="number" id="esa-ols-x5" step="any" value="5"></label>
+        <label>Point 5 y <input type="number" id="esa-ols-y5" step="any" value="5"></label>
+      </div>
+      <fieldset class="esa-ols-alternative">
+        <legend>Comparison line (not fitted)</legend>
+        <label>Alternative intercept <input type="number" step="any" value="1" id="esa-ols-alt-intercept"></label>
+        <label>Alternative slope <input type="number" step="any" value="1" id="esa-ols-alt-slope"></label>
+      </fieldset>
+      <p id="esa-ols-error" role="alert" hidden></p>
+      <svg id="esa-ols-chart" width="440" height="260" viewBox="0 0 440 260" role="img"
+           aria-label="Five data points, least-squares fitted line, comparison line, and vertical residual gaps">
+        <line x1="44" x2="410" y1="222" y2="222" stroke="currentColor"></line>
+        <line x1="44" x2="44" y1="22" y2="222" stroke="currentColor"></line>
+        <text x="412" y="241" text-anchor="end" fill="currentColor" font-size="12">x</text>
+        <text x="20" y="20" fill="currentColor" font-size="12">y</text>
+        <g id="esa-ols-plot"></g>
+      </svg>
+      <p class="muted-mini"><strong>Graph key:</strong> teal = fitted line; dashed gray = alternative line; circles = observed values; vertical strokes = fitted residuals. The axes rescale for the entered data. Only five points are modeled.</p>
+      <div class="esa-ols-results" role="status" aria-live="polite" aria-atomic="true">
+        <p>Fitted intercept b₀ = <output id="esa-ols-b0">2.2000</output>;
+           fitted slope b₁ = <output id="esa-ols-b1">0.6000</output>.</p>
+        <p>Fitted residual sum of squares = <output id="esa-ols-rss">2.4000</output>;
+           comparison-line RSS = <output id="esa-ols-alt-rss">4.0000</output>.</p>
+        <p>Fitted R² = <output id="esa-ols-r2">0.6000</output>.
+           <span id="esa-ols-fit-explanation">The fitted line minimizes in-sample RSS for these observations.</span></p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <caption>Per-observation fitted predictions and residuals (observed y − fitted y)</caption>
+          <thead><tr><th scope="col">Point</th><th scope="col">Fitted y</th><th scope="col">Residual</th><th scope="col">Residual²</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">1</th><td><output id="esa-ols-fit1">2.800</output></td><td><output id="esa-ols-res1">−0.800</output></td><td><output id="esa-ols-sq1">0.640</output></td></tr>
+            <tr><th scope="row">2</th><td><output id="esa-ols-fit2">3.400</output></td><td><output id="esa-ols-res2">0.600</output></td><td><output id="esa-ols-sq2">0.360</output></td></tr>
+            <tr><th scope="row">3</th><td><output id="esa-ols-fit3">4.000</output></td><td><output id="esa-ols-res3">1.000</output></td><td><output id="esa-ols-sq3">1.000</output></td></tr>
+            <tr><th scope="row">4</th><td><output id="esa-ols-fit4">4.600</output></td><td><output id="esa-ols-res4">−0.600</output></td><td><output id="esa-ols-sq4">0.360</output></td></tr>
+            <tr><th scope="row">5</th><td><output id="esa-ols-fit5">5.200</output></td><td><output id="esa-ols-res5">−0.200</output></td><td><output id="esa-ols-sq5">0.040</output></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="esa-ols-actions">
+        <button type="button" class="btn btn-outline" id="esa-ols-reset">Reset example</button>
+        <button type="button" class="btn btn-outline" id="esa-ols-outlier">Try an unusual observation</button>
+      </div>
+      <p class="muted-mini">Requires at least two distinct x values. R² uses 1 − RSS/TSS and is undefined when all y values are identical. Least-squares optimality is in sample; causal interpretation and predictive reliability require additional assumptions.</p>
+    </section>
+    <style>
+      #esa-ols-explorer{box-sizing:border-box;max-width:100%;min-width:0;overflow-wrap:anywhere}
+      #esa-ols-explorer .esa-ols-points{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px 14px;max-width:530px}
+      #esa-ols-explorer label{display:flex;flex-direction:column;gap:4px;font-weight:600;min-width:0}
+      #esa-ols-explorer input{box-sizing:border-box;width:100%;max-width:100%;min-width:0;padding:7px;font:inherit}
+      #esa-ols-explorer .esa-ols-alternative{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:530px;min-width:0;border:1px solid var(--border-strong);border-radius:9px;padding:12px;margin:16px 0}
+      #esa-ols-explorer .esa-ols-alternative legend{font-weight:700;padding:0 6px}
+      #esa-ols-explorer svg{width:100%;height:auto;max-width:550px;display:block;margin:12px auto}
+      #esa-ols-explorer svg[hidden],#esa-ols-explorer [hidden]{display:none!important}
+      #esa-ols-explorer .esa-ols-actions{display:flex;flex-wrap:wrap;gap:10px}
+      #esa-ols-explorer p{margin:11px 0}
+      @media print{#esa-ols-explorer .esa-ols-points,#esa-ols-explorer .esa-ols-alternative,#esa-ols-explorer button{display:none}}
+    </style>
+    <script>
+    (function () {
+      "use strict";
+      const root=document.getElementById("esa-ols-explorer");
+      if(!root) return;
+      const get=id=>root.querySelector("#esa-ols-"+id);
+      const xs=[1,2,3,4,5].map(i=>get("x"+i)),ys=[1,2,3,4,5].map(i=>get("y"+i));
+      const altIntercept=get("alt-intercept"),altSlope=get("alt-slope"),err=get("error"),chart=get("chart");
+      const outputs=["b0","b1","rss","alt-rss","r2",...Array.from({length:5},(_,i)=>["fit"+(i+1),"res"+(i+1),"sq"+(i+1)]).flat()];
+      const svgNS="http://www.w3.org/2000/svg";
+      function element(name,attributes) {
+        const node=document.createElementNS(svgNS,name);
+        Object.entries(attributes).forEach(([key,value])=>node.setAttribute(key,String(value)));
+        return node;
+      }
+      function invalid(message){
+        err.hidden=false;err.textContent=message;chart.hidden=true;
+        outputs.forEach(key=>get(key).textContent="—");
+        get("fit-explanation").textContent="Correct the inputs to fit a regression line.";
+      }
+      function number(input) {
+        return input.value.trim()===""?NaN:Number(input.value);
+      }
+      function update(){
+        const x=xs.map(number),y=ys.map(number);
+        const a=number(altIntercept),b=number(altSlope);
+        if([...x,...y,a,b].some(v=>!Number.isFinite(v)||Math.abs(v)>100)) {
+          invalid("Enter finite values between −100 and 100 in every field.");
+          return;
+        }
+        const n=x.length, xbar=x.reduce((s,v)=>s+v,0)/n,ybar=y.reduce((s,v)=>s+v,0)/n;
+        const sxx=x.reduce((s,v)=>s+(v-xbar)**2,0);
+        if(sxx<=1e-10){
+          invalid("At least two clearly different x values are required; slope is undefined for identical or nearly identical x values.");
+          return;
+        }
+        const slope=x.reduce((s,v,i)=>s+(v-xbar)*(y[i]-ybar),0)/sxx;
+        const intercept=ybar-slope*xbar;
+        const fitted=x.map(v=>intercept+slope*v),residuals=y.map((v,i)=>v-fitted[i]);
+        const rss=residuals.reduce((s,v)=>s+v*v,0);
+        const altRSS=x.reduce((s,v,i)=>s+(y[i]-a-b*v)**2,0);
+        const tss=y.reduce((s,v)=>s+(v-ybar)**2,0);
+        const r2=tss<=1e-10?NaN:Math.max(0,Math.min(1,1-rss/tss));
+        err.hidden=true;err.textContent="";chart.hidden=false;
+        get("b0").textContent=intercept.toFixed(4);
+        get("b1").textContent=slope.toFixed(4);
+        get("rss").textContent=rss.toFixed(4);
+        get("alt-rss").textContent=altRSS.toFixed(4);
+        get("r2").textContent=Number.isFinite(r2)?r2.toFixed(4):"undefined";
+        get("fit-explanation").textContent=Number.isFinite(r2)?
+          "OLS has the smallest possible in-sample RSS among intercept-and-slope lines.":
+          "The outcomes are constant, so R² is undefined because TSS = 0.";
+        for(let i=0;i<n;i++){
+          get("fit"+(i+1)).textContent=fitted[i].toFixed(3);
+          get("res"+(i+1)).textContent=residuals[i].toFixed(3);
+          get("sq"+(i+1)).textContent=(residuals[i]**2).toFixed(3);
+        }
+        const xMin=Math.min(...x),xMax=Math.max(...x);
+        const rawY=[...y,...fitted,...x.map(v=>a+b*v)];
+        let yMin=Math.min(...rawY),yMax=Math.max(...rawY);
+        const xPad=Math.max((xMax-xMin)*0.1,0.2),yPad=Math.max((yMax-yMin)*0.12,0.4);
+        const left=xMin-xPad,right=xMax+xPad;
+        yMin-=yPad;yMax+=yPad;
+        const X=v=>44+(v-left)/(right-left)*366;
+        const Y=v=>222-(v-yMin)/(yMax-yMin)*195;
+        const marks=[];
+        marks.push(element("line",{x1:X(left),x2:X(right),y1:Y(intercept+slope*left),y2:Y(intercept+slope*right),
+                                   stroke:"#0d9488","stroke-width":3}));
+        marks.push(element("line",{x1:X(left),x2:X(right),y1:Y(a+b*left),y2:Y(a+b*right),
+                                   stroke:"#64748b","stroke-dasharray":"7 5","stroke-width":2}));
+        for(let i=0;i<n;i++){
+          marks.push(element("line",{x1:X(x[i]),x2:X(x[i]),y1:Y(y[i]),y2:Y(fitted[i]),stroke:"#0d9488","stroke-width":1.5}));
+          const point=element("circle",{cx:X(x[i]),cy:Y(y[i]),r:4.5,fill:"#0d9488",stroke:"currentColor","stroke-width":0.5});
+          marks.push(point);
+        }
+        get("plot").replaceChildren(...marks);
+        chart.setAttribute("aria-label","Five observed data points with OLS fitted line, alternative line and residual gaps. Fitted intercept "+
+          intercept.toFixed(3)+", slope "+slope.toFixed(3)+", RSS "+rss.toFixed(3)+
+          ", comparison RSS "+altRSS.toFixed(3)+".");
+      }
+      [...xs,...ys,altIntercept,altSlope].forEach(input=>input.addEventListener("input",update));
+      function preset(values) {
+        values.forEach(([x,y],i)=>{xs[i].value=String(x);ys[i].value=String(y)});
+        altIntercept.value="1";altSlope.value="1";update();
+      }
+      get("reset").addEventListener("click",()=>preset([[1,2],[2,4],[3,5],[4,4],[5,5]]));
+      get("outlier").addEventListener("click",()=>preset([[1,2],[2,4],[3,5],[4,4],[5,16]]));
+      update();
+    })();
+    </script>
 
     <h2>A Visual Interpretation</h2>
 

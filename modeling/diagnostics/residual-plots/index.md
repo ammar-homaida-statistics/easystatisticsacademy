@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_modeling_diagnostics_lesson_v0";
 
+  try {
   localStorage.setItem(KEY, JSON.stringify({
     url: "/modeling/diagnostics/residual-plots/",
     label: "Residual Plots",
     ts: Date.now()
   }));
+  } catch (_) {
+    // Lesson navigation works when browser storage is unavailable.
+  }
 
 })();
 </script>

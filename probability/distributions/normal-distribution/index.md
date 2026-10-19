@@ -283,6 +283,138 @@ f_X(x)=\frac{1}{\sigma\sqrt{2\pi}}\exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right),
       Probabilities correspond to areas under the curve.
     </p>
 
+
+    <section class="example-box" id="esa-normal-probability-explorer" aria-labelledby="esa-normal-title">
+      <h2 id="esa-normal-title">Interactive Normal Probability Explorer</h2>
+      <p>Adjust the normal model and shade the probability to the left of a, to the right of b, or between a and b. The curve displays the range μ ± 4σ; probabilities always use the full, unbounded normal distribution.</p>
+      <div class="esa-normal-controls">
+        <label>Mean μ <input id="esa-normal-mu" type="number" step="any" value="0"></label>
+        <label>Standard deviation σ (&gt; 0) <input id="esa-normal-sigma" type="number" step="any" min="0.000001" value="1"></label>
+        <label>Lower bound a <input id="esa-normal-a" type="number" step="any" value="-1"></label>
+        <label>Upper bound b <input id="esa-normal-b" type="number" step="any" value="1"></label>
+        <label>Probability region
+          <select id="esa-normal-mode">
+            <option value="between" selected>Between a and b</option>
+            <option value="left">Left of a</option>
+            <option value="right">Right of b</option>
+          </select>
+        </label>
+      </div>
+      <p role="alert" id="esa-normal-error" hidden></p>
+      <svg width="440" height="245" viewBox="0 0 440 245" id="esa-normal-chart" role="img"
+           aria-label="Standard normal bell curve with probability shaded between negative one and positive one">
+        <line x1="34" x2="404" y1="200" y2="200" stroke="currentColor"></line>
+        <path id="esa-normal-shade" fill="#0d9488" fill-opacity="0.35"></path>
+        <path id="esa-normal-density" fill="none" stroke="#0d9488" stroke-width="2.5"></path>
+        <line id="esa-normal-bound-a" stroke="#64748b" stroke-dasharray="4 3" y1="40" y2="200"></line>
+        <line id="esa-normal-bound-b" stroke="#64748b" stroke-dasharray="4 3" y1="40" y2="200"></line>
+        <text x="34" y="226" fill="currentColor" font-size="12">μ − 4σ</text>
+        <text x="219" y="226" fill="currentColor" font-size="12" text-anchor="middle">μ</text>
+        <text x="404" y="226" fill="currentColor" font-size="12" text-anchor="end">μ + 4σ</text>
+      </svg>
+      <div role="status" aria-live="polite" aria-atomic="true">
+        <p>Standardized lower bound z(a) = <output id="esa-normal-za">−1.0000</output>;
+           upper bound z(b) = <output id="esa-normal-zb">1.0000</output>.</p>
+        <p><span id="esa-normal-prob-label">P(a ≤ X ≤ b)</span> =
+           <output id="esa-normal-probability">0.682689</output>
+           (<output id="esa-normal-percent">68.2689</output>%).</p>
+      </div>
+      <p id="esa-normal-warning" class="muted-mini">The displayed curve is truncated at four standard deviations on each side; probability calculations include the tails outside the visible chart.</p>
+      <button type="button" class="btn btn-outline" id="esa-normal-reset">Reset standard normal example</button>
+      <p class="muted-mini">Uses a numerical approximation to the normal cumulative distribution with absolute error below approximately 2 × 10⁻⁷. Continuous endpoints have zero probability; left/right inequalities may be written as strict or inclusive without changing the result. No simulation is involved.</p>
+    </section>
+    <style>
+      #esa-normal-probability-explorer{box-sizing:border-box;max-width:100%;min-width:0;overflow-wrap:anywhere}
+      #esa-normal-probability-explorer .esa-normal-controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr));gap:12px;margin:14px 0}
+      #esa-normal-probability-explorer label{display:flex;flex-direction:column;gap:6px;font-weight:600;min-width:0}
+      #esa-normal-probability-explorer input,#esa-normal-probability-explorer select{box-sizing:border-box;font:inherit;padding:8px;width:100%;max-width:100%;min-width:0}
+      #esa-normal-probability-explorer svg{display:block;width:100%;height:auto;max-width:550px;margin:10px auto}
+      #esa-normal-probability-explorer [hidden]{display:none!important}
+      #esa-normal-probability-explorer p{margin:10px 0}
+      @media print{#esa-normal-probability-explorer .esa-normal-controls,#esa-normal-probability-explorer button{display:none}}
+    </style>
+    <script>
+    (function () {
+      "use strict";
+      const root=document.getElementById("esa-normal-probability-explorer");if(!root)return;
+      const el=id=>root.querySelector("#esa-normal-"+id);
+      const inputs=["mu","sigma","a","b"].map(el),mode=el("mode");
+      const erfcPos=x=>{
+        const t=1/(1+0.3275911*x);
+        return t*(0.254829592+t*(-0.284496736+
+          t*(1.421413741+t*(-1.453152027+t*1.061405429))))*Math.exp(-x*x);
+      };
+      const cdf=z=>z<0?0.5*erfcPos(-z/Math.SQRT2):1-0.5*erfcPos(z/Math.SQRT2);
+      const survival=z=>z>=0?0.5*erfcPos(z/Math.SQRT2):1-0.5*erfcPos(-z/Math.SQRT2);
+      const sx=z=>34+(z+4)*370/8;
+      const sy=z=>200-145*Math.exp(-z*z/2);
+      const path=(lo,hi)=> {
+        if(hi<=lo)return "";
+        const count=Math.max(1,Math.ceil((hi-lo)/0.05));
+        let d="M "+sx(lo).toFixed(2)+" 200";
+        for(let i=0;i<=count;i++) {
+          const z=lo+(hi-lo)*i/count;
+          d+=" L "+sx(z).toFixed(2)+" "+sy(z).toFixed(2);
+        }
+        return d+" L "+sx(hi).toFixed(2)+" 200 Z";
+      };
+      const density=()=>{
+        let d="";
+        for(let i=0;i<=160;i++){
+          const z=-4+8*i/160;
+          d+=(i?" L ":"M ")+sx(z).toFixed(2)+" "+sy(z).toFixed(2);
+        }
+        return d;
+      };
+      el("density").setAttribute("d",density());
+      function invalid(message){
+        el("error").textContent=message;el("error").hidden=false;
+        el("chart").hidden=true;
+        ["za","zb","probability","percent"].forEach(id=>el(id).textContent="—");
+      }
+      function update(){
+        const [mu,sigma,a,b]=inputs.map(i=>i.value.trim()===""?NaN:Number(i.value));
+        if([mu,sigma,a,b].some(v=>!Number.isFinite(v)||Math.abs(v)>100000)||sigma<=0||sigma<0.000001||sigma>10000||
+           (mode.value==="between"&&a>=b)){
+          invalid("Enter finite values, σ between 0.000001 and 10,000, and a below b for the between-bounds region.");
+          return;
+        }
+        const za=(a-mu)/sigma,zb=(b-mu)/sigma;
+        if(!Number.isFinite(za)||!Number.isFinite(zb)){invalid("The standardized limits exceed the supported numeric range.");return;}
+        let p,label,from,to;
+        if(mode.value==="left"){p=cdf(za);label="P(X ≤ a)";from=-4;to=za;}
+        else if(mode.value==="right"){p=survival(zb);label="P(X ≥ b)";from=zb;to=4;}
+        else {
+          p=za>=0?survival(za)-survival(zb):zb<=0?cdf(zb)-cdf(za):cdf(zb)-cdf(za);
+          label="P(a ≤ X ≤ b)";from=za;to=zb;
+        }
+        p=Math.max(0,Math.min(1,p));
+        el("error").hidden=true;el("error").textContent="";el("chart").hidden=false;
+        el("za").textContent=za.toFixed(4);el("zb").textContent=zb.toFixed(4);
+        el("prob-label").textContent=label;
+        el("probability").textContent=p<0.0000005?"< 0.000001":p.toFixed(6);
+        el("percent").textContent=p<0.0000005?"< 0.0001":(100*p).toFixed(4);
+        const l=Math.max(-4,from),h=Math.min(4,to);
+        el("shade").setAttribute("d",path(l,h));
+        const aLine=el("bound-a"),bLine=el("bound-b");
+        aLine.hidden=!(za>=-4&&za<=4);
+        bLine.hidden=!(zb>=-4&&zb<=4);
+        aLine.setAttribute("x1",sx(za));aLine.setAttribute("x2",sx(za));
+        bLine.setAttribute("x1",sx(zb));bLine.setAttribute("x2",sx(zb));
+        el("warning").textContent="The graph shows μ ± 4σ only. The probability includes all unbounded normal tails"+
+          (from < -4 || to>4?"; selected bounds extend beyond the visible graph.":".");
+        el("chart").setAttribute("aria-label","Normal model with mean "+mu+" and standard deviation "+sigma+
+          ". "+label+" = "+p.toFixed(6)+". Shaded area is clipped to μ ± 4σ.");
+      }
+      [...inputs,mode].forEach(i=>{i.addEventListener("input",update);i.addEventListener("change",update)});
+      el("reset").addEventListener("click",()=>{
+        [0,1,-1,1].forEach((v,i)=>inputs[i].value=String(v));
+        mode.value="between";update();
+      });
+      update();
+    })();
+    </script>
+
     <h2>The Standard Normal Distribution</h2>
 
     <p>
