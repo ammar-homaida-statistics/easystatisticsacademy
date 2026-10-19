@@ -10,16 +10,16 @@ sidebar: false
 <!-- SAVE LESSON PROGRESS -->
 <script>
 (function () {
-
-  const KEY =
-    "esa_continue_modeling_model_fit_lesson_v0";
-
-  localStorage.setItem(KEY, JSON.stringify({
-    url: "/modeling/model-fit-comparison/r-squared/",
-    label: "R-Squared",
-    ts: Date.now()
-  }));
-
+  const KEY = "esa_continue_modeling_model_fit_lesson_v0";
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
+      url: "/modeling/model-fit-comparison/r-squared/",
+      label: "R-Squared",
+      ts: Date.now()
+    }));
+  } catch (_) {
+    // Saved progress is optional; lesson content always remains accessible.
+  }
 })();
 </script>
 

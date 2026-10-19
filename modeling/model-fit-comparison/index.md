@@ -9,15 +9,15 @@ sidebar: false
 <!-- SAVE BLOCK PROGRESS -->
 <script>
 (function () {
-
-  const KEY = "esa_continue_modeling_last_block_v0";
-
-  localStorage.setItem(KEY, JSON.stringify({
-    url: "/modeling/model-fit-comparison/",
-    label: "Block 6 — Model Fit & Comparison",
-    ts: Date.now()
-  }));
-
+  try {
+    localStorage.setItem("esa_continue_modeling_last_block_v0", JSON.stringify({
+      url: "/modeling/model-fit-comparison/",
+      label: "Block 6 — Model Fit & Comparison",
+      ts: Date.now()
+    }));
+  } catch (_) {
+    // Disabled browser storage must never interrupt block navigation.
+  }
 })();
 </script>
 
@@ -585,48 +585,33 @@ sidebar: false
 </section>
 
 <!-- CONTINUE READING SCRIPT -->
-
 <script>
 (function () {
-
+  "use strict";
+  // Keep the existing writer key; read the former overview key only as fallback.
+  const PRIMARY = "esa_continue_modeling_model_fit_lesson_v0";
+  const LEGACY = "esa_continue_modeling_fit_lesson_v0";
+  const allowed = Object.freeze({"/modeling/model-fit-comparison/what-is-model-fit/":"What Is Model Fit?","/modeling/model-fit-comparison/r-squared/":"R-Squared","/modeling/model-fit-comparison/adjusted-r-squared/":"Adjusted R-Squared","/modeling/model-fit-comparison/overfitting/":"Overfitting","/modeling/model-fit-comparison/underfitting/":"Underfitting","/modeling/model-fit-comparison/train-vs-test/":"Train vs Test Performance","/modeling/model-fit-comparison/model-comparison/":"Model Comparison","/modeling/model-fit-comparison/aic-bic/":"AIC and BIC","/modeling/model-fit-comparison/model-selection-thinking/":"Model Selection Thinking"});
   try {
-
-    const KEY =
-      "esa_continue_modeling_fit_lesson_v0";
-
-    const raw = localStorage.getItem(KEY);
-
+    const raw = localStorage.getItem(PRIMARY) || localStorage.getItem(LEGACY);
     if (!raw) return;
-
     const data = JSON.parse(raw);
-
-    if (!data || !data.url || !data.label) return;
-
-    const wrap =
-      document.getElementById(
-        "continue-reading-modeling-fit"
-      );
-
-    const label =
-      document.getElementById(
-        "continue-reading-modeling-fit-label"
-      );
-
-    const btn =
-      document.getElementById(
-        "continue-reading-modeling-fit-btn"
-      );
-
-    label.innerHTML =
-      "You last visited: <strong>" +
-      data.label +
-      "</strong>";
-
-    btn.href = data.url;
-
+    if (!data || typeof data.url !== "string" ||
+        typeof data.label !== "string" ||
+        !Number.isSafeInteger(data.ts) || data.ts <= 0 ||
+        !Object.prototype.hasOwnProperty.call(allowed, data.url) ||
+        allowed[data.url] !== data.label) return;
+    const wrap = document.getElementById("continue-reading-modeling-fit");
+    const label = document.getElementById("continue-reading-modeling-fit-label");
+    const btn = document.getElementById("continue-reading-modeling-fit-btn");
+    if (!wrap || !label || !btn) return;
+    const strong = document.createElement("strong");
+    strong.textContent = data.label;
+    label.replaceChildren("You last visited: ", strong);
+    btn.setAttribute("href", data.url);
     wrap.style.display = "block";
-
-  } catch (e) {}
-
+  } catch (_) {
+    // Malformed records, denied storage and bad JSON must not break navigation.
+  }
 })();
 </script>
