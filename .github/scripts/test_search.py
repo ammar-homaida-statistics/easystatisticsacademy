@@ -6926,5 +6926,197 @@ class SearchTests(unittest.TestCase):
         expect(self.page.locator("#continue-reading-modeling-fit")).to_be_hidden()
 
 
+    def test_sampling_variability_finite_population_exact_theory(self):
+        """Known finite population has exact SE 4.330127 without replacement."""
+        route = "/foundations/sampling-variability/"
+        self.page.goto(self.origin + route, wait_until="networkidle")
+        self.assertEqual(self.page.locator("#esa-sv-mu").inner_text(), "170.0000")
+        self.assertEqual(self.page.locator("#esa-sv-sigma2").inner_text(), "50.0000")
+        self.assertEqual(self.page.locator("#esa-sv-theory").inner_text(), "4.3301")
+        self.assertEqual(self.page.locator("#esa-sv-plot .esa-sv-bin").count(), 16)
+        values = [self.page.locator("#esa-sv-" + k).inner_text() for k in
+                  ("theory", "simulated", "average", "bias", "preview")]
+        self.page.locator("#esa-sv-run").click()
+        self.assertEqual(values, [self.page.locator("#esa-sv-" + k).inner_text() for k in
+                                  ("theory", "simulated", "average", "bias", "preview")])
+        self.assertEqual(len(self.page.locator("#esa-sv-preview").inner_text().split(", ")), 2)
+        self.assertEqual(len(set(self.page.locator("#esa-sv-preview").inner_text().split(", "))), 2)
+        self.page.locator("#esa-sv-method").select_option("with")
+        self.assertEqual(self.page.locator("#esa-sv-theory").inner_text(), "4.3301")
+        self.page.locator("#esa-sv-run").click()
+        self.assertEqual(self.page.locator("#esa-sv-theory").inner_text(), "5.0000")
+        self.page.locator("#esa-sv-size").select_option("5")
+        self.page.locator("#esa-sv-run").click()
+        self.assertEqual(self.page.locator("#esa-sv-theory").inner_text(), "3.1623")
+        self.page.locator("#esa-sv-method").select_option("without")
+        self.page.locator("#esa-sv-run").click()
+        self.assertEqual(self.page.locator("#esa-sv-theory").inner_text(), "0.0000")
+        self.assertEqual(self.page.locator("#esa-sv-simulated").inner_text(), "0.0000")
+        self.assertEqual(self.page.locator("#esa-sv-average").inner_text(), "170.0000")
+        self.page.locator("#esa-sv-reset").click()
+        self.assertEqual(self.page.locator("#esa-sv-size").input_value(), "2")
+        self.assertEqual(self.page.locator("#esa-sv-method").input_value(), "without")
+        self.assertEqual(self.page.locator("#esa-sv-theory").inner_text(), "4.3301")
+
+    def test_sampling_variability_arabic_numeric_parity_and_seo(self):
+        english="/foundations/sampling-variability/"
+        arabic="/ar/foundations/sampling-variability/"
+        outputs=[]
+        for route,lang in ((english, "en"), (arabic, "ar")):
+            with self.subTest(route=route):
+                self.page.goto(self.origin + route, wait_until="networkidle")
+                self.assertEqual(self.page.locator("html").get_attribute("lang"), lang)
+                self.assertEqual(self.page.locator("html").get_attribute("dir"),
+                                 "rtl" if lang=="ar" else None)
+                self.assertEqual(self.page.locator('link[rel="canonical"]').get_attribute("href"),
+                                 "https://easystatisticsacademy.com"+route)
+                for target,language in ((english,"en"),(arabic,"ar")):
+                    self.assertEqual(
+                        self.page.locator('link[rel="alternate"][hreflang="'+language+'"]').get_attribute("href"),
+                        "https://easystatisticsacademy.com"+target)
+                self.page.locator("#esa-sv-method").select_option("with")
+                self.page.locator("#esa-sv-size").select_option("3")
+                self.page.locator("#esa-sv-seed").fill("1234")
+                self.page.locator("#esa-sv-reps").select_option("2000")
+                self.page.locator("#esa-sv-run").click()
+                outputs.append(tuple(self.page.locator("#esa-sv-"+k).inner_text() for k in
+                            ("mu","sigma2","theory","simulated","average","bias","preview")))
+                self.assertEqual(self.page.locator("#esa-sv-plot .esa-sv-bin").count(),16)
+                self.assertEqual(self.page.locator("#esa-sv-theory").inner_text(),"4.0825")
+                self.assertEqual(self.page.locator('script[src="/js/sampling-variability-lab.js"]').count(),1)
+        self.assertEqual(outputs[0],outputs[1])
+        self.page.goto(self.origin + "/ar/", wait_until="networkidle")
+        self.assertEqual(self.page.locator('a[href="'+arabic+'"]').count(), 1)
+        self.page.goto(self.origin + arabic, wait_until="networkidle")
+        self.assertGreaterEqual(self.page.locator("main h2").count(), 13)
+        self.assertIn("SPSS", self.page.locator("main").inner_text())
+        self.assertIn("RANDBETWEEN", self.page.locator("main").inner_text())
+
+    def test_sampling_variability_keyboard_mobile_and_seed_boundary(self):
+        self.page.set_viewport_size({"width":320,"height":850})
+        self.page.goto(self.origin + "/ar/foundations/sampling-variability/",wait_until="networkidle")
+        self.page.locator("#esa-sv-seed").fill("-1")
+        self.page.locator("#esa-sv-run").focus()
+        self.page.keyboard.press("Enter")
+        expect(self.page.locator("#esa-sv-status")).to_contain_text("بذرة")
+        self.page.locator("#esa-sv-seed").fill("4294967295")
+        self.page.keyboard.press("Enter")
+        expect(self.page.locator("#esa-sv-status")).to_contain_text("المحاكاة")
+        self.assertLessEqual(
+            self.page.locator("#esa-sv-lab").evaluate("e => e.scrollWidth-e.clientWidth"),1)
+        self.assertLessEqual(self.page.evaluate("document.documentElement.scrollWidth-innerWidth"),2)
+
+    def test_cooks_distance_independent_ols_numerical_benchmark(self):
+        """Benchmarks independently calculated from statsmodels OLS influence."""
+        self.page.goto(self.origin + "/modeling/diagnostics/cooks-distance/",wait_until="networkidle")
+        target={
+            "mse":4.2658312448,
+            "residual":3.5228070175,
+            "leverage":0.5087719298,
+            "d":3.0669085761,
+            "full-intercept":-1.9273182957,
+            "full-slope":2.6005012531,
+            "leave-intercept":0.0857142857,
+            "leave-slope":1.9714285714,
+        }
+        for id,value in target.items():
+            with self.subTest(metric=id):
+                actual=float(self.page.locator("#esa-cook-"+id).inner_text())
+                self.assertAlmostEqual(actual,value,places=5)
+        self.assertEqual(self.page.locator("#esa-cook-table tr").count(),8)
+        self.assertEqual(self.page.locator("#esa-cook-chart .esa-cook-fixed-point").count(),7)
+        self.assertEqual(self.page.locator("#esa-cook-selected-point").count(),1)
+        self.assertEqual(self.page.locator('#esa-cook-chart [data-series="full"]').count(),1)
+        self.assertEqual(self.page.locator('#esa-cook-chart [data-series="leave-one-out"]').count(),1)
+        cooks=[0.322232026,0.0103251579,0.00048855283,0.00942469318,
+               0.0118349101,0.0859198618,0.294770328,3.0669085761]
+        for i,value in enumerate(cooks):
+            actual=float(self.page.locator("#esa-cook-table tr").nth(i).locator("td").nth(3).inner_text())
+            self.assertAlmostEqual(actual,value,places=3)
+
+    def test_cooks_distance_slider_keyboard_reset_mobile_and_storage_denied(self):
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{
+            configurable:true,get(){throw new DOMException("Denied","SecurityError")}
+          });
+        """)
+        self.page.set_viewport_size({"width":320,"height":800})
+        self.page.goto(self.origin+"/modeling/diagnostics/cooks-distance/",wait_until="networkidle")
+        self.assertEqual(self.page.locator("#esa-cook-x-value").inner_text(),"9.0")
+        before=self.page.locator("#esa-cook-d").inner_text()
+        slider=self.page.locator("#esa-cook-y")
+        slider.focus()
+        self.page.keyboard.press("ArrowRight")
+        self.assertNotEqual(self.page.locator("#esa-cook-d").inner_text(),before)
+        self.page.locator("#esa-cook-x").evaluate(
+            "(e)=>{e.value='15';e.dispatchEvent(new Event('input',{bubbles:true}))}")
+        self.assertEqual(self.page.locator("#esa-cook-x-value").inner_text(),"15.0")
+        self.page.locator("#esa-cook-reset").click()
+        self.assertEqual(self.page.locator("#esa-cook-d").inner_text(),before)
+        self.assertLessEqual(self.page.locator("#esa-cook-lab").evaluate(
+            "e=>e.scrollWidth-e.clientWidth"),1)
+
+    def test_model_assumptions_safe_progress_all_eight_and_invalid_records(self):
+        block="/modeling/assumptions/"
+        key="esa_continue_modeling_assumptions_lesson_v0"
+        lessons={
+            "why-assumptions":"Why Assumptions Matter",
+            "linearity":"Linearity",
+            "independence":"Independence",
+            "homoscedasticity":"Homoscedasticity",
+            "normality":"Normality",
+            "outliers":"Outliers",
+            "violations":"Assumption Violations",
+            "robustness":"Robustness",
+        }
+        for slug,label in lessons.items():
+            with self.subTest(slug=slug):
+                route=block+slug+"/"
+                self.page.goto(self.origin+route,wait_until="networkidle")
+                saved=self.page.evaluate("k=>JSON.parse(localStorage.getItem(k))",key)
+                self.assertEqual(saved["url"],route)
+                self.assertEqual(saved["label"],label)
+                self.assertIsInstance(saved["ts"],int)
+                self.page.goto(self.origin+block,wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-modeling-assumptions")).to_be_visible()
+                self.assertEqual(self.page.locator("#continue-reading-modeling-assumptions-btn").get_attribute("href"),route)
+                expect(self.page.locator("#continue-reading-modeling-assumptions-label")).to_have_text(
+                    "You last visited: "+label)
+        bad=[
+            {"url":"javascript:alert(1)","label":"Linearity","ts":1730000000000},
+            {"url":"https://attacker.invalid/","label":"Linearity","ts":1730000000000},
+            {"url":block+"linearity/","label":"<img src=x onerror=alert(1)>","ts":1730000000000},
+            {"url":block+"linearity/","label":"Robustness","ts":1730000000000},
+            {"url":block+"linearity/","label":"Linearity","ts":"1730000000000"},
+            {"url":block+"linearity/","label":"Linearity","ts":-1},
+            {"url":block+"linearity/","label":"Linearity","ts":99999999999999},
+        ]
+        for value in bad:
+            with self.subTest(value=value):
+                self.page.evaluate("([k,d])=>localStorage.setItem(k,JSON.stringify(d))",[key,value])
+                self.page.reload(wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-modeling-assumptions")).to_be_hidden()
+                self.assertEqual(self.page.locator("#continue-reading-modeling-assumptions-label img").count(),0)
+        self.page.evaluate("k=>localStorage.setItem(k,'{bad json')",key)
+        self.page.reload(wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-modeling-assumptions")).to_be_hidden()
+
+    def test_model_assumptions_denied_storage_all_eight(self):
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{
+            configurable:true,get(){throw new DOMException("Denied","SecurityError")}
+          });
+        """)
+        self.page.set_viewport_size({"width":375,"height":750})
+        for slug in ("why-assumptions","linearity","independence","homoscedasticity",
+                     "normality","outliers","violations","robustness"):
+            with self.subTest(slug=slug):
+                self.page.goto(self.origin+"/modeling/assumptions/"+slug+"/",wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+        self.page.goto(self.origin+"/modeling/assumptions/",wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-modeling-assumptions")).to_be_hidden()
+        expect(self.page.locator("main h1")).to_be_visible()
+
+
 if __name__ == "__main__":
     unittest.main(argv=[__file__], verbosity=2)
