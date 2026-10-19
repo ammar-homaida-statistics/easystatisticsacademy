@@ -369,7 +369,7 @@ f_X(x)=\frac{1}{\sigma\sqrt{2\pi}}\exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right),
       el("density").setAttribute("d",density());
       function invalid(message){
         el("error").textContent=message;el("error").hidden=false;
-        el("chart").hidden=true;
+        el("chart").setAttribute("hidden","");
         ["za","zb","probability","percent"].forEach(id=>el(id).textContent="—");
       }
       function update(){
@@ -389,7 +389,7 @@ f_X(x)=\frac{1}{\sigma\sqrt{2\pi}}\exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right),
           label="P(a ≤ X ≤ b)";from=za;to=zb;
         }
         p=Math.max(0,Math.min(1,p));
-        el("error").hidden=true;el("error").textContent="";el("chart").hidden=false;
+        el("error").hidden=true;el("error").textContent="";el("chart").removeAttribute("hidden");
         el("za").textContent=za.toFixed(4);el("zb").textContent=zb.toFixed(4);
         el("prob-label").textContent=label;
         el("probability").textContent=p<0.0000005?"< 0.000001":p.toFixed(6);
@@ -397,8 +397,8 @@ f_X(x)=\frac{1}{\sigma\sqrt{2\pi}}\exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right),
         const l=Math.max(-4,from),h=Math.min(4,to);
         el("shade").setAttribute("d",path(l,h));
         const aLine=el("bound-a"),bLine=el("bound-b");
-        aLine.hidden=!(za>=-4&&za<=4);
-        bLine.hidden=!(zb>=-4&&zb<=4);
+        if(za>=-4&&za<=4)aLine.removeAttribute("hidden");else aLine.setAttribute("hidden","");
+        if(zb>=-4&&zb<=4)bLine.removeAttribute("hidden");else bLine.setAttribute("hidden","");
         aLine.setAttribute("x1",sx(za));aLine.setAttribute("x2",sx(za));
         bLine.setAttribute("x1",sx(zb));bLine.setAttribute("x2",sx(zb));
         el("warning").textContent="The graph shows μ ± 4σ only. The probability includes all unbounded normal tails"+
