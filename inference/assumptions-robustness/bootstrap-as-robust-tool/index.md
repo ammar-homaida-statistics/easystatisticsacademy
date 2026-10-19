@@ -4,6 +4,9 @@ title: Bootstrap as a Robust Tool
 description: Learn how bootstrap resampling estimates uncertainty with minimal distributional assumptions and why it has become a powerful tool in modern statistics.
 permalink: /inference/assumptions-robustness/bootstrap-as-robust-tool/
 sidebar: false
+lang: en
+alternate_en: /inference/assumptions-robustness/bootstrap-as-robust-tool/
+alternate_ar: /ar/inference/assumptions-robustness/bootstrap-as-robust-tool/
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -13,11 +16,13 @@ sidebar: false
   const KEY =
     "esa_continue_inference_assumptions_robustness_lesson_v0";
 
+  try {
   localStorage.setItem(KEY, JSON.stringify({
     url: "/inference/assumptions-robustness/bootstrap-as-robust-tool/",
     label: "Bootstrap as a Robust Tool",
     ts: Date.now()
   }));
+  } catch (_) { /* Browser storage may be unavailable. */ }
 
 })();
 </script>
@@ -212,6 +217,58 @@ sidebar: false
     <p>
       Each resample produces a potentially different estimate.
     </p>
+
+    
+    <!-- BILINGUAL BOOTSTRAP LAB: the same calculator powers English and Arabic. -->
+    <section class="example-box" id="esa-bootstrap-lab" data-lang="en"
+             aria-labelledby="esa-bootstrap-heading" style="min-width:0;overflow-wrap:anywhere">
+      <h2 id="esa-bootstrap-heading">Interactive Bootstrap Resampling Laboratory</h2>
+      <p>Enter independent sample observations, then draw <strong>with replacement</strong> exactly n times in each resample.
+         This illustrates the bootstrap distribution of the <strong>sample mean</strong>; it does not repair biased sampling,
+         dependence, or weak original data. The percentile interval is not guaranteed to have exact 95% coverage.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:end">
+        <div style="flex:2 1 240px;min-width:0">
+          <label for="esa-boot-data">Original observations (comma or space separated)</label>
+          <textarea id="esa-boot-data" rows="2" style="width:100%;max-width:100%;box-sizing:border-box">5, 7, 8, 10</textarea>
+        </div>
+        <div style="flex:1 1 120px;min-width:0">
+          <label for="esa-boot-seed">Random seed</label>
+          <input id="esa-boot-seed" type="number" min="1" max="4294967295" step="1" value="12345"
+                 style="width:100%;max-width:100%;box-sizing:border-box;margin:0">
+        </div>
+        <div style="flex:1 1 160px;min-width:0">
+          <label for="esa-boot-replications">Bootstrap replications</label>
+          <select id="esa-boot-replications" style="width:100%;max-width:100%;box-sizing:border-box">
+            <option value="100">100</option><option value="500" selected>500</option>
+            <option value="1000">1000</option>
+          </select>
+        </div>
+      </div>
+      <p><button id="esa-boot-run" type="button" class="btn">Run bootstrap</button>
+         <button id="esa-boot-reset" type="button" class="btn btn-outline">Reset example</button></p>
+      <div role="status" aria-live="polite">
+        <p id="esa-boot-status">Ready.</p>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:1rem">
+        <p>Sample size: <strong id="esa-boot-n">4</strong></p>
+        <p>Original mean: <strong id="esa-boot-mean">7.5000</strong></p>
+        <p>Mean of bootstrap means: <strong id="esa-boot-bootstrap-mean">—</strong></p>
+        <p>Bootstrap SE: <strong id="esa-boot-se">—</strong></p>
+        <p>Illustrative 95% percentile interval: <strong id="esa-boot-lower">—</strong> to
+           <strong id="esa-boot-upper">—</strong></p>
+      </div>
+      <p>Distribution of <output id="esa-boot-repetitions">500</output> bootstrap sample means</p>
+      <svg id="esa-boot-graph" dir="ltr" viewBox="0 0 600 230" role="img"
+           aria-label="Histogram of bootstrap sample means"
+           style="width:100%;max-width:600px;height:auto;display:block;overflow:visible">
+        <g id="esa-boot-plot"></g>
+      </svg>
+      <p class="muted-mini">Bin counts (left to right): <output id="esa-boot-counts">—</output>.
+         Bins have equal width; the final interval includes its upper endpoint.
+         Percentiles use linear interpolation at positions (B−1)p; SE is the sample standard deviation
+         of B simulated sample means. Changing the seed changes the illustrative Monte Carlo results.</p>
+    </section>
+    <script src="/js/bootstrap-lab.js" defer></script>
 
     <h2>Bootstrap Sampling Distribution</h2>
 
