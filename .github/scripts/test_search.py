@@ -6064,6 +6064,138 @@ class SearchTests(unittest.TestCase):
         self.assertEqual(self.errors, [])
 
 
+    def test_chi_square_independence_interactive_example_and_boundaries(self):
+        """Pearson 2x2 calculations match a reference and stay editable on mobile."""
+        self.page.goto(self.origin + "/inference/classical-tests/chi-square-independence-test/",
+                       wait_until="networkidle")
+        lab = self.page.locator("#esa-chi-independence-lab")
+        expect(lab).to_be_visible()
+        self.assertAlmostEqual(float(lab.locator("#esa-chi-stat").inner_text()), 18.18181818, places=5)
+        self.assertAlmostEqual(float(lab.locator("#esa-chi-p").inner_text()), 0.000020078656, delta=3e-7)
+        self.assertAlmostEqual(float(lab.locator("#esa-chi-v").inner_text()), 0.3015113446, places=5)
+        expect(lab.locator("#esa-chi-cell-a")).to_contain_text("40 → 55.000; 4.0909")
+        expect(lab.locator("#esa-chi-cell-b")).to_contain_text("60 → 45.000; 5.0000")
+        first = lab.get_by_label("Male, Prefers A", exact=True)
+        first.focus()
+        first.press("ArrowUp")
+        self.assertNotEqual(lab.locator("#esa-chi-stat").inner_text(), "18.181818")
+        first.fill("0")
+        lab.get_by_label("Male, Prefers B", exact=True).fill("0")
+        expect(lab.locator("#esa-chi-error")).to_be_visible()
+        expect(lab.locator("#esa-chi-stat")).to_have_text("—")
+        first.fill("1")
+        expect(lab.locator("#esa-chi-warning")).to_contain_text("below 5")
+        lab.get_by_role("button", name="Reset worked example").press("Enter")
+        expect(lab.locator("#esa-chi-stat")).to_have_text("18.181818")
+        for width in (320, 375, 768):
+            self.page.set_viewport_size({"width":width,"height":850})
+            geo=lab.evaluate("e=>({scroll:e.scrollWidth,client:e.clientWidth,right:e.getBoundingClientRect().right})")
+            self.assertLessEqual(geo["scroll"]-geo["client"],1,geo)
+            self.assertLessEqual(geo["right"],width+1,geo)
+
+    def test_two_proportion_ci_interactive_example_and_boundaries(self):
+        """Unpooled Wald interval reproduces 240/600 vs 180/600."""
+        self.page.goto(
+            self.origin + "/inference/confidence-intervals/ci-for-difference-of-proportions/",
+            wait_until="networkidle")
+        lab=self.page.locator("#esa-two-proportion-ci-calculator")
+        expect(lab).to_be_visible()
+        self.assertAlmostEqual(float(lab.locator("#esa-prop-difference").inner_text()),10.0,places=3)
+        self.assertAlmostEqual(float(lab.locator("#esa-prop-se").inner_text()),0.02738613,places=5)
+        self.assertAlmostEqual(float(lab.locator("#esa-prop-lower").inner_text()),4.63241757,places=3)
+        self.assertAlmostEqual(float(lab.locator("#esa-prop-upper").inner_text()),15.36758243,places=3)
+        expect(lab.locator("#esa-prop-zero-interpretation")).to_contain_text("outside")
+        confidence=lab.get_by_label("Confidence level")
+        confidence.focus()
+        confidence.press("End")
+        expect(confidence).to_have_value("99")
+        self.assertLess(float(lab.locator("#esa-prop-lower").inner_text()),4.6324)
+        n1=lab.get_by_label("Group 1 sample size")
+        n1.fill("0")
+        expect(lab.locator("#esa-prop-error")).to_be_visible()
+        expect(lab.locator("#esa-prop-lower")).to_have_text("—")
+        n1.fill("1")
+        expect(lab.locator("#esa-prop-error")).to_be_visible()
+        lab.get_by_role("button",name="Reset worked example").click()
+        expect(lab.locator("#esa-prop-confidence")).to_have_text("95")
+        lab.get_by_label("Group 1 successes").fill("0")
+        expect(lab.locator("#esa-prop-warning")).to_contain_text("fewer than 10")
+        for width in (320,375,768):
+            self.page.set_viewport_size({"width":width,"height":850})
+            geo=lab.evaluate("e=>({scroll:e.scrollWidth,client:e.clientWidth,right:e.getBoundingClientRect().right})")
+            self.assertLessEqual(geo["scroll"]-geo["client"],1,geo)
+            self.assertLessEqual(geo["right"],width+1,geo)
+
+    def test_classical_tests_twelve_progress_and_mobile_keyboard(self):
+        """All twelve lessons keep their exact original URL, label and timestamp schema."""
+        labels = (
+            ("chi-square-goodness-of-fit","Chi-Square Goodness-of-Fit Test"),
+            ("chi-square-homogeneity-test","Chi-Square Test of Homogeneity"),
+            ("chi-square-independence-test","Chi-Square Test of Independence"),
+            ("decision-framework-and-assumptions","Decision Framework and Assumptions"),
+            ("one-proportion-z-test","One-Proportion Z Test"),
+            ("one-sample-t-test-for-mean","One-Sample t Test for a Mean"),
+            ("one-sample-z-test-for-mean","One-Sample Z Test for a Mean"),
+            ("one-way-anova-f-test","One-Way ANOVA and the F Test"),
+            ("paired-t-test","Paired t Test"),
+            ("post-hoc-tests-and-multiple-comparisons-preview","Post-Hoc Tests and Multiple Comparisons"),
+            ("two-proportion-z-test","Two-Proportion Z Test"),
+            ("two-sample-t-test-independent","Two-Sample t Test (Independent Samples)"),
+        )
+        key="esa_continue_inference_classical_tests_lesson_v0"
+        self.page.set_viewport_size({"width":375,"height":812})
+        for slug,label in labels:
+            with self.subTest(slug=slug):
+                url="/inference/classical-tests/"+slug+"/"
+                self.page.goto(self.origin+url,wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+                saved=self.page.evaluate("key=>JSON.parse(localStorage.getItem(key))",key)
+                self.assertEqual(saved["url"],url)
+                self.assertEqual(saved["label"],label)
+                self.assertIsInstance(saved["ts"],int)
+                self.assertGreater(saved["ts"],0)
+                link=self.page.locator("main .hero-actions a").first
+                self.assertGreater(self.page.locator("main a[href]").count(),1)
+                link.focus()
+                self.assertEqual(link.evaluate("e=>document.activeElement===e"),True)
+                self.assertLessEqual(link.evaluate("e=>e.getBoundingClientRect().right"),376)
+
+    def test_classical_tests_twelve_storage_denial_and_navigability(self):
+        """Denied localStorage must never stop rendering any of the twelve lessons."""
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{
+            configurable:true,
+            get(){throw new DOMException("Storage denied","SecurityError");}
+          });
+        """)
+        slugs=(
+            "chi-square-goodness-of-fit","chi-square-homogeneity-test",
+            "chi-square-independence-test","decision-framework-and-assumptions",
+            "one-proportion-z-test","one-sample-t-test-for-mean",
+            "one-sample-z-test-for-mean","one-way-anova-f-test",
+            "paired-t-test","post-hoc-tests-and-multiple-comparisons-preview",
+            "two-proportion-z-test","two-sample-t-test-independent",
+        )
+        self.page.set_viewport_size({"width":320,"height":780})
+        for slug in slugs:
+            with self.subTest(slug=slug):
+                self.page.goto(self.origin+"/inference/classical-tests/"+slug+"/",
+                               wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+                self.assertGreater(self.page.locator("main a[href]").count(),1)
+                self.page.locator("main .hero-actions a").first.focus()
+                self.assertEqual(self.page.evaluate(
+                    "document.activeElement.tagName"),"A")
+                self.assertEqual(self.errors,[],slug)
+        self.page.goto(self.origin+"/inference/classical-tests/chi-square-independence-test/",
+                       wait_until="networkidle")
+        expect(self.page.locator("#esa-chi-stat")).to_have_text("18.181818")
+        self.page.goto(self.origin+"/inference/confidence-intervals/ci-for-difference-of-proportions/",
+                       wait_until="networkidle")
+        expect(self.page.locator("#esa-prop-difference")).to_have_text("10.0000")
+
+
+
 
 if __name__ == "__main__":
     unittest.main(argv=[__file__], verbosity=2)

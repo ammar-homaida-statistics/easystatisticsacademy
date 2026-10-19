@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_inference_classical_tests_lesson_v0";
 
+  try {
   localStorage.setItem(KEY, JSON.stringify({
     url: "/inference/classical-tests/chi-square-independence-test/",
     label: "Chi-Square Test of Independence",
     ts: Date.now()
   }));
+  } catch (_) {
+    // Disabled browser storage must not interrupt the lesson.
+  }
 
 })();
 </script>
@@ -193,6 +197,110 @@ sidebar: false
       </table>
 
     </div>
+
+
+    <!-- Interactive 2 x 2 Pearson chi-square teaching explorer. -->
+    <section class="example-box" id="esa-chi-independence-lab" aria-labelledby="esa-chi-heading">
+      <h2 id="esa-chi-heading">Interactive 2 × 2 Independence Explorer</h2>
+      <p>Change the four observed frequencies to see how independence predicts each cell, and how cell discrepancies add to Pearson’s chi-square statistic. The table starts with the worked example above.</p>
+      <div class="esa-chi-input-grid">
+        <label>Male, Prefers A <input id="esa-chi-a" type="number" min="0" max="10000000" step="1" value="40" inputmode="numeric"></label>
+        <label>Male, Prefers B <input id="esa-chi-b" type="number" min="0" max="10000000" step="1" value="60" inputmode="numeric"></label>
+        <label>Female, Prefers A <input id="esa-chi-c" type="number" min="0" max="10000000" step="1" value="70" inputmode="numeric"></label>
+        <label>Female, Prefers B <input id="esa-chi-d" type="number" min="0" max="10000000" step="1" value="30" inputmode="numeric"></label>
+      </div>
+      <p id="esa-chi-error" role="alert" hidden></p>
+      <div class="table-wrap">
+        <table>
+          <caption>Expected cell counts and contributions (Observed → Expected; χ² contribution)</caption>
+          <thead><tr><th scope="col">Group</th><th scope="col">Prefers A</th><th scope="col">Prefers B</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Male</th><td><output id="esa-chi-cell-a">40 → 55.000; 4.0909</output></td><td><output id="esa-chi-cell-b">60 → 45.000; 5.0000</output></td></tr>
+            <tr><th scope="row">Female</th><td><output id="esa-chi-cell-c">70 → 55.000; 4.0909</output></td><td><output id="esa-chi-cell-d">30 → 45.000; 5.0000</output></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="esa-chi-results" role="status" aria-live="polite" aria-atomic="true">
+        <p>Pearson χ² = <output id="esa-chi-stat">18.181818</output>;
+           degrees of freedom = <output id="esa-chi-df">1</output>.</p>
+        <p>Upper-tail p-value (asymptotic, no continuity correction) =
+           <output id="esa-chi-p">2.008e-5</output>.</p>
+        <p>Cramér’s V = <output id="esa-chi-v">0.301511</output>.
+           For a 2 × 2 table, V = √(χ²/N).</p>
+      </div>
+      <p id="esa-chi-warning">All expected frequencies are at least 5 for the initial example.</p>
+      <p class="muted-mini">The chi-square p-value uses the χ² distribution with 1 degree of freedom, not Fisher’s exact test. Observations must be independent, and sparse expected cells can invalidate the large-sample approximation. Association is not evidence of causation.</p>
+      <button type="button" class="btn btn-outline" id="esa-chi-reset">Reset worked example</button>
+    </section>
+    <style>
+      #esa-chi-independence-lab{box-sizing:border-box;max-width:100%;min-width:0;overflow-wrap:anywhere}
+      #esa-chi-independence-lab .esa-chi-input-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:12px;margin:14px 0}
+      #esa-chi-independence-lab label{display:flex;flex-direction:column;gap:6px;min-width:0;font-weight:600}
+      #esa-chi-independence-lab input{box-sizing:border-box;max-width:100%;width:100%;font:inherit;padding:8px}
+      #esa-chi-independence-lab td{min-width:0;overflow-wrap:anywhere}
+      #esa-chi-independence-lab p{margin:10px 0}
+      #esa-chi-independence-lab [role="alert"]{font-weight:700}
+      @media print{#esa-chi-independence-lab button,#esa-chi-independence-lab .esa-chi-input-grid{display:none}}
+    </style>
+    <script>
+    (function () {
+      "use strict";
+      const root=document.getElementById("esa-chi-independence-lab");
+      if(!root) return;
+      const find=id=>root.querySelector("#"+id);
+      const ids=["a","b","c","d"], inputs=ids.map(id=>find("esa-chi-"+id));
+      const resultIds=["esa-chi-stat","esa-chi-p","esa-chi-v",...ids.map(id=>"esa-chi-cell-"+id)];
+      // Abramowitz-Stegun 7.1.26, maximum absolute erfc error approximately 1.5e-7.
+      function erfc(x) {
+        const t=1/(1+0.3275911*x);
+        const polynomial=t*(0.254829592+t*(-0.284496736+
+          t*(1.421413741+t*(-1.453152027+t*1.061405429))));
+        return polynomial*Math.exp(-x*x);
+      }
+      function clear(message) {
+        find("esa-chi-error").hidden=false;
+        find("esa-chi-error").textContent=message;
+        resultIds.forEach(id=>find(id).textContent="—");
+        find("esa-chi-warning").textContent="Correct the inputs to evaluate the large-sample conditions.";
+      }
+      function update() {
+        const values=inputs.map(input=>input.value.trim()===""?NaN:Number(input.value));
+        if(values.some(n=>!Number.isSafeInteger(n)||n<0||n>10000000)) {
+          clear("Enter a whole-number count from 0 to 10,000,000 in every cell.");
+          return;
+        }
+        const [a,b,c,d]=values, rows=[a+b,c+d],cols=[a+c,b+d];
+        const N=a+b+c+d;
+        if(N===0||rows.some(n=>n===0)||cols.some(n=>n===0)) {
+          clear("Both row totals and both column totals must be positive; zero margins make the independence statistic undefined.");
+          return;
+        }
+        find("esa-chi-error").hidden=true;
+        find("esa-chi-error").textContent="";
+        const expected=[rows[0]*cols[0]/N,rows[0]*cols[1]/N,
+          rows[1]*cols[0]/N,rows[1]*cols[1]/N];
+        const contributions=values.map((o,i)=>(o-expected[i])**2/expected[i]);
+        const chi=contributions.reduce((sum,x)=>sum+x,0);
+        // With df=1, chi-square survival = erfc(sqrt(chi / 2)).
+        const p=Math.min(1,Math.max(0,erfc(Math.sqrt(chi/2))));
+        ids.forEach((id,i)=>find("esa-chi-cell-"+id).textContent=
+          values[i]+" → "+expected[i].toFixed(3)+"; "+contributions[i].toFixed(4));
+        find("esa-chi-stat").textContent=chi.toFixed(6);
+        find("esa-chi-p").textContent=p<1e-12?"< 1e-12":(p<0.0001?p.toExponential(3):p.toFixed(6));
+        find("esa-chi-v").textContent=Math.sqrt(chi/N).toFixed(6);
+        const small=expected.filter(n=>n<5).length;
+        find("esa-chi-warning").textContent=small?
+          small+" of 4 expected frequencies are below 5. The chi-square approximation may be unreliable; consider Fisher’s exact test and the sampling design.":
+          "All four expected frequencies are at least 5. Independence of observations must still be checked from the study design.";
+      }
+      inputs.forEach(input=>input.addEventListener("input",update));
+      find("esa-chi-reset").addEventListener("click",()=>{
+        [40,60,70,30].forEach((n,i)=>inputs[i].value=String(n));
+        update();
+      });
+      update();
+    })();
+    </script>
 
     <h2>Observed Counts</h2>
 
