@@ -12,11 +12,15 @@ sidebar: false
 
   const KEY = "esa_continue_modeling_last_block_v0";
 
+  try {
   localStorage.setItem(KEY, JSON.stringify({
     url: "/modeling/diagnostics/",
     label: "Block 5 — Diagnostics",
     ts: Date.now()
   }));
+  } catch (_) {
+    // Lesson navigation works when browser storage is unavailable.
+  }
 
 })();
 </script>
@@ -598,7 +602,23 @@ sidebar: false
 
     const data = JSON.parse(raw);
 
-    if (!data || !data.url || !data.label) return;
+    // Only exact, published block lessons with their original labels are resumable.
+    // Never trust a stored href or interpret stored text as HTML.
+    const published = new Map([
+      ["/modeling/diagnostics/residuals/", "Residuals"],
+      ["/modeling/diagnostics/residual-plots/", "Residual Plots"],
+      ["/modeling/diagnostics/nonlinearity/", "Diagnosing Nonlinearity"],
+      ["/modeling/diagnostics/heteroscedasticity/", "Diagnosing Heteroscedasticity"],
+      ["/modeling/diagnostics/outliers/", "Outliers and Influential Observations"],
+      ["/modeling/diagnostics/leverage/", "Leverage"],
+      ["/modeling/diagnostics/influence/", "Influence"],
+      ["/modeling/diagnostics/cooks-distance/", "Cook's Distance"],
+      ["/modeling/diagnostics/diagnostic-workflow/", "Diagnostic Workflow"]
+    ]);
+    if (!data || typeof data !== "object" ||
+        typeof data.url !== "string" || typeof data.label !== "string" ||
+        !published.has(data.url) || published.get(data.url) !== data.label ||
+        !Number.isSafeInteger(data.ts) || data.ts <= 0) return;
 
     const wrap =
       document.getElementById(
@@ -615,12 +635,11 @@ sidebar: false
         "continue-reading-modeling-diagnostics-btn"
       );
 
-    label.innerHTML =
-      "You last visited: <strong>" +
-      data.label +
-      "</strong>";
+    const strong = document.createElement("strong");
+    strong.textContent = data.label;
+    label.replaceChildren("You last visited: ", strong);
 
-    btn.href = data.url;
+    btn.setAttribute("href", data.url);
 
     wrap.style.display = "block";
 

@@ -6196,6 +6196,237 @@ class SearchTests(unittest.TestCase):
 
 
 
+    def test_ols_explorer_reference_values_residuals_and_comparison(self):
+        """Independent OLS benchmark: x=1..5, y=(2,4,5,4,5), b0=2.2, b1=.6."""
+        self.page.goto(self.origin + "/modeling/simple-linear-regression/least-squares/",
+                       wait_until="networkidle")
+        lab = self.page.locator("#esa-ols-explorer")
+        expect(lab).to_be_visible()
+        self.assertAlmostEqual(float(lab.locator("#esa-ols-b0").inner_text()), 2.2, places=5)
+        self.assertAlmostEqual(float(lab.locator("#esa-ols-b1").inner_text()), 0.6, places=5)
+        self.assertAlmostEqual(float(lab.locator("#esa-ols-rss").inner_text()), 2.4, places=5)
+        self.assertAlmostEqual(float(lab.locator("#esa-ols-alt-rss").inner_text()), 4, places=5)
+        self.assertAlmostEqual(float(lab.locator("#esa-ols-r2").inner_text()), .6, places=5)
+        for i, (fitted, residual, squared) in enumerate(
+                ((2.8,-.8,.64),(3.4,.6,.36),(4,1,1),(4.6,-.6,.36),(5.2,-.2,.04)),1):
+            self.assertAlmostEqual(float(lab.locator("#esa-ols-fit"+str(i)).inner_text()),fitted,places=3)
+            self.assertAlmostEqual(float(lab.locator("#esa-ols-res"+str(i)).inner_text()),residual,places=3)
+            self.assertAlmostEqual(float(lab.locator("#esa-ols-sq"+str(i)).inner_text()),squared,places=3)
+        lab.locator("#esa-ols-alt-intercept").fill("2.2")
+        lab.locator("#esa-ols-alt-slope").fill("0.6")
+        self.assertAlmostEqual(float(lab.locator("#esa-ols-alt-rss").inner_text()),2.4,places=4)
+        lab.locator("#esa-ols-alt-slope").fill("-1")
+        self.assertGreater(float(lab.locator("#esa-ols-alt-rss").inner_text()),2.4)
+        self.assertGreater(lab.locator("#esa-ols-plot circle").count(),0)
+        self.assertGreater(lab.locator("#esa-ols-plot line").count(),0)
+        entry=self.page.evaluate("""() => JSON.parse(
+          localStorage.getItem("esa_continue_modeling_simple_linear_regression_lesson_v0"))""")
+        self.assertEqual(entry["url"],"/modeling/simple-linear-regression/least-squares/")
+        self.assertEqual(entry["label"],"Least Squares")
+        self.assertIsInstance(entry["ts"],int)
+
+    def test_ols_explorer_validation_outlier_keyboard_and_mobile(self):
+        self.page.goto(self.origin + "/modeling/simple-linear-regression/least-squares/",
+                       wait_until="networkidle")
+        lab=self.page.locator("#esa-ols-explorer")
+        first=lab.locator("#esa-ols-x1")
+        first.focus()
+        first.press("ArrowUp")
+        self.assertNotEqual(first.input_value(),"1")
+        self.assertFalse(lab.locator("#esa-ols-error").is_visible())
+        for i in range(1,6):
+            lab.locator("#esa-ols-x"+str(i)).fill("3")
+        expect(lab.locator("#esa-ols-error")).to_be_visible()
+        expect(lab.locator("#esa-ols-rss")).to_have_text("—")
+        expect(lab.locator("#esa-ols-chart")).to_be_hidden()
+        lab.get_by_role("button",name="Reset example").click()
+        expect(lab.locator("#esa-ols-rss")).to_have_text("2.4000")
+        lab.get_by_role("button",name="Try an unusual observation").click()
+        self.assertNotEqual(lab.locator("#esa-ols-b1").inner_text(),"0.6000")
+        lab.locator("#esa-ols-y5").fill("")
+        expect(lab.locator("#esa-ols-error")).to_be_visible()
+        lab.get_by_role("button",name="Reset example").click()
+        lab.locator("#esa-ols-y1").fill("4")
+        lab.locator("#esa-ols-y2").fill("4")
+        lab.locator("#esa-ols-y3").fill("4")
+        lab.locator("#esa-ols-y4").fill("4")
+        lab.locator("#esa-ols-y5").fill("4")
+        expect(lab.locator("#esa-ols-r2")).to_have_text("undefined")
+        lab.get_by_role("button",name="Reset example").click()
+        for width in (320,375,768):
+            self.page.set_viewport_size({"width":width,"height":850})
+            dimensions=lab.evaluate("""e=>({
+              scroll:e.scrollWidth,client:e.clientWidth,right:e.getBoundingClientRect().right})""")
+            self.assertLessEqual(dimensions["scroll"]-dimensions["client"],1,dimensions)
+            self.assertLessEqual(dimensions["right"],width+1,dimensions)
+
+    def test_normal_probability_explorer_numerics_and_bounds(self):
+        """Standard normal reference: P(-1<Z<1)=.68268949; tails .15865525."""
+        self.page.goto(self.origin + "/probability/distributions/normal-distribution/",
+                       wait_until="networkidle")
+        lab=self.page.locator("#esa-normal-probability-explorer")
+        expect(lab).to_be_visible()
+        self.assertAlmostEqual(float(lab.locator("#esa-normal-probability").inner_text()),
+                               .682689492137,delta=1e-6)
+        self.assertAlmostEqual(float(lab.locator("#esa-normal-percent").inner_text()),
+                               68.26894921,delta=.00015)
+        lab.locator("#esa-normal-mode").select_option("left")
+        self.assertAlmostEqual(float(lab.locator("#esa-normal-probability").inner_text()),
+                               .15865525393,delta=1e-6)
+        lab.locator("#esa-normal-mode").select_option("right")
+        self.assertAlmostEqual(float(lab.locator("#esa-normal-probability").inner_text()),
+                               .15865525393,delta=1e-6)
+        lab.locator("#esa-normal-mode").select_option("between")
+        lab.locator("#esa-normal-a").fill("-2")
+        lab.locator("#esa-normal-b").fill("2")
+        self.assertAlmostEqual(float(lab.locator("#esa-normal-probability").inner_text()),
+                               .954499736104,delta=1e-6)
+        lab.locator("#esa-normal-mu").fill("10")
+        lab.locator("#esa-normal-sigma").fill("2")
+        lab.locator("#esa-normal-a").fill("8")
+        lab.locator("#esa-normal-b").fill("12")
+        self.assertAlmostEqual(float(lab.locator("#esa-normal-probability").inner_text()),
+                               .682689492137,delta=1e-6)
+        self.assertEqual(lab.locator("#esa-normal-chart").get_attribute("role"),"img")
+        self.assertTrue(lab.locator("#esa-normal-shade").get_attribute("d").startswith("M"))
+
+    def test_normal_probability_explorer_validation_keyboard_mobile_storage(self):
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{
+            configurable:true,get(){throw new DOMException("Denied","SecurityError");}
+          });
+        """)
+        self.page.goto(self.origin + "/probability/distributions/normal-distribution/",
+                       wait_until="networkidle")
+        lab=self.page.locator("#esa-normal-probability-explorer")
+        expect(lab).to_be_visible()
+        sd=lab.locator("#esa-normal-sigma")
+        sd.fill("0")
+        expect(lab.locator("#esa-normal-error")).to_be_visible()
+        expect(lab.locator("#esa-normal-chart")).to_be_hidden()
+        sd.fill("1")
+        lab.locator("#esa-normal-a").fill("2")
+        lab.locator("#esa-normal-b").fill("1")
+        expect(lab.locator("#esa-normal-error")).to_be_visible()
+        lab.get_by_role("button",name="Reset standard normal example").focus()
+        lab.get_by_role("button",name="Reset standard normal example").press("Enter")
+        expect(lab.locator("#esa-normal-probability")).to_have_text("0.682689")
+        lab.locator("#esa-normal-mode").focus()
+        lab.locator("#esa-normal-mode").press("End")
+        lab.locator("#esa-normal-mode").dispatch_event("change")
+        expect(lab.locator("#esa-normal-prob-label")).to_have_text("P(X ≥ b)")
+        self.assertEqual(self.errors,[])
+        for width in (320,375,768):
+            self.page.set_viewport_size({"width":width,"height":850})
+            dimensions=lab.evaluate("""e=>({
+              scroll:e.scrollWidth,client:e.clientWidth,right:e.getBoundingClientRect().right})""")
+            self.assertLessEqual(dimensions["scroll"]-dimensions["client"],1,dimensions)
+            self.assertLessEqual(dimensions["right"],width+1,dimensions)
+
+    def test_ols_explorer_survives_denied_storage(self):
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{
+            configurable:true,get(){throw new DOMException("Denied","SecurityError");}
+          });
+        """)
+        self.page.goto(self.origin + "/modeling/simple-linear-regression/least-squares/",
+                       wait_until="networkidle")
+        expect(self.page.locator("#esa-ols-rss")).to_have_text("2.4000")
+        self.page.locator("#esa-ols-outlier").click()
+        self.assertNotEqual(self.page.locator("#esa-ols-b1").inner_text(),"0.6000")
+        expect(self.page.locator("main h1")).to_be_visible()
+        self.assertEqual(self.errors,[])
+
+    def test_diagnostics_nine_lessons_preserve_resume_and_keyboard(self):
+        """All nine original labels, exact canonical URLs and valid timestamps remain."""
+        records=(
+            ("residuals","Residuals"),
+            ("residual-plots","Residual Plots"),
+            ("nonlinearity","Diagnosing Nonlinearity"),
+            ("heteroscedasticity","Diagnosing Heteroscedasticity"),
+            ("outliers","Outliers and Influential Observations"),
+            ("leverage","Leverage"),
+            ("influence","Influence"),
+            ("cooks-distance","Cook's Distance"),
+            ("diagnostic-workflow","Diagnostic Workflow")
+        )
+        self.page.set_viewport_size({"width":375,"height":850})
+        key="esa_continue_modeling_diagnostics_lesson_v0"
+        overview=self.origin+"/modeling/diagnostics/"
+        for slug,label in records:
+            with self.subTest(slug=slug):
+                url="/modeling/diagnostics/"+slug+"/"
+                self.page.goto(self.origin+url,wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+                saved=self.page.evaluate("key=>JSON.parse(localStorage.getItem(key))",key)
+                self.assertEqual(saved["url"],url)
+                self.assertEqual(saved["label"],label)
+                self.assertIsInstance(saved["ts"],int)
+                self.assertGreater(saved["ts"],0)
+                self.page.goto(overview,wait_until="networkidle")
+                block=self.page.locator("#continue-reading-modeling-diagnostics")
+                expect(block).to_be_visible()
+                expect(block.locator("#continue-reading-modeling-diagnostics-label")).to_have_text(
+                    "You last visited: "+label)
+                link=block.locator("#continue-reading-modeling-diagnostics-btn")
+                self.assertEqual(link.get_attribute("href"),url)
+                link.focus()
+                self.assertTrue(link.evaluate("e=>document.activeElement===e"))
+                self.assertLessEqual(link.evaluate("e=>e.getBoundingClientRect().right"),376)
+        self.assertEqual(self.errors,[])
+
+    def test_diagnostics_reject_malicious_saved_destinations_and_labels(self):
+        self.page.goto(self.origin+"/modeling/diagnostics/",wait_until="networkidle")
+        key="esa_continue_modeling_diagnostics_lesson_v0"
+        overview=self.origin+"/modeling/diagnostics/"
+        for url,label,ts in (
+            ("javascript:alert(1)","Residuals",1730000000000),
+            ("https://evil.example/","Residuals",1730000000000),
+            ("/modeling/diagnostics/residuals/","<img src=x onerror=alert(1)>",1730000000000),
+            ("/modeling/diagnostics/residuals/","Residuals",None),
+            ("/modeling/diagnostics/residuals/","Residuals",0),
+            ("/modeling/diagnostics/outliers/","Residuals",1730000000000)
+        ):
+            with self.subTest(url=url,label=label,ts=ts):
+                self.page.evaluate("""({key,data})=>localStorage.setItem(key,JSON.stringify(data))""",
+                    {"key":key,"data":{"url":url,"label":label,"ts":ts}})
+                self.page.goto(overview,wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-modeling-diagnostics")).to_be_hidden()
+                self.assertEqual(self.page.locator("#continue-reading-modeling-diagnostics img").count(),0)
+                self.assertEqual(self.errors,[])
+        self.page.evaluate("""({key})=>localStorage.setItem(key,JSON.stringify({
+          url:"/modeling/diagnostics/residuals/",label:"Residuals",ts:1730000000000
+        }))""",{"key":key})
+        self.page.goto(overview,wait_until="networkidle")
+        block=self.page.locator("#continue-reading-modeling-diagnostics")
+        expect(block).to_be_visible()
+        expect(block.locator("strong")).to_have_text("Residuals")
+
+    def test_diagnostics_nine_lessons_and_overview_denied_storage_mobile(self):
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{
+            configurable:true,get(){throw new DOMException("Denied","SecurityError");}
+          });
+        """)
+        self.page.set_viewport_size({"width":320,"height":800})
+        for slug in (
+            "residuals","residual-plots","nonlinearity","heteroscedasticity",
+            "outliers","leverage","influence","cooks-distance","diagnostic-workflow"):
+            with self.subTest(slug=slug):
+                self.page.goto(self.origin+"/modeling/diagnostics/"+slug+"/",
+                               wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+                link=self.page.locator("main .hero-actions a").first
+                link.focus()
+                self.assertTrue(link.evaluate("e=>document.activeElement===e"))
+                self.assertEqual(self.errors,[],slug)
+        self.page.goto(self.origin+"/modeling/diagnostics/",wait_until="networkidle")
+        expect(self.page.locator("main h1")).to_be_visible()
+        expect(self.page.locator("#continue-reading-modeling-diagnostics")).to_be_hidden()
+        self.assertEqual(self.errors,[])
+
+
+
 
 if __name__ == "__main__":
     unittest.main(argv=[__file__], verbosity=2)
