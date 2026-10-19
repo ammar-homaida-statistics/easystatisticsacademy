@@ -7155,5 +7155,193 @@ class SearchTests(unittest.TestCase):
         expect(self.page.locator("main h1")).to_be_visible()
 
 
+    def test_missing_data_bilingual_numeric_and_reproducible(self):
+        """Fixed population truth 64; independently benchmark seeded realization."""
+        values=[]
+        for route in ("/foundations/missing-data/","/ar/foundations/missing-data/"):
+            self.page.goto(self.origin+route,wait_until="networkidle")
+            self.assertEqual(self.page.locator("#esa-md-table tr").count(),10)
+            observed=self.page.locator("#esa-md-observed").inner_text()
+            self.assertEqual(self.page.locator("#esa-md-true").inner_text(),"64.0000")
+            self.assertEqual(self.page.locator("#esa-md-fraction").inner_text(),"4 / 10 (40%)")
+            self.assertEqual(observed,"55.8333")
+            self.assertEqual(self.page.locator("#esa-md-imputed").inner_text(),observed)
+            self.assertEqual(self.page.locator("#esa-md-error").inner_text(),"-8.1667")
+            self.assertEqual(self.page.locator("#esa-md-variance").inner_text(),"107.8704")
+            self.page.locator("#esa-md-run").click()
+            self.assertEqual(self.page.locator("#esa-md-observed").inner_text(),observed)
+            self.page.locator("#esa-md-mode").select_option("mnar")
+            self.page.locator("#esa-md-run").click()
+            self.assertEqual(self.page.locator("#esa-md-observed").inner_text(),"57.5000")
+            self.assertEqual(self.page.locator("#esa-md-fraction").inner_text(),"2 / 10 (20%)")
+            self.assertEqual(self.page.locator("#esa-md-variance").inner_text(),"116.6667")
+            values.append(self.page.locator("#esa-md-table").inner_text())
+        self.assertEqual(values[0].count("40"),values[1].count("40"))
+        # Both language versions must share the same numeric truth and model output.
+        self.page.goto(self.origin+"/foundations/missing-data/",wait_until="networkidle")
+        self.assertEqual(self.page.locator("#esa-md-observed").inner_text(),"55.8333")
+
+    def test_missing_data_input_keyboard_mobile_and_reset(self):
+        self.page.set_viewport_size({"width":320,"height":850})
+        self.page.goto(self.origin+"/ar/foundations/missing-data/",wait_until="networkidle")
+        self.page.locator("#esa-md-seed").fill("-1")
+        self.page.locator("#esa-md-run").focus()
+        self.page.keyboard.press("Enter")
+        expect(self.page.locator("#esa-md-status")).to_contain_text("بذرة")
+        self.page.locator("#esa-md-seed").fill("4294967295")
+        self.page.locator("#esa-md-run").focus()
+        self.page.keyboard.press("Enter")
+        expect(self.page.locator("#esa-md-status")).to_contain_text("المحاكاة")
+        self.page.locator("#esa-md-mode").select_option("mnar")
+        self.page.locator("#esa-md-reset").click()
+        self.assertEqual(self.page.locator("#esa-md-seed").input_value(),"2026")
+        self.assertEqual(self.page.locator("#esa-md-mode").input_value(),"mcar")
+        self.assertLessEqual(self.page.locator("#esa-md-lab").evaluate(
+            "e=>e.scrollWidth-e.clientWidth"),1)
+        self.assertLessEqual(self.page.evaluate("document.documentElement.scrollWidth-innerWidth"),2)
+
+    def test_missing_data_english_arabic_metadata_and_navigation(self):
+        en="/foundations/missing-data/"
+        ar="/ar/foundations/missing-data/"
+        for route,language in ((en,"en"),(ar,"ar")):
+            self.page.goto(self.origin+route,wait_until="networkidle")
+            self.assertEqual(self.page.locator("html").get_attribute("lang"),language)
+            self.assertEqual(self.page.locator("html").get_attribute("dir"),
+                             "rtl" if language=="ar" else None)
+            self.assertEqual(self.page.locator('link[rel="canonical"]').get_attribute("href"),
+                             "https://easystatisticsacademy.com"+route)
+            for lang,path in (("en",en),("ar",ar)):
+                self.assertEqual(
+                    self.page.locator('link[rel="alternate"][hreflang="'+lang+'"]').get_attribute("href"),
+                    "https://easystatisticsacademy.com"+path)
+            self.assertEqual(self.page.get_by_role("group",name="Language selection")
+                             .locator('a[lang="ar"]').get_attribute("href"),ar)
+        self.page.goto(self.origin+"/ar/",wait_until="networkidle")
+        self.assertEqual(self.page.locator('a[href="'+ar+'"]').count(),1)
+
+    def test_multiple_testing_exact_bonferroni_bh_and_fdp(self):
+        """Benchmarked independently by sorting the seeded p-values."""
+        self.page.goto(self.origin+"/inference/interpretation-reporting/multiple-testing-and-false-positives/",
+                       wait_until="networkidle")
+        self.assertEqual(self.page.locator("#esa-mt-table tr").count(),10)
+        self.assertEqual(self.page.locator("#esa-mt-bonf-cut").inner_text(),"0.005000")
+        self.assertEqual(self.page.locator("#esa-mt-bh-rank").inner_text(),"2")
+        self.assertEqual(self.page.locator("#esa-mt-bh-cut").inner_text(),"0.007417")
+        self.assertEqual(self.page.locator("#esa-mt-fwer").inner_text(),"0.401263")
+        rows=self.page.locator("#esa-mt-table tr")
+        expected=[
+            (0.043013, "Reject", "Retain", "Retain"),
+            (0.308496, "Retain", "Retain", "Retain"),
+            (0.661157, "Retain", "Retain", "Retain"),
+            (0.618475, "Retain", "Retain", "Retain"),
+            (0.000538, "Reject", "Reject", "Reject"),
+            (0.221843, "Retain", "Retain", "Retain"),
+            (0.682860, "Retain", "Retain", "Retain"),
+            (0.801409, "Retain", "Retain", "Retain"),
+            (0.007417, "Reject", "Retain", "Reject"),
+            (0.042668, "Reject", "Retain", "Retain"),
+        ]
+        for i,(p,raw,bonf,bh) in enumerate(expected):
+            with self.subTest(i=i):
+                cells=[c.inner_text() for c in rows.nth(i).locator("td").all()]
+                self.assertAlmostEqual(float(cells[2]),p,places=6)
+                self.assertEqual(cells[3:],[raw,bonf,bh])
+        summary=self.page.locator("#esa-mt-summary tr")
+        self.assertEqual([c.inner_text() for c in summary.nth(0).locator("td").all()],
+                         ["Unadjusted","4","1","0.250000"])
+        self.assertEqual([c.inner_text() for c in summary.nth(1).locator("td").all()],
+                         ["Bonferroni","1","0","0.000000"])
+        self.assertEqual([c.inner_text() for c in summary.nth(2).locator("td").all()],
+                         ["Benjamini–Hochberg","2","0","0.000000"])
+        original=self.page.locator("#esa-mt-table").inner_text()
+        self.page.locator("#esa-mt-run").click()
+        self.assertEqual(self.page.locator("#esa-mt-table").inner_text(),original)
+
+    def test_multiple_testing_keyboard_mobile_seed_and_denied_storage(self):
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{
+            configurable:true,get(){throw new DOMException("Denied","SecurityError")}
+          });
+        """)
+        self.page.set_viewport_size({"width":320,"height":800})
+        self.page.goto(self.origin+"/inference/interpretation-reporting/multiple-testing-and-false-positives/",
+                       wait_until="networkidle")
+        self.page.locator("#esa-mt-seed").fill("-1")
+        self.page.locator("#esa-mt-run").focus()
+        self.page.keyboard.press("Enter")
+        expect(self.page.locator("#esa-mt-status")).to_contain_text("integer seed")
+        self.page.locator("#esa-mt-seed").fill("4294967295")
+        self.page.locator("#esa-mt-count").select_option("20")
+        self.page.locator("#esa-mt-alpha").select_option("0.01")
+        self.page.locator("#esa-mt-run").focus()
+        self.page.keyboard.press("Enter")
+        self.assertEqual(self.page.locator("#esa-mt-table tr").count(),20)
+        self.assertEqual(self.page.locator("#esa-mt-bonf-cut").inner_text(),"0.000500")
+        self.assertLessEqual(self.page.locator("#esa-mt-lab").evaluate(
+            "e=>e.scrollWidth-e.clientWidth"),1)
+        self.page.locator("#esa-mt-reset").click()
+        self.assertEqual(self.page.locator("#esa-mt-count").input_value(),"10")
+        self.assertEqual(self.page.locator("#esa-mt-seed").input_value(),"2026")
+
+    def test_model_foundations_safe_resume_and_invalid_storage(self):
+        path="/modeling/foundations/"
+        key="esa_continue_modeling_foundations_lesson_v0"
+        lessons={
+            "what-is-a-model":"What Is a Model?",
+            "variables":"Variables",
+            "signal-noise":"Signal and Noise",
+            "parameters":"Parameters",
+            "prediction-vs-explanation":"Prediction vs Explanation"
+        }
+        for slug,label in lessons.items():
+            with self.subTest(slug=slug):
+                route=path+slug+"/"
+                self.page.goto(self.origin+route,wait_until="networkidle")
+                stored=self.page.evaluate("k=>JSON.parse(localStorage.getItem(k))",key)
+                self.assertEqual(stored["url"],route)
+                self.assertEqual(stored["label"],label)
+                self.assertGreater(stored["ts"],0)
+                self.page.goto(self.origin+path,wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-modeling-foundations")).to_be_visible()
+                self.assertEqual(
+                    self.page.locator("#continue-reading-modeling-foundations-btn").get_attribute("href"),route)
+                expect(self.page.locator("#continue-reading-modeling-foundations-label")).to_contain_text(label)
+        bad=[
+            {"url":"javascript:alert(1)","label":"Variables","ts":1730000000000},
+            {"url":"https://evil.example/","label":"Variables","ts":1730000000000},
+            {"url":path+"variables/","label":"<img src=x onerror=alert(1)>","ts":1730000000000},
+            {"url":path+"variables/","label":"Parameters","ts":1730000000000},
+            {"url":path+"variables/","label":"Variables","ts":"1730000000000"},
+            {"url":path+"variables/","label":"Variables","ts":-1},
+            {"url":path+"variables/","label":"Variables","ts":99999999999999}
+        ]
+        self.page.goto(self.origin+path,wait_until="networkidle")
+        for value in bad:
+            with self.subTest(value=value):
+                self.page.evaluate("([k,d])=>localStorage.setItem(k,JSON.stringify(d))",[key,value])
+                self.page.reload(wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-modeling-foundations")).to_be_hidden()
+                self.assertEqual(self.page.locator(
+                    "#continue-reading-modeling-foundations-label img").count(),0)
+        self.page.evaluate("k=>localStorage.setItem(k,'{invalid json')",key)
+        self.page.reload(wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-modeling-foundations")).to_be_hidden()
+
+    def test_model_foundations_all_five_denied_storage_mobile(self):
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{
+            configurable:true,get(){throw new DOMException("Denied","SecurityError")}
+          });
+        """)
+        self.page.set_viewport_size({"width":375,"height":750})
+        for slug in ("what-is-a-model","variables","signal-noise","parameters","prediction-vs-explanation"):
+            with self.subTest(slug=slug):
+                self.page.goto(self.origin+"/modeling/foundations/"+slug+"/",wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+        self.page.goto(self.origin+"/modeling/foundations/",wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-modeling-foundations")).to_be_hidden()
+        expect(self.page.locator("main h1")).to_be_visible()
+
+
 if __name__ == "__main__":
     unittest.main(argv=[__file__], verbosity=2)
