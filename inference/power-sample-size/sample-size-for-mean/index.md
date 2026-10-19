@@ -279,7 +279,7 @@ sidebar: false
         <p><strong>Unrounded required n:</strong> <output id="esa-mean-unrounded">96.0400</output></p>
         <p><strong>Minimum whole observations:</strong> <output id="esa-mean-required">97</output></p>
         <p><strong>Planned margin after rounding:</strong>
-          <output id="esa-mean-achieved">3.9793</output></p>
+          <output id="esa-mean-achieved">3.9802</output></p>
         <p class="muted-mini" id="esa-mean-formula-detail">
           Calculation: (1.96 × 20 / 4)² = 96.0400; round upward to 97.
         </p>
