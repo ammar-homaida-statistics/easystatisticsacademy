@@ -334,7 +334,7 @@ sidebar: false
         return node;
       }
       function invalid(message){
-        err.hidden=false;err.textContent=message;chart.hidden=true;
+        err.hidden=false;err.textContent=message;chart.setAttribute("hidden","");
         outputs.forEach(key=>get(key).textContent="—");
         get("fit-explanation").textContent="Correct the inputs to fit a regression line.";
       }
@@ -361,7 +361,7 @@ sidebar: false
         const altRSS=x.reduce((s,v,i)=>s+(y[i]-a-b*v)**2,0);
         const tss=y.reduce((s,v)=>s+(v-ybar)**2,0);
         const r2=tss<=1e-10?NaN:Math.max(0,Math.min(1,1-rss/tss));
-        err.hidden=true;err.textContent="";chart.hidden=false;
+        err.hidden=true;err.textContent="";chart.removeAttribute("hidden");
         get("b0").textContent=intercept.toFixed(4);
         get("b1").textContent=slope.toFixed(4);
         get("rss").textContent=rss.toFixed(4);
