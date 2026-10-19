@@ -345,7 +345,7 @@ sidebar: false
         <output id="esa-vif-correlation">0.00</output>
       </label>
       <input id="esa-vif-rho" type="range" min="-1" max="1" step="0.01" value="0"
-             style="width:100%;max-width:540px;display:block" aria-describedby="esa-vif-instructions">
+             style="width:100%;max-width:540px;display:block;margin:0;box-sizing:border-box" aria-describedby="esa-vif-instructions">
       <p class="muted-mini" id="esa-vif-instructions">Use the left/right arrow keys to change correlation.
          Endpoints −1 and +1 represent perfect collinearity.</p>
       <svg id="esa-vif-figure" role="img" aria-label="Theoretical VIF versus predictor correlation"
