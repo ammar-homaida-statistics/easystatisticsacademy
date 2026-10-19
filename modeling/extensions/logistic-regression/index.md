@@ -304,6 +304,7 @@ sidebar: false
       #esa-logistic-lab label{display:flex;flex-direction:column;min-width:0;gap:6px;font-weight:600}
       #esa-logistic-lab input{box-sizing:border-box;width:100%;max-width:100%;min-width:0;padding:8px;font:inherit}
       #esa-logistic-lab svg{display:block;max-width:540px;width:100%;height:auto;margin:12px auto}
+      #esa-logistic-lab mjx-container[display="true"]{max-width:100%;overflow-x:auto;overflow-y:hidden}
       #esa-logistic-lab [hidden]{display:none!important}
       #esa-logistic-lab p{margin:11px 0}
     </style>
