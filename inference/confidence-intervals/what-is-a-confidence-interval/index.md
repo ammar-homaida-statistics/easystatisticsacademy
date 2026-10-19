@@ -206,6 +206,209 @@ sidebar: false
 
     </div>
 
+
+    <!-- REPEATED-SAMPLING CONFIDENCE INTERVAL EXPLORER -->
+    <section id="esa-ci-coverage-lab" class="concept-box esa-ci-lab" role="group"
+             aria-labelledby="esa-ci-lab-heading">
+      <h2 id="esa-ci-lab-heading">Interactive Confidence Interval Coverage Experiment</h2>
+      <p>
+        Imagine independently drawing many samples of size <em>n</em> from a normal population
+        with the <strong>fixed, true mean &mu; = 0</strong> and <strong>known standard
+        deviation &sigma; = 1</strong>. Each sample produces a two-sided <em>z</em>
+        confidence interval. The interval changes across samples; the population mean does not.
+      </p>
+      <p>
+        For speed, the simulation draws each sample mean directly from its exact
+        normal sampling distribution, equivalent to averaging <em>n</em> independent
+        N(0, 1) observations. The interval is
+        <span class="esa-ci-equation">\(\bar X \pm z_{1-\alpha/2}/\sqrt{n}\)</span>.
+        Under these assumptions its <strong>theoretical long-run coverage</strong>
+        equals the selected confidence level.
+      </p>
+      <div class="esa-ci-controls">
+        <div>
+          <label for="esa-ci-confidence">Confidence level</label>
+          <select id="esa-ci-confidence">
+            <option value="90">90%</option>
+            <option value="95" selected>95%</option>
+            <option value="99">99%</option>
+          </select>
+        </div>
+        <div>
+          <label for="esa-ci-n">Observations per sample (n)</label>
+          <select id="esa-ci-n">
+            <option value="10">10</option>
+            <option value="30" selected>30</option>
+            <option value="100">100</option>
+            <option value="300">300</option>
+          </select>
+        </div>
+      </div>
+      <div class="esa-ci-buttons">
+        <button class="btn" type="button" id="esa-ci-run-100">Generate 100 intervals</button>
+        <button class="btn btn-outline" type="button" id="esa-ci-run-500">Generate 500 intervals</button>
+        <button class="btn btn-outline" type="button" id="esa-ci-reset">Reset experiment</button>
+      </div>
+      <div class="esa-ci-summary" role="status" aria-live="polite" aria-atomic="true">
+        <p><strong>Total intervals:</strong> <span id="esa-ci-total">0</span>
+           · <strong>Capture &mu;:</strong> <span id="esa-ci-hit">0</span>
+           · <strong>Miss &mu;:</strong> <span id="esa-ci-miss">0</span></p>
+        <p><strong>Observed coverage:</strong> <span id="esa-ci-observed">—</span>
+           · <strong>Nominal coverage:</strong> <span id="esa-ci-nominal">95%</span></p>
+        <p><strong>Interval half-width:</strong> <span id="esa-ci-halfwidth">—</span>
+           (known &sigma; = 1; identical within a selected setting)</p>
+      </div>
+      <div class="esa-ci-chart-wrap">
+        <svg id="esa-ci-chart" viewBox="0 0 640 344" role="img"
+             aria-label="Latest 20 sample confidence intervals; vertical reference line is the fixed true mean zero">
+          <rect x="52" y="17" width="536" height="302" fill="none" stroke="currentColor" opacity=".2"/>
+          <line x1="320" y1="18" x2="320" y2="320" stroke="currentColor"
+                stroke-width="2" stroke-dasharray="3 4"/>
+          <text x="320" y="337" fill="currentColor" font-size="14"
+                text-anchor="middle">Fixed true mean &mu; = 0</text>
+          <g id="esa-ci-intervals"></g>
+        </svg>
+      </div>
+      <p class="muted-mini">
+        Chart: latest 20 intervals only. <strong>Solid teal</strong> intervals include the
+        true mean; <strong>dashed amber</strong> intervals miss it. The coverage totals
+        include <em>all</em> intervals in the experiment.
+      </p>
+      <p class="muted-mini"><strong>Five most recent intervals:</strong></p>
+      <ol id="esa-ci-recent" class="esa-ci-recent" aria-label="Five most recent interval results"></ol>
+      <p class="muted-mini">
+        Observed coverage varies by chance and need not equal the nominal level in a
+        small simulation. At a fixed confidence level, larger <em>n</em> makes each
+        interval narrower; it does not change its theoretical coverage for this model.
+        Once observed, an interval either contains the fixed parameter or it does not.
+        This <em>normal, known-&sigma;</em> model is an illustration, not a guarantee for
+        arbitrary data, unknown standard deviations, selection bias or dependent sampling.
+      </p>
+    </section>
+    <style>
+      #esa-ci-coverage-lab {max-width:100%;box-sizing:border-box;min-width:0}
+      #esa-ci-coverage-lab * {box-sizing:border-box}
+      #esa-ci-coverage-lab .esa-ci-equation {display:inline-block;max-width:100%;overflow-x:auto;vertical-align:middle}
+      #esa-ci-coverage-lab .esa-ci-controls {
+        display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));
+        gap:.9rem;margin:1rem 0
+      }
+      #esa-ci-coverage-lab .esa-ci-controls > div {min-width:0}
+      #esa-ci-coverage-lab label {display:block;font-weight:650;margin-bottom:.35rem}
+      #esa-ci-coverage-lab select {
+        width:100%;max-width:100%;padding:.65rem;border:1px solid #888;
+        border-radius:.4rem;background:var(--surface,#fff);color:inherit;font:inherit
+      }
+      #esa-ci-coverage-lab .esa-ci-buttons {display:flex;flex-wrap:wrap;gap:.6rem;margin:1rem 0}
+      #esa-ci-coverage-lab button {max-width:100%;white-space:normal;text-align:center}
+      #esa-ci-coverage-lab .esa-ci-summary {
+        padding:.75rem 1rem;border:1px solid #888;border-radius:.5rem;margin:1rem 0;
+        overflow-wrap:anywhere
+      }
+      #esa-ci-coverage-lab .esa-ci-summary p {margin:.4rem 0}
+      #esa-ci-coverage-lab .esa-ci-chart-wrap {width:100%;max-width:100%;min-width:0;overflow:hidden}
+      #esa-ci-coverage-lab #esa-ci-chart {display:block;width:100%;height:auto;max-width:100%}
+      #esa-ci-coverage-lab .esa-ci-recent {padding-left:1.4rem;margin-top:.4rem;overflow-wrap:anywhere}
+      #esa-ci-coverage-lab .esa-ci-recent li {margin:.25rem 0}
+      @media print {
+        #esa-ci-coverage-lab .esa-ci-buttons,#esa-ci-coverage-lab .esa-ci-controls {display:none}
+        #esa-ci-coverage-lab .esa-ci-chart-wrap {max-width:500px}
+      }
+    </style>
+    <script>
+    (function () {
+      "use strict";
+      const root = document.getElementById("esa-ci-coverage-lab");
+      if (!root) return;
+      const byId = (id) => document.getElementById(id);
+      const confidence = byId("esa-ci-confidence");
+      const sampleSize = byId("esa-ci-n");
+      const chart = byId("esa-ci-chart");
+      const plot = byId("esa-ci-intervals");
+      const recent = byId("esa-ci-recent");
+      const critical = {90:1.6448536269514722,95:1.959963984540054,99:2.5758293035489004};
+      const NS = "http://www.w3.org/2000/svg";
+      let total = 0, captured = 0, last = [];
+
+      function standardNormal() {
+        // Box-Muller: exact normal transformation of independent uniform draws.
+        const u = 1 - Math.random();
+        const v = Math.random();
+        return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+      }
+      function model() {
+        const n = Number(sampleSize.value), level = Number(confidence.value);
+        return {n:n,level:level,half:critical[level] / Math.sqrt(n)};
+      }
+      function draw() {
+        const cfg = model();
+        byId("esa-ci-total").textContent = total.toLocaleString("en-US");
+        byId("esa-ci-hit").textContent = captured.toLocaleString("en-US");
+        byId("esa-ci-miss").textContent = (total - captured).toLocaleString("en-US");
+        byId("esa-ci-observed").textContent = total ?
+          (100 * captured / total).toFixed(1) + "%" : "—";
+        byId("esa-ci-nominal").textContent = cfg.level + "%";
+        byId("esa-ci-halfwidth").textContent = cfg.half.toFixed(4);
+
+        // +/- 7 standard errors spans every ordinary sample interval.
+        const plotScale = 7 / Math.sqrt(cfg.n);
+        const position = (x) => Math.max(52, Math.min(588, 320 + 268 * x / plotScale));
+        const nodes = [];
+        for (let i = 0; i < last.length; i++) {
+          const row = last[i], y = 32 + 14 * i;
+          const line = document.createElementNS(NS, "line");
+          line.setAttribute("x1", position(row.low).toFixed(2));
+          line.setAttribute("x2", position(row.high).toFixed(2));
+          line.setAttribute("y1", y);
+          line.setAttribute("y2", y);
+          line.setAttribute("stroke", row.hit ? "#0f766e" : "#b45309");
+          line.setAttribute("stroke-width", "3.2");
+          if (!row.hit) line.setAttribute("stroke-dasharray", "5 3");
+          line.setAttribute("class", "esa-ci-interval");
+          line.setAttribute("data-lower", row.low.toFixed(9));
+          line.setAttribute("data-upper", row.high.toFixed(9));
+          line.setAttribute("data-capture", row.hit ? "yes" : "no");
+          nodes.push(line);
+        }
+        plot.replaceChildren(...nodes);
+        const items = last.slice(-5).reverse().map((row) => {
+          const li = document.createElement("li");
+          li.textContent = "[" + row.low.toFixed(3) + ", " + row.high.toFixed(3) +
+            "] — " + (row.hit ? "captures µ" : "misses µ");
+          return li;
+        });
+        recent.replaceChildren(...items);
+        chart.setAttribute("aria-label","Latest " + last.length + " of " + total +
+          " intervals; population mean fixed at zero; " + captured +
+          " of " + total + " intervals capture the true mean.");
+      }
+      function run(count) {
+        const cfg = model(), se = 1 / Math.sqrt(cfg.n);
+        for (let i = 0; i < count; i++) {
+          // Exact distribution of the mean of n independent N(0,1) observations.
+          const mean = standardNormal() * se;
+          const low = mean - cfg.half, high = mean + cfg.half;
+          const hit = low <= 0 && 0 <= high;
+          total++;
+          if (hit) captured++;
+          last.push({low:low,high:high,hit:hit});
+          if (last.length > 20) last.shift();
+        }
+        draw();
+      }
+      function restart() {
+        total = 0;captured = 0;last = [];
+        run(100);
+      }
+      byId("esa-ci-run-100").addEventListener("click", () => run(100));
+      byId("esa-ci-run-500").addEventListener("click", () => run(500));
+      byId("esa-ci-reset").addEventListener("click", restart);
+      confidence.addEventListener("change", restart);
+      sampleSize.addEventListener("change", restart);
+      restart();
+    })();
+    </script>
+
     <h2>What Does 95% Confidence Mean?</h2>
 
     <p>
