@@ -271,10 +271,15 @@ sidebar: false
         This illustration does not model nuisance parameters, unknown σ,
         t-critical values, multiple testing, design effects, or missing data.
       </p>
-      \[
-      \delta=\frac{\Delta\sqrt{n}}{\sigma},\quad c=z_{1-\alpha/2},
-      \qquad\pi(\Delta)=\Phi(-c-\delta)+\Phi(\delta-c).
-      \]
+      <div class="esa-power-math" aria-label="Analytical power formulas">
+        \[
+        \delta=\frac{\Delta\sqrt{n}}{\sigma},\qquad
+        c=z_{1-\alpha/2}
+        \]
+        \[
+        \pi(\Delta)=\Phi(-c-\delta)+\Phi(\delta-c)
+        \]
+      </div>
     </section>
     <style>
       #esa-power-lab {box-sizing:border-box;width:100%;max-width:100%;min-width:0;overflow-wrap:anywhere}
@@ -289,7 +294,14 @@ sidebar: false
         min-height:28px;margin:0
       }
       #esa-power-lab h3 {font-size:1.05em;margin:18px 0 8px}
-      #esa-power-lab svg {display:block;width:100%;max-width:100%;height:auto;min-width:0;overflow:visible}
+      #esa-power-lab #esa-power-chart {
+        display:block;box-sizing:border-box;width:100%;max-width:100%;
+        height:auto;min-width:0;overflow:hidden
+      }
+      #esa-power-lab .esa-power-math {
+        box-sizing:border-box;display:block;max-width:100%;min-width:0;
+        overflow-x:auto;overflow-y:hidden;padding-bottom:4px
+      }
       #esa-power-lab .esa-power-axis {stroke:currentColor;stroke-width:1.5}
       #esa-power-lab .esa-power-gridline {stroke:#94a3b8;stroke-width:1;opacity:.5}
       #esa-power-lab .esa-power-baseline {stroke:#64748b;stroke-width:2;stroke-dasharray:6 4}
