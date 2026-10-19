@@ -12,11 +12,11 @@ sidebar: false
 
   const KEY = "esa_continue_modeling_last_block_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try { localStorage.setItem(KEY, JSON.stringify({
     url: "/modeling/model-fit-comparison/",
     label: "Block 6 — Model Fit & Comparison",
     ts: Date.now()
-  }));
+  })); } catch (error) { /* Storage may be disabled. */ }
 
 })();
 </script>
@@ -584,49 +584,39 @@ sidebar: false
 
 </section>
 
-<!-- CONTINUE READING SCRIPT -->
-
+<!-- CONTINUE READING SCRIPT: validated Model Fit resume -->
 <script>
 (function () {
-
+  "use strict";
+  const KEY = "esa_continue_modeling_model_fit_lesson_v0";
+  const LEGACY = "esa_continue_modeling_fit_lesson_v0";
+  const ALLOWED = {"/modeling/model-fit-comparison/what-is-model-fit/":"What Is Model Fit?","/modeling/model-fit-comparison/r-squared/":"R-Squared","/modeling/model-fit-comparison/adjusted-r-squared/":"Adjusted R-Squared","/modeling/model-fit-comparison/underfitting/":"Underfitting","/modeling/model-fit-comparison/overfitting/":"Overfitting","/modeling/model-fit-comparison/train-vs-test/":"Train vs Test Performance","/modeling/model-fit-comparison/model-comparison/":"Model Comparison","/modeling/model-fit-comparison/aic-bic/":"AIC and BIC","/modeling/model-fit-comparison/model-selection-thinking/":"Model Selection Thinking"};
+  const wrap = document.getElementById("continue-reading-modeling-fit");
+  const label = document.getElementById("continue-reading-modeling-fit-label");
+  const button = document.getElementById("continue-reading-modeling-fit-btn");
+  if (!wrap || !label || !button) return;
+  function parse(raw) {
+    if (!raw) return null;
+    try {
+      const data = JSON.parse(raw);
+      if (!data || typeof data !== "object" || Array.isArray(data)) return null;
+      if (typeof data.url !== "string" || !Object.prototype.hasOwnProperty.call(ALLOWED, data.url)) return null;
+      if (typeof data.label !== "string" || data.label !== ALLOWED[data.url]) return null;
+      if (typeof data.ts !== "number" || !Number.isFinite(data.ts) || data.ts < 0 || data.ts > Date.now() + 86400000) return null;
+      return data;
+    } catch (_) { return null; }
+  }
   try {
-
-    const KEY =
-      "esa_continue_modeling_fit_lesson_v0";
-
-    const raw = localStorage.getItem(KEY);
-
-    if (!raw) return;
-
-    const data = JSON.parse(raw);
-
-    if (!data || !data.url || !data.label) return;
-
-    const wrap =
-      document.getElementById(
-        "continue-reading-modeling-fit"
-      );
-
-    const label =
-      document.getElementById(
-        "continue-reading-modeling-fit-label"
-      );
-
-    const btn =
-      document.getElementById(
-        "continue-reading-modeling-fit-btn"
-      );
-
-    label.innerHTML =
-      "You last visited: <strong>" +
-      data.label +
-      "</strong>";
-
-    btn.href = data.url;
-
+    const current = parse(localStorage.getItem(KEY));
+    const previous = parse(localStorage.getItem(LEGACY));
+    const data = current && previous ? (current.ts >= previous.ts ? current : previous) : (current || previous);
+    if (!data) return;
+    if (data === previous && (!current || previous.ts > current.ts)) {
+      try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (_) {}
+    }
+    label.textContent = "You last visited: " + data.label;
+    button.setAttribute("href", data.url);
     wrap.style.display = "block";
-
-  } catch (e) {}
-
+  } catch (_) { /* Storage blocked; the lesson list remains usable. */ }
 })();
 </script>
