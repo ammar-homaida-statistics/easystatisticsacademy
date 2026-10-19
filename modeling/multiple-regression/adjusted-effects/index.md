@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_modeling_multiple_regression_lesson_v0";
 
+  try {
   localStorage.setItem(KEY, JSON.stringify({
     url: "/modeling/multiple-regression/adjusted-effects/",
     label: "Adjusted Effects",
     ts: Date.now()
   }));
+  } catch (_) {
+    // A blocked browser storage API must not interrupt this lesson.
+  }
 
 })();
 </script>
