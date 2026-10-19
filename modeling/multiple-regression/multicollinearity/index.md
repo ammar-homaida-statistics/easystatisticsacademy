@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_modeling_multiple_regression_lesson_v0";
 
+  try {
   localStorage.setItem(KEY, JSON.stringify({
     url: "/modeling/multiple-regression/multicollinearity/",
     label: "Multicollinearity",
     ts: Date.now()
   }));
+  } catch (_) {
+    // A blocked browser storage API must not interrupt this lesson.
+  }
 
 })();
 </script>
@@ -326,6 +330,101 @@ sidebar: false
     </p>
 
     <h2>The Variance Inflation Factor (VIF)</h2>
+
+    <section class="example-box" id="esa-vif-lab" aria-labelledby="esa-vif-title">
+      <h2 id="esa-vif-title">Interactive Multicollinearity and VIF Explorer</h2>
+      <p>This is a <strong>theoretical two-predictor design</strong>, not a fitted dataset.
+         Assume an intercept, 50 observations, centered predictor sum of squares
+         Sxx₁ = 40, constant error variance σ² = 4, and predictor correlation ρ.
+         Keep all quantities fixed except ρ.</p>
+      <p>For these assumptions, VIF₁ = 1/(1 − ρ²), and the standard error of
+         the OLS coefficient for predictor 1 is σ/√[Sxx₁(1 − ρ²)].
+         This isolates the variance-inflation effect; it does not demonstrate
+         improved or degraded out-of-sample predictions.</p>
+      <label for="esa-vif-rho">Correlation between X₁ and X₂:
+        <output id="esa-vif-correlation">0.00</output>
+      </label>
+      <input id="esa-vif-rho" type="range" min="-1" max="1" step="0.01" value="0"
+             style="width:100%;max-width:540px;display:block" aria-describedby="esa-vif-instructions">
+      <p class="muted-mini" id="esa-vif-instructions">Use the left/right arrow keys to change correlation.
+         Endpoints −1 and +1 represent perfect collinearity.</p>
+      <svg id="esa-vif-figure" role="img" aria-label="Theoretical VIF versus predictor correlation"
+           viewBox="0 0 500 220" style="max-width:590px;width:100%;height:auto;display:block">
+        <line x1="45" y1="176" x2="470" y2="176" stroke="currentColor"></line>
+        <line x1="45" y1="18" x2="45" y2="176" stroke="currentColor"></line>
+        <text x="250" y="213" text-anchor="middle" fill="currentColor" font-size="13">Predictor correlation ρ (−1 to 1)</text>
+        <text x="48" y="15" fill="currentColor" font-size="12">VIF (truncated at 20)</text>
+        <text x="45" y="193" fill="currentColor" font-size="12">−1</text>
+        <text x="257" y="193" fill="currentColor" font-size="12">0</text>
+        <text x="470" y="193" text-anchor="end" fill="currentColor" font-size="12">1</text>
+        <path id="esa-vif-curve" fill="none" stroke="#0d9488" stroke-width="2.4"></path>
+        <line id="esa-vif-guide" x1="257.5" x2="257.5" y1="176" y2="168"
+              stroke="#b45309" stroke-width="2" stroke-dasharray="4 3"></line>
+        <circle id="esa-vif-dot" cx="257.5" cy="168" r="5" fill="#b45309"></circle>
+      </svg>
+      <div role="status" aria-live="polite" aria-atomic="true">
+        <p>VIF₁ = <output id="esa-vif-value">1.0000</output>;
+           model-based SE(β̂₁) = <output id="esa-vif-se">0.3162</output>.</p>
+        <p>Without collinearity, SE = <output id="esa-vif-reference">0.3162</output>.
+           SE inflation factor = <output id="esa-vif-factor">1.0000</output>.</p>
+        <p>Normal-model illustrative 95% margin (1.96 × SE) =
+           <output id="esa-vif-margin">0.6198</output>.</p>
+        <p id="esa-vif-message">With uncorrelated predictors, VIF is one.</p>
+      </div>
+      <button type="button" class="btn btn-outline" id="esa-vif-reset">Reset correlation</button>
+      <p class="muted-mini">At |ρ| = 1 the two-predictor design matrix loses rank, so the
+         individual OLS coefficients are not uniquely estimable. For |ρ| &lt; 1,
+         higher VIF means greater coefficient variance conditional on fixed σ²,
+         Sxx₁ and the other design assumptions. A VIF cutoff is a diagnostic heuristic,
+         not a universal test of model quality.</p>
+    </section>
+    <script>
+    (() => {
+      "use strict";
+      const root=document.getElementById("esa-vif-lab");
+      if(!root)return;
+      const find=s=>root.querySelector("#esa-vif-"+s);
+      const control=find("rho"),base=2/Math.sqrt(40);
+      const px=r=>45+(r+1)*425/2;
+      const py=v=>176-8*Math.min(19,Math.max(0,v-1));
+      let curve="";
+      for(let i=1;i<200;i++){
+        const r=-1+i/100;
+        curve+=(i===1?"M":" L")+px(r).toFixed(2)+" "+py(1/(1-r*r)).toFixed(2);
+      }
+      find("curve").setAttribute("d",curve);
+      function render(){
+        const rho=Number(control.value);
+        const factor=1/Math.sqrt(1-rho*rho);
+        const vif=factor*factor;
+        const se=base*factor;
+        const perfect=Math.abs(rho)===1;
+        find("correlation").textContent=rho.toFixed(2);
+        find("value").textContent=perfect?"undefined (rank deficient)":vif.toFixed(4);
+        find("se").textContent=perfect?"undefined":se.toFixed(4);
+        find("reference").textContent=base.toFixed(4);
+        find("factor").textContent=perfect?"undefined":factor.toFixed(4);
+        find("margin").textContent=perfect?"undefined":(1.96*se).toFixed(4);
+        find("message").textContent=perfect?
+          "Perfect collinearity: neither separate coefficient nor its OLS standard error is identifiable.":
+          Math.abs(rho)<1e-10?"With uncorrelated predictors, VIF is one.":
+          "For this fixed design, correlation inflates coefficient uncertainty. The normal-model margin is illustrative, not a fitted confidence interval.";
+        const y=perfect?18:py(vif),x=px(rho);
+        find("guide").setAttribute("x1",x);
+        find("guide").setAttribute("x2",x);
+        find("guide").setAttribute("y2",y);
+        find("dot").setAttribute("cx",x);
+        find("dot").setAttribute("cy",y);
+        find("figure").setAttribute("aria-label","Theoretical two-predictor VIF curve. Correlation "+rho.toFixed(2)+
+          ", VIF "+(perfect?"undefined at perfect collinearity":vif.toFixed(4))+
+          "; values above 20 are clipped in the drawing.");
+      }
+      control.addEventListener("input",render);
+      find("reset").addEventListener("click",()=>{control.value="0";render()});
+      render();
+    })();
+    </script>
+
 
     <p>
       One of the most common diagnostic tools is the Variance Inflation Factor (VIF).

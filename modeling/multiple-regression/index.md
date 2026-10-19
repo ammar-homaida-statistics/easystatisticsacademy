@@ -12,11 +12,15 @@ sidebar: false
 
   const KEY = "esa_continue_modeling_last_block_v0";
 
+  try {
   localStorage.setItem(KEY, JSON.stringify({
     url: "/modeling/multiple-regression/",
     label: "Block 3 — Multiple Regression",
     ts: Date.now()
   }));
+  } catch (_) {
+    // A blocked browser storage API must not interrupt this lesson.
+  }
 
 })();
 </script>
@@ -587,16 +591,31 @@ sidebar: false
 
   try {
 
-    const KEY =
-      "esa_continue_modeling_mr_lesson_v0";
+    const KEY = "esa_continue_modeling_multiple_regression_lesson_v0";
+    const legacyKey = "esa_continue_modeling_mr_lesson_v0";
 
-    const raw = localStorage.getItem(KEY);
+    // Current lessons write KEY. The older overview read legacyKey.
+    const raw = localStorage.getItem(KEY) || localStorage.getItem(legacyKey);
 
     if (!raw) return;
 
     const data = JSON.parse(raw);
 
-    if (!data || !data.url || !data.label) return;
+    const lessons = new Map([
+      ["/modeling/multiple-regression/why-multiple/", "Why Multiple Regression?"],
+      ["/modeling/multiple-regression/model-structure/", "Model Structure"],
+      ["/modeling/multiple-regression/adjusted-effects/", "Adjusted Effects"],
+      ["/modeling/multiple-regression/confounding/", "Confounding"],
+      ["/modeling/multiple-regression/coefficients/", "Coefficients"],
+      ["/modeling/multiple-regression/multicollinearity/", "Multicollinearity"],
+      ["/modeling/multiple-regression/dummy-variables/", "Dummy Variables"],
+      ["/modeling/multiple-regression/interactions/", "Interactions"],
+      ["/modeling/multiple-regression/model-building/", "Model Building"]
+    ]);
+    if (!data || typeof data !== "object" ||
+        typeof data.url !== "string" || typeof data.label !== "string" ||
+        !lessons.has(data.url) || lessons.get(data.url) !== data.label ||
+        !Number.isSafeInteger(data.ts) || data.ts <= 0) return;
 
     const wrap =
       document.getElementById(
@@ -613,12 +632,11 @@ sidebar: false
         "continue-reading-modeling-mr-btn"
       );
 
-    label.innerHTML =
-      "You last visited: <strong>" +
-      data.label +
-      "</strong>";
+    const title = document.createElement("strong");
+    title.textContent = data.label;
+    label.replaceChildren("You last visited: ", title);
 
-    btn.href = data.url;
+    btn.setAttribute("href", data.url);
 
     wrap.style.display = "block";
 

@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_descriptive_visualization_lesson_v0";
 
+  try {
   localStorage.setItem(KEY, JSON.stringify({
     url: "/descriptive/visualization/boxplots/",
     label: "Boxplots",
     ts: Date.now()
   }));
+  } catch (_) {
+    // A blocked browser storage API must not interrupt this lesson.
+  }
 
 })();
 </script>
@@ -254,6 +258,128 @@ sidebar: false
     <p>
       A boxplot visualizes these five values.
     </p>
+
+
+    <section class="example-box" id="esa-boxplot-lab" aria-labelledby="esa-boxplot-title">
+      <h2 id="esa-boxplot-title">Interactive Boxplot and Outlier Explorer</h2>
+      <p>Enter 4 to 60 numerical observations separated by commas, spaces or line breaks.
+         Quartiles use the <strong>median of each half, excluding the overall median for odd n</strong>.
+         Whiskers reach the most extreme observations inside the 1.5 × IQR fences;
+         flagged values are plotted individually.</p>
+      <label for="esa-boxplot-data"><strong>Observed data</strong></label>
+      <textarea id="esa-boxplot-data" rows="3" style="box-sizing:border-box;width:100%;max-width:590px;font:inherit"
+                spellcheck="false">5, 7, 8, 10, 12, 13, 15, 17, 20</textarea>
+      <p id="esa-boxplot-error" role="alert" hidden></p>
+      <svg id="esa-boxplot-figure" role="img" aria-label="Boxplot showing quartiles, whiskers, and outliers"
+           viewBox="0 0 500 180" style="display:block;width:100%;max-width:590px;height:auto">
+        <line x1="35" x2="465" y1="143" y2="143" stroke="currentColor"></line>
+        <g id="esa-boxplot-marks"></g>
+        <text x="35" y="165" fill="currentColor" font-size="12">Minimum</text>
+        <text x="465" y="165" text-anchor="end" fill="currentColor" font-size="12">Maximum</text>
+      </svg>
+      <div role="status" aria-live="polite" aria-atomic="true">
+        <p>n = <output id="esa-boxplot-n">9</output>;
+           min = <output id="esa-boxplot-min">5</output>;
+           Q1 = <output id="esa-boxplot-q1">7.5</output>;
+           median = <output id="esa-boxplot-median">12</output>;
+           Q3 = <output id="esa-boxplot-q3">16</output>;
+           max = <output id="esa-boxplot-max">20</output>.</p>
+        <p>IQR = <output id="esa-boxplot-iqr">8.5</output>;
+           lower/upper fences = <output id="esa-boxplot-fences">−5.25 / 28.75</output>.</p>
+        <p>Whisker endpoints = <output id="esa-boxplot-whiskers">5 / 20</output>;
+           flagged outliers = <output id="esa-boxplot-outliers">none</output>.</p>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px">
+        <button id="esa-boxplot-reset" type="button" class="btn btn-outline">Reset example</button>
+        <button id="esa-boxplot-extreme" type="button" class="btn btn-outline">Add extreme observation (120)</button>
+      </div>
+      <p class="muted-mini">Tukey-style fences flag potentially unusual observations; they
+         do not prove mistakes or justify automatic removal. Quartile conventions vary by
+         software; this lesson's example gives Q1 = 7.5 and Q3 = 16 for the nine values above.
+         These whiskers are <em>not</em> necessarily the overall minimum and maximum.</p>
+    </section>
+    <script>
+    (() => {
+      "use strict";
+      const root=document.getElementById("esa-boxplot-lab");if(!root)return;
+      const get=id=>root.querySelector("#esa-boxplot-"+id),data=get("data");
+      const ns="http://www.w3.org/2000/svg";
+      const make=(name,atts)=>{
+        const e=document.createElementNS(ns,name);
+        Object.entries(atts).forEach(([k,v])=>e.setAttribute(k,String(v)));
+        return e;
+      };
+      const median=a=>a.length%2?a[(a.length-1)/2]:
+        (a[a.length/2-1]+a[a.length/2])/2;
+      const fmt=v=>Number.isInteger(v)?String(v):Number(v.toFixed(6)).toString();
+      function invalid(msg){
+        get("error").hidden=false;get("error").textContent=msg;
+        get("figure").setAttribute("hidden","");
+        for(const id of ["n","min","q1","median","q3","max","iqr","fences","whiskers","outliers"])
+          get(id).textContent="—";
+      }
+      function render(){
+        const input=data.value.trim();
+        const fields=input.split(/[\s,;]+/).filter(Boolean);
+        const values=fields.map(v=>Number(v));
+        if(fields.length<4||fields.length>60||fields.some(v=>v==="")||
+           values.some(v=>!Number.isFinite(v)||Math.abs(v)>1000000)){
+          invalid("Enter 4 to 60 finite numerical values (absolute value at most 1,000,000).");
+          return;
+        }
+        values.sort((a,b)=>a-b);
+        const n=values.length,k=Math.floor(n/2);
+        const low=values.slice(0,k),high=values.slice(n-k);
+        const q1=median(low),q2=median(values),q3=median(high);
+        const iqr=q3-q1,lower=q1-1.5*iqr,upper=q3+1.5*iqr;
+        const inside=values.filter(v=>v>=lower-1e-10&&v<=upper+1e-10);
+        if(!inside.length){invalid("There are no valid whisker endpoints.");return}
+        const outliers=values.filter(v=>v<lower-1e-10||v>upper+1e-10);
+        const vmin=values[0],vmax=values[n-1],wlo=inside[0],whi=inside[inside.length-1];
+        get("error").hidden=true;get("error").textContent="";
+        get("figure").removeAttribute("hidden");
+        const list={n,min:vmin,q1,median:q2,q3,max:vmax,iqr,
+          fences:fmt(lower)+" / "+fmt(upper),whiskers:fmt(wlo)+" / "+fmt(whi),
+          outliers:outliers.length?outliers.map(fmt).join(", "):"none"};
+        for(const [key,val] of Object.entries(list))
+          get(key).textContent=typeof val==="number"?fmt(val):String(val);
+        const delta=vmax-vmin;
+        const margin=delta>0?delta*0.1:1;
+        const x=v=>35+430*(v-(vmin-margin))/(delta+2*margin);
+        const line=(x1,y1,x2,y2,width=2)=>make("line",{x1,y1,x2,y2,stroke:"#0d9488","stroke-width":width});
+        const parts=[
+          line(x(wlo),75,x(q1),75),line(x(q3),75,x(whi),75),
+          line(x(wlo),57,x(wlo),93),line(x(whi),57,x(whi),93),
+          make("rect",{x:x(q1),y:48,width:Math.max(0.8,x(q3)-x(q1)),height:54,
+            stroke:"#0d9488","stroke-width":2,fill:"#0d9488","fill-opacity":0.18}),
+          line(x(q2),48,x(q2),102,3)
+        ];
+        outliers.forEach((v,i)=>parts.push(make("circle",{
+          cx:x(v),cy:75+(i%3-1)*6,r:5,fill:"#b45309",stroke:"currentColor","stroke-width":0.6
+        })));
+        get("marks").replaceChildren(...parts);
+        get("figure").setAttribute("aria-label","Boxplot of "+n+" values. Q1 "+fmt(q1)+
+          ", median "+fmt(q2)+", Q3 "+fmt(q3)+", whiskers "+fmt(wlo)+" to "+fmt(whi)+
+          ", "+outliers.length+" flagged outliers.");
+      }
+      data.addEventListener("input",render);
+      get("reset").addEventListener("click",()=>{
+        data.value="5, 7, 8, 10, 12, 13, 15, 17, 20";render();
+      });
+      get("extreme").addEventListener("click",()=>{
+        const parts=data.value.trim().split(/[\s,;]+/).filter(Boolean);
+        if(parts.length>=60){invalid("Maximum 60 observations; remove one before adding.");return;}
+        data.value=data.value.trim().replace(/[,\s;]+$/,"")+", 120";render();
+      });
+      render();
+    })();
+    </script>
+    <style>
+      #esa-boxplot-lab[hidden],#esa-boxplot-lab [hidden]{display:none!important}
+      #esa-boxplot-lab button{max-width:100%;white-space:normal}
+      #esa-boxplot-lab p{overflow-wrap:anywhere}
+      @media print{#esa-boxplot-lab textarea,#esa-boxplot-lab button{display:none}}
+    </style>
 
     <h2>The Box</h2>
 

@@ -6607,5 +6607,197 @@ class SearchTests(unittest.TestCase):
 
 
 
+    def test_multicollinearity_vif_theoretical_reference_and_endpoints(self):
+        """Independent references: VIF(.8)=25/9 and SE=2/sqrt(40*.36)."""
+        self.page.goto(self.origin + "/modeling/multiple-regression/multicollinearity/",
+                       wait_until="networkidle")
+        lab=self.page.locator("#esa-vif-lab")
+        expect(lab).to_be_visible()
+        expect(lab.locator("#esa-vif-value")).to_have_text("1.0000")
+        self.assertAlmostEqual(float(lab.locator("#esa-vif-reference").inner_text()),
+                               2/(40**0.5),places=4)
+        slider=lab.locator("#esa-vif-rho")
+        slider.evaluate("(e,v)=>{e.value=v;e.dispatchEvent(new Event('input',{bubbles:true}))}", "0.8")
+        self.assertAlmostEqual(float(lab.locator("#esa-vif-value").inner_text()),
+                               1/(1-0.8**2),places=4)
+        self.assertAlmostEqual(float(lab.locator("#esa-vif-se").inner_text()),
+                               2/((40*(1-0.8**2))**0.5),places=4)
+        self.assertAlmostEqual(float(lab.locator("#esa-vif-factor").inner_text()),
+                               1/((1-0.8**2)**0.5),places=4)
+        slider.evaluate("(e,v)=>{e.value=v;e.dispatchEvent(new Event('input',{bubbles:true}))}", "-0.8")
+        self.assertAlmostEqual(float(lab.locator("#esa-vif-value").inner_text()),
+                               25/9,places=4)
+        slider.evaluate("(e,v)=>{e.value=v;e.dispatchEvent(new Event('input',{bubbles:true}))}", "1")
+        expect(lab.locator("#esa-vif-value")).to_have_text("undefined (rank deficient)")
+        expect(lab.locator("#esa-vif-se")).to_have_text("undefined")
+        slider.evaluate("(e,v)=>{e.value=v;e.dispatchEvent(new Event('input',{bubbles:true}))}", "-1")
+        expect(lab.locator("#esa-vif-se")).to_have_text("undefined")
+        lab.get_by_role("button",name="Reset correlation").click()
+        expect(lab.locator("#esa-vif-value")).to_have_text("1.0000")
+        self.assertTrue(lab.locator("#esa-vif-curve").get_attribute("d").startswith("M"))
+        self.assertIn("rank",lab.inner_text())
+
+    def test_multicollinearity_vif_keyboard_mobile_and_denied_storage(self):
+        self.page.add_init_script("""
+            Object.defineProperty(window,"localStorage",{
+              configurable:true,get(){throw new DOMException("Denied","SecurityError")}
+            });
+        """)
+        self.page.goto(self.origin+"/modeling/multiple-regression/multicollinearity/",
+                       wait_until="networkidle")
+        lab=self.page.locator("#esa-vif-lab")
+        slider=lab.locator("#esa-vif-rho")
+        slider.focus()
+        slider.press("ArrowRight")
+        expect(lab.locator("#esa-vif-correlation")).to_have_text("0.01")
+        self.assertEqual(self.errors,[])
+        for width in (320,375,768):
+            self.page.set_viewport_size({"width":width,"height":850})
+            x=lab.evaluate("""e=>({scroll:e.scrollWidth,client:e.clientWidth,
+              right:e.getBoundingClientRect().right})""")
+            self.assertLessEqual(x["scroll"]-x["client"],1,x)
+            self.assertLessEqual(x["right"],width+1,x)
+
+    def test_boxplot_quartiles_fences_and_extreme_observation(self):
+        """Median-of-halves/exclusive overall median; default quartiles 7.5 and 16."""
+        self.page.goto(self.origin+"/descriptive/visualization/boxplots/",
+                       wait_until="networkidle")
+        lab=self.page.locator("#esa-boxplot-lab")
+        expect(lab).to_be_visible()
+        for key,want in (("n","9"),("min","5"),("q1","7.5"),("median","12"),
+                         ("q3","16"),("max","20"),("iqr","8.5"),
+                         ("fences","-5.25 / 28.75"),("whiskers","5 / 20"),
+                         ("outliers","none")):
+            expect(lab.locator("#esa-boxplot-"+key)).to_have_text(want)
+        lab.get_by_role("button",name="Add extreme observation (120)").click()
+        for key,want in (("n","10"),("q1","8"),("median","12.5"),
+                         ("q3","17"),("iqr","9"),
+                         ("fences","-5.5 / 30.5"),
+                         ("whiskers","5 / 20"),("outliers","120")):
+            expect(lab.locator("#esa-boxplot-"+key)).to_have_text(want)
+        self.assertGreater(lab.locator("#esa-boxplot-marks circle").count(),0)
+        lab.get_by_role("button",name="Reset example").click()
+        expect(lab.locator("#esa-boxplot-outliers")).to_have_text("none")
+        expect(lab.locator("#esa-boxplot-q1")).to_have_text("7.5")
+
+    def test_boxplot_invalid_constant_repeated_and_mobile_keyboard(self):
+        self.page.goto(self.origin+"/descriptive/visualization/boxplots/",
+                       wait_until="networkidle")
+        lab=self.page.locator("#esa-boxplot-lab")
+        data=lab.locator("#esa-boxplot-data")
+        data.fill("8,8,8,8")
+        expect(lab.locator("#esa-boxplot-iqr")).to_have_text("0")
+        expect(lab.locator("#esa-boxplot-whiskers")).to_have_text("8 / 8")
+        data.fill("1,2,3")
+        expect(lab.locator("#esa-boxplot-error")).to_be_visible()
+        expect(lab.locator("#esa-boxplot-figure")).to_be_hidden()
+        data.fill("2,3,4,5,NaN")
+        expect(lab.locator("#esa-boxplot-error")).to_be_visible()
+        data.fill("1, 2, 3, 4, 5, 6, 7, 8")
+        expect(lab.locator("#esa-boxplot-error")).to_be_hidden()
+        reset=lab.get_by_role("button",name="Reset example")
+        reset.focus()
+        reset.press("Enter")
+        expect(lab.locator("#esa-boxplot-n")).to_have_text("9")
+        for width in (320,375,768):
+            self.page.set_viewport_size({"width":width,"height":850})
+            x=lab.evaluate("""e=>({scroll:e.scrollWidth,client:e.clientWidth,
+              right:e.getBoundingClientRect().right})""")
+            self.assertLessEqual(x["scroll"]-x["client"],1,x)
+            self.assertLessEqual(x["right"],width+1,x)
+
+    def test_boxplot_still_works_when_browser_storage_is_denied(self):
+        self.page.add_init_script("""
+            Object.defineProperty(window,"localStorage",{
+              configurable:true,get(){throw new DOMException("Denied","SecurityError")}
+            });
+        """)
+        self.page.goto(self.origin+"/descriptive/visualization/boxplots/",wait_until="networkidle")
+        lab=self.page.locator("#esa-boxplot-lab")
+        expect(lab.locator("#esa-boxplot-q1")).to_have_text("7.5")
+        lab.get_by_role("button",name="Add extreme observation (120)").click()
+        expect(lab.locator("#esa-boxplot-outliers")).to_have_text("120")
+        self.assertEqual(self.errors,[])
+
+    def test_multiple_regression_nine_lessons_resume_schema_and_links(self):
+        records=(
+            ("why-multiple","Why Multiple Regression?"),
+            ("model-structure","Model Structure"),
+            ("adjusted-effects","Adjusted Effects"),
+            ("confounding","Confounding"),
+            ("coefficients","Coefficients"),
+            ("multicollinearity","Multicollinearity"),
+            ("dummy-variables","Dummy Variables"),
+            ("interactions","Interactions"),
+            ("model-building","Model Building"),
+        )
+        key="esa_continue_modeling_multiple_regression_lesson_v0"
+        self.page.set_viewport_size({"width":375,"height":850})
+        for slug,label in records:
+            with self.subTest(slug=slug):
+                path="/modeling/multiple-regression/"+slug+"/"
+                self.page.goto(self.origin+path,wait_until="networkidle")
+                saved=self.page.evaluate("key=>JSON.parse(localStorage.getItem(key))",key)
+                self.assertEqual(saved["url"],path)
+                self.assertEqual(saved["label"],label)
+                self.assertIsInstance(saved["ts"],int)
+                self.assertGreater(saved["ts"],0)
+                self.page.goto(self.origin+"/modeling/multiple-regression/",wait_until="networkidle")
+                block=self.page.locator("#continue-reading-modeling-mr")
+                expect(block).to_be_visible()
+                expect(block.locator("#continue-reading-modeling-mr-label")).to_have_text(
+                    "You last visited: "+label)
+                link=block.locator("#continue-reading-modeling-mr-btn")
+                self.assertEqual(link.get_attribute("href"),path)
+                link.focus()
+                self.assertTrue(link.evaluate("e=>document.activeElement===e"))
+                self.assertLessEqual(link.evaluate("e=>e.getBoundingClientRect().right"),376)
+
+    def test_multiple_regression_rejects_malicious_progress_values(self):
+        self.page.goto(self.origin+"/modeling/multiple-regression/",wait_until="networkidle")
+        key="esa_continue_modeling_multiple_regression_lesson_v0"
+        bad=(
+            ("javascript:alert(1)","Coefficients",1730000000000),
+            ("https://attacker.test","Coefficients",1730000000000),
+            ("/modeling/multiple-regression/coefficients/","<img src=x onerror=alert(1)>",1730000000000),
+            ("/modeling/multiple-regression/coefficients/","Confounding",1730000000000),
+            ("/modeling/multiple-regression/coefficients/","Coefficients",None),
+            ("/modeling/multiple-regression/coefficients/","Coefficients",0)
+        )
+        for url,label,ts in bad:
+            with self.subTest(url=url,label=label,ts=ts):
+                self.page.evaluate("""({k,d})=>localStorage.setItem(k,JSON.stringify(d))""",
+                    {"k":key,"d":{"url":url,"label":label,"ts":ts}})
+                self.page.goto(self.origin+"/modeling/multiple-regression/",wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-modeling-mr")).to_be_hidden()
+                self.assertEqual(self.page.locator("#continue-reading-modeling-mr img").count(),0)
+        self.page.evaluate("""key=>localStorage.setItem(key,JSON.stringify({
+          url:"/modeling/multiple-regression/model-building/",
+          label:"Model Building",ts:1730000000000}))""",key)
+        self.page.goto(self.origin+"/modeling/multiple-regression/",wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-modeling-mr strong")).to_have_text("Model Building")
+
+    def test_multiple_regression_nine_lessons_denied_storage_mobile(self):
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{
+            configurable:true,get(){throw new DOMException("Denied","SecurityError")}
+          });
+        """)
+        self.page.set_viewport_size({"width":320,"height":850})
+        for slug in ("why-multiple","model-structure","adjusted-effects",
+                     "confounding","coefficients","multicollinearity",
+                     "dummy-variables","interactions","model-building"):
+            with self.subTest(slug=slug):
+                self.page.goto(self.origin+"/modeling/multiple-regression/"+slug+"/",
+                               wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+                self.assertEqual(self.errors,[],slug)
+        self.page.goto(self.origin+"/modeling/multiple-regression/",wait_until="networkidle")
+        expect(self.page.locator("main h1")).to_be_visible()
+        expect(self.page.locator("#continue-reading-modeling-mr")).to_be_hidden()
+        self.assertEqual(self.errors,[])
+
+
+
 if __name__ == "__main__":
     unittest.main(argv=[__file__], verbosity=2)
