@@ -9,8 +9,8 @@
   const fmt=p=>(100*p).toFixed(2)+"%";
   const winner=(a,b)=>a>b?"A":b>a?"B":"Tie";
   function fill(preset){
-    for(const f of fields){$(\`esa-sp-\${f}-s\`).value=String(preset[f][0]);
-      $(\`esa-sp-\${f}-n\`).value=String(preset[f][1]);}
+    for(const f of fields){$(`esa-sp-${f}-s`).value=String(preset[f][0]);
+      $(`esa-sp-${f}-n`).value=String(preset[f][1]);}
     run();
   }
   function parse(id,min){
@@ -22,7 +22,7 @@
   function run(){
     const data={};
     for(const f of fields){
-      const success=parse(\`esa-sp-\${f}-s\`,0),total=parse(\`esa-sp-\${f}-n\`,1);
+      const success=parse(`esa-sp-${f}-s`,0),total=parse(`esa-sp-${f}-n`,1);
       if(success===null||total===null||success>total){
         $("esa-sp-status").textContent="Invalid counts: each total must be a positive whole number (maximum 10,000); each success count must be a whole number between zero and its total.";
         return;
@@ -30,8 +30,8 @@
       data[f]={success,total,rate:success/total};
     }
     for(const f of fields){
-      $(\`esa-sp-\${f}-rate\`).textContent=fmt(data[f].rate);
-      $(\`esa-sp-\${f}-out\`).textContent=fmt(data[f].rate);
+      $(`esa-sp-${f}-rate`).textContent=fmt(data[f].rate);
+      $(`esa-sp-${f}-out`).textContent=fmt(data[f].rate);
     }
     const a=(data.a1.success+data.a2.success)/(data.a1.total+data.a2.total);
     const b=(data.b1.success+data.b2.success)/(data.b1.total+data.b2.total);
