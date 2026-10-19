@@ -482,7 +482,7 @@ math: true
         <div><dt>Slope change (all − deleted)</dt><dd id="esa-cook-delta-slope">—</dd></div>
       </dl>
       <h3>Diagnostics for every observation</h3>
-      <div class="table-wrap"><table>
+      <div class="table-wrap" style="max-width:100%;overflow-x:auto;overscroll-behavior-x:contain" tabindex="0" role="region" aria-label="Scrollable Cook distance diagnostic table"><table>
         <caption>Residuals, leverage and Cook's distance from the full OLS model</caption>
         <thead><tr><th>Observation</th><th>Residual</th><th>Leverage</th><th>Cook's D</th></tr></thead>
         <tbody id="esa-cook-table"></tbody>
