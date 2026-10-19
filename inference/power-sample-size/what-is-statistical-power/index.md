@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_inference_power_sample_size_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
     url: "/inference/power-sample-size/what-is-statistical-power/",
     label: "What Is Statistical Power?",
     ts: Date.now()
-  }));
+    }));
+  } catch (_) {
+    // Progress is optional if browser storage is denied or unavailable.
+  }
 
 })();
 </script>
