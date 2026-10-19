@@ -12,11 +12,15 @@ sidebar: false
 
   const KEY = "esa_continue_modeling_last_block_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
     url: "/modeling/assumptions/",
     label: "Block 4 — Model Assumptions",
     ts: Date.now()
   }));
+  } catch (_) {
+    // Browsing must continue even when storage is blocked.
+  }
 
 })();
 </script>
@@ -555,49 +559,40 @@ sidebar: false
 
 </section>
 
-<!-- CONTINUE READING SCRIPT -->
-
+<!-- CONTINUE READING SCRIPT: allowlisted progress records only -->
 <script>
 (function () {
-
+  "use strict";
+  const KEY = "esa_continue_modeling_assumptions_lesson_v0";
+  const ALLOWED = {
+  "/modeling/assumptions/why-assumptions/": "Why Assumptions Matter",
+  "/modeling/assumptions/linearity/": "Linearity",
+  "/modeling/assumptions/independence/": "Independence",
+  "/modeling/assumptions/homoscedasticity/": "Homoscedasticity",
+  "/modeling/assumptions/normality/": "Normality",
+  "/modeling/assumptions/outliers/": "Outliers",
+  "/modeling/assumptions/violations/": "Assumption Violations",
+  "/modeling/assumptions/robustness/": "Robustness"
+};
+  const wrap = document.getElementById("continue-reading-modeling-assumptions");
+  const label = document.getElementById("continue-reading-modeling-assumptions-label");
+  const button = document.getElementById("continue-reading-modeling-assumptions-btn");
+  if (!wrap || !label || !button) return;
   try {
-
-    const KEY =
-      "esa_continue_modeling_assumptions_lesson_v0";
-
     const raw = localStorage.getItem(KEY);
-
     if (!raw) return;
-
     const data = JSON.parse(raw);
-
-    if (!data || !data.url || !data.label) return;
-
-    const wrap =
-      document.getElementById(
-        "continue-reading-modeling-assumptions"
-      );
-
-    const label =
-      document.getElementById(
-        "continue-reading-modeling-assumptions-label"
-      );
-
-    const btn =
-      document.getElementById(
-        "continue-reading-modeling-assumptions-btn"
-      );
-
-    label.innerHTML =
-      "You last visited: <strong>" +
-      data.label +
-      "</strong>";
-
-    btn.href = data.url;
-
+    if (!data || typeof data !== "object" || Array.isArray(data)) return;
+    if (typeof data.url !== "string" ||
+        !Object.prototype.hasOwnProperty.call(ALLOWED, data.url)) return;
+    if (typeof data.label !== "string" || data.label !== ALLOWED[data.url]) return;
+    if (typeof data.ts !== "number" || !Number.isFinite(data.ts) ||
+        data.ts <= 0 || data.ts > Date.now() + 86400000) return;
+    label.textContent = "You last visited: " + data.label;
+    button.setAttribute("href", data.url);
     wrap.style.display = "block";
-
-  } catch (e) {}
-
+  } catch (_) {
+    // Invalid JSON or unavailable localStorage must never affect navigation.
+  }
 })();
 </script>

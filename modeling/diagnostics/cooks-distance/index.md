@@ -4,6 +4,7 @@ title: Cook's Distance
 description: Learn what Cook's Distance measures, how it combines leverage and residual information, and how analysts identify influential observations in regression models.
 permalink: /modeling/diagnostics/cooks-distance/
 sidebar: false
+math: true
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -444,6 +445,65 @@ sidebar: false
     <p>
       The next lesson introduces a practical diagnostic workflow that brings these tools together into a structured approach for evaluating regression models.
     </p>
+
+
+<!-- COOK'S DISTANCE LEARNING EXPLORER -->
+<section class="section section-slim" aria-labelledby="esa-cook-heading">
+  <div class="container">
+    <div class="card" id="esa-cook-lab" style="min-width:0;overflow-wrap:anywhere">
+      <h2 id="esa-cook-heading">Interactive Cook's Distance and Influence Explorer</h2>
+      <p>Fit a straight line to <strong>eight illustrative observations</strong>.
+      Seven values remain fixed; adjust the red eighth point's position.
+      The solid green line uses all observations; the dashed orange line refits the model
+      <em>without</em> that point. See how influence changes.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:1.2rem">
+        <label style="flex:1 1 210px">Selected observation's x: <output id="esa-cook-x-value" for="esa-cook-x">9.0</output>
+          <input id="esa-cook-x" type="range" min="7.5" max="15" step="0.5" value="9" style="display:block;width:100%">
+        </label>
+        <label style="flex:1 1 210px">Selected observation's y: <output id="esa-cook-y-value" for="esa-cook-y">25.0</output>
+          <input id="esa-cook-y" type="range" min="0" max="35" step="0.5" value="25" style="display:block;width:100%">
+        </label>
+        <button type="button" class="btn btn-outline" id="esa-cook-reset">Reset</button>
+      </div>
+      <p id="esa-cook-status" role="status" aria-live="polite"></p>
+      <svg id="esa-cook-chart" viewBox="0 0 680 300" role="img" aria-label="Regression points, full fit, and dashed leave-one-out fit" style="width:100%;max-width:680px;display:block"></svg>
+      <p><strong>Line key:</strong> blue circles = fixed observations; red circle = adjustable
+      observation; solid green = OLS using all 8 points; dashed orange = OLS after removing
+      the red point.</p>
+      <dl style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:.5rem">
+        <div><dt>Full-model residual MSE (SSE / 6)</dt><dd id="esa-cook-mse">—</dd></div>
+        <div><dt>Selected residual</dt><dd id="esa-cook-residual">—</dd></div>
+        <div><dt>Selected leverage</dt><dd id="esa-cook-leverage">—</dd></div>
+        <div><dt>Selected Cook's distance</dt><dd id="esa-cook-d">—</dd></div>
+        <div><dt>All-data intercept</dt><dd id="esa-cook-full-intercept">—</dd></div>
+        <div><dt>All-data slope</dt><dd id="esa-cook-full-slope">—</dd></div>
+        <div><dt>Leave-one-out intercept</dt><dd id="esa-cook-leave-intercept">—</dd></div>
+        <div><dt>Leave-one-out slope</dt><dd id="esa-cook-leave-slope">—</dd></div>
+        <div><dt>Slope change (all − deleted)</dt><dd id="esa-cook-delta-slope">—</dd></div>
+      </dl>
+      <h3>Diagnostics for every observation</h3>
+      <div class="table-wrap" style="max-width:100%;overflow-x:auto;overscroll-behavior-x:contain" tabindex="0" role="region" aria-label="Scrollable Cook distance diagnostic table"><table>
+        <caption>Residuals, leverage and Cook's distance from the full OLS model</caption>
+        <thead><tr><th>Observation</th><th>Residual</th><th>Leverage</th><th>Cook's D</th></tr></thead>
+        <tbody id="esa-cook-table"></tbody>
+      </table></div>
+      <div class="concept-box" style="max-width:100%;overflow-x:auto;overscroll-behavior-x:contain" tabindex="0" role="region" aria-label="Cook distance equation">
+        <p><strong>Definition:</strong> For a simple OLS regression with an intercept,
+        \(p=2\) coefficients, \(n=8\) observations, residuals \(e_i\), leverage \(h_{ii}\),
+        and full-model residual mean square \(\operatorname{MSE}=\operatorname{SSE}/(n-p)\),</p>
+        <p>\[D_i = \frac{e_i^2}{p\,\operatorname{MSE}}\frac{h_{ii}}{(1-h_{ii})^2}
+        = \frac{\sum_{j=1}^n(\hat y_j-\hat y_{j(-i)})^2}{p\,\operatorname{MSE}}.\]</p>
+        <p>The tool calculates both expressions using independent leave-one-out refits
+        and checks their numerical agreement. A rule such as \(4/n\) is a rough
+        screening heuristic, <strong>not</strong> a universal cutoff.
+        Investigate highly influential observations before deciding whether any are invalid.
+        This is an educational example and should not be used to justify automatic exclusions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<script src="/js/cooks-distance-lab.js" defer></script>
+
 
     <!-- TAKEAWAYS -->
 
