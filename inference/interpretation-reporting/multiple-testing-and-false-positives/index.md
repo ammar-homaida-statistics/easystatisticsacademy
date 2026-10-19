@@ -521,6 +521,56 @@ sidebar: false
       Transparency helps readers evaluate the strength of evidence.
     </p>
 
+
+    <!-- MULTIPLICITY AND FALSE DISCOVERY EXPLORER -->
+    <div class="concept-box" id="esa-mt-lab" style="min-width:0;overflow-wrap:anywhere">
+      <h2>Interactive Multiple Testing and False Discoveries Explorer</h2>
+      <p>Simulate <strong>independent p-values</strong> for a labeled mix of true null hypotheses
+      (uniform p-values) and illustrative alternatives (p = U<sup>4</sup> with independent U uniform).
+      The alternatives are a learning device, not a universal power model.
+      Compare unadjusted decisions, the Bonferroni family-wise error control procedure,
+      and the Benjamini–Hochberg (BH) step-up procedure.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:end">
+        <label style="flex:1 1 130px">Hypotheses
+          <select id="esa-mt-count"><option value="5">5</option><option value="10" selected>10</option><option value="20">20</option></select></label>
+        <label style="flex:1 1 130px">Significance level α
+          <select id="esa-mt-alpha"><option value="0.01">0.01</option><option value="0.05" selected>0.05</option><option value="0.1">0.10</option></select></label>
+        <label style="flex:1 1 130px">Random seed
+          <input id="esa-mt-seed" type="number" min="0" max="4294967295" step="1" value="2026" style="width:100%;max-width:160px"></label>
+        <button type="button" class="btn" id="esa-mt-run">Generate p-values</button>
+        <button type="button" class="btn btn-outline" id="esa-mt-reset">Reset</button>
+      </div>
+      <p id="esa-mt-status" role="status" aria-live="polite"></p>
+      <dl style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,175px),1fr));gap:.5rem">
+        <div><dt>Bonferroni threshold (α/m)</dt><dd id="esa-mt-bonf-cut">—</dd></div>
+        <div><dt>BH largest accepted rank</dt><dd id="esa-mt-bh-rank">—</dd></div>
+        <div><dt>BH rejection cutoff</dt><dd id="esa-mt-bh-cut">—</dd></div>
+        <div><dt>Reference unadjusted FWER, all nulls true and independent</dt><dd id="esa-mt-fwer">—</dd></div>
+      </dl>
+      <div style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="Multiple testing decision table">
+        <table style="min-width:610px;width:100%">
+          <caption>Truth labels are available only in this simulation, not in real hypothesis testing.</caption>
+          <thead><tr><th>Hypothesis</th><th>Simulated truth</th><th>p-value</th><th>Raw</th><th>Bonferroni</th><th>BH</th></tr></thead>
+          <tbody id="esa-mt-table"></tbody>
+        </table>
+      </div>
+      <div style="max-width:100%;overflow-x:auto" tabindex="0" role="region" aria-label="False discovery summary">
+        <table style="min-width:475px;width:100%">
+          <thead><tr><th>Method</th><th>Rejections R</th><th>False positives V</th><th>Observed FDP = V/max(R, 1)</th></tr></thead>
+          <tbody id="esa-mt-summary"></tbody>
+        </table>
+      </div>
+      <p id="esa-mt-notes"></p>
+      <p><strong>Statistical definitions:</strong> FWER is the probability of <em>at least one</em>
+      false rejection over repeated experiments. With m independent true nulls tested individually at α,
+      raw FWER is <code>1 − (1 − α)^m</code>. The displayed FDP is the fraction of false rejections
+      in <em>this one simulation</em>, not the FDR; FDR is the expectation of FDP over repetitions.
+      Bonferroni controls FWER at or below α without requiring independence; BH controls FDR
+      under independence and suitable positive dependence. Neither adjustment fixes selective
+      reporting, model misspecification or a biased research design.</p>
+    </div>
+<script src="/js/multiple-testing-lab.js" defer></script>
+
     <h2>The Bigger Picture</h2>
 
     <p>
