@@ -258,8 +258,13 @@ sidebar: false
       <h2 id="esa-logistic-title">Interactive Logistic Regression Explorer</h2>
       <p>Adjust a hypothetical binary-response model. Coefficients are teaching examples, not estimates from observations.</p>
       \[
-      \eta=\beta_0+\beta_1x,\quad p(x)=\frac{1}{1+\exp(-\eta)},
-      \quad\text{odds}(x)=\exp(\eta).
+      \eta=\beta_0+\beta_1x
+      \]
+      \[
+      p(x)=\frac{1}{1+\exp(-\eta)}
+      \]
+      \[
+      \mathrm{odds}(x)=\exp(\eta)
       \]
       <div class="esa-logistic-controls">
         <label>Intercept β₀ <input id="esa-logistic-b0" type="number" min="-10" max="10" step="0.1" value="-2"></label>
