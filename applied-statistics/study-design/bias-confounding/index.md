@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_applied_statistics_study_design_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
-    url: "/applied-statistics/study-design/bias-confounding/",
-    label: "Bias and Confounding",
-    ts: Date.now()
-  }));
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
+      url: "/applied-statistics/study-design/bias-confounding/",
+      label: "Bias and Confounding",
+      ts: Date.now()
+    }));
+  } catch (_) {
+    // The lesson and its independent calculator remain usable without storage.
+  }
 
 })();
 </script>
@@ -266,6 +270,59 @@ sidebar: false
         Ice Cream Sales ← Temperature → Drowning Incidents
       </p>
     </div>
+
+
+    <!-- Two-stratum Simpson reversal learning tool -->
+    <section class="concept-box" id="esa-simpson-lab" aria-labelledby="esa-simpson-heading" style="min-width:0;overflow-wrap:anywhere">
+      <h2 id="esa-simpson-heading">Interactive Confounding and Simpson's Paradox Explorer</h2>
+      <p>Compare success rates for two fictional groups, A and B, in two strata.
+      A can have a higher success rate <strong>inside both strata</strong> while B appears
+      better when all records are combined. This reversal is called
+      <strong>Simpson's paradox</strong>, and can arise because the groups have different
+      proportions in the easier and harder strata. It shows how aggregation may
+      obscure a stratifying variable; a reversal alone does not establish causation.</p>
+      <p>The starting numbers are an <strong>illustrative constructed dataset</strong>,
+      not recommendations about real treatments or a causal experiment.
+      Successes and totals are whole counts, and each stratum total must be positive.</p>
+      <div role="region" tabindex="0" aria-label="Editable group successes and totals" style="max-width:100%;overflow-x:auto;overscroll-behavior-x:contain">
+        <table style="min-width:560px;width:100%">
+          <thead><tr><th>Stratum</th><th>Group</th><th>Successes</th><th>Total observations</th><th>Rate</th></tr></thead>
+          <tbody>
+            <tr><th>Stratum 1 (easier)</th><td>A</td><td><input id="esa-sp-a1-s" type="number" min="0" max="10000" step="1" value="81" aria-label="Group A easier stratum successes" style="max-width:100%;width:90px"></td><td><input id="esa-sp-a1-n" type="number" min="1" max="10000" step="1" value="87" aria-label="Group A easier stratum total" style="max-width:100%;width:90px"></td><td id="esa-sp-a1-rate">—</td></tr>
+            <tr><th>Stratum 1 (easier)</th><td>B</td><td><input id="esa-sp-b1-s" type="number" min="0" max="10000" step="1" value="234" aria-label="Group B easier stratum successes" style="max-width:100%;width:90px"></td><td><input id="esa-sp-b1-n" type="number" min="1" max="10000" step="1" value="270" aria-label="Group B easier stratum total" style="max-width:100%;width:90px"></td><td id="esa-sp-b1-rate">—</td></tr>
+            <tr><th>Stratum 2 (harder)</th><td>A</td><td><input id="esa-sp-a2-s" type="number" min="0" max="10000" step="1" value="192" aria-label="Group A harder stratum successes" style="max-width:100%;width:90px"></td><td><input id="esa-sp-a2-n" type="number" min="1" max="10000" step="1" value="263" aria-label="Group A harder stratum total" style="max-width:100%;width:90px"></td><td id="esa-sp-a2-rate">—</td></tr>
+            <tr><th>Stratum 2 (harder)</th><td>B</td><td><input id="esa-sp-b2-s" type="number" min="0" max="10000" step="1" value="55" aria-label="Group B harder stratum successes" style="max-width:100%;width:90px"></td><td><input id="esa-sp-b2-n" type="number" min="1" max="10000" step="1" value="80" aria-label="Group B harder stratum total" style="max-width:100%;width:90px"></td><td id="esa-sp-b2-rate">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0">
+        <button class="btn" type="button" id="esa-sp-run">Recalculate comparisons</button>
+        <button class="btn btn-outline" type="button" id="esa-sp-balanced">Use approximately balanced group allocation</button>
+        <button class="btn btn-outline" type="button" id="esa-sp-reset">Restore reversal example</button>
+      </div>
+      <p id="esa-sp-status" role="status" aria-live="polite"></p>
+      <div role="region" tabindex="0" aria-label="Pooled and standardized rates" style="max-width:100%;overflow-x:auto;overscroll-behavior-x:contain">
+        <table style="min-width:500px;width:100%">
+          <thead><tr><th>Comparison</th><th>Group A</th><th>Group B</th><th>Higher rate</th></tr></thead>
+          <tbody>
+            <tr><th>Stratum 1</th><td id="esa-sp-a1-out">—</td><td id="esa-sp-b1-out">—</td><td id="esa-sp-winner1">—</td></tr>
+            <tr><th>Stratum 2</th><td id="esa-sp-a2-out">—</td><td id="esa-sp-b2-out">—</td><td id="esa-sp-winner2">—</td></tr>
+            <tr><th>Pooled (all observations)</th><td id="esa-sp-a-pooled">—</td><td id="esa-sp-b-pooled">—</td><td id="esa-sp-winner-pooled">—</td></tr>
+            <tr><th>Equal-stratum standardized (50% each)</th><td id="esa-sp-a-standard">—</td><td id="esa-sp-b-standard">—</td><td id="esa-sp-winner-standard">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p id="esa-sp-explanation"></p>
+      <p><strong>How the numbers work:</strong> Each rate is successes divided by its
+      own stratum total. The pooled rate uses total successes across both strata divided
+      by total observations in the group; it is <em>not</em> an unweighted mean of the two
+      stratum rates. The equal-stratum standardized rate averages the two stratum rates
+      with a common 50%/50% reference mixture. Standardization permits a descriptive
+      comparison at the same stratum mix, but neither it nor stratification alone proves
+      a causal effect. The appropriate population, design, unmeasured confounding and
+      selection mechanisms still matter.</p>
+    </section>
+    <script src="/js/simpsons-paradox-lab.js" defer></script>
 
     <h2>Confounding and Causation</h2>
 
