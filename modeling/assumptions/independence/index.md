@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_modeling_assumptions_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
     url: "/modeling/assumptions/independence/",
     label: "Independence",
     ts: Date.now()
   }));
+  } catch (_) {
+    // A blocked storage permission must not break lesson navigation.
+  }
 
 })();
 </script>
