@@ -6815,7 +6815,7 @@ class SearchTests(unittest.TestCase):
             self.page.locator("#esa-boot-run").click()
             self.assertEqual(output,self.page.locator("#esa-boot-stats").inner_text())
         import re
-        self.assertEqual(re.findall(r"-?\\d+\\.\\d{4}",values[0]),re.findall(r"-?\\d+\\.\\d{4}",values[1]))
+        self.assertEqual(re.findall(r"-?\d+\.\d{4}",values[0]),re.findall(r"-?\d+\.\d{4}",values[1]))
 
     def test_bootstrap_invalid_input_and_mobile_keyboard(self):
         self.page.set_viewport_size({"width":320,"height":800})
@@ -6858,7 +6858,7 @@ class SearchTests(unittest.TestCase):
             self.assertEqual(self.page.locator("#esa-overfit-plot circle").count(),8)
             self.assertEqual(self.page.locator("#esa-overfit-plot rect").count(),6)
             import re
-            vals=re.findall(r"MSE: ([0-9]+\\.[0-9]+)",output)
+            vals=re.findall(r"MSE: ([0-9]+\.[0-9]+)",output)
             self.assertEqual(len(vals),2)
             values.append(tuple(map(float,vals)))
         self.assertLess(values[-1][0],values[0][0])
