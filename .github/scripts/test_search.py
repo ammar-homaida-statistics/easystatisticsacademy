@@ -6862,6 +6862,13 @@ class SearchTests(unittest.TestCase):
             self.assertEqual(len(vals),2)
             values.append(tuple(map(float,vals)))
         self.assertLess(values[-1][0],values[0][0])
+        # Independently benchmarked against NumPy least squares on the fixed dataset.
+        self.assertAlmostEqual(values[0][0],0.22750,places=4)
+        self.assertAlmostEqual(values[0][1],0.13583,places=4)
+        self.assertAlmostEqual(values[1][0],0.19598,places=4)
+        self.assertAlmostEqual(values[1][1],0.05825,places=4)
+        self.assertAlmostEqual(values[6][0],0.00185,places=4)
+        self.assertAlmostEqual(values[6][1],0.06743,places=4)
         self.page.locator("#esa-overfit-reset").click()
         self.assertEqual(select.input_value(),"1")
 
