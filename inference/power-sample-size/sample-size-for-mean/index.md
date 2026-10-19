@@ -243,6 +243,152 @@ sidebar: false
       </p>
     </div>
 
+
+    <!-- INTERACTIVE PRECISION-BASED SAMPLE SIZE FOR A MEAN -->
+    <section id="esa-mean-sample-calculator" class="concept-box esa-mean-calc"
+             role="group" aria-labelledby="esa-mean-calc-heading">
+      <h2 id="esa-mean-calc-heading">Interactive Sample Size for a Mean</h2>
+      <p>
+        Plan the number of <strong>independent observations</strong> needed for a
+        two-sided confidence interval for a population mean with <strong>known or
+        assumed planning standard deviation &sigma;</strong>. Choose the desired
+        confidence level and absolute margin of error (in the units of the mean).
+      </p>
+      <div class="esa-mean-fields">
+        <div>
+          <label for="esa-mean-confidence">Confidence level</label>
+          <select id="esa-mean-confidence">
+            <option value="90">90% (z = 1.645)</option>
+            <option value="95" selected>95% (z = 1.96)</option>
+            <option value="99">99% (z = 2.576)</option>
+          </select>
+        </div>
+        <div>
+          <label for="esa-mean-sigma">Population standard deviation &sigma; (&gt; 0)</label>
+          <input id="esa-mean-sigma" type="number" inputmode="decimal"
+                 min="0.000001" step="any" value="20" required>
+        </div>
+        <div>
+          <label for="esa-mean-margin">Target margin of error E (&gt; 0)</label>
+          <input id="esa-mean-margin" type="number" inputmode="decimal"
+                 min="0.000001" step="any" value="4" required>
+        </div>
+      </div>
+      <div class="esa-mean-output" role="status" aria-live="polite" aria-atomic="true">
+        <p id="esa-mean-error" class="esa-mean-error" hidden></p>
+        <p><strong>Unrounded required n:</strong> <output id="esa-mean-unrounded">96.0400</output></p>
+        <p><strong>Minimum whole observations:</strong> <output id="esa-mean-required">97</output></p>
+        <p><strong>Planned margin after rounding:</strong>
+          <output id="esa-mean-achieved">3.9802</output></p>
+        <p class="muted-mini" id="esa-mean-formula-detail">
+          Calculation: (1.96 × 20 / 4)² = 96.0400; round upward to 97.
+        </p>
+      </div>
+      <button type="button" class="btn btn-outline" id="esa-mean-reset">Reset worked example</button>
+      <p class="muted-mini">
+        Assumptions: simple independent random observations; a specified
+        population standard deviation or a credible planning estimate; and a
+        normally distributed sample mean (exact for a normal population with
+        known &sigma;, otherwise potentially approximate for sufficiently large
+        samples). Critical values use the lesson's stated rounding.
+        This calculation concerns <strong>confidence-interval precision, not
+        hypothesis-testing power</strong>. It does not ensure an estimate lands
+        within E of the true mean in every sample, and it does not incorporate
+        nonresponse, clustering/design effects or finite-population corrections.
+      </p>
+    </section>
+    <style>
+      #esa-mean-sample-calculator {box-sizing:border-box;max-width:100%;min-width:0}
+      #esa-mean-sample-calculator * {box-sizing:border-box}
+      #esa-mean-sample-calculator .esa-mean-fields {
+        display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));
+        gap:.9rem;margin:1rem 0
+      }
+      #esa-mean-sample-calculator .esa-mean-fields > div {min-width:0}
+      #esa-mean-sample-calculator label {display:block;font-weight:650;margin-bottom:.4rem}
+      #esa-mean-sample-calculator input,#esa-mean-sample-calculator select {
+        display:block;width:100%;max-width:100%;padding:.65rem;
+        border:1px solid #888;border-radius:.4rem;
+        background:var(--surface,#fff);color:inherit;font:inherit
+      }
+      #esa-mean-sample-calculator .esa-mean-output {
+        padding:.65rem 1rem;border:1px solid #888;border-radius:.5rem;
+        margin:1rem 0;overflow-wrap:anywhere
+      }
+      #esa-mean-sample-calculator .esa-mean-output p {margin:.45rem 0}
+      #esa-mean-sample-calculator .esa-mean-error {color:#a12d20;font-weight:650}
+      #esa-mean-sample-calculator output {font-variant-numeric:tabular-nums;font-weight:700}
+      #esa-mean-sample-calculator button {max-width:100%;white-space:normal}
+      @media print {#esa-mean-sample-calculator button {display:none}}
+    </style>
+    <script>
+    (function () {
+      "use strict";
+      const section = document.getElementById("esa-mean-sample-calculator");
+      if (!section) return;
+      const byId = (id) => document.getElementById(id);
+      const confidence = byId("esa-mean-confidence");
+      const sigmaInput = byId("esa-mean-sigma");
+      const marginInput = byId("esa-mean-margin");
+      const critical = {90:1.645,95:1.96,99:2.576};
+      const error = byId("esa-mean-error");
+      const unrounded = byId("esa-mean-unrounded");
+      const rounded = byId("esa-mean-required");
+      const achieved = byId("esa-mean-achieved");
+      const details = byId("esa-mean-formula-detail");
+      function invalidate(message) {
+        error.textContent = message;
+        error.hidden = false;
+        unrounded.textContent = "—";
+        rounded.textContent = "—";
+        achieved.textContent = "—";
+        details.textContent = "Enter valid positive planning values to calculate.";
+      }
+      function calculate() {
+        const z = critical[Number(confidence.value)];
+        const sigma = Number(sigmaInput.value), E = Number(marginInput.value);
+        if (!Number.isFinite(sigma) || sigma <= 0 ||
+            !Number.isFinite(E) || E <= 0 || sigmaInput.value.trim() === "" ||
+            marginInput.value.trim() === "") {
+          invalidate("Standard deviation and target margin of error must both be finite numbers greater than zero.");
+          return;
+        }
+        // n0=(z*sigma/E)^2; ceil gives the smallest whole n meeting the
+        // planned precision under this normal-model approximation.
+        const ratio = z * sigma / E, raw = ratio * ratio;
+        if (!Number.isFinite(raw) || raw <= 0 || raw > Number.MAX_SAFE_INTEGER) {
+          invalidate("These values give a sample-size requirement outside the reliable numeric range; revise the inputs.");
+          return;
+        }
+        const minimum = Math.max(1, Math.ceil(raw));
+        const plannedE = z * sigma / Math.sqrt(minimum);
+        if (!Number.isFinite(plannedE)) {
+          invalidate("These values produce an unreliable result; revise the inputs.");
+          return;
+        }
+        error.hidden = true;
+        error.textContent = "";
+        unrounded.textContent = raw.toFixed(4);
+        rounded.textContent = minimum.toLocaleString("en-US");
+        achieved.textContent = plannedE.toFixed(4);
+        details.textContent = "Calculation: (" + z + " × " + sigma + " / " + E +
+          ")² = " + raw.toFixed(4) + "; round upward to " +
+          minimum.toLocaleString("en-US") + ".";
+      }
+      function reset() {
+        confidence.value = "95";
+        sigmaInput.value = "20";
+        marginInput.value = "4";
+        calculate();
+      }
+      confidence.addEventListener("change", calculate);
+      sigmaInput.addEventListener("input", calculate);
+      marginInput.addEventListener("input", calculate);
+      byId("esa-mean-reset").addEventListener("click", reset);
+      calculate();
+    })();
+    </script>
+
     <h2>Always Round Up</h2>
 
     <p>

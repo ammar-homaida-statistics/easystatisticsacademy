@@ -5782,5 +5782,288 @@ class SearchTests(unittest.TestCase):
         self.assertEqual(self.errors,[])
 
 
+    def test_confidence_interval_coverage_lab_exact_model_and_empirical_coverage(self):
+        """Exact normal z intervals capture fixed mu at the selected nominal rate in repeated samples."""
+        from math import isclose, sqrt
+        from statistics import NormalDist
+        route = "/inference/confidence-intervals/what-is-a-confidence-interval/"
+        self.page.goto(self.origin + route, wait_until="networkidle")
+        lab = self.page.locator("#esa-ci-coverage-lab")
+        expect(lab.get_by_role("heading", name="Interactive Confidence Interval Coverage Experiment")).to_be_visible()
+        confidence = lab.locator("#esa-ci-confidence")
+        n = lab.locator("#esa-ci-n")
+        total = lab.locator("#esa-ci-total")
+        captured = lab.locator("#esa-ci-hit")
+        missed = lab.locator("#esa-ci-miss")
+        observed = lab.locator("#esa-ci-observed")
+        half = lab.locator("#esa-ci-halfwidth")
+        chart = lab.locator("#esa-ci-chart")
+        expect(confidence).to_have_value("95")
+        expect(n).to_have_value("30")
+        expect(total).to_have_text("100")
+        def verify(level, size):
+            expect(lab.locator("#esa-ci-nominal")).to_have_text(str(level) + "%")
+            expect(total).to_have_text("100")
+            critical = NormalDist().inv_cdf(0.5 + level / 200)
+            nominal_half = critical / sqrt(size)
+            self.assertTrue(isclose(float(half.inner_text()), nominal_half,
+                                    abs_tol=.000051))
+            lines = lab.locator(".esa-ci-interval")
+            self.assertEqual(lines.count(), 20)
+            for row in lines.all():
+                low = float(row.get_attribute("data-lower"))
+                high = float(row.get_attribute("data-upper"))
+                self.assertTrue(isclose(high - low, 2 * nominal_half,
+                                        abs_tol=2e-8))
+                expected_hit = "yes" if low <= 0 <= high else "no"
+                self.assertEqual(row.get_attribute("data-capture"), expected_hit)
+            self.assertIn("mean fixed at zero", chart.get_attribute("aria-label"))
+            self.assertEqual(int(captured.inner_text()) + int(missed.inner_text()),
+                             100)
+            self.assertEqual(lab.locator("#esa-ci-recent li").count(), 5)
+        verify(95, 30)
+        n.select_option("100")
+        verify(95, 100)
+        confidence.select_option("90")
+        verify(90, 100)
+        confidence.select_option("99")
+        n.select_option("10")
+        verify(99, 10)
+        confidence.select_option("95")
+        verify(95, 10)
+        lab.locator("#esa-ci-run-500").click()
+        expect(total).to_have_text("600")
+        lab.locator("#esa-ci-run-100").click()
+        expect(total).to_have_text("700")
+        self.assertEqual(int(captured.inner_text()) + int(missed.inner_text()), 700)
+        for _ in range(5):
+            lab.locator("#esa-ci-run-500").click()
+        expect(total).to_have_text("3,200")
+        self.assertLess(abs(float(observed.inner_text().rstrip("%")) - 95), 4.0)
+        lab.locator("#esa-ci-reset").click()
+        verify(95, 10)
+        self.assertIn("confidence-interval precision" if False else
+                      "theoretical long-run coverage", lab.inner_text())
+        self.assertEqual(self.errors, [])
+
+    def test_confidence_interval_coverage_lab_keyboard_mobile_and_denied_storage(self):
+        """Progress denial does not break simulation, keyboard controls or narrow screens."""
+        self.page.add_init_script("""
+          Object.defineProperty(window, "localStorage", {
+            configurable:true,
+            get(){throw new DOMException("Storage unavailable","SecurityError");}
+          });
+        """)
+        self.page.goto(
+            self.origin + "/inference/confidence-intervals/what-is-a-confidence-interval/",
+            wait_until="networkidle")
+        lab = self.page.locator("#esa-ci-coverage-lab")
+        run = lab.get_by_role("button", name="Generate 500 intervals")
+        run.focus()
+        run.press("Enter")
+        expect(lab.locator("#esa-ci-total")).to_have_text("600")
+        confidence = lab.get_by_label("Confidence level", exact=True)
+        confidence.focus()
+        confidence.press("Home")
+        self.assertEqual(confidence.input_value(), "90")
+        confidence.dispatch_event("change")
+        expect(lab.locator("#esa-ci-nominal")).to_have_text("90%")
+        expect(lab.locator("#esa-ci-total")).to_have_text("100")
+        sample_size = lab.get_by_label("Observations per sample (n)")
+        sample_size.focus()
+        sample_size.press("End")
+        expect(sample_size).to_have_value("300")
+        sample_size.dispatch_event("change")
+        expect(lab.locator("#esa-ci-total")).to_have_text("100")
+        for width in (320, 375, 768, 1280):
+            with self.subTest(viewport=width):
+                self.page.set_viewport_size({"width": width, "height": 880})
+                metrics = lab.evaluate("""e => ({
+                    scroll:e.scrollWidth,client:e.clientWidth,
+                    right:e.getBoundingClientRect().right,
+                    left:e.getBoundingClientRect().left
+                })""")
+                self.assertLessEqual(metrics["scroll"] - metrics["client"], 1, metrics)
+                self.assertLessEqual(metrics["right"], width + 1, metrics)
+                self.assertGreaterEqual(metrics["left"], -1, metrics)
+        expect(self.page.locator("main h1")).to_be_visible()
+        self.assertGreater(self.page.locator("main a[href]").count(), 0)
+        self.assertEqual(self.errors, [])
+
+    def test_mean_precision_planner_examples_bounds_and_mobile(self):
+        """Known-sigma precision n = ceil((z*sigma/E)^2), not study power."""
+        from math import ceil, isclose, sqrt
+        url = "/inference/power-sample-size/sample-size-for-mean/"
+        self.page.goto(self.origin + url, wait_until="networkidle")
+        lab = self.page.locator("#esa-mean-sample-calculator")
+        expect(lab.get_by_role("heading", name="Interactive Sample Size for a Mean")).to_be_visible()
+        confidence = lab.get_by_label("Confidence level", exact=True)
+        sigma = lab.get_by_label("Population standard deviation σ (> 0)")
+        margin = lab.get_by_label("Target margin of error E (> 0)")
+        raw = lab.locator("#esa-mean-unrounded")
+        whole = lab.locator("#esa-mean-required")
+        planned = lab.locator("#esa-mean-achieved")
+        error = lab.locator("#esa-mean-error")
+        def check(z, std, E):
+            theoretical = (z * std / E) ** 2
+            required = max(1, ceil(theoretical))
+            self.assertTrue(isclose(float(raw.inner_text()), theoretical,
+                                    abs_tol=.000051))
+            self.assertEqual(whole.inner_text(), f"{required:,}")
+            self.assertTrue(isclose(float(planned.inner_text()),
+                                    z * std / sqrt(required), abs_tol=.000051))
+            self.assertLessEqual(z * std / sqrt(required), E + 1e-10)
+            if required > 1:
+                self.assertGreater(z * std / sqrt(required - 1), E - 1e-10)
+        expect(confidence).to_have_value("95")
+        expect(sigma).to_have_value("20")
+        expect(margin).to_have_value("4")
+        check(1.96, 20, 4)
+        self.assertEqual(whole.inner_text(), "97")
+        confidence.select_option("90")
+        check(1.645, 20, 4)
+        self.assertEqual(whole.inner_text(), "68")
+        confidence.select_option("99")
+        check(2.576, 20, 4)
+        self.assertEqual(whole.inner_text(), "166")
+        confidence.select_option("95")
+        margin.fill("2")
+        check(1.96, 20, 2)
+        self.assertEqual(whole.inner_text(), "385")
+        sigma.fill("10")
+        check(1.96, 10, 2)
+        margin.fill("1000")
+        check(1.96, 10, 1000)
+        self.assertEqual(whole.inner_text(), "1")
+        for field in (sigma, margin):
+            field.fill("0")
+            expect(whole).to_have_text("—")
+            expect(error).to_be_visible()
+            field.fill("-2")
+            expect(whole).to_have_text("—")
+            field.fill("")
+            expect(whole).to_have_text("—")
+            field.fill("2" if field == margin else "10")
+        sigma.fill("1e100")
+        margin.fill("1e-100")
+        expect(whole).to_have_text("—")
+        expect(error).to_contain_text("reliable numeric range")
+        lab.get_by_role("button", name="Reset worked example").click()
+        check(1.96, 20, 4)
+        for phrase in ("known or", "hypothesis-testing power", "independent",
+                       "normal", "clustering"):
+            expect(lab).to_contain_text(phrase)
+        saved = self.page.evaluate(
+            "() => JSON.parse(localStorage.getItem('esa_continue_inference_power_sample_size_lesson_v0'))")
+        self.assertEqual(saved["url"], url)
+        self.assertEqual(saved["label"], "Sample Size for a Mean")
+        self.assertIsInstance(saved["ts"], int)
+        for width in (320, 375, 768, 1280):
+            with self.subTest(viewport=width):
+                self.page.set_viewport_size({"width": width, "height": 870})
+                geometry = lab.evaluate("""e => ({
+                    scroll:e.scrollWidth,client:e.clientWidth,
+                    right:e.getBoundingClientRect().right
+                })""")
+                self.assertLessEqual(geometry["scroll"] - geometry["client"], 1, geometry)
+                self.assertLessEqual(geometry["right"], width + 1, geometry)
+        self.assertEqual(self.errors, [])
+
+    def test_mean_precision_planner_denied_storage_and_keyboard(self):
+        """No storage access, no JavaScript failures, and native keyboard inputs still work."""
+        self.page.add_init_script("""
+          Object.defineProperty(window, "localStorage", {
+            configurable:true,
+            get(){throw new DOMException("Denied","SecurityError");}
+          });
+        """)
+        self.page.goto(
+            self.origin + "/inference/power-sample-size/sample-size-for-mean/",
+            wait_until="networkidle")
+        lab = self.page.locator("#esa-mean-sample-calculator")
+        whole = lab.locator("#esa-mean-required")
+        expect(whole).to_have_text("97")
+        confidence = lab.get_by_label("Confidence level", exact=True)
+        confidence.focus()
+        confidence.press("End")
+        confidence.dispatch_event("change")
+        expect(confidence).to_have_value("99")
+        expect(whole).to_have_text("166")
+        margin = lab.get_by_label("Target margin of error E (> 0)")
+        margin.fill("0")
+        expect(whole).to_have_text("—")
+        margin.fill("4")
+        expect(whole).to_have_text("166")
+        lab.get_by_role("button", name="Reset worked example").focus()
+        lab.get_by_role("button", name="Reset worked example").press("Enter")
+        expect(whole).to_have_text("97")
+        expect(self.page.locator("main h1")).to_be_visible()
+        self.assertGreater(self.page.locator("main a[href]").count(), 0)
+        self.assertEqual(self.errors, [])
+
+    def test_hypothesis_testing_ten_lesson_progress_and_continue_reading(self):
+        """Existing URLs, exact labels, legacy key, timestamps and resume survive."""
+        lessons = (
+            ("what-is-a-hypothesis-test", "What Is a Hypothesis Test?"),
+            ("null-and-alternative", "Null and Alternative Hypotheses"),
+            ("test-statistic-standardization", "Test Statistic and Standardization"),
+            ("p-value-meaning", "p-Value Meaning"),
+            ("significance-level-alpha", "Significance Level (α)"),
+            ("one-sided-vs-two-sided", "One-Sided vs Two-Sided Tests"),
+            ("type1-type2-errors", "Type I and Type II Errors"),
+            ("power-and-effect-size", "Power and Effect Size"),
+            ("ci-and-test-connection", "Confidence Intervals and Tests"),
+            ("practical-significance", "Practical Significance")
+        )
+        key = "esa_continue_inference_hypothesis_testing_lesson_v0"
+        for slug, label in lessons:
+            with self.subTest(slug=slug):
+                url = "/inference/hypothesis-testing/" + slug + "/"
+                self.page.goto(self.origin + url, wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+                entry = self.page.evaluate(
+                    "key => JSON.parse(localStorage.getItem(key))", key)
+                self.assertEqual(entry["url"], url)
+                self.assertEqual(entry["label"], label)
+                self.assertIsInstance(entry["ts"], int)
+                self.assertGreater(entry["ts"], 0)
+                self.page.goto(self.origin + "/inference/hypothesis-testing/",
+                               wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-inference-testing")).to_be_visible()
+                self.assertEqual(self.page.locator(
+                    "#continue-reading-inference-testing-btn").get_attribute("href"), url)
+                expect(self.page.locator(
+                    "#continue-reading-inference-testing-label")).to_contain_text(label)
+        self.assertEqual(self.errors, [])
+
+    def test_hypothesis_testing_ten_lessons_denied_storage(self):
+        """Storage failures never prevent ten lessons or their overview from loading."""
+        self.page.add_init_script("""
+          Object.defineProperty(window, "localStorage", {
+            configurable:true,
+            get(){throw new DOMException("Storage disabled","SecurityError");}
+          });
+        """)
+        slugs = (
+            "what-is-a-hypothesis-test", "null-and-alternative",
+            "test-statistic-standardization", "p-value-meaning",
+            "significance-level-alpha", "one-sided-vs-two-sided",
+            "type1-type2-errors", "power-and-effect-size",
+            "ci-and-test-connection", "practical-significance"
+        )
+        for slug in slugs:
+            with self.subTest(slug=slug):
+                url = "/inference/hypothesis-testing/" + slug + "/"
+                self.page.goto(self.origin + url, wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+                self.assertGreaterEqual(self.page.locator("main a[href]").count(), 2)
+                self.assertEqual(self.errors, [], slug)
+        self.page.goto(self.origin + "/inference/hypothesis-testing/",
+                       wait_until="networkidle")
+        expect(self.page.locator("main h1")).to_be_visible()
+        self.assertEqual(self.errors, [])
+
+
+
 if __name__ == "__main__":
     unittest.main(argv=[__file__], verbosity=2)
