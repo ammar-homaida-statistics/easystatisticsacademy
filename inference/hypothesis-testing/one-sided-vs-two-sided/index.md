@@ -295,18 +295,38 @@ sidebar: false
 
 
     <p>
-      For a right-tailed test,
-      only the upper-tail probability is counted.
+      For a <strong>prespecified standard normal z-test</strong>, the tail
+      probabilities depend on which alternative was selected before seeing
+      the result. Write Φ for the standard normal cumulative distribution
+      function:
+    </p>
+
+    \[
+    \begin{aligned}
+    p_{\mathrm{right}}&=1-\Phi(z_{\mathrm{obs}}),\\
+    p_{\mathrm{left}}&=\Phi(z_{\mathrm{obs}}),\\
+    p_{\mathrm{two}}&=2\min\{\Phi(z_{\mathrm{obs}}),1-\Phi(z_{\mathrm{obs}})\}
+    =2[1-\Phi(|z_{\mathrm{obs}}|)].
+    \end{aligned}
+    \]
+
+    <p>
+      For example, when z = 2, the right-tail p-value is approximately
+      <strong>0.02275</strong>, the left-tail p-value is approximately
+      <strong>0.97725</strong>, and the two-sided p-value is approximately
+      <strong>0.04550</strong>. If a right-tailed alternative was specified
+      in advance, a positive statistic agrees with that direction; a
+      left-tailed alternative produces a large p-value for this same positive
+      statistic.
     </p>
 
     <p>
-      For a two-sided test,
-      both tails are considered.
-    </p>
-
-    <p>
-      As a result,
-      two-sided p-values are generally larger than corresponding one-sided p-values.
+      In this symmetric z-test, the two-sided p-value is twice the
+      <em>smaller</em> one-sided tail probability. It is <strong>not</strong>
+      necessarily twice the p-value of whichever one-sided alternative was
+      selected. For asymmetric or discrete null distributions, two-sided
+      p-values require a specified extremeness rule and cannot always be
+      obtained by doubling a single tail.
     </p>
 
     <h2>Why One-Sided Tests Have More Power</h2>
@@ -331,7 +351,7 @@ sidebar: false
       <strong>Important:</strong>
 
       <p>
-        One-sided tests provide greater power only for effects in the chosen direction.
+        For fixed sample size and significance level, a one-sided test can have greater power for effects in its preselected direction, but can have much lower power for effects in the opposite direction.
       </p>
 
     </div>
@@ -536,6 +556,8 @@ sidebar: false
         <li>One-sided tests look for differences in a specific direction</li>
 
         <li>Left-tailed and right-tailed tests are the two one-sided forms</li>
+
+        <li>With a standard normal null, one-sided p-values depend on the preselected tail; the two-sided p-value uses both tails</li>
 
         <li>One-sided tests have greater power in the chosen direction</li>
 
