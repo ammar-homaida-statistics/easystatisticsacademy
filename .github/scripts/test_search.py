@@ -7000,6 +7000,7 @@ class SearchTests(unittest.TestCase):
         self.page.keyboard.press("Enter")
         expect(self.page.locator("#esa-sv-status")).to_contain_text("بذرة")
         self.page.locator("#esa-sv-seed").fill("4294967295")
+        self.page.locator("#esa-sv-run").focus()
         self.page.keyboard.press("Enter")
         expect(self.page.locator("#esa-sv-status")).to_contain_text("المحاكاة")
         self.assertLessEqual(
