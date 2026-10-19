@@ -1,3 +1,11 @@
+---
+layout: default
+title: What Is a Model?
+description: Learn what statistical models are, why they are useful, and how models help us understand, explain, and predict real-world phenomena.
+permalink: /modeling/foundations/what-is-a-model/
+sidebar: false
+---
+
 <!-- SAVE LESSON PROGRESS -->
 <script>
 (function () {

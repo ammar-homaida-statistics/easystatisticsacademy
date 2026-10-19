@@ -1,3 +1,12 @@
+---
+layout: default
+title: Parameters
+seo_title: Parameters in Statistical Modeling
+description: Learn what parameters are, how they describe models, and why estimating unknown parameters is one of the central goals of statistical modeling.
+permalink: /modeling/foundations/parameters/
+sidebar: false
+---
+
 <!-- SAVE LESSON PROGRESS -->
 <script>
 (function () {
