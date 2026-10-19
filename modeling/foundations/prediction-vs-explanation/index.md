@@ -1,24 +1,16 @@
----
-layout: default
-title: Prediction vs Explanation
-description: Learn the difference between predictive and explanatory modeling and why the purpose of a model influences how it is built, evaluated, and interpreted.
-permalink: /modeling/foundations/prediction-vs-explanation/
-sidebar: false
----
-
 <!-- SAVE LESSON PROGRESS -->
 <script>
 (function () {
-
-  const KEY =
-    "esa_continue_modeling_foundations_lesson_v0";
-
-  localStorage.setItem(KEY, JSON.stringify({
-    url: "/modeling/foundations/prediction-vs-explanation/",
-    label: "Prediction vs Explanation",
-    ts: Date.now()
-  }));
-
+  "use strict";
+  try {
+    localStorage.setItem("esa_continue_modeling_foundations_lesson_v0", JSON.stringify({
+      url: "/modeling/foundations/prediction-vs-explanation/",
+      label: "Prediction vs Explanation",
+      ts: Date.now()
+    }));
+  } catch (_) {
+    // Reading remains possible when localStorage is unavailable.
+  }
 })();
 </script>
 

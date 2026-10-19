@@ -1,25 +1,16 @@
----
-layout: default
-title: Variables
-seo_title: Variables in Statistical Modeling
-description: Learn what variables are, why they are fundamental to statistical models, and how different types of variables are used in analysis.
-permalink: /modeling/foundations/variables/
-sidebar: false
----
-
 <!-- SAVE LESSON PROGRESS -->
 <script>
 (function () {
-
-  const KEY =
-    "esa_continue_modeling_foundations_lesson_v0";
-
-  localStorage.setItem(KEY, JSON.stringify({
-    url: "/modeling/foundations/variables/",
-    label: "Variables",
-    ts: Date.now()
-  }));
-
+  "use strict";
+  try {
+    localStorage.setItem("esa_continue_modeling_foundations_lesson_v0", JSON.stringify({
+      url: "/modeling/foundations/variables/",
+      label: "Variables",
+      ts: Date.now()
+    }));
+  } catch (_) {
+    // Reading remains possible when localStorage is unavailable.
+  }
 })();
 </script>
 

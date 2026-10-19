@@ -1,24 +1,16 @@
----
-layout: default
-title: Signal and Noise
-description: Learn the difference between signal and noise in data and why separating meaningful patterns from random variation is the central challenge of statistical modeling.
-permalink: /modeling/foundations/signal-noise/
-sidebar: false
----
-
 <!-- SAVE LESSON PROGRESS -->
 <script>
 (function () {
-
-  const KEY =
-    "esa_continue_modeling_foundations_lesson_v0";
-
-  localStorage.setItem(KEY, JSON.stringify({
-    url: "/modeling/foundations/signal-noise/",
-    label: "Signal and Noise",
-    ts: Date.now()
-  }));
-
+  "use strict";
+  try {
+    localStorage.setItem("esa_continue_modeling_foundations_lesson_v0", JSON.stringify({
+      url: "/modeling/foundations/signal-noise/",
+      label: "Signal and Noise",
+      ts: Date.now()
+    }));
+  } catch (_) {
+    // Reading remains possible when localStorage is unavailable.
+  }
 })();
 </script>
 
