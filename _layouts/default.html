@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{ page.lang | default: 'en' }}" {% if page.lang == "ar" %}dir="rtl"{% endif %}>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -10,6 +10,13 @@
   <title>{{ meta_title | escape }} | {{ site.title | escape }}</title>
   <meta name="description" content="{{ meta_description | escape }}" />
   <link rel="canonical" href="{{ canonical_url | escape }}" />
+  {% if page.translation_pair %}
+  <link rel="alternate" hreflang="en" href="{{ site.url }}/inference/assumptions-robustness/bootstrap-as-robust-tool/" />
+  <link rel="alternate" hreflang="ar" href="{{ site.url }}/ar/inference/assumptions-robustness/bootstrap-as-robust-tool/" />
+  {% endif %}
+  {% if page.lang == "ar" %}
+  <style>html[dir="rtl"] body{text-align:right}html[dir="rtl"] .hero-actions,html[dir="rtl"] .lesson-nav{direction:rtl}html[dir="rtl"] .esa-math-ltr,html[dir="rtl"] .esa-math-ltr *{direction:ltr;unicode-bidi:isolate}html[dir="rtl"] input[type="number"],html[dir="rtl"] svg{direction:ltr}</style>
+  {% endif %}
 
   <!-- Page-specific social metadata; no imaginary preview image. -->
   <meta property="og:type" content="website" />

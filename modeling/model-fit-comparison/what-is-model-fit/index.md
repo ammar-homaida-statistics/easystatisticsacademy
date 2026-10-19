@@ -13,11 +13,11 @@ sidebar: false
   const KEY =
     "esa_continue_modeling_model_fit_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try { localStorage.setItem(KEY, JSON.stringify({
     url: "/modeling/model-fit-comparison/what-is-model-fit/",
     label: "What Is Model Fit?",
     ts: Date.now()
-  }));
+  })); } catch (error) { /* Browsing without storage remains functional. */ }
 
 })();
 </script>

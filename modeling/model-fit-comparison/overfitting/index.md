@@ -13,11 +13,11 @@ sidebar: false
   const KEY =
     "esa_continue_modeling_model_fit_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try { localStorage.setItem(KEY, JSON.stringify({
     url: "/modeling/model-fit-comparison/overfitting/",
     label: "Overfitting",
     ts: Date.now()
-  }));
+  })); } catch (error) { /* Browsing without storage remains functional. */ }
 
 })();
 </script>
@@ -483,7 +483,32 @@ sidebar: false
 
     </div>
 
-    <!-- NAVIGATION -->
+    
+<!-- POLYNOMIAL GENERALIZATION EXPLORER -->
+<section class="section section-slim" aria-labelledby="esa-overfit-title"><div class="container"><div class="card" id="esa-overfit-lab" style="min-width:0;overflow-wrap:anywhere">
+<h2 id="esa-overfit-title">Interactive Model Complexity Explorer</h2>
+<p>Fit a polynomial to eight fixed training observations and compare predictions on six <strong>independent, held-out</strong> illustrative test observations. The data remain fixed when you change degree; use test performance here to understand generalization, not as a final unbiased model-selection estimate.</p>
+<label for="esa-overfit-degree">Polynomial degree</label> <select id="esa-overfit-degree"><option>0</option><option selected>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select>
+<button class="btn" id="esa-overfit-reset" type="button">Reset</button>
+<p id="esa-overfit-status" role="status" aria-live="polite"></p>
+<svg id="esa-overfit-plot" role="img" aria-label="Training points, test points and fitted polynomial curve" viewBox="0 0 640 300" style="width:100%;max-width:640px;display:block"></svg>
+<p><small>Blue circles: training; orange squares: held-out test; dark line: fitted polynomial. MSE is the average squared prediction error on each set. High-degree interpolation can reduce training error while increasing test error. Real workflows select complexity using training/validation data and reserve the test set for final evaluation.</small></p>
+</div></div></section>
+<script>
+(function(){
+"use strict";const root=document.getElementById("esa-overfit-lab");if(!root)return;const degree=document.getElementById("esa-overfit-degree"),status=document.getElementById("esa-overfit-status"),svg=document.getElementById("esa-overfit-plot"),ns="http://www.w3.org/2000/svg";
+const train=[[-1,.8],[-.7,.4],[-.45,.1],[-.15,-.4],[.15,.2],[.45,.7],[.7,.5],[1,1.3]],test=[[-.9,.2],[-.6,.1],[-.3,-.1],[.3,.4],[.6,.8],[.9,.9]];
+function element(tag,attrs){const e=document.createElementNS(ns,tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,String(v)));svg.appendChild(e);return e;}
+function solve(A,b){const n=b.length;for(let k=0;k<n;k++){let p=k;for(let i=k+1;i<n;i++)if(Math.abs(A[i][k])>Math.abs(A[p][k]))p=i;if(Math.abs(A[p][k])<1e-11)throw Error("Polynomial fit is numerically singular.");[A[p],A[k]]=[A[k],A[p]];[b[p],b[k]]=[b[k],b[p]];const d=A[k][k];for(let j=k;j<n;j++)A[k][j]/=d;b[k]/=d;for(let i=0;i<n;i++)if(i!==k){const f=A[i][k];for(let j=k;j<n;j++)A[i][j]-=f*A[k][j];b[i]-=f*b[k];}}return b;}
+function fit(d){const n=d+1,A=Array.from({length:n},()=>Array(n).fill(0)),b=Array(n).fill(0);train.forEach(([x,y])=>{const powers=Array.from({length:2*d+1},(_,i)=>x**i);for(let i=0;i<n;i++){b[i]+=powers[i]*y;for(let j=0;j<n;j++)A[i][j]+=powers[i+j];}});return solve(A,b);}
+function predict(c,x){return c.reduce((s,v,i)=>s+v*x**i,0);}
+function mse(c,points){return points.reduce((s,[x,y])=>s+(predict(c,x)-y)**2,0)/points.length;}
+function render(){try{const d=Number(degree.value),c=fit(d),tr=mse(c,train),te=mse(c,test);status.textContent="Degree "+d+" · Training MSE: "+tr.toFixed(5)+" · Test MSE: "+te.toFixed(5);while(svg.firstChild)svg.removeChild(svg.firstChild);const curve=Array.from({length:161},(_,i)=>[-1+i/80,predict(c,-1+i/80)]),ys=[...train,...test,...curve].map(p=>p[1]),ymin=Math.min(...ys)-.2,ymax=Math.max(...ys)+.2;const X=x=>35+(x+1)*285,Y=y=>275-(y-ymin)/(ymax-ymin)*245;let points=curve.map(([x,y])=>X(x)+","+Y(y)).join(" ");element("polyline",{points,fill:"none",stroke:"#334155","stroke-width":2.5});train.forEach(([x,y])=>element("circle",{cx:X(x),cy:Y(y),r:5,fill:"#2563eb"}));test.forEach(([x,y])=>element("rect",{x:X(x)-5,y:Y(y)-5,width:10,height:10,fill:"#ea580c"}));}catch(e){status.textContent=e.message;}}
+degree.addEventListener("change",render);document.getElementById("esa-overfit-reset").addEventListener("click",()=>{degree.value="1";render();});render();
+})();
+</script>
+
+<!-- NAVIGATION -->
 
     <div class="lesson-nav">
 

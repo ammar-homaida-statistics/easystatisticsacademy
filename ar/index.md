@@ -1,11 +1,14 @@
 ---
 layout: default
-title: العربية
+title: أكاديمية الإحصاء المبسط — العربية
+description: دروس إحصائية باللغة العربية مع أمثلة ومختبرات تفاعلية.
 permalink: /ar/
+lang: ar
 ---
-
-# العربية
-
-Arabic lessons will be added gradually.
-
-For now, please use the English lessons.
+<section class="hero hero-section"><div class="hero-card">
+<h1>أكاديمية الإحصاء المبسط — العربية</h1>
+<p class="lead">دروس إحصائية باللغة العربية بلغة أكاديمية واضحة. تُضاف الدروس المترجمة تدريجيًا بعد التحقق من محتواها الرياضي.</p>
+<h2>الدروس المتاحة</h2>
+<ul><li><a href="/ar/inference/assumptions-robustness/bootstrap-as-robust-tool/">بوتستراب: إعادة المعاينة لتقدير عدم اليقين — مع مختبر تفاعلي</a></li></ul>
+<p><a href="/" lang="en" dir="ltr">English homepage</a></p>
+</div></section>
