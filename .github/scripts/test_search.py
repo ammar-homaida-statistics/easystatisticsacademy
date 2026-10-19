@@ -7004,7 +7004,8 @@ class SearchTests(unittest.TestCase):
         self.page.keyboard.press("Enter")
         expect(self.page.locator("#esa-sv-status")).to_contain_text("المحاكاة")
         self.assertLessEqual(
-            self.page.locator("#esa-sv-lab").evaluate("e => e.scrollWidth-e.clientWidth"),1)
+            self.page.locator("#esa-sv-lab").evaluate("e => e.scrollWidth-e.clientWidth"),1,
+            str(self._lab_mobile_overflow_sources("esa-sv-lab")))
         self.assertLessEqual(self.page.evaluate("document.documentElement.scrollWidth-innerWidth"),2)
 
     def test_cooks_distance_independent_ols_numerical_benchmark(self):
@@ -7035,6 +7036,34 @@ class SearchTests(unittest.TestCase):
             actual=float(self.page.locator("#esa-cook-table tr").nth(i).locator("td").nth(3).inner_text())
             self.assertAlmostEqual(actual,value,places=3)
 
+    def _lab_mobile_overflow_sources(self, element_id):
+        return self.page.evaluate("""id => {
+          const root = document.getElementById(id);
+          const initial = root.scrollWidth - root.clientWidth;
+          const entries = [];
+          for (const e of Array.from(root.children)) {
+            const prev = e.style.display;
+            e.style.display = "none";
+            const delta = initial - (root.scrollWidth - root.clientWidth);
+            e.style.display = prev;
+            if (delta > 1) entries.push({
+              node:e.tagName, id:e.id, cls:e.className,
+              scrollDelta:delta,
+              width:Math.round(e.getBoundingClientRect().width),
+              scroll:e.scrollWidth, client:e.clientWidth
+            });
+          }
+          const descendants = Array.from(root.querySelectorAll("*")).map(e => {
+            const rect=e.getBoundingClientRect();
+            const parent=root.getBoundingClientRect();
+            return {node:e.tagName,id:e.id,cls:typeof e.className === "string" ? e.className : "",
+              right:Math.round(rect.right-parent.left), left:Math.round(rect.left-parent.left),
+              width:Math.round(rect.width),scroll:e.scrollWidth,client:e.clientWidth,
+              overflow:getComputedStyle(e).overflowX};
+          }).filter(e => e.right > root.clientWidth+2).slice(0,16);
+          return {initial, entries, descendants};
+        }""", element_id)
+
     def test_cooks_distance_slider_keyboard_reset_mobile_and_storage_denied(self):
         self.page.add_init_script("""
           Object.defineProperty(window,"localStorage",{
@@ -7055,7 +7084,8 @@ class SearchTests(unittest.TestCase):
         self.page.locator("#esa-cook-reset").click()
         self.assertEqual(self.page.locator("#esa-cook-d").inner_text(),before)
         self.assertLessEqual(self.page.locator("#esa-cook-lab").evaluate(
-            "e=>e.scrollWidth-e.clientWidth"),1)
+            "e=>e.scrollWidth-e.clientWidth"),1,
+            str(self._lab_mobile_overflow_sources("esa-cook-lab")))
 
     def test_model_assumptions_safe_progress_all_eight_and_invalid_records(self):
         block="/modeling/assumptions/"
