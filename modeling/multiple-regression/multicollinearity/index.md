@@ -331,7 +331,7 @@ sidebar: false
 
     <h2>The Variance Inflation Factor (VIF)</h2>
 
-    <section class="example-box" id="esa-vif-lab" aria-labelledby="esa-vif-title">
+    <section class="example-box" id="esa-vif-lab" aria-labelledby="esa-vif-title" style="min-width:0;overflow-wrap:anywhere">
       <h2 id="esa-vif-title">Interactive Multicollinearity and VIF Explorer</h2>
       <p>This is a <strong>theoretical two-predictor design</strong>, not a fitted dataset.
          Assume an intercept, 50 observations, centered predictor sum of squares
