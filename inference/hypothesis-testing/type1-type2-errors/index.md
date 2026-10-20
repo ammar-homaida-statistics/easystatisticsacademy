@@ -27,6 +27,34 @@ math: true
 })();
 </script>
 
+<!-- Scope mobile table containment to this lesson's pre-existing and new tables. -->
+<style>
+@media (max-width:760px) {
+  #main-content .content-narrow {
+    display:block;
+    width:100%;
+    max-width:100%;
+    min-width:0;
+  }
+  #main-content .content-narrow .table-wrap {
+    display:block;
+    width:100%;
+    max-width:100%;
+    min-width:0;
+    overflow-x:auto;
+    overscroll-behavior-x:contain;
+  }
+  #main-content .content-narrow .table-wrap table {
+    display:table;
+    width:max-content;
+    min-width:640px;
+    max-width:none;
+    overflow:visible;
+    white-space:normal;
+  }
+}
+</style>
+
 <!-- HERO -->
 
 <section class="hero hero-section">
