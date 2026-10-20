@@ -24,7 +24,8 @@ sidebar: false
 <!-- ✅ Update continue-reading keys -->
 <script>
   (function () {
-
+    "use strict";
+    try {
     localStorage.setItem(
       "esa_continue_ms_properties_last_lesson_v0",
       JSON.stringify({
@@ -42,7 +43,9 @@ sidebar: false
         ts: Date.now()
       })
     );
-
+    } catch (_) {
+      // Denied or unavailable localStorage must not interrupt the lesson.
+    }
   })();
 </script>
 
