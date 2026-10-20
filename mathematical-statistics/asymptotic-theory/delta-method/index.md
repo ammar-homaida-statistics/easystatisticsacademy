@@ -10,8 +10,16 @@ math: true
 <style>
   #esa-crlb-lab, #esa-delta-lab {max-width:100%;min-width:0;overflow-wrap:anywhere}
   @media (max-width:760px) {
-    .content-narrow {max-width:100%;min-width:0;overflow-x:clip}
-    .esa-math-ltr {max-width:100%;min-width:0;overflow-x:auto}
+    /* Keep long existing TeX formulas within independently scrollable sections,
+       rather than allowing a wide formula to expand the entire document. */
+    main.container > section.section,
+    main.container > section.hero {max-width:100%;min-width:0;overflow-x:auto}
+    main.container .content-narrow,
+    main.container .hero-card,
+    main.container .callout,
+    main.container .card {max-width:100%;min-width:0;overflow-wrap:anywhere}
+    main.container .card,
+    main.container .esa-math-ltr {overflow-x:auto}
   }
 </style>
 
