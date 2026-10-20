@@ -408,7 +408,7 @@ math: true
 
     </div>
 
-    <section class="concept-box" id="esa-errors-lab" aria-labelledby="esa-errors-title" style="min-width:0;max-width:100%;overflow-wrap:anywhere">
+    <section class="concept-box" id="esa-errors-lab" aria-labelledby="esa-errors-title" style="min-width:0;max-width:100%;overflow-x:hidden;overflow-wrap:anywhere">
   <h2 id="esa-errors-title">Interactive Type I / Type II Decision Experiment</h2>
   <p>Compare 1,000 independent simulated experiments when H₀ is true with 1,000 independent experiments when a <strong>specified positive alternative</strong> is true. The model assumes independently sampled <strong>N(μ,1)</strong> observations and a two-sided z-test of <strong>H₀: μ = 0</strong> at a known population standard deviation of 1. Under the alternative, μ = Δ &gt; 0.</p>
   <p>The simulator draws the standardized sample mean directly from its <strong>exact normal sampling distribution</strong> (equivalent to drawing n independent normal observations and averaging them). It rejects H₀ when |Z| exceeds the two-sided normal critical value. This is an exact-model example, <strong>not</strong> a universal description of real study errors.</p>
