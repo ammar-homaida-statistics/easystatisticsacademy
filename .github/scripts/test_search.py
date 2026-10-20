@@ -7540,5 +7540,114 @@ class SearchTests(unittest.TestCase):
         expect(self.page.locator("main h1")).to_be_visible()
 
 
+    def test_clt_simulation_moments_and_reproducible_histogram(self):
+        """Exponential(1) gives exact E(mean)=1 and SD(mean)=1/sqrt(n)."""
+        self.page.goto(self.origin+"/probability/lln-clt/central-limit-theorem/",
+                       wait_until="networkidle")
+        self.assertEqual(self.page.locator("#esa-clt-count").inner_text(),"800")
+        self.assertEqual(self.page.locator("#esa-clt-theory-se").inner_text(),"0.1826")
+        self.assertEqual(self.page.locator("#esa-clt-chart rect").count(),16)
+        first=self.page.locator("#esa-clt-emp-mean").inner_text()
+        self.page.locator("#esa-clt-run").click()
+        self.assertEqual(self.page.locator("#esa-clt-emp-mean").inner_text(),first)
+        for n,se,tol in ((1,1.0,0.20),(5,1/5**0.5,0.10),
+                         (30,1/30**0.5,0.04),(100,0.1,0.025)):
+            self.page.locator("#esa-clt-n").select_option(str(n))
+            self.page.locator("#esa-clt-run").click()
+            self.assertLess(abs(float(self.page.locator("#esa-clt-emp-mean").inner_text())-1),tol)
+            self.assertLess(abs(float(self.page.locator("#esa-clt-emp-sd").inner_text())-se),tol)
+            self.assertLess(abs(float(self.page.locator("#esa-clt-theory-se").inner_text())-se),0.00006)
+        previous=self.page.locator("#esa-clt-count").inner_text()
+        self.page.locator("#esa-clt-seed").fill("0")
+        self.page.locator("#esa-clt-run").click()
+        self.assertIn("integer seed",self.page.locator("#esa-clt-status").inner_text())
+        self.assertEqual(self.page.locator("#esa-clt-count").inner_text(),previous)
+
+    def test_clt_bilingual_parity_metadata_keyboard_and_mobile(self):
+        en="/probability/lln-clt/central-limit-theorem/"
+        ar="/ar/probability/lln-clt/central-limit-theorem/"
+        results=[]
+        self.page.set_viewport_size({"width":320,"height":780})
+        for path,lang in ((en,"en"),(ar,"ar")):
+            self.page.goto(self.origin+path,wait_until="networkidle")
+            self.assertEqual(self.page.locator("html").get_attribute("lang"),lang)
+            self.assertEqual(self.page.locator("html").get_attribute("dir"),"rtl" if lang=="ar" else None)
+            self.assertEqual(self.page.locator('link[rel="canonical"]').get_attribute("href"),
+                             "https://easystatisticsacademy.com"+path)
+            for lng,route in (("en",en),("ar",ar)):
+                self.assertEqual(self.page.locator('link[rel="alternate"][hreflang="'+lng+'"]')
+                                 .get_attribute("href"),"https://easystatisticsacademy.com"+route)
+            language=self.page.get_by_role("group",name="Language selection")
+            self.assertEqual(language.locator('a[lang="en"]').get_attribute("href"),en)
+            self.assertEqual(language.locator('a[lang="ar"]').get_attribute("href"),ar)
+            self.page.locator("#esa-clt-n").select_option("100")
+            self.page.locator("#esa-clt-run").focus()
+            self.page.keyboard.press("Enter")
+            results.append((self.page.locator("#esa-clt-emp-mean").inner_text(),
+                            self.page.locator("#esa-clt-emp-sd").inner_text()))
+            self.assertLessEqual(self.page.locator("#esa-clt-lab").evaluate(
+                "e=>e.scrollWidth-e.clientWidth"),2)
+        self.assertEqual(results[0],results[1])
+        self.assertIn("/ar/probability/lln-clt/central-limit-theorem/",
+                      (SITE/"ar"/"index.html").read_text())
+
+    def test_clt_denied_storage_still_runs(self):
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{
+            configurable:true,get(){throw new DOMException("Denied","SecurityError")}
+          });
+        """)
+        self.page.goto(self.origin+"/ar/probability/lln-clt/central-limit-theorem/",
+                       wait_until="networkidle")
+        self.assertEqual(self.page.locator("#esa-clt-theory-mean").inner_text(),"1.0000")
+        self.page.locator("#esa-clt-n").select_option("5")
+        self.page.locator("#esa-clt-run").click()
+        self.assertEqual(self.page.locator("#esa-clt-theory-se").inner_text(),"0.4472")
+
+    def test_bayes_posteriors_exact_and_expected_frequencies(self):
+        self.page.goto(self.origin+"/probability/conditional/bayes-theorem/",
+                       wait_until="networkidle")
+        expect={"esa-bayes-pos":"15.38%","esa-bayes-neg":"0.11%",
+                "esa-bayes-plus-prob":"5.85%","esa-bayes-minus-prob":"94.15%",
+                "esa-bayes-tp":"90.00","esa-bayes-fp":"495.00",
+                "esa-bayes-fn":"10.00","esa-bayes-tn":"9405.00"}
+        for key,value in expect.items():
+            self.assertEqual(self.page.locator("#"+key).inner_text(),value)
+        self.page.locator("#esa-bayes-prev").fill("10")
+        self.page.locator("#esa-bayes-run").focus()
+        self.page.keyboard.press("Enter")
+        self.assertEqual(self.page.locator("#esa-bayes-pos").inner_text(),"66.67%")
+        self.page.locator("#esa-bayes-reset").click()
+        self.assertEqual(self.page.locator("#esa-bayes-pos").inner_text(),"15.38%")
+
+    def test_bayes_zero_probability_invalid_input_and_mobile(self):
+        self.page.set_viewport_size({"width":320,"height":780})
+        self.page.goto(self.origin+"/probability/conditional/bayes-theorem/",
+                       wait_until="networkidle")
+        self.page.locator("#esa-bayes-prev").fill("0")
+        self.page.locator("#esa-bayes-spec").fill("100")
+        self.page.locator("#esa-bayes-run").click()
+        self.assertIn("Undefined",self.page.locator("#esa-bayes-pos").inner_text())
+        self.assertEqual(self.page.locator("#esa-bayes-plus-prob").inner_text(),"0.00%")
+        self.page.locator("#esa-bayes-prev").fill("101")
+        self.page.locator("#esa-bayes-run").click()
+        self.assertIn("Enter prevalence",self.page.locator("#esa-bayes-status").inner_text())
+        self.assertEqual(self.page.locator("#esa-bayes-pos").inner_text(),"—")
+        self.assertLessEqual(self.page.locator("#esa-bayes-lab").evaluate(
+            "e=>e.scrollWidth-e.clientWidth"),2)
+
+    def test_z_interval_assumptions_exact_vs_approximate(self):
+        html=(SITE/"inference"/"confidence-intervals"/"ci-for-mean-sigma-known-z"/"index.html").read_text()
+        self.assertIn("does not by itself make the sample mean normally distributed",html)
+        self.assertIn("coverage is only approximate",html)
+        self.assertIn("finite positive variance",html)
+        self.assertIn("n = 30",html)
+        # Independent arithmetic check of the example: sigma/sqrt(n)=12/6=2,
+        # margin 1.96*2=3.92 and rounded interval [46.08, 53.92].
+        self.assertAlmostEqual(12/(36**.5),2)
+        self.assertAlmostEqual(50-1.96*2,46.08)
+        self.assertAlmostEqual(50+1.96*2,53.92)
+
+
 if __name__ == "__main__":
     unittest.main(argv=[__file__], verbosity=2)
