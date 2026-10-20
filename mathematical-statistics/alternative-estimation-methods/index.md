@@ -120,30 +120,38 @@ sidebar: false
 </section>
 
 <script>
-  (function () {
-    try {
-      localStorage.setItem("esa_continue_ms_last_block_v0", JSON.stringify({
-        label: "Block 7 — Alternative Estimation Methods",
-        url: "/mathematical-statistics/alternative-estimation-methods/"
-      }));
-    } catch (e) {}
-
-    var KEY = "esa_continue_ms_methods_last_lesson_v0";
-    var raw = localStorage.getItem(KEY);
+(function() {
+  "use strict";
+  const key="esa_continue_ms_methods_last_lesson_v0";
+  const base="/mathematical-statistics/alternative-estimation-methods/";
+  const lessons={
+  "/mathematical-statistics/alternative-estimation-methods/method-of-moments/": "Lesson 1 — Method of Moments",
+  "/mathematical-statistics/alternative-estimation-methods/estimating-equations-preview/": "Lesson 2 — Estimating Equations",
+  "/mathematical-statistics/alternative-estimation-methods/bayesian-point-estimation-preview/": "Lesson 3 — Bayesian Point Estimation",
+  "/mathematical-statistics/alternative-estimation-methods/shrinkage-intuition-preview/": "Lesson 4 — Shrinkage Intuition",
+  "/mathematical-statistics/alternative-estimation-methods/robustness-preview/": "Lesson 5 — Robustness"
+};
+  try {
+    localStorage.setItem("esa_continue_ms_last_block_v0",
+      JSON.stringify({label:"Block 7 — Alternative Estimation Methods",url:base}));
+  } catch (_) { /* Optional progress storage. */ }
+  const wrap=document.getElementById("continue-reading-ms-b7");
+  const label=document.getElementById("continue-reading-ms-b7-label");
+  const link=document.getElementById("continue-reading-ms-b7-btn");
+  if (!wrap||!label||!link) return;
+  try {
+    const raw=localStorage.getItem(key);
     if (!raw) return;
-
-    try {
-      var data = JSON.parse(raw);
-      if (!data || !data.url || !data.label) return;
-
-      var wrap = document.getElementById("continue-reading-ms-b7");
-      var label = document.getElementById("continue-reading-ms-b7-label");
-      var btn = document.getElementById("continue-reading-ms-b7-btn");
-      if (!wrap || !label || !btn) return;
-
-      label.innerHTML = 'You last visited: <strong>' + data.label + '</strong>';
-      btn.href = data.url;
-      wrap.style.display = "block";
-    } catch (e) {}
-  })();
+    const data=JSON.parse(raw);
+    if (!data||typeof data!=="object"||Array.isArray(data)) return;
+    if (typeof data.url!=="string"||
+        !Object.prototype.hasOwnProperty.call(lessons,data.url)) return;
+    if (typeof data.label!=="string"||data.label!==lessons[data.url]) return;
+    if (typeof data.ts!=="number"||!Number.isFinite(data.ts)||
+        data.ts<=0||data.ts>Date.now()+86400000) return;
+    label.textContent="You last visited: "+data.label;
+    link.setAttribute("href",data.url);
+    wrap.style.display="block";
+  } catch (_) { /* Ignore blocked, corrupted, or untrusted storage. */ }
+})();
 </script>
