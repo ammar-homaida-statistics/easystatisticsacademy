@@ -32,10 +32,10 @@
     interval:"CV is inappropriate for interval scales without a meaningful absolute zero (for example Celsius). Results are shown only as arithmetic; no relative-spread ranking is given.",
     mean:"CV requires a positive nonzero mean; for zero or negative means it is not interpreted.",
     near:"A mean is small relative to its SD (mean ≤ 0.1 × SD). CV is unstable: avoid ranking datasets.",
-    equal:t.equal,
+    equal:"Equal coefficients of variation under these assumptions.",
     greater:" has greater relative variability (CV).",
-    ok:t.ok,
-    no:t.no
+    ok:"Calculated locally. CV is meaningful only for positive-mean ratio-scale data with comparable substantive interpretation.",
+    no:"Comparison not recommended for these data."
   };
   function parse(text){
     if(text.length>1600)return {error:t.limit};
@@ -102,11 +102,11 @@
     if(!warnings.length){
       const diff=A.cv-B.cv;
       $("esa-cv-comparison").textContent=Math.abs(diff)<1e-10?
-        "Equal coefficients of variation under these assumptions.":
+        t.equal:
         (diff>0?t.a:t.b)+(ar?" ":"")+t.greater;
-      $("esa-cv-status").textContent="Calculated locally. CV is meaningful only for positive-mean ratio-scale data with comparable substantive interpretation.";
+      $("esa-cv-status").textContent=t.ok;
     }else{
-      $("esa-cv-comparison").textContent="Comparison not recommended for these data.";
+      $("esa-cv-comparison").textContent=t.no;
       $("esa-cv-status").textContent=warnings.join(" ");
     }
   }
