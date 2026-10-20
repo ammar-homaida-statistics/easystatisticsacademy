@@ -7655,5 +7655,170 @@ class SearchTests(unittest.TestCase):
         self.assertAlmostEqual(50+1.96*2,53.92)
 
 
+    def test_batch55_bayes_arabic_full_translation_and_parity(self):
+        """Arabic and English share one numerical implementation and valid translation metadata."""
+        en="/probability/conditional/bayes-theorem/"
+        ar="/ar/probability/conditional/bayes-theorem/"
+        results=[]
+        for path,language in ((en,"en"),(ar,"ar")):
+            with self.subTest(lang=language):
+                self.page.goto(self.origin+path,wait_until="networkidle")
+                self.assertEqual(self.page.locator("html").get_attribute("lang"),language)
+                self.assertEqual(self.page.locator("html").get_attribute("dir"),
+                                 "rtl" if language=="ar" else None)
+                self.assertEqual(self.page.locator('link[rel="canonical"]').get_attribute("href"),
+                                 "https://easystatisticsacademy.com"+path)
+                for lang,route in (("en",en),("ar",ar)):
+                    self.assertEqual(self.page.locator('link[rel="alternate"][hreflang="'+lang+'"]')
+                                     .get_attribute("href"),"https://easystatisticsacademy.com"+route)
+                    self.assertEqual(self.page.locator("header nav").locator('a[lang="'+lang+'"]')
+                                     .get_attribute("href"),route)
+                output_ids=("pos","neg","tp","fp","fn","tn","plus-prob","minus-prob")
+                results.append(tuple(self.page.locator("#esa-bayes-"+i).inner_text() for i in output_ids))
+                self.assertEqual(self.page.locator("#esa-bayes-pos").inner_text(),"15.38%")
+                self.assertEqual(self.page.locator("#esa-bayes-tp").inner_text(),"90.00")
+                self.page.locator("#esa-bayes-prev").fill("10")
+                self.page.locator("#esa-bayes-run").click()
+                self.assertEqual(self.page.locator("#esa-bayes-pos").inner_text(),"66.67%")
+        self.assertEqual(results[0],results[1])
+        self.assertIn('/ar/probability/conditional/bayes-theorem/',
+                      (SITE/"ar"/"index.html").read_text())
+        self.assertIn("نظرية بايز",self.page.locator("main").inner_text())
+
+    def test_batch55_bayes_arabic_boundaries_and_storage_denied(self):
+        self.page.add_init_script("""
+        Object.defineProperty(window,"localStorage",{
+          configurable:true,get(){throw new DOMException("Denied","SecurityError")}
+        });
+        """)
+        self.page.set_viewport_size({"width":320,"height":760})
+        self.page.goto(self.origin+"/ar/probability/conditional/bayes-theorem/",
+                       wait_until="networkidle")
+        self.page.locator("#esa-bayes-prev").fill("0")
+        self.page.locator("#esa-bayes-spec").fill("100")
+        self.page.locator("#esa-bayes-run").focus()
+        self.page.keyboard.press("Enter")
+        self.assertIn("غير معرّف",self.page.locator("#esa-bayes-pos").inner_text())
+        self.page.locator("#esa-bayes-prev").fill("101")
+        self.page.locator("#esa-bayes-run").click()
+        self.assertIn("أدخل",self.page.locator("#esa-bayes-status").inner_text())
+        self.assertEqual(self.page.locator("#esa-bayes-pos").inner_text(),"—")
+        self.assertLessEqual(self.page.locator("#esa-bayes-lab").evaluate(
+            "e=>e.scrollWidth-e.clientWidth"),2)
+
+    def test_batch55_type_errors_exact_normal_benchmarks_and_seeded_counts(self):
+        self.page.goto(self.origin+"/inference/hypothesis-testing/type1-type2-errors/",
+                       wait_until="networkidle")
+        ref={"esa-errors-fp":"44","esa-errors-tn":"956",
+             "esa-errors-tp":"788","esa-errors-fn":"212",
+             "esa-errors-alpha-theory":"5.00%",
+             "esa-errors-power-theory":"78.19%",
+             "esa-errors-beta-theory":"21.81%",
+             "esa-errors-alpha-empirical":"4.40%",
+             "esa-errors-power-empirical":"78.80%",
+             "esa-errors-beta-empirical":"21.20%"}
+        for key,val in ref.items():
+            self.assertEqual(self.page.locator("#"+key).inner_text(),val)
+        self.assertEqual(int(self.page.locator("#esa-errors-fp").inner_text())+
+                         int(self.page.locator("#esa-errors-tn").inner_text()),1000)
+        self.assertEqual(int(self.page.locator("#esa-errors-tp").inner_text())+
+                         int(self.page.locator("#esa-errors-fn").inner_text()),1000)
+        self.page.locator("#esa-errors-run").click()
+        self.assertEqual(self.page.locator("#esa-errors-tp").inner_text(),"788")
+        self.page.locator("#esa-errors-n").select_option("100")
+        self.page.locator("#esa-errors-run").click()
+        self.assertGreater(float(self.page.locator("#esa-errors-power-theory").inner_text().strip("%")),78.19)
+        self.page.locator("#esa-errors-reset").click()
+        self.assertEqual(self.page.locator("#esa-errors-fp").inner_text(),"44")
+
+    def test_batch55_type_errors_keyboard_mobile_denied_storage_and_invalid_seed(self):
+        self.page.add_init_script("""
+        Object.defineProperty(window,"localStorage",{
+          configurable:true,get(){throw new DOMException("Denied","SecurityError")}
+        });
+        """)
+        self.page.set_viewport_size({"width":320,"height":760})
+        self.page.goto(self.origin+"/inference/hypothesis-testing/type1-type2-errors/",
+                       wait_until="networkidle")
+        self.page.locator("#esa-errors-alpha").select_option("0.01")
+        self.page.locator("#esa-errors-run").focus()
+        self.page.keyboard.press("Enter")
+        self.assertEqual(self.page.locator("#esa-errors-alpha-theory").inner_text(),"1.00%")
+        self.page.locator("#esa-errors-seed").fill("0")
+        self.page.locator("#esa-errors-run").click()
+        self.assertIn("whole-number seed",self.page.locator("#esa-errors-status").inner_text())
+        self.assertLessEqual(self.page.locator("#esa-errors-lab").evaluate(
+            "e=>e.scrollWidth-e.clientWidth"),2)
+
+    def test_batch55_mle_five_lesson_resume_exact_urls_labels_and_ts(self):
+        root="/mathematical-statistics/maximum-likelihood-estimation/"
+        key="esa_continue_ms_mle_last_lesson_v0"
+        lessons={
+          "definition-of-mle":"Lesson 1 — Definition of MLE",
+          "finding-mle-by-optimization":"Lesson 2 — Finding MLE by Optimization",
+          "invariance-property-of-mle":"Lesson 3 — Invariance Property of MLE",
+          "existence-and-uniqueness":"Lesson 4 — Existence and Uniqueness",
+          "mle-examples-bernoulli-poisson-normal":"Lesson 5 — MLE Examples"
+        }
+        for slug,label in lessons.items():
+            with self.subTest(slug=slug):
+                self.page.goto(self.origin+root+slug+"/",wait_until="networkidle")
+                raw=self.page.evaluate("k=>localStorage.getItem(k)",key)
+                obj=json.loads(raw)
+                self.assertEqual(obj["url"],root+slug+"/")
+                self.assertEqual(obj["label"],label)
+                self.assertIsInstance(obj["ts"],int)
+                self.page.goto(self.origin+root,wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-ms-b3")).to_be_visible()
+                self.assertEqual(self.page.locator("#continue-reading-ms-b3-btn")
+                                 .get_attribute("href"),root+slug+"/")
+                self.assertEqual(self.page.locator("#continue-reading-ms-b3-label")
+                                 .inner_text(),"You last visited: "+label)
+
+    def test_batch55_mle_resume_rejects_untrusted_records_and_malformed_json(self):
+        root="/mathematical-statistics/maximum-likelihood-estimation/"
+        key="esa_continue_ms_mle_last_lesson_v0"
+        good=root+"definition-of-mle/"
+        self.page.goto(self.origin+root,wait_until="networkidle")
+        future=self.page.evaluate("()=>Date.now()+86400001")
+        invalid=[
+          {"url":"javascript:alert(1)","label":"Lesson 1 — Definition of MLE","ts":1},
+          {"url":"https://invalid.example/","label":"Lesson 1 — Definition of MLE","ts":1},
+          {"url":good+"?x=1","label":"Lesson 1 — Definition of MLE","ts":1},
+          {"url":good,"label":"<img src=x onerror=alert(1)>","ts":1},
+          {"url":good,"label":"Lesson 1 — Definition of MLE","ts":future},
+          {"url":good,"label":"Lesson 1 — Definition of MLE","ts":-1},
+          {"url":good,"label":"Lesson 1 — Definition of MLE"},
+          {"url":good,"label":"Lesson 5 — MLE Examples","ts":1}
+        ]
+        for entry in invalid:
+            with self.subTest(entry=entry):
+                self.page.evaluate("(v)=>localStorage.setItem('esa_continue_ms_mle_last_lesson_v0',JSON.stringify(v))",entry)
+                self.page.reload(wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-ms-b3")).to_be_hidden()
+                self.assertEqual(self.page.locator("#continue-reading-ms-b3-label img").count(),0)
+        self.page.evaluate("k=>localStorage.setItem(k,'{bad-json')",key)
+        self.page.reload(wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-ms-b3")).to_be_hidden()
+
+    def test_batch55_mle_denied_storage_all_five_and_mobile_overview(self):
+        self.page.add_init_script("""
+        Object.defineProperty(window,"localStorage",{
+          configurable:true,get(){throw new DOMException("Denied","SecurityError")}
+        });
+        """)
+        self.page.set_viewport_size({"width":375,"height":760})
+        root="/mathematical-statistics/maximum-likelihood-estimation/"
+        for slug in ("definition-of-mle","finding-mle-by-optimization",
+                     "invariance-property-of-mle","existence-and-uniqueness",
+                     "mle-examples-bernoulli-poisson-normal"):
+            with self.subTest(slug=slug):
+                self.page.goto(self.origin+root+slug+"/",wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+        self.page.goto(self.origin+root,wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-ms-b3")).to_be_hidden()
+        expect(self.page.locator("main h1")).to_be_visible()
+
+
 if __name__ == "__main__":
     unittest.main(argv=[__file__], verbosity=2)
