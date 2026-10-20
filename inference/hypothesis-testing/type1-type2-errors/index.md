@@ -4,6 +4,7 @@ title: Type I and Type II Errors
 description: Learn the two fundamental mistakes possible in hypothesis testing and how they shape statistical decision-making.
 permalink: /inference/hypothesis-testing/type1-type2-errors/
 sidebar: false
+translation_pair: type1-type2-errors
 math: true
 ---
 
@@ -71,6 +72,7 @@ math: true
     </div>
 
     <h1>Type I and Type II Errors</h1>
+    <p><a href="/ar/inference/hypothesis-testing/type1-type2-errors/" lang="ar" dir="rtl">اقرأ الدرس بالعربية</a></p>
 
     <p class="lead">
       Hypothesis testing provides a structured decision process, but no statistical decision rule is perfect.
