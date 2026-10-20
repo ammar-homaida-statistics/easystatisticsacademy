@@ -4,6 +4,7 @@ title: Type I and Type II Errors
 description: Learn the two fundamental mistakes possible in hypothesis testing and how they shape statistical decision-making.
 permalink: /inference/hypothesis-testing/type1-type2-errors/
 sidebar: false
+math: true
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -407,7 +408,53 @@ sidebar: false
 
     </div>
 
-    <h2>Why Sample Size Helps</h2>
+    <section class="concept-box" id="esa-errors-lab" aria-labelledby="esa-errors-title" style="min-width:0;overflow-wrap:anywhere">
+  <h2 id="esa-errors-title">Interactive Type I / Type II Decision Experiment</h2>
+  <p>Compare 1,000 independent simulated experiments when H₀ is true with 1,000 independent experiments when a <strong>specified positive alternative</strong> is true. The model assumes independently sampled <strong>N(μ,1)</strong> observations and a two-sided z-test of <strong>H₀: μ = 0</strong> at a known population standard deviation of 1. Under the alternative, μ = Δ &gt; 0.</p>
+  <p>The simulator draws the standardized sample mean directly from its <strong>exact normal sampling distribution</strong> (equivalent to drawing n independent normal observations and averaging them). It rejects H₀ when |Z| exceeds the two-sided normal critical value. This is an exact-model example, <strong>not</strong> a universal description of real study errors.</p>
+  <div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:end">
+    <label for="esa-errors-n">Sample size n
+      <select id="esa-errors-n"><option value="10">10</option><option value="30" selected>30</option><option value="100">100</option></select>
+    </label>
+    <label for="esa-errors-effect">True mean difference Δ (σ = 1)
+      <select id="esa-errors-effect"><option value="0.2">0.2</option><option value="0.5" selected>0.5</option><option value="1">1.0</option></select>
+    </label>
+    <label for="esa-errors-alpha">Two-sided significance level α
+      <select id="esa-errors-alpha"><option value="0.01">0.01</option><option value="0.05" selected>0.05</option><option value="0.10">0.10</option></select>
+    </label>
+    <label for="esa-errors-seed">Reproducible seed
+      <input id="esa-errors-seed" type="number" min="1" max="2147483647" step="1" value="2026" inputmode="numeric" style="max-width:11rem">
+    </label>
+    <button id="esa-errors-run" class="btn" type="button">Run 2,000 tests</button>
+    <button id="esa-errors-reset" class="btn btn-outline" type="button">Reset</button>
+  </div>
+  <p id="esa-errors-status" role="status" aria-live="polite"></p>
+  <div class="table-wrap"><table>
+    <caption>Outcomes for <span id="esa-errors-n-rep">1000</span> tests in each scenario</caption>
+    <thead><tr><th>Reality</th><th>Reject H₀</th><th>Fail to reject H₀</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">H₀ true (μ = 0)</th><td>Type I error: <output id="esa-errors-fp">—</output></td><td>Correct decision: <output id="esa-errors-tn">—</output></td></tr>
+      <tr><th scope="row">Alternative true (μ = Δ)</th><td>Correct detection: <output id="esa-errors-tp">—</output></td><td>Type II error: <output id="esa-errors-fn">—</output></td></tr>
+    </tbody>
+  </table></div>
+  <div class="table-wrap"><table>
+    <caption>Theoretical probabilities versus empirical simulation proportions</caption>
+    <thead><tr><th>Probability</th><th>Exact normal-model target</th><th>Simulated rate</th></tr></thead>
+    <tbody>
+      <tr><td>Type I error under H₀</td><td><output id="esa-errors-alpha-theory">—</output></td><td><output id="esa-errors-alpha-empirical">—</output></td></tr>
+      <tr><td>Power under specified H₁</td><td><output id="esa-errors-power-theory">—</output></td><td><output id="esa-errors-power-empirical">—</output></td></tr>
+      <tr><td>Type II error under specified H₁</td><td><output id="esa-errors-beta-theory">—</output></td><td><output id="esa-errors-beta-empirical">—</output></td></tr>
+    </tbody>
+  </table></div>
+  <p>Under the specified alternative, the standardized statistic has a shifted normal distribution with mean Δ√n and variance 1. Consequently the theoretical power is:</p>
+  \[
+    1-\Phi(z_{1-\alpha/2}-\Delta\sqrt{n})+
+    \Phi(-z_{1-\alpha/2}-\Delta\sqrt{n}).
+  \]
+  <p>Type II probability is one minus power. At the null, the calibrated two-sided test has exact Type I rate α. Simulated frequencies fluctuate around these targets. Rejecting H₀ does not prove the alternative, and failing to reject does not prove the null. The model does not cover dependence, unknown σ, optional stopping, multiplicity, or model misspecification.</p>
+</section>
+
+<h2>Why Sample Size Helps</h2>
 
     <p>
       Increasing sample size often improves decision quality.
@@ -610,3 +657,4 @@ sidebar: false
   </div>
 
 </section>
+<script src="/js/type1-type2-errors-lab.js" defer></script>
