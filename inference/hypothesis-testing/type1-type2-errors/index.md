@@ -35,6 +35,8 @@ math: true
     width:100%;
     max-width:100%;
     min-width:0;
+    /* Clip accidental page-level overflow; tables and formula have their own keyboard-accessible scrollers. */
+    overflow-x:clip;
   }
   #main-content .content-narrow .table-wrap {
     display:block;
