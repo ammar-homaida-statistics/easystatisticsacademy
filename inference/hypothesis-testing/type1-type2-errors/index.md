@@ -447,10 +447,13 @@ math: true
     </tbody>
   </table></div>
   <p>Under the specified alternative, the standardized statistic has a shifted normal distribution with mean Δ√n and variance 1. Consequently the theoretical power is:</p>
+  <div role="region" aria-label="Theoretical power equation; scroll horizontally on smaller screens" tabindex="0"
+       style="display:block;max-width:100%;min-width:0;overflow-x:auto;overscroll-behavior-x:contain">
   \[
     1-\Phi(z_{1-\alpha/2}-\Delta\sqrt{n})+
     \Phi(-z_{1-\alpha/2}-\Delta\sqrt{n}).
   \]
+  </div>
   <p>Type II probability is one minus power. At the null, the calibrated two-sided test has exact Type I rate α. Simulated frequencies fluctuate around these targets. Rejecting H₀ does not prove the alternative, and failing to reject does not prove the null. The model does not cover dependence, unknown σ, optional stopping, multiplicity, or model misspecification.</p>
 </section>
 
