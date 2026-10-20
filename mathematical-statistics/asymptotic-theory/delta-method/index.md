@@ -4,7 +4,24 @@ title: "5. Delta Method"
 description: "Approximate the distribution of transformations of estimators using Taylor expansion."
 permalink: /mathematical-statistics/asymptotic-theory/delta-method/
 sidebar: false
+math: true
 ---
+
+<style>
+  #esa-crlb-lab, #esa-delta-lab {max-width:100%;min-width:0;overflow-wrap:anywhere}
+  @media (max-width:760px) {
+    /* Keep long existing TeX formulas within independently scrollable sections,
+       rather than allowing a wide formula to expand the entire document. */
+    main.container > section.section,
+    main.container > section.hero {max-width:100%;min-width:0;overflow-x:auto}
+    main.container .content-narrow,
+    main.container .hero-card,
+    main.container .callout,
+    main.container .card {max-width:100%;min-width:0;overflow-wrap:anywhere}
+    main.container .card,
+    main.container .esa-math-ltr {overflow-x:auto}
+  }
+</style>
 
 <!-- UNDER CONSTRUCTION NOTICE -->
 <section class="section section-slim">
@@ -275,6 +292,62 @@ The delta method approximates the variance of transformed estimators.
 
 </section>
 
+<section class="section" aria-labelledby="esa-delta-title">
+<div class="content-narrow">
+<div class="concept-box" id="esa-delta-lab" style="max-width:100%;min-width:0;overflow-x:clip;overflow-wrap:anywhere">
+<h2 id="esa-delta-title">Interactive Delta Method Explorer — Exact Normal Benchmarks</h2>
+<p>Suppose independent measurements satisfy \(X_i\sim N(\theta,\sigma^2)\), with known positive \(\sigma\).
+The sample mean has the <strong>exact</strong> distribution \(\bar X\sim N(\theta,v)\), where \(v=\sigma^2/n\).
+Select a transformation \(g\), then compare the first-order delta approximation
+\([g'(\theta)]^2v\) with the <strong>exact finite-sample variance</strong> of \(g(\bar X)\).
+These results are derived algebraically, not estimated by simulation.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:1rem;align-items:end">
+<label for="esa-delta-theta">Normal mean θ (−2 to 2)
+<input id="esa-delta-theta" type="number" value="0" min="-2" max="2" step="0.1" inputmode="decimal" style="display:block;width:100%;min-width:0"></label>
+<label for="esa-delta-sigma">Normal standard deviation σ (0.1 to 2)
+<input id="esa-delta-sigma" type="number" value="1" min="0.1" max="2" step="0.1" inputmode="decimal" style="display:block;width:100%;min-width:0"></label>
+<label for="esa-delta-n">Sample size n (2–500)
+<input id="esa-delta-n" type="number" value="20" min="2" max="500" step="1" inputmode="numeric" style="display:block;width:100%;min-width:0"></label>
+<label for="esa-delta-transform">Transformation g(x)
+<select id="esa-delta-transform" style="display:block;width:100%;min-width:0">
+<option value="identity">Identity: g(x) = x</option>
+<option value="square" selected>Square: g(x) = x²</option>
+<option value="exponential">Exponential: g(x) = exp(x)</option>
+</select></label>
+</div>
+<div style="display:flex;gap:.6rem;flex-wrap:wrap;margin:1rem 0">
+<button class="btn" id="esa-delta-run" type="button">Compare variances</button>
+<button class="btn btn-outline" id="esa-delta-reset" type="button">Reset example</button>
+</div>
+<p id="esa-delta-status" role="status" aria-live="polite"></p>
+<dl style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,175px),1fr));gap:.7rem">
+<div><dt>Var(X̄) = σ²/n</dt><dd id="esa-delta-variance-input">—</dd></div>
+<div><dt>Derivative g′(θ)</dt><dd id="esa-delta-derivative">—</dd></div>
+<div><dt>Delta-method variance</dt><dd id="esa-delta-approx">—</dd></div>
+<div><dt>Exact finite-sample variance</dt><dd id="esa-delta-exact">—</dd></div>
+<div><dt>Exact minus approximation</dt><dd id="esa-delta-difference">—</dd></div>
+<div><dt>Approximation / exact</dt><dd id="esa-delta-relative">—</dd></div>
+</dl>
+<h3>Exact mathematical reference</h3>
+<div class="esa-math-ltr" dir="ltr" role="region" aria-label="Exact transformed-normal variances" tabindex="0" style="max-width:100%;overflow-x:auto">
+\[
+v=\frac{\sigma^2}{n},\quad
+\operatorname{Var}(\bar X)=v,\quad
+\operatorname{Var}(\bar X^{2})=4\theta^2v+2v^2.
+\]
+\[
+\operatorname{Var}(e^{\bar X})=
+e^{2\theta+v}(e^v-1).
+\]
+\[
+\operatorname{Var}_{\text{delta}}[g(\bar X)]=[g'(\theta)]^2v.
+\]
+</div>
+<p><strong>Important edge case:</strong> For \(g(x)=x^2\) and \(\theta=0\), \(g'(\theta)=0\). First-order approximation gives zero, but the exact variance is \(2v^2>0\). This is not a contradiction: the first-order term vanishes and a second-order argument is needed.</p>
+<p><strong>Independent reference example:</strong> At \(\theta=0\), \(\sigma=1\), \(n=20\), \(v=0.05\). For \(g(x)=x^2\), the first-order variance is \(0\) and the exact variance is \(0.005\). For \(g(x)=e^x\), the first-order approximation is \(0.05\), while the exact variance is approximately \(0.0538998217\).</p>
+<p><strong>Scope:</strong> These exact benchmarks depend on the IID normal model with fixed \(\theta,\sigma\). They illustrate the approximation; they do not establish how accurate the delta method will be for arbitrary distributions, transformations or small samples.</p>
+</div></div></section>
+
 <section class="section section-slim">
 
 <div class="callout">
@@ -336,3 +409,4 @@ Lesson 4: Slutsky Theorem
 </div>
 
 </section>
+<script src="/js/delta-method-normal-explorer.js" defer></script>
