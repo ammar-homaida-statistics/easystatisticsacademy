@@ -3,6 +3,14 @@
   "use strict";
   if(!document.getElementById("esa-errors-lab"))return;
   const $=id=>document.getElementById(id);
+  const ar=document.documentElement.lang==="ar";
+  const messages=ar?{
+    invalid:"اختر إعدادات النموذج المسموح بها، وأدخل بذرة عشوائية صحيحة بين 1 و2147483647.",
+    ready:"النتائج قابلة لإعادة الإنتاج باستخدام البذرة المحددة. يمثّل كل صف تجارب مستقلة في حالة صحة فرضية العدم أو صحة البديل المحدد، وليسا مجتمعاً واحداً."
+  }:{
+    invalid:"Select permitted model parameters and a whole-number seed from 1 to 2147483647.",
+    ready:"Results reproduced from the selected seed. Rows represent separate repeated-study scenarios: H₀ true and specified H₁ true; they are not one joint population."
+  };
   const R=1000;
   const thresholds={"0.01":2.5758293035489,"0.05":1.959963984540054,"0.10":1.64485362695147};
   function rng(seed){
@@ -32,7 +40,7 @@
     if(![10,30,100].includes(n)||![0.2,0.5,1].includes(delta)||
        !Object.prototype.hasOwnProperty.call(thresholds,alpha)||
        !/^\d+$/.test(raw)||!Number.isSafeInteger(seed)||seed<1||seed>2147483647){
-      $("esa-errors-status").textContent="Select permitted model parameters and a whole-number seed from 1 to 2147483647.";
+      $("esa-errors-status").textContent=messages.invalid;
       return;
     }
     const c=thresholds[alpha], shift=delta*Math.sqrt(n), random=rng(seed);
@@ -55,7 +63,7 @@
      ["esa-errors-beta-empirical",falseNegative/R]]
       .forEach(([id,value])=>{$(id).textContent=fmt(value);});
     $("esa-errors-n-rep").textContent=String(R);
-    $("esa-errors-status").textContent="Results reproduced from the selected seed. Rows represent separate repeated-study scenarios: H₀ true and specified H₁ true; they are not one joint population.";
+    $("esa-errors-status").textContent=messages.ready;
   }
   $("esa-errors-run").addEventListener("click",run);
   $("esa-errors-reset").addEventListener("click",()=>{
