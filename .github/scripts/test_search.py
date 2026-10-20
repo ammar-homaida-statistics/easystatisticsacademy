@@ -7577,7 +7577,13 @@ class SearchTests(unittest.TestCase):
             for lng,route in (("en",en),("ar",ar)):
                 self.assertEqual(self.page.locator('link[rel="alternate"][hreflang="'+lng+'"]')
                                  .get_attribute("href"),"https://easystatisticsacademy.com"+route)
+            # The language group is initially inside the collapsed mobile navigation.
+            # Open it as a learner would, then assert accessibility and reciprocal paths.
+            toggle=self.page.locator("header .nav-toggle")
+            toggle.click()
+            self.assertEqual(toggle.get_attribute("aria-expanded"),"true")
             language=self.page.get_by_role("group",name="Language selection")
+            expect(language).to_be_visible()
             self.assertEqual(language.locator('a[lang="en"]').get_attribute("href"),en)
             self.assertEqual(language.locator('a[lang="ar"]').get_attribute("href"),ar)
             self.page.locator("#esa-clt-n").select_option("100")
