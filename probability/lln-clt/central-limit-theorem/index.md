@@ -4,6 +4,8 @@ title: Central Limit Theorem
 description: Learn the Central Limit Theorem and understand why normal distributions appear throughout statistics.
 permalink: /probability/lln-clt/central-limit-theorem/
 sidebar: false
+translation_pair: central-limit-theorem
+math: true
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -40,6 +42,7 @@ sidebar: false
     </div>
 
     <h1>Central Limit Theorem</h1>
+    <p><a href="/ar/probability/lln-clt/central-limit-theorem/" lang="ar" dir="rtl">اقرأ هذا الدرس بالعربية</a></p>
 
     <p class="lead">
       The Law of Large Numbers explains why averages become stable.
@@ -296,7 +299,39 @@ sidebar: false
       Larger samples produce more precise estimates.
     </p>
 
-    <h2>Visualizing the CLT</h2>
+    <section class="concept-box" id="esa-clt-lab" aria-labelledby="esa-clt-title" style="min-width:0;overflow-wrap:anywhere">
+  <h2 id="esa-clt-title">Interactive Central Limit Theorem Laboratory</h2>
+  <p>Draw 800 independent samples from a <strong>right-skewed exponential population</strong> with mean μ = 1 and population SD σ = 1. For each sample, plot its mean. The underlying observations stay skewed; with larger <em>n</em>, the sampling distribution of the mean becomes less skewed and more concentrated around 1.</p>
+  <p>This is a reproducible Monte Carlo demonstration, not a proof of normality at any fixed <em>n</em>. The exact theoretical standard error is 1/√n, even before the normal approximation becomes accurate.</p>
+  <div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:end">
+    <label for="esa-clt-n">Observations per sample, n
+      <select id="esa-clt-n"><option value="1">1</option><option value="5">5</option><option value="30" selected>30</option><option value="100">100</option></select>
+    </label>
+    <label for="esa-clt-seed">Reproducible random seed (1–2147483647)
+      <input id="esa-clt-seed" type="number" min="1" max="2147483647" step="1" value="2026" inputmode="numeric" style="max-width:12rem"/>
+    </label>
+    <button type="button" class="btn" id="esa-clt-run">Run simulation</button>
+  </div>
+  <p id="esa-clt-status" role="status" aria-live="polite"></p>
+  <figure style="margin:1rem 0;max-width:100%;overflow-x:auto">
+    <svg id="esa-clt-chart" role="img" aria-label="Histogram of 800 simulated sample means; displayed range changes with the observed means" viewBox="0 0 660 260" style="width:100%;max-width:660px;min-width:280px" xmlns="http://www.w3.org/2000/svg"></svg>
+    <figcaption>Histogram: 16 equal-width bins over the observed range of sample means. The horizontal scale changes with <em>n</em>; compare the numerical standard errors as well.</figcaption>
+  </figure>
+  <div class="table-wrap"><table>
+    <caption>Sampling distribution summary (exponential population)</caption>
+    <thead><tr><th>Quantity</th><th>Value</th></tr></thead>
+    <tbody>
+      <tr><td>Simulated samples</td><td id="esa-clt-count">800</td></tr>
+      <tr><td>True population mean μ</td><td id="esa-clt-theory-mean">1.0000</td></tr>
+      <tr><td>Exact theoretical SE = 1/√n</td><td id="esa-clt-theory-se">—</td></tr>
+      <tr><td>Empirical mean of sample means</td><td id="esa-clt-emp-mean">—</td></tr>
+      <tr><td>Empirical SD of sample means (divisor 800)</td><td id="esa-clt-emp-sd">—</td></tr>
+    </tbody>
+  </table></div>
+  <p><strong>Limits:</strong> This example assumes independent identically distributed observations with finite positive variance. It does not establish a universal <em>n = 30</em> threshold, nor does the classical finite-variance CLT automatically apply to heavy-tailed distributions with infinite variance.</p>
+</section>
+
+<h2>Visualizing the CLT</h2>
 
     <p>
       Imagine increasing sample size.
@@ -543,3 +578,4 @@ sidebar: false
   </div>
 
 </section>
+<script src="/js/clt-sampling-lab.js" defer></script>
