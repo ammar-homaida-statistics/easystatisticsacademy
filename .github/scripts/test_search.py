@@ -7837,5 +7837,186 @@ class SearchTests(unittest.TestCase):
         expect(self.page.locator("main h1")).to_be_visible()
 
 
+    def test_batch56_arabic_type_errors_translation_metadata_and_numeric_parity(self):
+        """Both languages use the same seeded normal-model calculations."""
+        en="/inference/hypothesis-testing/type1-type2-errors/"
+        ar="/ar/inference/hypothesis-testing/type1-type2-errors/"
+        fields=("fp","tn","tp","fn","alpha-theory","power-theory",
+                "beta-theory","alpha-empirical","power-empirical","beta-empirical")
+        outcomes=[]
+        self.page.set_viewport_size({"width":320,"height":760})
+        for path,lang in ((en,"en"),(ar,"ar")):
+            with self.subTest(lang=lang):
+                self.page.goto(self.origin+path,wait_until="networkidle")
+                self.assertEqual(self.page.locator("html").get_attribute("lang"),lang)
+                self.assertEqual(self.page.locator("html").get_attribute("dir"),
+                                 "rtl" if lang=="ar" else None)
+                self.assertEqual(self.page.locator('link[rel="canonical"]').get_attribute("href"),
+                                 "https://easystatisticsacademy.com"+path)
+                for lng,route in (("en",en),("ar",ar)):
+                    self.assertEqual(self.page.locator('link[rel="alternate"][hreflang="'+lng+'"]')
+                                     .get_attribute("href"),"https://easystatisticsacademy.com"+route)
+                nav=self.page.locator("header .nav-toggle")
+                nav.click()
+                self.assertEqual(nav.get_attribute("aria-expanded"),"true")
+                for lng,route in (("en",en),("ar",ar)):
+                    self.assertEqual(self.page.get_by_role("group",name="Language selection")
+                                     .locator('a[lang="'+lng+'"]').get_attribute("href"),route)
+                self.page.locator("#esa-errors-run").focus()
+                self.page.keyboard.press("Enter")
+                outcomes.append(tuple(self.page.locator("#esa-errors-"+k).inner_text() for k in fields))
+                self.assertEqual(self.page.locator("#esa-errors-fp").inner_text(),"44")
+                self.assertEqual(self.page.locator("#esa-errors-tp").inner_text(),"788")
+                self.assertEqual(self.page.locator("#esa-errors-power-theory").inner_text(),"78.19%")
+                self.assertLessEqual(self.page.evaluate(
+                    "()=>document.documentElement.scrollWidth-document.documentElement.clientWidth"),2)
+                self.page.locator("#esa-errors-alpha").select_option("0.01")
+                self.page.locator("#esa-errors-run").click()
+                self.assertEqual(self.page.locator("#esa-errors-alpha-theory").inner_text(),"1.00%")
+        self.assertEqual(outcomes[0],outcomes[1])
+        self.assertIn(ar,(SITE/"ar"/"index.html").read_text())
+        self.assertIn("أخطاء النوع",self.page.locator("main").inner_text())
+
+    def test_batch56_arabic_errors_invalid_seed_and_denied_storage(self):
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{
+            configurable:true,get(){throw new DOMException("Denied","SecurityError")}
+          });
+        """)
+        self.page.set_viewport_size({"width":320,"height":760})
+        self.page.goto(self.origin+"/ar/inference/hypothesis-testing/type1-type2-errors/",
+                       wait_until="networkidle")
+        self.assertEqual(self.page.locator("#esa-errors-fn").inner_text(),"212")
+        self.page.locator("#esa-errors-seed").fill("0")
+        self.page.locator("#esa-errors-run").focus()
+        self.page.keyboard.press("Enter")
+        self.assertIn("بذرة",self.page.locator("#esa-errors-status").inner_text())
+        self.assertEqual(self.page.locator("#esa-errors-fn").inner_text(),"212")
+
+    def test_batch56_cv_two_datasets_exact_sample_population_benchmarks(self):
+        route="/descriptive/spread/coefficient-of-variation/"
+        self.page.goto(self.origin+route,wait_until="networkidle")
+        expect(self.page.locator("#esa-cv-lab")).to_be_visible()
+        expected={"a-n":"3","b-n":"3","a-mean":"10","b-mean":"50",
+                  "a-sd":"2","b-sd":"5","a-cv":"20.00%","b-cv":"10.00%"}
+        for field,value in expected.items():
+            self.assertEqual(self.page.locator("#esa-cv-"+field).inner_text(),value)
+        self.assertIn("Dataset A has greater",self.page.locator("#esa-cv-comparison").inner_text())
+        self.page.locator("#esa-cv-mode").select_option("population")
+        for key,val in {"a-sd":(8/3)**.5,"b-sd":(50/3)**.5,
+                        "a-cv":(8/3)**.5*10,"b-cv":(50/3)**.5*2}.items():
+            value=float(self.page.locator("#esa-cv-"+key).inner_text().strip("%"))
+            self.assertAlmostEqual(value,val,places=2)
+        self.page.locator("#esa-cv-reset").click()
+        self.assertEqual(self.page.locator("#esa-cv-a-cv").inner_text(),"20.00%")
+
+    def test_batch56_cv_invalid_zero_negative_near_zero_and_interval_scale(self):
+        self.page.goto(self.origin+"/descriptive/spread/coefficient-of-variation/",
+                       wait_until="networkidle")
+        self.page.locator("#esa-cv-a").fill("-1, 0, 1")
+        self.page.locator("#esa-cv-run").click()
+        self.assertEqual(self.page.locator("#esa-cv-a-cv").inner_text(),"Undefined")
+        self.assertIn("positive nonzero mean",self.page.locator("#esa-cv-status").inner_text())
+        self.page.locator("#esa-cv-a").fill("-3, -2, -1")
+        self.page.locator("#esa-cv-run").click()
+        self.assertEqual(self.page.locator("#esa-cv-a-cv").inner_text(),"Undefined")
+        self.page.locator("#esa-cv-a").fill("-100, 0, 101")
+        self.page.locator("#esa-cv-run").click()
+        self.assertIn("CV is unstable",self.page.locator("#esa-cv-status").inner_text())
+        self.assertIn("not recommended",self.page.locator("#esa-cv-comparison").inner_text())
+        self.page.locator("#esa-cv-reset").click()
+        self.page.locator("#esa-cv-scale").select_option("interval")
+        self.assertIn("interval scales",self.page.locator("#esa-cv-status").inner_text())
+        self.page.locator("#esa-cv-a").fill("1, no, 3")
+        self.page.locator("#esa-cv-run").click()
+        self.assertIn("finite numbers",self.page.locator("#esa-cv-status").inner_text())
+        self.assertEqual(self.page.locator("#esa-cv-a-cv").inner_text(),"—")
+
+    def test_batch56_cv_keyboard_mobile_and_blocked_storage(self):
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{
+            configurable:true,get(){throw new DOMException("Denied","SecurityError")}
+          });
+        """)
+        self.page.set_viewport_size({"width":320,"height":760})
+        self.page.goto(self.origin+"/descriptive/spread/coefficient-of-variation/",
+                       wait_until="networkidle")
+        self.page.locator("#esa-cv-mode").select_option("population")
+        self.page.locator("#esa-cv-run").focus()
+        self.page.keyboard.press("Enter")
+        self.assertEqual(self.page.locator("#esa-cv-a-cv").inner_text(),"16.33%")
+        lab=self.page.locator("#esa-cv-lab")
+        self.assertLessEqual(lab.evaluate("e=>e.getBoundingClientRect().width"),320)
+        self.assertLessEqual(lab.evaluate("e=>e.scrollWidth-e.clientWidth"),2)
+
+    def test_batch56_properties_five_resume_contracts_and_secure_overview(self):
+        root="/mathematical-statistics/estimator-properties/"
+        key="esa_continue_ms_properties_last_lesson_v0"
+        lessons={
+            "bias-variance-and-mse":"Lesson 1 — Bias, Variance, and MSE",
+            "unbiasedness-and-bias-correction":"Lesson 2 — Unbiasedness and Bias Correction",
+            "consistency-basic-idea":"Lesson 3 — Consistency (Basic Idea)",
+            "efficiency-and-comparing-estimators":"Lesson 4 — Efficiency and Comparing Estimators",
+            "sufficiency-preview":"Lesson 5 — Sufficiency (Preview)"
+        }
+        for slug,label in lessons.items():
+            with self.subTest(slug=slug):
+                self.page.goto(self.origin+root+slug+"/",wait_until="networkidle")
+                obj=self.page.evaluate("key=>JSON.parse(localStorage.getItem(key))",key)
+                self.assertEqual(obj["url"],root+slug+"/")
+                self.assertEqual(obj["label"],label)
+                self.assertIsInstance(obj["ts"],int)
+                self.page.goto(self.origin+root,wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-ms-b4")).to_be_visible()
+                self.assertEqual(self.page.locator("#continue-reading-ms-b4-btn")
+                                 .get_attribute("href"),root+slug+"/")
+                self.assertEqual(self.page.locator("#continue-reading-ms-b4-label")
+                                 .inner_text(),"You last visited: "+label)
+
+    def test_batch56_properties_reject_malicious_malformed_and_future_progress(self):
+        root="/mathematical-statistics/estimator-properties/"
+        good=root+"bias-variance-and-mse/"
+        key="esa_continue_ms_properties_last_lesson_v0"
+        label="Lesson 1 — Bias, Variance, and MSE"
+        self.page.goto(self.origin+root,wait_until="networkidle")
+        far_future=self.page.evaluate("()=>Date.now()+172800000")
+        for value in (
+            {"url":"javascript:alert(1)","label":label,"ts":1},
+            {"url":"https://example.com/","label":label,"ts":1},
+            {"url":root+"sufficiency-preview/","label":label,"ts":1},
+            {"url":good+"?redirect=evil","label":label,"ts":1},
+            {"url":good,"label":"<svg onload=alert(1)>","ts":1},
+            {"url":good,"label":label,"ts":far_future},
+            {"url":good,"label":label,"ts":0},
+            {"url":good,"label":label}
+        ):
+            with self.subTest(data=value):
+                self.page.evaluate("(v)=>localStorage.setItem('esa_continue_ms_properties_last_lesson_v0',JSON.stringify(v))",value)
+                self.page.reload(wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-ms-b4")).to_be_hidden()
+                self.assertEqual(self.page.locator("#continue-reading-ms-b4-label svg").count(),0)
+        self.page.evaluate("k=>localStorage.setItem(k,'{malformed')",key)
+        self.page.reload(wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-ms-b4")).to_be_hidden()
+
+    def test_batch56_properties_storage_denial_mobile_all_five(self):
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{
+            configurable:true,get(){throw new DOMException("Denied","SecurityError")}
+          });
+        """)
+        root="/mathematical-statistics/estimator-properties/"
+        self.page.set_viewport_size({"width":320,"height":760})
+        for slug in ("bias-variance-and-mse","unbiasedness-and-bias-correction",
+                     "consistency-basic-idea","efficiency-and-comparing-estimators",
+                     "sufficiency-preview"):
+            with self.subTest(slug=slug):
+                self.page.goto(self.origin+root+slug+"/",wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+        self.page.goto(self.origin+root,wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-ms-b4")).to_be_hidden()
+        expect(self.page.locator("main h1")).to_be_visible()
+
+
 if __name__ == "__main__":
     unittest.main(argv=[__file__], verbosity=2)

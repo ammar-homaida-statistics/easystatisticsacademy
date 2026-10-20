@@ -132,33 +132,37 @@ sidebar: false
 </section>
 
 <script>
-  (function () {
-
-    try {
-      localStorage.setItem("esa_continue_ms_last_block_v0", JSON.stringify({
-        label: "Block 4 — Estimator Properties",
-        url: "/mathematical-statistics/estimator-properties/"
-      }));
-    } catch (e) {}
-
-    var KEY = "esa_continue_ms_properties_last_lesson_v0";
-    var raw = localStorage.getItem(KEY);
-    if (!raw) return;
-
-    try {
-      var data = JSON.parse(raw);
-      if (!data || !data.url || !data.label) return;
-
-      var wrap = document.getElementById("continue-reading-ms-b4");
-      var label = document.getElementById("continue-reading-ms-b4-label");
-      var btn = document.getElementById("continue-reading-ms-b4-btn");
-
-      if (!wrap || !label || !btn) return;
-
-      label.innerHTML = 'You last visited: <strong>' + data.label + '</strong>';
-      btn.href = data.url;
-      wrap.style.display = "block";
-    } catch (e) {}
-
-  })();
+(function(){
+  "use strict";
+  const ROOT="/mathematical-statistics/estimator-properties/";
+  const KEY="esa_continue_ms_properties_last_lesson_v0";
+  const ALLOWED={
+    "/mathematical-statistics/estimator-properties/bias-variance-and-mse/": "Lesson 1 — Bias, Variance, and MSE",
+    "/mathematical-statistics/estimator-properties/unbiasedness-and-bias-correction/": "Lesson 2 — Unbiasedness and Bias Correction",
+    "/mathematical-statistics/estimator-properties/consistency-basic-idea/": "Lesson 3 — Consistency (Basic Idea)",
+    "/mathematical-statistics/estimator-properties/efficiency-and-comparing-estimators/": "Lesson 4 — Efficiency and Comparing Estimators",
+    "/mathematical-statistics/estimator-properties/sufficiency-preview/": "Lesson 5 — Sufficiency (Preview)"
+};
+  const wrap=document.getElementById("continue-reading-ms-b4");
+  const label=document.getElementById("continue-reading-ms-b4-label");
+  const btn=document.getElementById("continue-reading-ms-b4-btn");
+  if(!wrap||!label||!btn)return;
+  try{
+    localStorage.setItem("esa_continue_ms_last_block_v0",JSON.stringify({
+      label:"Block 4 — Estimator Properties",url:ROOT
+    }));
+  }catch(_){/* Navigation remains accessible when progress cannot be saved. */}
+  try{
+    const raw=localStorage.getItem(KEY);
+    if(!raw)return;
+    const data=JSON.parse(raw);
+    if(!data||typeof data!=="object"||Array.isArray(data))return;
+    if(typeof data.url!=="string"||!Object.prototype.hasOwnProperty.call(ALLOWED,data.url))return;
+    if(typeof data.label!=="string"||data.label!==ALLOWED[data.url])return;
+    if(typeof data.ts!=="number"||!Number.isFinite(data.ts)||data.ts<=0||data.ts>Date.now()+86400000)return;
+    label.textContent="You last visited: "+data.label;
+    btn.setAttribute("href",data.url);
+    wrap.style.display="block";
+  }catch(_){/* Ignore invalid or untrusted data. */}
+})();
 </script>
