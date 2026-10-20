@@ -2241,8 +2241,10 @@ class SearchTests(unittest.TestCase):
         ):
             with self.subTest(formula=formula):
                 self.assertIn(formula, main)
-        self.assertEqual(main.count(r"\["), 4)
-        self.assertEqual(main.count(r"\]"), 4)
+        # Four restored source expressions remain, with the new exact-power formula fifth.
+        self.assertIn(r"1-\Phi(z_{1-\alpha/2}-\Delta\sqrt{n})",main)
+        self.assertEqual(main.count(r"\["), 5)
+        self.assertEqual(main.count(r"\]"), 5)
         # H0: Bernoulli p=0.5, n=5; reject only if all five are successes.
         alpha_actual = 0.5 ** 5
         self.assertLessEqual(alpha_actual, 0.05)
@@ -7747,8 +7749,12 @@ class SearchTests(unittest.TestCase):
         self.page.locator("#esa-errors-seed").fill("0")
         self.page.locator("#esa-errors-run").click()
         self.assertIn("whole-number seed",self.page.locator("#esa-errors-status").inner_text())
-        self.assertLessEqual(self.page.locator("#esa-errors-lab").evaluate(
-            "e=>e.scrollWidth-e.clientWidth"),2)
+        # Mobile tables may scroll inside their labelled .table-wrap containers;
+        # the whole page must not scroll horizontally.
+        self.assertLessEqual(self.page.evaluate(
+            "()=>document.documentElement.scrollWidth-document.documentElement.clientWidth"),2)
+        self.assertTrue(self.page.locator("#esa-errors-lab .table-wrap").evaluate_all(
+            "nodes=>nodes.every(e=>e.clientWidth>0 && e.getBoundingClientRect().width<=document.documentElement.clientWidth)"))
 
     def test_batch55_mle_five_lesson_resume_exact_urls_labels_and_ts(self):
         root="/mathematical-statistics/maximum-likelihood-estimation/"
@@ -7780,7 +7786,7 @@ class SearchTests(unittest.TestCase):
         key="esa_continue_ms_mle_last_lesson_v0"
         good=root+"definition-of-mle/"
         self.page.goto(self.origin+root,wait_until="networkidle")
-        future=self.page.evaluate("()=>Date.now()+86400001")
+        future=self.page.evaluate("()=>Date.now()+172800000")  # 48h: robust beyond allowed 24h skew
         invalid=[
           {"url":"javascript:alert(1)","label":"Lesson 1 — Definition of MLE","ts":1},
           {"url":"https://invalid.example/","label":"Lesson 1 — Definition of MLE","ts":1},
