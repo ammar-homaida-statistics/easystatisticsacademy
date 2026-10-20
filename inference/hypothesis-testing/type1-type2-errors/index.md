@@ -408,7 +408,7 @@ math: true
 
     </div>
 
-    <section class="concept-box" id="esa-errors-lab" aria-labelledby="esa-errors-title" style="min-width:0;overflow-wrap:anywhere">
+    <section class="concept-box" id="esa-errors-lab" aria-labelledby="esa-errors-title" style="min-width:0;max-width:100%;overflow-wrap:anywhere">
   <h2 id="esa-errors-title">Interactive Type I / Type II Decision Experiment</h2>
   <p>Compare 1,000 independent simulated experiments when H₀ is true with 1,000 independent experiments when a <strong>specified positive alternative</strong> is true. The model assumes independently sampled <strong>N(μ,1)</strong> observations and a two-sided z-test of <strong>H₀: μ = 0</strong> at a known population standard deviation of 1. Under the alternative, μ = Δ &gt; 0.</p>
   <p>The simulator draws the standardized sample mean directly from its <strong>exact normal sampling distribution</strong> (equivalent to drawing n independent normal observations and averaging them). It rejects H₀ when |Z| exceeds the two-sided normal critical value. This is an exact-model example, <strong>not</strong> a universal description of real study errors.</p>
@@ -429,7 +429,7 @@ math: true
     <button id="esa-errors-reset" class="btn btn-outline" type="button">Reset</button>
   </div>
   <p id="esa-errors-status" role="status" aria-live="polite"></p>
-  <div class="table-wrap"><table>
+  <div class="table-wrap" style="width:100%;max-width:100%;min-width:0;overflow-x:auto"><table>
     <caption>Outcomes for <span id="esa-errors-n-rep">1000</span> tests in each scenario</caption>
     <thead><tr><th>Reality</th><th>Reject H₀</th><th>Fail to reject H₀</th></tr></thead>
     <tbody>
@@ -437,7 +437,7 @@ math: true
       <tr><th scope="row">Alternative true (μ = Δ)</th><td>Correct detection: <output id="esa-errors-tp">—</output></td><td>Type II error: <output id="esa-errors-fn">—</output></td></tr>
     </tbody>
   </table></div>
-  <div class="table-wrap"><table>
+  <div class="table-wrap" style="width:100%;max-width:100%;min-width:0;overflow-x:auto"><table>
     <caption>Theoretical probabilities versus empirical simulation proportions</caption>
     <thead><tr><th>Probability</th><th>Exact normal-model target</th><th>Simulated rate</th></tr></thead>
     <tbody>
