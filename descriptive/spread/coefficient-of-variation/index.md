@@ -27,6 +27,14 @@ translation_pair: coefficient-of-variation
 })();
 </script>
 
+<style>
+@media (max-width:760px) {
+  #main-content .content-narrow { width:100%;max-width:100%;min-width:0;overflow-x:clip; }
+  #main-content .content-narrow .table-wrap { display:block;width:100%;max-width:100%;min-width:0;overflow-x:auto;overscroll-behavior-x:contain; }
+  #main-content .content-narrow .table-wrap table { display:table;width:max-content;min-width:640px;max-width:none;overflow:visible;white-space:normal; }
+}
+</style>
+
 <!-- HERO -->
 
 <section class="hero hero-section">
