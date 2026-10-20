@@ -24,7 +24,8 @@ sidebar: false
 <!-- Continue-reading tracking -->
 <script>
 (function(){
-
+  "use strict";
+  try {
   localStorage.setItem(
     "esa_continue_ms_asymptotics_last_lesson_v0",
     JSON.stringify({
@@ -43,6 +44,9 @@ sidebar: false
     })
   );
 
+  } catch (_) {
+    // Storage failure must not hide or interrupt lesson content.
+  }
 })();
 </script>
 
