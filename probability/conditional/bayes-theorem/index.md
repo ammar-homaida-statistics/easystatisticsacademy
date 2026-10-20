@@ -4,6 +4,8 @@ title: Bayes' Theorem
 description: Learn how Bayes' theorem updates probabilities when new evidence becomes available and understand one of the most important ideas in statistics.
 permalink: /probability/conditional/bayes-theorem/
 sidebar: false
+translation_pair: bayes-theorem
+math: true
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -40,6 +42,7 @@ sidebar: false
     </div>
 
     <h1>Bayes' Theorem</h1>
+    <p><a href="/ar/probability/conditional/bayes-theorem/" lang="ar" dir="rtl">اقرأ هذا الدرس بالعربية</a></p>
 
     <p class="lead">
       Bayes' theorem provides a systematic way to update probabilities when new evidence becomes available.
