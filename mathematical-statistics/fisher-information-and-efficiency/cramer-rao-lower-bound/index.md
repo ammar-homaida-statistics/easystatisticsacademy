@@ -25,7 +25,8 @@ math: true
 <!-- ✅ Update continue-reading keys -->
 <script>
   (function () {
-
+    "use strict";
+    try {
     localStorage.setItem(
       "esa_continue_ms_information_last_lesson_v0",
       JSON.stringify({
@@ -43,7 +44,9 @@ math: true
         ts: Date.now()
       })
     );
-
+    } catch (_) {
+      // Blocked storage must never prevent a student from using this lesson or its interactive explorer.
+    }
   })();
 </script>
 
