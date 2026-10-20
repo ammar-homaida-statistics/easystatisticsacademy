@@ -8018,5 +8018,193 @@ class SearchTests(unittest.TestCase):
         expect(self.page.locator("main h1")).to_be_visible()
 
 
+    def test_batch57_arabic_cv_full_lesson_metadata_mobile_and_numeric_parity(self):
+        """An Arabic translation shares the exact sample/population calculation engine."""
+        en="/descriptive/spread/coefficient-of-variation/"
+        ar="/ar/descriptive/spread/coefficient-of-variation/"
+        outcomes=[]
+        self.page.set_viewport_size({"width":320,"height":760})
+        for path,lang in ((en,"en"),(ar,"ar")):
+            with self.subTest(lang=lang):
+                self.page.goto(self.origin+path,wait_until="networkidle")
+                self.assertEqual(self.page.locator("html").get_attribute("lang"),lang)
+                self.assertEqual(self.page.locator("html").get_attribute("dir"),"rtl" if lang=="ar" else None)
+                self.assertEqual(self.page.locator('link[rel="canonical"]').get_attribute("href"),
+                                 "https://easystatisticsacademy.com"+path)
+                for lng,route in (("en",en),("ar",ar)):
+                    self.assertEqual(self.page.locator('link[rel="alternate"][hreflang="'+lng+'"]')
+                                     .get_attribute("href"),"https://easystatisticsacademy.com"+route)
+                self.page.locator("header .nav-toggle").click()
+                language=self.page.get_by_role("group",name="Language selection")
+                for lng,route in (("en",en),("ar",ar)):
+                    self.assertEqual(language.locator('a[lang="'+lng+'"]').get_attribute("href"),route)
+                self.page.locator("#esa-cv-run").focus()
+                self.page.keyboard.press("Enter")
+                ids=("a-n","a-mean","a-sd","a-cv","b-n","b-mean","b-sd","b-cv")
+                outcomes.append(tuple(self.page.locator("#esa-cv-"+i).inner_text() for i in ids))
+                self.assertEqual(self.page.locator("#esa-cv-a-cv").inner_text(),"20.00%")
+                self.page.locator("#esa-cv-mode").select_option("population")
+                self.assertEqual(self.page.locator("#esa-cv-a-cv").inner_text(),"16.33%")
+                self.assertEqual(self.page.locator("#esa-cv-b-cv").inner_text(),"8.16%")
+                self.assertLessEqual(self.page.locator("#esa-cv-lab").evaluate(
+                    "e=>e.scrollWidth-e.clientWidth"),2)
+                self.assertLessEqual(self.page.evaluate(
+                    "()=>document.documentElement.scrollWidth-document.documentElement.clientWidth"),2)
+        self.assertEqual(outcomes[0],outcomes[1])
+        self.assertIn("معامل الاختلاف",(SITE/"ar"/"index.html").read_text())
+        self.assertIn("معامل الاختلاف",self.page.locator("main").inner_text())
+
+    def test_batch57_arabic_cv_warnings_invalid_and_denied_storage(self):
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{
+            configurable:true,get(){throw new DOMException("Denied","SecurityError")}
+          });
+        """)
+        self.page.set_viewport_size({"width":320,"height":760})
+        self.page.goto(self.origin+"/ar/descriptive/spread/coefficient-of-variation/",
+                       wait_until="networkidle")
+        self.assertEqual(self.page.locator("#esa-cv-a-cv").inner_text(),"20.00%")
+        self.page.locator("#esa-cv-a").fill("-1, 0, 1")
+        self.page.locator("#esa-cv-run").focus()
+        self.page.keyboard.press("Enter")
+        self.assertEqual(self.page.locator("#esa-cv-a-cv").inner_text(),"غير معرّف")
+        self.assertIn("متوسطاً موجباً",self.page.locator("#esa-cv-status").inner_text())
+        self.page.locator("#esa-cv-a").fill("-100, 0, 101")
+        self.page.locator("#esa-cv-run").click()
+        self.assertIn("غير مستقر",self.page.locator("#esa-cv-status").inner_text())
+        self.page.locator("#esa-cv-reset").click()
+        self.page.locator("#esa-cv-scale").select_option("interval")
+        self.assertIn("مقياس الفترة",self.page.locator("#esa-cv-status").inner_text())
+        self.page.locator("#esa-cv-a").fill("1, evil, 3")
+        self.page.locator("#esa-cv-run").click()
+        self.assertIn("أعداداً منتهية",self.page.locator("#esa-cv-status").inner_text())
+
+    def test_batch57_bernoulli_crlb_independent_benchmarks(self):
+        self.page.goto(self.origin+"/mathematical-statistics/fisher-information-and-efficiency/cramer-rao-lower-bound/",
+                       wait_until="networkidle")
+        for key,value in {
+            "information":"95.2381","crlb":"0.010500",
+            "variance-mean":"0.010500","variance-first":"0.210000",
+            "efficiency-mean":"100.00%","efficiency-first":"5.00%","ratio":"20×"
+        }.items():
+            self.assertEqual(self.page.locator("#esa-crlb-"+key).inner_text(),value)
+        # Independent exact reference: p=.3,n=20; information=20/.21 and bound=.21/20.
+        self.assertAlmostEqual(20/(.3*.7),95.23809523809524)
+        self.assertAlmostEqual(.3*.7/20,.0105)
+        self.page.locator("#esa-crlb-p").fill("0.5")
+        self.page.locator("#esa-crlb-n").fill("10")
+        self.page.locator("#esa-crlb-run").click()
+        self.assertEqual(self.page.locator("#esa-crlb-information").inner_text(),"40.0000")
+        self.assertEqual(self.page.locator("#esa-crlb-crlb").inner_text(),"0.025000")
+        self.assertEqual(self.page.locator("#esa-crlb-variance-first").inner_text(),"0.250000")
+        self.assertEqual(self.page.locator("#esa-crlb-efficiency-first").inner_text(),"10.00%")
+        self.page.locator("#esa-crlb-n").fill("1")
+        self.page.locator("#esa-crlb-run").click()
+        self.assertEqual(self.page.locator("#esa-crlb-efficiency-first").inner_text(),"100.00%")
+        self.assertIn("estimators coincide",self.page.locator("#esa-crlb-status").inner_text())
+        self.page.locator("#esa-crlb-reset").click()
+        self.assertEqual(self.page.locator("#esa-crlb-crlb").inner_text(),"0.010500")
+
+    def test_batch57_bernoulli_crlb_boundaries_keyboard_mobile_storage_denied(self):
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{
+            configurable:true,get(){throw new DOMException("Denied","SecurityError")}
+          });
+        """)
+        self.page.set_viewport_size({"width":320,"height":760})
+        self.page.goto(self.origin+"/mathematical-statistics/fisher-information-and-efficiency/cramer-rao-lower-bound/",
+                       wait_until="networkidle")
+        expect(self.page.locator("#esa-crlb-lab")).to_be_visible()
+        self.page.locator("#esa-crlb-p").fill("0")
+        self.page.locator("#esa-crlb-run").focus()
+        self.page.keyboard.press("Enter")
+        self.assertEqual(self.page.locator("#esa-crlb-crlb").inner_text(),"—")
+        self.assertIn("0 < p < 1",self.page.locator("#esa-crlb-status").inner_text())
+        self.page.locator("#esa-crlb-p").fill("1")
+        self.page.locator("#esa-crlb-run").click()
+        self.assertEqual(self.page.locator("#esa-crlb-information").inner_text(),"—")
+        self.page.locator("#esa-crlb-p").fill("0.3")
+        self.page.locator("#esa-crlb-n").fill("2.5")
+        self.page.locator("#esa-crlb-run").click()
+        self.assertEqual(self.page.locator("#esa-crlb-crlb").inner_text(),"—")
+        self.page.locator("#esa-crlb-n").fill("501")
+        self.page.locator("#esa-crlb-run").click()
+        self.assertEqual(self.page.locator("#esa-crlb-crlb").inner_text(),"—")
+        self.page.locator("#esa-crlb-reset").click()
+        self.assertEqual(self.page.locator("#esa-crlb-crlb").inner_text(),"0.010500")
+        self.assertLessEqual(self.page.locator("#esa-crlb-lab").evaluate(
+            "e=>e.scrollWidth-e.clientWidth"),2)
+        self.assertLessEqual(self.page.evaluate(
+            "()=>document.documentElement.scrollWidth-document.documentElement.clientWidth"),2)
+
+    def test_batch57_asymptotic_resume_exact_five_urls_and_labels(self):
+        root="/mathematical-statistics/asymptotic-theory/"
+        key="esa_continue_ms_asymptotics_last_lesson_v0"
+        lessons={
+            "modes-of-convergence-review":"Lesson 1 — Modes of Convergence",
+            "consistency-of-mle-idea":"Lesson 2 — Consistency of MLE",
+            "asymptotic-normality-of-mle":"Lesson 3 — Asymptotic Normality of MLE",
+            "slutsky-theorem-and-continuous-mapping":"Lesson 4 — Slutsky Theorem",
+            "delta-method":"Lesson 5 — Delta Method"
+        }
+        for slug,label in lessons.items():
+            with self.subTest(slug=slug):
+                self.page.goto(self.origin+root+slug+"/",wait_until="networkidle")
+                saved=self.page.evaluate("key=>JSON.parse(localStorage.getItem(key))",key)
+                self.assertEqual(saved["url"],root+slug+"/")
+                self.assertEqual(saved["label"],label)
+                self.assertIsInstance(saved["ts"],int)
+                self.page.goto(self.origin+root,wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-ms-b6")).to_be_visible()
+                self.assertEqual(self.page.locator("#continue-reading-ms-b6-btn").get_attribute("href"),
+                                 root+slug+"/")
+                self.assertEqual(self.page.locator("#continue-reading-ms-b6-label").inner_text(),
+                                 "You last visited: "+label)
+
+    def test_batch57_asymptotic_resume_rejects_untrusted_records(self):
+        root="/mathematical-statistics/asymptotic-theory/"
+        good=root+"modes-of-convergence-review/"
+        key="esa_continue_ms_asymptotics_last_lesson_v0"
+        label="Lesson 1 — Modes of Convergence"
+        self.page.goto(self.origin+root,wait_until="networkidle")
+        tomorrow_after=self.page.evaluate("()=>Date.now()+172800000")
+        for value in (
+            {"url":"javascript:alert(1)","label":label,"ts":1},
+            {"url":"https://attacker.invalid/","label":label,"ts":1},
+            {"url":good+"?x=1","label":label,"ts":1},
+            {"url":good,"label":"<img src=x onerror=alert(1)>","ts":1},
+            {"url":root+"delta-method/","label":label,"ts":1},
+            {"url":good,"label":label,"ts":tomorrow_after},
+            {"url":good,"label":label,"ts":0},
+            {"url":good,"label":label}
+        ):
+            with self.subTest(data=value):
+                self.page.evaluate("(value)=>localStorage.setItem('esa_continue_ms_asymptotics_last_lesson_v0',JSON.stringify(value))",value)
+                self.page.reload(wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-ms-b6")).to_be_hidden()
+                self.assertEqual(self.page.locator("#continue-reading-ms-b6-label img").count(),0)
+        self.page.evaluate("key=>localStorage.setItem(key,'{bad-json')",key)
+        self.page.reload(wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-ms-b6")).to_be_hidden()
+
+    def test_batch57_asymptotic_denied_storage_five_lessons_mobile(self):
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{
+            configurable:true,get(){throw new DOMException("Denied","SecurityError")}
+          });
+        """)
+        self.page.set_viewport_size({"width":320,"height":760})
+        root="/mathematical-statistics/asymptotic-theory/"
+        for slug in ("modes-of-convergence-review","consistency-of-mle-idea",
+                     "asymptotic-normality-of-mle","slutsky-theorem-and-continuous-mapping",
+                     "delta-method"):
+            with self.subTest(slug=slug):
+                self.page.goto(self.origin+root+slug+"/",wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+        self.page.goto(self.origin+root,wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-ms-b6")).to_be_hidden()
+        expect(self.page.locator("main h1")).to_be_visible()
+
+
 if __name__ == "__main__":
     unittest.main(argv=[__file__], verbosity=2)
