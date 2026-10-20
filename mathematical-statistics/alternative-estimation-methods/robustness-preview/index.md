@@ -24,7 +24,8 @@ sidebar: false
 <!-- Continue-reading tracking -->
 <script>
   (function () {
-
+    "use strict";
+    try {
     localStorage.setItem(
       "esa_continue_ms_methods_last_lesson_v0",
       JSON.stringify({
@@ -43,6 +44,9 @@ sidebar: false
       })
     );
 
+    } catch (_) {
+      // Optional storage must never prevent lesson content from loading.
+    }
   })();
 </script>
 
