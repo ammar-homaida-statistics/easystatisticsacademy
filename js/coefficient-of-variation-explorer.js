@@ -3,17 +3,51 @@
   "use strict";
   if(!document.getElementById("esa-cv-lab"))return;
   const $=id=>document.getElementById(id);
+  const ar=document.documentElement.lang==="ar";
+  const t=ar?{
+    limit:"أدخل ما لا يزيد على 200 مشاهدة لكل مجموعة.",
+    count:"أدخل بين مشاهدتين و200 مشاهدة لكل مجموعة.",
+    input:"يجب أن تكون المشاهدات أعداداً منتهية تفصل بينها فواصل أو فاصلة منقوطة أو مسافات.",
+    magnitude:"يجب أن تكون كل مشاهدة عدداً منتهياً لا تتجاوز قيمته المطلقة 10^100.",
+    overflow:"حدث تجاوز عددي؛ استخدم مقادير قياس أصغر.",
+    undefined:"غير معرّف",
+    a:"المجموعة أ",
+    b:"المجموعة ب",
+    interval:"لا يناسب معامل الاختلاف مقياس الفترة الذي لا يملك صفراً مطلقاً ذا معنى (مثل درجات المئوية). تُعرض العمليات الحسابية فقط دون ترتيب للمجموعتين.",
+    mean:"يشترط تفسير معامل الاختلاف هنا متوسطاً موجباً غير صفري؛ ولا تُفسَّر النسبة عند متوسط صفري أو سالب.",
+    near:"المتوسط صغير مقارنة بالانحراف المعياري (المتوسط ≤ 0.1 × الانحراف المعياري). يصبح معامل الاختلاف غير مستقر؛ تجنب ترتيب المجموعتين.",
+    equal:"معامل الاختلاف متساوٍ في المجموعتين ضمن الافتراضات المحددة.",
+    greater:"أعلى في التشتت النسبي (معامل الاختلاف).",
+    ok:"حُسبت القيم محلياً. يناسب معامل الاختلاف البيانات النسبية ذات الصفر ذي المعنى والمتوسط الموجب والمقارنة الموضوعية الملائمة.",
+    no:"لا يُنصح بالمقارنة في هذه الحالة."
+  }:{
+    limit:"Please enter at most 200 numbers per dataset.",
+    count:"Enter between 2 and 200 observations for each dataset.",
+    input:"Observations must be finite numbers separated by commas, semicolons, or spaces.",
+    magnitude:"Each observation must be finite and have magnitude no greater than 10^100.",
+    overflow:"Numerical overflow: use measurements of more moderate size.",
+    undefined:"Undefined",
+    a:"Dataset A",
+    b:"Dataset B",
+    interval:"CV is inappropriate for interval scales without a meaningful absolute zero (for example Celsius). Results are shown only as arithmetic; no relative-spread ranking is given.",
+    mean:"CV requires a positive nonzero mean; for zero or negative means it is not interpreted.",
+    near:"A mean is small relative to its SD (mean ≤ 0.1 × SD). CV is unstable: avoid ranking datasets.",
+    equal:"Equal coefficients of variation under these assumptions.",
+    greater:" has greater relative variability (CV).",
+    ok:"Calculated locally. CV is meaningful only for positive-mean ratio-scale data with comparable substantive interpretation.",
+    no:"Comparison not recommended for these data."
+  };
   function parse(text){
-    if(text.length>1600)return {error:"Please enter at most 200 numbers per dataset."};
+    if(text.length>1600)return {error:t.limit};
     const tokens=text.trim().split(/[\s,;]+/).filter(Boolean);
-    if(tokens.length<2||tokens.length>200)return {error:"Enter between 2 and 200 observations for each dataset."};
+    if(tokens.length<2||tokens.length>200)return {error:t.count};
     const numbers=[];
     for(const v of tokens){
       if(!/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?$/.test(v))
-        return {error:"Observations must be finite numbers separated by commas, semicolons, or spaces."};
+        return {error:t.input};
       const num=Number(v);
       if(!Number.isFinite(num)||Math.abs(num)>1e100)
-        return {error:"Each observation must be finite and have magnitude no greater than 10^100."};
+        return {error:t.magnitude};
       numbers.push(num);
     }
     return {numbers};
@@ -30,7 +64,7 @@
     }
     const sd=Math.sqrt(Math.max(0,m2/(sample?n-1:n)));
     if(!Number.isFinite(mean)||!Number.isFinite(sd))
-      return {error:"Numerical overflow: use measurements of more moderate size."};
+      return {error:t.overflow};
     const cv=mean>0?100*sd/mean:null;
     const near=mean>0&&sd>0&&mean<=0.1*sd;
     return {n,mean,sd,cv:Number.isFinite(cv)?cv:null,near};
@@ -46,7 +80,7 @@
     resetResults();
     const a=parse($("esa-cv-a").value),b=parse($("esa-cv-b").value);
     if(a.error||b.error){
-      $("esa-cv-status").textContent=(a.error?"Dataset A: "+a.error+" ":"")+(b.error?"Dataset B: "+b.error:"");
+      $("esa-cv-status").textContent=(a.error?t.a+": "+a.error+" ":"")+(b.error?t.b+": "+b.error:"");
       return;
     }
     const sample=$("esa-cv-mode").value==="sample";
@@ -58,21 +92,21 @@
       $("esa-cv-"+id+"-n").textContent=String(obj.n);
       $("esa-cv-"+id+"-mean").textContent=number(obj.mean);
       $("esa-cv-"+id+"-sd").textContent=number(obj.sd);
-      $("esa-cv-"+id+"-cv").textContent=obj.cv===null?"Undefined":obj.cv.toFixed(2)+"%";
+      $("esa-cv-"+id+"-cv").textContent=obj.cv===null?t.undefined:obj.cv.toFixed(2)+"%";
     }
     const ratio=$("esa-cv-scale").value==="ratio";
     const warnings=[];
-    if(!ratio)warnings.push("CV is inappropriate for interval scales without a meaningful absolute zero (for example Celsius). Results are shown only as arithmetic; no relative-spread ranking is given.");
-    if(A.cv===null||B.cv===null)warnings.push("CV requires a positive nonzero mean; for zero or negative means it is not interpreted.");
-    if(A.near||B.near)warnings.push("A mean is small relative to its SD (mean ≤ 0.1 × SD). CV is unstable: avoid ranking datasets.");
+    if(!ratio)warnings.push(t.interval);
+    if(A.cv===null||B.cv===null)warnings.push(t.mean);
+    if(A.near||B.near)warnings.push(t.near);
     if(!warnings.length){
       const diff=A.cv-B.cv;
       $("esa-cv-comparison").textContent=Math.abs(diff)<1e-10?
-        "Equal coefficients of variation under these assumptions.":
-        (diff>0?"Dataset A":"Dataset B")+" has greater relative variability (CV).";
-      $("esa-cv-status").textContent="Calculated locally. CV is meaningful only for positive-mean ratio-scale data with comparable substantive interpretation.";
+        t.equal:
+        (diff>0?t.a:t.b)+(ar?" ":"")+t.greater;
+      $("esa-cv-status").textContent=t.ok;
     }else{
-      $("esa-cv-comparison").textContent="Comparison not recommended for these data.";
+      $("esa-cv-comparison").textContent=t.no;
       $("esa-cv-status").textContent=warnings.join(" ");
     }
   }

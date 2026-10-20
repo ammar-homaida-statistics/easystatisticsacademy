@@ -16,7 +16,7 @@ math: true
 الانحراف المعياري الذي يُعبَّر عنه بوحدة القياس الأصلية، ويشيع استعماله لوصف تشتت البيانات.</p>
 <div class="hero-actions">
 <a class="btn" lang="en" dir="ltr" href="/descriptive/spread/variance/">Previous: Variance (English)</a>
-<a class="btn btn-outline" lang="en" dir="ltr" href="/descriptive/spread/coefficient-of-variation/">Next: Coefficient of Variation (English)</a>
+<a class="btn btn-outline" href="/ar/descriptive/spread/coefficient-of-variation/">التالي: معامل الاختلاف</a>
 </div></div></section>
 <section class="section"><div class="content-narrow">
 <h2>ما الانحراف المعياري؟</h2>

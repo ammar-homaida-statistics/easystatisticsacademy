@@ -4,6 +4,7 @@ title: Coefficient of Variation
 description: Learn what the coefficient of variation is, how it measures relative variability, and why it is useful for comparing datasets with different units or scales.
 permalink: /descriptive/spread/coefficient-of-variation/
 sidebar: false
+translation_pair: coefficient-of-variation
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -26,6 +27,14 @@ sidebar: false
 })();
 </script>
 
+<style>
+@media (max-width:760px) {
+  #main-content .content-narrow { width:100%;max-width:100%;min-width:0;overflow-x:clip; }
+  #main-content .content-narrow .table-wrap { display:block;width:100%;max-width:100%;min-width:0;overflow-x:auto;overscroll-behavior-x:contain; }
+  #main-content .content-narrow .table-wrap table { display:table;width:max-content;min-width:640px;max-width:none;overflow:visible;white-space:normal; }
+}
+</style>
+
 <!-- HERO -->
 
 <section class="hero hero-section">
@@ -40,6 +49,7 @@ sidebar: false
     </div>
 
     <h1>Coefficient of Variation</h1>
+    <p><a href="/ar/descriptive/spread/coefficient-of-variation/" lang="ar" dir="rtl">اقرأ الدرس بالعربية</a></p>
 
     <p class="lead">
       Standard deviation measures variability in the original units of the data.
