@@ -119,18 +119,17 @@ sidebar: false
     <h2>Why the z Distribution Is Used</h2>
 
     <p>
-      When σ is known,
-      the sampling distribution of the sample mean can be standardized exactly using the normal distribution.
+      Knowing σ determines the standard error but <strong>does not by itself make the sample mean normally distributed</strong>. If independent observations come from a normal population with known positive σ, the standardized mean has an exact standard normal distribution at every sample size.
     </p>
 
     <p>
-      Therefore z critical values are appropriate.
+      For independent, identically distributed observations from a nonnormal population with finite positive variance, a sufficiently accurate Central Limit Theorem approximation may instead justify using normal critical values. The resulting coverage is then approximate, not automatically exact.
     </p>
 
     <h2>The Standard Error of the Mean</h2>
 
     <p>
-      For a sample mean:
+      For the mean of <strong>n independent observations with common variance σ²</strong>:
     </p>
 
     
@@ -166,7 +165,7 @@ sidebar: false
 
 
     <p>
-      This is the z confidence interval for a population mean.
+      This is the two-sided z confidence interval for a population mean. Its stated confidence level is exact under the independent normal-population model with known σ (using the unrounded critical value); under a justified large-sample normal approximation, coverage is only approximate.
     </p>
 
     <h2>Understanding the Components</h2>
@@ -355,7 +354,7 @@ sidebar: false
     <div class="example-box">
 
       <p>
-        We are using a procedure that captures the true population mean approximately 95% of the time in repeated sampling.
+        In this worked example, the normal-population model with known σ gives a procedure with 95% repeated-sampling coverage using the exact z critical value; with the rounded 1.96 used here, coverage is approximately 95%. For other populations, a normal approximation requires additional assumptions.
       </p>
 
     </div>
@@ -445,25 +444,25 @@ sidebar: false
 
     <ul class="bullets">
 
-      <li>Population standard deviation is known</li>
+      <li>The relevant population standard deviation σ is known and positive</li>
 
-      <li>Observations are independent</li>
+      <li>Observations follow a suitable sampling design; the usual σ/√n formula assumes independent observations with common variance</li>
 
-      <li>Sampling is random</li>
+      <li><strong>Exact normal-model case:</strong> independent normally distributed observations with common μ and σ²</li>
 
-      <li>The sampling distribution is approximately normal</li>
+      <li><strong>Approximate case:</strong> for example, independent identically distributed observations with finite positive variance and a sample size large enough that the normal approximation is accurate for the population shape</li>
 
     </ul>
 
     <p>
-      Normality may arise from:
+      Distinguish the two justifications:
     </p>
 
     <ul class="bullets">
 
-      <li>A normal population</li>
+      <li>A normal population makes the sample mean normal at any sample size in the usual independent model.</li>
 
-      <li>A sufficiently large sample via the CLT</li>
+      <li>The CLT supplies only asymptotic normality for a nonnormal population; the familiar <em>n = 30</em> shortcut is not a universal guarantee.</li>
 
     </ul>
 
@@ -510,7 +509,7 @@ sidebar: false
       <strong>Core message:</strong>
 
       <p>
-        When the population standard deviation is known, a confidence interval for the population mean is constructed using the sample mean, a z critical value, and the standard error σ/√n.
+        With known positive σ and a justified normal sampling distribution (exact or approximate), use the sample mean, a z critical value and the standard error σ/√n. Knowing σ alone is insufficient to justify exact coverage.
       </p>
 
     </div>
@@ -539,7 +538,7 @@ sidebar: false
 
       <ul class="bullets">
 
-        <li>The z interval estimates a population mean when σ is known</li>
+        <li>The z interval estimates a population mean with known σ <strong>and</strong> a justified exact or approximate normal sampling distribution</li>
 
         <li>The standard error equals σ/√n</li>
 

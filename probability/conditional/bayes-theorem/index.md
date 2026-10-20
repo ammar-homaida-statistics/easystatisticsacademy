@@ -327,7 +327,39 @@ P(D\mid +)=\frac{P(+\mid D)\,P(D)}{P(+)}
       For internal consistency, these three inputs imply a false-positive rate of \(P(+\mid D^{c})=(0.05-0.95\times0.01)/0.99\approx0.0409\), or about 4.09%. This is distinct from the overall 5% positive-test probability.
     </p>
 
-    <h2>The Role of the Prior</h2>
+    <section class="concept-box" id="esa-bayes-lab" aria-labelledby="esa-bayes-title" style="min-width:0;overflow-wrap:anywhere">
+  <h2 id="esa-bayes-title">Interactive Bayes' Theorem and Base-Rate Explorer</h2>
+  <p>For a <strong>fictional binary screening test</strong>, change the prevalence, sensitivity P(+ | D), and specificity P(− | not D). The tool computes P(D | +) and P(D | −) using Bayes' rule and the law of total probability. It is an educational probability model, not medical advice or a validated test.</p>
+  <div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:end">
+    <label for="esa-bayes-prev">Prevalence (%)
+      <input id="esa-bayes-prev" type="number" min="0" max="100" step="any" value="1" inputmode="decimal" style="max-width:9rem">
+    </label>
+    <label for="esa-bayes-sens">Sensitivity (%)
+      <input id="esa-bayes-sens" type="number" min="0" max="100" step="any" value="90" inputmode="decimal" style="max-width:9rem">
+    </label>
+    <label for="esa-bayes-spec">Specificity (%)
+      <input id="esa-bayes-spec" type="number" min="0" max="100" step="any" value="95" inputmode="decimal" style="max-width:9rem">
+    </label>
+    <button id="esa-bayes-run" class="btn" type="button">Calculate</button>
+    <button id="esa-bayes-reset" class="btn btn-outline" type="button">Reset example</button>
+  </div>
+  <p id="esa-bayes-status" role="status" aria-live="polite"></p>
+  <p><strong>Posterior after a positive result, P(D | +):</strong> <output id="esa-bayes-pos">—</output></p>
+  <p><strong>Posterior after a negative result, P(D | −):</strong> <output id="esa-bayes-neg">—</output></p>
+  <p><strong>Probability of a positive result:</strong> <output id="esa-bayes-plus-prob">—</output>; <strong>of a negative result:</strong> <output id="esa-bayes-minus-prob">—</output>.</p>
+  <div class="table-wrap"><table>
+    <caption>Expected outcomes per 10,000 hypothetical individuals (may be fractional)</caption>
+    <thead><tr><th>Actual condition</th><th>Positive result</th><th>Negative result</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Condition present</th><td><output id="esa-bayes-tp">—</output></td><td><output id="esa-bayes-fn">—</output></td></tr>
+      <tr><th scope="row">Condition absent</th><td><output id="esa-bayes-fp">—</output></td><td><output id="esa-bayes-tn">—</output></td></tr>
+    </tbody>
+  </table></div>
+  <p><strong>Reference benchmark:</strong> At prevalence 1%, sensitivity 90%, and specificity 95%, P(D | +) = 0.009/(0.009 + 0.0495) ≈ <strong>15.38%</strong>. A 90% sensitivity does not mean that 90% of positive results reflect the condition.</p>
+  <p><strong>Boundary rule:</strong> A posterior conditioned on a result with probability zero is undefined, not 0%. Invalid percentages are rejected. All computations are local to your browser; no data are saved or transmitted.</p>
+</section>
+
+<h2>The Role of the Prior</h2>
 
     <p>
       The prior probability represents our belief before observing new evidence.
@@ -563,3 +595,4 @@ P(+)=P(+\mid D)\,P(D)+P(+\mid D^{c})\,P(D^{c})
   </div>
 
 </section>
+<script src="/js/bayes-evidence-lab.js" defer></script>
