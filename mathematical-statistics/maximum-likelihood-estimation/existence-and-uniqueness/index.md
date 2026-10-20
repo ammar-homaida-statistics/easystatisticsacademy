@@ -24,7 +24,9 @@ sidebar: false
 <!-- ✅ Update continue-reading keys -->
 <script>
   (function () {
-
+    "use strict";
+    // Saving progress is optional; blocked storage never hides this lesson.
+    try {
     localStorage.setItem(
       "esa_continue_ms_mle_last_lesson_v0",
       JSON.stringify({
@@ -42,7 +44,9 @@ sidebar: false
         ts: Date.now()
       })
     );
-
+    } catch (_) {
+      // The lesson remains readable when localStorage is unavailable.
+    }
   })();
 </script>
 
