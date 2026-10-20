@@ -8,6 +8,14 @@ sidebar: false
 translation_pair: cramer-rao-lower-bound
 math: true
 ---
+<style>
+  #esa-crlb-lab, #esa-delta-lab {max-width:100%;min-width:0;overflow-wrap:anywhere}
+  @media (max-width:760px) {
+    .content-narrow {max-width:100%;min-width:0;overflow-x:clip}
+    .esa-math-ltr {max-width:100%;min-width:0;overflow-x:auto}
+  }
+</style>
+
 <section class="hero hero-section"><div class="hero-card">
 <div class="badge-row"><span class="badge">الإحصاء الرياضي</span><span class="badge">معلومات فيشر</span><span class="badge">كفاءة التقدير</span></div>
 <h1>حد كرامر–راو الأدنى للتباين</h1>
