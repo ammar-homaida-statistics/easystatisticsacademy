@@ -8206,5 +8206,189 @@ class SearchTests(unittest.TestCase):
         expect(self.page.locator("main h1")).to_be_visible()
 
 
+    def test_batch58_crlb_arabic_english_parity_and_metadata(self):
+        en="/mathematical-statistics/fisher-information-and-efficiency/cramer-rao-lower-bound/"
+        ar="/ar/mathematical-statistics/fisher-information-and-efficiency/cramer-rao-lower-bound/"
+        results=[]
+        for route,lang in ((en,"en"),(ar,"ar")):
+            with self.subTest(language=lang):
+                self.page.goto(self.origin+route,wait_until="networkidle")
+                self.assertEqual(self.page.locator("html").get_attribute("lang"),lang)
+                self.assertEqual(self.page.locator("html").get_attribute("dir"),"rtl" if lang=="ar" else None)
+                self.assertEqual(self.page.locator('link[rel="canonical"]').get_attribute("href"),
+                                 "https://easystatisticsacademy.com"+route)
+                for lng,target in (("en",en),("ar",ar)):
+                    self.assertEqual(self.page.locator('link[rel="alternate"][hreflang="'+lng+'"]')
+                                     .get_attribute("href"),"https://easystatisticsacademy.com"+target)
+                self.page.locator("#esa-crlb-run").focus()
+                self.page.keyboard.press("Enter")
+                ids=("information","crlb","variance-mean","variance-first",
+                     "efficiency-mean","efficiency-first","ratio")
+                results.append(tuple(self.page.locator("#esa-crlb-"+i).inner_text() for i in ids))
+                self.page.locator("#esa-crlb-p").fill("0.5")
+                self.page.locator("#esa-crlb-n").fill("10")
+                self.page.locator("#esa-crlb-run").click()
+                self.assertEqual(self.page.locator("#esa-crlb-information").inner_text(),"40.0000")
+                self.assertEqual(self.page.locator("#esa-crlb-crlb").inner_text(),"0.025000")
+                self.assertEqual(self.page.locator("#esa-crlb-efficiency-first").inner_text(),"10.00%")
+                self.page.locator("#esa-crlb-n").fill("1")
+                self.page.locator("#esa-crlb-run").click()
+                self.assertEqual(self.page.locator("#esa-crlb-efficiency-first").inner_text(),"100.00%")
+                if lang=="ar":
+                    self.assertIn("يتطابق المقدّران",self.page.locator("#esa-crlb-status").inner_text())
+        self.assertEqual(results[0],results[1])
+        self.assertEqual(results[0],("95.2381","0.010500","0.010500",
+                                     "0.210000","100.00%","5.00%","20×"))
+        english=(SITE/"mathematical-statistics/fisher-information-and-efficiency/cramer-rao-lower-bound/index.html").read_text()
+        self.assertIn("score identity",english)
+        self.assertNotIn("orthogonality between estimator error and score",english)
+
+    def test_batch58_crlb_arabic_boundaries_mobile_storage_and_keyboard(self):
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{
+            configurable:true,get(){throw new DOMException("Denied","SecurityError")}
+          });
+        """)
+        self.page.set_viewport_size({"width":320,"height":760})
+        route="/ar/mathematical-statistics/fisher-information-and-efficiency/cramer-rao-lower-bound/"
+        self.page.goto(self.origin+route,wait_until="networkidle")
+        expect(self.page.locator("#esa-crlb-lab")).to_be_visible()
+        self.assertEqual(self.page.locator("#esa-crlb-crlb").inner_text(),"0.010500")
+        self.page.locator("#esa-crlb-p").fill("0")
+        self.page.locator("#esa-crlb-run").focus()
+        self.page.keyboard.press("Enter")
+        self.assertEqual(self.page.locator("#esa-crlb-crlb").inner_text(),"—")
+        self.assertIn("تُستبعد القيمتان",self.page.locator("#esa-crlb-status").inner_text())
+        self.page.locator("#esa-crlb-p").fill("0.3")
+        self.page.locator("#esa-crlb-n").fill("501")
+        self.page.locator("#esa-crlb-run").click()
+        self.assertEqual(self.page.locator("#esa-crlb-information").inner_text(),"—")
+        self.page.locator("#esa-crlb-reset").click()
+        self.assertEqual(self.page.locator("#esa-crlb-crlb").inner_text(),"0.010500")
+        self.assertLessEqual(self.page.locator("#esa-crlb-lab").evaluate(
+            "e=>e.scrollWidth-e.clientWidth"),2)
+        self.assertLessEqual(self.page.evaluate(
+            "()=>document.documentElement.scrollWidth-document.documentElement.clientWidth"),2)
+
+    def test_batch58_delta_method_independent_normal_reference(self):
+        route="/mathematical-statistics/asymptotic-theory/delta-method/"
+        self.page.goto(self.origin+route,wait_until="networkidle")
+        self.assertEqual(self.page.locator("#esa-delta-transform").input_value(),"square")
+        self.assertAlmostEqual(float(self.page.locator("#esa-delta-variance-input").inner_text()),.05,places=8)
+        self.assertAlmostEqual(float(self.page.locator("#esa-delta-derivative").inner_text()),0,places=8)
+        self.assertAlmostEqual(float(self.page.locator("#esa-delta-approx").inner_text()),0,places=8)
+        self.assertAlmostEqual(float(self.page.locator("#esa-delta-exact").inner_text()),.005,places=8)
+        self.assertIn("higher-order expansion",self.page.locator("#esa-delta-status").inner_text())
+        self.page.locator("#esa-delta-transform").select_option("identity")
+        self.assertAlmostEqual(float(self.page.locator("#esa-delta-approx").inner_text()),.05,places=8)
+        self.assertAlmostEqual(float(self.page.locator("#esa-delta-exact").inner_text()),.05,places=8)
+        self.page.locator("#esa-delta-transform").select_option("exponential")
+        self.assertAlmostEqual(float(self.page.locator("#esa-delta-approx").inner_text()),.05,places=8)
+        self.assertAlmostEqual(float(self.page.locator("#esa-delta-exact").inner_text()),
+                               .05389982169962359,places=7)
+        self.page.locator("#esa-delta-transform").select_option("square")
+        self.page.locator("#esa-delta-theta").fill("0.5")
+        self.page.locator("#esa-delta-run").click()
+        self.assertAlmostEqual(float(self.page.locator("#esa-delta-approx").inner_text()),.05,places=8)
+        self.assertAlmostEqual(float(self.page.locator("#esa-delta-exact").inner_text()),.055,places=8)
+        self.page.locator("#esa-delta-reset").click()
+        self.assertEqual(self.page.locator("#esa-delta-exact").inner_text(),"0.005")
+
+    def test_batch58_delta_method_invalid_mobile_keyboard_and_storage_denial(self):
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{
+            configurable:true,get(){throw new DOMException("Denied","SecurityError")}
+          });
+        """)
+        self.page.set_viewport_size({"width":320,"height":760})
+        self.page.goto(self.origin+"/mathematical-statistics/asymptotic-theory/delta-method/",
+                       wait_until="networkidle")
+        expect(self.page.locator("#esa-delta-lab")).to_be_visible()
+        self.page.locator("#esa-delta-n").fill("1")
+        self.page.locator("#esa-delta-run").focus()
+        self.page.keyboard.press("Enter")
+        self.assertEqual(self.page.locator("#esa-delta-exact").inner_text(),"—")
+        self.assertIn("integer sample size",self.page.locator("#esa-delta-status").inner_text())
+        self.page.locator("#esa-delta-n").fill("20")
+        self.page.locator("#esa-delta-sigma").fill("0")
+        self.page.locator("#esa-delta-run").click()
+        self.assertEqual(self.page.locator("#esa-delta-exact").inner_text(),"—")
+        self.page.locator("#esa-delta-reset").click()
+        self.assertEqual(self.page.locator("#esa-delta-exact").inner_text(),"0.005")
+        self.assertLessEqual(self.page.locator("#esa-delta-lab").evaluate(
+            "e=>e.scrollWidth-e.clientWidth"),2)
+        self.assertLessEqual(self.page.evaluate(
+            "()=>document.documentElement.scrollWidth-document.documentElement.clientWidth"),2)
+
+    def test_batch58_methods_progress_five_approved_routes(self):
+        root="/mathematical-statistics/alternative-estimation-methods/"
+        key="esa_continue_ms_methods_last_lesson_v0"
+        lessons={
+            "method-of-moments":"Lesson 1 — Method of Moments",
+            "estimating-equations-preview":"Lesson 2 — Estimating Equations",
+            "bayesian-point-estimation-preview":"Lesson 3 — Bayesian Point Estimation",
+            "shrinkage-intuition-preview":"Lesson 4 — Shrinkage Intuition",
+            "robustness-preview":"Lesson 5 — Robustness"
+        }
+        for slug,label in lessons.items():
+            with self.subTest(slug=slug):
+                self.page.goto(self.origin+root+slug+"/",wait_until="networkidle")
+                saved=self.page.evaluate("key=>JSON.parse(localStorage.getItem(key))",key)
+                self.assertEqual(saved["url"],root+slug+"/")
+                self.assertEqual(saved["label"],label)
+                self.assertGreater(saved["ts"],0)
+                self.page.goto(self.origin+root,wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-ms-b7")).to_be_visible()
+                self.assertEqual(self.page.locator("#continue-reading-ms-b7-btn").get_attribute("href"),saved["url"])
+                self.assertEqual(self.page.locator("#continue-reading-ms-b7-label").inner_text(),
+                                 "You last visited: "+label)
+
+    def test_batch58_methods_progress_reject_unsafe_records(self):
+        root="/mathematical-statistics/alternative-estimation-methods/"
+        key="esa_continue_ms_methods_last_lesson_v0"
+        allowed=root+"method-of-moments/"
+        label="Lesson 1 — Method of Moments"
+        self.page.goto(self.origin+root,wait_until="networkidle")
+        bad=(
+            {"url":"javascript:alert(1)","label":label,"ts":1},
+            {"url":"https://evil.example/","label":label,"ts":1},
+            {"url":allowed+"?a=1","label":label,"ts":1},
+            {"url":allowed,"label":"<img src=x onerror=alert(1)>","ts":1},
+            {"url":root+"robustness-preview/","label":label,"ts":1},
+            {"url":allowed,"label":label,"ts":0},
+            {"url":allowed,"label":label,"ts":-100},
+            {"url":allowed,"label":label,"ts":999999999999999},
+            {"url":allowed,"label":label},
+            ["not","a","record"]
+        )
+        for record in bad:
+            with self.subTest(record=record):
+                self.page.evaluate("(v)=>localStorage.setItem('esa_continue_ms_methods_last_lesson_v0',JSON.stringify(v))",record)
+                self.page.reload(wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-ms-b7")).to_be_hidden()
+                self.assertEqual(self.page.locator("#continue-reading-ms-b7-label img").count(),0)
+        self.page.evaluate("key=>localStorage.setItem(key,'bad{')",key)
+        self.page.reload(wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-ms-b7")).to_be_hidden()
+
+    def test_batch58_methods_progress_all_pages_allow_storage_denial_mobile(self):
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{
+            configurable:true,get(){throw new DOMException("Denied","SecurityError")}
+          });
+        """)
+        self.page.set_viewport_size({"width":320,"height":760})
+        root="/mathematical-statistics/alternative-estimation-methods/"
+        for slug in ("method-of-moments","estimating-equations-preview",
+                     "bayesian-point-estimation-preview","shrinkage-intuition-preview",
+                     "robustness-preview"):
+            with self.subTest(slug=slug):
+                self.page.goto(self.origin+root+slug+"/",wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+        self.page.goto(self.origin+root,wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-ms-b7")).to_be_hidden()
+        expect(self.page.locator("main h1")).to_be_visible()
+
+
 if __name__ == "__main__":
     unittest.main(argv=[__file__], verbosity=2)
