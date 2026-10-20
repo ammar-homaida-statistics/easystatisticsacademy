@@ -148,35 +148,37 @@ sidebar: false
 </section>
 
 <script>
-  (function () {
-
-    try {
-      localStorage.setItem("esa_continue_ms_last_block_v0", JSON.stringify({
-        label: "Block 6 — Asymptotic Theory",
-        url: "/mathematical-statistics/asymptotic-theory/"
-      }));
-    } catch (e) {}
-
-    var KEY = "esa_continue_ms_asymptotics_last_lesson_v0";
-    var raw = localStorage.getItem(KEY);
-    if (!raw) return;
-
-    try {
-
-      var data = JSON.parse(raw);
-      if (!data || !data.url || !data.label) return;
-
-      var wrap = document.getElementById("continue-reading-ms-b6");
-      var label = document.getElementById("continue-reading-ms-b6-label");
-      var btn = document.getElementById("continue-reading-ms-b6-btn");
-
-      if (!wrap || !label || !btn) return;
-
-      label.innerHTML = 'You last visited: <strong>' + data.label + '</strong>';
-      btn.href = data.url;
-      wrap.style.display = "block";
-
-    } catch (e) {}
-
-  })();
+(function() {
+  "use strict";
+  const key="esa_continue_ms_asymptotics_last_lesson_v0";
+  const root="/mathematical-statistics/asymptotic-theory/";
+  const allowed={
+  "/mathematical-statistics/asymptotic-theory/modes-of-convergence-review/": "Lesson 1 — Modes of Convergence",
+  "/mathematical-statistics/asymptotic-theory/consistency-of-mle-idea/": "Lesson 2 — Consistency of MLE",
+  "/mathematical-statistics/asymptotic-theory/asymptotic-normality-of-mle/": "Lesson 3 — Asymptotic Normality of MLE",
+  "/mathematical-statistics/asymptotic-theory/slutsky-theorem-and-continuous-mapping/": "Lesson 4 — Slutsky Theorem",
+  "/mathematical-statistics/asymptotic-theory/delta-method/": "Lesson 5 — Delta Method"
+};
+  const wrap=document.getElementById("continue-reading-ms-b6");
+  const label=document.getElementById("continue-reading-ms-b6-label");
+  const link=document.getElementById("continue-reading-ms-b6-btn");
+  try {
+    localStorage.setItem("esa_continue_ms_last_block_v0",
+      JSON.stringify({label:"Block 6 — Asymptotic Theory",url:root}));
+  } catch (_) { /* Progress is optional. */ }
+  if (!wrap||!label||!link) return;
+  try {
+    const raw=localStorage.getItem(key);
+    if(!raw) return;
+    const value=JSON.parse(raw);
+    if(!value||typeof value!=="object"||Array.isArray(value)) return;
+    if(typeof value.url!=="string"||!Object.prototype.hasOwnProperty.call(allowed,value.url)) return;
+    if(typeof value.label!=="string"||value.label!==allowed[value.url]) return;
+    if(typeof value.ts!=="number"||!Number.isFinite(value.ts)||value.ts<=0
+       ||value.ts>Date.now()+86400000) return;
+    label.textContent="You last visited: "+value.label;
+    link.setAttribute("href",value.url);
+    wrap.style.display="block";
+  } catch (_) { /* Untrusted storage is ignored. */ }
+})();
 </script>
