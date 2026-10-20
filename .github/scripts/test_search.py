@@ -7751,8 +7751,19 @@ class SearchTests(unittest.TestCase):
         self.assertIn("whole-number seed",self.page.locator("#esa-errors-status").inner_text())
         # Mobile tables may scroll inside their labelled .table-wrap containers;
         # the whole page must not scroll horizontally.
-        self.assertLessEqual(self.page.evaluate(
-            "()=>document.documentElement.scrollWidth-document.documentElement.clientWidth"),2)
+        overflow=self.page.evaluate("""()=>{
+          const width=document.documentElement.clientWidth;
+          const excess=document.documentElement.scrollWidth-width;
+          const offenders=[...document.querySelectorAll("body *")].map(e=>{
+            const box=e.getBoundingClientRect();
+            return {tag:e.tagName,id:e.id||"",cls:String(e.className||"").slice(0,90),
+                    left:Math.round(box.left),right:Math.round(box.right),width:Math.round(box.width)};
+          }).filter(x=>x.right>width+2||x.left< -2)
+            .sort((a,b)=>b.right-a.right).slice(0,12);
+          return {excess,offenders};
+        }""")
+        self.assertLessEqual(overflow["excess"],2,
+                             "Offending mobile elements: "+repr(overflow["offenders"]))
         self.assertTrue(self.page.locator("#esa-errors-lab .table-wrap").evaluate_all(
             "nodes=>nodes.every(e=>e.clientWidth>0 && e.getBoundingClientRect().width<=document.documentElement.clientWidth)"))
 
