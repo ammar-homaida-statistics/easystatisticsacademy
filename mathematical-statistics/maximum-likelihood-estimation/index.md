@@ -125,30 +125,44 @@ sidebar: false
 </section>
 
 <script>
-  (function () {
-    try {
-      localStorage.setItem("esa_continue_ms_last_block_v0", JSON.stringify({
-        label: "Block 3 — Maximum Likelihood Estimation",
-        url: "/mathematical-statistics/maximum-likelihood-estimation/"
-      }));
-    } catch (e) {}
-
-    var KEY = "esa_continue_ms_mle_last_lesson_v0";
-    var raw = localStorage.getItem(KEY);
-    if (!raw) return;
-
-    try {
-      var data = JSON.parse(raw);
-      if (!data || !data.url || !data.label) return;
-
-      var wrap = document.getElementById("continue-reading-ms-b3");
-      var label = document.getElementById("continue-reading-ms-b3-label");
-      var btn = document.getElementById("continue-reading-ms-b3-btn");
-      if (!wrap || !label || !btn) return;
-
-      label.innerHTML = 'You last visited: <strong>' + data.label + '</strong>';
-      btn.href = data.url;
-      wrap.style.display = "block";
-    } catch (e) {}
-  })();
+(function(){
+  "use strict";
+  const ROOT="/mathematical-statistics/maximum-likelihood-estimation/";
+  const KEY="esa_continue_ms_mle_last_lesson_v0";
+  const ALLOWED={
+    "/mathematical-statistics/maximum-likelihood-estimation/definition-of-mle/": "Lesson 1 — Definition of MLE",
+    "/mathematical-statistics/maximum-likelihood-estimation/finding-mle-by-optimization/": "Lesson 2 — Finding MLE by Optimization",
+    "/mathematical-statistics/maximum-likelihood-estimation/invariance-property-of-mle/": "Lesson 3 — Invariance Property of MLE",
+    "/mathematical-statistics/maximum-likelihood-estimation/existence-and-uniqueness/": "Lesson 4 — Existence and Uniqueness",
+    "/mathematical-statistics/maximum-likelihood-estimation/mle-examples-bernoulli-poisson-normal/": "Lesson 5 — MLE Examples"
+  };
+  const wrap=document.getElementById("continue-reading-ms-b3");
+  const label=document.getElementById("continue-reading-ms-b3-label");
+  const btn=document.getElementById("continue-reading-ms-b3-btn");
+  if(!wrap||!label||!btn)return;
+  try {
+    localStorage.setItem("esa_continue_ms_last_block_v0",JSON.stringify({
+      label:"Block 3 — Maximum Likelihood Estimation",
+      url:ROOT
+    }));
+  } catch (_) {
+    // Block navigation remains usable without storage.
+  }
+  try {
+    const raw=localStorage.getItem(KEY);
+    if(!raw)return;
+    const data=JSON.parse(raw);
+    if(!data||typeof data!=="object"||Array.isArray(data))return;
+    if(typeof data.url!=="string"||
+       !Object.prototype.hasOwnProperty.call(ALLOWED,data.url))return;
+    if(typeof data.label!=="string"||data.label!==ALLOWED[data.url])return;
+    if(typeof data.ts!=="number"||!Number.isFinite(data.ts)||
+       data.ts<=0||data.ts>Date.now()+86400000)return;
+    label.textContent="You last visited: "+data.label;
+    btn.setAttribute("href",data.url);
+    wrap.style.display="block";
+  } catch (_) {
+    // Malformed JSON, older unsafe records and denied storage are ignored.
+  }
+})();
 </script>
