@@ -5,6 +5,7 @@ description: "Derive and interpret the Cramér–Rao lower bound for unbiased es
 permalink: /mathematical-statistics/fisher-information-and-efficiency/cramer-rao-lower-bound/
 sidebar: false
 math: true
+translation_pair: cramer-rao-lower-bound
 ---
 
 <!-- UNDER CONSTRUCTION NOTICE -->
@@ -62,6 +63,7 @@ math: true
       </div>
 
       <h1>2. Cramér–Rao Lower Bound</h1>
+      <p><a href="/ar/mathematical-statistics/fisher-information-and-efficiency/cramer-rao-lower-bound/" lang="ar" dir="rtl">اقرأ الدرس بالعربية — حد كرامر–راو الأدنى</a></p>
 
       <p class="lead">
         The Cramér–Rao lower bound gives a fundamental lower limit
@@ -137,7 +139,10 @@ math: true
   </div>
 
   <p class="muted-mini">
-    The proof relies on orthogonality between estimator error and score.
+    For a statistic \(T\) with mean \(m(\theta)=\mathbb E_\theta[T]\), the regular score identity gives
+    \(\operatorname{Cov}_\theta(T,U)=m'(\theta)\). For an estimator unbiased for \(\theta\) throughout a neighborhood,
+    \(m'(\theta)=1\), not zero. Cauchy–Schwarz then implies
+    \(\operatorname{Var}_\theta(T)\ge 1/I(\theta)\).
   </p>
 </section>
 
