@@ -7,6 +7,14 @@ sidebar: false
 math: true
 ---
 
+<style>
+  #esa-crlb-lab, #esa-delta-lab {max-width:100%;min-width:0;overflow-wrap:anywhere}
+  @media (max-width:760px) {
+    .content-narrow {max-width:100%;min-width:0;overflow-x:clip}
+    .esa-math-ltr {max-width:100%;min-width:0;overflow-x:auto}
+  }
+</style>
+
 <!-- UNDER CONSTRUCTION NOTICE -->
 <section class="section section-slim">
   <div class="callout" style="background:#eef5ff; border:2px solid #3f51b5; padding:2rem; border-radius:12px;">
