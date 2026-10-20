@@ -243,7 +243,50 @@ sidebar: false
       The standard deviation is 20% of the mean.
     </p>
 
-    <h2>Comparing Two Datasets</h2>
+    <section class="concept-box" id="esa-cv-lab" aria-labelledby="esa-cv-title" style="max-width:100%;min-width:0;overflow-wrap:anywhere;overflow-x:clip">
+  <h2 id="esa-cv-title">Interactive Coefficient of Variation Explorer</h2>
+  <p>Enter two sets of observations to compare <strong>relative</strong> variability. The demonstration uses a positive-mean ratio scale with a meaningful zero. A difference in CV alone does not establish statistical significance or causality.</p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:1rem">
+    <label for="esa-cv-a"><strong>Dataset A</strong> (comma- or space-separated values)
+      <textarea id="esa-cv-a" rows="3" style="display:block;width:100%;max-width:100%;min-width:0" spellcheck="false">8, 10, 12</textarea>
+    </label>
+    <label for="esa-cv-b"><strong>Dataset B</strong> (comma- or space-separated values)
+      <textarea id="esa-cv-b" rows="3" style="display:block;width:100%;max-width:100%;min-width:0" spellcheck="false">45, 50, 55</textarea>
+    </label>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:end;margin-top:1rem">
+    <label for="esa-cv-mode">Standard deviation definition
+      <select id="esa-cv-mode"><option value="sample" selected>Sample SD (n − 1)</option><option value="population">Population SD (n)</option></select>
+    </label>
+    <label for="esa-cv-scale">Measurement scale
+      <select id="esa-cv-scale"><option value="ratio" selected>Ratio scale: meaningful zero</option><option value="interval">Interval scale: arbitrary zero</option></select>
+    </label>
+    <button id="esa-cv-run" type="button" class="btn">Compare datasets</button>
+    <button id="esa-cv-reset" type="button" class="btn btn-outline">Reset example</button>
+  </div>
+  <p id="esa-cv-status" role="status" aria-live="polite"></p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:1rem">
+    <div class="example-box" style="min-width:0;overflow-wrap:anywhere">
+      <h3>Dataset A</h3>
+      <p>Count: <output id="esa-cv-a-n">—</output></p>
+      <p>Mean: <output id="esa-cv-a-mean">—</output></p>
+      <p>Standard deviation: <output id="esa-cv-a-sd">—</output></p>
+      <p><strong>CV: <output id="esa-cv-a-cv">—</output></strong></p>
+    </div>
+    <div class="example-box" style="min-width:0;overflow-wrap:anywhere">
+      <h3>Dataset B</h3>
+      <p>Count: <output id="esa-cv-b-n">—</output></p>
+      <p>Mean: <output id="esa-cv-b-mean">—</output></p>
+      <p>Standard deviation: <output id="esa-cv-b-sd">—</output></p>
+      <p><strong>CV: <output id="esa-cv-b-cv">—</output></strong></p>
+    </div>
+  </div>
+  <p><strong>Interpretation:</strong> <output id="esa-cv-comparison">—</output></p>
+  <p><strong>Independent check:</strong> For A = {8, 10, 12} and B = {45, 50, 55}, sample means are 10 and 50; sample standard deviations are 2 and 5; CVs are 20% and 10%. Population SDs are approximately 1.633 and 4.082, giving CVs 16.33% and 8.16%.</p>
+  <p><strong>Assumptions and limits:</strong> Ratio-scale observations with a meaningful absolute zero and positive means are required for interpretation. A zero or negative mean makes the chosen positive-mean CV inappropriate. A mean ≤ 10% of its SD triggers an illustrative instability warning, not a universal statistical cutoff. Do not compare Celsius temperatures using CV. Values are processed only in the browser; at most 200 finite observations per dataset are accepted.</p>
+</section>
+
+<h2>Comparing Two Datasets</h2>
 
     <p>
       Consider:
@@ -576,3 +619,4 @@ sidebar: false
   </div>
 
 </section>
+<script src="/js/coefficient-of-variation-explorer.js" defer></script>
