@@ -44,7 +44,6 @@
     const finite=[a,b,lower].every(Number.isFinite);
     if (!finite || [aInput,bInput,baselineInput].some(e=>!e.value.trim()) ||
         a<0 || b<0 || a>1000 || b>1000 || lower<0 || lower>=Math.min(a,b) && lower!==0 ||
-        (lower===0 && Math.min(a,b)===0 && Math.max(a,b)===0 && a!==b) ||
         (lower>0 && (a<=lower || b<=lower))) {
       error.textContent="Enter values A and B between 0 and 1,000 and an axis start of 0 or a nonnegative number strictly smaller than both values.";
       error.hidden=false;
