@@ -560,7 +560,11 @@ sidebar: false
     if (!raw) return;
     const data = JSON.parse(raw);
     if (!data || typeof data.url !== "string" ||
-        typeof data.label !== "string" || !data.label.trim()) return;
+        typeof data.label !== "string" || !data.label.trim() ||
+        data.label.length > 200 ||
+        (data.ts !== undefined &&
+         (typeof data.ts !== "number" || !Number.isFinite(data.ts) ||
+          data.ts <= 0 || data.ts > Date.now() + 86400000))) return;
 
     // Only exact canonical routes to published lessons listed in this block.
     const allowed = /^\/descriptive\/center\/[a-z0-9-]+\/$/.test(data.url);

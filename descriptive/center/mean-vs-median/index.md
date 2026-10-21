@@ -4,6 +4,7 @@ title: Mean vs Median
 description: Learn the differences between the mean and median, when each measure should be used, and how distribution shape influences the choice.
 permalink: /descriptive/center/mean-vs-median/
 sidebar: false
+translation_pair: mean-median
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -13,11 +14,15 @@ sidebar: false
   const KEY =
     "esa_continue_descriptive_center_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
     url: "/descriptive/center/mean-vs-median/",
     label: "Mean vs Median",
     ts: Date.now()
   }));
+  } catch (_) {
+    // Browsers may disable persistence; lesson content must still work.
+  }
 
 })();
 </script>
@@ -36,6 +41,7 @@ sidebar: false
     </div>
 
     <h1>Mean vs Median</h1>
+    <p><a href="/ar/descriptive/center/mean-vs-median/" lang="ar" dir="rtl">العربية — المتوسط الحسابي والوسيط</a></p>
 
     <p class="lead">
       The mean and the median are the two most important measures of center in statistics.
