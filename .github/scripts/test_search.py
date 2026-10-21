@@ -8788,7 +8788,7 @@ class SearchTests(unittest.TestCase):
             {"url":valid,"label":"Expectation","ts":-12},
             {"url":valid,"label":"Expectation","ts":99999999999999},
             {"url":valid,"label":"Expectation","ts":"not-a-date"},
-            {"url":valid,"label":"Expectation","ts":float("nan")},
+            {"url":valid,"label":"Expectation","ts":None},
         )
         for record in invalid:
             with self.subTest(record=str(record)):
