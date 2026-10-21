@@ -8470,7 +8470,7 @@ class SearchTests(unittest.TestCase):
         self.assertEqual(self.page.locator("#continue-reading-block6-btn").get_attribute("href"),saved["url"])
         for record in (
             {"url":"javascript:alert(1)","label":"x","ts":5},
-            {"url":root+"normal-distribution-concept/","label":"not-published","ts":5},
+            {"url":root+"nonexistent-example/","label":"not-published","ts":5},
             {"url":saved["url"],"label":"a"*201,"ts":5},
             {"url":saved["url"],"label":"x","ts":-2},
             {"url":saved["url"]+"?x=1","label":"x","ts":5},
