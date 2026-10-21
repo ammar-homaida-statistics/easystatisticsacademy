@@ -1,6 +1,6 @@
 ---
 layout: default
-title: التوزيع ذي الحدين
+title: التوزيع ذو الحدين
 description: درس متكامل عن التوزيع ذي الحدين وشروطه واحتمالاته الدقيقة والتراكمية والمتوسط والتباين، مع حاسبة تفاعلية باللغة العربية.
 permalink: /ar/probability/distributions/binomial-distribution/
 lang: ar

@@ -41,7 +41,7 @@ translation_pair: binomial-distribution
     </div>
 
     <h1>Binomial Distribution</h1>
-    <p><a href="/ar/probability/distributions/binomial-distribution/" lang="ar" dir="rtl">العربية — التوزيع ذي الحدين</a></p>
+    <p><a href="/ar/probability/distributions/binomial-distribution/" lang="ar" dir="rtl">العربية — التوزيع ذو الحدين</a></p>
 
     <p class="lead">
       The Bernoulli distribution models a single success-or-failure trial.
@@ -175,9 +175,11 @@ translation_pair: binomial-distribution
       A binomial random variable is written as:
     </p>
 
-    \[
+    <div class="esa-binomial-equation" tabindex="0" role="region" aria-label="Binomial notation">
+\[
 X\sim\operatorname{Binomial}(n,p)
 \]
+    </div>
 
     <p>
       where:
@@ -197,9 +199,11 @@ X\sim\operatorname{Binomial}(n,p)
       A binomial variable can take values:
     </p>
 
-    \[
+    <div class="esa-binomial-equation" tabindex="0" role="region" aria-label="Possible binomial counts">
+\[
 X\in\{0,1,\ldots,n\}
 \]
+    </div>
 
     <p>
       because counts from zero to n are the mathematical range. When p = 0 or p = 1, however, only one endpoint count has positive probability.
@@ -211,9 +215,11 @@ X\in\{0,1,\ldots,n\}
       The probability of observing exactly k successes is:
     </p>
 
-    \[
+    <div class="esa-binomial-equation" tabindex="0" role="region" aria-label="Binomial probability mass function">
+\[
 P(X=k)=\binom{n}{k}p^k(1-p)^{n-k},\quad k=0,\ldots,n
 \]
+    </div>
 
     <p>
       This is called the binomial probability mass function.
@@ -265,9 +271,11 @@ P(X=k)=\binom{n}{k}p^k(1-p)^{n-k},\quad k=0,\ldots,n
       The notation:
     </p>
 
-    \[
+    <div class="esa-binomial-equation" tabindex="0" role="region" aria-label="Binomial coefficient">
+\[
 \binom{n}{k}=\frac{n!}{k!(n-k)!}
 \]
+    </div>
 
     <p>
       counts the number of ways k successes can be placed among n trials.
@@ -311,25 +319,31 @@ P(X=k)=\binom{n}{k}p^k(1-p)^{n-k},\quad k=0,\ldots,n
       Applying the formula:
     </p>
 
-    \[
+    <div class="esa-binomial-equation" tabindex="0" role="region" aria-label="Probability of exactly two heads">
+\[
 P(X=2)=\binom{3}{2}(0.5)^2(0.5)^{3-2}
 \]
+    </div>
 
     <p>
       Since:
     </p>
 
-    \[
+    <div class="esa-binomial-equation" tabindex="0" role="region" aria-label="Three choose two">
+\[
 \binom{3}{2}=3
 \]
+    </div>
 
     <p>
       the probability becomes:
     </p>
 
-    \[
+    <div class="esa-binomial-equation" tabindex="0" role="region" aria-label="Two-head probability">
+\[
 P(X=2)=3(0.5)^3=0.375
 \]
+    </div>
 
     <h2>Mean of a Binomial Distribution</h2>
 
@@ -337,9 +351,11 @@ P(X=2)=3(0.5)^3=0.375
       The expected value is:
     </p>
 
-    \[
+    <div class="esa-binomial-equation" tabindex="0" role="region" aria-label="Binomial mean">
+\[
 \operatorname{E}(X)=np
 \]
+    </div>
 
     <div class="concept-box">
 
@@ -373,9 +389,11 @@ P(X=2)=3(0.5)^3=0.375
       Then:
     </p>
 
-    \[
+    <div class="esa-binomial-equation" tabindex="0" role="region" aria-label="Worked binomial mean">
+\[
 \operatorname{E}(X)=100(0.2)=20
 \]
+    </div>
 
     <p>
       The expected count is exactly 20; any observed count still varies from sample to sample.
@@ -387,17 +405,21 @@ P(X=2)=3(0.5)^3=0.375
       The variance is:
     </p>
 
-    \[
+    <div class="esa-binomial-equation" tabindex="0" role="region" aria-label="Binomial variance">
+\[
 \operatorname{Var}(X)=np(1-p)
 \]
+    </div>
 
     <p>
       The standard deviation is:
     </p>
 
-    \[
+    <div class="esa-binomial-equation" tabindex="0" role="region" aria-label="Binomial standard deviation">
+\[
 \operatorname{SD}(X)=\sqrt{np(1-p)}
 \]
+    </div>
 
     <h2>Why the Formula Makes Sense</h2>
 
@@ -409,17 +431,21 @@ P(X=2)=3(0.5)^3=0.375
       Since each Bernoulli trial has:
     </p>
 
-    \[
+    <div class="esa-binomial-equation" tabindex="0" role="region" aria-label="Bernoulli indicator variance">
+\[
 \operatorname{Var}(I_i)=p(1-p)
 \]
+    </div>
 
     <p>
       the variances add together:
     </p>
 
-    \[
+    <div class="esa-binomial-equation" tabindex="0" role="region" aria-label="Binomial variance derivation">
+\[
 \operatorname{Var}(X)=\operatorname{Var}\!\left(\sum_{i=1}^{n}I_i\right)=\sum_{i=1}^{n}\operatorname{Var}(I_i)=np(1-p)
 \]
+    </div>
 
 
     <!-- INTERACTIVE BINOMIAL PROBABILITY CALCULATOR -->
@@ -475,6 +501,10 @@ P(X=2)=3(0.5)^3=0.375
       </p>
     </section>
     <style>
+      /* Keep long TeX and rendered equations readable without widening the page. */
+      .esa-binomial-equation{max-width:100%;min-width:0;overflow-x:auto}
+      .esa-binomial-equation mjx-container[display="true"]{width:max-content;min-width:100%;text-align:left}
+      .esa-binomial-equation:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
       #esa-binomial-calculator{max-width:100%;min-width:0;overflow-wrap:anywhere}
       #esa-binomial-calculator .esa-binomial-input-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:16px 0}
       #esa-binomial-calculator .esa-binomial-input-grid>div{min-width:0}
