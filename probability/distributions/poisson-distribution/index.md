@@ -4,6 +4,7 @@ title: Poisson Distribution
 description: Learn how the Poisson distribution models counts of events occurring within a fixed interval of time, space, or area.
 permalink: /probability/distributions/poisson-distribution/
 sidebar: false
+translation_pair: poisson-distribution
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -40,6 +41,7 @@ sidebar: false
     </div>
 
     <h1>Poisson Distribution</h1>
+    <p><a href="/ar/probability/distributions/poisson-distribution/" lang="ar" dir="rtl">العربية — التوزيع البواسوني</a></p>
 
     <p class="lead">
       Many real-world problems involve counting how often events occur.
@@ -518,7 +520,7 @@ sidebar: false
         <div class="esa-event-input-grid">
           <div><label for="esa-event-rate">Rate (events per minute)</label>
             <input id="esa-event-rate" type="number" inputmode="decimal"
-                   min="0.01" max="20" step="any" value="2" required></div>
+                   min="0" max="20" step="any" value="2" required></div>
           <div><label for="esa-event-time">Observation time (minutes)</label>
             <input id="esa-event-time" type="number" inputmode="decimal"
                    min="0" max="60" step="any" value="1" required></div>
@@ -563,49 +565,7 @@ sidebar: false
           grid-template-columns:minmax(0,1fr)}
       }
     </style>
-    <script>
-    (function () {
-      "use strict";
-      const form = document.getElementById("esa-event-explorer-form");
-      const rate = document.getElementById("esa-event-rate");
-      const time = document.getElementById("esa-event-time");
-      const error = document.getElementById("esa-event-error");
-      const outputs = ["esa-event-none","esa-event-survival","esa-event-at-least-one",
-                       "esa-event-expected","esa-event-meanwait"]
-                       .map(id => document.getElementById(id));
-      const explanation = document.getElementById("esa-event-explanation");
-      function render() {
-        const r = Number(rate.value), t = Number(time.value);
-        const invalidRate = rate.value.trim() === "" || !Number.isFinite(r) || r <= 0 || r > 20;
-        const invalidTime = time.value.trim() === "" || !Number.isFinite(t) || t < 0 || t > 60;
-        if (invalidRate || invalidTime) {
-          error.textContent = invalidRate
-            ? "Rate must be greater than 0 and at most 20 events per minute."
-            : "Time must be between 0 and 60 minutes.";
-          error.hidden = false;
-          outputs.forEach(out => { out.textContent = "—"; });
-          explanation.textContent = "Enter valid inputs to compare the distributions.";
-          return;
-        }
-        error.hidden = true;
-        const expected = r*t, noEvents = Math.exp(-expected);
-        // expm1 prevents catastrophic cancellation near zero.
-        const atLeastOne = -Math.expm1(-expected);
-        [noEvents,noEvents,atLeastOne,expected,1/r].forEach((value,i) => {
-          outputs[i].textContent = value.toFixed(6);
-        });
-        explanation.textContent = "With rate " + r + " events/minute over " + t +
-          " minutes, P(N(t) = 0) = P(T > t) = exp(−rt).";
-      }
-      form.addEventListener("submit", event => event.preventDefault());
-      rate.addEventListener("input",render);
-      time.addEventListener("input",render);
-      document.getElementById("esa-event-reset").addEventListener("click",() => {
-        rate.value = "2"; time.value = "1"; render();
-      });
-      render();
-    })();
-    </script>
+    <script src="{{ '/js/poisson-exponential-explorer.js' | relative_url }}" defer></script>
 
     <!-- TAKEAWAYS -->
 
