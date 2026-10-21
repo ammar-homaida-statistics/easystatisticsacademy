@@ -172,6 +172,8 @@ n\to\infty,\quad p\to0,\quad np\to\lambda.
 <p class="muted-mini"><strong>الافتراضات والقيود:</strong> تتطلب هذه الهوية عملية بواسون متجانسة بمعدل موجب وثابت مع زيادات مستقلة. التجمع، أو الاعتماد بين الأحداث، أو تغير المعدل مع الزمن، قد يجعل نموذج زمن الانتظار الأسي غير مناسب. قد تُقرّب النتائج إلى ست منازل عشرية؛ وهذا لا يعني أن قيمة صغيرة جدًا تساوي صفرًا تمامًا.</p>
 </section>
 <style>
+/* Scroll exceptionally wide rendered TeX without widening the RTL page. */
+.esa-math-ltr{max-width:100%;min-width:0;overflow-x:auto}
 #esa-poisson-exponential-explorer{min-width:0;max-width:100%;overflow-wrap:anywhere}
 #esa-poisson-exponential-explorer .esa-event-input-grid,#esa-poisson-exponential-explorer .esa-event-result-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 16px;margin:12px 0}
 #esa-poisson-exponential-explorer .esa-event-input-grid>div,#esa-poisson-exponential-explorer .esa-event-result-grid>p{min-width:0;margin:5px 0}
