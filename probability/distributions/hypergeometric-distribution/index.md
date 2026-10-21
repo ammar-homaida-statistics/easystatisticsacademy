@@ -482,6 +482,73 @@ P(X=x)=\frac{\binom{K}{x}\binom{N-K}{n-x}}{\binom{N}{n}},
 
     </div>
 
+    <!-- Batch #60: verified hypergeometric sampling laboratory -->
+    <section class="concept-box" id="esa-hypergeom-explorer" role="group"
+             aria-labelledby="esa-hg-title" style="max-width:100%;min-width:0;overflow-x:clip;overflow-wrap:anywhere">
+      <h2 id="esa-hg-title">Interactive Sampling-Without-Replacement Explorer</h2>
+      <p>Choose a finite population of <strong>N</strong> items with <strong>K</strong> successes,
+      draw <strong>n</strong> uniformly at random without replacement, and find the probability
+      of observing <strong>x</strong> successes. Compare the exact hypergeometric model with
+      a binomial approximation based on independent draws with <span dir="ltr">p = K/N</span>.</p>
+      <div class="esa-hg-grid">
+        <div><label for="esa-hg-N">Population size N (1–1000)</label>
+        <input id="esa-hg-N" type="number" min="1" max="1000" step="1" value="100" inputmode="numeric"></div>
+        <div><label for="esa-hg-K">Population successes K (0–N)</label>
+        <input id="esa-hg-K" type="number" min="0" max="1000" step="1" value="10" inputmode="numeric"></div>
+        <div><label for="esa-hg-n">Sample size n (0–min(N, 100))</label>
+        <input id="esa-hg-n" type="number" min="0" max="100" step="1" value="5" inputmode="numeric"></div>
+        <div><label for="esa-hg-x">Observed successes x (0–n)</label>
+        <input id="esa-hg-x" type="number" min="0" max="100" step="1" value="1" inputmode="numeric"></div>
+      </div>
+      <button type="button" class="btn btn-outline" id="esa-hg-reset">Reset example</button>
+      <p id="esa-hg-status" role="status" aria-live="polite"></p>
+      <div class="table-wrap"><table>
+        <caption>Probabilities and distribution summaries (six decimal places)</caption>
+        <tbody>
+          <tr><th scope="row">Feasible success counts</th><td id="esa-hg-support">—</td></tr>
+          <tr><th scope="row">Exact probability P(X = x)</th><td id="esa-hg-exact">—</td></tr>
+          <tr><th scope="row">Binomial approximation P(Y = x)</th><td id="esa-hg-approx">—</td></tr>
+          <tr><th scope="row">Absolute probability difference</th><td id="esa-hg-difference">—</td></tr>
+          <tr><th scope="row">Expected successes E(X)</th><td id="esa-hg-mean">—</td></tr>
+          <tr><th scope="row">Variance Var(X)</th><td id="esa-hg-variance">—</td></tr>
+          <tr><th scope="row">Exact probabilities summed</th><td id="esa-hg-total">—</td></tr>
+          <tr><th scope="row">Sampling fraction n/N</th><td id="esa-hg-sampling-fraction">—</td></tr>
+        </tbody>
+      </table></div>
+      <p class="muted-mini">Teal: exact probability without replacement. Amber: binomial approximation with replacement.
+      The same horizontal scale shows the success count <span dir="ltr">x = 0, …, n</span>.</p>
+      <svg id="esa-hg-chart" viewBox="0 0 720 250" role="img"
+           aria-label="Comparison of hypergeometric and binomial probabilities"
+           style="display:block;width:100%;height:auto;max-width:100%;overflow:hidden">
+        <g id="esa-hg-bars"></g>
+      </svg>
+      <p class="muted-mini">The exact distribution has integer support
+      <span dir="ltr">max(0, n − (N − K)) ≤ x ≤ min(n, K)</span>.
+      Outside this interval its probability is zero. The binomial comparison is
+      an approximation; the 5% sampling-fraction guideline is a heuristic, not a guarantee.</p>
+      <div class="example-box"><strong>Independent reference check:</strong>
+        for <span dir="ltr">N = 10, K = 3, n = 2, x = 1</span>,
+        the exact probability is <span dir="ltr">C(3,1)C(7,1)/C(10,2) = 21/45 ≈ 0.466667</span>,
+        versus a binomial approximation of <span dir="ltr">2(0.3)(0.7) = 0.420000</span>.
+        The exact variance is <span dir="ltr">2(0.3)(0.7)(8/9) ≈ 0.373333</span>.
+      </div>
+    </section>
+    <style>
+      #esa-hypergeom-explorer, #esa-hypergeom-explorer * {box-sizing:border-box}
+      #esa-hypergeom-explorer .esa-hg-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,205px),1fr));gap:1rem;margin:1rem 0}
+      #esa-hypergeom-explorer .esa-hg-grid>div {min-width:0}
+      #esa-hypergeom-explorer label {display:block;font-weight:650;margin-bottom:.35rem}
+      #esa-hypergeom-explorer input {display:block;width:100%;min-width:0;padding:.65rem;
+        border:1px solid #888;border-radius:.35rem;color:inherit;background:var(--surface,#fff);font:inherit}
+      #esa-hypergeom-explorer .table-wrap {max-width:100%;overflow-x:auto}
+      #esa-hypergeom-explorer td {font-variant-numeric:tabular-nums}
+      #esa-hypergeom-explorer #esa-hg-status {overflow-wrap:anywhere}
+      @media(max-width:760px) {
+        #esa-hypergeom-explorer .esa-hg-grid{grid-template-columns:minmax(0,1fr)}
+      }
+    </style>
+    <script src="/js/hypergeometric-explorer.js" defer></script>
+
     <h2>When Binomial Is a Good Approximation</h2>
 
     <p>
