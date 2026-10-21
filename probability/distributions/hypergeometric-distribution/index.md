@@ -534,6 +534,10 @@ P(X=x)=\frac{\binom{K}{x}\binom{N-K}{n-x}}{\binom{N}{n}},
       </div>
     </section>
     <style>
+      @media(max-width:760px) {
+        #main-content .content-narrow{width:100%;max-width:100%;min-width:0;overflow-x:clip}
+        #main-content .content-narrow .table-wrap{display:block;width:100%;max-width:100%;overflow-x:auto}
+      }
       #esa-hypergeom-explorer, #esa-hypergeom-explorer * {box-sizing:border-box}
       #esa-hypergeom-explorer .esa-hg-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,205px),1fr));gap:1rem;margin:1rem 0}
       #esa-hypergeom-explorer .esa-hg-grid>div {min-width:0}
