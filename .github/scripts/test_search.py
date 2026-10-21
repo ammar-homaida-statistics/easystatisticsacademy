@@ -8983,5 +8983,183 @@ class SearchTests(unittest.TestCase):
         expect(self.page.locator("#continue-reading-probability-ev")).to_be_hidden()
 
 
+
+    def test_batch63_geometric_bilingual_math_metadata_mobile_keyboard(self):
+        """Both localizations use exactly one shared numerical implementation."""
+        english="/probability/distributions/geometric-distribution/"
+        arabic="/ar/probability/distributions/geometric-distribution/"
+        for url,lang in ((english,"en"),(arabic,"ar")):
+            with self.subTest(lang=lang):
+                self.page.goto(self.origin+url,wait_until="networkidle")
+                self.assertEqual(self.page.locator("html").get_attribute("lang"),lang)
+                self.assertEqual(self.page.locator("html").get_attribute("dir"),
+                                 "rtl" if lang=="ar" else None)
+                self.assertEqual(self.page.locator('link[rel="canonical"]').get_attribute("href"),
+                                 "https://easystatisticsacademy.com"+url)
+                for code,path in (("en",english),("ar",arabic)):
+                    self.assertEqual(self.page.locator(
+                        'link[rel="alternate"][hreflang="'+code+'"]').get_attribute("href"),
+                        "https://easystatisticsacademy.com"+path)
+                self.assertEqual(self.page.locator("#esa-geometric-wait-explorer").count(),1)
+                self.assertEqual(self.page.locator("#esa-geom-bars rect[data-trial]").count(),12)
+                for id,expected in (
+                    ("pmf","0.140625"),("cdf","0.578125"),
+                    ("tail","0.421875"),("mean","4.0000"),("variance","12.0000"),
+                    ("memoryless-next","0.2500"),("memoryless-tail","0.421875")
+                ):
+                    self.assertEqual(self.page.locator("#esa-geom-"+id).inner_text(),expected)
+                numbers=self.page.evaluate("() => window.esaGeometricMath(0.25,3)")
+                self.assertAlmostEqual(numbers["pmf"],0.140625)
+                self.assertAlmostEqual(numbers["cdf"],0.578125)
+                self.assertAlmostEqual(numbers["tail"],0.421875)
+                self.assertAlmostEqual(numbers["mean"],4)
+                self.assertAlmostEqual(numbers["variance"],12)
+                self.assertIsNone(self.page.evaluate("() => window.esaGeometricMath(0,2)"))
+                self.assertIsNone(self.page.evaluate("() => window.esaGeometricMath(0.25,0)"))
+                self.page.locator("#esa-geom-p").evaluate(
+                    "(el)=>{el.value='1';el.dispatchEvent(new Event('input',{bubbles:true}))}")
+                self.assertEqual(self.page.locator("#esa-geom-pmf").inner_text(),"0.000000")
+                self.assertEqual(self.page.locator("#esa-geom-cdf").inner_text(),"1.000000")
+                self.assertEqual(self.page.locator("#esa-geom-mean").inner_text(),"1.0000")
+                self.assertEqual(self.page.locator("#esa-geom-variance").inner_text(),"0.0000")
+                expect(self.page.locator("#esa-geom-memoryless-note")).to_be_visible()
+                self.page.locator("#esa-geom-reset").focus()
+                self.page.keyboard.press("Enter")
+                self.assertEqual(self.page.locator("#esa-geom-pmf").inner_text(),"0.140625")
+                self.page.locator("#esa-geom-p").focus()
+                self.page.keyboard.press("ArrowRight")
+                self.assertEqual(self.page.locator("#esa-geom-p-value").inner_text(),"0.30")
+                self.page.set_viewport_size({"width":320,"height":760})
+                self.assertLessEqual(self.page.evaluate(
+                    "() => document.documentElement.scrollWidth-document.documentElement.clientWidth"),2)
+                self.page.set_viewport_size({"width":1280,"height":800})
+        self.page.goto(self.origin+"/ar/",wait_until="networkidle")
+        expect(self.page.locator('a[href="'+arabic+'"]')).to_be_visible()
+
+    def test_batch63_cdf_exact_math_interval_plot_keyboard_mobile(self):
+        """Right-continuous Bernoulli jumps and continuous Uniform CDF."""
+        self.page.goto(self.origin+"/probability/random-variables/cumulative-distribution-function/",
+                       wait_until="networkidle")
+        expect(self.page.locator("#esa-cdf-explorer")).to_be_visible()
+        self.assertEqual(self.page.locator("#esa-cdf-fx").inner_text(),"0.650000")
+        self.assertEqual(self.page.locator("#esa-cdf-interval").inner_text(),"0.350000")
+        self.assertEqual(self.page.locator("#esa-cdf-chart").get_attribute("role"),"img")
+        cases=[
+          ("bernoulli",-0.1,0.35,0,2,0),
+          ("bernoulli",0,0.35,0,2,0.65),
+          ("bernoulli",0.5,0.35,0,2,0.65),
+          ("bernoulli",1,0.35,0,2,1),
+          ("bernoulli",0,0,0,2,1),
+          ("bernoulli",0,1,0,2,0),
+          ("uniform",-0.1,0.35,0,2,0),
+          ("uniform",0.5,0.35,0,2,0.25),
+          ("uniform",2,0.35,0,2,1),
+          ("uniform",4,0.35,0,2,1),
+        ]
+        for kind,x,p,a,b,expected in cases:
+            with self.subTest(kind=kind,x=x,p=p):
+                got=self.page.evaluate(
+                    "args=>window.esaCdfMath.cdf(...args)",[kind,x,p,a,b])
+                self.assertAlmostEqual(got,expected,places=12)
+        self.assertAlmostEqual(self.page.evaluate(
+            "()=>window.esaCdfMath.interval('bernoulli',0,1,.35,0,2)"),.35)
+        self.assertAlmostEqual(self.page.evaluate(
+            "()=>window.esaCdfMath.interval('bernoulli',-1,0,.35,0,2)"),.65)
+        self.assertAlmostEqual(self.page.evaluate(
+            "()=>window.esaCdfMath.interval('uniform',0,1,.35,0,2)"),.5)
+        self.assertIsNone(self.page.evaluate(
+            "()=>window.esaCdfMath.interval('uniform',1,0,.35,0,2)"))
+        self.assertIsNone(self.page.evaluate(
+            "()=>window.esaCdfMath.cdf('uniform',.5,.35,2,1)"))
+        self.page.locator("#esa-cdf-kind").select_option("uniform")
+        self.assertEqual(self.page.locator("#esa-cdf-fx").inner_text(),"0.250000")
+        self.assertEqual(self.page.locator("#esa-cdf-interval").inner_text(),"0.500000")
+        expect(self.page.locator("#esa-cdf-uniform-options")).to_be_visible()
+        self.page.locator("#esa-cdf-a").evaluate(
+            "(el)=>{el.value='1.5';el.dispatchEvent(new Event('input',{bubbles:true}))}")
+        self.page.locator("#esa-cdf-b").evaluate(
+            "(el)=>{el.value='1';el.dispatchEvent(new Event('input',{bubbles:true}))}")
+        expect(self.page.locator("#esa-cdf-error")).to_be_visible()
+        expect(self.page.locator("#esa-cdf-results")).to_be_hidden()
+        self.page.locator("#esa-cdf-reset").focus()
+        self.page.keyboard.press("Enter")
+        self.assertEqual(self.page.locator("#esa-cdf-fx").inner_text(),"0.650000")
+        self.page.locator("#esa-cdf-p").focus()
+        self.page.keyboard.press("ArrowRight")
+        self.assertEqual(self.page.locator("#esa-cdf-p-label").inner_text(),"0.40")
+        self.page.set_viewport_size({"width":320,"height":760})
+        self.assertLessEqual(self.page.evaluate(
+            "() => document.documentElement.scrollWidth-document.documentElement.clientWidth"),2)
+
+    def test_batch63_sampling_distributions_progress_legacy_and_security(self):
+        root="/probability/sampling-distributions/"
+        key="esa_continue_probability_sampling_distributions_lesson_v0"
+        slugs=("what-is-a-sampling-distribution","standard-error-and-estimators",
+               "z-statistic-and-ci","t-distribution-and-t-test",
+               "chi-square-and-variance","f-distribution-and-anova-preview")
+        for slug in slugs:
+            with self.subTest(lesson=slug):
+                self.page.goto(self.origin+root+slug+"/",wait_until="networkidle")
+                item=self.page.evaluate("k=>JSON.parse(localStorage.getItem(k))",key)
+                self.assertEqual(item["url"],root+slug+"/")
+                self.assertTrue(item["label"].strip())
+                self.assertIs(type(item["ts"]),int)
+                self.assertGreater(item["ts"],0)
+                self.page.goto(self.origin+root,wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-probability-sampling")).to_be_visible()
+                self.assertEqual(self.page.locator("#continue-reading-probability-sampling-btn")
+                                 .get_attribute("href"),item["url"])
+        self.page.goto(self.origin+root,wait_until="networkidle")
+        good=root+"standard-error-and-estimators/"
+        for record in (
+            {"url":"javascript:alert(1)","label":"Bad","ts":100},
+            {"url":good+"#chart","label":"Bad","ts":100},
+            {"url":root+"not-published/","label":"Bad","ts":100},
+            {"url":good,"label":"z"*201,"ts":100},
+            {"url":good,"label":"Good","ts":0},
+            {"url":good,"label":"Good","ts":-1},
+            {"url":good,"label":"Good","ts":None},
+            {"url":good,"label":"Good","ts":"tomorrow"},
+            {"url":good,"label":"Good","ts":999999999999999},
+            {"url":good,"label":"Good","ts":True}
+        ):
+            with self.subTest(record=str(record)):
+                self.page.evaluate("args=>localStorage.setItem(args.k,JSON.stringify(args.v))",
+                                   {"k":key,"v":record})
+                self.page.reload(wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-probability-sampling")).to_be_hidden()
+        # A missing timestamp is a supported legacy record, never a fabricated value.
+        self.page.evaluate("args=>localStorage.setItem(args.k,JSON.stringify(args.v))",
+                           {"k":key,"v":{"url":good,"label":"Standard Error"}})
+        self.page.reload(wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-probability-sampling")).to_be_visible()
+        malicious='<img src=x onerror="window.esaInjected=true">'
+        self.page.evaluate("args=>localStorage.setItem(args.k,JSON.stringify(args.v))",
+                           {"k":key,"v":{"url":good,"label":malicious}})
+        self.page.reload(wait_until="networkidle")
+        self.assertEqual(self.page.locator("#continue-reading-probability-sampling-label img").count(),0)
+        self.assertIn(malicious,self.page.locator("#continue-reading-probability-sampling-label")
+                      .inner_text())
+        self.assertIsNone(self.page.evaluate("()=>window.esaInjected || null"))
+
+    def test_batch63_sampling_distributions_denied_storage_mobile(self):
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{
+            configurable:true,
+            get(){throw new DOMException("Storage blocked","SecurityError")}
+          });
+        """)
+        self.page.set_viewport_size({"width":320,"height":760})
+        root="/probability/sampling-distributions/"
+        for slug in ("what-is-a-sampling-distribution","standard-error-and-estimators",
+                     "z-statistic-and-ci","t-distribution-and-t-test",
+                     "chi-square-and-variance","f-distribution-and-anova-preview"):
+            with self.subTest(lesson=slug):
+                self.page.goto(self.origin+root+slug+"/",wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+        self.page.goto(self.origin+root,wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-probability-sampling")).to_be_hidden()
+
+
 if __name__ == "__main__":
     unittest.main(argv=[__file__], verbosity=2)
