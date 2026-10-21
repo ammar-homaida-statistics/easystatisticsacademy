@@ -8452,8 +8452,16 @@ class SearchTests(unittest.TestCase):
         self.page.locator("#esa-mm-reset").focus()
         self.page.keyboard.press("Enter")
         self.assertEqual(get("mean-after"),"24")
-        self.assertLessEqual(self.page.evaluate(
-            "()=>document.documentElement.scrollWidth-document.documentElement.clientWidth"),2)
+        overflow=self.page.evaluate("""() => ({
+            extra:document.documentElement.scrollWidth-document.documentElement.clientWidth,
+            width:window.innerWidth,
+            offenders:[...document.querySelectorAll("body *")].map(e=>({
+                tag:e.tagName, id:e.id, cls:String(e.className||"").slice(0,70),
+                right:Math.round(e.getBoundingClientRect().right),
+                left:Math.round(e.getBoundingClientRect().left)
+            })).filter(x=>x.right>window.innerWidth+2||x.left < -2).slice(0,12)
+        })""")
+        self.assertLessEqual(overflow["extra"],2,overflow)
 
     def test_batch59_shape_saved_progress_validity_and_storage_denial(self):
         root="/descriptive/shape/"
