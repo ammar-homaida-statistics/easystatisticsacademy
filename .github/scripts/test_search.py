@@ -8595,8 +8595,16 @@ class SearchTests(unittest.TestCase):
         self.page.keyboard.press("Enter")
         self.assertAlmostEqual(float(get("exact")),expected,delta=.0000006)
         self.page.set_viewport_size({"width":320,"height":760})
-        self.assertLessEqual(self.page.evaluate(
-            "()=>document.documentElement.scrollWidth-document.documentElement.clientWidth"),2)
+        overflow=self.page.evaluate("""() => ({
+            extra:document.documentElement.scrollWidth-document.documentElement.clientWidth,
+            width:window.innerWidth,
+            offenders:[...document.querySelectorAll("body *")].map(e=>({
+                tag:e.tagName,id:e.id,cls:String(e.className||"").slice(0,65),
+                right:Math.round(e.getBoundingClientRect().right),
+                left:Math.round(e.getBoundingClientRect().left)
+            })).filter(x=>x.right>window.innerWidth+2||x.left < -2).slice(0,15)
+        })""")
+        self.assertLessEqual(overflow["extra"],2,overflow)
 
     def test_batch60_center_resume_ten_lessons_secure_metadata(self):
         root="/descriptive/center/"
@@ -8625,13 +8633,19 @@ class SearchTests(unittest.TestCase):
             {"url":good,"label":"Median","ts":0},
             {"url":good,"label":"Median","ts":-1},
             {"url":good,"label":"Median","ts":999999999999999},
-            {"url":good,"label":"Median"},
+            {"url":good,"label":"Median","ts":"not-a-timestamp"},
         )
         for record in invalid:
             with self.subTest(record=record):
                 self.page.evaluate("(v)=>localStorage.setItem('esa_continue_descriptive_center_lesson_v0',JSON.stringify(v))",record)
                 self.page.reload(wait_until="networkidle")
                 expect(self.page.locator("#continue-reading-block4")).to_be_hidden()
+        # Valid legacy records were stored without a timestamp; retain support.
+        self.page.evaluate("(v)=>localStorage.setItem('esa_continue_descriptive_center_lesson_v0',JSON.stringify(v))",
+                           {"url":good,"label":"Median"})
+        self.page.reload(wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-block4")).to_be_visible()
+        self.assertEqual(self.page.locator("#continue-reading-block4-btn").get_attribute("href"),good)
         self.page.evaluate("(v)=>localStorage.setItem('esa_continue_descriptive_center_lesson_v0',JSON.stringify(v))",
                            {"url":good,"label":"<img src=x onerror=alert(1)>","ts":12345})
         self.page.reload(wait_until="networkidle")
@@ -8658,8 +8672,16 @@ class SearchTests(unittest.TestCase):
                      "/probability/distributions/hypergeometric-distribution/"):
             self.page.goto(self.origin+page,wait_until="networkidle")
             expect(self.page.locator("main h1")).to_be_visible()
-            self.assertLessEqual(self.page.evaluate(
-                "()=>document.documentElement.scrollWidth-document.documentElement.clientWidth"),2)
+            overflow=self.page.evaluate("""() => ({
+                extra:document.documentElement.scrollWidth-document.documentElement.clientWidth,
+                width:window.innerWidth,
+                offenders:[...document.querySelectorAll("body *")].map(e=>({
+                    tag:e.tagName,id:e.id,cls:String(e.className||"").slice(0,65),
+                    right:Math.round(e.getBoundingClientRect().right),
+                    left:Math.round(e.getBoundingClientRect().left)
+                })).filter(x=>x.right>window.innerWidth+2||x.left < -2).slice(0,15)
+            })""")
+            self.assertLessEqual(overflow["extra"],2,overflow)
 
 
 if __name__ == "__main__":
