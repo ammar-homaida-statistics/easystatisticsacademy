@@ -116,9 +116,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-cdf-equation" role="region" tabindex="0" aria-label="Cumulative distribution formula 1">
+\[
     F_X(x)=P(X\le x)
     \]
+</div>
 
 
     <p>
@@ -179,9 +181,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-cdf-equation" role="region" tabindex="0" aria-label="Cumulative distribution formula 2">
+\[
     F_X(3)=P(X\le3)
     \]
+</div>
 
 
     <p>
@@ -201,9 +205,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-cdf-equation" role="region" tabindex="0" aria-label="Cumulative distribution formula 3">
+\[
     F_X(3)=P(X\in\{1,2,3\})=\frac36=0.5
     \]
+</div>
 
 
     <h2>A Continuous Example</h2>
@@ -272,9 +278,11 @@ sidebar: false
     <h3>Property 1: Values Are Between 0 and 1</h3>
 
     
-    \[
+    <div class="esa-cdf-equation" role="region" tabindex="0" aria-label="Cumulative distribution formula 4">
+\[
     0\le F_X(x)\le1\quad\text{for all }x
     \]
+</div>
 
 
     <p>
@@ -385,6 +393,63 @@ sidebar: false
 
     </div>
 
+
+    <style>
+      /* Keep wide mathematical equations readable without 320px document overflow. */
+      .esa-cdf-equation{max-width:100%;min-width:0;overflow-x:auto}
+      .esa-cdf-equation mjx-container[display="true"]{width:max-content;min-width:100%;text-align:left}
+      .esa-cdf-equation:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+    </style>
+    <!-- Batch #63: discrete/continuous CDF explorer -->
+    <section class="concept-box" id="esa-cdf-explorer" aria-labelledby="esa-cdf-explorer-title">
+      <h2 id="esa-cdf-explorer-title">Interactive Cumulative Distribution Function Explorer</h2>
+      <p>Compare a discrete <strong>Bernoulli</strong> distribution (support 0 and 1) with a continuous <strong>Uniform[a,b]</strong> distribution. Change parameters and x, then compare <strong>F(x)=P(X≤x)</strong> and <strong>P(L&lt;X≤R)=F(R)−F(L)</strong>.</p>
+      <div class="esa-cdf-grid">
+        <div><label for="esa-cdf-kind">Distribution</label>
+          <select id="esa-cdf-kind"><option value="bernoulli">Bernoulli (discrete)</option><option value="uniform">Uniform (continuous)</option></select></div>
+        <div id="esa-cdf-bernoulli-options"><label for="esa-cdf-p">Success probability p: <output id="esa-cdf-p-label">0.35</output></label>
+          <input id="esa-cdf-p" type="range" min="0" max="1" step="0.05" value="0.35"></div>
+        <div id="esa-cdf-uniform-options" hidden><label for="esa-cdf-a">Uniform lower endpoint a: <output id="esa-cdf-a-label">0.0</output></label>
+          <input id="esa-cdf-a" type="range" min="-1" max="1.5" step="0.5" value="0">
+          <label for="esa-cdf-b">Uniform upper endpoint b: <output id="esa-cdf-b-label">2.0</output></label>
+          <input id="esa-cdf-b" type="range" min="0" max="3" step="0.5" value="2"></div>
+        <div><label for="esa-cdf-x">Evaluate at x = <output id="esa-cdf-x-label">0.50</output></label>
+          <input id="esa-cdf-x" type="range" min="-1.5" max="3.5" step="0.05" value="0.5"></div>
+        <div><label for="esa-cdf-left">Interval lower bound L (excluded)</label>
+          <input id="esa-cdf-left" type="number" step="any" min="-1.5" max="3.5" value="0"></div>
+        <div><label for="esa-cdf-right">Interval upper bound R (included)</label>
+          <input id="esa-cdf-right" type="number" step="any" min="-1.5" max="3.5" value="1"></div>
+      </div>
+      <p id="esa-cdf-error" role="alert" hidden></p>
+      <div class="esa-cdf-figure">
+        <svg id="esa-cdf-chart" role="img" viewBox="0 0 400 242" aria-label="Cumulative distribution graph"></svg>
+      </div>
+      <div id="esa-cdf-results" role="status" aria-live="polite" aria-atomic="true">
+        <p><strong>Cumulative probability F(x):</strong> <output id="esa-cdf-fx">—</output></p>
+        <p><strong>Interval probability P(L &lt; X ≤ R):</strong> <output id="esa-cdf-interval">—</output></p>
+        <p id="esa-cdf-description"></p>
+      </div>
+      <button type="button" id="esa-cdf-reset" class="btn btn-outline">Reset CDF example</button>
+      <p class="muted-mini"><strong>How to interpret:</strong> A Bernoulli CDF is a right-continuous step function; a uniform CDF is continuous. The interval excludes the lower endpoint L and includes the upper endpoint R, which can affect discrete probabilities. These idealized models do not cover every possible CDF.</p>
+    </section>
+    <style>
+      #esa-cdf-explorer{min-width:0;max-width:100%;overflow-wrap:anywhere}
+      #esa-cdf-explorer .esa-cdf-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:12px 0}
+      #esa-cdf-explorer .esa-cdf-grid>div{min-width:0}
+      #esa-cdf-explorer label{display:block;font-weight:650;margin:4px 0 8px}
+      #esa-cdf-explorer input[type="range"],#esa-cdf-explorer input[type="number"],#esa-cdf-explorer select{
+        box-sizing:border-box;display:block;width:100%;min-width:0;max-width:100%;font:inherit;background:var(--surface);color:var(--text)}
+      #esa-cdf-explorer input[type="number"],#esa-cdf-explorer select{
+        border:1px solid var(--border-strong);border-radius:8px;padding:10px}
+      #esa-cdf-explorer :is(input,select,button):focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+      #esa-cdf-explorer .esa-cdf-figure svg{display:block;width:100%;max-width:560px;height:auto;margin:10px auto}
+      #esa-cdf-explorer [hidden]{display:none!important}
+      #esa-cdf-explorer #esa-cdf-error{color:#b42318;font-weight:650}
+      #esa-cdf-explorer output{font-variant-numeric:tabular-nums}
+      @media(max-width:600px){#esa-cdf-explorer .esa-cdf-grid{grid-template-columns:minmax(0,1fr)}}
+    </style>
+    <script src="{{ '/js/cdf-bernoulli-uniform-explorer.js' | relative_url }}" defer></script>
+
     <h2>Finding Probabilities Using the CDF</h2>
 
     <p>
@@ -396,9 +461,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-cdf-equation" role="region" tabindex="0" aria-label="Cumulative distribution formula 5">
+\[
     P(a<X\le b)=F_X(b)-F_X(a)\quad(a<b)
     \]
+</div>
 
 
     <p>
@@ -428,9 +495,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-cdf-equation" role="region" tabindex="0" aria-label="Cumulative distribution formula 6">
+\[
     P(5<X\le10)=F_X(10)-F_X(5)=0.80-0.35=0.45
     \]
+</div>
 
 
     <p>

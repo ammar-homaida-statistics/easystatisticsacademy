@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_probability_sampling_distributions_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
     url: "/probability/sampling-distributions/z-statistic-and-ci/",
     label: "Z Statistic and Confidence Intervals",
     ts: Date.now()
-  }));
+    }));
+  } catch (_) {
+    // Browser storage can be blocked or full without preventing reading.
+  }
 
 })();
 </script>

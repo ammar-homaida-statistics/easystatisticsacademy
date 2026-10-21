@@ -19,6 +19,8 @@ jobs:
           python-version: '3.13'
       - name: Test mathematical placeholder validator
         run: python -m unittest discover -s .github/scripts -p 'test_math_placeholders.py' -v
+      - name: Verify Batch #63 independent probability benchmarks
+        run: python -m unittest discover -s .github/scripts -p 'test_batch63_math.py' -v
       - name: Inventory mathematical placeholders and reject new damage
         run: python .github/scripts/validate_math_placeholders.py
       - name: Validate front matter
