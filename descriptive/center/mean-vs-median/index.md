@@ -320,12 +320,18 @@ The outlier shifts the mean toward the extreme value, while the median remains s
       <p class="muted-mini"><strong>Interpretation:</strong> The median may also move, particularly in small samples. Mean–median comparisons alone do not establish the shape of an entire distribution.</p>
     </section>
     <style>
+      #esa-mean-median-explorer{box-sizing:border-box;display:block;width:100%;max-width:100%;min-width:0;overflow-x:clip}
       #esa-mean-median-explorer *{box-sizing:border-box}
       #esa-mean-median-explorer .esa-mm-controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:1rem;margin:1rem 0}
       #esa-mean-median-explorer label{display:block;font-weight:650;margin-bottom:.35rem}
       #esa-mean-median-explorer textarea,#esa-mean-median-explorer input{display:block;width:100%;max-width:100%;min-width:0;padding:.65rem;border:1px solid #888;border-radius:.35rem;color:inherit;background:var(--surface,#fff);font:inherit}
       #esa-mean-median-explorer .table-wrap{max-width:100%;overflow-x:auto}
       #esa-mean-median-explorer #esa-mm-error{color:#b91c1c;font-weight:650;overflow-wrap:anywhere}
+      #esa-mean-median-explorer #esa-mm-chart{overflow:hidden!important}
+      #esa-mean-median-explorer #esa-mm-chart[hidden]{display:none!important}
+      @media(max-width:760px){
+        #main-content .content-narrow{width:100%;max-width:100%;min-width:0;overflow-x:clip}
+      }
     </style>
     <script src="/js/mean-median-explorer.js" defer></script>
 
