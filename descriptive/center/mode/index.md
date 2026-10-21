@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_descriptive_center_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
     url: "/descriptive/center/mode/",
     label: "Mode",
     ts: Date.now()
   }));
+  } catch (_) {
+    // Browsers may disable persistence; lesson content must still work.
+  }
 
 })();
 </script>
