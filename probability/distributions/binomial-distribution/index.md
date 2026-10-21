@@ -4,6 +4,7 @@ title: Binomial Distribution
 description: Learn how the binomial distribution models the number of successes in a fixed number of independent Bernoulli trials.
 permalink: /probability/distributions/binomial-distribution/
 sidebar: false
+translation_pair: binomial-distribution
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -40,6 +41,7 @@ sidebar: false
     </div>
 
     <h1>Binomial Distribution</h1>
+    <p><a href="/ar/probability/distributions/binomial-distribution/" lang="ar" dir="rtl">العربية — التوزيع ذو الحدين</a></p>
 
     <p class="lead">
       The Bernoulli distribution models a single success-or-failure trial.
@@ -173,9 +175,11 @@ sidebar: false
       A binomial random variable is written as:
     </p>
 
-    \[
+    <div class="esa-binomial-equation" tabindex="0" role="region" aria-label="Binomial notation">
+\[
 X\sim\operatorname{Binomial}(n,p)
 \]
+    </div>
 
     <p>
       where:
@@ -195,9 +199,11 @@ X\sim\operatorname{Binomial}(n,p)
       A binomial variable can take values:
     </p>
 
-    \[
+    <div class="esa-binomial-equation" tabindex="0" role="region" aria-label="Possible binomial counts">
+\[
 X\in\{0,1,\ldots,n\}
 \]
+    </div>
 
     <p>
       because counts from zero to n are the mathematical range. When p = 0 or p = 1, however, only one endpoint count has positive probability.
@@ -209,9 +215,11 @@ X\in\{0,1,\ldots,n\}
       The probability of observing exactly k successes is:
     </p>
 
-    \[
+    <div class="esa-binomial-equation" tabindex="0" role="region" aria-label="Binomial probability mass function">
+\[
 P(X=k)=\binom{n}{k}p^k(1-p)^{n-k},\quad k=0,\ldots,n
 \]
+    </div>
 
     <p>
       This is called the binomial probability mass function.
@@ -263,9 +271,11 @@ P(X=k)=\binom{n}{k}p^k(1-p)^{n-k},\quad k=0,\ldots,n
       The notation:
     </p>
 
-    \[
+    <div class="esa-binomial-equation" tabindex="0" role="region" aria-label="Binomial coefficient">
+\[
 \binom{n}{k}=\frac{n!}{k!(n-k)!}
 \]
+    </div>
 
     <p>
       counts the number of ways k successes can be placed among n trials.
@@ -309,25 +319,31 @@ P(X=k)=\binom{n}{k}p^k(1-p)^{n-k},\quad k=0,\ldots,n
       Applying the formula:
     </p>
 
-    \[
+    <div class="esa-binomial-equation" tabindex="0" role="region" aria-label="Probability of exactly two heads">
+\[
 P(X=2)=\binom{3}{2}(0.5)^2(0.5)^{3-2}
 \]
+    </div>
 
     <p>
       Since:
     </p>
 
-    \[
+    <div class="esa-binomial-equation" tabindex="0" role="region" aria-label="Three choose two">
+\[
 \binom{3}{2}=3
 \]
+    </div>
 
     <p>
       the probability becomes:
     </p>
 
-    \[
+    <div class="esa-binomial-equation" tabindex="0" role="region" aria-label="Two-head probability">
+\[
 P(X=2)=3(0.5)^3=0.375
 \]
+    </div>
 
     <h2>Mean of a Binomial Distribution</h2>
 
@@ -335,9 +351,11 @@ P(X=2)=3(0.5)^3=0.375
       The expected value is:
     </p>
 
-    \[
+    <div class="esa-binomial-equation" tabindex="0" role="region" aria-label="Binomial mean">
+\[
 \operatorname{E}(X)=np
 \]
+    </div>
 
     <div class="concept-box">
 
@@ -371,9 +389,11 @@ P(X=2)=3(0.5)^3=0.375
       Then:
     </p>
 
-    \[
+    <div class="esa-binomial-equation" tabindex="0" role="region" aria-label="Worked binomial mean">
+\[
 \operatorname{E}(X)=100(0.2)=20
 \]
+    </div>
 
     <p>
       The expected count is exactly 20; any observed count still varies from sample to sample.
@@ -385,17 +405,21 @@ P(X=2)=3(0.5)^3=0.375
       The variance is:
     </p>
 
-    \[
+    <div class="esa-binomial-equation" tabindex="0" role="region" aria-label="Binomial variance">
+\[
 \operatorname{Var}(X)=np(1-p)
 \]
+    </div>
 
     <p>
       The standard deviation is:
     </p>
 
-    \[
+    <div class="esa-binomial-equation" tabindex="0" role="region" aria-label="Binomial standard deviation">
+\[
 \operatorname{SD}(X)=\sqrt{np(1-p)}
 \]
+    </div>
 
     <h2>Why the Formula Makes Sense</h2>
 
@@ -407,17 +431,21 @@ P(X=2)=3(0.5)^3=0.375
       Since each Bernoulli trial has:
     </p>
 
-    \[
+    <div class="esa-binomial-equation" tabindex="0" role="region" aria-label="Bernoulli indicator variance">
+\[
 \operatorname{Var}(I_i)=p(1-p)
 \]
+    </div>
 
     <p>
       the variances add together:
     </p>
 
-    \[
+    <div class="esa-binomial-equation" tabindex="0" role="region" aria-label="Binomial variance derivation">
+\[
 \operatorname{Var}(X)=\operatorname{Var}\!\left(\sum_{i=1}^{n}I_i\right)=\sum_{i=1}^{n}\operatorname{Var}(I_i)=np(1-p)
 \]
+    </div>
 
 
     <!-- INTERACTIVE BINOMIAL PROBABILITY CALCULATOR -->
@@ -473,6 +501,10 @@ P(X=2)=3(0.5)^3=0.375
       </p>
     </section>
     <style>
+      /* Keep long TeX and rendered equations readable without widening the page. */
+      .esa-binomial-equation{max-width:100%;min-width:0;overflow-x:auto}
+      .esa-binomial-equation mjx-container[display="true"]{width:max-content;min-width:100%;text-align:left}
+      .esa-binomial-equation:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
       #esa-binomial-calculator{max-width:100%;min-width:0;overflow-wrap:anywhere}
       #esa-binomial-calculator .esa-binomial-input-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:16px 0}
       #esa-binomial-calculator .esa-binomial-input-grid>div{min-width:0}
@@ -488,94 +520,7 @@ P(X=2)=3(0.5)^3=0.375
         #esa-binomial-calculator .esa-binomial-result-grid{grid-template-columns:minmax(0,1fr)}
       }
     </style>
-    <script>
-    (function () {
-      const form = document.getElementById("esa-binomial-calculator-form");
-      if (!form) return;
-      const nInput = document.getElementById("esa-binomial-n");
-      const pInput = document.getElementById("esa-binomial-p");
-      const kInput = document.getElementById("esa-binomial-k");
-      const exact = document.getElementById("esa-binomial-exact");
-      const cumulative = document.getElementById("esa-binomial-cdf");
-      const upper = document.getElementById("esa-binomial-upper");
-      const mean = document.getElementById("esa-binomial-mean");
-      const variance = document.getElementById("esa-binomial-variance");
-      const explanation = document.getElementById("esa-binomial-explanation");
-      const error = document.getElementById("esa-binomial-error");
-      const outputs = [exact,cumulative,upper,mean,variance];
-
-      function format(x) {
-        if (x === 0) return "0";
-        if (Math.abs(x) < 1e-8) return x.toExponential(8);
-        return Number(x.toPrecision(12)).toLocaleString("en-US",{maximumFractionDigits:12});
-      }
-      function inclusiveLogSum(logTerms, start, end) {
-        let peak = -Infinity;
-        for (let i = start; i <= end; ++i) peak = Math.max(peak,logTerms[i]);
-        let total = 0;
-        for (let i = start; i <= end; ++i) total += Math.exp(logTerms[i] - peak);
-        return Math.min(1, Math.max(0, Math.exp(peak) * total));
-      }
-      function render() {
-        const n = Number(nInput.value);
-        const p = Number(pInput.value);
-        const k = Number(kInput.value);
-        let problem = "";
-        if (!nInput.value.trim() || !Number.isSafeInteger(n) || n < 1 || n > 1000) {
-          problem = "Enter a whole number of trials from 1 to 1,000.";
-        } else if (!pInput.value.trim() || !Number.isFinite(p) || p < 0 || p > 1) {
-          problem = "Enter a success probability between 0 and 1 inclusive.";
-        } else if (!kInput.value.trim() || !Number.isSafeInteger(k) || k < 0 || k > n) {
-          problem = "Enter a whole number of successes between 0 and n inclusive.";
-        }
-        if (problem) {
-          outputs.forEach(out => { out.textContent = "—"; });
-          explanation.textContent = "";
-          error.textContent = problem;
-          error.hidden = false;
-          return;
-        }
-        error.textContent = "";
-        error.hidden = true;
-        let px, lower, greater;
-        if (p === 0 || p === 1) {
-          const determined = p === 0 ? 0 : n;
-          px = k === determined ? 1 : 0;
-          lower = determined <= k ? 1 : 0;
-          greater = determined >= k ? 1 : 0;
-        } else {
-          // Log factorials and log-sum-exp keep inclusive tails stable even
-          // when subtracting from 1 would lose the small tail probability.
-          const logFactorial = [0];
-          for (let j = 1; j <= n; ++j)
-            logFactorial[j] = logFactorial[j-1] + Math.log(j);
-          const logP = Math.log(p), logQ = Math.log1p(-p);
-          const terms = [];
-          for (let j = 0; j <= n; ++j) {
-            terms[j] = logFactorial[n] - logFactorial[j] - logFactorial[n-j] +
-                       j*logP + (n-j)*logQ;
-          }
-          px = Math.exp(terms[k]);
-          lower = inclusiveLogSum(terms, 0, k);
-          greater = inclusiveLogSum(terms, k, n);
-        }
-        exact.textContent = format(px);
-        cumulative.textContent = format(lower);
-        upper.textContent = format(greater);
-        mean.textContent = format(n*p);
-        variance.textContent = format(n*p*(1-p));
-        explanation.textContent = "For " + n + " trials with p = " + p +
-          ", the chance of exactly " + k + " successes is " + format(px) +
-          ". P(X ≤ " + k + ") includes up to " + k +
-          " successes; P(X ≥ " + k + ") includes " + k +
-          " and larger counts. These are probabilities, not predictions of a guaranteed count.";
-      }
-      form.addEventListener("input",render);
-      form.addEventListener("change",render);
-      form.addEventListener("submit",e => { e.preventDefault(); render(); });
-      render();
-    })();
-    </script>
+    <script src="{{ '/js/binomial-probability-calculator.js' | relative_url }}" defer></script>
 
     <h2>Shape of the Distribution</h2>
 

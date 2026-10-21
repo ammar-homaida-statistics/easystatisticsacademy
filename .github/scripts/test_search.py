@@ -8684,5 +8684,145 @@ class SearchTests(unittest.TestCase):
             self.assertLessEqual(overflow["extra"],2,overflow)
 
 
+
+    def test_batch61_binomial_bilingual_calculator_parity_and_metadata(self):
+        en="/probability/distributions/binomial-distribution/"
+        ar="/ar/probability/distributions/binomial-distribution/"
+        initial=[]
+        for route,lang in ((en,"en"),(ar,"ar")):
+            with self.subTest(lang=lang):
+                self.page.goto(self.origin+route,wait_until="networkidle")
+                self.assertEqual(self.page.locator("html").get_attribute("lang"),lang)
+                self.assertEqual(self.page.locator("html").get_attribute("dir"),
+                                 "rtl" if lang=="ar" else None)
+                self.assertEqual(self.page.locator("link[rel=canonical]").get_attribute("href"),
+                                 "https://easystatisticsacademy.com"+route)
+                for key,target in (("en",en),("ar",ar)):
+                    self.assertEqual(self.page.locator(
+                        'link[rel=alternate][hreflang="'+key+'"]').get_attribute("href"),
+                        "https://easystatisticsacademy.com"+target)
+                self.assertEqual(self.page.locator("#esa-binomial-calculator").count(),1)
+                ids=("exact","cdf","upper","mean","variance")
+                values=tuple(self.page.locator("#esa-binomial-"+key).inner_text() for key in ids)
+                self.assertEqual(values,("0.375","0.875","0.5","1.5","0.75"))
+                initial.append(values)
+                self.page.locator("#esa-binomial-n").fill("10")
+                self.page.locator("#esa-binomial-p").fill("0.2")
+                self.page.locator("#esa-binomial-k").fill("2")
+                self.assertAlmostEqual(float(self.page.locator("#esa-binomial-exact").inner_text()),
+                                       45*(.2**2)*(.8**8),delta=1e-10)
+                self.assertEqual(self.page.locator("#esa-binomial-mean").inner_text(),"2")
+                self.assertEqual(self.page.locator("#esa-binomial-variance").inner_text(),"1.6")
+                self.page.locator("#esa-binomial-p").fill("0")
+                self.page.locator("#esa-binomial-k").fill("0")
+                self.assertEqual(self.page.locator("#esa-binomial-exact").inner_text(),"1")
+                self.page.locator("#esa-binomial-p").fill("1")
+                self.page.locator("#esa-binomial-k").fill("10")
+                self.assertEqual(self.page.locator("#esa-binomial-exact").inner_text(),"1")
+                self.page.locator("#esa-binomial-n").fill("1001")
+                self.assertFalse(self.page.locator("#esa-binomial-error").is_hidden())
+                message=self.page.locator("#esa-binomial-error").inner_text()
+                self.assertIn("أدخل" if lang=="ar" else "Enter",message)
+                self.page.set_viewport_size({"width":320,"height":760})
+                self.assertLessEqual(self.page.evaluate(
+                    "()=>document.documentElement.scrollWidth-document.documentElement.clientWidth"),2)
+                self.page.set_viewport_size({"width":1280,"height":800})
+        self.assertEqual(initial[0],initial[1])
+        self.page.goto(self.origin+"/ar/",wait_until="networkidle")
+        expect(self.page.locator('a[href="'+ar+'"]')).to_be_visible()
+
+    def test_batch61_misleading_axis_explorer_independent_values_and_keyboard(self):
+        self.page.goto(self.origin+"/descriptive/visualization/misleading-graphs/",
+                       wait_until="networkidle")
+        expect(self.page.locator("#esa-truncated-axis-lab")).to_be_visible()
+        self.assertEqual(self.page.locator("#esa-axis-difference").inner_text(),"5")
+        self.assertEqual(self.page.locator("#esa-axis-relative").inner_text(),"5.26%")
+        self.assertEqual(self.page.locator("#esa-axis-apparent").inner_text(),"2.00×")
+        sizes=self.page.evaluate("""() => ['zero','truncated'].map(name =>
+          [...document.querySelectorAll('#esa-axis-'+name+'-chart rect')]
+          .map(node=>Number(node.getAttribute('height'))))""")
+        self.assertEqual(len(sizes[0]),2)
+        self.assertEqual(len(sizes[1]),2)
+        self.assertAlmostEqual(sizes[0][1]/sizes[0][0],100/95,places=9)
+        self.assertAlmostEqual(sizes[1][1]/sizes[1][0],10/5,places=9)
+        self.page.locator("#esa-axis-a").fill("80")
+        self.page.locator("#esa-axis-b").fill("100")
+        self.page.locator("#esa-axis-baseline").fill("70")
+        self.assertEqual(self.page.locator("#esa-axis-difference").inner_text(),"20")
+        self.assertEqual(self.page.locator("#esa-axis-relative").inner_text(),"25.00%")
+        self.assertEqual(self.page.locator("#esa-axis-apparent").inner_text(),"3.00×")
+        self.page.locator("#esa-axis-baseline").fill("85")
+        expect(self.page.locator("#esa-axis-error")).to_be_visible()
+        expect(self.page.locator("#esa-axis-result")).to_be_hidden()
+        self.page.locator("#esa-axis-reset").focus()
+        self.page.keyboard.press("Enter")
+        self.assertEqual(self.page.locator("#esa-axis-apparent").inner_text(),"2.00×")
+        self.page.set_viewport_size({"width":320,"height":760})
+        self.assertLessEqual(self.page.evaluate(
+            "()=>document.documentElement.scrollWidth-document.documentElement.clientWidth"),2)
+
+    def test_batch61_random_variables_six_lessons_resume_safety_and_legacy(self):
+        root="/probability/random-variables/"
+        key="esa_continue_probability_random_variables_lesson_v0"
+        slugs=("what-is-a-random-variable","discrete-random-variables",
+               "continuous-random-variables","cumulative-distribution-function",
+               "expectation","variance-and-standard-deviation")
+        for slug in slugs:
+            with self.subTest(slug=slug):
+                self.page.goto(self.origin+root+slug+"/",wait_until="networkidle")
+                record=self.page.evaluate("k=>JSON.parse(localStorage.getItem(k))",key)
+                self.assertEqual(record["url"],root+slug+"/")
+                self.assertIsInstance(record["ts"],int)
+                self.assertGreater(record["ts"],0)
+                self.page.goto(self.origin+root,wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-probability-rv")).to_be_visible()
+                self.assertEqual(self.page.locator("#continue-reading-probability-rv-btn").get_attribute("href"),record["url"])
+        self.page.goto(self.origin+root,wait_until="networkidle")
+        valid=root+"expectation/"
+        invalid=(
+            {"url":"javascript:alert(1)","label":"Expectation","ts":10},
+            {"url":valid+"?x=1","label":"Expectation","ts":10},
+            {"url":root+"invented/","label":"Expectation","ts":10},
+            {"url":valid,"label":"x"*201,"ts":10},
+            {"url":valid,"label":"Expectation","ts":0},
+            {"url":valid,"label":"Expectation","ts":-12},
+            {"url":valid,"label":"Expectation","ts":99999999999999},
+            {"url":valid,"label":"Expectation","ts":"not-a-date"},
+            {"url":valid,"label":"Expectation","ts":None},
+        )
+        for record in invalid:
+            with self.subTest(record=str(record)):
+                self.page.evaluate("(v)=>localStorage.setItem('"+key+"',JSON.stringify(v))",record)
+                self.page.reload(wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-probability-rv")).to_be_hidden()
+        # Older valid storage records lacked timestamps: preserve them.
+        self.page.evaluate("(v)=>localStorage.setItem('"+key+"',JSON.stringify(v))",
+                           {"url":valid,"label":"Expectation"})
+        self.page.reload(wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-probability-rv")).to_be_visible()
+        self.page.evaluate("(v)=>localStorage.setItem('"+key+"',JSON.stringify(v))",
+                           {"url":valid,"label":"<img src=x onerror=alert(1)>","ts":12345})
+        self.page.reload(wait_until="networkidle")
+        self.assertEqual(self.page.locator("#continue-reading-probability-rv-label img").count(),0)
+        self.assertIn("<img",self.page.locator("#continue-reading-probability-rv-label").inner_text())
+
+    def test_batch61_random_variables_denied_storage_mobile(self):
+        self.page.add_init_script("""
+            Object.defineProperty(window,"localStorage",{
+              configurable:true,get(){throw new DOMException("Denied","SecurityError")}
+            });
+        """)
+        self.page.set_viewport_size({"width":320,"height":760})
+        root="/probability/random-variables/"
+        for slug in ("what-is-a-random-variable","discrete-random-variables",
+                     "continuous-random-variables","cumulative-distribution-function",
+                     "expectation","variance-and-standard-deviation"):
+            with self.subTest(slug=slug):
+                self.page.goto(self.origin+root+slug+"/",wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+        self.page.goto(self.origin+root,wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-probability-rv")).to_be_hidden()
+
+
 if __name__ == "__main__":
     unittest.main(argv=[__file__], verbosity=2)

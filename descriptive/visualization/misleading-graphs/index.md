@@ -13,11 +13,13 @@ sidebar: false
   const KEY =
     "esa_continue_descriptive_visualization_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
-    url: "/descriptive/visualization/misleading-graphs/",
-    label: "Misleading Graphs",
-    ts: Date.now()
-  }));
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
+      url: "/descriptive/visualization/misleading-graphs/",
+      label: "Misleading Graphs",
+      ts: Date.now()
+    }));
+  } catch (_) { /* Optional storage must not block the lesson. */ }
 
 })();
 </script>
@@ -160,6 +162,47 @@ sidebar: false
 <p>
 The same data can appear dramatically different depending on where the axis begins.
 </p>
+
+<!-- INTERACTIVE TRUNCATED AXIS EXPLORER: independent numerical values, shared data -->
+<section class="concept-box" id="esa-truncated-axis-lab" aria-labelledby="esa-axis-heading" style="max-width:100%;min-width:0;overflow-wrap:anywhere">
+  <h3 id="esa-axis-heading">Interactive Misleading Graphs Explorer</h3>
+  <p>Both charts display <strong>exactly the same values</strong>; only the vertical-axis starting point changes. A zero baseline is the standard comparison for bar lengths. Truncating a bar axis can magnify their apparent difference.</p>
+  <div class="esa-axis-inputs">
+    <label for="esa-axis-a">Value A
+      <input id="esa-axis-a" type="number" min="0" max="1000" step="any" value="95">
+    </label>
+    <label for="esa-axis-b">Value B
+      <input id="esa-axis-b" type="number" min="0" max="1000" step="any" value="100">
+    </label>
+    <label for="esa-axis-baseline">Truncated-axis start
+      <input id="esa-axis-baseline" type="number" min="0" max="1000" step="any" value="90">
+    </label>
+    <button id="esa-axis-reset" class="btn btn-outline" type="button">Reset example</button>
+  </div>
+  <p role="alert" id="esa-axis-error" hidden></p>
+  <div id="esa-axis-result" role="status" aria-live="polite">
+    <p><strong>Actual absolute difference:</strong> <output id="esa-axis-difference">5</output>.
+    <strong>Difference relative to smaller value:</strong> <output id="esa-axis-relative">5.26%</output>.
+    <strong>Visible bar-height ratio on truncated chart:</strong> <output id="esa-axis-apparent">2.00×</output>.</p>
+    <div class="esa-axis-charts">
+      <figure><figcaption>Zero baseline (0)</figcaption><svg id="esa-axis-zero-chart"></svg></figure>
+      <figure><figcaption>Adjusted baseline</figcaption><svg id="esa-axis-truncated-chart"></svg></figure>
+    </div>
+  </div>
+  <p class="muted-mini"><strong>Important:</strong> Height ratios measure only the visible portions of the two bars; they are <em>not</em> the ratio of the original values. A truncated bar chart must clearly disclose the nonzero baseline. For comparing magnitudes, a zero-baseline bar chart is generally more faithful. This lesson uses nonnegative values from 0 to 1,000.</p>
+</section>
+<style>
+  #esa-truncated-axis-lab .esa-axis-inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr));gap:12px;align-items:end;margin:16px 0}
+  #esa-truncated-axis-lab label{display:block;font-weight:600}
+  #esa-truncated-axis-lab input{display:block;box-sizing:border-box;width:100%;min-width:0;padding:10px;background:var(--surface);color:var(--text);border:1px solid var(--border-strong);border-radius:8px;font:inherit}
+  #esa-truncated-axis-lab input:focus-visible,#esa-truncated-axis-lab button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  #esa-truncated-axis-lab .esa-axis-charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,245px),1fr));gap:12px}
+  #esa-truncated-axis-lab figure{min-width:0;margin:0;padding:10px;border:1px solid var(--border-strong);border-radius:8px}
+  #esa-truncated-axis-lab figcaption{text-align:center;font-weight:600}
+  #esa-truncated-axis-lab svg{display:block;width:100%;height:auto;max-width:340px;margin:auto}
+  #esa-axis-error{color:#b42318;font-weight:650}
+</style>
+<script src="{{ '/js/misleading-graphs-explorer.js' | relative_url }}" defer></script>
 
     <div class="example-box">
 

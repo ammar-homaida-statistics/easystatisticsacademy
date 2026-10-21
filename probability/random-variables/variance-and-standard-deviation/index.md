@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_probability_random_variables_lesson_v0";
 
+  try {
   localStorage.setItem(KEY, JSON.stringify({
     url: "/probability/random-variables/variance-and-standard-deviation/",
     label: "Variance and Standard Deviation",
     ts: Date.now()
   }));
+  } catch (_) {
+    // Browser storage may be unavailable; reading the lesson must still work.
+  }
 
 })();
 </script>
