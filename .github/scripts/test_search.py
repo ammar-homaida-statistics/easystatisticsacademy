@@ -8510,5 +8510,157 @@ class SearchTests(unittest.TestCase):
 
 
 
+    def test_batch60_mean_median_complete_arabic_parity_navigation_and_mobile(self):
+        en="/descriptive/center/mean-vs-median/"
+        ar="/ar/descriptive/center/mean-vs-median/"
+        original=[]
+        for route,lang in ((en,"en"),(ar,"ar")):
+            with self.subTest(language=lang):
+                self.page.goto(self.origin+route,wait_until="networkidle")
+                self.assertEqual(self.page.locator("html").get_attribute("lang"),lang)
+                self.assertEqual(self.page.locator("html").get_attribute("dir"),
+                                 "rtl" if lang=="ar" else None)
+                self.assertEqual(self.page.locator("link[rel=canonical]").get_attribute("href"),
+                                 "https://easystatisticsacademy.com"+route)
+                for key,target in (("en",en),("ar",ar)):
+                    self.assertEqual(self.page.locator(
+                        'link[rel="alternate"][hreflang="'+key+'"]').get_attribute("href"),
+                        "https://easystatisticsacademy.com"+target)
+                expect(self.page.locator("#esa-mean-median-explorer")).to_be_visible()
+                vals=tuple(self.page.locator("#esa-mm-"+s).inner_text() for s in
+                           ("mean-before","median-before","mean-after","median-after",
+                            "mean-change","median-change"))
+                self.assertEqual(vals,("6","6","24","6","18","0"))
+                original.append(vals)
+                self.page.locator("#esa-mm-sample").fill("1, 2, 3, 4")
+                self.page.locator("#esa-mm-extreme").fill("100")
+                self.assertEqual(self.page.locator("#esa-mm-mean-after").inner_text(),"26.5")
+                self.assertEqual(self.page.locator("#esa-mm-median-after").inner_text(),"2.5")
+                self.page.locator("#esa-mm-reset").focus()
+                self.page.keyboard.press("Enter")
+                self.assertEqual(self.page.locator("#esa-mm-mean-after").inner_text(),"24")
+                self.page.set_viewport_size({"width":320,"height":760})
+                self.assertLessEqual(self.page.evaluate(
+                    "()=>document.documentElement.scrollWidth-document.documentElement.clientWidth"),2)
+                if lang=="ar":
+                    self.assertIn("استُبدلت",self.page.locator("#esa-mm-explainer").inner_text())
+                    self.assertIn("المتوسط الحسابي والوسيط",self.page.locator("main h1").inner_text())
+                    self.page.locator("#esa-mm-sample").fill("one, 2, 3")
+                    self.assertIn("أدخل",self.page.locator("#esa-mm-error").inner_text())
+                    expect(self.page.locator("#esa-mm-results")).to_be_hidden()
+                else:
+                    self.assertIn("Replaced",self.page.locator("#esa-mm-explainer").inner_text())
+                self.page.set_viewport_size({"width":1280,"height":800})
+        self.assertEqual(original[0],original[1])
+        self.page.goto(self.origin+"/ar/",wait_until="networkidle")
+        expect(self.page.locator('a[href="'+ar+'"]')).to_be_visible()
+
+    def test_batch60_hypergeometric_exact_probability_and_boundary_cases(self):
+        import math
+        self.page.goto(self.origin+"/probability/distributions/hypergeometric-distribution/",
+                       wait_until="networkidle")
+        expect(self.page.locator("#esa-hypergeom-explorer")).to_be_visible()
+        def get(s):
+            return self.page.locator("#esa-hg-"+s).inner_text()
+        expected=math.comb(10,1)*math.comb(90,4)/math.comb(100,5)
+        self.assertAlmostEqual(float(get("exact")),expected,delta=.0000006)
+        self.assertAlmostEqual(float(get("mean")),.5,places=6)
+        self.assertAlmostEqual(float(get("total")),1,delta=.000001)
+        for input_id,value in (("N","10"),("K","3"),("n","2"),("x","1")):
+            self.page.locator("#esa-hg-"+input_id).fill(value)
+        self.assertEqual(get("support"),"0 to 2")
+        self.assertEqual(get("exact"),"0.466667")
+        self.assertEqual(get("approx"),"0.420000")
+        self.assertEqual(get("difference"),"0.046667")
+        self.assertEqual(get("variance"),"0.373333")
+        self.assertEqual(get("total"),"1.000000")
+        self.assertEqual(self.page.locator("#esa-hg-bars rect").count(),6)
+        self.page.locator("#esa-hg-K").fill("10")
+        self.page.locator("#esa-hg-x").fill("0")
+        self.assertEqual(get("support"),"2 to 2")
+        self.assertEqual(get("exact"),"0.000000")
+        self.page.locator("#esa-hg-x").fill("2")
+        self.assertEqual(get("exact"),"1.000000")
+        for id,value in (("N","1"),("K","1"),("n","1"),("x","1")):
+            self.page.locator("#esa-hg-"+id).fill(value)
+        self.assertEqual(get("exact"),"1.000000")
+        self.assertEqual(get("variance"),"0.000000")
+        self.page.locator("#esa-hg-n").fill("0")
+        self.page.locator("#esa-hg-x").fill("0")
+        self.assertEqual(get("exact"),"1.000000")
+        self.page.locator("#esa-hg-N").fill("0")
+        self.assertEqual(get("exact"),"—")
+        self.assertIn("1 ≤ N",get("status"))
+        self.page.locator("#esa-hg-reset").focus()
+        self.page.keyboard.press("Enter")
+        self.assertAlmostEqual(float(get("exact")),expected,delta=.0000006)
+        self.page.set_viewport_size({"width":320,"height":760})
+        self.assertLessEqual(self.page.evaluate(
+            "()=>document.documentElement.scrollWidth-document.documentElement.clientWidth"),2)
+
+    def test_batch60_center_resume_ten_lessons_secure_metadata(self):
+        root="/descriptive/center/"
+        key="esa_continue_descriptive_center_lesson_v0"
+        slugs=("what-is-center","arithmetic-mean","median","mode","mean-vs-median",
+               "weighted-mean","trimmed-mean","winsorized-mean",
+               "center-for-ordinal-data","reporting-center-properly")
+        for slug in slugs:
+            with self.subTest(lesson=slug):
+                self.page.goto(self.origin+root+slug+"/",wait_until="networkidle")
+                record=self.page.evaluate("key=>JSON.parse(localStorage.getItem(key))",key)
+                self.assertEqual(record["url"],root+slug+"/")
+                self.assertIsInstance(record["ts"],int)
+                self.assertGreater(record["ts"],0)
+                self.page.goto(self.origin+root,wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-block4")).to_be_visible()
+                self.assertEqual(self.page.locator("#continue-reading-block4-btn").get_attribute("href"),
+                                 record["url"])
+        good=root+"median/"
+        self.page.goto(self.origin+root,wait_until="networkidle")
+        invalid=(
+            {"url":"javascript:alert(1)","label":"Median","ts":5},
+            {"url":good+"?bad=1","label":"Median","ts":5},
+            {"url":root+"missing/","label":"Median","ts":5},
+            {"url":good,"label":"x"*201,"ts":5},
+            {"url":good,"label":"Median","ts":0},
+            {"url":good,"label":"Median","ts":-1},
+            {"url":good,"label":"Median","ts":999999999999999},
+            {"url":good,"label":"Median"},
+        )
+        for record in invalid:
+            with self.subTest(record=record):
+                self.page.evaluate("(v)=>localStorage.setItem('esa_continue_descriptive_center_lesson_v0',JSON.stringify(v))",record)
+                self.page.reload(wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-block4")).to_be_hidden()
+        self.page.evaluate("(v)=>localStorage.setItem('esa_continue_descriptive_center_lesson_v0',JSON.stringify(v))",
+                           {"url":good,"label":"<img src=x onerror=alert(1)>","ts":12345})
+        self.page.reload(wait_until="networkidle")
+        self.assertEqual(self.page.locator("#continue-reading-block4-label img").count(),0)
+
+    def test_batch60_center_denied_storage_arabic_and_hypergeom_mobile(self):
+        self.page.add_init_script("""
+            Object.defineProperty(window,"localStorage",{
+              configurable:true,get(){throw new DOMException("Denied","SecurityError")}
+            });
+        """)
+        self.page.set_viewport_size({"width":320,"height":760})
+        root="/descriptive/center/"
+        slugs=("what-is-center","arithmetic-mean","median","mode","mean-vs-median",
+               "weighted-mean","trimmed-mean","winsorized-mean",
+               "center-for-ordinal-data","reporting-center-properly")
+        for slug in slugs:
+            with self.subTest(lesson=slug):
+                self.page.goto(self.origin+root+slug+"/",wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+        self.page.goto(self.origin+root,wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-block4")).to_be_hidden()
+        for page in ("/ar/descriptive/center/mean-vs-median/",
+                     "/probability/distributions/hypergeometric-distribution/"):
+            self.page.goto(self.origin+page,wait_until="networkidle")
+            expect(self.page.locator("main h1")).to_be_visible()
+            self.assertLessEqual(self.page.evaluate(
+                "()=>document.documentElement.scrollWidth-document.documentElement.clientWidth"),2)
+
+
 if __name__ == "__main__":
     unittest.main(argv=[__file__], verbosity=2)
