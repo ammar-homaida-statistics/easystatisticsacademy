@@ -9028,7 +9028,11 @@ class SearchTests(unittest.TestCase):
                 self.assertEqual(self.page.locator("#esa-geom-pmf").inner_text(),"0.140625")
                 self.page.locator("#esa-geom-p").focus()
                 self.page.keyboard.press("ArrowRight")
-                self.assertEqual(self.page.locator("#esa-geom-p-value").inner_text(),"0.30")
+                # Native range controls are RTL-aware: ArrowRight decreases p in Arabic,
+                # but increases p in English. Verify the localized keyboard semantics.
+                expected_after_right="0.20" if lang=="ar" else "0.30"
+                self.assertEqual(self.page.locator("#esa-geom-p-value").inner_text(),
+                                 expected_after_right)
                 self.page.set_viewport_size({"width":320,"height":760})
                 self.assertLessEqual(self.page.evaluate(
                     "() => document.documentElement.scrollWidth-document.documentElement.clientWidth"),2)
