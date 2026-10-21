@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_probability_random_variables_lesson_v0";
 
+  try {
   localStorage.setItem(KEY, JSON.stringify({
     url: "/probability/random-variables/discrete-random-variables/",
     label: "Discrete Random Variables",
     ts: Date.now()
   }));
+  } catch (_) {
+    // Browser storage may be unavailable; reading the lesson must still work.
+  }
 
 })();
 </script>
