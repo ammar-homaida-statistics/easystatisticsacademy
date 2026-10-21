@@ -116,9 +116,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-cdf-equation" role="region" tabindex="0" aria-label="Cumulative distribution formula 1">
+\[
     F_X(x)=P(X\le x)
     \]
+</div>
 
 
     <p>
@@ -179,9 +181,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-cdf-equation" role="region" tabindex="0" aria-label="Cumulative distribution formula 2">
+\[
     F_X(3)=P(X\le3)
     \]
+</div>
 
 
     <p>
@@ -201,9 +205,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-cdf-equation" role="region" tabindex="0" aria-label="Cumulative distribution formula 3">
+\[
     F_X(3)=P(X\in\{1,2,3\})=\frac36=0.5
     \]
+</div>
 
 
     <h2>A Continuous Example</h2>
@@ -272,9 +278,11 @@ sidebar: false
     <h3>Property 1: Values Are Between 0 and 1</h3>
 
     
-    \[
+    <div class="esa-cdf-equation" role="region" tabindex="0" aria-label="Cumulative distribution formula 4">
+\[
     0\le F_X(x)\le1\quad\text{for all }x
     \]
+</div>
 
 
     <p>
@@ -386,6 +394,12 @@ sidebar: false
     </div>
 
 
+    <style>
+      /* Keep wide mathematical equations readable without 320px document overflow. */
+      .esa-cdf-equation{max-width:100%;min-width:0;overflow-x:auto}
+      .esa-cdf-equation mjx-container[display="true"]{width:max-content;min-width:100%;text-align:left}
+      .esa-cdf-equation:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+    </style>
     <!-- Batch #63: discrete/continuous CDF explorer -->
     <section class="concept-box" id="esa-cdf-explorer" aria-labelledby="esa-cdf-explorer-title">
       <h2 id="esa-cdf-explorer-title">Interactive Cumulative Distribution Function Explorer</h2>
@@ -447,9 +461,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-cdf-equation" role="region" tabindex="0" aria-label="Cumulative distribution formula 5">
+\[
     P(a<X\le b)=F_X(b)-F_X(a)\quad(a<b)
     \]
+</div>
 
 
     <p>
@@ -479,9 +495,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-cdf-equation" role="region" tabindex="0" aria-label="Cumulative distribution formula 6">
+\[
     P(5<X\le10)=F_X(10)-F_X(5)=0.80-0.35=0.45
     \]
+</div>
 
 
     <p>
