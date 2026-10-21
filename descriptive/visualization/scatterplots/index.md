@@ -457,6 +457,50 @@ sidebar: false
       Scatterplots provide the visual foundation for understanding correlation.
     </p>
 
+    
+    <!-- Interactive Pearson correlation and outlier laboratory -->
+    <section class="concept-box" id="esa-scatter-correlation-lab" aria-labelledby="esa-scatter-title">
+      <h2 id="esa-scatter-title">Interactive Scatterplot &amp; Correlation Explorer</h2>
+      <p>Start with six paired observations. Add or remove a highlighted seventh point and change its coordinates to see how a single unusual observation affects <strong>Pearson's linear correlation</strong>. This is a deterministic illustration, not a random sample or a causal analysis.</p>
+      <form id="esa-scatter-controls" novalidate>
+        <div class="esa-scatter-controls">
+          <label><input type="checkbox" id="esa-scatter-include" checked> Include illustrative outlier</label>
+          <div><label for="esa-scatter-outlier-x">Added point: x</label><input id="esa-scatter-outlier-x" type="number" min="-20" max="20" step="any" value="7"></div>
+          <div><label for="esa-scatter-outlier-y">Added point: y</label><input id="esa-scatter-outlier-y" type="number" min="-20" max="20" step="any" value="0"></div>
+          <button class="btn btn-outline" type="button" id="esa-scatter-reset">Reset example</button>
+        </div>
+      </form>
+      <p id="esa-scatter-error" role="alert" hidden></p>
+      <div class="esa-scatter-panels">
+        <div><h3>Original six observations</h3><svg id="esa-scatter-base-svg" focusable="false"></svg></div>
+        <div><h3>With / without added point</h3><svg id="esa-scatter-new-svg" focusable="false"></svg></div>
+      </div>
+      <div class="example-box esa-scatter-results" role="status" aria-live="polite">
+        <p>Original Pearson r: <output id="esa-scatter-base-r">—</output></p>
+        <p>Updated Pearson r: <output id="esa-scatter-new-r">—</output></p>
+        <p>Change in r (updated − original): <output id="esa-scatter-change-r">—</output></p>
+        <p id="esa-scatter-status"></p>
+      </div>
+      <p class="muted-mini"><strong>Interpretation:</strong> Pearson r ranges from −1 to 1 when both variables vary. It is undefined when either variable is constant. A large change after adding one point indicates sensitivity to influential observations; inspect the graph before interpreting r. Neither a strong correlation nor an outlier proves causation.</p>
+    </section>
+    <style>
+      #esa-scatter-correlation-lab{min-width:0;max-width:100%;overflow-wrap:anywhere}
+      #esa-scatter-correlation-lab .esa-scatter-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:end;margin:12px 0}
+      #esa-scatter-correlation-lab .esa-scatter-controls>div{min-width:0}
+      #esa-scatter-correlation-lab label{display:block;font-weight:650}
+      #esa-scatter-correlation-lab input[type="number"]{display:block;width:100%;min-width:0;box-sizing:border-box;background:var(--surface);color:var(--text);border:1px solid var(--border-strong);border-radius:8px;font:inherit;padding:10px}
+      #esa-scatter-correlation-lab input:focus-visible,#esa-scatter-correlation-lab button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+      #esa-scatter-correlation-lab .esa-scatter-panels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+      #esa-scatter-correlation-lab .esa-scatter-panels>div{min-width:0}
+      #esa-scatter-correlation-lab svg{width:100%;height:auto;max-width:100%;display:block;background:var(--surface);border:1px solid var(--border);border-radius:10px}
+      #esa-scatter-correlation-lab .esa-scatter-results p{margin:4px 0}
+      #esa-scatter-correlation-lab output{font-variant-numeric:tabular-nums}
+      #esa-scatter-correlation-lab #esa-scatter-error{color:#b42318;font-weight:650}
+      #esa-scatter-correlation-lab [hidden]{display:none!important}
+      @media(max-width:670px){#esa-scatter-correlation-lab .esa-scatter-panels,#esa-scatter-correlation-lab .esa-scatter-controls{grid-template-columns:minmax(0,1fr)}}
+    </style>
+    <script src="{{ '/js/scatterplot-correlation-explorer.js' | relative_url }}" defer></script>
+
     <h2>When Should Scatterplots Be Used?</h2>
 
     <p>
