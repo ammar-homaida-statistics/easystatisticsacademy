@@ -4,6 +4,7 @@ title: Geometric Distribution
 description: "Learn how the geometric distribution models waiting times and answers the question: how many trials are needed until the first success occurs?"
 permalink: /probability/distributions/geometric-distribution/
 sidebar: false
+translation_pair: geometric-distribution
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -40,6 +41,7 @@ sidebar: false
     </div>
 
     <h1>Geometric Distribution</h1>
+    <p><a href="/ar/probability/distributions/geometric-distribution/" lang="ar" dir="rtl">العربية — التوزيع الهندسي</a></p>
 
     <p class="lead">
       The binomial distribution counts how many successes occur in a fixed number of trials.
@@ -389,50 +391,7 @@ sidebar: false
       #esa-geometric-wait-explorer .esa-geometric-results p {margin:11px 0}
       #esa-geometric-wait-explorer [hidden] {display:none!important}
     </style>
-    <script>
-    (function () {
-      "use strict";
-      const root=document.getElementById("esa-geometric-wait-explorer");
-      if (!root) return;
-      const el=id=>root.querySelector("#"+id);
-      const probability=el("esa-geom-p"),trial=el("esa-geom-k");
-      function update() {
-        const p=Number(probability.value),k=Number(trial.value);
-        const q=1-p,pmf=Math.pow(q,k-1)*p,tail=Math.pow(q,k);
-        const cdf=1-tail;
-        el("esa-geom-p-value").textContent=p.toFixed(2);
-        el("esa-geom-k-value").textContent=String(k);
-        el("esa-geom-pmf").textContent=pmf.toFixed(6);
-        el("esa-geom-cdf").textContent=cdf.toFixed(6);
-        el("esa-geom-tail").textContent=tail.toFixed(6);
-        el("esa-geom-mean").textContent=(1/p).toFixed(4);
-        el("esa-geom-variance").textContent=(q/(p*p)).toFixed(4);
-        const historyPossible=p<1;
-        el("esa-geom-memoryless-next").textContent=historyPossible?p.toFixed(4):"Undefined";
-        el("esa-geom-memoryless-tail").textContent=historyPossible?
-          Math.pow(q,3).toFixed(6):"Undefined";
-        el("esa-geom-memoryless-note").hidden=historyPossible;
-        for(const bar of root.querySelectorAll("#esa-geom-bars rect[data-trial]")) {
-          const j=Number(bar.getAttribute("data-trial"));
-          const pj=Math.pow(q,j-1)*p;
-          const height=110*pj;
-          bar.setAttribute("y",String(136-height));
-          bar.setAttribute("height",String(height));
-          bar.setAttribute("fill",j===k?"#0d9488":"#64748b");
-        }
-        el("esa-geom-pmf-plot").setAttribute("aria-label",
-          "Geometric probability of first success on each of the first twelve trials, p = "+
-          p.toFixed(2)+", selected trial k = "+k+
-          ", P(X=k) = "+pmf.toFixed(6)+
-          ". Cumulative and tail calculations use all possible trials.");
-      }
-      [probability,trial].forEach(input=>input.addEventListener("input",update));
-      el("esa-geom-reset").addEventListener("click",()=>{
-        probability.value="0.25";trial.value="3";update();
-      });
-      update();
-    })();
-    </script>
+    <script src="{{ '/js/geometric-waiting-time-explorer.js' | relative_url }}" defer></script>
 
 
     <h2>The Mean of a Geometric Distribution</h2>
