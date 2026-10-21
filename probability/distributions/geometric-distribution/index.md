@@ -148,9 +148,11 @@ translation_pair: geometric-distribution
     </p>
 
     
-    \[
+    <div class="esa-geom-equation" tabindex="0" role="region" aria-label="Geometric distribution formula 1">
+\[
     X\sim\operatorname{Geom}(p),\qquad 0<p\le1
     \]
+</div>
 
 
     <p>
@@ -188,9 +190,11 @@ translation_pair: geometric-distribution
     </p>
 
     
-    \[
+    <div class="esa-geom-equation" tabindex="0" role="region" aria-label="Geometric distribution formula 2">
+\[
     X\in\{1,2,3,\ldots\}
     \]
+</div>
 
 
     <h2>The Probability Formula</h2>
@@ -200,9 +204,11 @@ translation_pair: geometric-distribution
     </p>
 
     
-    \[
+    <div class="esa-geom-equation" tabindex="0" role="region" aria-label="Geometric distribution formula 3">
+\[
     P(X=k)=(1-p)^{k-1}p,\quad k=1,2,\ldots
     \]
+</div>
 
 
     <p>
@@ -274,9 +280,11 @@ translation_pair: geometric-distribution
     </p>
 
     
-    \[
+    <div class="esa-geom-equation" tabindex="0" role="region" aria-label="Geometric distribution formula 4">
+\[
     p=P(\text{Head})=\frac12
     \]
+</div>
 
 
     <p>
@@ -284,9 +292,11 @@ translation_pair: geometric-distribution
     </p>
 
     
-    \[
+    <div class="esa-geom-equation" tabindex="0" role="region" aria-label="Geometric distribution formula 5">
+\[
     P(X=3)=\left(1-\frac12\right)^{2}\frac12=\frac18=0.125
     \]
+</div>
 
 
     <p>
@@ -372,6 +382,10 @@ translation_pair: geometric-distribution
          or alter the reported cumulative and tail probabilities.</p>
     </div>
     <style>
+      /* Keep long mathematical expressions readable on narrow mobile viewports. */
+      .esa-geom-equation{max-width:100%;min-width:0;overflow-x:auto}
+      .esa-geom-equation mjx-container[display="true"]{width:max-content;min-width:100%;text-align:left}
+      .esa-geom-equation:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
       #esa-geometric-wait-explorer {box-sizing:border-box;width:100%;max-width:100%;min-width:0;overflow-wrap:anywhere}
       #esa-geometric-wait-explorer .esa-geometric-fields {
         display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));
@@ -401,9 +415,11 @@ translation_pair: geometric-distribution
     </p>
 
     
-    \[
+    <div class="esa-geom-equation" tabindex="0" role="region" aria-label="Geometric distribution formula 6">
+\[
     E[X]=\frac1p
     \]
+</div>
 
 
     <div class="concept-box">
@@ -435,9 +451,11 @@ translation_pair: geometric-distribution
     </p>
 
     
-    \[
+    <div class="esa-geom-equation" tabindex="0" role="region" aria-label="Geometric distribution formula 7">
+\[
     E[X]=\frac{1}{0.25}=4
     \]
+</div>
 
 
     <p>
@@ -452,9 +470,11 @@ translation_pair: geometric-distribution
     </p>
 
     
-    \[
+    <div class="esa-geom-equation" tabindex="0" role="region" aria-label="Geometric distribution formula 8">
+\[
     \operatorname{Var}(X)=\frac{1-p}{p^2}
     \]
+</div>
 
 
     <p>
@@ -508,9 +528,11 @@ translation_pair: geometric-distribution
     </p>
 
     
-    \[
+    <div class="esa-geom-equation" tabindex="0" role="region" aria-label="Geometric distribution formula 9">
+\[
     P(\text{Head on next toss}\mid\text{10 previous tails})=\frac12=p
     \]
+</div>
 
 
     <p>
