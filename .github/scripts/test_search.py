@@ -8949,17 +8949,17 @@ class SearchTests(unittest.TestCase):
         )
         for record in invalid:
             with self.subTest(record=str(record)):
-                self.page.evaluate("(v,k)=>localStorage.setItem(k,JSON.stringify(v))",
-                                   record,key)
+                self.page.evaluate("({v,k})=>localStorage.setItem(k,JSON.stringify(v))",
+                                   {"v":record,"k":key})
                 self.page.reload(wait_until="networkidle")
                 expect(self.page.locator("#continue-reading-probability-ev")).to_be_hidden()
         # Old valid records without timestamps must continue working.
-        self.page.evaluate("(v,k)=>localStorage.setItem(k,JSON.stringify(v))",
-                           {"url":good,"label":"Correlation"},key)
+        self.page.evaluate("({v,k})=>localStorage.setItem(k,JSON.stringify(v))",
+                           {"v":{"url":good,"label":"Correlation"},"k":key})
         self.page.reload(wait_until="networkidle")
         expect(self.page.locator("#continue-reading-probability-ev")).to_be_visible()
-        self.page.evaluate("(v,k)=>localStorage.setItem(k,JSON.stringify(v))",
-                           {"url":good,"label":"<img src=x onerror=alert(1)>"},key)
+        self.page.evaluate("({v,k})=>localStorage.setItem(k,JSON.stringify(v))",
+                           {"v":{"url":good,"label":"<img src=x onerror=alert(1)>"},"k":key})
         self.page.reload(wait_until="networkidle")
         self.assertEqual(self.page.locator("#continue-reading-probability-ev-label img").count(),0)
         self.assertIn("<img",self.page.locator("#continue-reading-probability-ev-label").inner_text())
