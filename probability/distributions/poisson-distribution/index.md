@@ -149,7 +149,9 @@ translation_pair: poisson-distribution
       The Poisson distribution is controlled by a single parameter:
     </p>
 
-    \[\lambda\ge 0\]
+    <div class="esa-poisson-equation" role="region" tabindex="0" aria-label="Poisson expected-count parameter">
+\[\lambda\ge 0\]
+</div>
 
     <p>
       called the rate parameter.
@@ -173,7 +175,9 @@ translation_pair: poisson-distribution
       A Poisson random variable is written as:
     </p>
 
-    \[X\sim\operatorname{Poisson}(\lambda)\]
+    <div class="esa-poisson-equation" role="region" tabindex="0" aria-label="Poisson distribution notation">
+\[X\sim\operatorname{Poisson}(\lambda)\]
+</div>
 
     <p>
       where λ is the average event rate.
@@ -189,7 +193,9 @@ translation_pair: poisson-distribution
       Therefore possible values are:
     </p>
 
-    \[X\in\{0,1,2,\ldots\}\]
+    <div class="esa-poisson-equation" role="region" tabindex="0" aria-label="Nonnegative integer counts">
+\[X\in\{0,1,2,\ldots\}\]
+</div>
 
     <p>
       There is no fixed upper limit.
@@ -201,7 +207,9 @@ translation_pair: poisson-distribution
       The probability of observing exactly k events is:
     </p>
 
-    \[P(X=k)=\frac{e^{-\lambda}\lambda^k}{k!},\qquad k=0,1,2,\ldots\]
+    <div class="esa-poisson-equation" role="region" tabindex="0" aria-label="Poisson probability mass function">
+\[P(X=k)=\frac{e^{-\lambda}\lambda^k}{k!},\qquad k=0,1,2,\ldots\]
+</div>
 
     <p>
       where:
@@ -278,13 +286,17 @@ translation_pair: poisson-distribution
       Then:
     </p>
 
-    \[\lambda=3\ \text{arrivals per hour}\]
+    <div class="esa-poisson-equation" role="region" tabindex="0" aria-label="Customer arrival mean">
+\[\lambda=3\ \text{arrivals per hour}\]
+</div>
 
     <p>
       The probability of exactly two arrivals is:
     </p>
 
-    \[P(X=2)=\frac{e^{-3}3^2}{2!}\approx 0.224042\]
+    <div class="esa-poisson-equation" role="region" tabindex="0" aria-label="Probability of exactly two arrivals">
+\[P(X=2)=\frac{e^{-3}3^2}{2!}\approx 0.224042\]
+</div>
 
     <p>
       The formula converts the average rate into a probability for a specific count.
@@ -296,7 +308,9 @@ translation_pair: poisson-distribution
       One of the most elegant properties of the Poisson distribution is:
     </p>
 
-    \[\operatorname{E}(X)=\lambda\]
+    <div class="esa-poisson-equation" role="region" tabindex="0" aria-label="Poisson expectation">
+\[\operatorname{E}(X)=\lambda\]
+</div>
 
     <p>
       The mean equals the rate parameter.
@@ -308,7 +322,9 @@ translation_pair: poisson-distribution
       Another remarkable property is:
     </p>
 
-    \[\operatorname{Var}(X)=\lambda\]
+    <div class="esa-poisson-equation" role="region" tabindex="0" aria-label="Poisson variance">
+\[\operatorname{Var}(X)=\lambda\]
+</div>
 
     <p>
       The variance also equals the rate parameter.
@@ -330,7 +346,9 @@ translation_pair: poisson-distribution
       Since variance equals λ:
     </p>
 
-    \[\operatorname{SD}(X)=\sqrt{\lambda}\]
+    <div class="esa-poisson-equation" role="region" tabindex="0" aria-label="Poisson standard deviation">
+\[\operatorname{SD}(X)=\sqrt{\lambda}\]
+</div>
 
     <p>
       Standard deviation grows as the event rate increases.
@@ -401,7 +419,9 @@ translation_pair: poisson-distribution
       with the expected count:
     </p>
 
-    \[\lambda=np\]
+    <div class="esa-poisson-equation" role="region" tabindex="0" aria-label="Poisson approximation to binomial">
+\[\lambda=np\]
+</div>
 
     <p>
       remains moderate. The classical limit has n → ∞, p → 0, and np → λ; accuracy at finite n depends on n and p.
@@ -543,6 +563,10 @@ translation_pair: poisson-distribution
          or changing rates may invalidate the exponential waiting-time model.</p>
     </section>
     <style>
+      /* Long MathJax expressions scroll within their own keyboard-focusable region. */
+      .esa-poisson-equation{max-width:100%;min-width:0;overflow-x:auto}
+      .esa-poisson-equation mjx-container[display="true"]{width:max-content;min-width:100%;text-align:left}
+      .esa-poisson-equation:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
       #esa-poisson-exponential-explorer{min-width:0;max-width:100%;overflow-wrap:anywhere}
       #esa-poisson-exponential-explorer .esa-event-input-grid,
       #esa-poisson-exponential-explorer .esa-event-result-grid{
