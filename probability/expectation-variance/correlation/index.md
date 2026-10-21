@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_probability_expectation_variance_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
     url: "/probability/expectation-variance/correlation/",
     label: "Correlation",
     ts: Date.now()
-  }));
+    }));
+  } catch (_) {
+    // Storage may be disabled or full; lesson content must remain accessible.
+  }
 
 })();
 </script>

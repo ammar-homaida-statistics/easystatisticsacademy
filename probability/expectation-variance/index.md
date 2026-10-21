@@ -542,7 +542,11 @@ sidebar: false
     );
     if (!data || typeof data.url !== "string" ||
         typeof data.label !== "string" || !data.label.trim() ||
-        data.label.length > 200 || !published.has(data.url)) return;
+        data.label.length > 200 || !published.has(data.url) ||
+        // Old saved records lacked timestamps; retain those only when the key is absent.
+        (Object.prototype.hasOwnProperty.call(data,"ts") &&
+         (typeof data.ts !== "number" || !Number.isSafeInteger(data.ts) ||
+          data.ts <= 0 || data.ts > Date.now()))) return;
 
     const wrap = document.getElementById("continue-reading-probability-ev");
     const label = document.getElementById("continue-reading-probability-ev-label");

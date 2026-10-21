@@ -8824,5 +8824,164 @@ class SearchTests(unittest.TestCase):
         expect(self.page.locator("#continue-reading-probability-rv")).to_be_hidden()
 
 
+
+    def test_batch62_poisson_bilingual_metadata_calculator_and_numerical_parity(self):
+        english="/probability/distributions/poisson-distribution/"
+        arabic="/ar/probability/distributions/poisson-distribution/"
+        initial=[]
+        for url,lang in ((english,"en"),(arabic,"ar")):
+            with self.subTest(language=lang):
+                self.page.goto(self.origin+url,wait_until="networkidle")
+                self.assertEqual(self.page.locator("html").get_attribute("lang"),lang)
+                self.assertEqual(self.page.locator("html").get_attribute("dir"),
+                                 "rtl" if lang=="ar" else None)
+                self.assertEqual(self.page.locator("link[rel=canonical]").get_attribute("href"),
+                                 "https://easystatisticsacademy.com"+url)
+                for key,path in (("en",english),("ar",arabic)):
+                    self.assertEqual(self.page.locator(
+                        'link[rel=alternate][hreflang="'+key+'"]').get_attribute("href"),
+                        "https://easystatisticsacademy.com"+path)
+                self.assertEqual(self.page.locator("#esa-poisson-exponential-explorer").count(),1)
+                output_ids=("none","survival","at-least-one","expected","meanwait")
+                vals=tuple(self.page.locator("#esa-event-"+key).inner_text() for key in output_ids)
+                self.assertEqual(vals,("0.135335","0.135335","0.864665","2.000000","0.500000"))
+                initial.append(vals)
+                exact=self.page.evaluate("() => window.esaPoissonExponential(2,1)")
+                self.assertAlmostEqual(exact[0],0.1353352832366127,places=14)
+                self.assertAlmostEqual(exact[2],0.8646647167633873,places=14)
+                self.assertEqual(exact[3:], [2,0.5])
+                # t=0: zero events certain, at least one event impossible.
+                self.page.locator("#esa-event-time").fill("0")
+                self.assertEqual(self.page.locator("#esa-event-none").inner_text(),"1.000000")
+                self.assertEqual(self.page.locator("#esa-event-at-least-one").inner_text(),"0.000000")
+                self.page.locator("#esa-event-rate").fill("3")
+                self.page.locator("#esa-event-time").fill("0.5")
+                self.assertEqual(self.page.locator("#esa-event-expected").inner_text(),"1.500000")
+                self.assertEqual(self.page.locator("#esa-event-meanwait").inner_text(),"0.333333")
+                self.assertAlmostEqual(float(self.page.locator("#esa-event-none").inner_text()),
+                                       0.22313016014842982,delta=6e-7)
+                # Ensure the tiny-event complement is evaluated stably in code.
+                small=self.page.evaluate("()=>window.esaPoissonExponential(0.000001,0.01)")
+                self.assertGreater(small[2],0)
+                self.assertAlmostEqual(small[2],1e-8,delta=1e-15)
+                self.page.locator("#esa-event-rate").fill("0")
+                expect(self.page.locator("#esa-event-error")).to_be_visible()
+                self.assertIn("معدل" if lang=="ar" else "Rate",
+                              self.page.locator("#esa-event-error").inner_text())
+                self.page.locator("#esa-event-rate").fill("2")
+                self.page.locator("#esa-event-time").fill("61")
+                expect(self.page.locator("#esa-event-error")).to_be_visible()
+                self.page.locator("#esa-event-reset").focus()
+                self.page.keyboard.press("Enter")
+                self.assertEqual(self.page.locator("#esa-event-none").inner_text(),"0.135335")
+                self.page.set_viewport_size({"width":320,"height":760})
+                self.assertLessEqual(self.page.evaluate(
+                    "()=>document.documentElement.scrollWidth-document.documentElement.clientWidth"),2)
+                self.page.set_viewport_size({"width":1280,"height":800})
+        self.assertEqual(initial[0],initial[1])
+        self.page.goto(self.origin+"/ar/",wait_until="networkidle")
+        expect(self.page.locator('a[href="'+arabic+'"]')).to_be_visible()
+
+    def test_batch62_scatter_correlation_outlier_numerical_edgecases_and_mobile(self):
+        self.page.goto(self.origin+"/descriptive/visualization/scatterplots/",
+                       wait_until="networkidle")
+        expect(self.page.locator("#esa-scatter-correlation-lab")).to_be_visible()
+        self.assertEqual(self.page.locator("#esa-scatter-base-r").inner_text(),"0.9939")
+        self.assertEqual(self.page.locator("#esa-scatter-new-r").inner_text(),"0.1882")
+        self.assertEqual(self.page.locator("#esa-scatter-change-r").inner_text(),"-0.8057")
+        self.assertEqual(self.page.locator("#esa-scatter-base-svg circle").count(),6)
+        self.assertEqual(self.page.locator("#esa-scatter-new-svg circle").count(),7)
+        self.assertEqual(self.page.evaluate(
+            "()=>window.esaScatterPearson([[1,1],[2,2],[3,3]])"),1)
+        self.assertEqual(self.page.evaluate(
+            "()=>window.esaScatterPearson([[1,3],[2,2],[3,1]])"),-1)
+        self.assertIsNone(self.page.evaluate(
+            "()=>window.esaScatterPearson([[2,1],[2,2],[2,3]])"))
+        self.assertIsNone(self.page.evaluate(
+            "()=>window.esaScatterPearson([[1,7],[2,7],[3,7]])"))
+        self.page.locator("#esa-scatter-outlier-y").fill("8")
+        self.assertNotEqual(self.page.locator("#esa-scatter-new-r").inner_text(),"0.1882")
+        self.page.locator("#esa-scatter-include").uncheck()
+        self.assertEqual(self.page.locator("#esa-scatter-new-svg circle").count(),6)
+        self.assertEqual(self.page.locator("#esa-scatter-new-r").inner_text(),"0.9939")
+        self.page.locator("#esa-scatter-include").check()
+        self.page.locator("#esa-scatter-outlier-x").fill("30")
+        expect(self.page.locator("#esa-scatter-error")).to_be_visible()
+        expect(self.page.locator("#esa-scatter-status")).to_be_hidden()
+        self.page.locator("#esa-scatter-reset").focus()
+        self.page.keyboard.press("Enter")
+        self.assertEqual(self.page.locator("#esa-scatter-new-r").inner_text(),"0.1882")
+        self.page.set_viewport_size({"width":320,"height":760})
+        self.assertLessEqual(self.page.evaluate(
+            "()=>document.documentElement.scrollWidth-document.documentElement.clientWidth"),2)
+
+    def test_batch62_expectation_variance_six_lessons_safe_progress(self):
+        root="/probability/expectation-variance/"
+        key="esa_continue_probability_expectation_variance_lesson_v0"
+        slugs=("indicator-random-variables","linearity-of-expectation",
+               "variance-rules-and-sums","covariance","correlation",
+               "applications-mini-cases")
+        for slug in slugs:
+            with self.subTest(slug=slug):
+                self.page.goto(self.origin+root+slug+"/",wait_until="networkidle")
+                stored=self.page.evaluate("k=>JSON.parse(localStorage.getItem(k))",key)
+                self.assertEqual(stored["url"],root+slug+"/")
+                self.assertEqual(stored["label"].strip()!="",True)
+                self.assertIsInstance(stored["ts"],int)
+                self.assertGreater(stored["ts"],0)
+                self.page.goto(self.origin+root,wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-probability-ev")).to_be_visible()
+                self.assertEqual(self.page.locator("#continue-reading-probability-ev-btn").get_attribute("href"),
+                                 stored["url"])
+        self.page.goto(self.origin+root,wait_until="networkidle")
+        good=root+"correlation/"
+        invalid=(
+            {"url":"javascript:alert(1)","label":"Correlation","ts":10},
+            {"url":good+"#section","label":"Correlation","ts":10},
+            {"url":root+"unpublished/","label":"Correlation","ts":10},
+            {"url":good,"label":"x"*201,"ts":10},
+            {"url":good,"label":"Correlation","ts":0},
+            {"url":good,"label":"Correlation","ts":-1},
+            {"url":good,"label":"Correlation","ts":None},
+            {"url":good,"label":"Correlation","ts":"yesterday"},
+            {"url":good,"label":"Correlation","ts":999999999999999},
+            {"url":good,"label":"Correlation","ts":True},
+        )
+        for record in invalid:
+            with self.subTest(record=str(record)):
+                self.page.evaluate("({v,k})=>localStorage.setItem(k,JSON.stringify(v))",
+                                   {"v":record,"k":key})
+                self.page.reload(wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-probability-ev")).to_be_hidden()
+        # Old valid records without timestamps must continue working.
+        self.page.evaluate("({v,k})=>localStorage.setItem(k,JSON.stringify(v))",
+                           {"v":{"url":good,"label":"Correlation"},"k":key})
+        self.page.reload(wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-probability-ev")).to_be_visible()
+        self.page.evaluate("({v,k})=>localStorage.setItem(k,JSON.stringify(v))",
+                           {"v":{"url":good,"label":"<img src=x onerror=alert(1)>"},"k":key})
+        self.page.reload(wait_until="networkidle")
+        self.assertEqual(self.page.locator("#continue-reading-probability-ev-label img").count(),0)
+        self.assertIn("<img",self.page.locator("#continue-reading-probability-ev-label").inner_text())
+
+    def test_batch62_expectation_variance_denied_storage_mobile(self):
+        self.page.add_init_script("""
+            Object.defineProperty(window,"localStorage",{
+                configurable:true,
+                get(){throw new DOMException("Storage disabled","SecurityError")}
+            });
+        """)
+        self.page.set_viewport_size({"width":320,"height":760})
+        root="/probability/expectation-variance/"
+        for slug in ("indicator-random-variables","linearity-of-expectation",
+                     "variance-rules-and-sums","covariance","correlation",
+                     "applications-mini-cases"):
+            with self.subTest(slug=slug):
+                self.page.goto(self.origin+root+slug+"/",wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+        self.page.goto(self.origin+root,wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-probability-ev")).to_be_hidden()
+
+
 if __name__ == "__main__":
     unittest.main(argv=[__file__], verbosity=2)
