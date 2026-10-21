@@ -284,6 +284,57 @@ The outlier shifts the mean toward the extreme value, while the median remains s
       but the median is unchanged.
     </p>
 
+
+    <!-- Interactive outlier sensitivity laboratory: numbers and calculations are deterministic. -->
+    <section id="esa-mean-median-explorer" class="concept-box" role="group"
+             aria-labelledby="esa-mm-title" style="max-width:100%;min-width:0;overflow-wrap:anywhere">
+      <h2 id="esa-mm-title">Interactive Mean vs. Median Explorer</h2>
+      <p>Enter at least three observations. Replace <strong>one largest original observation</strong>
+         with another value, and compare how the two statistics change. All values are hypothetical;
+         a deliberately extreme replacement helps illustrate sensitivity, not data cleaning.</p>
+      <div class="esa-mm-controls">
+        <div><label for="esa-mm-sample">Original observations (3–40 numbers)</label>
+          <textarea id="esa-mm-sample" rows="2" spellcheck="false" aria-describedby="esa-mm-guidance">2, 4, 6, 8, 10</textarea></div>
+        <div><label for="esa-mm-extreme">Replace one largest observation with</label>
+          <input id="esa-mm-extreme" type="text" value="100" inputmode="decimal" autocomplete="off" aria-describedby="esa-mm-guidance"></div>
+      </div>
+      <p id="esa-mm-guidance" class="muted-mini">Use a period as the decimal separator; commas, spaces, or semicolons separate observations. Every value must be finite and within ±1 billion.</p>
+      <button class="btn btn-outline" type="button" id="esa-mm-reset">Reset example</button>
+      <p id="esa-mm-error" role="alert" aria-live="polite" hidden></p>
+      <div id="esa-mm-results" role="status" aria-live="polite">
+        <div class="table-wrap"><table>
+          <caption>Mean and median before and after the replacement</caption>
+          <thead><tr><th scope="col">Statistic</th><th scope="col">Original</th><th scope="col">Modified</th><th scope="col">Change</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Mean</th><td id="esa-mm-mean-before">—</td><td id="esa-mm-mean-after">—</td><td id="esa-mm-mean-change">—</td></tr>
+            <tr><th scope="row">Median</th><td id="esa-mm-median-before">—</td><td id="esa-mm-median-after">—</td><td id="esa-mm-median-change">—</td></tr>
+          </tbody>
+        </table></div>
+        <p id="esa-mm-explainer"></p>
+      </div>
+      <svg id="esa-mm-chart" viewBox="0 0 680 215" role="img"
+           aria-label="Dot plot comparing original and modified observations" style="display:block;width:100%;max-width:100%;height:auto;overflow:visible">
+        <g id="esa-mm-points"></g>
+      </svg>
+      <p class="muted-mini">Each dot represents an observation. Slight vertical offsets reveal repeated values. The horizontal scale is shared across both groups; an extreme observation may compress the remaining values.</p>
+      <p class="muted-mini"><strong>Interpretation:</strong> The median may also move, particularly in small samples. Mean–median comparisons alone do not establish the shape of an entire distribution.</p>
+    </section>
+    <style>
+      #esa-mean-median-explorer{box-sizing:border-box;display:block;width:100%;max-width:100%;min-width:0;overflow-x:clip}
+      #esa-mean-median-explorer *{box-sizing:border-box}
+      #esa-mean-median-explorer .esa-mm-controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:1rem;margin:1rem 0}
+      #esa-mean-median-explorer label{display:block;font-weight:650;margin-bottom:.35rem}
+      #esa-mean-median-explorer textarea,#esa-mean-median-explorer input{display:block;width:100%;max-width:100%;min-width:0;padding:.65rem;border:1px solid #888;border-radius:.35rem;color:inherit;background:var(--surface,#fff);font:inherit}
+      #esa-mean-median-explorer .table-wrap{max-width:100%;overflow-x:auto}
+      #esa-mean-median-explorer #esa-mm-error{color:#b91c1c;font-weight:650;overflow-wrap:anywhere}
+      #esa-mean-median-explorer #esa-mm-chart{overflow:hidden!important}
+      #esa-mean-median-explorer #esa-mm-chart[hidden]{display:none!important}
+      @media(max-width:760px){
+        #main-content .content-narrow{width:100%;max-width:100%;min-width:0;overflow-x:clip}
+      }
+    </style>
+    <script src="/js/mean-median-explorer.js" defer></script>
+
     <h2>The Core Difference</h2>
 
     <div class="table-wrap">

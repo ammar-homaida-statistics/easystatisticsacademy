@@ -8390,5 +8390,125 @@ class SearchTests(unittest.TestCase):
         expect(self.page.locator("main h1")).to_be_visible()
 
 
+    def test_batch59_confidence_intervals_english_arabic_shared_math(self):
+        """Both translated simulations use the exact known-sigma normal model."""
+        import math
+        pages=(
+            ("/inference/confidence-intervals/what-is-a-confidence-interval/","en"),
+            ("/ar/inference/confidence-intervals/what-is-a-confidence-interval/","ar"),
+        )
+        for path,lang in pages:
+            with self.subTest(language=lang):
+                self.page.goto(self.origin+path,wait_until="networkidle")
+                self.assertEqual(self.page.locator("html").get_attribute("lang"),lang)
+                self.assertEqual(self.page.locator("html").get_attribute("dir"),"rtl" if lang=="ar" else None)
+                expect(self.page.locator("#esa-ci-coverage-lab")).to_be_visible()
+                self.assertEqual(self.page.locator("#esa-ci-total").inner_text(),"100")
+                self.assertAlmostEqual(float(self.page.locator("#esa-ci-halfwidth").inner_text()),
+                                       1.959963984540054/math.sqrt(30),delta=.00005)
+                self.assertEqual(self.page.locator("#esa-ci-intervals line").count(),20)
+                self.page.locator("#esa-ci-run-500").focus()
+                self.page.keyboard.press("Enter")
+                self.assertEqual(self.page.locator("#esa-ci-total").inner_text(),"600")
+                self.page.locator("#esa-ci-n").select_option("100")
+                self.assertEqual(self.page.locator("#esa-ci-total").inner_text(),"100")
+                self.assertAlmostEqual(float(self.page.locator("#esa-ci-halfwidth").inner_text()),
+                                       1.959963984540054/10,delta=.00005)
+                self.page.locator("#esa-ci-confidence").select_option("90")
+                self.assertAlmostEqual(float(self.page.locator("#esa-ci-halfwidth").inner_text()),
+                                       1.6448536269514722/10,delta=.00005)
+                self.assertEqual(self.page.locator("#esa-ci-total").inner_text(),"100")
+                expect(self.page.locator('link[rel="alternate"][hreflang="en"]')).to_have_count(1)
+                expect(self.page.locator('link[rel="alternate"][hreflang="ar"]')).to_have_count(1)
+                self.assertEqual(self.page.locator("link[rel=canonical]").get_attribute("href"),
+                                 "https://easystatisticsacademy.com"+path)
+                self.page.set_viewport_size({"width":320,"height":760})
+                self.assertLessEqual(self.page.evaluate(
+                    "()=>document.documentElement.scrollWidth-document.documentElement.clientWidth"),2)
+
+    def test_batch59_mean_median_explorer_math_keyboard_and_validation(self):
+        self.page.set_viewport_size({"width":320,"height":760})
+        self.page.goto(self.origin+"/descriptive/center/mean-vs-median/",wait_until="networkidle")
+        expect(self.page.locator("#esa-mean-median-explorer")).to_be_visible()
+        def get(id):
+            return self.page.locator("#esa-mm-"+id).inner_text()
+        self.assertEqual([get("mean-before"),get("median-before"),
+                          get("mean-after"),get("median-after")],["6","6","24","6"])
+        self.assertEqual(get("mean-change"),"18")
+        self.assertEqual(get("median-change"),"0")
+        self.assertEqual(self.page.locator("#esa-mm-points circle").count(),10)
+        self.page.locator("#esa-mm-extreme").fill("50")
+        self.assertEqual(get("mean-after"),"14")
+        self.assertEqual(get("median-after"),"6")
+        self.page.locator("#esa-mm-sample").fill("1, 2, 3, 4")
+        self.page.locator("#esa-mm-extreme").fill("100")
+        self.assertEqual(get("mean-before"),"2.5")
+        self.assertEqual(get("median-before"),"2.5")
+        self.assertEqual(get("mean-after"),"26.5")
+        self.assertEqual(get("median-after"),"2.5")
+        self.page.locator("#esa-mm-sample").fill("1, two, 3")
+        expect(self.page.locator("#esa-mm-results")).to_be_hidden()
+        expect(self.page.locator("#esa-mm-error")).to_be_visible()
+        self.page.locator("#esa-mm-reset").focus()
+        self.page.keyboard.press("Enter")
+        self.assertEqual(get("mean-after"),"24")
+        overflow=self.page.evaluate("""() => ({
+            extra:document.documentElement.scrollWidth-document.documentElement.clientWidth,
+            width:window.innerWidth,
+            offenders:[...document.querySelectorAll("body *")].map(e=>({
+                tag:e.tagName, id:e.id, cls:String(e.className||"").slice(0,70),
+                right:Math.round(e.getBoundingClientRect().right),
+                left:Math.round(e.getBoundingClientRect().left)
+            })).filter(x=>x.right>window.innerWidth+2||x.left < -2).slice(0,12)
+        })""")
+        self.assertLessEqual(overflow["extra"],2,overflow)
+
+    def test_batch59_shape_saved_progress_validity_and_storage_denial(self):
+        root="/descriptive/shape/"
+        key="esa_continue_descriptive_shape_lesson_v0"
+        urls=("why-shape-matters","symmetry-and-skewness",
+              "skewness-and-center-choice","tails-outliers-and-extremes",
+              "empirical-rule","z-scores","standardization-when-and-when-not",
+              "shape-in-reporting")
+        self.page.goto(self.origin+root+urls[0]+"/",wait_until="networkidle")
+        saved=self.page.evaluate("key=>JSON.parse(localStorage.getItem(key))",key)
+        self.assertEqual(saved["url"],root+urls[0]+"/")
+        self.page.goto(self.origin+root,wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-block6")).to_be_visible()
+        self.assertEqual(self.page.locator("#continue-reading-block6-btn").get_attribute("href"),saved["url"])
+        for record in (
+            {"url":"javascript:alert(1)","label":"x","ts":5},
+            {"url":root+"nonexistent-example/","label":"not-published","ts":5},
+            {"url":saved["url"],"label":"a"*201,"ts":5},
+            {"url":saved["url"],"label":"x","ts":-2},
+            {"url":saved["url"]+"?x=1","label":"x","ts":5},
+        ):
+            self.page.evaluate("(v)=>localStorage.setItem('esa_continue_descriptive_shape_lesson_v0',JSON.stringify(v))",record)
+            self.page.reload(wait_until="networkidle")
+            expect(self.page.locator("#continue-reading-block6")).to_be_hidden()
+        self.page.evaluate("(v)=>localStorage.setItem('esa_continue_descriptive_shape_lesson_v0',JSON.stringify(v))",
+                           {"url":saved["url"],"label":"<img src=x onerror=alert(1)>","ts":5})
+        self.page.reload(wait_until="networkidle")
+        self.assertEqual(self.page.locator("#continue-reading-block6-label img").count(),0)
+        self.context.close()
+        self.context=self.browser.new_context()
+        self.context.route("https://**",lambda route:route.fulfill(status=200,body=""))
+        self.page=self.context.new_page()
+        self.page.on("pageerror",lambda error:self.errors.append(str(error)))
+        self.page.add_init_script("""
+            Object.defineProperty(window,"localStorage",{
+              configurable:true,get(){throw new DOMException("Denied","SecurityError")}
+            });
+        """)
+        self.page.set_viewport_size({"width":320,"height":760})
+        for slug in urls:
+            with self.subTest(slug=slug):
+                self.page.goto(self.origin+root+slug+"/",wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+        self.page.goto(self.origin+root,wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-block6")).to_be_hidden()
+
+
+
 if __name__ == "__main__":
     unittest.main(argv=[__file__], verbosity=2)

@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_descriptive_shape_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
     url: "/descriptive/shape/why-shape-matters/",
     label: "Why Shape Matters",
     ts: Date.now()
   }));
+  } catch (_) {
+    // Storage may be disabled; lesson content remains accessible.
+  }
 
 })();
 </script>

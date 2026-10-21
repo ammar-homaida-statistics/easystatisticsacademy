@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_descriptive_shape_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
     url: "/descriptive/shape/z-scores/",
     label: "Z-Scores",
     ts: Date.now()
   }));
+  } catch (_) {
+    // Storage may be disabled; lesson content remains accessible.
+  }
 
 })();
 </script>
