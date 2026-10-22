@@ -4,6 +4,7 @@ title: Negative Binomial Distribution
 description: Learn how the negative binomial distribution models the number of trials required to achieve a specified number of successes.
 permalink: /probability/distributions/negative-binomial-distribution/
 sidebar: false
+translation_pair: negative-binomial-distribution
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -40,6 +41,7 @@ sidebar: false
     </div>
 
     <h1>Negative Binomial Distribution</h1>
+    <p><a href="/ar/probability/distributions/negative-binomial-distribution/" lang="ar" dir="rtl">العربية — التوزيع السالب ذو الحدين</a></p>
 
     <p class="lead">
       The geometric distribution models the waiting time until the first success.
@@ -152,9 +154,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-negbin-equation" tabindex="0" role="region" aria-label="Negative binomial formula 1">
+\[
     X\sim\operatorname{NegBin}(r,p),\quad r=1,2,\ldots,\ 0<p\le1
     \]
+</div>
 
 
     <p>
@@ -180,9 +184,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-negbin-equation" tabindex="0" role="region" aria-label="Negative binomial formula 2">
+\[
     X\in\{r,r+1,r+2,\ldots\}
     \]
+</div>
 
 
     <p>
@@ -196,9 +202,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-negbin-equation" tabindex="0" role="region" aria-label="Negative binomial formula 3">
+\[
     P(X=k)=\binom{k-1}{r-1}p^r(1-p)^{k-r},\quad k=r,r+1,\ldots
     \]
+</div>
 
 
     <p>
@@ -248,9 +256,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-negbin-equation" tabindex="0" role="region" aria-label="Negative binomial formula 4">
+\[
     r=1\quad\Longrightarrow\quad P(X=k)=(1-p)^{k-1}p
     \]
+</div>
 
 
     <p>
@@ -316,9 +326,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-negbin-equation" tabindex="0" role="region" aria-label="Negative binomial formula 5">
+\[
     E[X]=\frac rp
     \]
+</div>
 
 
     <div class="concept-box">
@@ -354,9 +366,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-negbin-equation" tabindex="0" role="region" aria-label="Negative binomial formula 6">
+\[
     E[X]=\frac{5}{0.25}=20
     \]
+</div>
 
 
     <p>
@@ -371,9 +385,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-negbin-equation" tabindex="0" role="region" aria-label="Negative binomial formula 7">
+\[
     \operatorname{Var}(X)=\frac{r(1-p)}{p^2}
     \]
+</div>
 
 
     <p>
@@ -443,6 +459,9 @@ sidebar: false
          At p = 1 all probability is concentrated at k = r.</p>
     </div>
     <style>
+      .esa-negbin-equation{max-width:100%;min-width:0;overflow-x:auto}
+      .esa-negbin-equation mjx-container[display="true"]{width:max-content;min-width:100%;text-align:left}
+      .esa-negbin-equation:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
       #esa-negbin-wait-explorer {box-sizing:border-box;width:100%;max-width:100%;min-width:0;overflow-wrap:anywhere}
       #esa-negbin-wait-explorer .esa-negbin-fields {
         display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,185px),1fr));
@@ -459,89 +478,7 @@ sidebar: false
       #esa-negbin-wait-explorer .esa-negbin-results p {margin:11px 0}
       #esa-negbin-wait-explorer .esa-negbin-presets {display:flex;flex-wrap:wrap;gap:8px}
     </style>
-    <script>
-    (function () {
-      "use strict";
-      const root=document.getElementById("esa-negbin-wait-explorer");
-      if (!root) return;
-      const byId=id=>root.querySelector("#"+id);
-      const rInput=byId("esa-negbin-r"),pInput=byId("esa-negbin-p"),
-            kInput=byId("esa-negbin-k");
-      const CHART_BASE=135;
-      function choose(n,k) {
-        if (k<0 || k>n) return 0;
-        const count=Math.min(k,n-k);
-        let result=1;
-        for(let i=1;i<=count;i++)result*= (n-count+i)/i;
-        return result;
-      }
-      function mass(k,r,p) {
-        if(k<r) return 0;
-        return choose(k-1,r-1)*Math.pow(p,r)*Math.pow(1-p,k-r);
-      }
-      function update() {
-        const r=Number(rInput.value),p=Number(pInput.value);
-        // Set current feasibility constraints before obtaining/assigning k:
-        // native range inputs otherwise clamp against obsolete bounds.
-        kInput.min=String(r);
-        const k=Math.max(r,Math.min(30,Number(kInput.value)));
-        kInput.value=String(k);
-        let cdf=0;
-        for(let j=r;j<=k;j++)cdf+=mass(j,r,p);
-        cdf=Math.max(0,Math.min(1,cdf));
-        const tail=Math.max(0,1-cdf);
-        const pmf=mass(k,r,p);
-        byId("esa-negbin-r-value").textContent=String(r);
-        byId("esa-negbin-p-value").textContent=p.toFixed(2);
-        byId("esa-negbin-k-value").textContent=String(k);
-        byId("esa-negbin-pmf").textContent=pmf.toFixed(6);
-        byId("esa-negbin-cdf").textContent=cdf.toFixed(6);
-        byId("esa-negbin-tail").textContent=tail.toFixed(6);
-        byId("esa-negbin-mean").textContent=(r/p).toFixed(4);
-        byId("esa-negbin-variance").textContent=(r*(1-p)/(p*p)).toFixed(4);
-        byId("esa-negbin-special").textContent=r===1?
-          "With r = 1, this is exactly the geometric trials-to-first-success distribution.":
-          "For r > 1, the completion trial includes all r successful trials; set r = 1 to recover the geometric distribution.";
-        const chart=byId("esa-negbin-bars");
-        const svgNS="http://www.w3.org/2000/svg";
-        const newElements=[];
-        for(let j=r;j<r+12;j++){
-          const x=40+(j-r)*24;
-          const height=110*mass(j,r,p);
-          const bar=document.createElementNS(svgNS,"rect");
-          bar.setAttribute("x",String(x));bar.setAttribute("width","17");
-          bar.setAttribute("y",String(CHART_BASE-height));
-          bar.setAttribute("height",String(height));
-          bar.setAttribute("fill",j===k?"#0d9488":"#64748b");
-          bar.setAttribute("data-trial",String(j));
-          newElements.push(bar);
-          if(j===r||j===r+5||j===r+11){
-            const label=document.createElementNS(svgNS,"text");
-            label.setAttribute("x",String(x+8.5));label.setAttribute("y","152");
-            label.setAttribute("fill","currentColor");
-            label.setAttribute("font-size","10");
-            label.setAttribute("text-anchor","middle");
-            label.textContent=String(j);newElements.push(label);
-          }
-        }
-        chart.replaceChildren(...newElements);
-        byId("esa-negbin-chart").setAttribute("aria-label",
-          "Negative binomial completion-trial PMF for r = "+r+
-          " successes with p = "+p.toFixed(2)+
-          ". Selected trial k = "+k+", P(X = k) = "+pmf.toFixed(6)+
-          ". Twelve displayed bars, with all trials included in cumulative results.");
-      }
-      [rInput,pInput,kInput].forEach(input=>input.addEventListener("input",update));
-      function preset(r,p,k) {
-        rInput.value=String(r);pInput.value=String(p);
-        kInput.min=String(r);kInput.value=String(k);
-        update();
-      }
-      byId("esa-negbin-reset").addEventListener("click",()=>preset(3,0.5,5));
-      byId("esa-negbin-geometric").addEventListener("click",()=>preset(1,0.5,3));
-      update();
-    })();
-    </script>
+    <script src="{{ '/js/negative-binomial-waiting-explorer.js' | relative_url }}" defer></script>
 
     <h2>Comparing Geometric and Negative Binomial</h2>
 
