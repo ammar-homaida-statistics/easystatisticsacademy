@@ -66,11 +66,8 @@
       between+=groups[i].length*(means[i]-grand)**2;
       for(const x of groups[i])within+=(x-means[i])**2;
     }
-    // Avoid falsely treating floating-point cancellation as meaningful variation.
-    const scale=Math.max(1,...groups.flat().map(x=>Math.abs(x)));
-    const tol=1e-20*scale*scale;
-    if(within<tol)within=0;
-    if(between<tol)between=0;
+    // Sum of squares is nonnegative. Do not impose an absolute tolerance:
+    // a legitimate tiny-variance dataset must not be marked deterministic.
     const df1=k-1,df2=count-k,msb=between/df1,msw=within/df2;
     const f=within===0?(between>0?Infinity:NaN):msb/msw;
     const p=Number.isNaN(f)?NaN:fSurvival(f,df1,df2);
