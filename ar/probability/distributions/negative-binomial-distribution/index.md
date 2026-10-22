@@ -206,7 +206,7 @@ E[X]=\frac{5}{0.25}=20.
 <li>التوزيع الهندسي هو الحالة الخاصة <span dir="ltr">r=1</span>.</li>
 <li>المتوسط يساوي <span dir="ltr">r/p</span> والتباين <span dir="ltr">r(1−p)/p²</span>.</li>
 <li>القيم الممكنة تبدأ من <span dir="ltr">r</span>، وتصبح النتيجة حتمية عند <span dir="ltr">p=1</span>.</li>
-<li>تساعد أداة الانتظار التفاعلية على فهم الاحتمالات الدقيقية والتراكمية والذيول.</li>
+<li>تساعد أداة الانتظار التفاعلية على فهم الاحتمالات الدقيقة والتراكمية والذيول.</li>
 </ul></div>
 <div class="lesson-nav">
 <a class="btn btn-outline" href="/ar/probability/distributions/geometric-distribution/">← التوزيع الهندسي</a>
