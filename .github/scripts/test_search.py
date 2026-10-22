@@ -9818,9 +9818,8 @@ class SearchTests(unittest.TestCase):
         self.assertEqual(self.page.locator("#esa-hom-p").inner_text(),"0.019517")
         self.assertIn("below 5",self.page.locator("#esa-hom-warning").inner_text())
         tail=self.page.evaluate(
-            "()=>window.esaHomogeneityMath.gammaQ(5.454545454545455/2,.5)")
-        self.assertGreaterEqual(tail,0)
-        self.assertLessEqual(tail,1)
+            "()=>window.esaHomogeneityMath.gammaQ(0.5,5.454545454545455/2)")
+        self.assertAlmostEqual(tail,.01951748118217779,delta=5e-12)
         self.page.locator("#esa-hom-cities").focus()
         self.page.keyboard.press("Enter")
         self.assertEqual(self.page.locator("#esa-hom-p").inner_text(),"0.063750")
