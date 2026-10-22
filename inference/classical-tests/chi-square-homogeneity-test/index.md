@@ -213,9 +213,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-long-math" dir="ltr" role="region" tabindex="0" aria-label="Homogeneity mathematical formula 1">
+\[
     O_{ij}=\text{observed frequency in row }i\text{ and column }j
     \]
+</div>
 
 
     <p>
@@ -230,9 +232,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-long-math" dir="ltr" role="region" tabindex="0" aria-label="Homogeneity mathematical formula 2">
+\[
     E_{ij}=\frac{(\text{row }i\text{ total})(\text{column }j\text{ total})}{N}
     \]
+</div>
 
 
     <p>
@@ -246,9 +250,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-long-math" dir="ltr" role="region" tabindex="0" aria-label="Homogeneity mathematical formula 3">
+\[
     E_{\text{City 1, Product A}}=\frac{100\times120}{300}=40
     \]
+</div>
 
 
     <p>
@@ -262,9 +268,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-long-math" dir="ltr" role="region" tabindex="0" aria-label="Homogeneity mathematical formula 4">
+\[
     \chi^2=\sum_{i=1}^{r}\sum_{j=1}^{c}\frac{(O_{ij}-E_{ij})^2}{E_{ij}}
     \]
+</div>
 
 
     <p>
@@ -366,9 +374,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-long-math" dir="ltr" role="region" tabindex="0" aria-label="Homogeneity mathematical formula 5">
+\[
     H_0:\ \text{all population category distributions are equal}
     \]
+</div>
 
 
     <p>
@@ -398,9 +408,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-long-math" dir="ltr" role="region" tabindex="0" aria-label="Homogeneity mathematical formula 6">
+\[
     \operatorname{df}=(r-1)(c-1)
     \]
+</div>
 
 
     <h2>Example</h2>
@@ -421,9 +433,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-long-math" dir="ltr" role="region" tabindex="0" aria-label="Homogeneity mathematical formula 7">
+\[
     \operatorname{df}=(3-1)(3-1)=4
     \]
+</div>
 
 
     <h2>The p-Value</h2>
@@ -471,9 +485,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-long-math" dir="ltr" role="region" tabindex="0" aria-label="Homogeneity mathematical formula 8">
+\[
     H_0:\ \text{all populations have the same category proportions}
     \]
+</div>
 
 
     <p>
@@ -678,3 +694,8 @@ sidebar: false
   </div>
 
 </section>
+<style>
+.esa-long-math{box-sizing:border-box;min-width:0;max-width:100%;overflow-x:auto;direction:ltr}
+.esa-long-math mjx-container[display="true"]{width:max-content;min-width:100%;text-align:left}
+.esa-long-math:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
