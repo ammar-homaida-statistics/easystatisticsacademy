@@ -497,8 +497,27 @@ sidebar: false
 
     const data = JSON.parse(raw);
 
-    if (!data || typeof data.url !== "string" ||
-        typeof data.label !== "string" || !data.label.trim()) return;
+    // Exact saved labels from the eight published lesson pages. Do not trust a
+    // display label merely because its URL points to a listed lesson.
+    const ALLOWED = {
+      "/descriptive/data-variables/what-does-it-mean-to-describe-data/": "What Does It Mean to Describe Data?",
+      "/descriptive/data-variables/units-observations-and-variables/": "Units, Observations, and Variables",
+      "/descriptive/data-variables/categorical-vs-numerical/": "Categorical vs Numerical Data",
+      "/descriptive/data-variables/nominal-vs-ordinal/": "Nominal vs Ordinal Data",
+      "/descriptive/data-variables/discrete-vs-continuous/": "Discrete vs Continuous Data",
+      "/descriptive/data-variables/data-structure-and-datasets/": "Data Structure and Datasets",
+      "/descriptive/data-variables/measurement-scales/": "Measurement Scales",
+      "/descriptive/data-variables/valid-vs-invalid-operations/": "Valid vs Invalid Operations"
+    };
+    if (!data || typeof data !== "object" || Array.isArray(data) ||
+        typeof data.url !== "string" ||
+        !Object.prototype.hasOwnProperty.call(ALLOWED, data.url) ||
+        typeof data.label !== "string" || data.label !== ALLOWED[data.url] ||
+        data.label.length > 200 ||
+        // Historical records without ts remain readable; malformed timestamps do not.
+        (Object.prototype.hasOwnProperty.call(data, "ts") &&
+         (typeof data.ts !== "number" || !Number.isSafeInteger(data.ts) ||
+          data.ts <= 0 || data.ts > Date.now()))) return;
 
     // Stored URLs are untrusted: permit only lessons listed in this block.
     const isListedLesson = Array.from(
