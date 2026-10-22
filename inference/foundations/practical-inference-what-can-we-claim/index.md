@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_inference_foundations_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
     url: "/inference/foundations/practical-inference-what-can-we-claim/",
     label: "Practical Inference — What Can We Claim?",
     ts: Date.now()
   }));
+  } catch (_) {
+    // Optional browser storage may be disabled or full; lesson remains readable.
+  }
 
 })();
 </script>
