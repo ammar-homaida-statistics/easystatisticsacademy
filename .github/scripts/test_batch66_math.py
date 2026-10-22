@@ -67,14 +67,17 @@ class Batch66IndependentBenchmarks(unittest.TestCase):
         self.assertAlmostEqual(pearson_statistic(obs,probs),1.6,places=14)
         self.assertAlmostEqual(sum(obs),60)
         # SciPy chi2.sf(1.6, 5), asymptotic null with fixed probs.
-        self.assertAlmostEqual(0.9012493445012736,0.9012493445012736,places=15)
+        x=1.6/2
+        # Closed-form chi-square(5) survival for half-integer gamma shape.
+        tail=math.erfc(math.sqrt(x)) + (2/math.sqrt(math.pi))*math.sqrt(x)*math.exp(-x)*(1+2*x/3)
+        self.assertAlmostEqual(tail,0.9012493445012736,places=14)
 
     def test_pearson_nonuniform_null_and_zero_counts(self):
         self.assertEqual(pearson_statistic((12,18,30),(.2,.3,.5)),0)
         self.assertAlmostEqual(pearson_statistic((25,20,15),(.2,.3,.5)),
                                21.805555555555557,places=11)
         self.assertAlmostEqual(math.exp(-21.805555555555557/2),
-                               1.842e-5,delta=1e-7)
+                               1.840703227000099e-05,places=13)
         self.assertAlmostEqual(pearson_statistic((0,10),(0.5,0.5)),10,places=15)
         self.assertAlmostEqual(math.exp(-10/2),0.006737946999085467,places=15)
 
