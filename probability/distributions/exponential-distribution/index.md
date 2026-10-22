@@ -4,6 +4,7 @@ title: Exponential Distribution
 description: Learn how the exponential distribution models waiting times between random events and why it is the continuous counterpart of the geometric distribution.
 permalink: /probability/distributions/exponential-distribution/
 sidebar: false
+translation_pair: exponential-distribution
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -40,6 +41,7 @@ sidebar: false
     </div>
 
     <h1>Exponential Distribution</h1>
+    <p><a href="/ar/probability/distributions/exponential-distribution/" lang="ar" dir="rtl">العربية — التوزيع الأسي</a></p>
 
     <p class="lead">
       Many probability problems focus on waiting times.
