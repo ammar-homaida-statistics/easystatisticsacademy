@@ -4,6 +4,7 @@ title: Beta Distribution
 description: Learn how the beta distribution models probabilities and proportions, and why it is fundamental in Bayesian statistics.
 permalink: /probability/distributions/beta-distribution/
 sidebar: false
+translation_pair: beta-distribution
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -40,6 +41,7 @@ sidebar: false
     </div>
 
     <h1>Beta Distribution</h1>
+    <p><a href="/ar/probability/distributions/beta-distribution/" lang="ar" dir="rtl">العربية — توزيع بيتا</a></p>
 
     <p class="lead">
       Many real-world quantities represent probabilities or proportions.
