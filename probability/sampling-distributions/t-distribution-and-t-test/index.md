@@ -80,9 +80,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-t-equation" role="region" tabindex="0" aria-label="Student t lesson formula 1">
+\[
     Z=\frac{\bar X-\mu_0}{\sigma/\sqrt n}
     \]
+</div>
 
 
     <p>
@@ -111,9 +113,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-t-equation" role="region" tabindex="0" aria-label="Student t lesson formula 2">
+\[
     s
     \]
+</div>
 
 
     <p>
@@ -218,9 +222,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-t-equation" role="region" tabindex="0" aria-label="Student t lesson formula 3">
+\[
     \nu=n-1
     \]
+</div>
 
 
     <p>
@@ -253,6 +259,57 @@ sidebar: false
 
     </div>
 
+
+    <style>
+      .esa-t-equation{max-width:100%;min-width:0;overflow-x:auto}
+      .esa-t-equation mjx-container[display="true"]{width:max-content;min-width:100%;text-align:left}
+      .esa-t-equation:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+    </style>
+    <!-- Batch #64: reference Student t-vs-normal explorer -->
+    <section class="concept-box" id="esa-t-normal-explorer" aria-labelledby="esa-t-normal-heading">
+      <h2 id="esa-t-normal-heading">Interactive Student t vs. Normal Explorer</h2>
+      <p>Compare the <strong>Student-t</strong> reference distribution with the <strong>standard normal</strong> distribution. For a one-sample mean, sample size <em>n</em> implies degrees of freedom <em>ν = n − 1</em>. See how critical values and an illustrative margin of error change as n and confidence level change.</p>
+      <div class="esa-t-normal-fields">
+        <div><label for="esa-t-normal-n">Sample size n: <output id="esa-t-normal-n-value" for="esa-t-normal-n">10</output></label>
+          <input id="esa-t-normal-n" type="range" min="2" max="121" step="1" value="10">
+          <p class="muted-mini">Degrees of freedom ν = n − 1: <output id="esa-t-normal-df">9</output></p></div>
+        <div><label for="esa-t-normal-confidence">Two-sided confidence level</label>
+          <select id="esa-t-normal-confidence"><option value="90">90%</option><option value="95" selected>95%</option><option value="99">99%</option></select>
+          <p class="muted-mini">Upper and lower tail area α/2: <output id="esa-t-normal-tail">2.5%</output> each</p></div>
+      </div>
+      <div class="esa-t-normal-figure">
+        <svg id="esa-t-normal-plot" role="img" viewBox="0 0 660 278" aria-label="Student t and normal curves at n = 10"></svg>
+      </div>
+      <p class="muted-mini"><span class="esa-t-key">━</span> Blue: Student t <span class="esa-n-key">┄</span> Green dashed: standard normal. Vertical lines indicate two-sided critical values when they fall inside the displayed x range (−6, 6).</p>
+      <div class="esa-t-normal-results" role="status" aria-live="polite" aria-atomic="true">
+        <p>Positive two-sided t critical value: <strong><output id="esa-t-normal-tcrit">—</output></strong></p>
+        <p>Positive two-sided z critical value: <strong><output id="esa-t-normal-zcrit">1.9600</output></strong></p>
+        <p>Illustrative t margin of error (t* × 1/√n): <strong><output id="esa-t-normal-tmargin">—</output></strong></p>
+        <p>Illustrative z margin of error (z* × 1/√n): <strong><output id="esa-t-normal-zmargin">—</output></strong></p>
+        <p>t/z critical-value ratio: <strong><output id="esa-t-normal-ratio">—</output></strong></p>
+      </div>
+      <p class="muted-mini" id="esa-t-normal-note"></p>
+      <button type="button" class="btn btn-outline" id="esa-t-normal-reset">Reset example</button>
+      <p class="muted-mini"><strong>Interpretation:</strong> Critical-value comparisons use the same two-sided confidence level. A Student-t confidence interval uses <em>s</em> as an estimate of unknown population σ; the z comparison assumes σ is known. Setting their numerical SDs equal to 1 is for illustration and does not make their assumptions interchangeable. With exact iid normal data, the one-sample t statistic follows t with n−1 degrees of freedom under the null.</p>
+    </section>
+    <style>
+      #esa-t-normal-explorer{min-width:0;max-width:100%;overflow-wrap:anywhere}
+      #esa-t-normal-explorer .esa-t-normal-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:14px 0}
+      #esa-t-normal-explorer .esa-t-normal-fields>div{min-width:0}
+      #esa-t-normal-explorer label{display:block;font-weight:650;margin-bottom:8px}
+      #esa-t-normal-explorer input[type="range"],#esa-t-normal-explorer select{
+        display:block;box-sizing:border-box;width:100%;min-width:0;max-width:100%;margin:0;font:inherit}
+      #esa-t-normal-explorer select{background:var(--surface);color:var(--text);padding:10px;border:1px solid var(--border-strong);border-radius:8px}
+      #esa-t-normal-explorer :is(input,select,button):focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+      #esa-t-normal-explorer svg{display:block;max-width:100%;width:100%;height:auto;margin:8px auto}
+      #esa-t-normal-explorer .esa-t-normal-results p{margin:7px 0}
+      #esa-t-normal-explorer output{font-variant-numeric:tabular-nums}
+      #esa-t-normal-explorer .esa-t-key{color:#245fd4;font-weight:800}
+      #esa-t-normal-explorer .esa-n-key{color:#0f766e;font-weight:800}
+      @media(max-width:600px){#esa-t-normal-explorer .esa-t-normal-fields{grid-template-columns:minmax(0,1fr)}}
+    </style>
+    <script src="{{ '/js/student-t-normal-explorer.js' | relative_url }}" defer></script>
+
     <h2>The t Statistic</h2>
 
     <p>
@@ -264,9 +321,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-t-equation" role="region" tabindex="0" aria-label="Student t lesson formula 4">
+\[
     T=\frac{\bar X-\mu_0}{S/\sqrt n}\sim t_{n-1}\quad(\text{iid normal population under }H_0)
     \]
+</div>
 
 
     <p>
@@ -359,9 +418,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-t-equation" role="region" tabindex="0" aria-label="Student t lesson formula 5">
+\[
     \bar x\pm t_{n-1,\,1-\alpha/2}\frac{s}{\sqrt n}
     \]
+</div>
 
 
     <p>
@@ -429,9 +490,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-t-equation" role="region" tabindex="0" aria-label="Student t lesson formula 6">
+\[
     t_{\nu}\ \xrightarrow{d}\ N(0,1)\quad\text{as }\nu\to\infty
     \]
+</div>
 
 
     <p>
