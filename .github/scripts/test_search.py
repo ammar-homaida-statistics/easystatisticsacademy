@@ -984,8 +984,10 @@ class SearchTests(unittest.TestCase):
 
         malicious_label = '<img src=x onerror="window.esaInjected=true"> & analysis'
         save({"url": lesson, "label": malicious_label})
-        expect(panel).to_be_visible()
-        expect(label.locator("strong")).to_have_text(malicious_label)
+        # Batch #67: untrusted stored labels must match the published lesson
+        # title, rather than merely being rendered as escaped literal text.
+        expect(panel).to_be_hidden()
+        expect(link).to_have_attribute("href", "#")
         self.assertEqual(label.locator("img, script").count(), 0)
         self.assertIsNone(self.page.evaluate("window.esaInjected"))
 
@@ -1005,9 +1007,12 @@ class SearchTests(unittest.TestCase):
         self.page.reload(wait_until="networkidle")
         expect(panel).to_be_hidden()
 
-        save({"url": lesson, "label": "Resume lesson"})
+        # Timestamp-free historical records with a valid published label
+        # must still resume correctly across mobile widths.
+        save({"url": lesson, "label": "Categorical vs Numerical Data"})
         self.page.set_viewport_size({"width": 375, "height": 750})
         expect(panel).to_be_visible()
+        expect(label.locator("strong")).to_have_text("Categorical vs Numerical Data")
         link.click()
         expect(self.page).to_have_url(self.origin + lesson)
 
