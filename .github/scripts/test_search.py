@@ -9165,5 +9165,199 @@ class SearchTests(unittest.TestCase):
         expect(self.page.locator("#continue-reading-probability-sampling")).to_be_hidden()
 
 
+
+    def test_batch64_negative_binomial_arabic_english_parity_mobile_keyboard(self):
+        english="/probability/distributions/negative-binomial-distribution/"
+        arabic="/ar/probability/distributions/negative-binomial-distribution/"
+        for path,lang in ((english,"en"),(arabic,"ar")):
+            with self.subTest(language=lang):
+                self.page.goto(self.origin+path,wait_until="networkidle")
+                self.assertEqual(self.page.locator("html").get_attribute("lang"),lang)
+                self.assertEqual(self.page.locator("html").get_attribute("dir"),"rtl" if lang=="ar" else None)
+                self.assertEqual(self.page.locator('link[rel="canonical"]').get_attribute("href"),
+                                 "https://easystatisticsacademy.com"+path)
+                for code,target in (("en",english),("ar",arabic)):
+                    self.assertEqual(self.page.locator('link[rel="alternate"][hreflang="'+code+'"]')
+                                     .get_attribute("href"),"https://easystatisticsacademy.com"+target)
+                expect(self.page.locator("#esa-negbin-wait-explorer")).to_be_visible()
+                self.assertEqual(self.page.locator("#esa-negbin-bars rect[data-trial]").count(),12)
+                for element,expected in (
+                    ("r-value","3"),("p-value","0.50"),("k-value","5"),
+                    ("pmf","0.187500"),("cdf","0.500000"),("tail","0.500000"),
+                    ("mean","6.0000"),("variance","6.0000")
+                ):
+                    self.assertEqual(self.page.locator("#esa-negbin-"+element).inner_text(),expected)
+                expected=self.page.evaluate("()=>window.esaNegBinMath(3,.5,5)")
+                self.assertAlmostEqual(expected["pmf"],.1875,places=14)
+                self.assertAlmostEqual(expected["cdf"],.5,places=14)
+                self.assertAlmostEqual(expected["tail"],.5,places=14)
+                self.assertEqual(expected["mean"],6)
+                self.assertEqual(expected["variance"],6)
+                self.assertIsNone(self.page.evaluate("()=>window.esaNegBinMath(0,.5,3)"))
+                self.assertIsNone(self.page.evaluate("()=>window.esaNegBinMath(3,0,5)"))
+                self.assertIsNone(self.page.evaluate("()=>window.esaNegBinMath(3,.5,2)"))
+                # Degenerate p=1: the third success must occur on trial 3.
+                self.page.locator("#esa-negbin-p").evaluate(
+                    "(el)=>{el.value='1';el.dispatchEvent(new Event('input',{bubbles:true}))}")
+                self.assertEqual(self.page.locator("#esa-negbin-cdf").inner_text(),"1.000000")
+                self.assertEqual(self.page.locator("#esa-negbin-pmf").inner_text(),"0.000000")
+                self.assertEqual(self.page.locator("#esa-negbin-variance").inner_text(),"0.0000")
+                self.assertEqual(self.page.evaluate("()=>window.esaNegBinMath(3,1,3)")["pmf"],1)
+                # r=1 is exactly the geometric first-success waiting-time distribution.
+                self.page.locator("#esa-negbin-geometric").focus()
+                self.page.keyboard.press("Enter")
+                self.assertEqual(self.page.locator("#esa-negbin-r-value").inner_text(),"1")
+                self.assertEqual(self.page.locator("#esa-negbin-k-value").inner_text(),"3")
+                self.assertEqual(self.page.locator("#esa-negbin-pmf").inner_text(),"0.125000")
+                self.assertEqual(self.page.locator("#esa-negbin-cdf").inner_text(),"0.875000")
+                self.page.locator("#esa-negbin-reset").focus()
+                self.page.keyboard.press("Enter")
+                self.assertEqual(self.page.locator("#esa-negbin-pmf").inner_text(),"0.187500")
+                self.page.locator("#esa-negbin-r").focus()
+                self.page.keyboard.press("ArrowRight")
+                self.assertEqual(self.page.locator("#esa-negbin-r-value").inner_text(),"4")
+                self.page.set_viewport_size({"width":320,"height":760})
+                self.assertLessEqual(self.page.evaluate(
+                    "()=>document.documentElement.scrollWidth-document.documentElement.clientWidth"),2)
+                self.page.set_viewport_size({"width":1280,"height":800})
+        self.page.goto(self.origin+"/ar/",wait_until="networkidle")
+        expect(self.page.locator('a[href="'+arabic+'"]')).to_be_visible()
+
+    def test_batch64_student_t_quantiles_reference_pdf_cdf_and_confidence(self):
+        self.page.goto(self.origin+"/probability/sampling-distributions/t-distribution-and-t-test/",
+                       wait_until="networkidle")
+        expect(self.page.locator("#esa-t-normal-explorer")).to_be_visible()
+        self.assertEqual(self.page.locator("#esa-t-normal-n-value").inner_text(),"10")
+        self.assertEqual(self.page.locator("#esa-t-normal-df").inner_text(),"9")
+        self.assertEqual(self.page.locator("#esa-t-normal-zcrit").inner_text(),"1.9600")
+        self.assertEqual(self.page.locator("#esa-t-normal-tcrit").inner_text(),"2.2622")
+        self.assertEqual(self.page.locator("#esa-t-normal-tmargin").inner_text(),"0.7154")
+        self.assertEqual(self.page.locator("#esa-t-normal-zmargin").inner_text(),"0.6198")
+        refs=((1,.90,6.313751515),(1,.95,12.706204736),(1,.99,63.656741163),
+              (2,.95,4.30265273),(4,.95,2.776445105),
+              (9,.90,1.833112933),(9,.95,2.262157163),(9,.99,3.249835542),
+              (29,.95,2.045229642),(99,.95,1.984216952),
+              (120,.99,2.617421145))
+        for df,confidence,critical in refs:
+            with self.subTest(df=df,confidence=confidence):
+                q=self.page.evaluate(
+                    "args=>window.esaStudentTMath.tQuantile(...args)",
+                    [(1+confidence)/2,df])
+                self.assertAlmostEqual(q,critical,delta=3e-6)
+                tail=self.page.evaluate(
+                    "args=>window.esaStudentTMath.tCdf(...args)",[q,df])
+                self.assertAlmostEqual(tail,(1+confidence)/2,delta=1e-10)
+        self.assertAlmostEqual(self.page.evaluate(
+            "()=>window.esaStudentTMath.tDensity(0,1)"),1/3.141592653589793,places=12)
+        self.assertAlmostEqual(self.page.evaluate(
+            "()=>window.esaStudentTMath.tCdf(1,1)"),.75,places=12)
+        self.assertAlmostEqual(self.page.evaluate(
+            "()=>window.esaStudentTMath.tCdf(-1,1)"),.25,places=12)
+        self.assertAlmostEqual(self.page.evaluate(
+            "()=>window.esaStudentTMath.normalDensity(0)"),
+            1/(2*3.141592653589793)**.5,places=12)
+        self.assertIsNone(self.page.evaluate(
+            "()=>window.esaStudentTMath.tQuantile(1,9)"))
+        self.assertIsNone(self.page.evaluate(
+            "()=>window.esaStudentTMath.tQuantile(.95,0)"))
+        self.page.locator("#esa-t-normal-n").focus()
+        self.page.keyboard.press("ArrowRight")
+        self.assertEqual(self.page.locator("#esa-t-normal-n-value").inner_text(),"11")
+        self.assertEqual(self.page.locator("#esa-t-normal-df").inner_text(),"10")
+        self.page.locator("#esa-t-normal-confidence").select_option("99")
+        self.assertEqual(self.page.locator("#esa-t-normal-tail").inner_text(),"0.5%")
+        self.page.locator("#esa-t-normal-n").evaluate(
+            "(el)=>{el.value='2';el.dispatchEvent(new Event('input',{bubbles:true}))}")
+        self.assertEqual(self.page.locator("#esa-t-normal-df").inner_text(),"1")
+        self.assertEqual(self.page.locator("#esa-t-normal-tcrit").inner_text(),"63.6567")
+        self.assertIn("outside the plotted",self.page.locator("#esa-t-normal-note").inner_text())
+        self.page.locator("#esa-t-normal-reset").focus()
+        self.page.keyboard.press("Enter")
+        self.assertEqual(self.page.locator("#esa-t-normal-n-value").inner_text(),"10")
+        self.assertEqual(self.page.locator("#esa-t-normal-tcrit").inner_text(),"2.2622")
+        self.assertEqual(self.page.locator("#esa-t-normal-plot").get_attribute("role"),"img")
+        self.page.set_viewport_size({"width":320,"height":760})
+        self.assertLessEqual(self.page.evaluate(
+            "()=>document.documentElement.scrollWidth-document.documentElement.clientWidth"),2)
+
+    def test_batch64_visualization_eleven_lessons_progress_and_untrusted_storage(self):
+        root="/descriptive/visualization/"
+        key="esa_continue_descriptive_visualization_lesson_v0"
+        slugs=("why-visualization-matters","choosing-the-right-graph",
+               "matching-graph-to-variable-type","bar-charts","histograms","pie-charts",
+               "density-curves","boxplots","scatterplots","time-series-line-charts",
+               "misleading-graphs")
+        for slug in slugs:
+            with self.subTest(slug=slug):
+                self.page.goto(self.origin+root+slug+"/",wait_until="networkidle")
+                v=self.page.evaluate("key=>JSON.parse(localStorage.getItem(key))",key)
+                self.assertEqual(v["url"],root+slug+"/")
+                self.assertTrue(v["label"].strip())
+                self.assertEqual(type(v["ts"]),int)
+                self.assertGreater(v["ts"],0)
+                self.page.goto(self.origin+root,wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-block3")).to_be_visible()
+                self.assertEqual(self.page.locator("#continue-reading-block3-btn")
+                                 .get_attribute("href"),root+slug+"/")
+        self.page.goto(self.origin+root,wait_until="networkidle")
+        good=root+"bar-charts/"
+        bad=(
+            {"url":"javascript:alert(1)","label":"Bar Charts","ts":10},
+            {"url":good+"#part","label":"Bar Charts","ts":10},
+            {"url":good+"?a=1","label":"Bar Charts","ts":10},
+            {"url":root+"unpublished/","label":"Bar Charts","ts":10},
+            {"url":good,"label":"x"*201,"ts":10},
+            {"url":good,"label":"Bar Charts","ts":0},
+            {"url":good,"label":"Bar Charts","ts":-1},
+            {"url":good,"label":"Bar Charts","ts":None},
+            {"url":good,"label":"Bar Charts","ts":"tomorrow"},
+            {"url":good,"label":"Bar Charts","ts":999999999999999},
+            {"url":good,"label":"Bar Charts","ts":True}
+        )
+        for v in bad:
+            with self.subTest(record=str(v)):
+                self.page.evaluate(
+                    "arg=>localStorage.setItem(arg.key,JSON.stringify(arg.value))",
+                    {"key":key,"value":v})
+                self.page.reload(wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-block3")).to_be_hidden()
+        # Retain legitimate old records with no timestamp field.
+        self.page.evaluate(
+            "arg=>localStorage.setItem(arg.key,JSON.stringify(arg.value))",
+            {"key":key,"value":{"url":good,"label":"Bar Charts"}})
+        self.page.reload(wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-block3")).to_be_visible()
+        evil='<img src=x onerror="window.esaInjected=true">'
+        self.page.evaluate(
+            "arg=>localStorage.setItem(arg.key,JSON.stringify(arg.value))",
+            {"key":key,"value":{"url":good,"label":evil}})
+        self.page.reload(wait_until="networkidle")
+        self.assertEqual(self.page.locator("#continue-reading-block3-label img").count(),0)
+        self.assertIn(evil,self.page.locator("#continue-reading-block3-label").inner_text())
+        self.assertIsNone(self.page.evaluate("()=>window.esaInjected || null"))
+        self.page.evaluate("key=>localStorage.setItem(key,'{broken JSON')",key)
+        self.page.reload(wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-block3")).to_be_hidden()
+
+    def test_batch64_visualization_denied_storage_all_lessons_and_mobile(self):
+        self.page.add_init_script("""
+            Object.defineProperty(window,"localStorage",{
+                configurable:true,
+                get(){throw new DOMException("Denied","SecurityError")}
+            });
+        """)
+        self.page.set_viewport_size({"width":320,"height":760})
+        root="/descriptive/visualization/"
+        for slug in ("why-visualization-matters","choosing-the-right-graph",
+                     "matching-graph-to-variable-type","bar-charts","histograms","pie-charts",
+                     "density-curves","boxplots","scatterplots","time-series-line-charts",
+                     "misleading-graphs"):
+            with self.subTest(slug=slug):
+                self.page.goto(self.origin+root+slug+"/",wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+        self.page.goto(self.origin+root,wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-block3")).to_be_hidden()
+
+
 if __name__ == "__main__":
     unittest.main(argv=[__file__], verbosity=2)
