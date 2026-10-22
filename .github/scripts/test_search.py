@@ -9736,5 +9736,212 @@ class SearchTests(unittest.TestCase):
         expect(self.page.locator("#continue-reading-inference-foundations")).to_be_hidden()
 
 
+
+    def test_batch67_arabic_beta_translation_math_mobile_and_navigation(self):
+        english="/probability/distributions/beta-distribution/"
+        arabic="/ar/probability/distributions/beta-distribution/"
+        for route,language in ((english,"en"),(arabic,"ar")):
+            with self.subTest(lang=language):
+                self.page.goto(self.origin+route,wait_until="networkidle")
+                self.assertEqual(self.page.locator("html").get_attribute("lang"),language)
+                self.assertEqual(self.page.locator("html").get_attribute("dir"),
+                                 "rtl" if language=="ar" else None)
+                self.assertEqual(self.page.locator('link[rel="canonical"]').get_attribute("href"),
+                                 "https://easystatisticsacademy.com"+route)
+                for lang,target in (("en",english),("ar",arabic)):
+                    self.assertEqual(self.page.locator(
+                        'link[rel="alternate"][hreflang="'+lang+'"]').get_attribute("href"),
+                        "https://easystatisticsacademy.com"+target)
+                expect(self.page.locator("main h1")).to_be_visible()
+                self.assertGreaterEqual(self.page.locator("main h2").count(),20)
+                self.page.set_viewport_size({"width":320,"height":760})
+                self.assertLessEqual(self.page.evaluate(
+                    "()=>document.documentElement.scrollWidth-document.documentElement.clientWidth"),2)
+                self.page.set_viewport_size({"width":1280,"height":800})
+        self.page.goto(self.origin+arabic,wait_until="networkidle")
+        displayed=self.page.locator("main").inner_text()
+        for phrase in ("0.01454545","0.1206045","0.714286",
+                       "التوزيع المنتظم","دالة بيتا","المتوسط","التباين",
+                       "الاحتمال","التوزيع ذو الحدين","بايزي"):
+            self.assertIn(phrase,displayed)
+        formula_html=(SITE/arabic.lstrip("/")/"index.html").read_text()
+        for formula in (r"E(X)=\frac{\alpha}{\alpha+\beta}",
+                        r"\operatorname{Var}(X)=",
+                        r"B(\alpha,\beta)=",
+                        r"\operatorname{Beta}(10,4)"):
+            self.assertIn(formula,formula_html)
+        self.assertGreaterEqual(self.page.locator(".esa-beta-equation").count(),10)
+        self.assertEqual(self.page.locator(".esa-beta-equation[tabindex='0']").count(),
+                         self.page.locator(".esa-beta-equation").count())
+        self.page.locator(".esa-beta-equation").first.focus()
+        self.assertEqual(self.page.evaluate("()=>document.activeElement.tabIndex"),0)
+        self.page.goto(self.origin+"/ar/",wait_until="networkidle")
+        expect(self.page.locator('a[href="'+arabic+'"]')).to_be_visible()
+
+    def test_batch67_homogeneity_chi_square_numerical_p_values_keyboard_and_mobile(self):
+        route="/inference/classical-tests/chi-square-homogeneity-test/"
+        self.page.goto(self.origin+route,wait_until="networkidle")
+        expect(self.page.locator("#esa-homogeneity-lab")).to_be_visible()
+        expect(self.page.locator("#esa-hom-results")).to_be_visible()
+        for key,want in (("n","300"),("chi","8.896104"),("df","4"),("p","0.063750")):
+            self.assertEqual(self.page.locator("#esa-hom-"+key).inner_text(),want)
+        x=self.page.evaluate("""()=>window.esaHomogeneityMath.compute(
+            [[40,35,25],[30,45,25],[50,30,20]])""")
+        self.assertEqual(x["rowTotals"],[100,100,100])
+        self.assertEqual(x["colTotals"],[120,110,70])
+        self.assertEqual(x["df"],4)
+        self.assertAlmostEqual(x["chi"],8.896103896103897,places=11)
+        self.assertAlmostEqual(x["p"],0.06374950599967244,delta=5e-12)
+        self.assertAlmostEqual(x["expected"][0][1],110/3,places=12)
+        self.assertFalse(x["smallExpected"])
+        self.assertEqual(self.page.locator("#esa-hom-table tbody tr").count(),3)
+        self.assertEqual(self.page.locator("#esa-hom-table thead th").count(),5)
+        self.assertEqual(self.page.locator("#esa-hom-chart").get_attribute("role"),"img")
+        self.assertIn("Population 1",self.page.locator("#esa-hom-chart").get_attribute("aria-label"))
+        self.page.locator("#esa-hom-balanced").focus()
+        self.page.keyboard.press("Enter")
+        self.assertEqual(self.page.locator("#esa-hom-chi").inner_text(),"0.000000")
+        self.assertEqual(self.page.locator("#esa-hom-df").inner_text(),"1")
+        self.assertEqual(self.page.locator("#esa-hom-p").inner_text(),"1.000000")
+        self.page.locator("#esa-hom-unequal").focus()
+        self.page.keyboard.press("Enter")
+        self.assertEqual(self.page.locator("#esa-hom-n").inner_text(),"70")
+        self.assertEqual(self.page.locator("#esa-hom-df").inner_text(),"2")
+        self.assertEqual(self.page.locator("#esa-hom-chi").inner_text(),"2.991453")
+        self.assertEqual(self.page.locator("#esa-hom-p").inner_text(),"0.224086")
+        y=self.page.evaluate("""()=>window.esaHomogeneityMath.compute(
+            [[5,20,15],[8,10,12]])""")
+        self.assertAlmostEqual(y["p"],.2240857482419603,delta=5e-12)
+        self.page.locator("#esa-hom-sparse").focus()
+        self.page.keyboard.press("Enter")
+        self.assertEqual(self.page.locator("#esa-hom-chi").inner_text(),"5.454545")
+        self.assertEqual(self.page.locator("#esa-hom-p").inner_text(),"0.019517")
+        self.assertIn("below 5",self.page.locator("#esa-hom-warning").inner_text())
+        tail=self.page.evaluate(
+            "()=>window.esaHomogeneityMath.gammaQ(5.454545454545455/2,.5)")
+        self.assertGreaterEqual(tail,0)
+        self.assertLessEqual(tail,1)
+        self.page.locator("#esa-hom-cities").focus()
+        self.page.keyboard.press("Enter")
+        self.assertEqual(self.page.locator("#esa-hom-p").inner_text(),"0.063750")
+        self.assertEqual(self.page.locator(".esa-long-math").count(),8)
+        self.page.set_viewport_size({"width":320,"height":760})
+        self.assertLessEqual(self.page.evaluate(
+            "()=>document.documentElement.scrollWidth-document.documentElement.clientWidth"),2)
+
+    def test_batch67_homogeneity_invalid_rows_zero_margins_and_security(self):
+        route="/inference/classical-tests/chi-square-homogeneity-test/"
+        self.page.goto(self.origin+route,wait_until="networkidle")
+        field=self.page.locator("#esa-hom-input")
+        for invalid in (
+            "1, 2\n3",
+            "-1, 2\n3, 4",
+            "1, 2\n0, 0",
+            "0, 2\n0, 3",
+            "a, 2\n3, 4",
+            "1, 2\n3, <img src=x onerror=alert(1)>",
+            "0, 0\n0, 0",
+            "10000001, 2\n3, 4",
+            "1,2,3,4,5,6\n2,3,4,5,6,7"
+        ):
+            with self.subTest(invalid=invalid):
+                field.fill(invalid)
+                expect(self.page.locator("#esa-hom-error")).to_be_visible()
+                expect(self.page.locator("#esa-hom-results")).to_be_hidden()
+                self.assertEqual(self.page.locator("#esa-homogeneity-lab img").count(),0)
+        field.fill("0, 2\n3, 4")
+        expect(self.page.locator("#esa-hom-error")).to_be_hidden()
+        self.assertEqual(self.page.locator("#esa-hom-n").inner_text(),"9")
+        self.page.locator("#esa-hom-cities").click()
+        expect(self.page.locator("#esa-hom-results")).to_be_visible()
+
+    def test_batch67_data_variables_all_eight_progress_and_adversarial_records(self):
+        root="/descriptive/data-variables/"
+        key="esa_continue_descriptive_data_variables_lesson_v0"
+        lessons=(
+          ("what-does-it-mean-to-describe-data","What Does It Mean to Describe Data?"),
+          ("units-observations-and-variables","Units, Observations, and Variables"),
+          ("categorical-vs-numerical","Categorical vs Numerical Data"),
+          ("nominal-vs-ordinal","Nominal vs Ordinal Data"),
+          ("discrete-vs-continuous","Discrete vs Continuous Data"),
+          ("data-structure-and-datasets","Data Structure and Datasets"),
+          ("measurement-scales","Measurement Scales"),
+          ("valid-vs-invalid-operations","Valid vs Invalid Operations")
+        )
+        for slug,label in lessons:
+            with self.subTest(lesson=slug):
+                self.page.goto(self.origin+root+slug+"/",wait_until="networkidle")
+                item=self.page.evaluate("k=>JSON.parse(localStorage.getItem(k))",key)
+                self.assertEqual(item["url"],root+slug+"/")
+                self.assertEqual(item["label"],label)
+                self.assertIs(type(item["ts"]),int)
+                self.assertGreater(item["ts"],0)
+                self.page.goto(self.origin+root,wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-block1")).to_be_visible()
+                self.assertEqual(self.page.locator("#continue-reading-block1-btn")
+                                 .get_attribute("href"),item["url"])
+                self.assertIn(label,self.page.locator(
+                    "#continue-reading-block1-label").inner_text())
+        good=root+"measurement-scales/"
+        label="Measurement Scales"
+        rejected=(
+           {"url":"javascript:alert(1)","label":label,"ts":1},
+           {"url":good+"?q=1","label":label,"ts":1},
+           {"url":good+"#hash","label":label,"ts":1},
+           {"url":root+"unpublished/","label":label,"ts":1},
+           {"url":good,"label":"Misleading title","ts":1},
+           {"url":good,"label":'<img src=x onerror="window.esaPwn=true">',"ts":1},
+           {"url":good,"label":"x"*201,"ts":1},
+           {"url":good,"label":label,"ts":0},
+           {"url":good,"label":label,"ts":-1},
+           {"url":good,"label":label,"ts":None},
+           {"url":good,"label":label,"ts":True},
+           {"url":good,"label":label,"ts":"now"},
+           {"url":good,"label":label,"ts":999999999999999},
+           {"url":good,"label":label,"ts":[]}
+        )
+        for item in rejected:
+            with self.subTest(record=str(item)):
+                self.page.evaluate(
+                    "args=>localStorage.setItem(args.k,JSON.stringify(args.v))",
+                    {"k":key,"v":item})
+                self.page.reload(wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-block1")).to_be_hidden()
+        self.page.evaluate("args=>localStorage.setItem(args.k,JSON.stringify(args.v))",
+                           {"k":key,"v":{"url":good,"label":label}})
+        self.page.reload(wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-block1")).to_be_visible()
+        self.assertEqual(self.page.locator("#continue-reading-block1-btn")
+                         .get_attribute("href"),good)
+        self.assertIsNone(self.page.evaluate("()=>window.esaPwn||null"))
+        self.page.evaluate("k=>localStorage.setItem(k,'{malformed')",key)
+        self.page.reload(wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-block1")).to_be_hidden()
+        self.page.set_viewport_size({"width":320,"height":760})
+        self.assertLessEqual(self.page.evaluate(
+            "()=>document.documentElement.scrollWidth-document.documentElement.clientWidth"),2)
+
+    def test_batch67_data_variables_progress_with_storage_denied_mobile(self):
+        self.page.add_init_script("""
+            Object.defineProperty(window,"localStorage",{
+                configurable:true,
+                get(){throw new DOMException("Denied","SecurityError")}
+            });
+        """)
+        self.page.set_viewport_size({"width":320,"height":760})
+        root="/descriptive/data-variables/"
+        slugs=("what-does-it-mean-to-describe-data",
+          "units-observations-and-variables","categorical-vs-numerical",
+          "nominal-vs-ordinal","discrete-vs-continuous",
+          "data-structure-and-datasets","measurement-scales",
+          "valid-vs-invalid-operations")
+        for slug in slugs:
+            with self.subTest(lesson=slug):
+                self.page.goto(self.origin+root+slug+"/",wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+        self.page.goto(self.origin+root,wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-block1")).to_be_hidden()
+
+
 if __name__ == "__main__":
     unittest.main(argv=[__file__], verbosity=2)
