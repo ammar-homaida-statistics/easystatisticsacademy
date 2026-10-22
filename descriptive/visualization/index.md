@@ -588,7 +588,12 @@ sidebar: false
     if (!raw) return;
     const data = JSON.parse(raw);
     if (!data || typeof data.url !== "string" ||
-        typeof data.label !== "string" || !data.label.trim()) return;
+        typeof data.label !== "string" || !data.label.trim() ||
+        data.label.length > 200 ||
+        // Legacy saved records are allowed when ts was never included.
+        (Object.prototype.hasOwnProperty.call(data, "ts") &&
+         (typeof data.ts !== "number" || !Number.isSafeInteger(data.ts) ||
+          data.ts <= 0 || data.ts > Date.now()))) return;
 
     // Only exact canonical routes to published lessons listed in this block.
     const allowed = /^\/descriptive\/visualization\/[a-z0-9-]+\/$/.test(data.url);
