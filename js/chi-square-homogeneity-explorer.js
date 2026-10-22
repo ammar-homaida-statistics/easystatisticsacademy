@@ -128,6 +128,9 @@
    error.hidden=true;output.hidden=false;
    const grid=byId("table");
    grid.replaceChildren();
+   const caption=document.createElement("caption");
+   caption.textContent="Observed counts, expected counts, each chi-square contribution and within-population percentages";
+   grid.appendChild(caption);
    const header=document.createElement("tr");
    for(const val of ["Population",...Array.from({length:s.C},(_,j)=>"Category "+(j+1)),"Row total"]){
      const th=document.createElement("th");th.scope="col";th.textContent=val;header.appendChild(th);
