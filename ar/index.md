@@ -16,5 +16,6 @@ lang: ar
 <p><a href="/ar/probability/distributions/geometric-distribution/">التوزيع الهندسي — شرح عربي ومختبر تفاعلي للانتظار حتى أول نجاح</a></p>
 <p><a href="/ar/probability/distributions/negative-binomial-distribution/">التوزيع السالب ذو الحدين — شرح عربي ومختبر تفاعلي للانتظار حتى النجاحات المتعددة</a></p>
 <p><a href="/ar/probability/distributions/exponential-distribution/">التوزيع الأسي — شرح عربي متكامل لأزمنة الانتظار وعلاقة بواسون</a></p>
+<p><a href="/ar/probability/distributions/gamma-distribution/">توزيع غاما — شرح عربي ومختبر تفاعلي لأزمنة انتظار إرلانغ</a></p>
 <p><a href="/" lang="en" dir="ltr">English homepage</a></p>
 </div></section>
