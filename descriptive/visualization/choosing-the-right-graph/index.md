@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_descriptive_visualization_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
     url: "/descriptive/visualization/choosing-the-right-graph/",
     label: "Choosing the Right Graph",
     ts: Date.now()
-  }));
+    }));
+  } catch (_) {
+    // Browser storage may be blocked or full; reading must still work.
+  }
 
 })();
 </script>
