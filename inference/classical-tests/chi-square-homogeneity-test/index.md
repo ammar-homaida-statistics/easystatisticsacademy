@@ -213,9 +213,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-long-math" dir="ltr" role="region" tabindex="0" aria-label="Homogeneity mathematical formula 1">
+\[
     O_{ij}=\text{observed frequency in row }i\text{ and column }j
     \]
+</div>
 
 
     <p>
@@ -230,9 +232,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-long-math" dir="ltr" role="region" tabindex="0" aria-label="Homogeneity mathematical formula 2">
+\[
     E_{ij}=\frac{(\text{row }i\text{ total})(\text{column }j\text{ total})}{N}
     \]
+</div>
 
 
     <p>
@@ -246,9 +250,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-long-math" dir="ltr" role="region" tabindex="0" aria-label="Homogeneity mathematical formula 3">
+\[
     E_{\text{City 1, Product A}}=\frac{100\times120}{300}=40
     \]
+</div>
 
 
     <p>
@@ -262,9 +268,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-long-math" dir="ltr" role="region" tabindex="0" aria-label="Homogeneity mathematical formula 4">
+\[
     \chi^2=\sum_{i=1}^{r}\sum_{j=1}^{c}\frac{(O_{ij}-E_{ij})^2}{E_{ij}}
     \]
+</div>
 
 
     <p>
@@ -306,6 +314,59 @@ sidebar: false
 
     </div>
 
+
+    <!-- Batch #67 — Chi-square homogeneity explorer for independent populations. -->
+    <section id="esa-homogeneity-lab" class="concept-box" aria-labelledby="esa-hom-title">
+      <h2 id="esa-hom-title">Interactive Chi-Square Homogeneity Explorer</h2>
+      <p>Compare the <strong>categorical distributions of independently sampled populations</strong>. Enter a contingency table with one population per row and one category per column. Use commas between nonnegative counts and a new line for each population (2–5 rows, 2–5 columns).</p>
+      <label for="esa-hom-input">Observed counts in a population × category table</label>
+      <textarea id="esa-hom-input" rows="4" spellcheck="false">40, 35, 25
+30, 45, 25
+50, 30, 20</textarea>
+      <div class="esa-hom-controls">
+        <button type="button" class="btn btn-outline" id="esa-hom-cities">Three cities example</button>
+        <button type="button" class="btn btn-outline" id="esa-hom-balanced">Equal proportions</button>
+        <button type="button" class="btn btn-outline" id="esa-hom-unequal">Unequal group sizes</button>
+        <button type="button" class="btn btn-outline" id="esa-hom-sparse">Sparse counts</button>
+      </div>
+      <p id="esa-hom-error" role="alert" hidden></p>
+      <section id="esa-hom-results" aria-live="polite" aria-atomic="true" aria-label="Chi-square homogeneity results">
+        <h3>Within-population category percentages</h3>
+        <svg id="esa-hom-chart" viewBox="0 0 620 210" role="img"
+          aria-label="Within-population category percentages by group"></svg>
+        <p class="muted-mini">Each cluster shows the share of a category <strong>within each population</strong>; bar colors identify populations 1–5 (teal, grey, purple, orange, blue). Percentage comparisons, not raw counts, reveal differences when group sizes vary.</p>
+        <div class="table-wrap">
+          <table id="esa-hom-table" aria-label="Observed and expected cell counts and chi-square contributions"></table>
+        </div>
+        <p><strong>Total N:</strong> <output id="esa-hom-n">300</output>.
+          <strong>Pearson χ²:</strong> <output id="esa-hom-chi">8.896104</output>.
+          <strong>df:</strong> <output id="esa-hom-df">4</output>.
+          <strong>Upper-tail p-value:</strong> <output id="esa-hom-p">0.063750</output>.</p>
+        <p id="esa-hom-warning">All expected cell counts are at least 5.</p>
+        <p id="esa-hom-decision">At α = 0.05, do not reject equal categorical distributions.</p>
+      </section>
+      <p class="muted-mini">For cell <strong>i,j</strong>, the expected count under homogeneity is <strong>(row total × column total) / N</strong>. Each cell contributes <strong>(observed − expected)² / expected</strong> to Pearson's chi-square statistic. The reference degrees of freedom are <strong>(rows − 1)(columns − 1)</strong>; the p-value is the asymptotic upper tail, with no Yates continuity correction. Tables with an all-zero row or column are rejected because expected counts would vanish.</p>
+      <p class="muted-mini"><strong>Assumptions and interpretation:</strong> independently selected groups and independent categorical observations, mutually exclusive exhaustive categories, and sufficiently large expected counts for the chi-square approximation. A small expected cell count is flagged but not silently removed. Do not treat a homogeneity design as proof of causality; the same Pearson statistic also appears in an independence test under a different sampling design.</p>
+    </section>
+    <style>
+      #esa-homogeneity-lab{box-sizing:border-box;max-width:100%;min-width:0;overflow-wrap:anywhere}
+      #esa-homogeneity-lab label{display:block;font-weight:650;margin-bottom:8px}
+      #esa-homogeneity-lab textarea{display:block;box-sizing:border-box;width:100%;max-width:100%;min-width:0;
+        resize:vertical;font:inherit;color:var(--text);background:var(--surface);border:1px solid var(--border);
+        border-radius:8px;padding:12px}
+      #esa-homogeneity-lab .esa-hom-controls{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+      #esa-homogeneity-lab .esa-hom-controls button{max-width:100%;white-space:normal}
+      #esa-homogeneity-lab [hidden]{display:none!important}
+      #esa-homogeneity-lab #esa-hom-error{color:#b42318;font-weight:650}
+      #esa-homogeneity-lab #esa-hom-warning{font-weight:600}
+      #esa-homogeneity-lab #esa-hom-chart{display:block;width:100%;height:auto;max-width:650px;margin:auto}
+      #esa-homogeneity-lab .table-wrap{max-width:100%;overflow-x:auto}
+      #esa-homogeneity-lab table{font-variant-numeric:tabular-nums}
+      #esa-homogeneity-lab :is(textarea,button):focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+      @media(max-width:650px){#esa-homogeneity-lab .esa-hom-controls{flex-direction:column;align-items:stretch}}
+    </style>
+    <script src="{{ '/js/chi-square-homogeneity-explorer.js' | relative_url }}" defer></script>
+
     <h2>The Chi-Square Distribution</h2>
 
     <p>
@@ -313,9 +374,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-long-math" dir="ltr" role="region" tabindex="0" aria-label="Homogeneity mathematical formula 5">
+\[
     H_0:\ \text{all population category distributions are equal}
     \]
+</div>
 
 
     <p>
@@ -345,9 +408,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-long-math" dir="ltr" role="region" tabindex="0" aria-label="Homogeneity mathematical formula 6">
+\[
     \operatorname{df}=(r-1)(c-1)
     \]
+</div>
 
 
     <h2>Example</h2>
@@ -368,9 +433,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-long-math" dir="ltr" role="region" tabindex="0" aria-label="Homogeneity mathematical formula 7">
+\[
     \operatorname{df}=(3-1)(3-1)=4
     \]
+</div>
 
 
     <h2>The p-Value</h2>
@@ -418,9 +485,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-long-math" dir="ltr" role="region" tabindex="0" aria-label="Homogeneity mathematical formula 8">
+\[
     H_0:\ \text{all populations have the same category proportions}
     \]
+</div>
 
 
     <p>
@@ -625,3 +694,8 @@ sidebar: false
   </div>
 
 </section>
+<style>
+.esa-long-math{box-sizing:border-box;min-width:0;max-width:100%;overflow-x:auto;direction:ltr}
+.esa-long-math mjx-container[display="true"]{width:max-content;min-width:100%;text-align:left}
+.esa-long-math:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
