@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_descriptive_reporting_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
     url: "/descriptive/reporting/mini-case-study-end-to-end/",
     label: "Mini Case Study (End-to-End)",
     ts: Date.now()
   }));
+  } catch (_) {
+    // Progress is optional; denied/full storage must not interrupt lessons.
+  }
 
 })();
 </script>
