@@ -169,7 +169,9 @@ translation_pair: exponential-distribution
       The exponential distribution uses the same rate parameter:
     </p>
 
-    \[\lambda>0\]
+    <div class="esa-exp-equation" role="region" tabindex="0" aria-label="Exponential distribution formula 1">
+\[\lambda>0\]
+</div>
 
     <p>
       that appears in the Poisson distribution.
@@ -211,13 +213,17 @@ translation_pair: exponential-distribution
       The exponential density function is:
     </p>
 
-    \[f_X(x)=\lambda e^{-\lambda x},\qquad x\ge 0\]
+    <div class="esa-exp-equation" role="region" tabindex="0" aria-label="Exponential distribution formula 2">
+\[f_X(x)=\lambda e^{-\lambda x},\qquad x\ge 0\]
+</div>
 
     <p>
       for:
     </p>
 
-    \[x\ge 0\]
+    <div class="esa-exp-equation" role="region" tabindex="0" aria-label="Exponential distribution formula 3">
+\[x\ge 0\]
+</div>
 
     <p>
       and zero otherwise.
@@ -251,7 +257,9 @@ translation_pair: exponential-distribution
       The probability that an event occurs within time x is:
     </p>
 
-    \[F_X(x)=P(X\le x)=1-e^{-\lambda x},\qquad x\ge 0\]
+    <div class="esa-exp-equation" role="region" tabindex="0" aria-label="Exponential distribution formula 4">
+\[F_X(x)=P(X\le x)=1-e^{-\lambda x},\qquad x\ge 0\]
+</div>
 
     <p>
       This is the cumulative distribution function (CDF).
@@ -263,7 +271,9 @@ translation_pair: exponential-distribution
       The probability of waiting more than x units of time is:
     </p>
 
-    \[P(X>x)=e^{-\lambda x},\qquad x\ge 0\]
+    <div class="esa-exp-equation" role="region" tabindex="0" aria-label="Exponential distribution formula 5">
+\[P(X>x)=e^{-\lambda x},\qquad x\ge 0\]
+</div>
 
     <p>
       This is called the survival function.
@@ -291,7 +301,9 @@ translation_pair: exponential-distribution
       Using the CDF:
     </p>
 
-    \[P(X\le 1)=1-e^{-2}\approx 0.864665\]
+    <div class="esa-exp-equation" role="region" tabindex="0" aria-label="Exponential distribution formula 6">
+\[P(X\le 1)=1-e^{-2}\approx 0.864665\]
+</div>
 
     <p>
       This evaluates to approximately 0.865.
@@ -303,7 +315,9 @@ translation_pair: exponential-distribution
       The expected value is:
     </p>
 
-    \[\operatorname{E}(X)=\frac{1}{\lambda}\]
+    <div class="esa-exp-equation" role="region" tabindex="0" aria-label="Exponential distribution formula 7">
+\[\operatorname{E}(X)=\frac{1}{\lambda}\]
+</div>
 
     <div class="concept-box">
 
@@ -333,7 +347,9 @@ translation_pair: exponential-distribution
       Then:
     </p>
 
-    \[\operatorname{E}(X)=\frac14\ \text{hour}=15\ \text{minutes}\]
+    <div class="esa-exp-equation" role="region" tabindex="0" aria-label="Exponential distribution formula 8">
+\[\operatorname{E}(X)=\frac14\ \text{hour}=15\ \text{minutes}\]
+</div>
 
     <p>
       hours,
@@ -346,13 +362,17 @@ translation_pair: exponential-distribution
       The variance is:
     </p>
 
-    \[\operatorname{Var}(X)=\frac{1}{\lambda^2}\]
+    <div class="esa-exp-equation" role="region" tabindex="0" aria-label="Exponential distribution formula 9">
+\[\operatorname{Var}(X)=\frac{1}{\lambda^2}\]
+</div>
 
     <p>
       The standard deviation is:
     </p>
 
-    \[\operatorname{SD}(X)=\frac{1}{\lambda}\]
+    <div class="esa-exp-equation" role="region" tabindex="0" aria-label="Exponential distribution formula 10">
+\[\operatorname{SD}(X)=\frac{1}{\lambda}\]
+</div>
 
     <p>
       Interestingly,
@@ -381,7 +401,9 @@ translation_pair: exponential-distribution
       Mathematically:
     </p>
 
-    \[P(X>s+t\mid X>s)=P(X>t)=e^{-\lambda t},\qquad s,t\ge 0\]
+    <div class="esa-exp-equation" role="region" tabindex="0" aria-label="Exponential distribution formula 11">
+\[P(X>s+t\mid X>s)=P(X>t)=e^{-\lambda t},\qquad s,t\ge 0\]
+</div>
 
     <p>
       The remaining waiting time has the same distribution regardless of past waiting.
@@ -566,3 +588,9 @@ translation_pair: exponential-distribution
   </div>
 
 </section>
+<style>
+/* Batch #65: wide MathJax expressions scroll within accessible focusable regions. */
+.esa-exp-equation{box-sizing:border-box;max-width:100%;min-width:0;overflow-x:auto;direction:ltr}
+.esa-exp-equation mjx-container[display="true"]{width:max-content;min-width:100%;text-align:left}
+.esa-exp-equation:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
