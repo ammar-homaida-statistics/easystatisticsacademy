@@ -329,6 +329,66 @@ sidebar: false
       ANOVA evaluates whether these observed differences are larger than expected from random sampling variation.
     </p>
 
+
+    <!-- Batch #65 — One-way ANOVA educational explorer -->
+    <section id="esa-anova-lab" class="concept-box" aria-labelledby="esa-anova-title">
+      <h2 id="esa-anova-title">Interactive One-Way ANOVA Explorer</h2>
+      <p>Enter <strong>individual sample observations</strong> for three independent groups. Compare between-group and within-group variation, including unequal sample sizes, using the classical pooled-variance one-way ANOVA.</p>
+      <div class="esa-anova-fields">
+        <div><label for="esa-anova-a">Group A observations</label><textarea id="esa-anova-a" rows="2" spellcheck="false">4, 5, 6</textarea></div>
+        <div><label for="esa-anova-b">Group B observations</label><textarea id="esa-anova-b" rows="2" spellcheck="false">5, 6, 7</textarea></div>
+        <div><label for="esa-anova-c">Group C observations</label><textarea id="esa-anova-c" rows="2" spellcheck="false">8, 9, 10</textarea></div>
+      </div>
+      <div class="esa-anova-controls">
+        <button class="btn btn-outline" type="button" id="esa-anova-reset">Reset example</button>
+        <button class="btn btn-outline" type="button" id="esa-anova-equal">Same group means</button>
+        <button class="btn btn-outline" type="button" id="esa-anova-unequal">Unequal group sizes</button>
+        <button class="btn btn-outline" type="button" id="esa-anova-constant">Zero within-group variation</button>
+      </div>
+      <p id="esa-anova-error" role="alert" hidden></p>
+      <section id="esa-anova-results" aria-label="ANOVA results" role="status" aria-live="polite" aria-atomic="true">
+        <h3>Observed data and means</h3>
+        <svg id="esa-anova-chart" viewBox="0 0 410 220" role="img" aria-label="Observed sample points and group means"></svg>
+        <div class="table-wrap"><table><caption>Descriptive summaries by group (SD uses n−1)</caption>
+          <thead><tr><th>Group</th><th>n</th><th>Mean</th><th>Sample SD</th></tr></thead>
+          <tbody id="esa-anova-groups"></tbody></table></div>
+        <div class="table-wrap"><table><caption>One-way ANOVA decomposition</caption>
+          <thead><tr><th>Source</th><th>Sum of squares</th><th>df</th><th>Mean square</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Between</th><td><output id="esa-anova-ssb">26.000000</output></td><td><output id="esa-anova-dfb">2</output></td><td><output id="esa-anova-msb">13.000000</output></td></tr>
+            <tr><th scope="row">Within</th><td><output id="esa-anova-ssw">6.000000</output></td><td><output id="esa-anova-dfw">6</output></td><td><output id="esa-anova-msw">1.000000</output></td></tr>
+          </tbody></table></div>
+        <p><strong>F-statistic:</strong> <output id="esa-anova-f">13.000000</output> <strong>Upper-tail p-value:</strong> <output id="esa-anova-p">0.006592</output></p>
+        <p id="esa-anova-decision">For α=0.05, reject equal population means if the assumptions hold.</p>
+      </section>
+      <div class="esa-anova-equation" role="region" tabindex="0" aria-label="ANOVA mean square and F formulas" dir="ltr">
+        \[
+        SS_B=\sum_{j=1}^{k}n_j(\bar x_j-\bar x)^2,\quad
+        SS_W=\sum_{j=1}^{k}\sum_{i=1}^{n_j}(x_{ij}-\bar x_j)^2,\quad
+        F=\frac{SS_B/(k-1)}{SS_W/(N-k)}.
+        \]
+      </div>
+      <p class="muted-mini">The chart displays the observations (dots) and sample means (short horizontal bars), not uncertainty intervals. The p-value is the <strong>F-distribution upper tail</strong> with df = (k−1, N−k). Classical F inference assumes independent observations, normal errors in each group and equal population variances. Those assumptions cannot be verified from this toy example. Rejection does not establish causality or determine which group differs.</p>
+    </section>
+    <style>
+      #esa-anova-lab{max-width:100%;min-width:0;overflow-wrap:anywhere}
+      #esa-anova-lab .esa-anova-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+      #esa-anova-lab label{display:block;font-weight:650;margin-bottom:6px}
+      #esa-anova-lab textarea{box-sizing:border-box;display:block;max-width:100%;width:100%;min-width:0;resize:vertical;
+        background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:9px;font:inherit}
+      #esa-anova-lab .esa-anova-controls{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+      #esa-anova-lab .esa-anova-controls button{max-width:100%;white-space:normal}
+      #esa-anova-lab [hidden]{display:none!important}
+      #esa-anova-lab #esa-anova-error{font-weight:650;color:#b42318}
+      #esa-anova-lab #esa-anova-chart{display:block;width:100%;max-width:560px;height:auto;margin:8px auto}
+      #esa-anova-lab :is(textarea,button):focus-visible,.esa-anova-equation:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+      #esa-anova-lab .esa-anova-equation{max-width:100%;overflow-x:auto;direction:ltr}
+      #esa-anova-lab .esa-anova-equation mjx-container[display="true"]{width:max-content;min-width:100%;text-align:left}
+      #esa-anova-lab output{font-variant-numeric:tabular-nums}
+      @media(max-width:650px){#esa-anova-lab .esa-anova-fields{grid-template-columns:minmax(0,1fr)}}
+    </style>
+    <script src="{{ '/js/one-way-anova-explorer.js' | relative_url }}" defer></script>
+
     <h2>The ANOVA Table</h2>
 
     <p>

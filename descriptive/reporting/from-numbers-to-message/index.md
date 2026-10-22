@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_descriptive_reporting_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
     url: "/descriptive/reporting/from-numbers-to-message/",
     label: "From Numbers to Message",
     ts: Date.now()
   }));
+  } catch (_) {
+    // Progress is optional; denied/full storage must not interrupt lessons.
+  }
 
 })();
 </script>

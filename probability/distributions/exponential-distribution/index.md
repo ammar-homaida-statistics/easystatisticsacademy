@@ -4,6 +4,7 @@ title: Exponential Distribution
 description: Learn how the exponential distribution models waiting times between random events and why it is the continuous counterpart of the geometric distribution.
 permalink: /probability/distributions/exponential-distribution/
 sidebar: false
+translation_pair: exponential-distribution
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -40,6 +41,7 @@ sidebar: false
     </div>
 
     <h1>Exponential Distribution</h1>
+    <p><a href="/ar/probability/distributions/exponential-distribution/" lang="ar" dir="rtl">العربية — التوزيع الأسي</a></p>
 
     <p class="lead">
       Many probability problems focus on waiting times.
@@ -167,7 +169,9 @@ sidebar: false
       The exponential distribution uses the same rate parameter:
     </p>
 
-    \[\lambda>0\]
+    <div class="esa-exp-equation" role="region" tabindex="0" aria-label="Exponential distribution formula 1">
+\[\lambda>0\]
+</div>
 
     <p>
       that appears in the Poisson distribution.
@@ -209,13 +213,17 @@ sidebar: false
       The exponential density function is:
     </p>
 
-    \[f_X(x)=\lambda e^{-\lambda x},\qquad x\ge 0\]
+    <div class="esa-exp-equation" role="region" tabindex="0" aria-label="Exponential distribution formula 2">
+\[f_X(x)=\lambda e^{-\lambda x},\qquad x\ge 0\]
+</div>
 
     <p>
       for:
     </p>
 
-    \[x\ge 0\]
+    <div class="esa-exp-equation" role="region" tabindex="0" aria-label="Exponential distribution formula 3">
+\[x\ge 0\]
+</div>
 
     <p>
       and zero otherwise.
@@ -249,7 +257,9 @@ sidebar: false
       The probability that an event occurs within time x is:
     </p>
 
-    \[F_X(x)=P(X\le x)=1-e^{-\lambda x},\qquad x\ge 0\]
+    <div class="esa-exp-equation" role="region" tabindex="0" aria-label="Exponential distribution formula 4">
+\[F_X(x)=P(X\le x)=1-e^{-\lambda x},\qquad x\ge 0\]
+</div>
 
     <p>
       This is the cumulative distribution function (CDF).
@@ -261,7 +271,9 @@ sidebar: false
       The probability of waiting more than x units of time is:
     </p>
 
-    \[P(X>x)=e^{-\lambda x},\qquad x\ge 0\]
+    <div class="esa-exp-equation" role="region" tabindex="0" aria-label="Exponential distribution formula 5">
+\[P(X>x)=e^{-\lambda x},\qquad x\ge 0\]
+</div>
 
     <p>
       This is called the survival function.
@@ -289,7 +301,9 @@ sidebar: false
       Using the CDF:
     </p>
 
-    \[P(X\le 1)=1-e^{-2}\approx 0.864665\]
+    <div class="esa-exp-equation" role="region" tabindex="0" aria-label="Exponential distribution formula 6">
+\[P(X\le 1)=1-e^{-2}\approx 0.864665\]
+</div>
 
     <p>
       This evaluates to approximately 0.865.
@@ -301,7 +315,9 @@ sidebar: false
       The expected value is:
     </p>
 
-    \[\operatorname{E}(X)=\frac{1}{\lambda}\]
+    <div class="esa-exp-equation" role="region" tabindex="0" aria-label="Exponential distribution formula 7">
+\[\operatorname{E}(X)=\frac{1}{\lambda}\]
+</div>
 
     <div class="concept-box">
 
@@ -331,7 +347,9 @@ sidebar: false
       Then:
     </p>
 
-    \[\operatorname{E}(X)=\frac14\ \text{hour}=15\ \text{minutes}\]
+    <div class="esa-exp-equation" role="region" tabindex="0" aria-label="Exponential distribution formula 8">
+\[\operatorname{E}(X)=\frac14\ \text{hour}=15\ \text{minutes}\]
+</div>
 
     <p>
       hours,
@@ -344,13 +362,17 @@ sidebar: false
       The variance is:
     </p>
 
-    \[\operatorname{Var}(X)=\frac{1}{\lambda^2}\]
+    <div class="esa-exp-equation" role="region" tabindex="0" aria-label="Exponential distribution formula 9">
+\[\operatorname{Var}(X)=\frac{1}{\lambda^2}\]
+</div>
 
     <p>
       The standard deviation is:
     </p>
 
-    \[\operatorname{SD}(X)=\frac{1}{\lambda}\]
+    <div class="esa-exp-equation" role="region" tabindex="0" aria-label="Exponential distribution formula 10">
+\[\operatorname{SD}(X)=\frac{1}{\lambda}\]
+</div>
 
     <p>
       Interestingly,
@@ -379,7 +401,9 @@ sidebar: false
       Mathematically:
     </p>
 
-    \[P(X>s+t\mid X>s)=P(X>t)=e^{-\lambda t},\qquad s,t\ge 0\]
+    <div class="esa-exp-equation" role="region" tabindex="0" aria-label="Exponential distribution formula 11">
+\[P(X>s+t\mid X>s)=P(X>t)=e^{-\lambda t},\qquad s,t\ge 0\]
+</div>
 
     <p>
       The remaining waiting time has the same distribution regardless of past waiting.
@@ -564,3 +588,9 @@ sidebar: false
   </div>
 
 </section>
+<style>
+/* Batch #65: wide MathJax expressions scroll within accessible focusable regions. */
+.esa-exp-equation{box-sizing:border-box;max-width:100%;min-width:0;overflow-x:auto;direction:ltr}
+.esa-exp-equation mjx-container[display="true"]{width:max-content;min-width:100%;text-align:left}
+.esa-exp-equation:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>

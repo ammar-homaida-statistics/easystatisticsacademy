@@ -9359,5 +9359,180 @@ class SearchTests(unittest.TestCase):
         expect(self.page.locator("#continue-reading-block3")).to_be_hidden()
 
 
+
+    def test_batch65_arabic_exponential_translation_math_metadata_mobile(self):
+        english="/probability/distributions/exponential-distribution/"
+        arabic="/ar/probability/distributions/exponential-distribution/"
+        for route,language in ((english,"en"),(arabic,"ar")):
+            with self.subTest(lang=language):
+                self.page.goto(self.origin+route,wait_until="networkidle")
+                self.assertEqual(self.page.locator("html").get_attribute("lang"),language)
+                self.assertEqual(self.page.locator("html").get_attribute("dir"),
+                                 "rtl" if language=="ar" else None)
+                self.assertEqual(self.page.locator('link[rel="canonical"]').get_attribute("href"),
+                                 "https://easystatisticsacademy.com"+route)
+                for lng,href in (("en",english),("ar",arabic)):
+                    self.assertEqual(self.page.locator('link[rel="alternate"][hreflang="'+lng+'"]')
+                                     .get_attribute("href"),"https://easystatisticsacademy.com"+href)
+                expect(self.page.locator("main h1")).to_be_visible()
+                self.assertGreaterEqual(self.page.locator("main h2").count(),20)
+                self.page.set_viewport_size({"width":320,"height":760})
+                self.assertLessEqual(self.page.evaluate(
+                    "()=>document.documentElement.scrollWidth-document.documentElement.clientWidth"),2)
+                self.page.set_viewport_size({"width":1280,"height":800})
+        self.page.goto(self.origin+arabic,wait_until="networkidle")
+        main=self.page.locator("main").inner_text()
+        for phrase in ("0.864665","0.135335","15","خاصية انعدام الذاكرة",
+                       "التوزيع الهندسي","توزيع بواسون","التباين"):
+            self.assertIn(phrase,main)
+        self.assertGreaterEqual(self.page.locator(".esa-exp-equation").count(),8)
+        self.assertEqual(self.page.locator(".esa-exp-equation[tabindex='0']").count(),
+                         self.page.locator(".esa-exp-equation").count())
+        self.page.locator(".esa-exp-equation").first.focus()
+        self.assertEqual(self.page.evaluate("()=>document.activeElement.tabIndex"),0)
+        self.page.goto(self.origin+"/ar/",wait_until="networkidle")
+        expect(self.page.locator('a[href="'+arabic+'"]')).to_be_visible()
+
+    def test_batch65_anova_exact_sums_of_squares_f_tail_keyboard_and_mobile(self):
+        root="/inference/classical-tests/one-way-anova-f-test/"
+        self.page.goto(self.origin+root,wait_until="networkidle")
+        expect(self.page.locator("#esa-anova-lab")).to_be_visible()
+        expect(self.page.locator("#esa-anova-results")).to_be_visible()
+        for name,value in (("ssb","26.000000"),("ssw","6.000000"),
+                           ("dfb","2"),("dfw","6"),
+                           ("msb","13.000000"),("msw","1.000000"),
+                           ("f","13.000000"),("p","0.006592")):
+            self.assertEqual(self.page.locator("#esa-anova-"+name).inner_text(),value)
+        sample=[[4,5,6],[5,6,7],[8,9,10]]
+        v=self.page.evaluate("v=>window.esaAnovaMath.compute(v)",sample)
+        self.assertEqual(v["count"],9)
+        self.assertEqual(v["means"],[5,6,9])
+        self.assertEqual(v["between"],26)
+        self.assertEqual(v["within"],6)
+        self.assertEqual(v["f"],13)
+        self.assertAlmostEqual(v["p"],.006591796875,places=11)
+        self.assertAlmostEqual(self.page.evaluate(
+            "()=>window.esaAnovaMath.fSurvival(4,1,10)"),
+            .07338803477074037,delta=1e-9)
+        self.assertAlmostEqual(self.page.evaluate(
+            "()=>window.esaAnovaMath.fSurvival(4,2,10)"),
+            .052922149401344654,delta=1e-9)
+        self.page.locator("#esa-anova-unequal").focus()
+        self.page.keyboard.press("Enter")
+        self.assertEqual(self.page.locator("#esa-anova-dfw").inner_text(),"8")
+        self.assertEqual(self.page.locator("#esa-anova-dfb").inner_text(),"2")
+        self.assertAlmostEqual(float(self.page.locator("#esa-anova-f").inner_text()),
+                               11.592966704077819,delta=1e-6)
+        self.assertAlmostEqual(float(self.page.locator("#esa-anova-p").inner_text()),
+                               .004330369539241011,delta=1e-6)
+        self.page.locator("#esa-anova-equal").click()
+        self.assertEqual(self.page.locator("#esa-anova-f").inner_text(),"0.000000")
+        self.assertEqual(self.page.locator("#esa-anova-p").inner_text(),"1.000000")
+        self.page.locator("#esa-anova-constant").click()
+        self.assertEqual(self.page.locator("#esa-anova-f").inner_text(),"∞")
+        self.assertEqual(self.page.locator("#esa-anova-p").inner_text(),"0.000000")
+        self.assertIn("within-group mean square is zero",
+                      self.page.locator("#esa-anova-decision").inner_text())
+        self.page.locator("#esa-anova-a").fill("1, 1, 1")
+        self.page.locator("#esa-anova-b").fill("1, 1, 1")
+        self.page.locator("#esa-anova-c").fill("1, 1, 1")
+        self.assertEqual(self.page.locator("#esa-anova-f").inner_text(),"Undefined")
+        self.assertEqual(self.page.locator("#esa-anova-p").inner_text(),"Undefined")
+        self.page.locator("#esa-anova-a").fill("1, no-number, 3")
+        expect(self.page.locator("#esa-anova-error")).to_be_visible()
+        expect(self.page.locator("#esa-anova-results")).to_be_hidden()
+        self.page.locator("#esa-anova-reset").focus()
+        self.page.keyboard.press("Enter")
+        expect(self.page.locator("#esa-anova-error")).to_be_hidden()
+        self.assertEqual(self.page.locator("#esa-anova-f").inner_text(),"13.000000")
+        self.assertEqual(self.page.locator("#esa-anova-chart").get_attribute("role"),"img")
+        self.assertEqual(self.page.locator("#esa-anova-groups tr").count(),3)
+        self.page.set_viewport_size({"width":320,"height":760})
+        self.assertLessEqual(self.page.evaluate(
+            "()=>document.documentElement.scrollWidth-document.documentElement.clientWidth"),2)
+
+    def test_batch65_reporting_progress_security_legacy_nine_lessons(self):
+        root="/descriptive/reporting/"
+        key="esa_continue_descriptive_reporting_lesson_v0"
+        slugs=("association-not-causation","comparing-groups-responsibly",
+               "complete-description-checklist","from-numbers-to-message",
+               "how-to-write-a-summary-paragraph","mini-case-study-end-to-end",
+               "outliers-and-exclusions","reporting-graphs-properly",
+               "reporting-tables-properly")
+        for slug in slugs:
+            with self.subTest(slug=slug):
+                self.page.goto(self.origin+root+slug+"/",wait_until="networkidle")
+                record=self.page.evaluate("key=>JSON.parse(localStorage.getItem(key))",key)
+                self.assertEqual(record["url"],root+slug+"/")
+                self.assertTrue(record["label"].strip())
+                self.assertIs(type(record["ts"]),int)
+                self.assertGreater(record["ts"],0)
+                self.page.goto(self.origin+root,wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-block7")).to_be_visible()
+                self.assertEqual(self.page.locator("#continue-reading-block7-btn")
+                                 .get_attribute("href"),record["url"])
+        good=root+"reporting-graphs-properly/"
+        invalid=(
+            {"url":"javascript:alert(1)","label":"Bad","ts":10},
+            {"url":good+"#frag","label":"Bad","ts":10},
+            {"url":good+"?query=1","label":"Bad","ts":10},
+            {"url":root+"unpublished/","label":"Bad","ts":10},
+            {"url":good,"label":"x"*201,"ts":10},
+            {"url":good,"label":"Graphs","ts":0},
+            {"url":good,"label":"Graphs","ts":-1},
+            {"url":good,"label":"Graphs","ts":None},
+            {"url":good,"label":"Graphs","ts":"future"},
+            {"url":good,"label":"Graphs","ts":999999999999999},
+            {"url":good,"label":"Graphs","ts":True}
+        )
+        for value in invalid:
+            with self.subTest(record=str(value)):
+                self.page.evaluate(
+                    "args=>localStorage.setItem(args.k,JSON.stringify(args.v))",
+                    {"k":key,"v":value})
+                self.page.reload(wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-block7")).to_be_hidden()
+        self.page.evaluate("args=>localStorage.setItem(args.k,JSON.stringify(args.v))",
+                           {"k":key,"v":{"url":good,"label":"Reporting Graphs"}})
+        self.page.reload(wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-block7")).to_be_visible()
+        evil='<img src=x onerror="window.esaInjected=true">'
+        self.page.evaluate("args=>localStorage.setItem(args.k,JSON.stringify(args.v))",
+                           {"k":key,"v":{"url":good,"label":evil}})
+        self.page.reload(wait_until="networkidle")
+        self.assertEqual(self.page.locator("#continue-reading-block7-label img").count(),0)
+        self.assertIn(evil,self.page.locator("#continue-reading-block7-label").inner_text())
+        self.assertIsNone(self.page.evaluate("()=>window.esaInjected || null"))
+        self.page.evaluate("k=>localStorage.setItem(k,'{broken json')",key)
+        self.page.reload(wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-block7")).to_be_hidden()
+
+    def test_batch65_reporting_denied_storage_mobile_and_anova_accessibility(self):
+        self.page.add_init_script("""
+            Object.defineProperty(window,"localStorage",{
+                configurable:true,
+                get(){throw new DOMException("Blocked","SecurityError")}
+            });
+        """)
+        self.page.set_viewport_size({"width":320,"height":760})
+        root="/descriptive/reporting/"
+        slugs=("association-not-causation","comparing-groups-responsibly",
+               "complete-description-checklist","from-numbers-to-message",
+               "how-to-write-a-summary-paragraph","mini-case-study-end-to-end",
+               "outliers-and-exclusions","reporting-graphs-properly",
+               "reporting-tables-properly")
+        for slug in slugs:
+            with self.subTest(slug=slug):
+                self.page.goto(self.origin+root+slug+"/",wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+        self.page.goto(self.origin+root,wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-block7")).to_be_hidden()
+        self.page.goto(self.origin+"/inference/classical-tests/one-way-anova-f-test/",
+                       wait_until="networkidle")
+        expect(self.page.locator("#esa-anova-results")).to_be_visible()
+        self.assertEqual(self.page.locator("#esa-anova-f").inner_text(),"13.000000")
+        self.assertEqual(self.page.locator("#esa-anova-a").get_attribute("spellcheck"),"false")
+
+
 if __name__ == "__main__":
     unittest.main(argv=[__file__], verbosity=2)

@@ -11,7 +11,7 @@ jobs:
   build:
     name: Validate YAML and build GitHub Pages
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v6
@@ -23,6 +23,8 @@ jobs:
         run: python -m unittest discover -s .github/scripts -p 'test_batch63_math.py' -v
       - name: Verify Batch #64 independent distribution benchmarks
         run: python -m unittest discover -s .github/scripts -p 'test_batch64_math.py' -v
+      - name: Verify Batch #65 independent Exponential and ANOVA benchmarks
+        run: python -m unittest discover -s .github/scripts -p 'test_batch65_math.py' -v
       - name: Inventory mathematical placeholders and reject new damage
         run: python .github/scripts/validate_math_placeholders.py
       - name: Validate front matter
