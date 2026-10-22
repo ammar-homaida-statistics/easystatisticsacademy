@@ -211,9 +211,11 @@ sidebar: false
       Each face should occur with probability:
     </p>
 
-    \[
+    <div class="esa-long-math" dir="ltr" tabindex="0" role="region" aria-label="Chi-square goodness-of-fit mathematical formula 1">
+\[
 p_i=\frac16,\qquad i=1,\ldots,6
 \]
+</div>
 
     <p>
       Therefore:
@@ -232,9 +234,11 @@ p_i=\frac16,\qquad i=1,\ldots,6
       Expected counts are obtained from:
     </p>
 
-    \[
+    <div class="esa-long-math" dir="ltr" tabindex="0" role="region" aria-label="Chi-square goodness-of-fit mathematical formula 2">
+\[
 E_i=n\,p_i,\qquad i=1,\ldots,k
 \]
+</div>
 
     <p>
       where:
@@ -265,9 +269,11 @@ E_i=n\,p_i,\qquad i=1,\ldots,k
       Then for each face:
     </p>
 
-    \[
+    <div class="esa-long-math" dir="ltr" tabindex="0" role="region" aria-label="Chi-square goodness-of-fit mathematical formula 3">
+\[
 E_i=120\times\frac16=20
 \]
+</div>
 
     <p>
       Every category has an expected count of 20.
@@ -279,9 +285,11 @@ E_i=120\times\frac16=20
       The goodness-of-fit test statistic is:
     </p>
 
-    \[
+    <div class="esa-long-math" dir="ltr" tabindex="0" role="region" aria-label="Chi-square goodness-of-fit mathematical formula 4">
+\[
 \chi^2=\sum_{i=1}^{k}\frac{(O_i-E_i)^2}{E_i}
 \]
+</div>
 
     <p>
       Here \(O_i\) is the observed count and \(E_i\) the expected count for category \(i\). The sum requires positive expected counts and measures discrepancy between observed and expected frequencies.
@@ -377,15 +385,80 @@ E_i=120\times\frac16=20
       The six observed counts sum to 60 and all six expected counts equal 10. Their contributions are 0.4, 0.1, 0.1, 0.9, 0 and 0.1, summing to \(\chi^2=1.6\).
     </p>
 
+
+    <!-- Batch #66: Chi-square goodness-of-fit lab with fixed null probabilities. -->
+    <section id="esa-gof-explorer" class="concept-box" aria-labelledby="esa-gof-heading">
+      <h2 id="esa-gof-heading">Interactive Chi-Square Goodness-of-Fit Explorer</h2>
+      <p>Enter observed whole-number category frequencies and <strong>pre-specified</strong> null probabilities. The calculator computes expected counts, each Pearson contribution, the chi-square statistic, degrees of freedom, and the <strong>upper-tail asymptotic p-value</strong>.</p>
+      <div class="esa-gof-fields">
+        <div>
+          <label for="esa-gof-counts">Observed counts (comma-separated)</label>
+          <textarea id="esa-gof-counts" rows="3" spellcheck="false">8, 11, 9, 13, 10, 9</textarea>
+        </div>
+        <div>
+          <label for="esa-gof-probs">Null category probabilities (decimals, sum to 1)</label>
+          <textarea id="esa-gof-probs" rows="3" spellcheck="false">0.1666666667, 0.1666666667, 0.1666666667, 0.1666666667, 0.1666666667, 0.1666666665</textarea>
+        </div>
+      </div>
+      <div class="esa-gof-controls">
+        <button type="button" class="btn btn-outline" id="esa-gof-die">Fair die example</button>
+        <button type="button" class="btn btn-outline" id="esa-gof-uneven">Unequal null probabilities</button>
+        <button type="button" class="btn btn-outline" id="esa-gof-reset">Reset</button>
+      </div>
+      <p id="esa-gof-error" role="alert" hidden></p>
+      <div id="esa-gof-results" role="status" aria-live="polite" aria-atomic="true">
+        <h3>Observed and expected counts</h3>
+        <svg id="esa-gof-chart" viewBox="0 0 540 205" role="img"
+          aria-label="Observed and expected counts by category"></svg>
+        <p class="muted-mini"><strong>Legend:</strong> teal = observed; grey = expected.</p>
+        <div class="table-wrap"><table>
+          <caption>Category contributions to Pearson's chi-square statistic</caption>
+          <thead><tr><th>Category</th><th>Observed</th><th>Null probability</th><th>Expected</th><th>(O−E)²/E</th></tr></thead>
+          <tbody id="esa-gof-table"></tbody>
+        </table></div>
+        <p><strong>Total observations:</strong> <output id="esa-gof-n">60</output>.
+        <strong>Statistic χ²:</strong> <output id="esa-gof-chi">1.600000</output>.
+        <strong>Degrees of freedom:</strong> <output id="esa-gof-df">5</output>.
+        <strong>Upper-tail p-value:</strong> <output id="esa-gof-p">0.901249</output>.</p>
+        <p id="esa-gof-warning">All expected counts are at least 5.</p>
+        <p id="esa-gof-decision">At α=0.05 do not reject the pre-specified null distribution.</p>
+      </div>
+      <p class="muted-mini">The displayed derivations elsewhere in this lesson use expected counts Eᵢ = n × pᵢ, Pearson's χ² = Σ (Oᵢ − Eᵢ)²/Eᵢ and degrees of freedom k − 1 when probabilities are fixed in advance. Each contribution is shown in the table above.</p>
+      <p class="muted-mini">Assumptions: independent categorical outcomes, mutually exclusive and exhaustive categories, strictly positive <strong>null probabilities selected before observing the data</strong>, and adequate expected counts. The p-value is an <strong>asymptotic chi-square approximation</strong>, not an exact small-sample multinomial probability. If parameters are estimated from the same data, the reference degrees of freedom may need adjustment; this tool does <strong>not</strong> perform fitted-parameter GOF tests. A large p-value does not prove the null true, and rejecting it does not establish causality.</p>
+    </section>
+    <style>
+      #esa-gof-explorer{box-sizing:border-box;min-width:0;max-width:100%;overflow-wrap:anywhere}
+      #esa-gof-explorer .esa-gof-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+      #esa-gof-explorer label{display:block;font-weight:650;margin-bottom:8px}
+      #esa-gof-explorer textarea{display:block;box-sizing:border-box;width:100%;max-width:100%;
+        min-width:0;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);
+        font:inherit;padding:10px;resize:vertical}
+      #esa-gof-explorer .esa-gof-controls{display:flex;flex-wrap:wrap;gap:9px;margin:14px 0}
+      #esa-gof-explorer .esa-gof-controls button{max-width:100%;white-space:normal}
+      #esa-gof-explorer [hidden]{display:none!important}
+      #esa-gof-explorer #esa-gof-error{font-weight:650;color:#b42318}
+      #esa-gof-explorer #esa-gof-warning{font-weight:600}
+      #esa-gof-explorer #esa-gof-chart{display:block;width:100%;height:auto;max-width:560px;margin:auto}
+      #esa-gof-explorer output{font-variant-numeric:tabular-nums}
+      #esa-gof-explorer .esa-gof-equation{box-sizing:border-box;max-width:100%;min-width:0;overflow-x:auto}
+      #esa-gof-explorer .esa-gof-equation mjx-container[display="true"]{width:max-content;min-width:100%;text-align:left}
+      #esa-gof-explorer :is(textarea,button):focus-visible,.esa-gof-equation:focus-visible{
+        outline:2px solid var(--accent);outline-offset:2px}
+      @media(max-width:650px){#esa-gof-explorer .esa-gof-fields{grid-template-columns:minmax(0,1fr)}}
+    </style>
+    <script src="{{ '/js/chi-square-gof-explorer.js' | relative_url }}" defer></script>
+
     <h2>The Chi-Square Distribution</h2>
 
     <p>
       Under:
     </p>
 
-    \[
+    <div class="esa-long-math" dir="ltr" tabindex="0" role="region" aria-label="Chi-square goodness-of-fit mathematical formula 5">
+\[
 H_0:\ p_i=p_i^{(0)}\quad(i=1,\ldots,k)
 \]
+</div>
 
     <p>
       with independently sampled categorical outcomes, fixed pre-specified category probabilities, and sufficiently large expected counts, the Pearson statistic is approximately chi-square distributed with \(k-1\) degrees of freedom. This is an asymptotic approximation, not an exact finite-sample distribution.
@@ -411,9 +484,11 @@ H_0:\ p_i=p_i^{(0)}\quad(i=1,\ldots,k)
       When all \(k\) null probabilities are specified before observing the data:
     </p>
 
-    \[
+    <div class="esa-long-math" dir="ltr" tabindex="0" role="region" aria-label="Chi-square goodness-of-fit mathematical formula 6">
+\[
 \mathrm{df}=k-1\quad\text{(all probabilities specified in advance)}
 \]
+</div>
 
     <p>
       where:
@@ -432,9 +507,11 @@ H_0:\ p_i=p_i^{(0)}\quad(i=1,\ldots,k)
       For a six-sided die:
     </p>
 
-    \[
+    <div class="esa-long-math" dir="ltr" tabindex="0" role="region" aria-label="Chi-square goodness-of-fit mathematical formula 7">
+\[
 \mathrm{df}=6-1=5
 \]
+</div>
 
     <h2>The p-Value</h2>
 
@@ -442,9 +519,11 @@ H_0:\ p_i=p_i^{(0)}\quad(i=1,\ldots,k)
       Once:
     </p>
 
-    \[
+    <div class="esa-long-math" dir="ltr" tabindex="0" role="region" aria-label="Chi-square goodness-of-fit mathematical formula 8">
+\[
 \chi^2_{\mathrm{obs}}=\frac{4+1+1+9+0+1}{10}=1.6
 \]
+</div>
 
     <p>
       and degrees of freedom are known, the p-value is obtained from the chi-square distribution.
@@ -650,3 +729,8 @@ H_0:\ p_i=p_i^{(0)}\quad(i=1,\ldots,k)
   </div>
 
 </section>
+<style>
+.esa-long-math{box-sizing:border-box;max-width:100%;min-width:0;overflow-x:auto;direction:ltr}
+.esa-long-math mjx-container[display="true"]{width:max-content;min-width:100%;text-align:left}
+.esa-long-math:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>

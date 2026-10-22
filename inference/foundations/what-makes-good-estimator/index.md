@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_inference_foundations_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
     url: "/inference/foundations/what-makes-good-estimator/",
     label: "What Makes a Good Estimator?",
     ts: Date.now()
   }));
+  } catch (_) {
+    // Optional browser storage may be disabled or full; lesson remains readable.
+  }
 
 })();
 </script>

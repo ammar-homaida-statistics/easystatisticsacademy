@@ -4,6 +4,7 @@ title: Gamma Distribution
 description: Learn how the gamma distribution generalizes the exponential distribution and models waiting times until multiple events occur.
 permalink: /probability/distributions/gamma-distribution/
 sidebar: false
+translation_pair: gamma-distribution
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -40,6 +41,7 @@ sidebar: false
     </div>
 
     <h1>Gamma Distribution</h1>
+    <p><a href="/ar/probability/distributions/gamma-distribution/" lang="ar" dir="rtl">العربية — توزيع غاما</a></p>
 
     <p class="lead">
       The exponential distribution models waiting for a single event.
@@ -183,9 +185,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-long-math" dir="ltr" tabindex="0" role="region" aria-label="Gamma distribution mathematical formula 1">
+\[
     f_X(x)=\frac{\lambda^\alpha}{\Gamma(\alpha)}x^{\alpha-1}e^{-\lambda x}
     \]
+</div>
 
 
     <p>
@@ -193,9 +197,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-long-math" dir="ltr" tabindex="0" role="region" aria-label="Gamma distribution mathematical formula 2">
+\[
     x>0,\qquad\alpha>0,\ \lambda>0\quad(\lambda\text{ is the rate})
     \]
+</div>
 
 
     <p>
@@ -213,9 +219,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-long-math" dir="ltr" tabindex="0" role="region" aria-label="Gamma distribution mathematical formula 3">
+\[
     \Gamma(n)=(n-1)!\quad\text{for positive integers }n
     \]
+</div>
 
 
     <p>
@@ -229,9 +237,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-long-math" dir="ltr" tabindex="0" role="region" aria-label="Gamma distribution mathematical formula 4">
+\[
     \alpha=1
     \]
+</div>
 
 
     <p>
@@ -239,9 +249,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-long-math" dir="ltr" tabindex="0" role="region" aria-label="Gamma distribution mathematical formula 5">
+\[
     f_X(x)=\lambda e^{-\lambda x},\quad x\ge0
     \]
+</div>
 
 
     <div class="concept-box">
@@ -308,9 +320,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-long-math" dir="ltr" tabindex="0" role="region" aria-label="Gamma distribution mathematical formula 6">
+\[
     E[X]=\frac{\alpha}{\lambda}
     \]
+</div>
 
 
     <div class="concept-box">
@@ -346,9 +360,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-long-math" dir="ltr" tabindex="0" role="region" aria-label="Gamma distribution mathematical formula 7">
+\[
     E[X]=\frac{4}{2}=2\ \text{time units}
     \]
+</div>
 
 
     <p>
@@ -362,9 +378,11 @@ sidebar: false
     </p>
 
     
-    \[
+    <div class="esa-long-math" dir="ltr" tabindex="0" role="region" aria-label="Gamma distribution mathematical formula 8">
+\[
     \operatorname{Var}(X)=\frac{\alpha}{\lambda^2}
     \]
+</div>
 
 
     <p>
@@ -484,91 +502,7 @@ sidebar: false
       #esa-erlang-wait-explorer .esa-erlang-results p {margin:11px 0}
       #esa-erlang-wait-explorer .esa-erlang-presets {display:flex;flex-wrap:wrap;gap:8px}
     </style>
-    <script>
-    (function () {
-      "use strict";
-      const root=document.getElementById("esa-erlang-wait-explorer");
-      if (!root) return;
-      const byId=id=>root.querySelector("#"+id);
-      const rInput=byId("esa-erlang-r"),rateInput=byId("esa-erlang-rate"),
-            timeInput=byId("esa-erlang-time");
-      const maxTime=12, xToPx=t=>34+296*t/maxTime;
-      function factorial(n){
-        let result=1;
-        for(let j=2;j<=n;j++)result*=j;
-        return result;
-      }
-      function density(t,r,lambda) {
-        if(t<0) return 0;
-        if(t===0) return r===1?lambda:0;
-        return Math.pow(lambda,r)*Math.pow(t,r-1)*
-          Math.exp(-lambda*t)/factorial(r-1);
-      }
-      function survival(t,r,lambda) {
-        if(t<=0)return 1;
-        const z=lambda*t;
-        let term=1,sum=1;
-        for(let j=1;j<r;j++){
-          term*=z/j;
-          sum+=term;
-        }
-        return Math.min(1,Math.max(0,Math.exp(-z)*sum));
-      }
-      function update() {
-        const r=Number(rInput.value),lambda=Number(rateInput.value),
-              t=Number(timeInput.value);
-        const s=survival(t,r,lambda),c=Math.max(0,Math.min(1,1-s)),
-              pdf=density(t,r,lambda);
-        byId("esa-erlang-r-value").textContent=String(r);
-        byId("esa-erlang-rate-value").textContent=lambda.toFixed(2);
-        byId("esa-erlang-time-value").textContent=t.toFixed(2);
-        byId("esa-erlang-pdf").textContent=pdf.toFixed(5);
-        byId("esa-erlang-cdf").textContent=c.toFixed(6);
-        byId("esa-erlang-survival").textContent=s.toFixed(6);
-        byId("esa-erlang-mean").textContent=(r/lambda).toFixed(4);
-        byId("esa-erlang-variance").textContent=(r/(lambda*lambda)).toFixed(4);
-        byId("esa-erlang-scale").textContent=(1/lambda).toFixed(4);
-        byId("esa-erlang-special").textContent=r===1?
-          "Shape 1 is exactly the Exponential distribution with rate λ.":
-          "With positive integer shape r = "+r+
-          ", this is waiting for the r-th event in a Poisson process.";
-        const samples=480,all=[];
-        let maximum=0;
-        for(let i=0;i<=samples;i++){
-          const time=maxTime*i/samples;
-          const value=density(time,r,lambda);
-          all.push({time,value});
-          maximum=Math.max(maximum,value);
-        }
-        const yToPx=value=>137-110*value/Math.max(maximum,0.000001);
-        const path=all.map((pt,i)=>(i===0?"M":"L")+
-          xToPx(pt.time).toFixed(3)+" "+yToPx(pt.value).toFixed(3)).join(" ");
-        byId("esa-erlang-density-path").setAttribute("d",path);
-        const shaded=all.filter(pt=>pt.time<t);
-        shaded.push({time:t,value:pdf});
-        const coordinates=shaded.map((pt,i)=>(i===0?"L":"L")+
-          xToPx(pt.time).toFixed(3)+" "+yToPx(pt.value).toFixed(3)).join(" ");
-        byId("esa-erlang-shade").setAttribute("d",
-          "M34 137 "+coordinates+" L"+xToPx(t).toFixed(3)+" 137 Z");
-        byId("esa-erlang-time-marker").setAttribute("x1",String(xToPx(t)));
-        byId("esa-erlang-time-marker").setAttribute("x2",String(xToPx(t)));
-        byId("esa-erlang-chart").setAttribute("aria-label",
-          "Gamma/Erlang density, shape "+r+", rate "+lambda.toFixed(2)+
-          ", shaded probability from time 0 to "+t.toFixed(2)+
-          " equals "+c.toFixed(6)+". Survival probability "+s.toFixed(6));
-      }
-      [rInput,rateInput,timeInput].forEach(input=>input.addEventListener("input",update));
-      function preset(r,rate,t) {
-        rInput.value=String(r);
-        rateInput.value=String(rate);
-        timeInput.value=String(t);
-        update();
-      }
-      byId("esa-erlang-reset").addEventListener("click",()=>preset(4,2,2));
-      byId("esa-erlang-exponential").addEventListener("click",()=>preset(1,2,2));
-      update();
-    })();
-    </script>
+    <script src="{{ '/js/gamma-erlang-explorer.js' | relative_url }}" defer></script>
 
     <h2>The Erlang Distribution</h2>
 
@@ -748,3 +682,9 @@ sidebar: false
   </div>
 
 </section>
+<style>
+/* Keep long explanatory mathematics accessible in narrow viewports. */
+.esa-long-math{box-sizing:border-box;max-width:100%;min-width:0;overflow-x:auto;direction:ltr}
+.esa-long-math mjx-container[display="true"]{width:max-content;min-width:100%;text-align:left}
+.esa-long-math:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>

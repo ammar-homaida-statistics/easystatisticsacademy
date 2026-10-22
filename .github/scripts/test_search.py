@@ -9534,5 +9534,207 @@ class SearchTests(unittest.TestCase):
         self.assertEqual(self.page.locator("#esa-anova-a").get_attribute("spellcheck"),"false")
 
 
+
+    def test_batch66_gamma_arabic_english_parity_math_mobile_keyboard(self):
+        english="/probability/distributions/gamma-distribution/"
+        arabic="/ar/probability/distributions/gamma-distribution/"
+        for route,lang in ((english,"en"),(arabic,"ar")):
+            with self.subTest(lang=lang):
+                self.page.goto(self.origin+route,wait_until="networkidle")
+                self.assertEqual(self.page.locator("html").get_attribute("lang"),lang)
+                self.assertEqual(self.page.locator("html").get_attribute("dir"),
+                                 "rtl" if lang=="ar" else None)
+                self.assertEqual(self.page.locator('link[rel="canonical"]').get_attribute("href"),
+                                 "https://easystatisticsacademy.com"+route)
+                for lng,target in (("en",english),("ar",arabic)):
+                    self.assertEqual(self.page.locator('link[rel="alternate"][hreflang="'+lng+'"]')
+                                     .get_attribute("href"),
+                                     "https://easystatisticsacademy.com"+target)
+                expect(self.page.locator("#esa-erlang-wait-explorer")).to_be_visible()
+                self.assertGreaterEqual(self.page.locator("main h2").count(),20)
+                for output,want in (("pdf","0.39073"),("cdf","0.566530"),
+                                    ("survival","0.433470"),("mean","2.0000"),
+                                    ("variance","1.0000"),("scale","0.5000")):
+                    self.assertEqual(self.page.locator("#esa-erlang-"+output).inner_text(),want)
+                density=self.page.evaluate(
+                    "()=>window.esaGammaErlangMath.density(2,4,2)")
+                survival=self.page.evaluate(
+                    "()=>window.esaGammaErlangMath.survival(2,4,2)")
+                self.assertAlmostEqual(density,0.3907336296263291,places=12)
+                self.assertAlmostEqual(survival,0.43347012036670884,places=12)
+                self.page.locator("#esa-erlang-r").focus()
+                self.page.keyboard.press("ArrowRight")
+                self.assertEqual(self.page.locator("#esa-erlang-r-value").inner_text(),"5")
+                self.page.locator("#esa-erlang-exponential").focus()
+                self.page.keyboard.press("Enter")
+                self.assertEqual(self.page.locator("#esa-erlang-r-value").inner_text(),"1")
+                self.assertEqual(self.page.locator("#esa-erlang-pdf").inner_text(),"0.03663")
+                self.assertEqual(self.page.locator("#esa-erlang-cdf").inner_text(),"0.981684")
+                self.assertEqual(self.page.locator("#esa-erlang-survival").inner_text(),"0.018316")
+                special=self.page.locator("#esa-erlang-special").inner_text()
+                self.assertIn("الشكل" if lang=="ar" else "Exponential",special)
+                graph_label=self.page.locator("#esa-erlang-chart").get_attribute("aria-label")
+                self.assertIn("كثافة" if lang=="ar" else "density",graph_label)
+                self.page.locator("#esa-erlang-reset").focus()
+                self.page.keyboard.press("Enter")
+                self.assertEqual(self.page.locator("#esa-erlang-cdf").inner_text(),"0.566530")
+                self.page.set_viewport_size({"width":320,"height":760})
+                self.assertLessEqual(self.page.evaluate(
+                    "()=>document.documentElement.scrollWidth-document.documentElement.clientWidth"),2)
+                self.page.set_viewport_size({"width":1280,"height":800})
+        self.page.goto(self.origin+arabic,wait_until="networkidle")
+        text=self.page.locator("main").inner_text()
+        for phrase in ("0.39073","0.566530","2","إرلانغ","دالة غاما","التباين",
+                       "التوزيع الأسي","بواسون"):
+            self.assertIn(phrase,text)
+        self.assertGreaterEqual(self.page.locator(".esa-gamma-equation").count(),8)
+        self.assertEqual(self.page.locator(".esa-gamma-equation[tabindex='0']").count(),
+                         self.page.locator(".esa-gamma-equation").count())
+        self.page.goto(self.origin+"/ar/",wait_until="networkidle")
+        expect(self.page.locator('a[href="'+arabic+'"]')).to_be_visible()
+
+    def test_batch66_chi_square_gof_references_keyboard_mobile_and_errors(self):
+        route="/inference/classical-tests/chi-square-goodness-of-fit/"
+        self.page.goto(self.origin+route,wait_until="networkidle")
+        expect(self.page.locator("#esa-gof-explorer")).to_be_visible()
+        expect(self.page.locator("#esa-gof-results")).to_be_visible()
+        self.assertEqual(self.page.locator("#esa-gof-table tr").count(),6)
+        for out,want in (("n","60"),("chi","1.600000"),
+                         ("df","5"),("p","0.901249")):
+            self.assertEqual(self.page.locator("#esa-gof-"+out).inner_text(),want)
+        stats=self.page.evaluate(
+            "()=>window.esaChiSquareGofMath.compute([8,11,9,13,10,9],Array(6).fill(1/6))")
+        self.assertEqual(stats["n"],60)
+        self.assertEqual(stats["df"],5)
+        self.assertAlmostEqual(stats["statistic"],1.6,places=12)
+        self.assertAlmostEqual(stats["p"],0.9012493445012736,delta=5e-12)
+        self.assertFalse(stats["smallExpected"])
+        references=((1.6,5,.9012493445012736),(4,2,.1353352832366127),
+                    (10,3,.01856613546304325),(20,5,.0012497305630313773),
+                    (0,2,1.0))
+        for chi,df,p in references:
+            with self.subTest(chi=chi,df=df):
+                v=self.page.evaluate(
+                    "args=>window.esaChiSquareGofMath.gammaQ(args[1]/2,args[0]/2)",
+                    [chi,df])
+                self.assertAlmostEqual(v,p,delta=5e-11)
+        self.page.locator("#esa-gof-uneven").focus()
+        self.page.keyboard.press("Enter")
+        self.assertEqual(self.page.locator("#esa-gof-chi").inner_text(),"0.000000")
+        self.assertEqual(self.page.locator("#esa-gof-p").inner_text(),"1.000000")
+        self.page.locator("#esa-gof-counts").fill("25, 20, 15")
+        self.assertEqual(self.page.locator("#esa-gof-df").inner_text(),"2")
+        self.assertEqual(self.page.locator("#esa-gof-chi").inner_text(),"21.805556")
+        self.assertEqual(self.page.locator("#esa-gof-p").inner_text(),"0.000018")
+        self.page.locator("#esa-gof-counts").fill("1, 2, 1")
+        self.assertIn("below 5",self.page.locator("#esa-gof-warning").inner_text())
+        self.page.locator("#esa-gof-probs").fill("0.2, 0.3, 0.4")
+        expect(self.page.locator("#esa-gof-error")).to_be_visible()
+        expect(self.page.locator("#esa-gof-results")).to_be_hidden()
+        self.page.locator("#esa-gof-counts").fill("1, 2, <img src=x onerror=alert(1)>")
+        self.page.locator("#esa-gof-probs").fill("0.2, 0.3, 0.5")
+        expect(self.page.locator("#esa-gof-error")).to_be_visible()
+        self.assertEqual(self.page.locator("#esa-gof-explorer img").count(),0)
+        self.page.locator("#esa-gof-counts").fill("-1, 2, 3")
+        expect(self.page.locator("#esa-gof-error")).to_be_visible()
+        self.page.locator("#esa-gof-counts").fill("1, 2, 3")
+        self.page.locator("#esa-gof-probs").fill("0, 0.4, 0.6")
+        expect(self.page.locator("#esa-gof-error")).to_be_visible()
+        self.page.locator("#esa-gof-reset").focus()
+        self.page.keyboard.press("Enter")
+        expect(self.page.locator("#esa-gof-error")).to_be_hidden()
+        self.assertEqual(self.page.locator("#esa-gof-p").inner_text(),"0.901249")
+        self.assertEqual(self.page.locator("#esa-gof-chart").get_attribute("role"),"img")
+        self.assertGreater(len(self.page.locator("#esa-gof-chart").get_attribute("aria-label")),80)
+        self.page.set_viewport_size({"width":320,"height":760})
+        self.assertLessEqual(self.page.evaluate(
+            "()=>document.documentElement.scrollWidth-document.documentElement.clientWidth"),2)
+
+    def test_batch66_inference_foundations_progress_15_lessons_and_security(self):
+        root="/inference/foundations/"
+        key="esa_continue_inference_foundations_lesson_v0"
+        slugs=("bias-and-variance-intuition","confidence-vs-significance-preview",
+          "estimators-vs-estimates","independence-and-random-sampling",
+          "inference-pipeline-estimator-se-ci-test","point-vs-interval-estimation",
+          "populations-parameters-target","practical-inference-what-can-we-claim",
+          "sampling-bias-vs-statistical-bias","sampling-distributions-bridge",
+          "sd-vs-se-common-confusion","standard-error-unit-of-uncertainty",
+          "statistics-as-random-variables","what-is-statistical-inference",
+          "what-makes-good-estimator")
+        for slug in slugs:
+            with self.subTest(lesson=slug):
+                self.page.goto(self.origin+root+slug+"/",wait_until="networkidle")
+                record=self.page.evaluate("k=>JSON.parse(localStorage.getItem(k))",key)
+                self.assertEqual(record["url"],root+slug+"/")
+                self.assertTrue(record["label"].strip())
+                self.assertIs(type(record["ts"]),int)
+                self.assertGreater(record["ts"],0)
+                self.page.goto(self.origin+root,wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-inference-foundations")).to_be_visible()
+                self.assertEqual(self.page.locator(
+                    "#continue-reading-inference-foundations-btn").get_attribute("href"),
+                    record["url"])
+        good=root+"sd-vs-se-common-confusion/"
+        bad=(
+          {"url":"javascript:alert(1)","label":"bad","ts":10},
+          {"url":good+"#fragment","label":"bad","ts":10},
+          {"url":good+"?q=1","label":"bad","ts":10},
+          {"url":root+"not-published/","label":"bad","ts":10},
+          {"url":good,"label":"x"*201,"ts":10},
+          {"url":good,"label":"SD vs SE","ts":0},
+          {"url":good,"label":"SD vs SE","ts":-1},
+          {"url":good,"label":"SD vs SE","ts":None},
+          {"url":good,"label":"SD vs SE","ts":"next week"},
+          {"url":good,"label":"SD vs SE","ts":True},
+          {"url":good,"label":"SD vs SE","ts":999999999999999}
+        )
+        for record in bad:
+            with self.subTest(stored=str(record)):
+                self.page.evaluate("args=>localStorage.setItem(args.k,JSON.stringify(args.v))",
+                                   {"k":key,"v":record})
+                self.page.reload(wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-inference-foundations")).to_be_hidden()
+        self.page.evaluate("args=>localStorage.setItem(args.k,JSON.stringify(args.v))",
+                           {"k":key,"v":{"url":good,"label":"SD versus SE"}})
+        self.page.reload(wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-inference-foundations")).to_be_visible()
+        malicious='<img src=x onerror="window.esaInjected=true">'
+        self.page.evaluate("args=>localStorage.setItem(args.k,JSON.stringify(args.v))",
+                           {"k":key,"v":{"url":good,"label":malicious}})
+        self.page.reload(wait_until="networkidle")
+        self.assertEqual(self.page.locator(
+            "#continue-reading-inference-foundations-label img").count(),0)
+        self.assertIn(malicious,self.page.locator(
+            "#continue-reading-inference-foundations-label").inner_text())
+        self.assertIsNone(self.page.evaluate("()=>window.esaInjected || null"))
+        self.page.evaluate("k=>localStorage.setItem(k,'{bad json')",key)
+        self.page.reload(wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-inference-foundations")).to_be_hidden()
+
+    def test_batch66_inference_foundations_denied_storage_mobile(self):
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{
+            configurable:true,
+            get(){throw new DOMException("Denied","SecurityError")}
+          });
+        """)
+        self.page.set_viewport_size({"width":320,"height":760})
+        root="/inference/foundations/"
+        slugs=("bias-and-variance-intuition","confidence-vs-significance-preview",
+          "estimators-vs-estimates","independence-and-random-sampling",
+          "inference-pipeline-estimator-se-ci-test","point-vs-interval-estimation",
+          "populations-parameters-target","practical-inference-what-can-we-claim",
+          "sampling-bias-vs-statistical-bias","sampling-distributions-bridge",
+          "sd-vs-se-common-confusion","standard-error-unit-of-uncertainty",
+          "statistics-as-random-variables","what-is-statistical-inference",
+          "what-makes-good-estimator")
+        for slug in slugs:
+            with self.subTest(lesson=slug):
+                self.page.goto(self.origin+root+slug+"/",wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+        self.page.goto(self.origin+root,wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-inference-foundations")).to_be_hidden()
+
+
 if __name__ == "__main__":
     unittest.main(argv=[__file__], verbosity=2)
