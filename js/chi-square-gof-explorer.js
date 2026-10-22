@@ -125,7 +125,7 @@ function render(){
  plot(result);
 }
 counts.addEventListener("input",render);probs.addEventListener("input",render);
-get("reset").addEventListener("click",()=>{counts.value="8, 11, 9, 13, 10, 9";probs.value="1/6, 1/6, 1/6, 1/6, 1/6, 1/6";render()});
+get("reset").addEventListener("click",()=>get("die").click());
 // Probabilities are decimal inputs to prevent silently evaluating arbitrary user input.
 // Display the fair-die preset as exact decimal fractions summing numerically to 1.
 get("die").addEventListener("click",()=>{
