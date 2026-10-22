@@ -112,11 +112,11 @@ E(T)=\frac{4}{2}=2\ \text{minutes}.
 <p>غيّر عدد الأحداث المطلوب <span dir="ltr">r</span>، ومعدل الوصول <span dir="ltr">λ</span>، والزمن المنقضي <span dir="ltr">t</span>. يقتصر هذا المختبر على <strong>الشكل الصحيح الموجب</strong> في عملية بواسون المتجانسة. يدعم توزيع غاما العام أشكالًا حقيقية موجبة أيضًا، لكنها لا تعبّر هنا عن ترتيب حدث.</p>
 <div class="esa-erlang-fields">
 <div><label for="esa-erlang-r">عدد الأحداث / الشكل r: <output id="esa-erlang-r-value" for="esa-erlang-r">4</output></label>
-<input type="range" min="1" max="7" step="1" value="4" id="esa-erlang-r"/></div>
+<input type="range" min="1" max="7" step="1" value="4" id="esa-erlang-r" dir="ltr"/></div>
 <div><label for="esa-erlang-rate">معدل الأحداث λ: <output id="esa-erlang-rate-value" for="esa-erlang-rate">2.00</output></label>
-<input type="range" min="0.5" max="4" step="0.5" value="2" id="esa-erlang-rate"/></div>
+<input type="range" min="0.5" max="4" step="0.5" value="2" id="esa-erlang-rate" dir="ltr"/></div>
 <div><label for="esa-erlang-time">زمن الانتظار t: <output id="esa-erlang-time-value" for="esa-erlang-time">2.00</output></label>
-<input type="range" min="0" max="12" step="0.25" value="2" id="esa-erlang-time"/></div>
+<input type="range" min="0" max="12" step="0.25" value="2" id="esa-erlang-time" dir="ltr"/></div>
 </div>
 <h3>كثافة إرلانغ والمساحة المظللة لاحتمال P(T ≤ t)</h3>
 <svg id="esa-erlang-chart" viewBox="0 0 360 174" width="360" height="174" role="img"

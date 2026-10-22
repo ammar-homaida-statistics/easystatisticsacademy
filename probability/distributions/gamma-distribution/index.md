@@ -185,9 +185,11 @@ translation_pair: gamma-distribution
     </p>
 
     
-    \[
+    <div class="esa-long-math" dir="ltr" tabindex="0" role="region" aria-label="Gamma distribution mathematical formula 1">
+\[
     f_X(x)=\frac{\lambda^\alpha}{\Gamma(\alpha)}x^{\alpha-1}e^{-\lambda x}
     \]
+</div>
 
 
     <p>
@@ -195,9 +197,11 @@ translation_pair: gamma-distribution
     </p>
 
     
-    \[
+    <div class="esa-long-math" dir="ltr" tabindex="0" role="region" aria-label="Gamma distribution mathematical formula 2">
+\[
     x>0,\qquad\alpha>0,\ \lambda>0\quad(\lambda\text{ is the rate})
     \]
+</div>
 
 
     <p>
@@ -215,9 +219,11 @@ translation_pair: gamma-distribution
     </p>
 
     
-    \[
+    <div class="esa-long-math" dir="ltr" tabindex="0" role="region" aria-label="Gamma distribution mathematical formula 3">
+\[
     \Gamma(n)=(n-1)!\quad\text{for positive integers }n
     \]
+</div>
 
 
     <p>
@@ -231,9 +237,11 @@ translation_pair: gamma-distribution
     </p>
 
     
-    \[
+    <div class="esa-long-math" dir="ltr" tabindex="0" role="region" aria-label="Gamma distribution mathematical formula 4">
+\[
     \alpha=1
     \]
+</div>
 
 
     <p>
@@ -241,9 +249,11 @@ translation_pair: gamma-distribution
     </p>
 
     
-    \[
+    <div class="esa-long-math" dir="ltr" tabindex="0" role="region" aria-label="Gamma distribution mathematical formula 5">
+\[
     f_X(x)=\lambda e^{-\lambda x},\quad x\ge0
     \]
+</div>
 
 
     <div class="concept-box">
@@ -310,9 +320,11 @@ translation_pair: gamma-distribution
     </p>
 
     
-    \[
+    <div class="esa-long-math" dir="ltr" tabindex="0" role="region" aria-label="Gamma distribution mathematical formula 6">
+\[
     E[X]=\frac{\alpha}{\lambda}
     \]
+</div>
 
 
     <div class="concept-box">
@@ -348,9 +360,11 @@ translation_pair: gamma-distribution
     </p>
 
     
-    \[
+    <div class="esa-long-math" dir="ltr" tabindex="0" role="region" aria-label="Gamma distribution mathematical formula 7">
+\[
     E[X]=\frac{4}{2}=2\ \text{time units}
     \]
+</div>
 
 
     <p>
@@ -364,9 +378,11 @@ translation_pair: gamma-distribution
     </p>
 
     
-    \[
+    <div class="esa-long-math" dir="ltr" tabindex="0" role="region" aria-label="Gamma distribution mathematical formula 8">
+\[
     \operatorname{Var}(X)=\frac{\alpha}{\lambda^2}
     \]
+</div>
 
 
     <p>
@@ -666,3 +682,9 @@ translation_pair: gamma-distribution
   </div>
 
 </section>
+<style>
+/* Keep long explanatory mathematics accessible in narrow viewports. */
+.esa-long-math{box-sizing:border-box;max-width:100%;min-width:0;overflow-x:auto;direction:ltr}
+.esa-long-math mjx-container[display="true"]{width:max-content;min-width:100%;text-align:left}
+.esa-long-math:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>

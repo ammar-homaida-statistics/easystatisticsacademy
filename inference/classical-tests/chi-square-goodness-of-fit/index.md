@@ -211,9 +211,11 @@ sidebar: false
       Each face should occur with probability:
     </p>
 
-    \[
+    <div class="esa-long-math" dir="ltr" tabindex="0" role="region" aria-label="Chi-square goodness-of-fit mathematical formula 1">
+\[
 p_i=\frac16,\qquad i=1,\ldots,6
 \]
+</div>
 
     <p>
       Therefore:
@@ -232,9 +234,11 @@ p_i=\frac16,\qquad i=1,\ldots,6
       Expected counts are obtained from:
     </p>
 
-    \[
+    <div class="esa-long-math" dir="ltr" tabindex="0" role="region" aria-label="Chi-square goodness-of-fit mathematical formula 2">
+\[
 E_i=n\,p_i,\qquad i=1,\ldots,k
 \]
+</div>
 
     <p>
       where:
@@ -265,9 +269,11 @@ E_i=n\,p_i,\qquad i=1,\ldots,k
       Then for each face:
     </p>
 
-    \[
+    <div class="esa-long-math" dir="ltr" tabindex="0" role="region" aria-label="Chi-square goodness-of-fit mathematical formula 3">
+\[
 E_i=120\times\frac16=20
 \]
+</div>
 
     <p>
       Every category has an expected count of 20.
@@ -279,9 +285,11 @@ E_i=120\times\frac16=20
       The goodness-of-fit test statistic is:
     </p>
 
-    \[
+    <div class="esa-long-math" dir="ltr" tabindex="0" role="region" aria-label="Chi-square goodness-of-fit mathematical formula 4">
+\[
 \chi^2=\sum_{i=1}^{k}\frac{(O_i-E_i)^2}{E_i}
 \]
+</div>
 
     <p>
       Here \(O_i\) is the observed count and \(E_i\) the expected count for category \(i\). The sum requires positive expected counts and measures discrepancy between observed and expected frequencies.
@@ -415,13 +423,7 @@ E_i=120\times\frac16=20
         <p id="esa-gof-warning">All expected counts are at least 5.</p>
         <p id="esa-gof-decision">At α=0.05 do not reject the pre-specified null distribution.</p>
       </div>
-      <div class="esa-gof-equation" dir="ltr" role="region" tabindex="0" aria-label="Pearson goodness-of-fit statistic and expected counts">
-      \[
-      E_i=n p_i,\qquad
-      \chi^2=\sum_{i=1}^{k}\frac{(O_i-E_i)^2}{E_i},\qquad
-      \text{df}=k-1.
-      \]
-      </div>
+      <p class="muted-mini">The displayed derivations elsewhere in this lesson use expected counts Eᵢ = n × pᵢ, Pearson's χ² = Σ (Oᵢ − Eᵢ)²/Eᵢ and degrees of freedom k − 1 when probabilities are fixed in advance. Each contribution is shown in the table above.</p>
       <p class="muted-mini">Assumptions: independent categorical outcomes, mutually exclusive and exhaustive categories, strictly positive <strong>null probabilities selected before observing the data</strong>, and adequate expected counts. The p-value is an <strong>asymptotic chi-square approximation</strong>, not an exact small-sample multinomial probability. If parameters are estimated from the same data, the reference degrees of freedom may need adjustment; this tool does <strong>not</strong> perform fitted-parameter GOF tests. A large p-value does not prove the null true, and rejecting it does not establish causality.</p>
     </section>
     <style>
@@ -452,9 +454,11 @@ E_i=120\times\frac16=20
       Under:
     </p>
 
-    \[
+    <div class="esa-long-math" dir="ltr" tabindex="0" role="region" aria-label="Chi-square goodness-of-fit mathematical formula 5">
+\[
 H_0:\ p_i=p_i^{(0)}\quad(i=1,\ldots,k)
 \]
+</div>
 
     <p>
       with independently sampled categorical outcomes, fixed pre-specified category probabilities, and sufficiently large expected counts, the Pearson statistic is approximately chi-square distributed with \(k-1\) degrees of freedom. This is an asymptotic approximation, not an exact finite-sample distribution.
@@ -480,9 +484,11 @@ H_0:\ p_i=p_i^{(0)}\quad(i=1,\ldots,k)
       When all \(k\) null probabilities are specified before observing the data:
     </p>
 
-    \[
+    <div class="esa-long-math" dir="ltr" tabindex="0" role="region" aria-label="Chi-square goodness-of-fit mathematical formula 6">
+\[
 \mathrm{df}=k-1\quad\text{(all probabilities specified in advance)}
 \]
+</div>
 
     <p>
       where:
@@ -501,9 +507,11 @@ H_0:\ p_i=p_i^{(0)}\quad(i=1,\ldots,k)
       For a six-sided die:
     </p>
 
-    \[
+    <div class="esa-long-math" dir="ltr" tabindex="0" role="region" aria-label="Chi-square goodness-of-fit mathematical formula 7">
+\[
 \mathrm{df}=6-1=5
 \]
+</div>
 
     <h2>The p-Value</h2>
 
@@ -511,9 +519,11 @@ H_0:\ p_i=p_i^{(0)}\quad(i=1,\ldots,k)
       Once:
     </p>
 
-    \[
+    <div class="esa-long-math" dir="ltr" tabindex="0" role="region" aria-label="Chi-square goodness-of-fit mathematical formula 8">
+\[
 \chi^2_{\mathrm{obs}}=\frac{4+1+1+9+0+1}{10}=1.6
 \]
+</div>
 
     <p>
       and degrees of freedom are known, the p-value is obtained from the chi-square distribution.
@@ -719,3 +729,8 @@ H_0:\ p_i=p_i^{(0)}\quad(i=1,\ldots,k)
   </div>
 
 </section>
+<style>
+.esa-long-math{box-sizing:border-box;max-width:100%;min-width:0;overflow-x:auto;direction:ltr}
+.esa-long-math mjx-container[display="true"]{width:max-content;min-width:100%;text-align:left}
+.esa-long-math:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
