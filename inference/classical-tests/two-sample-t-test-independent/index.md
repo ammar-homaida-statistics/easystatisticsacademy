@@ -285,6 +285,68 @@ H_1:\mu_1-\mu_2\ne0
       This quantity measures the observed difference between groups.
     </p>
 
+    
+<!-- Batch #69: Interactive Welch independent-samples inference. -->
+<section id="esa-welch-lab" class="concept-box" aria-labelledby="esa-w-heading">
+<h2 id="esa-w-heading">Interactive Independent Two-Sample t-Test (Welch)</h2>
+<p>Enter numeric observations from <strong>two independent groups</strong> (2–40 in each).
+This computes the difference <strong>group A minus group B</strong>.
+Do not use these fields for matched or before/after pairs; use the <a href="/inference/classical-tests/paired-t-test/">paired t-test</a> in that case.</p>
+<div class="esa-w-fields">
+<div><label for="esa-w-a">Group A observations</label><textarea id="esa-w-a" rows="4" spellcheck="false">73, 77, 80, 78, 82, 79, 84</textarea></div>
+<div><label for="esa-w-b">Group B observations</label><textarea id="esa-w-b" rows="4" spellcheck="false">70, 68, 74, 71, 75, 69</textarea></div>
+<div><label for="esa-w-alternative">Alternative hypothesis</label>
+<select id="esa-w-alternative">
+<option value="two-sided">Two-sided: μ₁−μ₂ ≠ δ₀</option>
+<option value="greater">Greater: μ₁−μ₂ &gt; δ₀</option>
+<option value="less">Less: μ₁−μ₂ &lt; δ₀</option>
+</select></div>
+<div><label for="esa-w-null">Null difference δ₀</label><input id="esa-w-null" type="number" value="0" step="any"></div>
+</div>
+<div class="esa-w-controls"><button type="button" class="btn btn-outline" id="esa-w-reset">Restore independent-group example</button>
+<button type="button" class="btn btn-outline" id="esa-w-reverse">Swap group labels</button></div>
+<p id="esa-w-error" role="alert" hidden></p>
+<section id="esa-w-results" aria-live="polite" aria-atomic="true" aria-label="Welch two-sample results">
+<h3>Independent group summaries</h3>
+<div class="table-wrap"><table><caption>Welch independent-group sample statistics</caption>
+<thead><tr><th>Statistic</th><th>Group A</th><th>Group B</th></tr></thead>
+<tbody><tr><th scope="row">Sample size</th><td><output id="esa-w-n1"></output></td><td><output id="esa-w-n2"></output></td></tr>
+<tr><th scope="row">Sample mean</th><td><output id="esa-w-mean1"></output></td><td><output id="esa-w-mean2"></output></td></tr>
+<tr><th scope="row">Sample standard deviation (n−1)</th><td><output id="esa-w-sd1"></output></td><td><output id="esa-w-sd2"></output></td></tr></tbody></table></div>
+<p><strong>Difference A − B:</strong> <output id="esa-w-difference"></output>.
+<strong>Welch SE:</strong> <output id="esa-w-se"></output>.
+<strong>t-statistic:</strong> <output id="esa-w-t"></output>.</p>
+<p><strong>Welch–Satterthwaite degrees of freedom:</strong> <output id="esa-w-df"></output>.
+<strong>Student-t p-value:</strong> <output id="esa-w-p"></output>.
+<strong>Two-sided 95% critical value:</strong> <output id="esa-w-critical"></output>.</p>
+<p><strong>Two-sided 95% confidence interval for μ₁ − μ₂:</strong>
+[<output id="esa-w-lower"></output>, <output id="esa-w-upper"></output>].</p>
+<h3>Difference and confidence interval</h3>
+<svg id="esa-w-plot" viewBox="0 0 620 180" role="img" aria-label="95 percent confidence interval for difference of group means"></svg>
+<p class="muted-mini">Teal segment: 95% two-sided confidence interval; grey dot: observed sample mean difference; dashed line: zero.</p>
+<p id="esa-w-conclusion"></p><p id="esa-w-interpret"></p>
+</section>
+<p class="muted-mini">Welch's method does not require equal population variances. Its small-sample t approximation assumes independent observations within and between groups and approximately normal population distributions, with attention to outliers and severe skew. The Welch degrees of freedom can be fractional. Large samples may support approximate inference under appropriate conditions. The 95% interval is two-sided even if a one-sided hypothesis is selected. A non-significant result does not prove equality, equivalence or absence of an effect. Do not interpret associations as causal evidence.</p>
+</section>
+<style>
+#esa-welch-lab{box-sizing:border-box;max-width:100%;min-width:0;overflow-wrap:anywhere}
+#esa-welch-lab .esa-w-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:12px 0}
+#esa-welch-lab label{display:block;font-weight:650;margin-bottom:7px}
+#esa-welch-lab :is(textarea,input,select){box-sizing:border-box;display:block;width:100%;min-width:0;max-width:100%;font:inherit;padding:10px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text)}
+#esa-welch-lab textarea{resize:vertical}
+#esa-welch-lab .esa-w-controls{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+#esa-welch-lab .esa-w-controls button{max-width:100%;white-space:normal}
+#esa-welch-lab [hidden]{display:none!important}
+#esa-welch-lab #esa-w-error{color:#b42318;font-weight:650}
+#esa-welch-lab #esa-w-plot{display:block;width:100%;height:auto;max-width:640px;margin:10px auto}
+#esa-welch-lab .table-wrap{max-width:100%;overflow-x:auto}
+#esa-welch-lab output{font-variant-numeric:tabular-nums}
+#esa-welch-lab :is(input,textarea,select,button):focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media(max-width:650px){#esa-welch-lab .esa-w-fields{grid-template-columns:minmax(0,1fr)}}
+@media print{#esa-welch-lab .esa-w-controls{display:none}}
+</style>
+<script defer src="/js/welch-two-sample-explorer.js"></script>
+
     <h2>The Standard Error</h2>
 
     <p>

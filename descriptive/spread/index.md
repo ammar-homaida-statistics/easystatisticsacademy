@@ -480,14 +480,17 @@ sidebar: false
     const raw = localStorage.getItem(KEY);
     if (!raw) return;
     const data = JSON.parse(raw);
-    if (!data || typeof data.url !== "string" ||
-        typeof data.label !== "string" || !data.label.trim()) return;
+    if (!data || typeof data.url !== "string" || typeof data.label !== "string") return;
+    if (typeof data.ts !== "undefined" &&
+        (!Number.isSafeInteger(data.ts) || data.ts < 0 ||
+         data.ts > Date.now() + 5 * 60 * 1000)) return;
 
-    // Resume only a canonical, published lesson or block listed on this page.
+    // Match only exact canonical published URLs and their corresponding title.
+    // Reject forged, misleading or oversized labels even when the URL is valid.
     if (!/^\/descriptive\/spread\/[a-z0-9-]+\/$/.test(data.url)) return;
-    const published = Array.from(document.querySelectorAll("#lessons .lesson-card h3 a[href]"))
-      .some(link => link.getAttribute("href") === data.url);
-    if (!published) return;
+    const lesson = Array.from(document.querySelectorAll("#lessons .lesson-card h3 a[href]"))
+      .find(link => link.getAttribute("href") === data.url);
+    if (!lesson || data.label !== lesson.textContent.trim()) return;
 
     const wrap = document.getElementById("continue-reading-block5");
     const label = document.getElementById("continue-reading-block5-label");
