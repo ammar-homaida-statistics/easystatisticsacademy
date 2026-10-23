@@ -3733,9 +3733,21 @@ class SearchTests(unittest.TestCase):
                     self.page.reload(wait_until="networkidle")
 
                 set_history({"url":valid,"label":malicious})
-                expect(panel).to_be_visible()
-                expect(link).to_have_attribute("href", valid)
-                expect(label.locator("strong")).to_have_text(malicious)
+                if slug == "distributions":
+                    # This block now requires the exact published lesson title.
+                    # A hostile label on a valid URL must be rejected.
+                    expect(panel).to_be_hidden()
+                    published_title = self.page.locator(
+                        "#lessons .lesson-card h3 a[href]").first.inner_text().strip()
+                    set_history({"url":valid,"label":published_title})
+                    expect(panel).to_be_visible()
+                    expect(link).to_have_attribute("href",valid)
+                    expect(label.locator("strong")).to_have_text(published_title)
+                else:
+                    # Other probability blocks retain their safe literal-text labels.
+                    expect(panel).to_be_visible()
+                    expect(link).to_have_attribute("href", valid)
+                    expect(label.locator("strong")).to_have_text(malicious)
                 self.assertEqual(label.locator("img,script").count(), 0)
                 self.assertIsNone(self.page.evaluate("window.esaInjected"))
                 for invalid in (
@@ -3760,11 +3772,13 @@ class SearchTests(unittest.TestCase):
                     "key => localStorage.setItem(key, '{bad json')", key)
                 self.page.reload(wait_until="networkidle")
                 expect(panel).to_be_hidden()
-                # A saved ordinary label must still work after invalid data is rejected.
-                set_history({"url":valid,"label":"Continue a published lesson"})
+                # Legitimate saved progress must still work after invalid records.
+                expected_label = (published_title if slug == "distributions"
+                                  else "Continue a published lesson")
+                set_history({"url":valid,"label":expected_label})
                 expect(panel).to_be_visible()
                 expect(link).to_have_attribute("href", valid)
-                expect(label.locator("strong")).to_have_text("Continue a published lesson")
+                expect(label.locator("strong")).to_have_text(expected_label)
 
     def test_seven_probability_overviews_denied_storage_remain_usable(self):
         """All block overview pages keep lessons and navigation when storage is denied."""
