@@ -3733,9 +3733,21 @@ class SearchTests(unittest.TestCase):
                     self.page.reload(wait_until="networkidle")
 
                 set_history({"url":valid,"label":malicious})
-                expect(panel).to_be_visible()
-                expect(link).to_have_attribute("href", valid)
-                expect(label.locator("strong")).to_have_text(malicious)
+                if slug == "distributions":
+                    # This block now requires the exact published lesson title.
+                    # A hostile label on a valid URL must be rejected.
+                    expect(panel).to_be_hidden()
+                    published_title = self.page.locator(
+                        "#lessons .lesson-card h3 a[href]").first.inner_text().strip()
+                    set_history({"url":valid,"label":published_title})
+                    expect(panel).to_be_visible()
+                    expect(link).to_have_attribute("href",valid)
+                    expect(label.locator("strong")).to_have_text(published_title)
+                else:
+                    # Other probability blocks retain their safe literal-text labels.
+                    expect(panel).to_be_visible()
+                    expect(link).to_have_attribute("href", valid)
+                    expect(label.locator("strong")).to_have_text(malicious)
                 self.assertEqual(label.locator("img,script").count(), 0)
                 self.assertIsNone(self.page.evaluate("window.esaInjected"))
                 for invalid in (
@@ -3760,11 +3772,13 @@ class SearchTests(unittest.TestCase):
                     "key => localStorage.setItem(key, '{bad json')", key)
                 self.page.reload(wait_until="networkidle")
                 expect(panel).to_be_hidden()
-                # A saved ordinary label must still work after invalid data is rejected.
-                set_history({"url":valid,"label":"Continue a published lesson"})
+                # Legitimate saved progress must still work after invalid records.
+                expected_label = (published_title if slug == "distributions"
+                                  else "Continue a published lesson")
+                set_history({"url":valid,"label":expected_label})
                 expect(panel).to_be_visible()
                 expect(link).to_have_attribute("href", valid)
-                expect(label.locator("strong")).to_have_text("Continue a published lesson")
+                expect(label.locator("strong")).to_have_text(expected_label)
 
     def test_seven_probability_overviews_denied_storage_remain_usable(self):
         """All block overview pages keep lessons and navigation when storage is denied."""
@@ -10433,6 +10447,222 @@ class SearchTests(unittest.TestCase):
         self.page.goto(self.origin+root,wait_until="networkidle")
         expect(self.page.locator("#continue-reading-block5")).to_be_hidden()
         self.assertGreater(self.page.locator("#lessons .lesson-card a[href]").count(),0)
+
+
+
+    def test_batch70_lognormal_bilingual_probability_moments_and_seo(self):
+        routes=("/probability/distributions/lognormal-distribution/",
+                "/ar/probability/distributions/lognormal-distribution/")
+        values=[]
+        for route in routes:
+            with self.subTest(route=route):
+                self.page.goto(self.origin+route,wait_until="networkidle")
+                lab=self.page.locator("#esa-lognormal-lab")
+                expect(lab).to_be_visible()
+                expect(lab.locator("#esa-ln-probability")).to_have_text("0.417171")
+                expect(lab.locator("#esa-ln-mean")).to_have_text("1.133148")
+                expect(lab.locator("#esa-ln-median")).to_have_text("1.000000")
+                expect(lab.locator("#esa-ln-variance")).to_have_text("0.364696")
+                self.assertGreater(self.page.locator('link[rel="canonical"]').count(),0)
+                self.assertGreater(self.page.locator('link[rel="alternate"][hreflang="ar"]').count(),0)
+                self.assertGreater(self.page.locator('link[rel="alternate"][hreflang="en"]').count(),0)
+                self.assertEqual(lab.locator("#esa-ln-plot").get_attribute("role"),"img")
+                self.assertEqual(lab.locator("#esa-ln-sigma").get_attribute("type"),"number")
+                values.append(lab.locator("#esa-ln-probability").inner_text())
+                self.assertAlmostEqual(self.page.evaluate(
+                  "()=>window.esaLognormalMath.survival(2,0,.5)"),
+                    .0828285190016985,delta=2.1e-7)
+                lab.locator("#esa-ln-mode").select_option("right")
+                expect(lab.locator("#esa-ln-probability")).to_have_text("0.082829")
+                lab.locator("#esa-ln-mode").select_option("left")
+                lab.locator("#esa-ln-a").fill("0")
+                expect(lab.locator("#esa-ln-probability")).to_have_text("0.000000")
+                lab.locator("#esa-ln-mode").select_option("between")
+                lab.locator("#esa-ln-a").fill("0.6065306597126334")
+                lab.locator("#esa-ln-b").fill("1.6487212707001282")
+                expect(lab.locator("#esa-ln-probability")).to_have_text("0.682689")
+                lab.locator("#esa-ln-reset").focus()
+                self.page.keyboard.press("Enter")
+                expect(lab.locator("#esa-ln-probability")).to_have_text("0.417171")
+        self.assertEqual(values[0],values[1])
+        self.page.goto(self.origin+routes[1],wait_until="networkidle")
+        expect(self.page.get_by_role("link",name="English — Lognormal Distribution")).to_be_visible()
+        self.page.goto(self.origin+routes[0],wait_until="networkidle")
+        expect(self.page.get_by_role("link",name="اقرأ هذا الدرس بالعربية")).to_be_visible()
+
+    def test_batch70_lognormal_invalid_and_mobile(self):
+        self.page.goto(self.origin+"/ar/probability/distributions/lognormal-distribution/",
+                       wait_until="networkidle")
+        root=self.page.locator("#esa-lognormal-lab")
+        for value in ("0","-1","","5","999"):
+            with self.subTest(sigma=value):
+                root.locator("#esa-ln-sigma").fill(value)
+                expect(root.locator("#esa-ln-error")).to_be_visible()
+                expect(root.locator("#esa-ln-results")).to_be_hidden()
+        root.locator("#esa-ln-reset").click()
+        root.locator("#esa-ln-a").fill("3")
+        root.locator("#esa-ln-b").fill("2")
+        expect(root.locator("#esa-ln-error")).to_be_visible()
+        root.locator("#esa-ln-reset").click()
+        for width in (320,375,768,1280):
+            with self.subTest(width=width):
+                self.page.set_viewport_size({"width":width,"height":850})
+                rect=root.evaluate("""e=>({left:e.getBoundingClientRect().left,
+                    right:e.getBoundingClientRect().right,
+                    scroll:e.scrollWidth,client:e.clientWidth})""")
+                self.assertGreaterEqual(rect["left"],-2,rect)
+                self.assertLessEqual(rect["right"],width+2,rect)
+                self.assertLessEqual(rect["scroll"]-rect["client"],2,rect)
+
+    def test_batch70_two_proportion_math_and_alternatives(self):
+        self.page.goto(self.origin+"/inference/classical-tests/two-proportion-z-test/",
+                       wait_until="networkidle")
+        root=self.page.locator("#esa-two-proportion-lab")
+        expect(root.locator("#esa-2p-results")).to_be_visible()
+        for field,expected in (
+            ("p1",.6),("p2",.45),("diff",.15),("pooled",.525),
+            ("pooledSE",.04993746088859544),("seCI",.049371044145328745),
+            ("z",3.003757045930553),("p",.0026666817936140935),
+            ("lower",.05323453159602119),("upperCI",.24676546840397873)):
+            with self.subTest(field=field):
+                self.assertAlmostEqual(float(root.locator("#esa-2p-"+field).inner_text()),
+                                       expected,delta=1.2e-6)
+        self.assertIn("count check passed",root.locator("#esa-2p-conditions").inner_text())
+        root.locator("#esa-2p-alternative").select_option("greater")
+        self.assertAlmostEqual(float(root.locator("#esa-2p-p").inner_text()),
+                               .0013333408968070467,delta=1.2e-6)
+        root.locator("#esa-2p-alternative").select_option("less")
+        self.assertAlmostEqual(float(root.locator("#esa-2p-p").inner_text()),
+                               .998666659103193,delta=1.2e-6)
+        root.locator("#esa-2p-reset").focus()
+        self.page.keyboard.press("Enter")
+        expect(root.locator("#esa-2p-p")).to_have_text("0.002667")
+        root.locator("#esa-2p-swap").click()
+        expect(root.locator("#esa-2p-diff")).to_have_text("-0.150000")
+        expect(root.locator("#esa-2p-p")).to_have_text("0.002667")
+        self.assertIn("confidence interval",root.locator("#esa-2p-plot").get_attribute("aria-label"))
+        self.assertAlmostEqual(self.page.evaluate(
+            "()=>window.esaTwoProportionMath.compute(120,200,90,200).pooled"),
+            .525,places=12)
+
+    def test_batch70_two_proportion_invalid_sparse_and_mobile(self):
+        self.page.goto(self.origin+"/inference/classical-tests/two-proportion-z-test/",
+                       wait_until="networkidle")
+        root=self.page.locator("#esa-two-proportion-lab")
+        x1=root.locator("#esa-2p-x1")
+        for invalid in ("-1","201","1.5","<img src=x onerror=alert(1)>","NaN",""):
+            with self.subTest(x1=invalid):
+                # HTML number inputs cannot receive arbitrary text via fill().
+                # Setting the DOM value also checks how browser sanitization
+                # and application validation handle untrusted assignments.
+                x1.evaluate("""(el, value) => {
+                    el.value = value;
+                    el.dispatchEvent(new Event("input", {bubbles: true}));
+                }""", invalid)
+                expect(root.locator("#esa-2p-error")).to_be_visible()
+                expect(root.locator("#esa-2p-results")).to_be_hidden()
+                self.assertEqual(root.locator("img").count(),0)
+        root.locator("#esa-2p-reset").click()
+        root.locator("#esa-2p-x1").fill("1")
+        root.locator("#esa-2p-n1").fill("5")
+        root.locator("#esa-2p-x2").fill("4")
+        root.locator("#esa-2p-n2").fill("5")
+        expect(root.locator("#esa-2p-results")).to_be_visible()
+        self.assertIn("WARNING",root.locator("#esa-2p-conditions").inner_text())
+        root.locator("#esa-2p-x1").fill("0")
+        root.locator("#esa-2p-x2").fill("0")
+        expect(root.locator("#esa-2p-error")).to_be_visible()
+        self.assertTrue(self.page.evaluate(
+            "()=>window.esaTwoProportionMath.compute(0,20,0,30).degenerate"))
+        root.locator("#esa-2p-reset").click()
+        for width in (320,375,768,1280):
+            with self.subTest(width=width):
+                self.page.set_viewport_size({"width":width,"height":850})
+                rect=root.evaluate("""e=>({left:e.getBoundingClientRect().left,
+                    right:e.getBoundingClientRect().right,
+                    scroll:e.scrollWidth,client:e.clientWidth})""")
+                self.assertGreaterEqual(rect["left"],-2,rect)
+                self.assertLessEqual(rect["right"],width+2,rect)
+                self.assertLessEqual(rect["scroll"]-rect["client"],2,rect)
+
+    def test_batch70_distributions_twelve_progress_and_untrusted_storage(self):
+        root="/probability/distributions/"
+        key="esa_continue_probability_distributions_lesson_v0"
+        lessons=(("bernoulli-distribution","Bernoulli Distribution"),
+             ("binomial-distribution","Binomial Distribution"),
+             ("geometric-distribution","Geometric Distribution"),
+             ("negative-binomial-distribution","Negative Binomial Distribution"),
+             ("poisson-distribution","Poisson Distribution"),
+             ("hypergeometric-distribution","Hypergeometric Distribution"),
+             ("uniform-distribution","Uniform Distribution"),
+             ("exponential-distribution","Exponential Distribution"),
+             ("gamma-distribution","Gamma Distribution"),
+             ("beta-distribution","Beta Distribution"),
+             ("normal-distribution","Normal Distribution"),
+             ("lognormal-distribution","Lognormal Distribution"))
+        for slug,title in lessons:
+            with self.subTest(lesson=slug):
+                route=root+slug+"/"
+                self.page.goto(self.origin+route,wait_until="networkidle")
+                stored=self.page.evaluate("k=>JSON.parse(localStorage.getItem(k))",key)
+                self.assertEqual(stored["url"],route)
+                self.assertEqual(stored["label"],title)
+                self.assertIs(type(stored["ts"]),int)
+                self.page.goto(self.origin+root,wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-probability-distributions")).to_be_visible()
+                self.assertEqual(self.page.locator(
+                    "#continue-reading-probability-distributions-btn").get_attribute("href"),route)
+        good=root+"binomial-distribution/"
+        invalid=(
+           {"url":good,"label":"Wrong Distribution"},
+           {"url":good,"label":'<img src=x onerror="window.esaInjected=true">'},
+           {"url":good,"label":"Binomial Distribution","ts":0},
+           {"url":good,"label":"Binomial Distribution","ts":-1},
+           {"url":good,"label":"Binomial Distribution","ts":1.5},
+           {"url":good,"label":"Binomial Distribution","ts":None},
+           {"url":good,"label":"Binomial Distribution","ts":True},
+           {"url":good,"label":"Binomial Distribution","ts":"tomorrow"},
+           {"url":good,"label":"Binomial Distribution","ts":999999999999999},
+           {"url":good+"#fragment","label":"Binomial Distribution"},
+           {"url":good+"?q=1","label":"Binomial Distribution"},
+           {"url":root+"unknown/","label":"Binomial Distribution"},
+           {"url":"javascript:alert(1)","label":"Binomial Distribution"},
+           {"url":"//evil.example/a/","label":"Binomial Distribution"})
+        panel=self.page.locator("#continue-reading-probability-distributions")
+        for payload in invalid:
+            with self.subTest(invalid=str(payload)[:100]):
+                self.page.evaluate("x=>localStorage.setItem(x.k,JSON.stringify(x.v))",
+                       {"k":key,"v":payload})
+                self.page.reload(wait_until="networkidle")
+                expect(panel).to_be_hidden()
+        self.page.evaluate("x=>localStorage.setItem(x.k,JSON.stringify(x.v))",
+           {"k":key,"v":{"url":good,"label":"Binomial Distribution"}})
+        self.page.reload(wait_until="networkidle")
+        expect(panel).to_be_visible()
+        self.assertIsNone(self.page.evaluate("()=>window.esaInjected||null"))
+        self.page.evaluate("k=>localStorage.setItem(k,'{bad json')",key)
+        self.page.reload(wait_until="networkidle")
+        expect(panel).to_be_hidden()
+
+    def test_batch70_distributions_denied_storage(self):
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{
+            configurable:true,
+            get(){throw new DOMException("Storage unavailable","SecurityError")}
+          });
+        """)
+        base="/probability/distributions/"
+        for slug in ("bernoulli-distribution","binomial-distribution",
+          "geometric-distribution","negative-binomial-distribution",
+          "poisson-distribution","hypergeometric-distribution","uniform-distribution",
+          "exponential-distribution","gamma-distribution","beta-distribution",
+          "normal-distribution","lognormal-distribution"):
+            with self.subTest(slug=slug):
+                self.page.goto(self.origin+base+slug+"/",wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+        self.page.goto(self.origin+base,wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-probability-distributions")).to_be_hidden()
+        self.assertEqual(self.page.locator("#lessons .lesson-card").count(),12)
 
 
 

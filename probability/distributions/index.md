@@ -894,9 +894,17 @@ sidebar: false
         .filter(url => typeof url === "string" &&
           /^\/probability\/distributions\/[a-z0-9-]+\/$/.test(url))
     );
-    if (!data || typeof data.url !== "string" ||
-        typeof data.label !== "string" || !data.label.trim() ||
-        data.label.length > 200 || !published.has(data.url)) return;
+    if (!data || typeof data.url !== "string" || typeof data.label !== "string" ||
+        !published.has(data.url)) return;
+    // Require the exact published label, not an arbitrary stored string.
+    const lesson = Array.from(document.querySelectorAll("#lessons .lesson-card h3 a[href]"))
+      .find(link => link.getAttribute("href") === data.url);
+    if (!lesson || data.label !== lesson.textContent.trim()) return;
+    // Older progress without ts remains supported; malformed, stale-formatted,
+    // and implausibly future timestamps must never resume.
+    if (Object.prototype.hasOwnProperty.call(data, "ts") &&
+        (!Number.isSafeInteger(data.ts) || data.ts <= 0 ||
+         data.ts > Date.now() + 5 * 60 * 1000)) return;
 
     const wrap = document.getElementById("continue-reading-probability-distributions");
     const label = document.getElementById("continue-reading-probability-distributions-label");
