@@ -1165,9 +1165,20 @@ class SearchTests(unittest.TestCase):
                     self.page.reload(wait_until="networkidle")
 
                 save({"url": valid, "label": malicious_label})
-                expect(panel).to_be_visible()
-                expect(link).to_have_attribute("href", valid)
-                expect(label.locator("strong")).to_have_text(malicious_label)
+                if slug == "tabular-summaries":
+                    # This block now requires the exact published lesson title.
+                    # Reject untrusted labels rather than rendering them.
+                    expect(panel).to_be_hidden()
+                    title = self.page.locator("#lessons .lesson-card h3 a[href]").first.inner_text().strip()
+                    save({"url": valid, "label": title})
+                    expect(panel).to_be_visible()
+                    expect(link).to_have_attribute("href", valid)
+                    expect(label.locator("strong")).to_have_text(title)
+                else:
+                    # Older blocks continue to treat labels as text, not HTML.
+                    expect(panel).to_be_visible()
+                    expect(link).to_have_attribute("href", valid)
+                    expect(label.locator("strong")).to_have_text(malicious_label)
                 self.assertEqual(label.locator("img, script").count(), 0)
                 self.assertIsNone(self.page.evaluate("window.esaInjected"))
 
