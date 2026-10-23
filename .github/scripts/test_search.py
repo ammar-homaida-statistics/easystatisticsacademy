@@ -10538,7 +10538,13 @@ class SearchTests(unittest.TestCase):
         x1=root.locator("#esa-2p-x1")
         for invalid in ("-1","201","1.5","<img src=x onerror=alert(1)>","NaN",""):
             with self.subTest(x1=invalid):
-                x1.fill(invalid)
+                # HTML number inputs cannot receive arbitrary text via fill().
+                # Setting the DOM value also checks how browser sanitization
+                # and application validation handle untrusted assignments.
+                x1.evaluate("""(el, value) => {
+                    el.value = value;
+                    el.dispatchEvent(new Event("input", {bubbles: true}));
+                }""", invalid)
                 expect(root.locator("#esa-2p-error")).to_be_visible()
                 expect(root.locator("#esa-2p-results")).to_be_hidden()
                 self.assertEqual(root.locator("img").count(),0)
