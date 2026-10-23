@@ -1407,9 +1407,22 @@ class SearchTests(unittest.TestCase):
                     self.page.reload(wait_until="networkidle")
 
                 save({"url": listed, "label": malicious})
-                expect(panel).to_be_visible()
-                expect(action).to_have_attribute("href", listed)
-                expect(label.locator("strong")).to_have_text(malicious)
+                if route == "/descriptive/spread/":
+                    # Spread now requires the exact published title, even if the
+                    # saved URL is canonical. A forged label must be rejected.
+                    expect(panel).to_be_hidden()
+                    published_title = self.page.locator(
+                        selector + "[href]").first.inner_text().strip()
+                    save({"url": listed, "label": published_title})
+                    expect(panel).to_be_visible()
+                    expect(action).to_have_attribute("href", listed)
+                    expect(label.locator("strong")).to_have_text(published_title)
+                else:
+                    # The other two overviews retain their existing safe
+                    # text-only rendering of untrusted labels.
+                    expect(panel).to_be_visible()
+                    expect(action).to_have_attribute("href", listed)
+                    expect(label.locator("strong")).to_have_text(malicious)
                 self.assertEqual(label.locator("img, script").count(), 0)
                 self.assertIsNone(self.page.evaluate("window.esaInjected"))
 
