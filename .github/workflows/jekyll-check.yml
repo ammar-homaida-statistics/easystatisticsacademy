@@ -31,6 +31,8 @@ jobs:
         run: python -m unittest discover -s .github/scripts -p 'test_batch67_math.py' -v
       - name: Verify Batch #68 independent Uniform and paired-t reference benchmarks
         run: python -m unittest discover -s .github/scripts -p 'test_batch68_math.py' -v
+      - name: Verify Batch #69 independent Normal and Welch benchmarks
+        run: python -m unittest discover -s .github/scripts -p 'test_batch69_math.py' -v
       - name: Inventory mathematical placeholders and reject new damage
         run: python .github/scripts/validate_math_placeholders.py
       - name: Validate front matter
