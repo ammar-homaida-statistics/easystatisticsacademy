@@ -13,7 +13,7 @@
         input.value=String(clamp(value,low,high));
       }
       function calculate(A,B,C,D) {
-        if(![A,B,C,D].every(Number.isFinite) || !(A<B) || C<A || D>C && D>B || C>D)return null;
+        if(![A,B,C,D].every(Number.isFinite) || !(A<B) || C<A || D>B || C>D)return null;
         const span=B-A, interval=D-C, density=1/span;
         return {density,probability:interval/span,mean:(A+B)/2,
           variance:span*span/12,sd:span/Math.sqrt(12)};
