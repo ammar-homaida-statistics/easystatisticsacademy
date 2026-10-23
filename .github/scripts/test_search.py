@@ -10213,5 +10213,215 @@ class SearchTests(unittest.TestCase):
         self.assertGreater(self.page.locator("#lessons .lesson-card a[href]").count(),0)
 
 
+    def test_batch69_normal_bilingual_reference_parity_and_seo(self):
+        routes=("/probability/distributions/normal-distribution/",
+                "/ar/probability/distributions/normal-distribution/")
+        outputs=[]
+        for route in routes:
+            with self.subTest(route=route):
+                self.page.goto(self.origin+route,wait_until="networkidle")
+                lab=self.page.locator("#esa-normal-probability-explorer")
+                expect(lab).to_be_visible()
+                expect(lab.locator("#esa-normal-probability")).to_have_text("0.682689")
+                self.assertTrue(self.page.locator('link[rel="canonical"]').count()>0)
+                self.assertGreater(self.page.locator('link[rel="alternate"][hreflang]').count(),0)
+                values=self.page.evaluate("""()=>({
+                  p:document.getElementById('esa-normal-probability').textContent,
+                  cdf:window.esaNormalMath.cdf(2),
+                  sf:window.esaNormalMath.survival(2),
+                  shade:document.getElementById('esa-normal-shade').getAttribute('d')
+                })""")
+                self.assertAlmostEqual(values["cdf"],.9772498680518208,delta=2.1e-7)
+                self.assertAlmostEqual(values["sf"],.02275013194817921,delta=2.1e-7)
+                self.assertTrue(values["shade"].startswith("M "))
+                lab.locator("#esa-normal-mu").fill("100")
+                lab.locator("#esa-normal-sigma").fill("15")
+                lab.locator("#esa-normal-a").fill("85")
+                lab.locator("#esa-normal-b").fill("115")
+                outputs.append(lab.locator("#esa-normal-probability").inner_text())
+                self.assertAlmostEqual(float(outputs[-1]),.682689492,delta=2.1e-6)
+                lab.locator("#esa-normal-mode").select_option("right")
+                lab.locator("#esa-normal-b").fill("130")
+                self.assertAlmostEqual(float(lab.locator("#esa-normal-probability").inner_text()),
+                                       .022750131948,delta=2.1e-6)
+                lab.locator("#esa-normal-reset").focus()
+                self.page.keyboard.press("Enter")
+                expect(lab.locator("#esa-normal-probability")).to_have_text("0.682689")
+        self.assertEqual(outputs[0],outputs[1])
+        self.page.goto(self.origin+routes[1],wait_until="networkidle")
+        self.assertTrue(self.page.get_by_role("link",name="English — Normal Distribution").count()>0)
+        self.page.goto(self.origin+routes[0],wait_until="networkidle")
+        self.assertTrue(self.page.get_by_role("link",name="اقرأ هذا الدرس بالعربية").count()>0)
+
+    def test_batch69_normal_invalid_values_mobile_and_keyboard(self):
+        self.page.goto(self.origin+"/ar/probability/distributions/normal-distribution/",
+                       wait_until="networkidle")
+        lab=self.page.locator("#esa-normal-probability-explorer")
+        for sigma in ("0","-1","","99999999"):
+            with self.subTest(sigma=sigma):
+                lab.locator("#esa-normal-sigma").fill(sigma)
+                expect(lab.locator("#esa-normal-error")).to_be_visible()
+                expect(lab.locator("#esa-normal-chart")).to_be_hidden()
+        lab.locator("#esa-normal-reset").click()
+        lab.locator("#esa-normal-a").fill("2")
+        lab.locator("#esa-normal-b").fill("1")
+        expect(lab.locator("#esa-normal-error")).to_be_visible()
+        lab.locator("#esa-normal-reset").click()
+        for width in (320,375,768,1280):
+            with self.subTest(width=width):
+                self.page.set_viewport_size({"width":width,"height":820})
+                bounds=lab.evaluate("""el=>({
+                  left:el.getBoundingClientRect().left,
+                  right:el.getBoundingClientRect().right,
+                  scroll:el.scrollWidth,client:el.clientWidth
+                })""")
+                self.assertGreaterEqual(bounds["left"],-2,bounds)
+                self.assertLessEqual(bounds["right"],width+2,bounds)
+                self.assertLessEqual(bounds["scroll"]-bounds["client"],2,bounds)
+
+    def test_batch69_welch_reference_tail_ci_and_alternatives(self):
+        self.page.goto(self.origin+"/inference/classical-tests/two-sample-t-test-independent/",
+                       wait_until="networkidle")
+        lab=self.page.locator("#esa-welch-lab")
+        expect(lab.locator("#esa-w-results")).to_be_visible()
+        for id,target,tolerance in (
+            ("difference",7.833333333333333,1e-6),
+            ("se",1.7618082341640515,1e-6),
+            ("df",10.93790675014491,1e-6),
+            ("t",4.446189534952488,1e-6),
+            ("p",.0009985114499363515,1e-6),
+            ("lower",3.9529320996062474,2e-6),
+            ("upper",11.71373456706041,2e-6)):
+            with self.subTest(statistic=id):
+                self.assertAlmostEqual(float(lab.locator("#esa-w-"+id).inner_text()),
+                                       target,delta=tolerance)
+        ref=self.page.evaluate("""()=>({
+          sf:window.esaWelchMath.studentUpperTail(2,4),
+          tcrit:window.esaWelchMath.critical95(4)
+        })""")
+        self.assertAlmostEqual(ref["sf"],.05805826175840778,delta=1e-10)
+        self.assertAlmostEqual(ref["tcrit"],2.7764451051977934,delta=1e-9)
+        lab.locator("#esa-w-alternative").select_option("greater")
+        self.assertAlmostEqual(float(lab.locator("#esa-w-p").inner_text()),
+                               .0009985114499363515/2,delta=1e-6)
+        lab.locator("#esa-w-alternative").select_option("less")
+        self.assertAlmostEqual(float(lab.locator("#esa-w-p").inner_text()),
+                               1-.0009985114499363515/2,delta=1e-6)
+        lab.locator("#esa-w-reset").focus()
+        self.page.keyboard.press("Enter")
+        expect(lab.locator("#esa-w-p")).to_have_text("0.000999")
+        self.assertIn("confidence interval",lab.locator("#esa-w-plot").get_attribute("aria-label"))
+
+    def test_batch69_welch_invalid_inputs_swap_and_mobile(self):
+        self.page.goto(self.origin+"/inference/classical-tests/two-sample-t-test-independent/",
+                       wait_until="networkidle")
+        lab=self.page.locator("#esa-welch-lab")
+        a=lab.locator("#esa-w-a")
+        for invalid in ("","1","1,NaN,2","1,Infinity","1,3,<img src=x onerror=alert(1)>",
+                        "10000001,2","1,,3"):
+            with self.subTest(invalid=invalid):
+                a.fill(invalid)
+                expect(lab.locator("#esa-w-error")).to_be_visible()
+                expect(lab.locator("#esa-w-results")).to_be_hidden()
+                self.assertEqual(lab.locator("img, script[onerror]").count(),0)
+        lab.locator("#esa-w-reset").click()
+        lab.locator("#esa-w-reverse").click()
+        self.assertAlmostEqual(float(lab.locator("#esa-w-difference").inner_text()),
+                               -7.833333333333333,delta=1e-6)
+        expect(lab.locator("#esa-w-p")).to_have_text("0.000999")
+        a.fill("1,1,1")
+        lab.locator("#esa-w-b").fill("2,2,2")
+        expect(lab.locator("#esa-w-error")).to_be_visible()
+        self.assertTrue(self.page.evaluate(
+            "()=>window.esaWelchMath.compute([1,1,1],[2,2,2]).degenerate"))
+        lab.locator("#esa-w-reset").click()
+        for width in (320,375,768,1280):
+            with self.subTest(width=width):
+                self.page.set_viewport_size({"width":width,"height":800})
+                bounds=lab.evaluate("""el=>({
+                   left:el.getBoundingClientRect().left,
+                   right:el.getBoundingClientRect().right,
+                   scroll:el.scrollWidth,client:el.clientWidth
+                })""")
+                self.assertGreaterEqual(bounds["left"],-2,bounds)
+                self.assertLessEqual(bounds["right"],width+2,bounds)
+                self.assertLessEqual(bounds["scroll"]-bounds["client"],2,bounds)
+
+    def test_batch69_spread_seven_lessons_and_adversarial_resume(self):
+        root="/descriptive/spread/"
+        key="esa_continue_descriptive_spread_lesson_v0"
+        lessons=(("what-is-variability","What Is Variability?"),
+                 ("range","Range"),
+                 ("interquartile-range","Interquartile Range (IQR)"),
+                 ("variance","Variance"),
+                 ("standard-deviation","Standard Deviation"),
+                 ("coefficient-of-variation","Coefficient of Variation"),
+                 ("reporting-spread-properly","Reporting Spread Properly"))
+        for slug,title in lessons:
+            with self.subTest(slug=slug):
+                route=root+slug+"/"
+                self.page.goto(self.origin+route,wait_until="networkidle")
+                saved=self.page.evaluate("k=>JSON.parse(localStorage.getItem(k))",key)
+                self.assertEqual(saved["url"],route)
+                self.assertEqual(saved["label"],title)
+                self.assertIs(type(saved["ts"]),int)
+                self.page.goto(self.origin+root,wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-block5")).to_be_visible()
+                self.assertEqual(self.page.locator("#continue-reading-block5-btn")
+                                 .get_attribute("href"),route)
+        good=root+"range/"
+        examples=(
+            {"url":good,"label":"Forged title"},
+            {"url":good,"label":'<img src=x onerror="window.esaInjected=true">'},
+            {"url":good,"label":"Range","ts":-5},
+            {"url":good,"label":"Range","ts":1.5},
+            {"url":good,"label":"Range","ts":None},
+            {"url":good,"label":"Range","ts":"tomorrow"},
+            {"url":good,"label":"Range","ts":True},
+            {"url":good,"label":"Range","ts":999999999999999},
+            {"url":good+"?next=1","label":"Range"},
+            {"url":root+"unknown/","label":"Range"},
+            {"url":"javascript:alert(1)","label":"Range"},
+            {"url":good,"label":"Range"*1000})
+        for payload in examples:
+            with self.subTest(payload=str(payload)[:100]):
+                self.page.evaluate(
+                    "x=>localStorage.setItem(x.k,JSON.stringify(x.v))",
+                    {"k":key,"v":payload})
+                self.page.reload(wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-block5")).to_be_hidden()
+        # Legacy saved progress without a timestamp remains valid for published titles.
+        self.page.evaluate("x=>localStorage.setItem(x.k,JSON.stringify(x.v))",
+             {"k":key,"v":{"url":good,"label":"Range"}})
+        self.page.reload(wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-block5")).to_be_visible()
+        self.assertEqual(self.page.locator("#continue-reading-block5-btn")
+                         .get_attribute("href"),good)
+        self.assertIsNone(self.page.evaluate("()=>window.esaInjected||null"))
+        self.page.evaluate("k=>localStorage.setItem(k,'{invalid')",key)
+        self.page.reload(wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-block5")).to_be_hidden()
+
+    def test_batch69_spread_blocked_storage_all_seven_lessons(self):
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{
+            configurable:true,
+            get(){throw new DOMException("Storage unavailable","SecurityError")}
+          });
+        """)
+        root="/descriptive/spread/"
+        self.page.set_viewport_size({"width":320,"height":780})
+        for slug in ("what-is-variability","range","interquartile-range",
+                     "variance","standard-deviation","coefficient-of-variation",
+                     "reporting-spread-properly"):
+            with self.subTest(lesson=slug):
+                self.page.goto(self.origin+root+slug+"/",wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+        self.page.goto(self.origin+root,wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-block5")).to_be_hidden()
+        self.assertGreater(self.page.locator("#lessons .lesson-card a[href]").count(),0)
+
+
+
 if __name__ == "__main__":
     unittest.main(argv=[__file__], verbosity=2)
