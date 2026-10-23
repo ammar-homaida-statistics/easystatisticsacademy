@@ -10101,7 +10101,7 @@ class SearchTests(unittest.TestCase):
         expect(error).to_be_hidden()
         self.assertEqual(root.locator("#esa-pt-n").inner_text(),"3")
         null=root.locator("#esa-pt-null")
-        null.fill("not-a-number")
+        null.fill("")
         expect(error).to_be_visible()
         null.fill("1")
         expect(error).to_be_hidden()
