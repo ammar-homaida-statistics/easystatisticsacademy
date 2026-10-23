@@ -61,6 +61,8 @@ function critical95(df){
 
 const pattern=/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$/i;
 function parseNumbers(text){
+ // A missing comma-delimited observation must not silently disappear.
+ if(/,\s*,|^\s*,|,\s*$/.test(text))return null;
  const parts=text.trim().split(/[\s,;]+/).filter(Boolean);
  if(parts.length<2||parts.length>40||parts.some(x=>!pattern.test(x)))return null;
  const nums=parts.map(Number);
