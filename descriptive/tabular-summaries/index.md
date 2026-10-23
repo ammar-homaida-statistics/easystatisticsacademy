@@ -561,8 +561,29 @@ sidebar: false
     const raw = localStorage.getItem(KEY);
     if (!raw) return;
     const data = JSON.parse(raw);
-    if (!data || typeof data.url !== "string" ||
-        typeof data.label !== "string" || !data.label.trim()) return;
+    // Preserve only the exact published title for the matching lesson URL.
+    // A saved browser record cannot choose its own display text.
+    const TITLES = {
+      "/descriptive/tabular-summaries/why-tables-come-first/": "Why Tables Come First",
+      "/descriptive/tabular-summaries/frequency-tables/": "Frequency Tables",
+      "/descriptive/tabular-summaries/relative-frequency-and-percent/": "Relative Frequency and Percent",
+      "/descriptive/tabular-summaries/cumulative-frequency/": "Cumulative Frequency",
+      "/descriptive/tabular-summaries/grouped-frequency-tables/": "Grouped Frequency Tables",
+      "/descriptive/tabular-summaries/contingency-tables/": "Contingency Tables",
+      "/descriptive/tabular-summaries/choosing-the-right-percentage/": "Choosing the Right Percentage",
+      "/descriptive/tabular-summaries/handling-missing-values/": "Handling Missing Values",
+      "/descriptive/tabular-summaries/standard-table-layout-and-reporting/": "Standard Table Layout and Reporting",
+      "/descriptive/tabular-summaries/common-table-mistakes/": "Common Table Mistakes"
+    };
+    if (!data || typeof data !== "object" || Array.isArray(data) ||
+        typeof data.url !== "string" ||
+        !Object.prototype.hasOwnProperty.call(TITLES, data.url) ||
+        typeof data.label !== "string" ||
+        data.label !== TITLES[data.url] || data.label.length > 200 ||
+        // Valid timestamp-free historical saves stay readable.
+        (Object.prototype.hasOwnProperty.call(data, "ts") &&
+         (typeof data.ts !== "number" || !Number.isSafeInteger(data.ts) ||
+          data.ts <= 0 || data.ts > Date.now()))) return;
 
     // Only exact canonical routes to published lessons listed in this block.
     const allowed = /^\/descriptive\/tabular-summaries\/[a-z0-9-]+\/$/.test(data.url);
