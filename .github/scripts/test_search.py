@@ -1165,9 +1165,20 @@ class SearchTests(unittest.TestCase):
                     self.page.reload(wait_until="networkidle")
 
                 save({"url": valid, "label": malicious_label})
-                expect(panel).to_be_visible()
-                expect(link).to_have_attribute("href", valid)
-                expect(label.locator("strong")).to_have_text(malicious_label)
+                if slug == "tabular-summaries":
+                    # This block now requires the exact published lesson title.
+                    # Reject untrusted labels rather than rendering them.
+                    expect(panel).to_be_hidden()
+                    title = self.page.locator("#lessons .lesson-card h3 a[href]").first.inner_text().strip()
+                    save({"url": valid, "label": title})
+                    expect(panel).to_be_visible()
+                    expect(link).to_have_attribute("href", valid)
+                    expect(label.locator("strong")).to_have_text(title)
+                else:
+                    # Older blocks continue to treat labels as text, not HTML.
+                    expect(panel).to_be_visible()
+                    expect(link).to_have_attribute("href", valid)
+                    expect(label.locator("strong")).to_have_text(malicious_label)
                 self.assertEqual(label.locator("img, script").count(), 0)
                 self.assertIsNone(self.page.evaluate("window.esaInjected"))
 
@@ -9945,6 +9956,261 @@ class SearchTests(unittest.TestCase):
                 expect(self.page.locator("main h1")).to_be_visible()
         self.page.goto(self.origin+root,wait_until="networkidle")
         expect(self.page.locator("#continue-reading-block1")).to_be_hidden()
+
+
+
+    def test_batch68_uniform_arabic_english_math_parity_accessibility_mobile(self):
+        english="/probability/distributions/uniform-distribution/"
+        arabic="/ar/probability/distributions/uniform-distribution/"
+        for route,lang in ((english,"en"),(arabic,"ar")):
+            with self.subTest(lang=lang):
+                self.page.goto(self.origin+route,wait_until="networkidle")
+                self.assertEqual(self.page.locator("html").get_attribute("lang"),lang)
+                self.assertEqual(self.page.locator("html").get_attribute("dir"),
+                                 "rtl" if lang=="ar" else None)
+                self.assertEqual(self.page.locator('link[rel="canonical"]').get_attribute("href"),
+                                 "https://easystatisticsacademy.com"+route)
+                for lnk,target in (("en",english),("ar",arabic)):
+                    self.assertEqual(self.page.locator(
+                        'link[rel="alternate"][hreflang="'+lnk+'"]')
+                        .get_attribute("href"),
+                        "https://easystatisticsacademy.com"+target)
+                lab=self.page.locator("#esa-uniform-area-explorer")
+                expect(lab).to_be_visible()
+                self.assertGreaterEqual(self.page.locator("main h2").count(),20)
+                for output,want in (("width","3.00"),("density","0.1000"),
+                                    ("probability","0.3000"),("mean","5.00"),
+                                    ("variance","8.3333"),("sd","2.8868")):
+                    self.assertEqual(lab.locator("#esa-uniform-"+output).inner_text(),want)
+                actual=self.page.evaluate(
+                    "()=>window.esaUniformMath.calculate(0,10,2,5)")
+                self.assertAlmostEqual(actual["density"],.1,places=14)
+                self.assertAlmostEqual(actual["probability"],.3,places=14)
+                self.assertAlmostEqual(actual["mean"],5,places=14)
+                self.assertAlmostEqual(actual["variance"],100/12,places=13)
+                self.assertAlmostEqual(actual["sd"],10/(12**.5),places=13)
+                for left,right,c,d in ((1,11,2,9),(2,10,4,6),(3,7,3,7)):
+                    computed=self.page.evaluate(
+                        "a=>window.esaUniformMath.calculate(...a)",[left,right,c,d])
+                    self.assertAlmostEqual(computed["probability"],
+                                           (d-c)/(right-left),places=13)
+                a=lab.locator("#esa-uniform-a")
+                a.focus()
+                self.page.keyboard.press("ArrowRight")
+                self.assertEqual(a.input_value(),"1")
+                self.assertIn("كثافة" if lang=="ar" else "Uniform density",
+                              lab.locator("#esa-uniform-area-plot").get_attribute("aria-label"))
+                lab.locator("#esa-uniform-reset").focus()
+                self.page.keyboard.press("Enter")
+                expect(lab.locator("#esa-uniform-probability")).to_have_text("0.3000")
+                for width in (320,375,768):
+                    with self.subTest(lang=lang,width=width):
+                        self.page.set_viewport_size({"width":width,"height":800})
+                        b=lab.evaluate("""e=>({
+                            left:e.getBoundingClientRect().left,
+                            right:e.getBoundingClientRect().right,
+                            scroll:e.scrollWidth,client:e.clientWidth})""")
+                        self.assertGreaterEqual(b["left"],-2,b)
+                        self.assertLessEqual(b["right"],width+2,b)
+                        self.assertLessEqual(b["scroll"]-b["client"],2,b)
+                self.page.set_viewport_size({"width":1280,"height":800})
+        self.page.goto(self.origin+arabic,wait_until="networkidle")
+        text=self.page.locator("main").inner_text()
+        for word in ("التوزيع المنتظم","الاحتمال بوصفه مساحة","التباين",
+                     "الانحراف المعياري","المنتظم المنفصل","0.30","2.8868"):
+            self.assertIn(word,text)
+        self.assertEqual(self.page.locator(".esa-uniform-equation").count(),11)
+        self.assertEqual(self.page.locator(".esa-uniform-equation[tabindex='0']").count(),11)
+        self.page.locator(".esa-uniform-equation").first.focus()
+        self.assertEqual(self.page.evaluate("()=>document.activeElement.tabIndex"),0)
+        self.page.goto(self.origin+"/ar/",wait_until="networkidle")
+        expect(self.page.locator('a[href="'+arabic+'"]')).to_be_visible()
+
+    def test_batch68_paired_t_exact_distribution_reference_and_keyboard(self):
+        route="/inference/classical-tests/paired-t-test/"
+        self.page.goto(self.origin+route,wait_until="networkidle")
+        root=self.page.locator("#esa-paired-t-lab")
+        expect(root).to_be_visible()
+        for key,want in (("n","5"),("mean","4.200000"),("sd","0.836660"),
+                         ("se","0.374166"),("t","11.224972"),("df","4"),
+                         ("p","0.000359"),("critical","2.776445"),
+                         ("lower","3.161149"),("upper","5.238851")):
+            expect(root.locator("#esa-pt-"+key)).to_have_text(want)
+        computed=self.page.evaluate("""()=>window.esaPairedTMath.compute(
+            [[70,75],[68,72],[75,79],[71,74],[69,74]])""")
+        self.assertAlmostEqual(computed["t"],11.224972160321826,delta=1e-10)
+        self.assertAlmostEqual(computed["p"],.0003587352603774513,delta=5e-11)
+        self.assertAlmostEqual(computed["lower"],3.1611493663164323,delta=5e-10)
+        self.assertAlmostEqual(computed["upper"],5.238850633683568,delta=5e-10)
+        for df,referenceTail,referenceCrit in (
+          (1,.14758361765043326,12.706204736174694),
+          (2,.09175170953613698,4.302652729749462),
+          (4,.05805826175840778,2.7764451051977934),
+          (9,.038276411885350504,2.262157162798205),
+          (19,.03000101819304917,2.0930240544083087),
+          (39,.026249507671927373,2.022690920036761)):
+            with self.subTest(df=df):
+                observed=self.page.evaluate(
+                   "df=>({tail:window.esaPairedTMath.studentUpperTail(2,df),"
+                   "crit:window.esaPairedTMath.critical95(df)})",df)
+                self.assertAlmostEqual(observed["tail"],referenceTail,delta=5e-11)
+                self.assertAlmostEqual(observed["crit"],referenceCrit,delta=5e-9)
+                self.assertAlmostEqual(self.page.evaluate(
+                   "df=>window.esaPairedTMath.studentUpperTail(-2,df)",df),
+                   1-referenceTail,delta=5e-11)
+        choice=root.locator("#esa-pt-alternative")
+        choice.focus()
+        choice.select_option("greater")
+        expect(root.locator("#esa-pt-p")).to_have_text("0.000179")
+        choice.select_option("less")
+        expect(root.locator("#esa-pt-p")).to_have_text("0.999821")
+        choice.select_option("two-sided")
+        expect(root.locator("#esa-pt-p")).to_have_text("0.000359")
+        self.assertEqual(root.locator("#esa-pt-table tr").count(),5)
+        self.assertIn("pair 1",root.locator("#esa-pt-plot").get_attribute("aria-label"))
+        root.locator("#esa-pt-negative").focus()
+        self.page.keyboard.press("Enter")
+        expect(root.locator("#esa-pt-t")).to_have_text("-11.224972")
+        expect(root.locator("#esa-pt-p")).to_have_text("0.000359")
+        expect(root.locator("#esa-pt-lower")).to_have_text("-5.238851")
+        expect(root.locator("#esa-pt-upper")).to_have_text("-3.161149")
+        root.locator("#esa-pt-reset").focus()
+        self.page.keyboard.press("Enter")
+        expect(root.locator("#esa-pt-mean")).to_have_text("4.200000")
+        expect(root.locator("#esa-pt-p")).to_have_text("0.000359")
+        self.assertEqual(root.locator("#esa-pt-plot").get_attribute("role"),"img")
+        for width in (320,375,768,1280):
+            with self.subTest(width=width):
+                self.page.set_viewport_size({"width":width,"height":800})
+                b=root.evaluate("""e=>({
+                  left:e.getBoundingClientRect().left,
+                  right:e.getBoundingClientRect().right,
+                  scroll:e.scrollWidth,client:e.clientWidth})""")
+                self.assertGreaterEqual(b["left"],-2,b)
+                self.assertLessEqual(b["right"],width+2,b)
+                self.assertLessEqual(b["scroll"]-b["client"],2,b)
+
+    def test_batch68_paired_t_validation_degenerate_and_malicious_input(self):
+        self.page.goto(self.origin+"/inference/classical-tests/paired-t-test/",
+                       wait_until="networkidle")
+        root=self.page.locator("#esa-paired-t-lab")
+        field=root.locator("#esa-pt-input")
+        error=root.locator("#esa-pt-error")
+        results=root.locator("#esa-pt-results")
+        for invalid in ("", "1,2", "1,2\n3", "1,2\n3,4,5",
+                        "1,2\n3,not_number", "1,2\n3,NaN",
+                        "1,2\n3,Infinity","1,2\n4,<img src=x onerror=alert(1)>",
+                        "10000001,2\n3,4","1,2\n3,4\n0,",
+                        "1,1\n2,2\n3,3",
+                        "0,1\n2,3\n4,5"):
+            with self.subTest(invalid=invalid):
+                field.fill(invalid)
+                expect(error).to_be_visible()
+                expect(results).to_be_hidden()
+                self.assertEqual(root.locator("img").count(),0)
+        field.fill("0,2\n1,4\n2,6")
+        expect(error).to_be_hidden()
+        self.assertEqual(root.locator("#esa-pt-n").inner_text(),"3")
+        null=root.locator("#esa-pt-null")
+        null.fill("")
+        expect(error).to_be_visible()
+        null.fill("1")
+        expect(error).to_be_hidden()
+        self.assertEqual(root.locator("#esa-pt-df").inner_text(),"2")
+        self.assertEqual(self.page.evaluate(
+            "()=>window.esaPairedTMath.compute([[5,4],[6,5],[7,6]]).degenerate"),
+            True)
+        root.locator("#esa-pt-reset").click()
+        expect(root.locator("#esa-pt-results")).to_be_visible()
+
+    def test_batch68_tabular_summaries_ten_saves_and_adversarial_resume(self):
+        root="/descriptive/tabular-summaries/"
+        key="esa_continue_descriptive_tabular_summaries_lesson_v0"
+        lessons=(
+         ("why-tables-come-first","Why Tables Come First"),
+         ("frequency-tables","Frequency Tables"),
+         ("relative-frequency-and-percent","Relative Frequency and Percent"),
+         ("cumulative-frequency","Cumulative Frequency"),
+         ("grouped-frequency-tables","Grouped Frequency Tables"),
+         ("contingency-tables","Contingency Tables"),
+         ("choosing-the-right-percentage","Choosing the Right Percentage"),
+         ("handling-missing-values","Handling Missing Values"),
+         ("standard-table-layout-and-reporting","Standard Table Layout and Reporting"),
+         ("common-table-mistakes","Common Table Mistakes")
+        )
+        for slug,title in lessons:
+            with self.subTest(lesson=slug):
+                route=root+slug+"/"
+                self.page.goto(self.origin+route,wait_until="networkidle")
+                data=self.page.evaluate(
+                   "k=>JSON.parse(localStorage.getItem(k))",key)
+                self.assertEqual(data["url"],route)
+                self.assertEqual(data["label"],title)
+                self.assertIs(type(data["ts"]),int)
+                self.assertGreater(data["ts"],0)
+                self.page.goto(self.origin+root,wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-block2")).to_be_visible()
+                self.assertEqual(self.page.locator("#continue-reading-block2-btn")
+                                 .get_attribute("href"),route)
+                self.assertIn(title,self.page.locator(
+                    "#continue-reading-block2-label").inner_text())
+        good=root+"frequency-tables/"
+        invalid=(
+          {"url":"javascript:alert(1)","label":"Frequency Tables","ts":10},
+          {"url":good+"#fragment","label":"Frequency Tables","ts":10},
+          {"url":good+"?q=1","label":"Frequency Tables","ts":10},
+          {"url":root+"unpublished/","label":"Frequency Tables","ts":10},
+          {"url":good,"label":"Wrong title","ts":10},
+          {"url":good,"label":'<img src=x onerror="window.esaInjected=true">',"ts":10},
+          {"url":good,"label":"x"*201,"ts":10},
+          {"url":good,"label":"Frequency Tables","ts":0},
+          {"url":good,"label":"Frequency Tables","ts":-1},
+          {"url":good,"label":"Frequency Tables","ts":"tomorrow"},
+          {"url":good,"label":"Frequency Tables","ts":None},
+          {"url":good,"label":"Frequency Tables","ts":True},
+          {"url":good,"label":"Frequency Tables","ts":999999999999999},
+          {"url":good,"label":"Frequency Tables","ts":[]}
+        )
+        for data in invalid:
+            with self.subTest(saved=str(data)):
+                self.page.evaluate(
+                  "args=>localStorage.setItem(args.k,JSON.stringify(args.value))",
+                  {"k":key,"value":data})
+                self.page.reload(wait_until="networkidle")
+                expect(self.page.locator("#continue-reading-block2")).to_be_hidden()
+        self.page.evaluate(
+          "args=>localStorage.setItem(args.k,JSON.stringify(args.value))",
+          {"k":key,"value":{"url":good,"label":"Frequency Tables"}})
+        self.page.reload(wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-block2")).to_be_visible()
+        self.assertEqual(self.page.locator("#continue-reading-block2-btn")
+                         .get_attribute("href"),good)
+        self.assertIsNone(self.page.evaluate("()=>window.esaInjected||null"))
+        self.page.evaluate("k=>localStorage.setItem(k,'{bad json')",key)
+        self.page.reload(wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-block2")).to_be_hidden()
+
+    def test_batch68_tabular_summaries_blocked_storage_all_ten_lessons(self):
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{
+            configurable:true,
+            get(){throw new DOMException("Storage denied","SecurityError")}
+          });
+        """)
+        root="/descriptive/tabular-summaries/"
+        slugs=("why-tables-come-first","frequency-tables",
+          "relative-frequency-and-percent","cumulative-frequency",
+          "grouped-frequency-tables","contingency-tables",
+          "choosing-the-right-percentage","handling-missing-values",
+          "standard-table-layout-and-reporting","common-table-mistakes")
+        self.page.set_viewport_size({"width":320,"height":750})
+        for slug in slugs:
+            with self.subTest(lesson=slug):
+                self.page.goto(self.origin+root+slug+"/",wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+        self.page.goto(self.origin+root,wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-block2")).to_be_hidden()
+        self.assertGreater(self.page.locator("#lessons .lesson-card a[href]").count(),0)
 
 
 if __name__ == "__main__":
