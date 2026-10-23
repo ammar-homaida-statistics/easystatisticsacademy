@@ -4,6 +4,8 @@ title: Lognormal Distribution
 description: Learn how the lognormal distribution models positive, right-skewed variables and why it appears frequently in economics, finance, biology, and data science.
 permalink: /probability/distributions/lognormal-distribution/
 sidebar: false
+translation_pair: lognormal-distribution
+math: true
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -39,7 +41,7 @@ sidebar: false
       <span class="badge">Continuous</span>
     </div>
 
-    <h1>Lognormal Distribution</h1>
+    <h1>Lognormal Distribution</h1><p><a href="/ar/probability/distributions/lognormal-distribution/" lang="ar" dir="rtl">اقرأ هذا الدرس بالعربية</a></p>
 
     <p class="lead">
       Many real-world variables are positive, highly right-skewed, and cannot take negative values.
@@ -256,7 +258,37 @@ sidebar: false
       This shape often resembles real-world financial and economic data.
     </p>
 
-    <h2>Mean, Median, and Mode</h2>
+    <section class="example-box" id="esa-lognormal-lab" aria-labelledby="esa-ln-heading">
+<h2 id="esa-ln-heading">Interactive Lognormal Probability Explorer</h2><p>Change the log-scale mean and standard deviation, then select an interval or a tail. Probability is calculated on the full positive support, including tails outside the plot.</p>
+<div class="esa-ln-fields">
+<label>Log-scale mean μ<input id="esa-ln-mu" type="number" value="0" step="any" dir="ltr"></label>
+<label>Log-scale SD σ<input id="esa-ln-sigma" type="number" value=".5" min=".000001" step="any" dir="ltr"></label>
+<label>Lower bound a<input id="esa-ln-a" type="number" value="1" min="0" step="any" dir="ltr"></label>
+<label>Upper bound b<input id="esa-ln-b" type="number" value="2" min="0" step="any" dir="ltr"></label>
+<label>Probability region<select id="esa-ln-mode"><option value="between">Between a and b</option><option value="left">Left of a</option><option value="right">Right of b</option></select></label>
+</div><p id="esa-ln-error" role="alert" hidden></p>
+<div id="esa-ln-results" aria-live="polite" aria-atomic="true">
+<p><strong><span id="esa-ln-region">P(a ≤ X ≤ b)</span>:</strong> <output id="esa-ln-probability"></output>
+(<output id="esa-ln-percent"></output>%).</p>
+<svg id="esa-ln-plot" viewBox="0 0 620 225" role="img" aria-label="Interactive Lognormal Probability Explorer" dir="ltr"></svg>
+<p id="esa-ln-warning" class="muted-mini"></p>
+<p>Mean: <output id="esa-ln-mean"></output>; Median: <output id="esa-ln-median"></output>; Mode: <output id="esa-ln-modeValue"></output>.</p>
+<p>Variance: <output id="esa-ln-variance"></output>; Standard deviation: <output id="esa-ln-sd"></output>.</p></div>
+<button type="button" class="btn btn-outline" id="esa-ln-reset">Restore example</button>
+<p class="muted-mini">μ and σ describe ln(X), not the arithmetic mean and SD of X. Numerical CDF calculations are approximations; no inputs are stored.</p>
+</section><style>
+#esa-lognormal-lab{max-width:100%;min-width:0;box-sizing:border-box;overflow-wrap:anywhere}
+#esa-lognormal-lab .esa-ln-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,155px),1fr));gap:12px;margin:12px 0}
+#esa-lognormal-lab label{display:block;font-weight:600}
+#esa-lognormal-lab input,#esa-lognormal-lab select{display:block;box-sizing:border-box;width:100%;max-width:100%;min-width:0;padding:9px;font:inherit;border:1px solid var(--border);border-radius:8px}
+#esa-lognormal-lab [hidden]{display:none!important}
+#esa-lognormal-lab svg{width:100%;height:auto;max-width:640px;display:block;margin:10px auto}
+#esa-lognormal-lab output{font-variant-numeric:tabular-nums}
+#esa-lognormal-lab :is(input,select,button):focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.esa-ln-equation{max-width:100%;overflow-x:auto;direction:ltr}.esa-ln-equation mjx-container[display="true"]{width:max-content;min-width:100%;text-align:left}
+@media print{#esa-lognormal-lab .esa-ln-fields,#esa-lognormal-lab button{display:none}}
+</style><script defer src="/js/lognormal-probability-explorer.js"></script>
+<h2>Mean, Median, and Mode</h2>
 
     <p>
       Unlike the normal distribution,
