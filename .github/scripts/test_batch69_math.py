@@ -53,12 +53,12 @@ class Batch69Benchmarks(unittest.TestCase):
         self.assertAlmostEqual(df,10.93790675014491,places=12)
         self.assertAlmostEqual(t,4.446189534952488,places=12)
         # scipy.stats.ttest_ind(A,B,equal_var=False)
-        self.assertAlmostEqual(.0009985114499363515,.0009985114499363515,places=14)
+        self.assertGreater(t,4.4)
 
     def test_welch_reference_ci_and_reversal(self):
         diff,se,df,t=welch(A,B)
         # scipy.stats.t.ppf(.975,10.93790675014491)
-        critical=2.20210182155946
+        critical=2.202510556189032
         # Derive reported CI from SciPy reference to avoid self-consistency-only tests.
         self.assertAlmostEqual(diff-critical*se,3.9529321,places=6)
         self.assertAlmostEqual(diff+critical*se,11.71373457,places=6)
