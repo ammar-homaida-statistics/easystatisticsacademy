@@ -13,11 +13,15 @@ sidebar: false
   const KEY =
     "esa_continue_descriptive_tabular_summaries_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
     url: "/descriptive/tabular-summaries/common-table-mistakes/",
     label: "Common Table Mistakes",
     ts: Date.now()
   }));
+  } catch (_) {
+    // Optional browser storage may be disabled, blocked, or full.
+  }
 
 })();
 </script>
