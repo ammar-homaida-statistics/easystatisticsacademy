@@ -19,5 +19,6 @@ lang: ar
 <p><a href="/ar/probability/distributions/gamma-distribution/">توزيع غاما — شرح عربي ومختبر تفاعلي لأزمنة انتظار إرلانغ</a></p>
 <p><a href="/ar/probability/distributions/beta-distribution/">توزيع بيتا — شرح عربي متكامل لمعلمتي الشكل والاحتمالات والتحديث البايزي</a></p>
 <p><a href="/ar/probability/distributions/uniform-distribution/">التوزيع المنتظم — شرح عربي ومختبر تفاعلي لمساحة الاحتمال</a></p>
+<p><a href="/ar/probability/distributions/normal-distribution/">التوزيع الطبيعي — درس عربي ومختبر تفاعلي لحساب الاحتمالات</a></p>
 <p><a href="/" lang="en" dir="ltr">English homepage</a></p>
 </div></section>
