@@ -51,7 +51,11 @@ class Batch68ReferenceBenchmarks(unittest.TestCase):
         self.assertAlmostEqual(se,.3741657386773941,places=14)
         self.assertAlmostEqual(t,11.224972160321826,places=12)
         # SciPy t.sf(|t|, 4) * 2 = 0.0003587352603774513
-        self.assertAlmostEqual(.0003587352603774513,.0003587352603774513,places=15)
+        # For df=4, I_x(2, 1/2) = 1 - (3/2)s + (1/2)s³,
+        # with s=|t|/sqrt(4+t²); this is the exact two-sided tail.
+        s=abs(t)/math.sqrt(4+t*t)
+        two_sided_p=1-1.5*s+.5*s**3
+        self.assertAlmostEqual(two_sided_p,.0003587352603774513,places=13)
 
     def test_paired_training_exact_two_sided_95_ci(self):
         _,_,se,_,df=paired(((70,75),(68,72),(75,79),(71,74),(69,74)))
