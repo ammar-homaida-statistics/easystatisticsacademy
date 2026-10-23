@@ -297,6 +297,92 @@ H_1:\mu_D\ne0
       rather than the before and after scores separately.
     </p>
 
+
+    <!-- Batch #68: exact Student-t paired-observation calculator. -->
+    <section id="esa-paired-t-lab" class="concept-box" aria-labelledby="esa-pt-heading">
+      <h2 id="esa-pt-heading">Interactive Paired t-Test Explorer</h2>
+      <p>Enter two observations for each matched person or unit (one pair per line).
+         The difference is always <strong>after minus before</strong>.
+         The calculation is a one-sample t test on the paired differences,
+         not an independent-samples test.</p>
+      <label for="esa-pt-input">Matched pairs: before, after (2–40 complete rows)</label>
+      <textarea id="esa-pt-input" rows="6" spellcheck="false">70,75
+68,72
+75,79
+71,74
+69,74</textarea>
+      <div class="esa-pt-fields">
+        <div><label for="esa-pt-alternative">Alternative hypothesis</label>
+          <select id="esa-pt-alternative">
+            <option value="two-sided">Two-sided: mean change ≠ null</option>
+            <option value="greater">Greater: mean change &gt; null</option>
+            <option value="less">Less: mean change &lt; null</option>
+          </select>
+        </div>
+        <div><label for="esa-pt-null">Hypothesized mean difference μ₀</label>
+          <input id="esa-pt-null" type="number" value="0" step="any" />
+        </div>
+      </div>
+      <div class="esa-pt-controls">
+        <button type="button" class="btn btn-outline" id="esa-pt-reset">Restore five-person example</button>
+        <button type="button" class="btn btn-outline" id="esa-pt-negative">Reverse the before/after change</button>
+      </div>
+      <p id="esa-pt-error" role="alert" hidden></p>
+      <section id="esa-pt-results" aria-live="polite" aria-atomic="true" aria-label="Paired t-test results">
+        <h3>Matched-pair changes</h3>
+        <svg id="esa-pt-plot" viewBox="0 0 620 175" role="img"
+          aria-label="Matched before-and-after values joined by a line"></svg>
+        <p class="muted-mini">Grey dots represent before; teal dots represent after. Each connecting segment belongs to one matched pair.</p>
+        <p id="esa-pt-plot-limit" class="muted-mini"></p>
+        <div class="table-wrap"><table>
+          <caption>Observed before and after measurements and paired differences</caption>
+          <thead><tr><th>Pair</th><th>Before</th><th>After</th><th>After − Before</th></tr></thead>
+          <tbody id="esa-pt-table"></tbody>
+        </table></div>
+        <p><strong>Number of pairs:</strong> <output id="esa-pt-n">5</output>.
+           <strong>Mean difference:</strong> <output id="esa-pt-mean">4.200000</output>.
+           <strong>Sample SD of differences:</strong> <output id="esa-pt-sd">0.836660</output>.</p>
+        <p><strong>Standard error:</strong> <output id="esa-pt-se">0.374166</output>.
+           <strong>t-statistic:</strong> <output id="esa-pt-t">11.224972</output>.
+           <strong>Degrees of freedom:</strong> <output id="esa-pt-df">4</output>.
+           <strong>Student-t p-value:</strong> <output id="esa-pt-p">0.000359</output>.</p>
+        <p><strong>Two-sided 95% t critical value:</strong> <output id="esa-pt-critical">2.776445</output>.
+           <strong>95% confidence interval:</strong>
+           [<output id="esa-pt-lower">3.161149</output>, <output id="esa-pt-upper">5.238851</output>].</p>
+        <p id="esa-pt-conclusion">At the 5% significance level, reject the specified null if assumptions hold.</p>
+        <p id="esa-pt-interpret">The two-sided confidence interval estimates the mean difference.</p>
+      </section>
+      <p class="muted-mini">The test uses the <strong>Student-t distribution</strong> with
+        df = n − 1. The standard error is the sample SD of paired differences
+        divided by √n. The 95% interval always uses the two-sided t critical value,
+        even if a one-sided alternative is selected. Conditions: independent matched
+        pairs; within-pair measurements correspond correctly; and approximately
+        normal population differences for small samples. If every paired difference
+        is identical, the sample difference SD is zero and the usual t-statistic,
+        p-value and t confidence interval are undefined. A non-significant result
+        does not prove equality, and rejection does not establish causality.</p>
+    </section>
+    <style>
+      #esa-paired-t-lab{box-sizing:border-box;min-width:0;max-width:100%;overflow-wrap:anywhere}
+      #esa-paired-t-lab label{display:block;font-weight:650;margin-bottom:8px}
+      #esa-paired-t-lab textarea,#esa-paired-t-lab select,#esa-paired-t-lab input{
+        display:block;box-sizing:border-box;width:100%;min-width:0;max-width:100%;padding:10px;
+        font:inherit;color:var(--text);background:var(--surface);border:1px solid var(--border);border-radius:8px}
+      #esa-paired-t-lab textarea{resize:vertical}
+      #esa-paired-t-lab .esa-pt-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:12px 0}
+      #esa-paired-t-lab .esa-pt-controls{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+      #esa-paired-t-lab .esa-pt-controls button{max-width:100%;white-space:normal}
+      #esa-paired-t-lab [hidden]{display:none!important}
+      #esa-paired-t-lab #esa-pt-error{color:#b42318;font-weight:650}
+      #esa-paired-t-lab #esa-pt-plot{display:block;width:100%;height:auto;max-width:640px;margin:8px auto}
+      #esa-paired-t-lab output{font-variant-numeric:tabular-nums}
+      #esa-paired-t-lab .table-wrap{max-width:100%;overflow-x:auto}
+      #esa-paired-t-lab :is(textarea,select,input,button):focus-visible{
+        outline:2px solid var(--accent);outline-offset:2px}
+      @media(max-width:650px){#esa-paired-t-lab .esa-pt-fields{grid-template-columns:minmax(0,1fr)}}
+    </style>
+    <script src="{{ '/js/paired-t-explorer.js' | relative_url }}" defer></script>
+
     <h2>The Sample Mean Difference</h2>
 
     <p>
