@@ -237,6 +237,57 @@ p_1-p_2
 \hat p_1-\hat p_2
 \]
 
+    <!-- Batch #70: independent-group two-proportion Z laboratory -->
+<section class="concept-box" id="esa-two-proportion-lab" aria-labelledby="esa-2p-heading">
+<h2 id="esa-2p-heading">Interactive Two-Proportion Z-Test Laboratory</h2>
+<p>Enter independent success counts and group sample sizes. The primary test uses the <strong>pooled null proportion</strong> for H₀: p₁=p₂. The displayed 95% confidence interval uses the <strong>unpooled Wald standard error</strong> and is an approximate teaching example, not the recommended interval for sparse data.</p>
+<div class="esa-2p-fields">
+<label for="esa-2p-x1">Group A successes x₁ <input id="esa-2p-x1" type="number" min="0" step="1" value="120"></label>
+<label for="esa-2p-n1">Group A sample size n₁ <input id="esa-2p-n1" type="number" min="1" step="1" value="200"></label>
+<label for="esa-2p-x2">Group B successes x₂ <input id="esa-2p-x2" type="number" min="0" step="1" value="90"></label>
+<label for="esa-2p-n2">Group B sample size n₂ <input id="esa-2p-n2" type="number" min="1" step="1" value="200"></label>
+<label for="esa-2p-alternative">Alternative hypothesis
+<select id="esa-2p-alternative"><option value="two-sided">Two-sided p₁ ≠ p₂</option>
+<option value="greater">Group A greater p₁ &gt; p₂</option>
+<option value="less">Group A less p₁ &lt; p₂</option></select></label>
+</div>
+<div class="esa-2p-controls"><button class="btn btn-outline" type="button" id="esa-2p-reset">Restore worked example</button>
+<button class="btn btn-outline" type="button" id="esa-2p-swap">Swap group labels</button></div>
+<p id="esa-2p-error" role="alert" hidden></p>
+<div id="esa-2p-results" aria-live="polite" aria-atomic="true">
+<div class="table-wrap"><table><caption>Two independent observed sample proportions</caption>
+<thead><tr><th>Measure</th><th>Group A</th><th>Group B</th></tr></thead>
+<tbody><tr><th scope="row">Observed proportion</th><td><output id="esa-2p-p1"></output></td><td><output id="esa-2p-p2"></output></td></tr></tbody>
+</table></div>
+<p><strong>Difference p̂₁−p̂₂:</strong> <output id="esa-2p-diff"></output>.
+<strong>Pooled-null proportion:</strong> <output id="esa-2p-pooled"></output>.
+<strong>Pooled-null SE:</strong> <output id="esa-2p-pooledSE"></output>.</p>
+<p><strong>Z statistic:</strong> <output id="esa-2p-z"></output>.
+<strong>Normal-approximation p-value:</strong> <output id="esa-2p-p"></output>.
+<strong>Unpooled CI SE:</strong> <output id="esa-2p-seCI"></output>.</p>
+<p><strong>Two-sided 95% unpooled Wald interval:</strong>
+[<output id="esa-2p-lower"></output>, <output id="esa-2p-upperCI"></output>].</p>
+<h3>Difference of proportions and 95% interval</h3>
+<svg id="esa-2p-plot" viewBox="0 0 620 185" role="img" aria-label="Difference of proportions with interval and zero reference"></svg>
+<p id="esa-2p-conditions"></p><p id="esa-2p-conclusion"></p><p id="esa-2p-interpretation"></p>
+</div>
+<p class="muted-mini">The two independent groups should be sampled appropriately; individual observations must not be paired or repeated across groups without accounting for dependence. Pooled expected success and failure counts should each be at least 10 for the conventional normal-approximation check. The uncorrected pooled Z test is not identical to an unpooled Wald confidence interval, and their conclusions can differ near the threshold. The result is approximate; no user data are stored.</p>
+</section>
+<style>
+#esa-two-proportion-lab{max-width:100%;min-width:0;box-sizing:border-box;overflow-wrap:anywhere}
+#esa-two-proportion-lab .esa-2p-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:14px 0}
+#esa-two-proportion-lab label{display:block;font-weight:600}
+#esa-two-proportion-lab input,#esa-two-proportion-lab select{box-sizing:border-box;display:block;width:100%;min-width:0;max-width:100%;font:inherit;padding:10px;border:1px solid var(--border);border-radius:8px}
+#esa-two-proportion-lab .esa-2p-controls{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+#esa-two-proportion-lab [hidden]{display:none!important}
+#esa-two-proportion-lab svg{display:block;width:100%;height:auto;max-width:640px;margin:12px auto}
+#esa-two-proportion-lab output{font-variant-numeric:tabular-nums}
+#esa-two-proportion-lab :is(input,select,button):focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media(max-width:650px){#esa-two-proportion-lab .esa-2p-fields{grid-template-columns:minmax(0,1fr)}}
+@media print{#esa-two-proportion-lab .esa-2p-controls{display:none}}
+</style>
+<script defer src="/js/two-proportion-z-explorer.js"></script>
+
     <h2>Why a Pooled Proportion?</h2>
 
     <p>
