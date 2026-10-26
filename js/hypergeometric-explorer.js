@@ -80,7 +80,7 @@
   }
   function clear() {
     for (const id of outputIds) el(id).textContent = "—";
-    bars.replaceChildren();chart.hidden=true;
+    bars.replaceChildren();chart.hidden=true;chart.style.display="none";
   }
   function render() {
     try {
@@ -111,7 +111,7 @@
           (arabic?"تنبيه: تتجاوز نسبة المعاينة 5% وقد يكون تقريب ثنائي الحدين غير دقيق. ":"Caution: the sample exceeds 5% of the population; the binomial approximation may be inaccurate. ") :
           (arabic?"نسبة المعاينة لا تتجاوز 5% لكن دقة التقريب تعتمد أيضًا على المعلمات. ":"The sampling fraction is at most 5%; binomial approximation accuracy still depends on the parameters. ")) +
         (arabic?"السحب عشوائي منتظم دون إرجاع؛ ويستخدم نموذج المقارنة محاولات مستقلة مع p = K/N.":"Sampling is uniformly random without replacement; the comparison model uses independent trials with p = K/N.");
-      status.hidden=false;chart.hidden=false;
+      status.hidden=false;chart.hidden=false;chart.style.display="block";
     } catch (error) {
       clear();status.textContent=error.message;status.hidden=false;
     }
