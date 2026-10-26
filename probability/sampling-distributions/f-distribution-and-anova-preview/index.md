@@ -16,7 +16,7 @@ sidebar: false
   try {
     localStorage.setItem(KEY, JSON.stringify({
     url: "/probability/sampling-distributions/f-distribution-and-anova-preview/",
-    label: "F Distribution and ANOVA Preview",
+    label: "F Distribution & ANOVA Preview",
     ts: Date.now()
     }));
   } catch (_) {
