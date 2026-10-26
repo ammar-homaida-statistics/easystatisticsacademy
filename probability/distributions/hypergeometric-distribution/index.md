@@ -4,6 +4,8 @@ title: Hypergeometric Distribution
 description: Learn how the hypergeometric distribution models sampling without replacement from a finite population.
 permalink: /probability/distributions/hypergeometric-distribution/
 sidebar: false
+translation_pair: hypergeometric-distribution
+math: true
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -40,6 +42,7 @@ sidebar: false
     </div>
 
     <h1>Hypergeometric Distribution</h1>
+<p><a lang="ar" dir="rtl" href="/ar/probability/distributions/hypergeometric-distribution/">اقرأ هذا الدرس بالعربية</a></p>
 
     <p class="lead">
       Many probability models assume independent trials with replacement.
