@@ -16,7 +16,7 @@ sidebar: false
   try {
   localStorage.setItem(KEY, JSON.stringify({
     url: "/probability/lln-clt/inference-bridge/",
-    label: "Inference Bridge",
+    label: "Why Inference Works",
     ts: Date.now()
   }));
   } catch (_) {
