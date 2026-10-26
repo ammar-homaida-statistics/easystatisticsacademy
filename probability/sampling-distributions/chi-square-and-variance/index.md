@@ -16,7 +16,7 @@ sidebar: false
   try {
     localStorage.setItem(KEY, JSON.stringify({
     url: "/probability/sampling-distributions/chi-square-and-variance/",
-    label: "Chi-Square and Variance",
+    label: "Chi-Square Distribution & Variance Inference",
     ts: Date.now()
     }));
   } catch (_) {
