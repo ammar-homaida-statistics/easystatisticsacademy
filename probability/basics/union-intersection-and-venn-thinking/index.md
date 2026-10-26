@@ -16,7 +16,7 @@ sidebar: false
   try {
     localStorage.setItem(KEY, JSON.stringify({
     url: "/probability/basics/union-intersection-and-venn-thinking/",
-    label: "Union, Intersection, and Venn Thinking",
+    label: "Union, Intersection & Venn Thinking",
     ts: Date.now()
     }));
   } catch (_) {
