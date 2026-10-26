@@ -3733,7 +3733,7 @@ class SearchTests(unittest.TestCase):
                     self.page.reload(wait_until="networkidle")
 
                 set_history({"url":valid,"label":malicious})
-                if slug in ("distributions","basics","conditional","lln-clt"):
+                if slug in ("distributions","basics","conditional","lln-clt","sampling-distributions"):
                     # These blocks now require exact route-specific lesson titles.
                     # A hostile label on a valid URL must be rejected.
                     expect(panel).to_be_hidden()
@@ -3773,7 +3773,7 @@ class SearchTests(unittest.TestCase):
                 self.page.reload(wait_until="networkidle")
                 expect(panel).to_be_hidden()
                 # Legitimate saved progress must still work after invalid records.
-                expected_label = (published_title if slug in ("distributions","basics","conditional","lln-clt")
+                expected_label = (published_title if slug in ("distributions","basics","conditional","lln-clt","sampling-distributions")
                                   else "Continue a published lesson")
                 set_history({"url":valid,"label":expected_label})
                 expect(panel).to_be_visible()
@@ -9175,18 +9175,25 @@ class SearchTests(unittest.TestCase):
                                    {"k":key,"v":record})
                 self.page.reload(wait_until="networkidle")
                 expect(self.page.locator("#continue-reading-probability-sampling")).to_be_hidden()
-        # A missing timestamp is a supported legacy record, never a fabricated value.
+        # A missing timestamp remains supported for authentic historical titles.
+        # The stored label must still match its exact published URL.
+        self.page.evaluate("args=>localStorage.setItem(args.k,JSON.stringify(args.v))",
+                           {"k":key,"v":{"url":good,"label":"Standard Error and Estimators"}})
+        self.page.reload(wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-probability-sampling")).to_be_visible()
+        expect(self.page.locator("#continue-reading-probability-sampling-label strong")
+               ).to_have_text("Standard Error and Estimators")
+        # Unknown labels are rejected even when they contain only harmless text.
         self.page.evaluate("args=>localStorage.setItem(args.k,JSON.stringify(args.v))",
                            {"k":key,"v":{"url":good,"label":"Standard Error"}})
         self.page.reload(wait_until="networkidle")
-        expect(self.page.locator("#continue-reading-probability-sampling")).to_be_visible()
+        expect(self.page.locator("#continue-reading-probability-sampling")).to_be_hidden()
         malicious='<img src=x onerror="window.esaInjected=true">'
         self.page.evaluate("args=>localStorage.setItem(args.k,JSON.stringify(args.v))",
                            {"k":key,"v":{"url":good,"label":malicious}})
         self.page.reload(wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-probability-sampling")).to_be_hidden()
         self.assertEqual(self.page.locator("#continue-reading-probability-sampling-label img").count(),0)
-        self.assertIn(malicious,self.page.locator("#continue-reading-probability-sampling-label")
-                      .inner_text())
         self.assertIsNone(self.page.evaluate("()=>window.esaInjected || null"))
 
     def test_batch63_sampling_distributions_denied_storage_mobile(self):
@@ -11346,6 +11353,225 @@ class SearchTests(unittest.TestCase):
         """)
         for slug in ("convergence-intuition","law-of-large-numbers","weak-vs-strong-lln",
                      "central-limit-theorem","normal-approximation","inference-bridge"):
+            self.page.goto(self.origin+base+slug+"/",wait_until="networkidle")
+            expect(self.page.locator("main h1")).to_be_visible()
+        self.page.goto(self.origin+base,wait_until="networkidle")
+        expect(panel).to_be_hidden()
+        self.assertEqual(self.page.locator("#lessons .lesson-card").count(),6)
+
+
+
+    def test_batch74_total_probability_bilingual_parity_and_hreflang(self):
+        routes=("/probability/conditional/law-of-total-probability/",
+                "/ar/probability/conditional/law-of-total-probability/")
+        outputs=[]
+        for url in routes:
+            with self.subTest(url=url):
+                self.page.goto(self.origin+url,wait_until="networkidle")
+                lab=self.page.locator("#esa-total-probability-lab")
+                expect(lab).to_be_visible()
+                fields=("sum","c1","c2","c3","total")
+                values=tuple(lab.locator("#esa-tp-"+key).inner_text() for key in fields)
+                self.assertEqual(values,("1.000000","0.020000","0.150000","0.400000","0.570000"))
+                outputs.append(values)
+                self.assertEqual(self.page.locator('link[rel="canonical"]').count(),1)
+                for lang in ("en","ar"):
+                    self.assertEqual(self.page.locator(
+                        'link[rel="alternate"][hreflang="'+lang+'"]').count(),1)
+                self.assertEqual(lab.locator("label[for]").count(),6)
+                expect(lab.locator("#esa-tp-chart")).to_be_visible()
+                self.assertEqual(lab.locator("#esa-tp-chart").get_attribute("role"),"img")
+                lab.locator("#esa-tp-p3").fill("1")
+                expect(lab.locator("#esa-tp-total")).to_have_text("0.670000")
+                lab.locator("#esa-tp-reset").focus()
+                self.page.keyboard.press("Enter")
+                expect(lab.locator("#esa-tp-total")).to_have_text("0.570000")
+        self.assertEqual(outputs[0],outputs[1])
+        self.page.goto(self.origin+routes[0],wait_until="networkidle")
+        expect(self.page.get_by_role("link",name="اقرأ الدرس باللغة العربية")).to_be_visible()
+        self.page.goto(self.origin+routes[1],wait_until="networkidle")
+        expect(self.page.get_by_role("link",name="English — Law of Total Probability")).to_be_visible()
+
+    def test_batch74_total_probability_invalid_boundaries_responsive_storage(self):
+        self.page.goto(self.origin+"/ar/probability/conditional/law-of-total-probability/",
+                       wait_until="networkidle")
+        lab=self.page.locator("#esa-total-probability-lab")
+        for k,v in (("w1","0.4"),("w2","-0.1"),("p1","1.1"),
+                    ("w1",""),("p1","invalid")):
+            with self.subTest(key=k,value=v):
+                lab.locator("#esa-tp-"+k).evaluate("""(e,v)=>{
+                    e.value=v;e.dispatchEvent(new Event("input",{bubbles:true}))
+                }""",v)
+                expect(lab.locator("#esa-tp-error")).to_be_visible()
+                expect(lab.locator("#esa-tp-results")).to_be_hidden()
+                lab.locator("#esa-tp-reset").click()
+        for k,v in (("w1","0"),("w2","1"),("w3","0"),
+                    ("p1","1"),("p2","0"),("p3","1")):
+            lab.locator("#esa-tp-"+k).fill(v)
+        expect(lab.locator("#esa-tp-results")).to_be_visible()
+        expect(lab.locator("#esa-tp-total")).to_have_text("0.000000")
+        lab.locator("#esa-tp-p2").fill("1")
+        expect(lab.locator("#esa-tp-total")).to_have_text("1.000000")
+        lab.locator("#esa-tp-reset").click()
+        for width in (320,375,768,1280):
+            with self.subTest(width=width):
+                self.page.set_viewport_size({"width":width,"height":850})
+                bounds=lab.evaluate("""e=>({left:e.getBoundingClientRect().left,
+                    right:e.getBoundingClientRect().right,
+                    scroll:e.scrollWidth,client:e.clientWidth})""")
+                self.assertGreaterEqual(bounds["left"],-2,bounds)
+                self.assertLessEqual(bounds["right"],width+2,bounds)
+                self.assertLessEqual(bounds["scroll"]-bounds["client"],2,bounds)
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{configurable:true,
+          get(){throw new DOMException("Denied","SecurityError")}})
+        """)
+        self.page.reload(wait_until="networkidle")
+        expect(lab.locator("#esa-tp-total")).to_have_text("0.570000")
+
+    def test_batch74_multiple_comparisons_holm_bonferroni_ties(self):
+        self.page.goto(self.origin+
+            "/inference/classical-tests/post-hoc-tests-and-multiple-comparisons-preview/",
+            wait_until="networkidle")
+        lab=self.page.locator("#esa-multiple-comparisons-lab")
+        expect(lab).to_be_visible()
+        expect(lab.locator("#esa-mc-rows tr")).to_have_count(4)
+        rows=lab.locator("#esa-mc-rows tr")
+        self.assertEqual([rows.nth(i).locator("td").nth(2).inner_text() for i in range(4)],
+                         ["0.012000","0.054000","0.082000","0.220000"])
+        self.assertEqual([rows.nth(i).locator("td").nth(1).inner_text() for i in range(4)],
+                         ["0.012000","0.072000","0.164000","0.880000"])
+        expect(lab.locator("#esa-mc-fwer")).to_have_text("0.185494")
+        expect(lab.locator("#esa-mc-bound")).to_have_text("0.200000")
+        self.assertIn("Holm rejects 1",lab.locator("#esa-mc-summary").inner_text())
+        lab.locator("#esa-mc-values").fill("0.22 0.041 0.003 0.018")
+        rows=lab.locator("#esa-mc-rows tr")
+        self.assertEqual([rows.nth(i).locator("td").nth(2).inner_text() for i in range(4)],
+                         ["0.220000","0.082000","0.012000","0.054000"])
+        lab.locator("#esa-mc-values").fill("0.01,0.01,0.02")
+        self.assertEqual([rows.nth(i).locator("td").nth(2).inner_text() for i in range(3)],
+                         ["0.030000","0.030000","0.030000"])
+        lab.locator("#esa-mc-alpha").fill("0.025")
+        expect(lab.locator("#esa-mc-fwer")).to_have_text("0.073141")
+        lab.locator("#esa-mc-reset").focus()
+        self.page.keyboard.press("Enter")
+        expect(lab.locator("#esa-mc-count")).to_have_text("4")
+        expect(lab.locator("#esa-mc-chart")).to_be_visible()
+        self.assertEqual(lab.locator("#esa-mc-chart").get_attribute("role"),"img")
+
+    def test_batch74_multiple_comparisons_invalid_mobile_denied_storage(self):
+        self.page.goto(self.origin+
+            "/inference/classical-tests/post-hoc-tests-and-multiple-comparisons-preview/",
+            wait_until="networkidle")
+        lab=self.page.locator("#esa-multiple-comparisons-lab")
+        for value in ("", "0.05","-0.1,0.2","0.1,1.1","0.01,wat","NaN,0.2",
+                      ",".join(["0.02"]*13)):
+            with self.subTest(values=value):
+                lab.locator("#esa-mc-values").fill(value)
+                expect(lab.locator("#esa-mc-error")).to_be_visible()
+                expect(lab.locator("#esa-mc-results")).to_be_hidden()
+        lab.locator("#esa-mc-reset").click()
+        for val in ("","0","1","-0.05","2"):
+            lab.locator("#esa-mc-alpha").evaluate("""(e,v)=>{
+                e.value=v;e.dispatchEvent(new Event("input",{bubbles:true}))
+            }""",val)
+            expect(lab.locator("#esa-mc-error")).to_be_visible()
+            lab.locator("#esa-mc-reset").click()
+        for width in (320,375,768,1280):
+            self.page.set_viewport_size({"width":width,"height":850})
+            bounds=lab.evaluate("""e=>({left:e.getBoundingClientRect().left,
+                right:e.getBoundingClientRect().right,scroll:e.scrollWidth,
+                client:e.clientWidth})""")
+            self.assertGreaterEqual(bounds["left"],-2,bounds)
+            self.assertLessEqual(bounds["right"],width+2,bounds)
+            self.assertLessEqual(bounds["scroll"]-bounds["client"],2,bounds)
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{configurable:true,
+          get(){throw new DOMException("Denied","SecurityError")}})
+        """)
+        self.page.reload(wait_until="networkidle")
+        expect(lab.locator("#esa-mc-rows tr")).to_have_count(4)
+
+    def test_batch74_sampling_all_six_current_and_five_legacy_titles(self):
+        key="esa_continue_probability_sampling_distributions_lesson_v0"
+        base="/probability/sampling-distributions/"
+        cases=(
+          ("what-is-a-sampling-distribution","What Is a Sampling Distribution?","What Is a Sampling Distribution?"),
+          ("standard-error-and-estimators","Standard Error & Estimators","Standard Error and Estimators"),
+          ("z-statistic-and-ci","z-Statistic & Confidence Intervals","Z Statistic and Confidence Intervals"),
+          ("t-distribution-and-t-test","t-Distribution & the t-Statistic","t Distribution and t Test"),
+          ("chi-square-and-variance","Chi-Square Distribution & Variance Inference","Chi-Square and Variance"),
+          ("f-distribution-and-anova-preview","F Distribution & ANOVA Preview","F Distribution and ANOVA Preview"))
+        for slug,title,legacy in cases:
+            with self.subTest(slug=slug):
+                route=base+slug+"/"
+                self.page.goto(self.origin+route,wait_until="networkidle")
+                expect(self.page.locator("main h1")).to_be_visible()
+                record=self.page.evaluate("key=>JSON.parse(localStorage.getItem(key))",key)
+                self.assertEqual(record["url"],route)
+                self.assertEqual(record["label"],title)
+                self.assertIs(type(record["ts"]),int)
+                self.page.goto(self.origin+base,wait_until="networkidle")
+                panel=self.page.locator("#continue-reading-probability-sampling")
+                expect(panel).to_be_visible()
+                expect(panel.locator("strong")).to_have_text(title)
+                self.assertEqual(self.page.locator(
+                    "#continue-reading-probability-sampling-btn").get_attribute("href"),route)
+                if legacy!=title:
+                    self.page.evaluate("a=>localStorage.setItem(a.k,JSON.stringify(a.v))",
+                         {"k":key,"v":{"url":route,"label":legacy}})
+                    self.page.reload(wait_until="networkidle")
+                    expect(panel).to_be_visible()
+                    expect(panel.locator("strong")).to_have_text(legacy)
+
+    def test_batch74_sampling_forged_links_labels_timestamps_storage(self):
+        key="esa_continue_probability_sampling_distributions_lesson_v0"
+        base="/probability/sampling-distributions/"
+        route=base+"z-statistic-and-ci/"
+        title="z-Statistic & Confidence Intervals"
+        self.page.goto(self.origin+base,wait_until="networkidle")
+        panel=self.page.locator("#continue-reading-probability-sampling")
+        invalid=(
+          {"url":route,"label":'<img src=x onerror="window.esaInjected=true">'},
+          {"url":route,"label":"Forged title"},
+          {"url":route,"label":"Chi-Square and Variance"},
+          {"url":route,"label":title,"ts":-1},
+          {"url":route,"label":title,"ts":0},
+          {"url":route,"label":title,"ts":None},
+          {"url":route,"label":title,"ts":True},
+          {"url":route,"label":title,"ts":2.5},
+          {"url":route,"label":title,"ts":999999999999999},
+          {"url":route+"?next=evil","label":title},
+          {"url":route+"#fragment","label":title},
+          {"url":base+"unpublished/","label":title},
+          {"url":base+"../about/","label":title},
+          {"url":"//example.com/","label":title},
+          {"url":"javascript:alert(1)","label":title})
+        for entry in invalid:
+            with self.subTest(entry=str(entry)[:80]):
+                self.page.evaluate("a=>localStorage.setItem(a.k,JSON.stringify(a.v))",
+                     {"k":key,"v":entry})
+                self.page.reload(wait_until="networkidle")
+                expect(panel).to_be_hidden()
+        self.page.evaluate("k=>localStorage.setItem(k,'{bad json')",key)
+        self.page.reload(wait_until="networkidle")
+        expect(panel).to_be_hidden()
+        for entry in (
+            {"url":route,"label":title},
+            {"url":route,"label":title,"ts":self.page.evaluate("Date.now()")},
+            {"url":route,"label":"Z Statistic and Confidence Intervals"}):
+            self.page.evaluate("a=>localStorage.setItem(a.k,JSON.stringify(a.v))",
+                {"k":key,"v":entry})
+            self.page.reload(wait_until="networkidle")
+            expect(panel).to_be_visible()
+        self.assertIsNone(self.page.evaluate("()=>window.esaInjected||null"))
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{configurable:true,
+          get(){throw new DOMException("Denied","SecurityError")}})
+        """)
+        for slug in ("what-is-a-sampling-distribution","standard-error-and-estimators",
+                     "z-statistic-and-ci","t-distribution-and-t-test",
+                     "chi-square-and-variance","f-distribution-and-anova-preview"):
             self.page.goto(self.origin+base+slug+"/",wait_until="networkidle")
             expect(self.page.locator("main h1")).to_be_visible()
         self.page.goto(self.origin+base,wait_until="networkidle")

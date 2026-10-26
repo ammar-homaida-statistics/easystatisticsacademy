@@ -16,7 +16,7 @@ sidebar: false
   try {
     localStorage.setItem(KEY, JSON.stringify({
     url: "/probability/sampling-distributions/z-statistic-and-ci/",
-    label: "Z Statistic and Confidence Intervals",
+    label: "z-Statistic & Confidence Intervals",
     ts: Date.now()
     }));
   } catch (_) {

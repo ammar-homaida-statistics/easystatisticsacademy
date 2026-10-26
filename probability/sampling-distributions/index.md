@@ -544,12 +544,26 @@ sidebar: false
           /^\/probability\/sampling-distributions\/[a-z0-9-]+\/$/.test(url))
     );
     if (!data || typeof data.url !== "string" ||
-        typeof data.label !== "string" || !data.label.trim() ||
-        data.label.length > 200 || !published.has(data.url) ||
-        // Records saved before timestamp support are accepted if ts is absent.
-        (Object.prototype.hasOwnProperty.call(data, "ts") &&
-         (typeof data.ts !== "number" || !Number.isSafeInteger(data.ts) ||
-          data.ts <= 0 || data.ts > Date.now()))) return;
+        typeof data.label !== "string" || !published.has(data.url)) return;
+    // Accept only the canonical title for this published lesson, or the one
+    // historically saved by that same lesson URL; never trust arbitrary labels.
+    const legacyTitles = {
+      "/probability/sampling-distributions/standard-error-and-estimators/": "Standard Error and Estimators",
+      "/probability/sampling-distributions/z-statistic-and-ci/": "Z Statistic and Confidence Intervals",
+      "/probability/sampling-distributions/t-distribution-and-t-test/": "t Distribution and t Test",
+      "/probability/sampling-distributions/chi-square-and-variance/": "Chi-Square and Variance",
+      "/probability/sampling-distributions/f-distribution-and-anova-preview/": "F Distribution and ANOVA Preview"
+    };
+    const lesson = Array.from(
+      document.querySelectorAll("#lessons .lesson-card h3 a[href]"))
+      .find(link => link.getAttribute("href") === data.url);
+    if (!lesson) return;
+    const currentTitle = lesson.textContent.trim();
+    if (data.label !== currentTitle && data.label !== legacyTitles[data.url]) return;
+    // Historical records without a ts field are still valid.
+    if (Object.prototype.hasOwnProperty.call(data, "ts") &&
+        (!Number.isSafeInteger(data.ts) || data.ts <= 0 ||
+         data.ts > Date.now() + 5 * 60 * 1000)) return;
 
     const wrap = document.getElementById("continue-reading-probability-sampling");
     const label = document.getElementById("continue-reading-probability-sampling-label");

@@ -41,6 +41,8 @@ jobs:
         run: python -m unittest discover -s .github/scripts -p 'test_batch72_math.py' -v
       - name: Verify Batch #73 independent conditional and known-sigma Z benchmarks
         run: python -m unittest discover -s .github/scripts -p 'test_batch73_math.py' -v
+      - name: Verify Batch #74 independent partition and multiple-testing references
+        run: python -m unittest discover -s .github/scripts -p 'test_batch74_math.py' -v
       - name: Inventory mathematical placeholders and reject new damage
         run: python .github/scripts/validate_math_placeholders.py
       - name: Validate front matter
