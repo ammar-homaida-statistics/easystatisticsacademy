@@ -3733,8 +3733,8 @@ class SearchTests(unittest.TestCase):
                     self.page.reload(wait_until="networkidle")
 
                 set_history({"url":valid,"label":malicious})
-                if slug == "distributions":
-                    # This block now requires the exact published lesson title.
+                if slug in ("distributions","basics"):
+                    # These blocks now require exact route-specific lesson titles.
                     # A hostile label on a valid URL must be rejected.
                     expect(panel).to_be_hidden()
                     published_title = self.page.locator(
@@ -3773,7 +3773,7 @@ class SearchTests(unittest.TestCase):
                 self.page.reload(wait_until="networkidle")
                 expect(panel).to_be_hidden()
                 # Legitimate saved progress must still work after invalid records.
-                expected_label = (published_title if slug == "distributions"
+                expected_label = (published_title if slug in ("distributions","basics")
                                   else "Continue a published lesson")
                 set_history({"url":valid,"label":expected_label})
                 expect(panel).to_be_visible()
@@ -10663,6 +10663,227 @@ class SearchTests(unittest.TestCase):
         self.page.goto(self.origin+base,wait_until="networkidle")
         expect(self.page.locator("#continue-reading-probability-distributions")).to_be_hidden()
         self.assertEqual(self.page.locator("#lessons .lesson-card").count(),12)
+
+
+
+    def test_batch71_hypergeometric_arabic_english_parity_and_navigation(self):
+        routes=("/probability/distributions/hypergeometric-distribution/",
+                "/ar/probability/distributions/hypergeometric-distribution/")
+        values=[]
+        for route in routes:
+            with self.subTest(route=route):
+                self.page.goto(self.origin+route,wait_until="networkidle")
+                lab=self.page.locator("#esa-hypergeom-explorer")
+                expect(lab).to_be_visible()
+                expect(lab.locator("#esa-hg-exact")).to_have_text("0.339391")
+                expect(lab.locator("#esa-hg-total")).to_have_text("1.000000")
+                expect(lab.locator("#esa-hg-mean")).to_have_text("0.500000")
+                self.assertEqual(lab.locator("#esa-hg-chart").get_attribute("role"),"img")
+                self.assertGreater(self.page.locator('link[rel="canonical"]').count(),0)
+                for lang in ("ar","en"):
+                    self.assertEqual(self.page.locator(
+                        'link[rel="alternate"][hreflang="'+lang+'"]').count(),1)
+                values.append(lab.locator("#esa-hg-exact").inner_text())
+                for name,value in (("N","10"),("K","3"),("n","2"),("x","1")):
+                    lab.locator("#esa-hg-"+name).fill(value)
+                expect(lab.locator("#esa-hg-exact")).to_have_text("0.466667")
+                expect(lab.locator("#esa-hg-approx")).to_have_text("0.420000")
+                expect(lab.locator("#esa-hg-variance")).to_have_text("0.373333")
+                lab.locator("#esa-hg-reset").focus()
+                self.page.keyboard.press("Enter")
+                expect(lab.locator("#esa-hg-exact")).to_have_text("0.339391")
+                for width in (320,375,768,1280):
+                    self.page.set_viewport_size({"width":width,"height":820})
+                    bounds=lab.evaluate("""e=>({left:e.getBoundingClientRect().left,
+                        right:e.getBoundingClientRect().right,
+                        scroll:e.scrollWidth,client:e.clientWidth})""")
+                    self.assertGreaterEqual(bounds["left"],-2,bounds)
+                    self.assertLessEqual(bounds["right"],width+2,bounds)
+                    self.assertLessEqual(bounds["scroll"]-bounds["client"],2,bounds)
+        self.assertEqual(values[0],values[1])
+        self.page.goto(self.origin+routes[1],wait_until="networkidle")
+        expect(self.page.get_by_role("link",name="English — Hypergeometric Distribution")).to_be_visible()
+        self.page.goto(self.origin+routes[0],wait_until="networkidle")
+        expect(self.page.get_by_role("link",name="اقرأ هذا الدرس بالعربية")).to_be_visible()
+
+    def test_batch71_hypergeometric_arabic_invalid_and_blocked_storage(self):
+        self.page.goto(self.origin+"/ar/probability/distributions/hypergeometric-distribution/",
+                       wait_until="networkidle")
+        root=self.page.locator("#esa-hypergeom-explorer")
+        root.locator("#esa-hg-N").fill("0")
+        self.assertIn("N",root.locator("#esa-hg-status").inner_text())
+        expect(root.locator("#esa-hg-chart")).to_be_hidden()
+        root.locator("#esa-hg-reset").click()
+        expect(root.locator("#esa-hg-chart")).to_be_visible()
+        self.assertIn("دون إرجاع",root.locator("#esa-hg-status").inner_text())
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{
+            configurable:true,
+            get(){throw new DOMException("Storage denied","SecurityError")}
+          });
+        """)
+        self.page.reload(wait_until="networkidle")
+        expect(root.locator("#esa-hg-exact")).to_have_text("0.339391")
+        root.locator("#esa-hg-x").fill("2")
+        expect(root.locator("#esa-hg-exact")).not_to_have_text("—")
+
+    def test_batch71_one_proportion_z_wald_wilson_and_hypotheses(self):
+        self.page.goto(self.origin+"/inference/classical-tests/one-proportion-z-test/",
+                       wait_until="networkidle")
+        root=self.page.locator("#esa-one-proportion-lab")
+        expect(root.locator("#esa-op-results")).to_be_visible()
+        targets=(
+            ("phat",.6),("se0",.03535533905932738),
+            ("z",2.8284271247461903),("pvalue",.004677734981047266),
+            ("waldLower",.5321048559554297),("waldUpper",.6678951440445703),
+            ("wilsonLower",.53083672039262),("wilsonUpper",.6653942143319266))
+        for name,expected in targets:
+            with self.subTest(name=name):
+                self.assertAlmostEqual(
+                    float(root.locator("#esa-op-"+name).inner_text()),expected,delta=1e-6)
+        self.assertIn("counts check passed",root.locator("#esa-op-conditions").inner_text())
+        self.assertIn("Wilson",root.locator("#esa-op-plot").get_attribute("aria-label"))
+        root.locator("#esa-op-alternative").select_option("greater")
+        self.assertAlmostEqual(float(root.locator("#esa-op-pvalue").inner_text()),
+                               .002338867490523633,delta=1e-6)
+        root.locator("#esa-op-alternative").select_option("less")
+        self.assertAlmostEqual(float(root.locator("#esa-op-pvalue").inner_text()),
+                               1-.002338867490523633,delta=1e-6)
+        root.locator("#esa-op-reset").focus()
+        self.page.keyboard.press("Enter")
+        expect(root.locator("#esa-op-pvalue")).to_have_text("0.004678")
+        ref=self.page.evaluate(
+            "()=>window.esaOneProportionMath.compute(120,200,.5)")
+        self.assertAlmostEqual(ref["wilsonLower"],.53083672039262,delta=1e-9)
+        self.assertAlmostEqual(ref["wilsonUpper"],.6653942143319266,delta=1e-9)
+
+    def test_batch71_one_proportion_invalid_sparse_mobile_and_storage(self):
+        self.page.goto(self.origin+"/inference/classical-tests/one-proportion-z-test/",
+                       wait_until="networkidle")
+        root=self.page.locator("#esa-one-proportion-lab")
+        x=root.locator("#esa-op-x")
+        for invalid in ("-1","201","1.5","","NaN"):
+            with self.subTest(x=invalid):
+                x.fill(invalid)
+                expect(root.locator("#esa-op-error")).to_be_visible()
+                expect(root.locator("#esa-op-results")).to_be_hidden()
+        root.locator("#esa-op-reset").click()
+        root.locator("#esa-op-n").fill("10")
+        root.locator("#esa-op-x").fill("0")
+        root.locator("#esa-op-p0").fill("0.1")
+        expect(root.locator("#esa-op-results")).to_be_visible()
+        self.assertIn("WARNING",root.locator("#esa-op-conditions").inner_text())
+        self.assertAlmostEqual(float(root.locator("#esa-op-wilsonLower").inner_text()),
+                               0,delta=1e-6)
+        self.assertGreater(float(root.locator("#esa-op-wilsonUpper").inner_text()),0)
+        root.locator("#esa-op-p0").fill("1")
+        expect(root.locator("#esa-op-error")).to_be_visible()
+        root.locator("#esa-op-reset").click()
+        for width in (320,375,768,1280):
+            with self.subTest(width=width):
+                self.page.set_viewport_size({"width":width,"height":820})
+                bounds=root.evaluate("""e=>({left:e.getBoundingClientRect().left,
+                    right:e.getBoundingClientRect().right,
+                    scroll:e.scrollWidth,client:e.clientWidth})""")
+                self.assertGreaterEqual(bounds["left"],-2,bounds)
+                self.assertLessEqual(bounds["right"],width+2,bounds)
+                self.assertLessEqual(bounds["scroll"]-bounds["client"],2,bounds)
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{
+            configurable:true,
+            get(){throw new DOMException("Storage blocked","SecurityError")}
+          });
+        """)
+        self.page.reload(wait_until="networkidle")
+        expect(root.locator("#esa-op-pvalue")).to_have_text("0.004678")
+
+    def test_batch71_probability_basics_eight_canonical_and_six_legacy_titles(self):
+        prefix="/probability/basics/"
+        key="esa_continue_probability_basics_lesson_v0"
+        lessons=(
+          ("what-is-probability","What Is Probability?","What Is Probability?"),
+          ("outcomes-sample-spaces-events","Outcomes, Sample Spaces & Events",
+           "Outcomes, Sample Spaces, and Events"),
+          ("probability-axioms-and-basic-rules","Probability Axioms & Basic Rules",
+           "Probability Axioms and Basic Rules"),
+          ("union-intersection-and-venn-thinking","Union, Intersection & Venn Thinking",
+           "Union, Intersection, and Venn Thinking"),
+          ("equally-likely-and-counting-intuition","Equally Likely Outcomes & Counting Intuition",
+           "Equally Likely and Counting Intuition"),
+          ("independence-vs-disjointness","Independence vs Disjointness",
+           "Independence vs Disjointness"),
+          ("conditional-language-traps","Probability Language Traps",
+           "Conditional Language Traps"),
+          ("modeling-randomness-mini-cases","Modeling Randomness: Mini Cases",
+           "Modeling Randomness (Mini Cases)"))
+        for slug,canonical,legacy in lessons:
+            with self.subTest(slug=slug):
+                route=prefix+slug+"/"
+                self.page.goto(self.origin+route,wait_until="networkidle")
+                saved=self.page.evaluate("k=>JSON.parse(localStorage.getItem(k))",key)
+                self.assertEqual(saved["url"],route)
+                self.assertEqual(saved["label"],canonical)
+                self.assertIs(type(saved["ts"]),int)
+                self.page.goto(self.origin+prefix,wait_until="networkidle")
+                panel=self.page.locator("#continue-reading-probability-basics")
+                expect(panel).to_be_visible()
+                self.assertEqual(self.page.locator(
+                  "#continue-reading-probability-basics-btn").get_attribute("href"),route)
+                if legacy!=canonical:
+                    self.page.evaluate(
+                        "a=>localStorage.setItem(a.key,JSON.stringify(a.value))",
+                        {"key":key,"value":{"url":route,"label":legacy}})
+                    self.page.reload(wait_until="networkidle")
+                    expect(panel).to_be_visible()
+                    self.assertEqual(panel.locator("strong").inner_text(),legacy)
+
+    def test_batch71_probability_basics_rejects_attacks_and_denied_storage(self):
+        prefix="/probability/basics/"
+        key="esa_continue_probability_basics_lesson_v0"
+        url=prefix+"what-is-probability/"
+        self.page.goto(self.origin+prefix,wait_until="networkidle")
+        panel=self.page.locator("#continue-reading-probability-basics")
+        for payload in (
+            {"url":url,"label":'<img src=x onerror="window.esaInjected=true">'},
+            {"url":url,"label":"Forged title"},
+            {"url":url,"label":"What Is Probability?","ts":-1},
+            {"url":url,"label":"What Is Probability?","ts":0},
+            {"url":url,"label":"What Is Probability?","ts":1.5},
+            {"url":url,"label":"What Is Probability?","ts":None},
+            {"url":url,"label":"What Is Probability?","ts":True},
+            {"url":url,"label":"What Is Probability?","ts":999999999999999},
+            {"url":url+"?to=evil","label":"What Is Probability?"},
+            {"url":url+"#anchor","label":"What Is Probability?"},
+            {"url":prefix+"unpublished/","label":"What Is Probability?"},
+            {"url":"javascript:alert(1)","label":"What Is Probability?"}):
+            with self.subTest(payload=str(payload)[:120]):
+                self.page.evaluate("a=>localStorage.setItem(a.k,JSON.stringify(a.data))",
+                    {"k":key,"data":payload})
+                self.page.reload(wait_until="networkidle")
+                expect(panel).to_be_hidden()
+        self.page.evaluate("k=>localStorage.setItem(k,'{corrupt')",key)
+        self.page.reload(wait_until="networkidle")
+        expect(panel).to_be_hidden()
+        self.page.evaluate("a=>localStorage.setItem(a.k,JSON.stringify(a.data))",
+            {"k":key,"data":{"url":url,"label":"What Is Probability?"}})
+        self.page.reload(wait_until="networkidle")
+        expect(panel).to_be_visible()
+        self.assertIsNone(self.page.evaluate("()=>window.esaInjected||null"))
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{
+            configurable:true,
+            get(){throw new DOMException("Denied","SecurityError")}
+          });
+        """)
+        for slug in ("what-is-probability","outcomes-sample-spaces-events",
+             "probability-axioms-and-basic-rules","union-intersection-and-venn-thinking",
+             "equally-likely-and-counting-intuition","independence-vs-disjointness",
+             "conditional-language-traps","modeling-randomness-mini-cases"):
+            self.page.goto(self.origin+prefix+slug+"/",wait_until="networkidle")
+            expect(self.page.locator("main h1")).to_be_visible()
+        self.page.goto(self.origin+prefix,wait_until="networkidle")
+        expect(panel).to_be_hidden()
+        self.assertEqual(self.page.locator("#lessons .lesson-card").count(),8)
 
 
 
