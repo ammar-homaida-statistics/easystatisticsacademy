@@ -16,7 +16,7 @@ sidebar: false
   try {
     localStorage.setItem(KEY, JSON.stringify({
     url: "/probability/sampling-distributions/t-distribution-and-t-test/",
-    label: "t Distribution and t Test",
+    label: "t-Distribution & the t-Statistic",
     ts: Date.now()
     }));
   } catch (_) {
