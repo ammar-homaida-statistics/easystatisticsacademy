@@ -4,6 +4,8 @@ title: Bernoulli Distribution
 description: Learn the Bernoulli distribution, the simplest probability distribution for modeling a single success-or-failure outcome.
 permalink: /probability/distributions/bernoulli-distribution/
 sidebar: false
+translation_pair: bernoulli-distribution
+math: true
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -40,6 +42,7 @@ sidebar: false
     </div>
 
     <h1>Bernoulli Distribution</h1>
+<p><a href="/ar/probability/distributions/bernoulli-distribution/" lang="ar" dir="rtl">اقرأ الدرس باللغة العربية</a></p>
 
     <p class="lead">
       Many random processes have only two possible outcomes: success or failure.
@@ -171,7 +174,34 @@ P(X=0)=1-p
       These two probabilities always sum to one.
     </p>
 
-    <h2>A Coin Toss Example</h2>
+    <!-- Batch #72: shared Bernoulli numerical probability explorer -->
+<section class="concept-box esa-bern-lab" id="esa-bernoulli-explorer" aria-labelledby="esa-bern-heading">
+<h2 id="esa-bern-heading">Interactive Bernoulli Distribution Explorer</h2>
+<p>Set the probability of success <strong>p</strong> and observe the probabilities of failure and success, the expected value and the variance. At p=0 or p=1 the distribution is degenerate: the outcome is certain and the variance is zero.</p>
+<label for="esa-bern-p">Success probability p (0–1)</label>
+<input id="esa-bern-p" type="number" min="0" max="1" step="any" value="0.3" inputmode="decimal">
+<button id="esa-bern-reset" type="button" class="btn btn-outline">Restore example</button>
+<p id="esa-bern-error" role="alert" hidden></p>
+<div class="table-wrap"><table><caption>Bernoulli distribution results (six decimal places)</caption>
+<tbody><tr><th scope="row">P(X=0) = 1−p</th><td id="esa-bern-p0">—</td></tr>
+<tr><th scope="row">P(X=1) = p</th><td id="esa-bern-p1">—</td></tr>
+<tr><th scope="row">Mean E(X) = p</th><td id="esa-bern-mean">—</td></tr>
+<tr><th scope="row">Variance Var(X) = p(1−p)</th><td id="esa-bern-variance">—</td></tr></tbody></table></div>
+<svg id="esa-bern-chart" role="img" viewBox="0 0 610 260" aria-label="Bernoulli probabilities for failure and success"></svg>
+<p class="muted-mini">The bars display the two point probabilities, not continuous densities. Changing the parameter recalculates the exact formulas directly.</p>
+</section>
+<script src="/js/bernoulli-explorer.js" defer></script>
+<style>
+.esa-bern-lab{max-width:100%;min-width:0;box-sizing:border-box;overflow-wrap:anywhere}
+.esa-bern-lab *{box-sizing:border-box}
+.esa-bern-lab label{display:block;font-weight:650;margin-bottom:6px}
+.esa-bern-lab input{display:block;width:min(100%,290px);padding:10px;font:inherit;border:1px solid #777;border-radius:6px;margin-bottom:12px}
+.esa-bern-lab .table-wrap{max-width:100%;overflow-x:auto}
+.esa-bern-lab svg{display:block;width:100%;height:auto;max-width:610px}
+.esa-bern-lab [hidden]{display:none!important}
+.esa-bern-lab :is(input,button):focus-visible{outline:2px solid #0f766e;outline-offset:3px}
+</style>
+<h2>A Coin Toss Example</h2>
 
     <p>
       Suppose a fair coin is tossed.
