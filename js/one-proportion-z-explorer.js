@@ -9,7 +9,7 @@ const erfcPositive=t=>{
  return q*(0.254829592+q*(-0.284496736+
  q*(1.421413741+q*(-1.453152027+q*1.061405429))))*Math.exp(-t*t);
 };
-const upperTail=z=>z>=0?.5*erfcPositive(z/Math.SQRT2):1-.5*erfcPositive(-z/Math.SQRT2);
+const upperTail=z=>z>=0 ? 0.5*erfcPositive(z/Math.SQRT2) : 1-0.5*erfcPositive(-z/Math.SQRT2);
 const critical=1.959963984540054;
 function compute(x,n,p0,side="two-sided"){
  if(!Number.isSafeInteger(x)||!Number.isSafeInteger(n)||n<1||n>1000000||x<0||x>n||
