@@ -16,7 +16,7 @@ sidebar: false
   try {
     localStorage.setItem(KEY, JSON.stringify({
     url: "/probability/basics/modeling-randomness-mini-cases/",
-    label: "Modeling Randomness (Mini Cases)",
+    label: "Modeling Randomness: Mini Cases",
     ts: Date.now()
     }));
   } catch (_) {
