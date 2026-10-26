@@ -16,7 +16,7 @@ sidebar: false
   try {
     localStorage.setItem(KEY, JSON.stringify({
     url: "/probability/basics/probability-axioms-and-basic-rules/",
-    label: "Probability Axioms and Basic Rules",
+    label: "Probability Axioms & Basic Rules",
     ts: Date.now()
     }));
   } catch (_) {
