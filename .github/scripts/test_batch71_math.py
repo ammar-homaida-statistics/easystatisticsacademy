@@ -32,8 +32,8 @@ class Batch71IndependentBenchmarks(unittest.TestCase):
                 probs=[hyper(N,K,n,x) for x in range(n+1)]
                 self.assertAlmostEqual(sum(probs),1.0,places=13)
                 self.assertTrue(all(0<=v<=1 for v in probs))
-        self.assertEqual(hyper(10,2,8,0),0)
-        self.assertEqual(hyper(10,2,8,1),0)
+        self.assertEqual(hyper(10,2,9,0),0)
+        self.assertEqual(hyper(10,2,9,3),0)
     def test_hypergeometric_moments_edge_cases(self):
         for N,K,n in ((2,1,1),(10,3,2),(25,10,5),(100,50,1)):
             p=K/N
