@@ -3733,7 +3733,7 @@ class SearchTests(unittest.TestCase):
                     self.page.reload(wait_until="networkidle")
 
                 set_history({"url":valid,"label":malicious})
-                if slug in ("distributions","basics","conditional"):
+                if slug in ("distributions","basics","conditional","lln-clt"):
                     # These blocks now require exact route-specific lesson titles.
                     # A hostile label on a valid URL must be rejected.
                     expect(panel).to_be_hidden()
@@ -3773,7 +3773,7 @@ class SearchTests(unittest.TestCase):
                 self.page.reload(wait_until="networkidle")
                 expect(panel).to_be_hidden()
                 # Legitimate saved progress must still work after invalid records.
-                expected_label = (published_title if slug in ("distributions","basics","conditional")
+                expected_label = (published_title if slug in ("distributions","basics","conditional","lln-clt")
                                   else "Continue a published lesson")
                 set_history({"url":valid,"label":expected_label})
                 expect(panel).to_be_visible()
@@ -4464,11 +4464,11 @@ class SearchTests(unittest.TestCase):
         """All six lesson URLs and labels persist using the original progress key."""
         lessons=(
             ("convergence-intuition","Convergence Intuition"),
-            ("law-of-large-numbers","Law of Large Numbers"),
+            ("law-of-large-numbers","Law of Large Numbers (LLN)"),
             ("weak-vs-strong-lln","Weak vs Strong LLN"),
-            ("central-limit-theorem","Central Limit Theorem"),
+            ("central-limit-theorem","Central Limit Theorem (CLT)"),
             ("normal-approximation","Normal Approximation"),
-            ("inference-bridge","Inference Bridge"),
+            ("inference-bridge","Why Inference Works"),
         )
         for slug,label in lessons:
             with self.subTest(lesson=slug):
@@ -11119,6 +11119,233 @@ class SearchTests(unittest.TestCase):
         for slug in ("what-is-conditional-probability","multiplication-rule",
                      "law-of-total-probability","bayes-theorem","tree-diagrams",
                      "base-rate-neglect-and-fallacies"):
+            self.page.goto(self.origin+base+slug+"/",wait_until="networkidle")
+            expect(self.page.locator("main h1")).to_be_visible()
+        self.page.goto(self.origin+base,wait_until="networkidle")
+        expect(panel).to_be_hidden()
+        self.assertEqual(self.page.locator("#lessons .lesson-card").count(),6)
+
+
+
+    def test_batch73_conditional_bilingual_numeric_parity_reciprocal_links(self):
+        routes=("/probability/conditional/what-is-conditional-probability/",
+                "/ar/probability/conditional/what-is-conditional-probability/")
+        results=[]
+        for route in routes:
+            with self.subTest(route=route):
+                self.page.goto(self.origin+route,wait_until="networkidle")
+                root=self.page.locator("#esa-conditional-lab")
+                expect(root).to_be_visible()
+                values=tuple(root.locator("#esa-cp-"+k).inner_text()
+                             for k in ("pa","pb","pab","agivenb","bgivena"))
+                self.assertEqual(values,("0.300000","0.500000","0.200000",
+                                         "0.400000","0.666667"))
+                results.append(values)
+                self.assertEqual(self.page.locator(
+                    'link[rel="alternate"][hreflang="en"]').count(),1)
+                self.assertEqual(self.page.locator(
+                    'link[rel="alternate"][hreflang="ar"]').count(),1)
+                self.assertEqual(self.page.locator('link[rel="canonical"]').count(),1)
+                root.locator("#esa-cp-ab").fill("25")
+                root.locator("#esa-cp-aonly").fill("25")
+                root.locator("#esa-cp-bonly").fill("25")
+                root.locator("#esa-cp-neither").fill("25")
+                expect(root.locator("#esa-cp-pa")).to_have_text("0.500000")
+                expect(root.locator("#esa-cp-agivenb")).to_have_text("0.500000")
+                root.locator("#esa-cp-reset").focus()
+                self.page.keyboard.press("Enter")
+                expect(root.locator("#esa-cp-agivenb")).to_have_text("0.400000")
+                self.assertEqual(root.locator("label").count(),4)
+                for width in (320,375,768,1280):
+                    self.page.set_viewport_size({"width":width,"height":820})
+                    bounds=root.evaluate("""e=>({left:e.getBoundingClientRect().left,
+                        right:e.getBoundingClientRect().right,
+                        scroll:e.scrollWidth,client:e.clientWidth})""")
+                    self.assertGreaterEqual(bounds["left"],-2,bounds)
+                    self.assertLessEqual(bounds["right"],width+2,bounds)
+                    self.assertLessEqual(bounds["scroll"]-bounds["client"],2,bounds)
+        self.assertEqual(results[0],results[1])
+        self.page.goto(self.origin+routes[1],wait_until="networkidle")
+        expect(self.page.get_by_role("link",
+               name="English — What Is Conditional Probability?")).to_be_visible()
+        self.page.goto(self.origin+routes[0],wait_until="networkidle")
+        expect(self.page.get_by_role("link",name="اقرأ هذا الدرس بالعربية")).to_be_visible()
+
+    def test_batch73_conditional_zero_denominator_invalid_denied_storage(self):
+        self.page.goto(self.origin+"/ar/probability/conditional/what-is-conditional-probability/",
+                       wait_until="networkidle")
+        root=self.page.locator("#esa-conditional-lab")
+        for field,value in (("ab","0"),("bonly","0")):
+            root.locator("#esa-cp-"+field).fill(value)
+        expect(root.locator("#esa-cp-agivenb")).to_have_text("—")
+        expect(root.locator("#esa-cp-warning")).to_be_visible()
+        self.assertIn("غير معرّف",root.locator("#esa-cp-warning").inner_text())
+        for field,value in (("aonly","0"),):
+            root.locator("#esa-cp-"+field).fill(value)
+        expect(root.locator("#esa-cp-bgivena")).to_have_text("—")
+        root.locator("#esa-cp-neither").fill("0")
+        expect(root.locator("#esa-cp-results")).to_be_hidden()
+        root.locator("#esa-cp-reset").click()
+        expect(root.locator("#esa-cp-results")).to_be_visible()
+        for invalid in ("-1","1.5","NaN",""):
+            root.locator("#esa-cp-ab").evaluate("""(e,v)=>{
+              e.value=v;e.dispatchEvent(new Event("input",{bubbles:true}))
+            }""",invalid)
+            expect(root.locator("#esa-cp-results")).to_be_hidden()
+        root.locator("#esa-cp-reset").click()
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{
+            configurable:true,get(){throw new DOMException("Denied","SecurityError")}
+          })
+        """)
+        self.page.reload(wait_until="networkidle")
+        expect(root.locator("#esa-cp-agivenb")).to_have_text("0.400000")
+        root.locator("#esa-cp-ab").fill("10")
+        expect(root.locator("#esa-cp-agivenb")).to_have_text("0.250000")
+
+    def test_batch73_one_mean_z_known_sigma_exact_references_and_hypotheses(self):
+        self.page.goto(self.origin+"/inference/classical-tests/one-sample-z-test-for-mean/",
+                       wait_until="networkidle")
+        root=self.page.locator("#esa-one-mean-z-lab")
+        expect(root.locator("#esa-omz-results")).to_be_visible()
+        expected={"se":2.0,"z":-4.0,"pvalue":0.00006334248366623957,
+                  "lower":488.0800720309199,"upper":495.9199279690801}
+        for key,val in expected.items():
+            with self.subTest(key=key):
+                self.assertAlmostEqual(float(root.locator("#esa-omz-"+key).inner_text()),
+                                       val,delta=1.1e-6)
+        root.locator("#esa-omz-side").select_option("less")
+        self.assertAlmostEqual(float(root.locator("#esa-omz-pvalue").inner_text()),
+                               .00003167124183311979,delta=1.1e-6)
+        root.locator("#esa-omz-side").select_option("greater")
+        self.assertAlmostEqual(float(root.locator("#esa-omz-pvalue").inner_text()),
+                               .9999683287581669,delta=1.1e-6)
+        root.locator("#esa-omz-reset").focus()
+        self.page.keyboard.press("Enter")
+        expect(root.locator("#esa-omz-z")).to_have_text("-4.000000")
+        self.assertIn("Student t",root.locator("#esa-omz-interpretation").inner_text())
+        self.assertIn("normal",root.locator("#esa-omz-plot").get_attribute("aria-label").lower())
+        for key,val in (("n","25"),("mean","102"),("sigma","10"),("mu0","100")):
+            root.locator("#esa-omz-"+key).fill(val)
+        expect(root.locator("#esa-omz-z")).to_have_text("1.000000")
+        self.assertAlmostEqual(float(root.locator("#esa-omz-pvalue").inner_text()),
+                               .31731050786291415,delta=1.1e-6)
+        for k,v in (("lower",98.08007203091989),("upper",105.91992796908011)):
+            self.assertAlmostEqual(float(root.locator("#esa-omz-"+k).inner_text()),
+                                   v,delta=1.1e-6)
+
+    def test_batch73_one_mean_z_invalid_responsive_denied_storage(self):
+        self.page.goto(self.origin+"/inference/classical-tests/one-sample-z-test-for-mean/",
+                       wait_until="networkidle")
+        root=self.page.locator("#esa-one-mean-z-lab")
+        for k,val in (("n","0"),("n","1.5"),("sigma","0"),("sigma","-1"),
+                      ("mean","invalid"),("mu0",""),("n","1000001")):
+            with self.subTest(key=k,value=val):
+                root.locator("#esa-omz-"+k).evaluate("""(e,v)=>{
+                  e.value=v;e.dispatchEvent(new Event("input",{bubbles:true}))
+                }""",val)
+                expect(root.locator("#esa-omz-error")).to_be_visible()
+                expect(root.locator("#esa-omz-results")).to_be_hidden()
+                root.locator("#esa-omz-reset").click()
+        root.locator("#esa-omz-n").fill("1")
+        expect(root.locator("#esa-omz-results")).to_be_visible()
+        self.assertIn("Small sample",root.locator("#esa-omz-assumptions").inner_text())
+        root.locator("#esa-omz-reset").click()
+        for width in (320,375,768,1280):
+            with self.subTest(width=width):
+                self.page.set_viewport_size({"width":width,"height":830})
+                bounds=root.evaluate("""e=>({
+                  left:e.getBoundingClientRect().left,
+                  right:e.getBoundingClientRect().right,
+                  scroll:e.scrollWidth,client:e.clientWidth})""")
+                self.assertGreaterEqual(bounds["left"],-2,bounds)
+                self.assertLessEqual(bounds["right"],width+2,bounds)
+                self.assertLessEqual(bounds["scroll"]-bounds["client"],2,bounds)
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{
+            configurable:true,get(){throw new DOMException("Denied","SecurityError")}
+          })
+        """)
+        self.page.reload(wait_until="networkidle")
+        expect(root.locator("#esa-omz-z")).to_have_text("-4.000000")
+        root.locator("#esa-omz-n").fill("25")
+        expect(root.locator("#esa-omz-results")).to_be_visible()
+
+    def test_batch73_lln_clt_all_six_current_and_three_legacy_labels(self):
+        key="esa_continue_probability_lln_clt_lesson_v0"
+        base="/probability/lln-clt/"
+        lessons=(
+          ("convergence-intuition","Convergence Intuition","Convergence Intuition"),
+          ("law-of-large-numbers","Law of Large Numbers (LLN)","Law of Large Numbers"),
+          ("weak-vs-strong-lln","Weak vs Strong LLN","Weak vs Strong LLN"),
+          ("central-limit-theorem","Central Limit Theorem (CLT)","Central Limit Theorem"),
+          ("normal-approximation","Normal Approximation","Normal Approximation"),
+          ("inference-bridge","Why Inference Works","Inference Bridge"))
+        for slug,current,legacy in lessons:
+            with self.subTest(slug=slug):
+                route=base+slug+"/"
+                self.page.goto(self.origin+route,wait_until="networkidle")
+                saved=self.page.evaluate("key=>JSON.parse(localStorage.getItem(key))",key)
+                self.assertEqual(saved["url"],route)
+                self.assertEqual(saved["label"],current)
+                self.assertIs(type(saved["ts"]),int)
+                self.page.goto(self.origin+base,wait_until="networkidle")
+                panel=self.page.locator("#continue-reading-probability-lln")
+                expect(panel).to_be_visible()
+                self.assertEqual(self.page.locator(
+                   "#continue-reading-probability-lln-btn").get_attribute("href"),route)
+                if current!=legacy:
+                    self.page.evaluate("a=>localStorage.setItem(a.k,JSON.stringify(a.v))",
+                        {"k":key,"v":{"url":route,"label":legacy}})
+                    self.page.reload(wait_until="networkidle")
+                    expect(panel).to_be_visible()
+                    expect(panel.locator("strong")).to_have_text(legacy)
+
+    def test_batch73_lln_clt_forged_progress_invalid_timestamp_and_storage(self):
+        key="esa_continue_probability_lln_clt_lesson_v0"
+        base="/probability/lln-clt/"
+        route=base+"central-limit-theorem/"
+        title="Central Limit Theorem (CLT)"
+        self.page.goto(self.origin+base,wait_until="networkidle")
+        panel=self.page.locator("#continue-reading-probability-lln")
+        for data in (
+          {"url":route,"label":'<img src=x onerror="window.esaInjected=true">'},
+          {"url":route,"label":"Fake label"},
+          {"url":route,"label":"Law of Large Numbers"},
+          {"url":route,"label":title,"ts":0},
+          {"url":route,"label":title,"ts":-1},
+          {"url":route,"label":title,"ts":None},
+          {"url":route,"label":title,"ts":True},
+          {"url":route,"label":title,"ts":2.5},
+          {"url":route,"label":title,"ts":999999999999999},
+          {"url":route+"#fragment","label":title},
+          {"url":route+"?next=evil","label":title},
+          {"url":base+"not-published/","label":title},
+          {"url":base+"../about/","label":title},
+          {"url":"//example.org/","label":title},
+          {"url":"javascript:alert(1)","label":title}):
+            with self.subTest(record=str(data)[:100]):
+                self.page.evaluate("a=>localStorage.setItem(a.k,JSON.stringify(a.v))",
+                   {"k":key,"v":data})
+                self.page.reload(wait_until="networkidle")
+                expect(panel).to_be_hidden()
+        self.page.evaluate("k=>localStorage.setItem(k,'{bad json')",key)
+        self.page.reload(wait_until="networkidle")
+        expect(panel).to_be_hidden()
+        for data in ({"url":route,"label":title},
+                     {"url":route,"label":title,"ts":self.page.evaluate("Date.now()")}):
+            self.page.evaluate("a=>localStorage.setItem(a.k,JSON.stringify(a.v))",
+                 {"k":key,"v":data})
+            self.page.reload(wait_until="networkidle")
+            expect(panel).to_be_visible()
+        self.assertIsNone(self.page.evaluate("()=>window.esaInjected||null"))
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{
+            configurable:true,get(){throw new DOMException("Denied","SecurityError")}
+          })
+        """)
+        for slug in ("convergence-intuition","law-of-large-numbers","weak-vs-strong-lln",
+                     "central-limit-theorem","normal-approximation","inference-bridge"):
             self.page.goto(self.origin+base+slug+"/",wait_until="networkidle")
             expect(self.page.locator("main h1")).to_be_visible()
         self.page.goto(self.origin+base,wait_until="networkidle")
