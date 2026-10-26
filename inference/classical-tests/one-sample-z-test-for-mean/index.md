@@ -251,7 +251,51 @@ Z=\frac{\bar X-\mu_0}{\sigma/\sqrt{n}}
 
     </div>
 
-    <h2>Example Setup</h2>
+    <!-- Batch #73: Known-population-sigma interactive Z inference -->
+<section class="concept-box" id="esa-one-mean-z-lab" aria-labelledby="esa-omz-heading">
+<h2 id="esa-omz-heading">Interactive One-Sample Z-Test for a Mean</h2>
+<p>Use the <strong>known population standard deviation σ</strong> (not the sample standard deviation) to evaluate hypotheses about a population mean. The standard normal CDF is used for p-values, and the two-sided 95% confidence interval uses z=1.9599639845.</p>
+<div class="esa-omz-grid">
+<div><label for="esa-omz-n">Sample size n</label><input id="esa-omz-n" type="number" min="1" max="1000000" step="1" value="100"></div>
+<div><label for="esa-omz-mean">Sample mean x̄</label><input id="esa-omz-mean" type="number" step="any" value="492"></div>
+<div><label for="esa-omz-sigma">Known population standard deviation σ</label><input id="esa-omz-sigma" type="number" min="0" step="any" value="20"></div>
+<div><label for="esa-omz-mu0">Hypothesized population mean μ₀</label><input id="esa-omz-mu0" type="number" step="any" value="500"></div>
+<div><label for="esa-omz-side">Alternative hypothesis</label><select id="esa-omz-side">
+<option value="two-sided">Two-sided μ ≠ μ₀</option>
+<option value="greater">Greater μ &gt; μ₀</option>
+<option value="less">Less μ &lt; μ₀</option></select></div>
+</div>
+<button type="button" class="btn btn-outline" id="esa-omz-reset">Restore worked example</button>
+<p id="esa-omz-error" role="alert" hidden></p>
+<section id="esa-omz-results" aria-live="polite" aria-label="One-sample Z inference results">
+<div class="table-wrap"><table><caption>Z statistics and two-sided 95% confidence interval (six decimals)</caption><tbody>
+<tr><th scope="row">Standard error σ/√n</th><td id="esa-omz-se">—</td></tr>
+<tr><th scope="row">Z statistic (x̄−μ₀)/(σ/√n)</th><td id="esa-omz-z">—</td></tr>
+<tr><th scope="row">Normal p-value for chosen alternative</th><td id="esa-omz-pvalue">—</td></tr>
+<tr><th scope="row">95% CI lower bound</th><td id="esa-omz-lower">—</td></tr>
+<tr><th scope="row">95% CI upper bound</th><td id="esa-omz-upper">—</td></tr>
+</tbody></table></div>
+<svg id="esa-omz-plot" role="img" viewBox="0 0 620 235" aria-label="Standard normal density and selected Z tail probability" style="display:block;width:100%;height:auto;max-width:100%"></svg>
+<p id="esa-omz-decision"></p>
+<p id="esa-omz-assumptions"></p>
+<p id="esa-omz-interpretation"></p>
+</section>
+<p class="muted-mini">The Z distribution is exact for independent observations from a normal population with known σ. Otherwise, it may be approximate under sufficient CLT conditions. If σ must be estimated, use the <a href="/inference/classical-tests/one-sample-t-test-for-mean/">one-sample Student t-test</a>. The interval is for a population mean, not for a single future observation. No inputs are stored.</p>
+</section>
+<style>
+#esa-one-mean-z-lab,#esa-one-mean-z-lab *{box-sizing:border-box}
+#esa-one-mean-z-lab{max-width:100%;min-width:0;overflow-wrap:anywhere}
+#esa-one-mean-z-lab .esa-omz-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,215px),1fr));gap:12px;margin:14px 0}
+#esa-one-mean-z-lab label{display:block;font-weight:650;margin-bottom:6px}
+#esa-one-mean-z-lab :is(input,select){display:block;width:100%;min-width:0;padding:10px;border:1px solid #777;border-radius:7px;font:inherit}
+#esa-one-mean-z-lab [hidden]{display:none!important}
+#esa-one-mean-z-lab .table-wrap{max-width:100%;overflow-x:auto}
+#esa-one-mean-z-lab td{font-variant-numeric:tabular-nums}
+#esa-one-mean-z-lab :is(input,select,button):focus-visible{outline:2px solid #0f766e;outline-offset:3px}
+@media(max-width:650px){#esa-one-mean-z-lab .esa-omz-grid{grid-template-columns:minmax(0,1fr)}}
+</style>
+<script defer src="/js/one-mean-z-explorer.js"></script>
+<h2>Example Setup</h2>
 
     <p>
       Suppose:
