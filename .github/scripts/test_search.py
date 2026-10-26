@@ -3733,7 +3733,7 @@ class SearchTests(unittest.TestCase):
                     self.page.reload(wait_until="networkidle")
 
                 set_history({"url":valid,"label":malicious})
-                if slug in ("distributions","basics"):
+                if slug in ("distributions","basics","conditional"):
                     # These blocks now require exact route-specific lesson titles.
                     # A hostile label on a valid URL must be rejected.
                     expect(panel).to_be_hidden()
@@ -3773,7 +3773,7 @@ class SearchTests(unittest.TestCase):
                 self.page.reload(wait_until="networkidle")
                 expect(panel).to_be_hidden()
                 # Legitimate saved progress must still work after invalid records.
-                expected_label = (published_title if slug in ("distributions","basics")
+                expected_label = (published_title if slug in ("distributions","basics","conditional")
                                   else "Continue a published lesson")
                 set_history({"url":valid,"label":expected_label})
                 expect(panel).to_be_visible()
@@ -4807,11 +4807,11 @@ class SearchTests(unittest.TestCase):
         """All six original URLs, labels and timestamps persist without schema changes."""
         lessons=(
           ("what-is-conditional-probability","What Is Conditional Probability?"),
-          ("multiplication-rule","Multiplication Rule"),
+          ("multiplication-rule","The Multiplication Rule"),
           ("law-of-total-probability","Law of Total Probability"),
           ("bayes-theorem","Bayes' Theorem"),
-          ("tree-diagrams","Tree Diagrams"),
-          ("base-rate-neglect-and-fallacies","Base-Rate Neglect and Fallacies"),
+          ("tree-diagrams","Tree Diagrams & Structured Reasoning"),
+          ("base-rate-neglect-and-fallacies","Base-Rate Neglect & Common Fallacies"),
         )
         key="esa_continue_probability_conditional_lesson_v0"
         for slug,label in lessons:
@@ -10887,6 +10887,243 @@ class SearchTests(unittest.TestCase):
         self.page.goto(self.origin+prefix,wait_until="networkidle")
         expect(panel).to_be_hidden()
         self.assertEqual(self.page.locator("#lessons .lesson-card").count(),8)
+
+
+
+    def test_batch72_bernoulli_bilingual_parity_and_reciprocal_links(self):
+        routes=("/probability/distributions/bernoulli-distribution/",
+                "/ar/probability/distributions/bernoulli-distribution/")
+        outputs=[]
+        for route in routes:
+            with self.subTest(route=route):
+                self.page.goto(self.origin+route,wait_until="networkidle")
+                root=self.page.locator("#esa-bernoulli-explorer")
+                expect(root).to_be_visible()
+                expect(root.locator("#esa-bern-p0")).to_have_text("0.700000")
+                expect(root.locator("#esa-bern-p1")).to_have_text("0.300000")
+                expect(root.locator("#esa-bern-mean")).to_have_text("0.300000")
+                expect(root.locator("#esa-bern-variance")).to_have_text("0.210000")
+                outputs.append(tuple(root.locator("#esa-bern-"+x).inner_text()
+                                     for x in ("p0","p1","mean","variance")))
+                self.assertEqual(self.page.locator('link[rel="alternate"][hreflang="ar"]').count(),1)
+                self.assertEqual(self.page.locator('link[rel="alternate"][hreflang="en"]').count(),1)
+                self.assertEqual(self.page.locator('link[rel="canonical"]').count(),1)
+                expect(root.locator("#esa-bern-chart")).to_be_visible()
+                self.assertEqual(root.locator("#esa-bern-chart").get_attribute("role"),"img")
+                root.locator("#esa-bern-p").fill("0.5")
+                expect(root.locator("#esa-bern-variance")).to_have_text("0.250000")
+                root.locator("#esa-bern-reset").focus()
+                self.page.keyboard.press("Enter")
+                expect(root.locator("#esa-bern-p1")).to_have_text("0.300000")
+        self.assertEqual(outputs[0],outputs[1])
+        self.page.goto(self.origin+routes[1],wait_until="networkidle")
+        expect(self.page.get_by_role("link",name="English — Bernoulli Distribution")).to_be_visible()
+        self.page.goto(self.origin+routes[0],wait_until="networkidle")
+        expect(self.page.get_by_role("link",name="اقرأ الدرس باللغة العربية")).to_be_visible()
+
+    def test_batch72_bernoulli_endpoints_validation_mobile_denied_storage(self):
+        self.page.goto(self.origin+"/ar/probability/distributions/bernoulli-distribution/",
+                       wait_until="networkidle")
+        root=self.page.locator("#esa-bernoulli-explorer")
+        p=root.locator("#esa-bern-p")
+        for value,p0,p1 in (("0","1.000000","0.000000"),
+                            ("1","0.000000","1.000000")):
+            with self.subTest(p=value):
+                p.fill(value)
+                expect(root.locator("#esa-bern-p0")).to_have_text(p0)
+                expect(root.locator("#esa-bern-p1")).to_have_text(p1)
+                expect(root.locator("#esa-bern-variance")).to_have_text("0.000000")
+        for value in ("","-1","1.01","invalid"):
+            p.evaluate("""(el,v)=>{
+                el.value=v;el.dispatchEvent(new Event("input",{bubbles:true}));
+            }""",value)
+            expect(root.locator("#esa-bern-error")).to_be_visible()
+            expect(root.locator("#esa-bern-chart")).to_be_hidden()
+        root.locator("#esa-bern-reset").click()
+        expect(root.locator("#esa-bern-chart")).to_be_visible()
+        for width in (320,375,768,1280):
+            with self.subTest(width=width):
+                self.page.set_viewport_size({"width":width,"height":850})
+                bounds=root.evaluate("""e=>({
+                    left:e.getBoundingClientRect().left,
+                    right:e.getBoundingClientRect().right,
+                    scroll:e.scrollWidth,client:e.clientWidth})""")
+                self.assertGreaterEqual(bounds["left"],-2,bounds)
+                self.assertLessEqual(bounds["right"],width+2,bounds)
+                self.assertLessEqual(bounds["scroll"]-bounds["client"],2,bounds)
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{
+            configurable:true,get(){throw new DOMException("Denied","SecurityError")}})
+        """)
+        self.page.reload(wait_until="networkidle")
+        expect(root.locator("#esa-bern-mean")).to_have_text("0.300000")
+        p.fill("0.2")
+        expect(root.locator("#esa-bern-variance")).to_have_text("0.160000")
+
+    def test_batch72_student_t_scipy_benchmarks_exact_df_and_alternatives(self):
+        self.page.goto(self.origin+"/inference/classical-tests/one-sample-t-test-for-mean/",
+                       wait_until="networkidle")
+        root=self.page.locator("#esa-student-t-lab")
+        expect(root.locator("#esa-st-results")).to_be_visible()
+        expected={"df":9,"se":.9486832980505138,"t":2.1081851067789197,
+                  "pvalue":.06425884909585156,"critical":2.262157162798205,
+                  "lower":9.853929282088007,"upper":14.146070717911993}
+        for label,value in expected.items():
+            with self.subTest(value=label):
+                self.assertAlmostEqual(float(root.locator("#esa-st-"+label).inner_text()),
+                                       value,delta=1.1e-6)
+        self.assertIn("Student t distribution",root.locator("#esa-st-plot").get_attribute("aria-label"))
+        root.locator("#esa-st-alternative").select_option("greater")
+        self.assertAlmostEqual(float(root.locator("#esa-st-pvalue").inner_text()),
+                               .03212942454792578,delta=1.1e-6)
+        root.locator("#esa-st-alternative").select_option("less")
+        self.assertAlmostEqual(float(root.locator("#esa-st-pvalue").inner_text()),
+                               .9678705754520742,delta=1.1e-6)
+        root.locator("#esa-st-reset").focus()
+        self.page.keyboard.press("Enter")
+        expect(root.locator("#esa-st-pvalue")).to_have_text("0.064259")
+        cases=[
+          (("25","102","10","100"),(.327286881279785,2.0638985616280245)),
+          (("5","1.5","2","0"),(.16883810871814456,2.7764451051977934)),
+          (("2","2","1","0"),(.21634689593878545,12.706204736174694))
+        ]
+        for fields,(pval,tcrit) in cases:
+            with self.subTest(fields=fields):
+                for field,value in zip(("n","mean","sd","mu0"),fields):
+                    root.locator("#esa-st-"+field).fill(value)
+                self.assertAlmostEqual(float(root.locator("#esa-st-pvalue").inner_text()),
+                                       pval,delta=1.1e-6)
+                self.assertAlmostEqual(float(root.locator("#esa-st-critical").inner_text()),
+                                       tcrit,delta=1.1e-6)
+        independent=self.page.evaluate(
+          "()=>window.esaStudentTMath.compute(2,2,1,0)")
+        self.assertAlmostEqual(independent["critical"],12.706204736174694,delta=1e-10)
+        self.assertAlmostEqual(independent["pvalue"],.21634689593878545,delta=1e-10)
+
+    def test_batch72_student_t_invalid_boundary_mobile_and_storage(self):
+        self.page.goto(self.origin+"/inference/classical-tests/one-sample-t-test-for-mean/",
+                       wait_until="networkidle")
+        root=self.page.locator("#esa-student-t-lab")
+        for value in ("1","0","-1","2.5",""):
+            with self.subTest(n=value):
+                root.locator("#esa-st-n").evaluate("""(el,v)=>{
+                    el.value=v;el.dispatchEvent(new Event("input",{bubbles:true}));
+                }""",value)
+                expect(root.locator("#esa-st-error")).to_be_visible()
+                expect(root.locator("#esa-st-results")).to_be_hidden()
+        root.locator("#esa-st-reset").click()
+        for field,value in (("sd","0"),("sd","-1"),("sd",""),
+                            ("mean",""),("mean","injected"),("mu0","")):
+            with self.subTest(field=field,value=value):
+                root.locator("#esa-st-"+field).evaluate("""(el,v)=>{
+                    el.value=v;el.dispatchEvent(new Event("input",{bubbles:true}));
+                }""",value)
+                expect(root.locator("#esa-st-error")).to_be_visible()
+                root.locator("#esa-st-reset").click()
+        root.locator("#esa-st-n").fill("2")
+        expect(root.locator("#esa-st-results")).to_be_visible()
+        self.assertIn("Small sample",root.locator("#esa-st-assumptions").inner_text())
+        for width in (320,375,768,1280):
+            with self.subTest(width=width):
+                self.page.set_viewport_size({"width":width,"height":820})
+                bounds=root.evaluate("""e=>({
+                    left:e.getBoundingClientRect().left,
+                    right:e.getBoundingClientRect().right,
+                    scroll:e.scrollWidth,client:e.clientWidth})""")
+                self.assertGreaterEqual(bounds["left"],-2,bounds)
+                self.assertLessEqual(bounds["right"],width+2,bounds)
+                self.assertLessEqual(bounds["scroll"]-bounds["client"],2,bounds)
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{
+            configurable:true,get(){throw new DOMException("Denied","SecurityError")}})
+        """)
+        self.page.reload(wait_until="networkidle")
+        expect(root.locator("#esa-st-pvalue")).to_have_text("0.064259")
+
+    def test_batch72_conditional_six_progress_canonical_and_three_legacy(self):
+        key="esa_continue_probability_conditional_lesson_v0"
+        base="/probability/conditional/"
+        lessons=(
+          ("what-is-conditional-probability","What Is Conditional Probability?","What Is Conditional Probability?"),
+          ("multiplication-rule","The Multiplication Rule","Multiplication Rule"),
+          ("law-of-total-probability","Law of Total Probability","Law of Total Probability"),
+          ("bayes-theorem","Bayes' Theorem","Bayes' Theorem"),
+          ("tree-diagrams","Tree Diagrams & Structured Reasoning","Tree Diagrams"),
+          ("base-rate-neglect-and-fallacies","Base-Rate Neglect & Common Fallacies",
+           "Base-Rate Neglect and Fallacies"))
+        for slug,title,legacy in lessons:
+            with self.subTest(slug=slug):
+                route=base+slug+"/"
+                self.page.goto(self.origin+route,wait_until="networkidle")
+                saved=self.page.evaluate("k=>JSON.parse(localStorage.getItem(k))",key)
+                self.assertEqual(saved["url"],route)
+                self.assertEqual(saved["label"],title)
+                self.assertIs(type(saved["ts"]),int)
+                self.page.goto(self.origin+base,wait_until="networkidle")
+                panel=self.page.locator("#continue-reading-probability-conditional")
+                expect(panel).to_be_visible()
+                self.assertEqual(self.page.locator("#continue-reading-probability-conditional-btn"
+                              ).get_attribute("href"),route)
+                if title!=legacy:
+                    self.page.evaluate("a=>localStorage.setItem(a.k,JSON.stringify(a.v))",
+                         {"k":key,"v":{"url":route,"label":legacy}})
+                    self.page.reload(wait_until="networkidle")
+                    expect(panel).to_be_visible()
+                    self.assertEqual(panel.locator("strong").inner_text(),legacy)
+
+    def test_batch72_conditional_progress_security_malformed_and_denied_storage(self):
+        key="esa_continue_probability_conditional_lesson_v0"
+        base="/probability/conditional/"
+        valid=base+"bayes-theorem/"
+        title="Bayes' Theorem"
+        self.page.goto(self.origin+base,wait_until="networkidle")
+        panel=self.page.locator("#continue-reading-probability-conditional")
+        malicious='<img src=x onerror="window.esaInjected=true">'
+        cases=[
+          {"url":valid,"label":malicious},
+          {"url":valid,"label":"Forged title"},
+          {"url":valid,"label":title,"ts":-1},
+          {"url":valid,"label":title,"ts":0},
+          {"url":valid,"label":title,"ts":1.5},
+          {"url":valid,"label":title,"ts":None},
+          {"url":valid,"label":title,"ts":True},
+          {"url":valid,"label":title,"ts":999999999999999},
+          {"url":valid+"?x=1","label":title},
+          {"url":valid+"#fragment","label":title},
+          {"url":"javascript:alert(1)","label":title},
+          {"url":"//example.com/evil","label":title},
+          {"url":base+"unpublished/","label":title},
+          {"url":base+"../about/","label":title},
+          {"url":"/probability/basics/what-is-probability/","label":title}
+        ]
+        for data in cases:
+            with self.subTest(data=str(data)[:100]):
+                self.page.evaluate("a=>localStorage.setItem(a.k,JSON.stringify(a.d))",
+                    {"k":key,"d":data})
+                self.page.reload(wait_until="networkidle")
+                expect(panel).to_be_hidden()
+        self.page.evaluate("k=>localStorage.setItem(k,'{bad json')",key)
+        self.page.reload(wait_until="networkidle")
+        expect(panel).to_be_hidden()
+        for data in ({"url":valid,"label":title},
+                     {"url":valid,"label":title,"ts":self.page.evaluate("Date.now()")}):
+            self.page.evaluate("a=>localStorage.setItem(a.k,JSON.stringify(a.d))",
+                 {"k":key,"d":data})
+            self.page.reload(wait_until="networkidle")
+            expect(panel).to_be_visible()
+        self.assertIsNone(self.page.evaluate("()=>window.esaInjected||null"))
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{
+            configurable:true,get(){throw new DOMException("Denied","SecurityError")}})
+        """)
+        for slug in ("what-is-conditional-probability","multiplication-rule",
+                     "law-of-total-probability","bayes-theorem","tree-diagrams",
+                     "base-rate-neglect-and-fallacies"):
+            self.page.goto(self.origin+base+slug+"/",wait_until="networkidle")
+            expect(self.page.locator("main h1")).to_be_visible()
+        self.page.goto(self.origin+base,wait_until="networkidle")
+        expect(panel).to_be_hidden()
+        self.assertEqual(self.page.locator("#lessons .lesson-card").count(),6)
 
 
 
