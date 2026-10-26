@@ -522,9 +522,28 @@ sidebar: false
         .filter(url => typeof url === "string" &&
           /^\/probability\/basics\/[a-z0-9-]+\/$/.test(url))
     );
-    if (!data || typeof data.url !== "string" ||
-        typeof data.label !== "string" || !data.label.trim() ||
-        data.label.length > 200 || !published.has(data.url)) return;
+    if (!data || typeof data.url !== "string" || typeof data.label !== "string" ||
+        !published.has(data.url)) return;
+    // Historical lesson progress was saved with six earlier lesson headings.
+    // Accept only those exact route-specific legacy titles or current card titles.
+    const legacyTitles = {
+      "/probability/basics/outcomes-sample-spaces-events/": "Outcomes, Sample Spaces, and Events",
+      "/probability/basics/probability-axioms-and-basic-rules/": "Probability Axioms and Basic Rules",
+      "/probability/basics/union-intersection-and-venn-thinking/": "Union, Intersection, and Venn Thinking",
+      "/probability/basics/equally-likely-and-counting-intuition/": "Equally Likely and Counting Intuition",
+      "/probability/basics/conditional-language-traps/": "Conditional Language Traps",
+      "/probability/basics/modeling-randomness-mini-cases/": "Modeling Randomness (Mini Cases)"
+    };
+    const publishedLesson = Array.from(
+      document.querySelectorAll("#lessons .lesson-card h3 a[href]"))
+      .find(link => link.getAttribute("href") === data.url);
+    if (!publishedLesson) return;
+    const currentTitle = publishedLesson.textContent.trim();
+    if (data.label !== currentTitle &&
+        data.label !== legacyTitles[data.url]) return;
+    if (Object.prototype.hasOwnProperty.call(data, "ts") &&
+        (!Number.isSafeInteger(data.ts) || data.ts <= 0 ||
+         data.ts > Date.now() + 5 * 60 * 1000)) return;
 
     const wrap = document.getElementById("continue-reading-probability-basics");
     const label = document.getElementById("continue-reading-probability-basics-label");
