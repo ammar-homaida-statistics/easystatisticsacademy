@@ -10764,7 +10764,10 @@ class SearchTests(unittest.TestCase):
         x=root.locator("#esa-op-x")
         for invalid in ("-1","201","1.5","","NaN"):
             with self.subTest(x=invalid):
-                x.fill(invalid)
+                x.evaluate("""(el, value) => {
+                    el.value = value;
+                    el.dispatchEvent(new Event("input", {bubbles: true}));
+                }""",invalid)
                 expect(root.locator("#esa-op-error")).to_be_visible()
                 expect(root.locator("#esa-op-results")).to_be_hidden()
         root.locator("#esa-op-reset").click()
