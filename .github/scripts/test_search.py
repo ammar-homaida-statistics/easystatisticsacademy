@@ -5009,13 +5009,13 @@ class SearchTests(unittest.TestCase):
         """Existing keys, exact lesson labels, timestamps and Continue Reading remain intact."""
         lessons=(
           ("what-is-probability","What Is Probability?"),
-          ("outcomes-sample-spaces-events","Outcomes, Sample Spaces, and Events"),
-          ("probability-axioms-and-basic-rules","Probability Axioms and Basic Rules"),
-          ("union-intersection-and-venn-thinking","Union, Intersection, and Venn Thinking"),
-          ("equally-likely-and-counting-intuition","Equally Likely and Counting Intuition"),
+          ("outcomes-sample-spaces-events","Outcomes, Sample Spaces & Events"),
+          ("probability-axioms-and-basic-rules","Probability Axioms & Basic Rules"),
+          ("union-intersection-and-venn-thinking","Union, Intersection & Venn Thinking"),
+          ("equally-likely-and-counting-intuition","Equally Likely Outcomes & Counting Intuition"),
           ("independence-vs-disjointness","Independence vs Disjointness"),
-          ("conditional-language-traps","Conditional Language Traps"),
-          ("modeling-randomness-mini-cases","Modeling Randomness (Mini Cases)")
+          ("conditional-language-traps","Probability Language Traps"),
+          ("modeling-randomness-mini-cases","Modeling Randomness: Mini Cases")
         )
         key="esa_continue_probability_basics_lesson_v0"
         for slug,label in lessons:
