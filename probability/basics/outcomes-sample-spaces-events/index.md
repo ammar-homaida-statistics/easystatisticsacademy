@@ -16,7 +16,7 @@ sidebar: false
   try {
     localStorage.setItem(KEY, JSON.stringify({
     url: "/probability/basics/outcomes-sample-spaces-events/",
-    label: "Outcomes, Sample Spaces, and Events",
+    label: "Outcomes, Sample Spaces & Events",
     ts: Date.now()
     }));
   } catch (_) {
