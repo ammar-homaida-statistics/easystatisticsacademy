@@ -16,7 +16,7 @@ sidebar: false
   try {
     localStorage.setItem(KEY, JSON.stringify({
     url: "/probability/basics/conditional-language-traps/",
-    label: "Conditional Language Traps",
+    label: "Probability Language Traps",
     ts: Date.now()
     }));
   } catch (_) {

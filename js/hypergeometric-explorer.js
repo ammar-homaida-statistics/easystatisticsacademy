@@ -4,6 +4,7 @@
 (function () {
   "use strict";
   const root = document.getElementById("esa-hypergeom-explorer");
+  const arabic = document.documentElement.lang === "ar";
   if (!root) return;
   const el = (id) => document.getElementById("esa-hg-" + id);
   const ids = ["N", "K", "n", "x"];
@@ -60,12 +61,12 @@
       const a = node("rect",{x:(center-w-1).toFixed(2),y:(base-h).toFixed(2),
         width:w.toFixed(2),height:Math.max(0,h).toFixed(2),
         fill:"#0f766e",opacity:x===selected?1:.77});
-      a.appendChild(node("title",{},"Without replacement; x = "+x+"; P = "+format(exact[x])));
+      a.appendChild(node("title",{},(arabic?"دون إرجاع؛ س = ":"Without replacement; x = ")+x+"; P = "+format(exact[x])));
       items.push(a);
       const second = node("rect",{x:(center+1).toFixed(2),y:(base-b).toFixed(2),
         width:w.toFixed(2),height:Math.max(0,b).toFixed(2),
         fill:"#b45309",opacity:x===selected?1:.65});
-      second.appendChild(node("title",{},"Binomial approximation; x = "+x+"; P = "+format(approx[x])));
+      second.appendChild(node("title",{},(arabic?"تقريب ثنائي الحدين؛ س = ":"Binomial approximation; x = ")+x+"; P = "+format(approx[x])));
       items.push(second);
     }
     for (const x of [...new Set([0,Math.round(n/2),n])]) {
@@ -73,30 +74,30 @@
         "font-size":12,fill:"currentColor","text-anchor":"middle"},String(x)));
     }
     bars.replaceChildren(...items);
-    chart.setAttribute("aria-label","Exact hypergeometric probabilities in teal and with-replacement binomial approximation in amber, across counts 0 to "+n+". Selected count "+selected+". Exact probability "+format(exact[selected])+".");
+    chart.setAttribute("aria-label",arabic ? "احتمالات فوق هندسية دقيقة باللون الأخضر وتقريب ثنائي الحدين بالبرتقالي للنتائج من صفر إلى "+n+". القيمة المختارة "+selected+"؛ احتمالها الدقيق "+format(exact[selected])+"." : "Exact hypergeometric probabilities in teal and with-replacement binomial approximation in amber, across counts 0 to "+n+". Selected count "+selected+". Exact probability "+format(exact[selected])+".");
     return {left,right,exact:exact[selected],approx:approx[selected],
       total:exact.reduce((a,b)=>a+b,0)};
   }
   function clear() {
     for (const id of outputIds) el(id).textContent = "—";
-    bars.replaceChildren();chart.hidden=true;
+    bars.replaceChildren();chart.hidden=true;chart.style.display="none";
   }
   function render() {
     try {
       const numbers = {};
       for (const id of ids) {
         const raw = el(id).value.trim();
-        if (!/^\d+$/.test(raw)) throw Error("Enter whole numbers for N, K, n and x.");
+        if (!/^\d+$/.test(raw)) throw Error(arabic?"يرجى إدخال أعداد صحيحة لـ N وK وn وx.":"Enter whole numbers for N, K, n and x.");
         numbers[id] = Number(raw);
-        if (!Number.isSafeInteger(numbers[id])) throw Error("Inputs must be safe whole numbers.");
+        if (!Number.isSafeInteger(numbers[id])) throw Error(arabic?"يجب أن تكون جميع المدخلات أعدادًا صحيحة ضمن المجال الآمن.":"Inputs must be safe whole numbers.");
       }
       const {N,K,n,x} = numbers;
       if (N < 1 || N > 1000 || K > N || n > N || n > 100 || x > n) {
-        throw Error("Use 1 ≤ N ≤ 1000, 0 ≤ K ≤ N, 0 ≤ n ≤ min(N, 100), and 0 ≤ x ≤ n.");
+        throw Error(arabic?"يُشترط 1 ≤ N ≤ 1000 و0 ≤ K ≤ N و0 ≤ n ≤ min(N,100) و0 ≤ x ≤ n.":"Use 1 ≤ N ≤ 1000, 0 ≤ K ≤ N, 0 ≤ n ≤ min(N, 100), and 0 ≤ x ≤ n.");
       }
       const result = draw(N,K,n,x);
       const p=K/N, variance=N===1?0:n*p*(1-p)*(N-n)/(N-1);
-      el("support").textContent = result.left + " to " + result.right;
+      el("support").textContent = result.left + (arabic?" إلى ":" to ") + result.right;
       el("exact").textContent = format(result.exact);
       el("approx").textContent = format(result.approx);
       el("difference").textContent = format(Math.abs(result.exact-result.approx));
@@ -105,12 +106,12 @@
       el("total").textContent = format(result.total);
       el("sampling-fraction").textContent = (100*n/N).toFixed(2)+"%";
       status.textContent = (x<result.left||x>result.right?
-        "The selected x is impossible without replacement, so its exact probability is zero. " : "") +
+        (arabic?"القيمة المختارة غير ممكنة دون إرجاع؛ واحتمالها الدقيق صفر. ":"The selected x is impossible without replacement, so its exact probability is zero. ") : "") +
         (n/N > .05?
-          "Caution: the sample exceeds 5% of the population; the binomial approximation may be inaccurate. " :
-          "The sampling fraction is at most 5%; binomial approximation accuracy still depends on the parameters. ") +
-        "Sampling is uniformly random without replacement; the comparison model uses independent trials with p = K/N.";
-      status.hidden=false;chart.hidden=false;
+          (arabic?"تنبيه: تتجاوز نسبة المعاينة 5% وقد يكون تقريب ثنائي الحدين غير دقيق. ":"Caution: the sample exceeds 5% of the population; the binomial approximation may be inaccurate. ") :
+          (arabic?"نسبة المعاينة لا تتجاوز 5% لكن دقة التقريب تعتمد أيضًا على المعلمات. ":"The sampling fraction is at most 5%; binomial approximation accuracy still depends on the parameters. ")) +
+        (arabic?"السحب عشوائي منتظم دون إرجاع؛ ويستخدم نموذج المقارنة محاولات مستقلة مع p = K/N.":"Sampling is uniformly random without replacement; the comparison model uses independent trials with p = K/N.");
+      status.hidden=false;chart.hidden=false;chart.style.display="block";
     } catch (error) {
       clear();status.textContent=error.message;status.hidden=false;
     }

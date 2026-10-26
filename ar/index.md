@@ -21,5 +21,6 @@ lang: ar
 <p><a href="/ar/probability/distributions/uniform-distribution/">التوزيع المنتظم — شرح عربي ومختبر تفاعلي لمساحة الاحتمال</a></p>
 <p><a href="/ar/probability/distributions/normal-distribution/">التوزيع الطبيعي — درس عربي ومختبر تفاعلي لحساب الاحتمالات</a></p>
 <p><a href="/ar/probability/distributions/lognormal-distribution/">التوزيع اللوغاريتمي الطبيعي — درس عربي ومختبر تفاعلي للاحتمالات والعزوم</a></p>
+<p><a href="/ar/probability/distributions/hypergeometric-distribution/">التوزيع فوق الهندسي — شرح عربي ومختبر تفاعلي للسحب دون إرجاع</a></p>
 <p><a href="/" lang="en" dir="ltr">English homepage</a></p>
 </div></section>

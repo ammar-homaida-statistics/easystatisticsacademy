@@ -302,7 +302,53 @@ Z=\frac{\hat p-p_0}{\sqrt{p_0(1-p_0)/n}}
       This measures how many standard errors separate the observed sample proportion from the null value.
     </p>
 
-    <h2>Worked Example</h2>
+    <!-- Batch #71: interactive one-proportion Z test and Wilson/Wald intervals -->
+<section class="concept-box" id="esa-one-proportion-lab" aria-labelledby="esa-op-heading">
+<h2 id="esa-op-heading">Interactive One-Proportion Z-Test Laboratory</h2>
+<p>Enter a sample size, number of successes, and the hypothesized population proportion. The Z statistic uses the <strong>null-based</strong> standard error; compare the familiar Wald 95% confidence interval with the more reliable Wilson score interval.</p>
+<div class="esa-op-grid">
+<label for="esa-op-x">Successes x <input id="esa-op-x" type="number" min="0" max="1000000" step="1" value="120"></label>
+<label for="esa-op-n">Sample size n <input id="esa-op-n" type="number" min="1" max="1000000" step="1" value="200"></label>
+<label for="esa-op-p0">Null proportion p₀ <input id="esa-op-p0" type="number" min="0" max="1" step="any" value="0.50"></label>
+<label for="esa-op-alternative">Alternative hypothesis
+<select id="esa-op-alternative"><option value="two-sided">Two-sided p ≠ p₀</option>
+<option value="greater">Greater p &gt; p₀</option><option value="less">Less p &lt; p₀</option></select></label>
+</div>
+<button type="button" class="btn btn-outline" id="esa-op-reset">Restore worked example</button>
+<p id="esa-op-error" role="alert" hidden></p>
+<section id="esa-op-results" aria-live="polite" aria-atomic="true" aria-label="One-proportion Z inference results">
+<p><strong>Observed proportion p̂:</strong> <output id="esa-op-phat"></output>.
+<strong>Null-based SE:</strong> <output id="esa-op-se0"></output>.
+<strong>Z statistic:</strong> <output id="esa-op-z"></output>.
+<strong>Normal p-value:</strong> <output id="esa-op-pvalue"></output>.</p>
+<p><strong>Estimated (Wald) SE:</strong> <output id="esa-op-seWald"></output>.</p>
+<div class="table-wrap"><table><caption>Approximate two-sided 95% confidence intervals for the population proportion</caption>
+<thead><tr><th>Interval method</th><th>Lower limit</th><th>Upper limit</th></tr></thead>
+<tbody>
+<tr><th scope="row">Wald</th><td><output id="esa-op-waldLower"></output></td><td><output id="esa-op-waldUpper"></output></td></tr>
+<tr><th scope="row">Wilson score</th><td><output id="esa-op-wilsonLower"></output></td><td><output id="esa-op-wilsonUpper"></output></td></tr>
+</tbody></table></div>
+<svg id="esa-op-plot" viewBox="0 0 620 185" role="img"
+aria-label="Wald and Wilson 95 percent confidence intervals compared with null proportion"></svg>
+<p id="esa-op-conditions"></p><p id="esa-op-decision"></p><p id="esa-op-interpretation"></p>
+</section>
+<p class="muted-mini">Assumptions: binary outcome, independent random or appropriately designed observations, and adequate success–failure counts under H₀. For finite populations sampled without replacement, assess the sampling fraction. The normal p-value is approximate; an exact binomial test may be preferable when counts are small. The confidence intervals are two-sided and do not change when selecting a one-sided test. Significance does not imply a causal effect, and failure to reject does not prove equality. No observations are stored.</p>
+</section>
+<style>
+#esa-one-proportion-lab{max-width:100%;min-width:0;box-sizing:border-box;overflow-wrap:anywhere}
+#esa-one-proportion-lab .esa-op-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:14px 0}
+#esa-one-proportion-lab label{display:block;font-weight:600;min-width:0}
+#esa-one-proportion-lab :is(input,select){display:block;box-sizing:border-box;width:100%;min-width:0;max-width:100%;padding:9px;font:inherit;border:1px solid var(--border);border-radius:8px}
+#esa-one-proportion-lab [hidden]{display:none!important}
+#esa-one-proportion-lab svg{display:block;width:100%;height:auto;max-width:640px;margin:10px auto}
+#esa-one-proportion-lab .table-wrap{max-width:100%;overflow-x:auto}
+#esa-one-proportion-lab output{font-variant-numeric:tabular-nums}
+#esa-one-proportion-lab :is(input,select,button):focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media(max-width:650px){#esa-one-proportion-lab .esa-op-grid{grid-template-columns:minmax(0,1fr)}}
+@media print{#esa-one-proportion-lab .esa-op-grid,#esa-one-proportion-lab button{display:none}}
+</style>
+<script defer src="/js/one-proportion-z-explorer.js"></script>
+<h2>Worked Example</h2>
 
     <p>
       Suppose:
