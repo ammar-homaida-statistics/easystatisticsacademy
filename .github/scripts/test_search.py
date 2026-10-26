@@ -9175,18 +9175,25 @@ class SearchTests(unittest.TestCase):
                                    {"k":key,"v":record})
                 self.page.reload(wait_until="networkidle")
                 expect(self.page.locator("#continue-reading-probability-sampling")).to_be_hidden()
-        # A missing timestamp is a supported legacy record, never a fabricated value.
+        # A missing timestamp remains supported for authentic historical titles.
+        # The stored label must still match its exact published URL.
+        self.page.evaluate("args=>localStorage.setItem(args.k,JSON.stringify(args.v))",
+                           {"k":key,"v":{"url":good,"label":"Standard Error and Estimators"}})
+        self.page.reload(wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-probability-sampling")).to_be_visible()
+        expect(self.page.locator("#continue-reading-probability-sampling-label strong")
+               ).to_have_text("Standard Error and Estimators")
+        # Unknown labels are rejected even when they contain only harmless text.
         self.page.evaluate("args=>localStorage.setItem(args.k,JSON.stringify(args.v))",
                            {"k":key,"v":{"url":good,"label":"Standard Error"}})
         self.page.reload(wait_until="networkidle")
-        expect(self.page.locator("#continue-reading-probability-sampling")).to_be_visible()
+        expect(self.page.locator("#continue-reading-probability-sampling")).to_be_hidden()
         malicious='<img src=x onerror="window.esaInjected=true">'
         self.page.evaluate("args=>localStorage.setItem(args.k,JSON.stringify(args.v))",
                            {"k":key,"v":{"url":good,"label":malicious}})
         self.page.reload(wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-probability-sampling")).to_be_hidden()
         self.assertEqual(self.page.locator("#continue-reading-probability-sampling-label img").count(),0)
-        self.assertIn(malicious,self.page.locator("#continue-reading-probability-sampling-label")
-                      .inner_text())
         self.assertIsNone(self.page.evaluate("()=>window.esaInjected || null"))
 
     def test_batch63_sampling_distributions_denied_storage_mobile(self):
