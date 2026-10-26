@@ -3,15 +3,35 @@
 "use strict";
 const root=document.getElementById("esa-one-mean-z-lab");if(!root)return;
 const $=id=>root.querySelector("#esa-omz-"+id);
-// Complementary error-function rational approximation (absolute error ~1.5e-7).
-const erfcPositive=x=>{
- const t=1/(1+0.3275911*x);
- return t*(0.254829592+t*(-0.284496736+t*(1.421413741+
-        t*(-1.453152027+t*1.061405429))))*Math.exp(-x*x);
-};
+// Regularized upper incomplete gamma Q(1/2,z²/2), evaluated by
+// a convergent series or continued fraction. This gives normal tails with
+// near-machine accuracy, including small tail probabilities.
+function upperGammaHalf(x){
+ if(x===0)return 1;
+ const a=.5,logGammaHalf=.5*Math.log(Math.PI),eps=2e-15;
+ const front=Math.exp(-x+a*Math.log(x)-logGammaHalf);
+ if(x<a+1){
+  let ap=a,term=1/a,sum=term;
+  for(let i=1;i<=400;i++){
+   ap+=1;term*=x/ap;sum+=term;
+   if(Math.abs(term)<eps*Math.abs(sum))break;
+  }
+  return Math.max(0,Math.min(1,1-front*sum));
+ }
+ let b=x+1-a,c=1e300,d=1/b,h=d;
+ for(let i=1;i<=400;i++){
+  const an=-i*(i-a);b+=2;
+  d=b+an*d;if(Math.abs(d)<1e-300)d=1e-300;
+  c=b+an/c;if(Math.abs(c)<1e-300)c=1e-300;
+  d=1/d;const delta=d*c;h*=delta;
+  if(Math.abs(delta-1)<eps)break;
+ }
+ return Math.max(0,Math.min(1,front*h));
+}
 const upperTail=z=>{
- if(z===0)return 0.5;
- return z>0?0.5*erfcPositive(z/Math.SQRT2):1-0.5*erfcPositive(-z/Math.SQRT2);
+ if(z===0)return .5;
+ const sf=.5*upperGammaHalf(z*z/2);
+ return z>0?sf:1-sf;
 };
 const z975=1.959963984540054;
 function compute(n,mean,sigma,mu0,side="two-sided"){
