@@ -16,7 +16,7 @@ sidebar: false
   try {
     localStorage.setItem(KEY, JSON.stringify({
     url: "/probability/sampling-distributions/standard-error-and-estimators/",
-    label: "Standard Error and Estimators",
+    label: "Standard Error & Estimators",
     ts: Date.now()
     }));
   } catch (_) {
