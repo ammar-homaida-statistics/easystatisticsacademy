@@ -37,6 +37,8 @@ jobs:
         run: python -m unittest discover -s .github/scripts -p 'test_batch70_math.py' -v
       - name: Verify Batch #71 independent Hypergeometric and Wilson/Wald benchmarks
         run: python -m unittest discover -s .github/scripts -p 'test_batch71_math.py' -v
+      - name: Verify Batch #72 independent Bernoulli and Student t benchmarks
+        run: python -m unittest discover -s .github/scripts -p 'test_batch72_math.py' -v
       - name: Inventory mathematical placeholders and reject new damage
         run: python .github/scripts/validate_math_placeholders.py
       - name: Validate front matter
