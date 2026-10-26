@@ -347,7 +347,45 @@ P(\text{at least one false positive})
 
     </ul>
 
-    <h2>Trade-Offs</h2>
+    <!-- Batch #74: multiple-testing decisions, adjusted p-values and illustrative FWER -->
+<section class="concept-box" id="esa-multiple-comparisons-lab" aria-labelledby="esa-mc-heading">
+<h2 id="esa-mc-heading">Interactive Multiple Comparisons: Bonferroni and Holm</h2>
+<p>Enter a <strong>predefined family of 2–12 valid p-values</strong>. Compare unadjusted decisions to Bonferroni and Holm's step-down adjusted p-values. Hypotheses remain in their original entered order; Holm sorts internally and restores the original order.</p>
+<div class="esa-mc-grid">
+<div><label for="esa-mc-values">P-values (comma, space or newline separated)</label>
+<textarea id="esa-mc-values" rows="3" spellcheck="false">0.003, 0.018, 0.041, 0.22</textarea></div>
+<div><label for="esa-mc-alpha">Family-wise significance level α (0 &lt; α &lt; 1)</label>
+<input id="esa-mc-alpha" type="number" min="0" max="1" step="any" value="0.05"></div>
+</div>
+<button class="btn btn-outline" type="button" id="esa-mc-reset">Restore example</button>
+<p id="esa-mc-error" role="alert" hidden></p>
+<section id="esa-mc-results" aria-live="polite" aria-label="Multiple comparisons adjusted p-values">
+<p>Number of tests: <strong id="esa-mc-count">4</strong>.</p>
+<div class="table-wrap"><table><caption>Comparison-wise and family-wise adjustments (six decimals)</caption>
+<thead><tr><th scope="col">Test</th><th scope="col">Raw p</th><th scope="col">Bonferroni p</th><th scope="col">Holm p</th><th scope="col">Raw decision</th><th scope="col">Bonferroni</th><th scope="col">Holm</th></tr></thead>
+<tbody id="esa-mc-rows"></tbody>
+</table></div>
+<svg id="esa-mc-chart" role="img" viewBox="0 0 610 265" style="display:block;width:100%;height:auto" aria-label="Unadjusted, Bonferroni and Holm adjusted p-values"></svg>
+<p><strong>Color key:</strong> <span style="color:#a16207">Unadjusted</span> · <span style="color:#2563eb">Bonferroni</span> · <span style="color:#0f766e">Holm</span>. Red dashed line marks α.</p>
+<p><strong>At least one false rejection across m tests:</strong> if all m nulls are true and the individual valid tests are independent, the unadjusted theoretical probability is <strong id="esa-mc-fwer">—</strong> (= 1−(1−α)ᵐ). This is <em>not</em> an estimate from the submitted p-values.</p>
+<p>The union bound, valid without assuming independence, is at most <strong id="esa-mc-bound">—</strong> (= min(1,mα)) for unadjusted testing when each true-null test has size at most α.</p>
+<p id="esa-mc-summary"></p>
+</section>
+<p class="muted-mini">Holm adjusted p-values are cumulative maxima of (m−j+1)p₍ⱼ₎ in sorted order, capped at 1. Bonferroni uses min(1,mp). Both control the family-wise error rate for a prespecified family of valid p-values under arbitrary dependence. Independence is assumed <em>only</em> for the illustrative 1−(1−α)ᵐ formula. P-values do not quantify effect size; this lab does not compute Tukey HSD or replace a full ANOVA or post-hoc analysis.</p>
+</section>
+<style>
+#esa-multiple-comparisons-lab,#esa-multiple-comparisons-lab *{box-sizing:border-box}
+#esa-multiple-comparisons-lab{max-width:100%;min-width:0;overflow-wrap:anywhere}
+#esa-multiple-comparisons-lab .esa-mc-grid{display:grid;grid-template-columns:minmax(0,2fr) minmax(180px,1fr);gap:12px;margin:14px 0}
+#esa-multiple-comparisons-lab label{display:block;font-weight:650;margin-bottom:5px}
+#esa-multiple-comparisons-lab :is(textarea,input){font:inherit;width:100%;min-width:0;padding:10px;border:1px solid #777;border-radius:6px}
+#esa-multiple-comparisons-lab .table-wrap{max-width:100%;overflow-x:auto}
+#esa-multiple-comparisons-lab [hidden]{display:none!important}
+#esa-multiple-comparisons-lab :is(textarea,input,button):focus-visible{outline:2px solid #0f766e;outline-offset:3px}
+@media(max-width:600px){#esa-multiple-comparisons-lab .esa-mc-grid{grid-template-columns:minmax(0,1fr)}}
+</style>
+<script defer src="/js/multiple-comparisons-explorer.js"></script>
+<h2>Trade-Offs</h2>
 
     <p>
       With a fixed design and comparable tests, stronger family-wise
