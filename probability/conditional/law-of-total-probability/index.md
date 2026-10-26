@@ -4,6 +4,8 @@ title: Law of Total Probability
 description: Learn how to calculate probabilities by combining multiple possible pathways that lead to an event.
 permalink: /probability/conditional/law-of-total-probability/
 sidebar: false
+translation_pair: law-of-total-probability
+math: true
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -40,6 +42,7 @@ sidebar: false
     </div>
 
     <h1>Law of Total Probability</h1>
+<p><a href="/ar/probability/conditional/law-of-total-probability/" lang="ar" dir="rtl">اقرأ الدرس باللغة العربية</a></p>
 
     <p class="lead">
       Many events can occur through several different pathways.
@@ -284,7 +287,47 @@ P(\text{Pass})=0.90(0.60)+0.40(0.40)=0.54+0.16=0.70
 
     </div>
 
-    <h2>More Than Two Pathways</h2>
+    <!-- Batch #74: same shared calculation engine across Arabic and English -->
+<section class="concept-box" id="esa-total-probability-lab" aria-labelledby="esa-tp-heading">
+<h2 id="esa-tp-heading">Interactive Law of Total Probability: Three Groups</h2>
+<p>Model a mutually exclusive, exhaustive partition into three groups. Set each group weight P(Bᵢ) and its conditional event probability P(A|Bᵢ). All group weights must sum to 1.</p>
+<div class="esa-tp-grid">
+<div><label for="esa-tp-w1">Group 1 weight</label><input id="esa-tp-w1" dir="ltr" type="number" min="0" max="1" step="any" value="0.2"></div>
+<div><label for="esa-tp-w2">Group 2 weight</label><input id="esa-tp-w2" dir="ltr" type="number" min="0" max="1" step="any" value="0.3"></div>
+<div><label for="esa-tp-w3">Group 3 weight</label><input id="esa-tp-w3" dir="ltr" type="number" min="0" max="1" step="any" value="0.5"></div>
+<div><label for="esa-tp-p1">P(A | Group 1)</label><input id="esa-tp-p1" dir="ltr" type="number" min="0" max="1" step="any" value="0.1"></div>
+<div><label for="esa-tp-p2">P(A | Group 2)</label><input id="esa-tp-p2" dir="ltr" type="number" min="0" max="1" step="any" value="0.5"></div>
+<div><label for="esa-tp-p3">P(A | Group 3)</label><input id="esa-tp-p3" dir="ltr" type="number" min="0" max="1" step="any" value="0.8"></div>
+</div>
+<button type="button" class="btn btn-outline" id="esa-tp-reset">Restore worked example</button>
+<p id="esa-tp-error" role="alert" aria-live="assertive" hidden></p>
+<section id="esa-tp-results" aria-live="polite" aria-label="Total probability results">
+<div class="table-wrap"><table><caption>Three contributions (six decimal places)</caption><tbody>
+<tr><th scope="row">Sum of partition weights</th><td id="esa-tp-sum">—</td></tr>
+<tr><th scope="row">Group 1 contribution</th><td id="esa-tp-c1">—</td></tr>
+<tr><th scope="row">Group 2 contribution</th><td id="esa-tp-c2">—</td></tr>
+<tr><th scope="row">Group 3 contribution</th><td id="esa-tp-c3">—</td></tr>
+<tr><th scope="row">Total probability P(A)</th><td id="esa-tp-total">—</td></tr>
+</tbody></table></div>
+<svg id="esa-tp-chart" role="img" viewBox="0 0 610 270" dir="ltr" aria-label="Three probability contributions"></svg>
+<p id="esa-tp-explain"></p>
+<p class="muted-mini">A group with zero weight contributes zero; its within-group probability is treated as an illustrative model input, not estimated from observations in an empty group.</p>
+</section>
+</section>
+<style>
+#esa-total-probability-lab,#esa-total-probability-lab *{box-sizing:border-box}
+#esa-total-probability-lab{max-width:100%;min-width:0;overflow-wrap:anywhere}
+#esa-total-probability-lab .esa-tp-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:12px 0}
+#esa-total-probability-lab label{display:block;font-weight:650}
+#esa-total-probability-lab input{display:block;margin-top:5px;padding:10px;border:1px solid #777;border-radius:7px;font:inherit;width:100%;min-width:0}
+#esa-total-probability-lab [hidden]{display:none!important}
+#esa-total-probability-lab .table-wrap{max-width:100%;overflow-x:auto}
+#esa-total-probability-lab svg{display:block;max-width:100%;height:auto;width:100%}
+#esa-total-probability-lab :is(button,input):focus-visible{outline:2px solid #0f766e;outline-offset:3px}
+@media(max-width:600px){#esa-total-probability-lab .esa-tp-grid{grid-template-columns:minmax(0,1fr)}}
+</style>
+<script defer src="/js/total-probability-explorer.js"></script>
+<h2>More Than Two Pathways</h2>
 
     <p>
       Real problems often involve several pathways.
