@@ -16,7 +16,7 @@ sidebar: false
   try {
     localStorage.setItem(KEY, JSON.stringify({
     url: "/probability/conditional/tree-diagrams/",
-    label: "Tree Diagrams",
+    label: "Tree Diagrams & Structured Reasoning",
     ts: Date.now()
     }));
   } catch (_) {

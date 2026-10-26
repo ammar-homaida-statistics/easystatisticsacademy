@@ -16,7 +16,7 @@ sidebar: false
   try {
     localStorage.setItem(KEY, JSON.stringify({
     url: "/probability/conditional/multiplication-rule/",
-    label: "Multiplication Rule",
+    label: "The Multiplication Rule",
     ts: Date.now()
     }));
   } catch (_) {

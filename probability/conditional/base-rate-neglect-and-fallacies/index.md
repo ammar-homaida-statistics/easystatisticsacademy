@@ -16,7 +16,7 @@ sidebar: false
   try {
     localStorage.setItem(KEY, JSON.stringify({
     url: "/probability/conditional/base-rate-neglect-and-fallacies/",
-    label: "Base-Rate Neglect and Fallacies",
+    label: "Base-Rate Neglect & Common Fallacies",
     ts: Date.now()
     }));
   } catch (_) {

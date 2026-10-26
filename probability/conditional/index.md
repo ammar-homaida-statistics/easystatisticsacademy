@@ -524,8 +524,23 @@ sidebar: false
           /^\/probability\/conditional\/[a-z0-9-]+\/$/.test(url))
     );
     if (!data || typeof data.url !== "string" ||
-        typeof data.label !== "string" || !data.label.trim() ||
-        data.label.length > 200 || !published.has(data.url)) return;
+        typeof data.label !== "string" || !published.has(data.url)) return;
+    // Exact historical labels remain accepted only for their original lesson URL.
+    const legacyTitles = {
+      "/probability/conditional/multiplication-rule/": "Multiplication Rule",
+      "/probability/conditional/tree-diagrams/": "Tree Diagrams",
+      "/probability/conditional/base-rate-neglect-and-fallacies/": "Base-Rate Neglect and Fallacies"
+    };
+    const publishedLesson = Array.from(
+      document.querySelectorAll("#lessons .lesson-card h3 a[href]"))
+      .find(link => link.getAttribute("href") === data.url);
+    if (!publishedLesson) return;
+    const currentTitle = publishedLesson.textContent.trim();
+    if (data.label !== currentTitle &&
+        data.label !== legacyTitles[data.url]) return;
+    if (Object.prototype.hasOwnProperty.call(data, "ts") &&
+        (!Number.isSafeInteger(data.ts) || data.ts <= 0 ||
+         data.ts > Date.now() + 5 * 60 * 1000)) return;
 
     const wrap = document.getElementById("continue-reading-probability-conditional");
     const label = document.getElementById("continue-reading-probability-conditional-label");

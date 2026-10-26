@@ -303,7 +303,52 @@ t=\frac{\bar X-\mu_0}{s/\sqrt{n}}
 
     </div>
 
-    <h2>Example Setup</h2>
+    <!-- Batch #72: Student t exact-CDF interactive inference lab -->
+<section class="concept-box" id="esa-student-t-lab" aria-labelledby="esa-st-heading">
+<h2 id="esa-st-heading">Interactive One-Sample Student t-Test Laboratory</h2>
+<p>Use summary statistics from one independent sample. Unlike the Z test, this tool evaluates tail probabilities and the 95% confidence interval with the <strong>Student t distribution</strong> and <span dir="ltr">df=n−1</span>. It does not silently substitute a normal approximation.</p>
+<div class="esa-st-grid">
+<div><label for="esa-st-n">Sample size n (at least 2)</label><input id="esa-st-n" type="number" min="2" max="1000000" step="1" value="10"></div>
+<div><label for="esa-st-mean">Sample mean x̄</label><input id="esa-st-mean" type="number" step="any" value="12"></div>
+<div><label for="esa-st-sd">Sample standard deviation s (n−1 denominator)</label><input id="esa-st-sd" type="number" min="0" step="any" value="3"></div>
+<div><label for="esa-st-mu0">Hypothesized mean μ₀</label><input id="esa-st-mu0" type="number" step="any" value="10"></div>
+<div><label for="esa-st-alternative">Alternative hypothesis</label><select id="esa-st-alternative">
+<option value="two-sided">Two-sided μ ≠ μ₀</option>
+<option value="greater">Greater μ &gt; μ₀</option>
+<option value="less">Less μ &lt; μ₀</option>
+</select></div>
+</div>
+<button id="esa-st-reset" class="btn btn-outline" type="button">Restore worked example</button>
+<p id="esa-st-error" role="alert" hidden></p>
+<section id="esa-st-results" aria-live="polite" aria-label="Student t inference results">
+<div class="table-wrap"><table><caption>One-sample t results (six decimals)</caption><tbody>
+<tr><th scope="row">Degrees of freedom (n−1)</th><td id="esa-st-df">—</td></tr>
+<tr><th scope="row">Estimated standard error s/√n</th><td id="esa-st-se">—</td></tr>
+<tr><th scope="row">Student t statistic</th><td id="esa-st-t">—</td></tr>
+<tr><th scope="row">Student t p-value</th><td id="esa-st-pvalue">—</td></tr>
+<tr><th scope="row">Critical value t₀.₉₇₅,df</th><td id="esa-st-critical">—</td></tr>
+<tr><th scope="row">95% CI lower limit</th><td id="esa-st-lower">—</td></tr>
+<tr><th scope="row">95% CI upper limit</th><td id="esa-st-upper">—</td></tr>
+</tbody></table></div>
+<svg id="esa-st-plot" role="img" viewBox="0 0 620 235" aria-label="Student t density with test statistic and shaded tail probability" style="display:block;max-width:100%;height:auto;width:100%"></svg>
+<p id="esa-st-decision"></p><p id="esa-st-assumptions"></p><p id="esa-st-limits"></p>
+</section>
+<p class="muted-mini">Assumptions: independent observations from random sampling or a defensible study design; approximately normal population for small samples (especially sensitive to outliers). This is a summary-statistics learning tool, not a substitute for examining raw data, study design and outliers. A confidence interval for the mean is not a prediction interval.</p>
+</section>
+<style>
+#esa-student-t-lab,#esa-student-t-lab *{box-sizing:border-box}
+#esa-student-t-lab{max-width:100%;min-width:0;overflow-wrap:anywhere}
+#esa-student-t-lab .esa-st-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,215px),1fr));gap:12px;margin:14px 0}
+#esa-student-t-lab label{display:block;font-weight:650;margin-bottom:6px}
+#esa-student-t-lab :is(input,select){display:block;width:100%;min-width:0;padding:10px;border:1px solid #777;border-radius:7px;font:inherit}
+#esa-student-t-lab :is(input,select,button):focus-visible{outline:2px solid #0f766e;outline-offset:3px}
+#esa-student-t-lab [hidden]{display:none!important}
+#esa-student-t-lab .table-wrap{max-width:100%;overflow-x:auto}
+#esa-student-t-lab td{font-variant-numeric:tabular-nums}
+@media(max-width:650px){#esa-student-t-lab .esa-st-grid{grid-template-columns:minmax(0,1fr)}}
+</style>
+<script defer src="/js/student-t-one-sample-explorer.js"></script>
+<h2>Example Setup</h2>
 
     <p>
       Suppose:
