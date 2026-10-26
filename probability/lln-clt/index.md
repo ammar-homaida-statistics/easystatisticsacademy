@@ -543,8 +543,24 @@ sidebar: false
           /^\/probability\/lln-clt\/[a-z0-9-]+\/$/.test(url))
     );
     if (!data || typeof data.url !== "string" ||
-        typeof data.label !== "string" || !data.label.trim() ||
-        data.label.length > 200 || !published.has(data.url)) return;
+        typeof data.label !== "string" || !published.has(data.url)) return;
+    // Match the published link title exactly or its specific legacy value.
+    // Do not trust arbitrary saved HTML/labels or URLs from localStorage.
+    const legacyTitles = {
+      "/probability/lln-clt/law-of-large-numbers/": "Law of Large Numbers",
+      "/probability/lln-clt/central-limit-theorem/": "Central Limit Theorem",
+      "/probability/lln-clt/inference-bridge/": "Inference Bridge"
+    };
+    const lesson = Array.from(
+      document.querySelectorAll("#lessons .lesson-card h3 a[href]"))
+      .find(link => link.getAttribute("href") === data.url);
+    if (!lesson) return;
+    const currentTitle = lesson.textContent.trim();
+    if (data.label !== currentTitle &&
+        data.label !== legacyTitles[data.url]) return;
+    if (Object.prototype.hasOwnProperty.call(data, "ts") &&
+        (!Number.isSafeInteger(data.ts) || data.ts <= 0 ||
+         data.ts > Date.now() + 5 * 60 * 1000)) return;
 
     const wrap = document.getElementById("continue-reading-probability-lln");
     const label = document.getElementById("continue-reading-probability-lln-label");

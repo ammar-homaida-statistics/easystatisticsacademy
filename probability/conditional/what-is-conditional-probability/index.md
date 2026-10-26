@@ -4,6 +4,8 @@ title: What Is Conditional Probability?
 description: Learn how probabilities change when new information becomes available and discover the foundation of conditional probability.
 permalink: /probability/conditional/what-is-conditional-probability/
 sidebar: false
+translation_pair: conditional-probability-intro
+math: true
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -40,6 +42,7 @@ sidebar: false
     </div>
 
     <h1>What Is Conditional Probability?</h1>
+<p><a href="/ar/probability/conditional/what-is-conditional-probability/" lang="ar" dir="rtl">اقرأ هذا الدرس بالعربية</a></p>
 
     <p class="lead">
       Many probability questions change when new information becomes available.
@@ -313,7 +316,54 @@ sidebar: false
       we zoom into Event B and examine what proportion also belongs to Event A.
     </p>
 
-    <h2>A Venn Diagram Perspective</h2>
+    <!-- Batch #73 — exact 2 × 2 conditional probability lab -->
+<section class="concept-box" id="esa-conditional-lab" aria-labelledby="esa-cp-heading">
+<h2 id="esa-cp-heading">Interactive 2 × 2 Conditional Probability Laboratory</h2>
+<p>Enter the four mutually exclusive event-frequency counts. The counts represent equally weighted observations; conditional probabilities come from relevant subgroup totals.</p>
+<div class="esa-cp-grid">
+<div><label for="esa-cp-ab">A and B (intersection)</label><input id="esa-cp-ab" type="number" min="0" max="1000000" step="1" value="20" dir="ltr"></div>
+<div><label for="esa-cp-aonly">A only, not B</label><input id="esa-cp-aonly" type="number" min="0" max="1000000" step="1" value="10" dir="ltr"></div>
+<div><label for="esa-cp-bonly">B only, not A</label><input id="esa-cp-bonly" type="number" min="0" max="1000000" step="1" value="30" dir="ltr"></div>
+<div><label for="esa-cp-neither">Neither A nor B</label><input id="esa-cp-neither" type="number" min="0" max="1000000" step="1" value="40" dir="ltr"></div>
+</div>
+<button type="button" class="btn btn-outline" id="esa-cp-reset">Restore example</button>
+<p role="status" aria-live="polite" id="esa-cp-warning" hidden></p>
+<section id="esa-cp-results" aria-live="polite" aria-label="Conditional probability results">
+<div class="table-wrap"><table>
+<caption>Two-by-two event count table</caption>
+<thead><tr><th scope="col">Event A</th><th scope="col">B</th><th scope="col">Not B</th></tr></thead>
+<tbody><tr><th scope="row">A</th><td id="esa-cp-cell-ab">20</td><td id="esa-cp-cell-aonly">10</td></tr>
+<tr><th scope="row">Not A</th><td id="esa-cp-cell-bonly">30</td><td id="esa-cp-cell-neither">40</td></tr></tbody>
+</table></div>
+<div class="table-wrap"><table>
+<caption>Counts and exact calculated probabilities (six decimals)</caption>
+<tbody><tr><th scope="row">Total N</th><td id="esa-cp-total">100</td></tr>
+<tr><th scope="row">Count A</th><td id="esa-cp-nA">30</td></tr>
+<tr><th scope="row">Count B</th><td id="esa-cp-nB">50</td></tr>
+<tr><th scope="row">P(A)</th><td id="esa-cp-pa">0.300000</td></tr>
+<tr><th scope="row">P(B)</th><td id="esa-cp-pb">0.500000</td></tr>
+<tr><th scope="row">P(A ∩ B)</th><td id="esa-cp-pab">0.200000</td></tr>
+<tr><th scope="row">P(A|B)</th><td id="esa-cp-agivenb">0.400000</td></tr>
+<tr><th scope="row">P(B|A)</th><td id="esa-cp-bgivena">0.666667</td></tr>
+</tbody></table></div>
+<p id="esa-cp-interpretation"></p>
+</section>
+<p class="muted-mini">If the conditioning event has zero count, its conditional probability is undefined, not zero. These calculations describe the supplied table; they do not alone establish causality or population-level independence.</p>
+</section>
+<style>
+#esa-conditional-lab,#esa-conditional-lab *{box-sizing:border-box}
+#esa-conditional-lab{max-width:100%;min-width:0;overflow-wrap:anywhere}
+#esa-conditional-lab .esa-cp-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:12px 0}
+#esa-conditional-lab label{display:block;font-weight:650}
+#esa-conditional-lab input{display:block;width:100%;min-width:0;margin-top:5px;padding:10px;border:1px solid #777;border-radius:7px;font:inherit}
+#esa-conditional-lab [hidden]{display:none!important}
+#esa-conditional-lab .table-wrap{max-width:100%;overflow-x:auto}
+#esa-conditional-lab td{font-variant-numeric:tabular-nums}
+#esa-conditional-lab :is(input,button):focus-visible{outline:2px solid #0f766e;outline-offset:3px}
+@media(max-width:620px){#esa-conditional-lab .esa-cp-grid{grid-template-columns:minmax(0,1fr)}}
+</style>
+<script defer src="/js/conditional-frequency-explorer.js"></script>
+<h2>A Venn Diagram Perspective</h2>
 
     <p>
       Imagine a Venn diagram containing Events A and B.

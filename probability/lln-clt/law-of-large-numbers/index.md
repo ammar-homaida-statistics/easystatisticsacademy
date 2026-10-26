@@ -16,7 +16,7 @@ sidebar: false
   try {
   localStorage.setItem(KEY, JSON.stringify({
     url: "/probability/lln-clt/law-of-large-numbers/",
-    label: "Law of Large Numbers",
+    label: "Law of Large Numbers (LLN)",
     ts: Date.now()
   }));
   } catch (_) {

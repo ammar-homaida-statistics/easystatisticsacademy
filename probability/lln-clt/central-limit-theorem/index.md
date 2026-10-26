@@ -18,7 +18,7 @@ math: true
   try {
   localStorage.setItem(KEY, JSON.stringify({
     url: "/probability/lln-clt/central-limit-theorem/",
-    label: "Central Limit Theorem",
+    label: "Central Limit Theorem (CLT)",
     ts: Date.now()
   }));
   } catch (_) {
