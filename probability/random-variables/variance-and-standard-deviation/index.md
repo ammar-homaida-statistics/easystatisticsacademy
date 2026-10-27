@@ -16,7 +16,7 @@ sidebar: false
   try {
   localStorage.setItem(KEY, JSON.stringify({
     url: "/probability/random-variables/variance-and-standard-deviation/",
-    label: "Variance and Standard Deviation",
+    label: "Variance & Standard Deviation",
     ts: Date.now()
   }));
   } catch (_) {
