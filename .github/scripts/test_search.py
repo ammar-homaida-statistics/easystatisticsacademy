@@ -3733,7 +3733,7 @@ class SearchTests(unittest.TestCase):
                     self.page.reload(wait_until="networkidle")
 
                 set_history({"url":valid,"label":malicious})
-                if slug in ("distributions","basics","conditional","lln-clt","sampling-distributions","random-variables"):
+                if slug in ("distributions","basics","conditional","lln-clt","sampling-distributions","random-variables","expectation-variance"):
                     # These blocks now require exact route-specific lesson titles.
                     # A hostile label on a valid URL must be rejected.
                     expect(panel).to_be_hidden()
@@ -3773,7 +3773,7 @@ class SearchTests(unittest.TestCase):
                 self.page.reload(wait_until="networkidle")
                 expect(panel).to_be_hidden()
                 # Legitimate saved progress must still work after invalid records.
-                expected_label = (published_title if slug in ("distributions","basics","conditional","lln-clt","sampling-distributions","random-variables")
+                expected_label = (published_title if slug in ("distributions","basics","conditional","lln-clt","sampling-distributions","random-variables","expectation-variance")
                                   else "Continue a published lesson")
                 set_history({"url":valid,"label":expected_label})
                 expect(panel).to_be_visible()
@@ -9007,7 +9007,8 @@ class SearchTests(unittest.TestCase):
                            {"v":{"url":good,"label":"<img src=x onerror=alert(1)>"},"k":key})
         self.page.reload(wait_until="networkidle")
         self.assertEqual(self.page.locator("#continue-reading-probability-ev-label img").count(),0)
-        self.assertIn("<img",self.page.locator("#continue-reading-probability-ev-label").inner_text())
+        expect(self.page.locator("#continue-reading-probability-ev")).to_be_hidden()
+        self.assertNotIn("<img",self.page.locator("#continue-reading-probability-ev-label").inner_text())
 
     def test_batch62_expectation_variance_denied_storage_mobile(self):
         self.page.add_init_script("""
@@ -11791,6 +11792,45 @@ class SearchTests(unittest.TestCase):
         self.page.goto(self.origin+root,wait_until="networkidle")
         expect(panel).to_be_hidden()
         self.assertEqual(self.page.locator("#lessons .lesson-card").count(),6)
+
+
+    def test_batch76_arabic_tree_and_bilingual_parity(self):
+        outputs=[]
+        for url in ('/ar/probability/conditional/tree-diagrams/', '/probability/conditional/multiplication-rule/'):
+            self.page.goto(self.origin+url,wait_until="networkidle")
+            expect(self.page.locator('#esa-conditional-tree-explorer')).to_be_visible()
+            expect(self.page.locator('#esa-tree-chart')).to_be_visible()
+            outputs.append(self.page.locator('#esa-tree-total-pass').inner_text())
+            self.assertAlmostEqual(float(outputs[-1]),.7)
+        self.assertEqual(outputs[0],outputs[1])
+
+    def test_batch76_welch_numerical_and_mobile(self):
+        self.page.set_viewport_size({'width':375,'height':812})
+        self.page.goto(self.origin+'/inference/confidence-intervals/ci-for-difference-of-means-independent/',wait_until="networkidle")
+        expect(self.page.locator('#esa-welch-explorer')).to_be_visible()
+        self.assertAlmostEqual(float(self.page.locator('#esa-welch-lower').inner_text()),.8659,places=3)
+        self.assertAlmostEqual(float(self.page.locator('#esa-welch-upper').inner_text()),11.1341,places=3)
+        self.page.locator('#esa-welch-n1').fill('1')
+        expect(self.page.locator('#esa-welch-error')).to_be_visible()
+        self.page.locator('#esa-welch-n1').fill('40')
+        expect(self.page.locator('#esa-welch-error')).to_be_hidden()
+        self.page.locator('#esa-welch-confidence').select_option('99')
+        self.assertGreater(float(self.page.locator('#esa-welch-margin').inner_text()),5.1341)
+
+    def test_batch76_expectation_progress_security(self):
+        url='/probability/expectation-variance/'
+        key='esa_continue_probability_expectation_variance_lesson_v0'
+        target='/probability/expectation-variance/covariance/'
+        self.page.goto(self.origin+url,wait_until="networkidle")
+        panel=self.page.locator('#continue-reading-probability-ev')
+        for record in [dict(url=target,label='<img src=x onerror=alert(1)>'),dict(url='https://example.org',label='Covariance'),dict(url=target,label='Covariance',ts=9999999999999999)]:
+            self.page.evaluate('(x)=>localStorage.setItem(x.key,JSON.stringify(x.record))',{'key':key,'record':record})
+            self.page.reload(wait_until="networkidle")
+            expect(panel).to_be_hidden()
+        self.page.evaluate('(x)=>localStorage.setItem(x.key,JSON.stringify(x.record))',{'key':key,'record':dict(url=target,label='Covariance')})
+        self.page.reload(wait_until="networkidle")
+        expect(panel).to_be_visible()
+        self.assertEqual(self.page.locator('#continue-reading-probability-ev-btn').get_attribute('href'),target)
 
 
 if __name__ == "__main__":

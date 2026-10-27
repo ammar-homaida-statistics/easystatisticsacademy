@@ -534,19 +534,27 @@ sidebar: false
     const data = JSON.parse(raw);
     // Match only exact, published lesson hrefs belonging to this block.
     // Prefix matches are insufficient: queries, fragments, traversal and other blocks are rejected.
-    const published = new Set(
-      Array.from(document.querySelectorAll("#lessons .lesson-card h3 a[href]"),
-        link => link.getAttribute("href"))
-        .filter(url => typeof url === "string" &&
-          /^\/probability\/expectation-variance\/[a-z0-9-]+\/$/.test(url))
-    );
-    if (!data || typeof data.url !== "string" ||
-        typeof data.label !== "string" || !data.label.trim() ||
-        data.label.length > 200 || !published.has(data.url) ||
-        // Old saved records lacked timestamps; retain those only when the key is absent.
+    const publishedTitles = {
+      "/probability/expectation-variance/linearity-of-expectation/": "Linearity of Expectation",
+      "/probability/expectation-variance/variance-rules-and-sums/": "Variance Rules & Sums of Variables",
+      "/probability/expectation-variance/covariance/": "Covariance",
+      "/probability/expectation-variance/correlation/": "Correlation",
+      "/probability/expectation-variance/indicator-random-variables/": "Indicator Random Variables",
+      "/probability/expectation-variance/applications-mini-cases/": "Applications: Mini Cases"
+};
+    // Exact routes and canonical labels only, with route-specific historical aliases.
+    const historical = {
+      "/probability/expectation-variance/variance-rules-and-sums/": ["Variance Rules and Sums"],
+      "/probability/expectation-variance/applications-mini-cases/": ["Applications and Mini Cases"]
+    };
+    if (!data || typeof data !== "object" || Array.isArray(data) ||
+        typeof data.url !== "string" || typeof data.label !== "string" ||
+        !Object.prototype.hasOwnProperty.call(publishedTitles,data.url) ||
+        (data.label !== publishedTitles[data.url] &&
+         !(historical[data.url] || []).includes(data.label)) ||
         (Object.prototype.hasOwnProperty.call(data,"ts") &&
-         (typeof data.ts !== "number" || !Number.isSafeInteger(data.ts) ||
-          data.ts <= 0 || data.ts > Date.now()))) return;
+         (!Number.isSafeInteger(data.ts) || data.ts <= 0 ||
+          data.ts > Date.now() + 5 * 60 * 1000))) return;
 
     const wrap = document.getElementById("continue-reading-probability-ev");
     const label = document.getElementById("continue-reading-probability-ev-label");

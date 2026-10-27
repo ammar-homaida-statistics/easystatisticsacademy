@@ -68,6 +68,23 @@ sidebar: false
 </section>
 
 <!-- LESSON -->
+<section class="concept-box" id="esa-welch-explorer" aria-labelledby="esa-welch-heading">
+<h2 id="esa-welch-heading">Interactive Welch Confidence Interval Explorer</h2>
+<p>Enter summary statistics from two independent groups. The interval estimates μ₁ − μ₂ without assuming equal population variances.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:12px">
+<label>Group 1 mean<input id="esa-welch-m1" type="number" value="82" step="any" style="width:100%"></label>
+<label>Group 1 sample SD<input id="esa-welch-s1" type="number" value="10" step="any" style="width:100%"></label>
+<label>Group 1 sample size<input id="esa-welch-n1" type="number" value="40" min="2" max="1000000" step="1" style="width:100%"></label>
+<label>Group 2 mean<input id="esa-welch-m2" type="number" value="76" step="any" style="width:100%"></label>
+<label>Group 2 sample SD<input id="esa-welch-s2" type="number" value="12" step="any" style="width:100%"></label>
+<label>Group 2 sample size<input id="esa-welch-n2" type="number" value="35" min="2" max="1000000" step="1" style="width:100%"></label>
+<label>Confidence level<select id="esa-welch-confidence"><option value="90">90%</option><option value="95" selected>95%</option><option value="99">99%</option></select></label></div>
+<p id="esa-welch-error" role="status" hidden>Please enter finite means, nonnegative sample standard deviations, integer group sizes of at least 2, and nonzero total estimated variance.</p>
+<div id="esa-welch-results" aria-live="polite"><p>Difference: <output id="esa-welch-diff"></output>; standard error: <output id="esa-welch-se"></output>; Welch degrees of freedom: <output id="esa-welch-df"></output>.</p><p>Critical t: <output id="esa-welch-critical"></output>; margin: <output id="esa-welch-margin"></output>.</p><p>Confidence interval: [<output id="esa-welch-lower"></output>, <output id="esa-welch-upper"></output>].</p></div>
+<svg id="esa-welch-chart" role="img" viewBox="0 0 620 135" style="display:block;width:100%;height:auto" aria-label="Welch confidence interval visualization"></svg>
+<p class="muted-mini">Assumptions: independent observations within and between groups; approximate normality of sample-mean distributions (normal populations or suitable large-sample conditions). This is not a paired-sample interval. Very small or highly skewed samples need special caution; zero sample variance in both groups leaves this interval undefined.</p>
+</section><script defer src="/js/welch-ci-explorer.js"></script>
+
 
 <section>
 
