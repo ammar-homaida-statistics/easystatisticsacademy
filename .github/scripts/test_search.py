@@ -3773,7 +3773,7 @@ class SearchTests(unittest.TestCase):
                 self.page.reload(wait_until="networkidle")
                 expect(panel).to_be_hidden()
                 # Legitimate saved progress must still work after invalid records.
-                expected_label = (published_title if slug in ("distributions","basics","conditional","lln-clt","sampling-distributions","random-variables")
+                expected_label = (published_title if slug in ("distributions","basics","conditional","lln-clt","sampling-distributions","random-variables","expectation-variance")
                                   else "Continue a published lesson")
                 set_history({"url":valid,"label":expected_label})
                 expect(panel).to_be_visible()
