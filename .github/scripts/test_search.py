@@ -3733,7 +3733,7 @@ class SearchTests(unittest.TestCase):
                     self.page.reload(wait_until="networkidle")
 
                 set_history({"url":valid,"label":malicious})
-                if slug in ("distributions","basics","conditional","lln-clt","sampling-distributions"):
+                if slug in ("distributions","basics","conditional","lln-clt","sampling-distributions","random-variables"):
                     # These blocks now require exact route-specific lesson titles.
                     # A hostile label on a valid URL must be rejected.
                     expect(panel).to_be_hidden()
@@ -3773,7 +3773,7 @@ class SearchTests(unittest.TestCase):
                 self.page.reload(wait_until="networkidle")
                 expect(panel).to_be_hidden()
                 # Legitimate saved progress must still work after invalid records.
-                expected_label = (published_title if slug in ("distributions","basics","conditional","lln-clt","sampling-distributions")
+                expected_label = (published_title if slug in ("distributions","basics","conditional","lln-clt","sampling-distributions","random-variables")
                                   else "Continue a published lesson")
                 set_history({"url":valid,"label":expected_label})
                 expect(panel).to_be_visible()
@@ -8843,11 +8843,13 @@ class SearchTests(unittest.TestCase):
                            {"url":valid,"label":"Expectation"})
         self.page.reload(wait_until="networkidle")
         expect(self.page.locator("#continue-reading-probability-rv")).to_be_visible()
+        # A forged HTML label is rejected, even if its route and timestamp are valid.
         self.page.evaluate("(v)=>localStorage.setItem('"+key+"',JSON.stringify(v))",
                            {"url":valid,"label":"<img src=x onerror=alert(1)>","ts":12345})
         self.page.reload(wait_until="networkidle")
+        expect(self.page.locator("#continue-reading-probability-rv")).to_be_hidden()
         self.assertEqual(self.page.locator("#continue-reading-probability-rv-label img").count(),0)
-        self.assertIn("<img",self.page.locator("#continue-reading-probability-rv-label").inner_text())
+        self.assertIsNone(self.page.evaluate("()=>window.esaInjected || null"))
 
     def test_batch61_random_variables_denied_storage_mobile(self):
         self.page.add_init_script("""
@@ -11578,6 +11580,217 @@ class SearchTests(unittest.TestCase):
         expect(panel).to_be_hidden()
         self.assertEqual(self.page.locator("#lessons .lesson-card").count(),6)
 
+
+
+    def test_batch75_multiplication_bilingual_tree_parity_and_accessibility(self):
+        en="/probability/conditional/multiplication-rule/"
+        ar="/ar/probability/conditional/multiplication-rule/"
+        outcomes=[]
+        for route,lang in ((en,"en"),(ar,"ar")):
+            with self.subTest(language=lang):
+                self.page.goto(self.origin+route,wait_until="networkidle")
+                self.assertEqual(self.page.locator("html").get_attribute("lang"),lang)
+                self.assertEqual(self.page.locator("html").get_attribute("dir"),
+                                 "rtl" if lang=="ar" else None)
+                for locale,link in (("en",en),("ar",ar)):
+                    self.assertEqual(self.page.locator(
+                        'link[rel="alternate"][hreflang="'+locale+'"]').get_attribute("href"),
+                        "https://easystatisticsacademy.com"+link)
+                root=self.page.locator("#esa-conditional-tree-explorer")
+                expect(root).to_be_visible()
+                fields=("esa-tree-joint-study-pass","esa-tree-joint-study-fail",
+                        "esa-tree-joint-no-study-pass","esa-tree-joint-no-study-fail",
+                        "esa-tree-total-pass","esa-tree-bayes")
+                values=tuple(root.locator("#"+i).inner_text() for i in fields)
+                self.assertEqual(values,("0.5400","0.0600","0.1600","0.2400",
+                                         "0.7000","0.7714"))
+                outcomes.append(values)
+                self.assertEqual(root.locator('input[type="range"]').count(),3)
+                self.assertEqual(root.locator('label[for]').count(),3)
+                self.assertEqual(root.locator("#esa-tree-chart").get_attribute("role"),"img")
+                expect(root.locator("#esa-tree-chart rect")).to_have_count(4)
+                root.locator("#esa-tree-pass-study").evaluate("""e=>{
+                    e.value="0";e.dispatchEvent(new Event("input",{bubbles:true}))
+                }""")
+                root.locator("#esa-tree-pass-no-study").evaluate("""e=>{
+                    e.value="0";e.dispatchEvent(new Event("input",{bubbles:true}))
+                }""")
+                expect(root.locator("#esa-tree-total-pass")).to_have_text("0.0000")
+                expect(root.locator("#esa-tree-undefined-note")).to_be_visible()
+                root.locator("#esa-tree-reset").focus()
+                self.page.keyboard.press("Enter")
+                expect(root.locator("#esa-tree-total-pass")).to_have_text("0.7000")
+                for width in (320,375,768,1280):
+                    self.page.set_viewport_size({"width":width,"height":840})
+                    r=root.evaluate("""e=>({left:e.getBoundingClientRect().left,
+                        right:e.getBoundingClientRect().right,
+                        scroll:e.scrollWidth,client:e.clientWidth})""")
+                    self.assertGreaterEqual(r["left"],-2,r)
+                    self.assertLessEqual(r["right"],width+2,r)
+                    self.assertLessEqual(r["scroll"]-r["client"],2,r)
+        self.assertEqual(outcomes[0],outcomes[1])
+        self.page.goto(self.origin+"/ar/",wait_until="networkidle")
+        expect(self.page.get_by_role("link",name="قاعدة الضرب في الاحتمالات — مع شجرة احتمالات تفاعلية")).to_be_visible()
+        self.page.goto(self.origin+en,wait_until="networkidle")
+        expect(self.page.get_by_role("link",name="اقرأ الدرس بالعربية")).to_be_visible()
+        self.page.goto(self.origin+ar,wait_until="networkidle")
+        expect(self.page.get_by_role("link",name="English — Multiplication Rule")).to_be_visible()
+
+    def test_batch75_tree_keyboard_arabic_storage_denial(self):
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{
+            configurable:true,get(){throw new DOMException("Disabled","SecurityError")}
+          })
+        """)
+        self.page.goto(self.origin+"/ar/probability/conditional/multiplication-rule/",
+                       wait_until="networkidle")
+        root=self.page.locator("#esa-conditional-tree-explorer")
+        expect(root.locator("#esa-tree-bayes")).to_have_text("0.7714")
+        self.page.set_viewport_size({"width":320,"height":760})
+        slider=root.locator("#esa-tree-study")
+        slider.focus()
+        self.page.keyboard.press("ArrowRight")
+        # A native range may reverse arrow direction in RTL; either way it must respond.
+        self.assertIn(root.locator("#esa-tree-study-value").inner_text(),("0.55","0.65"))
+        root.locator("#esa-tree-reset").click()
+        expect(root.locator("#esa-tree-study-value")).to_have_text("0.60")
+
+    def test_batch75_precision_reference_levels_and_target_n(self):
+        route="/inference/confidence-intervals/width-and-precision-what-controls/"
+        self.page.goto(self.origin+route,wait_until="networkidle")
+        lab=self.page.locator("#esa-precision-lab")
+        expect(lab).to_be_visible()
+        for key,num in (("critical",1.959963984540054),("stderr",2),
+                        ("margin",3.919927969080108),("width",7.839855938160216),
+                        ("margin4",1.959963984540054),("width4",3.919927969080108)):
+            self.assertAlmostEqual(float(lab.locator("#esa-pr-"+key).inner_text()),num,delta=1.1e-6)
+        expect(lab.locator("#esa-pr-needed")).to_have_text("171")
+        self.assertEqual(lab.locator("#esa-pr-chart").get_attribute("role"),"img")
+        lab.locator("#esa-pr-level").select_option("90")
+        expect(lab.locator("#esa-pr-needed")).to_have_text("121")
+        lab.locator("#esa-pr-level").select_option("99")
+        expect(lab.locator("#esa-pr-needed")).to_have_text("295")
+        lab.locator("#esa-pr-level").select_option("95")
+        lab.locator("#esa-pr-n").fill("400")
+        self.assertAlmostEqual(float(lab.locator("#esa-pr-width").inner_text()),
+                               3.919927969080108,delta=1.1e-6)
+        lab.locator("#esa-pr-target").fill("100")
+        expect(lab.locator("#esa-pr-needed")).to_have_text("1")
+        lab.locator("#esa-pr-reset").focus()
+        self.page.keyboard.press("Enter")
+        expect(lab.locator("#esa-pr-needed")).to_have_text("171")
+
+    def test_batch75_precision_invalid_responsive_no_storage(self):
+        self.page.goto(self.origin+
+          "/inference/confidence-intervals/width-and-precision-what-controls/",
+          wait_until="networkidle")
+        lab=self.page.locator("#esa-precision-lab")
+        for k,v in (("n","0"),("n","1.5"),("sigma","0"),("sigma","-1"),
+                    ("target","0"),("target",""),("n","1000000001")):
+            with self.subTest(field=k,value=v):
+                lab.locator("#esa-pr-"+k).evaluate("""(e,v)=>{
+                  e.value=v;e.dispatchEvent(new Event("input",{bubbles:true}))
+                }""",v)
+                expect(lab.locator("#esa-pr-error")).to_be_visible()
+                expect(lab.locator("#esa-pr-results")).to_be_hidden()
+                lab.locator("#esa-pr-reset").click()
+        for width in (320,375,768,1280):
+            self.page.set_viewport_size({"width":width,"height":840})
+            b=lab.evaluate("""e=>({left:e.getBoundingClientRect().left,
+              right:e.getBoundingClientRect().right,
+              scroll:e.scrollWidth,client:e.clientWidth})""")
+            self.assertGreaterEqual(b["left"],-2,b)
+            self.assertLessEqual(b["right"],width+2,b)
+            self.assertLessEqual(b["scroll"]-b["client"],2,b)
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{
+            configurable:true,get(){throw new DOMException("Disabled","SecurityError")}
+          })
+        """)
+        self.page.reload(wait_until="networkidle")
+        expect(lab.locator("#esa-pr-needed")).to_have_text("171")
+
+    def test_batch75_random_variables_six_titles_and_four_legacy(self):
+        root="/probability/random-variables/"
+        key="esa_continue_probability_random_variables_lesson_v0"
+        cases=(
+          ("what-is-a-random-variable","What Is a Random Variable?","What Is a Random Variable?"),
+          ("discrete-random-variables","Discrete Random Variables & PMF","Discrete Random Variables"),
+          ("continuous-random-variables","Continuous Random Variables & PDF","Continuous Random Variables"),
+          ("cumulative-distribution-function","Cumulative Distribution Function (CDF)","Cumulative Distribution Function (CDF)"),
+          ("expectation","Expectation (Mean of a Random Variable)","Expectation"),
+          ("variance-and-standard-deviation","Variance & Standard Deviation","Variance and Standard Deviation"))
+        for slug,current,legacy in cases:
+            with self.subTest(slug=slug):
+                route=root+slug+"/"
+                self.page.goto(self.origin+route,wait_until="networkidle")
+                data=self.page.evaluate("key=>JSON.parse(localStorage.getItem(key))",key)
+                self.assertEqual(data["label"],current)
+                self.assertEqual(data["url"],route)
+                self.assertIs(type(data["ts"]),int)
+                self.page.goto(self.origin+root,wait_until="networkidle")
+                panel=self.page.locator("#continue-reading-probability-rv")
+                expect(panel).to_be_visible()
+                expect(panel.locator("strong")).to_have_text(current)
+                if legacy!=current:
+                    self.page.evaluate("a=>localStorage.setItem(a.k,JSON.stringify(a.v))",
+                         {"k":key,"v":{"url":route,"label":legacy}})
+                    self.page.reload(wait_until="networkidle")
+                    expect(panel).to_be_visible()
+                    expect(panel.locator("strong")).to_have_text(legacy)
+
+    def test_batch75_random_variables_malicious_progress_and_storage_denied(self):
+        root="/probability/random-variables/"
+        key="esa_continue_probability_random_variables_lesson_v0"
+        url=root+"expectation/"
+        title="Expectation (Mean of a Random Variable)"
+        self.page.goto(self.origin+root,wait_until="networkidle")
+        panel=self.page.locator("#continue-reading-probability-rv")
+        for item in (
+          {"url":url,"label":"Injected label"},
+          {"url":url,"label":"Variance and Standard Deviation"},
+          {"url":url,"label":'<img src=x onerror="window.esaInjected=1">'},
+          {"url":url,"label":title,"ts":0},
+          {"url":url,"label":title,"ts":None},
+          {"url":url,"label":title,"ts":True},
+          {"url":url,"label":title,"ts":-1},
+          {"url":url,"label":title,"ts":999999999999999},
+          {"url":url,"label":title,"ts":2.4},
+          {"url":url+"?evil=1","label":title},
+          {"url":url+"#frag","label":title},
+          {"url":root+"unpublished/","label":title},
+          {"url":root+"../about/","label":title},
+          {"url":"javascript:alert(1)","label":title},
+          {"url":"//example.org/","label":title},
+        ):
+            with self.subTest(item=str(item)[:90]):
+                self.page.evaluate("x=>localStorage.setItem(x.k,JSON.stringify(x.d))",
+                     {"k":key,"d":item})
+                self.page.reload(wait_until="networkidle")
+                expect(panel).to_be_hidden()
+        self.page.evaluate("k=>localStorage.setItem(k,'{')",key)
+        self.page.reload(wait_until="networkidle")
+        expect(panel).to_be_hidden()
+        for item in ({"url":url,"label":"Expectation"},
+                     {"url":url,"label":title,"ts":self.page.evaluate("Date.now()")}):
+            self.page.evaluate("x=>localStorage.setItem(x.k,JSON.stringify(x.d))",
+                 {"k":key,"d":item})
+            self.page.reload(wait_until="networkidle")
+            expect(panel).to_be_visible()
+        self.assertIsNone(self.page.evaluate("()=>window.esaInjected||null"))
+        self.page.add_init_script("""
+          Object.defineProperty(window,"localStorage",{
+            configurable:true,get(){throw new DOMException("Disabled","SecurityError")}
+          })
+        """)
+        for slug in ("what-is-a-random-variable","discrete-random-variables",
+                     "continuous-random-variables","cumulative-distribution-function",
+                     "expectation","variance-and-standard-deviation"):
+            self.page.goto(self.origin+root+slug+"/",wait_until="networkidle")
+            expect(self.page.locator("main h1")).to_be_visible()
+        self.page.goto(self.origin+root,wait_until="networkidle")
+        expect(panel).to_be_hidden()
+        self.assertEqual(self.page.locator("#lessons .lesson-card").count(),6)
 
 
 if __name__ == "__main__":

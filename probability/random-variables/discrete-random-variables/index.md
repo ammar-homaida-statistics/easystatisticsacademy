@@ -16,7 +16,7 @@ sidebar: false
   try {
   localStorage.setItem(KEY, JSON.stringify({
     url: "/probability/random-variables/discrete-random-variables/",
-    label: "Discrete Random Variables",
+    label: "Discrete Random Variables & PMF",
     ts: Date.now()
   }));
   } catch (_) {

@@ -4,6 +4,8 @@ title: Multiplication Rule
 description: Learn how to calculate the probability that multiple events occur together using the multiplication rule.
 permalink: /probability/conditional/multiplication-rule/
 sidebar: false
+translation_pair: multiplication-rule
+math: true
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -40,6 +42,7 @@ sidebar: false
     </div>
 
     <h1>Multiplication Rule</h1>
+    <p><a href="/ar/probability/conditional/multiplication-rule/" lang="ar" dir="rtl">اقرأ الدرس بالعربية</a></p>
 
     <p class="lead">
       Conditional probability allows us to calculate the probability of events occurring together.
@@ -455,6 +458,7 @@ sidebar: false
           A reverse conditional probability given Pass is undefined when P(Pass) = 0:
           an event with zero probability cannot be used as the conditioning event.</p>
       </div>
+      <svg id="esa-tree-chart" role="img" viewBox="0 0 620 260" dir="ltr" style="display:block;width:100%;height:auto" aria-label="Four path probabilities"></svg>
       <button id="esa-tree-reset" class="btn btn-outline" type="button">Reset probability tree</button>
       <p class="muted-mini">The four final joint probabilities sum to 1 (apart from displayed rounding).
          This same example appears in the <a href="/probability/conditional/law-of-total-probability/">Law of Total Probability</a> lesson.
@@ -479,43 +483,7 @@ sidebar: false
       #esa-conditional-tree-explorer .esa-tree-results p {margin:10px 0}
       #esa-conditional-tree-explorer [hidden] {display:none!important}
     </style>
-    <script>
-    (function () {
-      "use strict";
-      const root=document.getElementById("esa-conditional-tree-explorer");
-      if (!root) return;
-      const field=id=>root.querySelector("#"+id);
-      const study=field("esa-tree-study");
-      const passStudy=field("esa-tree-pass-study");
-      const passNoStudy=field("esa-tree-pass-no-study");
-      const display=(id,value)=>{field(id).textContent=value.toFixed(4);};
-      function update() {
-        const s=Number(study.value),q1=Number(passStudy.value),q0=Number(passNoStudy.value);
-        field("esa-tree-study-value").textContent=s.toFixed(2);
-        field("esa-tree-pass-study-value").textContent=q1.toFixed(2);
-        field("esa-tree-pass-no-study-value").textContent=q0.toFixed(2);
-        const ns=1-s;
-        const sp=s*q1,sf=s*(1-q1),np=ns*q0,nf=ns*(1-q0);
-        const overall=sp+np;
-        const cells=[
-          ["esa-tree-p-study",s],["esa-tree-p-no-study",ns],
-          ["esa-tree-p-pass-study",q1],["esa-tree-p-fail-study",1-q1],
-          ["esa-tree-p-pass-no-study",q0],["esa-tree-p-fail-no-study",1-q0],
-          ["esa-tree-joint-study-pass",sp],["esa-tree-joint-study-fail",sf],
-          ["esa-tree-joint-no-study-pass",np],["esa-tree-joint-no-study-fail",nf],
-          ["esa-tree-multiply",sp],["esa-tree-total-pass",overall]
-        ];
-        cells.forEach(([id,value])=>display(id,value));
-        field("esa-tree-bayes").textContent=overall>0?(sp/overall).toFixed(4):"Undefined";
-        field("esa-tree-undefined-note").hidden=overall>0;
-      }
-      [study,passStudy,passNoStudy].forEach(control=>control.addEventListener("input",update));
-      field("esa-tree-reset").addEventListener("click",()=>{
-        study.value="0.6";passStudy.value="0.9";passNoStudy.value="0.4";update();
-      });
-      update();
-    })();
-    </script>
+    <script defer src="/js/conditional-tree-explorer.js"></script>
 
     <h2>Extending to Three Events</h2>
 
