@@ -16,7 +16,7 @@ sidebar: false
   try {
   localStorage.setItem(KEY, JSON.stringify({
     url: "/probability/random-variables/continuous-random-variables/",
-    label: "Continuous Random Variables",
+    label: "Continuous Random Variables & PDF",
     ts: Date.now()
   }));
   } catch (_) {
