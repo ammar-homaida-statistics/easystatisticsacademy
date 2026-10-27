@@ -541,11 +541,23 @@ sidebar: false
           /^\/probability\/random-variables\/[a-z0-9-]+\/$/.test(url))
     );
     if (!data || typeof data.url !== "string" ||
-        typeof data.label !== "string" || !data.label.trim() ||
-        data.label.length > 200 || !published.has(data.url) ||
-        (Object.prototype.hasOwnProperty.call(data,"ts") &&
-         (typeof data.ts !== "number" || !Number.isSafeInteger(data.ts) ||
-          data.ts <= 0 || data.ts > Date.now() + 300000))) return;
+        typeof data.label !== "string" || !published.has(data.url)) return;
+    // Only the published card title, or its exactly mapped historical title.
+    const legacyTitles = {
+      "/probability/random-variables/discrete-random-variables/": "Discrete Random Variables",
+      "/probability/random-variables/continuous-random-variables/": "Continuous Random Variables",
+      "/probability/random-variables/expectation/": "Expectation",
+      "/probability/random-variables/variance-and-standard-deviation/": "Variance and Standard Deviation"
+};
+    const card = Array.from(document.querySelectorAll("#lessons .lesson-card h3 a[href]"))
+      .find(a => a.getAttribute("href") === data.url);
+    if (!card) return;
+    const canonical = card.textContent.trim();
+    if (data.label !== canonical && data.label !== legacyTitles[data.url]) return;
+    // Missing timestamps are a supported legacy format. Invalid/future values aren't.
+    if (Object.prototype.hasOwnProperty.call(data, "ts") &&
+        (!Number.isSafeInteger(data.ts) || data.ts <= 0 ||
+         data.ts > Date.now() + 300000)) return;
 
     const wrap = document.getElementById("continue-reading-probability-rv");
     const label = document.getElementById("continue-reading-probability-rv-label");
