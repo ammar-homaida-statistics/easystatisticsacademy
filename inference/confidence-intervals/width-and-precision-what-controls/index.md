@@ -300,7 +300,48 @@ sidebar: false
 
     </div>
 
-    <h2>Example of the Sample Size Effect</h2>
+    <!-- Batch #75: practical known-sigma precision explorer -->
+<section class="concept-box" id="esa-precision-lab" aria-labelledby="esa-pr-heading">
+<h2 id="esa-pr-heading">Interactive Confidence Interval Precision and Sample-Size Planning</h2>
+<p>Explore the <strong>two-sided normal confidence interval for a population mean with known population σ</strong>. The margin of error is z × σ/√n; the full width is twice the margin. This planning model does not use an estimated sample SD.</p>
+<div class="esa-pr-grid">
+<div><label for="esa-pr-n">Sample size n (positive integer)</label><input type="number" id="esa-pr-n" min="1" max="1000000000" step="1" value="100"></div>
+<div><label for="esa-pr-sigma">Known population standard deviation σ</label><input type="number" id="esa-pr-sigma" min="0" step="any" value="20"></div>
+<div><label for="esa-pr-level">Two-sided confidence level</label><select id="esa-pr-level">
+<option value="90">90%</option><option value="95" selected>95%</option><option value="99">99%</option>
+</select></div>
+<div><label for="esa-pr-target">Desired maximum margin of error (same units)</label><input type="number" id="esa-pr-target" min="0" step="any" value="3"></div>
+</div>
+<button type="button" id="esa-pr-reset" class="btn btn-outline">Restore worked example</button>
+<p id="esa-pr-error" role="alert" aria-live="assertive" hidden></p>
+<section id="esa-pr-results" aria-label="Confidence interval precision results" aria-live="polite">
+<div class="table-wrap"><table><caption>Confidence-interval planning results, six decimal places</caption><tbody>
+<tr><th scope="row">Normal critical value z</th><td id="esa-pr-critical">—</td></tr>
+<tr><th scope="row">Standard error σ/√n</th><td id="esa-pr-stderr">—</td></tr>
+<tr><th scope="row">Margin of error ±</th><td id="esa-pr-margin">—</td></tr>
+<tr><th scope="row">Total interval width</th><td id="esa-pr-width">—</td></tr>
+<tr><th scope="row">Minimum required integer sample size for target margin</th><td id="esa-pr-needed">—</td></tr>
+<tr><th scope="row">Margin at 4n</th><td id="esa-pr-margin4">—</td></tr>
+<tr><th scope="row">Width at 4n</th><td id="esa-pr-width4">—</td></tr>
+</tbody></table></div>
+<svg id="esa-pr-chart" viewBox="0 0 530 210" role="img" aria-label="Interval width at selected sample size and four times the sample size" style="display:block;width:100%;height:auto;max-width:100%"></svg>
+<p id="esa-pr-explain"></p>
+</section>
+<p class="muted-mini">Planning formula: n ≥ (zσ/E)²; use the smallest integer that meets target E. Higher confidence and higher σ widen the interval; increasing n narrows it at a square-root rate. Narrow does not automatically mean accurate or unbiased. Correlation, clustering, selection bias, and unknown σ require a different design or inference model. This is a precision planning exercise—not a calculated CI for observed data.</p>
+</section>
+<style>
+#esa-precision-lab,#esa-precision-lab *{box-sizing:border-box}
+#esa-precision-lab{max-width:100%;min-width:0;overflow-wrap:anywhere}
+#esa-precision-lab .esa-pr-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:12px 0}
+#esa-precision-lab label{display:block;font-weight:650;margin-bottom:5px}
+#esa-precision-lab :is(input,select){width:100%;min-width:0;font:inherit;padding:10px;border:1px solid #777;border-radius:6px}
+#esa-precision-lab .table-wrap{max-width:100%;overflow-x:auto}
+#esa-precision-lab [hidden]{display:none!important}
+#esa-precision-lab :is(input,select,button):focus-visible{outline:2px solid #0f766e;outline-offset:3px}
+@media(max-width:640px){#esa-precision-lab .esa-pr-grid{grid-template-columns:minmax(0,1fr)}}
+</style>
+<script defer src="/js/ci-precision-explorer.js"></script>
+<h2>Example of the Sample Size Effect</h2>
 
     <div class="table-wrap">
 
