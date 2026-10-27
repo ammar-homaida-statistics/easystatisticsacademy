@@ -16,7 +16,7 @@ sidebar: false
   try {
   localStorage.setItem(KEY, JSON.stringify({
     url: "/probability/random-variables/expectation/",
-    label: "Expectation",
+    label: "Expectation (Mean of a Random Variable)",
     ts: Date.now()
   }));
   } catch (_) {
