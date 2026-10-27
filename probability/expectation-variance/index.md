@@ -544,7 +544,8 @@ sidebar: false
 };
     // Exact routes and canonical labels only, with route-specific historical aliases.
     const historical = {
-      // Add historical titles here only after verifying an actual older saved record.
+      "/probability/expectation-variance/variance-rules-and-sums/": ["Variance Rules and Sums"],
+      "/probability/expectation-variance/applications-mini-cases/": ["Applications and Mini Cases"]
     };
     if (!data || typeof data !== "object" || Array.isArray(data) ||
         typeof data.url !== "string" || typeof data.label !== "string" ||
