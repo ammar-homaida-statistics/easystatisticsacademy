@@ -45,6 +45,8 @@ jobs:
         run: python -m unittest discover -s .github/scripts -p 'test_batch74_math.py' -v
       - name: Verify Batch #75 independent tree and CI precision benchmarks
         run: python -m unittest discover -s .github/scripts -p 'test_batch75_math.py' -v
+      - name: Verify Batch #76 independent Welch and probability references
+        run: python -m unittest discover -s .github/scripts -p 'test_batch76_math.py' -v
       - name: Inventory mathematical placeholders and reject new damage
         run: python .github/scripts/validate_math_placeholders.py
       - name: Validate front matter
