@@ -16,7 +16,7 @@ sidebar: false
   try {
     localStorage.setItem(KEY, JSON.stringify({
     url: "/probability/expectation-variance/variance-rules-and-sums/",
-    label: "Variance Rules and Sums",
+    label: "Variance Rules & Sums of Variables",
     ts: Date.now()
   }));
   } catch (_) {
