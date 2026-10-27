@@ -16,7 +16,7 @@ sidebar: false
   try {
     localStorage.setItem(KEY, JSON.stringify({
     url: "/probability/expectation-variance/applications-mini-cases/",
-    label: "Applications and Mini Cases",
+    label: "Applications: Mini Cases",
     ts: Date.now()
     }));
   } catch (_) {
