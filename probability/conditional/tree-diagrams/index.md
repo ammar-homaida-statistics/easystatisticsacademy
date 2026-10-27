@@ -4,6 +4,8 @@ title: Tree Diagrams
 description: Learn how tree diagrams organize sequential probability problems and simplify conditional probability calculations.
 permalink: /probability/conditional/tree-diagrams/
 sidebar: false
+translation_pair: tree-diagrams
+math: true
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -39,7 +41,7 @@ sidebar: false
       <span class="badge">Visualization</span>
     </div>
 
-    <h1>Tree Diagrams</h1>
+    <h1>Tree Diagrams</h1><p><a href="/ar/probability/conditional/tree-diagrams/" lang="ar" dir="rtl">اقرأ الدرس بالعربية</a></p>
 
     <p class="lead">
       Conditional probability problems often involve multiple stages and possible pathways.
