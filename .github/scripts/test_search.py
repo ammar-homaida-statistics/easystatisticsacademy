@@ -3733,7 +3733,7 @@ class SearchTests(unittest.TestCase):
                     self.page.reload(wait_until="networkidle")
 
                 set_history({"url":valid,"label":malicious})
-                if slug in ("distributions","basics","conditional","lln-clt","sampling-distributions","random-variables"):
+                if slug in ("distributions","basics","conditional","lln-clt","sampling-distributions","random-variables","expectation-variance"):
                     # These blocks now require exact route-specific lesson titles.
                     # A hostile label on a valid URL must be rejected.
                     expect(panel).to_be_hidden()
@@ -9007,7 +9007,8 @@ class SearchTests(unittest.TestCase):
                            {"v":{"url":good,"label":"<img src=x onerror=alert(1)>"},"k":key})
         self.page.reload(wait_until="networkidle")
         self.assertEqual(self.page.locator("#continue-reading-probability-ev-label img").count(),0)
-        self.assertIn("<img",self.page.locator("#continue-reading-probability-ev-label").inner_text())
+        expect(self.page.locator("#continue-reading-probability-ev")).to_be_hidden()
+        self.assertNotIn("<img",self.page.locator("#continue-reading-probability-ev-label").inner_text())
 
     def test_batch62_expectation_variance_denied_storage_mobile(self):
         self.page.add_init_script("""
