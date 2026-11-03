@@ -16,7 +16,7 @@ sidebar: false
   try {
     localStorage.setItem(KEY, JSON.stringify({
     url: "/inference/hypothesis-testing/test-statistic-standardization/",
-    label: "Test Statistic and Standardization",
+    label: "Test Statistics and Standardization",
     ts: Date.now()
   }));
   } catch (_) {

@@ -3493,9 +3493,20 @@ class SearchTests(unittest.TestCase):
                         [key, value])
                     self.page.reload(wait_until="networkidle")
                 save({"url":valid, "label":malicious})
-                expect(panel).to_be_visible()
-                expect(button).to_have_attribute("href", valid)
-                expect(label.locator("strong")).to_have_text(malicious)
+                if slug == "hypothesis-testing":
+                    # This block now requires exact canonical or verified legacy
+                    # title for the corresponding published lesson URL.
+                    expect(panel).to_be_hidden()
+                    title = self.page.locator(
+                        "#lessons .lesson-card h3 a[href]").first.inner_text().strip()
+                    save({"url":valid, "label":title})
+                    expect(panel).to_be_visible()
+                    expect(button).to_have_attribute("href", valid)
+                    expect(label.locator("strong")).to_have_text(title)
+                else:
+                    expect(panel).to_be_visible()
+                    expect(button).to_have_attribute("href", valid)
+                    expect(label.locator("strong")).to_have_text(malicious)
                 self.assertEqual(label.locator("img,script").count(), 0)
                 self.assertIsNone(self.page.evaluate("window.esaInjected"))
                 for value in (
@@ -6051,14 +6062,14 @@ class SearchTests(unittest.TestCase):
         lessons = (
             ("what-is-a-hypothesis-test", "What Is a Hypothesis Test?"),
             ("null-and-alternative", "Null and Alternative Hypotheses"),
-            ("test-statistic-standardization", "Test Statistic and Standardization"),
-            ("p-value-meaning", "p-Value Meaning"),
-            ("significance-level-alpha", "Significance Level (α)"),
+            ("test-statistic-standardization", "Test Statistics and Standardization"),
+            ("p-value-meaning", "The p-Value: Meaning and Misinterpretation"),
+            ("significance-level-alpha", "Significance Level (α) and Decision Rules"),
             ("one-sided-vs-two-sided", "One-Sided vs Two-Sided Tests"),
             ("type1-type2-errors", "Type I and Type II Errors"),
             ("power-and-effect-size", "Power and Effect Size"),
-            ("ci-and-test-connection", "Confidence Intervals and Tests"),
-            ("practical-significance", "Practical Significance")
+            ("ci-and-test-connection", "Connection Between CIs and Tests"),
+            ("practical-significance", "Statistical vs Practical Significance")
         )
         key = "esa_continue_inference_hypothesis_testing_lesson_v0"
         for slug, label in lessons:
@@ -11831,6 +11842,71 @@ class SearchTests(unittest.TestCase):
         self.page.reload(wait_until="networkidle")
         expect(panel).to_be_visible()
         self.assertEqual(self.page.locator('#continue-reading-probability-ev-btn').get_attribute('href'),target)
+
+
+    def test_batch77_arabic_base_rate_bayes_and_rtl_mobile(self):
+        self.page.set_viewport_size({"width":375,"height":812})
+        url="/ar/probability/conditional/base-rate-neglect-and-fallacies/"
+        self.page.goto(self.origin+url,wait_until="networkidle")
+        self.assertEqual(self.page.locator("html").get_attribute("lang"),"ar")
+        expect(self.page.locator("main h1")).to_contain_text("المغالطات")
+        expect(self.page.locator('a[href="/probability/conditional/base-rate-neglect-and-fallacies/"]')).to_be_visible()
+        expect(self.page.locator("#esa-bayes-lab")).to_be_visible()
+        self.assertEqual(self.page.locator("#esa-bayes-pos").inner_text(),"15.38%")
+        self.assertEqual(self.page.locator("#esa-bayes-tp").inner_text(),"90.00")
+        self.assertEqual(self.page.locator("#esa-bayes-fp").inner_text(),"495.00")
+        self.page.locator("#esa-bayes-prev").fill("0")
+        self.page.locator("#esa-bayes-spec").fill("100")
+        self.page.get_by_role("button",name="احسب").click()
+        self.assertIn("غير معرّف",self.page.locator("#esa-bayes-pos").inner_text())
+        self.page.locator("#esa-bayes-prev").fill("101")
+        self.page.get_by_role("button",name="احسب").click()
+        expect(self.page.locator("#esa-bayes-status")).to_contain_text("بين 0 و100")
+
+    def test_batch77_pvalue_visualization_sides_extreme_mobile_keyboard(self):
+        self.page.set_viewport_size({"width":320,"height":720})
+        self.page.goto(self.origin+"/inference/hypothesis-testing/p-value-meaning/",wait_until="networkidle")
+        lab=self.page.locator("#esa-pvalue-explorer")
+        expect(lab).to_be_visible()
+        self.assertAlmostEqual(float(lab.locator("#esa-p-prob").inner_text()),.04550026,places=6)
+        lab.locator("#esa-p-side").select_option("right")
+        self.assertAlmostEqual(float(lab.locator("#esa-p-prob").inner_text()),.02275013,places=6)
+        lab.locator("#esa-p-side").select_option("left")
+        self.assertAlmostEqual(float(lab.locator("#esa-p-prob").inner_text()),.97724986,places=6)
+        lab.locator("#esa-p-z").fill("8")
+        lab.locator("#esa-p-side").select_option("two-sided")
+        self.assertAlmostEqual(float(lab.locator("#esa-p-prob").inner_text()),1.244192e-15,delta=1e-20)
+        lab.locator("#esa-p-z").fill("36")
+        expect(lab.locator("#esa-p-error")).to_be_visible()
+        lab.locator("#esa-p-reset").focus()
+        lab.locator("#esa-p-reset").press("Enter")
+        expect(lab.locator("#esa-p-error")).to_be_hidden()
+        self.assertIn("p-value",lab.locator("#esa-p-decision").inner_text())
+        expect(lab.locator("#esa-p-chart")).to_have_attribute("role","img")
+
+    def test_batch77_hypothesis_progress_exact_titles_and_legacy(self):
+        root="/inference/hypothesis-testing/"
+        key="esa_continue_inference_hypothesis_testing_lesson_v0"
+        self.page.goto(self.origin+root,wait_until="networkidle")
+        panel=self.page.locator("#continue-reading-inference-testing")
+        canonical=dict(url=root+"p-value-meaning/",label="The p-Value: Meaning and Misinterpretation")
+        old=dict(url=root+"p-value-meaning/",label="p-Value Meaning")
+        for valid in [canonical,old]:
+            self.page.evaluate("(x)=>localStorage.setItem(x.k,JSON.stringify(x.v))",{"k":key,"v":valid})
+            self.page.reload(wait_until="networkidle")
+            expect(panel).to_be_visible()
+        for wrong in [dict(url=canonical["url"],label="<img src=x onerror=alert(1)>"),
+                      dict(url=canonical["url"]+"?evil=1",label=canonical["label"]),
+                      dict(url="javascript:alert(1)",label=canonical["label"]),
+                      dict(url=canonical["url"],label=canonical["label"],ts=9999999999999999),
+                      dict(url=canonical["url"],label=canonical["label"],ts="tomorrow")]:
+            self.page.evaluate("(x)=>localStorage.setItem(x.k,JSON.stringify(x.v))",{"k":key,"v":wrong})
+            self.page.reload(wait_until="networkidle")
+            expect(panel).to_be_hidden()
+        self.page.evaluate("(x)=>localStorage.setItem(x.k,JSON.stringify(x.v))",{"k":key,"v":canonical})
+        self.page.reload(wait_until="networkidle")
+        expect(panel).to_be_visible()
+        self.assertEqual(panel.locator("img,script").count(),0)
 
 
 if __name__ == "__main__":
