@@ -16,7 +16,7 @@ sidebar: false
   try {
     localStorage.setItem(KEY, JSON.stringify({
     url: "/inference/hypothesis-testing/practical-significance/",
-    label: "Practical Significance",
+    label: "Statistical vs Practical Significance",
     ts: Date.now()
   }));
   } catch (_) {
