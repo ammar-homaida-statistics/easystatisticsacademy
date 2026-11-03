@@ -16,7 +16,7 @@ sidebar: false
   try {
   localStorage.setItem(KEY, JSON.stringify({
     url: "/inference/classical-tests/one-proportion-z-test/",
-    label: "One-Proportion Z Test",
+    label: "One-Proportion z Test",
     ts: Date.now()
   }));
   } catch (_) {
