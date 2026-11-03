@@ -16,7 +16,7 @@ sidebar: false
   try {
   localStorage.setItem(KEY, JSON.stringify({
     url: "/inference/classical-tests/post-hoc-tests-and-multiple-comparisons-preview/",
-    label: "Post-Hoc Tests and Multiple Comparisons",
+    label: "Post-hoc Tests and Multiple Comparisons",
     ts: Date.now()
   }));
   } catch (_) {
