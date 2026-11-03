@@ -68,6 +68,23 @@ sidebar: false
 </section>
 
 <!-- LESSON -->
+<section id="esa-paired-ci-lab" class="concept-box" aria-labelledby="esa-pci-heading" style="min-width:0;overflow-wrap:anywhere">
+<h2 id="esa-pci-heading">Interactive Paired-Mean Confidence Interval Laboratory</h2>
+<p>Specify the sample mean and sample standard deviation of the <strong>within-pair differences</strong> (after minus before), rather than the SDs of two independent samples. The same matched individuals or units must form each pair.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,175px),1fr));gap:12px">
+<label for="esa-pci-mean">Mean paired difference <input id="esa-pci-mean" type="number" step="any" value="4.2" style="width:100%"></label>
+<label for="esa-pci-sd">SD of paired differences <input id="esa-pci-sd" type="number" min="0" step="any" value="3" style="width:100%"></label>
+<label for="esa-pci-n">Number of complete pairs <input id="esa-pci-n" type="number" min="2" max="1000000" step="1" value="10" style="width:100%"></label>
+<label for="esa-pci-level">Confidence level<select id="esa-pci-level" style="width:100%"><option value="90">90%</option><option value="95" selected>95%</option><option value="99">99%</option></select></label></div>
+<p id="esa-pci-error" role="alert" hidden></p><div id="esa-pci-results" aria-live="polite">
+<p>Degrees of freedom: <output id="esa-pci-df">—</output>; standard error: <output id="esa-pci-se">—</output>; critical t: <output id="esa-pci-critical">—</output>; margin of error: <output id="esa-pci-margin">—</output>.</p>
+<p><strong>Interval for the mean within-pair difference:</strong> [<output id="esa-pci-lower">—</output>, <output id="esa-pci-upper">—</output>]</p>
+<p id="esa-pci-zero"></p></div>
+<svg id="esa-pci-chart" viewBox="0 0 630 135" role="img" style="width:100%;height:auto;display:block" aria-label="Paired mean t confidence interval with reference zero"></svg>
+<button class="btn btn-outline" id="esa-pci-reset" type="button">Reset example</button>
+<p>Assumptions: independent pairs and a reasonably normal distribution of within-pair differences, particularly for small n. With larger n, a suitable central-limit approximation may apply. A zero sample SD produces a degenerate variance estimate and is not supported by this Student-t calculation. A confidence interval does not assert that the fixed population mean has the stated probability of lying in this particular interval.</p>
+</section>
+<script defer src="/js/paired-mean-ci-explorer.js"></script>
 
 <section>
 
