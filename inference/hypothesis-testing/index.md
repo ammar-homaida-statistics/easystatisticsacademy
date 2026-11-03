@@ -668,17 +668,44 @@ sidebar: false
 
     const data = JSON.parse(raw);
 
-    // Trust only exact published lesson hrefs in this block's own lesson cards.
-    // Do not allow external schemes, traversal, query strings, anchors, or other blocks.
-    const published = new Set(
-      Array.from(document.querySelectorAll("#lessons .lesson-card h3 a[href]"),
-        link => link.getAttribute("href"))
-        .filter(url => typeof url === "string" &&
-          /^\/inference\/hypothesis-testing\/[a-z0-9-]+\/$/.test(url))
-    );
-    if (!data || typeof data.url !== "string" ||
-        typeof data.label !== "string" || !data.label.trim() ||
-        data.label.length > 200 || !published.has(data.url)) return;
+    // Only allow the ten reviewed lesson destinations and their exact titles.
+    const titles = {
+      "/inference/hypothesis-testing/what-is-a-hypothesis-test/": "What Is a Hypothesis Test?",
+      "/inference/hypothesis-testing/null-and-alternative/": "Null and Alternative Hypotheses",
+      "/inference/hypothesis-testing/test-statistic-standardization/": "Test Statistics and Standardization",
+      "/inference/hypothesis-testing/p-value-meaning/": "The p-Value: Meaning and Misinterpretation",
+      "/inference/hypothesis-testing/significance-level-alpha/": "Significance Level (α) and Decision Rules",
+      "/inference/hypothesis-testing/type1-type2-errors/": "Type I and Type II Errors",
+      "/inference/hypothesis-testing/power-and-effect-size/": "Power and Effect Size",
+      "/inference/hypothesis-testing/one-sided-vs-two-sided/": "One-Sided vs Two-Sided Tests",
+      "/inference/hypothesis-testing/ci-and-test-connection/": "Connection Between CIs and Tests",
+      "/inference/hypothesis-testing/practical-significance/": "Statistical vs Practical Significance"
+};
+    const legacy = {
+      "/inference/hypothesis-testing/test-statistic-standardization/": [
+            "Test Statistic and Standardization"
+      ],
+      "/inference/hypothesis-testing/p-value-meaning/": [
+            "p-Value Meaning"
+      ],
+      "/inference/hypothesis-testing/significance-level-alpha/": [
+            "Significance Level (α)"
+      ],
+      "/inference/hypothesis-testing/ci-and-test-connection/": [
+            "Confidence Intervals and Tests"
+      ],
+      "/inference/hypothesis-testing/practical-significance/": [
+            "Practical Significance"
+      ]
+};
+    if (!data || typeof data !== "object" || Array.isArray(data) ||
+        typeof data.url !== "string" || typeof data.label !== "string" ||
+        !Object.prototype.hasOwnProperty.call(titles,data.url) ||
+        (data.label !== titles[data.url] &&
+         !(legacy[data.url] || []).includes(data.label)) ||
+        (Object.prototype.hasOwnProperty.call(data, "ts") &&
+         (!Number.isSafeInteger(data.ts) || data.ts <= 0 ||
+          data.ts > Date.now() + 5 * 60 * 1000))) return;
 
     const wrap =
       document.getElementById(
