@@ -16,7 +16,7 @@ sidebar: false
   try {
     localStorage.setItem(KEY, JSON.stringify({
     url: "/inference/hypothesis-testing/p-value-meaning/",
-    label: "p-Value Meaning",
+    label: "The p-Value: Meaning and Misinterpretation",
     ts: Date.now()
   }));
   } catch (_) {
