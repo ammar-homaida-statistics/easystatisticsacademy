@@ -16,7 +16,7 @@ sidebar: false
   try {
     localStorage.setItem(KEY, JSON.stringify({
     url: "/inference/hypothesis-testing/significance-level-alpha/",
-    label: "Significance Level (α)",
+    label: "Significance Level (α) and Decision Rules",
     ts: Date.now()
   }));
   } catch (_) {
