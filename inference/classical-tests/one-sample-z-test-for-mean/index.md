@@ -16,7 +16,7 @@ sidebar: false
   try {
   localStorage.setItem(KEY, JSON.stringify({
     url: "/inference/classical-tests/one-sample-z-test-for-mean/",
-    label: "One-Sample Z Test for a Mean",
+    label: "One-Sample z Test for a Mean",
     ts: Date.now()
   }));
   } catch (_) {
