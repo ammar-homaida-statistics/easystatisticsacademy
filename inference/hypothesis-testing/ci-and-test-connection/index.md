@@ -16,7 +16,7 @@ sidebar: false
   try {
     localStorage.setItem(KEY, JSON.stringify({
     url: "/inference/hypothesis-testing/ci-and-test-connection/",
-    label: "Confidence Intervals and Tests",
+    label: "Connection Between CIs and Tests",
     ts: Date.now()
   }));
   } catch (_) {
