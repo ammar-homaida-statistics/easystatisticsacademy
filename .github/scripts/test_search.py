@@ -3493,9 +3493,9 @@ class SearchTests(unittest.TestCase):
                         [key, value])
                     self.page.reload(wait_until="networkidle")
                 save({"url":valid, "label":malicious})
-                if slug == "hypothesis-testing":
-                    # This block now requires exact canonical or verified legacy
-                    # title for the corresponding published lesson URL.
+                if slug in ("hypothesis-testing","classical-tests"):
+                    # These blocks require exact canonical or verified legacy
+                    # titles for corresponding published lesson URLs.
                     expect(panel).to_be_hidden()
                     title = self.page.locator(
                         "#lessons .lesson-card h3 a[href]").first.inner_text().strip()
@@ -6189,13 +6189,13 @@ class SearchTests(unittest.TestCase):
             ("chi-square-homogeneity-test","Chi-Square Test of Homogeneity"),
             ("chi-square-independence-test","Chi-Square Test of Independence"),
             ("decision-framework-and-assumptions","Decision Framework and Assumptions"),
-            ("one-proportion-z-test","One-Proportion Z Test"),
+            ("one-proportion-z-test","One-Proportion z Test"),
             ("one-sample-t-test-for-mean","One-Sample t Test for a Mean"),
-            ("one-sample-z-test-for-mean","One-Sample Z Test for a Mean"),
-            ("one-way-anova-f-test","One-Way ANOVA and the F Test"),
+            ("one-sample-z-test-for-mean","One-Sample z Test for a Mean"),
+            ("one-way-anova-f-test","One-Way ANOVA (F Test for 3+ Means)"),
             ("paired-t-test","Paired t Test"),
-            ("post-hoc-tests-and-multiple-comparisons-preview","Post-Hoc Tests and Multiple Comparisons"),
-            ("two-proportion-z-test","Two-Proportion Z Test"),
+            ("post-hoc-tests-and-multiple-comparisons-preview","Post-hoc Tests and Multiple Comparisons"),
+            ("two-proportion-z-test","Two-Proportion z Test"),
             ("two-sample-t-test-independent","Two-Sample t Test (Independent Samples)"),
         )
         key="esa_continue_inference_classical_tests_lesson_v0"
@@ -11901,6 +11901,77 @@ class SearchTests(unittest.TestCase):
                       dict(url=canonical["url"],label=canonical["label"],ts=9999999999999999),
                       dict(url=canonical["url"],label=canonical["label"],ts="tomorrow")]:
             self.page.evaluate("(x)=>localStorage.setItem(x.k,JSON.stringify(x.v))",{"k":key,"v":wrong})
+            self.page.reload(wait_until="networkidle")
+            expect(panel).to_be_hidden()
+        self.page.evaluate("(x)=>localStorage.setItem(x.k,JSON.stringify(x.v))",{"k":key,"v":canonical})
+        self.page.reload(wait_until="networkidle")
+        expect(panel).to_be_visible()
+        self.assertEqual(panel.locator("img,script").count(),0)
+
+
+    def test_batch78_arabic_random_variable_coin_bilingual_mobile(self):
+        self.page.set_viewport_size({"width":320,"height":780})
+        url="/ar/probability/random-variables/what-is-a-random-variable/"
+        self.page.goto(self.origin+url,wait_until="networkidle")
+        expect(self.page.locator("main h1")).to_contain_text("المتغير")
+        self.assertEqual(self.page.locator("html").get_attribute("lang"),"ar")
+        expect(self.page.locator("main a[href='/probability/random-variables/what-is-a-random-variable/']")).to_be_visible()
+        lab=self.page.locator("#esa-two-coin-rv")
+        expect(lab).to_be_visible()
+        expect(lab.locator("#esa-rv-x0")).to_have_text("0.2500")
+        expect(lab.locator("#esa-rv-x1")).to_have_text("0.5000")
+        expect(lab.locator("#esa-rv-x2")).to_have_text("0.2500")
+        expect(lab.locator("#esa-rv-sum")).to_have_text("1.0000")
+        coin=lab.locator("#esa-rv-prob")
+        coin.focus()
+        coin.fill("1")
+        expect(lab.locator("#esa-rv-x2")).to_have_text("1.0000")
+        expect(lab.locator("#esa-rv-x0")).to_have_text("0.0000")
+        lab.locator("#esa-rv-reset").press("Enter")
+        expect(lab.locator("#esa-rv-x1")).to_have_text("0.5000")
+        expect(lab.locator("#esa-rv-chart")).to_have_attribute("role","img")
+        self.page.goto(self.origin+"/probability/random-variables/what-is-a-random-variable/",wait_until="networkidle")
+        expect(self.page.locator("main a[href='"+url+"']")).to_be_visible()
+
+    def test_batch78_paired_ci_numeric_mobile_guard_keyboard(self):
+        self.page.set_viewport_size({"width":375,"height":810})
+        self.page.goto(self.origin+"/inference/confidence-intervals/ci-for-paired-mean-difference/",wait_until="networkidle")
+        lab=self.page.locator("#esa-paired-ci-lab")
+        expect(lab).to_be_visible()
+        self.assertAlmostEqual(float(lab.locator("#esa-pci-lower").inner_text()),2.0539292821,delta=0.00002)
+        self.assertAlmostEqual(float(lab.locator("#esa-pci-upper").inner_text()),6.3460707179,delta=0.00002)
+        lab.locator("#esa-pci-level").select_option("99")
+        self.assertGreater(float(lab.locator("#esa-pci-margin").inner_text()),2.14607)
+        lab.locator("#esa-pci-n").fill("1")
+        expect(lab.locator("#esa-pci-error")).to_be_visible()
+        lab.locator("#esa-pci-sd").fill("0")
+        expect(lab.locator("#esa-pci-results")).to_be_hidden()
+        lab.locator("#esa-pci-reset").focus()
+        lab.locator("#esa-pci-reset").press("Enter")
+        expect(lab.locator("#esa-pci-error")).to_be_hidden()
+        expect(lab.locator("#esa-pci-chart")).to_have_attribute("role","img")
+
+    def test_batch78_classical_progress_canonical_legacy_and_attack_rejection(self):
+        route="/inference/classical-tests/"
+        key="esa_continue_inference_classical_tests_lesson_v0"
+        self.page.goto(self.origin+route,wait_until="networkidle")
+        panel=self.page.locator("#continue-reading-inference-classical")
+        url=route+"one-sample-z-test-for-mean/"
+        canonical={"url":url,"label":"One-Sample z Test for a Mean"}
+        legacy={"url":url,"label":"One-Sample Z Test for a Mean"}
+        for record in (canonical,legacy):
+            self.page.evaluate("(x)=>localStorage.setItem(x.k,JSON.stringify(x.v))",{"k":key,"v":record})
+            self.page.reload(wait_until="networkidle")
+            expect(panel).to_be_visible()
+        for record in (
+            {"url":url,"label":"<img src=x onerror=alert(1)>"},
+            {"url":url,"label":"One-Proportion z Test"},
+            {"url":url+"?next=evil","label":canonical["label"]},
+            {"url":"//example.org/","label":canonical["label"]},
+            {"url":url,"label":canonical["label"],"ts":9999999999999999},
+            {"url":url,"label":canonical["label"],"ts":False},
+        ):
+            self.page.evaluate("(x)=>localStorage.setItem(x.k,JSON.stringify(x.v))",{"k":key,"v":record})
             self.page.reload(wait_until="networkidle")
             expect(panel).to_be_hidden()
         self.page.evaluate("(x)=>localStorage.setItem(x.k,JSON.stringify(x.v))",{"k":key,"v":canonical})
