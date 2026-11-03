@@ -68,6 +68,20 @@ sidebar: false
 </section>
 
 <!-- LESSON -->
+<section class="concept-box" id="esa-pvalue-explorer" aria-labelledby="esa-p-title" style="min-width:0;overflow-wrap:anywhere">
+<h2 id="esa-p-title">Interactive p-Value Interpretation Laboratory</h2>
+<p>Explore a <strong>standard-normal Z test</strong> under a specified null model. Select an observed Z statistic, alternative hypothesis, and significance level. Shaded regions display the corresponding tail area.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:12px">
+<label for="esa-p-z">Observed Z statistic <input id="esa-p-z" type="number" min="-35" max="35" step="any" value="2" style="width:100%" inputmode="decimal"></label>
+<label for="esa-p-side">Alternative hypothesis<select id="esa-p-side" style="width:100%"><option value="two-sided">Two-sided (≠)</option><option value="right">Right-sided (&gt;)</option><option value="left">Left-sided (&lt;)</option></select></label>
+<label for="esa-p-alpha">Significance level α<select id="esa-p-alpha" style="width:100%"><option value=".01">0.01</option><option value=".05" selected>0.05</option><option value=".1">0.10</option></select></label></div>
+<p id="esa-p-error" role="alert" hidden>Enter a finite Z statistic between −35 and 35.</p>
+<div id="esa-p-results" aria-live="polite"><p><strong>p-value:</strong> <output id="esa-p-prob">—</output></p><p id="esa-p-decision"></p></div>
+<svg id="esa-p-chart" role="img" viewBox="0 0 620 235" style="display:block;width:100%;height:auto" aria-label="Normal sampling distribution with shaded p-value tails"></svg>
+<button class="btn btn-outline" id="esa-p-reset" type="button">Reset example</button>
+<p class="muted-mini">The p-value is the probability, <em>under the null model</em>, of test results at least as extreme as observed in the direction specified by the alternative. It is not P(H₀ | data), the probability of no effect, or a measure of practical importance. The plot truncates visually at ±4.5, but the numerical calculation includes all tail probability.</p>
+</section>
+<script defer src="/js/pvalue-interpretation-explorer.js"></script>
 
 <section>
 
