@@ -3493,9 +3493,20 @@ class SearchTests(unittest.TestCase):
                         [key, value])
                     self.page.reload(wait_until="networkidle")
                 save({"url":valid, "label":malicious})
-                expect(panel).to_be_visible()
-                expect(button).to_have_attribute("href", valid)
-                expect(label.locator("strong")).to_have_text(malicious)
+                if slug == "hypothesis-testing":
+                    # This block now requires exact canonical or verified legacy
+                    # title for the corresponding published lesson URL.
+                    expect(panel).to_be_hidden()
+                    title = self.page.locator(
+                        "#lessons .lesson-card h3 a[href]").first.inner_text().strip()
+                    save({"url":valid, "label":title})
+                    expect(panel).to_be_visible()
+                    expect(button).to_have_attribute("href", valid)
+                    expect(label.locator("strong")).to_have_text(title)
+                else:
+                    expect(panel).to_be_visible()
+                    expect(button).to_have_attribute("href", valid)
+                    expect(label.locator("strong")).to_have_text(malicious)
                 self.assertEqual(label.locator("img,script").count(), 0)
                 self.assertIsNone(self.page.evaluate("window.esaInjected"))
                 for value in (
