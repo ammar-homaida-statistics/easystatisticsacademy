@@ -49,6 +49,8 @@ jobs:
         run: python -m unittest discover -s .github/scripts -p 'test_batch76_math.py' -v
       - name: Verify Batch #77 independent Bayesian and Gaussian references
         run: python -m unittest discover -s .github/scripts -p 'test_batch77_math.py' -v
+      - name: Verify Batch #78 independent two-coin and paired interval references
+        run: python -m unittest discover -s .github/scripts -p 'test_batch78_math.py' -v
       - name: Inventory mathematical placeholders and reject new damage
         run: python .github/scripts/validate_math_placeholders.py
       - name: Validate front matter
