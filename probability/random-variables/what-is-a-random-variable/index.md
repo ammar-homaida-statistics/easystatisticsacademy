@@ -4,6 +4,8 @@ title: What Is a Random Variable?
 description: Learn how random variables convert uncertain outcomes into numerical values and form the foundation of probability distributions.
 permalink: /probability/random-variables/what-is-a-random-variable/
 sidebar: false
+translation_pair: what-is-a-random-variable
+math: true
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -39,7 +41,7 @@ sidebar: false
       <span class="badge">Foundations</span>
     </div>
 
-    <h1>What Is a Random Variable?</h1>
+    <h1>What Is a Random Variable?</h1><p><a href="/ar/probability/random-variables/what-is-a-random-variable/" lang="ar" dir="rtl">اقرأ الدرس بالعربية</a></p>
 
     <p class="lead">
       Probability often begins with outcomes and events, but many statistical methods require numerical values.
