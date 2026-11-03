@@ -11924,7 +11924,7 @@ class SearchTests(unittest.TestCase):
         expect(lab.locator("#esa-rv-sum")).to_have_text("1.0000")
         coin=lab.locator("#esa-rv-prob")
         coin.focus()
-        coin.fill("1")
+        coin.press("End")
         expect(lab.locator("#esa-rv-x2")).to_have_text("1.0000")
         expect(lab.locator("#esa-rv-x0")).to_have_text("0.0000")
         lab.locator("#esa-rv-reset").press("Enter")
