@@ -2,8 +2,6 @@
    All computation is client-side; no requests or persistence. */
 (function(){
 "use strict";
-const root=document.getElementById("esa-two-coin-rv");if(!root)return;
-const get=x=>root.querySelector("#esa-rv-"+x);
 const outcomes=[["TT",0],["TH",1],["HT",1],["HH",2]];
 function distribution(p){
  if(!Number.isFinite(p)||p<0||p>1)return null;
@@ -12,6 +10,8 @@ function distribution(p){
  return {rows,probabilities,expectation:2*p,variance:2*p*(1-p)};
 }
 window.esaTwoCoinRVMath={distribution};
+const root=document.getElementById("esa-two-coin-rv");if(!root)return;
+const get=x=>root.querySelector("#esa-rv-"+x);
 function render(){
  const raw=get("prob").value.trim(),p=raw===""?NaN:Number(raw),result=distribution(p);
  const error=get("error"),output=get("results");
