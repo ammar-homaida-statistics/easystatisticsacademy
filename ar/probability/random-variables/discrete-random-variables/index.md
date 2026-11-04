@@ -46,7 +46,7 @@ math: true
 <h2>مقارنة بالمتغير المتصل</h2>
 <p>في التوزيع المنفصل يمكن أن يكون احتمال قيمة مفردة موجباً. أما التوزيع المستمر ذي الكثافة فاحتمال النقطة المفردة يساوي صفراً، وتحسب احتمالات الفترات بتكامل دالة الكثافة.</p>
 <div class="summary-box"><h2>الخلاصة</h2><ul class="bullets"><li>قيم المتغير المنفصل محدودة أو قابلة للعدّ.</li><li>كل احتمال غير سالب، ومجموع الكتل يساوي واحداً.</li><li>حساب التوقع والتباين يعتمد على الاحتمالات المرجحة.</li><li>النتائج الأولية المختلفة قد تؤدي إلى قيمة المتغير نفسها.</li></ul></div>
-<div class="lesson-nav"><a class="btn btn-outline" href="/ar/probability/random-variables/what-is-a-random-variable/">السابق: ما المتغير العشوائي؟</a><a class="btn" href="/probability/random-variables/continuous-random-variables/" lang="en" dir="ltr">Next: Continuous Random Variables (English)</a></div>
+<div class="lesson-nav"><a class="btn btn-outline" href="/ar/probability/random-variables/what-is-a-random-variable/">السابق: ما المتغير العشوائي؟</a><a class="btn" href="/ar/probability/random-variables/continuous-random-variables/">التالي: المتغيرات العشوائية المتصلة</a></div>
 </div></section>
 <style>.esa-pmf-math{direction:ltr;max-width:100%;overflow-x:auto}.esa-pmf-math mjx-container[display="true"]{width:max-content;min-width:100%;text-align:left}</style>
 <script defer src="/js/three-point-pmf-explorer.js"></script>
