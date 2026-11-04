@@ -16,7 +16,7 @@ sidebar: false
   try {
     localStorage.setItem(KEY, JSON.stringify({
     url: "/inference/power-sample-size/underpowered-studies/",
-    label: "Underpowered Studies",
+    label: "The Risk of Underpowered Studies",
     ts: Date.now()
     }));
   } catch (_) {
