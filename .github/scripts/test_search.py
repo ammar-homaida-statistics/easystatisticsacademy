@@ -12047,8 +12047,8 @@ class SearchTests(unittest.TestCase):
             self.assertEqual(self.page.locator("html").get_attribute("dir"),"rtl" if lang=="ar" else None)
             expect(self.page.locator("#esa-uniform-pdf-lab")).to_be_visible()
             expect(self.page.locator("#esa-updf-probability")).to_have_text("0.500000")
-            self.assertEqual(self.page.locator("link[rel=alternate][hreflang=ar]").get_attribute("href"),self.origin+ar)
-            self.assertEqual(self.page.locator("link[rel=alternate][hreflang=en]").get_attribute("href"),self.origin+en)
+            self.assertEqual(self.page.locator("link[rel=alternate][hreflang=ar]").get_attribute("href"),"https://easystatisticsacademy.com"+ar)
+            self.assertEqual(self.page.locator("link[rel=alternate][hreflang=en]").get_attribute("href"),"https://easystatisticsacademy.com"+en)
             expect(self.page.locator("main a[href='"+(en if lang=="ar" else ar)+"']")).to_be_visible()
         self.page.goto(self.origin+ar,wait_until="networkidle")
         lab=self.page.locator("#esa-uniform-pdf-lab")
@@ -12068,8 +12068,8 @@ class SearchTests(unittest.TestCase):
         for route in urls:
             self.page.goto(self.origin+route,wait_until="networkidle")
             for code,destination in (("en",urls[0]),("ar",urls[1])):
-                self.assertEqual(self.page.locator("link[rel=alternate][hreflang="+code+"]").get_attribute("href"),self.origin+destination)
-            self.assertEqual(self.page.locator("link[rel=canonical]").get_attribute("href"),self.origin+route)
+                self.assertEqual(self.page.locator("link[rel=alternate][hreflang="+code+"]").get_attribute("href"),"https://easystatisticsacademy.com"+destination)
+            self.assertEqual(self.page.locator("link[rel=canonical]").get_attribute("href"),"https://easystatisticsacademy.com"+route)
 
     def test_batch81_power_curve_lab_numeric_and_mobile(self):
         self.page.set_viewport_size({"width":375,"height":800})
