@@ -16,7 +16,7 @@ sidebar: false
   try {
     localStorage.setItem(KEY, JSON.stringify({
     url: "/inference/power-sample-size/software-and-power-analysis/",
-    label: "Software and Power Analysis",
+    label: "Software and Practical Power Analysis",
     ts: Date.now()
     }));
   } catch (_) {
