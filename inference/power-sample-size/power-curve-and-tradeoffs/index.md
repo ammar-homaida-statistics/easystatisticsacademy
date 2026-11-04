@@ -16,7 +16,7 @@ sidebar: false
   try {
     localStorage.setItem(KEY, JSON.stringify({
     url: "/inference/power-sample-size/power-curve-and-tradeoffs/",
-    label: "Power Curves and Trade-Offs",
+    label: "Power Curves and Trade-offs",
     ts: Date.now()
     }));
   } catch (_) {
