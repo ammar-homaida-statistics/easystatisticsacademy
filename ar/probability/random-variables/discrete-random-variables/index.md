@@ -28,13 +28,14 @@ math: true
 <p>التوقع هو المتوسط المرجح لقيم المتغير باحتمالاتها، والتباين هو المتوسط المرجح لمربعات الانحراف عن التوقع.</p>
 <div class="esa-pmf-math" dir="ltr">\[\mu=E(X)=\sum_x xp_X(x),\qquad \mathrm{Var}(X)=\sum_x(x-\mu)^2p_X(x).\]</div>
 <p>على سبيل المثال، لقيم X=0 و1 و2 واحتمالات 0.2 و0.5 و0.3، فإن التوقع يساوي 1.1 والتباين يساوي 0.49. لأن \(0.2(0-1.1)^2+0.5(1-1.1)^2+0.3(2-1.1)^2=0.49\).</p>
+<noscript><p role="status">يتطلب المختبر التفاعلي تفعيل جافاسكريبت؛ تبقى المعادلات والشرح متاحين دونها.</p></noscript>
 <section class="concept-box" id="esa-three-pmf-lab" aria-labelledby="esa-pmf-title" style="min-width:0;overflow-wrap:anywhere">
 <h2 id="esa-pmf-title">مختبر تفاعلي: ثلاثة احتمالات</h2>
 <p>عدّل احتمالات X=0 وX=1 وX=2؛ يجب أن يكون كل احتمال بين الصفر والواحد وأن يساوي مجموعها واحداً. الإدخالات غير الصالحة لا تُطبَّع تلقائياً.</p>
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,145px),1fr));gap:12px">
-<label for="esa-pmf-p0"><span dir="ltr">P(X=0)</span><input id="esa-pmf-p0" type="number" min="0" max="1" step="any" inputmode="decimal" dir="ltr" value="0.2" style="width:100%"></label>
-<label for="esa-pmf-p1"><span dir="ltr">P(X=1)</span><input id="esa-pmf-p1" type="number" min="0" max="1" step="any" inputmode="decimal" dir="ltr" value="0.5" style="width:100%"></label>
-<label for="esa-pmf-p2"><span dir="ltr">P(X=2)</span><input id="esa-pmf-p2" type="number" min="0" max="1" step="any" inputmode="decimal" dir="ltr" value="0.3" style="width:100%"></label>
+<label for="esa-pmf-p0"><span dir="ltr">P(X=0)</span><input id="esa-pmf-p0" aria-describedby="esa-pmf-error" type="number" min="0" max="1" step="any" inputmode="decimal" dir="ltr" value="0.2" style="width:100%"></label>
+<label for="esa-pmf-p1"><span dir="ltr">P(X=1)</span><input id="esa-pmf-p1" aria-describedby="esa-pmf-error" type="number" min="0" max="1" step="any" inputmode="decimal" dir="ltr" value="0.5" style="width:100%"></label>
+<label for="esa-pmf-p2"><span dir="ltr">P(X=2)</span><input id="esa-pmf-p2" aria-describedby="esa-pmf-error" type="number" min="0" max="1" step="any" inputmode="decimal" dir="ltr" value="0.3" style="width:100%"></label>
 </div>
 <p role="alert" id="esa-pmf-error" hidden>أدخل ثلاثة احتمالات صالحة مجموعها واحد.</p>
 <div id="esa-pmf-results" aria-live="polite">
