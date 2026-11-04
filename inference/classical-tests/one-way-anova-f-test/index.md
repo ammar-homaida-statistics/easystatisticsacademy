@@ -16,7 +16,7 @@ sidebar: false
   try {
   localStorage.setItem(KEY, JSON.stringify({
     url: "/inference/classical-tests/one-way-anova-f-test/",
-    label: "One-Way ANOVA and the F Test",
+    label: "One-Way ANOVA (F Test for 3+ Means)",
     ts: Date.now()
   }));
   } catch (_) {

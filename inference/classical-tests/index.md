@@ -843,17 +843,47 @@ sidebar: false
 
     const data = JSON.parse(raw);
 
-    // Trust only exact published lesson hrefs in this block's own lesson cards.
-    // Do not allow external schemes, traversal, query strings, anchors, or other blocks.
-    const published = new Set(
-      Array.from(document.querySelectorAll("#lessons .lesson-card h3 a[href]"),
-        link => link.getAttribute("href"))
-        .filter(url => typeof url === "string" &&
-          /^\/inference\/classical-tests\/[a-z0-9-]+\/$/.test(url))
-    );
-    if (!data || typeof data.url !== "string" ||
-        typeof data.label !== "string" || !data.label.trim() ||
-        data.label.length > 200 || !published.has(data.url)) return;
+    // Approved lesson routes and their canonical published card titles.
+    const canonical = {
+      "/inference/classical-tests/decision-framework-and-assumptions/": "Decision Framework and Assumptions",
+      "/inference/classical-tests/one-sample-z-test-for-mean/": "One-Sample z Test for a Mean",
+      "/inference/classical-tests/one-sample-t-test-for-mean/": "One-Sample t Test for a Mean",
+      "/inference/classical-tests/paired-t-test/": "Paired t Test",
+      "/inference/classical-tests/two-sample-t-test-independent/": "Two-Sample t Test (Independent Samples)",
+      "/inference/classical-tests/one-proportion-z-test/": "One-Proportion z Test",
+      "/inference/classical-tests/two-proportion-z-test/": "Two-Proportion z Test",
+      "/inference/classical-tests/chi-square-goodness-of-fit/": "Chi-Square Goodness-of-Fit Test",
+      "/inference/classical-tests/chi-square-independence-test/": "Chi-Square Test of Independence",
+      "/inference/classical-tests/chi-square-homogeneity-test/": "Chi-Square Test of Homogeneity",
+      "/inference/classical-tests/one-way-anova-f-test/": "One-Way ANOVA (F Test for 3+ Means)",
+      "/inference/classical-tests/post-hoc-tests-and-multiple-comparisons-preview/": "Post-hoc Tests and Multiple Comparisons"
+};
+    // Keep only verified legacy lesson labels for their original exact URLs.
+    const legacy = {
+      "/inference/classical-tests/one-sample-z-test-for-mean/": [
+            "One-Sample Z Test for a Mean"
+      ],
+      "/inference/classical-tests/one-proportion-z-test/": [
+            "One-Proportion Z Test"
+      ],
+      "/inference/classical-tests/two-proportion-z-test/": [
+            "Two-Proportion Z Test"
+      ],
+      "/inference/classical-tests/one-way-anova-f-test/": [
+            "One-Way ANOVA and the F Test"
+      ],
+      "/inference/classical-tests/post-hoc-tests-and-multiple-comparisons-preview/": [
+            "Post-Hoc Tests and Multiple Comparisons"
+      ]
+};
+    if (!data || typeof data !== "object" || Array.isArray(data) ||
+        typeof data.url !== "string" || typeof data.label !== "string" ||
+        !Object.prototype.hasOwnProperty.call(canonical,data.url) ||
+        (data.label !== canonical[data.url] &&
+         !(legacy[data.url] || []).includes(data.label)) ||
+        (Object.prototype.hasOwnProperty.call(data,"ts") &&
+         (!Number.isSafeInteger(data.ts) || data.ts <= 0 ||
+          data.ts > Date.now() + 5*60*1000))) return;
 
     const wrap =
       document.getElementById(
