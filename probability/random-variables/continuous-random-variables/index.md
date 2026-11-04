@@ -70,14 +70,15 @@ math: true
 </section>
 
 <!-- LESSON -->
+<noscript><p role="status">The interactive calculator requires JavaScript; the lesson explanations and formulas remain available without it.</p></noscript>
 <section class="concept-box" id="esa-uniform-pdf-lab" aria-labelledby="esa-updf-heading" style="min-width:0;overflow-wrap:anywhere">
 <h2 id="esa-updf-heading">Interactive Continuous Probability Density Laboratory</h2>
 <p>Explore a uniform continuous distribution <strong>X ~ Uniform(a,b)</strong>, with a &lt; b. Change the support [a,b] and the interval [c,d] to see probability as shaded area. The interval may extend beyond the support.</p>
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:12px">
-<label for="esa-updf-a">Support lower bound a<input id="esa-updf-a" type="number" step="any" value="0" style="width:100%"></label>
-<label for="esa-updf-b">Support upper bound b<input id="esa-updf-b" type="number" step="any" value="4" style="width:100%"></label>
-<label for="esa-updf-c">Interval lower bound c<input id="esa-updf-c" type="number" step="any" value="1" style="width:100%"></label>
-<label for="esa-updf-d">Interval upper bound d<input id="esa-updf-d" type="number" step="any" value="3" style="width:100%"></label>
+<label for="esa-updf-a">Support lower bound a<input id="esa-updf-a" aria-describedby="esa-updf-error" type="number" step="any" value="0" style="width:100%"></label>
+<label for="esa-updf-b">Support upper bound b<input id="esa-updf-b" aria-describedby="esa-updf-error" type="number" step="any" value="4" style="width:100%"></label>
+<label for="esa-updf-c">Interval lower bound c<input id="esa-updf-c" aria-describedby="esa-updf-error" type="number" step="any" value="1" style="width:100%"></label>
+<label for="esa-updf-d">Interval upper bound d<input id="esa-updf-d" aria-describedby="esa-updf-error" type="number" step="any" value="3" style="width:100%"></label>
 </div>
 <p role="alert" id="esa-updf-error" hidden></p>
 <div id="esa-updf-results" aria-live="polite">
