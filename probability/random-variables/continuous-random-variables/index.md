@@ -68,6 +68,26 @@ sidebar: false
 </section>
 
 <!-- LESSON -->
+<section class="concept-box" id="esa-uniform-pdf-lab" aria-labelledby="esa-updf-heading" style="min-width:0;overflow-wrap:anywhere">
+<h2 id="esa-updf-heading">Interactive Continuous Probability Density Laboratory</h2>
+<p>Explore a uniform continuous distribution <strong>X ~ Uniform(a,b)</strong>, with a &lt; b. Change the support [a,b] and the interval [c,d] to see probability as shaded area. The interval may extend beyond the support.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:12px">
+<label for="esa-updf-a">Support lower bound a<input id="esa-updf-a" type="number" step="any" value="0" style="width:100%"></label>
+<label for="esa-updf-b">Support upper bound b<input id="esa-updf-b" type="number" step="any" value="4" style="width:100%"></label>
+<label for="esa-updf-c">Interval lower bound c<input id="esa-updf-c" type="number" step="any" value="1" style="width:100%"></label>
+<label for="esa-updf-d">Interval upper bound d<input id="esa-updf-d" type="number" step="any" value="3" style="width:100%"></label>
+</div>
+<p role="alert" id="esa-updf-error" hidden></p>
+<div id="esa-updf-results" aria-live="polite">
+<p><strong>Density height:</strong> <output id="esa-updf-density">—</output>; <strong>shaded interval probability:</strong> <output id="esa-updf-probability">—</output>.</p>
+<p>Total area under density: <output id="esa-updf-integral">—</output>; probability at a single point: <output id="esa-updf-pointProbability">—</output>.</p>
+<p>Mean: <output id="esa-updf-mean">—</output>; variance: <output id="esa-updf-variance">—</output>.</p>
+<p id="esa-updf-interpretation"></p></div>
+<svg id="esa-updf-chart" viewBox="0 0 610 235" style="width:100%;height:auto;display:block" role="img" aria-label="Uniform probability density and shaded probability interval"></svg>
+<button id="esa-updf-reset" class="btn btn-outline" type="button">Reset example</button>
+<p>For a continuous distribution with a density, an individual point has probability zero. A density is <em>not</em> itself a probability and may exceed 1 when the support width is less than 1. Interval probability equals the integrated density over the overlap with the support. This model assumes a constant density across [a,b].</p>
+</section>
+<script defer src="/js/uniform-pdf-interval-explorer.js"></script>
 
 <section>
 

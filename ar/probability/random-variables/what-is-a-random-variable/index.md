@@ -52,7 +52,7 @@ math: true
 <h2>لماذا نستخدم المتغيرات العشوائية؟</h2>
 <p>نستخدم التوزيع الاحتمالي لحساب احتمالات القيم أو الفترات، وتلخيص السلوك بالتوقع والتباين، وبناء نماذج للاستدلال الإحصائي. نرمز إلى المتغير غالبًا بحرف كبير مثل X، وإلى قيمة متحققة منه بحرف صغير مثل x.</p>
 <div class="summary-box"><h2>الخلاصة</h2><ul class="bullets"><li>المتغير العشوائي دالة عددية على فضاء النتائج.</li><li>نتائج تجريبية متعددة يمكن أن تؤدي إلى القيمة نفسها.</li><li>احتمالات القيم تُحسب بجمع احتمالات النتائج المناسبة المتنافية.</li><li>توزيع المتغير ليس بالضرورة متساوي الاحتمال حتى لو كانت النتائج الأولية كذلك.</li><li>يجب التمييز بين المتغيرات المنفصلة والمتصلة.</li></ul></div>
-<div class="lesson-nav"><a class="btn btn-outline" href="/ar/">الصفحة العربية</a><a class="btn" lang="en" dir="ltr" href="/probability/random-variables/discrete-random-variables/">Next: Discrete Random Variables (English)</a></div>
+<div class="lesson-nav"><a class="btn btn-outline" href="/ar/">الصفحة العربية</a><a class="btn" lang="en" dir="ltr" href="/ar/probability/random-variables/discrete-random-variables/">التالي: المتغيرات العشوائية المنفصلة</a></div>
 </div></section>
 <style>.esa-rv-math{direction:ltr;max-width:100%;overflow-x:auto}.esa-rv-math mjx-container[display="true"]{width:max-content;min-width:100%;text-align:left}</style>
 <script defer src="/js/two-coin-random-variable.js"></script>
