@@ -27,14 +27,15 @@ math: true
 <div class="esa-updf-ar-math" dir="ltr">\[f(x)=\begin{cases}\frac{1}{b-a},&a\leq x\leq b,\\0,&\text{otherwise.}\end{cases}\]</div>
 <p>مثلاً إذا كانت الفترة <span dir="ltr">[0,4]</span> فإن الكثافة تساوي <span dir="ltr">0.25</span>، واحتمال الوقوع بين 1 و3 يساوي <span dir="ltr">(3-1)/(4-0)=0.5</span>.</p>
 <div class="esa-updf-ar-math" dir="ltr">\[E(X)=\frac{a+b}{2},\qquad\operatorname{Var}(X)=\frac{(b-a)^2}{12}.\]</div>
+<noscript><p role="status">يتطلب المختبر التفاعلي تفعيل جافاسكريبت؛ تبقى المعادلات والشرح متاحين دونها.</p></noscript>
 <section class="concept-box" id="esa-uniform-pdf-lab" lang="ar" aria-labelledby="esa-updf-heading" style="min-width:0;overflow-wrap:anywhere">
 <h2 id="esa-updf-heading">مختبر تفاعلي: الاحتمالات تحت الكثافة المنتظمة</h2>
 <p>عدّل الحدين a وb لتحديد مجال التوزيع، والحدين c وd للفترة المطلوبة. قد تمتد الفترة المطلوبة إلى خارج مجال التوزيع؛ لا تُحسب إلا مساحة التقاطع.</p>
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:12px">
-<label for="esa-updf-a">الحد الأدنى للتوزيع a<input id="esa-updf-a" type="number" step="any" value="0" dir="ltr" style="width:100%"></label>
-<label for="esa-updf-b">الحد الأعلى للتوزيع b<input id="esa-updf-b" type="number" step="any" value="4" dir="ltr" style="width:100%"></label>
-<label for="esa-updf-c">بداية الفترة المطلوبة c<input id="esa-updf-c" type="number" step="any" value="1" dir="ltr" style="width:100%"></label>
-<label for="esa-updf-d">نهاية الفترة المطلوبة d<input id="esa-updf-d" type="number" step="any" value="3" dir="ltr" style="width:100%"></label>
+<label for="esa-updf-a">الحد الأدنى للتوزيع a<input id="esa-updf-a" aria-describedby="esa-updf-error" type="number" step="any" value="0" dir="ltr" style="width:100%"></label>
+<label for="esa-updf-b">الحد الأعلى للتوزيع b<input id="esa-updf-b" aria-describedby="esa-updf-error" type="number" step="any" value="4" dir="ltr" style="width:100%"></label>
+<label for="esa-updf-c">بداية الفترة المطلوبة c<input id="esa-updf-c" aria-describedby="esa-updf-error" type="number" step="any" value="1" dir="ltr" style="width:100%"></label>
+<label for="esa-updf-d">نهاية الفترة المطلوبة d<input id="esa-updf-d" aria-describedby="esa-updf-error" type="number" step="any" value="3" dir="ltr" style="width:100%"></label>
 </div>
 <p role="alert" id="esa-updf-error" hidden></p>
 <div id="esa-updf-results" aria-live="polite">
