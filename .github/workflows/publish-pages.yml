@@ -1,0 +1,74 @@
+name: Publish Easy Statistics Academy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build and verify Pages artifact
+    runs-on: ubuntu-latest
+    outputs:
+      artifact_name: github-pages
+    steps:
+      - name: Check out main
+        uses: actions/checkout@v6
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Set up Ruby and locked Jekyll dependencies
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler: '2.6.9'
+          bundler-cache: true
+
+      - name: Build website with the same Jekyll command as PR CI
+        env:
+          JEKYLL_ENV: production
+          PAGES_REPO_NWO: ${{ github.repository }}
+          JEKYLL_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bundle exec jekyll build --strict_front_matter --trace
+
+      - name: Assert new lessons and interactive assets actually exist in output
+        run: |
+          set -euo pipefail
+          test -s _site/index.html
+          test -s _site/CNAME
+          grep -Fxq easystatisticsacademy.com _site/CNAME
+          test -s _site/ar/index.html
+          test -s _site/ar/probability/random-variables/what-is-a-random-variable/index.html
+          test -s _site/ar/probability/conditional/base-rate-neglect-and-fallacies/index.html
+          test -s _site/inference/confidence-intervals/ci-for-paired-mean-difference/index.html
+          test -s _site/js/two-coin-random-variable.js
+          test -s _site/js/paired-mean-ci-explorer.js
+          grep -q 'esa-two-coin-rv' _site/ar/probability/random-variables/what-is-a-random-variable/index.html
+          grep -q 'esa-paired-ci-lab' _site/inference/confidence-intervals/ci-for-paired-mean-difference/index.html
+
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+
+  deploy:
+    name: Deploy verified site to GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy verified Pages artifact
+        id: deployment
+        uses: actions/deploy-pages@v4
