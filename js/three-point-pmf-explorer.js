@@ -20,11 +20,13 @@ function render(){
  const numbers=inputs.map(s=>s===""?NaN:Number(s));
  const result=compute(numbers),error=get("error"),results=get("results"),plot=get("chart");
  error.hidden=!!result;results.hidden=!result;plot.hidden=!result;
+ [0,1,2].forEach(i=>get("p"+i).setAttribute("aria-invalid",result?"false":"true"));
  if(!result){error.textContent="أدخل ثلاثة احتمالات بين 0 و1 مجموعها 1، دون قيم سالبة.";return;}
  get("sum").textContent=result.total.toFixed(4);
  get("mean").textContent=result.mean.toFixed(4);
  get("variance").textContent=result.variance.toFixed(4);
  const shapes=[node("title",{},"دالة الكتلة الاحتمالية لقيم X صفر وواحد واثنين"),
+  node("desc",{},"المخطط يوضح الأعمدة الثلاثة عند القيم صفر وواحد واثنين مع احتمالاتها؛ تُعرض القيم أيضاً في مخرجات النص."),
   node("line",{x1:30,x2:450,y1:180,y2:180,stroke:"currentColor"})];
  result.weights.forEach((p,i)=>{
   const x=63+i*135;shapes.push(node("rect",{x,y:180-145*p,width:70,height:145*p,fill:"#0f766e"}));
