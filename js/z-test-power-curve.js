@@ -24,7 +24,7 @@ function power(effect,n,alpha){
 }
 window.esaPowerCurveMath={normalCDF,inverseCDF,power};
 const root=document.getElementById("esa-power-curve-lab");if(!root)return;
-const get=k=>root.querySelector("#esa-power-"+k);
+const get=k=>root.querySelector("#esa-pcurve-"+k);
 const ns="http://www.w3.org/2000/svg";
 function node(tag,attrs={},content){const e=document.createElementNS(ns,tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,String(v)));if(content!==undefined)e.textContent=String(content);return e;}
 function render(){
