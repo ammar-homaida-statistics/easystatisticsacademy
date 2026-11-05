@@ -12115,7 +12115,7 @@ class SearchTests(unittest.TestCase):
         ):
             save(record)
             expect(panel).to_be_hidden()
-        self.assertEqual(self.page.locator("#continue-reading-inference-power-label img,script").count(),0)
+        self.assertEqual(self.page.locator("#continue-reading-inference-power-label img, #continue-reading-inference-power-label script").count(),0)
 
     def test_batch81_lab_accessibility_invalid_feedback_and_mobile(self):
         cases=(("/ar/probability/random-variables/discrete-random-variables/","esa-pmf","p0","reset","-0.2"),
