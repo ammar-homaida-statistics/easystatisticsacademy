@@ -602,17 +602,37 @@ sidebar: false
 
     const data = JSON.parse(raw);
 
-    // Trust only exact published lesson hrefs in this block's own lesson cards.
-    // Do not allow external schemes, traversal, query strings, anchors, or other blocks.
-    const published = new Set(
-      Array.from(document.querySelectorAll("#lessons .lesson-card h3 a[href]"),
-        link => link.getAttribute("href"))
-        .filter(url => typeof url === "string" &&
-          /^\/inference\/power-sample-size\/[a-z0-9-]+\/$/.test(url))
-    );
-    if (!data || typeof data.url !== "string" ||
-        typeof data.label !== "string" || !data.label.trim() ||
-        data.label.length > 200 || !published.has(data.url)) return;
+    // An immutable allowlist of exact published lesson routes and canonical titles.
+    const canonical = {
+      "/inference/power-sample-size/what-is-statistical-power/": "What Is Statistical Power?",
+      "/inference/power-sample-size/effect-size-and-practical-importance/": "Effect Size and Practical Importance",
+      "/inference/power-sample-size/power-curve-and-tradeoffs/": "Power Curves and Trade-offs",
+      "/inference/power-sample-size/sample-size-for-mean/": "Sample Size for a Mean",
+      "/inference/power-sample-size/sample-size-for-proportion/": "Sample Size for a Proportion",
+      "/inference/power-sample-size/precision-vs-detectability/": "Precision vs Detectability",
+      "/inference/power-sample-size/underpowered-studies/": "The Risk of Underpowered Studies",
+      "/inference/power-sample-size/software-and-power-analysis/": "Software and Practical Power Analysis"
+};
+    // Historical titles accepted only on their verified original lesson URL.
+    const legacy = {
+      "/inference/power-sample-size/power-curve-and-tradeoffs/": [
+            "Power Curves and Trade-Offs"
+      ],
+      "/inference/power-sample-size/underpowered-studies/": [
+            "Underpowered Studies"
+      ],
+      "/inference/power-sample-size/software-and-power-analysis/": [
+            "Software and Power Analysis"
+      ]
+};
+    if (!data || typeof data !== "object" || Array.isArray(data) ||
+        typeof data.url !== "string" || typeof data.label !== "string" ||
+        !Object.prototype.hasOwnProperty.call(canonical, data.url) ||
+        (data.label !== canonical[data.url] &&
+         !(legacy[data.url] || []).includes(data.label)) ||
+        (Object.prototype.hasOwnProperty.call(data, "ts") &&
+         (!Number.isSafeInteger(data.ts) || data.ts <= 0 ||
+          data.ts > Date.now() + 5 * 60 * 1000))) return;
 
     const wrap =
       document.getElementById(

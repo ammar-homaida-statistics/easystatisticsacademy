@@ -10,7 +10,13 @@
   <title>{{ meta_title | escape }} | {{ site.title | escape }}</title>
   <meta name="description" content="{{ meta_description | escape }}" />
   <link rel="canonical" href="{{ canonical_url | escape }}" />
-  {% if page.translation_pair == "discrete-random-variables" %}
+  {% if page.translation_pair == "continuous-random-variables" %}
+  <link rel="alternate" hreflang="en" href="{{ site.url }}/probability/random-variables/continuous-random-variables/" />
+  <link rel="alternate" hreflang="ar" href="{{ site.url }}/ar/probability/random-variables/continuous-random-variables/" />
+  {% elsif page.translation_pair == "what-is-a-random-variable" %}
+  <link rel="alternate" hreflang="en" href="{{ site.url }}/probability/random-variables/what-is-a-random-variable/" />
+  <link rel="alternate" hreflang="ar" href="{{ site.url }}/ar/probability/random-variables/what-is-a-random-variable/" />
+  {% elsif page.translation_pair == "discrete-random-variables" %}
   <link rel="alternate" hreflang="en" href="{{ site.url }}/probability/random-variables/discrete-random-variables/" />
   <link rel="alternate" hreflang="ar" href="{{ site.url }}/ar/probability/random-variables/discrete-random-variables/" />
   {% elsif page.translation_pair == "bootstrap" %}

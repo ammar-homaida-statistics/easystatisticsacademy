@@ -80,6 +80,7 @@ function render(){
  const mean=data[0]===''?NaN:Number(data[0]),sd=data[1]===''?NaN:Number(data[1]),n=data[2]===''?NaN:Number(data[2]),level=Number(data[3]);
  const stats=paired(mean,sd,n,level),error=get('error'),results=get('results'),chart=get('chart');
  error.hidden=Boolean(stats);results.hidden=!stats;chart.hidden=!stats;
+ ids.forEach(id=>get(id).setAttribute('aria-invalid',stats?'false':'true'));
  if(!stats){get('error').textContent='Enter finite mean difference, positive sample SD, integer number of pairs 2–1,000,000, and a supported confidence level.';return;}
  for(const name of ['df','se','critical','margin','lower','upper'])get(name).textContent=stats[name].toFixed(5);
  get('zero').textContent=stats.includesZero?'Zero lies within this interval; the corresponding two-sided t test does not reject a zero mean difference at the matching significance level.':'Zero lies outside this interval; the corresponding two-sided t test rejects a zero mean difference at the matching significance level.';

@@ -16,7 +16,7 @@ sidebar: false
   try {
     localStorage.setItem(KEY, JSON.stringify({
     url: "/inference/power-sample-size/power-curve-and-tradeoffs/",
-    label: "Power Curves and Trade-Offs",
+    label: "Power Curves and Trade-offs",
     ts: Date.now()
     }));
   } catch (_) {
@@ -68,6 +68,20 @@ sidebar: false
 </section>
 
 <!-- LESSON -->
+<section class="concept-box" id="esa-power-curve-lab" aria-labelledby="esa-pcurve-heading" style="min-width:0;overflow-wrap:anywhere">
+<h2 id="esa-pcurve-heading">Interactive Statistical Power Curve Laboratory</h2>
+<p>Explore a <strong>two-sided, one-sample Z test</strong> for a population mean with a <strong>known population standard deviation σ</strong>, independent observations, and normal observations or an appropriate normal approximation. The standardized true effect is δ = (μ − μ₀)/σ. This illustration uses an assumed effect and known σ, not a Student-t calculation.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr));gap:12px">
+<label for="esa-pcurve-effect">Standardized effect δ<input id="esa-pcurve-effect" type="number" step="0.1" min="-3" max="3" value="0.5" style="width:100%"></label>
+<label for="esa-pcurve-n">Sample size n<input id="esa-pcurve-n" type="number" min="2" max="10000" step="1" value="40" style="width:100%"></label>
+<label for="esa-pcurve-alpha">Significance level α<select id="esa-pcurve-alpha" style="width:100%"><option value="0.01">0.01</option><option value="0.05" selected>0.05</option><option value="0.1">0.10</option></select></label></div>
+<p role="alert" id="esa-pcurve-error" hidden></p><div id="esa-pcurve-results" aria-live="polite">
+<p>Power (1 − β): <strong><output id="esa-pcurve-power">—</output></strong> · Type II error β: <output id="esa-pcurve-beta">—</output> · Critical |z|: <output id="esa-pcurve-critical">—</output> · Noncentral shift δ√n: <output id="esa-pcurve-noncentrality">—</output></p></div>
+<svg id="esa-pcurve-chart" role="img" viewBox="0 0 630 235" style="display:block;width:100%;height:auto" aria-label="Power versus sample size curve with selected sample size"></svg>
+<button class="btn btn-outline" type="button" id="esa-pcurve-reset">Reset example</button>
+<p>Power uses <span dir="ltr">Φ(−z₁₋α/₂ − δ√n) + 1 − Φ(z₁₋α/₂ − δ√n)</span>. A larger α generally increases power while increasing the Type I error rate under the null. At δ = 0 the rejection probability equals α. Changing n cannot compensate for biased assumptions, non-independence or unaccounted multiplicity. Power is a model-based planning probability, not a guarantee that a study finds significance.</p>
+</section>
+<script defer src="/js/z-test-power-curve.js"></script>
 
 <section>
 

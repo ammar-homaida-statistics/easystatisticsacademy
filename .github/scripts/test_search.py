@@ -3493,7 +3493,7 @@ class SearchTests(unittest.TestCase):
                         [key, value])
                     self.page.reload(wait_until="networkidle")
                 save({"url":valid, "label":malicious})
-                if slug in ("hypothesis-testing","classical-tests"):
+                if slug in ("hypothesis-testing","classical-tests","power-sample-size"):
                     # These blocks require exact canonical or verified legacy
                     # titles for corresponding published lesson URLs.
                     expect(panel).to_be_hidden()
@@ -5781,12 +5781,12 @@ class SearchTests(unittest.TestCase):
         lessons=(
           ("what-is-statistical-power","What Is Statistical Power?"),
           ("effect-size-and-practical-importance","Effect Size and Practical Importance"),
-          ("power-curve-and-tradeoffs","Power Curves and Trade-Offs"),
+          ("power-curve-and-tradeoffs","Power Curves and Trade-offs"),
           ("sample-size-for-mean","Sample Size for a Mean"),
           ("sample-size-for-proportion","Sample Size for a Proportion"),
           ("precision-vs-detectability","Precision vs Detectability"),
-          ("underpowered-studies","Underpowered Studies"),
-          ("software-and-power-analysis","Software and Power Analysis")
+          ("underpowered-studies","The Risk of Underpowered Studies"),
+          ("software-and-power-analysis","Software and Practical Power Analysis")
         )
         key="esa_continue_inference_power_sample_size_lesson_v0"
         for slug,label in lessons:
@@ -12035,6 +12035,105 @@ class SearchTests(unittest.TestCase):
         lab.locator("#esa-updf-reset").press("Enter")
         expect(lab.locator("#esa-updf-error")).to_be_hidden()
         expect(lab.locator("#esa-updf-chart")).to_have_attribute("role","img")
+
+
+    def test_batch81_arabic_continuous_pdf_and_reciprocal_metadata(self):
+        self.page.set_viewport_size({"width":320,"height":780})
+        ar="/ar/probability/random-variables/continuous-random-variables/"
+        en="/probability/random-variables/continuous-random-variables/"
+        for url,lang in ((ar,"ar"),(en,"en")):
+            self.page.goto(self.origin+url,wait_until="networkidle")
+            self.assertEqual(self.page.locator("html").get_attribute("lang"),lang)
+            self.assertEqual(self.page.locator("html").get_attribute("dir"),"rtl" if lang=="ar" else None)
+            expect(self.page.locator("#esa-uniform-pdf-lab")).to_be_visible()
+            expect(self.page.locator("#esa-updf-probability")).to_have_text("0.500000")
+            self.assertEqual(self.page.locator("link[rel=alternate][hreflang=ar]").get_attribute("href"),"https://easystatisticsacademy.com"+ar)
+            self.assertEqual(self.page.locator("link[rel=alternate][hreflang=en]").get_attribute("href"),"https://easystatisticsacademy.com"+en)
+            expect(self.page.locator("main a[href='"+(en if lang=="ar" else ar)+"']")).to_be_visible()
+        self.page.goto(self.origin+ar,wait_until="networkidle")
+        lab=self.page.locator("#esa-uniform-pdf-lab")
+        lab.locator("#esa-updf-b").fill("0")
+        expect(lab.locator("#esa-updf-error")).to_be_visible()
+        expect(lab.locator("#esa-updf-error")).to_contain_text("أدخل حدوداً")
+        expect(lab.locator("#esa-updf-a")).to_have_attribute("aria-invalid","true")
+        lab.locator("#esa-updf-reset").press("Enter")
+        expect(lab.locator("#esa-updf-error")).to_be_hidden()
+        expect(lab.locator("#esa-updf-a")).to_have_attribute("aria-invalid","false")
+        expect(lab.locator("#esa-updf-interpretation")).to_contain_text("احتمال الفترة")
+        self.assertGreater(self.page.locator("#esa-updf-chart desc").count(),0)
+
+    def test_batch81_intro_random_variable_hreflang_regression(self):
+        urls=("/probability/random-variables/what-is-a-random-variable/",
+              "/ar/probability/random-variables/what-is-a-random-variable/")
+        for route in urls:
+            self.page.goto(self.origin+route,wait_until="networkidle")
+            for code,destination in (("en",urls[0]),("ar",urls[1])):
+                self.assertEqual(self.page.locator("link[rel=alternate][hreflang="+code+"]").get_attribute("href"),"https://easystatisticsacademy.com"+destination)
+            self.assertEqual(self.page.locator("link[rel=canonical]").get_attribute("href"),"https://easystatisticsacademy.com"+route)
+
+    def test_batch81_power_curve_lab_numeric_and_mobile(self):
+        self.page.set_viewport_size({"width":375,"height":800})
+        self.page.goto(self.origin+"/inference/power-sample-size/power-curve-and-tradeoffs/",wait_until="networkidle")
+        lab=self.page.locator("#esa-power-curve-lab")
+        expect(lab).to_be_visible()
+        p=float(lab.locator("#esa-pcurve-power").inner_text())
+        self.assertGreater(p,.8)
+        self.assertLess(p,1)
+        lab.locator("#esa-pcurve-effect").fill("0")
+        self.assertAlmostEqual(float(lab.locator("#esa-pcurve-power").inner_text()),.05,delta=.00001)
+        lab.locator("#esa-pcurve-alpha").select_option("0.01")
+        self.assertAlmostEqual(float(lab.locator("#esa-pcurve-power").inner_text()),.01,delta=.00001)
+        lab.locator("#esa-pcurve-effect").fill("4")
+        expect(lab.locator("#esa-pcurve-error")).to_be_visible()
+        expect(lab.locator("#esa-pcurve-chart")).to_be_hidden()
+        lab.locator("#esa-pcurve-reset").focus()
+        lab.locator("#esa-pcurve-reset").press("Enter")
+        expect(lab.locator("#esa-pcurve-error")).to_be_hidden()
+        expect(lab.locator("#esa-pcurve-chart")).to_have_attribute("role","img")
+
+    def test_batch81_power_progress_whitelist_legacy_timestamp_security(self):
+        route="/inference/power-sample-size/"
+        key="esa_continue_inference_power_sample_size_lesson_v0"
+        url=route+"power-curve-and-tradeoffs/"
+        self.page.goto(self.origin+route,wait_until="networkidle")
+        panel=self.page.locator("#continue-reading-inference-power")
+        def save(record):
+            self.page.evaluate("([key,value])=>localStorage.setItem(key,JSON.stringify(value))",[key,record])
+            self.page.reload(wait_until="networkidle")
+        for title in ("Power Curves and Trade-offs","Power Curves and Trade-Offs"):
+            save({"url":url,"label":title})
+            expect(panel).to_be_visible()
+            expect(self.page.locator("#continue-reading-inference-power-btn")).to_have_attribute("href",url)
+        for record in (
+            {"url":url,"label":"<img src=x onerror=alert(1)>"},
+            {"url":url,"label":"The Risk of Underpowered Studies"},
+            {"url":"javascript:alert(1)","label":"Power Curves and Trade-offs"},
+            {"url":url+"?q=1","label":"Power Curves and Trade-offs"},
+            {"url":url,"label":"Power Curves and Trade-offs","ts":9999999999999999},
+            {"url":url,"label":"Power Curves and Trade-offs","ts":False},
+            {"url":url,"label":"Power Curves and Trade-offs","ts":-1},
+        ):
+            save(record)
+            expect(panel).to_be_hidden()
+        self.assertEqual(self.page.locator("#continue-reading-inference-power-label img, #continue-reading-inference-power-label script").count(),0)
+
+    def test_batch81_lab_accessibility_invalid_feedback_and_mobile(self):
+        cases=(("/ar/probability/random-variables/discrete-random-variables/","esa-pmf","p0","reset","-0.2"),
+               ("/probability/random-variables/continuous-random-variables/","esa-updf","a","reset","6"),
+               ("/inference/confidence-intervals/ci-for-paired-mean-difference/","esa-pci","n","reset","1"))
+        self.page.set_viewport_size({"width":320,"height":770})
+        for url,prefix,field,reset,invalid in cases:
+            with self.subTest(url=url):
+                self.page.goto(self.origin+url,wait_until="networkidle")
+                entry=self.page.locator("#"+prefix+"-"+field)
+                entry.fill(invalid)
+                expect(self.page.locator("#"+prefix+"-error")).to_be_visible()
+                expect(entry).to_have_attribute("aria-invalid","true")
+                expect(entry).to_have_attribute("aria-describedby",prefix+"-error")
+                self.page.locator("#"+prefix+"-"+reset).press("Enter")
+                expect(self.page.locator("#"+prefix+"-error")).to_be_hidden()
+                expect(entry).to_have_attribute("aria-invalid","false")
+                self.assertLessEqual(entry.evaluate("e=>e.getBoundingClientRect().right"),321)
 
 
 if __name__ == "__main__":
