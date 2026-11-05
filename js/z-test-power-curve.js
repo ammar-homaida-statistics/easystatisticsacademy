@@ -45,6 +45,8 @@ function render(){
  const result=power(effectRaw===""?NaN:Number(effectRaw),nRaw===""?NaN:Number(nRaw),Number(get("alpha").value));
  const error=get("error"),out=get("results"),chart=get("chart");
  error.hidden=!!result;out.hidden=!result;chart.hidden=!result;
+ // SVG display:block overrides the UA [hidden] rule; explicitly hide invalid charts.
+ chart.style.display=result?"block":"none";
  if(!result){error.textContent="Enter an effect size between -3 and 3, integer sample size from 2 to 10000, and an available significance level.";return;}
  for(const k of ["power","beta","critical"])get(k).textContent=result[k].toFixed(5);
  get("noncentrality").textContent=result.noncentrality.toFixed(4);
