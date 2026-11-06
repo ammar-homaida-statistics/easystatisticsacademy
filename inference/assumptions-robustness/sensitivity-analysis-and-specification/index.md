@@ -22,6 +22,20 @@ sidebar: false
 })();
 </script>
 
+<section class="concept-box" id="esa-sensitivity-lab" aria-labelledby="esa-sens-title" style="min-width:0;overflow-wrap:anywhere">
+<h2 id="esa-sens-title">Interactive Descriptive-Statistic Sensitivity Laboratory</h2>
+<p>Use ten fixed observations (2, 4, 5, 6, 8, 9, 10, 12, 14, 15), plus <strong>one adjustable eleventh observation</strong>. Compare their sample mean, median and 10% trimmed mean. This isolates <em>sample-statistic sensitivity to one data value</em>; it is not a formal model-specification analysis or a causal sensitivity analysis.</p>
+<label for="esa-sens-value">Eleventh observation (between −1000 and 1000)</label>
+<input id="esa-sens-value" type="number" step="any" min="-1000" max="1000" value="11" aria-describedby="esa-sens-error" style="width:min(100%,230px)">
+<p id="esa-sens-error" role="alert" hidden></p>
+<div id="esa-sens-results" aria-live="polite"><p><strong>Mean:</strong> <output id="esa-sens-mean">—</output> · <strong>Median:</strong> <output id="esa-sens-median">—</output> · <strong>10% trimmed mean:</strong> <output id="esa-sens-trimmed">—</output></p><p>Ordered observations: <output id="esa-sens-observations">—</output></p></div>
+<svg id="esa-sens-chart" viewBox="0 0 480 210" role="img" aria-label="Comparison of the mean, median and trimmed mean" style="width:100%;height:auto"></svg>
+<button type="button" class="btn btn-outline" id="esa-sens-reset">Reset example</button>
+<p>The trimmed mean removes exactly the smallest and largest observation (floor(0.10 × 11) = 1 from each side). When one value becomes extremely large or small, the sample mean may change considerably while the median and trimmed mean can be less sensitive. These three statistics answer different questions and neither one is universally preferable. Results depend on the selected dataset and contamination mechanism.</p>
+</section>
+<noscript><p>The sensitivity calculator requires JavaScript; the statistical explanation remains available without it.</p></noscript>
+<script defer src="/js/sensitivity-summary-lab.js"></script>
+
 <!-- HERO -->
 
 <section class="hero hero-section">
