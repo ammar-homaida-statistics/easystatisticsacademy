@@ -2,8 +2,7 @@
 (function(){
   "use strict";
   const root=document.getElementById("esa-cdf-explorer");
-  if(!root)return;
-  const ar=root.getAttribute("lang")==="ar";
+  const ar=!!root && root.getAttribute("lang")==="ar";
   const byId=id=>document.getElementById(id);
   const distribution=byId("esa-cdf-kind"),pControl=byId("esa-cdf-p"),
     aControl=byId("esa-cdf-a"),bControl=byId("esa-cdf-b"),
@@ -29,6 +28,7 @@
   }
   // Exposed pure mathematical kernels allow independent test benchmarks.
   window.esaCdfMath={cdf,interval};
+  if(!root)return;
   const node=(tag,attrs,content)=>{
     const item=document.createElementNS(ns,tag);
     Object.entries(attrs||{}).forEach(([k,v])=>item.setAttribute(k,String(v)));
