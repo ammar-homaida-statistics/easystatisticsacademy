@@ -3,6 +3,7 @@
   "use strict";
   const root=document.getElementById("esa-cdf-explorer");
   if(!root)return;
+  const ar=root.getAttribute("lang")==="ar";
   const byId=id=>document.getElementById(id);
   const distribution=byId("esa-cdf-kind"),pControl=byId("esa-cdf-p"),
     aControl=byId("esa-cdf-a"),bControl=byId("esa-cdf-b"),
@@ -49,8 +50,8 @@
   function draw(kind,p,a,b,x){
     const color="#2563eb",contrast="#0f766e";
     plot.replaceChildren(
-      node("title",{},"Cumulative distribution function graph"),
-      node("desc",{},"The CDF is nondecreasing and ranges between zero and one. Bernoulli has jumps at zero and one. Uniform is continuous."),
+      node("title",{},ar?"منحنى دالة التوزيع التراكمي":"Cumulative distribution function graph"),
+      node("desc",{},ar?"دالة غير متناقصة، مع قفزات في برنولي، ومتصلة في التوزيع المنتظم.":"The CDF is nondecreasing and ranges between zero and one. Bernoulli has jumps at zero and one. Uniform is continuous."),
       node("line",{x1:X(-1.5),y1:Y(0),x2:X(3.5),y2:Y(0),stroke:"currentColor","stroke-width":1.2}),
       node("line",{x1:X(-1.5),y1:Y(0),x2:X(-1.5),y2:Y(1.08),stroke:"currentColor","stroke-width":1.2}),
       node("text",{x:X(-1.5),y:Y(1)+3,"font-size":11,fill:"currentColor"},"1"),
@@ -93,17 +94,18 @@
       !Number.isFinite(L)||!Number.isFinite(R)||L>=R;
     const f=cdf(kind,x,p,a,b),value=interval(kind,L,R,p,a,b);
     if(invalidBounds||invalidInterval||f===null||value===null){
-      error.textContent=invalidBounds?"Uniform endpoints must satisfy a < b.":
-        "Enter finite interval bounds L < R.";
+      error.textContent=invalidBounds?(ar?"يشترط أن يكون a أصغر من b.":"Uniform endpoints must satisfy a < b."):(ar?"أدخل حدوداً صالحة بحيث L أصغر من R.":"Enter finite interval bounds L < R.");
       error.hidden=false;panel.hidden=true;plot.replaceChildren();
+      left.setAttribute("aria-invalid",invalidInterval?"true":"false");right.setAttribute("aria-invalid",invalidInterval?"true":"false");
       return;
     }
     error.hidden=true;panel.hidden=false;
+    left.setAttribute("aria-invalid","false");right.setAttribute("aria-invalid","false");
     byId("esa-cdf-fx").textContent=fmt(f);
     byId("esa-cdf-interval").textContent=fmt(value);
     byId("esa-cdf-description").textContent=kind==="bernoulli"
-      ?"Bernoulli CDF jumps by 1−p at x=0 and by p at x=1. Filled dots include the jump value; hollow dots exclude the left limit."
-      :"For Uniform[a,b], the CDF increases linearly from zero at a to one at b. Single points have probability zero.";
+      ?(ar?"تقفز دالة برنولي بمقدار 1−p عند الصفر وبمقدار p عند الواحد. النقطة الممتلئة تشمل قيمة القفزة.":"Bernoulli CDF jumps by 1−p at x=0 and by p at x=1. Filled dots include the jump value; hollow dots exclude the left limit.")
+      :(ar?"تزداد دالة التوزيع المنتظم خطياً داخل المجال. احتمال النقطة المفردة صفر.":"For Uniform[a,b], the CDF increases linearly from zero at a to one at b. Single points have probability zero.");
     draw(kind,p,a,b,x);
   }
   for(const item of [distribution,pControl,aControl,bControl,xControl,left,right]){
