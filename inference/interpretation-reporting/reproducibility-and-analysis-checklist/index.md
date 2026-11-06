@@ -13,11 +13,11 @@ sidebar: false
   const KEY =
     "esa_continue_inference_interpretation_reporting_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try { localStorage.setItem(KEY, JSON.stringify({
     url: "/inference/interpretation-reporting/reproducibility-and-analysis-checklist/",
-    label: "Reproducibility and Analysis Checklist",
+    label: "Reproducibility and an Analysis Checklist",
     ts: Date.now()
-  }));
+  })); } catch (_) { /* Storage restrictions must not prevent reading. */ }
 
 })();
 </script>
