@@ -63,5 +63,45 @@ class LivePagesTests(unittest.TestCase):
             self.assertIn(route,routes)
 
 
+    def test_revision_matches_exact_new_artifact(self):
+        sha="a"*40
+        def opener(request,timeout):
+            route=request.full_url
+            return FakeResponse(data=(sha+"\\n").encode() if route.endswith("/deployment-revision.txt") else b"marker",
+                                url=route)
+        self.assertEqual(module.verify_once(checks=(("/page/",b"marker"),),
+                        opener=opener,expected_sha=sha),[])
+
+    def test_stale_live_revision_blocks_deployment(self):
+        sha="a"*40
+        def opener(request,timeout):
+            return FakeResponse(data=b"b"*40 if request.full_url.endswith("/deployment-revision.txt") else b"marker",
+                                url=request.full_url)
+        problems=module.verify_once(checks=(("/page/",b"marker"),),opener=opener,expected_sha=sha)
+        self.assertTrue(any("stale deployment revision" in error for error in problems))
+
+    def test_revision_manifest_missing_is_failure(self):
+        sha="a"*40
+        def opener(request,timeout):
+            if request.full_url.endswith("/deployment-revision.txt"):
+                return FakeResponse(data=b"404",status=404,url=request.full_url)
+            return FakeResponse(url=request.full_url)
+        problems=module.verify_once(checks=(("/page/",b"marker"),),opener=opener,expected_sha=sha)
+        self.assertTrue(any("deployment-revision" in error for error in problems))
+
+    def test_wrong_route_redirect_rejected(self):
+        self.assertIn("redirect",module.verify_once(
+            checks=(("/page/",b"marker"),),
+            opener=lambda request,timeout:FakeResponse(url="https://easystatisticsacademy.com/other/"))[0])
+
+    def test_approved_batch_83_routes_are_required(self):
+        paths=[route for route,_ in module.CHECKS]
+        for name in ("ar/probability/random-variables/cumulative-distribution-function",
+                     "ar/probability/random-variables/expectation",
+                     "js/three-point-moments-lab.js",
+                     "inference/power-sample-size/power-curve-and-tradeoffs"):
+            self.assertTrue(any(name in path for path in paths))
+
+
 if __name__ == "__main__":
     unittest.main()
