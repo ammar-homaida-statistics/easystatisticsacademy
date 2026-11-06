@@ -669,17 +669,26 @@ sidebar: false
 
     const data = JSON.parse(raw);
 
-    // Trust only exact published lesson hrefs in this block's own lesson cards.
-    // Do not allow external schemes, traversal, query strings, anchors, or other blocks.
-    const published = new Set(
-      Array.from(document.querySelectorAll("#lessons .lesson-card h3 a[href]"),
-        link => link.getAttribute("href"))
-        .filter(url => typeof url === "string" &&
-          /^\/inference\/assumptions-robustness\/[a-z0-9-]+\/$/.test(url))
-    );
-    if (!data || typeof data.url !== "string" ||
-        typeof data.label !== "string" || !data.label.trim() ||
-        data.label.length > 200 || !published.has(data.url)) return;
+    // Only exact published routes and verified historical labels may be resumed.
+    const canonical = {
+      "/inference/assumptions-robustness/assumptions-vs-robustness-mindset/": "Assumptions vs Robustness: The Mindset",
+      "/inference/assumptions-robustness/model-assumptions-vs-design-assumptions/": "Model Assumptions vs Design Assumptions",
+      "/inference/assumptions-robustness/checking-normality-what-and-why/": "Checking Normality: What and Why",
+      "/inference/assumptions-robustness/independence-and-dependence/": "Independence and Dependence",
+      "/inference/assumptions-robustness/heteroscedasticity-variance-issues/": "Heteroscedasticity and Variance Issues",
+      "/inference/assumptions-robustness/outliers-and-influence/": "Outliers and Influence",
+      "/inference/assumptions-robustness/robust-alternatives-nonparametric/": "Robust Alternatives and Nonparametric Thinking",
+      "/inference/assumptions-robustness/bootstrap-as-robust-tool/": "Bootstrap as a Robust Tool",
+      "/inference/assumptions-robustness/sensitivity-analysis-and-specification/": "Sensitivity Analysis and Specification",
+      "/inference/assumptions-robustness/reporting-assumptions-and-limitations/": "Reporting Assumptions and Limitations"
+};
+    const legacy = {};
+    if (!data || typeof data !== "object" || Array.isArray(data) ||
+        typeof data.url !== "string" || typeof data.label !== "string" ||
+        !Object.prototype.hasOwnProperty.call(canonical, data.url) ||
+        (data.label !== canonical[data.url] && !(legacy[data.url] || []).includes(data.label)) ||
+        (Object.prototype.hasOwnProperty.call(data,"ts") &&
+         (!Number.isSafeInteger(data.ts) || data.ts <= 0 || data.ts > Date.now()+300000))) return;
 
     const wrap =
       document.getElementById(
