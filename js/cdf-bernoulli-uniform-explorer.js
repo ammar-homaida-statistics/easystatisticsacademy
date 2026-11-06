@@ -75,8 +75,9 @@
     const f=cdf(kind,x,p,a,b);
     plot.appendChild(node("line",{x1:X(x),y1:Y(0),x2:X(x),y2:Y(f),stroke:contrast,"stroke-width":2,"stroke-dasharray":"4 3"}));
     point(x,f,true,contrast);
-    plot.setAttribute("aria-label",(kind==="bernoulli"?"Bernoulli CDF with p="+p:
-      "Uniform CDF from "+a+" to "+b)+", F("+x+") = "+f.toFixed(6));
+    plot.setAttribute("aria-label",ar
+      ?(kind==="bernoulli"?"دالة برنولي مع احتمال نجاح "+p:"دالة التوزيع المنتظم بين "+a+" و"+b)+"، F("+x+") = "+f.toFixed(6)
+      :(kind==="bernoulli"?"Bernoulli CDF with p="+p:"Uniform CDF from "+a+" to "+b)+", F("+x+") = "+f.toFixed(6));
   }
   const fmt=n=>n.toFixed(6);
   function render(){
