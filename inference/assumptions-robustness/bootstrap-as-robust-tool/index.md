@@ -14,11 +14,11 @@ translation_pair: bootstrap
   const KEY =
     "esa_continue_inference_assumptions_robustness_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try { localStorage.setItem(KEY, JSON.stringify({
     url: "/inference/assumptions-robustness/bootstrap-as-robust-tool/",
     label: "Bootstrap as a Robust Tool",
     ts: Date.now()
-  }));
+  })); } catch (_) { /* Storage is optional. */ }
 
 })();
 </script>

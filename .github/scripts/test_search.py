@@ -3493,7 +3493,7 @@ class SearchTests(unittest.TestCase):
                         [key, value])
                     self.page.reload(wait_until="networkidle")
                 save({"url":valid, "label":malicious})
-                if slug in ("hypothesis-testing","classical-tests","power-sample-size","interpretation-reporting"):
+                if slug in ("hypothesis-testing","classical-tests","power-sample-size","interpretation-reporting","assumptions-robustness"):
                     # These blocks require exact canonical or verified legacy
                     # titles for corresponding published lesson URLs.
                     expect(panel).to_be_hidden()
@@ -12222,6 +12222,63 @@ class SearchTests(unittest.TestCase):
             expect(panel).to_be_hidden()
         self.assertEqual(self.page.locator("#continue-reading-inference-reporting-label img, #continue-reading-inference-reporting-label script").count(),0)
 
+
+
+    def test_batch83_expectation_arabic_lesson_moments_and_seo(self):
+        ar="/ar/probability/random-variables/expectation/"
+        en="/probability/random-variables/expectation/"
+        self.page.set_viewport_size({"width":320,"height":780})
+        for path,lang in ((ar,"ar"),(en,"en")):
+            self.page.goto(self.origin+path,wait_until="networkidle")
+            self.assertEqual(self.page.locator("html").get_attribute("lang"),lang)
+            self.assertEqual(self.page.locator("link[rel=canonical]").get_attribute("href"),
+                             "https://easystatisticsacademy.com"+path)
+            for code,route in (("ar",ar),("en",en)):
+                self.assertEqual(self.page.locator("link[rel=alternate][hreflang='"+code+"']").get_attribute("href"),
+                                 "https://easystatisticsacademy.com"+route)
+        self.page.goto(self.origin+ar,wait_until="networkidle")
+        self.assertEqual(self.page.locator("html").get_attribute("dir"),"rtl")
+        lab=self.page.locator("#esa-moments-lab")
+        expect(lab).to_be_visible()
+        expect(lab.locator("#esa-mom-mean")).to_have_text("1.100000")
+        expect(lab.locator("#esa-mom-second")).to_have_text("1.700000")
+        expect(lab.locator("#esa-mom-variance")).to_have_text("0.490000")
+        expect(lab.locator("#esa-mom-sd")).to_have_text("0.700000")
+        lab.locator("#esa-mom-x0").fill("-3")
+        self.assertAlmostEqual(float(lab.locator("#esa-mom-mean").inner_text()),.5,places=6)
+        lab.locator("#esa-mom-p0").fill("-0.1")
+        expect(lab.locator("#esa-mom-error")).to_be_visible()
+        expect(lab.locator("#esa-mom-chart")).to_be_hidden()
+        expect(lab.locator("#esa-mom-p0")).to_have_attribute("aria-invalid","true")
+        lab.locator("#esa-mom-reset").focus()
+        lab.locator("#esa-mom-reset").press("Enter")
+        expect(lab.locator("#esa-mom-error")).to_be_hidden()
+        expect(lab.locator("#esa-mom-p0")).to_have_attribute("aria-invalid","false")
+        expect(lab.locator("#esa-mom-chart")).to_have_attribute("role","img")
+        self.assertLessEqual(lab.locator("#esa-mom-p0").evaluate("x=>x.getBoundingClientRect().right"),321)
+
+    def test_batch83_robustness_resume_strict_labels_timestamps(self):
+        key="esa_continue_inference_assumptions_robustness_lesson_v0"
+        route="/inference/assumptions-robustness/"
+        url=route+"checking-normality-what-and-why/"
+        label="Checking Normality: What and Why"
+        self.page.goto(self.origin+route,wait_until="networkidle")
+        panel=self.page.locator("#continue-reading-inference-robustness")
+        def save(value):
+            self.page.evaluate("([k,v])=>localStorage.setItem(k,JSON.stringify(v))",[key,value])
+            self.page.reload(wait_until="networkidle")
+        save({"url":url,"label":label,"ts":1730000000000})
+        expect(panel).to_be_visible()
+        expect(self.page.locator("#continue-reading-inference-robustness-btn")).to_have_attribute("href",url)
+        for entry in ({"url":url,"label":"<script>alert(1)</script>"},
+                      {"url":url,"label":"Different lesson"},
+                      {"url":url+"?x=1","label":label},
+                      {"url":"javascript:alert(1)","label":label},
+                      {"url":url,"label":label,"ts":9999999999999999},
+                      {"url":url,"label":label,"ts":False}):
+            save(entry)
+            expect(panel).to_be_hidden()
+        self.assertEqual(self.page.locator("#continue-reading-inference-robustness-label script, #continue-reading-inference-robustness-label img").count(),0)
 
 if __name__ == "__main__":
     unittest.main(argv=[__file__], verbosity=2)

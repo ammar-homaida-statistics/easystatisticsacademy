@@ -4,6 +4,8 @@ title: Expectation
 description: Learn how expected value summarizes the long-run average outcome of a random variable and serves as the center of a probability distribution.
 permalink: /probability/random-variables/expectation/
 sidebar: false
+translation_pair: random-variable-expectation
+math: true
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -39,7 +41,7 @@ sidebar: false
       <span class="badge">Center</span>
     </div>
 
-    <h1>Expectation</h1>
+    <h1>Expectation</h1><p><a href="/ar/probability/random-variables/expectation/" lang="ar" dir="rtl">اقرأ الدرس بالعربية — القيمة المتوقعة</a></p>
 
     <p class="lead">
       Probability distributions describe possible outcomes and their probabilities.

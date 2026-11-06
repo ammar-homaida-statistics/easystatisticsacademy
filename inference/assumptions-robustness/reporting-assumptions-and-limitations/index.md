@@ -13,11 +13,11 @@ sidebar: false
   const KEY =
     "esa_continue_inference_assumptions_robustness_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try { localStorage.setItem(KEY, JSON.stringify({
     url: "/inference/assumptions-robustness/reporting-assumptions-and-limitations/",
     label: "Reporting Assumptions and Limitations",
     ts: Date.now()
-  }));
+  })); } catch (_) { /* Storage is optional. */ }
 
 })();
 </script>
