@@ -70,6 +70,14 @@ jobs:
           grep -q 'esa-cdf-explorer' _site/probability/random-variables/cumulative-distribution-function/index.html
           grep -q 'esa-sensitivity-lab' _site/inference/assumptions-robustness/sensitivity-analysis-and-specification/index.html
 
+      - name: Bind Pages artifact to exact source revision
+        run: |
+          printf '%s\n' "$GITHUB_SHA" > _site/deployment-revision.txt
+          test "$(cat _site/deployment-revision.txt)" = "$GITHUB_SHA"
+          test -s _site/ar/probability/random-variables/expectation/index.html
+          test -s _site/js/three-point-moments-lab.js
+          grep -q 'esa-moments-lab' _site/ar/probability/random-variables/expectation/index.html
+
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:
@@ -89,4 +97,4 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
       - name: Verify live pages and assets after successful deployment
-        run: python3 .github/scripts/check_live_pages.py --attempts 9 --interval 15
+        run: python3 .github/scripts/check_live_pages.py --attempts 9 --interval 15 --expected-sha "$GITHUB_SHA"
