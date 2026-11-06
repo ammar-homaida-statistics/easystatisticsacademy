@@ -53,6 +53,14 @@ class LivePagesTests(unittest.TestCase):
         self.assertEqual(len(routes),len(set(routes)))
         self.assertIn("/ar/probability/random-variables/discrete-random-variables/", routes)
         self.assertIn("/probability/random-variables/continuous-random-variables/",routes)
+        for route in (
+            "/ar/probability/random-variables/cumulative-distribution-function/",
+            "/probability/random-variables/cumulative-distribution-function/",
+            "/inference/assumptions-robustness/sensitivity-analysis-and-specification/",
+            "/js/cdf-bernoulli-uniform-explorer.js",
+            "/js/sensitivity-summary-lab.js",
+        ):
+            self.assertIn(route,routes)
 
 
 if __name__ == "__main__":
