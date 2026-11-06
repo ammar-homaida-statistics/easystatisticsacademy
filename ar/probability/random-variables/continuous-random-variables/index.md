@@ -52,7 +52,7 @@ math: true
 <h2>أخطاء شائعة</h2>
 <ul class="bullets"><li>اعتبار الكثافة عند نقطة ما مساوية لاحتمال هذه النقطة.</li><li>افتراض أن قيمة دالة الكثافة يجب ألا تتجاوز الواحد.</li><li>حساب احتمال الجزء الواقع خارج مجال التوزيع.</li><li>استخدام حدين معكوسين عند إدخال الفترة المطلوبة.</li><li>تعميم خصائص التوزيع المنتظم على جميع التوزيعات المتصلة.</li></ul>
 <div class="summary-box"><h2>الخلاصة</h2><p>تعطي الكثافة احتمال الفترة من خلال مساحتها. شرطا صحة الكثافة هما عدم السلبية ووحدة المساحة الكلية، بينما تختلف قيمة الكثافة عن الاحتمال.</p></div>
-<div class="lesson-nav"><a class="btn btn-outline" href="/ar/probability/random-variables/discrete-random-variables/">السابق: المتغيرات العشوائية المنفصلة</a><a class="btn" lang="en" dir="ltr" href="/probability/random-variables/cumulative-distribution-function/">Next: Cumulative Distribution Function (English)</a></div>
+<div class="lesson-nav"><a class="btn btn-outline" href="/ar/probability/random-variables/discrete-random-variables/">السابق: المتغيرات العشوائية المنفصلة</a><a class="btn" lang="en" dir="ltr" href="/ar/probability/random-variables/cumulative-distribution-function/">التالي: دالة التوزيع التراكمي</a></div>
 </div></section>
 <style>.esa-updf-ar-math{direction:ltr;max-width:100%;overflow-x:auto}.esa-updf-ar-math mjx-container[display="true"]{width:max-content;min-width:100%;text-align:left}</style>
 <script defer src="/js/uniform-pdf-interval-explorer.js"></script>
