@@ -69,5 +69,5 @@ learning_resource: true
 <h2>متى نستخدم دالة التوزيع التراكمي؟</h2>
 <p>تُستخدم لحساب احتمالات المجالات والقيم المئينية، وتحديد التوزيعات الاحتمالية، وصياغة مسائل الموثوقية والمخاطر والاستدلال الإحصائي.</p>
 <div class="summary-box"><h2>الخلاصة</h2><p>يوحّد تعريف \(F_X(x)=P(X\leq x)\) المتغيرات المنفصلة والمتصلة. الفرق بين قيمتين للدالة يعطي احتمال الفترة المفتوحة يساراً والمغلقة يميناً، مع ضرورة مراعاة القفزات في الحالة المنفصلة.</p></div>
-<div class="lesson-nav"><a class="btn btn-outline" href="/ar/probability/random-variables/continuous-random-variables/">السابق: المتغيرات المتصلة</a><a class="btn" href="/probability/random-variables/expectation/" lang="en" dir="ltr">Next: Expectation (English)</a></div>
+<div class="lesson-nav"><a class="btn btn-outline" href="/ar/probability/random-variables/continuous-random-variables/">السابق: المتغيرات المتصلة</a><a class="btn" href="/ar/probability/random-variables/expectation/">التالي: القيمة المتوقعة</a></div>
 </div></section>
