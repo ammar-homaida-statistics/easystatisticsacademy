@@ -67,7 +67,7 @@ class LivePagesTests(unittest.TestCase):
         sha="a"*40
         def opener(request,timeout):
             route=request.full_url
-            return FakeResponse(data=(sha+"\\n").encode() if route.endswith("/deployment-revision.txt") else b"marker",
+            return FakeResponse(data=(sha+chr(10)).encode() if route.endswith("/deployment-revision.txt") else b"marker",
                                 url=route)
         self.assertEqual(module.verify_once(checks=(("/page/",b"marker"),),
                         opener=opener,expected_sha=sha),[])
