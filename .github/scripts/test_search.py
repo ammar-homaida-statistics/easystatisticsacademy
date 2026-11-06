@@ -3493,7 +3493,7 @@ class SearchTests(unittest.TestCase):
                         [key, value])
                     self.page.reload(wait_until="networkidle")
                 save({"url":valid, "label":malicious})
-                if slug in ("hypothesis-testing","classical-tests","power-sample-size"):
+                if slug in ("hypothesis-testing","classical-tests","power-sample-size","interpretation-reporting"):
                     # These blocks require exact canonical or verified legacy
                     # titles for corresponding published lesson URLs.
                     expect(panel).to_be_hidden()
@@ -12153,9 +12153,14 @@ class SearchTests(unittest.TestCase):
                     self.assertEqual(self.page.locator("link[rel=alternate][hreflang='"+lang+"']").get_attribute("href"),
                                      "https://easystatisticsacademy.com"+dest)
                 metadata=self.page.locator("script[type='application/ld+json']")
-                self.assertEqual(metadata.count(),1)
-                obj=json.loads(metadata.inner_text())
-                self.assertEqual(obj["@type"],"LearningResource")
+                resources=[]
+                for script in metadata.all():
+                    data=json.loads(script.inner_text())
+                    if data.get("@type")=="LearningResource":
+                        resources.append(data)
+                # The site also includes its pre-existing WebSite JSON-LD.
+                self.assertEqual(len(resources),1)
+                obj=resources[0]
                 self.assertEqual(obj["inLanguage"],language)
                 self.assertEqual(obj["url"],"https://easystatisticsacademy.com"+route)
                 self.assertTrue(obj["isAccessibleForFree"])
