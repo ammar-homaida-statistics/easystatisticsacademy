@@ -19,6 +19,11 @@ CHECKS = (
     ("/inference/confidence-intervals/ci-for-paired-mean-difference/", b"esa-paired-ci-lab"),
     ("/js/three-point-pmf-explorer.js", b"esaThreePointPMFMath"),
     ("/js/uniform-pdf-interval-explorer.js", b"esaUniformPDFMath"),
+    ("/ar/probability/random-variables/cumulative-distribution-function/", b"esa-cdf-explorer"),
+    ("/probability/random-variables/cumulative-distribution-function/", b"esa-cdf-explorer"),
+    ("/inference/assumptions-robustness/sensitivity-analysis-and-specification/", b"esa-sensitivity-lab"),
+    ("/js/cdf-bernoulli-uniform-explorer.js", b"esaCdfMath"),
+    ("/js/sensitivity-summary-lab.js", b"esaSensitivityMath"),
 )
 MAX_BODY = 2_000_000
 
