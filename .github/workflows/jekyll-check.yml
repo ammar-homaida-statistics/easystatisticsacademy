@@ -57,6 +57,8 @@ jobs:
         run: python -m unittest discover -s .github/scripts -p 'test_batch80_live.py' -v
       - name: Verify Batch #81 independently benchmarked Z power, PDF and translation metadata
         run: python -m unittest discover -s .github/scripts -p 'test_batch81_math.py' -v
+      - name: Verify Batch #82 independent CDF and sensitivity benchmarks
+        run: python -m unittest discover -s .github/scripts -p 'test_batch82_math.py' -v
       - name: Inventory mathematical placeholders and reject new damage
         run: python .github/scripts/validate_math_placeholders.py
       - name: Validate front matter

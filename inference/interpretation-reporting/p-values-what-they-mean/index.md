@@ -13,11 +13,11 @@ sidebar: false
   const KEY =
     "esa_continue_inference_interpretation_reporting_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try { localStorage.setItem(KEY, JSON.stringify({
     url: "/inference/interpretation-reporting/p-values-what-they-mean/",
-    label: "P-Values: What They Mean",
+    label: "p-Values: What They Mean (and Do Not Mean)",
     ts: Date.now()
-  }));
+  })); } catch (_) { /* Storage restrictions must not prevent reading. */ }
 
 })();
 </script>

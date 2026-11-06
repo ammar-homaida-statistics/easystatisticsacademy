@@ -4,6 +4,9 @@ title: Cumulative Distribution Function (CDF)
 description: Learn how cumulative distribution functions describe probabilities up to a given value and provide a unified framework for both discrete and continuous random variables.
 permalink: /probability/random-variables/cumulative-distribution-function/
 sidebar: false
+translation_pair: cumulative-distribution-function
+learning_resource: true
+math: true
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -40,6 +43,7 @@ sidebar: false
     </div>
 
     <h1>Cumulative Distribution Function (CDF)</h1>
+    <p><a href="/ar/probability/random-variables/cumulative-distribution-function/" lang="ar" dir="rtl">اقرأ الدرس بالعربية — دالة التوزيع التراكمي</a></p>
 
     <p class="lead">
       Probability mass functions and probability density functions describe probabilities differently.

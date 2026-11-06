@@ -3493,7 +3493,7 @@ class SearchTests(unittest.TestCase):
                         [key, value])
                     self.page.reload(wait_until="networkidle")
                 save({"url":valid, "label":malicious})
-                if slug in ("hypothesis-testing","classical-tests","power-sample-size"):
+                if slug in ("hypothesis-testing","classical-tests","power-sample-size","interpretation-reporting"):
                     # These blocks require exact canonical or verified legacy
                     # titles for corresponding published lesson URLs.
                     expect(panel).to_be_hidden()
@@ -12134,6 +12134,93 @@ class SearchTests(unittest.TestCase):
                 expect(self.page.locator("#"+prefix+"-error")).to_be_hidden()
                 expect(entry).to_have_attribute("aria-invalid","false")
                 self.assertLessEqual(entry.evaluate("e=>e.getBoundingClientRect().right"),321)
+
+
+    def test_batch82_arabic_cdf_bilingual_metadata_and_mobile(self):
+        ar="/ar/probability/random-variables/cumulative-distribution-function/"
+        en="/probability/random-variables/cumulative-distribution-function/"
+        for width in (320,375):
+            self.page.set_viewport_size({"width":width,"height":780})
+            for route,language in ((ar,"ar"),(en,"en")):
+                self.page.goto(self.origin+route,wait_until="networkidle")
+                self.assertEqual(self.page.locator("html").get_attribute("lang"),language)
+                if language=="ar":self.assertEqual(self.page.locator("html").get_attribute("dir"),"rtl")
+                lab=self.page.locator("#esa-cdf-explorer")
+                expect(lab).to_be_visible()
+                expect(lab.locator("#esa-cdf-fx")).to_have_text("0.650000")
+                expect(lab.locator("#esa-cdf-interval")).to_have_text("0.350000")
+                for lang,dest in (("en",en),("ar",ar)):
+                    self.assertEqual(self.page.locator("link[rel=alternate][hreflang='"+lang+"']").get_attribute("href"),
+                                     "https://easystatisticsacademy.com"+dest)
+                metadata=self.page.locator("script[type='application/ld+json']")
+                resources=[]
+                for script in metadata.all():
+                    data=json.loads(script.inner_text())
+                    if data.get("@type")=="LearningResource":
+                        resources.append(data)
+                # The site also includes its pre-existing WebSite JSON-LD.
+                self.assertEqual(len(resources),1)
+                obj=resources[0]
+                self.assertEqual(obj["inLanguage"],language)
+                self.assertEqual(obj["url"],"https://easystatisticsacademy.com"+route)
+                self.assertTrue(obj["isAccessibleForFree"])
+                lab.locator("#esa-cdf-kind").select_option("uniform")
+                expect(lab.locator("#esa-cdf-fx")).to_have_text("0.250000")
+                expect(lab.locator("#esa-cdf-interval")).to_have_text("0.500000")
+                lab.locator("#esa-cdf-left").fill("2")
+                lab.locator("#esa-cdf-right").fill("1")
+                expect(lab.locator("#esa-cdf-error")).to_be_visible()
+                expect(lab.locator("#esa-cdf-left")).to_have_attribute("aria-invalid","true")
+                lab.locator("#esa-cdf-reset").focus()
+                lab.locator("#esa-cdf-reset").press("Enter")
+                expect(lab.locator("#esa-cdf-error")).to_be_hidden()
+                expect(lab.locator("#esa-cdf-left")).to_have_attribute("aria-invalid","false")
+                self.assertLessEqual(lab.locator("#esa-cdf-left").evaluate("e=>e.getBoundingClientRect().right"),width+1)
+
+    def test_batch82_sensitivity_responsive_and_keyboard(self):
+        self.page.set_viewport_size({"width":320,"height":780})
+        self.page.goto(self.origin+"/inference/assumptions-robustness/sensitivity-analysis-and-specification/",wait_until="networkidle")
+        lab=self.page.locator("#esa-sensitivity-lab")
+        expect(lab).to_be_visible()
+        self.assertAlmostEqual(float(lab.locator("#esa-sens-mean").inner_text()),96/11,places=3)
+        expect(lab.locator("#esa-sens-median")).to_have_text("9.000")
+        lab.locator("#esa-sens-value").fill("1000")
+        self.assertAlmostEqual(float(lab.locator("#esa-sens-mean").inner_text()),1085/11,places=3)
+        expect(lab.locator("#esa-sens-median")).to_have_text("9.000")
+        lab.locator("#esa-sens-value").fill("1001")
+        expect(lab.locator("#esa-sens-error")).to_be_visible()
+        expect(lab.locator("#esa-sens-chart")).to_be_hidden()
+        expect(lab.locator("#esa-sens-value")).to_have_attribute("aria-invalid","true")
+        lab.locator("#esa-sens-reset").focus()
+        lab.locator("#esa-sens-reset").press("Enter")
+        expect(lab.locator("#esa-sens-error")).to_be_hidden()
+        expect(lab.locator("#esa-sens-chart")).to_be_visible()
+        expect(lab.locator("#esa-sens-value")).to_have_attribute("aria-invalid","false")
+
+    def test_batch82_reporting_progress_strict_titles_and_storage(self):
+        route="/inference/interpretation-reporting/"
+        key="esa_continue_inference_interpretation_reporting_lesson_v0"
+        url=route+"p-values-what-they-mean/"
+        self.page.goto(self.origin+route,wait_until="networkidle")
+        panel=self.page.locator("#continue-reading-inference-reporting")
+        def save(obj):
+            self.page.evaluate("([key,value])=>localStorage.setItem(key,JSON.stringify(value))",[key,obj])
+            self.page.reload(wait_until="networkidle")
+        for title in ("p-Values: What They Mean (and Do Not Mean)","P-Values: What They Mean"):
+            save({"url":url,"label":title,"ts":1730000000000})
+            expect(panel).to_be_visible()
+            expect(self.page.locator("#continue-reading-inference-reporting-btn")).to_have_attribute("href",url)
+        for obj in (
+            {"url":url,"label":"<img src=x onerror=alert(1)>"},
+            {"url":url,"label":"Different lesson"},
+            {"url":url+"?x=1","label":"p-Values: What They Mean (and Do Not Mean)"},
+            {"url":"javascript:alert(1)","label":"p-Values: What They Mean (and Do Not Mean)"},
+            {"url":url,"label":"P-Values: What They Mean","ts":9999999999999999},
+            {"url":url,"label":"P-Values: What They Mean","ts":False},
+        ):
+            save(obj)
+            expect(panel).to_be_hidden()
+        self.assertEqual(self.page.locator("#continue-reading-inference-reporting-label img, #continue-reading-inference-reporting-label script").count(),0)
 
 
 if __name__ == "__main__":

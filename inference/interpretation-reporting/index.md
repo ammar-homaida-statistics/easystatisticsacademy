@@ -606,17 +606,35 @@ sidebar: false
 
     const data = JSON.parse(raw);
 
-    // Trust only exact published lesson hrefs in this block's own lesson cards.
-    // Do not allow external schemes, traversal, query strings, anchors, or other blocks.
-    const published = new Set(
-      Array.from(document.querySelectorAll("#lessons .lesson-card h3 a[href]"),
-        link => link.getAttribute("href"))
-        .filter(url => typeof url === "string" &&
-          /^\/inference\/interpretation-reporting\/[a-z0-9-]+\/$/.test(url))
-    );
-    if (!data || typeof data.url !== "string" ||
-        typeof data.label !== "string" || !data.label.trim() ||
-        data.label.length > 200 || !published.has(data.url)) return;
+    // Exact published route/title allowlist; legacy labels only at verified routes.
+    const canonical = {
+      "/inference/interpretation-reporting/p-values-what-they-mean/": "p-Values: What They Mean (and Do Not Mean)",
+      "/inference/interpretation-reporting/statistical-vs-practical-significance/": "Statistical vs Practical Significance",
+      "/inference/interpretation-reporting/interpreting-confidence-intervals/": "Interpreting Confidence Intervals Correctly",
+      "/inference/interpretation-reporting/interpreting-effect-sizes/": "Interpreting Effect Sizes",
+      "/inference/interpretation-reporting/multiple-testing-and-false-positives/": "Multiple Testing and False Positives",
+      "/inference/interpretation-reporting/reporting-results-clear-language/": "Reporting Results in Clear Language",
+      "/inference/interpretation-reporting/tables-figures-and-visual-communication/": "Tables, Figures, and Visual Communication",
+      "/inference/interpretation-reporting/reproducibility-and-analysis-checklist/": "Reproducibility and an Analysis Checklist"
+};
+    const legacy = {
+      "/inference/interpretation-reporting/p-values-what-they-mean/": [
+            "P-Values: What They Mean"
+      ],
+      "/inference/interpretation-reporting/interpreting-confidence-intervals/": [
+            "Interpreting Confidence Intervals"
+      ],
+      "/inference/interpretation-reporting/reproducibility-and-analysis-checklist/": [
+            "Reproducibility and Analysis Checklist"
+      ]
+};
+    if (!data || typeof data !== "object" || Array.isArray(data) ||
+        typeof data.url !== "string" || typeof data.label !== "string" ||
+        !Object.prototype.hasOwnProperty.call(canonical, data.url) ||
+        (data.label !== canonical[data.url] && !(legacy[data.url] || []).includes(data.label)) ||
+        (Object.prototype.hasOwnProperty.call(data, "ts") &&
+         (!Number.isSafeInteger(data.ts) || data.ts <= 0 ||
+          data.ts > Date.now() + 300000))) return;
 
     const wrap =
       document.getElementById(

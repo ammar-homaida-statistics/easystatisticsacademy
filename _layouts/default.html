@@ -10,7 +10,25 @@
   <title>{{ meta_title | escape }} | {{ site.title | escape }}</title>
   <meta name="description" content="{{ meta_description | escape }}" />
   <link rel="canonical" href="{{ canonical_url | escape }}" />
-  {% if page.translation_pair == "continuous-random-variables" %}
+  {% if page.learning_resource == true %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LearningResource",
+    "name": {{ page.title | jsonify }},
+    "description": {{ meta_description | jsonify }},
+    "inLanguage": {{ page.lang | default: 'en' | jsonify }},
+    "url": {{ canonical_url | jsonify }},
+    "learningResourceType": "Lesson",
+    "isAccessibleForFree": true
+  }
+  </script>
+  {% endif %}
+
+  {% if page.translation_pair == "cumulative-distribution-function" %}
+  <link rel="alternate" hreflang="en" href="{{ site.url }}/probability/random-variables/cumulative-distribution-function/" />
+  <link rel="alternate" hreflang="ar" href="{{ site.url }}/ar/probability/random-variables/cumulative-distribution-function/" />
+  {% elsif page.translation_pair == "continuous-random-variables" %}
   <link rel="alternate" hreflang="en" href="{{ site.url }}/probability/random-variables/continuous-random-variables/" />
   <link rel="alternate" hreflang="ar" href="{{ site.url }}/ar/probability/random-variables/continuous-random-variables/" />
   {% elsif page.translation_pair == "what-is-a-random-variable" %}
