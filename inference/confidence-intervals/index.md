@@ -950,9 +950,14 @@ sidebar: false
           "/inference/confidence-intervals/what-is-a-confidence-interval/": "What Is a Confidence Interval?",
           "/inference/confidence-intervals/width-and-precision-what-controls/": "Width and Precision — What Controls Them?"
     });
+    // One historically verified label, scoped strictly to its original lesson route.
+    const legacyTitles = Object.freeze({
+      "/inference/confidence-intervals/ci-for-paired-mean-difference/": "Paired Mean Difference"
+    });
     if (!data || typeof data.url !== "string" ||
         !Object.prototype.hasOwnProperty.call(titles,data.url) ||
-        typeof data.label !== "string" || data.label !== titles[data.url] ||
+        typeof data.label !== "string" ||
+        (data.label !== titles[data.url] && data.label !== legacyTitles[data.url]) ||
         (Object.prototype.hasOwnProperty.call(data,"ts") &&
          (!Number.isSafeInteger(data.ts) || data.ts <= 0 ||
           data.ts > Date.now()+300000))) return;
