@@ -3493,7 +3493,7 @@ class SearchTests(unittest.TestCase):
                         [key, value])
                     self.page.reload(wait_until="networkidle")
                 save({"url":valid, "label":malicious})
-                if slug in ("hypothesis-testing","classical-tests","power-sample-size","interpretation-reporting","assumptions-robustness"):
+                if slug in ("confidence-intervals","hypothesis-testing","classical-tests","power-sample-size","interpretation-reporting","assumptions-robustness"):
                     # These blocks require exact canonical or verified legacy
                     # titles for corresponding published lesson URLs.
                     expect(panel).to_be_hidden()
