@@ -156,7 +156,40 @@ p\in[0,1]
       The sample proportion estimates the population proportion.
     </p>
 
-    <h2>The Confidence Interval Blueprint Still Applies</h2>
+    
+    <section class="concept-box" id="esa-single-proportion-lab" aria-labelledby="esa-sp-heading">
+    <h2 id="esa-sp-heading">Interactive Wald vs. Wilson Score Interval</h2>
+    <p>Enter independent binary-trial counts to compare the usual normal-approximation Wald interval against the Wilson score interval. Wilson is generally more reliable near the boundaries and for modest sample sizes; no procedure guarantees its advertised coverage in every finite-sample configuration.</p>
+    <div class="esa-sp-fields">
+      <div><label for="esa-sp-x">Successes x</label><input id="esa-sp-x" type="number" min="0" max="10000000" step="1" value="310" inputmode="numeric" aria-describedby="esa-sp-error esa-sp-warning"></div>
+      <div><label for="esa-sp-n">Sample size n</label><input id="esa-sp-n" type="number" min="1" max="10000000" step="1" value="500" inputmode="numeric" aria-describedby="esa-sp-error esa-sp-warning"></div>
+      <div><label for="esa-sp-level">Confidence level</label><select id="esa-sp-level"><option value="90">90%</option><option value="95" selected>95%</option><option value="99">99%</option></select></div>
+    </div>
+    <button type="button" class="btn btn-outline" id="esa-sp-reset">Restore survey example</button>
+    <p id="esa-sp-error" role="alert" hidden></p>
+    <section id="esa-sp-results" role="status" aria-live="polite" aria-atomic="true">
+      <p>Sample proportion: <output id="esa-sp-estimate">—</output>%.</p>
+      <p><output id="esa-sp-confidence">95</output>% Wald interval: [<output id="esa-sp-waldlo">—</output>, <output id="esa-sp-waldhi">—</output>] percentage points.</p>
+      <p>Wilson score interval: [<output id="esa-sp-wilsonlo">—</output>, <output id="esa-sp-wilsonhi">—</output>] percentage points.</p>
+      <svg id="esa-sp-chart" viewBox="0 0 470 116" role="img" aria-label="Wald and Wilson score confidence intervals" style="display:block;width:100%;height:auto;max-width:570px"></svg>
+      <p id="esa-sp-warning" role="status" aria-live="polite"></p>
+    </section>
+    <p class="muted-mini">Wald uses \\(\\hat p\\pm z\\sqrt{\\hat p(1-\\hat p)/n}\\). Wilson uses the score interval with denominator \\(1+z^2/n\\). With zero or all successes, Wald has zero plug-in standard error and can collapse to a point, whereas Wilson remains informative. The Wald interval may extend outside [0,1]; it is shown without silently clipping its computed bounds.</p>
+    <noscript><p>Enable JavaScript for the interactive comparison; the formulas above remain available without it.</p></noscript>
+    </section>
+    <style>
+    #esa-single-proportion-lab{max-width:100%;min-width:0;box-sizing:border-box;overflow-wrap:anywhere}
+    #esa-single-proportion-lab .esa-sp-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:12px;margin:12px 0}
+    #esa-single-proportion-lab label{display:block;font-weight:650;margin-bottom:6px}
+    #esa-single-proportion-lab :is(input,select){box-sizing:border-box;width:100%;max-width:100%;padding:9px;font:inherit}
+    #esa-single-proportion-lab :is(input,button,select):focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+    #esa-single-proportion-lab [hidden]{display:none!important}
+    #esa-single-proportion-lab #esa-sp-error{font-weight:700;color:#b42318}
+    </style>
+    <script defer src="/js/newcombe-two-proportion.js"></script>
+    <script defer src="/js/wald-wilson-one-proportion.js"></script>
+
+<h2>The Confidence Interval Blueprint Still Applies</h2>
 
     <p>
       As always:
