@@ -91,8 +91,11 @@ class Batch85MathTests(unittest.TestCase):
         self.assertIn("label.replaceChildren",chunk)
         self.assertIn("localStorage.getItem(KEY)",chunk)
         self.assertIn("catch (e)",chunk)
-        routes=re.findall(r'"/inference/confidence-intervals/([a-z0-9-]+)/": "([^"]+)"',chunk)
+        canonical_map=chunk.split("const titles = Object.freeze(")[1].split("const legacyTitles")[0]
+        routes=re.findall(r'"/inference/confidence-intervals/([a-z0-9-]+)/": "([^"]+)"',canonical_map)
         self.assertEqual(len(routes),12)
+        self.assertIn('"/inference/confidence-intervals/ci-for-paired-mean-difference/": "Paired Mean Difference"',chunk)
+        self.assertIn('data.label !== legacyTitles[data.url]',chunk)
         for suffix,label in routes:
             text=(ROOT/"inference/confidence-intervals"/suffix/"index.md").read_text()
             self.assertIn('label: "'+label+'"',text)
