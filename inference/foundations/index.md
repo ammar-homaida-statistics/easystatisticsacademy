@@ -842,9 +842,14 @@ sidebar: false
           "/inference/foundations/what-is-statistical-inference/": "What Is Statistical Inference?",
           "/inference/foundations/what-makes-good-estimator/": "What Makes a Good Estimator?"
     });
+    // Historical title verified in the older Foundations browser regression.
+    const legacyTitles = Object.freeze({
+      "/inference/foundations/sd-vs-se-common-confusion/": "SD versus SE"
+    });
     if (!data || typeof data.url !== "string" ||
         !Object.prototype.hasOwnProperty.call(titles,data.url) ||
-        typeof data.label !== "string" || data.label !== titles[data.url] ||
+        typeof data.label !== "string" ||
+        (data.label !== titles[data.url] && data.label !== legacyTitles[data.url]) ||
         // Accept historic records without ts; reject malformed and future dates.
         (Object.prototype.hasOwnProperty.call(data,"ts") &&
          (!Number.isSafeInteger(data.ts) || data.ts<=0 ||
