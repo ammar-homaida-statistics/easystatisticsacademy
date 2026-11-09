@@ -3493,7 +3493,7 @@ class SearchTests(unittest.TestCase):
                         [key, value])
                     self.page.reload(wait_until="networkidle")
                 save({"url":valid, "label":malicious})
-                if slug in ("confidence-intervals","hypothesis-testing","classical-tests","power-sample-size","interpretation-reporting","assumptions-robustness"):
+                if slug in ("foundations","confidence-intervals","hypothesis-testing","classical-tests","power-sample-size","interpretation-reporting","assumptions-robustness"):
                     # These blocks require exact canonical or verified legacy
                     # titles for corresponding published lesson URLs.
                     expect(panel).to_be_hidden()
@@ -9768,8 +9768,7 @@ class SearchTests(unittest.TestCase):
         self.page.reload(wait_until="networkidle")
         self.assertEqual(self.page.locator(
             "#continue-reading-inference-foundations-label img").count(),0)
-        self.assertIn(malicious,self.page.locator(
-            "#continue-reading-inference-foundations-label").inner_text())
+        expect(self.page.locator("#continue-reading-inference-foundations")).to_be_hidden()
         self.assertIsNone(self.page.evaluate("()=>window.esaInjected || null"))
         self.page.evaluate("k=>localStorage.setItem(k,'{bad json')",key)
         self.page.reload(wait_until="networkidle")

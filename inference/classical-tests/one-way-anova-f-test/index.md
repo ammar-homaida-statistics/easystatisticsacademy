@@ -335,9 +335,9 @@ sidebar: false
       <h2 id="esa-anova-title">Interactive One-Way ANOVA Explorer</h2>
       <p>Enter <strong>individual sample observations</strong> for three independent groups. Compare between-group and within-group variation, including unequal sample sizes, using the classical pooled-variance one-way ANOVA.</p>
       <div class="esa-anova-fields">
-        <div><label for="esa-anova-a">Group A observations</label><textarea id="esa-anova-a" rows="2" spellcheck="false">4, 5, 6</textarea></div>
-        <div><label for="esa-anova-b">Group B observations</label><textarea id="esa-anova-b" rows="2" spellcheck="false">5, 6, 7</textarea></div>
-        <div><label for="esa-anova-c">Group C observations</label><textarea id="esa-anova-c" rows="2" spellcheck="false">8, 9, 10</textarea></div>
+        <div><label for="esa-anova-a">Group A observations</label><textarea id="esa-anova-a" rows="2" spellcheck="false" aria-invalid="false" aria-describedby="esa-anova-error">4, 5, 6</textarea></div>
+        <div><label for="esa-anova-b">Group B observations</label><textarea id="esa-anova-b" rows="2" spellcheck="false" aria-invalid="false" aria-describedby="esa-anova-error">5, 6, 7</textarea></div>
+        <div><label for="esa-anova-c">Group C observations</label><textarea id="esa-anova-c" rows="2" spellcheck="false" aria-invalid="false" aria-describedby="esa-anova-error">8, 9, 10</textarea></div>
       </div>
       <div class="esa-anova-controls">
         <button class="btn btn-outline" type="button" id="esa-anova-reset">Reset example</button>

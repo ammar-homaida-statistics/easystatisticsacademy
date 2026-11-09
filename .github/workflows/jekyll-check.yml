@@ -65,6 +65,8 @@ jobs:
         run: python -m unittest discover -s .github/scripts -p 'test_batch84_math.py' -v
       - name: Verify Batch #85 independently benchmarked Newcombe, Pearson, Arabic metadata and progress security
         run: python -m unittest discover -s .github/scripts -p 'test_batch85_math.py' -v
+      - name: Verify Batch #86 independent Z, Wilson, ANOVA and Foundations security benchmarks
+        run: python -m unittest discover -s .github/scripts -p 'test_batch86_math.py' -v
       - name: Inventory mathematical placeholders and reject new damage
         run: python .github/scripts/validate_math_placeholders.py
       - name: Validate front matter
@@ -100,5 +102,7 @@ jobs:
           python -m playwright install --with-deps chromium
       - name: Check Batch #85 bilingual mobile and statistical browser regressions
         run: python .github/scripts/test_batch85_browser.py --site _site
+      - name: Check Batch #86 bilingual mobile, statistical and security browser regressions
+        run: python .github/scripts/test_batch86_browser.py --site _site
       - name: Check generated search, CSS assets, and browser behavior
         run: python .github/scripts/test_search.py --site _site

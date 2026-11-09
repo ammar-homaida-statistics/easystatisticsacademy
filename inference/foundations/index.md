@@ -824,21 +824,36 @@ sidebar: false
 
     const data = JSON.parse(raw);
 
-    // Trust only exact published lesson hrefs in this block's own lesson cards.
-    // Do not allow external schemes, traversal, query strings, anchors, or other blocks.
-    const published = new Set(
-      Array.from(document.querySelectorAll("#lessons .lesson-card h3 a[href]"),
-        link => link.getAttribute("href"))
-        .filter(url => typeof url === "string" &&
-          /^\/inference\/foundations\/[a-z0-9-]+\/$/.test(url))
-    );
+    // Exact published writer routes and canonical labels, not arbitrary browser storage.
+    const titles = Object.freeze({
+          "/inference/foundations/bias-and-variance-intuition/": "Bias and Variance Intuition",
+          "/inference/foundations/confidence-vs-significance-preview/": "Confidence vs Significance Preview",
+          "/inference/foundations/estimators-vs-estimates/": "Estimators vs Estimates",
+          "/inference/foundations/independence-and-random-sampling/": "Independence and Random Sampling",
+          "/inference/foundations/inference-pipeline-estimator-se-ci-test/": "Inference Pipeline — Estimator, SE, CI, Test",
+          "/inference/foundations/point-vs-interval-estimation/": "Point vs Interval Estimation",
+          "/inference/foundations/populations-parameters-target/": "Populations, Parameters, and Targets",
+          "/inference/foundations/practical-inference-what-can-we-claim/": "Practical Inference — What Can We Claim?",
+          "/inference/foundations/sampling-bias-vs-statistical-bias/": "Sampling Bias vs Statistical Bias",
+          "/inference/foundations/sampling-distributions-bridge/": "Sampling Distributions Bridge",
+          "/inference/foundations/sd-vs-se-common-confusion/": "SD vs SE — Common Confusion",
+          "/inference/foundations/standard-error-unit-of-uncertainty/": "Standard Error — Unit of Uncertainty",
+          "/inference/foundations/statistics-as-random-variables/": "Statistics as Random Variables",
+          "/inference/foundations/what-is-statistical-inference/": "What Is Statistical Inference?",
+          "/inference/foundations/what-makes-good-estimator/": "What Makes a Good Estimator?"
+    });
+    // Historical title verified in the older Foundations browser regression.
+    const legacyTitles = Object.freeze({
+      "/inference/foundations/sd-vs-se-common-confusion/": "SD versus SE"
+    });
     if (!data || typeof data.url !== "string" ||
-        typeof data.label !== "string" || !data.label.trim() ||
-        data.label.length > 200 || !published.has(data.url) ||
-        // Support historical records without ts, but reject invalid timestamps.
-        (Object.prototype.hasOwnProperty.call(data, "ts") &&
-         (typeof data.ts !== "number" || !Number.isSafeInteger(data.ts) ||
-          data.ts <= 0 || data.ts > Date.now()))) return;
+        !Object.prototype.hasOwnProperty.call(titles,data.url) ||
+        typeof data.label !== "string" ||
+        (data.label !== titles[data.url] && data.label !== legacyTitles[data.url]) ||
+        // Accept historic records without ts; reject malformed and future dates.
+        (Object.prototype.hasOwnProperty.call(data,"ts") &&
+         (!Number.isSafeInteger(data.ts) || data.ts<=0 ||
+          data.ts>Date.now()+300000))) return;
 
     const wrap =
       document.getElementById(

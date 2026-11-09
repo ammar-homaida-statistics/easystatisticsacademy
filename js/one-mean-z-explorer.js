@@ -1,8 +1,8 @@
 /* Batch #73: one-sample Z inference with KNOWN population standard deviation. */
 (function(){
 "use strict";
-const root=document.getElementById("esa-one-mean-z-lab");if(!root)return;
-const $=id=>root.querySelector("#esa-omz-"+id);
+const root=document.getElementById("esa-one-mean-z-lab");
+
 // Regularized upper incomplete gamma Q(1/2,z²/2), evaluated by
 // a convergent series or continued fraction. This gives normal tails with
 // near-machine accuracy, including small tail probabilities.
@@ -47,6 +47,9 @@ function compute(n,mean,sigma,mu0,side="two-sided"){
  return {n,mean,sigma,mu0,se,z,pvalue,lower:mean-margin,upper:mean+margin,side};
 }
 window.esaOneMeanZMath={compute,upperTail};
+if(!root)return;
+const $=id=>root.querySelector("#esa-omz-"+id);
+const ar=root.dataset.locale==="ar";
 const fmt=x=>x.toFixed(6);
 const ns="http://www.w3.org/2000/svg";
 const svg=(tag,attributes={},text)=>{
@@ -79,8 +82,8 @@ function renderPlot(o){
   svg("text",{x:310,y:216,fill:"currentColor","font-size":12,"text-anchor":"middle"},"0"),
   svg("text",{x:585,y:216,fill:"currentColor","font-size":12,"text-anchor":"end"},limit.toFixed(1)));
  chart.replaceChildren(...elems);
- chart.setAttribute("aria-label","Standard normal distribution, Z="+fmt(o.z)+
-   ", "+o.side+" approximate p-value "+fmt(o.pvalue)+".");
+ chart.setAttribute("aria-label",(ar?"التوزيع الطبيعي المعياري، إحصائية Z=":"Standard normal distribution, Z=")+fmt(o.z)+
+   (ar?"، القيمة الاحتمالية التقريبية = ":", "+o.side+" approximate p-value ")+fmt(o.pvalue)+".");
 }
 function render(){
  const raw=[$("n").value.trim(),$("mean").value.trim(),$("sigma").value.trim(),$("mu0").value.trim()];
@@ -89,16 +92,20 @@ function render(){
  const o=compute(n,...args,$("side").value);
  if(!o){
   $("results").hidden=true;$("error").hidden=false;
-  $("error").textContent="Enter n=1–1,000,000 (integer), finite sample and null means, and KNOWN population σ>0; absolute means and σ must be ≤1,000,000,000.";
+  $("error").textContent=ar?"أدخل حجم عينة صحيحاً من 1 إلى 1,000,000، ومتوسطات منتهية، وانحرافاً معيارياً سكانياً معلوماً وموجباً لا يتجاوز 1,000,000,000؛ وتجب ألا تتجاوز القيم المطلقة للمتوسطات هذا الحد.":"Enter n=1–1,000,000 (integer), finite sample and null means, and KNOWN population σ>0; absolute means and σ must be ≤1,000,000,000.";
+  for(const id of ["n","mean","sigma","mu0"])$(id).setAttribute("aria-invalid","true");
   return;
  }
  $("results").hidden=false;$("error").hidden=true;$("error").textContent="";
+ for(const id of ["n","mean","sigma","mu0"])$(id).setAttribute("aria-invalid","false");
  for(const id of ["se","z","pvalue","lower","upper"])$(id).textContent=fmt(o[id]);
- $("assumptions").textContent=o.n<30?
+ $("assumptions").textContent=ar?(o.n<30?
+   "في العينات الصغيرة يلزم تقريباً مجتمع طبيعي وملاحظات مستقلة؛ معرفة σ وحدها لا تكفي لضمان صلاحية اختبار Z.":
+   "في العينات الكبيرة يلزم استقلال الملاحظات وتحقق شروط نظرية الحد المركزي؛ وقد تؤثر القيم المتطرفة والالتواء الشديد."):(o.n<30?
    "Small sample: the population should be approximately normally distributed and observations independent; knowledge of σ alone does not make the Z approximation valid.":
-   "Large-sample approximation requires independent observations and appropriate Central Limit Theorem conditions. Extremely skewed populations or influential observations can still matter.";
- $("decision").textContent=(o.pvalue<0.05?"Reject":"Do not reject")+" H₀: μ=μ₀ at α=0.05 if the assumptions hold.";
- $("interpretation").textContent="The 95% interval is two-sided for all alternatives. σ must be the known POPULATION standard deviation, not estimated sample s. If σ is unknown, consider the one-sample Student t-test. A p-value is not the probability that H₀ is true.";
+   "Large-sample approximation requires independent observations and appropriate Central Limit Theorem conditions. Extremely skewed populations or influential observations can still matter.");
+ $("decision").textContent=ar?(o.pvalue<0.05?"نرفض الفرضية الصفرية":"لا نرفض الفرضية الصفرية")+" H₀: μ=μ₀ عند α=0.05 إذا تحققت الافتراضات.":(o.pvalue<0.05?"Reject":"Do not reject")+" H₀: μ=μ₀ at α=0.05 if the assumptions hold.";
+ $("interpretation").textContent=ar?"فترة الثقة 95% ثنائية الطرف مهما كانت الفرضية البديلة. يجب أن تكون σ انحراف المجتمع المعياري المعلوم وليس s المقدّر من العينة. إذا كانت σ مجهولة، ففكّر في اختبار t لعينة واحدة. القيمة الاحتمالية لا تمثل احتمال صحة H₀.":"The 95% interval is two-sided for all alternatives. σ must be the known POPULATION standard deviation, not estimated sample s. If σ is unknown, consider the one-sample Student t-test. A p-value is not the probability that H₀ is true.";
  renderPlot(o);
 }
 for(const id of ["n","mean","sigma","mu0","side"]){
