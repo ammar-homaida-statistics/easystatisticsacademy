@@ -4,6 +4,9 @@ title: One-Sample Z Test for a Mean
 description: Learn how the one-sample Z test evaluates whether a population mean differs from a hypothesized value when the population standard deviation is known.
 permalink: /inference/classical-tests/one-sample-z-test-for-mean/
 sidebar: false
+math: true
+translation_pair: one-sample-z-test-mean
+learning_resource: true
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -253,6 +256,7 @@ Z=\frac{\bar X-\mu_0}{\sigma/\sqrt{n}}
 
     <!-- Batch #73: Known-population-sigma interactive Z inference -->
 <section class="concept-box" id="esa-one-mean-z-lab" aria-labelledby="esa-omz-heading">
+<p><a href="/ar/inference/classical-tests/one-sample-z-test-for-mean/" lang="ar" dir="rtl">اقرأ الدرس بالعربية: اختبار Z لعينة واحدة</a></p>
 <h2 id="esa-omz-heading">Interactive One-Sample Z-Test for a Mean</h2>
 <p>Use the <strong>known population standard deviation σ</strong> (not the sample standard deviation) to evaluate hypotheses about a population mean. The standard normal CDF is used for p-values, and the two-sided 95% confidence interval uses z=1.9599639845.</p>
 <div class="esa-omz-grid">
