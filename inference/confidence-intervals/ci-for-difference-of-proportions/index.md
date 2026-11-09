@@ -290,6 +290,21 @@ p_1-p_2
       <p id="esa-prop-warning">Each group has at least 10 successes and at least 10 failures.</p>
       <p class="muted-mini">This calculator estimates a difference, not a pooled-null Z test, and does not establish causation. It assumes independent observations in two independent groups. Wald coverage can be poor even when a simple count rule is satisfied; use a score-based or other more reliable procedure when appropriate.</p>
       <button type="button" class="btn btn-outline" id="esa-prop-reset">Reset worked example</button>
+
+      <div class="concept-box" id="esa-prop-newcombe-panel" aria-labelledby="esa-prop-newcombe-title">
+        <h3 id="esa-prop-newcombe-title">Compare Wald and Newcombe's Wilson-score interval</h3>
+        <p>Newcombe's method 10 combines Wilson score limits for each independent binomial proportion. It often behaves better near 0 or 1 and in smaller samples, but no method guarantees nominal coverage in every setting. The existing Wald interval remains visible above.</p>
+        <p id="esa-prop-newcombe-error" role="alert" hidden></p>
+        <div id="esa-prop-newcombe-results" role="status" aria-live="polite" aria-atomic="true">
+          <p><output id="esa-prop-newcombe-level">95</output>% Newcombe interval =
+          [<output id="esa-prop-newcombe-lower">—</output>, <output id="esa-prop-newcombe-upper">—</output>] percentage points.</p>
+          <p id="esa-prop-newcombe-zero">Calculating the score-based interval.</p>
+        </div>
+        <svg id="esa-prop-compare-chart" viewBox="0 0 480 112" role="img" aria-label="Comparison of Wald and Newcombe intervals for the difference of independent proportions"></svg>
+        <noscript><p>JavaScript is required for live interval comparison. The mathematical discussion remains available.</p></noscript>
+      </div>
+      <script defer src="/js/newcombe-two-proportion.js"></script>
+
     </section>
     <style>
       #esa-two-proportion-ci-calculator{box-sizing:border-box;max-width:100%;min-width:0;overflow-wrap:anywhere}
