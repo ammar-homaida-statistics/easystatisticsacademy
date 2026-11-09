@@ -320,7 +320,7 @@ sidebar: false
       <h2 id="esa-hom-title">Interactive Chi-Square Homogeneity Explorer</h2>
       <p>Compare the <strong>categorical distributions of independently sampled populations</strong>. Enter a contingency table with one population per row and one category per column. Use commas between nonnegative counts and a new line for each population (2–5 rows, 2–5 columns).</p>
       <label for="esa-hom-input">Observed counts in a population × category table</label>
-      <textarea id="esa-hom-input" rows="4" spellcheck="false">40, 35, 25
+      <textarea id="esa-hom-input" rows="4" spellcheck="false" aria-describedby="esa-hom-error esa-hom-warning" aria-invalid="false">40, 35, 25
 30, 45, 25
 50, 30, 20</textarea>
       <div class="esa-hom-controls">
@@ -342,7 +342,7 @@ sidebar: false
           <strong>Pearson χ²:</strong> <output id="esa-hom-chi">8.896104</output>.
           <strong>df:</strong> <output id="esa-hom-df">4</output>.
           <strong>Upper-tail p-value:</strong> <output id="esa-hom-p">0.063750</output>.</p>
-        <p id="esa-hom-warning">All expected cell counts are at least 5.</p>
+        <p id="esa-hom-warning" role="status" aria-live="polite">All expected cell counts are at least 5.</p>
         <p id="esa-hom-decision">At α = 0.05, do not reject equal categorical distributions.</p>
       </section>
       <p class="muted-mini">For cell <strong>i,j</strong>, the expected count under homogeneity is <strong>(row total × column total) / N</strong>. Each cell contributes <strong>(observed − expected)² / expected</strong> to Pearson's chi-square statistic. The reference degrees of freedom are <strong>(rows − 1)(columns − 1)</strong>; the p-value is the asymptotic upper tail, with no Yates continuity correction. Tables with an all-zero row or column are rejected because expected counts would vanish.</p>
