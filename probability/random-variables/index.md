@@ -534,12 +534,14 @@ sidebar: false
     const data = JSON.parse(raw);
     // Match only exact, published lesson hrefs belonging to this block.
     // Prefix matches are insufficient: queries, fragments, traversal and other blocks are rejected.
-    const published = new Set(
-      Array.from(document.querySelectorAll("#lessons .lesson-card h3 a[href]"),
-        link => link.getAttribute("href"))
-        .filter(url => typeof url === "string" &&
-          /^\/probability\/random-variables\/[a-z0-9-]+\/$/.test(url))
-    );
+    const published = new Set([
+      "/probability/random-variables/what-is-a-random-variable/",
+      "/probability/random-variables/discrete-random-variables/",
+      "/probability/random-variables/continuous-random-variables/",
+      "/probability/random-variables/cumulative-distribution-function/",
+      "/probability/random-variables/expectation/",
+      "/probability/random-variables/variance-and-standard-deviation/"
+    ]);
     if (!data || typeof data.url !== "string" ||
         typeof data.label !== "string" || !published.has(data.url)) return;
     // Only the published card title, or its exactly mapped historical title.
