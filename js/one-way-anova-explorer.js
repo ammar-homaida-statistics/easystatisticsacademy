@@ -3,8 +3,6 @@
 (function () {
   "use strict";
   const root=document.getElementById("esa-anova-lab");
-  if(!root)return;
-  const get=id=>root.querySelector("#esa-anova-"+id);
   // Lanczos logGamma, with the positive arguments used in F-tail calculations.
   const c=[0.99999999999980993,676.5203681218851,-1259.1392167224028,
     771.32342877765313,-176.61502916214059,12.507343278686905,
@@ -76,6 +74,8 @@
   }
   // Pure calculations are exposed only for independent numerical regression tests.
   window.esaAnovaMath={compute,fSurvival,ibeta};
+  if(!root)return;
+  const get=id=>root.querySelector("#esa-anova-"+id);
   const source=[get("a"),get("b"),get("c")],error=get("error"),results=get("results");
   function parse(text) {
     const parts=text.split(/[,\n;]+/).map(s=>s.trim());
@@ -120,12 +120,14 @@
   function update(){
     const groups=source.map(x=>parse(x.value));
     if(groups.some(g=>g===null)){
+      source.forEach((field,i)=>field.setAttribute("aria-invalid",groups[i]===null?"true":"false"));
       error.hidden=false;error.textContent="Enter 2 to 100 finite numbers per group, separated by commas. Absolute values must be at most 1,000,000.";
       results.hidden=true;get("chart").replaceChildren();return;
     }
     const s=compute(groups);
-    if(!s){error.hidden=false;error.textContent="Invalid groups.";results.hidden=true;return;}
-    error.hidden=true;results.hidden=false;
+    if(!s){source.forEach(field=>field.setAttribute("aria-invalid","true"));error.hidden=false;error.textContent="Invalid groups.";results.hidden=true;get("chart").replaceChildren();return;}
+    source.forEach(field=>field.setAttribute("aria-invalid","false"));
+    error.hidden=true;error.textContent="";results.hidden=false;
     get("groups").replaceChildren(...s.means.map((mean,i)=>{
       const tr=document.createElement("tr");
       for(const v of [String.fromCharCode(65+i),String(s.sizes[i]),fmt(mean),
