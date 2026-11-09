@@ -934,17 +934,33 @@ sidebar: false
 
     const data = JSON.parse(raw);
 
-    // Trust only exact published lesson hrefs in this block's own lesson cards.
-    // Do not allow external schemes, traversal, query strings, anchors, or other blocks.
-    const published = new Set(
-      Array.from(document.querySelectorAll("#lessons .lesson-card h3 a[href]"),
-        link => link.getAttribute("href"))
-        .filter(url => typeof url === "string" &&
-          /^\/inference\/confidence-intervals\/[a-z0-9-]+\/$/.test(url))
-    );
+    // Exact published routes and verified writer titles from all 12 lesson sources.
+    // Never construct an executable link from arbitrary localStorage data.
+    const titles = Object.freeze({
+          "/inference/confidence-intervals/ci-for-difference-of-means-independent/": "Confidence Interval for Difference of Means (Independent Samples)",
+          "/inference/confidence-intervals/ci-for-difference-of-proportions/": "Confidence Interval for Difference of Proportions",
+          "/inference/confidence-intervals/ci-for-mean-sigma-known-z/": "Confidence Interval for a Mean (σ Known) — z Interval",
+          "/inference/confidence-intervals/ci-for-mean-sigma-unknown-t/": "Confidence Interval for a Mean (σ Unknown) — t Interval",
+          "/inference/confidence-intervals/ci-for-paired-mean-difference/": "Confidence Interval for a Paired Mean Difference",
+          "/inference/confidence-intervals/ci-for-proportion/": "Confidence Interval for a Proportion",
+          "/inference/confidence-intervals/common-mistakes-and-interpretation/": "Common Mistakes and Interpretation",
+          "/inference/confidence-intervals/conditions-normality-clt-independence/": "Conditions — Normality, CLT, and Independence",
+          "/inference/confidence-intervals/critical-values-z-and-t/": "Critical Values — z and t",
+          "/inference/confidence-intervals/interval-blueprint-estimate-plus-minus/": "Interval Blueprint — Estimate ± Margin of Error",
+          "/inference/confidence-intervals/what-is-a-confidence-interval/": "What Is a Confidence Interval?",
+          "/inference/confidence-intervals/width-and-precision-what-controls/": "Width and Precision — What Controls Them?"
+    });
+    // One historically verified label, scoped strictly to its original lesson route.
+    const legacyTitles = Object.freeze({
+      "/inference/confidence-intervals/ci-for-paired-mean-difference/": "Paired Mean Difference"
+    });
     if (!data || typeof data.url !== "string" ||
-        typeof data.label !== "string" || !data.label.trim() ||
-        data.label.length > 200 || !published.has(data.url)) return;
+        !Object.prototype.hasOwnProperty.call(titles,data.url) ||
+        typeof data.label !== "string" ||
+        (data.label !== titles[data.url] && data.label !== legacyTitles[data.url]) ||
+        (Object.prototype.hasOwnProperty.call(data,"ts") &&
+         (!Number.isSafeInteger(data.ts) || data.ts <= 0 ||
+          data.ts > Date.now()+300000))) return;
 
     const wrap =
       document.getElementById(

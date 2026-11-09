@@ -5,7 +5,6 @@
 (function(){
  "use strict";
  const root=document.getElementById("esa-homogeneity-lab");
- if(!root)return;
  const byId=id=>root.querySelector("#esa-hom-"+id);
  const lanczos=[0.99999999999980993,676.5203681218851,-1259.1392167224028,
  771.32342877765313,-176.61502916214059,12.507343278686905,
@@ -65,6 +64,7 @@
      percentages,minExpected,smallExpected:minExpected<5};
  }
  window.esaHomogeneityMath={compute,gammaQ};
+ if(!root)return;
  const input=byId("input"),output=byId("results"),error=byId("error");
  const presets={
   cities:"40, 35, 25\n30, 45, 25\n50, 30, 20",
@@ -122,10 +122,10 @@
    const matrix=parse(input.value),s=matrix?compute(matrix):null;
    if(!s){
      error.textContent="Enter a rectangular 2–5 by 2–5 table: each row is a population, with nonnegative integer counts (up to 10,000,000), separated by commas. Row and column totals must be positive.";
-     error.hidden=false;output.hidden=true;byId("chart").replaceChildren();
+     error.hidden=false;input.setAttribute("aria-invalid","true");output.hidden=true;byId("chart").replaceChildren();
      return;
    }
-   error.hidden=true;output.hidden=false;
+   error.hidden=true;error.textContent="";input.setAttribute("aria-invalid","false");output.hidden=false;
    const grid=byId("table");
    grid.replaceChildren();
    const caption=document.createElement("caption");
