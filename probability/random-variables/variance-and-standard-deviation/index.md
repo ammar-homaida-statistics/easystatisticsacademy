@@ -4,6 +4,9 @@ title: Variance and Standard Deviation
 description: Learn how variance and standard deviation measure the spread of a probability distribution around its expected value.
 permalink: /probability/random-variables/variance-and-standard-deviation/
 sidebar: false
+math: true
+translation_pair: random-variable-variance
+learning_resource: true
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -40,6 +43,7 @@ sidebar: false
     </div>
 
     <h1>Variance and Standard Deviation</h1>
+<p><a href="/ar/probability/random-variables/variance-and-standard-deviation/" lang="ar" dir="rtl">اقرأ الدرس بالعربية: التباين والانحراف المعياري</a></p>
 
     <p class="lead">
       Expectation tells us where a probability distribution is centered.
