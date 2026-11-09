@@ -204,10 +204,10 @@ sidebar: false
       <h2 id="esa-chi-heading">Interactive 2 × 2 Independence Explorer</h2>
       <p>Change the four observed frequencies to see how independence predicts each cell, and how cell discrepancies add to Pearson’s chi-square statistic. The table starts with the worked example above.</p>
       <div class="esa-chi-input-grid">
-        <label>Male, Prefers A <input id="esa-chi-a" type="number" min="0" max="10000000" step="1" value="40" inputmode="numeric"></label>
-        <label>Male, Prefers B <input id="esa-chi-b" type="number" min="0" max="10000000" step="1" value="60" inputmode="numeric"></label>
-        <label>Female, Prefers A <input id="esa-chi-c" type="number" min="0" max="10000000" step="1" value="70" inputmode="numeric"></label>
-        <label>Female, Prefers B <input id="esa-chi-d" type="number" min="0" max="10000000" step="1" value="30" inputmode="numeric"></label>
+        <label>Male, Prefers A <input id="esa-chi-a" aria-describedby="esa-chi-error esa-chi-warning" type="number" min="0" max="10000000" step="1" value="40" inputmode="numeric"></label>
+        <label>Male, Prefers B <input id="esa-chi-b" aria-describedby="esa-chi-error esa-chi-warning" type="number" min="0" max="10000000" step="1" value="60" inputmode="numeric"></label>
+        <label>Female, Prefers A <input id="esa-chi-c" aria-describedby="esa-chi-error esa-chi-warning" type="number" min="0" max="10000000" step="1" value="70" inputmode="numeric"></label>
+        <label>Female, Prefers B <input id="esa-chi-d" aria-describedby="esa-chi-error esa-chi-warning" type="number" min="0" max="10000000" step="1" value="30" inputmode="numeric"></label>
       </div>
       <p id="esa-chi-error" role="alert" hidden></p>
       <div class="table-wrap">
@@ -228,7 +228,7 @@ sidebar: false
         <p>Cramér’s V = <output id="esa-chi-v">0.301511</output>.
            For a 2 × 2 table, V = √(χ²/N).</p>
       </div>
-      <p id="esa-chi-warning">All expected frequencies are at least 5 for the initial example.</p>
+      <p id="esa-chi-warning" role="status" aria-live="polite">All expected frequencies are at least 5 for the initial example.</p>
       <p class="muted-mini">The chi-square p-value uses the χ² distribution with 1 degree of freedom, not Fisher’s exact test. Observations must be independent, and sparse expected cells can invalidate the large-sample approximation. Association is not evidence of causation.</p>
       <button type="button" class="btn btn-outline" id="esa-chi-reset">Reset worked example</button>
     </section>
@@ -260,6 +260,7 @@ sidebar: false
       function clear(message) {
         find("esa-chi-error").hidden=false;
         find("esa-chi-error").textContent=message;
+        inputs.forEach(input=>input.setAttribute("aria-invalid","true"));
         resultIds.forEach(id=>find(id).textContent="—");
         find("esa-chi-warning").textContent="Correct the inputs to evaluate the large-sample conditions.";
       }
@@ -275,6 +276,7 @@ sidebar: false
           clear("Both row totals and both column totals must be positive; zero margins make the independence statistic undefined.");
           return;
         }
+        inputs.forEach(input=>input.setAttribute("aria-invalid","false"));
         find("esa-chi-error").hidden=true;
         find("esa-chi-error").textContent="";
         const expected=[rows[0]*cols[0]/N,rows[0]*cols[1]/N,
@@ -282,7 +284,7 @@ sidebar: false
         const contributions=values.map((o,i)=>(o-expected[i])**2/expected[i]);
         const chi=contributions.reduce((sum,x)=>sum+x,0);
         // With df=1, chi-square survival = erfc(sqrt(chi / 2)).
-        const p=Math.min(1,Math.max(0,erfc(Math.sqrt(chi/2))));
+        const p=chi===0?1:Math.min(1,Math.max(0,erfc(Math.sqrt(chi/2))));
         ids.forEach((id,i)=>find("esa-chi-cell-"+id).textContent=
           values[i]+" → "+expected[i].toFixed(3)+"; "+contributions[i].toFixed(4));
         find("esa-chi-stat").textContent=chi.toFixed(6);

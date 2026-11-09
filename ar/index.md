@@ -24,5 +24,6 @@ lang: ar
 <p><a href="/ar/probability/distributions/hypergeometric-distribution/">التوزيع فوق الهندسي — شرح عربي ومختبر تفاعلي للسحب دون إرجاع</a></p>
 <p><a href="/ar/probability/distributions/bernoulli-distribution/">توزيع برنولي — شرح عربي ومختبر تفاعلي للاحتمالات والمتوسط والتباين</a></p>
 <p><a href="/ar/probability/conditional/what-is-conditional-probability/">ما الاحتمال الشرطي؟ شرح عربي مع مختبر تفاعلي لجدول الأحداث 2 × 2</a></p>
+<p><a href="/ar/probability/random-variables/variance-and-standard-deviation/">التباين والانحراف المعياري للمتغير العشوائي — شرح عربي وأمثلة محلولة</a></p>
 <p><a href="/" lang="en" dir="ltr">English homepage</a></p>
 </div></section>

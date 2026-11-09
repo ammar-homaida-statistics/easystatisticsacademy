@@ -60,5 +60,5 @@ learning_resource: true
 <h2>أخطاء شائعة</h2>
 <ul class="bullets"><li>اعتبار القيمة المتوقعة نتيجة حتمية في تجربة واحدة.</li><li>جمع القيم دون وزنها باحتمالاتها.</li><li>إدخال احتمالات لا مجموعها واحداً.</li><li>اعتبار خطية التوقع مشروطة بالاستقلال.</li><li>استخدام صيغة التباين دون تحقق وجود العزم الثاني.</li></ul>
 <div class="summary-box"><h2>الخلاصة</h2><p>القيمة المتوقعة متوسط نظري موزون بالاحتمالات. تساعدنا التباينات والعزوم على وصف انتشار النتائج حول هذا المركز.</p></div>
-<div class="lesson-nav"><a class="btn btn-outline" href="/ar/probability/random-variables/cumulative-distribution-function/">السابق: دالة التوزيع التراكمي</a><a class="btn" href="/probability/random-variables/variance-and-standard-deviation/" lang="en" dir="ltr">Next: Variance and Standard Deviation (English)</a></div>
+<div class="lesson-nav"><a class="btn btn-outline" href="/ar/probability/random-variables/cumulative-distribution-function/">السابق: دالة التوزيع التراكمي</a><a class="btn" href="/ar/probability/random-variables/variance-and-standard-deviation/">التالي: التباين والانحراف المعياري</a></div>
 </div></section>

@@ -4,6 +4,9 @@ title: Variance and Standard Deviation
 description: Learn how variance and standard deviation measure the spread of a probability distribution around its expected value.
 permalink: /probability/random-variables/variance-and-standard-deviation/
 sidebar: false
+math: true
+translation_pair: random-variable-variance
+learning_resource: true
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -40,6 +43,7 @@ sidebar: false
     </div>
 
     <h1>Variance and Standard Deviation</h1>
+<p><a href="/ar/probability/random-variables/variance-and-standard-deviation/" lang="ar" dir="rtl">اقرأ الدرس بالعربية: التباين والانحراف المعياري</a></p>
 
     <p class="lead">
       Expectation tells us where a probability distribution is centered.
@@ -603,7 +607,34 @@ sidebar: false
 
     </div>
 
-    <!-- NAVIGATION -->
+    <!-- Batch #84: affine variance explorer. -->
+<section class="concept-box" id="esa-affine-lab" aria-labelledby="esa-affine-heading">
+<h2 id="esa-affine-heading">Interactive: variance under a linear transformation</h2>
+<p>Choose a discrete three-outcome distribution and transform Y = a + bX. The probabilities must sum to one. This calculates theoretical, not sample, variance.</p>
+<div class="esa-affine-grid">
+<label for="esa-affine-x0">Outcome 1<input id="esa-affine-x0" type="number" step="any" value="0" aria-describedby="esa-affine-error"></label>
+<label for="esa-affine-x1">Outcome 2<input id="esa-affine-x1" type="number" step="any" value="1" aria-describedby="esa-affine-error"></label>
+<label for="esa-affine-x2">Outcome 3<input id="esa-affine-x2" type="number" step="any" value="2" aria-describedby="esa-affine-error"></label>
+<label for="esa-affine-p0">Probability 1<input id="esa-affine-p0" type="number" step="any" value="0.2" aria-describedby="esa-affine-error"></label>
+<label for="esa-affine-p1">Probability 2<input id="esa-affine-p1" type="number" step="any" value="0.5" aria-describedby="esa-affine-error"></label>
+<label for="esa-affine-p2">Probability 3<input id="esa-affine-p2" type="number" step="any" value="0.3" aria-describedby="esa-affine-error"></label>
+<label for="esa-affine-a">Offset a<input id="esa-affine-a" type="number" step="any" value="3" aria-describedby="esa-affine-error"></label>
+<label for="esa-affine-b">Multiplier b<input id="esa-affine-b" type="number" step="any" value="-2" aria-describedby="esa-affine-error"></label>
+</div>
+<p id="esa-affine-error" role="alert" hidden></p>
+<div id="esa-affine-results" role="status" aria-live="polite" aria-atomic="true">
+<p>E(X): <output id="esa-affine-mx">1.100000</output>; Var(X): <output id="esa-affine-vx">0.490000</output>; SD(X): <output id="esa-affine-sx">0.700000</output></p>
+<p>E(Y): <output id="esa-affine-my">0.800000</output>; Var(Y): <output id="esa-affine-vy">1.960000</output>; SD(Y): <output id="esa-affine-sy">1.400000</output></p>
+<p>Check b² Var(X): <output id="esa-affine-rule">1.960000</output></p>
+</div>
+<svg id="esa-affine-chart" viewBox="0 0 480 185" role="img" aria-label="Comparative discrete probability mass plots for X and transformed Y" style="width:100%;height:auto;display:block"></svg>
+<button type="button" class="btn btn-outline" id="esa-affine-reset">Reset example</button>
+<noscript><p>With X taking 0, 1, 2 at probabilities 0.2, 0.5, 0.3 and a = 3, b = −2, Var(X) = 0.49 and Var(Y) = 1.96.</p></noscript>
+<p class="muted-mini">Adding a constant does not change variance; multiplying by b multiplies variance by b². For b=0, the transformed variable is constant. A negative b reverses the order of outcomes.</p>
+</section>
+<style>#esa-affine-lab{min-width:0;overflow-wrap:anywhere}#esa-affine-lab .esa-affine-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}#esa-affine-lab label{display:block;min-width:0}#esa-affine-lab input{width:100%;min-width:0;box-sizing:border-box;padding:9px;font:inherit}#esa-affine-lab [hidden]{display:none!important}@media(max-width:480px){#esa-affine-lab .esa-affine-grid{grid-template-columns:minmax(0,1fr)}}</style>
+<script defer src="/js/affine-variance-lab.js"></script>
+<!-- NAVIGATION -->
 
     <div class="lesson-nav">
 

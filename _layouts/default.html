@@ -25,7 +25,10 @@
   </script>
   {% endif %}
 
-  {% if page.translation_pair == "random-variable-expectation" %}
+  {% if page.translation_pair == "random-variable-variance" %}
+  <link rel="alternate" hreflang="en" href="{{ site.url }}/probability/random-variables/variance-and-standard-deviation/" />
+  <link rel="alternate" hreflang="ar" href="{{ site.url }}/ar/probability/random-variables/variance-and-standard-deviation/" />
+  {% elsif page.translation_pair == "random-variable-expectation" %}
   <link rel="alternate" hreflang="en" href="{{ site.url }}/probability/random-variables/expectation/" />
   <link rel="alternate" hreflang="ar" href="{{ site.url }}/ar/probability/random-variables/expectation/" />
   {% elsif page.translation_pair == "cumulative-distribution-function" %}
