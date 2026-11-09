@@ -174,7 +174,7 @@ p\in[0,1]
       <svg id="esa-sp-chart" viewBox="0 0 470 116" role="img" aria-label="Wald and Wilson score confidence intervals" style="display:block;width:100%;height:auto;max-width:570px"></svg>
       <p id="esa-sp-warning" role="status" aria-live="polite"></p>
     </section>
-    <p class="muted-mini">Wald uses \\(\\hat p\\pm z\\sqrt{\\hat p(1-\\hat p)/n}\\). Wilson uses the score interval with denominator \\(1+z^2/n\\). With zero or all successes, Wald has zero plug-in standard error and can collapse to a point, whereas Wilson remains informative. The Wald interval may extend outside [0,1]; it is shown without silently clipping its computed bounds.</p>
+    <p class="muted-mini">Wald uses \(\\hat p\\pm z\\sqrt{\\hat p(1-\\hat p)/n}\). Wilson uses the score interval with denominator \(1+z^2/n\). With zero or all successes, Wald has zero plug-in standard error and can collapse to a point, whereas Wilson remains informative. The Wald interval may extend outside [0,1]; it is shown without silently clipping its computed bounds.</p>
     <noscript><p>Enable JavaScript for the interactive comparison; the formulas above remain available without it.</p></noscript>
     </section>
     <style>
