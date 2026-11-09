@@ -25,7 +25,10 @@
   </script>
   {% endif %}
 
-  {% if page.translation_pair == "random-variable-variance" %}
+  {% if page.translation_pair == "classical-tests-framework" %}
+  <link rel="alternate" hreflang="en" href="{{ site.url }}/inference/classical-tests/decision-framework-and-assumptions/" />
+  <link rel="alternate" hreflang="ar" href="{{ site.url }}/ar/inference/classical-tests/decision-framework-and-assumptions/" />
+  {% elsif page.translation_pair == "random-variable-variance" %}
   <link rel="alternate" hreflang="en" href="{{ site.url }}/probability/random-variables/variance-and-standard-deviation/" />
   <link rel="alternate" hreflang="ar" href="{{ site.url }}/ar/probability/random-variables/variance-and-standard-deviation/" />
   {% elsif page.translation_pair == "random-variable-expectation" %}
