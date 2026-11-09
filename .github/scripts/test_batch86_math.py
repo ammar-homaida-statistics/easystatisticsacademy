@@ -102,12 +102,13 @@ class Batch86Tests(unittest.TestCase):
     def test_foundations_exact_writer_allowlist(self):
         page=(ROOT/"inference/foundations/index.md").read_text()
         chunk=page.split("<!-- CONTINUE READING SCRIPT -->")[-1]
-        mapping=chunk.split("const titles = Object.freeze(")[1].split("if (!data")[0]
+        mapping=chunk.split("const titles = Object.freeze(")[1].split("const legacyTitles")[0]
         matches=re.findall(r'"/inference/foundations/([a-z0-9-]+)/": "([^"]+)"',mapping)
         self.assertEqual(len(matches),15)
         for slug,label in matches:
             writer=(ROOT/"inference/foundations"/slug/"index.md").read_text()
             self.assertIn('label: "'+label+'"',writer)
+        self.assertIn('"/inference/foundations/sd-vs-se-common-confusion/": "SD versus SE"',chunk)
         for rule in ("Object.prototype.hasOwnProperty.call(titles,data.url)",
                      "data.label !== titles[data.url]","Number.isSafeInteger(data.ts)",
                      "data.ts>Date.now()+300000","label.replaceChildren","btn.href = data.url"):
