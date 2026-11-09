@@ -4,6 +4,9 @@ title: Decision Framework and Assumptions
 description: Learn the general workflow behind classical hypothesis tests and the assumptions required for valid statistical conclusions.
 permalink: /inference/classical-tests/decision-framework-and-assumptions/
 sidebar: false
+math: true
+translation_pair: classical-tests-framework
+learning_resource: true
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -40,6 +43,7 @@ sidebar: false
     </div>
 
     <h1>Decision Framework and Assumptions</h1>
+<p><a href="/ar/inference/classical-tests/decision-framework-and-assumptions/" lang="ar" dir="rtl">اقرأ الدرس بالعربية: إطار اتخاذ القرار والافتراضات</a></p>
 
     <p class="lead">
       Although many hypothesis tests exist, they all follow the same underlying decision framework.
