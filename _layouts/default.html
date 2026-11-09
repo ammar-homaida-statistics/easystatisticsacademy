@@ -25,7 +25,10 @@
   </script>
   {% endif %}
 
-  {% if page.translation_pair == "classical-tests-framework" %}
+  {% if page.translation_pair == "one-sample-z-test-mean" %}
+  <link rel="alternate" hreflang="en" href="{{ site.url }}/inference/classical-tests/one-sample-z-test-for-mean/" />
+  <link rel="alternate" hreflang="ar" href="{{ site.url }}/ar/inference/classical-tests/one-sample-z-test-for-mean/" />
+  {% elsif page.translation_pair == "classical-tests-framework" %}
   <link rel="alternate" hreflang="en" href="{{ site.url }}/inference/classical-tests/decision-framework-and-assumptions/" />
   <link rel="alternate" hreflang="ar" href="{{ site.url }}/ar/inference/classical-tests/decision-framework-and-assumptions/" />
   {% elsif page.translation_pair == "random-variable-variance" %}
