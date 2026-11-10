@@ -347,7 +347,7 @@ Do not use these fields for matched or before/after pairs; use the <a href="/inf
 <p class="muted-mini">Pooled variance: \(s_p^2=[(n_1-1)s_1^2+(n_2-1)s_2^2]/(n_1+n_2-2)\). Pooled standard error: \(s_p\\sqrt{1/n_1+1/n_2}\). The displayed confidence intervals are two-sided regardless of the alternative hypothesis chosen. A descriptive sample-variance ratio is not a formal pretest for choosing between the methods.</p>
 <noscript><p>Enable JavaScript to compare the two intervals using the example data.</p></noscript>
 </section>
-<script defer src="/js/pooled-two-sample-comparison.js"></script>
+
 
 <p class="muted-mini">Welch's method does not require equal population variances. Its small-sample t approximation assumes independent observations within and between groups and approximately normal population distributions, with attention to outliers and severe skew. The Welch degrees of freedom can be fractional. Large samples may support approximate inference under appropriate conditions. The 95% interval is two-sided even if a one-sided hypothesis is selected. A non-significant result does not prove equality, equivalence or absence of an effect. Do not interpret associations as causal evidence.</p>
 </section>
@@ -369,6 +369,7 @@ Do not use these fields for matched or before/after pairs; use the <a href="/inf
 @media print{#esa-welch-lab .esa-w-controls{display:none}}
 </style>
 <script defer src="/js/welch-two-sample-explorer.js"></script>
+<script defer src="/js/pooled-two-sample-comparison.js"></script>
 
     <h2>The Standard Error</h2>
 
