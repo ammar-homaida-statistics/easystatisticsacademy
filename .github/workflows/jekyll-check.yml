@@ -69,6 +69,8 @@ jobs:
         run: python -m unittest discover -s .github/scripts -p 'test_batch86_math.py' -v
       - name: Verify Batch #87 independent Student-t, effects, GOF and secure Center references
         run: python -m unittest discover -s .github/scripts -p 'test_batch87_math.py' -v
+      - name: Verify Batch #88 independent paired, Welch, pooled t and secure Shape mathematics
+        run: python -m unittest discover -s .github/scripts -p 'test_batch88_math.py' -v
       - name: Inventory mathematical placeholders and reject new damage
         run: python .github/scripts/validate_math_placeholders.py
       - name: Validate front matter
@@ -108,5 +110,7 @@ jobs:
         run: python .github/scripts/test_batch86_browser.py --site _site
       - name: Check Batch #87 bilingual mathematical, security and mobile browser regressions
         run: python .github/scripts/test_batch87_browser.py --site _site
+      - name: Check Batch #88 paired RTL, Welch-vs-pooled, security and mobile browser regressions
+        run: python .github/scripts/test_batch88_browser.py --site _site
       - name: Check generated search, CSS assets, and browser behavior
         run: python .github/scripts/test_search.py --site _site
