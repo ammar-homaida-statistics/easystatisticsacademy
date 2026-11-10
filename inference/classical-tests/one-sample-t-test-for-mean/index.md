@@ -4,6 +4,9 @@ title: One-Sample t Test for a Mean
 description: Learn how the one-sample t test evaluates whether a population mean differs from a hypothesized value when the population standard deviation is unknown.
 permalink: /inference/classical-tests/one-sample-t-test-for-mean/
 sidebar: false
+math: true
+translation_pair: one-sample-student-t-mean
+learning_resource: true
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -305,6 +308,7 @@ t=\frac{\bar X-\mu_0}{s/\sqrt{n}}
 
     <!-- Batch #72: Student t exact-CDF interactive inference lab -->
 <section class="concept-box" id="esa-student-t-lab" aria-labelledby="esa-st-heading">
+<p><a lang="ar" dir="rtl" href="/ar/inference/classical-tests/one-sample-t-test-for-mean/">اقرأ بالعربية: اختبار t لعينة واحدة</a></p>
 <h2 id="esa-st-heading">Interactive One-Sample Student t-Test Laboratory</h2>
 <p>Use summary statistics from one independent sample. Unlike the Z test, this tool evaluates tail probabilities and the 95% confidence interval with the <strong>Student t distribution</strong> and <span dir="ltr">df=n−1</span>. It does not silently substitute a normal approximation.</p>
 <div class="esa-st-grid">

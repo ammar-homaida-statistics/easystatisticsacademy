@@ -73,6 +73,32 @@ sidebar: false
 
   <div class="content-narrow">
 
+<section class="concept-box" id="esa-practical-significance-lab" aria-labelledby="esa-ps-heading">
+<h2 id="esa-ps-heading">Interactive Statistical vs. Practical Significance Explorer</h2>
+<p>Use a one-sample mean difference and a <strong>context-defined absolute practical threshold in the original units</strong>. The test uses the Student t distribution with sample SD and a two-sided null mean. Cohen's d here is the observed mean difference divided by sample SD; it is not itself a decision about practical importance.</p>
+<div class="esa-ps-grid">
+<div><label for="esa-ps-n">Sample size n</label><input type="number" min="2" max="1000000" step="1" value="400" id="esa-ps-n" aria-describedby="esa-ps-error"></div>
+<div><label for="esa-ps-mean">Sample mean</label><input type="number" step="any" value="0.2" id="esa-ps-mean" aria-describedby="esa-ps-error"></div>
+<div><label for="esa-ps-sd">Sample standard deviation s</label><input type="number" min="0" step="any" value="1" id="esa-ps-sd" aria-describedby="esa-ps-error"></div>
+<div><label for="esa-ps-mu0">Null mean μ₀</label><input type="number" step="any" value="0" id="esa-ps-mu0" aria-describedby="esa-ps-error"></div>
+<div><label for="esa-ps-threshold">Minimum practically important absolute difference</label><input type="number" min="0" step="any" value="0.5" id="esa-ps-threshold" aria-describedby="esa-ps-error"></div>
+</div>
+<button type="button" class="btn btn-outline" id="esa-ps-reset">Restore example</button>
+<p id="esa-ps-error" role="alert" hidden></p>
+<section id="esa-ps-results" role="status" aria-live="polite" aria-atomic="true">
+<p>Observed mean difference: <output id="esa-ps-effect">—</output>; Cohen's d: <output id="esa-ps-d">—</output>.</p>
+<p>t = <output id="esa-ps-t">—</output>, df = <output id="esa-ps-df">—</output>, two-sided p = <output id="esa-ps-p">—</output>.</p>
+<p>95% confidence interval for the difference: [<output id="esa-ps-low">—</output>, <output id="esa-ps-high">—</output>].</p>
+<p id="esa-ps-statistical"></p><p id="esa-ps-practical"></p>
+<svg id="esa-ps-graph" viewBox="0 0 480 128" role="img" aria-label="Mean-difference confidence interval compared with practical thresholds" style="display:block;max-width:100%;width:100%;height:auto"></svg>
+<p id="esa-ps-interpret"></p>
+</section>
+<p class="muted-mini">Assumes independent observations, appropriate sampling, and sufficient normality or robust approximation for the Student t procedure. This is an illustrative comparison, not a formal equivalence test. The threshold should be specified based on the research setting.</p>
+</section>
+<style>#esa-practical-significance-lab{max-width:100%;min-width:0;overflow-wrap:anywhere;box-sizing:border-box}#esa-practical-significance-lab .esa-ps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,185px),1fr));gap:12px;margin:14px 0}#esa-practical-significance-lab label{display:block;font-weight:650;margin-bottom:6px}#esa-practical-significance-lab input{width:100%;max-width:100%;box-sizing:border-box;padding:9px;font:inherit}#esa-practical-significance-lab [hidden]{display:none!important}#esa-practical-significance-lab :is(input,button):focus-visible{outline:2px solid var(--accent);outline-offset:2px}</style>
+<script defer src="/js/student-t-one-sample-explorer.js"></script>
+<script defer src="/js/practical-significance-explorer.js"></script>
+
     <h2>The Missing Question</h2>
 
     <p>

@@ -1165,11 +1165,14 @@ class SearchTests(unittest.TestCase):
                     self.page.reload(wait_until="networkidle")
 
                 save({"url": valid, "label": malicious_label})
-                if slug == "tabular-summaries":
-                    # This block now requires the exact published lesson title.
+                if slug in ("tabular-summaries", "center"):
+                    # These blocks now require the exact published lesson title.
                     # Reject untrusted labels rather than rendering them.
                     expect(panel).to_be_hidden()
-                    title = self.page.locator("#lessons .lesson-card h3 a[href]").first.inner_text().strip()
+                    # Center cards use editorially expanded headings; the writer
+                    # stores the canonical title "What Is Center?" for its URL.
+                    title = ("What Is Center?" if slug == "center" else
+                             self.page.locator("#lessons .lesson-card h3 a[href]").first.inner_text().strip())
                     save({"url": valid, "label": title})
                     expect(panel).to_be_visible()
                     expect(link).to_have_attribute("href", valid)
