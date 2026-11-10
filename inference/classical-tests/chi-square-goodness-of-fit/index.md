@@ -393,11 +393,11 @@ E_i=120\times\frac16=20
       <div class="esa-gof-fields">
         <div>
           <label for="esa-gof-counts">Observed counts (comma-separated)</label>
-          <textarea id="esa-gof-counts" rows="3" spellcheck="false">8, 11, 9, 13, 10, 9</textarea>
+          <textarea id="esa-gof-counts" rows="3" spellcheck="false" aria-invalid="false" aria-describedby="esa-gof-error esa-gof-warning">8, 11, 9, 13, 10, 9</textarea>
         </div>
         <div>
           <label for="esa-gof-probs">Null category probabilities (decimals, sum to 1)</label>
-          <textarea id="esa-gof-probs" rows="3" spellcheck="false">0.1666666667, 0.1666666667, 0.1666666667, 0.1666666667, 0.1666666667, 0.1666666665</textarea>
+          <textarea id="esa-gof-probs" rows="3" spellcheck="false" aria-invalid="false" aria-describedby="esa-gof-error esa-gof-warning">0.1666666667, 0.1666666667, 0.1666666667, 0.1666666667, 0.1666666667, 0.1666666665</textarea>
         </div>
       </div>
       <div class="esa-gof-controls">
@@ -420,7 +420,7 @@ E_i=120\times\frac16=20
         <strong>Statistic χ²:</strong> <output id="esa-gof-chi">1.600000</output>.
         <strong>Degrees of freedom:</strong> <output id="esa-gof-df">5</output>.
         <strong>Upper-tail p-value:</strong> <output id="esa-gof-p">0.901249</output>.</p>
-        <p id="esa-gof-warning">All expected counts are at least 5.</p>
+        <p id="esa-gof-warning" role="status" aria-live="polite">All expected counts are at least 5.</p>
         <p id="esa-gof-decision">At α=0.05 do not reject the pre-specified null distribution.</p>
       </div>
       <p class="muted-mini">The displayed derivations elsewhere in this lesson use expected counts Eᵢ = n × pᵢ, Pearson's χ² = Σ (Oᵢ − Eᵢ)²/Eᵢ and degrees of freedom k − 1 when probabilities are fixed in advance. Each contribution is shown in the table above.</p>
