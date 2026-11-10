@@ -1,8 +1,7 @@
 /* Batch #72: Student t inference via regularized incomplete beta, not a normal approximation. */
 (function(){
 "use strict";
-const root=document.getElementById("esa-student-t-lab");if(!root)return;
-const el=id=>root.querySelector("#esa-st-"+id);
+const root=document.getElementById("esa-student-t-lab");
 const coefficients=[0.99999999999980993,676.5203681218851,-1259.1392167224028,
 771.32342877765313,-176.61502916214059,12.507343278686905,
 -0.13857109526572012,9.9843695780195716e-6,1.5056327351493116e-7];
@@ -68,6 +67,9 @@ function compute(n,mean,sd,mu0,alternative="two-sided"){
   lower:mean-margin,upper:mean+margin};
 }
 window.esaStudentTMath={compute,regBeta,tSurvivalAbs,tQuantile975};
+if(!root)return;
+const el=id=>root.querySelector("#esa-st-"+id);
+const ar=root.dataset.locale==="ar";
 const fmt=x=>x.toFixed(6);
 const svgNS="http://www.w3.org/2000/svg";
 function elem(tag,attrs={},text){
@@ -112,8 +114,7 @@ function plot(v){
   elem("text",{x:308,y:216,"font-size":13,fill:"currentColor","text-anchor":"middle"},"0"),
   elem("text",{x:578,y:216,"font-size":13,fill:"currentColor","text-anchor":"end"},limit.toFixed(1))
  );
- axis.setAttribute("aria-label","Student t distribution with "+v.df+" degrees of freedom. Observed t="+fmt(v.t)+
-  ". "+v.alternative+" tail p-value "+fmt(v.pvalue)+".");
+ axis.setAttribute("aria-label",ar?"توزيع ستودنت بدرجات حرية "+v.df+"؛ إحصائية t="+fmt(v.t)+" والقيمة الاحتمالية "+fmt(v.pvalue):"Student t distribution with "+v.df+" degrees of freedom. Observed t="+fmt(v.t)+". "+v.alternative+" tail p-value "+fmt(v.pvalue)+".");
 }
 function render(){
  const raw=[el("n").value.trim(),el("mean").value.trim(),
@@ -123,20 +124,20 @@ function render(){
  const v=compute(n,...numeric,el("alternative").value);
  const results=el("results"),error=el("error");
  if(!v){
-  error.hidden=false;error.textContent="Enter n=2–1,000,000 (integer), finite sample and null means, and sample standard deviation s>0. Values of |means| and s must not exceed 1,000,000,000.";
+  error.hidden=false;error.textContent=ar?"أدخل حجم عينة صحيحاً من 2 إلى 1,000,000 ومتوسطات منتهية وانحراف عينة موجباً لا يتجاوز 1,000,000,000؛ ويجب ألا تتجاوز القيم المطلقة للمتوسطات هذا الحد.":"Enter n=2–1,000,000 (integer), finite sample and null means, and sample standard deviation s>0. Values of |means| and s must not exceed 1,000,000,000.";
+  for(const k of ["n","mean","sd","mu0"])el(k).setAttribute("aria-invalid","true");
   results.hidden=true;return;
  }
  results.hidden=false;error.hidden=true;error.textContent="";
+ for(const k of ["n","mean","sd","mu0"])el(k).setAttribute("aria-invalid","false");
  for(const k of ["df","se","t","pvalue","critical","lower","upper"])
   el(k).textContent=k==="df"?String(v.df):fmt(v[k]);
- el("decision").textContent=(v.pvalue<.05?"Reject":"Do not reject")+
-  " H₀: μ=μ₀ at α=0.05, provided sampling and distribution assumptions are appropriate.";
- el("assumptions").textContent=(v.n<30?
+ el("decision").textContent=ar?(v.pvalue<.05?"نرفض الفرضية الصفرية":"لا نرفض الفرضية الصفرية")+" H₀: μ=μ₀ عند مستوى 0.05 بشرط صلاحية الافتراضات.":(v.pvalue<.05?"Reject":"Do not reject")+" H₀: μ=μ₀ at α=0.05, provided sampling and distribution assumptions are appropriate.";
+ el("assumptions").textContent=ar?(v.n<30?"في العينات الصغيرة يلزم مجتمع طبيعي تقريباً ومراقبة القيم المتطرفة.":"في العينات الأكبر قد يتحسن التقريب مع بقاء أهمية الاستقلال والقيم المؤثرة.")+" يستخدم انحراف العينة ودرجات حرية n−1؛ لا يُستعاض بتوزيع Z الطبيعي.":(v.n<30?
   "Small sample: validity requires approximately normal population data and no serious outliers. ":
   "Larger samples can improve robustness, but independence and strongly influential outliers still matter. ")+
-  "The sample standard deviation uses n−1 degrees of freedom; the normal Z distribution is NOT substituted.";
- el("limits").textContent="The displayed interval is a two-sided 95% Student t confidence interval, regardless of selected one-sided test. "+
-  "Summary inputs cannot diagnose skewness or outliers; a non-significant result does not prove equality.";
+  "The sample standard deviation uses n−1 degrees of freedom; the normal Z distribution is NOT substituted.");
+ el("limits").textContent=ar?"فترة الثقة المعروضة ثنائية الطرف 95% مهما كانت البديلة المختارة. لا تكشف الإحصاءات الملخصة الالتواء أو القيم المتطرفة، وعدم الدلالة لا يثبت التساوي.":"The displayed interval is a two-sided 95% Student t confidence interval, regardless of selected one-sided test. "+"Summary inputs cannot diagnose skewness or outliers; a non-significant result does not prove equality.";
  plot(v);
 }
 for(const id of ["n","mean","sd","mu0","alternative"]){
