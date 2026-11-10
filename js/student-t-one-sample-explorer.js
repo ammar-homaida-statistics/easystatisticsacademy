@@ -136,7 +136,7 @@ function render(){
  el("assumptions").textContent=ar?(v.n<30?"في العينات الصغيرة يلزم مجتمع طبيعي تقريباً ومراقبة القيم المتطرفة.":"في العينات الأكبر قد يتحسن التقريب مع بقاء أهمية الاستقلال والقيم المؤثرة.")+" يستخدم انحراف العينة ودرجات حرية n−1؛ لا يُستعاض بتوزيع Z الطبيعي.":(v.n<30?
   "Small sample: validity requires approximately normal population data and no serious outliers. ":
   "Larger samples can improve robustness, but independence and strongly influential outliers still matter. ")+
-  "The sample standard deviation uses n−1 degrees of freedom; the normal Z distribution is NOT substituted.");
+  "The sample standard deviation uses n−1 degrees of freedom; the normal Z distribution is NOT substituted.";
  el("limits").textContent=ar?"فترة الثقة المعروضة ثنائية الطرف 95% مهما كانت البديلة المختارة. لا تكشف الإحصاءات الملخصة الالتواء أو القيم المتطرفة، وعدم الدلالة لا يثبت التساوي.":"The displayed interval is a two-sided 95% Student t confidence interval, regardless of selected one-sided test. "+"Summary inputs cannot diagnose skewness or outliers; a non-significant result does not prove equality.";
  plot(v);
 }
