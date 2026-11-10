@@ -21,7 +21,7 @@ class Batch87(unittest.TestCase):
     def test_student_t_independent_values(self):
         path=["js/student-t-one-sample-explorer.js"]
         for n,mean,sd,mu0,p,critical in [
-            (2,1,1,0,.5,12.706204736174694),
+            (2,1,math.sqrt(2),0,.5,12.706204736174694),
             (3,1,math.sqrt(3),0,.4226497308103742,4.302652729749462),
             (25,18,4,20,.019654175116578784,2.0638985616280245)]:
             with self.subTest(n=n):
@@ -39,7 +39,7 @@ class Batch87(unittest.TestCase):
         self.assertAlmostEqual(r["t"],4,places=12)
         self.assertTrue(r["statistical"])
         self.assertFalse(r["practical"])
-        self.assertAlmostEqual(r["lower"],.2-r["upper"]+.2,delta=1e-10) if False else None
+        self.assertAlmostEqual((r["lower"]+r["upper"])/2,.2,delta=1e-10)
         r=node(paths,"w.esaPracticalMath.compute(10,1,3,0,.5)")
         self.assertFalse(r["statistical"])
         self.assertTrue(r["practical"])
