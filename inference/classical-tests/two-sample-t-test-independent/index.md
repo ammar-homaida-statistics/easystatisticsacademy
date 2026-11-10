@@ -326,6 +326,29 @@ Do not use these fields for matched or before/after pairs; use the <a href="/inf
 <p class="muted-mini">Teal segment: 95% two-sided confidence interval; grey dot: observed sample mean difference; dashed line: zero.</p>
 <p id="esa-w-conclusion"></p><p id="esa-w-interpret"></p>
 </section>
+<section class="concept-box" id="esa-pooled-comparison" aria-labelledby="esa-pool-heading">
+<h3 id="esa-pool-heading">Compare Welch and the pooled equal-variance t-test</h3>
+<p>This comparison uses the <strong>same observations and alternative hypothesis</strong> entered above. Welch does not assume equal population variances. The pooled t-test assumes equal population variances and uses a shared variance estimate. For unequal variances, especially with unequal sample sizes, pooled inference may have misleading Type I error and confidence-interval coverage.</p>
+<div id="esa-w-pool-results" role="status" aria-live="polite" aria-atomic="true">
+<div class="table-wrap"><table><caption>Two-sided 95% intervals for independent population mean difference (A − B)</caption>
+<thead><tr><th scope="col">Quantity</th><th scope="col">Pooled equal variance</th></tr></thead>
+<tbody>
+<tr><th scope="row">Estimated standard error</th><td><output id="esa-w-pool-se">—</output></td></tr>
+<tr><th scope="row">Degrees of freedom (n₁+n₂−2)</th><td><output id="esa-w-pool-df">—</output></td></tr>
+<tr><th scope="row">t statistic</th><td><output id="esa-w-pool-t">—</output></td></tr>
+<tr><th scope="row">p-value (selected alternative)</th><td><output id="esa-w-pool-p">—</output></td></tr>
+<tr><th scope="row">Critical t (two-sided 95%)</th><td><output id="esa-w-pool-critical">—</output></td></tr>
+<tr><th scope="row">Lower 95% endpoint</th><td><output id="esa-w-pool-lower">—</output></td></tr>
+<tr><th scope="row">Upper 95% endpoint</th><td><output id="esa-w-pool-upper">—</output></td></tr>
+</tbody></table></div>
+<svg id="esa-w-pool-plot" viewBox="0 0 610 130" role="img" aria-label="Welch and pooled confidence intervals" style="display:block;max-width:100%;width:100%;height:auto"></svg>
+<p id="esa-w-pool-warning" role="status" aria-live="polite"></p>
+</div>
+<p class="muted-mini">Pooled variance: \(s_p^2=[(n_1-1)s_1^2+(n_2-1)s_2^2]/(n_1+n_2-2)\). Pooled standard error: \(s_p\\sqrt{1/n_1+1/n_2}\). The displayed confidence intervals are two-sided regardless of the alternative hypothesis chosen. A descriptive sample-variance ratio is not a formal pretest for choosing between the methods.</p>
+<noscript><p>Enable JavaScript to compare the two intervals using the example data.</p></noscript>
+</section>
+<script defer src="/js/pooled-two-sample-comparison.js"></script>
+
 <p class="muted-mini">Welch's method does not require equal population variances. Its small-sample t approximation assumes independent observations within and between groups and approximately normal population distributions, with attention to outliers and severe skew. The Welch degrees of freedom can be fractional. Large samples may support approximate inference under appropriate conditions. The 95% interval is two-sided even if a one-sided hypothesis is selected. A non-significant result does not prove equality, equivalence or absence of an effect. Do not interpret associations as causal evidence.</p>
 </section>
 <style>
