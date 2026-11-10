@@ -2,8 +2,7 @@
    Prespecified positive null probabilities; no fitted parameters or dependencies. */
 (function(){
 "use strict";
-const root=document.getElementById("esa-gof-explorer");if(!root)return;
-const get=id=>root.querySelector("#esa-gof-"+id);
+const root=document.getElementById("esa-gof-explorer");
 const coeff=[0.99999999999980993,676.5203681218851,-1259.1392167224028,
  771.32342877765313,-176.61502916214059,12.507343278686905,
  -0.13857109526572012,9.984369578019572e-6,1.5056327351493116e-7];
@@ -55,6 +54,8 @@ function compute(observed,probs){
     counts:observed,probs,smallExpected:expected.some(x=>x<5)};
 }
 window.esaChiSquareGofMath={compute,gammaQ};
+if(!root)return;
+const get=id=>root.querySelector("#esa-gof-"+id);
 const counts=get("counts"),probs=get("probs"),error=get("error"),results=get("results");
 const fmt=x=>Number.isFinite(x)?x.toFixed(6):"—";
 function parse(text,isCounts){
@@ -91,21 +92,27 @@ function plot(stats){
 }
 function render(){
  const a=parse(counts.value,true),b=parse(probs.value,false);
+ const mark=(badCounts,badProbs)=>{counts.setAttribute("aria-invalid",String(badCounts));probs.setAttribute("aria-invalid",String(badProbs));};
  if(a===null||b===null){
+  mark(a===null,b===null);
   error.textContent="Enter matching lists of 2–12 categories: nonnegative whole-number counts and strictly positive probabilities.";error.hidden=false;results.hidden=true;get("chart").replaceChildren();return;
  }
  if(a.length!==b.length){
+  mark(true,true);
   error.textContent="Observed counts and null probabilities must contain the same number of categories.";error.hidden=false;results.hidden=true;get("chart").replaceChildren();return;
  }
  const sum=b.reduce((s,v)=>s+v,0);
  if(Math.abs(sum-1)>1e-8){
+  mark(false,true);
   error.textContent="Null probabilities must sum to 1 (current sum: "+sum.toFixed(6)+").";error.hidden=false;results.hidden=true;get("chart").replaceChildren();return;
  }
  const result=compute(a,b);
  if(!result){
+  mark(a.reduce((x,y)=>x+y,0)===0,false);
   error.textContent="The total count must be positive. Use strictly positive pre-specified null probabilities.";error.hidden=false;results.hidden=true;get("chart").replaceChildren();return;
  }
- error.hidden=true;results.hidden=false;
+ mark(false,false);
+ error.hidden=true;error.textContent="";results.hidden=false;
  get("table").replaceChildren(...result.counts.map((o,i)=>{
   const tr=document.createElement("tr");
   for(const text of ["Category "+(i+1),String(o),result.probs[i].toFixed(6),fmt(result.expected[i]),fmt(result.terms[i])]){
