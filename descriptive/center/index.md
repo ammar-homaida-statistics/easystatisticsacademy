@@ -559,20 +559,26 @@ sidebar: false
     const raw = localStorage.getItem(KEY);
     if (!raw) return;
     const data = JSON.parse(raw);
-    if (!data || typeof data.url !== "string" ||
-        typeof data.label !== "string" || !data.label.trim() ||
-        data.label.length > 200 ||
-        (data.ts !== undefined &&
-         (typeof data.ts !== "number" || !Number.isFinite(data.ts) ||
-          data.ts <= 0 || data.ts > Date.now() + 86400000))) return;
-
-    // Only exact canonical routes to published lessons listed in this block.
-    const allowed = /^\/descriptive\/center\/[a-z0-9-]+\/$/.test(data.url);
-    if (!allowed) return;
-    const listed = Array.from(
-      document.querySelectorAll("#lessons .lesson-card h3 a[href]")
-    ).some(link => link.getAttribute("href") === data.url);
-    if (!listed) return;
+    // Published writer labels are canonical and exact for their respective routes.
+    const canonical = Object.freeze({
+          "/descriptive/center/arithmetic-mean/": "Arithmetic Mean",
+          "/descriptive/center/center-for-ordinal-data/": "Center for Ordinal Data",
+          "/descriptive/center/mean-vs-median/": "Mean vs Median",
+          "/descriptive/center/median/": "Median",
+          "/descriptive/center/mode/": "Mode",
+          "/descriptive/center/reporting-center-properly/": "Reporting Center Properly",
+          "/descriptive/center/trimmed-mean/": "Trimmed Mean",
+          "/descriptive/center/weighted-mean/": "Weighted Mean",
+          "/descriptive/center/what-is-center/": "What Is Center?",
+          "/descriptive/center/winsorized-mean/": "Winsorized Mean"
+    });
+    if (!data || typeof data !== "object" || Array.isArray(data) ||
+        typeof data.url !== "string" ||
+        !Object.prototype.hasOwnProperty.call(canonical,data.url) ||
+        typeof data.label !== "string" || data.label !== canonical[data.url] ||
+        (Object.prototype.hasOwnProperty.call(data,"ts") &&
+         (!Number.isSafeInteger(data.ts) || data.ts<=0 ||
+          data.ts>Date.now()+300000))) return;
 
     const wrap = document.getElementById("continue-reading-block4");
     const label = document.getElementById("continue-reading-block4-label");
