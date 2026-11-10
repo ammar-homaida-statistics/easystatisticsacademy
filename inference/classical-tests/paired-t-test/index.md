@@ -310,7 +310,7 @@ H_1:\mu_D\ne0
          The calculation is a one-sample t test on the paired differences,
          not an independent-samples test.</p>
       <label for="esa-pt-input">Matched pairs: before, after (2–40 complete rows)</label>
-      <textarea id="esa-pt-input" rows="6" spellcheck="false">70,75
+      <textarea id="esa-pt-input" rows="6" spellcheck="false" aria-describedby="esa-pt-error" aria-invalid="false">70,75
 68,72
 75,79
 71,74
@@ -324,7 +324,7 @@ H_1:\mu_D\ne0
           </select>
         </div>
         <div><label for="esa-pt-null">Hypothesized mean difference μ₀</label>
-          <input id="esa-pt-null" type="number" value="0" step="any" />
+          <input id="esa-pt-null" type="number" value="0" step="any" aria-describedby="esa-pt-error" aria-invalid="false" />
         </div>
       </div>
       <div class="esa-pt-controls">
