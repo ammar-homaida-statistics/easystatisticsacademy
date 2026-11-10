@@ -3,8 +3,6 @@
 (function(){
 "use strict";
 const root=document.getElementById("esa-paired-t-lab");
-if(!root)return;
-const get=id=>root.querySelector("#esa-pt-"+id);
 const coefficients=[.99999999999980993,676.5203681218851,-1259.1392167224028,
   771.32342877765313,-176.61502916214059,12.507343278686905,
  -.13857109526572012,9.984369578019572e-6,1.5056327351493116e-7];
@@ -80,6 +78,9 @@ function compute(pairs,alternative="two-sided",nullMean=0){
    alternative,nullMean,degenerate:false};
 }
 window.esaPairedTMath={compute,studentUpperTail,critical95,regularizedBeta};
+if(!root)return;
+const get=id=>root.querySelector("#esa-pt-"+id);
+const ar=root.dataset.locale==="ar";
 const input=get("input"),alternative=get("alternative"),hypothesis=get("null"),
       results=get("results"),error=get("error");
 const numberPattern=/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$/i;
@@ -118,11 +119,10 @@ function plot(stats){
  });
  svg.appendChild(element("text",{x:40,y:show.length*25+42,fill:"currentColor","font-size":11},min.toFixed(1)));
  svg.appendChild(element("text",{x:570,y:show.length*25+42,fill:"currentColor","text-anchor":"end","font-size":11},max.toFixed(1)));
- svg.setAttribute("aria-label","Matched before/after changes: "+
+ svg.setAttribute("aria-label",(ar?"التغيرات داخل الأزواج: ":"Matched before/after changes: ")+
     stats.diffs.slice(0,16).map((d,i)=>"pair "+(i+1)+" change "+d.toFixed(2)).join("; ")+
     (stats.n>16?"; chart displays first 16 of "+stats.n+" pairs":""));
- get("plot-limit").textContent=stats.n>16?
-    "Chart displays the first 16 of "+stats.n+" pairs; calculations use all pairs.":"";
+ get("plot-limit").textContent=stats.n>16?(ar?"يعرض الرسم أول 16 زوجاً من "+stats.n+"، أما الحسابات فتستخدم جميع الأزواج.":"Chart displays the first 16 of "+stats.n+" pairs; calculations use all pairs."):"";
 }
 const fmt=n=>Number.isFinite(n)?n.toFixed(6):"—";
 function render(){
@@ -132,12 +132,15 @@ function render(){
  const x=pairs&&validNull?compute(pairs,alternative.value,nullMean):null;
  if(!x||x.degenerate){
    results.hidden=true;error.hidden=false;get("plot").replaceChildren();
-   error.textContent=x&&x.degenerate?
+   input.setAttribute("aria-invalid",String(!pairs||!!x?.degenerate));
+   hypothesis.setAttribute("aria-invalid",String(!validNull));
+   error.textContent=ar?(x&&x.degenerate?"جميع الفروق بين الأزواج متطابقة؛ لذا تباين الفروق يساوي صفراً ولا يمكن تعريف إحصائية t أو القيمة الاحتمالية أو فترة الثقة المعتادة.":"أدخل من زوجين إلى 40 زوجاً كاملين، كل زوج في سطر بالشكل «قبل، بعد»، مع متوسط فرق مفترض صالح."):(x&&x.degenerate?
      "Every observed within-pair difference is identical, so the sample difference variance is zero. The conventional t-statistic, p-value and t-interval are not defined; do not interpret a divided-by-zero result.":
-     "Provide 2–40 complete matched pairs, each as two finite numbers 'before, after' separated by a comma, and a finite hypothesized mean difference. Missing, mismatched, invalid or extremely large observations are not accepted.";
+     "Provide 2–40 complete matched pairs, each as two finite numbers 'before, after' separated by a comma, and a finite hypothesized mean difference. Missing, mismatched, invalid or extremely large observations are not accepted.");
    return;
  }
- error.hidden=true;results.hidden=false;
+ error.hidden=true;error.textContent="";results.hidden=false;
+ input.setAttribute("aria-invalid","false");hypothesis.setAttribute("aria-invalid","false");
  const tbody=get("table");tbody.replaceChildren();
  x.pairs.forEach(([before,after],i)=>{
    const tr=document.createElement("tr");
@@ -151,10 +154,10 @@ function render(){
   critical:fmt(x.critical),lower:fmt(x.lower),upper:fmt(x.upper)})){
   get(key).textContent=value;
  }
- get("conclusion").textContent=x.p<.05?
+ get("conclusion").textContent=ar?(x.p<.05?"نرفض الفرضية الصفرية عند مستوى 5% بشرط تحقق الافتراضات. اتجاه الفرق هو «بعد − قبل».":"لا نرفض الفرضية الصفرية عند 5%، وهذا لا يثبت تساوي متوسط الفرق مع القيمة المفترضة."):(x.p<.05?
   "At the 5% significance level, reject the specified null if assumptions hold. The sign of the difference follows after minus before.":
-  "At the 5% significance level, do not reject the specified null. This does not establish that the mean difference equals the null value.";
- get("interpret").textContent=
+  "At the 5% significance level, do not reject the specified null. This does not establish that the mean difference equals the null value.");
+ get("interpret").textContent=ar?"فترة الثقة الثنائية 95% لمتوسط فروق المجتمع: ["+fmt(x.lower)+", "+fmt(x.upper)+"]. درجات الحرية n−1؛ ويُفترض استقلال الأزواج وطبيعية الفروق تقريباً خصوصاً في العينات الصغيرة.":
    "Two-sided 95% t confidence interval for the population mean paired difference: ["+
    fmt(x.lower)+", "+fmt(x.upper)+"]. The interval uses df = n − 1 and is distinct from a one-sided test. "+
    "The result assumes independent pairs and approximately normally distributed population differences, particularly with small n.";
