@@ -4,6 +4,9 @@ title: Paired t Test
 description: Learn how the paired t test analyzes matched observations and evaluates whether the average difference between paired measurements is zero.
 permalink: /inference/classical-tests/paired-t-test/
 sidebar: false
+math: true
+translation_pair: paired-student-t
+learning_resource: true
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -300,7 +303,8 @@ H_1:\mu_D\ne0
 
     <!-- Batch #68: exact Student-t paired-observation calculator. -->
     <section id="esa-paired-t-lab" class="concept-box" aria-labelledby="esa-pt-heading">
-      <h2 id="esa-pt-heading">Interactive Paired t-Test Explorer</h2>
+      <p><a href="/ar/inference/classical-tests/paired-t-test/" lang="ar" dir="rtl">اقرأ بالعربية: اختبار t للعينات المزدوجة</a></p>
+<h2 id="esa-pt-heading">Interactive Paired t-Test Explorer</h2>
       <p>Enter two observations for each matched person or unit (one pair per line).
          The difference is always <strong>after minus before</strong>.
          The calculation is a one-sample t test on the paired differences,
