@@ -1165,8 +1165,8 @@ class SearchTests(unittest.TestCase):
                     self.page.reload(wait_until="networkidle")
 
                 save({"url": valid, "label": malicious_label})
-                if slug in ("tabular-summaries", "center", "shape"):
-                    # These blocks now require the exact published lesson title.
+                if slug in ("tabular-summaries", "center", "shape", "reporting"):
+                    # These blocks now require the exact saved canonical writer title.
                     # Reject untrusted labels rather than rendering them.
                     expect(panel).to_be_hidden()
                     # Center cards use editorially expanded headings; the writer
