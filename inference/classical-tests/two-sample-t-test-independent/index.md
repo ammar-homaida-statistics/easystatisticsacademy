@@ -332,6 +332,7 @@ Do not use these fields for matched or before/after pairs; use the <a href="/inf
 </section>
 <section class="concept-box" id="esa-pooled-comparison" aria-labelledby="esa-pool-heading">
 <h3 id="esa-pool-heading">Compare Welch and the pooled equal-variance t-test</h3>
+<p><a href="/inference/classical-tests/welch-pooled-monte-carlo/">Try the Monte Carlo experiment: Type I error under unequal variances</a>.</p>
 <p>This comparison uses the <strong>same observations and alternative hypothesis</strong> entered above. Welch does not assume equal population variances. The pooled t-test assumes equal population variances and uses a shared variance estimate. For unequal variances, especially with unequal sample sizes, pooled inference may have misleading Type I error and confidence-interval coverage.</p>
 <div id="esa-w-pool-results" role="status" aria-live="polite" aria-atomic="true">
 <div class="table-wrap"><table><caption>Two-sided 95% intervals for independent population mean difference (A − B)</caption>
