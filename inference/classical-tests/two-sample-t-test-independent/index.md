@@ -353,6 +353,10 @@ Do not use these fields for matched or before/after pairs; use the <a href="/inf
 </section>
 <style>
 #esa-welch-lab{box-sizing:border-box;max-width:100%;min-width:0;overflow-wrap:anywhere}
+#esa-pooled-comparison{box-sizing:border-box;min-width:0;max-width:100%;overflow:hidden;overflow-wrap:anywhere}
+#esa-pooled-comparison .table-wrap{display:block;box-sizing:border-box;min-width:0;width:100%;max-width:100%;overflow-x:auto;overflow-y:hidden}
+#esa-pooled-comparison table{width:max-content;min-width:100%;max-width:none}
+#esa-pooled-comparison svg{display:block;max-width:100%;height:auto}
 #esa-welch-lab .esa-w-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:12px 0}
 #esa-welch-lab label{display:block;font-weight:650;margin-bottom:7px}
 #esa-welch-lab :is(textarea,input,select){box-sizing:border-box;display:block;width:100%;min-width:0;max-width:100%;font:inherit;padding:10px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text)}
