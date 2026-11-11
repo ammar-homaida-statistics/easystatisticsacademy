@@ -9561,7 +9561,7 @@ class SearchTests(unittest.TestCase):
                 self.page.reload(wait_until="networkidle")
                 expect(self.page.locator("#continue-reading-block7")).to_be_hidden()
         self.page.evaluate("args=>localStorage.setItem(args.k,JSON.stringify(args.v))",
-                           {"k":key,"v":{"url":good,"label":"Reporting Graphs"}})
+                           {"k":key,"v":{"url":good,"label":"Reporting Graphs Properly"}})
         self.page.reload(wait_until="networkidle")
         expect(self.page.locator("#continue-reading-block7")).to_be_visible()
         evil='<img src=x onerror="window.esaInjected=true">'
@@ -9569,7 +9569,7 @@ class SearchTests(unittest.TestCase):
                            {"k":key,"v":{"url":good,"label":evil}})
         self.page.reload(wait_until="networkidle")
         self.assertEqual(self.page.locator("#continue-reading-block7-label img").count(),0)
-        self.assertIn(evil,self.page.locator("#continue-reading-block7-label").inner_text())
+        expect(self.page.locator("#continue-reading-block7")).to_be_hidden()
         self.assertIsNone(self.page.evaluate("()=>window.esaInjected || null"))
         self.page.evaluate("k=>localStorage.setItem(k,'{broken json')",key)
         self.page.reload(wait_until="networkidle")
