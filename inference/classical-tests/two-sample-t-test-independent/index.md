@@ -4,6 +4,9 @@ title: Two-Sample t Test (Independent Samples)
 description: Learn how the two-sample t test compares the means of two independent populations and evaluates whether their average values differ.
 permalink: /inference/classical-tests/two-sample-t-test-independent/
 sidebar: false
+math: true
+translation_pair: independent-two-sample-t
+learning_resource: true
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -40,6 +43,7 @@ sidebar: false
     </div>
 
     <h1>Two-Sample t Test (Independent Samples)</h1>
+    <p><a lang="ar" dir="rtl" href="/ar/inference/classical-tests/two-sample-t-test-independent/">النسخة العربية — اختبار t لعينتين مستقلتين</a></p>
 
     <p class="lead">
       Many research questions involve comparing two separate groups rather than a single population.
