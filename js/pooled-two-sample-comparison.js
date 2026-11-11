@@ -26,6 +26,7 @@ function compute(a,b,alternative="two-sided",nullDifference=0){
 window.esaPooledTMath={compute};
 const root=document.getElementById("esa-welch-lab");
 if(!root)return;
+const ar=root.dataset.locale==="ar";
 const $=id=>root.querySelector("#esa-w-"+id);
 const a=$("a"),b=$("b"),alt=$("alternative"),nullInput=$("null");
 const outputs=$("pool-results"),note=$("pool-warning"),plot=$("pool-plot");
@@ -50,7 +51,7 @@ function render(){
  const welch=data.welch;
  const unequal= Math.max(welch.g1.variance,welch.g2.variance)/
      Math.max(1e-15,Math.min(welch.g1.variance,welch.g2.variance));
- note.textContent="Pooled inference assumes equal population variances. "+
+ note.textContent=ar?"يفترض اختبار التباين المشترك تساوي تباينَي المجتمعين. "+(unequal>4?"نسبة تباينَي العينتين أكبر من 4. ":"تقارب تباينَي العينتين لا يثبت تساوي تباينَي المجتمعين. ")+"لا يتطلب اختبار ويلش افتراض التساوي، ويُفضَّل كخيار عام. يلزم الاستقلال وتقييم الافتراضات التوزيعية.":"Pooled inference assumes equal population variances. "+
   (unequal>4?"Observed sample variances differ substantially (ratio >4). ":
    "Sample variances alone cannot establish or rule out equal population variances. ")+
   "Welch avoids the equal-variance assumption; prefer it as a general default. "+
@@ -65,11 +66,11 @@ function render(){
  el("line",{x1:x(0),x2:x(0),y1:9,y2:122,stroke:"currentColor","stroke-dasharray":"4 4"});
  [[welch.lower,welch.upper],[data.lower,data.upper]].forEach((bounds,i)=>{
    const y=39+57*i,color=i?"#2563eb":"#0f766e";
-   el("text",{x:8,y:y+4,fill:"currentColor","font-size":13},i?"Pooled":"Welch");
+   el("text",{x:8,y:y+4,fill:"currentColor","font-size":13},i?(ar?"مشترك":"Pooled"):(ar?"ويلش":"Welch"));
    el("line",{x1:x(bounds[0]),x2:x(bounds[1]),y1:y,y2:y,stroke:color,"stroke-width":5});
    for(const bound of bounds)el("circle",{cx:x(bound),cy:y,r:4,fill:color});
  });
- plot.setAttribute("aria-label","Two-sided 95% confidence intervals for independent mean difference A minus B. Welch "+fmt(welch.lower)+" to "+fmt(welch.upper)+"; pooled "+fmt(data.lower)+" to "+fmt(data.upper)+".");
+ plot.setAttribute("aria-label",ar?"فترتا الثقة الثنائيتان 95% لفرق المتوسطين أ ناقص ب. ويلش من "+fmt(welch.lower)+" إلى "+fmt(welch.upper)+"؛ التباين المشترك من "+fmt(data.lower)+" إلى "+fmt(data.upper)+".":"Two-sided 95% confidence intervals for independent mean difference A minus B. Welch "+fmt(welch.lower)+" to "+fmt(welch.upper)+"; pooled "+fmt(data.lower)+" to "+fmt(data.upper)+".");
 }
 [a,b,alt,nullInput].forEach(field=>{field.addEventListener("input",render);field.addEventListener("change",render);});
 for(const id of ["reset","reverse"])$(""+id).addEventListener("click",()=>queueMicrotask(render));
