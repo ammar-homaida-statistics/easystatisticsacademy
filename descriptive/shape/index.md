@@ -536,19 +536,24 @@ sidebar: false
     const raw = localStorage.getItem(KEY);
     if (!raw) return;
     const data = JSON.parse(raw);
-    if (!data || typeof data.url !== "string" ||
-        typeof data.label !== "string" || !data.label.trim() ||
-        data.label.length > 200 ||
-        (data.ts !== undefined &&
-          (!Number.isSafeInteger(data.ts) || data.ts < 0))) return;
-
-    // Only exact canonical routes to published lessons listed in this block.
-    const allowed = /^\/descriptive\/shape\/[a-z0-9-]+\/$/.test(data.url);
-    if (!allowed) return;
-    const listed = Array.from(
-      document.querySelectorAll("#lessons .lesson-card h3 a[href]")
-    ).some(link => link.getAttribute("href") === data.url);
-    if (!listed) return;
+    // Exact active lesson writers; the under-construction conceptual normal lesson does not save progress.
+    const canonical = Object.freeze({
+          "/descriptive/shape/empirical-rule/": "Empirical Rule",
+          "/descriptive/shape/shape-in-reporting/": "Shape in Reporting",
+          "/descriptive/shape/skewness-and-center-choice/": "Skewness and Center Choice",
+          "/descriptive/shape/standardization-when-and-when-not/": "Standardization: When and When Not",
+          "/descriptive/shape/symmetry-and-skewness/": "Symmetry and Skewness",
+          "/descriptive/shape/tails-outliers-and-extremes/": "Tails, Outliers, and Extremes",
+          "/descriptive/shape/why-shape-matters/": "Why Shape Matters",
+          "/descriptive/shape/z-scores/": "Z-Scores"
+    });
+    if (!data || typeof data !== "object" || Array.isArray(data) ||
+        typeof data.url !== "string" ||
+        !Object.prototype.hasOwnProperty.call(canonical,data.url) ||
+        typeof data.label !== "string" || data.label !== canonical[data.url] ||
+        (Object.prototype.hasOwnProperty.call(data,"ts") &&
+         (!Number.isSafeInteger(data.ts) || data.ts<=0 ||
+          data.ts>Date.now()+300000))) return;
 
     const wrap = document.getElementById("continue-reading-block6");
     const label = document.getElementById("continue-reading-block6-label");

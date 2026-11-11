@@ -1,8 +1,7 @@
 /* Batch #69: Welch independent two-sample inference. No third-party dependencies. */
 (function(){
 "use strict";
-const root=document.getElementById("esa-welch-lab");if(!root)return;
-const get=id=>root.querySelector("#esa-w-"+id);
+const root=document.getElementById("esa-welch-lab");
 const coefficients=[.99999999999980993,676.5203681218851,-1259.1392167224028,
   771.32342877765313,-176.61502916214059,12.507343278686905,
  -.13857109526572012,9.984369578019572e-6,1.5056327351493116e-7];
@@ -97,6 +96,8 @@ function compute(a,b,alternative="two-sided",nullDifference=0){
  return {g1,g2,difference,se,df,t,p,critical,lower,upper,degenerate:false,alternative,nullDifference};
 }
 window.esaWelchMath={compute,studentUpperTail,critical95,regularizedBeta};
+if(!root)return;
+const get=id=>root.querySelector("#esa-w-"+id);
 const aInput=get("a"),bInput=get("b"),alt=get("alternative"),nullInput=get("null"),
   error=get("error"),results=get("results");
 const format=x=>Number.isFinite(x)?x.toFixed(6):"—";
