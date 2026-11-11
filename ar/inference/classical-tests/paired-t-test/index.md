@@ -72,7 +72,7 @@ T=\frac{4.2-0}{0.836660/\sqrt5}\approx11.224972,\qquad df=4.
 <li>التوزيع الطبيعي المطلوب عند صغر العينة يتعلق <strong>بالفروق</strong>، لا بالضرورة بكل متغير على حدة.</li>
 <li>لا يعني عدم رفض الفرضية إثبات عدم وجود تغير، ولا يعني رفضها أن التغير ذو أهمية عملية أو سببية.</li>
 </ul>
-<div class="lesson-nav"><a class="btn btn-outline" href="/ar/inference/classical-tests/one-sample-t-test-for-mean/">السابق: اختبار t لعينة واحدة</a><a class="btn" href="/inference/classical-tests/two-sample-t-test-independent/" lang="en">التالي: اختبار t للعينات المستقلة (English)</a></div>
+<div class="lesson-nav"><a class="btn btn-outline" href="/ar/inference/classical-tests/one-sample-t-test-for-mean/">السابق: اختبار t لعينة واحدة</a><a class="btn" href="/ar/inference/classical-tests/two-sample-t-test-independent/">التالي: اختبار t لعينتين مستقلتين</a></div>
 </div></section>
 <style>
 #esa-paired-t-lab{box-sizing:border-box;max-width:100%;min-width:0;overflow-wrap:anywhere}
