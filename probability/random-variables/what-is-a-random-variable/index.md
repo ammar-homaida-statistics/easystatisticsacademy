@@ -5,6 +5,7 @@ description: Learn how random variables convert uncertain outcomes into numerica
 permalink: /probability/random-variables/what-is-a-random-variable/
 sidebar: false
 translation_pair: what-is-a-random-variable
+learning_resource: true
 math: true
 ---
 
