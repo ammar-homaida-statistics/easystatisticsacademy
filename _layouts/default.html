@@ -25,7 +25,10 @@
   </script>
   {% endif %}
 
-  {% if page.translation_pair == "independent-two-sample-t" %}
+  {% if page.translation_pair == "one-proportion-z" %}
+  <link rel="alternate" hreflang="en" href="{{ site.url }}/inference/classical-tests/one-proportion-z-test/" />
+  <link rel="alternate" hreflang="ar" href="{{ site.url }}/ar/inference/classical-tests/one-proportion-z-test/" />
+  {% elsif page.translation_pair == "independent-two-sample-t" %}
   <link rel="alternate" hreflang="en" href="{{ site.url }}/inference/classical-tests/two-sample-t-test-independent/" />
   <link rel="alternate" hreflang="ar" href="{{ site.url }}/ar/inference/classical-tests/two-sample-t-test-independent/" />
   {% elsif page.translation_pair == "paired-student-t" %}
