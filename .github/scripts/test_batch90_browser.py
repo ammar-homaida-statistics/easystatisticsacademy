@@ -152,4 +152,4 @@ class Browser90(unittest.TestCase):
             expect(chi.locator("#esa-chi-a")).to_have_attribute("aria-invalid","false")
 
 if __name__=="__main__":
-    unittest.main()
+    unittest.main(argv=[__file__])
