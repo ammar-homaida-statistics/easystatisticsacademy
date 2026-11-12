@@ -79,7 +79,7 @@ class Browser91(unittest.TestCase):
             self.fit(lab,width)
             expect(lab.locator("#esa-fc-fisher")).to_have_text("0.002759")
             expect(lab.locator("#esa-fc-chi")).to_have_text("10.971429")
-            expect(lab.locator("#esa-fc-warning")).to_contain_text("below 5")
+            expect(lab.locator("#esa-fc-warning")).to_contain_text("at least 5")
             lab.locator("#esa-fc-side").select_option("less")
             expect(lab.locator("#esa-fc-fisher")).to_have_text("0.001380")
             lab.locator("#esa-fc-side").select_option("greater")
@@ -96,6 +96,7 @@ class Browser91(unittest.TestCase):
             lab.locator("#esa-fc-c").fill("5")
             lab.locator("#esa-fc-d").fill("5")
             expect(lab.locator("#esa-fc-fisher")).to_have_text("0.032508")
+            expect(lab.locator("#esa-fc-warning")).to_contain_text("below 5")
     def test_multiple_regression_secure_current_legacy_progress(self):
         root="/modeling/multiple-regression/"
         key="esa_continue_modeling_multiple_regression_lesson_v0"
