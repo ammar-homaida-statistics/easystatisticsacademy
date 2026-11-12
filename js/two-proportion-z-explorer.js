@@ -56,9 +56,10 @@ function update(){
   error.hidden=false;error.textContent=s&&s.degenerate?
     "Pooled-null variance is zero (all observations are successes or all failures); the Z test is undefined. Use an appropriate exact or alternative method.":
     "Enter whole-number successes and sample sizes (1–1,000,000), with 0 ≤ successes ≤ sample size for each independent group.";
-  output.hidden=true;return;
+  output.hidden=true;fields.forEach(field=>field.setAttribute("aria-invalid","true"));return;
  }
  error.hidden=true;error.textContent="";output.hidden=false;
+ fields.forEach(field=>field.setAttribute("aria-invalid","false"));
  for(const k of ["p1","p2","diff","pooled","pooledSE","seCI","z","p","lower","upperCI"])get(k).textContent=fmt(s[k]);
  get("conditions").textContent=s.adequate?
    "Pooled expected success and failure counts are at least 10 in both groups (normal approximation count check passed).":
