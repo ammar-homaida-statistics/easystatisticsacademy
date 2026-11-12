@@ -4,6 +4,9 @@ title: One-Proportion Z Test
 description: Learn how the one-proportion Z test evaluates whether a population proportion differs from a hypothesized value.
 permalink: /inference/classical-tests/one-proportion-z-test/
 sidebar: false
+math: true
+translation_pair: one-proportion-z
+learning_resource: true
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -40,6 +43,7 @@ sidebar: false
     </div>
 
     <h1>One-Proportion Z Test</h1>
+<p><a lang="ar" dir="rtl" href="/ar/inference/classical-tests/one-proportion-z-test/">الدرس العربي — اختبار Z لنسبة واحدة</a></p>
 
     <p class="lead">
       Many statistical questions involve proportions rather than means.
@@ -305,6 +309,7 @@ Z=\frac{\hat p-p_0}{\sqrt{p_0(1-p_0)/n}}
     <!-- Batch #71: interactive one-proportion Z test and Wilson/Wald intervals -->
 <section class="concept-box" id="esa-one-proportion-lab" aria-labelledby="esa-op-heading">
 <h2 id="esa-op-heading">Interactive One-Proportion Z-Test Laboratory</h2>
+<p><a href="/inference/classical-tests/exact-binomial-vs-z-test/">Compare the normal approximation with an exact binomial test</a>.</p>
 <p>Enter a sample size, number of successes, and the hypothesized population proportion. The Z statistic uses the <strong>null-based</strong> standard error; compare the familiar Wald 95% confidence interval with the more reliable Wilson score interval.</p>
 <div class="esa-op-grid">
 <label for="esa-op-x">Successes x <input id="esa-op-x" type="number" min="0" max="1000000" step="1" value="120"></label>
