@@ -13,11 +13,13 @@ sidebar: false
   const KEY =
     "esa_continue_modeling_simple_linear_regression_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try {
+localStorage.setItem(KEY, JSON.stringify({
     url: "/modeling/simple-linear-regression/prediction/",
     label: "Prediction",
     ts: Date.now()
   }));
+} catch (_) { /* Storage is optional. */ }
 
 })();
 </script>

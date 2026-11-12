@@ -244,6 +244,7 @@ p_1-p_2
     <!-- Batch #70: independent-group two-proportion Z laboratory -->
 <section class="concept-box" id="esa-two-proportion-lab" aria-labelledby="esa-2p-heading">
 <h2 id="esa-2p-heading">Interactive Two-Proportion Z-Test Laboratory</h2>
+<noscript><p role="note">JavaScript is needed for the calculator. The mathematical explanations and worked example remain readable without it.</p></noscript>
 <p><a href="/inference/classical-tests/fisher-exact-vs-chi-square/">Explore Fisher exact versus chi-square tests for small 2×2 tables</a>.</p>
 <p>Enter independent success counts and group sample sizes. The primary test uses the <strong>pooled null proportion</strong> for H₀: p₁=p₂. The displayed 95% confidence interval uses the <strong>unpooled Wald standard error</strong> and is an approximate teaching example, not the recommended interval for sparse data.</p>
 <div class="esa-2p-fields">
