@@ -1,10 +1,6 @@
 /* Batch #70: Two independent proportions, pooled equality-null Z and unpooled Wald CI. */
 (function(){
 "use strict";
-const root=document.getElementById("esa-two-proportion-lab");if(!root)return;
-const get=x=>root.querySelector("#esa-2p-"+x);
-const fields=["x1","n1","x2","n2"].map(get),alternative=get("alternative"),
- error=get("error"),output=get("results");
 function erfcPositive(x){
  const t=1/(1+0.3275911*x);
  return t*(0.254829592+t*(-0.284496736+
@@ -28,6 +24,10 @@ function compute(x1,n1,x2,n2,side="two-sided"){
    lower,upperCI,adequate,side,degenerate:false};
 }
 window.esaTwoProportionMath={compute,tail};
+const root=document.getElementById("esa-two-proportion-lab");if(!root)return;
+const get=x=>root.querySelector("#esa-2p-"+x);
+const fields=["x1","n1","x2","n2"].map(get),alternative=get("alternative"),
+ error=get("error"),output=get("results");
 const fmt=x=>Number.isFinite(x)?x.toFixed(6):"—";
 const ns="http://www.w3.org/2000/svg";
 function element(t,a={},v){const e=document.createElementNS(ns,t);for(const [k,x] of Object.entries(a))e.setAttribute(k,String(x));if(v!==undefined)e.textContent=String(v);return e}
