@@ -242,10 +242,10 @@ p_1-p_2
 <h2 id="esa-2p-heading">Interactive Two-Proportion Z-Test Laboratory</h2>
 <p>Enter independent success counts and group sample sizes. The primary test uses the <strong>pooled null proportion</strong> for H₀: p₁=p₂. The displayed 95% confidence interval uses the <strong>unpooled Wald standard error</strong> and is an approximate teaching example, not the recommended interval for sparse data.</p>
 <div class="esa-2p-fields">
-<label for="esa-2p-x1">Group A successes x₁ <input id="esa-2p-x1" type="number" min="0" step="1" value="120"></label>
-<label for="esa-2p-n1">Group A sample size n₁ <input id="esa-2p-n1" type="number" min="1" step="1" value="200"></label>
-<label for="esa-2p-x2">Group B successes x₂ <input id="esa-2p-x2" type="number" min="0" step="1" value="90"></label>
-<label for="esa-2p-n2">Group B sample size n₂ <input id="esa-2p-n2" type="number" min="1" step="1" value="200"></label>
+<label for="esa-2p-x1">Group A successes x₁ <input id="esa-2p-x1" type="number" min="0" step="1" value="120" aria-invalid="false" aria-describedby="esa-2p-error esa-2p-conditions"></label>
+<label for="esa-2p-n1">Group A sample size n₁ <input id="esa-2p-n1" type="number" min="1" step="1" value="200" aria-invalid="false" aria-describedby="esa-2p-error esa-2p-conditions"></label>
+<label for="esa-2p-x2">Group B successes x₂ <input id="esa-2p-x2" type="number" min="0" step="1" value="90" aria-invalid="false" aria-describedby="esa-2p-error esa-2p-conditions"></label>
+<label for="esa-2p-n2">Group B sample size n₂ <input id="esa-2p-n2" type="number" min="1" step="1" value="200" aria-invalid="false" aria-describedby="esa-2p-error esa-2p-conditions"></label>
 <label for="esa-2p-alternative">Alternative hypothesis
 <select id="esa-2p-alternative"><option value="two-sided">Two-sided p₁ ≠ p₂</option>
 <option value="greater">Group A greater p₁ &gt; p₂</option>

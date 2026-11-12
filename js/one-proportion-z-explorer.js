@@ -1,9 +1,6 @@
 /* Batch #71: one-proportion equality-null Z test, Wald and Wilson intervals. */
 (function(){
 "use strict";
-const root=document.getElementById("esa-one-proportion-lab");if(!root)return;
-const $=id=>root.querySelector("#esa-op-"+id);
-const xs=$("x"),ns=$("n"),p0s=$("p0"),alternative=$("alternative");
 const erfcPositive=t=>{
  const q=1/(1+0.3275911*t);
  return q*(0.254829592+q*(-0.284496736+
@@ -29,6 +26,11 @@ function compute(x,n,p0,side="two-sided"){
   x,n,p0,side};
 }
 window.esaOneProportionMath={compute,upperTail};
+const root=document.getElementById("esa-one-proportion-lab");
+if(!root)return;
+const $=id=>root.querySelector("#esa-op-"+id);
+const xs=$("x"),ns=$("n"),p0s=$("p0"),alternative=$("alternative");
+const ar=root.dataset.locale==="ar";
 const fmt=v=>v.toFixed(6);
 const nsSVG="http://www.w3.org/2000/svg";
 function svg(name,attributes={},text){
@@ -56,7 +58,7 @@ function plot(v){
   svg("text",{x:45,y:45,fill:"currentColor","font-size":11},"Wald"),
   svg("text",{x:45,y:92,fill:"currentColor","font-size":11},"Wilson")
  );
- svgEl.setAttribute("aria-label","Observed proportion "+fmt(v.phat)+
+ svgEl.setAttribute("aria-label",ar?"النسبة المشاهدة "+fmt(v.phat)+"؛ فترة والد 95% من "+fmt(v.waldLower)+" إلى "+fmt(v.waldUpper)+"؛ فترة ويلسون من "+fmt(v.wilsonLower)+" إلى "+fmt(v.wilsonUpper)+"؛ النسبة المفترضة "+fmt(v.p0)+".":"Observed proportion "+fmt(v.phat)+
  "; Wald 95% interval "+fmt(v.waldLower)+" to "+fmt(v.waldUpper)+
  "; Wilson 95% interval "+fmt(v.wilsonLower)+" to "+fmt(v.wilsonUpper)+
  "; null proportion "+fmt(v.p0)+".");
@@ -70,17 +72,19 @@ function render(){
  const error=$("error"),results=$("results");
  if(!v){
   results.hidden=true;error.hidden=false;
-  error.textContent="Enter integer success count 0 ≤ x ≤ n, sample size 1–1,000,000, and 0 < null proportion p₀ < 1.";
+  [xs,ns,p0s].forEach(e=>e.setAttribute("aria-invalid","true"));
+  error.textContent=ar?"أدخل عدداً صحيحاً للنجاحات من 0 إلى n، وحجم عينة بين 1 ومليون، ونسبة مفترضة بين 0 و1 حصراً.":"Enter integer success count 0 ≤ x ≤ n, sample size 1–1,000,000, and 0 < null proportion p₀ < 1.";
   return;
  }
  error.hidden=true;error.textContent="";results.hidden=false;
+ [xs,ns,p0s].forEach(e=>e.setAttribute("aria-invalid","false"));
  for(const key of ["phat","se0","z","pvalue","seWald","waldLower","waldUpper",
   "wilsonLower","wilsonUpper"]) $(key).textContent=fmt(v[key]);
- $("conditions").textContent=v.adequate?
+ $("conditions").textContent=ar?(v.adequate?"تحقق شرط العدد المتوقع: كل من np₀ وn(1−p₀) لا يقل عن 10.":"تحذير: أحد العددين المتوقعين أصغر من 10؛ قد يكون تقريب Z غير دقيق. راجع الاختبار الثنائي الحدين الدقيق."):(v.adequate?
   "Normal-approximation counts check passed: n p₀ and n(1−p₀) are at least 10.":
-  "WARNING: n p₀ or n(1−p₀) is below 10. The Z approximation can be unreliable; consider an exact binomial test.";
- $("decision").textContent=(v.pvalue<.05?"Reject":"Do not reject")+" H₀: p=p₀ at α=0.05 if assumptions are satisfied.";
- $("interpretation").textContent="The two-sided 95% Wald interval can extend outside [0,1] and behave poorly near endpoints. "+
+  "WARNING: n p₀ or n(1−p₀) is below 10. The Z approximation can be unreliable; consider an exact binomial test.");
+ $("decision").textContent=ar?(v.pvalue<.05?"نرفض الفرضية الصفرية عند مستوى 5%، إذا تحققت الافتراضات.":"لا نرفض الفرضية الصفرية عند مستوى 5%؛ وهذا لا يثبت مساواة النسبتين."):(v.pvalue<.05?"Reject":"Do not reject")+" H₀: p=p₀ at α=0.05 if assumptions are satisfied.";
+ $("interpretation").textContent=ar?"فترة والد الثنائية 95% قد تتجاوز المجال [0،1] وقد تكون تغطيتها ضعيفة قرب الحدود؛ غالباً ما توفر فترة ويلسون تغطية أفضل. اختيار الفرضية الأحادية يغير القيمة الاحتمالية، لا فترتَي الثقة الثنائيتين.":"The two-sided 95% Wald interval can extend outside [0,1] and behave poorly near endpoints. "+
  "Wilson score intervals usually have better coverage; the score interval is closely related to inversion of the Z score test. "+
  "The two-sided confidence intervals are unchanged by the selected one-sided alternative.";
  plot(v);
