@@ -6,6 +6,7 @@ permalink: /ar/probability/random-variables/what-is-a-random-variable/
 sidebar: false
 lang: ar
 translation_pair: what-is-a-random-variable
+learning_resource: true
 math: true
 ---
 <section class="hero hero-section"><div class="hero-card">
