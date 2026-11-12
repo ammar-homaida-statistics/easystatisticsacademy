@@ -4,7 +4,7 @@
 "use strict";
 const root=document.getElementById("esa-gof-explorer");
 const ar=!!(root&&root.dataset.locale==="ar");
-const tr=(en,arabic)=>ar?arabic:en;
+const localize=(en,arabic)=>ar?arabic:en;
 const coeff=[0.99999999999980993,676.5203681218851,-1259.1392167224028,
  771.32342877765313,-176.61502916214059,12.507343278686905,
  -0.13857109526572012,9.984369578019572e-6,1.5056327351493116e-7];
@@ -78,8 +78,8 @@ function node(name,attrs,text){
 function plot(stats){
  const plot=get("chart"),max=Math.max(1,...stats.counts,...stats.expected),k=stats.counts.length;
  const width=540,margin=48,usable=width-2*margin,slot=usable/k,scale=148/max;
- plot.replaceChildren(node("title",{},tr("Observed versus expected categorical counts","التكرارات المشاهدة والمتوقعة بحسب الفئة")),
-  node("desc",{},tr("For each category the first bar shows the observed count and the second shows the expected count under the null.","لكل فئة: العمود الأول للمشاهَد والثاني للمتوقَّع في فرضية العدم.")),
+ plot.replaceChildren(node("title",{},localize("Observed versus expected categorical counts","التكرارات المشاهدة والمتوقعة بحسب الفئة")),
+  node("desc",{},localize("For each category the first bar shows the observed count and the second shows the expected count under the null.","لكل فئة: العمود الأول للمشاهَد والثاني للمتوقَّع في فرضية العدم.")),
   node("line",{x1:margin,y1:175,x2:width-margin,y2:175,stroke:"currentColor"}),
   node("line",{x1:margin,y1:20,x2:margin,y2:175,stroke:"currentColor"}));
  for(let i=0;i<k;i++){
@@ -87,37 +87,37 @@ function plot(stats){
   const obs=stats.counts[i],exp=stats.expected[i];
   plot.appendChild(node("rect",{x:cx-bar-2,y:175-obs*scale,width:bar,height:obs*scale,fill:"#0f766e"}));
   plot.appendChild(node("rect",{x:cx+2,y:175-exp*scale,width:bar,height:exp*scale,fill:"#64748b"}));
-  plot.appendChild(node("text",{x:cx,y:193,"text-anchor":"middle",fill:"currentColor","font-size":"10"},tr("C","ف")+(i+1)));
+  plot.appendChild(node("text",{x:cx,y:193,"text-anchor":"middle",fill:"currentColor","font-size":"10"},localize("C","ف")+(i+1)));
  }
- plot.setAttribute("aria-label",tr("Observed versus expected counts: ","المشاهَد والمتوقَّع: ")+
-  stats.counts.map((v,i)=>tr("category ","الفئة ")+(i+1)+tr(" observed "," المشاهَد ")+v+tr(" expected "," المتوقَّع ")+stats.expected[i].toFixed(3)).join("; "));
+ plot.setAttribute("aria-label",localize("Observed versus expected counts: ","المشاهَد والمتوقَّع: ")+
+  stats.counts.map((v,i)=>localize("category ","الفئة ")+(i+1)+localize(" observed "," المشاهَد ")+v+localize(" expected "," المتوقَّع ")+stats.expected[i].toFixed(3)).join("; "));
 }
 function render(){
  const a=parse(counts.value,true),b=parse(probs.value,false);
  const mark=(badCounts,badProbs)=>{counts.setAttribute("aria-invalid",String(badCounts));probs.setAttribute("aria-invalid",String(badProbs));};
  if(a===null||b===null){
   mark(a===null,b===null);
-  error.textContent=tr("Enter matching lists of 2–12 categories: nonnegative whole-number counts and strictly positive probabilities.","أدخل قائمتين متساويتين من فئتين إلى 12 فئة: أعداد صحيحة غير سالبة واحتمالات موجبة تمامًا.");error.hidden=false;results.hidden=true;get("chart").replaceChildren();return;
+  error.textContent=localize("Enter matching lists of 2–12 categories: nonnegative whole-number counts and strictly positive probabilities.","أدخل قائمتين متساويتين من فئتين إلى 12 فئة: أعداد صحيحة غير سالبة واحتمالات موجبة تمامًا.");error.hidden=false;results.hidden=true;get("chart").replaceChildren();return;
  }
  if(a.length!==b.length){
   mark(true,true);
-  error.textContent=tr("Observed counts and null probabilities must contain the same number of categories.","يجب أن يتطابق عدد الفئات في التكرارات والاحتمالات.");error.hidden=false;results.hidden=true;get("chart").replaceChildren();return;
+  error.textContent=localize("Observed counts and null probabilities must contain the same number of categories.","يجب أن يتطابق عدد الفئات في التكرارات والاحتمالات.");error.hidden=false;results.hidden=true;get("chart").replaceChildren();return;
  }
  const sum=b.reduce((s,v)=>s+v,0);
  if(Math.abs(sum-1)>1e-8){
   mark(false,true);
-  error.textContent=tr("Null probabilities must sum to 1 (current sum: ","يجب أن يكون مجموع الاحتمالات 1 (المجموع الحالي: ")+sum.toFixed(6)+").";error.hidden=false;results.hidden=true;get("chart").replaceChildren();return;
+  error.textContent=localize("Null probabilities must sum to 1 (current sum: ","يجب أن يكون مجموع الاحتمالات 1 (المجموع الحالي: ")+sum.toFixed(6)+").";error.hidden=false;results.hidden=true;get("chart").replaceChildren();return;
  }
  const result=compute(a,b);
  if(!result){
   mark(a.reduce((x,y)=>x+y,0)===0,false);
-  error.textContent=tr("The total count must be positive. Use strictly positive pre-specified null probabilities.","يجب أن يكون مجموع التكرارات موجبًا مع احتمالات صفرية موجبة ومحددة مسبقًا.");error.hidden=false;results.hidden=true;get("chart").replaceChildren();return;
+  error.textContent=localize("The total count must be positive. Use strictly positive pre-specified null probabilities.","يجب أن يكون مجموع التكرارات موجبًا مع احتمالات صفرية موجبة ومحددة مسبقًا.");error.hidden=false;results.hidden=true;get("chart").replaceChildren();return;
  }
  mark(false,false);
  error.hidden=true;error.textContent="";results.hidden=false;
  get("table").replaceChildren(...result.counts.map((o,i)=>{
   const tr=document.createElement("tr");
-  for(const text of [tr("Category ","الفئة ")+(i+1),String(o),result.probs[i].toFixed(6),fmt(result.expected[i]),fmt(result.terms[i])]){
+  for(const text of [localize("Category ","الفئة ")+(i+1),String(o),result.probs[i].toFixed(6),fmt(result.expected[i]),fmt(result.terms[i])]){
    const cell=document.createElement("td");cell.textContent=text;tr.appendChild(cell);
   }
   return tr;
@@ -126,11 +126,11 @@ function render(){
  get("df").textContent=String(result.df);get("p").textContent=fmt(result.p);
  get("n").textContent=String(result.n);
  get("warning").textContent=result.smallExpected?
-  tr("Warning: at least one expected count is below 5. The asymptotic chi-square approximation may be unreliable; consider an appropriate exact multinomial method or gather more data.","تحذير: هناك تكرار متوقع أقل من 5. قد يكون التقريب غير موثوق؛ فكر بطريقة دقيقة مناسبة أو مزيد من البيانات."):
-  tr("All expected counts are at least 5. The chi-square approximation is still asymptotic and requires independent categorical observations.","جميع التكرارات المتوقعة لا تقل عن 5؛ مع ذلك يبقى التقريب تقاربيًا ويشترط استقلال المشاهدات.");
+  localize("Warning: at least one expected count is below 5. The asymptotic chi-square approximation may be unreliable; consider an appropriate exact multinomial method or gather more data.","تحذير: هناك تكرار متوقع أقل من 5. قد يكون التقريب غير موثوق؛ فكر بطريقة دقيقة مناسبة أو مزيد من البيانات."):
+  localize("All expected counts are at least 5. The chi-square approximation is still asymptotic and requires independent categorical observations.","جميع التكرارات المتوقعة لا تقل عن 5؛ مع ذلك يبقى التقريب تقاربيًا ويشترط استقلال المشاهدات.");
  get("decision").textContent=result.p<.05?
-  tr("At α=0.05 reject the pre-specified null distribution, conditional on test assumptions. This does not establish causality.","عند α=0.05 نرفض فرضية العدم المشروطة بالافتراضات؛ ولا يثبت ذلك السببية."):
-  tr("At α=0.05 do not reject the pre-specified null distribution. This does not prove the model is true.","عند α=0.05 لا نرفض فرضية العدم؛ ولا يثبت ذلك صحة النموذج.");
+  localize("At α=0.05 reject the pre-specified null distribution, conditional on test assumptions. This does not establish causality.","عند α=0.05 نرفض فرضية العدم المشروطة بالافتراضات؛ ولا يثبت ذلك السببية."):
+  localize("At α=0.05 do not reject the pre-specified null distribution. This does not prove the model is true.","عند α=0.05 لا نرفض فرضية العدم؛ ولا يثبت ذلك صحة النموذج.");
  plot(result);
 }
 counts.addEventListener("input",render);probs.addEventListener("input",render);
