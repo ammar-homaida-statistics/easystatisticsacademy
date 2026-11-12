@@ -534,21 +534,25 @@ sidebar: false
     const raw = localStorage.getItem(KEY);
     if (!raw) return;
     const data = JSON.parse(raw);
-    if (!data || typeof data.url !== "string" ||
-        typeof data.label !== "string" || !data.label.trim() ||
-        data.label.length > 200 ||
-        // Pre-timestamp records are permitted for backward compatibility.
+    // Accept only exact currently published lesson-writer URLs and their canonical saved titles.
+    const canonical = Object.freeze({
+          "/descriptive/reporting/association-not-causation/": "Association Is Not Causation",
+          "/descriptive/reporting/comparing-groups-responsibly/": "Lesson 6 — Comparing Groups Responsibly",
+          "/descriptive/reporting/complete-description-checklist/": "Complete Description Checklist",
+          "/descriptive/reporting/from-numbers-to-message/": "From Numbers to Message",
+          "/descriptive/reporting/how-to-write-a-summary-paragraph/": "How to Write a Summary Paragraph",
+          "/descriptive/reporting/mini-case-study-end-to-end/": "Mini Case Study (End-to-End)",
+          "/descriptive/reporting/outliers-and-exclusions/": "Outliers and Exclusions",
+          "/descriptive/reporting/reporting-graphs-properly/": "Reporting Graphs Properly",
+          "/descriptive/reporting/reporting-tables-properly/": "Reporting Tables Properly"
+    });
+    if (!data || typeof data !== "object" || Array.isArray(data) ||
+        typeof data.url !== "string" ||
+        !Object.prototype.hasOwnProperty.call(canonical,data.url) ||
+        typeof data.label !== "string" || data.label !== canonical[data.url] ||
         (Object.prototype.hasOwnProperty.call(data,"ts") &&
-         (typeof data.ts !== "number" || !Number.isSafeInteger(data.ts) ||
-          data.ts <= 0 || data.ts > Date.now()))) return;
-
-    // Only exact canonical routes to published lessons listed in this block.
-    const allowed = /^\/descriptive\/reporting\/[a-z0-9-]+\/$/.test(data.url);
-    if (!allowed) return;
-    const listed = Array.from(
-      document.querySelectorAll("#lessons .lesson-card h3 a[href]")
-    ).some(link => link.getAttribute("href") === data.url);
-    if (!listed) return;
+         (!Number.isSafeInteger(data.ts) || data.ts<=0 ||
+          data.ts>Date.now()+5*60*1000))) return;
 
     const wrap = document.getElementById("continue-reading-block7");
     const label = document.getElementById("continue-reading-block7-label");

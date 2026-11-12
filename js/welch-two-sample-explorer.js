@@ -98,6 +98,7 @@ function compute(a,b,alternative="two-sided",nullDifference=0){
 window.esaWelchMath={compute,studentUpperTail,critical95,regularizedBeta};
 if(!root)return;
 const get=id=>root.querySelector("#esa-w-"+id);
+const ar=root.dataset.locale==="ar";
 const aInput=get("a"),bInput=get("b"),alt=get("alternative"),nullInput=get("null"),
   error=get("error"),results=get("results");
 const format=x=>Number.isFinite(x)?x.toFixed(6):"—";
@@ -125,7 +126,7 @@ function draw(stats){
    svg("text",{x:310,y:18,"text-anchor":"middle",fill:"currentColor","font-size":14},"Difference = "+format(stats.difference)),
    svg("text",{x:32,y:166,fill:"currentColor","font-size":12},format(-range)),
    svg("text",{x:588,y:166,"text-anchor":"end",fill:"currentColor","font-size":12},format(range)));
- plot.setAttribute("aria-label","95% confidence interval from "+format(stats.lower)+" to "+format(stats.upper)+
+ plot.setAttribute("aria-label",ar?"فترة ثقة ويلش 95% من "+format(stats.lower)+" إلى "+format(stats.upper)+"؛ فرق المتوسطين "+format(stats.difference)+".":"95% confidence interval from "+format(stats.lower)+" to "+format(stats.upper)+
   " for group A minus group B; observed difference "+format(stats.difference)+". Zero is marked.");
 }
 function update(){
@@ -133,19 +134,22 @@ function update(){
        nullDiff=nullInput.value.trim()===""?NaN:Number(nullInput.value);
  const stats=a&&b?compute(a,b,alt.value,nullDiff):null;
  if(!stats||stats.degenerate){
-  error.textContent=stats&&stats.degenerate?
+  error.textContent=ar?(stats&&stats.degenerate?"الخطأ المعياري يساوي صفراً، لذلك لا يمكن إجراء استدلال ويلش المعتاد.":"أدخل من 2 إلى 40 مشاهدة صالحة في كل مجموعة، مع فرق مفترض صالح. لا تُقبل القيم الناقصة أو غير المنتهية."):(stats&&stats.degenerate?
    "The standard error is zero because neither group varies; the usual Welch t inference is undefined.":
-   "Enter 2–40 finite numbers (absolute value ≤ 1,000,000) per independent group, separated by commas, spaces or new lines, and a valid null difference.";
-  error.hidden=false;results.hidden=true;return;
+   "Enter 2–40 finite numbers (absolute value ≤ 1,000,000) per independent group, separated by commas, spaces or new lines, and a valid null difference.");
+  error.hidden=false;results.hidden=true;
+  for(const field of [aInput,bInput,nullInput])field.setAttribute("aria-invalid","true");
+  return;
  }
  error.hidden=true;error.textContent="";results.hidden=false;
+ for(const field of [aInput,bInput,nullInput])field.setAttribute("aria-invalid","false");
  const values={n1:stats.g1.n,n2:stats.g2.n,mean1:stats.g1.mean,mean2:stats.g2.mean,
   sd1:stats.g1.sd,sd2:stats.g2.sd,difference:stats.difference,se:stats.se,
   t:stats.t,df:stats.df,p:stats.p,critical:stats.critical,lower:stats.lower,upper:stats.upper};
  Object.entries(values).forEach(([k,v])=>get(k).textContent=["n1","n2"].includes(k)?String(v):format(v));
- get("conclusion").textContent=(stats.p<.05?"Reject":"Do not reject")+
+ get("conclusion").textContent=ar?(stats.p<.05?"نرفض الفرضية الصفرية عند مستوى 5% مع تحقق الافتراضات.":"لا نرفض الفرضية الصفرية عند مستوى 5%، وهذا لا يثبت تساوي المتوسطين."):(stats.p<.05?"Reject":"Do not reject")+
   " H₀ at α = 0.05 (subject to assumptions). A p-value does not measure effect magnitude or prove causation.";
- get("interpret").textContent="The two-sided 95% interval estimates μ₁−μ₂, not a prediction interval for individual observations. "+
+ get("interpret").textContent=ar?"فترة الثقة الثنائية 95% تقدّر فرق متوسطَي المجتمعين، وليست فترة تنبؤ. "+(stats.lower>0||stats.upper<0?"الفترة لا تشمل الصفر.":"الفترة تشمل الصفر.")+" اختيار فرضية أحادية الطرف يغيّر القيمة الاحتمالية فقط، لا فترة الثقة المعروضة.":"The two-sided 95% interval estimates μ₁−μ₂, not a prediction interval for individual observations. "+
    (stats.lower>0||stats.upper<0?"This interval excludes zero.":"This interval includes zero.")+
    " One-sided alternatives change the p-value, not the reported two-sided interval.";
  draw(stats);

@@ -9,6 +9,7 @@ lang: ar
 <h1>أكاديمية الإحصاء المبسط — العربية</h1>
 <p class="lead">دروس إحصائية باللغة العربية بلغة أكاديمية واضحة. تُضاف الدروس المترجمة تدريجيًا بعد التحقق من محتواها الرياضي.</p>
 <h2>الدروس المتاحة</h2>
+<p><a href="/ar/inference/classical-tests/two-sample-t-test-independent/">اختبار t لعينتين مستقلتين — ويلش والتباين المشترك ومختبر تفاعلي</a></p>
 <p><a href="/ar/inference/classical-tests/paired-t-test/">اختبار t للعينات المزدوجة — شرح عربي ومختبر تفاعلي</a></p>
 <p><a href="/ar/inference/classical-tests/one-sample-t-test-for-mean/">اختبار t لعينة واحدة لمتوسط المجتمع — درس ومختبر عربي</a></p>
 <p><a href="/ar/inference/classical-tests/one-sample-z-test-for-mean/">اختبار Z لعينة واحدة لمتوسط المجتمع — مع مختبر تفاعلي</a></p>
