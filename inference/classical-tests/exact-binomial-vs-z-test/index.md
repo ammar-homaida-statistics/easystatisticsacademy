@@ -47,6 +47,7 @@ P_{\mathrm{exact}}=\sum_{\{k:\Pr_{p_0}(X=k)\leq\Pr_{p_0}(X=x)\}}\Pr_{p_0}(X=k).
 </div></section>
 <h2>Worked numerical example</h2>
 <p>For \(x=2\), \(n=10\), and \(p_0=0.5\), the exact two-sided probability-ordering p-value is \(0.109375\). The Z approximation is different because the sample size is small. Increasing \(n\) and avoiding very small expected counts often improves approximation quality, but does not make the two definitions identical for every discrete outcome.</p>
+<p>For comparisons between <strong>two independent groups</strong>, review the <a href="/inference/classical-tests/two-proportion-z-test/">two-proportion Z-test</a> and the <a href="/inference/classical-tests/fisher-exact-vs-chi-square/">conditional Fisher exact versus chi-square 2×2 laboratory</a>. The one-proportion exact binomial test is not a substitute for those distinct designs.</p>
 <h2>Interpretation limits</h2>
 <p>The exact calculation is exact <em>conditional on a correct independent binomial model</em>; it does not fix observational bias, clustered data, dependence, or unplanned hypothesis selection. Neither p-value measures the probability that the null hypothesis is true. Confidence-interval methods should be considered separately.</p>
 </div></section>
