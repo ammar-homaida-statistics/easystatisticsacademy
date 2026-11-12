@@ -1,9 +1,6 @@
 /* Batch #71: one-proportion equality-null Z test, Wald and Wilson intervals. */
 (function(){
 "use strict";
-const root=document.getElementById("esa-one-proportion-lab");
-const $=id=>root.querySelector("#esa-op-"+id);
-const xs=$("x"),ns=$("n"),p0s=$("p0"),alternative=$("alternative");
 const erfcPositive=t=>{
  const q=1/(1+0.3275911*t);
  return q*(0.254829592+q*(-0.284496736+
@@ -29,7 +26,10 @@ function compute(x,n,p0,side="two-sided"){
   x,n,p0,side};
 }
 window.esaOneProportionMath={compute,upperTail};
+const root=document.getElementById("esa-one-proportion-lab");
 if(!root)return;
+const $=id=>root.querySelector("#esa-op-"+id);
+const xs=$("x"),ns=$("n"),p0s=$("p0"),alternative=$("alternative");
 const ar=root.dataset.locale==="ar";
 const fmt=v=>v.toFixed(6);
 const nsSVG="http://www.w3.org/2000/svg";
