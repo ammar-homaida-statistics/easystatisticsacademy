@@ -202,6 +202,7 @@ sidebar: false
     <!-- Interactive 2 x 2 Pearson chi-square teaching explorer. -->
     <section class="example-box" id="esa-chi-independence-lab" aria-labelledby="esa-chi-heading">
       <h2 id="esa-chi-heading">Interactive 2 × 2 Independence Explorer</h2>
+<p><a href="/inference/classical-tests/fisher-exact-vs-chi-square/">Compare Fisher exact and Pearson chi-square p-values for sparse 2×2 tables</a>.</p>
       <p>Change the four observed frequencies to see how independence predicts each cell, and how cell discrepancies add to Pearson’s chi-square statistic. The table starts with the worked example above.</p>
       <div class="esa-chi-input-grid">
         <label>Male, Prefers A <input id="esa-chi-a" aria-describedby="esa-chi-error esa-chi-warning" type="number" min="0" max="10000000" step="1" value="40" inputmode="numeric" aria-invalid="false"></label>

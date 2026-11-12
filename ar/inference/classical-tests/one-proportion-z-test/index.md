@@ -11,6 +11,7 @@ learning_resource: true
 ---
 <section class="hero hero-section"><div class="hero-card">
 <h1>اختبار Z لنسبة مجتمع واحد</h1>
+<p><a href="/ar/inference/classical-tests/two-proportion-z-test/">الدرس التالي: اختبار Z لنسبتين مستقلتين</a></p>
 <p class="lead">نستخدم الاختبار لاستقصاء نسبة نجاح سكانية مجهولة من مشاهدات مستقلة ثنائية النتيجة، ومقارنتها بنسبة مفترضة مسبقاً.</p>
 <p><a lang="en" dir="ltr" href="/inference/classical-tests/one-proportion-z-test/">English — One-Proportion Z Test</a></p>
 </div></section>

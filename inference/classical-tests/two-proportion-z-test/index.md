@@ -4,6 +4,9 @@ title: Two-Proportion Z Test
 description: Learn how the two-proportion Z test compares population proportions from two independent groups and evaluates whether they differ.
 permalink: /inference/classical-tests/two-proportion-z-test/
 sidebar: false
+math: true
+translation_pair: two-proportion-z
+learning_resource: true
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -40,6 +43,7 @@ sidebar: false
     </div>
 
     <h1>Two-Proportion Z Test</h1>
+<p><a lang="ar" dir="rtl" href="/ar/inference/classical-tests/two-proportion-z-test/">النسخة العربية — اختبار Z لنسبتين مستقلتين</a></p>
 
     <p class="lead">
       Many studies compare success rates, approval rates, conversion rates, or other proportions between two groups.
@@ -240,6 +244,7 @@ p_1-p_2
     <!-- Batch #70: independent-group two-proportion Z laboratory -->
 <section class="concept-box" id="esa-two-proportion-lab" aria-labelledby="esa-2p-heading">
 <h2 id="esa-2p-heading">Interactive Two-Proportion Z-Test Laboratory</h2>
+<p><a href="/inference/classical-tests/fisher-exact-vs-chi-square/">Explore Fisher exact versus chi-square tests for small 2×2 tables</a>.</p>
 <p>Enter independent success counts and group sample sizes. The primary test uses the <strong>pooled null proportion</strong> for H₀: p₁=p₂. The displayed 95% confidence interval uses the <strong>unpooled Wald standard error</strong> and is an approximate teaching example, not the recommended interval for sparse data.</p>
 <div class="esa-2p-fields">
 <label for="esa-2p-x1">Group A successes x₁ <input id="esa-2p-x1" type="number" min="0" step="1" value="120" aria-invalid="false" aria-describedby="esa-2p-error esa-2p-conditions"></label>
