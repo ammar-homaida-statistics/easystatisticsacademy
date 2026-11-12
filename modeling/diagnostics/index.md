@@ -618,7 +618,8 @@ sidebar: false
     if (!data || typeof data !== "object" ||
         typeof data.url !== "string" || typeof data.label !== "string" ||
         !published.has(data.url) || published.get(data.url) !== data.label ||
-        !Number.isSafeInteger(data.ts) || data.ts <= 0) return;
+        !Number.isSafeInteger(data.ts) || data.ts <= 0 ||
+        data.ts > Date.now()+5*60*1000) return;
 
     const wrap =
       document.getElementById(
