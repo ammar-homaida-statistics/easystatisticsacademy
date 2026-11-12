@@ -24,6 +24,7 @@ learning_resource: true
 <h2>Exact p-value convention</h2>
 <p>The <strong>two-sided Fisher p-value</strong> uses probability ordering: sum the conditional probabilities of all fixed-margin tables that are no more probable than the observed table, as in the default SciPy <code>fisher_exact</code> two-sided convention. It is not generally twice the smaller one-sided tail. Alternatives are defined using the top-left cell count and fixed margins: "greater" favors positive association (odds ratio greater than 1), "less" favors negative association.</p>
 <h2>Interactive Fisher–Pearson laboratory</h2>
+<noscript><p role="note">This interactive calculator requires JavaScript. Without JavaScript, the formulas and interpretation in the lesson remain available.</p></noscript>
 <section id="esa-fisher-chi-lab" class="concept-box" aria-labelledby="esa-fc-heading">
 <h3 id="esa-fc-heading">Enter observed counts</h3>
 <p>Nonnegative integers; both row and column totals must be positive; total N ≤ 2,000 for responsive exact enumeration. The demonstration uses 1, 9, 11, 3 as its default table.</p>
