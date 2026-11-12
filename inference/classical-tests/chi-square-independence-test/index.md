@@ -204,10 +204,10 @@ sidebar: false
       <h2 id="esa-chi-heading">Interactive 2 × 2 Independence Explorer</h2>
       <p>Change the four observed frequencies to see how independence predicts each cell, and how cell discrepancies add to Pearson’s chi-square statistic. The table starts with the worked example above.</p>
       <div class="esa-chi-input-grid">
-        <label>Male, Prefers A <input id="esa-chi-a" aria-describedby="esa-chi-error esa-chi-warning" type="number" min="0" max="10000000" step="1" value="40" inputmode="numeric"></label>
-        <label>Male, Prefers B <input id="esa-chi-b" aria-describedby="esa-chi-error esa-chi-warning" type="number" min="0" max="10000000" step="1" value="60" inputmode="numeric"></label>
-        <label>Female, Prefers A <input id="esa-chi-c" aria-describedby="esa-chi-error esa-chi-warning" type="number" min="0" max="10000000" step="1" value="70" inputmode="numeric"></label>
-        <label>Female, Prefers B <input id="esa-chi-d" aria-describedby="esa-chi-error esa-chi-warning" type="number" min="0" max="10000000" step="1" value="30" inputmode="numeric"></label>
+        <label>Male, Prefers A <input id="esa-chi-a" aria-describedby="esa-chi-error esa-chi-warning" type="number" min="0" max="10000000" step="1" value="40" inputmode="numeric" aria-invalid="false"></label>
+        <label>Male, Prefers B <input id="esa-chi-b" aria-describedby="esa-chi-error esa-chi-warning" type="number" min="0" max="10000000" step="1" value="60" inputmode="numeric" aria-invalid="false"></label>
+        <label>Female, Prefers A <input id="esa-chi-c" aria-describedby="esa-chi-error esa-chi-warning" type="number" min="0" max="10000000" step="1" value="70" inputmode="numeric" aria-invalid="false"></label>
+        <label>Female, Prefers B <input id="esa-chi-d" aria-describedby="esa-chi-error esa-chi-warning" type="number" min="0" max="10000000" step="1" value="30" inputmode="numeric" aria-invalid="false"></label>
       </div>
       <p id="esa-chi-error" role="alert" hidden></p>
       <div class="table-wrap">
@@ -238,6 +238,8 @@ sidebar: false
       #esa-chi-independence-lab label{display:flex;flex-direction:column;gap:6px;min-width:0;font-weight:600}
       #esa-chi-independence-lab input{box-sizing:border-box;max-width:100%;width:100%;font:inherit;padding:8px}
       #esa-chi-independence-lab td{min-width:0;overflow-wrap:anywhere}
+      #esa-chi-independence-lab .table-wrap{display:block;max-width:100%;overflow-x:auto}
+      #esa-chi-independence-lab :is(input,button):focus-visible{outline:2px solid var(--accent);outline-offset:2px}
       #esa-chi-independence-lab p{margin:10px 0}
       #esa-chi-independence-lab [role="alert"]{font-weight:700}
       @media print{#esa-chi-independence-lab button,#esa-chi-independence-lab .esa-chi-input-grid{display:none}}
