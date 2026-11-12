@@ -12,11 +12,13 @@ sidebar: false
 
   const KEY = "esa_continue_modeling_last_block_v0";
 
+  try {
   localStorage.setItem(KEY, JSON.stringify({
     url: "/modeling/simple-linear-regression/",
     label: "Block 2 — Simple Linear Regression",
     ts: Date.now()
   }));
+  } catch (_) { /* Storage is optional. */ }
 
 })();
 </script>
@@ -571,49 +573,46 @@ sidebar: false
 
 </section>
 
-<!-- CONTINUE READING SCRIPT -->
-
+<!-- Batch #92: allowlisted, safe, legacy-aware resume. -->
 <script>
-(function () {
-
-  try {
-
-    const KEY =
-      "esa_continue_modeling_slr_lesson_v0";
-
-    const raw = localStorage.getItem(KEY);
-
-    if (!raw) return;
-
-    const data = JSON.parse(raw);
-
-    if (!data || !data.url || !data.label) return;
-
-    const wrap =
-      document.getElementById(
-        "continue-reading-modeling-slr"
-      );
-
-    const label =
-      document.getElementById(
-        "continue-reading-modeling-slr-label"
-      );
-
-    const btn =
-      document.getElementById(
-        "continue-reading-modeling-slr-btn"
-      );
-
-    label.innerHTML =
-      "You last visited: <strong>" +
-      data.label +
-      "</strong>";
-
-    btn.href = data.url;
-
-    wrap.style.display = "block";
-
-  } catch (e) {}
-
+(function(){
+  "use strict";
+  const CURRENT="esa_continue_modeling_simple_linear_regression_lesson_v0";
+  const LEGACY="esa_continue_modeling_slr_lesson_v0";
+  const lessons=new Map([
+    ["/modeling/simple-linear-regression/what-is-regression/", "What Is Regression?"],
+    ["/modeling/simple-linear-regression/regression-equation/", "The Regression Equation"],
+    ["/modeling/simple-linear-regression/slope/", "The Slope"],
+    ["/modeling/simple-linear-regression/intercept/", "The Intercept"],
+    ["/modeling/simple-linear-regression/residuals/", "Residuals"],
+    ["/modeling/simple-linear-regression/least-squares/", "Least Squares"],
+    ["/modeling/simple-linear-regression/r-squared/", "R-Squared"],
+    ["/modeling/simple-linear-regression/correlation-vs-regression/", "Correlation vs Regression"],
+    ["/modeling/simple-linear-regression/prediction/", "Prediction"]
+  ]);
+  const valid=(data)=>{
+    if(!data||typeof data!=="object"||Array.isArray(data))return false;
+    if(typeof data.url!=="string"||typeof data.label!=="string")return false;
+    if(lessons.get(data.url)!==data.label)return false;
+    if(typeof data.ts!=="number"||!Number.isSafeInteger(data.ts))return false;
+    return data.ts>0&&data.ts<=Date.now()+5*60*1000;
+  };
+  try{
+    let data=null;
+    for(const key of [CURRENT,LEGACY]){
+      const raw=localStorage.getItem(key);
+      if(!raw)continue;
+      try{const candidate=JSON.parse(raw);if(valid(candidate)){data=candidate;break;}}
+      catch(_){}
+    }
+    if(!data)return;
+    const wrap=document.getElementById("continue-reading-modeling-slr");
+    const label=document.getElementById("continue-reading-modeling-slr-label");
+    const btn=document.getElementById("continue-reading-modeling-slr-btn");
+    if(!wrap||!label||!btn)return;
+    label.textContent="You last visited: "+data.label;
+    btn.setAttribute("href",data.url);
+    wrap.style.display="block";
+  }catch(_){/* Storage can be unavailable. */}
 })();
 </script>
