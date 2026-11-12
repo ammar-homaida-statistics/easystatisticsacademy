@@ -26,6 +26,7 @@ function compute(x1,n1,x2,n2,side="two-sided"){
 window.esaTwoProportionMath={compute,tail};
 const root=document.getElementById("esa-two-proportion-lab");if(!root)return;
 const get=x=>root.querySelector("#esa-2p-"+x);
+const ar=root.dataset.locale==="ar";
 const fields=["x1","n1","x2","n2"].map(get),alternative=get("alternative"),
  error=get("error"),output=get("results");
 const fmt=x=>Number.isFinite(x)?x.toFixed(6):"—";
@@ -46,7 +47,7 @@ function plot(s){
  element("text",{x:34,y:170,fill:"currentColor","font-size":11},fmt(-range)),
  element("text",{x:586,y:170,"text-anchor":"end",fill:"currentColor","font-size":11},fmt(range)),
  element("text",{x:xpos(0),y:151,"text-anchor":"middle",fill:"currentColor","font-size":11},"0"));
- svg.setAttribute("aria-label","Observed difference "+fmt(s.diff)+
+ svg.setAttribute("aria-label",ar?"فرق النسبتين "+fmt(s.diff)+"؛ فترة الثقة الثنائية 95% من "+fmt(s.lower)+" إلى "+fmt(s.upperCI)+".":"Observed difference "+fmt(s.diff)+
    "; unpooled 95% confidence interval "+fmt(s.lower)+" to "+fmt(s.upperCI)+".");
 }
 function update(){
@@ -54,19 +55,19 @@ function update(){
  const s=compute(...numbers,alternative.value);
  if(!s||s.degenerate){
   error.hidden=false;error.textContent=s&&s.degenerate?
-    "Pooled-null variance is zero (all observations are successes or all failures); the Z test is undefined. Use an appropriate exact or alternative method.":
-    "Enter whole-number successes and sample sizes (1–1,000,000), with 0 ≤ successes ≤ sample size for each independent group.";
+    (ar?"التباين المشترك يساوي صفراً؛ إحصائية Z غير معرّفة. استخدم طريقة ملائمة أو اختباراً دقيقاً.":"Pooled-null variance is zero (all observations are successes or all failures); the Z test is undefined. Use an appropriate exact or alternative method."):
+    (ar?"أدخل أعداد نجاحات وأحجام عينات صحيحة وموجبة؛ لا يتجاوز عدد النجاحات حجم أي عينة.":"Enter whole-number successes and sample sizes (1–1,000,000), with 0 ≤ successes ≤ sample size for each independent group.");
   output.hidden=true;fields.forEach(field=>field.setAttribute("aria-invalid","true"));return;
  }
  error.hidden=true;error.textContent="";output.hidden=false;
  fields.forEach(field=>field.setAttribute("aria-invalid","false"));
  for(const k of ["p1","p2","diff","pooled","pooledSE","seCI","z","p","lower","upperCI"])get(k).textContent=fmt(s[k]);
- get("conditions").textContent=s.adequate?
+ get("conditions").textContent=ar?(s.adequate?"الأعداد المتوقعة للنجاحات والإخفاقات لا تقل عن 10 في المجموعتين.":"تحذير: عدد متوقع واحد على الأقل أقل من 10، وقد يكون التقريب الطبيعي غير دقيق؛ راجع اختبار فيشر الدقيق."):(s.adequate?
    "Pooled expected success and failure counts are at least 10 in both groups (normal approximation count check passed).":
-   "WARNING: At least one pooled expected success/failure count is below 10. The normal-approximation p-value and Wald CI may be unreliable; consider Fisher's exact test or a more reliable interval.";
- get("conclusion").textContent=(s.p<.05?"Reject":"Do not reject")+
+   "WARNING: At least one pooled expected success/failure count is below 10. The normal-approximation p-value and Wald CI may be unreliable; consider Fisher's exact test or a more reliable interval.");
+ get("conclusion").textContent=ar?(s.p<.05?"نرفض فرضية تساوي النسبتين عند مستوى 5% إذا تحققت الافتراضات.":"لا نرفض فرضية تساوي النسبتين عند مستوى 5%، ولا يعني ذلك إثبات التساوي."):(s.p<.05?"Reject":"Do not reject")+
    " equality H₀ at α=0.05, if independent sampling and approximation conditions are credible. Statistical significance alone does not establish causality.";
- get("interpretation").textContent="The unpooled 95% Wald interval describes p₁−p₂ and can extend outside the feasible difference range [−1,1]. "+
+ get("interpretation").textContent=ar?"تقدّر فترة والد الثنائية 95% الفرق بين النسبتين، وقد تتجاوز المجال [−1،1] أو تضعف تغطيتها قرب الحدود. البديلة الأحادية تغير القيمة الاحتمالية فقط، لا الفترة الثنائية المعروضة.":"The unpooled 95% Wald interval describes p₁−p₂ and can extend outside the feasible difference range [−1,1]. "+
    "For small samples or proportions near 0 or 1, use a better-supported score or exact interval. "+
    "A one-sided test changes the p-value, not this two-sided interval.";
  plot(s);
