@@ -159,7 +159,7 @@ sidebar: false
     if(!data||typeof data!=="object"||Array.isArray(data))return;
     if(typeof data.url!=="string"||!Object.prototype.hasOwnProperty.call(ALLOWED,data.url))return;
     if(typeof data.label!=="string"||data.label!==ALLOWED[data.url])return;
-    if(typeof data.ts!=="number"||!Number.isFinite(data.ts)||data.ts<=0||data.ts>Date.now()+86400000)return;
+    if(typeof data.ts!=="number"||!Number.isSafeInteger(data.ts)||data.ts<=0||data.ts>Date.now()+5*60*1000)return;
     label.textContent="You last visited: "+data.label;
     btn.setAttribute("href",data.url);
     wrap.style.display="block";

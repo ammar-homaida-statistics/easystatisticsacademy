@@ -174,8 +174,8 @@ sidebar: false
     if(!value||typeof value!=="object"||Array.isArray(value)) return;
     if(typeof value.url!=="string"||!Object.prototype.hasOwnProperty.call(allowed,value.url)) return;
     if(typeof value.label!=="string"||value.label!==allowed[value.url]) return;
-    if(typeof value.ts!=="number"||!Number.isFinite(value.ts)||value.ts<=0
-       ||value.ts>Date.now()+86400000) return;
+    if(typeof value.ts!=="number"||!Number.isSafeInteger(value.ts)||value.ts<=0
+       ||value.ts>Date.now()+5*60*1000) return;
     label.textContent="You last visited: "+value.label;
     link.setAttribute("href",value.url);
     wrap.style.display="block";

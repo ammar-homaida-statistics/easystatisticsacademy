@@ -344,7 +344,13 @@ sidebar: false
           <strong>Upper-tail p-value:</strong> <output id="esa-hom-p">0.063750</output>.</p>
         <p id="esa-hom-warning" role="status" aria-live="polite">All expected cell counts are at least 5.</p>
         <p id="esa-hom-decision">At α = 0.05, do not reject equal categorical distributions.</p>
+        <h3>Which cells drive the difference? Adjusted residuals</h3>
+        <div class="table-wrap">
+          <table id="esa-hom-residuals"></table>
+        </div>
+        <p id="esa-hom-residual-note">3 of 9 cells have |r| &gt; 2.</p>
       </section>
+      <p class="muted-mini"><strong>Adjusted standardized residuals</strong> (Haberman, 1973): <strong>r = (O − E) / √(E (1 − row total/N)(1 − column total/N))</strong>. Under the null hypothesis each r is approximately standard normal in large samples, so |r| &gt; 2 points to cells that contribute most to a large χ². They are descriptive follow-ups, not a set of independent tests: with many cells, several |r| &gt; 2 can occur by chance, and the residuals inherit the same large-sample and independence assumptions as the overall test.</p>
       <p class="muted-mini">For cell <strong>i,j</strong>, the expected count under homogeneity is <strong>(row total × column total) / N</strong>. Each cell contributes <strong>(observed − expected)² / expected</strong> to Pearson's chi-square statistic. The reference degrees of freedom are <strong>(rows − 1)(columns − 1)</strong>; the p-value is the asymptotic upper tail, with no Yates continuity correction. Tables with an all-zero row or column are rejected because expected counts would vanish.</p>
       <p class="muted-mini"><strong>Assumptions and interpretation:</strong> independently selected groups and independent categorical observations, mutually exclusive exhaustive categories, and sufficiently large expected counts for the chi-square approximation. A small expected cell count is flagged but not silently removed. Do not treat a homogeneity design as proof of causality; the same Pearson statistic also appears in an independence test under a different sampling design.</p>
     </section>
@@ -362,6 +368,7 @@ sidebar: false
       #esa-homogeneity-lab #esa-hom-chart{display:block;width:100%;height:auto;max-width:650px;margin:auto}
       #esa-homogeneity-lab .table-wrap{max-width:100%;overflow-x:auto}
       #esa-homogeneity-lab table{font-variant-numeric:tabular-nums}
+      #esa-homogeneity-lab .esa-hom-flag{font-weight:700}
       #esa-homogeneity-lab :is(textarea,button):focus-visible{outline:2px solid var(--accent);outline-offset:2px}
       @media(max-width:650px){#esa-homogeneity-lab .esa-hom-controls{flex-direction:column;align-items:stretch}}
     </style>

@@ -2,7 +2,7 @@
 layout: null
 ---
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   {% for page in site.pages %}
     {% assign route_last_char = page.url | slice: -1, 1 %}
     {% assign sitemap_public_page = false %}
@@ -16,6 +16,14 @@ layout: null
     <loc>{{ site.url | append: page.url | xml_escape }}</loc>
     {% if page.last_modified_at %}
     <lastmod>{{ page.last_modified_at | date: "%Y-%m-%d" }}</lastmod>
+    {% endif %}
+    {% if page.translation_pair %}
+    {% assign sitemap_translation = site.data.translations | where: "id", page.translation_pair | first %}
+    {% if sitemap_translation %}
+    <xhtml:link rel="alternate" hreflang="en" href="{{ site.url | append: sitemap_translation.en | xml_escape }}" />
+    <xhtml:link rel="alternate" hreflang="ar" href="{{ site.url | append: sitemap_translation.ar | xml_escape }}" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="{{ site.url | append: sitemap_translation.en | xml_escape }}" />
+    {% endif %}
     {% endif %}
   </url>
     {% endif %}

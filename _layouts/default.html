@@ -145,6 +145,21 @@
   {% elsif page.translation_pair == "standard-deviation" %}
   <link rel="alternate" hreflang="en" href="{{ site.url }}/descriptive/spread/standard-deviation/" />
   <link rel="alternate" hreflang="ar" href="{{ site.url }}/ar/descriptive/spread/standard-deviation/" />
+  {% elsif page.translation_pair == "tree-diagrams" %}
+  <link rel="alternate" hreflang="en" href="{{ site.url }}/probability/conditional/tree-diagrams/" />
+  <link rel="alternate" hreflang="ar" href="{{ site.url }}/ar/probability/conditional/tree-diagrams/" />
+  {% elsif page.translation_pair == "base-rate-neglect-and-fallacies" %}
+  <link rel="alternate" hreflang="en" href="{{ site.url }}/probability/conditional/base-rate-neglect-and-fallacies/" />
+  <link rel="alternate" hreflang="ar" href="{{ site.url }}/ar/probability/conditional/base-rate-neglect-and-fallacies/" />
+  {% elsif page.translation_pair == "chi-square-independence" %}
+  <link rel="alternate" hreflang="en" href="{{ site.url }}/inference/classical-tests/chi-square-independence-test/" />
+  <link rel="alternate" hreflang="ar" href="{{ site.url }}/ar/inference/classical-tests/chi-square-independence-test/" />
+  {% endif %}
+  {% if page.translation_pair %}
+  {% assign esa_translation = site.data.translations | where: "id", page.translation_pair | first %}
+  {% if esa_translation %}
+  <link rel="alternate" hreflang="x-default" href="{{ site.url }}{{ esa_translation.en }}" />
+  {% endif %}
   {% endif %}
   {% if page.lang == "ar" %}
   <style>html[dir="rtl"] body{text-align:right}html[dir="rtl"] .hero-actions,html[dir="rtl"] .lesson-nav{direction:rtl}html[dir="rtl"] .esa-math-ltr,html[dir="rtl"] .esa-math-ltr *{direction:ltr;unicode-bidi:isolate}html[dir="rtl"] input[type="number"],html[dir="rtl"] svg{direction:ltr}</style>

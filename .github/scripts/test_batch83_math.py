@@ -55,7 +55,7 @@ class Batch83Tests(unittest.TestCase):
         y=(ROOT/".github/workflows/publish-pages.yml").read_text()
         self.assertIn("_site/deployment-revision.txt",y)
         self.assertIn('--expected-sha "$GITHUB_SHA"',y)
-        self.assertLess(y.index("actions/deploy-pages@v4"),y.index("Verify live pages and assets"))
+        self.assertLess(y.index("actions/deploy-pages@v5"),y.index("Verify live pages and assets"))
         script=(ROOT/".github/scripts/check_live_pages.py").read_text()
         self.assertIn("expected_sha",script)
         self.assertIn("stale deployment revision",script)

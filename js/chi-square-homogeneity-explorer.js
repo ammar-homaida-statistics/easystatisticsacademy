@@ -60,8 +60,16 @@
    const df=(R-1)*(C-1),p=gammaQ(df/2,chi/2);
    const percentages=rows.map((row,i)=>row.map(x=>100*x/rowTotals[i]));
    const minExpected=Math.min(...expected.flat());
+   // Batch #93: Haberman adjusted (standardized) residuals,
+   // r_ij=(O_ij-E_ij)/sqrt(E_ij(1-R_i/N)(1-C_j/N)), approximately N(0,1)
+   // per cell under H0 in large samples. Positive margins and at least two
+   // rows/columns keep every variance factor strictly positive.
+   const adjusted=rows.map((row,i)=>row.map((x,j)=>{
+     const v=expected[i][j]*(1-rowTotals[i]/total)*(1-colTotals[j]/total);
+     return v>0?(x-expected[i][j])/Math.sqrt(v):NaN;
+   }));
    return {R,C,rows,expected,contrib,rowTotals,colTotals,total,chi,df,p,
-     percentages,minExpected,smallExpected:minExpected<5};
+     percentages,minExpected,smallExpected:minExpected<5,adjusted};
  }
  window.esaHomogeneityMath={compute,gammaQ};
  if(!root)return;
@@ -118,6 +126,42 @@
      "Population "+(i+1)+": "+row.map((x,j)=>"category "+(j+1)+" "+x.toFixed(1)+" percent").join(", ")
    ).join("; "));
  }
+ function residualTable(s){
+   const grid=byId("residuals");
+   if(!grid)return;
+   grid.replaceChildren();
+   const caption=document.createElement("caption");
+   caption.textContent="Adjusted standardized residuals (|r| > 2 marked as a descriptive signal only)";
+   grid.appendChild(caption);
+   const header=document.createElement("tr");
+   for(const val of ["Population",...Array.from({length:s.C},(_,j)=>"Category "+(j+1))]){
+     const th=document.createElement("th");th.scope="col";th.textContent=val;header.appendChild(th);
+   }
+   const thead=document.createElement("thead");thead.appendChild(header);grid.appendChild(thead);
+   const tbody=document.createElement("tbody");
+   let flagged=0;
+   for(let i=0;i<s.R;i++){
+     const tr=document.createElement("tr"),th=document.createElement("th");
+     th.scope="row";th.textContent="Population "+(i+1);tr.appendChild(th);
+     for(let j=0;j<s.C;j++){
+       const r=s.adjusted[i][j],td=document.createElement("td");
+       if(!Number.isFinite(r)){td.textContent="Undefined";}
+       else{
+         const big=Math.abs(r)>2;
+         if(big)flagged++;
+         td.textContent=(r>0?"+":"")+r.toFixed(3)+(big?(r>0?" ▲ more than expected":" ▼ fewer than expected"):"");
+         if(big)td.className="esa-hom-flag";
+       }
+       tr.appendChild(td);
+     }
+     tbody.appendChild(tr);
+   }
+   grid.appendChild(tbody);
+   const note=byId("residual-note");
+   if(note)note.textContent=flagged?
+     flagged+" of "+(s.R*s.C)+" cells have |r| > 2. Treat these as descriptive pointers to where observed and expected counts differ, not as separate significance tests: with many cells, some |r| > 2 values are expected by chance (a Bonferroni-style cut-off would be stricter).":
+     "No cell has |r| > 2. Residuals describe where counts depart from homogeneity; they do not replace the overall chi-square test.";
+ }
  function render(){
    const matrix=parse(input.value),s=matrix?compute(matrix):null;
    if(!s){
@@ -157,6 +201,7 @@
      const td=document.createElement("td");td.textContent=String(x);foot.appendChild(td);
    }
    const tfoot=document.createElement("tfoot");tfoot.appendChild(foot);grid.appendChild(tfoot);
+   residualTable(s);
    for(const [key,value] of Object.entries({chi:fmt(s.chi),df:String(s.df),
       p:fmt(s.p),n:String(s.total)}))byId(key).textContent=value;
    byId("warning").textContent=s.smallExpected?

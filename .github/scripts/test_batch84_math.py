@@ -57,7 +57,11 @@ class Batch84Tests(unittest.TestCase):
         for fragment in ("published.has(data.url)","Number.isSafeInteger(data.ts)","label.replaceChildren","btn.href = data.url"):
             self.assertIn(fragment,txt)
     def test_independent_chi_square_reference(self):
+        # Batch #93 moved the unchanged explorer logic into a shared bilingual
+        # engine; the same source assertions apply to page plus engine.
         txt=(ROOT/"inference/classical-tests/chi-square-independence-test/index.md").read_text()
+        self.assertIn("/js/chi-square-independence-2x2.js",txt)
+        txt+=(ROOT/"js/chi-square-independence-2x2.js").read_text()
         self.assertIn("const p=chi===0?1:",txt)
         self.assertIn('aria-describedby="esa-chi-error esa-chi-warning"',txt)
         self.assertIn('input.setAttribute("aria-invalid","true")',txt)

@@ -3,6 +3,8 @@ layout: default
 title: Chi-Square Test of Independence
 description: Learn how the chi-square test of independence evaluates whether two categorical variables are associated.
 permalink: /inference/classical-tests/chi-square-independence-test/
+learning_resource: true
+translation_pair: chi-square-independence
 sidebar: false
 ---
 
@@ -40,7 +42,7 @@ sidebar: false
     </div>
 
     <h1>Chi-Square Test of Independence</h1>
-<p><a href="/inference/classical-tests/chi-square-goodness-of-fit/">First: Chi-Square Goodness-of-Fit</a> · <a href="/inference/classical-tests/fisher-exact-vs-chi-square/">For sparse 2×2 tables: Fisher vs Pearson lab</a></p>
+<p><a href="/inference/classical-tests/chi-square-goodness-of-fit/">First: Chi-Square Goodness-of-Fit</a> · <a href="/inference/classical-tests/fisher-exact-vs-chi-square/">For sparse 2×2 tables: Fisher vs Pearson lab</a> · <a href="/ar/inference/classical-tests/chi-square-independence-test/" lang="ar" dir="rtl">النسخة العربية</a></p>
 
     <p class="lead">
       Many studies seek to determine whether two categorical variables are related.
@@ -246,67 +248,7 @@ sidebar: false
       #esa-chi-independence-lab [role="alert"]{font-weight:700}
       @media print{#esa-chi-independence-lab button,#esa-chi-independence-lab .esa-chi-input-grid{display:none}}
     </style>
-    <script>
-    (function () {
-      "use strict";
-      const root=document.getElementById("esa-chi-independence-lab");
-      if(!root) return;
-      const find=id=>root.querySelector("#"+id);
-      const ids=["a","b","c","d"], inputs=ids.map(id=>find("esa-chi-"+id));
-      const resultIds=["esa-chi-stat","esa-chi-p","esa-chi-v",...ids.map(id=>"esa-chi-cell-"+id)];
-      // Abramowitz-Stegun 7.1.26, maximum absolute erfc error approximately 1.5e-7.
-      function erfc(x) {
-        const t=1/(1+0.3275911*x);
-        const polynomial=t*(0.254829592+t*(-0.284496736+
-          t*(1.421413741+t*(-1.453152027+t*1.061405429))));
-        return polynomial*Math.exp(-x*x);
-      }
-      function clear(message) {
-        find("esa-chi-error").hidden=false;
-        find("esa-chi-error").textContent=message;
-        inputs.forEach(input=>input.setAttribute("aria-invalid","true"));
-        resultIds.forEach(id=>find(id).textContent="—");
-        find("esa-chi-warning").textContent="Correct the inputs to evaluate the large-sample conditions.";
-      }
-      function update() {
-        const values=inputs.map(input=>input.value.trim()===""?NaN:Number(input.value));
-        if(values.some(n=>!Number.isSafeInteger(n)||n<0||n>10000000)) {
-          clear("Enter a whole-number count from 0 to 10,000,000 in every cell.");
-          return;
-        }
-        const [a,b,c,d]=values, rows=[a+b,c+d],cols=[a+c,b+d];
-        const N=a+b+c+d;
-        if(N===0||rows.some(n=>n===0)||cols.some(n=>n===0)) {
-          clear("Both row totals and both column totals must be positive; zero margins make the independence statistic undefined.");
-          return;
-        }
-        inputs.forEach(input=>input.setAttribute("aria-invalid","false"));
-        find("esa-chi-error").hidden=true;
-        find("esa-chi-error").textContent="";
-        const expected=[rows[0]*cols[0]/N,rows[0]*cols[1]/N,
-          rows[1]*cols[0]/N,rows[1]*cols[1]/N];
-        const contributions=values.map((o,i)=>(o-expected[i])**2/expected[i]);
-        const chi=contributions.reduce((sum,x)=>sum+x,0);
-        // With df=1, chi-square survival = erfc(sqrt(chi / 2)).
-        const p=chi===0?1:Math.min(1,Math.max(0,erfc(Math.sqrt(chi/2))));
-        ids.forEach((id,i)=>find("esa-chi-cell-"+id).textContent=
-          values[i]+" → "+expected[i].toFixed(3)+"; "+contributions[i].toFixed(4));
-        find("esa-chi-stat").textContent=chi.toFixed(6);
-        find("esa-chi-p").textContent=p<1e-12?"< 1e-12":(p<0.0001?p.toExponential(3):p.toFixed(6));
-        find("esa-chi-v").textContent=Math.sqrt(chi/N).toFixed(6);
-        const small=expected.filter(n=>n<5).length;
-        find("esa-chi-warning").textContent=small?
-          small+" of 4 expected frequencies are below 5. The chi-square approximation may be unreliable; consider Fisher’s exact test and the sampling design.":
-          "All four expected frequencies are at least 5. Independence of observations must still be checked from the study design.";
-      }
-      inputs.forEach(input=>input.addEventListener("input",update));
-      find("esa-chi-reset").addEventListener("click",()=>{
-        [40,60,70,30].forEach((n,i)=>inputs[i].value=String(n));
-        update();
-      });
-      update();
-    })();
-    </script>
+    <script defer src="{{ '/js/chi-square-independence-2x2.js' | relative_url }}"></script>
 
     <h2>Observed Counts</h2>
 
