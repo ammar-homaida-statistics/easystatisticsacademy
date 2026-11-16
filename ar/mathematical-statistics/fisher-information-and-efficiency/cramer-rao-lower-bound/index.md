@@ -5,6 +5,7 @@ description: شرح عربي لحد كرامر–راو الأدنى للمقد�
 permalink: /ar/mathematical-statistics/fisher-information-and-efficiency/cramer-rao-lower-bound/
 lang: ar
 sidebar: false
+learning_resource: true
 translation_pair: cramer-rao-lower-bound
 math: true
 ---

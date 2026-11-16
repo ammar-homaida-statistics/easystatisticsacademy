@@ -5,6 +5,7 @@ description: درس عربي متكامل عن التوزيع الطبيعي و�
 permalink: /ar/probability/distributions/normal-distribution/
 lang: ar
 sidebar: false
+learning_resource: true
 translation_pair: normal-distribution
 math: true
 ---

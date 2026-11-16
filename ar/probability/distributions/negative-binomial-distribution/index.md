@@ -5,6 +5,7 @@ description: شرح عربي شامل للتوزيع السالب ذي الحد�
 permalink: /ar/probability/distributions/negative-binomial-distribution/
 lang: ar
 sidebar: false
+learning_resource: true
 translation_pair: negative-binomial-distribution
 math: true
 ---

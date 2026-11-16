@@ -4,6 +4,7 @@ title: Bayes' Theorem
 description: Learn how Bayes' theorem updates probabilities when new evidence becomes available and understand one of the most important ideas in statistics.
 permalink: /probability/conditional/bayes-theorem/
 sidebar: false
+learning_resource: true
 translation_pair: bayes-theorem
 math: true
 ---

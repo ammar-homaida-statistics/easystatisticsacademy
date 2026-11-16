@@ -4,6 +4,7 @@ title: Lognormal Distribution
 description: Learn how the lognormal distribution models positive, right-skewed variables and why it appears frequently in economics, finance, biology, and data science.
 permalink: /probability/distributions/lognormal-distribution/
 sidebar: false
+learning_resource: true
 translation_pair: lognormal-distribution
 math: true
 ---

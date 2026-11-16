@@ -4,6 +4,7 @@ title: Normal Distribution
 description: Learn why the normal distribution is the most important distribution in statistics and how it models many natural phenomena.
 permalink: /probability/distributions/normal-distribution/
 sidebar: false
+learning_resource: true
 translation_pair: normal-distribution
 math: true
 ---

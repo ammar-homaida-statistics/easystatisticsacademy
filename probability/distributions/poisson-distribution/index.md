@@ -4,6 +4,7 @@ title: Poisson Distribution
 description: Learn how the Poisson distribution models counts of events occurring within a fixed interval of time, space, or area.
 permalink: /probability/distributions/poisson-distribution/
 sidebar: false
+learning_resource: true
 translation_pair: poisson-distribution
 ---
 

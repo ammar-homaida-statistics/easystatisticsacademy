@@ -73,6 +73,44 @@
  }
  window.esaHomogeneityMath={compute,gammaQ};
  if(!root)return;
+
+ // Batch #94: localized strings only; the statistical engine above is shared.
+ const ar=root.dataset.locale==="ar";
+ const T=ar?{
+  undef:"غير معرّف",chartTitle:"النسب المئوية للفئات داخل كل مجتمع",
+  chartDesc:"تقارن الأعمدة نسب الفئات داخل كل مجتمع بدلًا من الأعداد الخام للمجموعات.",
+  cat:j=>"الفئة "+j,pop:i=>"المجتمع "+i,
+  aria:(i,parts)=>"المجتمع "+i+": "+parts,ariaPart:(j,x)=>"الفئة "+j+" "+x+" بالمئة",
+  error:"أدخل جدولًا مستطيلًا من 2–5 صفوف و2–5 أعمدة: كل صف مجتمع، والأعداد صحيحة غير سالبة (حتى 10,000,000) مفصولة بفواصل إنجليزية. يجب أن تكون مجاميع الصفوف والأعمدة موجبة.",
+  caption:"التكرارات المشاهدة والمتوقعة ومساهمة كل خلية في كاي تربيع والنسب داخل كل مجتمع",
+  popHead:"المجتمع",rowTotal:"مجموع الصف",colTotals:"مجاميع الأعمدة",
+  cell:(o,e,c,pc)=>"O "+o+"؛ E "+e+"؛ مساهمة χ² "+c+"؛ داخل المجموعة "+pc+"%",
+  warnSmall:m=>"تحذير: بعض التكرارات المتوقعة أقل من 5 (أصغرها "+m+"). قد تكون القيمة الاحتمالية التقريبية غير موثوقة؛ فكّر في طريقة دقيقة أو محاكاة مونت كارلو مناسبة أو اجمع بيانات أكثر.",
+  warnOk:"جميع التكرارات المتوقعة لا تقل عن 5. يبقى الاختبار مشروطًا باستقلال المشاهدات وسحب عينات مستقلة من المجتمعات.",
+  reject:"عند α = 0.05 نرفض فرضية تساوي توزيعات الفئات إذا تحققت افتراضات المعاينة والتقريب. ولا يثبت ذلك السببية ولا يحدد كل مجموعة مختلفة.",
+  keep:"عند α = 0.05 لا نرفض تساوي توزيعات الفئات. وهذا ليس برهانًا على أن توزيعات المجتمعات متطابقة.",
+  resCaption:"البواقي المعيارية المعدّلة (تُميَّز |r| > 2 بوصفها مؤشرًا وصفيًا فقط)",
+  more:" ▲ أكثر من المتوقع",fewer:" ▼ أقل من المتوقع",
+  flagged:(f,n)=>f+" من "+n+" خلايا لها |r| > 2. تعامل معها بوصفها مؤشرات وصفية لمواضع اختلاف المشاهد عن المتوقع، لا اختبارات دلالة منفصلة: مع كثرة الخلايا قد تظهر قيم |r| > 2 بالصدفة (وتصحيح بونفيروني يكون أشد صرامة).",
+  none:"لا توجد خلية لها |r| > 2. تصف البواقي مواضع ابتعاد التكرارات عن التجانس، ولا تحل محل اختبار كاي تربيع الكلي."
+ }:{
+  undef:"Undefined",chartTitle:"Within-group category percentages",
+  chartDesc:"Bars compare category proportions within each population rather than raw group counts.",
+  cat:j=>"Category "+j,pop:i=>"Population "+i,
+  aria:(i,parts)=>"Population "+i+": "+parts,ariaPart:(j,x)=>"category "+j+" "+x+" percent",
+  error:"Enter a rectangular 2–5 by 2–5 table: each row is a population, with nonnegative integer counts (up to 10,000,000), separated by commas. Row and column totals must be positive.",
+  caption:"Observed counts, expected counts, each chi-square contribution and within-population percentages",
+  popHead:"Population",rowTotal:"Row total",colTotals:"Column totals",
+  cell:(o,e,c,pc)=>"O "+o+"; E "+e+"; χ² contribution "+c+"; within-group "+pc+"%",
+  warnSmall:m=>"Warning: some expected counts are below 5 (minimum "+m+"). The asymptotic chi-square p-value may be unreliable; consider an appropriate exact/Monte Carlo method or obtain more data.",
+  warnOk:"All expected counts are at least 5. The test still assumes independent observations across independently sampled populations.",
+  reject:"At α = 0.05, reject the hypothesis of equal category distributions if sampling and approximation assumptions hold. This does not establish causality or specify every differing group.",
+  keep:"At α = 0.05, do not reject equal category distributions. This is not proof that populations have identical distributions.",
+  resCaption:"Adjusted standardized residuals (|r| > 2 marked as a descriptive signal only)",
+  more:" ▲ more than expected",fewer:" ▼ fewer than expected",
+  flagged:(f,n)=>f+" of "+n+" cells have |r| > 2. Treat these as descriptive pointers to where observed and expected counts differ, not as separate significance tests: with many cells, some |r| > 2 values are expected by chance (a Bonferroni-style cut-off would be stricter).",
+  none:"No cell has |r| > 2. Residuals describe where counts depart from homogeneity; they do not replace the overall chi-square test."
+ };
  const input=byId("input"),output=byId("results"),error=byId("error");
  const presets={
   cities:"40, 35, 25\n30, 45, 25\n50, 30, 20",
@@ -87,7 +125,7 @@
   if(text!==undefined)el.textContent=String(text);
   return el;
  };
- const fmt=x=>Number.isFinite(x)?x.toFixed(6):"Undefined";
+ const fmt=x=>Number.isFinite(x)?x.toFixed(6):T.undef;
  function parse(text){
   const lines=text.trim().split(/\n|;/).map(s=>s.trim()).filter(Boolean);
   if(lines.length<2||lines.length>5)return null;
@@ -102,8 +140,8 @@
  function chart(stats){
    const graph=byId("chart"),r=stats.R,c=stats.C;
    graph.replaceChildren(
-     node("title",{},"Within-group category percentages"),
-     node("desc",{},"Bars compare category proportions within each population rather than raw group counts."),
+     node("title",{},T.chartTitle),
+     node("desc",{},T.chartDesc),
      node("line",{x1:46,y1:172,x2:580,y2:172,stroke:"currentColor"}),
      node("line",{x1:46,y1:20,x2:46,y2:172,stroke:"currentColor"}),
      node("text",{x:8,y:19,fill:"currentColor","font-size":12},"100%"),
@@ -120,10 +158,10 @@
          height,fill:colors[i]}));
      }
      graph.appendChild(node("text",{x:center,y:193,fill:"currentColor",
-       "text-anchor":"middle","font-size":11},"Category "+(j+1)));
+       "text-anchor":"middle","font-size":11},T.cat(j+1)));
    }
    graph.setAttribute("aria-label",stats.percentages.map((row,i)=>
-     "Population "+(i+1)+": "+row.map((x,j)=>"category "+(j+1)+" "+x.toFixed(1)+" percent").join(", ")
+     T.aria(i+1,row.map((x,j)=>T.ariaPart(j+1,x.toFixed(1))).join(", "))
    ).join("; "));
  }
  function residualTable(s){
@@ -131,10 +169,10 @@
    if(!grid)return;
    grid.replaceChildren();
    const caption=document.createElement("caption");
-   caption.textContent="Adjusted standardized residuals (|r| > 2 marked as a descriptive signal only)";
+   caption.textContent=T.resCaption;
    grid.appendChild(caption);
    const header=document.createElement("tr");
-   for(const val of ["Population",...Array.from({length:s.C},(_,j)=>"Category "+(j+1))]){
+   for(const val of [T.popHead,...Array.from({length:s.C},(_,j)=>T.cat(j+1))]){
      const th=document.createElement("th");th.scope="col";th.textContent=val;header.appendChild(th);
    }
    const thead=document.createElement("thead");thead.appendChild(header);grid.appendChild(thead);
@@ -142,14 +180,14 @@
    let flagged=0;
    for(let i=0;i<s.R;i++){
      const tr=document.createElement("tr"),th=document.createElement("th");
-     th.scope="row";th.textContent="Population "+(i+1);tr.appendChild(th);
+     th.scope="row";th.textContent=T.pop(i+1);tr.appendChild(th);
      for(let j=0;j<s.C;j++){
        const r=s.adjusted[i][j],td=document.createElement("td");
-       if(!Number.isFinite(r)){td.textContent="Undefined";}
+       if(!Number.isFinite(r)){td.textContent=T.undef;}
        else{
          const big=Math.abs(r)>2;
          if(big)flagged++;
-         td.textContent=(r>0?"+":"")+r.toFixed(3)+(big?(r>0?" ▲ more than expected":" ▼ fewer than expected"):"");
+         td.textContent=(r>0?"+":"")+r.toFixed(3)+(big?(r>0?T.more:T.fewer):"");
          if(big)td.className="esa-hom-flag";
        }
        tr.appendChild(td);
@@ -158,14 +196,12 @@
    }
    grid.appendChild(tbody);
    const note=byId("residual-note");
-   if(note)note.textContent=flagged?
-     flagged+" of "+(s.R*s.C)+" cells have |r| > 2. Treat these as descriptive pointers to where observed and expected counts differ, not as separate significance tests: with many cells, some |r| > 2 values are expected by chance (a Bonferroni-style cut-off would be stricter).":
-     "No cell has |r| > 2. Residuals describe where counts depart from homogeneity; they do not replace the overall chi-square test.";
+   if(note)note.textContent=flagged?T.flagged(flagged,s.R*s.C):T.none;
  }
  function render(){
    const matrix=parse(input.value),s=matrix?compute(matrix):null;
    if(!s){
-     error.textContent="Enter a rectangular 2–5 by 2–5 table: each row is a population, with nonnegative integer counts (up to 10,000,000), separated by commas. Row and column totals must be positive.";
+     error.textContent=T.error;
      error.hidden=false;input.setAttribute("aria-invalid","true");output.hidden=true;byId("chart").replaceChildren();
      return;
    }
@@ -173,22 +209,20 @@
    const grid=byId("table");
    grid.replaceChildren();
    const caption=document.createElement("caption");
-   caption.textContent="Observed counts, expected counts, each chi-square contribution and within-population percentages";
+   caption.textContent=T.caption;
    grid.appendChild(caption);
    const header=document.createElement("tr");
-   for(const val of ["Population",...Array.from({length:s.C},(_,j)=>"Category "+(j+1)),"Row total"]){
+   for(const val of [T.popHead,...Array.from({length:s.C},(_,j)=>T.cat(j+1)),T.rowTotal]){
      const th=document.createElement("th");th.scope="col";th.textContent=val;header.appendChild(th);
    }
    const thead=document.createElement("thead");thead.appendChild(header);grid.appendChild(thead);
    const tbody=document.createElement("tbody");
    for(let i=0;i<s.R;i++){
      const tr=document.createElement("tr"),th=document.createElement("th");
-     th.scope="row";th.textContent="Population "+(i+1);tr.appendChild(th);
+     th.scope="row";th.textContent=T.pop(i+1);tr.appendChild(th);
      for(let j=0;j<s.C;j++){
        const td=document.createElement("td");
-       td.textContent="O "+s.rows[i][j]+"; E "+s.expected[i][j].toFixed(3)+
-         "; χ² contribution "+s.contrib[i][j].toFixed(3)+
-         "; within-group "+s.percentages[i][j].toFixed(1)+"%";
+       td.textContent=T.cell(s.rows[i][j],s.expected[i][j].toFixed(3),s.contrib[i][j].toFixed(3),s.percentages[i][j].toFixed(1));
        tr.appendChild(td);
      }
      const total=document.createElement("td");total.textContent=String(s.rowTotals[i]);tr.appendChild(total);
@@ -196,7 +230,7 @@
    }
    grid.appendChild(tbody);
    const foot=document.createElement("tr");
-   const title=document.createElement("th");title.scope="row";title.textContent="Column totals";foot.appendChild(title);
+   const title=document.createElement("th");title.scope="row";title.textContent=T.colTotals;foot.appendChild(title);
    for(const x of [...s.colTotals,s.total]){
      const td=document.createElement("td");td.textContent=String(x);foot.appendChild(td);
    }
@@ -204,13 +238,8 @@
    residualTable(s);
    for(const [key,value] of Object.entries({chi:fmt(s.chi),df:String(s.df),
       p:fmt(s.p),n:String(s.total)}))byId(key).textContent=value;
-   byId("warning").textContent=s.smallExpected?
-     "Warning: some expected counts are below 5 (minimum "+s.minExpected.toFixed(3)+
-     "). The asymptotic chi-square p-value may be unreliable; consider an appropriate exact/Monte Carlo method or obtain more data.":
-     "All expected counts are at least 5. The test still assumes independent observations across independently sampled populations.";
-   byId("decision").textContent=s.p<.05?
-     "At α = 0.05, reject the hypothesis of equal category distributions if sampling and approximation assumptions hold. This does not establish causality or specify every differing group.":
-     "At α = 0.05, do not reject equal category distributions. This is not proof that populations have identical distributions.";
+   byId("warning").textContent=s.smallExpected?T.warnSmall(s.minExpected.toFixed(3)):T.warnOk;
+   byId("decision").textContent=s.p<.05?T.reject:T.keep;
    chart(s);
  }
  input.addEventListener("input",render);

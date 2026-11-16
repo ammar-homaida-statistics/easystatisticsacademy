@@ -5,6 +5,7 @@ description: درس عربي في المتغيرات العشوائية المت
 permalink: /ar/probability/random-variables/continuous-random-variables/
 lang: ar
 sidebar: false
+learning_resource: true
 translation_pair: continuous-random-variables
 math: true
 ---

@@ -5,6 +5,7 @@ description: درس عربي متكامل في خطأ النوع الأول وخ
 permalink: /ar/inference/hypothesis-testing/type1-type2-errors/
 lang: ar
 sidebar: false
+learning_resource: true
 translation_pair: type1-type2-errors
 math: true
 ---

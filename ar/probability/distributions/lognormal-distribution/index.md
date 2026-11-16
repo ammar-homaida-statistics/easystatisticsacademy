@@ -5,6 +5,7 @@ description: درس عربي شامل للتوزيع اللوغاريتمي ال
 permalink: /ar/probability/distributions/lognormal-distribution/
 lang: ar
 sidebar: false
+learning_resource: true
 translation_pair: lognormal-distribution
 math: true
 ---

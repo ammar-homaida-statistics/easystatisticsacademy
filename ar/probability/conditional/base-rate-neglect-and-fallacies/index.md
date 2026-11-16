@@ -5,6 +5,7 @@ description: شرح عربي للأخطاء الشائعة في تفسير ال�
 permalink: /ar/probability/conditional/base-rate-neglect-and-fallacies/
 sidebar: false
 lang: ar
+learning_resource: true
 translation_pair: base-rate-neglect-and-fallacies
 math: true
 ---

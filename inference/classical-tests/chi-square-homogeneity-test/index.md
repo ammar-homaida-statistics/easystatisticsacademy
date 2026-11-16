@@ -3,6 +3,8 @@ layout: default
 title: Chi-Square Test of Homogeneity
 description: Learn how the chi-square test of homogeneity compares categorical distributions across multiple populations or groups.
 permalink: /inference/classical-tests/chi-square-homogeneity-test/
+learning_resource: true
+translation_pair: chi-square-homogeneity
 sidebar: false
 ---
 
@@ -40,6 +42,7 @@ sidebar: false
     </div>
 
     <h1>Chi-Square Test of Homogeneity</h1>
+    <p><a href="/ar/inference/classical-tests/chi-square-homogeneity-test/" lang="ar" dir="rtl">النسخة العربية</a></p>
 
     <p class="lead">
       Researchers often want to compare categorical distributions across multiple populations or groups.
@@ -318,6 +321,7 @@ sidebar: false
     <!-- Batch #67 — Chi-square homogeneity explorer for independent populations. -->
     <section id="esa-homogeneity-lab" class="concept-box" aria-labelledby="esa-hom-title">
       <h2 id="esa-hom-title">Interactive Chi-Square Homogeneity Explorer</h2>
+      <noscript><p class="esa-noscript" role="note">This interactive lab requires JavaScript. Without JavaScript the numbers shown are the fixed worked example; the formulas and interpretation in the lesson remain available.</p></noscript>
       <p>Compare the <strong>categorical distributions of independently sampled populations</strong>. Enter a contingency table with one population per row and one category per column. Use commas between nonnegative counts and a new line for each population (2–5 rows, 2–5 columns).</p>
       <label for="esa-hom-input">Observed counts in a population × category table</label>
       <textarea id="esa-hom-input" rows="4" spellcheck="false" aria-describedby="esa-hom-error esa-hom-warning" aria-invalid="false">40, 35, 25

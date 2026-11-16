@@ -4,6 +4,7 @@ title: Coefficient of Variation
 description: Learn what the coefficient of variation is, how it measures relative variability, and why it is useful for comparing datasets with different units or scales.
 permalink: /descriptive/spread/coefficient-of-variation/
 sidebar: false
+learning_resource: true
 translation_pair: coefficient-of-variation
 ---
 

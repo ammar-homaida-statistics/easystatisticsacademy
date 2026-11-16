@@ -4,6 +4,7 @@ title: Negative Binomial Distribution
 description: Learn how the negative binomial distribution models the number of trials required to achieve a specified number of successes.
 permalink: /probability/distributions/negative-binomial-distribution/
 sidebar: false
+learning_resource: true
 translation_pair: negative-binomial-distribution
 ---
 

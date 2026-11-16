@@ -134,3 +134,6 @@
 - id: chi-square-independence
   en: /inference/classical-tests/chi-square-independence-test/
   ar: /ar/inference/classical-tests/chi-square-independence-test/
+- id: chi-square-homogeneity
+  en: /inference/classical-tests/chi-square-homogeneity-test/
+  ar: /ar/inference/classical-tests/chi-square-homogeneity-test/

@@ -42,7 +42,7 @@ sidebar: false
     </div>
 
     <h1>Chi-Square Test of Independence</h1>
-<p><a href="/inference/classical-tests/chi-square-goodness-of-fit/">First: Chi-Square Goodness-of-Fit</a> · <a href="/inference/classical-tests/fisher-exact-vs-chi-square/">For sparse 2×2 tables: Fisher vs Pearson lab</a> · <a href="/ar/inference/classical-tests/chi-square-independence-test/" lang="ar" dir="rtl">النسخة العربية</a></p>
+<p><a href="/inference/classical-tests/chi-square-goodness-of-fit/">First: Chi-Square Goodness-of-Fit</a> · <a href="/inference/classical-tests/fisher-exact-vs-chi-square/">For sparse 2×2 tables: Fisher vs Pearson lab</a> · <a href="/inference/classical-tests/mcnemar-test/">Paired before/after data: McNemar test</a> · <a href="/ar/inference/classical-tests/chi-square-independence-test/" lang="ar" dir="rtl">النسخة العربية</a></p>
 
     <p class="lead">
       Many studies seek to determine whether two categorical variables are related.
@@ -205,6 +205,7 @@ sidebar: false
     <!-- Interactive 2 x 2 Pearson chi-square teaching explorer. -->
     <section class="example-box" id="esa-chi-independence-lab" aria-labelledby="esa-chi-heading">
       <h2 id="esa-chi-heading">Interactive 2 × 2 Independence Explorer</h2>
+      <noscript><p class="esa-noscript" role="note">This interactive lab requires JavaScript. Without JavaScript the numbers shown are the fixed worked example; the formulas and interpretation in the lesson remain available.</p></noscript>
 <p><a href="/inference/classical-tests/fisher-exact-vs-chi-square/">Compare Fisher exact and Pearson chi-square p-values for sparse 2×2 tables</a>.</p>
       <p>Change the four observed frequencies to see how independence predicts each cell, and how cell discrepancies add to Pearson’s chi-square statistic. The table starts with the worked example above.</p>
       <div class="esa-chi-input-grid">

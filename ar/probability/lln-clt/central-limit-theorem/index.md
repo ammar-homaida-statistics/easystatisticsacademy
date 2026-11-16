@@ -5,6 +5,7 @@ description: شرح عربي متكامل لنظرية الحد المركزي،
 permalink: /ar/probability/lln-clt/central-limit-theorem/
 lang: ar
 sidebar: false
+learning_resource: true
 translation_pair: central-limit-theorem
 math: true
 ---

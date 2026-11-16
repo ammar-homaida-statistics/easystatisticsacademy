@@ -6,6 +6,7 @@ permalink: /ar/probability/distributions/bernoulli-distribution/
 lang: ar
 sidebar: false
 math: true
+learning_resource: true
 translation_pair: bernoulli-distribution
 ---
 <section class="hero hero-section"><div class="hero-card">

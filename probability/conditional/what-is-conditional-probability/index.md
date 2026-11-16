@@ -4,6 +4,7 @@ title: What Is Conditional Probability?
 description: Learn how probabilities change when new information becomes available and discover the foundation of conditional probability.
 permalink: /probability/conditional/what-is-conditional-probability/
 sidebar: false
+learning_resource: true
 translation_pair: conditional-probability-intro
 math: true
 ---

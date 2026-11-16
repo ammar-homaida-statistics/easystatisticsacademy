@@ -4,6 +4,7 @@ title: مخططات الشجرة الاحتمالية
 permalink: /ar/probability/conditional/tree-diagrams/
 description: تعلّم بناء شجرة احتمالية وحساب احتمالات المسارات والجمع بين النتائج المتنافية مع مثال تفاعلي.
 lang: ar
+learning_resource: true
 translation_pair: tree-diagrams
 math: true
 ---

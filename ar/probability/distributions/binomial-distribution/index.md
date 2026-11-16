@@ -5,6 +5,7 @@ description: درس متكامل عن التوزيع ذي الحدين وشرو�
 permalink: /ar/probability/distributions/binomial-distribution/
 lang: ar
 sidebar: false
+learning_resource: true
 translation_pair: binomial-distribution
 math: true
 ---

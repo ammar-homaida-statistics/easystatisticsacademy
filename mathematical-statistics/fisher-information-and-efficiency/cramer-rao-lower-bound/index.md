@@ -5,6 +5,7 @@ description: "Derive and interpret the Cramér–Rao lower bound for unbiased es
 permalink: /mathematical-statistics/fisher-information-and-efficiency/cramer-rao-lower-bound/
 sidebar: false
 math: true
+learning_resource: true
 translation_pair: cramer-rao-lower-bound
 ---
 

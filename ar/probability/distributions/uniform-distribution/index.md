@@ -5,6 +5,7 @@ description: درس عربي شامل للتوزيع المنتظم المستم
 permalink: /ar/probability/distributions/uniform-distribution/
 lang: ar
 sidebar: false
+learning_resource: true
 translation_pair: uniform-distribution
 math: true
 ---

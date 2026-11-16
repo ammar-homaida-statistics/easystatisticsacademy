@@ -5,6 +5,7 @@ description: درس عربي شامل في نظرية بايز والاحتما�
 permalink: /ar/probability/conditional/bayes-theorem/
 lang: ar
 sidebar: false
+learning_resource: true
 translation_pair: bayes-theorem
 math: true
 ---

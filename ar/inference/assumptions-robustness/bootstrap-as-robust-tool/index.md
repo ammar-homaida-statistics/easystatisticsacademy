@@ -4,6 +4,7 @@ title: بوتستراب أداة لتقدير عدم اليقين
 description: شرح أكاديمي لإعادة المعاينة مع الإرجاع وتقدير الخطأ المعياري وفترات الثقة بالمئينات مع مختبر تفاعلي.
 permalink: /ar/inference/assumptions-robustness/bootstrap-as-robust-tool/
 lang: ar
+learning_resource: true
 translation_pair: bootstrap
 sidebar: false
 ---

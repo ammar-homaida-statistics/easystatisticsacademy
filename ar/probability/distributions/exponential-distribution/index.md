@@ -5,6 +5,7 @@ description: درس عربي متكامل عن التوزيع الأسي وأز�
 permalink: /ar/probability/distributions/exponential-distribution/
 lang: ar
 sidebar: false
+learning_resource: true
 translation_pair: exponential-distribution
 math: true
 ---

@@ -4,6 +4,7 @@ title: Binomial Distribution
 description: Learn how the binomial distribution models the number of successes in a fixed number of independent Bernoulli trials.
 permalink: /probability/distributions/binomial-distribution/
 sidebar: false
+learning_resource: true
 translation_pair: binomial-distribution
 ---
 

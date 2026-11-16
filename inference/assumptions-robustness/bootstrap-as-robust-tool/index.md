@@ -4,6 +4,7 @@ title: Bootstrap as a Robust Tool
 description: Learn how bootstrap resampling estimates uncertainty with minimal distributional assumptions and why it has become a powerful tool in modern statistics.
 permalink: /inference/assumptions-robustness/bootstrap-as-robust-tool/
 sidebar: false
+learning_resource: true
 translation_pair: bootstrap
 ---
 

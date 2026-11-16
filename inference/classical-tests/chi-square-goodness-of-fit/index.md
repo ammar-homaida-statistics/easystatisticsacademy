@@ -391,6 +391,7 @@ E_i=120\times\frac16=20
     <!-- Batch #66: Chi-square goodness-of-fit lab with fixed null probabilities. -->
     <section id="esa-gof-explorer" class="concept-box" aria-labelledby="esa-gof-heading">
       <h2 id="esa-gof-heading">Interactive Chi-Square Goodness-of-Fit Explorer</h2>
+      <noscript><p class="esa-noscript" role="note">This interactive lab requires JavaScript. Without JavaScript the numbers shown are the fixed worked example; the formulas and interpretation in the lesson remain available.</p></noscript>
       <p>Enter observed whole-number category frequencies and <strong>pre-specified</strong> null probabilities. The calculator computes expected counts, each Pearson contribution, the chi-square statistic, degrees of freedom, and the <strong>upper-tail asymptotic p-value</strong>.</p>
       <div class="esa-gof-fields">
         <div>

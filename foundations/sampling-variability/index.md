@@ -4,6 +4,7 @@ title: Sampling Variability
 description: Understand why different samples give different results and why variability is fundamental to statistical inference.
 permalink: /foundations/sampling-variability/
 sidebar: false
+learning_resource: true
 translation_pair: sampling-variability
 math: true
 ---

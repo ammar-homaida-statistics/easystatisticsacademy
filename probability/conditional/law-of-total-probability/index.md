@@ -4,6 +4,7 @@ title: Law of Total Probability
 description: Learn how to calculate probabilities by combining multiple possible pathways that lead to an event.
 permalink: /probability/conditional/law-of-total-probability/
 sidebar: false
+learning_resource: true
 translation_pair: law-of-total-probability
 math: true
 ---

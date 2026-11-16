@@ -5,6 +5,7 @@ description: شرح عربي شامل للفروق بين المتوسط الح�
 permalink: /ar/descriptive/center/mean-vs-median/
 lang: ar
 sidebar: false
+learning_resource: true
 translation_pair: mean-median
 math: true
 ---

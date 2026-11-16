@@ -4,6 +4,7 @@ title: What Is a Confidence Interval?
 description: Learn what a confidence interval is, why it exists, and how it helps quantify uncertainty in statistical estimation.
 permalink: /inference/confidence-intervals/what-is-a-confidence-interval/
 sidebar: false
+learning_resource: true
 translation_pair: confidence-interval-introduction
 ---
 

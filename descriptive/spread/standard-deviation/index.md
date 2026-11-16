@@ -4,6 +4,7 @@ title: Standard Deviation
 description: Learn what standard deviation is, how it relates to variance, and why it is the most widely used measure of variability in statistics.
 permalink: /descriptive/spread/standard-deviation/
 sidebar: false
+learning_resource: true
 translation_pair: standard-deviation
 math: true
 ---

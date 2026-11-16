@@ -5,6 +5,7 @@ description: شرح عربي مفصل لقاعدة الضرب في الاحتم�
 permalink: /ar/probability/conditional/multiplication-rule/
 lang: ar
 sidebar: false
+learning_resource: true
 translation_pair: multiplication-rule
 math: true
 ---
