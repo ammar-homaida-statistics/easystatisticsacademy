@@ -25,7 +25,10 @@
   </script>
   {% endif %}
 
-  {% if page.translation_pair == "two-proportion-z" %}
+  {% if page.translation_pair == "chi-square-gof" %}
+  <link rel="alternate" hreflang="en" href="{{ site.url }}/inference/classical-tests/chi-square-goodness-of-fit/" />
+  <link rel="alternate" hreflang="ar" href="{{ site.url }}/ar/inference/classical-tests/chi-square-goodness-of-fit/" />
+  {% elsif page.translation_pair == "two-proportion-z" %}
   <link rel="alternate" hreflang="en" href="{{ site.url }}/inference/classical-tests/two-proportion-z-test/" />
   <link rel="alternate" hreflang="ar" href="{{ site.url }}/ar/inference/classical-tests/two-proportion-z-test/" />
   {% elsif page.translation_pair == "one-proportion-z" %}

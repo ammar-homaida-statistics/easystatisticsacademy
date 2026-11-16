@@ -14,11 +14,13 @@ sidebar: false
   const KEY =
     "esa_continue_modeling_simple_linear_regression_lesson_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
+  try {
+localStorage.setItem(KEY, JSON.stringify({
     url: "/modeling/simple-linear-regression/residuals/",
     label: "Residuals",
     ts: Date.now()
   }));
+} catch (_) { /* Storage is optional. */ }
 
 })();
 </script>
@@ -189,7 +191,43 @@ sidebar: false
       The model underpredicted the score by 5 points.
     </p>
 
-    <h2>Positive Residuals</h2>
+    <!-- Batch #92: interactive regression residuals, fitted OLS line and influence. -->
+<section id="esa-residual-lab" class="concept-box" aria-labelledby="esa-residual-title">
+<h2 id="esa-residual-title">Interactive Least-Squares Residuals Laboratory</h2>
+<p>Enter 3–12 paired values in the same order, separated by commas. Each x and y must be a finite number between −1000 and 1000. Explore how changing one y-value affects the least-squares line, residuals and R².</p>
+<div class="esa-residual-grid">
+<label for="esa-residual-x">Predictor values (x)<textarea id="esa-residual-x" dir="ltr" rows="2" aria-invalid="false" aria-describedby="esa-residual-error">1, 2, 3, 4, 5</textarea></label>
+<label for="esa-residual-y">Observed outcomes (y)<textarea id="esa-residual-y" dir="ltr" rows="2" aria-invalid="false" aria-describedby="esa-residual-error">2, 4, 5, 4, 5</textarea></label>
+</div>
+<div class="esa-residual-controls">
+<button type="button" class="btn btn-outline" id="esa-residual-base">Restore baseline</button>
+<button type="button" class="btn btn-outline" id="esa-residual-outlier">Add an unusual outcome</button>
+</div>
+<p role="alert" id="esa-residual-error" hidden></p>
+<div id="esa-residual-results" role="status" aria-live="polite" aria-atomic="true">
+<svg id="esa-residual-plot" viewBox="0 0 560 280" role="img" aria-label="Scatter plot, fitted regression line and vertical residuals" style="width:100%;max-width:560px;height:auto"></svg>
+<p>Intercept: <output id="esa-residual-intercept"></output> · Slope: <output id="esa-residual-slope"></output> · SSE: <output id="esa-residual-sse"></output> · R²: <output id="esa-residual-r2"></output>.</p>
+<div class="table-wrap"><table><caption>Observed and fitted values with individual residuals</caption>
+<thead><tr><th scope="col">x</th><th scope="col">Observed y</th><th scope="col">Fitted ŷ</th><th scope="col">Residual (y−ŷ)</th></tr></thead>
+<tbody id="esa-residual-table"></tbody></table></div>
+<p id="esa-residual-interpretation"></p>
+</div>
+<p class="muted-mini"><strong>Important:</strong> A large residual is not necessarily a highly influential observation. Influence describes how much the fitted model changes when a point is removed or altered; it also depends on predictor leverage. The demonstration is descriptive, not a formal influence diagnostic. R² is defined here for a nonconstant outcome and an intercept model; it is not evidence of causality.</p>
+</section>
+<style>
+#esa-residual-lab{box-sizing:border-box;min-width:0;max-width:100%;overflow-wrap:anywhere}
+#esa-residual-lab .esa-residual-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+#esa-residual-lab label{display:block;font-weight:600;min-width:0}
+#esa-residual-lab textarea{box-sizing:border-box;display:block;width:100%;min-width:0;max-width:100%;padding:9px;margin-top:8px;border:1px solid var(--border);border-radius:8px;font:inherit;color:var(--text);background:var(--surface)}
+#esa-residual-lab .esa-residual-controls{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+#esa-residual-lab [hidden]{display:none!important}
+#esa-residual-lab #esa-residual-error{color:#b42318;font-weight:600}
+#esa-residual-lab :is(textarea,button):focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media(max-width:650px){#esa-residual-lab .esa-residual-grid{grid-template-columns:minmax(0,1fr)}}
+</style>
+<script defer src="/js/ols-residual-explorer.js"></script>
+
+<h2>Positive Residuals</h2>
 
     <p>
       A positive residual occurs when:

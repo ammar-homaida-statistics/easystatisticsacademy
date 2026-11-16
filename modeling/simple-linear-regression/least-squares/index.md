@@ -14,11 +14,13 @@ sidebar: false
     "esa_continue_modeling_simple_linear_regression_lesson_v0";
 
   try {
-  localStorage.setItem(KEY, JSON.stringify({
+  try {
+localStorage.setItem(KEY, JSON.stringify({
     url: "/modeling/simple-linear-regression/least-squares/",
     label: "Least Squares",
     ts: Date.now()
   }));
+} catch (_) { /* Storage is optional. */ }
   } catch (_) {
     // The lesson remains usable when browser storage is blocked.
   }

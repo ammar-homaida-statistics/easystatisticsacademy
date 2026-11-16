@@ -4,6 +4,8 @@ title: Chi-Square Goodness-of-Fit Test
 description: Learn how the chi-square goodness-of-fit test evaluates whether observed categorical data match an expected distribution.
 permalink: /inference/classical-tests/chi-square-goodness-of-fit/
 sidebar: false
+learning_resource: true
+translation_pair: chi-square-gof
 ---
 
 <!-- SAVE LESSON PROGRESS -->

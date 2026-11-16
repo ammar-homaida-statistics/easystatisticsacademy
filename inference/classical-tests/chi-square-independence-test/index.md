@@ -40,6 +40,7 @@ sidebar: false
     </div>
 
     <h1>Chi-Square Test of Independence</h1>
+<p><a href="/inference/classical-tests/chi-square-goodness-of-fit/">First: Chi-Square Goodness-of-Fit</a> · <a href="/inference/classical-tests/fisher-exact-vs-chi-square/">For sparse 2×2 tables: Fisher vs Pearson lab</a></p>
 
     <p class="lead">
       Many studies seek to determine whether two categorical variables are related.

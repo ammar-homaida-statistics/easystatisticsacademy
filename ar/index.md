@@ -9,6 +9,7 @@ lang: ar
 <h1>أكاديمية الإحصاء المبسط — العربية</h1>
 <p class="lead">دروس إحصائية باللغة العربية بلغة أكاديمية واضحة. تُضاف الدروس المترجمة تدريجيًا بعد التحقق من محتواها الرياضي.</p>
 <h2>الدروس المتاحة</h2>
+<p><a href="/ar/inference/classical-tests/chi-square-goodness-of-fit/">اختبار كاي تربيع لحسن المطابقة — درس عربي ومختبر تفاعلي</a></p>
 <p><a href="/ar/inference/classical-tests/two-proportion-z-test/">اختبار Z لنسبتين مستقلتين — شرح عربي ومختبر تفاعلي</a></p>
 <p><a href="/ar/inference/classical-tests/one-proportion-z-test/">اختبار Z لنسبة مجتمع واحد — شرح عربي ومختبر تفاعلي</a></p>
 <p><a href="/ar/inference/classical-tests/two-sample-t-test-independent/">اختبار t لعينتين مستقلتين — ويلش والتباين المشترك ومختبر تفاعلي</a></p>

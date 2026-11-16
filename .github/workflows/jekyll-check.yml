@@ -77,6 +77,8 @@ jobs:
         run: python -m unittest discover -s .github/scripts -p 'test_batch90_math.py' -v
       - name: Verify Batch #91 Fisher, Pearson, independent proportions, bilingual and progress benchmarks
         run: python -m unittest discover -s .github/scripts -p 'test_batch91_math.py' -v
+      - name: Verify Batch #92 independent OLS, Arabic GOF, and progress-security references
+        run: python -m unittest discover -s .github/scripts -p 'test_batch92_math.py' -v
       - name: Inventory mathematical placeholders and reject new damage
         run: python .github/scripts/validate_math_placeholders.py
       - name: Validate front matter
@@ -124,5 +126,7 @@ jobs:
         run: python .github/scripts/test_batch90_browser.py --site _site
       - name: Check Batch #91 bilingual two-proportion, Fisher, legacy progress and mobile browser regressions
         run: python .github/scripts/test_batch91_browser.py --site _site
+      - name: Check Batch #92 Arabic GOF, OLS residuals, secure SLR, Fisher and proportion accessibility
+        run: python .github/scripts/test_batch92_browser.py --site _site
       - name: Check generated search, CSS assets, and browser behavior
         run: python .github/scripts/test_search.py --site _site
