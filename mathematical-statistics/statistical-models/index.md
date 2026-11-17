@@ -144,21 +144,34 @@ sidebar: false
 
     // ✅ Block continues last visited LESSON (inside this block)
     var KEY = "esa_continue_ms_statistical_models_last_lesson_v0";
-    var raw = localStorage.getItem(KEY);
-    if (!raw) return;
-
+    // Batch #94: saved progress is untrusted. Only exact published routes with
+    // their exact titles, safe integer timestamps (no more than 5 minutes in
+    // the future) and text-only rendering are accepted.
+    var ALLOWED = {
+      "/mathematical-statistics/statistical-models/what-is-a-statistical-model/": "Lesson 1 — What Is a Statistical Model?",
+      "/mathematical-statistics/statistical-models/parameter-space-and-identifiability/": "Lesson 2 — Parameter Space and Identifiability",
+      "/mathematical-statistics/statistical-models/iid-and-modeling-assumptions/": "Lesson 3 — IID and Modeling Assumptions",
+      "/mathematical-statistics/statistical-models/examples-of-parametric-models/": "Lesson 4 — Examples of Parametric Models",
+      "/mathematical-statistics/statistical-models/likelihood-preview-why-models-matter/": "Lesson 5 — Likelihood Preview: Why Models Matter"
+    };
     try {
+      var raw = localStorage.getItem(KEY);
+      if (!raw) return;
       var data = JSON.parse(raw);
-      if (!data || !data.url || !data.label) return;
+      if (!data || typeof data !== "object" || Array.isArray(data)) return;
+      if (typeof data.url !== "string" || !Object.prototype.hasOwnProperty.call(ALLOWED, data.url)) return;
+      if (typeof data.label !== "string" || data.label !== ALLOWED[data.url]) return;
+      if (typeof data.ts !== "number" || !Number.isSafeInteger(data.ts) ||
+          data.ts <= 0 || data.ts > Date.now()+5*60*1000) return;
 
       var wrap = document.getElementById("continue-reading-ms-b1");
       var label = document.getElementById("continue-reading-ms-b1-label");
       var btn = document.getElementById("continue-reading-ms-b1-btn");
       if (!wrap || !label || !btn) return;
 
-      label.innerHTML = 'You last visited: <strong>' + data.label + '</strong>';
-      btn.href = data.url;
+      label.textContent = "You last visited: " + data.label;
+      btn.setAttribute("href", data.url);
       wrap.style.display = "block";
-    } catch (e) {}
+    } catch (e) { /* Blocked, corrupted or forged storage is ignored. */ }
   })();
 </script>

@@ -5,6 +5,7 @@ description: شرح عربي متكامل لفترات الثقة وتفسير �
 permalink: /ar/inference/confidence-intervals/what-is-a-confidence-interval/
 lang: ar
 sidebar: false
+learning_resource: true
 translation_pair: confidence-interval-introduction
 math: true
 ---

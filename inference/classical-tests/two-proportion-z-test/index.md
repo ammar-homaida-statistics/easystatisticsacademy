@@ -43,6 +43,7 @@ learning_resource: true
     </div>
 
     <h1>Two-Proportion Z Test</h1>
+    <p>Are the two proportions measured on the same people (before/after)? <a href="/inference/classical-tests/mcnemar-test/">Use the McNemar test for paired proportions</a>.</p>
 <p><a lang="ar" dir="rtl" href="/ar/inference/classical-tests/two-proportion-z-test/">النسخة العربية — اختبار Z لنسبتين مستقلتين</a></p>
 
     <p class="lead">

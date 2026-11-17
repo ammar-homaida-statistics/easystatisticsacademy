@@ -4,6 +4,7 @@ title: Tree Diagrams
 description: Learn how tree diagrams organize sequential probability problems and simplify conditional probability calculations.
 permalink: /probability/conditional/tree-diagrams/
 sidebar: false
+learning_resource: true
 translation_pair: tree-diagrams
 math: true
 ---

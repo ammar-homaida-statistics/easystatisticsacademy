@@ -5,6 +5,7 @@ description: درس عربي موثق عن توزيع بيتا ومعلمتي ا
 permalink: /ar/probability/distributions/beta-distribution/
 lang: ar
 sidebar: false
+learning_resource: true
 translation_pair: beta-distribution
 math: true
 ---

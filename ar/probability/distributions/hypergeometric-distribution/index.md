@@ -5,6 +5,7 @@ description: شرح عربي للتوزيع فوق الهندسي عند الس�
 permalink: /ar/probability/distributions/hypergeometric-distribution/
 lang: ar
 sidebar: false
+learning_resource: true
 translation_pair: hypergeometric-distribution
 math: true
 ---

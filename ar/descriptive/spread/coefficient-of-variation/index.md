@@ -5,6 +5,7 @@ description: درس عربي متكامل يشرح معامل الاختلاف �
 permalink: /ar/descriptive/spread/coefficient-of-variation/
 lang: ar
 sidebar: false
+learning_resource: true
 translation_pair: coefficient-of-variation
 math: true
 ---

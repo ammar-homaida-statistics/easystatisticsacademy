@@ -4,6 +4,7 @@ title: Uniform Distribution
 description: Learn how the uniform distribution models situations where all outcomes within a range are equally likely.
 permalink: /probability/distributions/uniform-distribution/
 sidebar: false
+learning_resource: true
 translation_pair: uniform-distribution
 ---
 

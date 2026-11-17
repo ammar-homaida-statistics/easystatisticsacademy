@@ -5,6 +5,7 @@ description: شرح عربي متكامل للتوزيع البواسوني، د
 permalink: /ar/probability/distributions/poisson-distribution/
 lang: ar
 sidebar: false
+learning_resource: true
 translation_pair: poisson-distribution
 math: true
 ---

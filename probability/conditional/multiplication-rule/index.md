@@ -4,6 +4,7 @@ title: Multiplication Rule
 description: Learn how to calculate the probability that multiple events occur together using the multiplication rule.
 permalink: /probability/conditional/multiplication-rule/
 sidebar: false
+learning_resource: true
 translation_pair: multiplication-rule
 math: true
 ---

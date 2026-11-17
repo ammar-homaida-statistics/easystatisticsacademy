@@ -4,6 +4,7 @@ title: Gamma Distribution
 description: Learn how the gamma distribution generalizes the exponential distribution and models waiting times until multiple events occur.
 permalink: /probability/distributions/gamma-distribution/
 sidebar: false
+learning_resource: true
 translation_pair: gamma-distribution
 ---
 

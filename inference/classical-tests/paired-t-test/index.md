@@ -43,6 +43,7 @@ learning_resource: true
     </div>
 
     <h1>Paired t Test</h1>
+    <p>Paired <em>binary</em> outcomes instead? <a href="/inference/classical-tests/mcnemar-test/">Use the McNemar test</a>.</p>
 
     <p class="lead">
       Many studies collect observations in naturally linked pairs rather than from independent groups.

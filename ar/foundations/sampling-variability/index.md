@@ -6,6 +6,7 @@ permalink: /ar/foundations/sampling-variability/
 sidebar: false
 lang: ar
 math: true
+learning_resource: true
 translation_pair: sampling-variability
 ---
 <!-- ترجمة تعليمية متكاملة للدرس الإنجليزي، مع حسابات تفاعلية مشتركة. -->

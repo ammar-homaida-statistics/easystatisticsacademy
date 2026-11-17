@@ -4,6 +4,7 @@ title: Mean vs Median
 description: Learn the differences between the mean and median, when each measure should be used, and how distribution shape influences the choice.
 permalink: /descriptive/center/mean-vs-median/
 sidebar: false
+learning_resource: true
 translation_pair: mean-median
 ---
 

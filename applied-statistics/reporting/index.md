@@ -12,11 +12,13 @@ sidebar: false
 
   const KEY = "esa_continue_applied_last_block_v0";
 
-  localStorage.setItem(KEY, JSON.stringify({
-    url: "/applied-statistics/reporting/",
-    label: "Block 6 — Reporting Results",
-    ts: Date.now()
-  }));
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
+      url: "/applied-statistics/reporting/",
+      label: "Block 6 — Reporting Results",
+      ts: Date.now()
+    }));
+  } catch (e) { /* Blocked storage must not interrupt the page. */ }
 
 })();
 </script>
@@ -483,53 +485,32 @@ sidebar: false
 
 <script>
 (function () {
-
+  // Batch #94: saved progress is untrusted. This section has no published
+  // lessons yet, so the allowlist is intentionally empty. When a lesson is
+  // published, add its exact route and exact title here; nothing else
+  // (forged routes, javascript: links, HTML labels, bad timestamps) is shown.
+  const KEY = "esa_continue_applied_reporting_lesson_v0";
+  const ALLOWED = {};
   try {
-
-    const KEY =
-      "esa_continue_applied_reporting_lesson_v0";
-
     const raw = localStorage.getItem(KEY);
-
     if (!raw) return;
-
     const data = JSON.parse(raw);
-
-    if (!data || !data.url || !data.label) return;
-
-    // Never revive stale links to unpublished lessons from browser storage.
-    const availableLessons = Array.from(
-      document.querySelectorAll("#lessons .lesson-card a[href]")
-    );
-    if (!availableLessons.some(link => link.getAttribute("href") === data.url)) return;
-
-    const wrap =
-      document.getElementById(
-        "continue-reading-reporting"
-      );
-
-    const label =
-      document.getElementById(
-        "continue-reading-reporting-label"
-      );
-
-    const btn =
-      document.getElementById(
-        "continue-reading-reporting-btn"
-      );
-
+    if (!data || typeof data !== "object" || Array.isArray(data)) return;
+    if (typeof data.url !== "string" || !Object.prototype.hasOwnProperty.call(ALLOWED, data.url)) return;
+    if (typeof data.label !== "string" || data.label !== ALLOWED[data.url]) return;
+    if (typeof data.ts !== "number" || !Number.isSafeInteger(data.ts) ||
+        data.ts <= 0 || data.ts > Date.now()+5*60*1000) return;
+    // The route must also be a link actually rendered in this section's list.
+    const published = Array.from(document.querySelectorAll("#lessons .lesson-card a[href]"))
+      .some(link => link.getAttribute("href") === data.url);
+    if (!published) return;
+    const wrap = document.getElementById("continue-reading-reporting");
+    const label = document.getElementById("continue-reading-reporting-label");
+    const btn = document.getElementById("continue-reading-reporting-btn");
     if (!wrap || !label || !btn) return;
-
-    label.innerHTML =
-      "You last visited: <strong>" +
-      data.label +
-      "</strong>";
-
-    btn.href = data.url;
-
+    label.textContent = "You last visited: " + data.label;
+    btn.setAttribute("href", data.url);
     wrap.style.display = "block";
-
-  } catch (e) {}
-
+  } catch (e) { /* Blocked, corrupted or forged storage is ignored. */ }
 })();
 </script>

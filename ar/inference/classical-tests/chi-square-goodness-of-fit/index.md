@@ -41,6 +41,7 @@ E_i=n p_i,\quad \sum_{i=1}^{k}p_i=1.
 <h2>6. مختبر كاي تربيع التفاعلي</h2>
 <section id="esa-gof-explorer" class="concept-box" data-locale="ar" aria-labelledby="esa-gof-heading">
 <h3 id="esa-gof-heading">قارن التكرارات المشاهدة والمتوقعة</h3>
+<noscript><p class="esa-noscript" role="note">يتطلب هذا المختبر التفاعلي تفعيل JavaScript. من دونه تبقى الأرقام المعروضة هي المثال المحلول الثابت، وتظل الصيغ والتفسير في الدرس متاحة.</p></noscript>
 <p>أدخل أعدادًا صحيحة غير سالبة للفئات، واحتمالات صفرية موجبة ومحددة مسبقًا مجموعها يساوي 1. يسمح المختبر بفئتين إلى 12 فئة، ويحسب إحصائية بيرسون والقيمة الاحتمالية التقريبية للطرف الأيمن.</p>
 <div class="esa-gof-fields">
 <div><label for="esa-gof-counts">التكرارات المشاهدة (افصل بينها بفاصلة إنجليزية)</label><textarea id="esa-gof-counts" dir="ltr" rows="3" spellcheck="false" aria-invalid="false" aria-describedby="esa-gof-error esa-gof-warning">8, 11, 9, 13, 10, 9</textarea></div>

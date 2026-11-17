@@ -5,6 +5,7 @@ description: درس شامل في الانحراف المعياري وتباين
 permalink: /ar/descriptive/spread/standard-deviation/
 lang: ar
 sidebar: false
+learning_resource: true
 translation_pair: standard-deviation
 math: true
 ---

@@ -5,6 +5,7 @@ description: درس عربي عن المتغيرات المنفصلة ودوال
 permalink: /ar/probability/random-variables/discrete-random-variables/
 lang: ar
 sidebar: false
+learning_resource: true
 translation_pair: discrete-random-variables
 math: true
 ---

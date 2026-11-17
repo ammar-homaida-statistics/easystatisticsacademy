@@ -5,6 +5,7 @@ description: درس عربي عن التوزيع الهندسي للانتظار
 permalink: /ar/probability/distributions/geometric-distribution/
 lang: ar
 sidebar: false
+learning_resource: true
 translation_pair: geometric-distribution
 math: true
 ---

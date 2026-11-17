@@ -4,6 +4,7 @@ title: Type I and Type II Errors
 description: Learn the two fundamental mistakes possible in hypothesis testing and how they shape statistical decision-making.
 permalink: /inference/hypothesis-testing/type1-type2-errors/
 sidebar: false
+learning_resource: true
 translation_pair: type1-type2-errors
 math: true
 ---

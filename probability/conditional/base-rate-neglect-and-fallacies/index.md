@@ -4,6 +4,7 @@ title: Base-Rate Neglect and Fallacies
 description: Learn why human intuition often misjudges probabilities and understand common reasoning errors involving conditional probability.
 permalink: /probability/conditional/base-rate-neglect-and-fallacies/
 sidebar: false
+learning_resource: true
 translation_pair: base-rate-neglect-and-fallacies
 math: true
 ---

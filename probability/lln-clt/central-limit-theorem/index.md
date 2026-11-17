@@ -4,6 +4,7 @@ title: Central Limit Theorem
 description: Learn the Central Limit Theorem and understand why normal distributions appear throughout statistics.
 permalink: /probability/lln-clt/central-limit-theorem/
 sidebar: false
+learning_resource: true
 translation_pair: central-limit-theorem
 math: true
 ---

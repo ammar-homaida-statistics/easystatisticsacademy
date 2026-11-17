@@ -5,6 +5,7 @@ description: درس عربي شامل عن توزيع غاما ومعلمتي ا
 permalink: /ar/probability/distributions/gamma-distribution/
 lang: ar
 sidebar: false
+learning_resource: true
 translation_pair: gamma-distribution
 math: true
 ---

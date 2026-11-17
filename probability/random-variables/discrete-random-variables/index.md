@@ -4,6 +4,7 @@ title: Discrete Random Variables
 description: Learn what discrete random variables are, how they differ from continuous variables, and how probabilities are assigned to countable outcomes.
 permalink: /probability/random-variables/discrete-random-variables/
 sidebar: false
+learning_resource: true
 translation_pair: discrete-random-variables
 math: true
 ---

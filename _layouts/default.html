@@ -154,6 +154,9 @@
   {% elsif page.translation_pair == "chi-square-independence" %}
   <link rel="alternate" hreflang="en" href="{{ site.url }}/inference/classical-tests/chi-square-independence-test/" />
   <link rel="alternate" hreflang="ar" href="{{ site.url }}/ar/inference/classical-tests/chi-square-independence-test/" />
+  {% elsif page.translation_pair == "chi-square-homogeneity" %}
+  <link rel="alternate" hreflang="en" href="{{ site.url }}/inference/classical-tests/chi-square-homogeneity-test/" />
+  <link rel="alternate" hreflang="ar" href="{{ site.url }}/ar/inference/classical-tests/chi-square-homogeneity-test/" />
   {% endif %}
   {% if page.translation_pair %}
   {% assign esa_translation = site.data.translations | where: "id", page.translation_pair | first %}

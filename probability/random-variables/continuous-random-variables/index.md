@@ -4,6 +4,7 @@ title: Continuous Random Variables
 description: Learn how continuous random variables differ from discrete variables and why probabilities are represented using areas rather than individual values.
 permalink: /probability/random-variables/continuous-random-variables/
 sidebar: false
+learning_resource: true
 translation_pair: continuous-random-variables
 math: true
 ---

@@ -4,6 +4,7 @@ title: Missing Data
 description: Understand why data is missing, different types of missingness, and why naive fixes can lead to incorrect conclusions.
 permalink: /foundations/missing-data/
 sidebar: false
+learning_resource: true
 translation_pair: missing-data
 ---
 

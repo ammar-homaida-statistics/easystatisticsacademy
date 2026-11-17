@@ -4,6 +4,7 @@ title: Hypergeometric Distribution
 description: Learn how the hypergeometric distribution models sampling without replacement from a finite population.
 permalink: /probability/distributions/hypergeometric-distribution/
 sidebar: false
+learning_resource: true
 translation_pair: hypergeometric-distribution
 math: true
 ---

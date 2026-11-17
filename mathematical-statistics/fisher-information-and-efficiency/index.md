@@ -142,23 +142,35 @@ sidebar: false
     } catch (e) {}
 
     var KEY = "esa_continue_ms_information_last_lesson_v0";
-    var raw = localStorage.getItem(KEY);
-    if (!raw) return;
-
+    // Batch #94: saved progress is untrusted. Only exact published routes with
+    // their exact titles, safe integer timestamps (no more than 5 minutes in
+    // the future) and text-only rendering are accepted.
+    var ALLOWED = {
+      "/mathematical-statistics/fisher-information-and-efficiency/fisher-information-definition/": "Lesson 1 — Fisher Information",
+      "/mathematical-statistics/fisher-information-and-efficiency/cramer-rao-lower-bound/": "Lesson 2 — Cramér–Rao Lower Bound",
+      "/mathematical-statistics/fisher-information-and-efficiency/efficiency-and-achieving-the-bound/": "Lesson 3 — Efficiency and Achieving the Bound",
+      "/mathematical-statistics/fisher-information-and-efficiency/information-additivity-and-iid/": "Lesson 4 — Information Additivity and IID",
+      "/mathematical-statistics/fisher-information-and-efficiency/information-and-mle-connection-preview/": "Lesson 5 — Information and MLE Connection"
+    };
     try {
+      var raw = localStorage.getItem(KEY);
+      if (!raw) return;
       var data = JSON.parse(raw);
-      if (!data || !data.url || !data.label) return;
+      if (!data || typeof data !== "object" || Array.isArray(data)) return;
+      if (typeof data.url !== "string" || !Object.prototype.hasOwnProperty.call(ALLOWED, data.url)) return;
+      if (typeof data.label !== "string" || data.label !== ALLOWED[data.url]) return;
+      if (typeof data.ts !== "number" || !Number.isSafeInteger(data.ts) ||
+          data.ts <= 0 || data.ts > Date.now()+5*60*1000) return;
 
       var wrap = document.getElementById("continue-reading-ms-b5");
       var label = document.getElementById("continue-reading-ms-b5-label");
       var btn = document.getElementById("continue-reading-ms-b5-btn");
-
       if (!wrap || !label || !btn) return;
 
-      label.innerHTML = 'You last visited: <strong>' + data.label + '</strong>';
-      btn.href = data.url;
+      label.textContent = "You last visited: " + data.label;
+      btn.setAttribute("href", data.url);
       wrap.style.display = "block";
-    } catch (e) {}
+    } catch (e) { /* Blocked, corrupted or forged storage is ignored. */ }
 
   })();
 </script>

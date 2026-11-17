@@ -5,6 +5,7 @@ description: شرح عربي للاحتمال الشرطي من خلال تقا�
 permalink: /ar/probability/conditional/what-is-conditional-probability/
 lang: ar
 sidebar: false
+learning_resource: true
 translation_pair: conditional-probability-intro
 math: true
 ---

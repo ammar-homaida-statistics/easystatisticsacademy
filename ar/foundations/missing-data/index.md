@@ -5,6 +5,7 @@ description: مقدمة دقيقة إلى آليات فقد البيانات MCA
 permalink: /ar/foundations/missing-data/
 sidebar: false
 lang: ar
+learning_resource: true
 translation_pair: missing-data
 ---
 <section class="hero hero-section"><div class="hero-card">

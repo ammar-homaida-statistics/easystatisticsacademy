@@ -4,6 +4,7 @@ title: Bernoulli Distribution
 description: Learn the Bernoulli distribution, the simplest probability distribution for modeling a single success-or-failure outcome.
 permalink: /probability/distributions/bernoulli-distribution/
 sidebar: false
+learning_resource: true
 translation_pair: bernoulli-distribution
 math: true
 ---

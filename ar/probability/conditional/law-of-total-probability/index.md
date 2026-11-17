@@ -6,6 +6,7 @@ permalink: /ar/probability/conditional/law-of-total-probability/
 lang: ar
 sidebar: false
 math: true
+learning_resource: true
 translation_pair: law-of-total-probability
 ---
 <section class="hero hero-section"><div class="hero-card">
