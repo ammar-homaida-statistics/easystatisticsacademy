@@ -12,6 +12,7 @@ math: true
 <section class="hero hero-section"><div class="hero-card">
 <div class="badge-row"><span class="badge">الاحتمالات</span><span class="badge">التوزيعات المستمرة</span><span class="badge">التوزيع الطبيعي</span></div>
 <h1>التوزيع الطبيعي (Normal Distribution)</h1>
+{% include lab-noscript.html %}
 <p><a href="/probability/distributions/normal-distribution/" lang="en" dir="ltr">English — Normal Distribution</a></p>
 <p class="lead">يُعد التوزيع الطبيعي أحد أكثر النماذج الاحتمالية استخدامًا في الإحصاء. يساعدنا هذا الدرس على فهم منحنى الجرس، والكثافة، والتحويل المعياري، وكيفية حساب احتمالات الفترات والذيلين بدقة.</p>
 <div class="hero-actions"><a class="btn btn-outline" href="/ar/probability/distributions/uniform-distribution/">← التوزيع المنتظم بالعربية</a>

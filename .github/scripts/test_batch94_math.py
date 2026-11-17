@@ -73,7 +73,10 @@ class McNemar(unittest.TestCase):
         self.assertNotIn("innerHTML",(ROOT/MCN).read_text())
         for f in ("inference/classical-tests/paired-t-test/index.md","inference/classical-tests/two-proportion-z-test/index.md",
                   "inference/classical-tests/chi-square-independence-test/index.md","ar/inference/classical-tests/chi-square-independence-test/index.md"):
-            self.assertIn('href="/inference/classical-tests/mcnemar-test/"',(ROOT/f).read_text(),f)
+            # Batch #95 published the Arabic McNemar lesson, so the Arabic page
+            # must now link to the Arabic route instead of the English one.
+            expected="/ar/inference/classical-tests/mcnemar-test/" if f.startswith("ar/") else "/inference/classical-tests/mcnemar-test/"
+            self.assertIn('href="%s"'%expected,(ROOT/f).read_text(),f)
 
 class ArabicHomogeneity(unittest.TestCase):
     def test_shared_engine_and_pair(self):

@@ -4160,7 +4160,7 @@ class SearchTests(unittest.TestCase):
         self.assertTrue(isclose(paired_t, 11.224972160321826, abs_tol=1e-12))
 
     def test_test_selection_guide_assumptions_keyboard_and_mobile(self):
-        """10 supported scenarios, unsupported cases and semantic accessible links."""
+        """11 supported scenarios, unsupported cases and semantic accessible links."""
         route = "/inference/classical-tests/"
         self.page.goto(self.origin + route, wait_until="networkidle")
         guide = self.page.locator("#esa-test-guide")
@@ -4178,6 +4178,8 @@ class SearchTests(unittest.TestCase):
             ("mean", "multiple", "unknown", "one-way-anova-f-test"),
             ("binary", "one", "unknown", "one-proportion-z-test"),
             ("binary", "independent", "unknown", "two-proportion-z-test"),
+            # Batch #95: paired yes/no data now routes to the McNemar lesson.
+            ("binary", "paired", "unknown", "mcnemar-test"),
             ("categorical", "one", "unknown", "chi-square-goodness-of-fit"),
             ("categorical", "independent", "unknown", "chi-square-homogeneity-test"),
             ("categorical", "association", "unknown", "chi-square-independence-test"),
@@ -4194,8 +4196,10 @@ class SearchTests(unittest.TestCase):
                 self.assertGreater(len(status.inner_text()), 100)
                 self.assertTrue(
                     (SITE/"inference/classical-tests"/slug/"index.html").is_file())
+        # Batch #95: binary-paired is now supported (McNemar); an unsupported
+        # combination is still checked for the explicit fallback message.
         outcome.select_option("binary")
-        design.select_option("paired")
+        design.select_option("multiple")
         expect(status.get_by_role("link")).to_have_count(0)
         expect(status).to_contain_text("different design-specific method")
         outcome.select_option("mean")

@@ -43,6 +43,7 @@ math: true
     </div>
 
     <h1>Hypergeometric Distribution</h1>
+{% include lab-noscript.html %}
 <p><a lang="ar" dir="rtl" href="/ar/probability/distributions/hypergeometric-distribution/">اقرأ هذا الدرس بالعربية</a></p>
 
     <p class="lead">

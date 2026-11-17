@@ -19,6 +19,7 @@ translation_pair: missing-data
     </div>
 
     <h1>Missing Data</h1>
+{% include lab-noscript.html %}
     <p><a href="/ar/foundations/missing-data/" lang="ar" dir="rtl">اقرأ هذا الدرس بالعربية</a></p>
 
     <p class="lead">

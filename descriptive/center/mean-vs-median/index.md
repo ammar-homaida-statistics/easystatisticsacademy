@@ -42,6 +42,7 @@ translation_pair: mean-median
     </div>
 
     <h1>Mean vs Median</h1>
+{% include lab-noscript.html %}
     <p><a href="/ar/descriptive/center/mean-vs-median/" lang="ar" dir="rtl">العربية — المتوسط الحسابي والوسيط</a></p>
 
     <p class="lead">

@@ -43,6 +43,7 @@ math: true
     </div>
 
     <h1>Multiplication Rule</h1>
+{% include lab-noscript.html %}
     <p><a href="/ar/probability/conditional/multiplication-rule/" lang="ar" dir="rtl">اقرأ الدرس بالعربية</a></p>
 
     <p class="lead">

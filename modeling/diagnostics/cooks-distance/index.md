@@ -41,6 +41,7 @@ math: true
     </div>
 
     <h1>Cook's Distance</h1>
+{% include lab-noscript.html %}
 
     <p class="lead">
       Some observations affect a regression model far more than others.

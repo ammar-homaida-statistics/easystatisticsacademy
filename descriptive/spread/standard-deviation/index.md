@@ -43,6 +43,7 @@ math: true
     </div>
 
     <h1>Standard Deviation</h1>
+{% include lab-noscript.html %}
     <p><a href="/ar/descriptive/spread/standard-deviation/" lang="ar" dir="rtl">اقرأ هذا الدرس بالعربية</a></p>
 
     <p class="lead">

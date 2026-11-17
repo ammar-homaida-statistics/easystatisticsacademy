@@ -40,6 +40,7 @@ sidebar: false
     </div>
 
     <h1>Practical Significance</h1>
+{% include lab-noscript.html %}
 
     <p class="lead">
       Statistical significance answers whether an effect is detectable.

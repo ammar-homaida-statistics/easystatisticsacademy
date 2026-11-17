@@ -20,6 +20,7 @@ math: true
 <section class="hero hero-section"><div class="hero-card">
 <div class="badge-row"><span class="badge">الإحصاء الرياضي</span><span class="badge">معلومات فيشر</span><span class="badge">كفاءة التقدير</span></div>
 <h1>حد كرامر–راو الأدنى للتباين</h1>
+{% include lab-noscript.html %}
 <p><a href="/mathematical-statistics/fisher-information-and-efficiency/cramer-rao-lower-bound/" lang="en" dir="ltr">English — Cramér–Rao Lower Bound</a></p>
 <p class="lead">هل يمكن الحصول على مقدّر غير متحيّز بتباين صغير كيفما شئنا؟ يقدّم حد كرامر–راو الأدنى (<span dir="ltr">Cramér–Rao Lower Bound, CRLB</span>) حدّاً نظرياً لدقّة التقدير عندما تتحقق شروط الانتظام المناسبة. يرتبط هذا الحد بمعلومات فيشر المستخلصة من العينة.</p>
 <div class="hero-actions"><a class="btn btn-outline" href="/mathematical-statistics/fisher-information-and-efficiency/" lang="en" dir="ltr">Fisher Information block (English)</a><a class="btn" href="/mathematical-statistics/fisher-information-and-efficiency/cramer-rao-lower-bound/" lang="en" dir="ltr">English version</a></div>

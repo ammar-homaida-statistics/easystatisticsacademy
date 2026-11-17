@@ -11,6 +11,7 @@ learning_resource: true
 ---
 <section class="hero hero-section"><div class="hero-card">
 <h1>اختبار t لعينة واحدة لمتوسط المجتمع</h1>
+{% include lab-noscript.html %}
 <p class="lead">نستخدم اختبار ستودنت لعينة واحدة لفحص فرضية حول متوسط مجتمع \(\mu\) عندما يكون انحرافه المعياري \(\sigma\) مجهولاً، فنستعمل الانحراف المعياري للعينة \(s\) ونأخذ عدم اليقين في تقديره في الحسبان.</p>
 <p><a lang="en" dir="ltr" href="/inference/classical-tests/one-sample-t-test-for-mean/">Read in English: One-Sample t Test for a Mean</a></p>
 </div></section>

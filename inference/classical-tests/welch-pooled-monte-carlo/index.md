@@ -9,6 +9,7 @@ learning_resource: true
 ---
 <section class="hero hero-section"><div class="hero-card">
 <h1>Welch vs Pooled t Tests — Monte Carlo Simulation</h1>
+{% include lab-noscript.html %}
 <p class="lead">Investigate how unequal sample sizes and population variances affect the rejection rates of independent-sample Welch and pooled t tests.</p>
 <p><a href="/inference/classical-tests/two-sample-t-test-independent/">Read the independent two-sample t-test lesson</a>.</p>
 </div></section>

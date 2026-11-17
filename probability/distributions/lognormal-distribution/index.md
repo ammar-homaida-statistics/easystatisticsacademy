@@ -42,7 +42,8 @@ math: true
       <span class="badge">Continuous</span>
     </div>
 
-    <h1>Lognormal Distribution</h1><p><a href="/ar/probability/distributions/lognormal-distribution/" lang="ar" dir="rtl">اقرأ هذا الدرس بالعربية</a></p>
+    <h1>Lognormal Distribution</h1>
+{% include lab-noscript.html %}<p><a href="/ar/probability/distributions/lognormal-distribution/" lang="ar" dir="rtl">اقرأ هذا الدرس بالعربية</a></p>
 
     <p class="lead">
       Many real-world variables are positive, highly right-skewed, and cannot take negative values.

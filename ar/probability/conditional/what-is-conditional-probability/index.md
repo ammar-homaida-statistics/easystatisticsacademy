@@ -12,6 +12,7 @@ math: true
 <section class="hero hero-section"><div class="hero-card">
 <div class="badge-row"><span class="badge">الاحتمالات</span><span class="badge">الأحداث</span><span class="badge">المعلومات المشروطة</span></div>
 <h1>ما الاحتمال الشرطي؟</h1>
+{% include lab-noscript.html %}
 <p><a href="/probability/conditional/what-is-conditional-probability/" lang="en" dir="ltr">English — What Is Conditional Probability?</a></p>
 <p class="lead">الاحتمال الشرطي يصف احتمال وقوع حدث حين نعرف مسبقًا أن حدثًا آخر قد وقع. وتتغير مجموعة النتائج التي نحسب داخلها، فتتغير معها الاحتمالات أحيانًا.</p>
 </div></section>

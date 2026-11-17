@@ -20,6 +20,7 @@ math: true
     </div>
 
     <h1>Sampling Variability</h1>
+{% include lab-noscript.html %}
     <p><a href="/ar/foundations/sampling-variability/" lang="ar" dir="rtl">اقرأ هذا الدرس بالعربية</a></p>
 
     <p class="lead">

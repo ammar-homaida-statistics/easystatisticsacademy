@@ -12,6 +12,7 @@ math: true
 <section class="hero hero-section"><div class="hero-card">
 <div class="badge-row"><span class="badge">الاحتمالات</span><span class="badge">الاحتمال الشرطي</span><span class="badge">الاستقلال</span></div>
 <h1>قاعدة الضرب في الاحتمالات</h1>
+{% include lab-noscript.html %}
 <p><a href="/probability/conditional/multiplication-rule/" lang="en" dir="ltr">English — Multiplication Rule</a></p>
 <p class="lead">تمكّننا قاعدة الضرب من حساب احتمال وقوع حدثين معًا باستخدام احتمال أحدهما واحتمال الآخر بشرط تحقّق الأول، ومن ثم تحليل التجارب المتتابعة والمخططات الشجرية.</p>
 </div></section>

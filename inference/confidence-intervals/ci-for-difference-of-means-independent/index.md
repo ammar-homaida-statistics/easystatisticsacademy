@@ -40,6 +40,7 @@ sidebar: false
     </div>
 
     <h1>Confidence Interval for Difference of Means (Independent Samples)</h1>
+{% include lab-noscript.html %}
 
     <p class="lead">
       Many research questions focus on comparing two groups rather than estimating a single mean.

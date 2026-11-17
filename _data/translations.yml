@@ -137,3 +137,9 @@
 - id: chi-square-homogeneity
   en: /inference/classical-tests/chi-square-homogeneity-test/
   ar: /ar/inference/classical-tests/chi-square-homogeneity-test/
+- id: mcnemar-test
+  en: /inference/classical-tests/mcnemar-test/
+  ar: /ar/inference/classical-tests/mcnemar-test/
+- id: classical-tests-hub
+  en: /inference/classical-tests/
+  ar: /ar/inference/classical-tests/

@@ -11,6 +11,7 @@ learning_resource: true
 ---
 <section class="hero hero-section"><div class="hero-card">
 <h1>اختبار Z لعينة واحدة لمتوسط المجتمع</h1>
+{% include lab-noscript.html %}
 <p class="lead">نختبر فرضية عن متوسط المجتمع \(\mu\) باستخدام متوسط العينة عندما يكون الانحراف المعياري السكاني \(\sigma\) معلوماً، مع مراعاة استقلال الملاحظات وشروط التوزيع الطبيعي أو التقريب بنظرية الحد المركزي.</p>
 <p><a href="/inference/classical-tests/one-sample-z-test-for-mean/" lang="en" dir="ltr">Read in English: One-Sample Z Test for a Mean</a></p>
 </div></section>

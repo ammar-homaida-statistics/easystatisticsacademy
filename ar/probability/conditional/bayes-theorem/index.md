@@ -12,6 +12,7 @@ math: true
 <section class="hero hero-section"><div class="hero-card">
   <div class="badge-row"><span class="badge">الاحتمالات</span><span class="badge">الاحتمال الشرطي</span><span class="badge">التفكير البايزي</span></div>
   <h1>نظرية بايز</h1>
+{% include lab-noscript.html %}
   <p><a href="/probability/conditional/bayes-theorem/" lang="en" dir="ltr">English — Bayes' Theorem</a></p>
   <p class="lead">تتيح نظرية بايز تحديث احتمال حدث معين عند ظهور دليل جديد، وتوضح الفرق بين احتمال الدليل في ظل سبب معين واحتمال ذلك السبب بعد مشاهدة الدليل.</p>
   <div class="hero-actions">

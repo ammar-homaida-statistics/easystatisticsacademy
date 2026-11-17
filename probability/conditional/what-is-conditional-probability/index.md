@@ -43,6 +43,7 @@ math: true
     </div>
 
     <h1>What Is Conditional Probability?</h1>
+{% include lab-noscript.html %}
 <p><a href="/ar/probability/conditional/what-is-conditional-probability/" lang="ar" dir="rtl">اقرأ هذا الدرس بالعربية</a></p>
 
     <p class="lead">

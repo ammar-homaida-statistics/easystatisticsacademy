@@ -43,6 +43,7 @@ math: true
     </div>
 
     <h1>Bayes' Theorem</h1>
+{% include lab-noscript.html %}
     <p><a href="/ar/probability/conditional/bayes-theorem/" lang="ar" dir="rtl">اقرأ هذا الدرس بالعربية</a></p>
 
     <p class="lead">

@@ -83,6 +83,8 @@ jobs:
         run: python -m unittest discover -s .github/scripts -p 'test_batch93_math.py' -v
       - name: Verify Batch #94 McNemar references, Arabic homogeneity, hardened readers, LearningResource and noscript coverage
         run: python -m unittest discover -s .github/scripts -p 'test_batch94_math.py' -v
+      - name: Verify Batch #95 Cohen's kappa references, Arabic McNemar, classical-tests hubs and lab no-JS coverage
+        run: python -m unittest discover -s .github/scripts -p 'test_batch95_math.py' -v
       - name: Inventory mathematical placeholders and reject new damage
         run: python .github/scripts/validate_math_placeholders.py
       - name: Validate front matter
@@ -136,5 +138,7 @@ jobs:
         run: python .github/scripts/test_batch93_browser.py --site _site
       - name: Check Batch #94 McNemar lab, Arabic homogeneity parity, reader tampering, no-JS notices and LearningResource output
         run: python .github/scripts/test_batch94_browser.py --site _site
+      - name: Check Batch #95 kappa lab, Arabic McNemar parity, hub test choosers and generated no-JS notices
+        run: python .github/scripts/test_batch95_browser.py --site _site
       - name: Check generated search, CSS assets, and browser behavior
         run: python .github/scripts/test_search.py --site _site
