@@ -12,6 +12,7 @@ math: true
 <section class="hero hero-section"><div class="hero-card">
 <div class="badge-row"><span class="badge">الاحتمالات</span><span class="badge">التوزيعات المستمرة</span><span class="badge">الالتواء إلى اليمين</span></div>
 <h1>التوزيع اللوغاريتمي الطبيعي (Lognormal Distribution)</h1>
+{% include lab-noscript.html %}
 <p><a href="/probability/distributions/lognormal-distribution/" lang="en" dir="ltr">English — Lognormal Distribution</a></p>
 <p class="lead">يساعد التوزيع اللوغاريتمي الطبيعي في نمذجة المقادير الموجبة التي تتفاوت غالبًا على نحو مضاعف؛ مثل بعض التراكيز والأحجام وأزمنة التشغيل. وهو ليس اختيارًا تلقائيًا لكل بيانات موجبة.</p>
 <div class="hero-actions"><a class="btn btn-outline" href="/ar/probability/distributions/normal-distribution/">← التوزيع الطبيعي بالعربية</a>

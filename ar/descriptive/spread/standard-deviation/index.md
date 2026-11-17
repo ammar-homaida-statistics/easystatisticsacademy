@@ -12,6 +12,7 @@ math: true
 <section class="hero hero-section"><div class="hero-card">
 <div class="badge-row"><span class="badge">الإحصاء الوصفي</span><span class="badge">مقاييس التشتت</span><span class="badge">الانحراف المعياري</span></div>
 <h1>الانحراف المعياري</h1>
+{% include lab-noscript.html %}
 <p><a lang="en" dir="ltr" href="/descriptive/spread/standard-deviation/">English — Standard Deviation</a></p>
 <p class="lead">التباين مقياس أساسي للتشتت، لكن وحدته مربعة؛ لذا نأخذ جذره التربيعي للحصول على
 الانحراف المعياري الذي يُعبَّر عنه بوحدة القياس الأصلية، ويشيع استعماله لوصف تشتت البيانات.</p>

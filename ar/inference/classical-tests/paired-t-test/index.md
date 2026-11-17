@@ -11,6 +11,7 @@ learning_resource: true
 ---
 <section class="hero hero-section"><div class="hero-card">
 <h1>اختبار t للعينات المزدوجة</h1>
+{% include lab-noscript.html %}
 <p class="lead">نقارن قياسين مترابطين للشخص نفسه أو لوحدتين متطابقتين، وذلك باختبار متوسط <strong>الفروق داخل الأزواج</strong>؛ لا نعامل القياسات وكأنها عينتان مستقلتان.</p>
 <p><a lang="en" dir="ltr" href="/inference/classical-tests/paired-t-test/">Read in English: Paired t Test</a></p>
 </div></section>

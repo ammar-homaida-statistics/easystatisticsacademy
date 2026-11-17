@@ -43,6 +43,7 @@ learning_resource: true
     </div>
 
     <h1>One-Sample t Test for a Mean</h1>
+{% include lab-noscript.html %}
 
     <p class="lead">
       The one-sample t test is one of the most widely used procedures in statistics.

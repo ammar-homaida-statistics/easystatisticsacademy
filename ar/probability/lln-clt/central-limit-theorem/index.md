@@ -12,6 +12,7 @@ math: true
 <section class="hero hero-section"><div class="hero-card">
   <div class="badge-row"><span class="badge">الاحتمالات</span><span class="badge">قانون الأعداد الكبيرة</span><span class="badge">نظرية الحد المركزي</span></div>
   <h1>نظرية الحد المركزي</h1>
+{% include lab-noscript.html %}
   <p><a lang="en" dir="ltr" href="/probability/lln-clt/central-limit-theorem/">English — Central Limit Theorem</a></p>
   <p class="lead">يفسر قانون الأعداد الكبيرة استقرار المتوسطات عند زيادة حجم العينة؛ أما نظرية الحد المركزي فتفسر كيف يتغير <strong>توزيع متوسط العينة</strong>، ولماذا يظهر التقريب الطبيعي في كثير من مسائل الاستدلال الإحصائي.</p>
   <div class="hero-actions"><a class="btn btn-outline" href="/ar/">الرئيسية العربية</a><a class="btn" lang="en" dir="ltr" href="/probability/lln-clt/weak-vs-strong-lln/">Previous (English)</a><a class="btn btn-outline" lang="en" dir="ltr" href="/probability/lln-clt/normal-approximation/">Next: Normal Approximation (English)</a></div>

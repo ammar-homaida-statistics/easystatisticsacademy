@@ -40,6 +40,7 @@ sidebar: false
     </div>
 
     <h1>p-Value Meaning</h1>
+{% include lab-noscript.html %}
 
     <p class="lead">
       A p-value summarizes how unusual a specified test result would be under the null model; interpretation requires the test direction and its assumptions.

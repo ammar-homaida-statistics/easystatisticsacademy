@@ -40,6 +40,7 @@ sidebar: false
     </div>
 
     <h1>Width and Precision — What Controls Them?</h1>
+{% include lab-noscript.html %}
 
     <p class="lead">
       Two studies may estimate the same parameter but produce very different confidence intervals.

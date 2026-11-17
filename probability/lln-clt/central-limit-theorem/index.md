@@ -43,6 +43,7 @@ math: true
     </div>
 
     <h1>Central Limit Theorem</h1>
+{% include lab-noscript.html %}
     <p><a href="/ar/probability/lln-clt/central-limit-theorem/" lang="ar" dir="rtl">اقرأ هذا الدرس بالعربية</a></p>
 
     <p class="lead">

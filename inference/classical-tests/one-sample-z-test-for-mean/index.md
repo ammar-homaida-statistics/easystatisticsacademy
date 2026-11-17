@@ -43,6 +43,7 @@ learning_resource: true
     </div>
 
     <h1>One-Sample Z Test for a Mean</h1>
+{% include lab-noscript.html %}
 
     <p class="lead">
       The one-sample Z test evaluates whether a population mean differs from a hypothesized value when the population standard deviation is known.

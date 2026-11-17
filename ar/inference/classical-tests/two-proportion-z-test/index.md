@@ -11,6 +11,7 @@ learning_resource: true
 ---
 <section class="hero hero-section"><div class="hero-card">
 <h1>اختبار Z للمقارنة بين نسبتين مستقلتين</h1>
+{% include lab-noscript.html %}
 <p class="lead">نقارن بين نسبتي النجاح في مجتمعين مختلفين باستخدام عينتين مستقلتين، ونفهم الفرق بين الخطأ المعياري للاختبار والفترة التقديرية.</p>
 <p><a href="/inference/classical-tests/two-proportion-z-test/" lang="en" dir="ltr">English — Two-Proportion Z Test</a></p>
 </div></section>

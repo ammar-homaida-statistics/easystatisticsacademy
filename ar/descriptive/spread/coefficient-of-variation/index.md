@@ -20,6 +20,7 @@ math: true
 <section class="hero hero-section"><div class="hero-card">
 <div class="badge-row"><span class="badge">الإحصاء الوصفي</span><span class="badge">مقاييس التشتت</span><span class="badge">التشتت النسبي</span></div>
 <h1>معامل الاختلاف (Coefficient of Variation)</h1>
+{% include lab-noscript.html %}
 <p><a href="/descriptive/spread/coefficient-of-variation/" lang="en" dir="ltr">English — Coefficient of Variation</a></p>
 <p class="lead">يصف الانحراف المعياري مقدار تشتت البيانات بوحدتها الأصلية، لكن المقارنة بين مجموعتين مختلفتين في متوسطاتهما قد تتطلب مقياساً نسبياً. ولهذا نستخدم <strong>معامل الاختلاف (CV)</strong> مع الانتباه إلى نوع مقياس القياس وإلى المتوسط الحسابي.</p>
 <div class="hero-actions"><a class="btn" href="/ar/descriptive/spread/standard-deviation/">الدرس السابق: الانحراف المعياري</a><a class="btn btn-outline" href="/descriptive/spread/reporting-spread-properly/" lang="en" dir="ltr">Next (English): Reporting Spread</a></div>

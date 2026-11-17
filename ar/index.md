@@ -9,6 +9,8 @@ lang: ar
 <h1>أكاديمية الإحصاء المبسط — العربية</h1>
 <p class="lead">دروس إحصائية باللغة العربية بلغة أكاديمية واضحة. تُضاف الدروس المترجمة تدريجيًا بعد التحقق من محتواها الرياضي.</p>
 <h2>الدروس المتاحة</h2>
+<p><a href="/ar/inference/classical-tests/"><strong>قسم الاختبارات الإحصائية الكلاسيكية — جميع الدروس وأداة اختيار الاختبار</strong></a></p>
+<p><a href="/ar/inference/classical-tests/mcnemar-test/">اختبار ماكنمار للنسب المزدوجة — درس عربي ومختبر تفاعلي</a></p>
 <p><a href="/ar/inference/classical-tests/chi-square-homogeneity-test/">اختبار كاي تربيع للتجانس — درس عربي ومختبر تفاعلي مع البواقي المعدّلة</a></p>
 <p><a href="/ar/inference/classical-tests/chi-square-independence-test/">اختبار كاي تربيع للاستقلال — درس عربي ومختبر تفاعلي لجدول 2 × 2</a></p>
 <p><a href="/ar/inference/classical-tests/chi-square-goodness-of-fit/">اختبار كاي تربيع لحسن المطابقة — درس عربي ومختبر تفاعلي</a></p>

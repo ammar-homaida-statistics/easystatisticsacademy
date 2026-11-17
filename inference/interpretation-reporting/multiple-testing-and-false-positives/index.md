@@ -40,6 +40,7 @@ sidebar: false
     </div>
 
     <h1>Multiple Testing and False Positives</h1>
+{% include lab-noscript.html %}
 
     <p class="lead">
       Hypothesis-testing procedures are usually taught one test at a time.

@@ -40,6 +40,7 @@ sidebar: false
     </div>
 
     <h1>Post-Hoc Tests and Multiple Comparisons</h1>
+{% include lab-noscript.html %}
 
     <p class="lead">
       A significant ANOVA result tells us that at least one group mean differs, but it does not identify which groups are different.

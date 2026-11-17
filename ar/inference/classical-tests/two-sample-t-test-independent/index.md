@@ -11,6 +11,7 @@ learning_resource: true
 ---
 <section class="hero hero-section"><div class="hero-card">
 <h1>اختبار t لعينتين مستقلتين: ويلش والتباين المشترك</h1>
+{% include lab-noscript.html %}
 <p class="lead">نقارن متوسطَي مجتمعين مستقلين باستخدام اختبار ويلش أو الاختبار التقليدي ذي التباين المشترك. اختيار الطريقة يعتمد على الافتراضات وليس على القيمة الاحتمالية وحدها.</p>
 <p><a href="/inference/classical-tests/two-sample-t-test-independent/" lang="en" dir="ltr">English: Independent Two-Sample t Test</a></p>
 </div></section>

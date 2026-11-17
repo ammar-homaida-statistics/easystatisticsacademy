@@ -85,23 +85,42 @@
   const root = typeof document !== "undefined" && document.getElementById ?
     document.getElementById("esa-mcnemar-lab") : null;
   if (!root) return;
+  const ar = root.dataset.locale === "ar";
+  // Batch #95: localized strings only; the statistical engine above is shared.
+  const T = ar ? {
+    undef: "غير معرّف",
+    correct: "صحّح المدخلات لمعرفة القيمة الاحتمالية المناسبة.",
+    range: "أدخل عددًا صحيحًا من 0 إلى 10,000,000 في كل خلية.",
+    empty: "يلزم زوج واحد على الأقل: جميع الأعداد الأربعة أصفار.",
+    none: "لا توجد أزواج متغيّرة (b + c = 0): إحصائية كاي تربيع غير معرّفة، والقيمة الاحتمالية الدقيقة تساوي 1، ولا تحمل البيانات أي دليل على التغيّر.",
+    small: nd => "عدد الأزواج المتغيّرة " + nd + " فقط (b + c < 25، وهي قاعدة إرشادية شائعة): اعتمد القيمة الاحتمالية الدقيقة لذات الحدين.",
+    large: nd => "مع " + nd + " زوجًا متغيّرًا يكون تقريب كاي تربيع مقبولًا عادة؛ وتبقى القيمة الاحتمالية الدقيقة صحيحة ويمكن ذكرها دائمًا."
+  } : {
+    undef: "Undefined",
+    correct: "Correct the inputs to see which p-value is appropriate.",
+    range: "Enter a whole-number count from 0 to 10,000,000 in every cell.",
+    empty: "At least one pair is needed: all four counts are zero.",
+    none: "There are no discordant pairs (b + c = 0): the chi-square statistic is undefined, the exact p-value is 1, and the data contain no evidence of change.",
+    small: nd => "Only " + nd + " discordant pairs (b + c < 25, a common rule of thumb): report the exact binomial p-value.",
+    large: nd => "With " + nd + " discordant pairs the chi-square approximation is usually adequate; the exact p-value remains valid and can always be reported."
+  };
   const find = id => root.querySelector("#esa-mcn-" + id);
   const ids = ["a", "b", "c", "d"], inputs = ids.map(find);
   const outputs = ["n", "nd", "p1", "p2", "diff", "chi", "p", "chicc", "pcc", "exact"];
-  const fmtP = p => !Number.isFinite(p) ? "Undefined" : p < 1e-12 ? "< 1e-12" : p < 0.0001 ? p.toExponential(3) : p.toFixed(6);
-  const fmt = x => Number.isFinite(x) ? x.toFixed(6) : "Undefined";
+  const fmtP = p => !Number.isFinite(p) ? T.undef : p < 1e-12 ? "< 1e-12" : p < 0.0001 ? p.toExponential(3) : p.toFixed(6);
+  const fmt = x => Number.isFinite(x) ? x.toFixed(6) : T.undef;
   function fail(message) {
     find("error").hidden = false;
     find("error").textContent = message;
     inputs.forEach(input => input.setAttribute("aria-invalid", "true"));
     outputs.forEach(id => find(id).textContent = "—");
-    find("advice").textContent = "Correct the inputs to see which p-value is appropriate.";
+    find("advice").textContent = T.correct;
   }
   function update() {
     const values = inputs.map(input => input.value.trim() === "" ? NaN : Number(input.value));
     const r = compute(values);
-    if (r.error === "range") { fail("Enter a whole-number count from 0 to 10,000,000 in every cell."); return; }
-    if (r.error === "empty") { fail("At least one pair is needed: all four counts are zero."); return; }
+    if (r.error === "range") { fail(T.range); return; }
+    if (r.error === "empty") { fail(T.empty); return; }
     find("error").hidden = true; find("error").textContent = "";
     inputs.forEach(input => input.setAttribute("aria-invalid", "false"));
     find("n").textContent = String(r.n);
@@ -114,10 +133,7 @@
     find("chicc").textContent = fmt(r.chiCC);
     find("pcc").textContent = fmtP(r.pCC);
     find("exact").textContent = fmtP(r.pExact);
-    find("advice").textContent = r.noDiscordant ?
-      "There are no discordant pairs (b + c = 0): the chi-square statistic is undefined, the exact p-value is 1, and the data contain no evidence of change." :
-      r.small ? "Only " + r.nd + " discordant pairs (b + c < 25, a common rule of thumb): report the exact binomial p-value." :
-      "With " + r.nd + " discordant pairs the chi-square approximation is usually adequate; the exact p-value remains valid and can always be reported.";
+    find("advice").textContent = r.noDiscordant ? T.none : r.small ? T.small(r.nd) : T.large(r.nd);
   }
   inputs.forEach(input => input.addEventListener("input", update));
   const presets = { example: [45, 5, 20, 30], small: [12, 1, 6, 9], none: [40, 0, 0, 60] };

@@ -157,6 +157,12 @@
   {% elsif page.translation_pair == "chi-square-homogeneity" %}
   <link rel="alternate" hreflang="en" href="{{ site.url }}/inference/classical-tests/chi-square-homogeneity-test/" />
   <link rel="alternate" hreflang="ar" href="{{ site.url }}/ar/inference/classical-tests/chi-square-homogeneity-test/" />
+  {% elsif page.translation_pair == "mcnemar-test" %}
+  <link rel="alternate" hreflang="en" href="{{ site.url }}/inference/classical-tests/mcnemar-test/" />
+  <link rel="alternate" hreflang="ar" href="{{ site.url }}/ar/inference/classical-tests/mcnemar-test/" />
+  {% elsif page.translation_pair == "classical-tests-hub" %}
+  <link rel="alternate" hreflang="en" href="{{ site.url }}/inference/classical-tests/" />
+  <link rel="alternate" hreflang="ar" href="{{ site.url }}/ar/inference/classical-tests/" />
   {% endif %}
   {% if page.translation_pair %}
   {% assign esa_translation = site.data.translations | where: "id", page.translation_pair | first %}

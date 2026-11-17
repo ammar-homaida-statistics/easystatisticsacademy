@@ -3,6 +3,8 @@ layout: default
 title: Block 4 — Classical Tests
 description: "Learn the classical hypothesis tests used everywhere: z and t tests, chi-square tests, ANOVA (F tests), and the core assumptions and interpretations behind them."
 permalink: /inference/classical-tests/
+learning_resource: true
+translation_pair: classical-tests-hub
 sidebar: false
 ---
 
@@ -43,6 +45,7 @@ sidebar: false
       </div>
 
       <h1>Block 4 — Classical Tests</h1>
+      <p><a href="/ar/inference/classical-tests/" lang="ar" dir="rtl">النسخة العربية من هذا القسم</a></p>
 
       <p class="lead">
         Classical hypothesis tests are the standard tools used to evaluate
@@ -241,6 +244,7 @@ sidebar: false
     "mean-independent": ["Two-Sample t Test (Welch)", "two-sample-t-test-independent/", "For independent groups, Welch's test estimates separate variances; check independent observations, outliers and normality or adequate sample sizes."],
     "mean-multiple": ["One-Way ANOVA", "one-way-anova-f-test/", "Compare means across three or more independent groups. Standard ANOVA assumes independent errors, approximately normal errors within groups and common within-group variance; otherwise consider alternatives."],
     "binary-one": ["One-Proportion Z Test", "one-proportion-z-test/", "Use for independent binary trials with sufficient expected successes and failures under the null hypothesis. Sparse counts may need exact methods."],
+    "binary-paired": ["McNemar Test for Paired Proportions", "mcnemar-test/", "Use when the same units give a yes/no outcome twice (before/after, two raters or two diagnostic tests). Only discordant pairs inform the test; prefer the exact binomial p-value when there are few discordant pairs."],
     "binary-independent": ["Two-Proportion Z Test", "two-proportion-z-test/", "Compare independent groups' event proportions when expected counts justify the pooled-null normal approximation. Small samples may require exact methods."],
     "categorical-one": ["Chi-Square Goodness-of-Fit", "chi-square-goodness-of-fit/", "Compare observed category counts against a pre-specified probability distribution; independent observations and adequate expected counts are important."],
     "categorical-independent": ["Chi-Square Homogeneity Test", "chi-square-homogeneity-test/", "Compare categorical distributions across independently sampled populations or groups; inspect expected counts."],
@@ -648,6 +652,40 @@ sidebar: false
 
     </div>
 
+  </div>
+
+</section>
+
+<!-- COMPANION LABS -->
+
+<section class="section" id="companion-labs" aria-labelledby="companion-labs-heading">
+
+  <div class="section-head">
+    <h2 id="companion-labs-heading">Companion laboratories</h2>
+    <p>Interactive labs that extend the core lessons above. They are not counted in the twelve-lesson progress list.</p>
+  </div>
+
+  <div class="grid grid-2">
+    <div class="card">
+      <h3><a href="/inference/classical-tests/fisher-exact-vs-chi-square/">Fisher's Exact Test vs Pearson Chi-Square</a></h3>
+      <p>Compare exact and asymptotic p-values for sparse 2×2 tables.</p>
+    </div>
+    <div class="card">
+      <h3><a href="/inference/classical-tests/exact-binomial-vs-z-test/">Exact Binomial Test vs One-Proportion Z</a></h3>
+      <p>See when the normal approximation for one proportion breaks down.</p>
+    </div>
+    <div class="card">
+      <h3><a href="/inference/classical-tests/welch-pooled-monte-carlo/">Welch vs Pooled t: Monte Carlo Laboratory</a></h3>
+      <p>Simulate Type I error when group variances and sizes differ.</p>
+    </div>
+    <div class="card">
+      <h3><a href="/inference/classical-tests/mcnemar-test/">McNemar Test for Paired Proportions</a></h3>
+      <p>Paired yes/no outcomes: exact, chi-square and corrected p-values.</p>
+    </div>
+    <div class="card">
+      <h3><a href="/inference/classical-tests/cohens-kappa/">Cohen's Kappa for Rater Agreement</a></h3>
+      <p>Agreement beyond chance between two raters, with the kappa paradox.</p>
+    </div>
   </div>
 
 </section>

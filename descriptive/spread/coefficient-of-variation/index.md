@@ -50,6 +50,7 @@ translation_pair: coefficient-of-variation
     </div>
 
     <h1>Coefficient of Variation</h1>
+{% include lab-noscript.html %}
     <p><a href="/ar/descriptive/spread/coefficient-of-variation/" lang="ar" dir="rtl">اقرأ الدرس بالعربية</a></p>
 
     <p class="lead">

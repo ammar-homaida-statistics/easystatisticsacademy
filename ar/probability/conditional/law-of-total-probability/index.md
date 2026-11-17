@@ -12,6 +12,7 @@ translation_pair: law-of-total-probability
 <section class="hero hero-section"><div class="hero-card">
 <div class="badge-row"><span class="badge">الاحتمالات</span><span class="badge">التقسيم إلى مجموعات</span><span class="badge">نظرية بايز</span></div>
 <h1>قانون الاحتمال الكلي (Law of Total Probability)</h1>
+{% include lab-noscript.html %}
 <p><a href="/probability/conditional/law-of-total-probability/" lang="en" dir="ltr">English — Law of Total Probability</a></p>
 <p class="lead">نستخدم قانون الاحتمال الكلي عندما يمكن أن يحدث الحدث A عبر مسارات مختلفة وشاملة، فنحسب مساهمة كل مسار ثم نجمعها.</p>
 </div></section>

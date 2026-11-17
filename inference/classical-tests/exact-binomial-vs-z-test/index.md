@@ -9,6 +9,7 @@ learning_resource: true
 ---
 <section class="hero hero-section"><div class="hero-card">
 <h1>Exact Binomial Test vs. One-Proportion Z Test</h1>
+{% include lab-noscript.html %}
 <p class="lead">Explore what changes when a discrete exact test replaces a normal approximation, particularly with small samples and extreme proportions.</p>
 <p><a href="/inference/classical-tests/one-proportion-z-test/">Review the one-proportion Z-test lesson</a> · <a href="/ar/inference/classical-tests/one-proportion-z-test/" lang="ar" dir="rtl">الشرح العربي لاختبار النسبة</a></p>
 </div></section>

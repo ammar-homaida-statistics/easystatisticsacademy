@@ -80,6 +80,7 @@ math: true
       </div>
 
       <h1>5. Delta Method</h1>
+{% include lab-noscript.html %}
 
       <p class="lead">
         The delta method approximates the distribution of functions of estimators

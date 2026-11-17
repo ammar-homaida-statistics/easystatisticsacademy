@@ -43,6 +43,7 @@ math: true
     </div>
 
     <h1>Law of Total Probability</h1>
+{% include lab-noscript.html %}
 <p><a href="/ar/probability/conditional/law-of-total-probability/" lang="ar" dir="rtl">اقرأ الدرس باللغة العربية</a></p>
 
     <p class="lead">

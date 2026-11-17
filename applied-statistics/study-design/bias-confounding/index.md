@@ -40,6 +40,7 @@ sidebar: false
     </div>
 
     <h1>Bias and Confounding</h1>
+{% include lab-noscript.html %}
 
     <p class="lead">
       Even large datasets and sophisticated statistical methods can produce misleading conclusions if a study contains systematic errors.

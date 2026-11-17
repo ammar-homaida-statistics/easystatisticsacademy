@@ -39,6 +39,7 @@ localStorage.setItem(KEY, JSON.stringify({
     </div>
 
     <h1>Residuals</h1>
+{% include lab-noscript.html %}
 
     <p class="lead">
       No regression model predicts every observation perfectly.

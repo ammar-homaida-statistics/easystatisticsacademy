@@ -43,6 +43,7 @@ math: true
     </div>
 
     <h1>Bernoulli Distribution</h1>
+{% include lab-noscript.html %}
 <p><a href="/ar/probability/distributions/bernoulli-distribution/" lang="ar" dir="rtl">اقرأ الدرس باللغة العربية</a></p>
 
     <p class="lead">

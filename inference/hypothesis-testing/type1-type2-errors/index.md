@@ -73,6 +73,7 @@ math: true
     </div>
 
     <h1>Type I and Type II Errors</h1>
+{% include lab-noscript.html %}
     <p><a href="/ar/inference/hypothesis-testing/type1-type2-errors/" lang="ar" dir="rtl">اقرأ الدرس بالعربية</a></p>
 
     <p class="lead">

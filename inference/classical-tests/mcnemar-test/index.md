@@ -6,11 +6,12 @@ permalink: /inference/classical-tests/mcnemar-test/
 sidebar: false
 math: true
 learning_resource: true
+translation_pair: mcnemar-test
 ---
 <section class="hero hero-section"><div class="hero-card">
 <h1>McNemar Test for Paired Proportions</h1>
 <p class="lead">When the same people are classified twice (before and after a course, by two raters, or by two diagnostic tests), the two proportions are not independent. The McNemar test compares them using only the pairs that changed.</p>
-<p><a href="/inference/classical-tests/two-proportion-z-test/">Independent proportions: two-proportion z test</a> · <a href="/inference/classical-tests/paired-t-test/">Paired continuous outcomes: paired t test</a> · <a href="/inference/classical-tests/chi-square-independence-test/">Chi-square test of independence</a></p>
+<p><a href="/inference/classical-tests/two-proportion-z-test/">Independent proportions: two-proportion z test</a> · <a href="/inference/classical-tests/paired-t-test/">Paired continuous outcomes: paired t test</a> · <a href="/inference/classical-tests/chi-square-independence-test/">Chi-square test of independence</a> · <a href="/ar/inference/classical-tests/mcnemar-test/" lang="ar" dir="rtl">النسخة العربية</a></p>
 </div></section>
 <section><div class="content-narrow">
 <h2>The research question</h2>
@@ -89,7 +90,7 @@ p_{\text{exact}}=2P(X\le5)\approx0.00408 .
 <p class="muted-mini">Changing a or d does not change any McNemar statistic or p-value; it only changes the two marginal proportions. The chi-square p-values use one degree of freedom; the exact p-value is the doubled smaller binomial tail.</p>
 </section>
 <h2>Assumptions and limitations</h2>
-<ul class="bullets"><li>Each pair is a matched unit (the same person measured twice, or a deliberately matched pair), and pairs are independent of one another.</li><li>The outcome is binary at both measurements, with the same categories.</li><li>The test addresses a change in marginal proportions, not agreement. For agreement between two raters, Cohen's kappa answers a different question.</li><li>Without a control group, a significant change does not establish that an intervention caused it.</li></ul>
+<ul class="bullets"><li>Each pair is a matched unit (the same person measured twice, or a deliberately matched pair), and pairs are independent of one another.</li><li>The outcome is binary at both measurements, with the same categories.</li><li>The test addresses a change in marginal proportions, not agreement. For agreement between two raters, <a href="/inference/classical-tests/cohens-kappa/">Cohen's kappa</a> answers a different question.</li><li>Without a control group, a significant change does not establish that an intervention caused it.</li></ul>
 <h2>Choosing among related tests</h2>
 <ul class="bullets"><li><strong>Two independent groups, binary outcome:</strong> <a href="/inference/classical-tests/two-proportion-z-test/">two-proportion z test</a> or <a href="/inference/classical-tests/fisher-exact-vs-chi-square/">Fisher's exact test</a>.</li><li><strong>Same units twice, binary outcome:</strong> McNemar test (this lesson).</li><li><strong>Same units twice, continuous outcome:</strong> <a href="/inference/classical-tests/paired-t-test/">paired t test</a>.</li></ul>
 <div class="summary-box"><h2>Lesson takeaways</h2><ul class="bullets"><li>Paired binary data violate the independence assumed by two-sample proportion tests.</li><li>Only the discordant pairs b and c carry information about change.</li><li>Exact p-value: \(\min\{1,2P(X\le\min(b,c))\}\) with \(X\sim\operatorname{Bin}(b+c,1/2)\).</li><li>Asymptotic statistic: \((b-c)^2/(b+c)\) with 1 df; prefer the exact test when \(b+c\) is small.</li></ul></div>

@@ -9,7 +9,8 @@ learning_resource: true
 translation_pair: base-rate-neglect-and-fallacies
 math: true
 ---
-<section class="hero hero-section"><div class="hero-card"><div class="badge-row"><span class="badge">الاحتمال الشرطي</span><span class="badge">التفكير النقدي</span></div><h1>إهمال المعدل الأساسي والمغالطات الاحتمالية</h1><p class="lead">قد تبدو الأدلة قوية، لكن تفسيرها يصبح مضللاً إذا تجاهلنا احتمال الحالة قبل ظهور الدليل. نتعلم هنا كيف نقرأ الاحتمال الشرطي دون خلط بين الاتجاهين.</p><p><a href="/probability/conditional/base-rate-neglect-and-fallacies/" lang="en" dir="ltr">Read the English lesson</a></p></div></section>
+<section class="hero hero-section"><div class="hero-card"><div class="badge-row"><span class="badge">الاحتمال الشرطي</span><span class="badge">التفكير النقدي</span></div><h1>إهمال المعدل الأساسي والمغالطات الاحتمالية</h1>
+{% include lab-noscript.html %}<p class="lead">قد تبدو الأدلة قوية، لكن تفسيرها يصبح مضللاً إذا تجاهلنا احتمال الحالة قبل ظهور الدليل. نتعلم هنا كيف نقرأ الاحتمال الشرطي دون خلط بين الاتجاهين.</p><p><a href="/probability/conditional/base-rate-neglect-and-fallacies/" lang="en" dir="ltr">Read the English lesson</a></p></div></section>
 <section><div class="content-narrow">
 <h2>ما المقصود بالمعدل الأساسي؟</h2><p>هو نسبة وجود الحالة في المجتمع قبل الاطلاع على دليل جديد، مثل معدل انتشار حالة افتراضية. إهماله يؤدي إلى المبالغة في قوة الاختبارات أو القرائن، حتى لو كانت الحساسية مرتفعة.</p><p>يجب التفريق بين احتمال الحصول على نتيجة موجبة عند وجود الحالة، واحتمال وجود الحالة بعد الحصول على نتيجة موجبة. لا يتساوى هذان الاحتمالان بالضرورة.</p>
 <div class="esa-ar-math" dir="ltr">\[

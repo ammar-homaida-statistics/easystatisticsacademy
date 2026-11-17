@@ -14,6 +14,7 @@ translation_pair: sampling-variability
 <div class="hero-card">
   <div class="badge-row"><span class="badge">أساسيات الإحصاء</span><span class="badge">فكرة جوهرية</span><span class="badge">عدم اليقين</span></div>
   <h1>تباين المعاينة</h1>
+{% include lab-noscript.html %}
   <p><a href="/foundations/sampling-variability/" lang="en" dir="ltr">English — Sampling Variability</a></p>
   <p class="lead">لماذا نحصل على متوسطات ونِسب مختلفة عند سحب عينات عشوائية جديدة من المجتمع نفسه؟
   فهم هذا الاختلاف هو الأساس الذي تقوم عليه الاستدلالات الإحصائية.</p>

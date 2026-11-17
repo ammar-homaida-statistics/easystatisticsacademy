@@ -64,6 +64,7 @@ translation_pair: cramer-rao-lower-bound
       </div>
 
       <h1>2. Cramér–Rao Lower Bound</h1>
+{% include lab-noscript.html %}
       <p><a href="/ar/mathematical-statistics/fisher-information-and-efficiency/cramer-rao-lower-bound/" lang="ar" dir="rtl">اقرأ الدرس بالعربية — حد كرامر–راو الأدنى</a></p>
 
       <p class="lead">

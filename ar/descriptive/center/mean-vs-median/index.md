@@ -25,6 +25,7 @@ math: true
 <section class="hero hero-section"><div class="hero-card">
   <div class="badge-row"><span class="badge">الإحصاء الوصفي</span><span class="badge">مقاييس النزعة المركزية</span><span class="badge">المقارنة والتفسير</span></div>
   <h1>المتوسط الحسابي والوسيط: متى نستخدم كلاً منهما؟</h1>
+{% include lab-noscript.html %}
   <p><a href="/descriptive/center/mean-vs-median/" lang="en" dir="ltr">English — Mean vs Median</a></p>
   <p class="lead">يُعدّ المتوسط الحسابي والوسيط من أشهر مقاييس النزعة المركزية. يهدف كلاهما إلى وصف مركز البيانات أو قيمتها النموذجية، لكن طريقة الحساب والاستجابة للقيم المتطرفة تختلف بينهما. ويتوقف اختيار المقياس المناسب على طبيعة البيانات والغرض من التحليل.</p>
   <div class="hero-actions"><a class="btn btn-outline" href="/ar/">فهرس الدروس العربية</a><a class="btn" href="/descriptive/center/mode/" lang="en" dir="ltr">Previous: Mode (English)</a><a class="btn btn-outline" href="/descriptive/center/weighted-mean/" lang="en" dir="ltr">Next: Weighted Mean (English)</a></div>

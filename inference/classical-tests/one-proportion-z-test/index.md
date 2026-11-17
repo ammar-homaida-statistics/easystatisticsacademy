@@ -43,6 +43,7 @@ learning_resource: true
     </div>
 
     <h1>One-Proportion Z Test</h1>
+{% include lab-noscript.html %}
 <p><a lang="ar" dir="rtl" href="/ar/inference/classical-tests/one-proportion-z-test/">الدرس العربي — اختبار Z لنسبة واحدة</a></p>
 
     <p class="lead">

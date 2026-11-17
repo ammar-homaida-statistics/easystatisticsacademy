@@ -12,6 +12,7 @@ translation_pair: bernoulli-distribution
 <section class="hero hero-section"><div class="hero-card">
 <div class="badge-row"><span class="badge">الاحتمالات</span><span class="badge">توزيعات متقطعة</span><span class="badge">نتائج ثنائية</span></div>
 <h1>توزيع برنولي (Bernoulli Distribution)</h1>
+{% include lab-noscript.html %}
 <p><a lang="en" dir="ltr" href="/probability/distributions/bernoulli-distribution/">English — Bernoulli Distribution</a></p>
 <p class="lead">يمثل توزيع برنولي تجربة عشوائية واحدة لها نتيجتان فقط، مثل نجاح تجربة أو إخفاقها، بشرط أن نعرف احتمال النجاح.</p>
 </div></section>

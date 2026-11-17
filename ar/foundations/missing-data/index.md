@@ -11,6 +11,7 @@ translation_pair: missing-data
 <section class="hero hero-section"><div class="hero-card">
 <div class="badge-row"><span class="badge">جودة البيانات</span><span class="badge">مشكلة واقعية</span><span class="badge">سلامة الاستنتاج</span></div>
 <h1>البيانات المفقودة</h1>
+{% include lab-noscript.html %}
 <p><a href="/foundations/missing-data/" lang="en" dir="ltr">English — Missing Data</a></p>
 <p class="lead">تظهر القيم المفقودة كثيرًا في مجموعات البيانات الحقيقية، وقد يؤثر سبب فقدها وطريقة معالجتها تأثيرًا بالغًا في الاستنتاجات.</p>
 <div class="hero-actions"><a class="btn" href="#content">ابدأ الدرس</a><a class="btn btn-outline" href="/ar/">الدروس العربية</a></div>
