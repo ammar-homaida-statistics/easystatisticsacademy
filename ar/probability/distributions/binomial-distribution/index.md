@@ -13,6 +13,7 @@ math: true
 <section class="hero hero-section"><div class="hero-card">
 <div class="badge-row"><span class="badge">الاحتمالات</span><span class="badge">التوزيعات الاحتمالية</span><span class="badge">المتغيرات المتقطعة</span></div>
 <h1>التوزيع ذو الحدين (Binomial Distribution)</h1>
+{% include lab-noscript.html %}
 <p><a href="/probability/distributions/binomial-distribution/" lang="en" dir="ltr">English — Binomial Distribution</a></p>
 <p class="lead">يصف توزيع برنولي تجربة واحدة لها نتيجتان: نجاح أو إخفاق. أما التوزيع ذو الحدين فيصف <strong>عدد النجاحات</strong> خلال عدد ثابت من تجارب برنولي المستقلة التي تشترك في احتمال النجاح نفسه.</p>
 <div class="hero-actions"><a class="btn" href="/probability/distributions/bernoulli-distribution/" lang="en" dir="ltr">Previous (English): Bernoulli Distribution</a><a class="btn btn-outline" href="/probability/distributions/geometric-distribution/" lang="en" dir="ltr">Next (English): Geometric Distribution</a></div>

@@ -38,6 +38,7 @@ translation_pair: bootstrap
     </div>
 
     <h1>Bootstrap as a Robust Tool</h1>
+{% include lab-noscript.html %}
     <p><a href="/ar/inference/assumptions-robustness/bootstrap-as-robust-tool/" lang="ar" dir="rtl">العربية — اقرأ هذا الدرس بالعربية</a></p>
 
     <p class="lead">

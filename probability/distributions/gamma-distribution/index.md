@@ -42,6 +42,7 @@ translation_pair: gamma-distribution
     </div>
 
     <h1>Gamma Distribution</h1>
+{% include lab-noscript.html %}
     <p><a href="/ar/probability/distributions/gamma-distribution/" lang="ar" dir="rtl">العربية — توزيع غاما</a></p>
 
     <p class="lead">

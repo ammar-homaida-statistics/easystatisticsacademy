@@ -38,6 +38,7 @@ sidebar: false
     </div>
 
     <h1>Misleading Graphs</h1>
+{% include lab-noscript.html %}
 
     <p class="lead">
       Graphs are powerful tools for communicating information,

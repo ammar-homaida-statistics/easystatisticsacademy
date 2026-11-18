@@ -12,6 +12,7 @@ math: true
 <section class="hero hero-section"><div class="hero-card">
 <div class="badge-row"><span class="badge">الاحتمالات</span><span class="badge">المتغيرات العشوائية</span><span class="badge">درس تفاعلي</span></div>
 <h1>ما المتغير العشوائي؟</h1>
+{% include lab-noscript.html %}
 <p class="lead">المتغير العشوائي دالة تُسنِد قيمة عددية لكل ناتج ممكن من تجربة عشوائية، وتسمح بوصف عدم اليقين بلغة الاحتمالات.</p>
 <p><a href="/probability/random-variables/what-is-a-random-variable/" lang="en" dir="ltr">English — What Is a Random Variable?</a></p>
 </div></section>

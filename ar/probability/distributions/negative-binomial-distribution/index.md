@@ -13,6 +13,7 @@ math: true
 <section class="hero hero-section"><div class="hero-card">
   <div class="badge-row"><span class="badge">الاحتمالات</span><span class="badge">التوزيعات المنفصلة</span><span class="badge">الانتظار حتى نجاحات متعددة</span></div>
   <h1>التوزيع السالب ذو الحدين (Negative Binomial)</h1>
+{% include lab-noscript.html %}
   <p><a href="/probability/distributions/negative-binomial-distribution/" lang="en" dir="ltr">English — Negative Binomial Distribution</a></p>
   <p class="lead">ينمذج التوزيع الهندسي عدد المحاولات حتى أول نجاح، أما التوزيع السالب ذو الحدين فيعمِّم ذلك إلى عدد المحاولات اللازمة لتحقيق عدد محدد من النجاحات.</p>
   <div class="hero-actions">

@@ -40,6 +40,7 @@ sidebar: false
     </div>
 
     <h1>Sample Size for a Mean</h1>
+{% include lab-noscript.html %}
 
     <p class="lead">
       One of the most important questions in study design is determining how many observations are needed before collecting data.

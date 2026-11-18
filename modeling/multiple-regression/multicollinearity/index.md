@@ -40,6 +40,7 @@ sidebar: false
     </div>
 
     <h1>Multicollinearity</h1>
+{% include lab-noscript.html %}
 
     <p class="lead">
       Multiple regression assumes that predictors provide useful and distinct information about the outcome.

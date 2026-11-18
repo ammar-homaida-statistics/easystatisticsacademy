@@ -42,6 +42,7 @@ translation_pair: confidence-interval-introduction
     </div>
 
     <h1>What Is a Confidence Interval?</h1>
+{% include lab-noscript.html %}
     <p><a href="/ar/inference/confidence-intervals/what-is-a-confidence-interval/" lang="ar" dir="rtl">العربية — ما فترة الثقة؟</a></p>
 
     <p class="lead">

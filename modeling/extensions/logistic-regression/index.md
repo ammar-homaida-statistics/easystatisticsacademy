@@ -40,6 +40,7 @@ sidebar: false
     </div>
 
     <h1>Logistic Regression</h1>
+{% include lab-noscript.html %}
 
     <p class="lead">
       Many important questions involve outcomes with only two possible categories.

@@ -109,8 +109,9 @@ class Browser95(unittest.TestCase):
                 if prefix:
                     expect(self.page.locator("html")).to_have_attribute("dir","rtl")
                     outcome.select_option("mean");design.select_option("multiple")
-                    expect(status.get_by_role("link")).to_have_attribute("href","/inference/classical-tests/one-way-anova-f-test/")
-                    expect(status).to_contain_text("بالإنجليزية")
+                    # Batch #96 published the Arabic ANOVA lesson, so the chooser now links to it.
+                    expect(status.get_by_role("link")).to_have_attribute("href","/ar/inference/classical-tests/one-way-anova-f-test/")
+                    expect(status).not_to_contain_text("بالإنجليزية")
                     for locale,path in (("en",EN_HUB),("ar",AR_HUB),("x-default",EN_HUB)):
                         expect(self.page.locator('link[rel="alternate"][hreflang="'+locale+'"]')).to_have_attribute("href",BASE+path)
                 else:

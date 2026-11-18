@@ -42,6 +42,7 @@ translation_pair: geometric-distribution
     </div>
 
     <h1>Geometric Distribution</h1>
+{% include lab-noscript.html %}
     <p><a href="/ar/probability/distributions/geometric-distribution/" lang="ar" dir="rtl">العربية — التوزيع الهندسي</a></p>
 
     <p class="lead">

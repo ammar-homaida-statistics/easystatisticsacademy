@@ -43,6 +43,7 @@ math: true
     </div>
 
     <h1>Cumulative Distribution Function (CDF)</h1>
+{% include lab-noscript.html %}
     <p><a href="/ar/probability/random-variables/cumulative-distribution-function/" lang="ar" dir="rtl">اقرأ الدرس بالعربية — دالة التوزيع التراكمي</a></p>
 
     <p class="lead">

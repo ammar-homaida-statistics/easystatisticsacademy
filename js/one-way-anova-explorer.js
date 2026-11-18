@@ -75,6 +75,29 @@
   // Pure calculations are exposed only for independent numerical regression tests.
   window.esaAnovaMath={compute,fSurvival,ibeta};
   if(!root)return;
+  // One numerical engine for both languages: only the strings below change.
+  const AR=root.dataset.locale==="ar";
+  const T=AR?{
+    undef:"غير معرّف",chartTitle:"القيم المشاهدة ومتوسطات المجموعات",
+    chartDesc:"تمثل الدوائر المشاهدات الفردية، والخطوط الأفقية متوسطات المجموعات. لا تُرسم فترات عدم يقين.",
+    group:"المجموعة ",value:"القيمة",aria:"القيم المشاهدة ومتوسطات المجموعات: ",mean:" المتوسط ",
+    input:"أدخل من 2 إلى 100 عدد منتهٍ لكل مجموعة، مفصولة بفواصل. يجب ألا تتجاوز القيم المطلقة 1,000,000.",
+    invalid:"مجموعات غير صالحة.",
+    nan:"جميع المشاهدات متطابقة: كلا متوسطي المربعات يساوي صفرًا؛ لذا F وقيمة p غير معرّفتين.",
+    inf:"كل مجموعة ثابتة ومتوسطات المجموعات مختلفة: متوسط المربعات داخل المجموعات يساوي صفرًا؛ F=∞ والاحتمال الحدّي للذيل الأعلى يساوي صفرًا.",
+    reject:"عند α=0.05 نرفض تساوي متوسطات المجتمعات إذا تحققت افتراضات ANOVA. ولا يحدد ذلك أي المجموعات تختلف.",
+    keep:"عند α=0.05 لا نرفض تساوي متوسطات المجتمعات. وهذا ليس دليلًا على أن جميع المتوسطات متساوية."
+  }:{
+    undef:"Undefined",chartTitle:"Observed sample values and group means",
+    chartDesc:"Circles display individual observations; horizontal bars show group means. No uncertainty interval is drawn.",
+    group:"Group ",value:"Value",aria:"Observed values and group means: ",mean:" mean ",
+    input:"Enter 2 to 100 finite numbers per group, separated by commas. Absolute values must be at most 1,000,000.",
+    invalid:"Invalid groups.",
+    nan:"All observations are identical: both mean squares are zero; F and p are undefined.",
+    inf:"All groups are constant with different means: within-group mean square is zero; F=∞ and the limiting upper-tail probability is zero.",
+    reject:"At α=0.05, reject equality of population means if the ANOVA assumptions hold. This does not identify which groups differ.",
+    keep:"At α=0.05, do not reject equality of population means. This is not evidence that all means are identical."
+  };
   const get=id=>root.querySelector("#esa-anova-"+id);
   const source=[get("a"),get("b"),get("c")],error=get("error"),results=get("results");
   function parse(text) {
@@ -91,7 +114,7 @@
     if(text!==undefined)n.textContent=String(text);
     return n;
   };
-  const fmt=n=>Number.isNaN(n)?"Undefined":n===Infinity?"∞":n.toFixed(6);
+  const fmt=n=>Number.isNaN(n)?T.undef:n===Infinity?"∞":n.toFixed(6);
   function draw(groups,stats) {
     const chart=get("chart"),vals=groups.flat();
     let low=Math.min(...vals),high=Math.max(...vals);
@@ -99,8 +122,8 @@
     const pad=(high-low)*.08;low-=pad;high+=pad;
     const Y=x=>180-(x-low)/(high-low)*145;
     chart.replaceChildren(
-      svg("title",{},"Observed sample values and group means"),
-      svg("desc",{},"Circles display individual observations; horizontal bars show group means. No uncertainty interval is drawn."),
+      svg("title",{},T.chartTitle),
+      svg("desc",{},T.chartDesc),
       svg("line",{x1:36,y1:15,x2:36,y2:180,stroke:"currentColor"}),
       svg("line",{x1:36,y1:180,x2:380,y2:180,stroke:"currentColor"})
     );
@@ -111,21 +134,21 @@
       chart.appendChild(svg("line",{x1:cx-22,y1:Y(stats.means[i]),x2:cx+22,y2:Y(stats.means[i]),
         stroke:"#0f766e","stroke-width":3}));
       chart.appendChild(svg("text",{x:cx,y:205,fill:"currentColor","font-size":12,"text-anchor":"middle"},
-        "Group "+String.fromCharCode(65+i)));
+        T.group+String.fromCharCode(65+i)));
     });
-    chart.appendChild(svg("text",{x:38,y:12,fill:"currentColor","font-size":11},"Value"));
-    chart.setAttribute("aria-label","Observed values and group means: "+
-      stats.means.map((x,i)=>String.fromCharCode(65+i)+" mean "+x.toFixed(4)).join("; "));
+    chart.appendChild(svg("text",{x:38,y:12,fill:"currentColor","font-size":11},T.value));
+    chart.setAttribute("aria-label",T.aria+
+      stats.means.map((x,i)=>String.fromCharCode(65+i)+T.mean+x.toFixed(4)).join("; "));
   }
   function update(){
     const groups=source.map(x=>parse(x.value));
     if(groups.some(g=>g===null)){
       source.forEach((field,i)=>field.setAttribute("aria-invalid",groups[i]===null?"true":"false"));
-      error.hidden=false;error.textContent="Enter 2 to 100 finite numbers per group, separated by commas. Absolute values must be at most 1,000,000.";
+      error.hidden=false;error.textContent=T.input;
       results.hidden=true;get("chart").replaceChildren();return;
     }
     const s=compute(groups);
-    if(!s){source.forEach(field=>field.setAttribute("aria-invalid","true"));error.hidden=false;error.textContent="Invalid groups.";results.hidden=true;get("chart").replaceChildren();return;}
+    if(!s){source.forEach(field=>field.setAttribute("aria-invalid","true"));error.hidden=false;error.textContent=T.invalid;results.hidden=true;get("chart").replaceChildren();return;}
     source.forEach(field=>field.setAttribute("aria-invalid","false"));
     error.hidden=true;error.textContent="";results.hidden=false;
     get("groups").replaceChildren(...s.means.map((mean,i)=>{
@@ -140,12 +163,12 @@
       dfb:s.df1,dfw:s.df2,msb:s.msb,msw:s.msw,f:s.f,p:s.p}))get(id).textContent=
       id==="dfb"||id==="dfw"?String(val):fmt(val);
     get("decision").textContent=Number.isNaN(s.f)?
-      "All observations are identical: both mean squares are zero; F and p are undefined.":
+      T.nan:
       s.f===Infinity?
-      "All groups are constant with different means: within-group mean square is zero; F=∞ and the limiting upper-tail probability is zero.":
+      T.inf:
       s.p<.05?
-      "At α=0.05, reject equality of population means if the ANOVA assumptions hold. This does not identify which groups differ.":
-      "At α=0.05, do not reject equality of population means. This is not evidence that all means are identical.";
+      T.reject:
+      T.keep;
     draw(groups,s);
   }
   source.forEach(x=>x.addEventListener("input",update));

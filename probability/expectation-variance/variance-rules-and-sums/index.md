@@ -40,6 +40,7 @@ sidebar: false
     </div>
 
     <h1>Variance Rules and Sums</h1>
+{% include lab-noscript.html %}
 
     <p class="lead">
       Expectation adds beautifully regardless of dependence.

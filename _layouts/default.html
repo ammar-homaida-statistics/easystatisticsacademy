@@ -160,6 +160,12 @@
   {% elsif page.translation_pair == "mcnemar-test" %}
   <link rel="alternate" hreflang="en" href="{{ site.url }}/inference/classical-tests/mcnemar-test/" />
   <link rel="alternate" hreflang="ar" href="{{ site.url }}/ar/inference/classical-tests/mcnemar-test/" />
+  {% elsif page.translation_pair == "one-way-anova" %}
+  <link rel="alternate" hreflang="en" href="{{ site.url }}/inference/classical-tests/one-way-anova-f-test/" />
+  <link rel="alternate" hreflang="ar" href="{{ site.url }}/ar/inference/classical-tests/one-way-anova-f-test/" />
+  {% elsif page.translation_pair == "cohens-kappa" %}
+  <link rel="alternate" hreflang="en" href="{{ site.url }}/inference/classical-tests/cohens-kappa/" />
+  <link rel="alternate" hreflang="ar" href="{{ site.url }}/ar/inference/classical-tests/cohens-kappa/" />
   {% elsif page.translation_pair == "classical-tests-hub" %}
   <link rel="alternate" hreflang="en" href="{{ site.url }}/inference/classical-tests/" />
   <link rel="alternate" hreflang="ar" href="{{ site.url }}/ar/inference/classical-tests/" />
@@ -216,7 +222,7 @@
 
 <body>
 
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a class="skip-link" href="#main-content">{% if page.lang == "ar" %}انتقل إلى المحتوى الرئيسي{% else %}Skip to main content{% endif %}</a>
   {% include header.html %}
 
   <!-- MAIN CONTENT -->

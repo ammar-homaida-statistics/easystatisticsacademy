@@ -40,6 +40,7 @@ sidebar: false
     </div>
 
     <h1>Independence vs Disjointness</h1>
+{% include lab-noscript.html %}
 
     <p class="lead">
       One of the most common mistakes in probability is confusing independent events with mutually exclusive events.

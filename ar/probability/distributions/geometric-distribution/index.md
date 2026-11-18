@@ -13,6 +13,7 @@ math: true
 <section class="hero hero-section"><div class="hero-card">
 <div class="badge-row"><span class="badge">الاحتمالات</span><span class="badge">التوزيعات المنفصلة</span><span class="badge">الانتظار حتى أول نجاح</span></div>
 <h1>التوزيع الهندسي (Geometric Distribution)</h1>
+{% include lab-noscript.html %}
 <p><a href="/probability/distributions/geometric-distribution/" lang="en" dir="ltr">English — Geometric Distribution</a></p>
 <p class="lead">كيف نحسب عدد المحاولات المطلوبة للحصول على أول نجاح، عندما تكون التجارب مستقلة ويتكرر احتمال النجاح نفسه في كل تجربة؟</p>
 </div></section>
