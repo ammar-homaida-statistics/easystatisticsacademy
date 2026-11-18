@@ -131,6 +131,8 @@ class Browser96(unittest.TestCase):
         self.visit(EN_ANOVA)  # English output is unchanged by the shared strings
         expect(self.page.locator("#esa-anova-decision")).to_contain_text("At α=0.05, reject equality")
         expect(self.page.locator("#esa-anova-chart text").first).to_have_text("Group A")
+        self.page.set_viewport_size({"width":320,"height":820})
+        self.fit("#esa-anova-lab",320)
 
     def test_weighted_kappa_both_languages(self):
         for route,undefined in ((EN_KAPPA,"Not defined for weighted kappa"),("/ar"+EN_KAPPA,"لا ينطبق على كابا الموزونة")):

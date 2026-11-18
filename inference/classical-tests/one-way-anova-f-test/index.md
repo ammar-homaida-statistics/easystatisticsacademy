@@ -341,7 +341,7 @@ translation_pair: one-way-anova
     F=\frac{26/2}{6/6}=13,\quad p=P(F_{2,6}\ge13)\approx0.006592 .
     \]
     </div>
-    <p>The effect size \(\eta^2=SS_B/SS_T=26/32=0.8125\) is the share of the total sample variation associated with group membership. It is descriptive and biased upward in small samples, so interpret it together with the sample size. With only two groups, the F test is equivalent to the pooled two-sample t test because \(F=t^2\).</p>
+    <p>The effect size \(\eta^2=SS_B/SS_T\), here 26/32 = 0.8125, is the share of the total sample variation associated with group membership. It is descriptive and biased upward in small samples, so interpret it together with the sample size. With only two groups, the F test is equivalent to the pooled two-sample t test because \(F=t^2\).</p>
     <!-- Batch #65 — One-way ANOVA educational explorer -->
     <section id="esa-anova-lab" class="concept-box" aria-labelledby="esa-anova-title">
       <h2 id="esa-anova-title">Interactive One-Way ANOVA Explorer</h2>
