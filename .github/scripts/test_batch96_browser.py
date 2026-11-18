@@ -56,7 +56,9 @@ class Browser96(unittest.TestCase):
         self.assertLessEqual(rect["right"],width+2,rect)
         self.assertLessEqual(rect["scroll"]-rect["client"],2,rect)
         doc=self.page.evaluate("()=>document.documentElement.scrollWidth")
-        self.assertLessEqual(doc,width+1)
+        wide=self.page.evaluate("""w=>[...document.querySelectorAll('body *')].filter(e=>e.getBoundingClientRect().right>w+1)
+          .slice(0,12).map(e=>e.tagName+'#'+e.id+'.'+String(e.className).slice(0,40)+' r='+Math.round(e.getBoundingClientRect().right)+' '+(e.textContent||'').trim().slice(0,50))""",width)
+        self.assertLessEqual(doc,width+1,wide)
 
     def test_language_switcher_for_every_pair(self):
         """Static HTML: every published pair links to its exact counterpart, both directions."""
