@@ -13,6 +13,7 @@ math: true
 <section class="hero hero-section"><div class="hero-card">
 <div class="badge-row"><span class="badge">الاحتمالات</span><span class="badge">التوزيعات المستمرة</span><span class="badge">الاحتمال بوصفه مساحة</span></div>
 <h1>التوزيع المنتظم (Uniform Distribution)</h1>
+{% include lab-noscript.html %}
 <p><a href="/probability/distributions/uniform-distribution/" lang="en" dir="ltr">English — Uniform Distribution</a></p>
 <p class="lead">إذا كان لكل الفترات المتساوية الطول داخل مجال محدد الاحتمال نفسه، فإن التوزيع المنتظم المستمر نموذج طبيعي لبداية فهم دوال الكثافة والمساحات الاحتمالية.</p>
 <div class="hero-actions"><a class="btn btn-outline" href="/ar/probability/distributions/beta-distribution/">← توزيع بيتا بالعربية</a>

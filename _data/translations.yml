@@ -143,3 +143,9 @@
 - id: classical-tests-hub
   en: /inference/classical-tests/
   ar: /ar/inference/classical-tests/
+- id: one-way-anova
+  en: /inference/classical-tests/one-way-anova-f-test/
+  ar: /ar/inference/classical-tests/one-way-anova-f-test/
+- id: cohens-kappa
+  en: /inference/classical-tests/cohens-kappa/
+  ar: /ar/inference/classical-tests/cohens-kappa/

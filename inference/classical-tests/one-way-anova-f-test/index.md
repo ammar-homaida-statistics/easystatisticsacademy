@@ -4,6 +4,8 @@ title: One-Way ANOVA and the F Test
 description: Learn how one-way ANOVA compares the means of three or more groups and uses the F statistic to determine whether meaningful differences exist.
 permalink: /inference/classical-tests/one-way-anova-f-test/
 sidebar: false
+learning_resource: true
+translation_pair: one-way-anova
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -48,6 +50,7 @@ sidebar: false
     <p class="lead">
       One-way Analysis of Variance (ANOVA) provides a systematic way to determine whether at least one population mean differs from the others.
     </p>
+    <p><a href="/ar/inference/classical-tests/one-way-anova-f-test/" lang="ar" dir="rtl" hreflang="ar">النسخة العربية</a></p>
 
     <div class="hero-actions">
 
@@ -330,9 +333,19 @@ sidebar: false
     </p>
 
 
+    <h2>Worked Example and Effect Size</h2>
+    <p>The laboratory below starts with three small groups: A = {4, 5, 6}, B = {5, 6, 7} and C = {8, 9, 10}. The group means are 5, 6 and 9, and the grand mean is 60/9 ≈ 6.667.</p>
+    <div class="esa-anova-equation" role="region" tabindex="0" aria-label="Worked ANOVA example" dir="ltr">
+    \[
+    SS_B=3\left[(5-\tfrac{20}{3})^2+(6-\tfrac{20}{3})^2+(9-\tfrac{20}{3})^2\right]=26,\quad SS_W=6,\quad
+    F=\frac{26/2}{6/6}=13,\quad p=P(F_{2,6}\ge13)\approx0.006592 .
+    \]
+    </div>
+    <p>The effect size \(\eta^2=SS_B/SS_T\), here 26/32 = 0.8125, is the share of the total sample variation associated with group membership. It is descriptive and biased upward in small samples, so interpret it together with the sample size. With only two groups, the F test is equivalent to the pooled two-sample t test because \(F=t^2\).</p>
     <!-- Batch #65 — One-way ANOVA educational explorer -->
     <section id="esa-anova-lab" class="concept-box" aria-labelledby="esa-anova-title">
       <h2 id="esa-anova-title">Interactive One-Way ANOVA Explorer</h2>
+      {% include lab-noscript.html %}
       <p>Enter <strong>individual sample observations</strong> for three independent groups. Compare between-group and within-group variation, including unequal sample sizes, using the classical pooled-variance one-way ANOVA.</p>
       <div class="esa-anova-fields">
         <div><label for="esa-anova-a">Group A observations</label><textarea id="esa-anova-a" rows="2" spellcheck="false" aria-invalid="false" aria-describedby="esa-anova-error">4, 5, 6</textarea></div>
@@ -382,8 +395,8 @@ sidebar: false
       #esa-anova-lab #esa-anova-error{font-weight:650;color:#b42318}
       #esa-anova-lab #esa-anova-chart{display:block;width:100%;max-width:560px;height:auto;margin:8px auto}
       #esa-anova-lab :is(textarea,button):focus-visible,.esa-anova-equation:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-      #esa-anova-lab .esa-anova-equation{max-width:100%;overflow-x:auto;direction:ltr}
-      #esa-anova-lab .esa-anova-equation mjx-container[display="true"]{width:max-content;min-width:100%;text-align:left}
+      .esa-anova-equation{max-width:100%;overflow-x:auto;direction:ltr}
+      .esa-anova-equation mjx-container[display="true"]{width:max-content;min-width:100%;text-align:left}
       #esa-anova-lab output{font-variant-numeric:tabular-nums}
       @media(max-width:650px){#esa-anova-lab .esa-anova-fields{grid-template-columns:minmax(0,1fr)}}
     </style>

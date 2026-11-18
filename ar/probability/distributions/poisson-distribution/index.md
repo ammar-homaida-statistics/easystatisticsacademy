@@ -13,6 +13,7 @@ math: true
 <section class="hero hero-section"><div class="hero-card">
 <div class="badge-row"><span class="badge">الاحتمالات</span><span class="badge">التوزيعات</span><span class="badge">بيانات العد</span></div>
 <h1>التوزيع البواسوني (Poisson Distribution)</h1>
+{% include lab-noscript.html %}
 <p><a href="/probability/distributions/poisson-distribution/" lang="en" dir="ltr">English — Poisson Distribution</a></p>
 <p class="lead">يُستخدم التوزيع البواسوني لنمذجة عدد مرات وقوع حدث خلال فترة زمنية أو مساحة أو نطاق محدد، عند تحقق افتراضات ملائمة عن آلية وقوع الأحداث.</p>
 <div class="hero-actions"><a class="btn btn-outline" href="/probability/distributions/negative-binomial-distribution/" lang="en" dir="ltr">Previous (English): Negative Binomial</a><a class="btn" href="/probability/distributions/hypergeometric-distribution/" lang="en" dir="ltr">Next (English): Hypergeometric</a></div>

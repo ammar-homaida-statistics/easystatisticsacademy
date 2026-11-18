@@ -42,6 +42,7 @@ translation_pair: poisson-distribution
     </div>
 
     <h1>Poisson Distribution</h1>
+{% include lab-noscript.html %}
     <p><a href="/ar/probability/distributions/poisson-distribution/" lang="ar" dir="rtl">العربية — التوزيع البواسوني</a></p>
 
     <p class="lead">

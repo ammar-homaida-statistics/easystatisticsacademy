@@ -40,6 +40,7 @@ sidebar: false
     </div>
 
     <h1>Boxplots</h1>
+{% include lab-noscript.html %}
 
     <p class="lead">
       Histograms show the overall shape of a distribution.

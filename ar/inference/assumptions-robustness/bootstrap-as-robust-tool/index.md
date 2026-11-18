@@ -11,6 +11,7 @@ sidebar: false
 <section class="hero hero-section"><div class="hero-card">
 <p><a href="/inference/assumptions-robustness/bootstrap-as-robust-tool/" lang="en" dir="ltr">English — Bootstrap as a Robust Tool</a></p>
 <h1>بوتستراب: إعادة المعاينة لتقدير عدم اليقين</h1>
+{% include lab-noscript.html %}
 <p class="lead">تساعد طريقة بوتستراب (Bootstrap) في تقدير عدم اليقين الإحصائي عن طريق إنشاء عينات جديدة من البيانات المرصودة، بدل الاعتماد دائمًا على صيغة نظرية لتوزيع المقدّر.</p>
 <p>تُستخدم الطريقة في تقدير الخطأ المعياري وفترات الثقة، ولكن صلاحيتها تعتمد على تصميم العينة وطبيعة البيانات والإحصاء المدروس.</p>
 </div></section>

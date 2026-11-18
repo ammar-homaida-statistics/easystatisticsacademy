@@ -36,6 +36,7 @@ sidebar: false
     </div>
 
     <h1>Overfitting</h1>
+{% include lab-noscript.html %}
 
     <p class="lead">
       A model can fit existing data extremely well and still perform poorly on new observations.

@@ -40,6 +40,7 @@ sidebar: false
     </div>
 
     <h1>Histograms</h1>
+{% include lab-noscript.html %}
 
     <p class="lead">
       Histograms are one of the most important tools for understanding numerical data.

@@ -1,3 +1,4 @@
+{%- assign esa_ar = false -%}{%- if page.lang == "ar" -%}{%- assign esa_ar = true -%}{%- endif -%}
 <header class="site-header">
 
   <div class="container">
@@ -6,28 +7,28 @@
     <div class="header-top">
 
       <!-- BRAND -->
-      <a class="brand" href="/">
+      <a class="brand" href="{% if esa_ar %}/ar/{% else %}/{% endif %}">
         <img src="/images/brand/logo.png?v=2" alt="EasyStatisticsAcademy" />
         <span class="brand-text">EasyStatisticsAcademy</span>
       </a>
 
       <!-- SEARCH -->
       <div class="header-search">
-        <label class="sr-only" for="site-search">Search statistical lessons</label>
+        <label class="sr-only" for="site-search">{% if esa_ar %}ابحث في دروس الإحصاء{% else %}Search statistical lessons{% endif %}</label>
         <input 
           id="site-search"
           type="search"
-          placeholder="Search topics…"
+          placeholder="{% if esa_ar %}ابحث في الموضوعات…{% else %}Search topics…{% endif %}"
           autocomplete="off"
           aria-controls="search-results"
           aria-describedby="search-status"
         />
-        <div id="search-results" class="search-results" role="region" aria-label="Search results" hidden></div>
+        <div id="search-results" class="search-results" role="region" aria-label="{% if esa_ar %}نتائج البحث{% else %}Search results{% endif %}" hidden></div>
         <p id="search-status" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
       </div>
 
       <!-- MOBILE TOGGLE -->
-      <button class="nav-toggle" type="button" aria-label="Toggle menu" aria-controls="site-primary-nav" aria-expanded="false">
+      <button class="nav-toggle" type="button" aria-label="{% if esa_ar %}فتح القائمة أو إغلاقها{% else %}Toggle menu{% endif %}" aria-controls="site-primary-nav" aria-expanded="false">
         <span class="nav-toggle-bar"></span>
         <span class="nav-toggle-bar"></span>
         <span class="nav-toggle-bar"></span>
@@ -38,48 +39,30 @@
     <!-- ===== BOTTOM ROW ===== -->
     <div class="header-bottom">
 
-      <nav id="site-primary-nav" class="nav" aria-label="Primary navigation">
+      <nav id="site-primary-nav" class="nav" aria-label="{% if esa_ar %}التنقل الرئيسي{% else %}Primary navigation{% endif %}">
 
-        <a href="/"{% if page.url == '/' %} class="is-active" aria-current="page"{% endif %}>Home</a>
+        {% if esa_ar %}<a href="/ar/"{% if page.url == '/ar/' %} class="is-active" aria-current="page"{% endif %}>الرئيسية</a>{% else %}<a href="/"{% if page.url == '/' %} class="is-active" aria-current="page"{% endif %}>Home</a>{% endif %}
 
-        <a href="/learning-paths/beginner/"{% if page.url == '/learning-paths/beginner/' %} class="is-active" aria-current="page"{% endif %}>Beginner</a>
-        <a href="/learning-paths/intermediate/"{% if page.url == '/learning-paths/intermediate/' %} class="is-active" aria-current="page"{% endif %}>Intermediate</a>
-        <a href="/learning-paths/advanced/"{% if page.url == '/learning-paths/advanced/' %} class="is-active" aria-current="page"{% endif %}>Advanced</a>
+        <a href="/learning-paths/beginner/"{% if page.url == '/learning-paths/beginner/' %} class="is-active" aria-current="page"{% endif %}{% if esa_ar %} hreflang="en">المبتدئ{% else %}>Beginner{% endif %}</a>
+        <a href="/learning-paths/intermediate/"{% if page.url == '/learning-paths/intermediate/' %} class="is-active" aria-current="page"{% endif %}{% if esa_ar %} hreflang="en">المتوسط{% else %}>Intermediate{% endif %}</a>
+        <a href="/learning-paths/advanced/"{% if page.url == '/learning-paths/advanced/' %} class="is-active" aria-current="page"{% endif %}{% if esa_ar %} hreflang="en">المتقدم{% else %}>Advanced{% endif %}</a>
 
-        <a href="/learning-paths/"{% if page.url == '/learning-paths/' %} class="is-active" aria-current="page"{% endif %}>Paths</a>
+        <a href="/learning-paths/"{% if page.url == '/learning-paths/' %} class="is-active" aria-current="page"{% endif %}{% if esa_ar %} hreflang="en">مسارات التعلم{% else %}>Paths{% endif %}</a>
 
-        <a href="/about/"{% if page.url == '/about/' %} class="is-active" aria-current="page"{% endif %}>About</a>
+        <a href="/about/"{% if page.url == '/about/' %} class="is-active" aria-current="page"{% endif %}{% if esa_ar %} hreflang="en">عن الأكاديمية{% else %}>About{% endif %}</a>
 
         <!-- Keep language links in the collapsible navigation: the closed
              mobile header must not gain a third row and hide anchored headings. -->
-        <div role="group" aria-label="Language selection" style="display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:.35rem;grid-column:1 / -1">
-        {% if page.translation_pair == "bootstrap" %}
-          <a href="/inference/assumptions-robustness/bootstrap-as-robust-tool/" lang="en" dir="ltr">English</a>
-          <a href="/ar/inference/assumptions-robustness/bootstrap-as-robust-tool/" lang="ar" dir="rtl">العربية</a>
-        {% elsif page.translation_pair == "sampling-variability" %}
-          <a href="/foundations/sampling-variability/" lang="en" dir="ltr">English</a>
-          <a href="/ar/foundations/sampling-variability/" lang="ar" dir="rtl">العربية</a>
-        {% elsif page.translation_pair == "missing-data" %}
-          <a href="/foundations/missing-data/" lang="en" dir="ltr">English</a>
-          <a href="/ar/foundations/missing-data/" lang="ar" dir="rtl">العربية</a>
-        {% elsif page.translation_pair == "type1-type2-errors" %}
-          <a href="/inference/hypothesis-testing/type1-type2-errors/" lang="en" dir="ltr">English</a>
-          <a href="/ar/inference/hypothesis-testing/type1-type2-errors/" lang="ar" dir="rtl">العربية</a>
-        {% elsif page.translation_pair == "bayes-theorem" %}
-          <a href="/probability/conditional/bayes-theorem/" lang="en" dir="ltr">English</a>
-          <a href="/ar/probability/conditional/bayes-theorem/" lang="ar" dir="rtl">العربية</a>
-        {% elsif page.translation_pair == "central-limit-theorem" %}
-          <a href="/probability/lln-clt/central-limit-theorem/" lang="en" dir="ltr">English</a>
-          <a href="/ar/probability/lln-clt/central-limit-theorem/" lang="ar" dir="rtl">العربية</a>
-        {% elsif page.translation_pair == "cramer-rao-lower-bound" %}
-          <a href="/mathematical-statistics/fisher-information-and-efficiency/cramer-rao-lower-bound/" lang="en" dir="ltr">English</a>
-          <a href="/ar/mathematical-statistics/fisher-information-and-efficiency/cramer-rao-lower-bound/" lang="ar" dir="rtl">العربية</a>
-        {% elsif page.translation_pair == "coefficient-of-variation" %}
-          <a href="/descriptive/spread/coefficient-of-variation/" lang="en" dir="ltr">English</a>
-          <a href="/ar/descriptive/spread/coefficient-of-variation/" lang="ar" dir="rtl">العربية</a>
-        {% elsif page.translation_pair == "standard-deviation" %}
-          <a href="/descriptive/spread/standard-deviation/" lang="en" dir="ltr">English</a>
-          <a href="/ar/descriptive/spread/standard-deviation/" lang="ar" dir="rtl">العربية</a>
+        <div role="group" aria-label="{% if esa_ar %}اختيار اللغة (Language selection){% else %}Language selection{% endif %}" style="display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:.35rem;grid-column:1 / -1">
+        {%- comment -%} Built from _data/translations.yml: every published pair
+             links to its exact counterpart in both directions. {%- endcomment -%}
+        {%- assign esa_pair = nil -%}
+        {%- if page.translation_pair -%}
+          {%- assign esa_pair = site.data.translations | where: "id", page.translation_pair | first -%}
+        {%- endif %}
+        {% if esa_pair %}
+          <a href="{{ esa_pair.en }}" lang="en" dir="ltr" hreflang="en"{% if page.lang != "ar" %} aria-current="true"{% endif %}>English</a>
+          <a href="{{ esa_pair.ar }}" lang="ar" dir="rtl" hreflang="ar"{% if page.lang == "ar" %} aria-current="true"{% endif %}>العربية</a>
         {% elsif page.lang == "ar" %}
           <a href="/" lang="en" dir="ltr">English</a>
           <a href="/ar/" lang="ar" dir="rtl">العربية</a>

@@ -20,6 +20,7 @@ math: true
 <section class="hero hero-section"><div class="hero-card">
   <div class="badge-row"><span class="badge">الاستدلال الإحصائي</span><span class="badge">فترات الثقة</span><span class="badge">المفاهيم الأساسية</span></div>
   <h1>ما فترة الثقة؟</h1>
+{% include lab-noscript.html %}
   <p><a href="/inference/confidence-intervals/what-is-a-confidence-interval/" lang="en" dir="ltr">English — What Is a Confidence Interval?</a></p>
   <p class="lead">يقدّم التقدير النقطي قيمة واحدة لتقدير معلمة مجهولة، أما فترة الثقة فتقدّم مجالاً من القيم المتوافقة بدرجات متفاوتة مع البيانات، مع إظهار عدم اليقين الناتج عن المعاينة.</p>
   <div class="hero-actions"><a class="btn btn-outline" href="/ar/">الدروس العربية</a><a class="btn" href="/inference/confidence-intervals/" lang="en" dir="ltr">Confidence Intervals block (English)</a><a class="btn btn-outline" href="/inference/confidence-intervals/interval-blueprint-estimate-plus-minus/" lang="en" dir="ltr">Next lesson (English)</a></div>

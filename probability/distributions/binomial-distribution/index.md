@@ -42,6 +42,7 @@ translation_pair: binomial-distribution
     </div>
 
     <h1>Binomial Distribution</h1>
+{% include lab-noscript.html %}
     <p><a href="/ar/probability/distributions/binomial-distribution/" lang="ar" dir="rtl">العربية — التوزيع ذو الحدين</a></p>
 
     <p class="lead">

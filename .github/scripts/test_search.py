@@ -11857,7 +11857,9 @@ class SearchTests(unittest.TestCase):
         self.page.goto(self.origin+url,wait_until="networkidle")
         self.assertEqual(self.page.locator("html").get_attribute("lang"),"ar")
         expect(self.page.locator("main h1")).to_contain_text("المغالطات")
-        expect(self.page.locator('a[href="/probability/conditional/base-rate-neglect-and-fallacies/"]')).to_be_visible()
+        # Batch #96: the header language switcher also links to the English counterpart,
+        # so check the lesson's own link inside <main>.
+        expect(self.page.locator('main a[href="/probability/conditional/base-rate-neglect-and-fallacies/"]')).to_be_visible()
         expect(self.page.locator("#esa-bayes-lab")).to_be_visible()
         self.assertEqual(self.page.locator("#esa-bayes-pos").inner_text(),"15.38%")
         self.assertEqual(self.page.locator("#esa-bayes-tp").inner_text(),"90.00")

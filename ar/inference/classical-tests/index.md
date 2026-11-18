@@ -55,7 +55,7 @@ translation_pair: classical-tests-hub
   <li><a href="/ar/inference/classical-tests/chi-square-goodness-of-fit/">اختبار كاي تربيع لحسن المطابقة</a></li>
   <li><a href="/ar/inference/classical-tests/chi-square-independence-test/">اختبار كاي تربيع للاستقلال</a></li>
   <li><a href="/ar/inference/classical-tests/chi-square-homogeneity-test/">اختبار كاي تربيع للتجانس</a></li>
-  <li><a href="/inference/classical-tests/one-way-anova-f-test/" hreflang="en">تحليل التباين الأحادي (اختبار F)</a> <span class="muted-mini">(بالإنجليزية)</span></li>
+  <li><a href="/ar/inference/classical-tests/one-way-anova-f-test/">تحليل التباين الأحادي (اختبار F)</a></li>
   <li><a href="/inference/classical-tests/post-hoc-tests-and-multiple-comparisons-preview/" hreflang="en">الاختبارات البعدية والمقارنات المتعددة</a> <span class="muted-mini">(بالإنجليزية)</span></li>
 </ol>
 <h2 id="ar-labs-heading">المختبرات المرافقة</h2>
@@ -64,7 +64,7 @@ translation_pair: classical-tests-hub
   <li><a href="/inference/classical-tests/fisher-exact-vs-chi-square/" hreflang="en">اختبار فيشر الدقيق مقابل كاي تربيع</a> <span class="muted-mini">(بالإنجليزية)</span></li>
   <li><a href="/inference/classical-tests/exact-binomial-vs-z-test/" hreflang="en">اختبار ذات الحدين الدقيق مقابل اختبار Z</a> <span class="muted-mini">(بالإنجليزية)</span></li>
   <li><a href="/inference/classical-tests/welch-pooled-monte-carlo/" hreflang="en">مختبر مونت كارلو: ويلش مقابل التباين المشترك</a> <span class="muted-mini">(بالإنجليزية)</span></li>
-  <li><a href="/inference/classical-tests/cohens-kappa/" hreflang="en">معامل كوهين كابا لاتفاق المقيّمين</a> <span class="muted-mini">(بالإنجليزية)</span></li>
+  <li><a href="/ar/inference/classical-tests/cohens-kappa/">معامل كوهين كابا لاتفاق المقيّمين</a></li>
 </ul>
 <p class="muted-mini">الروابط المشار إليها بـ(بالإنجليزية) تنقلك إلى الدرس الإنجليزي حتى تتوفر نسخته العربية.</p>
 </div></section>
@@ -112,10 +112,10 @@ translation_pair: classical-tests-hub
   true
  ],
  "mean-multiple": [
-  "/inference/classical-tests/one-way-anova-f-test/",
+  "/ar/inference/classical-tests/one-way-anova-f-test/",
   "تحليل التباين الأحادي",
   "لمقارنة متوسطات ثلاث مجموعات مستقلة أو أكثر؛ يفترض أخطاء مستقلة وتوزيعًا طبيعيًا تقريبًا وتباينات متقاربة.",
-  false
+  true
  ],
  "binary-one": [
   "/ar/inference/classical-tests/one-proportion-z-test/",

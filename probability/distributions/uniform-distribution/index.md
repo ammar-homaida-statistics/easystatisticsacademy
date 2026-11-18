@@ -42,6 +42,7 @@ translation_pair: uniform-distribution
     </div>
 
     <h1>Uniform Distribution</h1>
+{% include lab-noscript.html %}
     <p><a href="/ar/probability/distributions/uniform-distribution/" lang="ar" dir="rtl">العربية — التوزيع المنتظم</a></p>
 
     <p class="lead">

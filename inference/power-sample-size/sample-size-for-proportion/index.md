@@ -40,6 +40,7 @@ sidebar: false
     </div>
 
     <h1>Sample Size for a Proportion</h1>
+{% include lab-noscript.html %}
 
     <p class="lead">
       Many studies focus on proportions rather than means.

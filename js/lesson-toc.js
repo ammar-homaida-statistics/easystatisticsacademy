@@ -10,12 +10,14 @@
       !heading.closest("nav, aside, footer, .sidebar"));
   if (headings.length < 7 || !main.querySelector(".formula-box, .example-box, .concept-box")) return;
 
+  const arabic = document.documentElement.lang === "ar";
+  const label = arabic ? "في هذه الصفحة" : "On this page";
   const toc = document.createElement("nav");
   toc.className = "esa-lesson-toc";
-  toc.setAttribute("aria-label", "On this page");
+  toc.setAttribute("aria-label", label);
   const details = document.createElement("details");
   const summary = document.createElement("summary");
-  summary.textContent = "On this page";
+  summary.textContent = label;
   const list = document.createElement("ol");
   const claimed = new Set(Array.from(document.querySelectorAll("[id]"), element => element.id));
 

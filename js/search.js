@@ -3,6 +3,7 @@
   const box = document.getElementById("search-results");
   const status = document.getElementById("search-status");
   if (!input || !box || !status) return;
+  const AR = document.documentElement.lang === "ar";
 
   let pages = [];
   let state = "loading";
@@ -70,8 +71,8 @@
     const q = normalize(query);
     if (!q) return close();
     dismissed = false;
-    if (state === "loading") return message("Loading search…");
-    if (state === "error") return message("Search is temporarily unavailable. Please try again.");
+    if (state === "loading") return message(AR ? "جارٍ تحميل البحث…" : "Loading search…");
+    if (state === "error") return message(AR ? "البحث غير متاح مؤقتًا. يُرجى المحاولة مرة أخرى." : "Search is temporarily unavailable. Please try again.");
 
     // Favor exact and contiguous matches. Only if a phrase is absent, match
     // every unique query word across title/content, irrespective of word order.
@@ -90,7 +91,7 @@
     }).filter((match) => match.rank < 6)
       .sort((a, b) => a.rank - b.rank).slice(0, 8);
 
-    if (!matches.length) return message("No results found.");
+    if (!matches.length) return message(AR ? "لم يُعثر على نتائج." : "No results found.");
     box.replaceChildren();
     for (const { page } of matches) {
       const link = document.createElement("a");
@@ -108,7 +109,7 @@
       box.append(link);
     }
     box.hidden = false;
-    status.textContent = matches.length + (matches.length === 1 ? " result shown." : " results shown.");
+    status.textContent = AR ? "عدد النتائج المعروضة: " + matches.length : matches.length + (matches.length === 1 ? " result shown." : " results shown.");
   }
 
   // Search results are ordinary links: retain Tab/Enter semantics while

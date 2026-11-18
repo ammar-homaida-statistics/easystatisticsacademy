@@ -13,6 +13,7 @@ math: true
 <section class="hero hero-section"><div class="hero-card">
 <div class="badge-row"><span class="badge">الاحتمالات</span><span class="badge">التوزيعات المستمرة</span><span class="badge">أزمنة الانتظار</span></div>
 <h1>توزيع غاما (Gamma Distribution)</h1>
+{% include lab-noscript.html %}
 <p><a href="/probability/distributions/gamma-distribution/" lang="en" dir="ltr">English — Gamma Distribution</a></p>
 <p class="lead">كيف يتغير توزيع زمن الانتظار إذا كنا ننتظر وقوع عدة أحداث، بدلًا من انتظار الحدث الأول فقط؟</p>
 <div class="hero-actions">

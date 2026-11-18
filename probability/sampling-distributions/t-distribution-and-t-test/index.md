@@ -40,6 +40,7 @@ sidebar: false
     </div>
 
     <h1>t Distribution and t Test</h1>
+{% include lab-noscript.html %}
 
     <p class="lead">
       The z-distribution works well when population variability is known.

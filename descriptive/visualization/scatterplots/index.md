@@ -40,6 +40,7 @@ sidebar: false
     </div>
 
     <h1>Scatterplots</h1>
+{% include lab-noscript.html %}
 
     <p class="lead">
       Many statistical questions involve understanding relationships between variables.

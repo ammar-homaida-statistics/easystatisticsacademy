@@ -43,6 +43,7 @@ learning_resource: true
     </div>
 
     <h1>Paired t Test</h1>
+{% include lab-noscript.html %}
     <p>Paired <em>binary</em> outcomes instead? <a href="/inference/classical-tests/mcnemar-test/">Use the McNemar test</a>.</p>
 
     <p class="lead">

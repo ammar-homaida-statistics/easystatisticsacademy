@@ -40,6 +40,7 @@ sidebar: false
     </div>
 
     <h1>Power Curves and Trade-Offs</h1>
+{% include lab-noscript.html %}
 
     <p class="lead">
       Statistical power depends on several interacting factors.

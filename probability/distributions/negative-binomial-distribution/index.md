@@ -42,6 +42,7 @@ translation_pair: negative-binomial-distribution
     </div>
 
     <h1>Negative Binomial Distribution</h1>
+{% include lab-noscript.html %}
     <p><a href="/ar/probability/distributions/negative-binomial-distribution/" lang="ar" dir="rtl">العربية — التوزيع السالب ذو الحدين</a></p>
 
     <p class="lead">

@@ -42,6 +42,7 @@ localStorage.setItem(KEY, JSON.stringify({
     </div>
 
     <h1>Least Squares</h1>
+{% include lab-noscript.html %}
 
     <p class="lead">
       A regression line is not chosen arbitrarily.
