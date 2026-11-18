@@ -395,8 +395,8 @@ translation_pair: one-way-anova
       #esa-anova-lab #esa-anova-error{font-weight:650;color:#b42318}
       #esa-anova-lab #esa-anova-chart{display:block;width:100%;max-width:560px;height:auto;margin:8px auto}
       #esa-anova-lab :is(textarea,button):focus-visible,.esa-anova-equation:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-      #esa-anova-lab .esa-anova-equation{max-width:100%;overflow-x:auto;direction:ltr}
-      #esa-anova-lab .esa-anova-equation mjx-container[display="true"]{width:max-content;min-width:100%;text-align:left}
+      .esa-anova-equation{max-width:100%;overflow-x:auto;direction:ltr}
+      .esa-anova-equation mjx-container[display="true"]{width:max-content;min-width:100%;text-align:left}
       #esa-anova-lab output{font-variant-numeric:tabular-nums}
       @media(max-width:650px){#esa-anova-lab .esa-anova-fields{grid-template-columns:minmax(0,1fr)}}
     </style>
