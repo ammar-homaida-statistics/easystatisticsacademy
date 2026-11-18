@@ -55,7 +55,12 @@ A=\sum_i p_{ii}\bigl[1-(r_i+c_i)(1-\hat\kappa)\bigr]^2,\quad
 B=(1-\hat\kappa)^2\sum_{i\ne j}p_{ij}(c_i+r_j)^2,\quad
 C=\bigl[\hat\kappa-p_e(1-\hat\kappa)\bigr]^2 .
 \]</div>
-<p>For the X-ray example, \(SE\approx0.127\) and the approximate 95% interval is \(0.40\pm1.96\times0.127=[0.151,\,0.649]\). This Wald interval is a large-sample approximation: it can be poor for small \(N\) or for \(\kappa\) near \(\pm1\), and it collapses to a single point when agreement is perfect.</p>
+<p>For the X-ray example, \(SE\approx0.127\) and the approximate 95% interval is:</p>
+<div class="esa-long-math" dir="ltr" tabindex="0" role="region" aria-label="Approximate 95% interval for kappa">
+\[
+0.40\pm1.96\times0.127=[0.151,\,0.649].
+\]</div>
+<p>This Wald interval is a large-sample approximation: it can be poor for small \(N\) or for \(\kappa\) near \(\pm1\), and it collapses to a single point when agreement is perfect.</p>
 <h2>Weighted kappa for ordered categories</h2>
 <p>Unweighted kappa counts a "mild versus severe" disagreement exactly like "mild versus moderate". When the categories are <strong>ordered</strong>, weighted kappa gives partial credit to near misses. With categories numbered \(1,\dots,k\), the usual agreement weights are</p>
 <div class="esa-long-math" dir="ltr" tabindex="0" role="region" aria-label="Weighted kappa">
