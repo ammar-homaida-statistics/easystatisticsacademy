@@ -92,20 +92,20 @@ class Browser96(unittest.TestCase):
             self.page.wait_for_load_state("networkidle")
             self.assertTrue(self.page.url.endswith(EN_KAPPA))
             expect(self.page.locator("html")).to_have_attribute("lang","en")
-            expect(self.page.get_by_role("navigation",name="Primary navigation").get_by_role("link",name="Home")).to_have_attribute("href","/")
+            self.page.get_by_role("button",name="Toggle menu").click()
+            expect(self.page.get_by_role("navigation",name="Primary navigation").get_by_role("link",name="Home",exact=True)).to_have_attribute("href","/")
             # A pair outside the nine hand-written branches that existed before Batch #96.
             self.visit("/inference/classical-tests/mcnemar-test/")
-            expect(self.page.get_by_role("group",name="Language selection").locator('a[lang="ar"]')).to_have_attribute("href","/ar/inference/classical-tests/mcnemar-test/")
+            expect(self.page.locator('[role="group"][aria-label="Language selection"]').locator('a[lang="ar"]')).to_have_attribute("href","/ar/inference/classical-tests/mcnemar-test/")
             # An English page without a pair keeps the old behaviour.
             self.visit("/descriptive/spread/variance/")
-            expect(self.page.get_by_role("group",name="Language selection").locator("a")).to_have_count(1)
+            expect(self.page.locator('[role="group"][aria-label="Language selection"]').locator("a")).to_have_count(1)
 
     def test_arabic_toc_and_search_messages(self):
         self.visit("/ar/inference/classical-tests/one-way-anova-f-test/")
         toc=self.page.get_by_role("navigation",name="في هذه الصفحة")
         expect(toc).to_have_count(1)
         box=self.page.locator("#site-search")
-        self.page.get_by_role("button",name="فتح القائمة أو إغلاقها").evaluate("e=>e.offsetParent")  # header rendered
         box.fill("zzqqxxnotaword")
         expect(self.page.locator("#search-status")).to_have_text("لم يُعثر على نتائج.")
 
