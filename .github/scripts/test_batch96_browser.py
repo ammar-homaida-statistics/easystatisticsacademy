@@ -56,7 +56,9 @@ class Browser96(unittest.TestCase):
         self.assertLessEqual(rect["right"],width+2,rect)
         self.assertLessEqual(rect["scroll"]-rect["client"],2,rect)
         doc=self.page.evaluate("()=>document.documentElement.scrollWidth")
-        wide=self.page.evaluate("""w=>[...document.querySelectorAll('body *')].filter(e=>e.getBoundingClientRect().right>w+1)
+        wide=self.page.evaluate("""w=>[...document.querySelectorAll('body *')].filter(e=>{if(e.getBoundingClientRect().right<=w+1)return false;
+            for(let a=e.parentElement;a&&a!==document.body;a=a.parentElement){const o=getComputedStyle(a).overflowX;
+              if(o!=="visible"&&o!=="clip"&&a.getBoundingClientRect().right<=w+1)return false;}return true;})
           .slice(0,12).map(e=>e.tagName+'#'+e.id+'.'+String(e.className).slice(0,40)+' r='+Math.round(e.getBoundingClientRect().right)+' '+(e.textContent||'').trim().slice(0,50))""",width)
         self.assertLessEqual(doc,width+1,wide)
 
