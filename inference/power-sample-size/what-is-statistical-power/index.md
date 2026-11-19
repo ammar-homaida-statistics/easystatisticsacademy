@@ -127,10 +127,12 @@ translation_pair: what-is-statistical-power
       alternative-hypothesis set Θ₁, the Type II error probability is:
     </p>
 
+    <div class="esa-power-math" dir="ltr" tabindex="0" role="region" aria-label="Type II error probability">
     \[
 \beta(\theta)=P_\theta(\text{fail to reject }H_0),
 \qquad\theta\in\Theta_1
 \]
+    </div>
 
     <h2>Defining Statistical Power</h2>
 
@@ -143,10 +145,12 @@ translation_pair: what-is-statistical-power
       Mathematically:
     </p>
 
+    <div class="esa-power-math" dir="ltr" tabindex="0" role="region" aria-label="Definition of power">
     \[
 \operatorname{Power}(\theta)=P_\theta(\text{reject }H_0)
 =1-\beta(\theta),\quad\theta\in\Theta_1
 \]
+    </div>
 
     <p>
       where:
@@ -167,10 +171,12 @@ translation_pair: what-is-statistical-power
       alternative θ* (a particular effect size):
     </p>
 
+    <div class="esa-power-math" dir="ltr" tabindex="0" role="region" aria-label="Power of 0.80 and beta of 0.20">
     \[
 \operatorname{Power}(\theta_*)=0.80,\qquad
 \beta(\theta_*)=1-0.80=0.20
 \]
+    </div>
 
     <p>
       This means:
@@ -302,9 +308,11 @@ translation_pair: what-is-statistical-power
       Traditional hypothesis testing focuses heavily on:
     </p>
 
+    <div class="esa-power-math" dir="ltr" tabindex="0" role="region" aria-label="Type I error control">
     \[
 \sup_{\theta\in\Theta_0}P_\theta(\text{reject }H_0)\le\alpha
 \]
+    </div>
 
     <p>
       which controls Type I errors.
@@ -314,10 +322,12 @@ translation_pair: what-is-statistical-power
       Power focuses on the other side of the problem:
     </p>
 
+    <div class="esa-power-math" dir="ltr" tabindex="0" role="region" aria-label="Beta in terms of power">
     \[
 \beta(\theta)=1-\operatorname{Power}(\theta),
 \qquad\theta\in\Theta_1
 \]
+    </div>
 
     <p>
       A lower β(θ) indicates a greater chance of detecting that specified
