@@ -74,7 +74,7 @@ t=\frac{18-20}{0.8}=-2.5,\quad df=24.
 <li>لا يمكن استنتاج غياب الالتواء أو القيم المتطرفة من الإحصاءات الملخصة وحدها.</li>
 <li>لا تعني الدلالة الإحصائية بالضرورة أهمية عملية أو وجود علاقة سببية.</li>
 </ul>
-<div class="lesson-nav"><a class="btn btn-outline" href="/ar/inference/classical-tests/one-sample-z-test-for-mean/">السابق: اختبار Z</a><a class="btn" lang="en" href="/inference/classical-tests/paired-t-test/">التالي: اختبار t للعينات المزدوجة (English)</a></div>
+<div class="lesson-nav"><a class="btn btn-outline" href="/ar/inference/classical-tests/one-sample-z-test-for-mean/">السابق: اختبار Z</a><a class="btn" href="/ar/inference/classical-tests/paired-t-test/">التالي: اختبار t للعينات المزدوجة</a></div>
 </div></section>
 <style>
 #esa-student-t-lab,#esa-student-t-lab *{box-sizing:border-box}

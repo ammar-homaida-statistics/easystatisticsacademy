@@ -59,7 +59,7 @@ learning_resource: true
 <svg id="esa-op-plot" viewBox="0 0 620 185" role="img" aria-label="فترتا والد وويلسون مقابل النسبة المفترضة"></svg>
 <p id="esa-op-conditions"></p><p id="esa-op-decision"></p><p id="esa-op-interpretation"></p>
 </section>
-<p>عند ضعف شروط التقريب الطبيعي، انتقل إلى <a href="/inference/classical-tests/exact-binomial-vs-z-test/">مختبر المقارنة مع الاختبار الثنائي الحدين الدقيق</a>. الاختبار الدقيق يعتمد على نموذج ثنائي الحدين الصحيح، ولا يعالج بحد ذاته تحيز اختيار العينة أو الاعتماد بين المشاهدات.</p>
+<p>عند ضعف شروط التقريب الطبيعي، انتقل إلى <a href="/ar/inference/classical-tests/exact-binomial-vs-z-test/">مختبر المقارنة مع الاختبار الثنائي الحدين الدقيق</a>. الاختبار الدقيق يعتمد على نموذج ثنائي الحدين الصحيح، ولا يعالج بحد ذاته تحيز اختيار العينة أو الاعتماد بين المشاهدات.</p>
 <h2>6. حدود التفسير</h2>
 <p>عدم رفض \(H_0\) لا يثبت التساوي؛ ورفضها لا يثبت سببية العلاقة. تُفهم النتائج مع تصميم الدراسة وحجم الأثر وفترات الثقة. لا تُخزن المدخلات على الخادم.</p>
 <p><a lang="en" href="/inference/classical-tests/one-proportion-z-test/">النسخة الإنجليزية</a> · <a href="/ar/inference/classical-tests/two-sample-t-test-independent/">الدرس السابق</a></p>

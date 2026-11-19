@@ -56,6 +56,6 @@ learning_resource: true
 <li>تجاهل أثر الاختبارات المتعددة وانتقاء النتائج بعد الاطلاع على البيانات.</li>
 </ul>
 <div class="summary-box"><h2>خلاصة خطوات الاختبار</h2><p>سؤال واضح ← فرضيات محددة مسبقاً ← اختيار الاختبار وفق التصميم ← فحص الافتراضات ← حساب إحصاء الاختبار والقيمة الاحتمالية ← قرار مشروط ← عرض حجم الأثر وعدم اليقين والقيود.</p></div>
-<div class="lesson-nav"><a class="btn btn-outline" href="/ar/">فهرس الدروس العربية</a><a class="btn" href="/inference/classical-tests/one-sample-z-test-for-mean/" lang="en" dir="ltr">Next: One-Sample Z Test (English)</a></div>
+<div class="lesson-nav"><a class="btn btn-outline" href="/ar/">فهرس الدروس العربية</a><a class="btn" href="/ar/inference/classical-tests/one-sample-z-test-for-mean/">التالي: اختبار Z لعينة واحدة</a></div>
 </div></section>
 <style>.esa-classical-math{direction:ltr;max-width:100%;overflow-x:auto;padding:5px 0}@media(max-width:375px){.esa-classical-math{font-size:.91em}}</style>

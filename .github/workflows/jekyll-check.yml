@@ -89,6 +89,8 @@ jobs:
         run: python -m unittest discover -s .github/scripts -p 'test_batch96_math.py' -v
       - name: Verify Batch #97 Welch ANOVA, studentized range and Tukey–Kramer, Fisher–Yates accuracy, Arabic pairs and Arabic home
         run: python -m unittest discover -s .github/scripts -p 'test_batch97_math.py' -v
+      - name: Verify Batch #98 p-value and Z tail accuracy, exact binomial, Kruskal–Wallis and permutation p, Arabic pairs and stale-link guard
+        run: python -m unittest discover -s .github/scripts -p 'test_batch98_math.py' -v
       - name: Inventory mathematical placeholders and reject new damage
         run: python .github/scripts/validate_math_placeholders.py
       - name: Validate front matter
@@ -148,5 +150,7 @@ jobs:
         run: python .github/scripts/test_batch96_browser.py --site _site
       - name: Check Batch #97 Tukey–Kramer, Bonferroni–Holm, Welch and Fisher labs in both languages at 320 px
         run: python .github/scripts/test_batch97_browser.py --site _site
+      - name: Check Batch #98 p-value, exact binomial and Kruskal–Wallis labs, fixed Arabic links and 320 px width
+        run: python .github/scripts/test_batch98_browser.py --site _site
       - name: Check generated search, CSS assets, and browser behavior
         run: python .github/scripts/test_search.py --site _site

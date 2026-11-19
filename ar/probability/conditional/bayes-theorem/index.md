@@ -17,8 +17,8 @@ math: true
   <p class="lead">تتيح نظرية بايز تحديث احتمال حدث معين عند ظهور دليل جديد، وتوضح الفرق بين احتمال الدليل في ظل سبب معين واحتمال ذلك السبب بعد مشاهدة الدليل.</p>
   <div class="hero-actions">
     <a class="btn btn-outline" href="/ar/">الدروس العربية</a>
-    <a class="btn" href="/probability/conditional/law-of-total-probability/" lang="en" dir="ltr">Previous (English)</a>
-    <a class="btn btn-outline" href="/probability/conditional/tree-diagrams/" lang="en" dir="ltr">Next: Tree Diagrams (English)</a>
+    <a class="btn" href="/ar/probability/conditional/law-of-total-probability/">السابق: قانون الاحتمال الكلي</a>
+    <a class="btn btn-outline" href="/ar/probability/conditional/tree-diagrams/">التالي: مخططات الشجرة الاحتمالية</a>
   </div>
 </div></section>
 <section><div class="content-narrow">
@@ -135,7 +135,7 @@ P(+)=P(+\mid D)P(D)+P(+\mid D^c)P(D^c).
 <h2>الصورة العامة</h2>
 <p>تجعل نظرية بايز الاحتمال إطاراً متجدداً للتعلم من المعلومات: نبدأ بتقدير أولي، ونراعي الدليل وكيف يمكن ظهوره، ثم نحسب احتمالاً لاحقاً متسقاً مع المعطيات.</p>
 <h2>من بايز إلى المخططات الشجرية</h2>
-<p>يمكن تمثيل المسارات التي تقود إلى الأدلة المختلفة باستخدام شجرة احتمالات، ما يساعد على تنظيم المسائل المتعددة المراحل. الدرس التالي بالإنجليزية: <a lang="en" dir="ltr" href="/probability/conditional/tree-diagrams/">Tree Diagrams</a>.</p>
+<p>يمكن تمثيل المسارات التي تقود إلى الأدلة المختلفة باستخدام شجرة احتمالات، ما يساعد على تنظيم المسائل المتعددة المراحل. الدرس التالي بالإنجليزية: <a href="/ar/probability/conditional/tree-diagrams/">مخططات الشجرة الاحتمالية</a>.</p>
 <div class="summary-box"><h2>خلاصة الدرس</h2><ul class="bullets">
 <li>الاحتمالات الشرطية تختلف بحسب اتجاه الشرط.</li>
 <li>تجمع نظرية بايز بين الاحتمال الأولي واحتمال الدليل لتحديث الاحتمال اللاحق.</li>

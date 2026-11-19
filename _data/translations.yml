@@ -155,3 +155,12 @@
 - id: fisher-exact
   en: /inference/classical-tests/fisher-exact-vs-chi-square/
   ar: /ar/inference/classical-tests/fisher-exact-vs-chi-square/
+- id: exact-binomial
+  en: /inference/classical-tests/exact-binomial-vs-z-test/
+  ar: /ar/inference/classical-tests/exact-binomial-vs-z-test/
+- id: p-value-meaning
+  en: /inference/hypothesis-testing/p-value-meaning/
+  ar: /ar/inference/hypothesis-testing/p-value-meaning/
+- id: what-is-statistical-power
+  en: /inference/power-sample-size/what-is-statistical-power/
+  ar: /ar/inference/power-sample-size/what-is-statistical-power/

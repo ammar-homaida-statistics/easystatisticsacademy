@@ -4,6 +4,8 @@ title: p-Value Meaning
 description: Learn what a p-value measures, how it is computed conceptually, and how to interpret it correctly in hypothesis testing.
 permalink: /inference/hypothesis-testing/p-value-meaning/
 sidebar: false
+learning_resource: true
+translation_pair: p-value-meaning
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -41,6 +43,7 @@ sidebar: false
 
     <h1>p-Value Meaning</h1>
 {% include lab-noscript.html %}
+<p><a href="/ar/inference/hypothesis-testing/p-value-meaning/" lang="ar" dir="rtl" hreflang="ar">النسخة العربية</a></p>
 
     <p class="lead">
       A p-value summarizes how unusual a specified test result would be under the null model; interpretation requires the test direction and its assumptions.
@@ -83,6 +86,7 @@ sidebar: false
 <p class="muted-mini">The p-value is the probability, <em>under the null model</em>, of test results at least as extreme as observed in the direction specified by the alternative. It is not P(H₀ | data), the probability of no effect, or a measure of practical importance. The plot truncates visually at ±4.5, but the numerical calculation includes all tail probability.</p>
 </section>
 <script defer src="/js/pvalue-interpretation-explorer.js"></script>
+<style>.esa-pv-math{max-width:100%;overflow-x:auto;direction:ltr}.esa-pv-math:focus-visible{outline:2px solid #0f766e;outline-offset:3px}</style>
 
 <section>
 
@@ -100,9 +104,11 @@ sidebar: false
     </p>
 
     
+    <div class="esa-pv-math" dir="ltr" tabindex="0" role="region" aria-label="Observed standardized statistic">
     \[
     z_{\mathrm{obs}}\ \text{(the observed standardized statistic)}
     \]
+    </div>
 
 
     <p>
@@ -140,9 +146,11 @@ sidebar: false
     </p>
 
     
+    <div class="esa-pv-math" dir="ltr" tabindex="0" role="region" aria-label="Null hypothesis">
     \[
     H_0\ \text{(null hypothesis)}
     \]
+    </div>
 
 
     <p>
@@ -190,9 +198,11 @@ sidebar: false
       the head count has the exact binomial distribution:
     </p>
 
+    <div class="esa-pv-math" dir="ltr" tabindex="0" role="region" aria-label="Coin example hypotheses">
     \[
     H_0:p=0.5,\qquad H_1:p\ne0.5,\qquad X\sim\operatorname{Binomial}(100,0.5)\text{ under }H_0.
     \]
+    </div>
 
     <p>
       For this symmetric binomial null, counting outcomes at least as far from
@@ -200,6 +210,7 @@ sidebar: false
       or 90 or more heads</strong>. The exact two-sided p-value is:
     </p>
 
+    <div class="esa-pv-math" dir="ltr" tabindex="0" role="region" aria-label="Two-sided coin p-value">
     \[
     \begin{aligned}
     p_{\text{two-sided}}
@@ -208,17 +219,20 @@ sidebar: false
     &\approx 3.0632901754\times10^{-17}.
     \end{aligned}
     \]
+    </div>
 
     <p>
       If the alternative had instead been chosen <strong>before observing
       the flips</strong> as H₁: p &gt; 0.5, only the upper tail would count:
     </p>
 
+    <div class="esa-pv-math" dir="ltr" tabindex="0" role="region" aria-label="Right-tailed coin p-value">
     \[
     p_{\text{right-tailed}}=P_{H_0}(X\ge90)
     =\sum_{k=90}^{100}\binom{100}{k}(0.5)^{100}
     \approx 1.5316450877\times10^{-17}.
     \]
+    </div>
 
     <p>
       These are probabilities of tail outcomes <em>assuming the coin is fair</em>,

@@ -4,6 +4,8 @@ title: What Is Statistical Power?
 description: Learn what statistical power means, why it matters, and how it connects to Type II errors, effect size, and study design.
 permalink: /inference/power-sample-size/what-is-statistical-power/
 sidebar: false
+learning_resource: true
+translation_pair: what-is-statistical-power
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -40,6 +42,7 @@ sidebar: false
     </div>
 
     <h1>What Is Statistical Power?</h1>
+      <p><a href="/ar/inference/power-sample-size/what-is-statistical-power/" lang="ar" dir="rtl" hreflang="ar">النسخة العربية</a></p>
 
     <p class="lead">
       Before collecting data, researchers want to know whether a study has a realistic chance of detecting an important effect.
@@ -124,10 +127,12 @@ sidebar: false
       alternative-hypothesis set Θ₁, the Type II error probability is:
     </p>
 
+    <div class="esa-power-math" dir="ltr" tabindex="0" role="region" aria-label="Type II error probability">
     \[
 \beta(\theta)=P_\theta(\text{fail to reject }H_0),
 \qquad\theta\in\Theta_1
 \]
+    </div>
 
     <h2>Defining Statistical Power</h2>
 
@@ -140,10 +145,12 @@ sidebar: false
       Mathematically:
     </p>
 
+    <div class="esa-power-math" dir="ltr" tabindex="0" role="region" aria-label="Definition of power">
     \[
 \operatorname{Power}(\theta)=P_\theta(\text{reject }H_0)
 =1-\beta(\theta),\quad\theta\in\Theta_1
 \]
+    </div>
 
     <p>
       where:
@@ -164,10 +171,12 @@ sidebar: false
       alternative θ* (a particular effect size):
     </p>
 
+    <div class="esa-power-math" dir="ltr" tabindex="0" role="region" aria-label="Power of 0.80 and beta of 0.20">
     \[
 \operatorname{Power}(\theta_*)=0.80,\qquad
 \beta(\theta_*)=1-0.80=0.20
 \]
+    </div>
 
     <p>
       This means:
@@ -299,9 +308,11 @@ sidebar: false
       Traditional hypothesis testing focuses heavily on:
     </p>
 
+    <div class="esa-power-math" dir="ltr" tabindex="0" role="region" aria-label="Type I error control">
     \[
 \sup_{\theta\in\Theta_0}P_\theta(\text{reject }H_0)\le\alpha
 \]
+    </div>
 
     <p>
       which controls Type I errors.
@@ -311,10 +322,12 @@ sidebar: false
       Power focuses on the other side of the problem:
     </p>
 
+    <div class="esa-power-math" dir="ltr" tabindex="0" role="region" aria-label="Beta in terms of power">
     \[
 \beta(\theta)=1-\operatorname{Power}(\theta),
 \qquad\theta\in\Theta_1
 \]
+    </div>
 
     <p>
       A lower β(θ) indicates a greater chance of detecting that specified
@@ -390,6 +403,18 @@ sidebar: false
       and comparable study design, larger samples generally increase power.
       Sample size alone cannot remedy selection bias or incorrect assumptions.
     </p>
+    <p>
+      For a concrete illustration, take a two-sided one-sample z test at \(\alpha=0.05\) with known standard deviation and a true standardized effect \(d=(\mu-\mu_0)/\sigma=0.3\). Its power is
+    </p>
+    <div class="esa-power-math" dir="ltr" tabindex="0" role="region" aria-label="Power of a two-sided z test">
+    \[
+    \operatorname{Power}(n)=\Phi\!\left(d\sqrt n-z_{0.975}\right)+\Phi\!\left(-d\sqrt n-z_{0.975}\right),\qquad z_{0.975}\approx1.960 .
+    \]
+    </div>
+    <p>
+      With \(n=20\) the power is about \(0.269\); with \(n=88\) it is about \(0.804\); with \(n=2000\) it is essentially \(1\). The common target of 0.80 needs \(n\ge\left((z_{0.975}+z_{0.80})/d\right)^2\approx87.2\), that is, 88 observations.
+    </p>
+    <style>.esa-power-math{max-width:100%;overflow-x:auto;direction:ltr}.esa-power-math:focus-visible{outline:2px solid #0f766e;outline-offset:3px}</style>
 
     <h2>Power and Evidence</h2>
 
