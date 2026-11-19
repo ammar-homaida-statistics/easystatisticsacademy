@@ -2597,8 +2597,10 @@ class SearchTests(unittest.TestCase):
         ):
             with self.subTest(formula=formula):
                 self.assertIn(formula, main)
-        self.assertEqual(main.count(r"\["), 4)
-        self.assertEqual(main.count(r"\]"), 4)
+        # Batch #97 added a fifth display formula: the Tukey–Kramer statistic in the HSD lab.
+        self.assertIn(r"q_{ij}=\frac{|\bar x_i-\bar x_j|}", main)
+        self.assertEqual(main.count(r"\["), 5)
+        self.assertEqual(main.count(r"\]"), 5)
         self.assertEqual(comb(4, 2), 6)  # four-group pairwise comparisons
         fwer_independent = 1 - 0.95**20
         self.assertAlmostEqual(fwer_independent, 0.6415140775914581)
