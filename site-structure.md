@@ -179,6 +179,25 @@ Folder:
 
 ---
 
+## 13. Courses
+Complete, sequenced university-level courses. A course may draw on several of the
+sections above; the topic sections remain the home of short, self-contained lessons.
+
+Includes:
+- Course hub (list of all courses)
+- Course landing pages
+- Course lessons, exercises, and solutions
+
+First course:
+- Regression Analysis: From Foundations to Mastery — /courses/regression/
+
+Folder:
+/courses/
+
+Added: 19 November 2026 (deliberate structural addition, approved by the site owner).
+
+---
+
 ## Structural Rules (Non-Negotiable)
 
 - Top-level sections are permanent.
