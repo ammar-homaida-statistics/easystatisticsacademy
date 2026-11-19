@@ -84,9 +84,11 @@ translation_pair: post-hoc-tests
       one-way ANOVA leads us to reject the joint null hypothesis:
     </p>
 
+    <div class="esa-posthoc-math" dir="ltr" tabindex="0" role="region" aria-label="Joint null hypothesis">
     \[
 H_0:\ \mu_A=\mu_B=\mu_C=\mu_D
 \]
+    </div>
 
     <p>
       However, ANOVA does not reveal:
@@ -178,9 +180,11 @@ H_0:\ \mu_A=\mu_B=\mu_C=\mu_D
       If each test uses:
     </p>
 
+    <div class="esa-posthoc-math" dir="ltr" tabindex="0" role="region" aria-label="Per-test significance level">
     \[
 \alpha_{\mathrm{per\ test}}=0.05
 \]
+    </div>
 
     <p>
       then testing many true null hypotheses can increase the probability
@@ -227,10 +231,12 @@ H_0:\ \mu_A=\mu_B=\mu_C=\mu_D
       probability 0.05. In this illustrative case:
     </p>
 
+    <div class="esa-posthoc-math" dir="ltr" tabindex="0" role="region" aria-label="Family-wise error for 20 independent tests">
     \[
 P(\text{at least one false positive})
 =1-(1-0.05)^{20}=1-0.95^{20}\approx0.642
 \]
+    </div>
 
     <p>
       The probability of at least one false positive is approximately
@@ -357,6 +363,8 @@ p_{ij}=P\!\left(Q_{k,\,N-k}\ge q_{ij}\right),\qquad
 #esa-tukey-lab .esa-tukey-controls{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
 #esa-tukey-lab .table-wrap,.esa-tukey-math{max-width:100%;overflow-x:auto}
 .esa-tukey-math{direction:ltr}
+.esa-posthoc-math{max-width:100%;overflow-x:auto;direction:ltr}
+.esa-posthoc-math:focus-visible{outline:2px solid #0f766e;outline-offset:3px}
 #esa-tukey-lab [hidden]{display:none!important}
 #esa-tukey-lab :is(textarea,button):focus-visible,.esa-tukey-math:focus-visible{outline:2px solid #0f766e;outline-offset:3px}
 </style>
@@ -376,9 +384,11 @@ p_{ij}=P\!\left(Q_{k,\,N-k}\ge q_{ij}\right),\qquad
       The adjusted threshold becomes:
     </p>
 
+    <div class="esa-posthoc-math" dir="ltr" tabindex="0" role="region" aria-label="Bonferroni threshold">
     \[
 \alpha_{\mathrm{Bonferroni}}=\frac{\alpha}{m}
 \]
+    </div>
 
     <p>
       where:
