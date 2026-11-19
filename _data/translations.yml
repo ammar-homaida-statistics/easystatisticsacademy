@@ -149,3 +149,9 @@
 - id: cohens-kappa
   en: /inference/classical-tests/cohens-kappa/
   ar: /ar/inference/classical-tests/cohens-kappa/
+- id: post-hoc-tests
+  en: /inference/classical-tests/post-hoc-tests-and-multiple-comparisons-preview/
+  ar: /ar/inference/classical-tests/post-hoc-tests-and-multiple-comparisons-preview/
+- id: fisher-exact
+  en: /inference/classical-tests/fisher-exact-vs-chi-square/
+  ar: /ar/inference/classical-tests/fisher-exact-vs-chi-square/

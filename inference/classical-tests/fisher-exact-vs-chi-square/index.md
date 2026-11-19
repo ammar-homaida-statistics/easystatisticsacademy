@@ -6,11 +6,12 @@ permalink: /inference/classical-tests/fisher-exact-vs-chi-square/
 sidebar: false
 math: true
 learning_resource: true
+translation_pair: fisher-exact
 ---
 <section class="hero hero-section"><div class="hero-card">
 <h1>Fisher's Exact Test vs. Pearson Chi-Square</h1>
 <p class="lead">Why can two valid statistical procedures report different p-values for the same 2×2 contingency table?</p>
-<p><a href="/inference/classical-tests/chi-square-independence-test/">Read the chi-square independence lesson</a> · <a href="/inference/classical-tests/two-proportion-z-test/">Compare independent proportions</a></p>
+<p><a href="/ar/inference/classical-tests/fisher-exact-vs-chi-square/" lang="ar" dir="rtl" hreflang="ar">النسخة العربية</a> · <a href="/inference/classical-tests/chi-square-independence-test/">Read the chi-square independence lesson</a> · <a href="/inference/classical-tests/two-proportion-z-test/">Compare independent proportions</a></p>
 </div></section>
 <section><div class="content-narrow">
 <h2>Two approaches to association in a 2×2 table</h2>
@@ -46,13 +47,16 @@ learning_resource: true
 <div class="table-wrap"><table><caption>Statistical inference</caption><thead><tr><th scope="col">Method</th><th scope="col">p-value</th></tr></thead><tbody>
 <tr><th scope="row">Fisher exact (selected alternative)</th><td><output id="esa-fc-fisher"></output></td></tr>
 <tr><th scope="row">Pearson χ² (two-sided association, asymptotic)</th><td><output id="esa-fc-pearson"></output></td></tr>
+<tr><th scope="row">Pearson χ² with Yates' continuity correction</th><td><output id="esa-fc-yates"></output></td></tr>
 </tbody></table></div>
 <svg id="esa-fc-plot" viewBox="0 0 620 125" role="img" aria-label="Fisher exact and Pearson chi-square p-values" style="display:block;max-width:100%;width:100%;height:auto"></svg>
 <p id="esa-fc-warning" role="status"></p><p id="esa-fc-meaning"></p>
 </div></section>
 <h2>Interpretation and limits</h2>
-<p>For the example table, the independent SciPy references are Fisher two-sided p ≈ 0.00275946, Pearson χ² ≈ 10.971429, and Pearson p ≈ 0.00092527. The methods need not agree on the exact p-value; Pearson's large-sample approximation may be unreliable for small expected counts. Changing Fisher to a one-sided alternative does <em>not</em> change the two-sided Pearson result; they then answer differently directed questions and should not be treated as equivalent tests.</p>
+<p>For the example table, the independent SciPy references are Fisher two-sided p ≈ 0.00275946, Pearson χ² ≈ 10.971429, and Pearson p ≈ 0.00092527; with Yates' continuity correction, Pearson p ≈ 0.00375221. The methods need not agree on the exact p-value; Pearson's large-sample approximation may be unreliable for small expected counts. Changing Fisher to a one-sided alternative does <em>not</em> change the two-sided Pearson result; they then answer differently directed questions and should not be treated as equivalent tests.</p>
 <p>Zero observed cells are allowed when all margins remain positive. A row or column with total zero makes the usual 2×2 association calculation undefined. Neither method proves causality, and the underlying independence/sampling assumptions remain critical.</p>
+<h2>Yates' continuity correction</h2>
+<p>Yates' correction reduces each \(|O_{ij}-E_{ij}|\) by \(\min(0.5,\,|O_{ij}-E_{ij}|)\) before squaring, which moves Pearson's p-value towards Fisher's. It is often conservative: for the example table, the corrected p-value (0.00375) is larger than Fisher's two-sided exact p-value (0.00276). Many statisticians now prefer the exact test, or the uncorrected χ² when expected counts are adequate, to the corrected one; whichever is used should be stated.</p>
 </div></section>
 <style>
 #esa-fisher-chi-lab{box-sizing:border-box;min-width:0;max-width:100%;overflow-wrap:anywhere}

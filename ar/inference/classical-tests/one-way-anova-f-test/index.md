@@ -95,6 +95,7 @@ MS_B=\frac{26}{2}=13,\quad MS_W=\frac{6}{6}=1,\quad F=13,\quad p=P(F_{2,6}\ge13)
 <tr><th scope="row">داخل المجموعات</th><td><output id="esa-anova-ssw" dir="ltr">6.000000</output></td><td><output id="esa-anova-dfw" dir="ltr">6</output></td><td><output id="esa-anova-msw" dir="ltr">1.000000</output></td></tr>
 </tbody></table></div>
 <p><strong>إحصائية F:</strong> <output id="esa-anova-f" dir="ltr">13.000000</output> · <strong>القيمة الاحتمالية للذيل الأعلى:</strong> <output id="esa-anova-p" dir="ltr">0.006592</output></p>
+<p><strong>تحليل التباين لويلش (تباينات غير متساوية):</strong> F = <output id="esa-anova-welch-f" dir="ltr">11.142857</output>، ودرجتا الحرية = <output id="esa-anova-welch-df" dir="ltr">2, 4.0000</output>، وp = <output id="esa-anova-welch-p" dir="ltr">0.023157</output></p>
 <p id="esa-anova-decision">عند α=0.05 نرفض تساوي متوسطات المجتمعات إذا تحققت افتراضات ANOVA. ولا يحدد ذلك أي المجموعات تختلف.</p>
 </section>
 <p class="muted-mini">يعرض الرسم المشاهدات (النقاط) ومتوسطات العينات (الخطوط الأفقية القصيرة)، لا فترات عدم اليقين. القيمة الاحتمالية هي <strong>الذيل الأعلى لتوزيع F</strong> بدرجتي حرية \((k-1,\,N-k)\). يفترض استدلال F الكلاسيكي استقلال المشاهدات، وأخطاء طبيعية في كل مجموعة، وتساوي تباينات المجتمعات؛ ولا يمكن التحقق من ذلك في هذا المثال التعليمي. والرفض لا يثبت السببية ولا يحدد أي مجموعة تختلف.</p>
@@ -109,6 +110,15 @@ MS_B=\frac{26}{2}=13,\quad MS_W=\frac{6}{6}=1,\quad F=13,\quad p=P(F_{2,6}\ge13)
 </ul>
 <h2>12. لماذا يهمّ تساوي التباينات؟</h2>
 <p>يجمع \(MS_W\) تباينات المجموعات في تقدير مشترك واحد. فإذا اختلفت تباينات المجتمعات كثيرًا، خاصة مع أحجام مجموعات غير متساوية، قد يصبح معدل الخطأ الفعلي لاختبار F بعيدًا عن \(\alpha\). عندئذ توجد بدائل مثل تحليل التباين لويلش (Welch's ANOVA)، أو اختبار كروسكال–واليس عندما يكون السؤال عن اختلاف التوزيعات.</p>
+<p>يرجّح <strong>تحليل التباين لويلش</strong> (Welch, 1951) متوسط كل مجموعة بالوزن \(w_i=n_i/s_i^2\) بدل تجميع التباينات:</p>
+<div class="esa-long-math" dir="ltr" tabindex="0" role="region" aria-label="تحليل التباين لويلش">
+\[
+F_W=\frac{\sum_i w_i(\bar x_i-\tilde x)^2/(k-1)}{1+\frac{2(k-2)}{k^2-1}\Lambda},\quad
+\tilde x=\frac{\sum_i w_i\bar x_i}{\sum_i w_i},\quad
+\Lambda=\sum_i\frac{(1-w_i/\sum_j w_j)^2}{n_i-1},\quad
+\nu_2=\frac{k^2-1}{3\Lambda}.
+\]</div>
+<p>تُقارن \(F_W\) بتوزيع F بدرجتي حرية \(k-1\) و\(\nu_2\)، و\(\nu_2\) غالبًا ليست عددًا صحيحًا. ومع مجموعتين تساوي \(F_W\) مربع إحصائية t لويلش. تُظهر دراسات المحاكاة أن اختبار ويلش يحافظ على معدل الخطأ من النوع الأول قريبًا من \(\alpha\) عند اختلاف التباينات، خاصة مع أحجام مجموعات غير متساوية، ولا يخسر إلا قليلًا من القوة عند تساويها؛ لذلك يستخدمه كثير من الإحصائيين افتراضيًا. لكنه ما زال يفترض استقلال المشاهدات وطبيعيتها التقريبية، ويكون غير معرّف إذا كان تباين إحدى المجموعات صفرًا. يعرض المختبر الاختبارين معًا؛ فاختر أحدهما قبل رؤية البيانات، لا الاختبار الذي يعطي قيمة احتمالية أصغر.</p>
 <h2>13. تحليل التباين مقابل اختبارات t المتعددة</h2>
 <div class="table-wrap"><table><caption>مقارنة بين النهجين</caption><thead><tr><th scope="col">الخاصية</th><th scope="col">اختبارات t متعددة</th><th scope="col">تحليل التباين</th></tr></thead><tbody>
 <tr><th scope="row">مقارنة مجموعات كثيرة</th><td>غير فعّال</td><td>نعم</td></tr>
@@ -118,7 +128,7 @@ MS_B=\frac{26}{2}=13,\quad MS_W=\frac{6}{6}=1,\quad F=13,\quad p=P(F_{2,6}\ge13)
 <h2>14. تطبيقات شائعة</h2>
 <p>مقارنة طرق التدريس، والعلاجات الطبية، وعمليات التصنيع، واستراتيجيات التسويق، والنتائج بين المناطق.</p>
 <h2>15. الصورة الأشمل</h2>
-<p>يعمّم تحليل التباين الأحادي اختبار t لعينتين على ثلاث مجموعات أو أكثر. فبدلًا من مقارنة المجموعات زوجًا زوجًا، يقيّم جميع المجموعات معًا عبر نسبة التباين بين المجموعات إلى التباين داخلها. والخطوة التالية بعد نتيجة دالة هي المقارنات اللاحقة لتحديد مواضع الاختلاف (<a href="/inference/classical-tests/post-hoc-tests-and-multiple-comparisons-preview/" hreflang="en">الدرس التالي بالإنجليزية</a>).</p>
+<p>يعمّم تحليل التباين الأحادي اختبار t لعينتين على ثلاث مجموعات أو أكثر. فبدلًا من مقارنة المجموعات زوجًا زوجًا، يقيّم جميع المجموعات معًا عبر نسبة التباين بين المجموعات إلى التباين داخلها. والخطوة التالية بعد نتيجة دالة هي المقارنات اللاحقة لتحديد مواضع الاختلاف (<a href="/ar/inference/classical-tests/post-hoc-tests-and-multiple-comparisons-preview/">الدرس التالي</a>).</p>
 <div class="summary-box"><h2>خلاصة الدرس</h2><ul class="bullets">
 <li>يقارن تحليل التباين الأحادي متوسطات ثلاثة مجتمعات أو أكثر باختبار شامل واحد.</li>
 <li>الفرضية الصفرية: جميع متوسطات المجتمعات متساوية.</li>
@@ -129,7 +139,7 @@ MS_B=\frac{26}{2}=13,\quad MS_W=\frac{6}{6}=1,\quad F=13,\quad p=P(F_{2,6}\ge13)
 </ul></div>
 <div class="lesson-nav">
 <a class="btn btn-outline" href="/ar/inference/classical-tests/chi-square-homogeneity-test/">→ السابق: اختبار كاي تربيع للتجانس</a>
-<a class="btn" href="/inference/classical-tests/post-hoc-tests-and-multiple-comparisons-preview/" hreflang="en">التالي: المقارنات اللاحقة (بالإنجليزية) ←</a>
+<a class="btn" href="/ar/inference/classical-tests/post-hoc-tests-and-multiple-comparisons-preview/">التالي: الاختبارات اللاحقة والمقارنات المتعددة ←</a>
 </div>
 </div></section>
 <style>

@@ -56,12 +56,12 @@ translation_pair: classical-tests-hub
   <li><a href="/ar/inference/classical-tests/chi-square-independence-test/">اختبار كاي تربيع للاستقلال</a></li>
   <li><a href="/ar/inference/classical-tests/chi-square-homogeneity-test/">اختبار كاي تربيع للتجانس</a></li>
   <li><a href="/ar/inference/classical-tests/one-way-anova-f-test/">تحليل التباين الأحادي (اختبار F)</a></li>
-  <li><a href="/inference/classical-tests/post-hoc-tests-and-multiple-comparisons-preview/" hreflang="en">الاختبارات البعدية والمقارنات المتعددة</a> <span class="muted-mini">(بالإنجليزية)</span></li>
+  <li><a href="/ar/inference/classical-tests/post-hoc-tests-and-multiple-comparisons-preview/">الاختبارات البعدية والمقارنات المتعددة</a></li>
 </ol>
 <h2 id="ar-labs-heading">المختبرات المرافقة</h2>
 <ul class="bullets esa-ar-hub-list">
   <li><a href="/ar/inference/classical-tests/mcnemar-test/">اختبار ماكنمار للنسب المزدوجة</a></li>
-  <li><a href="/inference/classical-tests/fisher-exact-vs-chi-square/" hreflang="en">اختبار فيشر الدقيق مقابل كاي تربيع</a> <span class="muted-mini">(بالإنجليزية)</span></li>
+  <li><a href="/ar/inference/classical-tests/fisher-exact-vs-chi-square/">اختبار فيشر الدقيق مقابل كاي تربيع</a></li>
   <li><a href="/inference/classical-tests/exact-binomial-vs-z-test/" hreflang="en">اختبار ذات الحدين الدقيق مقابل اختبار Z</a> <span class="muted-mini">(بالإنجليزية)</span></li>
   <li><a href="/inference/classical-tests/welch-pooled-monte-carlo/" hreflang="en">مختبر مونت كارلو: ويلش مقابل التباين المشترك</a> <span class="muted-mini">(بالإنجليزية)</span></li>
   <li><a href="/ar/inference/classical-tests/cohens-kappa/">معامل كوهين كابا لاتفاق المقيّمين</a></li>

@@ -58,7 +58,7 @@ Z=\frac{\hat p_1-\hat p_2}{\sqrt{\hat p(1-\hat p)(1/n_1+1/n_2)}}.
 <p id="esa-2p-conditions"></p><p id="esa-2p-conclusion"></p><p id="esa-2p-interpretation"></p>
 </div></section>
 <h2>5. التفسير</h2>
-<p>رفض الفرضية الصفرية يدل على دليل إحصائي ضد مساواة نسبتي المجتمعين ضمن افتراضات الاختبار، ولا يثبت السببية. عدم رفضها لا يثبت التساوي. مع البيانات المتفرقة والجداول الصغيرة، انظر <a href="/inference/classical-tests/fisher-exact-vs-chi-square/">اختبار فيشر الدقيق ومقارنته بمربع كاي</a>، مع مراعاة اختلاف النموذج والفرضية.</p>
+<p>رفض الفرضية الصفرية يدل على دليل إحصائي ضد مساواة نسبتي المجتمعين ضمن افتراضات الاختبار، ولا يثبت السببية. عدم رفضها لا يثبت التساوي. مع البيانات المتفرقة والجداول الصغيرة، انظر <a href="/ar/inference/classical-tests/fisher-exact-vs-chi-square/">اختبار فيشر الدقيق ومقارنته بمربع كاي</a>، مع مراعاة اختلاف النموذج والفرضية.</p>
 <p><a href="/ar/inference/classical-tests/one-proportion-z-test/">الدرس السابق: اختبار نسبة واحدة</a> · <a href="/inference/classical-tests/two-proportion-z-test/" lang="en">English counterpart</a></p>
 </div></section>
 <style>
