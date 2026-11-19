@@ -59,7 +59,7 @@ V=\sqrt{\frac{\chi^2}{N\,(\min(r,c)-1)}},\qquad V_{2\times2}=\sqrt{\frac{\chi^2}
 <section class="example-box" id="esa-chi-independence-lab" data-locale="ar" aria-labelledby="esa-chi-heading">
 <h3 id="esa-chi-heading">مختبر الاستقلال التفاعلي لجدول 2 × 2</h3>
 <noscript><p class="esa-noscript" role="note">يتطلب هذا المختبر التفاعلي تفعيل JavaScript. من دونه تبقى الأرقام المعروضة هي المثال المحلول الثابت، وتظل الصيغ والتفسير في الدرس متاحة.</p></noscript>
-<p>غيّر التكرارات الأربعة المشاهدة لترى كيف يتنبأ الاستقلال بكل خلية، وكيف تتجمع مساهمات الخلايا في إحصائية بيرسون. يبدأ الجدول بالمثال المحلول أعلاه. <a href="/inference/classical-tests/fisher-exact-vs-chi-square/">قارن مع اختبار فيشر الدقيق للجداول الصغيرة (بالإنجليزية)</a>.</p>
+<p>غيّر التكرارات الأربعة المشاهدة لترى كيف يتنبأ الاستقلال بكل خلية، وكيف تتجمع مساهمات الخلايا في إحصائية بيرسون. يبدأ الجدول بالمثال المحلول أعلاه. <a href="/ar/inference/classical-tests/fisher-exact-vs-chi-square/">قارن مع اختبار فيشر الدقيق للجداول الصغيرة</a>.</p>
 <div class="esa-chi-input-grid">
 <label>ذكور، يفضّل A <input id="esa-chi-a" dir="ltr" aria-describedby="esa-chi-error esa-chi-warning" type="number" min="0" max="10000000" step="1" value="40" inputmode="numeric" aria-invalid="false"></label>
 <label>ذكور، يفضّل B <input id="esa-chi-b" dir="ltr" aria-describedby="esa-chi-error esa-chi-warning" type="number" min="0" max="10000000" step="1" value="60" inputmode="numeric" aria-invalid="false"></label>

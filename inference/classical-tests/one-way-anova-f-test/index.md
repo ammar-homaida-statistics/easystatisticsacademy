@@ -372,6 +372,7 @@ translation_pair: one-way-anova
             <tr><th scope="row">Within</th><td><output id="esa-anova-ssw">6.000000</output></td><td><output id="esa-anova-dfw">6</output></td><td><output id="esa-anova-msw">1.000000</output></td></tr>
           </tbody></table></div>
         <p><strong>F-statistic:</strong> <output id="esa-anova-f">13.000000</output> <strong>Upper-tail p-value:</strong> <output id="esa-anova-p">0.006592</output></p>
+        <p><strong>Welch's ANOVA (unequal variances):</strong> F = <output id="esa-anova-welch-f" dir="ltr">11.142857</output>, df = <output id="esa-anova-welch-df" dir="ltr">2, 4.0000</output>, p = <output id="esa-anova-welch-p" dir="ltr">0.023157</output></p>
         <p id="esa-anova-decision">For α=0.05, reject equal population means if the assumptions hold.</p>
       </section>
       <div class="esa-anova-equation" role="region" tabindex="0" aria-label="ANOVA mean square and F formulas" dir="ltr">
@@ -583,7 +584,18 @@ translation_pair: one-way-anova
     </p>
 
     <p>
-      Alternative procedures exist when this assumption is violated.
+      Alternative procedures exist when this assumption is violated. <strong>Welch's ANOVA</strong> (Welch, 1951) weights each group mean by \(w_i=n_i/s_i^2\) instead of pooling the variances:
+    </p>
+    <div class="esa-anova-equation" role="region" tabindex="0" aria-label="Welch's ANOVA" dir="ltr">
+    \[
+    F_W=\frac{\sum_i w_i(\bar x_i-\tilde x)^2/(k-1)}{1+\frac{2(k-2)}{k^2-1}\Lambda},\quad
+    \tilde x=\frac{\sum_i w_i\bar x_i}{\sum_i w_i},\quad
+    \Lambda=\sum_i\frac{(1-w_i/\sum_j w_j)^2}{n_i-1},\quad
+    \nu_2=\frac{k^2-1}{3\Lambda}.
+    \]
+    </div>
+    <p>
+      \(F_W\) is compared with an F distribution with \(k-1\) and \(\nu_2\) degrees of freedom, where \(\nu_2\) is usually not an integer. With two groups, \(F_W\) equals the square of Welch's t statistic. Simulation studies show that Welch's test keeps its type I error rate close to \(\alpha\) under unequal variances, especially with unequal group sizes, while losing little power when variances are equal; many statisticians therefore use it by default. It still assumes independent, approximately normal observations, and it is undefined if a group has zero sample variance. The laboratory below reports both tests; choose one before seeing the data rather than reporting whichever p-value is smaller.
     </p>
 
     <h2>ANOVA vs Multiple t Tests</h2>

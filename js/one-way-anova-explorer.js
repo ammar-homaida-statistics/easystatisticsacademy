@@ -72,8 +72,27 @@
     return {count,means,grand,between,within,df1,df2,msb,msw,f,p,
       sizes:groups.map(g=>g.length),groups};
   }
+  // Batch #97: Welch's (1951) heteroscedastic one-way ANOVA.
+  //   w_i = n_i / s_i^2, W = sum w_i, m = sum w_i xbar_i / W,
+  //   A = sum w_i (xbar_i - m)^2 / (k - 1),
+  //   L = sum (1 - w_i / W)^2 / (n_i - 1),
+  //   F = A / (1 + 2 (k - 2) L / (k^2 - 1)),  df1 = k - 1,  df2 = (k^2 - 1) / (3 L).
+  // Undefined when any group has zero sample variance (w_i would be infinite).
+  function welch(groups) {
+    const base=compute(groups);
+    if(!base)return null;
+    const k=groups.length,n=base.sizes,means=base.means;
+    const vars=groups.map((g,i)=>g.reduce((a,x)=>a+(x-means[i])**2,0)/(n[i]-1));
+    if(vars.some(v=>!(v>0)))return {k,df1:k-1,df2:NaN,f:NaN,p:NaN,defined:false};
+    const w=vars.map((v,i)=>n[i]/v),W=w.reduce((a,b)=>a+b,0);
+    const m=w.reduce((a,wi,i)=>a+wi*means[i],0)/W;
+    const A=w.reduce((a,wi,i)=>a+wi*(means[i]-m)**2,0)/(k-1);
+    const L=w.reduce((a,wi,i)=>a+(1-wi/W)**2/(n[i]-1),0);
+    const f=A/(1+2*(k-2)*L/(k*k-1)),df2=(k*k-1)/(3*L);
+    return {k,df1:k-1,df2,f,p:fSurvival(f,k-1,df2),defined:true};
+  }
   // Pure calculations are exposed only for independent numerical regression tests.
-  window.esaAnovaMath={compute,fSurvival,ibeta};
+  window.esaAnovaMath={compute,welch,fSurvival,ibeta};
   if(!root)return;
   // One numerical engine for both languages: only the strings below change.
   const AR=root.dataset.locale==="ar";
@@ -86,7 +105,8 @@
     nan:"جميع المشاهدات متطابقة: كلا متوسطي المربعات يساوي صفرًا؛ لذا F وقيمة p غير معرّفتين.",
     inf:"كل مجموعة ثابتة ومتوسطات المجموعات مختلفة: متوسط المربعات داخل المجموعات يساوي صفرًا؛ F=∞ والاحتمال الحدّي للذيل الأعلى يساوي صفرًا.",
     reject:"عند α=0.05 نرفض تساوي متوسطات المجتمعات إذا تحققت افتراضات ANOVA. ولا يحدد ذلك أي المجموعات تختلف.",
-    keep:"عند α=0.05 لا نرفض تساوي متوسطات المجتمعات. وهذا ليس دليلًا على أن جميع المتوسطات متساوية."
+    keep:"عند α=0.05 لا نرفض تساوي متوسطات المجتمعات. وهذا ليس دليلًا على أن جميع المتوسطات متساوية.",
+    welchUndef:"غير معرّف: تحتاج كل مجموعة إلى تباين عينة موجب."
   }:{
     undef:"Undefined",chartTitle:"Observed sample values and group means",
     chartDesc:"Circles display individual observations; horizontal bars show group means. No uncertainty interval is drawn.",
@@ -96,7 +116,8 @@
     nan:"All observations are identical: both mean squares are zero; F and p are undefined.",
     inf:"All groups are constant with different means: within-group mean square is zero; F=∞ and the limiting upper-tail probability is zero.",
     reject:"At α=0.05, reject equality of population means if the ANOVA assumptions hold. This does not identify which groups differ.",
-    keep:"At α=0.05, do not reject equality of population means. This is not evidence that all means are identical."
+    keep:"At α=0.05, do not reject equality of population means. This is not evidence that all means are identical.",
+    welchUndef:"Undefined: every group needs a positive sample variance."
   };
   const get=id=>root.querySelector("#esa-anova-"+id);
   const source=[get("a"),get("b"),get("c")],error=get("error"),results=get("results");
@@ -162,6 +183,16 @@
     for(const [id,val] of Object.entries({ssb:s.between,ssw:s.within,
       dfb:s.df1,dfw:s.df2,msb:s.msb,msw:s.msw,f:s.f,p:s.p}))get(id).textContent=
       id==="dfb"||id==="dfw"?String(val):fmt(val);
+    const wf=get("welch-f");
+    if(wf){
+      const w=welch(groups);
+      if(w.defined){
+        wf.textContent=fmt(w.f);get("welch-df").textContent=w.df1+", "+w.df2.toFixed(4);
+        get("welch-p").textContent=fmt(w.p);
+      }else{
+        wf.textContent=T.welchUndef;get("welch-df").textContent="—";get("welch-p").textContent="—";
+      }
+    }
     get("decision").textContent=Number.isNaN(s.f)?
       T.nan:
       s.f===Infinity?

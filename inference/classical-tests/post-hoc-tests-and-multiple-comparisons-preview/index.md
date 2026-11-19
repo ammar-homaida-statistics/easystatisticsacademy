@@ -4,6 +4,8 @@ title: Post-Hoc Tests and Multiple Comparisons
 description: Learn why post-hoc tests are needed after ANOVA and how statisticians control error rates when making multiple comparisons.
 permalink: /inference/classical-tests/post-hoc-tests-and-multiple-comparisons-preview/
 sidebar: false
+learning_resource: true
+translation_pair: post-hoc-tests
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -50,6 +52,7 @@ sidebar: false
       Post-hoc procedures provide a systematic way to investigate specific group differences while controlling the risk of false discoveries.
     </p>
 
+    <p><a href="/ar/inference/classical-tests/post-hoc-tests-and-multiple-comparisons-preview/" lang="ar" dir="rtl" hreflang="ar">النسخة العربية</a></p>
     <div class="hero-actions">
 
       <a class="btn"
@@ -81,9 +84,11 @@ sidebar: false
       one-way ANOVA leads us to reject the joint null hypothesis:
     </p>
 
+    <div class="esa-posthoc-math" dir="ltr" tabindex="0" role="region" aria-label="Joint null hypothesis">
     \[
 H_0:\ \mu_A=\mu_B=\mu_C=\mu_D
 \]
+    </div>
 
     <p>
       However, ANOVA does not reveal:
@@ -175,9 +180,11 @@ H_0:\ \mu_A=\mu_B=\mu_C=\mu_D
       If each test uses:
     </p>
 
+    <div class="esa-posthoc-math" dir="ltr" tabindex="0" role="region" aria-label="Per-test significance level">
     \[
 \alpha_{\mathrm{per\ test}}=0.05
 \]
+    </div>
 
     <p>
       then testing many true null hypotheses can increase the probability
@@ -224,10 +231,12 @@ H_0:\ \mu_A=\mu_B=\mu_C=\mu_D
       probability 0.05. In this illustrative case:
     </p>
 
+    <div class="esa-posthoc-math" dir="ltr" tabindex="0" role="region" aria-label="Family-wise error for 20 independent tests">
     \[
 P(\text{at least one false positive})
 =1-(1-0.05)^{20}=1-0.95^{20}\approx0.642
 \]
+    </div>
 
     <p>
       The probability of at least one false positive is approximately
@@ -318,6 +327,49 @@ P(\text{at least one false positive})
       while controlling the overall Type I error rate.
     </p>
 
+
+<!-- Batch #97: Tukey–Kramer HSD laboratory -->
+<section class="concept-box" id="esa-tukey-lab" aria-labelledby="esa-tukey-heading">
+<h2 id="esa-tukey-heading">Interactive Tukey–Kramer HSD</h2>
+
+<p>For \(k\) groups, Tukey's procedure compares every pair of means with the <strong>studentized range</strong> statistic. For groups \(i\) and \(j\) (Tukey–Kramer form for unequal sizes):</p>
+<div class="esa-tukey-math" dir="ltr" tabindex="0" role="region" aria-label="Tukey–Kramer formulas">
+\[
+q_{ij}=\frac{|\bar x_i-\bar x_j|}{\sqrt{\dfrac{MS_W}{2}\left(\dfrac1{n_i}+\dfrac1{n_j}\right)}},\qquad
+p_{ij}=P\!\left(Q_{k,\,N-k}\ge q_{ij}\right),\qquad
+(\bar x_i-\bar x_j)\pm q_{1-\alpha;\,k,\,N-k}\sqrt{\dfrac{MS_W}{2}\left(\dfrac1{n_i}+\dfrac1{n_j}\right)} .
+\]</div>
+<p>Enter one group per line, with values separated by commas. The default data are the ANOVA lesson's example (F = 13, p = 0.006592).</p>
+<label for="esa-tukey-input">Groups (one per line, 2–6 groups)</label>
+<textarea id="esa-tukey-input" dir="ltr" rows="4" spellcheck="false" aria-invalid="false" aria-describedby="esa-tukey-error">4, 5, 6
+5, 6, 7
+8, 9, 10</textarea>
+<div class="esa-tukey-controls"><button class="btn btn-outline" type="button" id="esa-tukey-example">ANOVA example</button><button class="btn btn-outline" type="button" id="esa-tukey-unequal">Unequal group sizes</button><button class="btn btn-outline" type="button" id="esa-tukey-four">Four groups</button></div>
+<p id="esa-tukey-error" role="alert" hidden></p>
+<section id="esa-tukey-results" aria-label="Tukey–Kramer results" role="status" aria-live="polite" aria-atomic="true">
+<p>Groups k = <output id="esa-tukey-k" dir="ltr">3</output> · error df = <output id="esa-tukey-nu" dir="ltr">6</output> · MSW = <output id="esa-tukey-msw" dir="ltr">1.000000</output> · critical q₀.₉₅ = <output id="esa-tukey-qcrit" dir="ltr">4.3392</output></p>
+<div class="table-wrap"><table><caption>All pairwise comparisons with 95% simultaneous confidence intervals</caption>
+<thead><tr><th scope="col">Pair</th><th scope="col">Difference</th><th scope="col">q</th><th scope="col">Adjusted p</th><th scope="col">95% simultaneous CI</th><th scope="col">At α = 0.05</th></tr></thead>
+<tbody id="esa-tukey-rows" dir="ltr"></tbody></table></div>
+<p id="esa-tukey-summary"></p>
+</section>
+<p class="muted-mini">The family-wise error rate is exactly α for equal group sizes and at most α for unequal sizes (Hayter, 1984), assuming independent, normally distributed errors with equal variances. With two groups the Tukey p-value equals the pooled two-sample t-test p-value. The studentized range probabilities are computed in your browser by numerical integration.</p>
+</section>
+<style>
+#esa-tukey-lab,#esa-tukey-lab *{box-sizing:border-box}
+#esa-tukey-lab{max-width:100%;min-width:0;overflow-wrap:anywhere}
+#esa-tukey-lab label{display:block;font-weight:650;margin:10px 0 5px}
+#esa-tukey-lab textarea{display:block;width:100%;min-width:0;font:inherit;padding:10px;border:1px solid #777;border-radius:6px}
+#esa-tukey-lab .esa-tukey-controls{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+#esa-tukey-lab .table-wrap,.esa-tukey-math{max-width:100%;overflow-x:auto}
+.esa-tukey-math{direction:ltr}
+.esa-posthoc-math{max-width:100%;overflow-x:auto;direction:ltr}
+.esa-posthoc-math:focus-visible{outline:2px solid #0f766e;outline-offset:3px}
+#esa-tukey-lab [hidden]{display:none!important}
+#esa-tukey-lab :is(textarea,button):focus-visible,.esa-tukey-math:focus-visible{outline:2px solid #0f766e;outline-offset:3px}
+</style>
+<script defer src="/js/tukey-hsd-lab.js"></script>
+
     <h2>The Bonferroni Idea</h2>
 
     <p>
@@ -332,9 +384,11 @@ P(\text{at least one false positive})
       The adjusted threshold becomes:
     </p>
 
+    <div class="esa-posthoc-math" dir="ltr" tabindex="0" role="region" aria-label="Bonferroni threshold">
     \[
 \alpha_{\mathrm{Bonferroni}}=\frac{\alpha}{m}
 \]
+    </div>
 
     <p>
       where:
@@ -372,7 +426,7 @@ P(\text{at least one false positive})
 <p>The union bound, valid without assuming independence, is at most <strong id="esa-mc-bound">—</strong> (= min(1,mα)) for unadjusted testing when each true-null test has size at most α.</p>
 <p id="esa-mc-summary"></p>
 </section>
-<p class="muted-mini">Holm adjusted p-values are cumulative maxima of (m−j+1)p₍ⱼ₎ in sorted order, capped at 1. Bonferroni uses min(1,mp). Both control the family-wise error rate for a prespecified family of valid p-values under arbitrary dependence. Independence is assumed <em>only</em> for the illustrative 1−(1−α)ᵐ formula. P-values do not quantify effect size; this lab does not compute Tukey HSD or replace a full ANOVA or post-hoc analysis.</p>
+<p class="muted-mini">Holm adjusted p-values are cumulative maxima of (m−j+1)p₍ⱼ₎ in sorted order, capped at 1. Bonferroni uses min(1,mp). Both control the family-wise error rate for a prespecified family of valid p-values under arbitrary dependence. Independence is assumed <em>only</em> for the illustrative 1−(1−α)ᵐ formula. P-values do not quantify effect size; this lab does not compute Tukey HSD (see the Tukey–Kramer laboratory above) or replace a full ANOVA or post-hoc analysis.</p>
 </section>
 <style>
 #esa-multiple-comparisons-lab,#esa-multiple-comparisons-lab *{box-sizing:border-box}

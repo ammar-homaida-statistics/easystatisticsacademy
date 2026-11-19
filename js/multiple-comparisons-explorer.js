@@ -3,6 +3,23 @@
 "use strict";
 const root=document.getElementById("esa-multiple-comparisons-lab");if(!root)return;
 const $=id=>root.querySelector("#esa-mc-"+id),NS="http://www.w3.org/2000/svg";
+// Batch #97: one engine for both languages; only these strings change.
+const AR=root.dataset.locale==="ar";
+const T=AR?{
+ title:"القيم الاحتمالية الأصلية والمعدّلة للتعدد",
+ desc:"لكل فرضية: القيمة الاحتمالية غير المعدّلة، وقيمة بونفيروني، وقيمة هولم. الخط المتقطع يمثل α.",
+ aria:(n,a)=>"مقارنة "+n+" قيم احتمالية أصلية ومعدّلة عند α = "+a+"؛ القيم مذكورة في جدول النتائج.",
+ error:"أدخل من 2 إلى 12 قيمة احتمالية بين 0 و1، مفصولة بفواصل أو مسافات أو أسطر، وα أكبر من 0 وأصغر من 1. تُرفض القيم غير الصالحة أو المفقودة أو السالبة.",
+ reject:"نرفض H₀",keep:"لا نرفض H₀",
+ summary:(h,m,b)=>"يرفض إجراء هولم "+h+" من أصل "+m+" فرضيات، ويرفض بونفيروني "+b+". يضبط الإجراءان معدل الخطأ العائلي عند α لعائلة محددة مسبقًا من القيم الاحتمالية الصحيحة، دون اشتراط استقلال الاختبارات."
+}:{
+ title:"Original and multiplicity-adjusted p-values",
+ desc:"For each hypothesis: unadjusted, Bonferroni, and Holm adjusted p-values. Dashed line is alpha.",
+ aria:(n,a)=>"Comparison of "+n+" original and adjusted p-values at alpha "+a+"; values listed in results table.",
+ error:"Enter 2–12 p-values from 0 to 1, separated by commas, spaces, or newlines, and α strictly between 0 and 1. Invalid, missing, or negative values are rejected.",
+ reject:"Reject H₀",keep:"Do not reject H₀",
+ summary:(h,m,b)=>"Holm rejects "+h+" of "+m+" hypotheses; Bonferroni rejects "+b+". Both procedures control family-wise error at α for a predefined family of valid p-values, without requiring test independence."
+};
 function svg(tag,attrs={},txt){const e=document.createElementNS(NS,tag);
  for(const [k,v] of Object.entries(attrs))e.setAttribute(k,String(v));
  if(txt!==undefined)e.textContent=String(txt);return e;
@@ -28,8 +45,8 @@ function format(x){return x.toFixed(6)}
 function plot(o){
  const chart=$("chart"),n=o.m,colors=["#a16207","#2563eb","#0f766e"],names=["raw","bonf","holm"];
  const width=610,left=42,right=14,top=12,base=235,range=base-top,step=(width-left-right)/n;
- const drawn=[svg("title",{},"Original and multiplicity-adjusted p-values"),
- svg("desc",{},"For each hypothesis: unadjusted, Bonferroni, and Holm adjusted p-values. Dashed line is alpha.")];
+ const drawn=[svg("title",{},T.title),
+ svg("desc",{},T.desc)];
  for(let i=0;i<n;i++){
   names.forEach((kind,k)=>{
    const v=kind==="raw"?o.pvalues[i]:kind==="bonf"?o.bonf[i]:o.holm[i];
@@ -46,8 +63,7 @@ function plot(o){
   svg("text",{x:width-right,y:Math.max(12,alphaY-5),fill:"currentColor",
     "text-anchor":"end","font-size":"12"},"α="+o.alpha.toFixed(3)));
  chart.replaceChildren(...drawn);
- chart.setAttribute("aria-label","Comparison of "+n+" original and adjusted p-values at alpha "+
-   o.alpha+"; values listed in results table.");
+ chart.setAttribute("aria-label",T.aria(n,o.alpha));
 }
 function render(){
  const source=$("values").value.trim();
@@ -58,12 +74,12 @@ function render(){
  const result=compute(nums,alpha);
  if(!source||nums.some((v,i)=>!Number.isFinite(v)||!/^(?:(?:\d+\.?\d*)|(?:\.\d+))(?:[eE][+-]?\d+)?$/.test(parts[i]))||!result){
   $("error").hidden=false;
-  $("error").textContent="Enter 2–12 p-values from 0 to 1, separated by commas, spaces, or newlines, and α strictly between 0 and 1. Invalid, missing, or negative values are rejected.";
+  $("error").textContent=T.error;
   $("results").hidden=true;return;
  }
  $("error").hidden=true;$("error").textContent="";$("results").hidden=false;
  const body=$("rows");body.replaceChildren();
- const marks=(b)=>b?"Reject H₀":"Do not reject H₀";
+ const marks=(b)=>b?T.reject:T.keep;
  result.pvalues.forEach((p,i)=>{
   const tr=document.createElement("tr");
   const values=[String(i+1),format(p),format(result.bonf[i]),format(result.holm[i]),
@@ -77,10 +93,8 @@ function render(){
  $("count").textContent=String(result.m);
  $("fwer").textContent=format(result.independenceFWER);
  $("bound").textContent=format(result.unionBound);
- $("summary").textContent="Holm rejects "+result.holmDecision.filter(Boolean).length+
-   " of "+result.m+" hypotheses; Bonferroni rejects "+
-   result.bonfDecision.filter(Boolean).length+
-   ". Both procedures control family-wise error at α for a predefined family of valid p-values, without requiring test independence.";
+ $("summary").textContent=T.summary(result.holmDecision.filter(Boolean).length,result.m,
+   result.bonfDecision.filter(Boolean).length);
  plot(result);
 }
 for(const id of ["values","alpha"])$(id).addEventListener("input",render);

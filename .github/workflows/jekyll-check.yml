@@ -87,6 +87,8 @@ jobs:
         run: python -m unittest discover -s .github/scripts -p 'test_batch95_math.py' -v
       - name: Verify Batch #96 weighted kappa, shared ANOVA engine, Arabic pairs, language switcher and interactive-page no-JS coverage
         run: python -m unittest discover -s .github/scripts -p 'test_batch96_math.py' -v
+      - name: Verify Batch #97 Welch ANOVA, studentized range and Tukey–Kramer, Fisher–Yates accuracy, Arabic pairs and Arabic home
+        run: python -m unittest discover -s .github/scripts -p 'test_batch97_math.py' -v
       - name: Inventory mathematical placeholders and reject new damage
         run: python .github/scripts/validate_math_placeholders.py
       - name: Validate front matter
@@ -144,5 +146,7 @@ jobs:
         run: python .github/scripts/test_batch95_browser.py --site _site
       - name: Check Batch #96 Arabic ANOVA and kappa labs, weighted kappa, header language switcher and Arabic header
         run: python .github/scripts/test_batch96_browser.py --site _site
+      - name: Check Batch #97 Tukey–Kramer, Bonferroni–Holm, Welch and Fisher labs in both languages at 320 px
+        run: python .github/scripts/test_batch97_browser.py --site _site
       - name: Check generated search, CSS assets, and browser behavior
         run: python .github/scripts/test_search.py --site _site
