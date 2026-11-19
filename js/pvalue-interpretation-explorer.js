@@ -36,14 +36,29 @@ function pvalue(z,side){
 }
 window.esaPvalueMath={pvalue,gammaQ};
 const root=document.getElementById("esa-pvalue-explorer");if(!root)return;
+// Batch #98: one engine for both languages; only these strings change.
+const AR=root.dataset.locale==="ar";
+const T=AR?{
+ title:"التوزيع الطبيعي المعياري والاحتمال المظلل في جهة الرفض",
+ desc:"يُظهر التظليل الأزرق المساحة الأكثر تطرفًا من الإحصائية المشاهدة تحت البديل المختار؛ وتُحسب القيم الواقعة خارج المحور المعروض ضمن الاحتمال.",
+ mode:{left:"اليسرى","right":"اليمنى","two-sided":"ثنائية الطرف"},
+ aria:(z,m,p)=>"المنحنى الطبيعي المعياري؛ z المشاهدة "+z+"؛ القيمة الاحتمالية "+m+" "+p+". الأطراف المظللة، والرسم من −4.5 إلى +4.5.",
+ decision:(rej,a)=>(rej?"نرفض":"لا نرفض")+" الفرضية الصفرية عند α = "+a+" (فقط تحت نموذج صفري طبيعي مفترض). القيمة الاحتمالية ليست احتمال أن تكون الفرضية الصفرية صحيحة."
+}:{
+ title:"Standard normal distribution and highlighted rejection-side probability",
+ desc:"Blue shading shows area more extreme than the observed statistic under the selected alternative; values beyond the displayed axis are included in the calculated probability.",
+ mode:{left:"left","right":"right","two-sided":"two-sided"},
+ aria:(z,m,p)=>"Standard normal curve; observed z "+z+"; "+m+" p-value "+p+". Highlighted probability tails, plot from -4.5 to +4.5.",
+ decision:(rej,a)=>(rej?"Reject":"Do not reject")+" the null at α = "+a+" (only under the assumed normal null model). A p-value is not the probability that the null hypothesis is true."
+};
 const get=k=>root.querySelector("#esa-p-"+k),zInput=get("z"),side=get("side"),alpha=get("alpha"),graph=get("chart");
 const ns="http://www.w3.org/2000/svg";
 function node(tag,props={},text){const e=document.createElementNS(ns,tag);Object.entries(props).forEach(([k,v])=>e.setAttribute(k,String(v)));if(text!==undefined)e.textContent=text;return e;}
 function draw(z,mode,p){
  const xPixel=x=>36+(x+4.5)/9*548,yPixel=x=>207-175*Math.exp(-x*x/2);
  const l=-4.5,r=4.5;
- const pieces=[node("title",{},"Standard normal distribution and highlighted rejection-side probability"),
- node("desc",{},"Blue shading shows area more extreme than the observed statistic under the selected alternative; values beyond the displayed axis are included in the calculated probability."),
+ const pieces=[node("title",{},T.title),
+ node("desc",{},T.desc),
  node("line",{x1:36,x2:584,y1:207,y2:207,stroke:"currentColor"})];
  let outline="",shade="";
  for(let i=0;i<=360;i++){const x=l+(r-l)*i/360;outline+=(i?"L":"M")+xPixel(x).toFixed(2)+","+yPixel(x).toFixed(2);}
@@ -58,8 +73,7 @@ function draw(z,mode,p){
  if(z>=l&&z<=r)pieces.push(node("line",{x1:xPixel(z),x2:xPixel(z),y1:36,y2:207,stroke:"#b45309","stroke-width":2,"stroke-dasharray":"5 4"}));
  for(let t=-4;t<=4;t+=2)pieces.push(node("text",{x:xPixel(t),y:223,fill:"currentColor","text-anchor":"middle","font-size":12},String(t)));
  graph.replaceChildren(...pieces);
- graph.setAttribute("aria-label","Standard normal curve; observed z "+z.toFixed(3)+
- "; "+mode+" p-value "+p.toExponential(5)+". Highlighted probability tails, plot from -4.5 to +4.5.");
+ graph.setAttribute("aria-label",T.aria(z.toFixed(3),T.mode[mode],p.toExponential(5)));
 }
 function render(){
  const z=zInput.value.trim()===""?NaN:Number(zInput.value),a=Number(alpha.value),p=pvalue(z,side.value);
@@ -67,8 +81,7 @@ function render(){
  if(p===null||![.01,.05,.1].includes(a)){err.hidden=false;results.hidden=true;graph.hidden=true;return;}
  err.hidden=true;results.hidden=false;graph.hidden=false;
  get("prob").textContent=p<.000001?p.toExponential(6):p.toFixed(7);
- get("decision").textContent=(p<a?"Reject":"Do not reject")+" the null at α = "+a.toFixed(2)+
- " (only under the assumed normal null model). A p-value is not the probability that the null hypothesis is true.";
+ get("decision").textContent=T.decision(p<a,a.toFixed(2));
  draw(z,side.value,p);
 }
 [zInput,side,alpha].forEach(input=>input.addEventListener("input",render));

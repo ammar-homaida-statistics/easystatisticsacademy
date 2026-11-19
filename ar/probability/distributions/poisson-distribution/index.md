@@ -16,7 +16,7 @@ math: true
 {% include lab-noscript.html %}
 <p><a href="/probability/distributions/poisson-distribution/" lang="en" dir="ltr">English — Poisson Distribution</a></p>
 <p class="lead">يُستخدم التوزيع البواسوني لنمذجة عدد مرات وقوع حدث خلال فترة زمنية أو مساحة أو نطاق محدد، عند تحقق افتراضات ملائمة عن آلية وقوع الأحداث.</p>
-<div class="hero-actions"><a class="btn btn-outline" href="/probability/distributions/negative-binomial-distribution/" lang="en" dir="ltr">Previous (English): Negative Binomial</a><a class="btn" href="/probability/distributions/hypergeometric-distribution/" lang="en" dir="ltr">Next (English): Hypergeometric</a></div>
+<div class="hero-actions"><a class="btn btn-outline" href="/ar/probability/distributions/negative-binomial-distribution/">السابق: التوزيع السالب ذو الحدين</a><a class="btn" href="/ar/probability/distributions/hypergeometric-distribution/">التالي: التوزيع فوق الهندسي</a></div>
 </div></section>
 
 <section class="section"><div class="content-narrow">
@@ -197,7 +197,7 @@ n\to\infty,\quad p\to0,\quad np\to\lambda.
 <li>في عملية بواسون المتجانسة يتطابق احتمال عدم وقوع أحداث خلال <span dir="ltr">t</span> مع احتمال أن يتجاوز زمن الانتظار <span dir="ltr">t</span>.</li>
 </ul></div>
 <div class="lesson-nav">
-<a class="btn btn-outline" href="/probability/distributions/negative-binomial-distribution/" lang="en" dir="ltr">← Negative Binomial (English)</a>
-<a class="btn" href="/probability/distributions/hypergeometric-distribution/" lang="en" dir="ltr">Hypergeometric (English) →</a>
+<a class="btn btn-outline" href="/ar/probability/distributions/negative-binomial-distribution/">→ التوزيع السالب ذو الحدين</a>
+<a class="btn" href="/ar/probability/distributions/hypergeometric-distribution/">التوزيع فوق الهندسي ←</a>
 </div>
 </div></section>

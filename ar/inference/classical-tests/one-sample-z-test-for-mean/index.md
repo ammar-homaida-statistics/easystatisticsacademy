@@ -96,5 +96,5 @@ Z=\frac{492-500}{2}=-4.
 <li>اعتبار فترة الثقة للمتوسط فترة تنبؤ لملاحظة مستقبلية واحدة.</li>
 <li>إهمال الاستقلال أو افتراض طبيعية المجتمع من دون مبرر.</li>
 </ul>
-<div class="lesson-nav"><a class="btn btn-outline" href="/ar/inference/classical-tests/decision-framework-and-assumptions/">السابق: إطار اختبار الفرضيات</a><a class="btn" href="/inference/classical-tests/one-sample-t-test-for-mean/" lang="en">التالي: اختبار t لعينة واحدة (إنجليزي)</a></div>
+<div class="lesson-nav"><a class="btn btn-outline" href="/ar/inference/classical-tests/decision-framework-and-assumptions/">السابق: إطار اختبار الفرضيات</a><a class="btn" href="/ar/inference/classical-tests/one-sample-t-test-for-mean/">التالي: اختبار t لعينة واحدة</a></div>
 </div></section>

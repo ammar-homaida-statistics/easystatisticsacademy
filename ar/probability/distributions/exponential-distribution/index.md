@@ -141,7 +141,7 @@ P(T>s+t\mid T>s)=P(T>t)=e^{-\lambda t},\quad s,t\ge0.
 <p>في عملية بواسون متجانسة يتبع <strong>الانتظار حتى الحدث الثالث</strong> توزيع غاما بمعلمة شكل تساوي 3، وليس توزيعًا أسيًا.</p>
 
 <h2>الدرس التالي</h2>
-<p>راجع <a href="/ar/probability/distributions/poisson-distribution/">توزيع بواسون بالعربية</a> لمتابعة العلاقة بين أعداد الأحداث وأزمنة الانتظار. ولمعرفة توزيع زمن الانتظار حتى عدة أحداث، اقرأ <a href="/probability/distributions/gamma-distribution/" lang="en" dir="ltr">Gamma Distribution (English)</a>.</p>
+<p>راجع <a href="/ar/probability/distributions/poisson-distribution/">توزيع بواسون بالعربية</a> لمتابعة العلاقة بين أعداد الأحداث وأزمنة الانتظار. ولمعرفة توزيع زمن الانتظار حتى عدة أحداث، اقرأ <a href="/ar/probability/distributions/gamma-distribution/">توزيع غاما</a>.</p>
 
 <div class="summary-box"><h2>خلاصة الدرس</h2><ul class="bullets">
 <li>التوزيع الأسي مستمر ويصف أزمنة الانتظار في نموذج معدل أحداث ثابت.</li>
@@ -152,7 +152,7 @@ P(T>s+t\mid T>s)=P(T>t)=e^{-\lambda t},\quad s,t\ge0.
 </ul></div>
 <div class="lesson-nav">
 <a class="btn btn-outline" href="/ar/probability/distributions/poisson-distribution/">← بواسون بالعربية</a>
-<a class="btn" href="/probability/distributions/gamma-distribution/" lang="en" dir="ltr">Gamma Distribution (English) →</a>
+<a class="btn" href="/ar/probability/distributions/gamma-distribution/">توزيع غاما ←</a>
 </div>
 </div></section>
 <style>

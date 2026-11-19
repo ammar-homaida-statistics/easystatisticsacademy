@@ -2388,8 +2388,10 @@ class SearchTests(unittest.TestCase):
         ):
             with self.subTest(formula=formula):
                 self.assertIn(formula, main)
-        self.assertEqual(main.count(r"\["), 5)
-        self.assertEqual(main.count(r"\]"), 5)
+        # Batch #98 added a sixth display formula: the worked two-sided z-test power example.
+        self.assertIn(r"\operatorname{Power}(n)=\Phi\!\left(d\sqrt n-z_{0.975}\right)", main)
+        self.assertEqual(main.count(r"\["), 6)
+        self.assertEqual(main.count(r"\]"), 6)
         self.assertAlmostEqual(0.8 + 0.2, 1)
         self.assertAlmostEqual(1 - 0.2, 0.8)
         # Toy test, reject H0 (Bernoulli p=.5) for five successes out of five.

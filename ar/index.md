@@ -14,6 +14,9 @@ lang: ar
 <p><a href="/ar/inference/classical-tests/one-way-anova-f-test/">تحليل التباين الأحادي واختبار F — مع تحليل ويلش ومختبر تفاعلي</a></p>
 <p><a href="/ar/inference/classical-tests/cohens-kappa/">معامل كوهين كابا لاتفاق المقيّمين — مع كابا الموزونة ومختبر تفاعلي</a></p>
 <p><a href="/ar/inference/classical-tests/fisher-exact-vs-chi-square/">اختبار فيشر الدقيق مقابل كاي تربيع لجداول 2 × 2 — مع تصحيح ييتس ومختبر تفاعلي</a></p>
+<p><a href="/ar/inference/classical-tests/exact-binomial-vs-z-test/">الاختبار الحدّاني الدقيق مقابل اختبار Z لنسبة واحدة — مع مختبر تفاعلي</a></p>
+<p><a href="/ar/inference/hypothesis-testing/p-value-meaning/">معنى القيمة الاحتمالية (p-value) — مع مختبر تفاعلي</a></p>
+<p><a href="/ar/inference/power-sample-size/what-is-statistical-power/">ما القوة الإحصائية؟ — مع مثال محسوب لاختبار z</a></p>
 <p><a href="/ar/inference/classical-tests/mcnemar-test/">اختبار ماكنمار للنسب المزدوجة — درس عربي ومختبر تفاعلي</a></p>
 <p><a href="/ar/inference/classical-tests/chi-square-homogeneity-test/">اختبار كاي تربيع للتجانس — درس عربي ومختبر تفاعلي مع البواقي المعدّلة</a></p>
 <p><a href="/ar/inference/classical-tests/chi-square-independence-test/">اختبار كاي تربيع للاستقلال — درس عربي ومختبر تفاعلي لجدول 2 × 2</a></p>

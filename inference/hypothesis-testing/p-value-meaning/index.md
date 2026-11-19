@@ -4,6 +4,8 @@ title: p-Value Meaning
 description: Learn what a p-value measures, how it is computed conceptually, and how to interpret it correctly in hypothesis testing.
 permalink: /inference/hypothesis-testing/p-value-meaning/
 sidebar: false
+learning_resource: true
+translation_pair: p-value-meaning
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -41,6 +43,7 @@ sidebar: false
 
     <h1>p-Value Meaning</h1>
 {% include lab-noscript.html %}
+<p><a href="/ar/inference/hypothesis-testing/p-value-meaning/" lang="ar" dir="rtl" hreflang="ar">النسخة العربية</a></p>
 
     <p class="lead">
       A p-value summarizes how unusual a specified test result would be under the null model; interpretation requires the test direction and its assumptions.

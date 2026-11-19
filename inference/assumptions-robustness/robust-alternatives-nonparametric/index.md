@@ -36,6 +36,7 @@ sidebar: false
     </div>
 
     <h1>Robust Alternatives and Nonparametric Methods</h1>
+      {% include lab-noscript.html %}
 
     <p class="lead">
       Classical statistical procedures often work remarkably well, but they rely on assumptions that may not always hold in practice.
@@ -310,6 +311,55 @@ sidebar: false
     <p>
       This procedure evaluates group differences using ranks.
     </p>
+
+    <!-- Batch #98: Kruskal–Wallis laboratory -->
+    <section class="concept-box" id="esa-kw-lab" aria-labelledby="esa-kw-heading">
+      <h3 id="esa-kw-heading">Interactive Kruskal–Wallis laboratory</h3>
+      <p>All \(N\) observations are ranked together (ties receive average ranks). With rank sum \(R_i\) and size \(n_i\) in group \(i\):</p>
+      <div class="esa-kw-math" dir="ltr" tabindex="0" role="region" aria-label="Kruskal–Wallis statistic">
+      \[
+      H=\frac{12}{N(N+1)}\sum_{i=1}^{k}\frac{R_i^2}{n_i}-3(N+1),\qquad
+      H_c=\frac{H}{1-\sum_t (t^3-t)/(N^3-N)},\qquad
+      \varepsilon^2=\frac{H_c}{N-1}.
+      \]
+      </div>
+      <p>Under the null hypothesis that all groups come from the same continuous distribution, \(H_c\) is approximately \(\chi^2_{k-1}\). The laboratory also reports a Monte Carlo permutation p-value from 10,000 random relabelings of the pooled ranks (fixed seed, so results are reproducible), with its Monte Carlo standard error.</p>
+      <label for="esa-kw-input">Groups (one per line, 2–6 groups)</label>
+      <textarea id="esa-kw-input" dir="ltr" rows="4" spellcheck="false" aria-invalid="false" aria-describedby="esa-kw-error">2.1, 3.4, 1.9, 5.6, 2.8
+4.2, 6.1, 5.5, 7.3, 4.9
+8.8, 6.7, 9.4, 7.9, 12.5</textarea>
+      <div class="esa-kw-controls"><button class="btn btn-outline" type="button" id="esa-kw-example">Example</button><button class="btn btn-outline" type="button" id="esa-kw-ties">Many ties</button><button class="btn btn-outline" type="button" id="esa-kw-small">Small groups</button></div>
+      <p id="esa-kw-error" role="alert" hidden></p>
+      <section id="esa-kw-results" aria-label="Kruskal–Wallis results" role="status" aria-live="polite" aria-atomic="true">
+        <div class="table-wrap"><table><caption>Ranks by group</caption>
+          <thead><tr><th scope="col">Group</th><th scope="col">n</th><th scope="col">Rank sum</th><th scope="col">Mean rank</th></tr></thead>
+          <tbody id="esa-kw-rows" dir="ltr"></tbody></table></div>
+        <div class="table-wrap"><table><caption>Kruskal–Wallis test</caption><tbody>
+          <tr><th scope="row">Groups k · observations N · df</th><td dir="ltr"><output id="esa-kw-k">3</output> · <output id="esa-kw-N">15</output> · <output id="esa-kw-df">2</output></td></tr>
+          <tr><th scope="row">H (no tie correction)</th><td><output id="esa-kw-h" dir="ltr">10.6400</output></td></tr>
+          <tr><th scope="row">Tie-correction factor C</th><td><output id="esa-kw-c" dir="ltr">1.000000</output></td></tr>
+          <tr><th scope="row">H<sub>c</sub> = H / C</th><td><output id="esa-kw-hc" dir="ltr">10.6400</output></td></tr>
+          <tr><th scope="row">χ² approximation p-value</th><td><output id="esa-kw-p" dir="ltr">0.004893</output></td></tr>
+          <tr><th scope="row">Permutation p-value ± Monte Carlo SE</th><td><output id="esa-kw-pperm" dir="ltr">0.000300 ± 0.0002</output></td></tr>
+          <tr><th scope="row">Effect size ε²</th><td><output id="esa-kw-eps" dir="ltr">0.7600</output></td></tr>
+        </tbody></table></div>
+        <p id="esa-kw-note"></p>
+        <p id="esa-kw-decision"></p>
+      </section>
+      <p class="muted-mini">For the default data the exact permutation p-value, from all 756,756 relabelings, is 0.00027, so the χ² approximation (0.0049) is conservative in this far tail even with five observations per group. A significant result says that at least one group tends to give larger values than another; without extra assumptions such as equal shapes it is not a test of equal medians. Follow-up pairwise comparisons (for example Dunn's test) need a multiplicity adjustment.</p>
+    </section>
+    <style>
+    #esa-kw-lab,#esa-kw-lab *{box-sizing:border-box}
+    #esa-kw-lab{max-width:100%;min-width:0;overflow-wrap:anywhere}
+    #esa-kw-lab label{display:block;font-weight:650;margin:10px 0 5px}
+    #esa-kw-lab textarea{display:block;width:100%;min-width:0;font:inherit;padding:10px;border:1px solid #777;border-radius:6px}
+    #esa-kw-lab .esa-kw-controls{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+    #esa-kw-lab .table-wrap,.esa-kw-math{max-width:100%;overflow-x:auto}
+    .esa-kw-math{direction:ltr}
+    #esa-kw-lab [hidden]{display:none!important}
+    #esa-kw-lab :is(textarea,button):focus-visible,.esa-kw-math:focus-visible{outline:2px solid #0f766e;outline-offset:3px}
+    </style>
+    <script defer src="/js/kruskal-wallis-lab.js"></script>
 
     <h2>Robust Regression</h2>
 

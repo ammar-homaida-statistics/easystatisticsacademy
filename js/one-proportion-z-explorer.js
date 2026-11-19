@@ -1,10 +1,17 @@
 /* Batch #71: one-proportion equality-null Z test, Wald and Wilson intervals. */
 (function(){
 "use strict";
+// Batch #98: accurate erfc for t >= 0 (Taylor series below 2.5, Lentz
+// continued fraction above). The previous 5-term approximation had absolute
+// error up to about 1.4e-7 and large relative error in the far tail.
 const erfcPositive=t=>{
- const q=1/(1+0.3275911*t);
- return q*(0.254829592+q*(-0.284496736+
- q*(1.421413741+q*(-1.453152027+q*1.061405429))))*Math.exp(-t*t);
+ if(t<2.5){let sum=t,term=t;const t2=t*t;
+  for(let n=1;n<200;n++){term*=-t2/n;const add=term/(2*n+1);sum+=add;if(Math.abs(add)<1e-17*Math.abs(sum))break;}
+  return 1-2/Math.sqrt(Math.PI)*sum;}
+ const TINY=1e-300;let f=t,C=t,D=0;
+ for(let n=1;n<500;n++){const a=n/2;D=t+a*D;if(Math.abs(D)<TINY)D=TINY;C=t+a/C;if(Math.abs(C)<TINY)C=TINY;
+  D=1/D;const delta=C*D;f*=delta;if(Math.abs(delta-1)<1e-16)break;}
+ return Math.exp(-t*t)/Math.sqrt(Math.PI)/f;
 };
 const upperTail=z=>z>=0 ? 0.5*erfcPositive(z/Math.SQRT2) : 1-0.5*erfcPositive(-z/Math.SQRT2);
 const critical=1.959963984540054;
@@ -13,8 +20,9 @@ function compute(x,n,p0,side="two-sided"){
     !Number.isFinite(p0)||!(p0>0&&p0<1)||
     !["two-sided","greater","less"].includes(side))return null;
  const phat=x/n,se0=Math.sqrt(p0*(1-p0)/n),z=(phat-p0)/se0;
- const upper=upperTail(z),pvalue=side==="two-sided"?Math.min(1,2*Math.min(upper,1-upper)):
-  side==="greater"?upper:1-upper;
+ // Both tails are computed directly, so tiny tail probabilities keep their relative accuracy.
+ const upper=upperTail(z),lower=upperTail(-z),pvalue=side==="two-sided"?Math.min(1,2*Math.min(upper,lower)):
+  side==="greater"?upper:lower;
  const seWald=Math.sqrt(phat*(1-phat)/n);
  const waldLower=phat-critical*seWald,waldUpper=phat+critical*seWald;
  const denom=1+critical*critical/n;

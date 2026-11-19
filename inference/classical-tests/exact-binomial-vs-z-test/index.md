@@ -6,12 +6,13 @@ permalink: /inference/classical-tests/exact-binomial-vs-z-test/
 sidebar: false
 math: true
 learning_resource: true
+translation_pair: exact-binomial
 ---
 <section class="hero hero-section"><div class="hero-card">
 <h1>Exact Binomial Test vs. One-Proportion Z Test</h1>
 {% include lab-noscript.html %}
 <p class="lead">Explore what changes when a discrete exact test replaces a normal approximation, particularly with small samples and extreme proportions.</p>
-<p><a href="/inference/classical-tests/one-proportion-z-test/">Review the one-proportion Z-test lesson</a> · <a href="/ar/inference/classical-tests/one-proportion-z-test/" lang="ar" dir="rtl">الشرح العربي لاختبار النسبة</a></p>
+<p><a href="/inference/classical-tests/one-proportion-z-test/">Review the one-proportion Z-test lesson</a> · <a href="/ar/inference/classical-tests/one-proportion-z-test/" lang="ar" dir="rtl">الشرح العربي لاختبار النسبة</a> · <a href="/ar/inference/classical-tests/exact-binomial-vs-z-test/" lang="ar" dir="rtl" hreflang="ar">النسخة العربية</a></p>
 </div></section>
 <section><div class="content-narrow">
 <h2>What do the two tests assume?</h2>
@@ -47,7 +48,7 @@ P_{\mathrm{exact}}=\sum_{\{k:\Pr_{p_0}(X=k)\leq\Pr_{p_0}(X=x)\}}\Pr_{p_0}(X=k).
 <p id="esa-eb-warning" role="status"></p><p id="esa-eb-interpret"></p>
 </div></section>
 <h2>Worked numerical example</h2>
-<p>For \(x=2\), \(n=10\), and \(p_0=0.5\), the exact two-sided probability-ordering p-value is \(0.109375\). The Z approximation is different because the sample size is small. Increasing \(n\) and avoiding very small expected counts often improves approximation quality, but does not make the two definitions identical for every discrete outcome.</p>
+<p>For \(x=2\), \(n=10\), and \(p_0=0.5\), the exact two-sided probability-ordering p-value is \(0.109375\): the outcomes no more probable than \(\Pr(X=2)\) are \(\{0,1,2,8,9,10\}\), with total probability \(112/1024\). The Z approximation gives \(z\approx-1.897\) and \(p\approx0.057780\), about half the exact value, because the sample size is small. Increasing \(n\) and avoiding very small expected counts often improves approximation quality, but does not make the two definitions identical for every discrete outcome.</p>
 <p>For comparisons between <strong>two independent groups</strong>, review the <a href="/inference/classical-tests/two-proportion-z-test/">two-proportion Z-test</a> and the <a href="/inference/classical-tests/fisher-exact-vs-chi-square/">conditional Fisher exact versus chi-square 2×2 laboratory</a>. The one-proportion exact binomial test is not a substitute for those distinct designs.</p>
 <h2>Interpretation limits</h2>
 <p>The exact calculation is exact <em>conditional on a correct independent binomial model</em>; it does not fix observational bias, clustered data, dependence, or unplanned hypothesis selection. Neither p-value measures the probability that the null hypothesis is true. Confidence-interval methods should be considered separately.</p>

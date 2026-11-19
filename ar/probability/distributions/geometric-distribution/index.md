@@ -234,7 +234,7 @@ P(\text{وجه في الرمية التالية}\mid\text{10 إخفاقات})=\f
 <li>يمكن فهم الاحتمالات الدقيقة والتراكمية والذيول ومقارنة النتائج بواسطة المستكشف التفاعلي.</li>
 </ul></div>
 <div class="lesson-nav">
-<a class="btn btn-outline" href="/probability/distributions/bernoulli-distribution/" lang="en" dir="ltr">← Bernoulli (English)</a>
-<a class="btn" href="/probability/distributions/negative-binomial-distribution/" lang="en" dir="ltr">Negative Binomial (English) →</a>
+<a class="btn btn-outline" href="/ar/probability/distributions/bernoulli-distribution/">→ توزيع برنولي</a>
+<a class="btn" href="/ar/probability/distributions/negative-binomial-distribution/">التوزيع السالب ذو الحدين ←</a>
 </div>
 </div></section>

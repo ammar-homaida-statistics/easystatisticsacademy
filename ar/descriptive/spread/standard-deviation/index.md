@@ -162,5 +162,5 @@ s=\sqrt{\frac{\sum_{i=1}^{n}(x_i-\bar{x})^2}{n-1}},\qquad n\ge 2
 </ul></div>
 <div class="lesson-nav">
 <a class="btn btn-outline" href="/descriptive/spread/variance/" lang="en" dir="ltr">Previous: Variance (English)</a>
-<a class="btn" href="/descriptive/spread/coefficient-of-variation/" lang="en" dir="ltr">Next: Coefficient of Variation (English)</a>
+<a class="btn" href="/ar/descriptive/spread/coefficient-of-variation/">التالي: معامل الاختلاف</a>
 </div></div></section>

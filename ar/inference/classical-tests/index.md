@@ -62,7 +62,7 @@ translation_pair: classical-tests-hub
 <ul class="bullets esa-ar-hub-list">
   <li><a href="/ar/inference/classical-tests/mcnemar-test/">اختبار ماكنمار للنسب المزدوجة</a></li>
   <li><a href="/ar/inference/classical-tests/fisher-exact-vs-chi-square/">اختبار فيشر الدقيق مقابل كاي تربيع</a></li>
-  <li><a href="/inference/classical-tests/exact-binomial-vs-z-test/" hreflang="en">اختبار ذات الحدين الدقيق مقابل اختبار Z</a> <span class="muted-mini">(بالإنجليزية)</span></li>
+  <li><a href="/ar/inference/classical-tests/exact-binomial-vs-z-test/">اختبار ذات الحدين الدقيق مقابل اختبار Z</a></li>
   <li><a href="/inference/classical-tests/welch-pooled-monte-carlo/" hreflang="en">مختبر مونت كارلو: ويلش مقابل التباين المشترك</a> <span class="muted-mini">(بالإنجليزية)</span></li>
   <li><a href="/ar/inference/classical-tests/cohens-kappa/">معامل كوهين كابا لاتفاق المقيّمين</a></li>
 </ul>
