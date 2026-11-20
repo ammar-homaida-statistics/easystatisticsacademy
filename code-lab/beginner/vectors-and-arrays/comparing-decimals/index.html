@@ -1,0 +1,191 @@
+---
+layout: default
+title: "Comparing Decimal Numbers Safely — Code Lab, Exercise 1.3"
+description: "Beginner R and Python exercise: why 0.1 + 0.2 == 0.3 is FALSE, and how to compare decimal numbers with a tolerance using all.equal() and np.isclose()."
+permalink: /code-lab/beginner/vectors-and-arrays/comparing-decimals/
+sidebar: false
+learning_resource: true
+---
+{% include code-lab-styles.html %}
+
+<section class="hero hero-section">
+  <div class="hero-card">
+    <div class="badge-row">
+      <span class="badge">Code Lab</span>
+      <span class="badge">Beginner</span>
+      <span class="badge">Group 1 · Vectors and arrays</span>
+      <span class="badge">Exercise 1.3</span>
+    </div>
+    <h1>Exercise 1.3 — Comparing Decimal Numbers Safely</h1>
+    <p class="lead">Computers store most decimal numbers approximately. A value that prints as 0.3 may not be equal to 0.3, so an exact comparison can fail even when the mathematics is right.</p>
+    <p class="muted-mini">Difficulty: <span class="clab-stars" aria-label="1 of 3">★☆☆</span> · Time: 20 min · Prerequisites: Exercise 1.1</p>
+    <ul class="clab-chips" aria-label="Languages and skills">
+      <li class="clab-chip-r">R</li>
+      <li class="clab-chip-py">Python · NumPy</li>
+      <li>floating point</li>
+      <li>tolerance</li>
+    </ul>
+    <div class="hero-actions">
+      <a class="btn btn-outline" href="/code-lab/beginner/">Beginner exercises</a>
+    </div>
+  </div>
+</section>
+
+<nav class="esa-lesson-toc" aria-label="On this page"><details><summary>On this page</summary><ol>
+  <li><a href="#goal">Goal</a></li>
+  <li><a href="#predict">Predict first</a></li>
+  <li><a href="#idea">The idea</a></li>
+  <li><a href="#task">Your task</a></li>
+  <li><a href="#hints">Hints</a></li>
+  <li><a href="#solution">Solution</a></li>
+  <li><a href="#check">Check yourself</a></li>
+  <li><a href="#why">Why it matters</a></li>
+  <li><a href="#further">Going further</a></li>
+  <li><a href="#references">References</a></li>
+</ol></details></nav>
+
+<section>
+<div class="content-narrow clab">
+{% raw %}
+
+<h2 id="goal">1 Goal</h2>
+<p>By the end of this exercise you will be able to:</p>
+<ol>
+  <li>explain why <code>0.1 + 0.2 == 0.3</code> is false in both R and Python;</li>
+  <li>compare decimal numbers with a tolerance;</li>
+  <li>find a value in a grid of decimal numbers without missing it.</li>
+</ol>
+
+<h2 id="predict">2 Predict first</h2>
+<div class="clab-box clab-box--predict">
+  <p class="clab-box-title">Before running anything: what does each line return?</p>
+  <div class="clab-tabs" data-label="Language">
+    <div class="clab-panel" data-lang="r" data-title="R">
+      <p class="clab-panel-label">R</p>
+<pre class="r"><code>0.1 + 0.2 == 0.3
+isTRUE(all.equal(0.1 + 0.2, 0.3))</code></pre>
+    </div>
+    <div class="clab-panel" data-lang="py" data-title="Python">
+      <p class="clab-panel-label">Python</p>
+<pre class="python"><code>import math
+print(0.1 + 0.2 == 0.3)
+print(math.isclose(0.1 + 0.2, 0.3))</code></pre>
+    </div>
+  </div>
+  <details class="clab-answer">
+    <summary>Show the answer</summary>
+    <p>Both languages give the same results, because both use the same 64-bit floating-point numbers:</p>
+<pre class="clab-output"><code>FALSE
+TRUE</code></pre>
+    <p>(R prints <code>[1] FALSE</code> and <code>[1] TRUE</code>; Python prints <code>False</code> and <code>True</code>.) Printed with 17 significant digits, <code>0.1 + 0.2</code> is <code>0.30000000000000004</code>.</p>
+  </details>
+</div>
+
+<h2 id="idea">3 The idea</h2>
+<p>A computer stores numbers in base 2. Just as 1/3 has no finite decimal expansion, 0.1 has no finite binary expansion, so it is stored as the nearest representable number. Small representation errors can add up, and the result of a calculation may differ from the "true" value in the 16th or 17th significant digit.</p>
+<p>The fix is to ask whether two numbers are <em>close enough</em> rather than exactly equal. R provides <code>all.equal()</code> (default relative tolerance about 1.5 × 10<sup>−8</sup>); always wrap it in <code>isTRUE()</code> inside an <code>if</code>, because when the values differ it returns a text description instead of <code>FALSE</code>. Python provides <code>math.isclose()</code> and, for arrays, <code>np.isclose()</code>.</p>
+
+<h2 id="task">4 Your task</h2>
+<div class="clab-box clab-box--task">
+  <p class="clab-box-title">Find 0.3 in a grid</p>
+  <p>A grid of values from 0 to 1 in steps of 0.1 is common in simulations (for example, a grid of correlation values or tuning parameters). Find the position of the value 0.3 in the grid. First try an exact comparison, then write a version that works.</p>
+  <div class="clab-tabs" data-label="Language">
+    <div class="clab-panel" data-lang="r" data-title="R">
+      <p class="clab-panel-label">R — starter code</p>
+<pre class="r"><code>grid &lt;- seq(0, 1, by = 0.1)
+grid
+which(grid == 0.3)
+
+# Your version: ...</code></pre>
+    </div>
+    <div class="clab-panel" data-lang="py" data-title="Python">
+      <p class="clab-panel-label">Python — starter code</p>
+<pre class="python"><code>import numpy as np
+grid = np.linspace(0, 1, 11)
+print(grid)
+print(np.where(grid == 0.3)[0])
+
+# Your version: ...</code></pre>
+    </div>
+  </div>
+</div>
+
+<h2 id="hints">5 Hints</h2>
+<details class="clab-hint">
+  <summary>Hint 1</summary>
+  <p>Print the fourth element of the grid with all its digits: <code>print(grid[4], digits = 17)</code> in R, <code>repr(grid[3])</code> in Python.</p>
+</details>
+<details class="clab-hint">
+  <summary>Hint 2</summary>
+  <p>Replace "equal" by "the absolute difference is smaller than a tiny number", or use <code>np.isclose()</code>.</p>
+</details>
+
+<h2 id="solution">6 Solution</h2>
+<details class="clab-solution">
+  <summary>Show the solution</summary>
+  <div class="clab-tabs" data-label="Language">
+    <div class="clab-panel" data-lang="r" data-title="R">
+      <p class="clab-panel-label">R</p>
+<pre class="r"><code>grid &lt;- seq(0, 1, by = 0.1)
+which(grid == 0.3)                     # exact: finds nothing
+print(grid[4], digits = 17)            # why
+which(abs(grid - 0.3) &lt; 1e-9)          # with a tolerance</code></pre>
+<p class="clab-output-label">Output</p>
+<pre class="clab-output"><code>integer(0)
+[1] 0.30000000000000004
+[1] 4</code></pre>
+    </div>
+    <div class="clab-panel" data-lang="py" data-title="Python">
+      <p class="clab-panel-label">Python</p>
+<pre class="python"><code>import numpy as np
+grid = np.linspace(0, 1, 11)
+print(np.where(grid == 0.3)[0])            # exact: finds nothing
+print(repr(grid[3]))                       # why
+print(np.where(np.isclose(grid, 0.3))[0])  # with a tolerance</code></pre>
+<p class="clab-output-label">Output</p>
+<pre class="clab-output"><code>[]
+np.float64(0.30000000000000004)
+[3]</code></pre>
+    </div>
+  </div>
+  <p>The position is 4 in R and 3 in Python: R counts from 1, Python from 0. It is the same element.</p>
+</details>
+
+<h2 id="check">7 Check yourself</h2>
+<div class="clab-box clab-box--check">
+  <p class="clab-box-title">Your answer is correct if</p>
+  <ul>
+    <li>the exact comparison finds nothing, and your version finds the fourth element of the grid (index 4 in R, 3 in Python);</li>
+    <li>your comparison uses a tolerance, not <code>==</code>.</li>
+  </ul>
+</div>
+
+<h2 id="why">8 Why it matters</h2>
+<div class="clab-box clab-box--ai">
+  <p class="clab-box-title">Silent failures in simulations and checks</p>
+  <p>Exact comparisons of decimal numbers break filters (selecting the rows for ρ = 0.3 from simulation results returns nothing), checks (probabilities that "should" sum to 1), and tests of your own functions. The code runs; it just gives an empty or wrong answer. Two rules prevent most of these problems: compare computed decimals with a tolerance, and, where possible, index grids by integers (the 4th value) rather than by decimal values.</p>
+</div>
+
+<h2 id="further">9 Going further</h2>
+<ul>
+  <li><strong>Both:</strong> the default tolerances differ. <code>all.equal()</code> uses a relative tolerance of about 1.5 × 10<sup>−8</sup>; <code>np.isclose()</code> uses <code>rtol = 1e-5</code> and <code>atol = 1e-8</code>. Find two numbers that one function calls equal and the other does not.</li>
+  <li><strong>R:</strong> run <code>all.equal(1, 1.1)</code>. Why must it be wrapped in <code>isTRUE()</code> inside <code>if ()</code>?</li>
+  <li><strong>Python:</strong> why can <code>np.isclose(a, 0)</code> be misleading for very small numbers? (Look at <code>atol</code>.)</li>
+</ul>
+
+<h2 id="references">10 References</h2>
+<ul>
+  <li>Goldberg, D. (1991). What every computer scientist should know about floating-point arithmetic. <em>ACM Computing Surveys</em>, 23(1), 5–48.</li>
+  <li>R FAQ 7.31: Why doesn't R think these numbers are equal? https://cran.r-project.org/doc/FAQ/R-FAQ.html</li>
+  <li>NumPy documentation. <em>numpy.isclose</em>. https://numpy.org/doc/stable/reference/generated/numpy.isclose.html</li>
+</ul>
+
+{% endraw %}
+  <div class="lesson-nav">
+    <a class="btn btn-outline" href="/code-lab/beginner/vectors-and-arrays/missing-values/">← Exercise 1.2: Missing values</a>
+    <a class="btn" href="/code-lab/beginner/">Beginner exercises →</a>
+  </div>
+</div>
+</section>
+
+<script src="/js/code-lab.js" defer></script>

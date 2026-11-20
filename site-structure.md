@@ -198,6 +198,24 @@ Added: 19 November 2026 (deliberate structural addition, approved by the site ow
 
 ---
 
+## 14. Code Lab
+Hands-on programming exercises in R and Python, from beginner to advanced. Every exercise
+follows one structure: predict, write, hints, solution, check yourself, why it matters.
+Code Lab is exercise-based practice. It complements, and does not repeat, Section 8 (/software/),
+which explains each tool step by step in book form; methods themselves are taught in the topic
+sections and Courses.
+
+Includes:
+- Code Lab hub and level pages (Beginner, Intermediate, Advanced)
+- Exercise groups and exercises with hidden hints and solutions
+
+Folder:
+/code-lab/
+
+Added: 20 November 2026 (deliberate structural addition, approved by the site owner).
+
+---
+
 ## Structural Rules (Non-Negotiable)
 
 - Top-level sections are permanent.
