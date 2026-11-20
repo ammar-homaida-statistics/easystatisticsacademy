@@ -27,10 +27,12 @@ learning_resource: true
   </div>
 </section>
 
+<nav class="esa-lesson-toc" aria-label="On this page"><details><summary>On this page</summary><ol><li><a href="#learning-objectives">Learning objectives</a></li><li><a href="#motivation">Motivation</a></li><li><a href="#notation-for-this-lesson">Notation for this lesson</a></li><li><a href="#theory">Theory</a></li><li><a href="#worked-example-correlation-and-the-two-regression-lines-for-auto-mpg">Worked example: correlation and the two regression lines for Auto MPG</a></li><li><a href="#common-misconceptions">Common misconceptions</a></li><li><a href="#key-takeaways">Key takeaways</a></li><li><a href="#exercises">Exercises</a></li><li><a href="#references">References</a></li></ol></details></nav>
+
 <section>
   <div class="content-narrow esa-course-lesson">
 {% raw %}
-<h2 data-number="1" id="learning-objectives"><span class="header-section-number">1</span> Learning objectives</h2>
+<h2 class="esa-lesson-anchor" data-number="1" id="learning-objectives"><span class="header-section-number">1</span> Learning objectives</h2>
 <p>By the end of this lesson you will be able to:</p>
 <ol type="1">
 <li>define the Pearson correlation coefficient <span class="math inline">\(r\)</span>, prove that <span class="math inline">\(-1 \le r \le 1\)</span>, and state when <span class="math inline">\(|r| = 1\)</span>;</li>
@@ -39,9 +41,9 @@ learning_resource: true
 <li>explain regression toward the mean and recognise the regression fallacy;</li>
 <li>decide when correlation and when regression answers the question being asked, and name the main limitations of <span class="math inline">\(r\)</span>.</li>
 </ol>
-<h2 data-number="2" id="motivation"><span class="header-section-number">2</span> Motivation</h2>
+<h2 class="esa-lesson-anchor" data-number="2" id="motivation"><span class="header-section-number">2</span> Motivation</h2>
 <p>For the Auto MPG data, the correlation between weight and fuel economy is <span class="math inline">\(r = -0.832\)</span>, and the least-squares slope is <span class="math inline">\(-7.68\)</span> mpg per 1000 lb. Both numbers describe the same scatterplot. Are they two ways of saying the same thing? Not quite. The correlation is symmetric and unit-free; the slope is directional and carries units. This lesson makes the connection exact, shows what each quantity can and cannot tell us, and explains a surprising consequence of <span class="math inline">\(|r| &lt; 1\)</span>: regression toward the mean.</p>
-<h2 data-number="3" id="notation-for-this-lesson"><span class="header-section-number">3</span> Notation for this lesson</h2>
+<h2 class="esa-lesson-anchor" data-number="3" id="notation-for-this-lesson"><span class="header-section-number">3</span> Notation for this lesson</h2>
 <div class="table-wrap"><table>
 <colgroup>
 <col style="width: 50%" />
@@ -85,7 +87,7 @@ learning_resource: true
 </tbody>
 </table></div>
 <p>All notation follows the course notation standard.</p>
-<h2 data-number="4" id="theory"><span class="header-section-number">4</span> Theory</h2>
+<h2 class="esa-lesson-anchor" data-number="4" id="theory"><span class="header-section-number">4</span> Theory</h2>
 <h3 data-number="4.1" id="the-correlation-coefficient"><span class="header-section-number">4.1</span> The correlation coefficient</h3>
 <div class="concept-box esa-callout-note">
 <p class="esa-box-title">
@@ -238,7 +240,7 @@ Derivation
 \]</span> Restricting the range of <span class="math inline">\(x\)</span> reduces <span class="math inline">\(\sigma_x^2\)</span> and hence <span class="math inline">\(\rho^2\)</span>, although the slope <span class="math inline">\(\beta_1\)</span> is unchanged (Exercise B3). A low correlation in a narrow sample does not mean a weak effect.</li>
 <li><strong>Association, not causation.</strong> As for the slope (Lesson 1.1).</li>
 </ul>
-<h2 data-number="5" id="worked-example-correlation-and-the-two-regression-lines-for-auto-mpg"><span class="header-section-number">5</span> Worked example: correlation and the two regression lines for Auto MPG</h2>
+<h2 class="esa-lesson-anchor" data-number="5" id="worked-example-correlation-and-the-two-regression-lines-for-auto-mpg"><span class="header-section-number">5</span> Worked example: correlation and the two regression lines for Auto MPG</h2>
 <h3 data-number="5.1" id="computation"><span class="header-section-number">5.1</span> Computation</h3>
 <p>Weight <span class="math inline">\(x\)</span> is in thousands of pounds and fuel economy <span class="math inline">\(y\)</span> in mpg, <span class="math inline">\(n = 398\)</span> (Auto MPG; Quinlan, 1993; CC BY 4.0).</p>
 <div class="esa-code-tabs">
@@ -366,7 +368,7 @@ Output
 <li>The slope <span class="math inline">\(-7.68\)</span> mpg per 1000 lb expresses the same association in the units of the problem, and only in the direction “mpg given weight”.</li>
 <li>To predict <strong>weight from mpg</strong>, use the dashed line, not the inverted solid line: inverting <span class="math inline">\(\hat y = \hat\beta_0 + \hat\beta_1 x\)</span> gives a slope of <span class="math inline">\(1/\hat\beta_1 = -0.130\)</span> thousand lb per mpg, but the least-squares slope of <span class="math inline">\(x\)</span> on <span class="math inline">\(y\)</span> is <span class="math inline">\(-0.090\)</span>.</li>
 </ul>
-<h2 data-number="6" id="common-misconceptions"><span class="header-section-number">6</span> Common misconceptions</h2>
+<h2 class="esa-lesson-anchor" data-number="6" id="common-misconceptions"><span class="header-section-number">6</span> Common misconceptions</h2>
 <div class="example-box esa-callout-caution">
 <p class="esa-box-title">
 <strong>Misconceptions</strong>
@@ -379,7 +381,7 @@ Output
 <li><strong>“A low correlation in a narrow sample means <span class="math inline">\(x\)</span> has little effect on <span class="math inline">\(y\)</span>.”</strong> — Restricting the range of <span class="math inline">\(x\)</span> lowers <span class="math inline">\(r\)</span> even when the slope is unchanged.</li>
 </ol>
 </div>
-<h2 data-number="7" id="key-takeaways"><span class="header-section-number">7</span> Key takeaways</h2>
+<h2 class="esa-lesson-anchor" data-number="7" id="key-takeaways"><span class="header-section-number">7</span> Key takeaways</h2>
 <ul>
 <li><span class="math inline">\(r = S_{xy}/\sqrt{S_{xx}S_{yy}}\)</span> is symmetric, unit-free and lies in <span class="math inline">\([-1, 1]\)</span>; <span class="math inline">\(\mathrm{SSE} = S_{yy}(1 - r^2)\)</span>.</li>
 <li><span class="math inline">\(\hat\beta_1 = r\,s_y/s_x\)</span>; in standardised units the regression slope is <span class="math inline">\(r\)</span>.</li>
@@ -387,7 +389,7 @@ Output
 <li>Because <span class="math inline">\(|r| &lt; 1\)</span>, predictions regress toward the mean; ignoring this leads to the regression fallacy.</li>
 <li>Use correlation to summarise linear association, and regression to model and predict a conditional mean.</li>
 </ul>
-<h2 data-number="8" id="exercises"><span class="header-section-number">8</span> Exercises</h2>
+<h2 class="esa-lesson-anchor" data-number="8" id="exercises"><span class="header-section-number">8</span> Exercises</h2>
 <h3 data-number="8.1" id="a.-conceptual"><span class="header-section-number">8.1</span> A. Conceptual</h3>
 <p><strong>A1</strong> (★). A report states: “The correlation between study hours and exam score was 0.5, so study hours explain 50% of the variation in scores.” Correct the statement.</p>
 <details class="esa-solution">
@@ -503,7 +505,7 @@ Solution
 </summary>
 <p><span class="math inline">\(r = 0\)</span> exactly: <span class="math inline">\(S_{xy} = \sum (x_i - 0)(x_i^2 - \bar y) = \sum x_i^3 - \bar y\sum x_i = 0\)</span> because the <span class="math inline">\(x_i\)</span> are symmetric about 0. Yet <span class="math inline">\(y\)</span> is an exact function of <span class="math inline">\(x\)</span>. Correlation measures only <strong>linear</strong> association; always plot the data.</p>
 </details>
-<h2 data-number="9" id="references"><span class="header-section-number">9</span> References</h2>
+<h2 class="esa-lesson-anchor" data-number="9" id="references"><span class="header-section-number">9</span> References</h2>
 <ul>
 <li>Galton, F. (1886). Regression towards mediocrity in hereditary stature. <em>The Journal of the Anthropological Institute of Great Britain and Ireland</em>, 15, 246–263.</li>
 <li>Kutner, M. H., Nachtsheim, C. J., Neter, J., &amp; Li, W. (2005). <em>Applied Linear Statistical Models</em> (5th ed.). McGraw-Hill/Irwin. — Chapter 1 (history of regression); Chapter 2, Inferences in Regression and Correlation Analysis (normal correlation models).</li>
