@@ -36,7 +36,7 @@ paths_styles: true
     <div class="card">
       <h3>Regression Analysis: From Foundations to Mastery</h3>
       <p>From simple linear regression and the matrix theory of least squares to diagnostics, model selection, and shrinkage estimation under multicollinearity.</p>
-      <p class="muted-mini">Level: Intermediate–Advanced · Status: In preparation</p>
+      <p class="muted-mini">Level: Intermediate–Advanced · Status: In progress · first lessons available</p>
       <a class="card-foot" href="/courses/regression/">View course →</a>
     </div>
 
