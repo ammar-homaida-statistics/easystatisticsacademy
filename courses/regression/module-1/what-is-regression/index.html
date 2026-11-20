@@ -27,10 +27,12 @@ learning_resource: true
   </div>
 </section>
 
+<nav class="esa-lesson-toc" aria-label="On this page"><details><summary>On this page</summary><ol><li><a href="#learning-objectives">Learning objectives</a></li><li><a href="#motivation">Motivation</a></li><li><a href="#notation-for-this-lesson">Notation for this lesson</a></li><li><a href="#theory">Theory</a></li><li><a href="#worked-example-exploring-the-auto-mpg-data">Worked example: exploring the Auto MPG data</a></li><li><a href="#common-misconceptions">Common misconceptions</a></li><li><a href="#key-takeaways">Key takeaways</a></li><li><a href="#exercises">Exercises</a></li><li><a href="#references">References</a></li></ol></details></nav>
+
 <section>
   <div class="content-narrow esa-course-lesson">
 {% raw %}
-<h2 data-number="1" id="learning-objectives"><span class="header-section-number">1</span> Learning objectives</h2>
+<h2 class="esa-lesson-anchor" data-number="1" id="learning-objectives"><span class="header-section-number">1</span> Learning objectives</h2>
 <p>By the end of this lesson you will be able to:</p>
 <ol type="1">
 <li>distinguish a <strong>functional</strong> relationship from a <strong>statistical</strong> one and define the regression function <span class="math inline">\(E(y \mid x)\)</span>;</li>
@@ -39,9 +41,9 @@ learning_resource: true
 <li>state the standard assumptions on the errors and identify which later results need which assumption;</li>
 <li>explain why regression on observational data does not, by itself, establish causation.</li>
 </ol>
-<h2 data-number="2" id="motivation"><span class="header-section-number">2</span> Motivation</h2>
+<h2 class="esa-lesson-anchor" data-number="2" id="motivation"><span class="header-section-number">2</span> Motivation</h2>
 <p>The Auto MPG data record fuel economy, weight and other characteristics of 398 cars from model years 1970–1982. Two cars of the <strong>same</strong> weight can have very different fuel economy, so mpg is not a function of weight. Yet heavier cars clearly tend to have lower mpg. Regression analysis gives a precise meaning to “tend to”: it models how the <strong>average</strong> response changes with the predictor, and how individual observations scatter around that average.</p>
-<h2 data-number="3" id="notation-for-this-lesson"><span class="header-section-number">3</span> Notation for this lesson</h2>
+<h2 class="esa-lesson-anchor" data-number="3" id="notation-for-this-lesson"><span class="header-section-number">3</span> Notation for this lesson</h2>
 <div class="table-wrap"><table>
 <colgroup>
 <col style="width: 50%" />
@@ -77,7 +79,7 @@ learning_resource: true
 </tbody>
 </table></div>
 <p>All notation follows the course notation standard.</p>
-<h2 data-number="4" id="theory"><span class="header-section-number">4</span> Theory</h2>
+<h2 class="esa-lesson-anchor" data-number="4" id="theory"><span class="header-section-number">4</span> Theory</h2>
 <h3 data-number="4.1" id="functional-and-statistical-relationships"><span class="header-section-number">4.1</span> Functional and statistical relationships</h3>
 <div class="concept-box esa-callout-note">
 <p class="esa-box-title">
@@ -203,7 +205,7 @@ y_i = \beta_0 + \beta_1 x_i + \varepsilon_i ,
 <h3 data-number="4.6" id="observational-versus-experimental-data"><span class="header-section-number">4.6</span> Observational versus experimental data</h3>
 <p>In a <strong>designed experiment</strong>, the investigator assigns values of <span class="math inline">\(x\)</span> to units, ideally at random. Randomisation balances, on average, all other factors across levels of <span class="math inline">\(x\)</span>, so a difference in mean response can be attributed to <span class="math inline">\(x\)</span>.</p>
 <p>In <strong>observational data</strong>, <span class="math inline">\(x\)</span> is merely recorded. Units with different <span class="math inline">\(x\)</span> may differ systematically in other ways (<strong>confounding</strong>), so <span class="math inline">\(\beta_1\)</span> describes an association, not necessarily the effect of changing <span class="math inline">\(x\)</span>. The Auto MPG data are observational: heavier cars also tend to have larger engines (the correlation between weight and engine displacement is 0.933 in these data), so the association between weight and mpg mixes the role of weight with that of engine size.</p>
-<h2 data-number="5" id="worked-example-exploring-the-auto-mpg-data"><span class="header-section-number">5</span> Worked example: exploring the Auto MPG data</h2>
+<h2 class="esa-lesson-anchor" data-number="5" id="worked-example-exploring-the-auto-mpg-data"><span class="header-section-number">5</span> Worked example: exploring the Auto MPG data</h2>
 <h3 data-number="5.1" id="the-data"><span class="header-section-number">5.1</span> The data</h3>
 <p>Source: Quinlan (1993), UCI Machine Learning Repository, CC BY 4.0. There are <span class="math inline">\(n = 398\)</span> cars and nine variables. Units follow the documentation of the <code>Auto</code> data in the R package ISLR2.</p>
 <div class="table-wrap"><table>
@@ -411,7 +413,7 @@ Fuel economy against weight (Auto MPG, n = 398). Large points: mean mpg within 5
 <li><strong>Non-constant spread.</strong> The standard deviation of mpg within bands falls from about 4.5–6 mpg for light cars to about 1.6 mpg for the heaviest. Assumption A2 is therefore doubtful here; Lessons 1.7–1.8 show why this matters for inference and prediction intervals.</li>
 <li><strong>Association, not causation.</strong> These are observational data, and weight is strongly correlated with engine size. The relationship describes how mpg varies with weight across these cars; it does not say how much a given car’s mpg would change if weight were added to it.</li>
 </ul>
-<h2 data-number="6" id="common-misconceptions"><span class="header-section-number">6</span> Common misconceptions</h2>
+<h2 class="esa-lesson-anchor" data-number="6" id="common-misconceptions"><span class="header-section-number">6</span> Common misconceptions</h2>
 <div class="example-box esa-callout-caution">
 <p class="esa-box-title">
 <strong>Misconceptions</strong>
@@ -423,7 +425,7 @@ Fuel economy against weight (Auto MPG, n = 398). Large points: mean mpg within 5
 <li><strong>“The error and the residual are the same thing.”</strong> — No. The error <span class="math inline">\(\varepsilon_i = y_i - (\beta_0 + \beta_1 x_i)\)</span> involves the unknown true parameters; the residual <span class="math inline">\(e_i\)</span> (Lesson 1.3) uses the estimates.</li>
 </ol>
 </div>
-<h2 data-number="7" id="key-takeaways"><span class="header-section-number">7</span> Key takeaways</h2>
+<h2 class="esa-lesson-anchor" data-number="7" id="key-takeaways"><span class="header-section-number">7</span> Key takeaways</h2>
 <ul>
 <li>Regression models the <strong>conditional mean</strong> <span class="math inline">\(E(y \mid x)\)</span> and the scatter of <span class="math inline">\(y\)</span> around it.</li>
 <li>The conditional mean is the best predictor of <span class="math inline">\(y\)</span> under squared-error loss (Theorem 1.1.1).</li>
@@ -431,7 +433,7 @@ Fuel economy against weight (Auto MPG, n = 398). Large points: mean mpg within 5
 <li>Assumptions A1–A4 are needed for different results; computing the least-squares line needs none of them.</li>
 <li>With observational data, regression describes associations; causal interpretation needs more.</li>
 </ul>
-<h2 data-number="8" id="exercises"><span class="header-section-number">8</span> Exercises</h2>
+<h2 class="esa-lesson-anchor" data-number="8" id="exercises"><span class="header-section-number">8</span> Exercises</h2>
 <h3 data-number="8.1" id="a.-conceptual"><span class="header-section-number">8.1</span> A. Conceptual</h3>
 <p><strong>A1</strong> (★). Give one example of a functional relationship and one of a statistical relationship from your own field. For the statistical one, name two factors that make <span class="math inline">\(y\)</span> vary at a fixed <span class="math inline">\(x\)</span>.</p>
 <details class="esa-solution">
@@ -537,7 +539,7 @@ print(pd.DataFrame({&quot;y&quot;: y, &quot;band&quot;: bands}).groupby(&quot;ba
         .agg([&quot;count&quot;, &quot;mean&quot;, &quot;std&quot;]).round(2))</code></pre>
 <p>In simulated data the band means lie close to the straight line <span class="math inline">\(46 - 7.7x\)</span> (up to sampling error), and the within-band standard deviations are all near 4, because the data were generated with a linear mean and constant variance. In the real data the band means flatten for heavy cars and the spread shrinks from about 6 to about 1.6 mpg: evidence of curvature and non-constant variance. (The exact simulated numbers depend on the random-number generator; in R use <code>set.seed(2026)</code> and <code>runif</code>/<code>rnorm</code>, which give different draws from Python.)</p>
 </details>
-<h2 data-number="9" id="references"><span class="header-section-number">9</span> References</h2>
+<h2 class="esa-lesson-anchor" data-number="9" id="references"><span class="header-section-number">9</span> References</h2>
 <ul>
 <li>Kutner, M. H., Nachtsheim, C. J., Neter, J., &amp; Li, W. (2005). <em>Applied Linear Statistical Models</em> (5th ed.). McGraw-Hill/Irwin. — Chapter 1, Linear Regression with One Predictor Variable (functional vs statistical relations; the model and its uses).</li>
 <li>Montgomery, D. C., Peck, E. A., &amp; Vining, G. G. (2021). <em>Introduction to Linear Regression Analysis</em> (6th ed.). Wiley. — Chapter 1, Introduction; Chapter 2, Simple Linear Regression.</li>
