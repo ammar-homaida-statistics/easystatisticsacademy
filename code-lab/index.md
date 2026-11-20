@@ -6,7 +6,7 @@ permalink: /code-lab/
 sidebar: false
 paths_styles: true
 ---
-<link rel="stylesheet" href="/css/code-lab.css?v=1" />
+{% include code-lab-styles.html %}
 
 <div class="esa-paths clab">
 
