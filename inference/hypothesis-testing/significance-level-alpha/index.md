@@ -4,6 +4,8 @@ title: Significance Level (α)
 description: Learn what the significance level represents, why it is chosen before analyzing data, and how it guides hypothesis-testing decisions.
 permalink: /inference/hypothesis-testing/significance-level-alpha/
 sidebar: false
+learning_resource: true
+translation_pair: significance-level-alpha
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -40,6 +42,7 @@ sidebar: false
     </div>
 
     <h1>Significance Level (α)</h1>
+      <p><a href="/ar/inference/hypothesis-testing/significance-level-alpha/" lang="ar" dir="rtl" hreflang="ar">النسخة العربية</a></p>
 
     <p class="lead">
       A p-value measures evidence against the null hypothesis, but evidence alone does not produce a decision.

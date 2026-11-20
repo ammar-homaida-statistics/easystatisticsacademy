@@ -23,7 +23,7 @@ math: true
 {% include lab-noscript.html %}
  <p><a href="/inference/hypothesis-testing/type1-type2-errors/" lang="en" dir="ltr">English — Type I and Type II Errors</a></p>
  <p class="lead">يُبنى القرار الإحصائي على عينة محدودة، ولذلك قد نرفض فرضية عدم صحيحة أو نفشل في رفض فرضية عدم خاطئة. يساعد فهم هذين الخطأين على تصميم الدراسات وتفسير الأدلة بدقة.</p>
- <div class="hero-actions"><a class="btn btn-outline" href="/ar/">الدروس العربية</a><a class="btn" href="/inference/hypothesis-testing/significance-level-alpha/" lang="en" dir="ltr">Previous (English)</a><a class="btn btn-outline" href="/inference/hypothesis-testing/power-and-effect-size/" lang="en" dir="ltr">Next: Power and Effect Size (English)</a></div>
+ <div class="hero-actions"><a class="btn btn-outline" href="/ar/">الدروس العربية</a><a class="btn" href="/ar/inference/hypothesis-testing/significance-level-alpha/">السابق: مستوى الدلالة (α)</a><a class="btn btn-outline" href="/inference/hypothesis-testing/power-and-effect-size/" lang="en" dir="ltr">Next: Power and Effect Size (English)</a></div>
 </div></section>
 <section><div class="content-narrow">
 <h2>لماذا لا يمكن تفادي الأخطاء بالكامل؟</h2>

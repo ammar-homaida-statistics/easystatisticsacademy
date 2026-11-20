@@ -121,7 +121,7 @@ p_{\text{right-tailed}}=P_{H_0}(X\ge90)=\sum_{k=90}^{100}\binom{100}{k}(0.5)^{10
 </ul></div>
 <div class="lesson-nav">
 <a class="btn btn-outline" href="/inference/hypothesis-testing/test-statistic-standardization/" hreflang="en">→ السابق: إحصائية الاختبار (بالإنجليزية)</a>
-<a class="btn" href="/inference/hypothesis-testing/significance-level-alpha/" hreflang="en">التالي: مستوى الدلالة α (بالإنجليزية) ←</a>
+<a class="btn" href="/ar/inference/hypothesis-testing/significance-level-alpha/">التالي: مستوى الدلالة α ←</a>
 </div>
 </div></section>
 <style>

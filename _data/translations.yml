@@ -164,3 +164,9 @@
 - id: what-is-statistical-power
   en: /inference/power-sample-size/what-is-statistical-power/
   ar: /ar/inference/power-sample-size/what-is-statistical-power/
+- id: significance-level-alpha
+  en: /inference/hypothesis-testing/significance-level-alpha/
+  ar: /ar/inference/hypothesis-testing/significance-level-alpha/
+- id: effect-size
+  en: /inference/power-sample-size/effect-size-and-practical-importance/
+  ar: /ar/inference/power-sample-size/effect-size-and-practical-importance/

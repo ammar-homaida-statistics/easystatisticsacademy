@@ -23,13 +23,19 @@
   function normal(random){
     return Math.sqrt(-2*Math.log(random()))*Math.cos(2*Math.PI*random());
   }
-  /* Abramowitz–Stegun 7.1.26: maximum erf approximation error ~1.5e-7. */
-  function erf(x){
-    const sign=x<0?-1:1, a=Math.abs(x), t=1/(1+0.3275911*a);
-    const poly=(((((1.061405429*t-1.453152027)*t)+1.421413741)*t-0.284496736)*t+0.254829592)*t;
-    return sign*(1-poly*Math.exp(-a*a));
+  // Batch #99: accurate erfc for x >= 0 (Taylor series below 2.5, Lentz continued
+  // fraction above), replacing the 5-term approximation (absolute error ~1.4e-7).
+  function erfcPositive(x){
+   if(x<2.5){let sum=x,term=x;const x2=x*x;
+    for(let n=1;n<200;n++){term*=-x2/n;const add=term/(2*n+1);sum+=add;if(Math.abs(add)<1e-17*Math.abs(sum))break;}
+    return 1-2/Math.sqrt(Math.PI)*sum;}
+   const TINY=1e-300;let f=x,C=x,D=0;
+   for(let n=1;n<500;n++){const a=n/2;D=x+a*D;if(Math.abs(D)<TINY)D=TINY;C=x+a/C;if(Math.abs(C)<TINY)C=TINY;
+    D=1/D;const delta=C*D;f*=delta;if(Math.abs(delta-1)<1e-16)break;}
+   return Math.exp(-x*x)/Math.sqrt(Math.PI)/f;
   }
-  function cdf(x){return 0.5*(1+erf(x/Math.SQRT2));}
+  // Standard normal CDF from erfc, accurate in both tails.
+  function cdf(x){return x<0?0.5*erfcPositive(-x/Math.SQRT2):1-0.5*erfcPositive(x/Math.SQRT2);}
   function fmt(x){return (100*x).toFixed(2)+"%";}
   function run(){
     const n=Number($("esa-errors-n").value),
@@ -52,7 +58,7 @@
       if(Math.abs(zAlternative)>c)truePositive++;else falseNegative++;
     }
     const a=Number(alpha);
-    const power=cdf(-c-shift)+(1-cdf(c-shift));
+    const power=cdf(-c-shift)+cdf(shift-c);
     [["esa-errors-fp",falsePositive],["esa-errors-tn",trueNegative],
      ["esa-errors-tp",truePositive],["esa-errors-fn",falseNegative]]
       .forEach(([id,count])=>{$(id).textContent=String(count);});
