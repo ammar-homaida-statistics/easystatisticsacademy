@@ -1,0 +1,503 @@
+---
+layout: default
+title: "Ordinary Least Squares Estimation — Regression Course, Lesson 1.3"
+description: "University-level lesson: derivation of the OLS estimators, proof of the unique minimum, algebraic and geometric properties of the fitted line, with a worked example in R and Python."
+permalink: /courses/regression/module-1/ordinary-least-squares/
+sidebar: false
+math: true
+learning_resource: true
+---
+
+<section class="hero hero-section">
+  <div class="hero-card">
+    <div class="badge-row">
+      <span class="badge">Course</span>
+      <span class="badge">Regression Analysis</span>
+      <span class="badge">Module 1 · Foundations</span>
+      <span class="badge">Lesson 1.3</span>
+    </div>
+    <h1>Lesson 1.3 — Ordinary Least Squares Estimation</h1>
+    <p class="lead">Which line should we draw through a cloud of points, and why? Least squares gives a precise answer, and this lesson proves exactly what that answer guarantees.</p>
+    <p class="muted-mini">Level: Introductory–Intermediate · Study time: 50 min + exercises · Prerequisites: Lesson 1.1; partial derivatives · Data: Auto MPG (UCI, CC BY 4.0)</p>
+    <div class="hero-actions">
+      <a class="btn btn-outline" href="/courses/regression/module-1/">Module 1 lessons</a>
+      <a class="btn btn-outline" href="/courses/regression/code/lesson-1-3.py">Python script</a>
+      <a class="btn btn-outline" href="/courses/regression/code/lesson-1-3.R">R script</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="content-narrow esa-course-lesson">
+{% raw %}
+<h2 data-number="1" id="learning-objectives"><span class="header-section-number">1</span> Learning objectives</h2>
+<p>By the end of this lesson you will be able to:</p>
+<ol type="1">
+<li>state the least-squares criterion and explain why it is a <em>choice</em> of loss function, not a consequence of the model;</li>
+<li>derive the OLS estimators <span class="math inline">\(\hat\beta_0\)</span> and <span class="math inline">\(\hat\beta_1\)</span> from the normal equations and prove that they give the <strong>unique global minimum</strong> whenever <span class="math inline">\(S_{xx} &gt; 0\)</span>;</li>
+<li>prove and interpret the algebraic properties of the fitted line;</li>
+<li>interpret least squares geometrically as an orthogonal projection;</li>
+<li>compute the estimates by hand from summary statistics and reproduce them in R and Python.</li>
+</ol>
+<h2 data-number="2" id="motivation"><span class="header-section-number">2</span> Motivation</h2>
+<p>Heavier cars use more fuel. For the 398 cars in the Auto MPG data, a scatterplot of fuel economy (mpg) against weight shows a clear downward trend. Lesson 1.1 described this with the model <span class="math display">\[
+y_i = \beta_0 + \beta_1 x_i + \varepsilon_i, \qquad i = 1,\dots,n,
+\]</span> but <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> are unknown. Infinitely many lines can be drawn through the cloud of points. <strong>Which line should we choose, and why?</strong> This lesson answers the question with the method of least squares and establishes exactly what the resulting line does — and does not — guarantee.</p>
+<h2 data-number="3" id="notation-for-this-lesson"><span class="header-section-number">3</span> Notation for this lesson</h2>
+<div class="table-wrap"><table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(x_i, y_i\)</span></td>
+<td>predictor and response for observation <span class="math inline">\(i\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\bar x, \bar y\)</span></td>
+<td>sample means</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(S_{xx} = \sum (x_i-\bar x)^2\)</span></td>
+<td>corrected sum of squares of <span class="math inline">\(x\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(S_{xy} = \sum (x_i-\bar x)(y_i-\bar y)\)</span></td>
+<td>corrected sum of cross-products</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(b_0, b_1\)</span></td>
+<td>a <em>candidate</em> intercept and slope (any line)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\hat\beta_0, \hat\beta_1\)</span></td>
+<td>the least-squares estimates</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\hat y_i = \hat\beta_0 + \hat\beta_1 x_i\)</span></td>
+<td>fitted value</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(e_i = y_i - \hat y_i\)</span></td>
+<td>residual (observable) — not the error <span class="math inline">\(\varepsilon_i\)</span> (unobservable)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\mathrm{SSE} = \sum e_i^2\)</span></td>
+<td>error (residual) sum of squares</td>
+</tr>
+</tbody>
+</table></div>
+<p>All notation follows the course notation standard.</p>
+<h2 data-number="4" id="theory"><span class="header-section-number">4</span> Theory</h2>
+<h3 data-number="4.1" id="the-least-squares-criterion"><span class="header-section-number">4.1</span> The least-squares criterion</h3>
+<div class="concept-box esa-callout-note">
+<p class="esa-box-title">
+<strong>Definition 1.3.1 (Least-squares criterion)</strong>
+</p>
+<p>For any candidate line <span class="math inline">\(b_0 + b_1 x\)</span>, define <span class="math display">\[
+S(b_0, b_1) = \sum_{i=1}^{n} \bigl(y_i - b_0 - b_1 x_i\bigr)^2 .
+\]</span> The <strong>ordinary least squares (OLS) estimates</strong> <span class="math inline">\((\hat\beta_0, \hat\beta_1)\)</span> are the values of <span class="math inline">\((b_0, b_1)\)</span> that minimise <span class="math inline">\(S\)</span>.</p>
+</div>
+<p>Three remarks set the scope of this definition.</p>
+<ul>
+<li><strong>Vertical distances.</strong> <span class="math inline">\(S\)</span> measures discrepancies in the <span class="math inline">\(y\)</span>-direction only, because the purpose is to predict <span class="math inline">\(y\)</span> from <span class="math inline">\(x\)</span>. Minimising perpendicular distances gives a different line (orthogonal regression), and regressing <span class="math inline">\(x\)</span> on <span class="math inline">\(y\)</span> gives yet another.</li>
+<li><strong>Squares are a choice.</strong> Absolute deviations (least absolute deviations) or other losses are also legitimate. Squared loss is chosen because it is differentiable, gives closed-form estimators, has a clean geometric interpretation (Section 4.6), and — under the assumptions of Lesson 1.4 — yields estimators with optimal properties.</li>
+<li><strong>No distributional assumption is needed.</strong> The OLS estimates are defined for <em>any</em> data set with at least two distinct <span class="math inline">\(x\)</span> values. Assumptions about <span class="math inline">\(\varepsilon_i\)</span> matter only when we ask about the <em>statistical</em> properties of the estimates (Lessons 1.4 and 1.7).</li>
+</ul>
+<h3 data-number="4.2" id="the-normal-equations"><span class="header-section-number">4.2</span> The normal equations</h3>
+<p>Setting the partial derivatives of <span class="math inline">\(S\)</span> to zero: <span class="math display">\[
+\frac{\partial S}{\partial b_0} = -2\sum_{i=1}^n (y_i - b_0 - b_1 x_i) = 0, \qquad
+\frac{\partial S}{\partial b_1} = -2\sum_{i=1}^n x_i\,(y_i - b_0 - b_1 x_i) = 0 .
+\]</span> Rearranging gives the <strong>normal equations</strong> <span class="math display">\[
+n\,b_0 + b_1 \sum x_i = \sum y_i, \qquad
+b_0 \sum x_i + b_1 \sum x_i^2 = \sum x_i y_i .
+\tag{1.3.1}
+\]</span></p>
+<div class="concept-box esa-callout-important">
+<p class="esa-box-title">
+<strong>Theorem 1.3.1 (OLS estimators)</strong>
+</p>
+<p>If <span class="math inline">\(S_{xx} &gt; 0\)</span> (that is, the <span class="math inline">\(x_i\)</span> are not all equal), the normal equations have the unique solution <span class="math display">\[
+\hat\beta_1 = \frac{S_{xy}}{S_{xx}}, \qquad \hat\beta_0 = \bar y - \hat\beta_1 \bar x ,
+\]</span> and <span class="math inline">\((\hat\beta_0, \hat\beta_1)\)</span> is the <strong>unique global minimiser</strong> of <span class="math inline">\(S(b_0, b_1)\)</span>.</p>
+</div>
+<details class="esa-derivation">
+<summary>
+Derivation — solving the normal equations
+</summary>
+<p>Divide the first equation in (1.3.1) by <span class="math inline">\(n\)</span>: <span class="math inline">\(b_0 = \bar y - b_1 \bar x\)</span>. Substitute into the second: <span class="math display">\[
+(\bar y - b_1 \bar x)\, n\bar x + b_1 \sum x_i^2 = \sum x_i y_i
+\;\Longrightarrow\;
+b_1\Bigl(\sum x_i^2 - n\bar x^2\Bigr) = \sum x_i y_i - n\bar x\bar y .
+\]</span> Since <span class="math inline">\(\sum x_i^2 - n\bar x^2 = S_{xx}\)</span> and <span class="math inline">\(\sum x_i y_i - n \bar x \bar y = S_{xy}\)</span>, we obtain <span class="math inline">\(b_1 = S_{xy}/S_{xx}\)</span>, which is well defined exactly when <span class="math inline">\(S_{xx} &gt; 0\)</span>. Then <span class="math inline">\(b_0 = \bar y - b_1\bar x\)</span>.</p>
+</details>
+<details class="esa-derivation">
+<summary>
+Derivation — why this is the unique global minimum
+</summary>
+<p>A stationary point need not be a minimum, so we prove minimality directly. For any <span class="math inline">\((b_0, b_1)\)</span> write <span class="math inline">\(y_i - b_0 - b_1x_i = e_i + d_i\)</span>, where <span class="math inline">\(d_i = (\hat\beta_0 - b_0) + (\hat\beta_1 - b_1)x_i\)</span>. Then <span class="math display">\[
+S(b_0,b_1) = \sum e_i^2 + 2\sum e_i d_i + \sum d_i^2 .
+\]</span> The cross term vanishes because <span class="math inline">\(\sum e_i = 0\)</span> and <span class="math inline">\(\sum x_i e_i = 0\)</span> (these are the normal equations evaluated at <span class="math inline">\(\hat\beta\)</span>; see Theorem 1.3.2). Hence <span class="math display">\[
+S(b_0,b_1) = \mathrm{SSE} + \sum_{i=1}^n \bigl[(\hat\beta_0 - b_0) + (\hat\beta_1 - b_1)x_i\bigr]^2 \;\ge\; \mathrm{SSE}.
+\]</span> Expanding the second term around <span class="math inline">\(\bar x\)</span>, <span class="math display">\[
+\sum d_i^2 = n\bigl[(\hat\beta_0 - b_0) + (\hat\beta_1 - b_1)\bar x\bigr]^2 + (\hat\beta_1 - b_1)^2 S_{xx},
+\]</span> which is zero only if <span class="math inline">\(b_1 = \hat\beta_1\)</span> (because <span class="math inline">\(S_{xx} &gt; 0\)</span>) and then <span class="math inline">\(b_0 = \hat\beta_0\)</span>. So the minimum is attained at <span class="math inline">\((\hat\beta_0,\hat\beta_1)\)</span> and nowhere else.</p>
+<p><em>Alternative argument.</em> The Hessian of <span class="math inline">\(S\)</span> is <span class="math inline">\(2\begin{pmatrix} n &amp; \sum x_i \\ \sum x_i &amp; \sum x_i^2\end{pmatrix}\)</span>, with determinant <span class="math inline">\(4nS_{xx}\)</span>. It is positive definite when <span class="math inline">\(S_{xx} &gt; 0\)</span>, so <span class="math inline">\(S\)</span> is strictly convex and its stationary point is the unique global minimum.</p>
+</details>
+<p>Two equivalent forms of the slope are useful later: <span class="math display">\[
+\hat\beta_1 = \frac{\sum (x_i - \bar x)\,y_i}{S_{xx}} = \sum_{i=1}^n k_i\,y_i, \qquad k_i = \frac{x_i - \bar x}{S_{xx}} .
+\]</span> The slope is therefore a <strong>linear function of the responses</strong> with fixed weights <span class="math inline">\(k_i\)</span> satisfying <span class="math inline">\(\sum k_i = 0\)</span> and <span class="math inline">\(\sum k_i x_i = 1\)</span>. Lesson 1.4 uses this representation to derive the mean and variance of <span class="math inline">\(\hat\beta_1\)</span>.</p>
+<h3 data-number="4.3" id="assumptions-used-so-far"><span class="header-section-number">4.3</span> Assumptions used so far</h3>
+<div class="example-box esa-callout-warning">
+<p class="esa-box-title">
+<strong>Assumption check</strong>
+</p>
+<p>Theorem 1.3.1 requires <strong>only</strong> <span class="math inline">\(S_{xx} &gt; 0\)</span>. Linearity, constant variance, independence and normality of the errors are <strong>not</strong> used. They become necessary in Lesson 1.4 (unbiasedness, variance, Gauss–Markov) and Lesson 1.7 (exact <span class="math inline">\(t\)</span> and <span class="math inline">\(F\)</span> inference).</p>
+</div>
+<h3 data-number="4.4" id="algebraic-properties-of-the-fitted-line"><span class="header-section-number">4.4</span> Algebraic properties of the fitted line</h3>
+<div class="concept-box esa-callout-important">
+<p class="esa-box-title">
+<strong>Theorem 1.3.2 (Properties of the OLS fit)</strong>
+</p>
+<p>For a model with an intercept and <span class="math inline">\(S_{xx} &gt; 0\)</span>:</p>
+<ol type="a">
+<li><span class="math inline">\(\sum_{i=1}^n e_i = 0\)</span>;</li>
+<li><span class="math inline">\(\sum_{i=1}^n x_i e_i = 0\)</span>;</li>
+<li><span class="math inline">\(\sum_{i=1}^n \hat y_i e_i = 0\)</span>;</li>
+<li><span class="math inline">\(\sum_{i=1}^n \hat y_i = \sum_{i=1}^n y_i\)</span>, so the fitted values have mean <span class="math inline">\(\bar y\)</span>;</li>
+<li>the fitted line passes through <span class="math inline">\((\bar x, \bar y)\)</span>.</li>
+</ol>
+</div>
+<details class="esa-derivation">
+<summary>
+Derivation
+</summary>
+<ol type="a">
+<li>and (b) are the two normal equations evaluated at <span class="math inline">\((\hat\beta_0, \hat\beta_1)\)</span>.</li>
+<li><span class="math inline">\(\sum \hat y_i e_i = \hat\beta_0 \sum e_i + \hat\beta_1 \sum x_i e_i = 0\)</span> by (a) and (b).</li>
+<li>follows from (a): <span class="math inline">\(\sum y_i - \sum \hat y_i = \sum e_i = 0\)</span>.</li>
+<li><span class="math inline">\(\hat\beta_0 + \hat\beta_1 \bar x = (\bar y - \hat\beta_1 \bar x) + \hat\beta_1 \bar x = \bar y\)</span>.</li>
+</ol>
+</details>
+<div class="example-box esa-callout-warning">
+<p class="esa-box-title">
+<strong>These are identities, not evidence of a good fit</strong>
+</p>
+<p>Properties (a)–(e) hold for <strong>every</strong> data set, whatever its shape — including data for which a straight line is a poor description. In particular, <span class="math inline">\(\sum e_i = 0\)</span> says nothing about how well the line fits. Property (a) also depends on the intercept: in regression through the origin it generally fails (Exercise B2).</p>
+</div>
+<h3 data-number="4.5" id="interpretation"><span class="header-section-number">4.5</span> Interpretation</h3>
+<ul>
+<li><span class="math inline">\(\hat\beta_1\)</span> is the slope of the line that best fits the data in the squared-vertical-distance sense. It summarises the <strong>average</strong> change in <span class="math inline">\(y\)</span> associated with a one-unit increase in <span class="math inline">\(x\)</span> <em>in these data</em>; whether it estimates a causal effect is a question of study design, not of least squares.</li>
+<li><span class="math inline">\(\hat\beta_0\)</span> is the fitted value at <span class="math inline">\(x = 0\)</span>. It is required to place the line, but it is only interpretable if <span class="math inline">\(x = 0\)</span> is meaningful and lies within (or near) the observed range of <span class="math inline">\(x\)</span> (Lesson 1.5).</li>
+<li>Property (e) shows that the line is “anchored” at the centre of the data; only its slope is determined by how <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> co-vary.</li>
+</ul>
+<h3 data-number="4.6" id="geometric-view"><span class="header-section-number">4.6</span> Geometric view</h3>
+<p>Collect the data in vectors <span class="math inline">\(\mathbf y = (y_1,\dots,y_n)^\top\)</span>, <span class="math inline">\(\mathbf 1 = (1,\dots,1)^\top\)</span> and <span class="math inline">\(\mathbf x = (x_1,\dots,x_n)^\top\)</span>. Every candidate line produces a vector <span class="math inline">\(b_0\mathbf 1 + b_1\mathbf x\)</span> in the two-dimensional subspace spanned by <span class="math inline">\(\mathbf 1\)</span> and <span class="math inline">\(\mathbf x\)</span>, and <span class="math inline">\(S(b_0,b_1) = \lVert \mathbf y - b_0\mathbf 1 - b_1\mathbf x \rVert^2\)</span> is the squared Euclidean distance from <span class="math inline">\(\mathbf y\)</span> to that vector.</p>
+<p>Least squares therefore chooses the point <span class="math inline">\(\hat{\mathbf y}\)</span> in the subspace <strong>closest</strong> to <span class="math inline">\(\mathbf y\)</span>. The closest point is the <strong>orthogonal projection</strong> of <span class="math inline">\(\mathbf y\)</span> onto the subspace, which means the residual vector <span class="math inline">\(\mathbf e = \mathbf y - \hat{\mathbf y}\)</span> is orthogonal to both spanning vectors: <span class="math display">\[
+\mathbf 1^\top \mathbf e = 0, \qquad \mathbf x^\top \mathbf e = 0 .
+\]</span> These two orthogonality conditions <strong>are</strong> the normal equations (Theorem 1.3.2 (a)–(b)), and property (c) says <span class="math inline">\(\mathbf e \perp \hat{\mathbf y}\)</span>. Module 2 develops this view in matrix form, where it leads to the hat matrix <span class="math inline">\(\mathbf H\)</span>.</p>
+<h2 data-number="5" id="worked-example-fuel-economy-and-weight"><span class="header-section-number">5</span> Worked example: fuel economy and weight</h2>
+<h3 data-number="5.1" id="data"><span class="header-section-number">5.1</span> Data</h3>
+<p>We use the Auto MPG data (Quinlan, 1993; UCI Machine Learning Repository; CC BY 4.0): <span class="math inline">\(n = 398\)</span> cars from model years 1970–1982. The response is fuel economy <span class="math inline">\(y\)</span> (miles per gallon) and the predictor is weight <span class="math inline">\(x\)</span>, measured in <strong>thousands of pounds</strong> so that the slope is on a readable scale. Weight and mpg have no missing values (horsepower has six, but it is not used here).</p>
+<h3 data-number="5.2" id="by-hand-from-summary-statistics"><span class="header-section-number">5.2</span> By hand, from summary statistics</h3>
+<p>The data give</p>
+<p><span class="math display">\[
+\bar x = 2.970425, \quad \bar y = 23.514573, \quad S_{xx} = 284.704973, \quad S_{xy} = -2185.569063 .
+\]</span></p>
+<p>Then <span class="math display">\[
+\hat\beta_1 = \frac{S_{xy}}{S_{xx}} = \frac{-2185.569063}{284.704973} = -7.676610, \qquad
+\hat\beta_0 = \bar y - \hat\beta_1 \bar x = 23.514573 + 7.676610 \times 2.970425 = 46.317364 .
+\]</span></p>
+<p>The fitted line is <span class="math display">\[
+\widehat{\text{mpg}} = 46.317 - 7.677 \times \text{weight (1000 lb)} .
+\]</span></p>
+<div class="example-box esa-callout-warning">
+<p class="esa-box-title">
+<strong>Rounding</strong>
+</p>
+<p>Round only the final answer. Rounding the summary statistics to four significant figures first (<span class="math inline">\(\bar x = 2.970\)</span>, <span class="math inline">\(\bar y = 23.51\)</span>, <span class="math inline">\(S_{xx} = 284.7\)</span>, <span class="math inline">\(S_{xy} = -2186\)</span>) gives <span class="math inline">\(\hat\beta_1 = -7.678\)</span> and <span class="math inline">\(\hat\beta_0 = 46.314\)</span> instead of <span class="math inline">\(-7.677\)</span> and <span class="math inline">\(46.317\)</span>: the rounding errors in <span class="math inline">\(\hat\beta_1\)</span> and <span class="math inline">\(\bar y\)</span> carry into <span class="math inline">\(\hat\beta_0\)</span>.</p>
+</div>
+<h3 data-number="5.3" id="in-r-and-python"><span class="header-section-number">5.3</span> In R and Python</h3>
+<div class="esa-code-tabs">
+<details class="esa-code">
+<summary>
+R code
+</summary>
+<pre class="r"><code>cols &lt;- c(&quot;mpg&quot;, &quot;cylinders&quot;, &quot;displacement&quot;, &quot;horsepower&quot;, &quot;weight&quot;,
+          &quot;acceleration&quot;, &quot;model_year&quot;, &quot;origin&quot;, &quot;car_name&quot;)
+auto &lt;- read.table(&quot;data/auto-mpg.data&quot;, col.names = cols, na.strings = &quot;?&quot;)
+auto$weight_k &lt;- auto$weight / 1000            # weight in 1000 lb
+
+# From the formulas
+x &lt;- auto$weight_k; y &lt;- auto$mpg
+Sxx &lt;- sum((x - mean(x))^2)
+Sxy &lt;- sum((x - mean(x)) * (y - mean(y)))
+b1  &lt;- Sxy / Sxx
+b0  &lt;- mean(y) - b1 * mean(x)
+c(n = length(y), b0 = b0, b1 = b1)
+
+# The same fit with lm()
+fit &lt;- lm(mpg ~ weight_k, data = auto)
+coef(fit)
+
+# Theorem 1.3.2: the identities hold up to floating-point error
+e &lt;- resid(fit)
+c(sum_e = sum(e), sum_xe = sum(x * e), sum_yhat_e = sum(fitted(fit) * e))</code></pre>
+</details>
+<details class="esa-code" open>
+<summary>
+Python code
+</summary>
+<pre class="python"><code>import numpy as np
+import pandas as pd
+
+cols = [&quot;mpg&quot;, &quot;cylinders&quot;, &quot;displacement&quot;, &quot;horsepower&quot;, &quot;weight&quot;,
+        &quot;acceleration&quot;, &quot;model_year&quot;, &quot;origin&quot;, &quot;car_name&quot;]
+auto = pd.read_csv(&quot;data/auto-mpg.data&quot;, sep=r&quot;\s+&quot;, header=None,
+                   names=cols, na_values=&quot;?&quot;, quotechar=&#39;&quot;&#39;)
+x = auto[&quot;weight&quot;].to_numpy() / 1000          # weight in 1000 lb
+y = auto[&quot;mpg&quot;].to_numpy()
+
+# From the formulas
+Sxx = np.sum((x - x.mean())**2)
+Sxy = np.sum((x - x.mean()) * (y - y.mean()))
+b1 = Sxy / Sxx
+b0 = y.mean() - b1 * x.mean()
+print(f&quot;n = {len(y)}, b0 = {b0:.6f}, b1 = {b1:.6f}&quot;)
+
+# The same fit by solving the least-squares problem directly
+X = np.column_stack([np.ones_like(x), x])
+coef, *_ = np.linalg.lstsq(X, y, rcond=None)
+print(&quot;lstsq:&quot;, coef)
+
+# Theorem 1.3.2: the identities hold up to floating-point error
+yhat = X @ coef
+e = y - yhat
+print(f&quot;sum e = {e.sum():.2e}, sum x*e = {(x*e).sum():.2e}, sum yhat*e = {(yhat*e).sum():.2e}&quot;)</code></pre>
+<p class="esa-output-label">
+Output
+</p>
+<pre class="esa-output"><code>n = 398, b0 = 46.317364, b1 = -7.676610
+lstsq: [46.31736442 -7.67661006]
+sum e = 1.27e-11, sum x*e = 3.74e-11, sum yhat*e = 2.93e-10</code></pre>
+</details>
+</div>
+<p>Both programs return <span class="math inline">\(n = 398\)</span>, <span class="math inline">\(\hat\beta_0 = 46.317364\)</span> and <span class="math inline">\(\hat\beta_1 = -7.676610\)</span>, matching the hand calculation. The sums in Theorem 1.3.2 are of order <span class="math inline">\(10^{-10}\)</span> or smaller (the exact values depend on the software): zero up to floating-point error.</p>
+<h3 data-number="5.4" id="figure"><span class="header-section-number">5.4</span> Figure</h3>
+<div class="esa-code-tabs">
+<details class="esa-code">
+<summary>
+R code
+</summary>
+<pre class="r"><code>plot(auto$weight_k, auto$mpg, pch = 16, col = rgb(0, 0, 0, 0.35),
+     xlab = &quot;Weight (1000 lb)&quot;, ylab = &quot;Fuel economy (mpg)&quot;)
+abline(fit, lwd = 2)
+points(mean(auto$weight_k), mean(auto$mpg), pch = 4, cex = 2, lwd = 2)</code></pre>
+</details>
+<details class="esa-code" open>
+<summary>
+Python code
+</summary>
+<pre class="python"><code>import matplotlib.pyplot as plt
+grid = np.linspace(x.min(), x.max(), 100)
+fig, ax = plt.subplots(figsize=(6, 4))
+ax.scatter(x, y, s=12, alpha=0.35, color=&quot;black&quot;)
+ax.plot(grid, b0 + b1 * grid, linewidth=2)
+ax.plot(x.mean(), y.mean(), marker=&quot;x&quot;, markersize=12, markeredgewidth=2)
+ax.set_xlabel(&quot;Weight (1000 lb)&quot;)
+ax.set_ylabel(&quot;Fuel economy (mpg)&quot;)
+plt.show()</code></pre>
+<figure class="esa-figure">
+<img src="/images/courses/regression/lesson-1-3-fig1.png" alt="Fuel economy against weight with the least-squares line (Auto MPG, n = 398). The cross marks the point of means." loading="lazy" width="900">
+<figcaption>
+Fuel economy against weight with the least-squares line (Auto MPG, n = 398). The cross marks the point of means.
+</figcaption>
+</figure>
+</details>
+</div>
+<h3 data-number="5.5" id="interpretation-in-context"><span class="header-section-number">5.5</span> Interpretation in context</h3>
+<ul>
+<li><strong>Slope.</strong> Among these cars, each additional 1000 lb of weight is associated with fuel economy about <strong>7.7 mpg lower</strong>, on average.</li>
+<li><strong>Intercept.</strong> <span class="math inline">\(\hat\beta_0 = 46.3\)</span> mpg is the fitted value for a car weighing 0 lb. No such car exists, and the observed weights run from 1.613 to 5.140 thousand lb, so the intercept has <strong>no practical interpretation</strong> here; it only positions the line.</li>
+<li><strong>Point of means.</strong> The line passes through <span class="math inline">\((\bar x, \bar y) = (2.970, 23.515)\)</span>, as Theorem 1.3.2(e) requires.</li>
+</ul>
+<div class="example-box esa-callout-warning">
+<p class="esa-box-title">
+<strong>What this result does <em>not</em> say</strong>
+</p>
+<ul>
+<li>It does not say that adding weight <em>causes</em> lower mpg: these are observational data, and heavier cars also tend to have larger engines.</li>
+<li>It does not say that a straight line is the right description. The figure suggests curvature and a spread that decreases with weight; Lesson 1.9 and Module 3 examine this.</li>
+<li>It says nothing yet about uncertainty: standard errors and intervals require the assumptions introduced in Lessons 1.4 and 1.7.</li>
+</ul>
+</div>
+<h2 data-number="6" id="common-misconceptions"><span class="header-section-number">6</span> Common misconceptions</h2>
+<div class="example-box esa-callout-caution">
+<p class="esa-box-title">
+<strong>Misconceptions</strong>
+</p>
+<ol type="1">
+<li><strong>“OLS assumes normally distributed errors.”</strong> — No. The estimates are defined and computed without any distributional assumption. Normality is used only for exact small-sample inference (Lesson 1.7).</li>
+<li><strong>“Residuals summing to zero shows the line fits well.”</strong> — No. <span class="math inline">\(\sum e_i = 0\)</span> holds by construction in any model with an intercept, however poor the fit.</li>
+<li><strong>“Regressing <span class="math inline">\(x\)</span> on <span class="math inline">\(y\)</span> gives the same line.”</strong> — No. It minimises horizontal distances and gives slope <span class="math inline">\(S_{xy}/S_{yy}\)</span> in the <span class="math inline">\(x\)</span>-on-<span class="math inline">\(y\)</span> scale, which is not the reciprocal of <span class="math inline">\(\hat\beta_1\)</span> unless <span class="math inline">\(|r| = 1\)</span> (Lesson 1.2).</li>
+<li><strong>“Residuals are the errors.”</strong> — No. <span class="math inline">\(e_i\)</span> is observable and depends on the estimates; <span class="math inline">\(\varepsilon_i\)</span> is unobservable. The residuals satisfy two linear constraints (Theorem 1.3.2 (a)–(b)); the errors do not.</li>
+</ol>
+</div>
+<h2 data-number="7" id="key-takeaways"><span class="header-section-number">7</span> Key takeaways</h2>
+<ul>
+<li>OLS chooses the line minimising the sum of squared <strong>vertical</strong> deviations; this is a choice of loss, not a property of the model.</li>
+<li><span class="math inline">\(\hat\beta_1 = S_{xy}/S_{xx}\)</span> and <span class="math inline">\(\hat\beta_0 = \bar y - \hat\beta_1\bar x\)</span> give the <strong>unique</strong> minimum whenever <span class="math inline">\(S_{xx} &gt; 0\)</span>.</li>
+<li>The fitted line passes through <span class="math inline">\((\bar x,\bar y)\)</span>, and the residuals are orthogonal to <span class="math inline">\(\mathbf 1\)</span>, <span class="math inline">\(\mathbf x\)</span> and <span class="math inline">\(\hat{\mathbf y}\)</span> — by construction, for every data set.</li>
+<li>Geometrically, <span class="math inline">\(\hat{\mathbf y}\)</span> is the orthogonal projection of <span class="math inline">\(\mathbf y\)</span> onto the span of <span class="math inline">\(\mathbf 1\)</span> and <span class="math inline">\(\mathbf x\)</span>.</li>
+<li>No distributional assumption has been used; that comes next.</li>
+</ul>
+<h2 data-number="8" id="exercises"><span class="header-section-number">8</span> Exercises</h2>
+<h3 data-number="8.1" id="a.-conceptual"><span class="header-section-number">8.1</span> A. Conceptual</h3>
+<p><strong>A1</strong> (★). A classmate says: “Our residuals sum to exactly zero, so the model has no bias.” Explain what is wrong with this statement.</p>
+<details class="esa-solution">
+<summary>
+Hint
+</summary>
+<p>Ask whether the sum could ever be non-zero for an OLS fit with an intercept.</p>
+</details>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p><span class="math inline">\(\sum e_i = 0\)</span> is the first normal equation evaluated at the OLS estimates (Theorem 1.3.2(a)). It holds for every OLS fit with an intercept, whatever the data, so it carries no information about bias or fit. For instance, fitting a straight line to points on a parabola still gives residuals summing to zero, although the residuals are systematically positive at the ends and negative in the middle. Bias concerns <span class="math inline">\(E(\hat\beta)\)</span> under a model and is studied in Lesson 1.4.</p>
+</details>
+<p><strong>A2</strong> (★). Why does OLS minimise <em>vertical</em> rather than perpendicular distances? Give a situation in which minimising perpendicular distances would be more appropriate.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>The aim of regression is to predict or explain <span class="math inline">\(y\)</span> given <span class="math inline">\(x\)</span>; the <span class="math inline">\(x\)</span> values are treated as fixed (or conditioned on) and the errors are in <span class="math inline">\(y\)</span>. Vertical distances are the prediction errors for <span class="math inline">\(y\)</span>. Perpendicular (orthogonal) distances treat <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> symmetrically and are more appropriate when both variables are measured with error and neither is to be predicted from the other — for example, comparing two measurement instruments, where errors-in-variables methods such as orthogonal (Deming) regression are used.</p>
+</details>
+<h3 data-number="8.2" id="b.-mathematical"><span class="header-section-number">8.2</span> B. Mathematical</h3>
+<p><strong>B1</strong> (★★). Show that if every <span class="math inline">\(x_i\)</span> is replaced by <span class="math inline">\(x_i^* = x_i - c\)</span> for a constant <span class="math inline">\(c\)</span>, the OLS slope is unchanged and the intercept becomes <span class="math inline">\(\hat\beta_0^* = \hat\beta_0 + \hat\beta_1 c\)</span>. What is the intercept when <span class="math inline">\(c = \bar x\)</span>?</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p><span class="math inline">\(x_i^* - \bar x^* = x_i - \bar x\)</span>, so <span class="math inline">\(S_{x^*x^*} = S_{xx}\)</span> and <span class="math inline">\(S_{x^*y} = S_{xy}\)</span>; hence <span class="math inline">\(\hat\beta_1^* = \hat\beta_1\)</span>. Then <span class="math inline">\(\hat\beta_0^* = \bar y - \hat\beta_1(\bar x - c) = \hat\beta_0 + \hat\beta_1 c\)</span>. With <span class="math inline">\(c = \bar x\)</span>, <span class="math inline">\(\hat\beta_0^* = \bar y\)</span>: after centring, the intercept is the mean response. For the Auto MPG fit, centring weight gives intercept <span class="math inline">\(23.514573\)</span>.</p>
+</details>
+<p><strong>B2</strong> (★★). <em>Regression through the origin.</em> For the model <span class="math inline">\(y_i = \beta x_i + \varepsilon_i\)</span>, derive the OLS estimator <span class="math inline">\(\hat\beta\)</span>. Show that <span class="math inline">\(\sum x_i e_i = 0\)</span> but that <span class="math inline">\(\sum e_i\)</span> need not be zero.</p>
+<details class="esa-solution">
+<summary>
+Hint
+</summary>
+<p>There is only one normal equation. For the counterexample, use the data in C1.</p>
+</details>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p><span class="math inline">\(S(b) = \sum (y_i - b x_i)^2\)</span>, <span class="math inline">\(S&#39;(b) = -2\sum x_i(y_i - b x_i) = 0\)</span> gives <span class="math inline">\(\hat\beta = \sum x_i y_i / \sum x_i^2\)</span> (provided not all <span class="math inline">\(x_i = 0\)</span>); <span class="math inline">\(S&#39;&#39;(b) = 2\sum x_i^2 &gt; 0\)</span>, so this is the minimum. The single normal equation is <span class="math inline">\(\sum x_i e_i = 0\)</span>; there is no equation forcing <span class="math inline">\(\sum e_i = 0\)</span>. With the C1 data, <span class="math inline">\(\sum x_i y_i = 93\)</span> and <span class="math inline">\(\sum x_i^2 = 55\)</span>, so <span class="math inline">\(\hat\beta = 93/55 = 1.690909\)</span> and <span class="math inline">\(\sum e_i = 27 - 1.690909 \times 15 = 1.636364 \neq 0\)</span>.</p>
+</details>
+<p><strong>B3</strong> (★★★). Prove that for any <span class="math inline">\((b_0, b_1)\)</span>, <span class="math display">\[
+S(b_0, b_1) = \mathrm{SSE} + n\bigl[(\hat\beta_0 - b_0) + (\hat\beta_1 - b_1)\bar x\bigr]^2 + (\hat\beta_1 - b_1)^2 S_{xx},
+\]</span> and use it to explain why the OLS line is unique if and only if <span class="math inline">\(S_{xx} &gt; 0\)</span>.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>See the derivation following Theorem 1.3.1: write <span class="math inline">\(y_i - b_0 - b_1 x_i = e_i + d_i\)</span> with <span class="math inline">\(d_i = a + c\,x_i\)</span>, <span class="math inline">\(a = \hat\beta_0 - b_0\)</span>, <span class="math inline">\(c = \hat\beta_1 - b_1\)</span>. The cross term <span class="math inline">\(2\sum e_i d_i = 2a\sum e_i + 2c\sum x_i e_i = 0\)</span>. Finally <span class="math inline">\(\sum (a + c x_i)^2 = \sum [ (a + c\bar x) + c(x_i - \bar x)]^2 = n(a + c\bar x)^2 + c^2 S_{xx}\)</span>, since <span class="math inline">\(\sum (x_i - \bar x) = 0\)</span>.</p>
+<p>If <span class="math inline">\(S_{xx} &gt; 0\)</span>, the extra terms vanish only when <span class="math inline">\(c = 0\)</span> and <span class="math inline">\(a = 0\)</span>, so the minimiser is unique. If <span class="math inline">\(S_{xx} = 0\)</span> (all <span class="math inline">\(x_i\)</span> equal to <span class="math inline">\(\bar x\)</span>), the last term is always zero and every <span class="math inline">\((b_0, b_1)\)</span> with <span class="math inline">\(b_0 + b_1\bar x = \hat\beta_0 + \hat\beta_1\bar x = \bar y\)</span> attains the minimum: infinitely many lines through <span class="math inline">\((\bar x, \bar y)\)</span> fit equally well, so the slope is not identifiable.</p>
+</details>
+<h3 data-number="8.3" id="c.-computational"><span class="header-section-number">8.3</span> C. Computational</h3>
+<p><strong>C1</strong> (★). For the illustrative data below, compute <span class="math inline">\(\hat\beta_0\)</span> and <span class="math inline">\(\hat\beta_1\)</span> by hand, list the fitted values and residuals, and verify Theorem 1.3.2 (a) and (b).</p>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(x\)</span></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(y\)</span></td>
+<td>3</td>
+<td>5</td>
+<td>4</td>
+<td>7</td>
+<td>8</td>
+</tr>
+</tbody>
+</table></div>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p><span class="math inline">\(\bar x = 3\)</span>, <span class="math inline">\(\bar y = 5.4\)</span>, <span class="math inline">\(S_{xx} = 10\)</span>, <span class="math inline">\(S_{xy} = 12\)</span>, so <span class="math inline">\(\hat\beta_1 = 1.2\)</span> and <span class="math inline">\(\hat\beta_0 = 5.4 - 1.2 \times 3 = 1.8\)</span>. Fitted values: <span class="math inline">\(3.0, 4.2, 5.4, 6.6, 7.8\)</span>. Residuals: <span class="math inline">\(0, 0.8, -1.4, 0.4, 0.2\)</span>. <span class="math inline">\(\sum e_i = 0\)</span> and <span class="math inline">\(\sum x_i e_i = 0 + 1.6 - 4.2 + 1.6 + 1.0 = 0\)</span>. <span class="math inline">\(\mathrm{SSE} = 2.8\)</span>.</p>
+</details>
+<p><strong>C2</strong> (★★). Using the Auto MPG data, fit the OLS line of mpg on horsepower (use the 392 cars with horsepower recorded). Report <span class="math inline">\(\hat\beta_0\)</span> and <span class="math inline">\(\hat\beta_1\)</span>, interpret the slope, and verify Theorem 1.3.2 numerically.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>With <span class="math inline">\(n = 392\)</span>: <span class="math inline">\(\hat\beta_0 = 39.9359\)</span> and <span class="math inline">\(\hat\beta_1 = -0.157845\)</span> mpg per horsepower; each additional 10 horsepower is associated with about 1.6 mpg lower fuel economy, on average. In R: <code>lm(mpg ~ horsepower, data = auto)</code> (rows with missing horsepower are dropped automatically). In Python, drop missing rows first, e.g. <code>auto.dropna(subset=["horsepower"])</code>. The sums <span class="math inline">\(\sum e_i\)</span> and <span class="math inline">\(\sum x_i e_i\)</span> are zero up to floating-point error. Note that the sample differs from the weight analysis (<span class="math inline">\(n = 392\)</span> vs <span class="math inline">\(398\)</span>); state this when comparing the two fits.</p>
+</details>
+<p><strong>C3</strong> (★★). Write a function <code>ols_slr(x, y)</code> in R or Python that returns <span class="math inline">\(\hat\beta_0\)</span>, <span class="math inline">\(\hat\beta_1\)</span>, the fitted values and the residuals, and that stops with an informative error if <span class="math inline">\(S_{xx} = 0\)</span>. Test it on C1 and on a vector <span class="math inline">\(x\)</span> whose entries are all equal.</p>
+<details class="esa-solution">
+<summary>
+Solution (Python)
+</summary>
+<pre class="python"><code>import numpy as np
+
+def ols_slr(x, y):
+    x = np.asarray(x, dtype=float); y = np.asarray(y, dtype=float)
+    if x.shape != y.shape or x.ndim != 1:
+        raise ValueError(&quot;x and y must be 1-D arrays of equal length&quot;)
+    sxx = np.sum((x - x.mean())**2)
+    if sxx == 0:
+        raise ValueError(&quot;S_xx = 0: all x values are equal, slope not identifiable&quot;)
+    b1 = np.sum((x - x.mean()) * (y - y.mean())) / sxx
+    b0 = y.mean() - b1 * x.mean()
+    fitted = b0 + b1 * x
+    return {&quot;b0&quot;: b0, &quot;b1&quot;: b1, &quot;fitted&quot;: fitted, &quot;resid&quot;: y - fitted}
+
+print(ols_slr([1, 2, 3, 4, 5], [3, 5, 4, 7, 8]))   # b0 = 1.8, b1 = 1.2</code></pre>
+<p>Calling <code>ols_slr([2, 2, 2], [1, 2, 3])</code> raises the error. (In floating point, prefer a tolerance such as <code>sxx &lt; 1e-12 * len(x)</code> to an exact comparison.)</p>
+</details>
+<h2 data-number="9" id="references"><span class="header-section-number">9</span> References</h2>
+<ul>
+<li>Montgomery, D. C., Peck, E. A., &amp; Vining, G. G. (2021). <em>Introduction to Linear Regression Analysis</em> (6th ed.). Wiley. — Chapter 2, Simple Linear Regression (Section 2.2, Least-Squares Estimation of the Parameters).</li>
+<li>Kutner, M. H., Nachtsheim, C. J., Neter, J., &amp; Li, W. (2005). <em>Applied Linear Statistical Models</em> (5th ed.). McGraw-Hill/Irwin. — Chapter 1, Linear Regression with One Predictor Variable.</li>
+<li>Weisberg, S. (2014). <em>Applied Linear Regression</em> (4th ed.). Wiley. — Chapter 2, Simple Linear Regression.</li>
+<li>Seber, G. A. F., &amp; Lee, A. J. (2003). <em>Linear Regression Analysis</em> (2nd ed.). Wiley. — Chapter 3, Linear Regression: Estimation and Distribution Theory (least-squares theory in matrix form).</li>
+<li>Stigler, S. M. (1981). Gauss and the invention of least squares. <em>The Annals of Statistics</em>, 9(3), 465–474. — history.</li>
+<li>Quinlan, R. (1993). <em>Auto MPG</em> [Data set]. UCI Machine Learning Repository. https://doi.org/10.24432/C5859H</li>
+</ul>
+
+{% endraw %}
+    <div class="lesson-nav">
+      <a class="btn btn-outline" href="/courses/regression/module-1/correlation-vs-regression/">← Lesson 1.2: Correlation versus Regression</a>
+      <a class="btn" href="/courses/regression/module-1/">Module 1 lessons →</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .esa-course-lesson details{border:1px solid var(--border-strong,#d0d7de);border-radius:9px;padding:.4rem .9rem;margin:1rem 0}
+  .esa-course-lesson details>summary{cursor:pointer;font-weight:700}
+  .esa-course-lesson .esa-code-tabs{margin:1rem 0}
+  .esa-course-lesson .esa-code-tabs details{margin:.4rem 0}
+  .esa-course-lesson pre{max-width:100%}
+  .esa-course-lesson pre.esa-output{border-left:5px solid #0d9488}
+  .esa-course-lesson .esa-output-label{font-size:.85rem;font-weight:700;margin:.6rem 0 .2rem}
+  .esa-course-lesson .esa-figure{margin:1rem 0}
+  .esa-course-lesson .esa-figure img{max-width:100%;height:auto}
+  .esa-course-lesson .esa-figure figcaption{font-size:.9rem}
+  .esa-course-lesson mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+</style>

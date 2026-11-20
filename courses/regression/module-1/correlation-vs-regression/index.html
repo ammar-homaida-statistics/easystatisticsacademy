@@ -1,0 +1,535 @@
+---
+layout: default
+title: "Correlation versus Regression — Regression Course, Lesson 1.2"
+description: "University-level lesson: the Pearson correlation, its exact link to the least-squares slope, the two regression lines, regression toward the mean, and the limits of r, with R and Python."
+permalink: /courses/regression/module-1/correlation-vs-regression/
+sidebar: false
+math: true
+learning_resource: true
+---
+
+<section class="hero hero-section">
+  <div class="hero-card">
+    <div class="badge-row">
+      <span class="badge">Course</span>
+      <span class="badge">Regression Analysis</span>
+      <span class="badge">Module 1 · Foundations</span>
+      <span class="badge">Lesson 1.2</span>
+    </div>
+    <h1>Lesson 1.2 — Correlation versus Regression</h1>
+    <p class="lead">The correlation and the regression slope describe the same scatterplot, but they answer different questions. This lesson makes the connection exact.</p>
+    <p class="muted-mini">Level: Introductory · Study time: 50 min + exercises · Prerequisites: Lesson 1.1; sample variance and standard deviation · Data: Auto MPG (UCI, CC BY 4.0)</p>
+    <div class="hero-actions">
+      <a class="btn btn-outline" href="/courses/regression/module-1/">Module 1 lessons</a>
+      <a class="btn btn-outline" href="/courses/regression/code/lesson-1-2.py">Python script</a>
+      <a class="btn btn-outline" href="/courses/regression/code/lesson-1-2.R">R script</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="content-narrow esa-course-lesson">
+{% raw %}
+<h2 data-number="1" id="learning-objectives"><span class="header-section-number">1</span> Learning objectives</h2>
+<p>By the end of this lesson you will be able to:</p>
+<ol type="1">
+<li>define the Pearson correlation coefficient <span class="math inline">\(r\)</span>, prove that <span class="math inline">\(-1 \le r \le 1\)</span>, and state when <span class="math inline">\(|r| = 1\)</span>;</li>
+<li>show that the least-squares slope equals <span class="math inline">\(r\,s_y/s_x\)</span> and that, in standardised units, the regression slope <strong>is</strong> <span class="math inline">\(r\)</span>;</li>
+<li>explain why regressing <span class="math inline">\(y\)</span> on <span class="math inline">\(x\)</span> and <span class="math inline">\(x\)</span> on <span class="math inline">\(y\)</span> give different lines, and show that the product of their slopes is <span class="math inline">\(r^2\)</span>;</li>
+<li>explain regression toward the mean and recognise the regression fallacy;</li>
+<li>decide when correlation and when regression answers the question being asked, and name the main limitations of <span class="math inline">\(r\)</span>.</li>
+</ol>
+<h2 data-number="2" id="motivation"><span class="header-section-number">2</span> Motivation</h2>
+<p>For the Auto MPG data, the correlation between weight and fuel economy is <span class="math inline">\(r = -0.832\)</span>, and the least-squares slope is <span class="math inline">\(-7.68\)</span> mpg per 1000 lb. Both numbers describe the same scatterplot. Are they two ways of saying the same thing? Not quite. The correlation is symmetric and unit-free; the slope is directional and carries units. This lesson makes the connection exact, shows what each quantity can and cannot tell us, and explains a surprising consequence of <span class="math inline">\(|r| &lt; 1\)</span>: regression toward the mean.</p>
+<h2 data-number="3" id="notation-for-this-lesson"><span class="header-section-number">3</span> Notation for this lesson</h2>
+<div class="table-wrap"><table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(S_{xx}, S_{yy}, S_{xy}\)</span></td>
+<td>corrected sums of squares and cross-products</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(s_x = \sqrt{S_{xx}/(n-1)}\)</span>, <span class="math inline">\(s_y\)</span></td>
+<td>sample standard deviations</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(r\)</span></td>
+<td>sample (Pearson) correlation coefficient</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\rho\)</span></td>
+<td>population correlation coefficient</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(z_{x,i} = (x_i - \bar x)/s_x\)</span></td>
+<td>standardised value of <span class="math inline">\(x_i\)</span> (similarly <span class="math inline">\(z_{y,i}\)</span>)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\hat\beta_1 = S_{xy}/S_{xx}\)</span></td>
+<td>least-squares slope of <span class="math inline">\(y\)</span> on <span class="math inline">\(x\)</span> (Lesson 1.3)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\hat\gamma_1 = S_{xy}/S_{yy}\)</span></td>
+<td>least-squares slope of <span class="math inline">\(x\)</span> on <span class="math inline">\(y\)</span></td>
+</tr>
+</tbody>
+</table></div>
+<p>All notation follows the course notation standard.</p>
+<h2 data-number="4" id="theory"><span class="header-section-number">4</span> Theory</h2>
+<h3 data-number="4.1" id="the-correlation-coefficient"><span class="header-section-number">4.1</span> The correlation coefficient</h3>
+<div class="concept-box esa-callout-note">
+<p class="esa-box-title">
+<strong>Definition 1.2.1 (Pearson correlation coefficient)</strong>
+</p>
+<p>For data <span class="math inline">\((x_i, y_i)\)</span>, <span class="math inline">\(i = 1,\dots,n\)</span>, with <span class="math inline">\(S_{xx} &gt; 0\)</span> and <span class="math inline">\(S_{yy} &gt; 0\)</span>, <span class="math display">\[
+r = \frac{S_{xy}}{\sqrt{S_{xx}\,S_{yy}}} = \frac{1}{n-1}\sum_{i=1}^n z_{x,i}\, z_{y,i}.
+\]</span></p>
+</div>
+<p>The second form shows that <span class="math inline">\(r\)</span> is the average product of standardised values (with divisor <span class="math inline">\(n-1\)</span>): points in the upper-right and lower-left quadrants around <span class="math inline">\((\bar x, \bar y)\)</span> push <span class="math inline">\(r\)</span> up; points in the other two quadrants push it down.</p>
+<div class="concept-box esa-callout-important">
+<p class="esa-box-title">
+<strong>Theorem 1.2.1 (Range of <span class="math inline">\(r\)</span>)</strong>
+</p>
+<p><span class="math inline">\(-1 \le r \le 1\)</span>, and <span class="math inline">\(|r| = 1\)</span> if and only if all points lie exactly on a straight line with non-zero slope. Moreover, the error sum of squares of the least-squares line of <span class="math inline">\(y\)</span> on <span class="math inline">\(x\)</span> is <span class="math display">\[
+\mathrm{SSE} = S_{yy}\,(1 - r^2).
+\]</span></p>
+</div>
+<details class="esa-derivation">
+<summary>
+Derivation
+</summary>
+<p>With <span class="math inline">\(\hat\beta_1 = S_{xy}/S_{xx}\)</span> and <span class="math inline">\(\hat y_i - \bar y = \hat\beta_1 (x_i - \bar x)\)</span> (Lesson 1.3), <span class="math display">\[
+\mathrm{SSE} = \sum \bigl[(y_i - \bar y) - \hat\beta_1 (x_i - \bar x)\bigr]^2
+= S_{yy} - 2\hat\beta_1 S_{xy} + \hat\beta_1^2 S_{xx}
+= S_{yy} - \frac{S_{xy}^2}{S_{xx}}
+= S_{yy}\Bigl(1 - \frac{S_{xy}^2}{S_{xx}S_{yy}}\Bigr) = S_{yy}(1 - r^2).
+\]</span> Since <span class="math inline">\(\mathrm{SSE} \ge 0\)</span> and <span class="math inline">\(S_{yy} &gt; 0\)</span>, <span class="math inline">\(r^2 \le 1\)</span>. Equality holds iff <span class="math inline">\(\mathrm{SSE} = 0\)</span>, i.e. every point lies on the fitted line; the slope is then non-zero because <span class="math inline">\(S_{yy} &gt; 0\)</span>. (Equivalently, <span class="math inline">\(|r| \le 1\)</span> is the Cauchy–Schwarz inequality for the centred vectors <span class="math inline">\(\mathbf x - \bar x\mathbf 1\)</span> and <span class="math inline">\(\mathbf y - \bar y\mathbf 1\)</span>.)</p>
+</details>
+<div class="concept-box esa-callout-important">
+<p class="esa-box-title">
+<strong>Theorem 1.2.2 (Invariance)</strong>
+</p>
+<ol type="a">
+<li><span class="math inline">\(r\)</span> is symmetric: <span class="math inline">\(r(x, y) = r(y, x)\)</span>.</li>
+<li>If <span class="math inline">\(x_i^* = a + b\,x_i\)</span> and <span class="math inline">\(y_i^* = c + d\,y_i\)</span> with <span class="math inline">\(b, d \ne 0\)</span>, then <span class="math inline">\(r(x^*, y^*) = \operatorname{sign}(bd)\, r(x, y)\)</span>. In particular, <span class="math inline">\(r\)</span> has no units and does not change when either variable is shifted or rescaled by a positive constant.</li>
+</ol>
+</div>
+<details class="esa-derivation">
+<summary>
+Derivation
+</summary>
+<ol type="a">
+<li>is immediate from the definition. For (b), <span class="math inline">\(x_i^* - \bar x^* = b(x_i - \bar x)\)</span> and <span class="math inline">\(y_i^* - \bar y^* = d(y_i - \bar y)\)</span>, so <span class="math inline">\(S_{x^*y^*} = bd\,S_{xy}\)</span>, <span class="math inline">\(S_{x^*x^*} = b^2 S_{xx}\)</span>, <span class="math inline">\(S_{y^*y^*} = d^2 S_{yy}\)</span>, and <span class="math inline">\(r(x^*, y^*) = bd\,S_{xy}/(|b|\,|d|\sqrt{S_{xx}S_{yy}}) = \operatorname{sign}(bd)\,r\)</span>.</li>
+</ol>
+</details>
+<h3 data-number="4.2" id="correlation-and-the-least-squares-slope"><span class="header-section-number">4.2</span> Correlation and the least-squares slope</h3>
+<div class="concept-box esa-callout-important">
+<p class="esa-box-title">
+<strong>Theorem 1.2.3 (Slope and correlation)</strong>
+</p>
+<ol type="a">
+<li><span class="math inline">\(\hat\beta_1 = r\,\dfrac{s_y}{s_x}\)</span>.</li>
+<li>In standardised units the least-squares line of <span class="math inline">\(z_y\)</span> on <span class="math inline">\(z_x\)</span> has intercept 0 and slope <span class="math inline">\(r\)</span>: <span class="math display">\[
+\hat z_y = r\, z_x .
+\]</span></li>
+</ol>
+</div>
+<details class="esa-derivation">
+<summary>
+Derivation
+</summary>
+<ol type="a">
+<li><span class="math inline">\(\hat\beta_1 = \dfrac{S_{xy}}{S_{xx}} = \dfrac{S_{xy}}{\sqrt{S_{xx}S_{yy}}}\sqrt{\dfrac{S_{yy}}{S_{xx}}} = r\,\dfrac{s_y}{s_x}\)</span>, since the factors <span class="math inline">\(n-1\)</span> cancel.</li>
+<li>Standardised variables have mean 0 and standard deviation 1, so by Lesson 1.3 the intercept is <span class="math inline">\(0 - \hat\beta_1\cdot 0 = 0\)</span> and by (a) the slope is <span class="math inline">\(r \cdot 1/1 = r\)</span>; by Theorem 1.2.2 the correlation of <span class="math inline">\(z_x\)</span> and <span class="math inline">\(z_y\)</span> is still <span class="math inline">\(r\)</span>.</li>
+</ol>
+</details>
+<p>Theorem 1.2.3 says that <strong>the slope and the correlation contain the same information about direction and strength once the scales are fixed</strong>. The slope translates <span class="math inline">\(r\)</span> into the units of the problem: a one-standard-deviation increase in <span class="math inline">\(x\)</span> is associated with an <span class="math inline">\(r\)</span>-standard-deviation change in the mean of <span class="math inline">\(y\)</span>.</p>
+<h3 data-number="4.3" id="two-regression-lines"><span class="header-section-number">4.3</span> Two regression lines</h3>
+<p>Regressing <span class="math inline">\(x\)</span> on <span class="math inline">\(y\)</span> minimises <strong>horizontal</strong> distances and gives <span class="math display">\[
+\hat x = \hat\gamma_0 + \hat\gamma_1 y, \qquad \hat\gamma_1 = \frac{S_{xy}}{S_{yy}} = r\,\frac{s_x}{s_y}, \qquad \hat\gamma_0 = \bar x - \hat\gamma_1 \bar y .
+\]</span></p>
+<div class="concept-box esa-callout-important">
+<p class="esa-box-title">
+<strong>Theorem 1.2.4 (The two regression lines)</strong>
+</p>
+<ol type="a">
+<li>Both lines pass through <span class="math inline">\((\bar x, \bar y)\)</span>.</li>
+<li><span class="math inline">\(\hat\beta_1\,\hat\gamma_1 = r^2\)</span>.</li>
+<li>Drawn in the same <span class="math inline">\((x, y)\)</span> plane, the two lines coincide if and only if <span class="math inline">\(|r| = 1\)</span>. When <span class="math inline">\(0 &lt; |r| &lt; 1\)</span>, the <span class="math inline">\(x\)</span>-on-<span class="math inline">\(y\)</span> line (slope <span class="math inline">\(1/\hat\gamma_1\)</span> in that plane) is steeper than the <span class="math inline">\(y\)</span>-on-<span class="math inline">\(x\)</span> line.</li>
+</ol>
+</div>
+<details class="esa-derivation">
+<summary>
+Derivation
+</summary>
+<ol type="a">
+<li>is Theorem 1.3.2(e) applied to each regression. (b) <span class="math inline">\(\hat\beta_1\hat\gamma_1 = S_{xy}^2/(S_{xx}S_{yy}) = r^2\)</span>. (c) In the <span class="math inline">\((x,y)\)</span> plane the <span class="math inline">\(x\)</span>-on-<span class="math inline">\(y\)</span> line has slope <span class="math inline">\(1/\hat\gamma_1\)</span> (when <span class="math inline">\(r \ne 0\)</span>). Both lines pass through the same point, so they coincide iff <span class="math inline">\(\hat\beta_1 = 1/\hat\gamma_1\)</span>, i.e. iff <span class="math inline">\(\hat\beta_1\hat\gamma_1 = r^2 = 1\)</span>. If <span class="math inline">\(0 &lt; r^2 &lt; 1\)</span>, then <span class="math inline">\(|\hat\beta_1| = r^2/|\hat\gamma_1| &lt; 1/|\hat\gamma_1|\)</span>. (If <span class="math inline">\(r = 0\)</span>, the <span class="math inline">\(y\)</span>-on-<span class="math inline">\(x\)</span> line is horizontal and the <span class="math inline">\(x\)</span>-on-<span class="math inline">\(y\)</span> line is vertical.)</li>
+</ol>
+</details>
+<p>The two lines answer different questions: “what is the mean <span class="math inline">\(y\)</span> for a given <span class="math inline">\(x\)</span>?” and “what is the mean <span class="math inline">\(x\)</span> for a given <span class="math inline">\(y\)</span>?”. Neither is the “true line”. Which one is appropriate depends on which variable is to be predicted.</p>
+<h3 data-number="4.4" id="regression-toward-the-mean"><span class="header-section-number">4.4</span> Regression toward the mean</h3>
+<p>From Theorem 1.2.3(b), <span class="math inline">\(\hat z_y = r\,z_x\)</span>. Because <span class="math inline">\(|r| &lt; 1\)</span> in any real data set, <span class="math inline">\(|\hat z_y| &lt; |z_x|\)</span> whenever <span class="math inline">\(z_x \neq 0\)</span>: <strong>a unit that is extreme in <span class="math inline">\(x\)</span> is predicted to be less extreme, in standard-deviation units, in <span class="math inline">\(y\)</span></strong>. Francis Galton observed this in 1886 when he found that the children of very tall parents were, on average, tall but less extreme than their parents, and he called it “regression towards mediocrity” — the origin of the word <em>regression</em>.</p>
+<p>Regression toward the mean is a <strong>property of imperfect correlation</strong>, not a causal force. It appears in both directions: the parents of very tall children are also, on average, less extreme than their children.</p>
+<div class="example-box esa-callout-warning">
+<p class="esa-box-title">
+<strong>The regression fallacy</strong>
+</p>
+<p>When units are selected <strong>because</strong> they are extreme on a first measurement, their second measurement will tend to be closer to the mean even if nothing has been done to them. Attributing this change to a treatment, a punishment or a reward is the <strong>regression fallacy</strong>. A control group selected in the same way is the standard protection against it.</p>
+</div>
+<h3 data-number="4.5" id="when-to-use-correlation-and-when-to-use-regression"><span class="header-section-number">4.5</span> When to use correlation and when to use regression</h3>
+<div class="table-wrap"><table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Correlation <span class="math inline">\(r\)</span></th>
+<th>Regression slope <span class="math inline">\(\hat\beta_1\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Question</td>
+<td>How strongly are <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> <strong>linearly</strong> associated?</td>
+<td>How does the <strong>mean</strong> of <span class="math inline">\(y\)</span> change with <span class="math inline">\(x\)</span>?</td>
+</tr>
+<tr class="even">
+<td>Symmetry</td>
+<td>Symmetric in <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span></td>
+<td>Directional: <span class="math inline">\(y\)</span> on <span class="math inline">\(x\)</span></td>
+</tr>
+<tr class="odd">
+<td>Units</td>
+<td>None; <span class="math inline">\(-1 \le r \le 1\)</span></td>
+<td>Units of <span class="math inline">\(y\)</span> per unit of <span class="math inline">\(x\)</span></td>
+</tr>
+<tr class="even">
+<td>Prediction</td>
+<td>Not by itself</td>
+<td>Yes: <span class="math inline">\(\hat y = \hat\beta_0 + \hat\beta_1 x\)</span></td>
+</tr>
+<tr class="odd">
+<td>Typical design</td>
+<td>Both variables random (e.g. bivariate sample)</td>
+<td><span class="math inline">\(x\)</span> fixed or conditioned on</td>
+</tr>
+</tbody>
+</table></div>
+<p>Testing <span class="math inline">\(H_0\!: \rho = 0\)</span> in a bivariate normal sample and testing <span class="math inline">\(H_0\!: \beta_1 = 0\)</span> in the regression model give the <strong>same</strong> <span class="math inline">\(t\)</span>-statistic; Lesson 1.7 proves this.</p>
+<h3 data-number="4.6" id="limitations-of-r"><span class="header-section-number">4.6</span> Limitations of <span class="math inline">\(r\)</span></h3>
+<ul>
+<li><strong>Only linear association.</strong> <span class="math inline">\(r\)</span> can be zero when <span class="math inline">\(y\)</span> is a perfect function of <span class="math inline">\(x\)</span>: for <span class="math inline">\(x = -5, \dots, 5\)</span> and <span class="math inline">\(y = x^2\)</span>, <span class="math inline">\(r = 0\)</span> exactly (Exercise C3).</li>
+<li><strong>Sensitivity to outliers.</strong> A single unusual point can create or destroy a large correlation (Module 3).</li>
+<li><strong>Dependence on the range of <span class="math inline">\(x\)</span>.</strong> Under the linear model with <span class="math inline">\(\operatorname{Var}(\varepsilon) = \sigma^2\)</span> and <span class="math inline">\(x\)</span> random with variance <span class="math inline">\(\sigma_x^2\)</span>, independent of <span class="math inline">\(\varepsilon\)</span>, <span class="math display">\[
+\rho^2 = \frac{\beta_1^2\sigma_x^2}{\beta_1^2\sigma_x^2 + \sigma^2}.
+\]</span> Restricting the range of <span class="math inline">\(x\)</span> reduces <span class="math inline">\(\sigma_x^2\)</span> and hence <span class="math inline">\(\rho^2\)</span>, although the slope <span class="math inline">\(\beta_1\)</span> is unchanged (Exercise B3). A low correlation in a narrow sample does not mean a weak effect.</li>
+<li><strong>Association, not causation.</strong> As for the slope (Lesson 1.1).</li>
+</ul>
+<h2 data-number="5" id="worked-example-correlation-and-the-two-regression-lines-for-auto-mpg"><span class="header-section-number">5</span> Worked example: correlation and the two regression lines for Auto MPG</h2>
+<h3 data-number="5.1" id="computation"><span class="header-section-number">5.1</span> Computation</h3>
+<p>Weight <span class="math inline">\(x\)</span> is in thousands of pounds and fuel economy <span class="math inline">\(y\)</span> in mpg, <span class="math inline">\(n = 398\)</span> (Auto MPG; Quinlan, 1993; CC BY 4.0).</p>
+<div class="esa-code-tabs">
+<details class="esa-code">
+<summary>
+R code
+</summary>
+<pre class="r"><code>cols &lt;- c(&quot;mpg&quot;, &quot;cylinders&quot;, &quot;displacement&quot;, &quot;horsepower&quot;, &quot;weight&quot;,
+          &quot;acceleration&quot;, &quot;model_year&quot;, &quot;origin&quot;, &quot;car_name&quot;)
+auto &lt;- read.table(&quot;data/auto-mpg.data&quot;, col.names = cols, na.strings = &quot;?&quot;)
+x &lt;- auto$weight / 1000; y &lt;- auto$mpg
+
+r  &lt;- cor(x, y)
+b1 &lt;- r * sd(y) / sd(x)                       # Theorem 1.2.3(a)
+g1 &lt;- r * sd(x) / sd(y)                       # slope of x on y
+c(r = r, sd_x = sd(x), sd_y = sd(y), b1 = b1, g1 = g1,
+  product = b1 * g1, r_squared = r^2)
+
+coef(lm(y ~ x))                               # same slope as b1
+coef(lm(x ~ y))                               # same slope as g1
+cor(auto$weight * 0.45359237, auto$mpg)       # weight in kg: r unchanged</code></pre>
+</details>
+<details class="esa-code" open>
+<summary>
+Python code
+</summary>
+<pre class="python"><code>import numpy as np
+import pandas as pd
+
+cols = [&quot;mpg&quot;, &quot;cylinders&quot;, &quot;displacement&quot;, &quot;horsepower&quot;, &quot;weight&quot;,
+        &quot;acceleration&quot;, &quot;model_year&quot;, &quot;origin&quot;, &quot;car_name&quot;]
+auto = pd.read_csv(&quot;data/auto-mpg.data&quot;, sep=r&quot;\s+&quot;, header=None,
+                   names=cols, na_values=&quot;?&quot;, quotechar=&#39;&quot;&#39;)
+x = auto[&quot;weight&quot;].to_numpy() / 1000
+y = auto[&quot;mpg&quot;].to_numpy()
+
+r = np.corrcoef(x, y)[0, 1]
+sx, sy = x.std(ddof=1), y.std(ddof=1)
+b1 = r * sy / sx                               # Theorem 1.2.3(a)
+g1 = r * sx / sy                               # slope of x on y
+print(f&quot;r = {r:.6f}, s_x = {sx:.6f}, s_y = {sy:.6f}&quot;)
+print(f&quot;b1 = {b1:.6f}, g1 = {g1:.6f}, b1*g1 = {b1*g1:.6f}, r^2 = {r**2:.6f}&quot;)
+print(&quot;Line of x on y, drawn in the (x, y) plane, has slope&quot;, round(1 / g1, 4))
+print(&quot;r with weight in kg:&quot;, round(np.corrcoef(auto[&quot;weight&quot;] * 0.45359237, y)[0, 1], 6))</code></pre>
+<p class="esa-output-label">
+Output
+</p>
+<pre class="esa-output"><code>r = -0.831741, s_x = 0.846842, s_y = 7.815984
+b1 = -7.676610, g1 = -0.090117, b1*g1 = 0.691793, r^2 = 0.691793
+Line of x on y, drawn in the (x, y) plane, has slope -11.0967
+r with weight in kg: -0.831741</code></pre>
+</details>
+</div>
+<p>Results: <span class="math inline">\(r = -0.831741\)</span>, <span class="math inline">\(s_x = 0.846842\)</span>, <span class="math inline">\(s_y = 7.815984\)</span>. Then</p>
+<p><span class="math display">\[
+\hat\beta_1 = r\,\frac{s_y}{s_x} = -0.831741 \times \frac{7.815984}{0.846842} = -7.676610,
+\]</span></p>
+<p>exactly the slope found in Lesson 1.3. The slope of <span class="math inline">\(x\)</span> on <span class="math inline">\(y\)</span> is <span class="math inline">\(\hat\gamma_1 = -0.090117\)</span> thousand lb per mpg, and <span class="math inline">\(\hat\beta_1\hat\gamma_1 = 0.691793 = r^2\)</span>. Measured in kilograms, weight gives the same <span class="math inline">\(r\)</span> (Theorem 1.2.2).</p>
+<h3 data-number="5.2" id="figure-two-lines-through-the-point-of-means"><span class="header-section-number">5.2</span> Figure: two lines through the point of means</h3>
+<div class="esa-code-tabs">
+<details class="esa-code">
+<summary>
+R code
+</summary>
+<pre class="r"><code>plot(x, y, pch = 16, col = rgb(0, 0, 0, 0.3),
+     xlab = &quot;Weight (1000 lb)&quot;, ylab = &quot;Fuel economy (mpg)&quot;)
+abline(a = mean(y) - b1 * mean(x), b = b1, lwd = 2)
+abline(a = mean(y) - mean(x) / g1, b = 1 / g1, lwd = 2, lty = 2)
+points(mean(x), mean(y), pch = 4, cex = 2, lwd = 2)</code></pre>
+</details>
+<details class="esa-code" open>
+<summary>
+Python code
+</summary>
+<pre class="python"><code>import matplotlib.pyplot as plt
+grid = np.linspace(x.min(), x.max(), 100)
+fig, ax = plt.subplots(figsize=(6, 4))
+ax.scatter(x, y, s=12, alpha=0.3, color=&quot;black&quot;)
+ax.plot(grid, y.mean() + b1 * (grid - x.mean()), linewidth=2, label=&quot;y on x&quot;)
+ax.plot(grid, y.mean() + (grid - x.mean()) / g1, linewidth=2, linestyle=&quot;--&quot;, label=&quot;x on y&quot;)
+ax.plot(x.mean(), y.mean(), marker=&quot;x&quot;, markersize=12, markeredgewidth=2, color=&quot;black&quot;)
+ax.set_ylim(y.min() - 3, y.max() + 3)
+ax.set_xlabel(&quot;Weight (1000 lb)&quot;)
+ax.set_ylabel(&quot;Fuel economy (mpg)&quot;)
+ax.legend()
+plt.show()</code></pre>
+<figure class="esa-figure">
+<img src="/images/courses/regression/lesson-1-2-fig1.png" alt="Fuel economy against weight with the least-squares line of y on x (solid) and of x on y (dashed). Both pass through the point of means (cross). Auto MPG, n = 398." loading="lazy" width="900">
+<figcaption>
+Fuel economy against weight with the least-squares line of y on x (solid) and of x on y (dashed). Both pass through the point of means (cross). Auto MPG, n = 398.
+</figcaption>
+</figure>
+</details>
+</div>
+<h3 data-number="5.3" id="regression-toward-the-mean-in-the-data"><span class="header-section-number">5.3</span> Regression toward the mean in the data</h3>
+<p>Take the heaviest 10% of cars (40 cars). Their mean standardised weight is <span class="math inline">\(\bar z_x = 1.868\)</span>. The straight-line prediction for their mean standardised mpg is <span class="math inline">\(r\,\bar z_x = -1.553\)</span>; their actual mean standardised mpg is <span class="math inline">\(-1.301\)</span>. Both are <strong>less extreme</strong> than 1.868: very heavy cars are, on average, less extreme in fuel economy than in weight. (The actual value is even closer to the mean than the linear prediction, because the mean function flattens for heavy cars — the curvature seen in Lesson 1.1.)</p>
+<div class="esa-code-tabs">
+<details class="esa-code">
+<summary>
+R code
+</summary>
+<pre class="r"><code>zx &lt;- (x - mean(x)) / sd(x); zy &lt;- (y - mean(y)) / sd(y)
+heavy &lt;- x &gt;= quantile(x, 0.9)
+c(n = sum(heavy), mean_zx = mean(zx[heavy]),
+  linear_prediction = r * mean(zx[heavy]), mean_zy = mean(zy[heavy]))</code></pre>
+</details>
+<details class="esa-code" open>
+<summary>
+Python code
+</summary>
+<pre class="python"><code>zx = (x - x.mean()) / sx
+zy = (y - y.mean()) / sy
+heavy = x &gt;= np.quantile(x, 0.9)
+print(f&quot;n = {heavy.sum()}, mean z_x = {zx[heavy].mean():.3f}, &quot;
+      f&quot;r * mean z_x = {r * zx[heavy].mean():.3f}, mean z_y = {zy[heavy].mean():.3f}&quot;)</code></pre>
+<p class="esa-output-label">
+Output
+</p>
+<pre class="esa-output"><code>n = 40, mean z_x = 1.868, r * mean z_x = -1.553, mean z_y = -1.301</code></pre>
+</details>
+</div>
+<h3 data-number="5.4" id="interpretation"><span class="header-section-number">5.4</span> Interpretation</h3>
+<ul>
+<li><span class="math inline">\(r = -0.832\)</span>: a strong negative <strong>linear</strong> association between weight and fuel economy; <span class="math inline">\(r^2 = 0.692\)</span> is the proportion of the variation in mpg accounted for by the least-squares line (Lesson 1.6 makes this precise).</li>
+<li>The slope <span class="math inline">\(-7.68\)</span> mpg per 1000 lb expresses the same association in the units of the problem, and only in the direction “mpg given weight”.</li>
+<li>To predict <strong>weight from mpg</strong>, use the dashed line, not the inverted solid line: inverting <span class="math inline">\(\hat y = \hat\beta_0 + \hat\beta_1 x\)</span> gives a slope of <span class="math inline">\(1/\hat\beta_1 = -0.130\)</span> thousand lb per mpg, but the least-squares slope of <span class="math inline">\(x\)</span> on <span class="math inline">\(y\)</span> is <span class="math inline">\(-0.090\)</span>.</li>
+</ul>
+<h2 data-number="6" id="common-misconceptions"><span class="header-section-number">6</span> Common misconceptions</h2>
+<div class="example-box esa-callout-caution">
+<p class="esa-box-title">
+<strong>Misconceptions</strong>
+</p>
+<ol type="1">
+<li><strong>“<span class="math inline">\(r = -0.83\)</span> means 83% of the variation is explained.”</strong> — No. The proportion is <span class="math inline">\(r^2 = 0.69\)</span> (Lesson 1.6), and the sign of <span class="math inline">\(r\)</span> carries direction only.</li>
+<li><strong>“<span class="math inline">\(r = 0\)</span> means no relationship.”</strong> — No. It means no <strong>linear</strong> association; strong nonlinear relationships can have <span class="math inline">\(r = 0\)</span>.</li>
+<li><strong>“Regressing <span class="math inline">\(x\)</span> on <span class="math inline">\(y\)</span> is just the inverse of regressing <span class="math inline">\(y\)</span> on <span class="math inline">\(x\)</span>.”</strong> — Only if <span class="math inline">\(|r| = 1\)</span> (Theorem 1.2.4).</li>
+<li><strong>“The improvement of the worst performers shows that the intervention worked.”</strong> — Possibly regression toward the mean; a comparable control group is needed.</li>
+<li><strong>“A low correlation in a narrow sample means <span class="math inline">\(x\)</span> has little effect on <span class="math inline">\(y\)</span>.”</strong> — Restricting the range of <span class="math inline">\(x\)</span> lowers <span class="math inline">\(r\)</span> even when the slope is unchanged.</li>
+</ol>
+</div>
+<h2 data-number="7" id="key-takeaways"><span class="header-section-number">7</span> Key takeaways</h2>
+<ul>
+<li><span class="math inline">\(r = S_{xy}/\sqrt{S_{xx}S_{yy}}\)</span> is symmetric, unit-free and lies in <span class="math inline">\([-1, 1]\)</span>; <span class="math inline">\(\mathrm{SSE} = S_{yy}(1 - r^2)\)</span>.</li>
+<li><span class="math inline">\(\hat\beta_1 = r\,s_y/s_x\)</span>; in standardised units the regression slope is <span class="math inline">\(r\)</span>.</li>
+<li>The regressions of <span class="math inline">\(y\)</span> on <span class="math inline">\(x\)</span> and of <span class="math inline">\(x\)</span> on <span class="math inline">\(y\)</span> are different lines, with <span class="math inline">\(\hat\beta_1\hat\gamma_1 = r^2\)</span>.</li>
+<li>Because <span class="math inline">\(|r| &lt; 1\)</span>, predictions regress toward the mean; ignoring this leads to the regression fallacy.</li>
+<li>Use correlation to summarise linear association, and regression to model and predict a conditional mean.</li>
+</ul>
+<h2 data-number="8" id="exercises"><span class="header-section-number">8</span> Exercises</h2>
+<h3 data-number="8.1" id="a.-conceptual"><span class="header-section-number">8.1</span> A. Conceptual</h3>
+<p><strong>A1</strong> (★). A report states: “The correlation between study hours and exam score was 0.5, so study hours explain 50% of the variation in scores.” Correct the statement.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>The proportion of variation in scores accounted for by a straight-line regression on study hours is <span class="math inline">\(r^2 = 0.25\)</span>, i.e. 25%, not 50%. In addition, “explain” should not be read causally with observational data.</p>
+</details>
+<p><strong>A2</strong> (★). After a speed-camera programme, a city reports that the 20 junctions with the most accidents last year had 30% fewer accidents this year. Give a reason, other than the cameras, why accidents would fall at these junctions, and say how to check whether the cameras had an effect.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>The junctions were selected because their accident counts were extreme. Counts vary from year to year, so extreme counts are partly due to chance and tend to be followed by values closer to the mean (regression toward the mean), even with no intervention. To estimate the camera effect, compare with similar high-accident junctions that did not receive cameras (a control group selected in the same way), ideally with cameras assigned at random.</p>
+</details>
+<p><strong>A3</strong> (★★). Explain why a doctor wishing to predict a patient’s weight from height and an engineer wishing to predict height from weight should not use the same fitted line, even with the same data.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>Each wants the conditional mean of a different variable. The least-squares line of weight on height minimises errors in weight; the line of height on weight minimises errors in height. Unless <span class="math inline">\(|r| = 1\)</span>, the two lines differ (Theorem 1.2.4), and inverting one does not give the other.</p>
+</details>
+<h3 data-number="8.2" id="b.-mathematical"><span class="header-section-number">8.2</span> B. Mathematical</h3>
+<p><strong>B1</strong> (★★). Prove Theorem 1.2.2(b), and deduce that <span class="math inline">\(r\)</span> is unchanged when weight is converted from pounds to kilograms.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>See the derivation after Theorem 1.2.2. Converting pounds to kilograms is <span class="math inline">\(x^* = 0.45359237\,x\)</span>, i.e. <span class="math inline">\(a = 0\)</span>, <span class="math inline">\(b = 0.45359237 &gt; 0\)</span>; with <span class="math inline">\(y\)</span> unchanged (<span class="math inline">\(c = 0\)</span>, <span class="math inline">\(d = 1\)</span>), <span class="math inline">\(\operatorname{sign}(bd) = +1\)</span> and <span class="math inline">\(r(x^*, y) = r(x, y)\)</span>. The Auto MPG computation confirms <span class="math inline">\(r = -0.831741\)</span> in both units.</p>
+</details>
+<p><strong>B2</strong> (★★). Show that, in standardised units, the least-squares line of <span class="math inline">\(z_x\)</span> on <span class="math inline">\(z_y\)</span> is <span class="math inline">\(\hat z_x = r z_y\)</span>. Hence show that both standardised regressions “shrink” toward 0, and explain why this means regression toward the mean works in both directions.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>By symmetry of Theorem 1.2.3(b) with the roles of <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> exchanged, and <span class="math inline">\(r(y, x) = r(x, y)\)</span>, the line is <span class="math inline">\(\hat z_x = r z_y\)</span>. For <span class="math inline">\(|r| &lt; 1\)</span>, <span class="math inline">\(|\hat z_x| &lt; |z_y|\)</span> and <span class="math inline">\(|\hat z_y| &lt; |z_x|\)</span>: whichever variable is used to select extreme units, the other variable is predicted to be closer to its mean. Regression toward the mean is therefore a consequence of imperfect correlation, not of time order or causation.</p>
+</details>
+<p><strong>B3</strong> (★★★). Suppose <span class="math inline">\(y = \beta_0 + \beta_1 x + \varepsilon\)</span> with <span class="math inline">\(x\)</span> random, <span class="math inline">\(\operatorname{Var}(x) = \sigma_x^2 &gt; 0\)</span>, <span class="math inline">\(\operatorname{Var}(\varepsilon) = \sigma^2\)</span>, and <span class="math inline">\(x\)</span> independent of <span class="math inline">\(\varepsilon\)</span>. Show that <span class="math display">\[
+\rho^2 = \operatorname{Corr}(x, y)^2 = \frac{\beta_1^2\sigma_x^2}{\beta_1^2\sigma_x^2 + \sigma^2},
+\]</span> and explain what happens to <span class="math inline">\(\rho^2\)</span> and to <span class="math inline">\(\beta_1\)</span> if the population is restricted to a narrower range of <span class="math inline">\(x\)</span> (assume the linear model still holds there).</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p><span class="math inline">\(\operatorname{Cov}(x, y) = \operatorname{Cov}(x, \beta_1 x + \varepsilon) = \beta_1\sigma_x^2\)</span> and <span class="math inline">\(\operatorname{Var}(y) = \beta_1^2\sigma_x^2 + \sigma^2\)</span> (independence makes the cross term vanish). Hence <span class="math inline">\(\rho^2 = \beta_1^2\sigma_x^4 / [\sigma_x^2(\beta_1^2\sigma_x^2 + \sigma^2)] = \beta_1^2\sigma_x^2/(\beta_1^2\sigma_x^2 + \sigma^2)\)</span>. Restricting the range of <span class="math inline">\(x\)</span> reduces <span class="math inline">\(\sigma_x^2\)</span>; with <span class="math inline">\(\beta_1\)</span> and <span class="math inline">\(\sigma^2\)</span> unchanged, <span class="math inline">\(\rho^2\)</span> decreases (it is increasing in <span class="math inline">\(\sigma_x^2\)</span>). The slope <span class="math inline">\(\beta_1\)</span> — the change in <span class="math inline">\(E(y \mid x)\)</span> per unit of <span class="math inline">\(x\)</span> — is unaffected. Strictly, the conditional distribution of <span class="math inline">\(\varepsilon\)</span> given the restricted <span class="math inline">\(x\)</span> is unchanged because <span class="math inline">\(x\)</span> and <span class="math inline">\(\varepsilon\)</span> are independent.</p>
+</details>
+<h3 data-number="8.3" id="c.-computational"><span class="header-section-number">8.3</span> C. Computational</h3>
+<p><strong>C1</strong> (★). Using the 392 Auto MPG cars with complete data, compute the correlation of mpg with weight, displacement, horsepower, acceleration and model year. Which variable has the strongest linear association with mpg? Which associations are positive, and do they make sense?</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>R: <code>cor(na.omit(auto)[, c("mpg", "weight", "displacement", "horsepower", "acceleration", "model_year")])[, "mpg"]</code>. Python: <code>auto.dropna()[["mpg", "weight", "displacement", "horsepower", "acceleration", "model_year"]].corr()["mpg"]</code>.</p>
+<div class="table-wrap"><table style="width:100%;">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>weight</th>
+<th>displacement</th>
+<th>horsepower</th>
+<th>acceleration</th>
+<th>model year</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(r\)</span> with mpg</td>
+<td><span class="math inline">\(-0.8322\)</span></td>
+<td><span class="math inline">\(-0.8051\)</span></td>
+<td><span class="math inline">\(-0.7784\)</span></td>
+<td><span class="math inline">\(0.4233\)</span></td>
+<td><span class="math inline">\(0.5805\)</span></td>
+</tr>
+</tbody>
+</table></div>
+<p>Weight has the strongest linear association. Acceleration (seconds from 0 to 60 mph) is positive: cars that take longer to accelerate tend to have smaller engines and better economy. Model year is positive: fuel economy improved over 1970–1982. (With all 398 cars, <span class="math inline">\(r\)</span>(mpg, weight) is <span class="math inline">\(-0.8317\)</span>; the small difference reflects the six cars dropped for missing horsepower — always state the sample.)</p>
+</details>
+<p><strong>C2</strong> (★★). <em>Simulating regression toward the mean.</em> Generate <span class="math inline">\(n = 10\,000\)</span> true scores <span class="math inline">\(T \sim N(100, 15^2)\)</span> and two test scores <span class="math inline">\(t_1 = T + e_1\)</span>, <span class="math inline">\(t_2 = T + e_2\)</span> with independent errors <span class="math inline">\(e_1, e_2 \sim N(0, 10^2)\)</span>, using seed 2026. Select the top 10% on <span class="math inline">\(t_1\)</span>. Compare their mean <span class="math inline">\(t_1\)</span> and mean <span class="math inline">\(t_2\)</span>, and compare the mean <span class="math inline">\(t_2\)</span> with the prediction <span class="math inline">\(\bar t + r(\bar t_{1,\text{sel}} - \bar t)\)</span>. What is the theoretical correlation of <span class="math inline">\(t_1\)</span> and <span class="math inline">\(t_2\)</span>?</p>
+<details class="esa-solution">
+<summary>
+Hint
+</summary>
+<p><span class="math inline">\(\operatorname{Cov}(t_1, t_2) = \operatorname{Var}(T)\)</span> and <span class="math inline">\(\operatorname{Var}(t_1) = \operatorname{Var}(T) + \operatorname{Var}(e_1)\)</span>.</p>
+</details>
+<details class="esa-solution">
+<summary>
+Solution (Python)
+</summary>
+<pre class="python"><code>import numpy as np
+rng = np.random.default_rng(2026)
+n = 10_000
+T  = rng.normal(100, 15, n)
+t1 = T + rng.normal(0, 10, n)
+t2 = T + rng.normal(0, 10, n)
+r = np.corrcoef(t1, t2)[0, 1]
+sel = t1 &gt;= np.quantile(t1, 0.9)
+print(round(r, 4), round(t1[sel].mean(), 2), round(t2[sel].mean(), 2))
+print(round(t1.mean() + r * (t1[sel].mean() - t1.mean()), 2))</code></pre>
+<p>Theory: <span class="math inline">\(\rho = 15^2/(15^2 + 10^2) = 225/325 = 0.6923\)</span>. With this seed, <span class="math inline">\(r = 0.6946\)</span>; the selected group has mean <span class="math inline">\(t_1 = 131.51\)</span> but mean <span class="math inline">\(t_2 = 121.79\)</span>, although nothing was done to them, close to the prediction <span class="math inline">\(100.00 + 0.6946 \times 31.51 \approx 121.9\)</span>. (The two tests have equal variances here, so the standardised prediction can be written in raw units. In R, <code>set.seed(2026)</code> gives different draws and slightly different numbers.)</p>
+</details>
+<p><strong>C3</strong> (★). Compute <span class="math inline">\(r\)</span> for <span class="math inline">\(x = -5, -4, \dots, 5\)</span> and <span class="math inline">\(y = x^2\)</span>. Plot the data. What does this show about <span class="math inline">\(r\)</span>?</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p><span class="math inline">\(r = 0\)</span> exactly: <span class="math inline">\(S_{xy} = \sum (x_i - 0)(x_i^2 - \bar y) = \sum x_i^3 - \bar y\sum x_i = 0\)</span> because the <span class="math inline">\(x_i\)</span> are symmetric about 0. Yet <span class="math inline">\(y\)</span> is an exact function of <span class="math inline">\(x\)</span>. Correlation measures only <strong>linear</strong> association; always plot the data.</p>
+</details>
+<h2 data-number="9" id="references"><span class="header-section-number">9</span> References</h2>
+<ul>
+<li>Galton, F. (1886). Regression towards mediocrity in hereditary stature. <em>The Journal of the Anthropological Institute of Great Britain and Ireland</em>, 15, 246–263.</li>
+<li>Kutner, M. H., Nachtsheim, C. J., Neter, J., &amp; Li, W. (2005). <em>Applied Linear Statistical Models</em> (5th ed.). McGraw-Hill/Irwin. — Chapter 1 (history of regression); Chapter 2, Inferences in Regression and Correlation Analysis (normal correlation models).</li>
+<li>Montgomery, D. C., Peck, E. A., &amp; Vining, G. G. (2021). <em>Introduction to Linear Regression Analysis</em> (6th ed.). Wiley. — Chapter 2, Simple Linear Regression (regression and correlation).</li>
+<li>Weisberg, S. (2014). <em>Applied Linear Regression</em> (4th ed.). Wiley. — Chapter 2, Simple Linear Regression.</li>
+<li>Quinlan, R. (1993). <em>Auto MPG</em> [Data set]. UCI Machine Learning Repository. https://doi.org/10.24432/C5859H</li>
+</ul>
+
+{% endraw %}
+    <div class="lesson-nav">
+      <a class="btn btn-outline" href="/courses/regression/module-1/what-is-regression/">← Lesson 1.1: What Is Regression?</a>
+      <a class="btn" href="/courses/regression/module-1/ordinary-least-squares/">Next: Lesson 1.3 →</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .esa-course-lesson details{border:1px solid var(--border-strong,#d0d7de);border-radius:9px;padding:.4rem .9rem;margin:1rem 0}
+  .esa-course-lesson details>summary{cursor:pointer;font-weight:700}
+  .esa-course-lesson .esa-code-tabs{margin:1rem 0}
+  .esa-course-lesson .esa-code-tabs details{margin:.4rem 0}
+  .esa-course-lesson pre{max-width:100%}
+  .esa-course-lesson pre.esa-output{border-left:5px solid #0d9488}
+  .esa-course-lesson .esa-output-label{font-size:.85rem;font-weight:700;margin:.6rem 0 .2rem}
+  .esa-course-lesson .esa-figure{margin:1rem 0}
+  .esa-course-lesson .esa-figure img{max-width:100%;height:auto}
+  .esa-course-lesson .esa-figure figcaption{font-size:.9rem}
+  .esa-course-lesson mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+</style>

@@ -11,13 +11,14 @@ paths_styles: true
 
 <!-- Course hero -->
 <section class="esa-paths-hero" aria-labelledby="esa-regression-course-title">
-  <p class="esa-paths-eyebrow">Course · Intermediate–Advanced · In preparation</p>
+  <p class="esa-paths-eyebrow">Course · Intermediate–Advanced · In progress</p>
   <h1 id="esa-regression-course-title">Regression Analysis: From Foundations to Mastery</h1>
   <p class="esa-paths-lead">
     Theory, computation, and interpretation: a university-level course in linear regression.
   </p>
   <div class="esa-paths-actions">
-    <a class="esa-paths-button esa-paths-button--primary" href="#course-map">See the course map</a>
+    <a class="esa-paths-button esa-paths-button--primary" href="/courses/regression/module-1/what-is-regression/">Start with Lesson 1.1 →</a>
+    <a class="esa-paths-button esa-paths-button--secondary" href="#course-map">See the course map</a>
     <a class="esa-paths-button esa-paths-button--secondary" href="/courses/">All courses</a>
   </div>
 </section>
@@ -78,7 +79,8 @@ paths_styles: true
     <div class="card">
       <h3>Module 1: Foundations</h3>
       <p>Simple linear regression, ordinary least squares, inference, and confidence and prediction intervals.</p>
-      <p class="muted-mini">Status: In preparation</p>
+      <p class="muted-mini">Status: In progress · 3 of 9 lessons available</p>
+      <a class="card-foot" href="/courses/regression/module-1/">Open Module 1 →</a>
     </div>
 
     <div class="card">

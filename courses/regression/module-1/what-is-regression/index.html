@@ -1,0 +1,569 @@
+---
+layout: default
+title: "What Is Regression? — Regression Course, Lesson 1.1"
+description: "University-level lesson: the regression function E(y|x), why it is the best predictor, the simple linear regression model, its assumptions, and regression versus causation, with R and Python."
+permalink: /courses/regression/module-1/what-is-regression/
+sidebar: false
+math: true
+learning_resource: true
+---
+
+<section class="hero hero-section">
+  <div class="hero-card">
+    <div class="badge-row">
+      <span class="badge">Course</span>
+      <span class="badge">Regression Analysis</span>
+      <span class="badge">Module 1 · Foundations</span>
+      <span class="badge">Lesson 1.1</span>
+    </div>
+    <h1>Lesson 1.1 — What Is Regression?</h1>
+    <p class="lead">Regression models how the average response changes with a predictor, and how individual observations scatter around that average.</p>
+    <p class="muted-mini">Level: Introductory · Study time: 50 min + exercises · Prerequisites: expectation, variance and conditional expectation · Data: Auto MPG (UCI, CC BY 4.0)</p>
+    <div class="hero-actions">
+      <a class="btn btn-outline" href="/courses/regression/module-1/">Module 1 lessons</a>
+      <a class="btn btn-outline" href="/courses/regression/code/lesson-1-1.py">Python script</a>
+      <a class="btn btn-outline" href="/courses/regression/code/lesson-1-1.R">R script</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="content-narrow esa-course-lesson">
+{% raw %}
+<h2 data-number="1" id="learning-objectives"><span class="header-section-number">1</span> Learning objectives</h2>
+<p>By the end of this lesson you will be able to:</p>
+<ol type="1">
+<li>distinguish a <strong>functional</strong> relationship from a <strong>statistical</strong> one and define the regression function <span class="math inline">\(E(y \mid x)\)</span>;</li>
+<li>prove that <span class="math inline">\(E(y \mid x)\)</span> is the best predictor of <span class="math inline">\(y\)</span> from <span class="math inline">\(x\)</span> under squared-error loss;</li>
+<li>write the simple linear regression model, explain each of its components, and say what “linear” means;</li>
+<li>state the standard assumptions on the errors and identify which later results need which assumption;</li>
+<li>explain why regression on observational data does not, by itself, establish causation.</li>
+</ol>
+<h2 data-number="2" id="motivation"><span class="header-section-number">2</span> Motivation</h2>
+<p>The Auto MPG data record fuel economy, weight and other characteristics of 398 cars from model years 1970–1982. Two cars of the <strong>same</strong> weight can have very different fuel economy, so mpg is not a function of weight. Yet heavier cars clearly tend to have lower mpg. Regression analysis gives a precise meaning to “tend to”: it models how the <strong>average</strong> response changes with the predictor, and how individual observations scatter around that average.</p>
+<h2 data-number="3" id="notation-for-this-lesson"><span class="header-section-number">3</span> Notation for this lesson</h2>
+<div class="table-wrap"><table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(x\)</span>, <span class="math inline">\(y\)</span></td>
+<td>predictor (regressor) and response</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(m(x) = E(y \mid x)\)</span></td>
+<td>regression function (conditional mean of <span class="math inline">\(y\)</span> given <span class="math inline">\(x\)</span>)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(\beta_1\)</span></td>
+<td>intercept and slope parameters (unknown constants)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\varepsilon_i\)</span></td>
+<td>random error for observation <span class="math inline">\(i\)</span> (unobservable)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\sigma^2\)</span></td>
+<td>error variance</td>
+</tr>
+</tbody>
+</table></div>
+<p>All notation follows the course notation standard.</p>
+<h2 data-number="4" id="theory"><span class="header-section-number">4</span> Theory</h2>
+<h3 data-number="4.1" id="functional-and-statistical-relationships"><span class="header-section-number">4.1</span> Functional and statistical relationships</h3>
+<div class="concept-box esa-callout-note">
+<p class="esa-box-title">
+<strong>Definition 1.1.1 (Functional and statistical relationships)</strong>
+</p>
+<p>A <strong>functional</strong> relationship <span class="math inline">\(y = f(x)\)</span> assigns exactly one value of <span class="math inline">\(y\)</span> to each value of <span class="math inline">\(x\)</span>; every observation lies on the curve. A <strong>statistical</strong> relationship is one in which <span class="math inline">\(y\)</span> varies for a fixed <span class="math inline">\(x\)</span>, but its <strong>distribution</strong> — in particular its mean — changes with <span class="math inline">\(x\)</span>.</p>
+</div>
+<p>Examples: the price of <span class="math inline">\(x\)</span> items at a fixed unit price is functional; fuel economy as a function of weight is statistical, because many factors other than weight (engine, gearing, aerodynamics, driving cycle) affect mpg.</p>
+<h3 data-number="4.2" id="the-regression-function"><span class="header-section-number">4.2</span> The regression function</h3>
+<div class="concept-box esa-callout-note">
+<p class="esa-box-title">
+<strong>Definition 1.1.2 (Regression function)</strong>
+</p>
+<p>For random variables <span class="math inline">\((x, y)\)</span> with <span class="math inline">\(E(y^2) &lt; \infty\)</span>, the <strong>regression function</strong> of <span class="math inline">\(y\)</span> on <span class="math inline">\(x\)</span> is the conditional mean <span class="math display">\[
+m(x) = E(y \mid x).
+\]</span> Writing <span class="math inline">\(\varepsilon = y - m(x)\)</span>, every such pair satisfies <span class="math display">\[
+y = m(x) + \varepsilon, \qquad E(\varepsilon \mid x) = 0 .
+\]</span></p>
+</div>
+<p>The decomposition is always available; it is not yet a model. A <strong>regression model</strong> makes an assumption about the form of <span class="math inline">\(m(x)\)</span> — and, usually, about the distribution of <span class="math inline">\(\varepsilon\)</span>.</p>
+<p>Why the conditional mean? Because it is the best possible predictor under squared-error loss.</p>
+<div class="concept-box esa-callout-important">
+<p class="esa-box-title">
+<strong>Theorem 1.1.1 (Best predictor)</strong>
+</p>
+<p>If <span class="math inline">\(E(y^2) &lt; \infty\)</span>, then for every function <span class="math inline">\(g\)</span> with <span class="math inline">\(E[g(x)^2] &lt; \infty\)</span>, <span class="math display">\[
+E\bigl[(y - g(x))^2\bigr] = E\bigl[(y - m(x))^2\bigr] + E\bigl[(m(x) - g(x))^2\bigr] \;\ge\; E\bigl[(y - m(x))^2\bigr],
+\]</span> with equality if and only if <span class="math inline">\(g(x) = m(x)\)</span> with probability one.</p>
+</div>
+<details class="esa-derivation">
+<summary>
+Derivation
+</summary>
+<p>Write <span class="math inline">\(y - g(x) = \bigl(y - m(x)\bigr) + \bigl(m(x) - g(x)\bigr)\)</span> and expand the square. The cross term is <span class="math display">\[
+2\,E\bigl[(y - m(x))(m(x) - g(x))\bigr] = 2\,E\Bigl[(m(x) - g(x))\,E\bigl(y - m(x) \mid x\bigr)\Bigr] = 0,
+\]</span> using the tower property and the fact that <span class="math inline">\(m(x) - g(x)\)</span> is a function of <span class="math inline">\(x\)</span>, together with <span class="math inline">\(E(y - m(x) \mid x) = 0\)</span>. The second term is non-negative and equals zero exactly when <span class="math inline">\(g(x) = m(x)\)</span> almost surely.</p>
+</details>
+<p>Theorem 1.1.1 explains the place of squared error in regression: if prediction error is measured by its mean square, the target of estimation is the conditional mean. Lesson 1.3 applies the same loss to a sample.</p>
+<h3 data-number="4.3" id="the-simple-linear-regression-model"><span class="header-section-number">4.3</span> The simple linear regression model</h3>
+<div class="concept-box esa-callout-note">
+<p class="esa-box-title">
+<strong>Definition 1.1.3 (Simple linear regression model)</strong>
+</p>
+<p>For observations <span class="math inline">\((x_i, y_i)\)</span>, <span class="math inline">\(i = 1, \dots, n\)</span>, <span class="math display">\[
+y_i = \beta_0 + \beta_1 x_i + \varepsilon_i ,
+\]</span> where <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> are unknown constants, the <span class="math inline">\(x_i\)</span> are treated as fixed (or the analysis is conditional on them), and the <span class="math inline">\(\varepsilon_i\)</span> are random errors with <span class="math inline">\(E(\varepsilon_i) = 0\)</span>.</p>
+</div>
+<p>Each component has a precise meaning:</p>
+<ul>
+<li><span class="math inline">\(\beta_0 + \beta_1 x\)</span> is the <strong>assumed</strong> regression function <span class="math inline">\(m(x)\)</span>; the model claims the conditional mean is a straight line in <span class="math inline">\(x\)</span>.</li>
+<li><span class="math inline">\(\beta_1\)</span> is the change in the <strong>mean</strong> response for a one-unit increase in <span class="math inline">\(x\)</span>: <span class="math inline">\(m(x+1) - m(x) = \beta_1\)</span>.</li>
+<li><span class="math inline">\(\beta_0 = m(0)\)</span> is the mean response at <span class="math inline">\(x = 0\)</span>, meaningful only if <span class="math inline">\(x = 0\)</span> is a sensible value (Lesson 1.5).</li>
+<li><span class="math inline">\(\varepsilon_i\)</span> collects everything that makes <span class="math inline">\(y_i\)</span> differ from its mean: omitted factors, measurement error, inherent variability.</li>
+</ul>
+<div class="concept-box esa-callout-note">
+<p class="esa-box-title">
+<strong>Remark: what “linear” means</strong>
+</p>
+<p>“Linear” refers to the <strong>parameters</strong>, not to <span class="math inline">\(x\)</span>. The model <span class="math inline">\(y = \beta_0 + \beta_1 x + \beta_2 x^2 + \varepsilon\)</span> is a linear model, and so is <span class="math inline">\(y = \beta_0 + \beta_1 \log x + \varepsilon\)</span>. The model <span class="math inline">\(y = \beta_0 + e^{\beta_1 x} + \varepsilon\)</span> is not, because it is not linear in <span class="math inline">\(\beta_1\)</span>.</p>
+</div>
+<h3 data-number="4.4" id="assumptions-and-what-they-are-used-for"><span class="header-section-number">4.4</span> Assumptions and what they are used for</h3>
+<div class="example-box esa-callout-warning">
+<p class="esa-box-title">
+<strong>Assumptions of the simple linear regression model</strong>
+</p>
+<ul>
+<li><strong>A1 (Correct mean function).</strong> <span class="math inline">\(E(\varepsilon_i) = 0\)</span> for all <span class="math inline">\(i\)</span>, i.e. <span class="math inline">\(E(y_i) = \beta_0 + \beta_1 x_i\)</span>.</li>
+<li><strong>A2 (Constant variance).</strong> <span class="math inline">\(\operatorname{Var}(\varepsilon_i) = \sigma^2\)</span> for all <span class="math inline">\(i\)</span>.</li>
+<li><strong>A3 (Uncorrelated errors).</strong> <span class="math inline">\(\operatorname{Cov}(\varepsilon_i, \varepsilon_j) = 0\)</span> for <span class="math inline">\(i \ne j\)</span>.</li>
+<li><strong>A4 (Normality).</strong> <span class="math inline">\(\varepsilon_i \sim N(0, \sigma^2)\)</span>; together with A1–A3 this makes the errors independent.</li>
+</ul>
+</div>
+<p>Not every result needs every assumption. This table is the map for Module 1:</p>
+<div class="table-wrap"><table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Result</th>
+<th>Needs</th>
+<th>Lesson</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Computing the OLS estimates and the fitted-line identities</td>
+<td>none (only <span class="math inline">\(S_{xx} &gt; 0\)</span>)</td>
+<td>1.3</td>
+</tr>
+<tr class="even">
+<td>Unbiasedness of <span class="math inline">\(\hat\beta_0, \hat\beta_1\)</span></td>
+<td>A1</td>
+<td>1.4</td>
+</tr>
+<tr class="odd">
+<td>Variance formulas; Gauss–Markov (BLUE)</td>
+<td>A1–A3</td>
+<td>1.4</td>
+</tr>
+<tr class="even">
+<td>Unbiasedness of <span class="math inline">\(\hat\sigma^2\)</span></td>
+<td>A1–A3</td>
+<td>1.4</td>
+</tr>
+<tr class="odd">
+<td>Exact <span class="math inline">\(t\)</span> and <span class="math inline">\(F\)</span> tests; exact confidence and prediction intervals</td>
+<td>A1–A4</td>
+<td>1.7–1.8</td>
+</tr>
+</tbody>
+</table></div>
+<p>Two clarifications prevent common errors. First, A4 concerns the <strong>errors</strong>, not the marginal distribution of <span class="math inline">\(y\)</span> or <span class="math inline">\(x\)</span>: <span class="math inline">\(y\)</span> is not identically distributed under the model, because its mean depends on <span class="math inline">\(x_i\)</span>. Second, A1–A4 are statements about the data-generating process; they cannot be “proved” from data, only checked for gross violations (Module 3).</p>
+<h3 data-number="4.5" id="purposes-of-regression"><span class="header-section-number">4.5</span> Purposes of regression</h3>
+<p>Regression is used for three related but distinct purposes:</p>
+<ul>
+<li><strong>Description</strong> — summarising how the mean of <span class="math inline">\(y\)</span> varies with <span class="math inline">\(x\)</span> in the observed data.</li>
+<li><strong>Prediction</strong> — predicting <span class="math inline">\(y\)</span> for new units with known <span class="math inline">\(x\)</span> (Lesson 1.8).</li>
+<li><strong>Estimating effects</strong> — estimating how <span class="math inline">\(y\)</span> would change if <span class="math inline">\(x\)</span> were changed. This is the most demanding purpose and depends on how the data were collected.</li>
+</ul>
+<h3 data-number="4.6" id="observational-versus-experimental-data"><span class="header-section-number">4.6</span> Observational versus experimental data</h3>
+<p>In a <strong>designed experiment</strong>, the investigator assigns values of <span class="math inline">\(x\)</span> to units, ideally at random. Randomisation balances, on average, all other factors across levels of <span class="math inline">\(x\)</span>, so a difference in mean response can be attributed to <span class="math inline">\(x\)</span>.</p>
+<p>In <strong>observational data</strong>, <span class="math inline">\(x\)</span> is merely recorded. Units with different <span class="math inline">\(x\)</span> may differ systematically in other ways (<strong>confounding</strong>), so <span class="math inline">\(\beta_1\)</span> describes an association, not necessarily the effect of changing <span class="math inline">\(x\)</span>. The Auto MPG data are observational: heavier cars also tend to have larger engines (the correlation between weight and engine displacement is 0.933 in these data), so the association between weight and mpg mixes the role of weight with that of engine size.</p>
+<h2 data-number="5" id="worked-example-exploring-the-auto-mpg-data"><span class="header-section-number">5</span> Worked example: exploring the Auto MPG data</h2>
+<h3 data-number="5.1" id="the-data"><span class="header-section-number">5.1</span> The data</h3>
+<p>Source: Quinlan (1993), UCI Machine Learning Repository, CC BY 4.0. There are <span class="math inline">\(n = 398\)</span> cars and nine variables. Units follow the documentation of the <code>Auto</code> data in the R package ISLR2.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>mpg</code></td>
+<td>fuel economy, miles per gallon (city cycle) — <strong>response</strong></td>
+</tr>
+<tr class="even">
+<td><code>cylinders</code></td>
+<td>number of cylinders (3, 4, 5, 6 or 8 in these data)</td>
+</tr>
+<tr class="odd">
+<td><code>displacement</code></td>
+<td>engine displacement (cubic inches)</td>
+</tr>
+<tr class="even">
+<td><code>horsepower</code></td>
+<td>engine horsepower (6 missing values)</td>
+</tr>
+<tr class="odd">
+<td><code>weight</code></td>
+<td>vehicle weight (lb) — <strong>predictor in Module 1</strong></td>
+</tr>
+<tr class="even">
+<td><code>acceleration</code></td>
+<td>time to accelerate from 0 to 60 mph (seconds)</td>
+</tr>
+<tr class="odd">
+<td><code>model_year</code></td>
+<td>model year (70–82, i.e. 1970–1982)</td>
+</tr>
+<tr class="even">
+<td><code>origin</code></td>
+<td>1 = American, 2 = European, 3 = Japanese</td>
+</tr>
+<tr class="odd">
+<td><code>car_name</code></td>
+<td>make and model</td>
+</tr>
+</tbody>
+</table></div>
+<h3 data-number="5.2" id="looking-at-the-conditional-mean"><span class="header-section-number">5.2</span> Looking at the conditional mean</h3>
+<p>The regression function <span class="math inline">\(E(\text{mpg} \mid \text{weight})\)</span> is unknown, but we can <strong>estimate it without assuming any form</strong> by averaging mpg within narrow weight bands. If the band means lie close to a straight line, the linear model (Definition 1.1.3) is a reasonable description.</p>
+<div class="esa-code-tabs">
+<details class="esa-code">
+<summary>
+R code
+</summary>
+<pre class="r"><code>cols &lt;- c(&quot;mpg&quot;, &quot;cylinders&quot;, &quot;displacement&quot;, &quot;horsepower&quot;, &quot;weight&quot;,
+          &quot;acceleration&quot;, &quot;model_year&quot;, &quot;origin&quot;, &quot;car_name&quot;)
+auto &lt;- read.table(&quot;data/auto-mpg.data&quot;, col.names = cols, na.strings = &quot;?&quot;)
+
+summary(auto[, c(&quot;mpg&quot;, &quot;weight&quot;)])
+
+# Mean mpg within 500-lb weight bands (the heaviest band is 4500-5500 lb)
+breaks &lt;- c(1500, 2000, 2500, 3000, 3500, 4000, 4500, 5500)
+auto$band &lt;- cut(auto$weight, breaks = breaks, right = FALSE, dig.lab = 4)
+band_stats &lt;- aggregate(mpg ~ band, data = auto,
+                        FUN = function(v) c(n = length(v), mean = mean(v), sd = sd(v)))
+band_stats &lt;- do.call(data.frame, band_stats)
+names(band_stats) &lt;- c(&quot;band&quot;, &quot;n&quot;, &quot;mean_mpg&quot;, &quot;sd_mpg&quot;)
+print(band_stats, digits = 4)</code></pre>
+</details>
+<details class="esa-code" open>
+<summary>
+Python code
+</summary>
+<pre class="python"><code>import numpy as np
+import pandas as pd
+
+cols = [&quot;mpg&quot;, &quot;cylinders&quot;, &quot;displacement&quot;, &quot;horsepower&quot;, &quot;weight&quot;,
+        &quot;acceleration&quot;, &quot;model_year&quot;, &quot;origin&quot;, &quot;car_name&quot;]
+auto = pd.read_csv(&quot;data/auto-mpg.data&quot;, sep=r&quot;\s+&quot;, header=None,
+                   names=cols, na_values=&quot;?&quot;, quotechar=&#39;&quot;&#39;)
+
+print(auto[[&quot;mpg&quot;, &quot;weight&quot;]].describe().round(2))
+
+# Mean mpg within 500-lb weight bands (the heaviest band is 4500-5500 lb)
+breaks = [1500, 2000, 2500, 3000, 3500, 4000, 4500, 5500]
+auto[&quot;band&quot;] = pd.cut(auto[&quot;weight&quot;], bins=breaks, right=False)
+band_stats = (auto.groupby(&quot;band&quot;, observed=True)[&quot;mpg&quot;]
+                  .agg(n=&quot;count&quot;, mean_mpg=&quot;mean&quot;, sd_mpg=&quot;std&quot;).round(2))
+print(band_stats)</code></pre>
+<p class="esa-output-label">
+Output
+</p>
+<pre class="esa-output"><code>          mpg   weight
+count  398.00   398.00
+mean    23.51  2970.42
+std      7.82   846.84
+min      9.00  1613.00
+25%     17.50  2223.75
+50%     23.00  2803.50
+75%     29.00  3608.00
+max     46.60  5140.00
+                n  mean_mpg  sd_mpg
+band                               
+[1500, 2000)   43     33.21    4.55
+[2000, 2500)  103     29.51    6.04
+[2500, 3000)   84     24.53    4.31
+[3000, 3500)   59     19.94    4.29
+[3500, 4000)   45     17.01    3.09
+[4000, 4500)   47     14.42    1.61
+[4500, 5500)   17     12.41    1.62</code></pre>
+</details>
+</div>
+<p>The band means are:</p>
+<div class="table-wrap"><table>
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Weight band (lb)</th>
+<th>1500–2000</th>
+<th>2000–2500</th>
+<th>2500–3000</th>
+<th>3000–3500</th>
+<th>3500–4000</th>
+<th>4000–4500</th>
+<th>4500–5500</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Cars</td>
+<td>43</td>
+<td>103</td>
+<td>84</td>
+<td>59</td>
+<td>45</td>
+<td>47</td>
+<td>17</td>
+</tr>
+<tr class="even">
+<td>Mean mpg</td>
+<td>33.21</td>
+<td>29.51</td>
+<td>24.53</td>
+<td>19.94</td>
+<td>17.01</td>
+<td>14.42</td>
+<td>12.41</td>
+</tr>
+<tr class="odd">
+<td>SD of mpg</td>
+<td>4.55</td>
+<td>6.04</td>
+<td>4.31</td>
+<td>4.29</td>
+<td>3.09</td>
+<td>1.61</td>
+<td>1.62</td>
+</tr>
+</tbody>
+</table></div>
+<div class="esa-code-tabs">
+<details class="esa-code">
+<summary>
+R code
+</summary>
+<pre class="r"><code>mid &lt;- aggregate(weight ~ band, data = auto, FUN = mean)
+plot(auto$weight, auto$mpg, pch = 16, col = rgb(0, 0, 0, 0.3),
+     xlab = &quot;Weight (lb)&quot;, ylab = &quot;Fuel economy (mpg)&quot;)
+points(mid$weight, band_stats$mean_mpg, pch = 19, cex = 1.8, type = &quot;b&quot;, lwd = 2)</code></pre>
+</details>
+<details class="esa-code" open>
+<summary>
+Python code
+</summary>
+<pre class="python"><code>import matplotlib.pyplot as plt
+mid = auto.groupby(&quot;band&quot;, observed=True)[&quot;weight&quot;].mean()
+fig, ax = plt.subplots(figsize=(6, 4))
+ax.scatter(auto[&quot;weight&quot;], auto[&quot;mpg&quot;], s=12, alpha=0.3, color=&quot;black&quot;)
+ax.plot(mid.to_numpy(), band_stats[&quot;mean_mpg&quot;].to_numpy(), marker=&quot;o&quot;, markersize=9, linewidth=2)
+ax.set_xlabel(&quot;Weight (lb)&quot;)
+ax.set_ylabel(&quot;Fuel economy (mpg)&quot;)
+plt.show()</code></pre>
+<figure class="esa-figure">
+<img src="/images/courses/regression/lesson-1-1-fig1.png" alt="Fuel economy against weight (Auto MPG, n = 398). Large points: mean mpg within 500-lb weight bands, plotted at the band mean weight — a model-free estimate of E(mpg | weight)." loading="lazy" width="900">
+<figcaption>
+Fuel economy against weight (Auto MPG, n = 398). Large points: mean mpg within 500-lb weight bands, plotted at the band mean weight — a model-free estimate of E(mpg | weight).
+</figcaption>
+</figure>
+</details>
+</div>
+<h3 data-number="5.3" id="interpretation"><span class="header-section-number">5.3</span> Interpretation</h3>
+<ul>
+<li><strong>A clear statistical relationship.</strong> Mean mpg falls steadily from 33.2 in the lightest band to 12.4 in the heaviest, while cars of similar weight still differ by many mpg.</li>
+<li><strong>Close to linear, but not exactly.</strong> The drop between consecutive bands is largest in the middle (about 5 mpg per 500 lb between 2000 and 3500 lb) and smaller at the heavy end (about 2–3 mpg per 500 lb). The conditional mean is slightly <strong>curved</strong>. A straight line is a useful first approximation, and Lessons 1.3–1.6 use it; Module 3 shows how to detect and model the curvature.</li>
+<li><strong>Non-constant spread.</strong> The standard deviation of mpg within bands falls from about 4.5–6 mpg for light cars to about 1.6 mpg for the heaviest. Assumption A2 is therefore doubtful here; Lessons 1.7–1.8 show why this matters for inference and prediction intervals.</li>
+<li><strong>Association, not causation.</strong> These are observational data, and weight is strongly correlated with engine size. The relationship describes how mpg varies with weight across these cars; it does not say how much a given car’s mpg would change if weight were added to it.</li>
+</ul>
+<h2 data-number="6" id="common-misconceptions"><span class="header-section-number">6</span> Common misconceptions</h2>
+<div class="example-box esa-callout-caution">
+<p class="esa-box-title">
+<strong>Misconceptions</strong>
+</p>
+<ol type="1">
+<li><strong>“Linear regression can only fit straight lines.”</strong> — No. “Linear” means linear in the parameters; polynomials and transformed predictors are linear models.</li>
+<li><strong>“The response must be normally distributed.”</strong> — No. The normality assumption (A4), when it is needed, concerns the errors. The marginal distribution of <span class="math inline">\(y\)</span> is a mixture over the <span class="math inline">\(x\)</span> values and need not be normal. The predictor need not be normal either.</li>
+<li><strong>“A strong regression relationship shows that <span class="math inline">\(x\)</span> causes <span class="math inline">\(y\)</span>.”</strong> — Not from observational data. Causal conclusions require a design (randomisation) or additional assumptions and methods.</li>
+<li><strong>“The error and the residual are the same thing.”</strong> — No. The error <span class="math inline">\(\varepsilon_i = y_i - (\beta_0 + \beta_1 x_i)\)</span> involves the unknown true parameters; the residual <span class="math inline">\(e_i\)</span> (Lesson 1.3) uses the estimates.</li>
+</ol>
+</div>
+<h2 data-number="7" id="key-takeaways"><span class="header-section-number">7</span> Key takeaways</h2>
+<ul>
+<li>Regression models the <strong>conditional mean</strong> <span class="math inline">\(E(y \mid x)\)</span> and the scatter of <span class="math inline">\(y\)</span> around it.</li>
+<li>The conditional mean is the best predictor of <span class="math inline">\(y\)</span> under squared-error loss (Theorem 1.1.1).</li>
+<li>The simple linear regression model assumes <span class="math inline">\(E(y \mid x) = \beta_0 + \beta_1 x\)</span>; “linear” means linear in the parameters.</li>
+<li>Assumptions A1–A4 are needed for different results; computing the least-squares line needs none of them.</li>
+<li>With observational data, regression describes associations; causal interpretation needs more.</li>
+</ul>
+<h2 data-number="8" id="exercises"><span class="header-section-number">8</span> Exercises</h2>
+<h3 data-number="8.1" id="a.-conceptual"><span class="header-section-number">8.1</span> A. Conceptual</h3>
+<p><strong>A1</strong> (★). Give one example of a functional relationship and one of a statistical relationship from your own field. For the statistical one, name two factors that make <span class="math inline">\(y\)</span> vary at a fixed <span class="math inline">\(x\)</span>.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>Answers vary. Example: the area of a square as a function of its side length is functional. A patient’s systolic blood pressure as a function of age is statistical: diet, medication and genetics make blood pressure vary among patients of the same age.</p>
+</details>
+<p><strong>A2</strong> (★). Which of the following are linear regression models (in the sense of this lesson)? For any that are not, say whether a transformation makes them linear.</p>
+<ol type="i">
+<li><span class="math inline">\(y = \beta_0 + \beta_1 x + \beta_2 x^2 + \varepsilon\)</span> (ii) <span class="math inline">\(y = \beta_0 + \beta_1 \log x + \varepsilon\)</span> (iii) <span class="math inline">\(y = \beta_0 e^{\beta_1 x}\,\delta\)</span> with a positive multiplicative error <span class="math inline">\(\delta\)</span> (iv) <span class="math inline">\(y = \beta_0 + e^{\beta_1 x} + \varepsilon\)</span> (v) <span class="math inline">\(y = \beta_0 / (1 + \beta_1 x) + \varepsilon\)</span></li>
+</ol>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<ol type="i">
+<li>Linear (in <span class="math inline">\(\beta_0, \beta_1, \beta_2\)</span>). (ii) Linear. (iii) Not linear as written, but taking logs gives <span class="math inline">\(\log y = \log\beta_0 + \beta_1 x + \log\delta\)</span>, a linear model for <span class="math inline">\(\log y\)</span> with intercept <span class="math inline">\(\log\beta_0\)</span>. (iv) Not linear in <span class="math inline">\(\beta_1\)</span>, and no transformation of <span class="math inline">\(y\)</span> makes it linear because the error is additive. (v) Not linear in <span class="math inline">\(\beta_1\)</span>; with an additive error it is a nonlinear regression model.</li>
+</ol>
+</details>
+<p><strong>A3</strong> (★★). A newspaper reports: “Analysis of 398 cars shows that every extra 1000 lb of weight costs about 7.7 mpg, so manufacturers can gain 7.7 mpg by removing 1000 lb.” Identify two problems with the conclusion.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<ol type="1">
+<li>The data are observational: heavier cars also have larger engines (weight–displacement correlation 0.933), more cylinders and different designs, so the slope mixes the association of mpg with weight and with these confounded factors. Removing weight from a given car would not necessarily change mpg by the same amount. (2) The relationship is not exactly linear (band means flatten for heavy cars), so a single slope does not describe the change everywhere; and removing 1000 lb from a light car may take it outside the range of the data (extrapolation).</li>
+</ol>
+</details>
+<h3 data-number="8.2" id="b.-mathematical"><span class="header-section-number">8.2</span> B. Mathematical</h3>
+<p><strong>B1</strong> (★). Under the simple linear regression model with A1–A3, find <span class="math inline">\(E(y_i)\)</span>, <span class="math inline">\(\operatorname{Var}(y_i)\)</span> and <span class="math inline">\(\operatorname{Cov}(y_i, y_j)\)</span> for <span class="math inline">\(i \ne j\)</span>. Are the <span class="math inline">\(y_i\)</span> identically distributed?</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>Since <span class="math inline">\(\beta_0 + \beta_1 x_i\)</span> is a constant: <span class="math inline">\(E(y_i) = \beta_0 + \beta_1 x_i\)</span>, <span class="math inline">\(\operatorname{Var}(y_i) = \operatorname{Var}(\varepsilon_i) = \sigma^2\)</span>, and <span class="math inline">\(\operatorname{Cov}(y_i, y_j) = \operatorname{Cov}(\varepsilon_i, \varepsilon_j) = 0\)</span>. The <span class="math inline">\(y_i\)</span> are not identically distributed unless <span class="math inline">\(\beta_1 = 0\)</span> or all <span class="math inline">\(x_i\)</span> are equal, because their means differ.</p>
+</details>
+<p><strong>B2</strong> (★★). Let <span class="math inline">\(y = m(x) + \varepsilon\)</span> with <span class="math inline">\(m(x) = E(y \mid x)\)</span> and <span class="math inline">\(E(y^2) &lt; \infty\)</span>. Show that <span class="math inline">\(E(\varepsilon) = 0\)</span> and that <span class="math inline">\(\operatorname{Cov}(\varepsilon, g(x)) = 0\)</span> for every function <span class="math inline">\(g\)</span> with <span class="math inline">\(E[g(x)^2] &lt; \infty\)</span>. Conclude that <span class="math inline">\(\varepsilon\)</span> is uncorrelated with <span class="math inline">\(x\)</span> (when <span class="math inline">\(E(x^2) &lt; \infty\)</span>).</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p><span class="math inline">\(E(\varepsilon \mid x) = E(y \mid x) - m(x) = 0\)</span>, so <span class="math inline">\(E(\varepsilon) = E[E(\varepsilon \mid x)] = 0\)</span>. Then <span class="math inline">\(\operatorname{Cov}(\varepsilon, g(x)) = E[\varepsilon\, g(x)] = E[g(x)\, E(\varepsilon \mid x)] = 0\)</span>. Taking <span class="math inline">\(g(x) = x\)</span> gives <span class="math inline">\(\operatorname{Cov}(\varepsilon, x) = 0\)</span>. Note the converse fails: zero correlation with <span class="math inline">\(x\)</span> does not imply <span class="math inline">\(E(\varepsilon \mid x) = 0\)</span>.</p>
+</details>
+<p><strong>B3</strong> (★★★). Prove Theorem 1.1.1 in detail, stating where <span class="math inline">\(E(y^2) &lt; \infty\)</span> and <span class="math inline">\(E[g(x)^2] &lt; \infty\)</span> are used.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>The moment conditions guarantee that all expectations below are finite: <span class="math inline">\(E[(y - g(x))^2] \le 2E(y^2) + 2E[g(x)^2] &lt; \infty\)</span>, and <span class="math inline">\(E[m(x)^2] \le E(y^2)\)</span> by Jensen’s inequality for conditional expectations, so <span class="math inline">\(m(x) - g(x)\)</span> has finite second moment and, by Cauchy–Schwarz, the cross term is finite. Then expand <span class="math inline">\(E[(y - g(x))^2] = E[(y - m(x))^2] + 2E[(y - m(x))(m(x) - g(x))] + E[(m(x) - g(x))^2]\)</span>. For the cross term, condition on <span class="math inline">\(x\)</span>: <span class="math inline">\(E[(y - m(x))(m(x) - g(x)) \mid x] = (m(x) - g(x))\,E(y - m(x) \mid x) = 0\)</span>, so its expectation is zero. The last term is <span class="math inline">\(\ge 0\)</span>, with equality iff <span class="math inline">\(m(x) = g(x)\)</span> almost surely.</p>
+</details>
+<h3 data-number="8.3" id="c.-computational"><span class="header-section-number">8.3</span> C. Computational</h3>
+<p><strong>C1</strong> (★). For the Auto MPG data, compute the number of cars and the mean mpg for each number of cylinders. Interpret the result as an estimate of <span class="math inline">\(E(\text{mpg} \mid \text{cylinders})\)</span>. Which estimates are unreliable, and why?</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>In R: <code>aggregate(mpg ~ cylinders, data = auto, FUN = function(v) c(n = length(v), mean = mean(v)))</code>. In Python: <code>auto.groupby("cylinders")["mpg"].agg(["count", "mean"])</code>.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th>Cylinders</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>8</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Cars</td>
+<td>4</td>
+<td>204</td>
+<td>3</td>
+<td>84</td>
+<td>103</td>
+</tr>
+<tr class="even">
+<td>Mean mpg</td>
+<td>20.55</td>
+<td>29.29</td>
+<td>27.37</td>
+<td>19.99</td>
+<td>14.96</td>
+</tr>
+</tbody>
+</table></div>
+<p>Each mean estimates the conditional mean of mpg for cars with that number of cylinders, with no assumption about the form of the relationship. Mean mpg falls from 4 to 6 to 8 cylinders. The 3- and 5-cylinder means rest on only 4 and 3 cars and are unreliable; they should not be read as evidence that 3-cylinder cars are less economical than 4-cylinder cars.</p>
+</details>
+<p><strong>C2</strong> (★★). Simulate <span class="math inline">\(n = 200\)</span> observations from <span class="math inline">\(y_i = 46 - 7.7\,x_i + \varepsilon_i\)</span> with <span class="math inline">\(x_i \sim \text{Uniform}(1.6, 5.1)\)</span> (weight in 1000 lb) and <span class="math inline">\(\varepsilon_i \sim N(0, 4^2)\)</span>, using a fixed seed. Plot the data with the true regression line, and compute band means as in the worked example. How do the simulated band means and spreads differ from those of the real data?</p>
+<details class="esa-solution">
+<summary>
+Solution (Python)
+</summary>
+<pre class="python"><code>import numpy as np, pandas as pd
+rng = np.random.default_rng(2026)
+n = 200
+x = rng.uniform(1.6, 5.1, n)
+y = 46 - 7.7 * x + rng.normal(0, 4, n)
+bands = pd.cut(x, bins=[1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5.5], right=False)
+print(pd.DataFrame({&quot;y&quot;: y, &quot;band&quot;: bands}).groupby(&quot;band&quot;, observed=True)[&quot;y&quot;]
+        .agg([&quot;count&quot;, &quot;mean&quot;, &quot;std&quot;]).round(2))</code></pre>
+<p>In simulated data the band means lie close to the straight line <span class="math inline">\(46 - 7.7x\)</span> (up to sampling error), and the within-band standard deviations are all near 4, because the data were generated with a linear mean and constant variance. In the real data the band means flatten for heavy cars and the spread shrinks from about 6 to about 1.6 mpg: evidence of curvature and non-constant variance. (The exact simulated numbers depend on the random-number generator; in R use <code>set.seed(2026)</code> and <code>runif</code>/<code>rnorm</code>, which give different draws from Python.)</p>
+</details>
+<h2 data-number="9" id="references"><span class="header-section-number">9</span> References</h2>
+<ul>
+<li>Kutner, M. H., Nachtsheim, C. J., Neter, J., &amp; Li, W. (2005). <em>Applied Linear Statistical Models</em> (5th ed.). McGraw-Hill/Irwin. — Chapter 1, Linear Regression with One Predictor Variable (functional vs statistical relations; the model and its uses).</li>
+<li>Montgomery, D. C., Peck, E. A., &amp; Vining, G. G. (2021). <em>Introduction to Linear Regression Analysis</em> (6th ed.). Wiley. — Chapter 1, Introduction; Chapter 2, Simple Linear Regression.</li>
+<li>Weisberg, S. (2014). <em>Applied Linear Regression</em> (4th ed.). Wiley. — Chapter 1, Scatterplots and Regression (mean functions and variance functions).</li>
+<li>Documentation of the <code>Auto</code> data in the R package ISLR2 (James, Witten, Hastie &amp; Tibshirani), https://search.r-project.org/CRAN/refmans/ISLR2/html/Auto.html — variable units and origin coding.</li>
+<li>Quinlan, R. (1993). <em>Auto MPG</em> [Data set]. UCI Machine Learning Repository. https://doi.org/10.24432/C5859H</li>
+</ul>
+
+{% endraw %}
+    <div class="lesson-nav">
+      <a class="btn btn-outline" href="/courses/regression/module-1/">← Module 1 lessons</a>
+      <a class="btn" href="/courses/regression/module-1/correlation-vs-regression/">Next: Lesson 1.2 →</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .esa-course-lesson details{border:1px solid var(--border-strong,#d0d7de);border-radius:9px;padding:.4rem .9rem;margin:1rem 0}
+  .esa-course-lesson details>summary{cursor:pointer;font-weight:700}
+  .esa-course-lesson .esa-code-tabs{margin:1rem 0}
+  .esa-course-lesson .esa-code-tabs details{margin:.4rem 0}
+  .esa-course-lesson pre{max-width:100%}
+  .esa-course-lesson pre.esa-output{border-left:5px solid #0d9488}
+  .esa-course-lesson .esa-output-label{font-size:.85rem;font-weight:700;margin:.6rem 0 .2rem}
+  .esa-course-lesson .esa-figure{margin:1rem 0}
+  .esa-course-lesson .esa-figure img{max-width:100%;height:auto}
+  .esa-course-lesson .esa-figure figcaption{font-size:.9rem}
+  .esa-course-lesson mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+</style>
