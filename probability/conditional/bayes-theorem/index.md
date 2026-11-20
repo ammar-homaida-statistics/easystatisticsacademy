@@ -329,7 +329,7 @@ P(D\mid +)=\frac{P(+\mid D)\,P(D)}{P(+)}
     </p>
 
     <p>
-      For internal consistency, these three inputs imply a false-positive rate of \(P(+\mid D^{c})=(0.05-0.95\times0.01)/0.99\approx0.0409\), or about 4.09%. This is distinct from the overall 5% positive-test probability.
+      For internal consistency, these three inputs imply a false-positive rate \(P(+\mid D^{c})\) equal to \((0.05-0.95\times0.01)/0.99\), which is \(\approx0.0409\) or about 4.09%. This is distinct from the overall 5% positive-test probability.
     </p>
 
     <section class="concept-box" id="esa-bayes-lab" aria-labelledby="esa-bayes-title" style="min-width:0;overflow-wrap:anywhere">
