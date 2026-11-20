@@ -34,8 +34,13 @@ paths_styles: true
     <div class="card">
       <h3>1. Vectors and arrays</h3>
       <p>Recycling and broadcasting, indexing, missing values, and comparing decimal numbers safely.</p>
-      <p class="muted-mini">Status: In progress · 1 exercise available</p>
-      <a class="card-foot" href="/code-lab/beginner/vectors-and-arrays/recycling-and-broadcasting/">Open Exercise 1.1 →</a>
+      <ul class="bullets">
+        <li><a href="/code-lab/beginner/vectors-and-arrays/recycling-and-broadcasting/">1.1 Recycling and broadcasting</a></li>
+        <li><a href="/code-lab/beginner/vectors-and-arrays/missing-values/">1.2 Missing values</a></li>
+        <li><a href="/code-lab/beginner/vectors-and-arrays/comparing-decimals/">1.3 Comparing decimal numbers</a></li>
+      </ul>
+      <p class="muted-mini">Status: Available · 3 exercises</p>
+      <a class="card-foot" href="/code-lab/beginner/vectors-and-arrays/recycling-and-broadcasting/">Start the group →</a>
     </div>
 
     <div class="card card-muted">

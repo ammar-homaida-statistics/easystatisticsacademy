@@ -1,0 +1,210 @@
+---
+layout: default
+title: "Missing Values: Different Defaults in R, NumPy and pandas — Code Lab, Exercise 1.2"
+description: "Beginner R and Python exercise: how R, NumPy and pandas treat missing values, why their defaults differ, and how to report how many values were used."
+permalink: /code-lab/beginner/vectors-and-arrays/missing-values/
+sidebar: false
+learning_resource: true
+---
+<link rel="stylesheet" href="/css/code-lab.css?v=1" />
+
+<section class="hero hero-section">
+  <div class="hero-card">
+    <div class="badge-row">
+      <span class="badge">Code Lab</span>
+      <span class="badge">Beginner</span>
+      <span class="badge">Group 1 · Vectors and arrays</span>
+      <span class="badge">Exercise 1.2</span>
+    </div>
+    <h1>Exercise 1.2 — Missing Values: Different Defaults in R, NumPy and pandas</h1>
+    <p class="lead">The same data and the same "mean" give three different behaviours: R refuses, NumPy refuses, and pandas silently drops the missing values. Knowing which one you are using decides what you report.</p>
+    <p class="muted-mini">Difficulty: <span class="clab-stars" aria-label="1 of 3">★☆☆</span> · Time: 20 min · Prerequisites: Exercise 1.1</p>
+    <ul class="clab-chips" aria-label="Languages and skills">
+      <li class="clab-chip-r">R</li>
+      <li class="clab-chip-py">Python · NumPy · pandas</li>
+      <li>NA and NaN</li>
+      <li>missing data</li>
+    </ul>
+    <div class="hero-actions">
+      <a class="btn btn-outline" href="/code-lab/beginner/">Beginner exercises</a>
+    </div>
+  </div>
+</section>
+
+<nav class="esa-lesson-toc" aria-label="On this page"><details><summary>On this page</summary><ol>
+  <li><a href="#goal">Goal</a></li>
+  <li><a href="#predict">Predict first</a></li>
+  <li><a href="#idea">The idea</a></li>
+  <li><a href="#task">Your task</a></li>
+  <li><a href="#hints">Hints</a></li>
+  <li><a href="#solution">Solution</a></li>
+  <li><a href="#check">Check yourself</a></li>
+  <li><a href="#why">Why it matters</a></li>
+  <li><a href="#further">Going further</a></li>
+  <li><a href="#references">References</a></li>
+</ol></details></nav>
+
+<section>
+<div class="content-narrow clab">
+{% raw %}
+
+<h2 id="goal">1 Goal</h2>
+<p>By the end of this exercise you will be able to:</p>
+<ol>
+  <li>predict how R, NumPy and pandas handle a missing value in a summary statistic;</li>
+  <li>count missing values and test for them correctly (never with <code>==</code>);</li>
+  <li>compute a mean from the observed values and report how many values it uses.</li>
+</ol>
+
+<h2 id="predict">2 Predict first</h2>
+<div class="clab-box clab-box--predict">
+  <p class="clab-box-title">Before running anything: what does each line return?</p>
+  <div class="clab-tabs" data-label="Language">
+    <div class="clab-panel" data-lang="r" data-title="R">
+      <p class="clab-panel-label">R</p>
+<pre class="r"><code>x &lt;- c(12, NA, 15, 9, NA, 14)
+mean(x)
+x == NA</code></pre>
+    </div>
+    <div class="clab-panel" data-lang="py" data-title="Python">
+      <p class="clab-panel-label">Python</p>
+<pre class="python"><code>import numpy as np
+import pandas as pd
+x = np.array([12, np.nan, 15, 9, np.nan, 14])
+print(np.mean(x))
+print(pd.Series(x).mean())</code></pre>
+    </div>
+  </div>
+  <details class="clab-answer">
+    <summary>Show the answer</summary>
+    <p><strong>R</strong>: the mean of something unknown is unknown, and comparing anything with an unknown value is also unknown:</p>
+<pre class="clab-output"><code>[1] NA
+[1] NA NA NA NA NA NA</code></pre>
+    <p><strong>Python</strong>: NumPy propagates the missing value, but pandas skips it by default:</p>
+<pre class="clab-output"><code>nan
+12.5</code></pre>
+    <p>Same data, same word "mean", different defaults.</p>
+  </details>
+</div>
+
+<h2 id="idea">3 The idea</h2>
+<p><strong>R</strong> marks a missing value as <code>NA</code>. Most summaries return <code>NA</code> unless you ask for the missing values to be removed with <code>na.rm = TRUE</code>. Because <code>NA</code> means "unknown", <code>x == NA</code> is unknown too; the test for missingness is <code>is.na(x)</code>.</p>
+<p><strong>NumPy</strong> uses the floating-point value <code>nan</code> ("not a number"). Ordinary functions propagate it; the <code>nan</code>-functions (<code>np.nanmean</code>, <code>np.nansum</code>, …) ignore it. <code>nan</code> is not equal to anything, not even itself, so the test is <code>np.isnan(x)</code>.</p>
+<p><strong>pandas</strong> chooses the opposite default: most summaries use <code>skipna=True</code>, so missing values are dropped without any message.</p>
+
+<h2 id="task">4 Your task</h2>
+<div class="clab-box clab-box--task">
+  <p class="clab-box-title">Summarise a variable with missing values honestly</p>
+  <p>For the vector <code>x</code> above, compute (a) the number of missing values, (b) the mean of the observed values, and (c) the number of values that mean is based on. Do it in R, and in Python with both NumPy and pandas.</p>
+  <div class="clab-tabs" data-label="Language">
+    <div class="clab-panel" data-lang="r" data-title="R">
+      <p class="clab-panel-label">R — starter code</p>
+<pre class="r"><code>x &lt;- c(12, NA, 15, 9, NA, 14)
+
+# (a) number missing:   ...
+# (b) mean of observed: ...
+# (c) n used:           ...</code></pre>
+    </div>
+    <div class="clab-panel" data-lang="py" data-title="Python">
+      <p class="clab-panel-label">Python — starter code</p>
+<pre class="python"><code>import numpy as np
+import pandas as pd
+x = np.array([12, np.nan, 15, 9, np.nan, 14])
+s = pd.Series(x)
+
+# (a) number missing:   ...
+# (b) mean of observed: ...
+# (c) n used:           ...</code></pre>
+    </div>
+  </div>
+</div>
+
+<h2 id="hints">5 Hints</h2>
+<details class="clab-hint">
+  <summary>Hint 1</summary>
+  <p><code>is.na(x)</code> and <code>np.isnan(x)</code> return <code>TRUE</code>/<code>FALSE</code> values. What does <code>sum()</code> do with them?</p>
+</details>
+<details class="clab-hint">
+  <summary>Hint 2</summary>
+  <p>R: look at the <code>na.rm</code> argument of <code>mean()</code>. NumPy: <code>np.nanmean()</code>. pandas: <code>Series.count()</code> counts the non-missing values.</p>
+</details>
+
+<h2 id="solution">6 Solution</h2>
+<details class="clab-solution">
+  <summary>Show the solution</summary>
+  <div class="clab-tabs" data-label="Language">
+    <div class="clab-panel" data-lang="r" data-title="R">
+      <p class="clab-panel-label">R</p>
+<pre class="r"><code>x &lt;- c(12, NA, 15, 9, NA, 14)
+
+sum(is.na(x))              # (a)
+mean(x, na.rm = TRUE)      # (b)
+sum(!is.na(x))             # (c)</code></pre>
+<p class="clab-output-label">Output</p>
+<pre class="clab-output"><code>[1] 2
+[1] 12.5
+[1] 4</code></pre>
+    </div>
+    <div class="clab-panel" data-lang="py" data-title="Python">
+      <p class="clab-panel-label">Python</p>
+<pre class="python"><code>import numpy as np
+import pandas as pd
+x = np.array([12, np.nan, 15, 9, np.nan, 14])
+s = pd.Series(x)
+
+# NumPy
+print(np.isnan(x).sum())       # (a)
+print(np.nanmean(x))           # (b)
+print((~np.isnan(x)).sum())    # (c)
+
+# pandas
+print(s.isna().sum(), s.mean(), s.count())
+print(s.mean(skipna=False))    # R-like behaviour</code></pre>
+<p class="clab-output-label">Output</p>
+<pre class="clab-output"><code>2
+12.5
+4
+2 12.5 4
+nan</code></pre>
+    </div>
+  </div>
+</details>
+
+<h2 id="check">7 Check yourself</h2>
+<div class="clab-box clab-box--check">
+  <p class="clab-box-title">Your answer is correct if</p>
+  <ul>
+    <li>2 values are missing, the mean of the observed values is 12.5, and it is based on 4 values (12 + 15 + 9 + 14 = 50, and 50 / 4 = 12.5);</li>
+    <li>you never used <code>x == NA</code> or <code>x == np.nan</code> to find missing values.</li>
+  </ul>
+</div>
+
+<h2 id="why">8 Why it matters</h2>
+<div class="clab-box clab-box--ai">
+  <p class="clab-box-title">The n you report must be the n you used</p>
+  <p>A summary computed with missing values removed is a <em>complete-case</em> result: it describes only the observed values, and it can be biased if values are not missing at random. R forces you to notice the problem; pandas does not. Code translated from R to pandas (by a person or by an AI tool) can therefore change silently from "stop and think" to "drop and continue". Always report how many values each statistic is based on.</p>
+</div>
+
+<h2 id="further">9 Going further</h2>
+<ul>
+  <li><strong>R:</strong> for a data frame with two variables, compare <code>cor(df$a, df$b, use = "complete.obs")</code> with <code>use = "pairwise.complete.obs"</code> when the missing values sit in different rows.</li>
+  <li><strong>Python:</strong> run <code>np.nan == np.nan</code>. Explain the result.</li>
+  <li><strong>Both:</strong> compute the standard deviation of the observed values in R and pandas, and check that both divide by <em>n</em> − 1 (pandas <code>std()</code> does by default; NumPy <code>np.nanstd()</code> does not).</li>
+</ul>
+
+<h2 id="references">10 References</h2>
+<ul>
+  <li>R Core Team. <em>An Introduction to R</em>, Section 2.5 (missing values). https://cran.r-project.org/manuals.html</li>
+  <li>pandas documentation. <em>Working with missing data</em>. https://pandas.pydata.org/docs/user_guide/missing_data.html</li>
+  <li>Little, R. J. A., &amp; Rubin, D. B. (2019). <em>Statistical Analysis with Missing Data</em> (3rd ed.). Wiley.</li>
+</ul>
+
+{% endraw %}
+  <div class="lesson-nav">
+    <a class="btn btn-outline" href="/code-lab/beginner/vectors-and-arrays/recycling-and-broadcasting/">← Exercise 1.1: Recycling and broadcasting</a>
+    <a class="btn" href="/code-lab/beginner/vectors-and-arrays/comparing-decimals/">Exercise 1.3: Comparing decimal numbers →</a>
+  </div>
+</div>
+</section>
+
+<script src="/js/code-lab.js" defer></script>
