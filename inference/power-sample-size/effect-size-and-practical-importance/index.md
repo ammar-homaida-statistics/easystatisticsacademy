@@ -4,6 +4,8 @@ title: Effect Size and Practical Importance
 description: Learn what effect size measures, why statistical significance is not enough, and how practical importance influences statistical decision-making.
 permalink: /inference/power-sample-size/effect-size-and-practical-importance/
 sidebar: false
+learning_resource: true
+translation_pair: effect-size
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -40,6 +42,7 @@ sidebar: false
     </div>
 
     <h1>Effect Size and Practical Importance</h1>
+      <p><a href="/ar/inference/power-sample-size/effect-size-and-practical-importance/" lang="ar" dir="rtl" hreflang="ar">النسخة العربية</a></p>
 
     <p class="lead">
       Statistical significance tells us whether an effect is detectable, but it does not tell us whether that effect matters.
@@ -120,7 +123,7 @@ sidebar: false
     </p>
 
     <p>
-      Unlike p-values, effect sizes focus on practical importance rather than statistical evidence.
+      Unlike p-values, effect sizes describe magnitude rather than statistical evidence; whether a magnitude is practically important depends on the context.
     </p>
 
     <h2>Why Effect Size Matters</h2>
@@ -162,7 +165,7 @@ sidebar: false
         <tbody>
 
           <tr>
-            <td>Does an effect exist?</td>
+            <td>Is there evidence of an effect?</td>
             <td>Yes</td>
             <td>No</td>
           </tr>
@@ -174,9 +177,9 @@ sidebar: false
           </tr>
 
           <tr>
-            <td>Depends strongly on sample size?</td>
+            <td>Changes systematically with sample size?</td>
             <td>Yes</td>
-            <td>No</td>
+            <td>No (but its precision does)</td>
           </tr>
 
         </tbody>
@@ -260,8 +263,14 @@ sidebar: false
 
 
     <p>
-      Cohen's d measures the size of a mean difference relative to variability.
+      Cohen's d measures the size of a mean difference relative to variability, where \(s_{\mathrm{pooled}}^2=\frac{(n_1-1)s_1^2+(n_2-1)s_2^2}{n_1+n_2-2}\).
     </p>
+
+    <div class="example-box">
+      <p>
+        <strong>Worked example.</strong> Group 1: \(\bar x_1=78\), \(s_1=10\), \(n_1=25\). Group 2: \(\bar x_2=72\), \(s_2=12\), \(n_2=25\). Then \(s_{\mathrm{pooled}}=\sqrt{122}\approx11.045\) and \(d=6/11.045\approx0.543\), a "medium" effect by the rough convention below. Yet the pooled two-sample t test gives \(t\approx1.921\) with 48 df and \(p\approx0.061\): this study cannot distinguish a medium effect from zero at α = 0.05. In small samples d is biased upward; the corrected Hedges' g is about \(0.535\).
+      </p>
+    </div>
 
     <h2>Interpreting Cohen's d</h2>
 

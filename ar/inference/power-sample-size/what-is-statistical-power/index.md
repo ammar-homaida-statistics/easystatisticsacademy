@@ -92,7 +92,7 @@ translation_pair: what-is-statistical-power
 </ul></div>
 <div class="lesson-nav">
 <a class="btn btn-outline" href="/inference/power-sample-size/" hreflang="en">→ صفحة الوحدة (بالإنجليزية)</a>
-<a class="btn" href="/inference/power-sample-size/effect-size-and-practical-importance/" hreflang="en">التالي: حجم الأثر والأهمية العملية (بالإنجليزية) ←</a>
+<a class="btn" href="/ar/inference/power-sample-size/effect-size-and-practical-importance/">التالي: حجم الأثر والأهمية العملية ←</a>
 </div>
 </div></section>
 <style>

@@ -1422,3 +1422,17 @@ main .esa-lesson-anchor{scroll-margin-top: 120px}
 .esa-self-check .esa-check-feedback[data-state="incorrect"]{
   color:var(--text);
 }
+
+/* Batch #99: display formulas never widen the page on narrow screens.
+   A display formula wider than its column scrolls horizontally inside its own
+   box instead of overflowing the viewport. The print rule above still applies
+   when printing. */
+@media screen{
+  mjx-container[display="true"]{
+    display:block;
+    max-width:100%;
+    overflow-x:auto;
+    overflow-y:hidden;
+    padding:2px 0;
+  }
+}

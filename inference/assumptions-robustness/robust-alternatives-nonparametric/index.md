@@ -295,6 +295,54 @@ sidebar: false
       This method is useful when assumptions underlying the paired t-test are questionable.
     </p>
 
+    <!-- Batch #99: Mann–Whitney U and Wilcoxon signed-rank laboratory -->
+    <section class="concept-box" id="esa-rt-lab" aria-labelledby="esa-rt-heading">
+      <h3 id="esa-rt-heading">Interactive rank-test laboratory: Mann–Whitney and Wilcoxon</h3>
+      <p>For two independent samples, the <strong>Mann–Whitney</strong> statistic is \(U_1=R_1-n_1(n_1+1)/2\), where \(R_1\) is the rank sum of sample 1 in the pooled data. For paired data, the <strong>Wilcoxon signed-rank</strong> statistic \(T^+\) is the sum of the ranks of \(|d_i|\) over the positive differences \(d_i=x_i-y_i\); zero differences are dropped.</p>
+      <div class="esa-rt-math" dir="ltr" tabindex="0" role="region" aria-label="Normal approximations for the rank tests">
+      \[
+      z_U=\frac{U_1-\tfrac{n_1n_2}{2}\mp\tfrac12}{\sqrt{\tfrac{n_1n_2}{12}\left[(N+1)-\tfrac{\sum(t^3-t)}{N(N-1)}\right]}},\qquad
+      z_T=\frac{T^+-\tfrac{n(n+1)}{4}}{\sqrt{\tfrac{n(n+1)(2n+1)-\sum(t^3-t)/2}{24}}}.
+      \]
+      </div>
+      <p>Exact p-values are computed from the exact null distributions when there are no ties (and, for Wilcoxon, no zero differences). The conventions match SciPy's <code>mannwhitneyu</code> (with continuity correction) and <code>wilcoxon</code> (without it).</p>
+      <div class="esa-rt-grid">
+        <label for="esa-rt-test">Test<select id="esa-rt-test"><option value="mann-whitney" selected>Mann–Whitney U (independent samples)</option><option value="wilcoxon">Wilcoxon signed-rank (paired samples)</option></select></label>
+        <label for="esa-rt-side">Alternative<select id="esa-rt-side"><option value="two-sided" selected>Two-sided</option><option value="greater">Sample 1 tends to be larger</option><option value="less">Sample 1 tends to be smaller</option></select></label>
+      </div>
+      <label for="esa-rt-x">Sample 1 (comma-separated)</label>
+      <textarea id="esa-rt-x" dir="ltr" rows="2" spellcheck="false" aria-invalid="false" aria-describedby="esa-rt-error">12.1, 14.3, 11.8, 15.2, 13.9, 12.7</textarea>
+      <label for="esa-rt-y">Sample 2 (comma-separated)</label>
+      <textarea id="esa-rt-y" dir="ltr" rows="2" spellcheck="false" aria-invalid="false" aria-describedby="esa-rt-error">15.8, 16.4, 14.9, 17.2, 18.1</textarea>
+      <div class="esa-rt-controls"><button class="btn btn-outline" type="button" id="esa-rt-mw">Mann–Whitney example</button><button class="btn btn-outline" type="button" id="esa-rt-wx">Paired example</button><button class="btn btn-outline" type="button" id="esa-rt-ties">Example with ties</button></div>
+      <p id="esa-rt-error" role="alert" hidden></p>
+      <section id="esa-rt-results" aria-label="Rank test results" role="status" aria-live="polite" aria-atomic="true">
+        <div class="table-wrap"><table><caption>Rank test results</caption><tbody id="esa-rt-body">
+          <tr id="esa-rt-row-mw"><th scope="row">U₁ · U₂ · Hodges–Lehmann shift</th><td dir="ltr"><output id="esa-rt-u1">1</output> · <output id="esa-rt-u2">29</output> · <output id="esa-rt-hl">-3.1000</output></td></tr>
+          <tr id="esa-rt-row-wx" hidden><th scope="row">n (non-zero) · zeros dropped · T⁺ · T⁻</th><td dir="ltr"><output id="esa-rt-n">—</output> · <output id="esa-rt-zeros">—</output> · <output id="esa-rt-tplus">—</output> · <output id="esa-rt-tminus">—</output></td></tr>
+          <tr><th scope="row">Normal approximation z</th><td><output id="esa-rt-z" dir="ltr">-2.4648</output></td></tr>
+          <tr><th scope="row">p-value, normal approximation</th><td><output id="esa-rt-papprox" dir="ltr">0.013711</output></td></tr>
+          <tr><th scope="row">p-value, exact</th><td><output id="esa-rt-pexact" dir="ltr">0.008658</output></td></tr>
+          <tr><th scope="row">Rank-biserial correlation r</th><td><output id="esa-rt-r" dir="ltr">-0.9333</output></td></tr>
+        </tbody></table></div>
+        <p id="esa-rt-note"></p>
+      </section>
+      <p class="muted-mini">The rank-biserial correlation ranges from −1 to 1; for Mann–Whitney, \(r=2U_1/(n_1n_2)-1\) is the probability that a value from sample 1 exceeds one from sample 2 minus the reverse probability. The Hodges–Lehmann shift is the median of all pairwise differences \(x_i-y_j\). A significant Mann–Whitney test shows that one distribution tends to give larger values; it is a test of medians only if the two distributions have the same shape.</p>
+    </section>
+    <style>
+    #esa-rt-lab,#esa-rt-lab *{box-sizing:border-box}
+    #esa-rt-lab{max-width:100%;min-width:0;overflow-wrap:anywhere}
+    #esa-rt-lab label{display:block;font-weight:650;margin:10px 0 5px}
+    #esa-rt-lab :is(textarea,select){display:block;width:100%;min-width:0;font:inherit;padding:8px;border:1px solid #777;border-radius:6px}
+    #esa-rt-lab .esa-rt-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:8px}
+    #esa-rt-lab .esa-rt-controls{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+    #esa-rt-lab .table-wrap,.esa-rt-math{max-width:100%;overflow-x:auto}
+    .esa-rt-math{direction:ltr}
+    #esa-rt-lab [hidden]{display:none!important}
+    #esa-rt-lab :is(textarea,select,button):focus-visible,.esa-rt-math:focus-visible{outline:2px solid #0f766e;outline-offset:3px}
+    </style>
+    <script defer src="/js/rank-tests-lab.js"></script>
+
     <h2>The Kruskal–Wallis Test</h2>
 
     <p>

@@ -1,10 +1,16 @@
 /* Batch #70: Two independent proportions, pooled equality-null Z and unpooled Wald CI. */
 (function(){
 "use strict";
+// Batch #99: accurate erfc for x >= 0 (Taylor series below 2.5, Lentz continued
+// fraction above), replacing the 5-term approximation (absolute error ~1.4e-7).
 function erfcPositive(x){
- const t=1/(1+0.3275911*x);
- return t*(0.254829592+t*(-0.284496736+
- t*(1.421413741+t*(-1.453152027+t*1.061405429))))*Math.exp(-x*x);
+ if(x<2.5){let sum=x,term=x;const x2=x*x;
+  for(let n=1;n<200;n++){term*=-x2/n;const add=term/(2*n+1);sum+=add;if(Math.abs(add)<1e-17*Math.abs(sum))break;}
+  return 1-2/Math.sqrt(Math.PI)*sum;}
+ const TINY=1e-300;let f=x,C=x,D=0;
+ for(let n=1;n<500;n++){const a=n/2;D=x+a*D;if(Math.abs(D)<TINY)D=TINY;C=x+a/C;if(Math.abs(C)<TINY)C=TINY;
+  D=1/D;const delta=C*D;f*=delta;if(Math.abs(delta-1)<1e-16)break;}
+ return Math.exp(-x*x)/Math.sqrt(Math.PI)/f;
 }
 function tail(z){return z>=0?0.5*erfcPositive(z/Math.SQRT2):1-0.5*erfcPositive(-z/Math.SQRT2)}
 function compute(x1,n1,x2,n2,side="two-sided"){
@@ -16,9 +22,10 @@ function compute(x1,n1,x2,n2,side="two-sided"){
  const seCI=Math.sqrt(p1*(1-p1)/n1+p2*(1-p2)/n2);
  const adequate=[n1*pooled,n1*(1-pooled),n2*pooled,n2*(1-pooled)].every(v=>v>=10);
  if(pooledSE===0)return {degenerate:true,p1,p2,pooled,adequate,diff};
- const z=diff/pooledSE,upper=tail(z);
- const p=side==="two-sided"?Math.min(1,2*Math.min(upper,1-upper)):
-   side==="greater"?upper:1-upper;
+ // Both tails directly, so small tail probabilities keep relative accuracy.
+ const z=diff/pooledSE,upper=tail(z),lowerTail=tail(-z);
+ const p=side==="two-sided"?Math.min(1,2*Math.min(upper,lowerTail)):
+   side==="greater"?upper:lowerTail;
  const z975=1.959963984540054,lower=diff-z975*seCI,upperCI=diff+z975*seCI;
  return {p1,p2,diff,pooled,pooledSE,seCI,z,p,
    lower,upperCI,adequate,side,degenerate:false};

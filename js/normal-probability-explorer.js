@@ -6,11 +6,18 @@
       const arabic=document.documentElement.lang==="ar";
       const el=id=>root.querySelector("#esa-normal-"+id);
       const inputs=["mu","sigma","a","b"].map(el),mode=el("mode");
-      const erfcPos=x=>{
-        const t=1/(1+0.3275911*x);
-        return t*(0.254829592+t*(-0.284496736+
-          t*(1.421413741+t*(-1.453152027+t*1.061405429))))*Math.exp(-x*x);
-      };
+      // Batch #99: accurate erfc for x >= 0 (Taylor series below 2.5, Lentz continued
+      // fraction above), replacing the 5-term approximation (absolute error ~1.4e-7).
+      function erfcPositive(x){
+       if(x<2.5){let sum=x,term=x;const x2=x*x;
+        for(let n=1;n<200;n++){term*=-x2/n;const add=term/(2*n+1);sum+=add;if(Math.abs(add)<1e-17*Math.abs(sum))break;}
+        return 1-2/Math.sqrt(Math.PI)*sum;}
+       const TINY=1e-300;let f=x,C=x,D=0;
+       for(let n=1;n<500;n++){const a=n/2;D=x+a*D;if(Math.abs(D)<TINY)D=TINY;C=x+a/C;if(Math.abs(C)<TINY)C=TINY;
+        D=1/D;const delta=C*D;f*=delta;if(Math.abs(delta-1)<1e-16)break;}
+       return Math.exp(-x*x)/Math.sqrt(Math.PI)/f;
+      }
+      const erfcPos=erfcPositive;
       const cdf=z=>z<0?0.5*erfcPos(-z/Math.SQRT2):1-0.5*erfcPos(z/Math.SQRT2);
       const survival=z=>z>=0?0.5*erfcPos(z/Math.SQRT2):1-0.5*erfcPos(-z/Math.SQRT2);
       window.esaNormalMath={cdf,survival};
