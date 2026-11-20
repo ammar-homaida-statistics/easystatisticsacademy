@@ -79,7 +79,7 @@ paths_styles: true
     <div class="card">
       <h3>Module 1: Foundations</h3>
       <p>Simple linear regression, ordinary least squares, inference, and confidence and prediction intervals.</p>
-      <p class="muted-mini">Status: In progress · 2 of 9 lessons available</p>
+      <p class="muted-mini">Status: In progress · 3 of 9 lessons available</p>
       <a class="card-foot" href="/courses/regression/module-1/">Open Module 1 →</a>
     </div>
 

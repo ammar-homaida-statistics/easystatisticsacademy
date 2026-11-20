@@ -38,10 +38,11 @@ paths_styles: true
       <a class="card-foot" href="/courses/regression/module-1/what-is-regression/">Open lesson →</a>
     </div>
 
-    <div class="card card-muted">
+    <div class="card">
       <h3>1.2 Correlation versus Regression</h3>
       <p>The correlation coefficient, its link to the slope, the asymmetry of regression, and regression toward the mean.</p>
-      <p class="muted-mini">Status: In preparation</p>
+      <p class="muted-mini">Status: Available</p>
+      <a class="card-foot" href="/courses/regression/module-1/correlation-vs-regression/">Open lesson →</a>
     </div>
 
     <div class="card">
