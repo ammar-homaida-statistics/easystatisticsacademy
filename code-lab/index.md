@@ -98,6 +98,11 @@ paths_styles: true
       <p>R (4.3 or later) and/or Python (3.11 or later) with NumPy and pandas. RStudio, Positron, VS Code or Jupyter all work.</p>
     </div>
     <div class="card card-muted">
+      <h3>Want a step-by-step guide?</h3>
+      <p>The Software section explains each tool in detail, like a book: SPSS, R, Python and Excel workflows from start to finish. Code Lab is the practice room: short exercises you solve yourself.</p>
+      <a class="card-foot" href="/software/">Go to Software →</a>
+    </div>
+    <div class="card card-muted">
       <h3>Looking for theory?</h3>
       <p>Courses develop methods with derivations. Code Lab trains the programming that puts them into practice.</p>
       <a class="card-foot" href="/courses/">Go to Courses →</a>
