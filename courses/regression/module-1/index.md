@@ -73,22 +73,25 @@ paths_styles: true
       <a class="card-foot" href="/courses/regression/module-1/goodness-of-fit/">Open lesson →</a>
     </div>
 
-    <div class="card card-muted">
-      <h3>1.7 Inference for the Parameters</h3>
+    <div class="card">
+      <h3>1.7 Inference for the Regression Parameters</h3>
       <p>t-tests, confidence intervals, the ANOVA table, and F = t².</p>
-      <p class="muted-mini">Status: In preparation</p>
+      <p class="muted-mini">Status: Available</p>
+      <a class="card-foot" href="/courses/regression/module-1/inference/">Open lesson →</a>
     </div>
 
-    <div class="card card-muted">
-      <h3>1.8 Confidence and Prediction Intervals</h3>
+    <div class="card">
+      <h3>1.8 Confidence Intervals for the Mean Response and Prediction Intervals</h3>
       <p>Intervals for the mean response and for a new observation, and why assumptions matter.</p>
-      <p class="muted-mini">Status: In preparation</p>
+      <p class="muted-mini">Status: Available</p>
+      <a class="card-foot" href="/courses/regression/module-1/confidence-and-prediction-intervals/">Open lesson →</a>
     </div>
 
-    <div class="card card-muted">
+    <div class="card">
       <h3>1.9 Case Study</h3>
       <p>A complete simple regression analysis of the Auto MPG data in R and Python.</p>
-      <p class="muted-mini">Status: In preparation</p>
+      <p class="muted-mini">Status: Available</p>
+      <a class="card-foot" href="/courses/regression/module-1/case-study/">Open lesson →</a>
     </div>
 
   </div>

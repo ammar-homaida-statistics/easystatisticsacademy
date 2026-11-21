@@ -23,7 +23,7 @@ def section():
 class Showcase(unittest.TestCase):
     def test_every_link_is_a_published_page(self):
         links=re.findall(r'href="(/[^"#?]*)"',section());pages=permalinks()
-        self.assertEqual(len(links),15)  # 3 + 3 actions, 6 regression lessons + 3 Code Lab exercises
+        self.assertEqual(len(links),18)  # 3 + 3 actions, 9 regression lessons + 3 Code Lab exercises
         for url in links:
             with self.subTest(url=url):self.assertIn(url,pages)
 
@@ -48,7 +48,10 @@ class Showcase(unittest.TestCase):
                            ("courses/regression/module-1/ordinary-least-squares","Ordinary Least Squares Estimation"),
                            ("courses/regression/module-1/ols-properties","Statistical Properties of the OLS Estimators"),
                            ("courses/regression/module-1/interpreting-coefficients","Interpreting the Coefficients"),
-                           ("courses/regression/module-1/goodness-of-fit","Goodness of Fit")):
+                           ("courses/regression/module-1/goodness-of-fit","Goodness of Fit"),
+                           ("courses/regression/module-1/inference","Inference for the Regression Parameters"),
+                           ("courses/regression/module-1/confidence-and-prediction-intervals","Confidence Intervals for the Mean Response and Prediction Intervals"),
+                           ("courses/regression/module-1/case-study","Case Study")):
             self.assertIn(title,(ROOT/path/"index.html").read_text(encoding="utf-8"));self.assertIn(title,s)
         self.assertIn("Regression Analysis: From Foundations to Mastery",(ROOT/"courses/regression/index.md").read_text(encoding="utf-8"))
 

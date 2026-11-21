@@ -1,0 +1,539 @@
+---
+layout: default
+title: "Confidence Intervals for the Mean Response and Prediction Intervals — Regression Course, Lesson 1.8"
+description: "University-level lesson: confidence intervals for the mean response versus prediction intervals for a new observation, simultaneous bands, the role of normality, and checking coverage, with R and Python."
+permalink: /courses/regression/module-1/confidence-and-prediction-intervals/
+sidebar: false
+math: true
+learning_resource: true
+---
+
+<section class="hero hero-section">
+  <div class="hero-card">
+    <div class="badge-row">
+      <span class="badge">Course</span>
+      <span class="badge">Regression Analysis</span>
+      <span class="badge">Module 1 · Foundations</span>
+      <span class="badge">Lesson 1.8</span>
+    </div>
+    <h1>Lesson 1.8 — Confidence Intervals for the Mean Response and Prediction Intervals</h1>
+    <p class="lead">The average fuel economy of all 3000-lb cars and the fuel economy of the next 3000-lb car are different questions. This lesson builds the two intervals and shows exactly where they differ.</p>
+    <p class="muted-mini">Level: Intermediate · Study time: 50 min + exercises · Prerequisites: Lessons 1.4 and 1.7 · Data: the teaching data set of Lesson 1.7 and Auto MPG (UCI, CC BY 4.0)</p>
+    <div class="hero-actions">
+      <a class="btn btn-outline" href="/courses/regression/module-1/">Module 1 lessons</a>
+      <a class="btn btn-outline" href="/courses/regression/code/lesson-1-8.py">Python script</a>
+      <a class="btn btn-outline" href="/courses/regression/code/lesson-1-8.R">R script</a>
+    </div>
+  </div>
+</section>
+
+<nav class="esa-lesson-toc" aria-label="On this page"><details><summary>On this page</summary><ol><li><a href="#learning-objectives">Learning objectives</a></li><li><a href="#motivation">Motivation</a></li><li><a href="#notation-for-this-lesson">Notation for this lesson</a></li><li><a href="#theory">Theory</a></li><li><a href="#worked-example-1-the-teaching-data-set">Worked example 1: the teaching data set</a></li><li><a href="#worked-example-2-auto-mpg">Worked example 2: Auto MPG</a></li><li><a href="#common-misconceptions">Common misconceptions</a></li><li><a href="#key-takeaways">Key takeaways</a></li><li><a href="#exercises">Exercises</a></li><li><a href="#references">References</a></li></ol></details></nav>
+
+<section>
+  <div class="content-narrow esa-course-lesson">
+{% raw %}
+<h2 class="esa-lesson-anchor" data-number="1" id="learning-objectives"><span class="header-section-number">1</span> Learning objectives</h2>
+<p>By the end of this lesson you will be able to:</p>
+<ol type="1">
+<li>distinguish estimating the <strong>mean response</strong> <span class="math inline">\(E(y \mid x_0)\)</span> from predicting a <strong>new observation</strong> <span class="math inline">\(y_0\)</span>;</li>
+<li>derive the variances of <span class="math inline">\(\hat y_0\)</span> and of the prediction error <span class="math inline">\(y_0 - \hat y_0\)</span>, and the resulting confidence and prediction intervals;</li>
+<li>explain why both intervals widen away from <span class="math inline">\(\bar x\)</span>, and why a prediction interval never shrinks to zero width;</li>
+<li>distinguish pointwise intervals from simultaneous bands (Working–Hotelling);</li>
+<li>explain why prediction intervals depend on normality much more than confidence intervals, and check intervals against data.</li>
+</ol>
+<h2 class="esa-lesson-anchor" data-number="2" id="motivation"><span class="header-section-number">2</span> Motivation</h2>
+<p>Two questions about a 3000-lb car sound alike but are very different:</p>
+<ul>
+<li><em>What is the average fuel economy of all 3000-lb cars?</em> — a question about <span class="math inline">\(E(y \mid x_0)\)</span>.</li>
+<li><em>What will be the fuel economy of the next 3000-lb car we test?</em> — a question about one new value <span class="math inline">\(y_0\)</span>.</li>
+</ul>
+<p>The first can be answered more and more precisely as data accumulate. The second cannot: even if we knew the regression line exactly, individual cars would still scatter around it. This lesson builds the two intervals, shows exactly where the difference comes from, and checks how well they work on real data.</p>
+<h2 class="esa-lesson-anchor" data-number="3" id="notation-for-this-lesson"><span class="header-section-number">3</span> Notation for this lesson</h2>
+<div class="table-wrap"><table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(x_0\)</span></td>
+<td>a given value of the predictor</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\mu_0 = E(y \mid x_0) = \beta_0 + \beta_1 x_0\)</span></td>
+<td>mean response at <span class="math inline">\(x_0\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\hat y_0 = \hat\beta_0 + \hat\beta_1 x_0\)</span></td>
+<td>estimate of <span class="math inline">\(\mu_0\)</span>, and point prediction of <span class="math inline">\(y_0\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(y_0 = \mu_0 + \varepsilon_0\)</span></td>
+<td>a new observation at <span class="math inline">\(x_0\)</span>, with <span class="math inline">\(\varepsilon_0\)</span> independent of the sample</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(h_0 = \dfrac{1}{n} + \dfrac{(x_0 - \bar x)^2}{S_{xx}}\)</span></td>
+<td>the factor that controls the precision of <span class="math inline">\(\hat y_0\)</span></td>
+</tr>
+</tbody>
+</table></div>
+<p>All notation follows the course notation standard.</p>
+<h2 class="esa-lesson-anchor" data-number="4" id="theory"><span class="header-section-number">4</span> Theory</h2>
+<p>Throughout, assumptions A1–A4 hold, and the new error <span class="math inline">\(\varepsilon_0 \sim N(0, \sigma^2)\)</span> is independent of <span class="math inline">\(\varepsilon_1, \dots, \varepsilon_n\)</span>.</p>
+<h3 data-number="4.1" id="estimating-the-mean-response"><span class="header-section-number">4.1</span> Estimating the mean response</h3>
+<div class="concept-box esa-callout-important">
+<p class="esa-box-title">
+<strong>Theorem 1.8.1 (Confidence interval for the mean response)</strong>
+</p>
+<p><span class="math inline">\(\hat y_0\)</span> is unbiased for <span class="math inline">\(\mu_0\)</span> with <span class="math inline">\(\operatorname{Var}(\hat y_0) = \sigma^2 h_0\)</span>, and <span class="math display">\[
+\frac{\hat y_0 - \mu_0}{\hat\sigma\sqrt{h_0}} \sim t_{n-2}.
+\]</span> A <span class="math inline">\(100(1-\alpha)\%\)</span> confidence interval for <span class="math inline">\(\mu_0\)</span> is <span class="math display">\[
+\hat y_0 \ \pm\ t_{n-2;\,1-\alpha/2}\ \hat\sigma\sqrt{\frac{1}{n} + \frac{(x_0 - \bar x)^2}{S_{xx}}}\, .
+\]</span></p>
+</div>
+<details class="esa-derivation">
+<summary>
+Derivation
+</summary>
+<p><span class="math inline">\(\hat y_0 = \bar y + \hat\beta_1(x_0 - \bar x)\)</span>, so <span class="math inline">\(E(\hat y_0) = \beta_0 + \beta_1\bar x + \beta_1(x_0 - \bar x) = \mu_0\)</span>. Because <span class="math inline">\(\operatorname{Cov}(\bar y, \hat\beta_1) = 0\)</span> (Lesson 1.4), <span class="math inline">\(\operatorname{Var}(\hat y_0) = \sigma^2/n + (x_0 - \bar x)^2\sigma^2/S_{xx} = \sigma^2 h_0\)</span>. Under A4, <span class="math inline">\(\hat y_0\)</span> is normal and is a function of <span class="math inline">\((\hat\beta_0, \hat\beta_1)\)</span>, hence independent of <span class="math inline">\(\mathrm{SSE}\)</span> (Theorem 1.7.1). The pivot is therefore a standard normal over an independent <span class="math inline">\(\sqrt{\chi^2_{n-2}/(n-2)}\)</span>: <span class="math inline">\(t_{n-2}\)</span>.</p>
+</details>
+<h3 data-number="4.2" id="predicting-a-new-observation"><span class="header-section-number">4.2</span> Predicting a new observation</h3>
+<div class="concept-box esa-callout-important">
+<p class="esa-box-title">
+<strong>Theorem 1.8.2 (Prediction interval)</strong>
+</p>
+<p>The prediction error <span class="math inline">\(y_0 - \hat y_0\)</span> has mean 0 and variance <span class="math inline">\(\sigma^2(1 + h_0)\)</span>, and <span class="math display">\[
+\frac{y_0 - \hat y_0}{\hat\sigma\sqrt{1 + h_0}} \sim t_{n-2}.
+\]</span> A <span class="math inline">\(100(1-\alpha)\%\)</span> prediction interval for <span class="math inline">\(y_0\)</span> is <span class="math display">\[
+\hat y_0 \ \pm\ t_{n-2;\,1-\alpha/2}\ \hat\sigma\sqrt{1 + \frac{1}{n} + \frac{(x_0 - \bar x)^2}{S_{xx}}}\, .
+\]</span></p>
+</div>
+<details class="esa-derivation">
+<summary>
+Derivation
+</summary>
+<p><span class="math inline">\(y_0 - \hat y_0 = (\mu_0 - \hat y_0) + \varepsilon_0\)</span>. The two terms are independent, because <span class="math inline">\(\hat y_0\)</span> depends only on <span class="math inline">\(\varepsilon_1, \dots, \varepsilon_n\)</span>. Hence <span class="math inline">\(E(y_0 - \hat y_0) = 0\)</span> and <span class="math inline">\(\operatorname{Var}(y_0 - \hat y_0) = \sigma^2 h_0 + \sigma^2\)</span>. Under A4 the error is normal; it is independent of <span class="math inline">\(\mathrm{SSE}\)</span> (which depends only on the sample residuals and is independent of <span class="math inline">\(\hat y_0\)</span>, and <span class="math inline">\(\varepsilon_0\)</span> is independent of the whole sample). The pivot is therefore <span class="math inline">\(t_{n-2}\)</span>.</p>
+</details>
+<h3 data-number="4.3" id="comparing-the-two-intervals"><span class="header-section-number">4.3</span> Comparing the two intervals</h3>
+<p>The only difference is the “1 +” under the square root. It is the variance of the new error <span class="math inline">\(\varepsilon_0\)</span>, which no amount of data can remove.</p>
+<ul>
+<li><strong>Width and <span class="math inline">\(n\)</span>.</strong> As <span class="math inline">\(n \to \infty\)</span> with the design spreading out, <span class="math inline">\(h_0 \to 0\)</span>: the confidence interval shrinks to the point <span class="math inline">\(\mu_0\)</span>, but the prediction interval approaches <span class="math inline">\(\mu_0 \pm z_{1-\alpha/2}\,\sigma\)</span> — about <span class="math inline">\(\pm 1.96\sigma\)</span> for 95%.</li>
+<li><strong>Width and <span class="math inline">\(x_0\)</span>.</strong> Both intervals are narrowest at <span class="math inline">\(x_0 = \bar x\)</span> and widen as <span class="math inline">\(x_0\)</span> moves away from it, because the uncertainty in the slope is multiplied by <span class="math inline">\((x_0 - \bar x)\)</span>. For the confidence interval this effect is proportionally large; for the prediction interval it is usually small within the data range.</li>
+<li><strong>Extrapolation.</strong> Outside the observed <span class="math inline">\(x\)</span> range the formulas still give a number, but they assume the straight line continues — something the data cannot confirm (Lesson 1.5).</li>
+</ul>
+<h3 data-number="4.4" id="pointwise-intervals-and-simultaneous-bands"><span class="header-section-number">4.4</span> Pointwise intervals and simultaneous bands</h3>
+<p>Each interval above has 95% coverage <strong>at one chosen <span class="math inline">\(x_0\)</span></strong>. Drawing the intervals at every <span class="math inline">\(x\)</span> produces a band, but the probability that the true line lies inside the whole band is less than 95%. The <strong>Working–Hotelling</strong> band <span class="math display">\[
+\hat y(x) \ \pm\ \sqrt{2F_{2,\,n-2;\,1-\alpha}}\ \hat\sigma\sqrt{h(x)} \qquad \text{for all } x
+\]</span> contains the entire true regression line with probability <span class="math inline">\(1-\alpha\)</span>. It has the same shape as the pointwise confidence band, but uses a larger multiplier (for <span class="math inline">\(n = 398\)</span> and 95%: 2.457 instead of 1.966). For a small number <span class="math inline">\(k\)</span> of pre-specified points, a Bonferroni correction (<span class="math inline">\(t_{n-2;\,1-\alpha/(2k)}\)</span>) is often narrower.</p>
+<h3 data-number="4.5" id="the-role-of-normality"><span class="header-section-number">4.5</span> The role of normality</h3>
+<p>The confidence interval for <span class="math inline">\(\mu_0\)</span> relies on the distribution of <span class="math inline">\(\hat y_0\)</span>, an <strong>average</strong> of the <span class="math inline">\(y_i\)</span>: by the central limit theorem it is approximately normal in large samples whatever the error distribution. The prediction interval relies on the distribution of the <strong>single</strong> new error <span class="math inline">\(\varepsilon_0\)</span>, and no averaging helps. If the errors are skewed, a symmetric prediction interval will miss mostly on one side, however large <span class="math inline">\(n\)</span> is (Exercise C2).</p>
+<h2 class="esa-lesson-anchor" data-number="5" id="worked-example-1-the-teaching-data-set"><span class="header-section-number">5</span> Worked example 1: the teaching data set</h2>
+<p>We use the teaching data of Lesson 1.7 (<span class="math inline">\(n = 25\)</span>; true model <span class="math inline">\(y = 46 - 7.7x + \varepsilon\)</span>, <span class="math inline">\(\sigma = 4\)</span>), at <span class="math inline">\(x_0 = 3.0\)</span> and <span class="math inline">\(x_0 = 5.0\)</span>.</p>
+<div class="esa-code-tabs">
+<details class="esa-code">
+<summary>
+R code
+</summary>
+<pre class="r"><code>x &lt;- c(2.226, 3.84, 3.235, 2.897, 2.842, 4.367, 4.768, 2.221, 3.885, 2.644, 4.984, 4.819, 3.826,
+       4.235, 3.403, 4.491, 3.169, 2.786, 2.573, 2.392, 3.44, 3.108, 3.921, 1.645, 3.167)
+y &lt;- c(36.16, 13.58, 26.48, 18.77, 24.81, 7.7, 14.69, 32.24, 20.64, 22.1, 10.36, 6.81, 14.71,
+       15.42, 23.3, 12.24, 19.08, 21.25, 31.97, 29.96, 22.39, 30.8, 12.54, 43.57, 34.22)
+fit &lt;- lm(y ~ x)
+new &lt;- data.frame(x = c(3.0, 5.0))
+predict(fit, new, interval = &quot;confidence&quot;, level = 0.95)
+predict(fit, new, interval = &quot;prediction&quot;, level = 0.95)
+c(true_mean_at_3 = 46 - 7.7 * 3, true_mean_at_5 = 46 - 7.7 * 5)</code></pre>
+</details>
+<details class="esa-code" open>
+<summary>
+Python code
+</summary>
+<pre class="python"><code>import numpy as np
+from scipy import stats
+
+x = np.array([2.226, 3.84, 3.235, 2.897, 2.842, 4.367, 4.768, 2.221, 3.885, 2.644, 4.984, 4.819, 3.826,
+              4.235, 3.403, 4.491, 3.169, 2.786, 2.573, 2.392, 3.44, 3.108, 3.921, 1.645, 3.167])
+y = np.array([36.16, 13.58, 26.48, 18.77, 24.81, 7.7, 14.69, 32.24, 20.64, 22.1, 10.36, 6.81, 14.71,
+              15.42, 23.3, 12.24, 19.08, 21.25, 31.97, 29.96, 22.39, 30.8, 12.54, 43.57, 34.22])
+
+def slr_intervals(x, y, x0, level=0.95):
+    &quot;&quot;&quot;Fitted values, confidence intervals for the mean and prediction intervals at x0.&quot;&quot;&quot;
+    n = len(y)
+    Sxx = np.sum((x - x.mean())**2)
+    b1 = np.sum((x - x.mean()) * (y - y.mean())) / Sxx
+    b0 = y.mean() - b1 * x.mean()
+    s = np.sqrt(np.sum((y - b0 - b1 * x)**2) / (n - 2))
+    q = stats.t.ppf(1 - (1 - level) / 2, n - 2)
+    x0 = np.atleast_1d(np.asarray(x0, dtype=float))
+    h0 = 1 / n + (x0 - x.mean())**2 / Sxx
+    fit = b0 + b1 * x0
+    return dict(fit=fit,
+                ci=(fit - q * s * np.sqrt(h0), fit + q * s * np.sqrt(h0)),
+                pi=(fit - q * s * np.sqrt(1 + h0), fit + q * s * np.sqrt(1 + h0)))
+
+r = slr_intervals(x, y, [3.0, 5.0])
+for j, x0 in enumerate([3.0, 5.0]):
+    print(f&quot;x0 = {x0}: fit = {r[&#39;fit&#39;][j]:.4f}, &quot;
+          f&quot;95% CI ({r[&#39;ci&#39;][0][j]:.4f}, {r[&#39;ci&#39;][1][j]:.4f}), &quot;
+          f&quot;95% PI ({r[&#39;pi&#39;][0][j]:.4f}, {r[&#39;pi&#39;][1][j]:.4f}), &quot;
+          f&quot;true mean = {46 - 7.7 * x0:.2f}&quot;)</code></pre>
+<p class="esa-output-label">
+Output
+</p>
+<pre class="esa-output"><code>x0 = 3.0: fit = 25.5081, 95% CI (23.3704, 27.6457), 95% PI (15.5259, 35.4902), true mean = 22.90
+x0 = 5.0: fit = 6.9100, 95% CI (2.8561, 10.9639), 95% PI (-3.6497, 17.4697), true mean = 7.50</code></pre>
+</details>
+</div>
+<div class="table-wrap"><table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(x_0\)</span></th>
+<th><span class="math inline">\(\hat y_0\)</span></th>
+<th>95% CI for <span class="math inline">\(\mu_0\)</span></th>
+<th>95% PI for <span class="math inline">\(y_0\)</span></th>
+<th>True <span class="math inline">\(\mu_0\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>3.0</td>
+<td>25.51</td>
+<td>(23.37, 27.65)</td>
+<td>(15.53, 35.49)</td>
+<td>22.90</td>
+</tr>
+<tr class="even">
+<td>5.0</td>
+<td>6.91</td>
+<td>(2.86, 10.96)</td>
+<td>(−3.65, 17.47)</td>
+<td>7.50</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>At <span class="math inline">\(x_0 = 3.0\)</span> the confidence interval <strong>misses</strong> the true mean 22.90. This sample’s slope estimate (<span class="math inline">\(-9.30\)</span>) is unusually steep (Lesson 1.7), and in about 5% of samples a 95% interval misses — this is one of them at this <span class="math inline">\(x_0\)</span>. At <span class="math inline">\(x_0 = 5.0\)</span> the interval covers the truth.</li>
+<li>The confidence interval is about four times wider at 5.0 than at 3.0 (8.1 vs 4.3 units), because 5.0 is far from <span class="math inline">\(\bar x = 3.40\)</span>.</li>
+<li>The prediction intervals are much wider (about 20 units) and change little with <span class="math inline">\(x_0\)</span>: their width is dominated by <span class="math inline">\(\sigma\)</span>.</li>
+<li>The lower prediction limit at <span class="math inline">\(x_0 = 5.0\)</span> is negative — impossible for fuel economy. The straight-line normal model does not know that mpg is positive; near the edge of the data the formula can give impossible values.</li>
+</ul>
+<h3 data-number="5.1" id="coverage-checked-by-simulation"><span class="header-section-number">5.1</span> Coverage, checked by simulation</h3>
+<p>Keeping the 25 design points fixed and simulating 20,000 new data sets and new observations at <span class="math inline">\(x_0 = 3.0\)</span> (seed 2026):</p>
+<div class="table-wrap"><table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Errors</th>
+<th>CI for <span class="math inline">\(\mu_0\)</span>: coverage</th>
+<th>PI for <span class="math inline">\(y_0\)</span>: coverage</th>
+<th>PI misses below / above</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>normal, <span class="math inline">\(\sigma = 4\)</span></td>
+<td>0.952</td>
+<td>0.947</td>
+<td>0.025 / 0.028</td>
+</tr>
+<tr class="even">
+<td>skewed: <span class="math inline">\(4(\text{Exp}(1) - 1)\)</span>, also <span class="math inline">\(\sigma = 4\)</span></td>
+<td>0.926</td>
+<td>0.940</td>
+<td>0.000 / 0.060</td>
+</tr>
+</tbody>
+</table></div>
+<p>With normal errors both intervals achieve their nominal coverage, missing equally often on each side. With skewed errors of the same variance, the prediction interval never misses below and misses above 6% of the time: a symmetric interval is the wrong shape for a skewed distribution. (Exercise C2.)</p>
+<h2 class="esa-lesson-anchor" data-number="6" id="worked-example-2-auto-mpg"><span class="header-section-number">6</span> Worked example 2: Auto MPG</h2>
+<p>For mpg on weight (1000 lb), <span class="math inline">\(n = 398\)</span>, <span class="math inline">\(\hat\sigma = 4.345\)</span>, <span class="math inline">\(\bar x = 2.970\)</span>:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th>Weight</th>
+<th><span class="math inline">\(\hat y_0\)</span></th>
+<th>95% CI for mean mpg</th>
+<th>95% PI for one car</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2000 lb</td>
+<td>30.96</td>
+<td>(30.31, 31.62)</td>
+<td>(22.40, 39.53)</td>
+</tr>
+<tr class="even">
+<td>3000 lb</td>
+<td>23.29</td>
+<td>(22.86, 23.72)</td>
+<td>(14.74, 31.84)</td>
+</tr>
+<tr class="odd">
+<td>4500 lb</td>
+<td>11.77</td>
+<td>(10.89, 12.66)</td>
+<td>(3.19, 20.36)</td>
+</tr>
+</tbody>
+</table></div>
+<p>With <span class="math inline">\(n = 398\)</span> the mean is estimated to within about ±0.4–0.9 mpg, but a single car can be anywhere in a band about ±8.6 mpg wide.</p>
+<div class="esa-code-tabs">
+<details class="esa-code">
+<summary>
+R code
+</summary>
+<pre class="r"><code>cols &lt;- c(&quot;mpg&quot;, &quot;cylinders&quot;, &quot;displacement&quot;, &quot;horsepower&quot;, &quot;weight&quot;,
+          &quot;acceleration&quot;, &quot;model_year&quot;, &quot;origin&quot;, &quot;car_name&quot;)
+auto &lt;- read.table(&quot;data/auto-mpg.data&quot;, col.names = cols, na.strings = &quot;?&quot;)
+auto$w &lt;- auto$weight / 1000
+fit_auto &lt;- lm(mpg ~ w, data = auto)
+predict(fit_auto, data.frame(w = c(2.0, 3.0, 4.5)), interval = &quot;confidence&quot;)
+predict(fit_auto, data.frame(w = c(2.0, 3.0, 4.5)), interval = &quot;prediction&quot;)
+
+grid &lt;- data.frame(w = seq(min(auto$w), max(auto$w), length.out = 200))
+ci &lt;- predict(fit_auto, grid, interval = &quot;confidence&quot;)
+pi &lt;- predict(fit_auto, grid, interval = &quot;prediction&quot;)
+plot(auto$w, auto$mpg, pch = 16, col = rgb(0, 0, 0, 0.3),
+     xlab = &quot;Weight (1000 lb)&quot;, ylab = &quot;Fuel economy (mpg)&quot;)
+polygon(c(grid$w, rev(grid$w)), c(pi[, &quot;lwr&quot;], rev(pi[, &quot;upr&quot;])),
+        col = rgb(0, 0.5, 0.5, 0.15), border = NA)
+polygon(c(grid$w, rev(grid$w)), c(ci[, &quot;lwr&quot;], rev(ci[, &quot;upr&quot;])),
+        col = rgb(0, 0.5, 0.5, 0.5), border = NA)
+lines(grid$w, ci[, &quot;fit&quot;], lwd = 2)
+
+# In-sample check: proportion of cars inside their 95% prediction interval, by weight third
+pi_obs &lt;- predict(fit_auto, auto, interval = &quot;prediction&quot;)
+inside &lt;- auto$mpg &gt;= pi_obs[, &quot;lwr&quot;] &amp; auto$mpg &lt;= pi_obs[, &quot;upr&quot;]
+third &lt;- cut(auto$w, quantile(auto$w, c(0, 1/3, 2/3, 1)), include.lowest = TRUE,
+             labels = c(&quot;light&quot;, &quot;medium&quot;, &quot;heavy&quot;))
+round(c(all = mean(inside), tapply(inside, third, mean)), 3)</code></pre>
+</details>
+<details class="esa-code" open>
+<summary>
+Python code
+</summary>
+<pre class="python"><code>import pandas as pd
+import matplotlib.pyplot as plt
+
+cols = [&quot;mpg&quot;, &quot;cylinders&quot;, &quot;displacement&quot;, &quot;horsepower&quot;, &quot;weight&quot;,
+        &quot;acceleration&quot;, &quot;model_year&quot;, &quot;origin&quot;, &quot;car_name&quot;]
+auto = pd.read_csv(&quot;data/auto-mpg.data&quot;, sep=r&quot;\s+&quot;, header=None,
+                   names=cols, na_values=&quot;?&quot;, quotechar=&#39;&quot;&#39;)
+xa = auto[&quot;weight&quot;].to_numpy() / 1000
+ya = auto[&quot;mpg&quot;].to_numpy()
+
+ra = slr_intervals(xa, ya, [2.0, 3.0, 4.5])
+for j, w in enumerate([2.0, 3.0, 4.5]):
+    print(f&quot;{w * 1000:.0f} lb: fit = {ra[&#39;fit&#39;][j]:.4f}, CI ({ra[&#39;ci&#39;][0][j]:.4f}, {ra[&#39;ci&#39;][1][j]:.4f}), &quot;
+          f&quot;PI ({ra[&#39;pi&#39;][0][j]:.4f}, {ra[&#39;pi&#39;][1][j]:.4f})&quot;)
+
+grid = np.linspace(xa.min(), xa.max(), 200)
+rg = slr_intervals(xa, ya, grid)
+fig, ax = plt.subplots(figsize=(6, 4))
+ax.scatter(xa, ya, s=12, alpha=0.3, color=&quot;black&quot;)
+ax.fill_between(grid, rg[&quot;pi&quot;][0], rg[&quot;pi&quot;][1], alpha=0.15, color=&quot;teal&quot;, label=&quot;95% prediction band&quot;)
+ax.fill_between(grid, rg[&quot;ci&quot;][0], rg[&quot;ci&quot;][1], alpha=0.5, color=&quot;teal&quot;, label=&quot;95% confidence band&quot;)
+ax.plot(grid, rg[&quot;fit&quot;], color=&quot;black&quot;, linewidth=2)
+ax.set_xlabel(&quot;Weight (1000 lb)&quot;)
+ax.set_ylabel(&quot;Fuel economy (mpg)&quot;)
+ax.legend(loc=&quot;upper right&quot;)
+plt.show()
+
+# In-sample check: proportion of cars inside their 95% prediction interval, by weight third
+ro = slr_intervals(xa, ya, xa)
+inside = (ya &gt;= ro[&quot;pi&quot;][0]) &amp; (ya &lt;= ro[&quot;pi&quot;][1])
+third = pd.qcut(xa, 3, labels=[&quot;light&quot;, &quot;medium&quot;, &quot;heavy&quot;])
+print(&quot;all:&quot;, round(inside.mean(), 3),
+      pd.Series(inside).groupby(third, observed=True).mean().round(3).to_dict())</code></pre>
+<p class="esa-output-label">
+Output
+</p>
+<pre class="esa-output"><code>2000 lb: fit = 30.9641, CI (30.3125, 31.6158), PI (22.3979, 39.5304)
+3000 lb: fit = 23.2875, CI (22.8591, 23.7159), PI (14.7354, 31.8397)
+4500 lb: fit = 11.7726, CI (10.8878, 12.6574), PI (3.1855, 20.3597)
+all: 0.942 {&#39;light&#39;: 0.896, &#39;medium&#39;: 0.939, &#39;heavy&#39;: 0.992}</code></pre>
+<figure class="esa-figure">
+<img src="/images/courses/regression/lesson-1-8-fig1.png" alt="Auto MPG: least-squares line with pointwise 95% confidence band for the mean (dark) and 95% prediction band for a new car (light)." loading="lazy" width="900">
+<figcaption>
+Auto MPG: least-squares line with pointwise 95% confidence band for the mean (dark) and 95% prediction band for a new car (light).
+</figcaption>
+</figure>
+</details>
+</div>
+<h3 data-number="6.1" id="how-well-do-the-prediction-intervals-work-here"><span class="header-section-number">6.1</span> How well do the prediction intervals work here?</h3>
+<p>Checking each of the 398 cars against its own 95% prediction interval (an in-sample, approximate check):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th>Cars</th>
+<th>All</th>
+<th>Lightest third</th>
+<th>Middle third</th>
+<th>Heaviest third</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Inside their 95% PI</td>
+<td>0.942</td>
+<td>0.896</td>
+<td>0.939</td>
+<td>0.992</td>
+</tr>
+</tbody>
+</table></div>
+<p>Overall coverage looks fine, but it hides a systematic failure: the interval is <strong>too narrow for light cars</strong> and <strong>too wide for heavy cars</strong>, because it uses one <span class="math inline">\(\hat\sigma\)</span> for all weights while the real spread shrinks with weight (Lesson 1.1). For a buyer of a light car, the advertised “95%” interval is closer to 90%. Prediction intervals are only as good as the variance assumption behind them; Module 3 shows how to model non-constant variance or transform the response.</p>
+<h2 class="esa-lesson-anchor" data-number="7" id="common-misconceptions"><span class="header-section-number">7</span> Common misconceptions</h2>
+<div class="example-box esa-callout-caution">
+<p class="esa-box-title">
+<strong>Misconceptions</strong>
+</p>
+<ol type="1">
+<li><strong>“The confidence band shows where 95% of the data should fall.”</strong> — No. It describes uncertainty about the <strong>mean</strong>; most data points lie outside it. The prediction band is the one about individual observations.</li>
+<li><strong>“With enough data, prediction intervals become very narrow.”</strong> — No. They approach <span class="math inline">\(\pm z_{1-\alpha/2}\sigma\)</span>, not zero.</li>
+<li><strong>“A 95% band from pointwise intervals contains the whole true line with 95% probability.”</strong> — Only simultaneous bands (Working–Hotelling) do that.</li>
+<li><strong>“If the overall coverage is 95%, the prediction intervals are fine.”</strong> — Coverage can be correct on average and wrong for every subgroup, as the Auto MPG check shows.</li>
+<li><strong>“Large <span class="math inline">\(n\)</span> protects prediction intervals from non-normal errors.”</strong> — It protects confidence intervals for the mean, not prediction intervals for single observations.</li>
+</ol>
+</div>
+<h2 class="esa-lesson-anchor" data-number="8" id="key-takeaways"><span class="header-section-number">8</span> Key takeaways</h2>
+<ul>
+<li>Estimating <span class="math inline">\(E(y \mid x_0)\)</span> and predicting <span class="math inline">\(y_0\)</span> use the same point value <span class="math inline">\(\hat y_0\)</span> but different intervals.</li>
+<li><span class="math inline">\(\operatorname{Var}(\hat y_0) = \sigma^2 h_0\)</span>; <span class="math inline">\(\operatorname{Var}(y_0 - \hat y_0) = \sigma^2(1 + h_0)\)</span>, with <span class="math inline">\(h_0 = 1/n + (x_0 - \bar x)^2/S_{xx}\)</span>.</li>
+<li>Both intervals are narrowest at <span class="math inline">\(\bar x\)</span>; only the confidence interval shrinks to zero as <span class="math inline">\(n\)</span> grows.</li>
+<li>Pointwise intervals are not simultaneous bands; use Working–Hotelling (or Bonferroni) for statements about the whole line.</li>
+<li>Prediction intervals depend directly on normality and constant variance; check them in subgroups, not only overall.</li>
+</ul>
+<h2 class="esa-lesson-anchor" data-number="9" id="exercises"><span class="header-section-number">9</span> Exercises</h2>
+<h3 data-number="9.1" id="a.-conceptual"><span class="header-section-number">9.1</span> A. Conceptual</h3>
+<p><strong>A1</strong> (★). For each question, say whether a confidence interval for the mean or a prediction interval is needed: (a) the average fuel economy of a manufacturer’s 3000-lb models; (b) the fuel economy of the specific 3000-lb car a customer is about to buy; (c) a regulator’s estimate of the expected fuel economy of 3500-lb cars.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<ol type="a">
+<li>Confidence interval for the mean (an average over many cars). (b) Prediction interval (one new car). (c) Confidence interval for the mean (expected value).</li>
+</ol>
+</details>
+<p><strong>A2</strong> (★). Explain in one or two sentences why a prediction interval can never be narrower than about <span class="math inline">\(\pm 1.96\,\sigma\)</span> (for 95%), however much data is collected.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>Even if the line were known exactly, the new observation still deviates from it by its own error <span class="math inline">\(\varepsilon_0\)</span>, which has standard deviation <span class="math inline">\(\sigma\)</span>. Data reduce uncertainty about the line (<span class="math inline">\(h_0 \to 0\)</span>), not the variability of individual observations.</p>
+</details>
+<h3 data-number="9.2" id="b.-mathematical"><span class="header-section-number">9.2</span> B. Mathematical</h3>
+<p><strong>B1</strong> (★★). Prove that <span class="math inline">\(\operatorname{Var}(y_0 - \hat y_0) = \sigma^2(1 + h_0)\)</span>, stating exactly where independence of <span class="math inline">\(\varepsilon_0\)</span> from the sample is used.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p><span class="math inline">\(y_0 - \hat y_0 = \varepsilon_0 + (\mu_0 - \hat y_0)\)</span>. <span class="math inline">\(\operatorname{Var}(\varepsilon_0) = \sigma^2\)</span>; <span class="math inline">\(\operatorname{Var}(\hat y_0) = \sigma^2 h_0\)</span> (Theorem 1.8.1). The covariance <span class="math inline">\(\operatorname{Cov}(\varepsilon_0, \hat y_0)\)</span> is zero because <span class="math inline">\(\hat y_0\)</span> is a linear function of <span class="math inline">\(y_1, \dots, y_n\)</span> and <span class="math inline">\(\varepsilon_0\)</span> is uncorrelated with <span class="math inline">\(\varepsilon_1, \dots, \varepsilon_n\)</span> — the only place independence (uncorrelatedness) of the new error is used. Summing gives <span class="math inline">\(\sigma^2(1 + h_0)\)</span>.</p>
+</details>
+<p><strong>B2</strong> (★★). Show that the ratio of the widths of the prediction and confidence intervals at the same <span class="math inline">\(x_0\)</span> is <span class="math inline">\(\sqrt{(1 + h_0)/h_0}\)</span>, and evaluate it for Auto MPG at 3000 lb (<span class="math inline">\(h_0 = 0.002515\)</span>).</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>Both widths are <span class="math inline">\(2t_{n-2;1-\alpha/2}\hat\sigma\)</span> times <span class="math inline">\(\sqrt{1+h_0}\)</span> and <span class="math inline">\(\sqrt{h_0}\)</span> respectively; the ratio is <span class="math inline">\(\sqrt{(1+h_0)/h_0}\)</span>. For <span class="math inline">\(h_0 = 1/398 + (3 - 2.970425)^2/284.705 = 0.002515\)</span>: ratio <span class="math inline">\(= \sqrt{1.002515/0.002515} = 19.96\)</span>. The PI at 3000 lb (width 17.10) is about 20 times wider than the CI (width 0.86).</p>
+</details>
+<p><strong>B3</strong> (★★). For <span class="math inline">\(n = 25\)</span> and <span class="math inline">\(n = 398\)</span>, compare the Working–Hotelling multiplier <span class="math inline">\(\sqrt{2F_{2,n-2;0.95}}\)</span> with the pointwise multiplier <span class="math inline">\(t_{n-2;0.975}\)</span>. By what percentage is the simultaneous band wider?</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p><span class="math inline">\(n = 25\)</span>: <span class="math inline">\(\sqrt{2F_{2,23;0.95}} = 2.616\)</span> vs <span class="math inline">\(t_{23;0.975} = 2.069\)</span>, about 26% wider. <span class="math inline">\(n = 398\)</span>: <span class="math inline">\(2.457\)</span> vs <span class="math inline">\(1.966\)</span>, about 25% wider. (R: <code>sqrt(2 * qf(0.95, 2, n - 2))</code> and <code>qt(0.975, n - 2)</code>.)</p>
+</details>
+<h3 data-number="9.3" id="c.-computational"><span class="header-section-number">9.3</span> C. Computational</h3>
+<p><strong>C1</strong> (★). Using the Auto MPG fit, compute the 95% CI for the mean and the 95% PI at 2500 lb and at 5000 lb. Which of them involves extrapolation? (Observed weights: 1613–5140 lb.)</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>At 2500 lb: fit 27.126, CI (26.636, 27.616), PI (18.570, 35.681). At 5000 lb: fit 7.934, CI (6.821, 9.047), PI (−0.679, 16.548). Neither is an extrapolation (both inside 1613–5140), but 5000 lb is at the edge: few cars are that heavy, the CI is wide, the PI’s lower limit is negative, and Lesson 1.1 showed the true mean flattens there, so the straight line probably underestimates mpg for very heavy cars.</p>
+</details>
+<p><strong>C2</strong> (★★). <em>Normality matters for prediction.</em> With the 25 design points of the teaching data, simulate 20,000 data sets and new observations at <span class="math inline">\(x_0 = 3.0\)</span> with (i) normal errors, <span class="math inline">\(\sigma = 4\)</span>, and (ii) errors <span class="math inline">\(4(E - 1)\)</span>, <span class="math inline">\(E \sim \text{Exp}(1)\)</span> (seed 2026). For the 95% PI, record how often <span class="math inline">\(y_0\)</span> falls below and above the interval.</p>
+<details class="esa-solution">
+<summary>
+Solution (Python)
+</summary>
+<pre class="python"><code>import numpy as np
+from scipy import stats
+xt = np.array([2.226, 3.84, 3.235, 2.897, 2.842, 4.367, 4.768, 2.221, 3.885, 2.644, 4.984, 4.819, 3.826,
+               4.235, 3.403, 4.491, 3.169, 2.786, 2.573, 2.392, 3.44, 3.108, 3.921, 1.645, 3.167])
+rng = np.random.default_rng(2026)
+R, n, x0 = 20_000, len(xt), 3.0
+Sxx = np.sum((xt - xt.mean())**2); k = (xt - xt.mean()) / Sxx
+q = stats.t.ppf(0.975, n - 2)
+for name, gen in [(&quot;normal&quot;, lambda s: rng.normal(0, 4, s)),
+                  (&quot;skewed&quot;, lambda s: 4 * (rng.exponential(1, s) - 1))]:
+    Y = 46 - 7.7 * xt + gen((R, n))
+    b1 = Y @ k; b0 = Y.mean(axis=1) - b1 * xt.mean()
+    s = np.sqrt(((Y - b0[:, None] - b1[:, None] * xt)**2).sum(axis=1) / (n - 2))
+    y0 = 46 - 7.7 * x0 + gen(R)
+    fit = b0 + b1 * x0
+    half = q * s * np.sqrt(1 + 1 / n + (x0 - xt.mean())**2 / Sxx)
+    print(name, round((y0 &lt; fit - half).mean(), 4), round((y0 &gt; fit + half).mean(), 4))</code></pre>
+<p>Output: normal 0.0252 below, 0.0276 above; skewed 0.0000 below, 0.0598 above. With skewed errors the interval is too long on the left and too short on the right. Remedies include transforming <span class="math inline">\(y\)</span> or using quantile-based prediction methods.</p>
+</details>
+<p><strong>C3</strong> (★★). Reproduce the in-sample coverage table for Auto MPG (all cars and by weight third). Then repeat it for the model <span class="math inline">\(\log(\text{mpg})\)</span> on weight, back-transforming the interval limits with <span class="math inline">\(\exp(\cdot)\)</span>. Does the log scale fix the problem?</p>
+<details class="esa-solution">
+<summary>
+Hint
+</summary>
+<p>Compute the prediction intervals on the log scale and exponentiate the limits; a value of mpg is inside if it lies between the exponentiated limits.</p>
+</details>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>mpg scale: 0.942 overall; 0.896, 0.939, 0.992 by weight third. Log scale (exponentiated limits): 0.945 overall; 0.933, 0.931, 0.970 by weight third. The log transformation makes the spread more nearly constant (the Breusch–Pagan <span class="math inline">\(p\)</span>-value on the log scale is 0.09), so coverage becomes more even across weights — the light-car shortfall shrinks from 0.896 to 0.933 — but it is not perfect: the heaviest third is still over-covered. Module 3 treats transformations and variance modelling systematically.</p>
+</details>
+<h2 class="esa-lesson-anchor" data-number="10" id="references"><span class="header-section-number">10</span> References</h2>
+<ul>
+<li>Kutner, M. H., Nachtsheim, C. J., Neter, J., &amp; Li, W. (2005). <em>Applied Linear Statistical Models</em> (5th ed.). McGraw-Hill/Irwin. — Chapter 2 (interval estimation of the mean response; prediction of a new observation; confidence band for the regression line).</li>
+<li>Montgomery, D. C., Peck, E. A., &amp; Vining, G. G. (2021). <em>Introduction to Linear Regression Analysis</em> (6th ed.). Wiley. — Chapter 2, Simple Linear Regression (interval estimation of the mean response; prediction of new observations).</li>
+<li>Working, H., &amp; Hotelling, H. (1929). Applications of the theory of error to the interpretation of trends. <em>Journal of the American Statistical Association</em>, 24(165A), 73–85.</li>
+<li>Quinlan, R. (1993). <em>Auto MPG</em> [Data set]. UCI Machine Learning Repository. https://doi.org/10.24432/C5859H</li>
+</ul>
+
+{% endraw %}
+    <div class="lesson-nav">
+      <a class="btn btn-outline" href="/courses/regression/module-1/inference/">← Lesson 1.7: Inference for the Parameters</a>
+      <a class="btn" href="/courses/regression/module-1/case-study/">Next: Lesson 1.9 →</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .esa-course-lesson details{border:1px solid var(--border-strong,#d0d7de);border-radius:9px;padding:.4rem .9rem;margin:1rem 0}
+  .esa-course-lesson details>summary{cursor:pointer;font-weight:700}
+  .esa-course-lesson .esa-code-tabs{margin:1rem 0}
+  .esa-course-lesson .esa-code-tabs details{margin:.4rem 0}
+  .esa-course-lesson pre{max-width:100%}
+  .esa-course-lesson pre.esa-output{border-left:5px solid #0d9488}
+  .esa-course-lesson .esa-output-label{font-size:.85rem;font-weight:700;margin:.6rem 0 .2rem}
+  .esa-course-lesson .esa-figure{margin:1rem 0}
+  .esa-course-lesson .esa-figure img{max-width:100%;height:auto}
+  .esa-course-lesson .esa-figure figcaption{font-size:.9rem}
+  .esa-course-lesson mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+</style>
