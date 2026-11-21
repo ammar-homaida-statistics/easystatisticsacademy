@@ -1,0 +1,487 @@
+---
+layout: default
+title: "Statistical Properties of the OLS Estimators — Regression Course, Lesson 1.4"
+description: "University-level lesson: unbiasedness, variances and covariance of the OLS estimators, the Gauss–Markov theorem with proof, estimation of σ², and maximum likelihood, with R and Python and a simulation."
+permalink: /courses/regression/module-1/ols-properties/
+sidebar: false
+math: true
+learning_resource: true
+---
+
+<section class="hero hero-section">
+  <div class="hero-card">
+    <div class="badge-row">
+      <span class="badge">Course</span>
+      <span class="badge">Regression Analysis</span>
+      <span class="badge">Module 1 · Foundations</span>
+      <span class="badge">Lesson 1.4</span>
+    </div>
+    <h1>Lesson 1.4 — Statistical Properties of the OLS Estimators</h1>
+    <p class="lead">How far can a slope estimate be from the truth, and is there a better estimator? This lesson treats the estimates as random variables and derives their properties, naming exactly which assumptions each result needs.</p>
+    <p class="muted-mini">Level: Intermediate · Study time: 50 min + exercises · Prerequisites: Lessons 1.1 and 1.3 · Data: Auto MPG (UCI, CC BY 4.0) and simulation</p>
+    <div class="hero-actions">
+      <a class="btn btn-outline" href="/courses/regression/module-1/">Module 1 lessons</a>
+      <a class="btn btn-outline" href="/courses/regression/code/lesson-1-4.py">Python script</a>
+      <a class="btn btn-outline" href="/courses/regression/code/lesson-1-4.R">R script</a>
+    </div>
+  </div>
+</section>
+
+<nav class="esa-lesson-toc" aria-label="On this page"><details><summary>On this page</summary><ol><li><a href="#learning-objectives">Learning objectives</a></li><li><a href="#motivation">Motivation</a></li><li><a href="#notation-for-this-lesson">Notation for this lesson</a></li><li><a href="#theory">Theory</a></li><li><a href="#worked-example">Worked example</a></li><li><a href="#common-misconceptions">Common misconceptions</a></li><li><a href="#key-takeaways">Key takeaways</a></li><li><a href="#exercises">Exercises</a></li><li><a href="#references">References</a></li></ol></details></nav>
+
+<section>
+  <div class="content-narrow esa-course-lesson">
+{% raw %}
+<h2 class="esa-lesson-anchor" data-number="1" id="learning-objectives"><span class="header-section-number">1</span> Learning objectives</h2>
+<p>By the end of this lesson you will be able to:</p>
+<ol type="1">
+<li>write <span class="math inline">\(\hat\beta_0\)</span> and <span class="math inline">\(\hat\beta_1\)</span> as linear combinations of the responses and prove that they are unbiased under assumption A1;</li>
+<li>derive <span class="math inline">\(\operatorname{Var}(\hat\beta_1)\)</span>, <span class="math inline">\(\operatorname{Var}(\hat\beta_0)\)</span> and <span class="math inline">\(\operatorname{Cov}(\hat\beta_0, \hat\beta_1)\)</span> under A1–A3;</li>
+<li>state and prove the Gauss–Markov theorem for the slope;</li>
+<li>prove that <span class="math inline">\(\hat\sigma^2 = \mathrm{SSE}/(n-2)\)</span> is unbiased for <span class="math inline">\(\sigma^2\)</span>, and explain why the divisor is <span class="math inline">\(n-2\)</span>;</li>
+<li>show that, under normal errors, OLS is maximum likelihood for <span class="math inline">\((\beta_0, \beta_1)\)</span>, and that the ML estimator of <span class="math inline">\(\sigma^2\)</span> is biased.</li>
+</ol>
+<h2 class="esa-lesson-anchor" data-number="2" id="motivation"><span class="header-section-number">2</span> Motivation</h2>
+<p>Lesson 1.3 found <span class="math inline">\(\hat\beta_1 = -7.677\)</span> mpg per 1000 lb for the Auto MPG data. A different sample of cars would give a different value. <strong>How far can <span class="math inline">\(\hat\beta_1\)</span> be from the true slope, and is there a better estimator?</strong> This lesson treats <span class="math inline">\(\hat\beta_0\)</span>, <span class="math inline">\(\hat\beta_1\)</span> and <span class="math inline">\(\hat\sigma^2\)</span> as random variables and derives their means and variances. It is also the first lesson in which the assumptions of Lesson 1.1 do real work: each result below names exactly the assumptions it uses.</p>
+<h2 class="esa-lesson-anchor" data-number="3" id="notation-for-this-lesson"><span class="header-section-number">3</span> Notation for this lesson</h2>
+<div class="table-wrap"><table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(k_i = (x_i - \bar x)/S_{xx}\)</span></td>
+<td>weights such that <span class="math inline">\(\hat\beta_1 = \sum k_i y_i\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\sigma^2\)</span></td>
+<td>error variance (assumption A2)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\hat\sigma^2 = \mathrm{MS}_{\text{Res}} = \mathrm{SSE}/(n-2)\)</span></td>
+<td>unbiased estimator of <span class="math inline">\(\sigma^2\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\tilde\sigma^2 = \mathrm{SSE}/n\)</span></td>
+<td>maximum likelihood estimator of <span class="math inline">\(\sigma^2\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\operatorname{se}(\hat\beta_1)\)</span></td>
+<td>estimated standard error, <span class="math inline">\(\hat\sigma/\sqrt{S_{xx}}\)</span></td>
+</tr>
+</tbody>
+</table></div>
+<p>Throughout, the <span class="math inline">\(x_i\)</span> are treated as fixed constants (or the analysis is conditional on them), and <span class="math inline">\(S_{xx} &gt; 0\)</span>. Assumptions A1–A4 are those of Lesson 1.1.</p>
+<h2 class="esa-lesson-anchor" data-number="4" id="theory"><span class="header-section-number">4</span> Theory</h2>
+<h3 data-number="4.1" id="the-estimators-as-linear-combinations-of-the-responses"><span class="header-section-number">4.1</span> The estimators as linear combinations of the responses</h3>
+<p>From Lesson 1.3, <span class="math display">\[
+\hat\beta_1 = \sum_{i=1}^n k_i\, y_i, \qquad k_i = \frac{x_i - \bar x}{S_{xx}}, \qquad
+\hat\beta_0 = \bar y - \hat\beta_1 \bar x = \sum_{i=1}^n \Bigl(\frac{1}{n} - \bar x\, k_i\Bigr) y_i .
+\]</span> The weights satisfy three identities used repeatedly below: <span class="math display">\[
+\sum k_i = 0, \qquad \sum k_i x_i = 1, \qquad \sum k_i^2 = \frac{1}{S_{xx}} .
+\tag{1.4.1}
+\]</span></p>
+<details class="esa-derivation">
+<summary>
+Derivation of (1.4.1)
+</summary>
+<p><span class="math inline">\(\sum k_i = \sum (x_i - \bar x)/S_{xx} = 0\)</span>. <span class="math inline">\(\sum k_i x_i = \sum (x_i - \bar x)x_i / S_{xx} = \sum (x_i - \bar x)^2/S_{xx} = 1\)</span>, because <span class="math inline">\(\sum (x_i - \bar x)\bar x = 0\)</span>. <span class="math inline">\(\sum k_i^2 = \sum (x_i - \bar x)^2/S_{xx}^2 = 1/S_{xx}\)</span>.</p>
+</details>
+<h3 data-number="4.2" id="unbiasedness"><span class="header-section-number">4.2</span> Unbiasedness</h3>
+<div class="concept-box esa-callout-important">
+<p class="esa-box-title">
+<strong>Theorem 1.4.1 (Unbiasedness) — uses A1</strong>
+</p>
+<p>If <span class="math inline">\(E(y_i) = \beta_0 + \beta_1 x_i\)</span> for all <span class="math inline">\(i\)</span>, then <span class="math inline">\(E(\hat\beta_1) = \beta_1\)</span> and <span class="math inline">\(E(\hat\beta_0) = \beta_0\)</span>.</p>
+</div>
+<details class="esa-derivation">
+<summary>
+Derivation
+</summary>
+<p>By linearity of expectation and (1.4.1), <span class="math inline">\(E(\hat\beta_1) = \sum k_i(\beta_0 + \beta_1 x_i) = \beta_0\sum k_i + \beta_1\sum k_i x_i = \beta_1\)</span>. Then <span class="math inline">\(E(\bar y) = \beta_0 + \beta_1\bar x\)</span>, so <span class="math inline">\(E(\hat\beta_0) = \beta_0 + \beta_1\bar x - \beta_1\bar x = \beta_0\)</span>.</p>
+</details>
+<p>Unbiasedness needs <strong>only</strong> A1. It does not need constant variance, uncorrelated errors or normality. It does need the mean function to be correct: if <span class="math inline">\(E(y \mid x)\)</span> is curved, as for the Auto MPG data, then <span class="math inline">\(\hat\beta_1\)</span> is an unbiased estimator of the slope of a straight line that is itself only an approximation.</p>
+<h3 data-number="4.3" id="variances-and-covariance"><span class="header-section-number">4.3</span> Variances and covariance</h3>
+<div class="concept-box esa-callout-important">
+<p class="esa-box-title">
+<strong>Theorem 1.4.2 (Variances and covariance) — uses A1–A3</strong>
+</p>
+<p><span class="math display">\[
+\operatorname{Var}(\hat\beta_1) = \frac{\sigma^2}{S_{xx}}, \qquad
+\operatorname{Var}(\hat\beta_0) = \sigma^2\Bigl(\frac{1}{n} + \frac{\bar x^2}{S_{xx}}\Bigr), \qquad
+\operatorname{Cov}(\hat\beta_0, \hat\beta_1) = -\frac{\bar x\,\sigma^2}{S_{xx}} .
+\]</span></p>
+</div>
+<details class="esa-derivation">
+<summary>
+Derivation
+</summary>
+<p>Under A2–A3 the <span class="math inline">\(y_i\)</span> are uncorrelated with common variance <span class="math inline">\(\sigma^2\)</span>, so for constants <span class="math inline">\(a_i, c_i\)</span>: <span class="math inline">\(\operatorname{Var}(\sum a_i y_i) = \sigma^2\sum a_i^2\)</span> and <span class="math inline">\(\operatorname{Cov}(\sum a_i y_i, \sum c_i y_i) = \sigma^2 \sum a_i c_i\)</span>.</p>
+<ul>
+<li><span class="math inline">\(\operatorname{Var}(\hat\beta_1) = \sigma^2 \sum k_i^2 = \sigma^2/S_{xx}\)</span>.</li>
+<li><span class="math inline">\(\operatorname{Cov}(\bar y, \hat\beta_1) = \sigma^2\sum \tfrac{1}{n}k_i = 0\)</span>.</li>
+<li><span class="math inline">\(\operatorname{Var}(\hat\beta_0) = \operatorname{Var}(\bar y) + \bar x^2\operatorname{Var}(\hat\beta_1) - 2\bar x\operatorname{Cov}(\bar y, \hat\beta_1) = \sigma^2/n + \bar x^2\sigma^2/S_{xx}\)</span>.</li>
+<li><span class="math inline">\(\operatorname{Cov}(\hat\beta_0, \hat\beta_1) = \operatorname{Cov}(\bar y - \bar x\hat\beta_1, \hat\beta_1) = 0 - \bar x\,\sigma^2/S_{xx}\)</span>.</li>
+</ul>
+</details>
+<p>Three consequences matter in practice.</p>
+<ul>
+<li><strong>Design.</strong> <span class="math inline">\(\operatorname{Var}(\hat\beta_1)\)</span> decreases as <span class="math inline">\(S_{xx}\)</span> increases: spreading the <span class="math inline">\(x\)</span> values out, or collecting more data, estimates the slope more precisely.</li>
+<li><strong>Centring.</strong> If <span class="math inline">\(\bar x = 0\)</span> the intercept and slope estimators are uncorrelated. When <span class="math inline">\(\bar x\)</span> is large relative to the spread of <span class="math inline">\(x\)</span>, they are strongly correlated (negatively if <span class="math inline">\(\bar x &gt; 0\)</span>).</li>
+<li><strong>Assumptions.</strong> These formulas need A2 and A3. If the error variance is not constant, <span class="math inline">\(\hat\beta_1\)</span> is still unbiased, but <span class="math inline">\(\sigma^2/S_{xx}\)</span> is no longer its variance (Exercise C3).</li>
+</ul>
+<h3 data-number="4.4" id="the-gaussmarkov-theorem"><span class="header-section-number">4.4</span> The Gauss–Markov theorem</h3>
+<p>Call <span class="math inline">\(\tilde\beta_1 = \sum c_i y_i\)</span> a <strong>linear unbiased estimator</strong> of <span class="math inline">\(\beta_1\)</span> if <span class="math inline">\(E(\tilde\beta_1) = \beta_1\)</span> for all values of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>.</p>
+<div class="concept-box esa-callout-important">
+<p class="esa-box-title">
+<strong>Theorem 1.4.3 (Gauss–Markov, simple regression) — uses A1–A3</strong>
+</p>
+<p>Among all linear unbiased estimators of <span class="math inline">\(\beta_1\)</span>, the OLS estimator <span class="math inline">\(\hat\beta_1\)</span> has the smallest variance, and it is the unique estimator with this property. <span class="math inline">\(\hat\beta_1\)</span> is the <strong>best linear unbiased estimator (BLUE)</strong> of <span class="math inline">\(\beta_1\)</span>.</p>
+</div>
+<details class="esa-derivation">
+<summary>
+Derivation
+</summary>
+<p><em>Unbiasedness constraints.</em> <span class="math inline">\(E(\sum c_i y_i) = \beta_0\sum c_i + \beta_1 \sum c_i x_i\)</span> equals <span class="math inline">\(\beta_1\)</span> for all <span class="math inline">\(\beta_0, \beta_1\)</span> iff <span class="math inline">\(\sum c_i = 0\)</span> and <span class="math inline">\(\sum c_i x_i = 1\)</span>.</p>
+<p><em>Decomposition.</em> Write <span class="math inline">\(c_i = k_i + d_i\)</span>. Since the <span class="math inline">\(k_i\)</span> satisfy the same two constraints, <span class="math inline">\(\sum d_i = 0\)</span> and <span class="math inline">\(\sum d_i x_i = 0\)</span>. Hence <span class="math display">\[
+\sum k_i d_i = \frac{1}{S_{xx}}\sum (x_i - \bar x)d_i = \frac{1}{S_{xx}}\Bigl(\sum x_i d_i - \bar x \sum d_i\Bigr) = 0 .
+\]</span> <em>Variance.</em> By A2–A3, <span class="math display">\[
+\operatorname{Var}(\tilde\beta_1) = \sigma^2\sum c_i^2 = \sigma^2\Bigl(\sum k_i^2 + 2\sum k_i d_i + \sum d_i^2\Bigr) = \operatorname{Var}(\hat\beta_1) + \sigma^2\sum d_i^2 \ \ge\ \operatorname{Var}(\hat\beta_1),
+\]</span> with equality iff every <span class="math inline">\(d_i = 0\)</span>, i.e. <span class="math inline">\(\tilde\beta_1 = \hat\beta_1\)</span>.</p>
+</details>
+<div class="example-box esa-callout-warning">
+<p class="esa-box-title">
+<strong>What Gauss–Markov does and does not say</strong>
+</p>
+<ul>
+<li>It compares OLS only with <strong>linear</strong> and <strong>unbiased</strong> estimators. A biased estimator can have smaller mean squared error — the starting point for ridge and Liu estimation in Module 5.</li>
+<li>It needs <strong>no normality</strong>. Under normal errors a stronger result holds: OLS has minimum variance among <em>all</em> unbiased estimators.</li>
+<li>If A2 or A3 fails, OLS is still unbiased (under A1) but no longer BLUE; weighted or generalised least squares can do better (Module 3).</li>
+</ul>
+</div>
+<h3 data-number="4.5" id="estimating-sigma2"><span class="header-section-number">4.5</span> Estimating <span class="math inline">\(\sigma^2\)</span></h3>
+<div class="concept-box esa-callout-important">
+<p class="esa-box-title">
+<strong>Theorem 1.4.4 (Unbiased estimator of <span class="math inline">\(\sigma^2\)</span>) — uses A1–A3</strong>
+</p>
+<p><span class="math inline">\(E(\mathrm{SSE}) = (n-2)\sigma^2\)</span>. Hence <span class="math display">\[
+\hat\sigma^2 = \mathrm{MS}_{\text{Res}} = \frac{\mathrm{SSE}}{n-2}
+\]</span> is an unbiased estimator of <span class="math inline">\(\sigma^2\)</span> (for <span class="math inline">\(n \ge 3\)</span>).</p>
+</div>
+<details class="esa-derivation">
+<summary>
+Derivation
+</summary>
+<p>From Lesson 1.2, <span class="math inline">\(\mathrm{SSE} = S_{yy} - \hat\beta_1^2 S_{xx}\)</span>.</p>
+<p><em>First term.</em> <span class="math inline">\(y_i - \bar y = \beta_1(x_i - \bar x) + (\varepsilon_i - \bar\varepsilon)\)</span>, so <span class="math inline">\(E(S_{yy}) = \beta_1^2 S_{xx} + 2\beta_1\sum (x_i - \bar x)E(\varepsilon_i - \bar\varepsilon) + E\sum(\varepsilon_i - \bar\varepsilon)^2 = \beta_1^2 S_{xx} + (n-1)\sigma^2\)</span>, using A1 for the middle term and A2–A3 for the last (the usual sample-variance result).</p>
+<p><em>Second term.</em> <span class="math inline">\(E(\hat\beta_1^2) = \operatorname{Var}(\hat\beta_1) + [E(\hat\beta_1)]^2 = \sigma^2/S_{xx} + \beta_1^2\)</span>, so <span class="math inline">\(E(\hat\beta_1^2 S_{xx}) = \sigma^2 + \beta_1^2 S_{xx}\)</span>.</p>
+<p>Subtracting, <span class="math inline">\(E(\mathrm{SSE}) = (n-1)\sigma^2 - \sigma^2 = (n-2)\sigma^2\)</span>.</p>
+</details>
+<p>The divisor <span class="math inline">\(n-2\)</span> is the <strong>residual degrees of freedom</strong>: the <span class="math inline">\(n\)</span> residuals satisfy the two linear constraints <span class="math inline">\(\sum e_i = 0\)</span> and <span class="math inline">\(\sum x_i e_i = 0\)</span> (Lesson 1.3), so only <span class="math inline">\(n-2\)</span> of them are free. Replacing <span class="math inline">\(\sigma^2\)</span> by <span class="math inline">\(\hat\sigma^2\)</span> in Theorem 1.4.2 gives the <strong>estimated standard errors</strong> <span class="math display">\[
+\operatorname{se}(\hat\beta_1) = \frac{\hat\sigma}{\sqrt{S_{xx}}}, \qquad
+\operatorname{se}(\hat\beta_0) = \hat\sigma\sqrt{\frac{1}{n} + \frac{\bar x^2}{S_{xx}}} .
+\]</span></p>
+<h3 data-number="4.6" id="normal-errors-maximum-likelihood"><span class="header-section-number">4.6</span> Normal errors: maximum likelihood</h3>
+<div class="concept-box esa-callout-important">
+<p class="esa-box-title">
+<strong>Theorem 1.4.5 (Maximum likelihood) — uses A1–A4</strong>
+</p>
+<p>Under normal errors, the maximum likelihood estimators of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> are the OLS estimators, and the maximum likelihood estimator of <span class="math inline">\(\sigma^2\)</span> is <span class="math display">\[
+\tilde\sigma^2 = \frac{\mathrm{SSE}}{n}, \qquad E(\tilde\sigma^2) = \frac{n-2}{n}\,\sigma^2 &lt; \sigma^2 .
+\]</span> Moreover, <span class="math inline">\(\hat\beta_0\)</span> and <span class="math inline">\(\hat\beta_1\)</span> are exactly normally distributed, being linear combinations of independent normal variables.</p>
+</div>
+<details class="esa-derivation">
+<summary>
+Derivation
+</summary>
+<p>The log-likelihood is <span class="math display">\[
+\ell(\beta_0, \beta_1, \sigma^2) = -\frac{n}{2}\log(2\pi\sigma^2) - \frac{1}{2\sigma^2}\sum (y_i - \beta_0 - \beta_1 x_i)^2 .
+\]</span> For any fixed <span class="math inline">\(\sigma^2\)</span>, <span class="math inline">\(\ell\)</span> is maximised over <span class="math inline">\((\beta_0, \beta_1)\)</span> by minimising the sum of squares, i.e. at the OLS estimates (Lesson 1.3). Substituting them, <span class="math inline">\(\partial\ell/\partial\sigma^2 = -n/(2\sigma^2) + \mathrm{SSE}/(2\sigma^4) = 0\)</span> gives <span class="math inline">\(\tilde\sigma^2 = \mathrm{SSE}/n\)</span>, a maximum because <span class="math inline">\(\ell \to -\infty\)</span> as <span class="math inline">\(\sigma^2 \to 0\)</span> or <span class="math inline">\(\infty\)</span>. Its expectation follows from Theorem 1.4.4. Normality of <span class="math inline">\(\hat\beta_j\)</span>: a linear combination of independent normal variables is normal.</p>
+</details>
+<p>The bias of <span class="math inline">\(\tilde\sigma^2\)</span> vanishes as <span class="math inline">\(n \to \infty\)</span>, but it matters in small samples: with <span class="math inline">\(n = 5\)</span>, <span class="math inline">\(E(\tilde\sigma^2) = 0.6\,\sigma^2\)</span>.</p>
+<h2 class="esa-lesson-anchor" data-number="5" id="worked-example"><span class="header-section-number">5</span> Worked example</h2>
+<h3 data-number="5.1" id="standard-errors-for-the-auto-mpg-fit"><span class="header-section-number">5.1</span> Standard errors for the Auto MPG fit</h3>
+<p>For mpg on weight (1000 lb), <span class="math inline">\(n = 398\)</span>: <span class="math inline">\(\mathrm{SSE} = 7474.814\)</span>, so <span class="math display">\[
+\hat\sigma^2 = \frac{7474.814}{396} = 18.8758, \quad \hat\sigma = 4.3446, \quad
+\operatorname{se}(\hat\beta_1) = \frac{4.3446}{\sqrt{284.705}} = 0.2575, \quad
+\operatorname{se}(\hat\beta_0) = 0.7952 .
+\]</span> The estimated covariance of <span class="math inline">\(\hat\beta_0\)</span> and <span class="math inline">\(\hat\beta_1\)</span> is <span class="math inline">\(-0.1969\)</span>, a correlation of <span class="math inline">\(-0.962\)</span>: because <span class="math inline">\(\bar x = 2.97\)</span> is far from 0 relative to the spread of weight, an error in the slope is largely offset by an error in the intercept.</p>
+<div class="example-box esa-callout-warning">
+<p class="esa-box-title">
+<strong>A caution that matters for this data set</strong>
+</p>
+<p>These standard errors use Theorem 1.4.2, which assumes constant error variance (A2). Lesson 1.1 showed that the spread of mpg shrinks with weight, so these numbers should be treated as approximate. Exercise C3 shows by simulation how large the discrepancy can be; Module 3 gives standard errors that remain valid when A2 fails.</p>
+</div>
+<div class="esa-code-tabs">
+<details class="esa-code">
+<summary>
+R code
+</summary>
+<pre class="r"><code>cols &lt;- c(&quot;mpg&quot;, &quot;cylinders&quot;, &quot;displacement&quot;, &quot;horsepower&quot;, &quot;weight&quot;,
+          &quot;acceleration&quot;, &quot;model_year&quot;, &quot;origin&quot;, &quot;car_name&quot;)
+auto &lt;- read.table(&quot;data/auto-mpg.data&quot;, col.names = cols, na.strings = &quot;?&quot;)
+x &lt;- auto$weight / 1000; y &lt;- auto$mpg; n &lt;- length(y)
+
+fit &lt;- lm(y ~ x)
+SSE &lt;- sum(resid(fit)^2)
+sigma2_hat &lt;- SSE / (n - 2)
+Sxx &lt;- sum((x - mean(x))^2)
+c(SSE = SSE, sigma2_hat = sigma2_hat, sigma_hat = sqrt(sigma2_hat),
+  se_b1 = sqrt(sigma2_hat / Sxx),
+  se_b0 = sqrt(sigma2_hat * (1 / n + mean(x)^2 / Sxx)),
+  sigma2_ML = SSE / n)
+
+summary(fit)$coefficients[, 1:2]   # lm() reports the same standard errors
+vcov(fit)                           # estimated covariance matrix</code></pre>
+</details>
+<details class="esa-code" open>
+<summary>
+Python code
+</summary>
+<pre class="python"><code>import numpy as np
+import pandas as pd
+
+cols = [&quot;mpg&quot;, &quot;cylinders&quot;, &quot;displacement&quot;, &quot;horsepower&quot;, &quot;weight&quot;,
+        &quot;acceleration&quot;, &quot;model_year&quot;, &quot;origin&quot;, &quot;car_name&quot;]
+auto = pd.read_csv(&quot;data/auto-mpg.data&quot;, sep=r&quot;\s+&quot;, header=None,
+                   names=cols, na_values=&quot;?&quot;, quotechar=&#39;&quot;&#39;)
+x = auto[&quot;weight&quot;].to_numpy() / 1000
+y = auto[&quot;mpg&quot;].to_numpy()
+n = len(y)
+
+Sxx = np.sum((x - x.mean())**2)
+b1 = np.sum((x - x.mean()) * (y - y.mean())) / Sxx
+b0 = y.mean() - b1 * x.mean()
+e = y - b0 - b1 * x
+SSE = e @ e
+s2 = SSE / (n - 2)
+print(f&quot;SSE = {SSE:.4f}, sigma2_hat = {s2:.4f}, sigma_hat = {np.sqrt(s2):.4f}&quot;)
+print(f&quot;se(b1) = {np.sqrt(s2 / Sxx):.4f}, se(b0) = {np.sqrt(s2 * (1/n + x.mean()**2 / Sxx)):.4f}&quot;)
+print(f&quot;Cov(b0, b1) estimate = {-x.mean() * s2 / Sxx:.4f}, &quot;
+      f&quot;correlation = {-x.mean() / np.sqrt(Sxx / n + x.mean()**2):.4f}&quot;)
+print(f&quot;ML estimate SSE/n = {SSE / n:.4f}&quot;)</code></pre>
+<p class="esa-output-label">
+Output
+</p>
+<pre class="esa-output"><code>SSE = 7474.8140, sigma2_hat = 18.8758, sigma_hat = 4.3446
+se(b1) = 0.2575, se(b0) = 0.7952
+Cov(b0, b1) estimate = -0.1969, correlation = -0.9618
+ML estimate SSE/n = 18.7809</code></pre>
+</details>
+</div>
+<h3 data-number="5.2" id="simulation-the-sampling-distribution-of-hatbeta_1"><span class="header-section-number">5.2</span> Simulation: the sampling distribution of <span class="math inline">\(\hat\beta_1\)</span></h3>
+<p>To see Theorems 1.4.1–1.4.4 at work, keep the 398 observed weights fixed and generate 10,000 artificial data sets from a model that satisfies A1–A4 by construction: <span class="math display">\[
+y_i = 46.3 - 7.7\,x_i + \varepsilon_i, \qquad \varepsilon_i \sim N(0, 4.34^2) .
+\]</span></p>
+<div class="esa-code-tabs">
+<details class="esa-code">
+<summary>
+R code
+</summary>
+<pre class="r"><code>set.seed(2026)
+R &lt;- 10000; beta0 &lt;- 46.3; beta1 &lt;- -7.7; sigma &lt;- 4.34
+k &lt;- (x - mean(x)) / Sxx
+sims &lt;- replicate(R, {
+  ysim &lt;- beta0 + beta1 * x + rnorm(n, 0, sigma)
+  b1s &lt;- sum(k * ysim); b0s &lt;- mean(ysim) - b1s * mean(x)
+  c(b0 = b0s, b1 = b1s, s2 = sum((ysim - b0s - b1s * x)^2) / (n - 2))
+})
+c(mean_b1 = mean(sims[&quot;b1&quot;, ]), sd_b1 = sd(sims[&quot;b1&quot;, ]),
+  theory_sd_b1 = sigma / sqrt(Sxx),
+  mean_s2 = mean(sims[&quot;s2&quot;, ]), sigma2 = sigma^2)
+hist(sims[&quot;b1&quot;, ], breaks = 50, freq = FALSE,
+     main = &quot;&quot;, xlab = &quot;Simulated slope estimates&quot;)
+curve(dnorm(x, beta1, sigma / sqrt(Sxx)), add = TRUE, lwd = 2)
+abline(v = beta1, lty = 2)</code></pre>
+</details>
+<details class="esa-code" open>
+<summary>
+Python code
+</summary>
+<pre class="python"><code>import matplotlib.pyplot as plt
+
+rng = np.random.default_rng(2026)
+R, beta0, beta1, sigma = 10_000, 46.3, -7.7, 4.34
+k = (x - x.mean()) / Sxx
+Y = beta0 + beta1 * x + rng.normal(0, sigma, size=(R, n))
+B1 = Y @ k
+B0 = Y.mean(axis=1) - B1 * x.mean()
+S2 = ((Y - B0[:, None] - B1[:, None] * x)**2).sum(axis=1) / (n - 2)
+sd_theory = sigma / np.sqrt(Sxx)
+print(f&quot;mean b1 = {B1.mean():.4f}, sd b1 = {B1.std(ddof=1):.4f}, theory sd = {sd_theory:.4f}&quot;)
+print(f&quot;mean sigma2_hat = {S2.mean():.4f}, true sigma^2 = {sigma**2:.4f}&quot;)
+
+grid = np.linspace(B1.min(), B1.max(), 200)
+fig, ax = plt.subplots(figsize=(6, 4))
+ax.hist(B1, bins=50, density=True, color=&quot;lightgray&quot;, edgecolor=&quot;white&quot;)
+ax.plot(grid, np.exp(-0.5 * ((grid - beta1) / sd_theory)**2) / (sd_theory * np.sqrt(2 * np.pi)), linewidth=2)
+ax.axvline(beta1, linestyle=&quot;--&quot;, color=&quot;black&quot;)
+ax.set_xlabel(&quot;Simulated slope estimates&quot;)
+ax.set_ylabel(&quot;Density&quot;)
+plt.show()</code></pre>
+<p class="esa-output-label">
+Output
+</p>
+<pre class="esa-output"><code>mean b1 = -7.7032, sd b1 = 0.2580, theory sd = 0.2572
+mean sigma2_hat = 18.8372, true sigma^2 = 18.8356</code></pre>
+<figure class="esa-figure">
+<img src="/images/courses/regression/lesson-1-4-fig1.png" alt="Sampling distribution of the OLS slope: 10,000 simulated data sets with the 398 Auto MPG weights held fixed. The curve is the normal density with mean -7.7 and standard deviation sigma / sqrt(S_xx) from Theorem 1.4.2; the dashed line marks the true slope." loading="lazy" width="900">
+<figcaption>
+Sampling distribution of the OLS slope: 10,000 simulated data sets with the 398 Auto MPG weights held fixed. The curve is the normal density with mean -7.7 and standard deviation sigma / sqrt(S_xx) from Theorem 1.4.2; the dashed line marks the true slope.
+</figcaption>
+</figure>
+</details>
+</div>
+<p>The simulated slopes average <span class="math inline">\(-7.703\)</span> (true value <span class="math inline">\(-7.7\)</span>) with standard deviation <span class="math inline">\(0.258\)</span>, against the theoretical <span class="math inline">\(\sigma/\sqrt{S_{xx}} = 0.257\)</span>; the average <span class="math inline">\(\hat\sigma^2\)</span> is <span class="math inline">\(18.837\)</span> against <span class="math inline">\(\sigma^2 = 18.836\)</span>. The histogram matches the normal curve, as Theorem 1.4.5 predicts. (The exact simulated values depend on the random-number generator; R and Python use different generators, so their simulated numbers differ slightly while agreeing with theory.)</p>
+<h3 data-number="5.3" id="interpretation"><span class="header-section-number">5.3</span> Interpretation</h3>
+<ul>
+<li><span class="math inline">\(\operatorname{se}(\hat\beta_1) = 0.26\)</span> mpg per 1000 lb: if the model assumptions held, slope estimates from repeated samples of this design would typically differ from the true slope by about a quarter of an mpg per 1000 lb. The slope is estimated precisely relative to its size (<span class="math inline">\(-7.68\)</span>).</li>
+<li>The intercept is estimated less precisely (<span class="math inline">\(0.80\)</span>) because <span class="math inline">\(x = 0\)</span> is far outside the data: Theorem 1.4.2 shows <span class="math inline">\(\operatorname{Var}(\hat\beta_0)\)</span> grows with <span class="math inline">\(\bar x^2\)</span>.</li>
+<li>None of this addresses whether a straight line is the right model; precision is not the same as correctness.</li>
+</ul>
+<h2 class="esa-lesson-anchor" data-number="6" id="common-misconceptions"><span class="header-section-number">6</span> Common misconceptions</h2>
+<div class="example-box esa-callout-caution">
+<p class="esa-box-title">
+<strong>Misconceptions</strong>
+</p>
+<ol type="1">
+<li><strong>“OLS is unbiased only if the errors are normal.”</strong> — No. Unbiasedness needs only A1.</li>
+<li><strong>“Gauss–Markov says OLS is the best estimator.”</strong> — Only among <strong>linear unbiased</strong> estimators, and only under A1–A3. Biased estimators can have smaller mean squared error.</li>
+<li><strong>“<span class="math inline">\(\mathrm{SSE}/n\)</span> is the natural estimate of <span class="math inline">\(\sigma^2\)</span>.”</strong> — It is the ML estimate but is biased downward; the unbiased estimator divides by the residual degrees of freedom, <span class="math inline">\(n - 2\)</span>.</li>
+<li><strong>“A small standard error means the model is right.”</strong> — No. The standard error measures sampling variability under the model; it says nothing about whether the model is correctly specified.</li>
+</ol>
+</div>
+<h2 class="esa-lesson-anchor" data-number="7" id="key-takeaways"><span class="header-section-number">7</span> Key takeaways</h2>
+<ul>
+<li><span class="math inline">\(\hat\beta_0\)</span> and <span class="math inline">\(\hat\beta_1\)</span> are linear in the <span class="math inline">\(y_i\)</span>; this makes their moments easy to compute.</li>
+<li>A1 gives unbiasedness; A1–A3 give <span class="math inline">\(\operatorname{Var}(\hat\beta_1) = \sigma^2/S_{xx}\)</span> and the Gauss–Markov (BLUE) property.</li>
+<li><span class="math inline">\(\hat\sigma^2 = \mathrm{SSE}/(n-2)\)</span> is unbiased; <span class="math inline">\(n-2\)</span> is the residual degrees of freedom.</li>
+<li>Under normal errors, OLS is maximum likelihood for <span class="math inline">\(\beta\)</span> and the estimators are exactly normal; the ML estimator of <span class="math inline">\(\sigma^2\)</span> divides by <span class="math inline">\(n\)</span> and is biased.</li>
+<li>Precision improves with more data and more spread in <span class="math inline">\(x\)</span>.</li>
+</ul>
+<h2 class="esa-lesson-anchor" data-number="8" id="exercises"><span class="header-section-number">8</span> Exercises</h2>
+<h3 data-number="8.1" id="a.-conceptual"><span class="header-section-number">8.1</span> A. Conceptual</h3>
+<p><strong>A1</strong> (★). Which of the assumptions A1–A4 are needed for each of: (a) <span class="math inline">\(E(\hat\beta_1) = \beta_1\)</span>; (b) <span class="math inline">\(\operatorname{Var}(\hat\beta_1) = \sigma^2/S_{xx}\)</span>; (c) <span class="math inline">\(\hat\beta_1\)</span> is BLUE; (d) <span class="math inline">\(\hat\beta_1\)</span> is exactly normal?</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<ol type="a">
+<li>A1. (b) A1–A3 (A1 only to make <span class="math inline">\(\beta_1\)</span> the target; the variance formula itself uses A2–A3). (c) A1–A3. (d) A4 together with the linear-combination representation (A1–A4); without normality, <span class="math inline">\(\hat\beta_1\)</span> is only approximately normal in large samples under regularity conditions.</li>
+</ol>
+</details>
+<p><strong>A2</strong> (★). An engineer can choose 20 settings of a dial <span class="math inline">\(x\)</span> between 0 and 10 to estimate the slope of a straight-line relationship. Assuming the model is known to be linear on <span class="math inline">\([0, 10]\)</span>, which design minimises <span class="math inline">\(\operatorname{Var}(\hat\beta_1)\)</span>? Why might a practitioner still not use it?</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p><span class="math inline">\(\operatorname{Var}(\hat\beta_1) = \sigma^2/S_{xx}\)</span> is minimised by maximising <span class="math inline">\(S_{xx}\)</span>: put 10 observations at <span class="math inline">\(x = 0\)</span> and 10 at <span class="math inline">\(x = 10\)</span>, giving <span class="math inline">\(S_{xx} = 20 \times 25 = 500\)</span>. However, with only two distinct <span class="math inline">\(x\)</span> values it is impossible to check whether the relationship is really linear; designs usually include some intermediate points to detect curvature.</p>
+</details>
+<h3 data-number="8.2" id="b.-mathematical"><span class="header-section-number">8.2</span> B. Mathematical</h3>
+<p><strong>B1</strong> (★★). Prove that <span class="math inline">\(\hat\beta_0\)</span> is BLUE for <span class="math inline">\(\beta_0\)</span>, adapting the proof of Theorem 1.4.3.</p>
+<details class="esa-solution">
+<summary>
+Hint
+</summary>
+<p>A linear estimator <span class="math inline">\(\sum c_i y_i\)</span> is unbiased for <span class="math inline">\(\beta_0\)</span> iff <span class="math inline">\(\sum c_i = 1\)</span> and <span class="math inline">\(\sum c_i x_i = 0\)</span>. Write <span class="math inline">\(c_i = a_i + d_i\)</span> with <span class="math inline">\(a_i = 1/n - \bar x k_i\)</span>.</p>
+</details>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p><span class="math inline">\(\hat\beta_0 = \sum a_i y_i\)</span> with <span class="math inline">\(a_i = 1/n - \bar x k_i\)</span>; by (1.4.1), <span class="math inline">\(\sum a_i = 1\)</span> and <span class="math inline">\(\sum a_i x_i = \bar x - \bar x = 0\)</span>. For any linear unbiased <span class="math inline">\(\sum c_i y_i\)</span>, <span class="math inline">\(d_i = c_i - a_i\)</span> satisfies <span class="math inline">\(\sum d_i = 0\)</span> and <span class="math inline">\(\sum d_i x_i = 0\)</span>. Then <span class="math inline">\(\sum a_i d_i = \frac{1}{n}\sum d_i - \bar x \sum k_i d_i = 0 - \bar x \cdot 0 = 0\)</span> (as in the proof of Theorem 1.4.3, <span class="math inline">\(\sum k_i d_i = 0\)</span>). Hence <span class="math inline">\(\sigma^2\sum c_i^2 = \sigma^2\sum a_i^2 + \sigma^2\sum d_i^2 \ge \operatorname{Var}(\hat\beta_0)\)</span>, with equality iff <span class="math inline">\(d = 0\)</span>.</p>
+</details>
+<p><strong>B2</strong> (★★). Show that <span class="math inline">\(\operatorname{Var}(\hat y_0) = \sigma^2\bigl(\frac{1}{n} + \frac{(x_0 - \bar x)^2}{S_{xx}}\bigr)\)</span> for the fitted value <span class="math inline">\(\hat y_0 = \hat\beta_0 + \hat\beta_1 x_0\)</span> at a fixed <span class="math inline">\(x_0\)</span>. Where is it smallest? (This result is used in Lesson 1.8.)</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p><span class="math inline">\(\hat y_0 = \bar y + \hat\beta_1(x_0 - \bar x)\)</span>. Since <span class="math inline">\(\operatorname{Cov}(\bar y, \hat\beta_1) = 0\)</span>, <span class="math inline">\(\operatorname{Var}(\hat y_0) = \sigma^2/n + (x_0 - \bar x)^2\sigma^2/S_{xx}\)</span>. It is smallest, <span class="math inline">\(\sigma^2/n\)</span>, at <span class="math inline">\(x_0 = \bar x\)</span>, and grows quadratically with the distance from <span class="math inline">\(\bar x\)</span>.</p>
+</details>
+<p><strong>B3</strong> (★★). Show that the “endpoint” estimator <span class="math inline">\(\tilde\beta_1 = (y_{(n)} - y_{(1)})/(x_{(n)} - x_{(1)})\)</span>, where <span class="math inline">\((1)\)</span> and <span class="math inline">\((n)\)</span> index the observations with the smallest and largest <span class="math inline">\(x\)</span> (assumed unique), is linear and unbiased, and find its variance under A2–A3. For <span class="math inline">\(x = 1, 2, 3, 4, 5\)</span>, compare it with <span class="math inline">\(\operatorname{Var}(\hat\beta_1)\)</span>.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p><span class="math inline">\(\tilde\beta_1 = \sum c_i y_i\)</span> with <span class="math inline">\(c = 1/(x_{(n)} - x_{(1)})\)</span> for the largest-<span class="math inline">\(x\)</span> observation, <span class="math inline">\(-c\)</span> for the smallest, and 0 otherwise: linear. <span class="math inline">\(E(\tilde\beta_1) = [\beta_1 (x_{(n)} - x_{(1)})]/(x_{(n)} - x_{(1)}) = \beta_1\)</span>: unbiased. <span class="math inline">\(\operatorname{Var}(\tilde\beta_1) = 2\sigma^2/(x_{(n)} - x_{(1)})^2\)</span>. For <span class="math inline">\(x = 1,\dots,5\)</span>: <span class="math inline">\(\operatorname{Var}(\tilde\beta_1) = 2\sigma^2/16 = 0.125\,\sigma^2\)</span> versus <span class="math inline">\(\operatorname{Var}(\hat\beta_1) = \sigma^2/S_{xx} = \sigma^2/10 = 0.1\,\sigma^2\)</span>, as Gauss–Markov requires. A simulation with <span class="math inline">\(\sigma = 2\)</span> and 10,000 replications (seed 2026, Python) gave variances 0.511 and 0.407, against the theoretical 0.500 and 0.400.</p>
+</details>
+<h3 data-number="8.3" id="c.-computational"><span class="header-section-number">8.3</span> C. Computational</h3>
+<p><strong>C1</strong> (★). Reproduce the standard errors of the worked example and check them against <code>summary(lm(...))</code> in R or by your own matrix computation in Python.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p><span class="math inline">\(\operatorname{se}(\hat\beta_0) = 0.7952\)</span> and <span class="math inline">\(\operatorname{se}(\hat\beta_1) = 0.2575\)</span> (per 1000 lb). In R, <code>summary(lm(mpg ~ I(weight/1000), data = auto))</code> reports the same values in the “Std. Error” column.</p>
+</details>
+<p><strong>C2</strong> (★★). <em>Bias of the ML variance estimator.</em> With <span class="math inline">\(x = 1, \dots, 5\)</span>, <span class="math inline">\(y_i = 1 + 2x_i + \varepsilon_i\)</span> and <span class="math inline">\(\varepsilon_i \sim N(0, 2^2)\)</span>, simulate 10,000 data sets (seed 2026). Compare the average of <span class="math inline">\(\mathrm{SSE}/(n-2)\)</span> and of <span class="math inline">\(\mathrm{SSE}/n\)</span> with <span class="math inline">\(\sigma^2 = 4\)</span>.</p>
+<details class="esa-solution">
+<summary>
+Solution (Python)
+</summary>
+<pre class="python"><code>import numpy as np
+rng = np.random.default_rng(2026)
+x = np.arange(1, 6.0); n = 5; R = 10_000
+Y = 1 + 2 * x + rng.normal(0, 2, size=(R, n))
+k = (x - x.mean()) / np.sum((x - x.mean())**2)
+b1 = Y @ k; b0 = Y.mean(axis=1) - b1 * x.mean()
+SSE = ((Y - b0[:, None] - b1[:, None] * x)**2).sum(axis=1)
+print(round((SSE / (n - 2)).mean(), 4), round((SSE / n).mean(), 4))</code></pre>
+<p>Output: 3.9730 and 2.3838. Theory: <span class="math inline">\(E[\mathrm{SSE}/(n-2)] = 4\)</span> and <span class="math inline">\(E[\mathrm{SSE}/n] = (3/5)\times 4 = 2.4\)</span>. Dividing by <span class="math inline">\(n\)</span> underestimates <span class="math inline">\(\sigma^2\)</span> by 40% when <span class="math inline">\(n = 5\)</span>.</p>
+</details>
+<p><strong>C3</strong> (★★★). <em>When A2 fails.</em> Keep the 398 Auto MPG weights <span class="math inline">\(x\)</span> (in 1000 lb). Generate <span class="math inline">\(y_i = 46.3 - 7.7x_i + \varepsilon_i\)</span> with <span class="math inline">\(\varepsilon_i \sim N(0, \sigma_i^2)\)</span> and <span class="math inline">\(\sigma_i = \max(9.5 - 1.5x_i,\ 1)\)</span>, so that the spread decreases with weight as in the real data. Over 10,000 replications (seed 2026), compare (i) the mean of <span class="math inline">\(\hat\beta_1\)</span> with <span class="math inline">\(-7.7\)</span>, (ii) the standard deviation of <span class="math inline">\(\hat\beta_1\)</span> with its exact value <span class="math inline">\(\sqrt{\sum k_i^2\sigma_i^2}\)</span>, and (iii) the average usual standard error <span class="math inline">\(\hat\sigma/\sqrt{S_{xx}}\)</span>.</p>
+<details class="esa-solution">
+<summary>
+Solution (Python)
+</summary>
+<pre class="python"><code>import numpy as np, pandas as pd
+cols = [&quot;mpg&quot;, &quot;cylinders&quot;, &quot;displacement&quot;, &quot;horsepower&quot;, &quot;weight&quot;,
+        &quot;acceleration&quot;, &quot;model_year&quot;, &quot;origin&quot;, &quot;car_name&quot;]
+auto = pd.read_csv(&quot;data/auto-mpg.data&quot;, sep=r&quot;\s+&quot;, header=None,
+                   names=cols, na_values=&quot;?&quot;, quotechar=&#39;&quot;&#39;)
+x = auto[&quot;weight&quot;].to_numpy() / 1000; n = len(x)
+Sxx = np.sum((x - x.mean())**2); k = (x - x.mean()) / Sxx
+sd = np.maximum(9.5 - 1.5 * x, 1.0)
+rng = np.random.default_rng(2026)
+Y = 46.3 - 7.7 * x + rng.normal(0, 1, size=(10_000, n)) * sd
+b1 = Y @ k; b0 = Y.mean(axis=1) - b1 * x.mean()
+s2 = ((Y - b0[:, None] - b1[:, None] * x)**2).sum(axis=1) / (n - 2)
+print(round(b1.mean(), 4), round(b1.std(ddof=1), 4),
+      round(np.sqrt(np.sum(k**2 * sd**2)), 4), round(np.sqrt(s2 / Sxx).mean(), 4))</code></pre>
+<p>Output: mean <span class="math inline">\(-7.7039\)</span>, simulated SD <span class="math inline">\(0.2809\)</span>, exact SD <span class="math inline">\(0.2794\)</span>, average usual SE <span class="math inline">\(0.3081\)</span>. The slope remains unbiased (A1 holds), but the usual standard error, which assumes constant variance, is about 10% too large here. With a different variance pattern it can be too small; the direction is not predictable in general. This is why Module 3 introduces standard errors that do not rely on A2.</p>
+</details>
+<h2 class="esa-lesson-anchor" data-number="9" id="references"><span class="header-section-number">9</span> References</h2>
+<ul>
+<li>Montgomery, D. C., Peck, E. A., &amp; Vining, G. G. (2021). <em>Introduction to Linear Regression Analysis</em> (6th ed.). Wiley. — Chapter 2, Section 2.2 (properties of the least-squares estimators; estimation of σ²).</li>
+<li>Kutner, M. H., Nachtsheim, C. J., Neter, J., &amp; Li, W. (2005). <em>Applied Linear Statistical Models</em> (5th ed.). McGraw-Hill/Irwin. — Chapter 1 (Gauss–Markov theorem; estimation of the error variance; maximum likelihood under normal errors).</li>
+<li>Seber, G. A. F., &amp; Lee, A. J. (2003). <em>Linear Regression Analysis</em> (2nd ed.). Wiley. — Chapter 3, Linear Regression: Estimation and Distribution Theory (Gauss–Markov theorem in matrix form).</li>
+<li>Quinlan, R. (1993). <em>Auto MPG</em> [Data set]. UCI Machine Learning Repository. https://doi.org/10.24432/C5859H</li>
+</ul>
+
+{% endraw %}
+    <div class="lesson-nav">
+      <a class="btn btn-outline" href="/courses/regression/module-1/ordinary-least-squares/">← Lesson 1.3: Ordinary Least Squares</a>
+      <a class="btn" href="/courses/regression/module-1/interpreting-coefficients/">Next: Lesson 1.5 →</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .esa-course-lesson details{border:1px solid var(--border-strong,#d0d7de);border-radius:9px;padding:.4rem .9rem;margin:1rem 0}
+  .esa-course-lesson details>summary{cursor:pointer;font-weight:700}
+  .esa-course-lesson .esa-code-tabs{margin:1rem 0}
+  .esa-course-lesson .esa-code-tabs details{margin:.4rem 0}
+  .esa-course-lesson pre{max-width:100%}
+  .esa-course-lesson pre.esa-output{border-left:5px solid #0d9488}
+  .esa-course-lesson .esa-output-label{font-size:.85rem;font-weight:700;margin:.6rem 0 .2rem}
+  .esa-course-lesson .esa-figure{margin:1rem 0}
+  .esa-course-lesson .esa-figure img{max-width:100%;height:auto}
+  .esa-course-lesson .esa-figure figcaption{font-size:.9rem}
+  .esa-course-lesson mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+</style>

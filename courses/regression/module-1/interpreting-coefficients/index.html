@@ -1,0 +1,448 @@
+---
+layout: default
+title: "Interpreting the Coefficients — Regression Course, Lesson 1.5"
+description: "University-level lesson: correct interpretation of the slope and intercept, centring, exact effects of changing units, non-linear changes of scale, and log-scale slopes, with R and Python."
+permalink: /courses/regression/module-1/interpreting-coefficients/
+sidebar: false
+math: true
+learning_resource: true
+---
+
+<section class="hero hero-section">
+  <div class="hero-card">
+    <div class="badge-row">
+      <span class="badge">Course</span>
+      <span class="badge">Regression Analysis</span>
+      <span class="badge">Module 1 · Foundations</span>
+      <span class="badge">Lesson 1.5</span>
+    </div>
+    <h1>Lesson 1.5 — Interpreting the Coefficients</h1>
+    <p class="lead">“Each additional 1000 lb is associated with 7.7 fewer mpg.” Every part of that sentence carries meaning. This lesson makes the interpretation precise and shows what changes — and what does not — when units change.</p>
+    <p class="muted-mini">Level: Introductory–Intermediate · Study time: 50 min + exercises · Prerequisites: Lessons 1.1–1.4 · Data: Auto MPG (UCI, CC BY 4.0)</p>
+    <div class="hero-actions">
+      <a class="btn btn-outline" href="/courses/regression/module-1/">Module 1 lessons</a>
+      <a class="btn btn-outline" href="/courses/regression/code/lesson-1-5.py">Python script</a>
+      <a class="btn btn-outline" href="/courses/regression/code/lesson-1-5.R">R script</a>
+    </div>
+  </div>
+</section>
+
+<nav class="esa-lesson-toc" aria-label="On this page"><details><summary>On this page</summary><ol><li><a href="#learning-objectives">Learning objectives</a></li><li><a href="#motivation">Motivation</a></li><li><a href="#notation-for-this-lesson">Notation for this lesson</a></li><li><a href="#theory">Theory</a></li><li><a href="#worked-example">Worked example</a></li><li><a href="#common-misconceptions">Common misconceptions</a></li><li><a href="#key-takeaways">Key takeaways</a></li><li><a href="#exercises">Exercises</a></li><li><a href="#references">References</a></li></ol></details></nav>
+
+<section>
+  <div class="content-narrow esa-course-lesson">
+{% raw %}
+<h2 class="esa-lesson-anchor" data-number="1" id="learning-objectives"><span class="header-section-number">1</span> Learning objectives</h2>
+<p>By the end of this lesson you will be able to:</p>
+<ol type="1">
+<li>interpret the slope as a change in the <strong>mean</strong> response, in the correct units and with the correct scope;</li>
+<li>decide when the intercept has a meaningful interpretation, and use centring to make it meaningful;</li>
+<li>derive exactly how linear changes of units in <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> affect the estimates, standard errors, <span class="math inline">\(t\)</span>-statistics and <span class="math inline">\(R^2\)</span>;</li>
+<li>recognise when a change of units is <strong>not</strong> linear, so that the model must be refitted;</li>
+<li>interpret a slope when the response is on the log scale.</li>
+</ol>
+<h2 class="esa-lesson-anchor" data-number="2" id="motivation"><span class="header-section-number">2</span> Motivation</h2>
+<p>“Each additional 1000 lb is associated with 7.7 fewer mpg.” This sentence is short, but every part of it carries meaning: <em>each additional</em> (a difference in <span class="math inline">\(x\)</span>), <em>1000 lb</em> (the unit), <em>associated with</em> (not <em>causes</em>), <em>fewer mpg</em> (on average, not for every car). Students and researchers routinely get one of these parts wrong, and reviewers notice. This lesson makes the interpretation precise, shows what happens to every number in the output when units change, and marks the limits beyond which a fitted line says nothing.</p>
+<h2 class="esa-lesson-anchor" data-number="3" id="notation-for-this-lesson"><span class="header-section-number">3</span> Notation for this lesson</h2>
+<div class="table-wrap"><table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\hat\beta_0, \hat\beta_1\)</span></td>
+<td>estimates for <span class="math inline">\(y\)</span> on <span class="math inline">\(x\)</span> in the original units</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(x^* = a + b\,x\)</span>, <span class="math inline">\(y^* = c + d\,y\)</span></td>
+<td>linearly transformed variables (<span class="math inline">\(b, d \ne 0\)</span>)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\hat\beta_0^*, \hat\beta_1^*\)</span></td>
+<td>estimates for <span class="math inline">\(y^*\)</span> on <span class="math inline">\(x^*\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(t_1 = \hat\beta_1/\operatorname{se}(\hat\beta_1)\)</span></td>
+<td><span class="math inline">\(t\)</span>-statistic for the slope (used formally in Lesson 1.7)</td>
+</tr>
+</tbody>
+</table></div>
+<p>All notation follows the course notation standard.</p>
+<h2 class="esa-lesson-anchor" data-number="4" id="theory"><span class="header-section-number">4</span> Theory</h2>
+<h3 data-number="4.1" id="interpreting-the-slope"><span class="header-section-number">4.1</span> Interpreting the slope</h3>
+<p>Under the model <span class="math inline">\(E(y \mid x) = \beta_0 + \beta_1 x\)</span>, <span class="math display">\[
+\beta_1 = E(y \mid x + 1) - E(y \mid x)\quad\text{for every } x .
+\]</span></p>
+<div class="concept-box esa-callout-note">
+<p class="esa-box-title">
+<strong>Template for a correct slope statement</strong>
+</p>
+<p>“Among [population/sample], a difference of [one unit, with unit name] in [x] is associated with a difference of [<span class="math inline">\(\hat\beta_1\)</span>, with unit name] in the <strong>average</strong> [y], [within the observed range of x].”</p>
+</div>
+<p>Each element guards against a specific error:</p>
+<ul>
+<li><strong>“Average”</strong> — <span class="math inline">\(\beta_1\)</span> describes the conditional mean, not every unit. Individual cars scatter around the line (Lesson 1.1).</li>
+<li><strong>“Associated with”</strong> — with observational data, <span class="math inline">\(\beta_1\)</span> is not a causal effect; units differing in <span class="math inline">\(x\)</span> may differ in other ways (Lesson 1.1).</li>
+<li><strong>“A difference of”</strong> — the comparison is between units with different <span class="math inline">\(x\)</span>, not a change within one unit over time.</li>
+<li><strong>Units</strong> — the number <span class="math inline">\(\hat\beta_1\)</span> is meaningless without the units of <span class="math inline">\(y\)</span> per unit of <span class="math inline">\(x\)</span>.</li>
+<li><strong>Range</strong> — the data say nothing about <span class="math inline">\(E(y \mid x)\)</span> outside the observed <span class="math inline">\(x\)</span> values.</li>
+</ul>
+<p>Changing the increment is a matter of multiplication: the association for a difference of <span class="math inline">\(\Delta\)</span> units of <span class="math inline">\(x\)</span> is <span class="math inline">\(\Delta\cdot\beta_1\)</span>.</p>
+<h3 data-number="4.2" id="interpreting-the-intercept"><span class="header-section-number">4.2</span> Interpreting the intercept</h3>
+<p><span class="math inline">\(\beta_0 = E(y \mid x = 0)\)</span>. It has a substantive interpretation only if</p>
+<ol type="1">
+<li><span class="math inline">\(x = 0\)</span> is a meaningful value of the predictor, <strong>and</strong></li>
+<li><span class="math inline">\(x = 0\)</span> lies within, or very close to, the range of the observed <span class="math inline">\(x\)</span> values.</li>
+</ol>
+<p>Otherwise <span class="math inline">\(\hat\beta_0\)</span> is an <strong>extrapolation</strong> and is needed only to position the line. A common remedy is <strong>centring</strong>: replace <span class="math inline">\(x\)</span> by <span class="math inline">\(x - c\)</span> for a meaningful value <span class="math inline">\(c\)</span> inside the data range. The slope is unchanged (Lesson 1.3, Exercise B1), and the new intercept is the estimated mean response at <span class="math inline">\(x = c\)</span>.</p>
+<h3 data-number="4.3" id="changes-of-units-linear-transformations"><span class="header-section-number">4.3</span> Changes of units: linear transformations</h3>
+<div class="concept-box esa-callout-important">
+<p class="esa-box-title">
+<strong>Theorem 1.5.1 (Linear transformations)</strong>
+</p>
+<p>Let <span class="math inline">\(x_i^* = a + b\,x_i\)</span> and <span class="math inline">\(y_i^* = c + d\,y_i\)</span> with <span class="math inline">\(b \ne 0\)</span>, <span class="math inline">\(d \ne 0\)</span>. Then for the least-squares fit of <span class="math inline">\(y^*\)</span> on <span class="math inline">\(x^*\)</span>:</p>
+<ol type="a">
+<li><span class="math inline">\(\hat\beta_1^* = \dfrac{d}{b}\,\hat\beta_1\)</span>, and <span class="math inline">\(\hat\beta_0^* = c + d\,\hat\beta_0 - \dfrac{a\,d}{b}\,\hat\beta_1\)</span>;</li>
+<li><span class="math inline">\(\hat y_i^* = c + d\,\hat y_i\)</span> and <span class="math inline">\(e_i^* = d\,e_i\)</span>, so <span class="math inline">\(\mathrm{SSE}^* = d^2\,\mathrm{SSE}\)</span> and <span class="math inline">\(\hat\sigma^* = |d|\,\hat\sigma\)</span>;</li>
+<li><span class="math inline">\(\operatorname{se}(\hat\beta_1^*) = \left|\dfrac{d}{b}\right|\operatorname{se}(\hat\beta_1)\)</span>, so <span class="math inline">\(t_1^* = \operatorname{sign}(bd)\, t_1\)</span>;</li>
+<li><span class="math inline">\(R^{2*} = R^2\)</span> and <span class="math inline">\(r^* = \operatorname{sign}(bd)\,r\)</span>.</li>
+</ol>
+</div>
+<details class="esa-derivation">
+<summary>
+Derivation
+</summary>
+<ol type="a">
+<li><p><span class="math inline">\(x_i^* - \bar x^* = b(x_i - \bar x)\)</span> and <span class="math inline">\(y_i^* - \bar y^* = d(y_i - \bar y)\)</span>, so <span class="math inline">\(S_{x^*y^*} = bd\,S_{xy}\)</span> and <span class="math inline">\(S_{x^*x^*} = b^2 S_{xx}\)</span>; hence <span class="math inline">\(\hat\beta_1^* = (d/b)\hat\beta_1\)</span>. Then <span class="math inline">\(\hat\beta_0^* = \bar y^* - \hat\beta_1^*\bar x^* = c + d\bar y - (d/b)\hat\beta_1(a + b\bar x) = c + d(\bar y - \hat\beta_1\bar x) - (ad/b)\hat\beta_1\)</span>.</p></li>
+<li><p><span class="math inline">\(\hat y_i^* = \hat\beta_0^* + \hat\beta_1^* x_i^* = c + d\hat\beta_0 - (ad/b)\hat\beta_1 + (d/b)\hat\beta_1(a + bx_i) = c + d(\hat\beta_0 + \hat\beta_1 x_i) = c + d\,\hat y_i\)</span>, so <span class="math inline">\(e_i^* = y_i^* - \hat y_i^* = d\,e_i\)</span>. The degrees of freedom <span class="math inline">\(n - 2\)</span> are unchanged.</p></li>
+<li><p><span class="math inline">\(\operatorname{se}(\hat\beta_1^*) = \hat\sigma^*/\sqrt{S_{x^*x^*}} = |d|\hat\sigma/(|b|\sqrt{S_{xx}})\)</span>. Dividing, <span class="math inline">\(t_1^* = (d/b)\hat\beta_1 \big/ (|d/b|\operatorname{se}(\hat\beta_1)) = \operatorname{sign}(bd)\,t_1\)</span>.</p></li>
+<li><p><span class="math inline">\(R^{2*} = 1 - \mathrm{SSE}^*/S_{y^*y^*} = 1 - d^2\mathrm{SSE}/(d^2 S_{yy}) = R^2\)</span>; the result for <span class="math inline">\(r\)</span> is Theorem 1.2.2.</p></li>
+</ol>
+</details>
+<p>The practical message: <strong>changing units changes the coefficients and their standard errors, but not the evidence</strong>. The <span class="math inline">\(t\)</span>-statistic, the <span class="math inline">\(p\)</span>-value and <span class="math inline">\(R^2\)</span> are unaffected, so a choice of units can make a coefficient look large or small without changing anything substantive.</p>
+<p>The <strong>intercept’s</strong> standard error is not simply rescaled when <span class="math inline">\(a \neq 0\)</span> (Exercise B2): shifting <span class="math inline">\(x\)</span> changes <em>which</em> mean response the intercept estimates.</p>
+<h3 data-number="4.4" id="non-linear-changes-of-scale"><span class="header-section-number">4.4</span> Non-linear changes of scale</h3>
+<p>Theorem 1.5.1 applies only to <strong>linear</strong> transformations. Converting fuel economy (mpg) to fuel consumption in litres per 100 km uses <span class="math display">\[
+\text{L/100 km} = \frac{235.215}{\text{mpg}},
+\]</span> which is not linear. A straight line in mpg is then a curve in L/100 km, and vice versa. The slope for L/100 km cannot be obtained by rescaling the slope for mpg; the model must be <strong>refitted</strong>, and the two models make different assumptions about which scale is linear.</p>
+<h3 data-number="4.5" id="a-first-look-at-a-log-scale-response"><span class="header-section-number">4.5</span> A first look at a log-scale response</h3>
+<p>When the response is modelled on the log scale, <span class="math inline">\(E(\log y \mid x) = \beta_0 + \beta_1 x\)</span>, the slope has a <strong>multiplicative</strong> interpretation. A difference of one unit in <span class="math inline">\(x\)</span> is associated with multiplying the <strong>geometric mean</strong> (and, if the errors are symmetric on the log scale, the median) of <span class="math inline">\(y\)</span> by <span class="math inline">\(e^{\beta_1}\)</span>, that is, a change of <span class="math display">\[
+100\,(e^{\beta_1} - 1)\ \% .
+\]</span> For small <span class="math inline">\(|\beta_1|\)</span>, <span class="math inline">\(100\,(e^{\beta_1}-1) \approx 100\,\beta_1\)</span>. Module 3 discusses when and why to transform the response; here we only interpret.</p>
+<h2 class="esa-lesson-anchor" data-number="5" id="worked-example"><span class="header-section-number">5</span> Worked example</h2>
+<h3 data-number="5.1" id="the-same-fit-in-different-units"><span class="header-section-number">5.1</span> The same fit in different units</h3>
+<p>The Auto MPG fit of mpg on weight (<span class="math inline">\(n = 398\)</span>) in five versions of the weight variable:</p>
+<div class="table-wrap"><table style="width:100%;">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Weight variable</th>
+<th><span class="math inline">\(\hat\beta_0\)</span></th>
+<th><span class="math inline">\(\hat\beta_1\)</span></th>
+<th><span class="math inline">\(\operatorname{se}(\hat\beta_1)\)</span></th>
+<th><span class="math inline">\(t_1\)</span></th>
+<th><span class="math inline">\(R^2\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>pounds</td>
+<td>46.3174</td>
+<td>−0.007677 per lb</td>
+<td>0.000257</td>
+<td>−29.81</td>
+<td>0.6918</td>
+</tr>
+<tr class="even">
+<td>hundreds of pounds</td>
+<td>46.3174</td>
+<td>−0.7677 per 100 lb</td>
+<td>0.02575</td>
+<td>−29.81</td>
+<td>0.6918</td>
+</tr>
+<tr class="odd">
+<td>thousands of pounds</td>
+<td>46.3174</td>
+<td>−7.6766 per 1000 lb</td>
+<td>0.2575</td>
+<td>−29.81</td>
+<td>0.6918</td>
+</tr>
+<tr class="even">
+<td>thousands of kilograms</td>
+<td>46.3174</td>
+<td>−16.9240 per 1000 kg</td>
+<td>0.5677</td>
+<td>−29.81</td>
+<td>0.6918</td>
+</tr>
+<tr class="odd">
+<td>thousands of pounds, centred at 3000 lb</td>
+<td>23.2875</td>
+<td>−7.6766 per 1000 lb</td>
+<td>0.2575</td>
+<td>−29.81</td>
+<td>0.6918</td>
+</tr>
+</tbody>
+</table></div>
+<p>As Theorem 1.5.1 predicts, the slope and its standard error change by the same factor, while <span class="math inline">\(t_1\)</span> and <span class="math inline">\(R^2\)</span> do not change. Centring changes only the intercept: <span class="math inline">\(\hat\beta_0 = 23.29\)</span> mpg is the estimated <strong>mean fuel economy of 3000-lb cars</strong>, a value well inside the data, with standard error <span class="math inline">\(0.218\)</span> instead of <span class="math inline">\(0.795\)</span>.</p>
+<p>Converting the <strong>response</strong> linearly from mpg to km/L (<span class="math inline">\(d = 0.425144\)</span>) multiplies <span class="math inline">\(\hat\beta_0\)</span>, <span class="math inline">\(\hat\beta_1\)</span>, their standard errors and <span class="math inline">\(\hat\sigma\)</span> by 0.425144 and again leaves <span class="math inline">\(t_1\)</span> and <span class="math inline">\(R^2\)</span> unchanged (Exercise C1).</p>
+<div class="esa-code-tabs">
+<details class="esa-code">
+<summary>
+R code
+</summary>
+<pre class="r"><code>cols &lt;- c(&quot;mpg&quot;, &quot;cylinders&quot;, &quot;displacement&quot;, &quot;horsepower&quot;, &quot;weight&quot;,
+          &quot;acceleration&quot;, &quot;model_year&quot;, &quot;origin&quot;, &quot;car_name&quot;)
+auto &lt;- read.table(&quot;data/auto-mpg.data&quot;, col.names = cols, na.strings = &quot;?&quot;)
+
+summarise_fit &lt;- function(x, y) {
+  s &lt;- summary(lm(y ~ x))
+  c(b0 = coef(s)[1, 1], b1 = coef(s)[2, 1], se_b0 = coef(s)[1, 2],
+    se_b1 = coef(s)[2, 2], t_b1 = coef(s)[2, 3], R2 = s$r.squared)
+}
+versions &lt;- list(
+  pounds           = auto$weight,
+  hundreds_lb      = auto$weight / 100,
+  thousands_lb     = auto$weight / 1000,
+  thousands_kg     = auto$weight * 0.45359237 / 1000,
+  centred_3000lb   = (auto$weight - 3000) / 1000)
+round(t(sapply(versions, summarise_fit, y = auto$mpg)), 6)</code></pre>
+</details>
+<details class="esa-code" open>
+<summary>
+Python code
+</summary>
+<pre class="python"><code>import numpy as np
+import pandas as pd
+
+cols = [&quot;mpg&quot;, &quot;cylinders&quot;, &quot;displacement&quot;, &quot;horsepower&quot;, &quot;weight&quot;,
+        &quot;acceleration&quot;, &quot;model_year&quot;, &quot;origin&quot;, &quot;car_name&quot;]
+auto = pd.read_csv(&quot;data/auto-mpg.data&quot;, sep=r&quot;\s+&quot;, header=None,
+                   names=cols, na_values=&quot;?&quot;, quotechar=&#39;&quot;&#39;)
+
+def summarise_fit(x, y):
+    n = len(y)
+    Sxx = np.sum((x - x.mean())**2)
+    b1 = np.sum((x - x.mean()) * (y - y.mean())) / Sxx
+    b0 = y.mean() - b1 * x.mean()
+    e = y - b0 - b1 * x
+    s = np.sqrt(e @ e / (n - 2))
+    se1 = s / np.sqrt(Sxx)
+    se0 = s * np.sqrt(1 / n + x.mean()**2 / Sxx)
+    R2 = 1 - (e @ e) / np.sum((y - y.mean())**2)
+    return dict(b0=b0, b1=b1, se_b0=se0, se_b1=se1, t_b1=b1 / se1, R2=R2)
+
+w, y = auto[&quot;weight&quot;].to_numpy(), auto[&quot;mpg&quot;].to_numpy()
+versions = {
+    &quot;pounds&quot;: w,
+    &quot;hundreds_lb&quot;: w / 100,
+    &quot;thousands_lb&quot;: w / 1000,
+    &quot;thousands_kg&quot;: w * 0.45359237 / 1000,
+    &quot;centred_3000lb&quot;: (w - 3000) / 1000,
+}
+table = pd.DataFrame({k: summarise_fit(v, y) for k, v in versions.items()}).T
+print(table.round(6))</code></pre>
+<p class="esa-output-label">
+Output
+</p>
+<pre class="esa-output"><code>                       b0         b1     se_b0     se_b1       t_b1        R2
+pounds          46.317364  -0.007677  0.795245  0.000257 -29.813599  0.691793
+hundreds_lb     46.317364  -0.767661  0.795245  0.025749 -29.813599  0.691793
+thousands_lb    46.317364  -7.676610  0.795245  0.257487 -29.813599  0.691793
+thousands_kg    46.317364 -16.924028  0.795245  0.567661 -29.813599  0.691793
+centred_3000lb  23.287534  -7.676610  0.217910  0.257487 -29.813599  0.691793</code></pre>
+</details>
+</div>
+<h3 data-number="5.2" id="extrapolation"><span class="header-section-number">5.2</span> Extrapolation</h3>
+<p>The observed weights run from 1613 to 5140 lb. The fitted line gives</p>
+<ul>
+<li>38.6 mpg for a 1000-lb car — below the lightest car in the data;</li>
+<li>0.26 mpg for a 6000-lb car — above the heaviest car, and physically implausible.</li>
+</ul>
+<p>Neither prediction is supported by the data. The second also shows the consequence of the curvature seen in Lesson 1.1: the straight line keeps falling where the conditional mean flattens.</p>
+<h3 data-number="5.3" id="fuel-consumption-instead-of-fuel-economy"><span class="header-section-number">5.3</span> Fuel consumption instead of fuel economy</h3>
+<p>Refitting with the response in litres per 100 km (a non-linear transformation of mpg) gives <span class="math display">\[
+\widehat{\text{L/100 km}} = -0.903 + 4.079 \times \text{weight (1000 lb)}, \qquad R^2 = 0.784 .
+\]</span> Each additional 1000 lb is associated with about 4.1 more litres per 100 km on average. This <span class="math inline">\(R^2\)</span> differs from 0.692 because the two models assume linearity on different scales; it cannot be obtained from the mpg fit by any rescaling.</p>
+<h3 data-number="5.4" id="log-scale"><span class="header-section-number">5.4</span> Log scale</h3>
+<p>Fitting <span class="math inline">\(\log(\text{mpg})\)</span> on weight (1000 lb) gives <span class="math inline">\(\hat\beta_1 = -0.3512\)</span>. Hence each additional 1000 lb is associated with a change of <span class="math display">\[
+100\,(e^{-0.3512} - 1) = -29.6\%
+\]</span> in the geometric mean of mpg, or about <span class="math inline">\(100\,(e^{-0.03512} - 1) = -3.5\%\)</span> per additional 100 lb. Here the approximation <span class="math inline">\(100\,\hat\beta_1 = -35.1\%\)</span> per 1000 lb would be poor, because <span class="math inline">\(|\hat\beta_1|\)</span> is not small.</p>
+<div class="esa-code-tabs">
+<details class="esa-code">
+<summary>
+R code
+</summary>
+<pre class="r"><code>fit &lt;- lm(mpg ~ I(weight / 1000), data = auto)
+predict(fit, newdata = data.frame(weight = c(1000, 6000)))   # extrapolation
+range(auto$weight)
+
+auto$L100km &lt;- 235.214583 / auto$mpg                          # non-linear change
+coef(lm(L100km ~ I(weight / 1000), data = auto))
+summary(lm(L100km ~ I(weight / 1000), data = auto))$r.squared
+
+b_log &lt;- unname(coef(lm(log(mpg) ~ I(weight / 1000), data = auto))[2])
+c(b_log = b_log, pct_per_1000lb = 100 * (exp(b_log) - 1),
+  pct_per_100lb = 100 * (exp(b_log / 10) - 1))</code></pre>
+</details>
+<details class="esa-code" open>
+<summary>
+Python code
+</summary>
+<pre class="python"><code>x = w / 1000
+f = summarise_fit(x, y)
+for x0 in (1.0, 6.0):
+    print(f&quot;prediction at {x0 * 1000:.0f} lb: {f[&#39;b0&#39;] + f[&#39;b1&#39;] * x0:.2f} mpg&quot;)
+print(&quot;observed weight range:&quot;, w.min(), &quot;to&quot;, w.max(), &quot;lb&quot;)
+
+L100 = 235.214583 / y                                          # non-linear change
+fL = summarise_fit(x, L100)
+print(f&quot;L/100 km fit: b0 = {fL[&#39;b0&#39;]:.4f}, b1 = {fL[&#39;b1&#39;]:.4f}, R2 = {fL[&#39;R2&#39;]:.4f}&quot;)
+
+b_log = summarise_fit(x, np.log(y))[&quot;b1&quot;]
+print(f&quot;log(mpg) slope = {b_log:.4f}; &quot;
+      f&quot;{100 * (np.exp(b_log) - 1):.1f}% per 1000 lb; {100 * (np.exp(b_log / 10) - 1):.2f}% per 100 lb&quot;)</code></pre>
+<p class="esa-output-label">
+Output
+</p>
+<pre class="esa-output"><code>prediction at 1000 lb: 38.64 mpg
+prediction at 6000 lb: 0.26 mpg
+observed weight range: 1613.0 to 5140.0 lb
+L/100 km fit: b0 = -0.9031, b1 = 4.0789, R2 = 0.7836
+log(mpg) slope = -0.3512; -29.6% per 1000 lb; -3.45% per 100 lb</code></pre>
+</details>
+</div>
+<h3 data-number="5.5" id="interpretation-in-context"><span class="header-section-number">5.5</span> Interpretation in context</h3>
+<p>A complete, defensible statement for the original fit:</p>
+<blockquote>
+<p>Among the 398 cars in the Auto MPG data (model years 1970–1982), a difference of 1000 lb in weight is associated with a difference of about 7.7 mpg in average fuel economy (95% confidence interval in Lesson 1.7), over the observed weight range of roughly 1600 to 5100 lb. Because the data are observational and the relationship flattens for heavy cars, this is a description of an average association, not the effect of changing a car’s weight.</p>
+</blockquote>
+<h2 class="esa-lesson-anchor" data-number="6" id="common-misconceptions"><span class="header-section-number">6</span> Common misconceptions</h2>
+<div class="example-box esa-callout-caution">
+<p class="esa-box-title">
+<strong>Misconceptions</strong>
+</p>
+<ol type="1">
+<li><strong>“The slope for weight in pounds (<span class="math inline">\(-0.0077\)</span>) shows weight hardly matters.”</strong> — The size of a coefficient depends on the units. The <span class="math inline">\(t\)</span>-statistic and <span class="math inline">\(R^2\)</span> are the same in every unit.</li>
+<li><strong>“The intercept is the mpg of a weightless car.”</strong> — Only formally. <span class="math inline">\(x = 0\)</span> is far outside the data, so the intercept has no practical meaning here.</li>
+<li><strong>“Each car loses 7.7 mpg for every extra 1000 lb.”</strong> — The slope describes average differences between cars, not what happens to one car.</li>
+<li><strong>“To get the slope for L/100 km, just convert the mpg slope.”</strong> — Not possible: the conversion is non-linear, so the model must be refitted.</li>
+<li><strong>“On the log scale, the slope times 100 is the percentage change.”</strong> — Only approximately, and only for small slopes; the exact change is <span class="math inline">\(100(e^{\beta_1} - 1)\%\)</span>.</li>
+</ol>
+</div>
+<h2 class="esa-lesson-anchor" data-number="7" id="key-takeaways"><span class="header-section-number">7</span> Key takeaways</h2>
+<ul>
+<li>The slope is the difference in the <strong>mean</strong> response per unit difference in <span class="math inline">\(x\)</span>: state units, “average”, “associated with”, and the range.</li>
+<li>The intercept is meaningful only if <span class="math inline">\(x = 0\)</span> is meaningful and within the data; centring makes it the mean response at a chosen value.</li>
+<li>Linear changes of units rescale coefficients and standard errors but leave <span class="math inline">\(t\)</span>, <span class="math inline">\(p\)</span>-values and <span class="math inline">\(R^2\)</span> unchanged.</li>
+<li>Non-linear changes of scale require refitting; they change the model.</li>
+<li>On the log scale, slopes are percentage changes: <span class="math inline">\(100(e^{\beta_1} - 1)\%\)</span>.</li>
+</ul>
+<h2 class="esa-lesson-anchor" data-number="8" id="exercises"><span class="header-section-number">8</span> Exercises</h2>
+<h3 data-number="8.1" id="a.-conceptual"><span class="header-section-number">8.1</span> A. Conceptual</h3>
+<p><strong>A1</strong> (★). For the fit <span class="math inline">\(\widehat{\text{mpg}} = 46.3 - 7.68 \times \text{weight (1000 lb)}\)</span>, say whether each statement is correct, and fix the incorrect ones. (a) “A car that gains 1000 lb will lose 7.68 mpg.” (b) “Cars that weigh 1000 lb more have, on average, 7.68 mpg lower fuel economy.” (c) “A car weighing nothing would get 46.3 mpg.” (d) “Because −7.68 is much larger in magnitude than −0.0077, the model in thousands of pounds shows a stronger relationship than the model in pounds.”</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<ol type="a">
+<li>Incorrect: causal and about one car. Correct form: (b). (b) Correct, if “within the observed weight range” and “associated with” are understood (observational data). (c) Incorrect: extrapolation far outside the data; the intercept only positions the line. (d) Incorrect: the two fits are the same model in different units; <span class="math inline">\(t\)</span> and <span class="math inline">\(R^2\)</span> are identical (Theorem 1.5.1).</li>
+</ol>
+</details>
+<p><strong>A2</strong> (★). In a regression of systolic blood pressure (mmHg) on age (years) for adults aged 30–70, the intercept is 95. Is it meaningful? Propose a reparametrisation that gives the intercept a useful meaning.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>No: age 0 is far outside the 30–70 range (and the population is adults), so 95 mmHg is an extrapolation. Centre age, e.g. at 50 years: in the model with <span class="math inline">\(x - 50\)</span> the intercept is the estimated mean blood pressure of 50-year-olds, a value inside the data. The slope is unchanged.</p>
+</details>
+<h3 data-number="8.2" id="b.-mathematical"><span class="header-section-number">8.2</span> B. Mathematical</h3>
+<p><strong>B1</strong> (★★). Prove Theorem 1.5.1 (a) and (c) for the special case <span class="math inline">\(a = c = 0\)</span> (pure rescaling).</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>With <span class="math inline">\(x^* = bx\)</span>, <span class="math inline">\(y^* = dy\)</span>: <span class="math inline">\(S_{x^*y^*} = bd\,S_{xy}\)</span>, <span class="math inline">\(S_{x^*x^*} = b^2S_{xx}\)</span>, so <span class="math inline">\(\hat\beta_1^* = (d/b)\hat\beta_1\)</span>; <span class="math inline">\(\hat\beta_0^* = d\bar y - (d/b)\hat\beta_1\,b\bar x = d\hat\beta_0\)</span>. Residuals are multiplied by <span class="math inline">\(d\)</span>, so <span class="math inline">\(\hat\sigma^* = |d|\hat\sigma\)</span> and <span class="math inline">\(\operatorname{se}(\hat\beta_1^*) = |d|\hat\sigma/(|b|\sqrt{S_{xx}}) = |d/b|\operatorname{se}(\hat\beta_1)\)</span>; the ratio gives <span class="math inline">\(t_1^* = \operatorname{sign}(bd)\,t_1\)</span>.</p>
+</details>
+<p><strong>B2</strong> (★★). For <span class="math inline">\(x^* = x - c\)</span> (centring at <span class="math inline">\(c\)</span>), show that <span class="math inline">\(\operatorname{se}(\hat\beta_0^*) = \hat\sigma\sqrt{1/n + (\bar x - c)^2/S_{xx}}\)</span>. When is it smallest? Check the value <span class="math inline">\(0.2179\)</span> in the worked example.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>By Lesson 1.4, <span class="math inline">\(\operatorname{se}(\hat\beta_0^*) = \hat\sigma\sqrt{1/n + \bar x^{*2}/S_{x^*x^*}}\)</span> with <span class="math inline">\(\bar x^* = \bar x - c\)</span> and <span class="math inline">\(S_{x^*x^*} = S_{xx}\)</span>, giving the formula. It is smallest, <span class="math inline">\(\hat\sigma/\sqrt n\)</span>, at <span class="math inline">\(c = \bar x\)</span>. For Auto MPG (weight in 1000 lb): <span class="math inline">\(\hat\sigma = 4.344628\)</span>, <span class="math inline">\(n = 398\)</span>, <span class="math inline">\(\bar x = 2.970425\)</span>, <span class="math inline">\(c = 3\)</span>, <span class="math inline">\(S_{xx} = 284.704973\)</span>, so <span class="math inline">\(\operatorname{se} = 4.344628\sqrt{1/398 + 0.029575^2/284.705} = 0.2179\)</span>.</p>
+</details>
+<p><strong>B3</strong> (★★). Show that if the response is multiplied by <span class="math inline">\(-1\)</span> (<span class="math inline">\(d = -1\)</span>), the slope, intercept and <span class="math inline">\(t\)</span>-statistic change sign, while <span class="math inline">\(R^2\)</span> and <span class="math inline">\(\hat\sigma\)</span> do not. Give a practical example.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>From Theorem 1.5.1 with <span class="math inline">\(b = 1\)</span>, <span class="math inline">\(a = c = 0\)</span>, <span class="math inline">\(d = -1\)</span>: <span class="math inline">\(\hat\beta_1^* = -\hat\beta_1\)</span>, <span class="math inline">\(\hat\beta_0^* = -\hat\beta_0\)</span>, <span class="math inline">\(t_1^* = -t_1\)</span>, <span class="math inline">\(\hat\sigma^* = \hat\sigma\)</span>, <span class="math inline">\(R^{2*} = R^2\)</span>. Example: recoding a score so that higher means worse instead of better.</p>
+</details>
+<h3 data-number="8.3" id="c.-computational"><span class="header-section-number">8.3</span> C. Computational</h3>
+<p><strong>C1</strong> (★). Refit the Auto MPG model with the response in km/L (<span class="math inline">\(\text{km/L} = 0.425144 \times \text{mpg}\)</span>) and weight in 1000 lb. Verify Theorem 1.5.1 numerically.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p><span class="math inline">\(\hat\beta_0 = 19.692\)</span>, <span class="math inline">\(\hat\beta_1 = -3.2637\)</span> km/L per 1000 lb, <span class="math inline">\(\operatorname{se}(\hat\beta_1) = 0.1095\)</span>, <span class="math inline">\(\hat\sigma = 1.8471\)</span>, <span class="math inline">\(t_1 = -29.81\)</span>, <span class="math inline">\(R^2 = 0.6918\)</span>. Each of <span class="math inline">\(\hat\beta_0\)</span>, <span class="math inline">\(\hat\beta_1\)</span>, <span class="math inline">\(\operatorname{se}(\hat\beta_1)\)</span> and <span class="math inline">\(\hat\sigma\)</span> is <span class="math inline">\(0.425144\)</span> times its mpg value (<span class="math inline">\(46.3174\)</span>, <span class="math inline">\(-7.6766\)</span>, <span class="math inline">\(0.2575\)</span>, <span class="math inline">\(4.3446\)</span>), and <span class="math inline">\(t_1\)</span> and <span class="math inline">\(R^2\)</span> are unchanged.</p>
+</details>
+<p><strong>C2</strong> (★★). Fit mpg on horsepower for the 392 cars with horsepower recorded, first with horsepower as recorded and then centred at 100 hp. Interpret both intercepts and the slope (per 10 hp).</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>Uncentred: <span class="math inline">\(\hat\beta_0 = 39.936\)</span>, <span class="math inline">\(\hat\beta_1 = -0.1578\)</span> mpg per hp. The intercept (a car with 0 hp) has no practical meaning; observed horsepower runs from 46 to 230. Centred at 100 hp: <span class="math inline">\(\hat\beta_0 = 24.151\)</span> (se 0.249), the estimated mean fuel economy of 100-hp cars; the slope is unchanged. Per 10 hp: about <span class="math inline">\(-1.58\)</span> mpg on average. (Module 3 shows that this relationship is clearly curved, so a single slope is a rough summary.)</p>
+</details>
+<p><strong>C3</strong> (★★). Fit <span class="math inline">\(\log(\text{mpg})\)</span> on weight (1000 lb). Report the exact and approximate percentage change per 1000 lb and per 100 lb, and explain why the approximation is better for 100 lb.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p><span class="math inline">\(\hat\beta_1 = -0.3512\)</span>. Per 1000 lb: exact <span class="math inline">\(100(e^{-0.3512} - 1) = -29.6\%\)</span>, approximate <span class="math inline">\(-35.1\%\)</span>. Per 100 lb: exact <span class="math inline">\(100(e^{-0.03512} - 1) = -3.45\%\)</span>, approximate <span class="math inline">\(-3.51\%\)</span>. The approximation <span class="math inline">\(e^{u} - 1 \approx u\)</span> has error of order <span class="math inline">\(u^2/2\)</span>, which is small when <span class="math inline">\(|u|\)</span> is small (0.035) and large when it is not (0.35).</p>
+</details>
+<h2 class="esa-lesson-anchor" data-number="9" id="references"><span class="header-section-number">9</span> References</h2>
+<ul>
+<li>Weisberg, S. (2014). <em>Applied Linear Regression</em> (4th ed.). Wiley. — Chapter 2, Simple Linear Regression (interpretation; centring), and Chapter 4, Interpretation of Main Effects (log transformations).</li>
+<li>Kutner, M. H., Nachtsheim, C. J., Neter, J., &amp; Li, W. (2005). <em>Applied Linear Statistical Models</em> (5th ed.). McGraw-Hill/Irwin. — Chapter 1 (meaning of regression parameters; scope of the model).</li>
+<li>Montgomery, D. C., Peck, E. A., &amp; Vining, G. G. (2021). <em>Introduction to Linear Regression Analysis</em> (6th ed.). Wiley. — Chapter 2, Simple Linear Regression.</li>
+<li>Quinlan, R. (1993). <em>Auto MPG</em> [Data set]. UCI Machine Learning Repository. https://doi.org/10.24432/C5859H</li>
+</ul>
+
+{% endraw %}
+    <div class="lesson-nav">
+      <a class="btn btn-outline" href="/courses/regression/module-1/ols-properties/">← Lesson 1.4: Properties of the OLS Estimators</a>
+      <a class="btn" href="/courses/regression/module-1/goodness-of-fit/">Next: Lesson 1.6 →</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .esa-course-lesson details{border:1px solid var(--border-strong,#d0d7de);border-radius:9px;padding:.4rem .9rem;margin:1rem 0}
+  .esa-course-lesson details>summary{cursor:pointer;font-weight:700}
+  .esa-course-lesson .esa-code-tabs{margin:1rem 0}
+  .esa-course-lesson .esa-code-tabs details{margin:.4rem 0}
+  .esa-course-lesson pre{max-width:100%}
+  .esa-course-lesson pre.esa-output{border-left:5px solid #0d9488}
+  .esa-course-lesson .esa-output-label{font-size:.85rem;font-weight:700;margin:.6rem 0 .2rem}
+  .esa-course-lesson .esa-figure{margin:1rem 0}
+  .esa-course-lesson .esa-figure img{max-width:100%;height:auto}
+  .esa-course-lesson .esa-figure figcaption{font-size:.9rem}
+  .esa-course-lesson mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+</style>
