@@ -94,7 +94,7 @@ class HomeShowcase(unittest.TestCase):
     def test_links_resolve(self):
         self.visit("/")
         hrefs=self.page.evaluate("()=>[...document.querySelectorAll('.esa-home-go a[href]')].map(a=>a.getAttribute('href'))")
-        self.assertEqual(len(hrefs),12)
+        self.assertEqual(len(hrefs),15)  # 3 + 3 actions, 6 regression lessons + 3 Code Lab exercises
         for href in sorted(set(hrefs)):
             with self.subTest(href=href):
                 status=self.page.evaluate("u=>fetch(u).then(r=>r.status)",href)

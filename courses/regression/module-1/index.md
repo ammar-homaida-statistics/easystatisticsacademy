@@ -52,22 +52,25 @@ paths_styles: true
       <a class="card-foot" href="/courses/regression/module-1/ordinary-least-squares/">Open lesson →</a>
     </div>
 
-    <div class="card card-muted">
+    <div class="card">
       <h3>1.4 Properties of the OLS Estimators</h3>
       <p>Unbiasedness, variances, the Gauss–Markov theorem, estimation of σ², and the link to maximum likelihood.</p>
-      <p class="muted-mini">Status: In preparation</p>
+      <p class="muted-mini">Status: Available</p>
+      <a class="card-foot" href="/courses/regression/module-1/ols-properties/">Open lesson →</a>
     </div>
 
-    <div class="card card-muted">
+    <div class="card">
       <h3>1.5 Interpreting the Coefficients</h3>
       <p>Units, centring, rescaling, and correct and incorrect interpretations.</p>
-      <p class="muted-mini">Status: In preparation</p>
+      <p class="muted-mini">Status: Available</p>
+      <a class="card-foot" href="/courses/regression/module-1/interpreting-coefficients/">Open lesson →</a>
     </div>
 
-    <div class="card card-muted">
+    <div class="card">
       <h3>1.6 Goodness of Fit</h3>
       <p>The decomposition SST = SSR + SSE, R², and what R² does not tell us.</p>
-      <p class="muted-mini">Status: In preparation</p>
+      <p class="muted-mini">Status: Available</p>
+      <a class="card-foot" href="/courses/regression/module-1/goodness-of-fit/">Open lesson →</a>
     </div>
 
     <div class="card card-muted">

@@ -1,0 +1,467 @@
+---
+layout: default
+title: "Goodness of Fit — Regression Course, Lesson 1.6"
+description: "University-level lesson: the decomposition SST = SSR + SSE, R² and its link to correlation, the residual standard error, Anscombe's quartet, and what R² does not tell us, with R and Python."
+permalink: /courses/regression/module-1/goodness-of-fit/
+sidebar: false
+math: true
+learning_resource: true
+---
+
+<section class="hero hero-section">
+  <div class="hero-card">
+    <div class="badge-row">
+      <span class="badge">Course</span>
+      <span class="badge">Regression Analysis</span>
+      <span class="badge">Module 1 · Foundations</span>
+      <span class="badge">Lesson 1.6</span>
+    </div>
+    <h1>Lesson 1.6 — Goodness of Fit</h1>
+    <p class="lead">R² is the most quoted number in applied regression and one of the most misread. This lesson derives it, interprets it, and shows with four famous data sets why a number cannot replace a plot.</p>
+    <p class="muted-mini">Level: Introductory–Intermediate · Study time: 50 min + exercises · Prerequisites: Lessons 1.2–1.4 · Data: Auto MPG (UCI, CC BY 4.0) and Anscombe's quartet</p>
+    <div class="hero-actions">
+      <a class="btn btn-outline" href="/courses/regression/module-1/">Module 1 lessons</a>
+      <a class="btn btn-outline" href="/courses/regression/code/lesson-1-6.py">Python script</a>
+      <a class="btn btn-outline" href="/courses/regression/code/lesson-1-6.R">R script</a>
+    </div>
+  </div>
+</section>
+
+<nav class="esa-lesson-toc" aria-label="On this page"><details><summary>On this page</summary><ol><li><a href="#learning-objectives">Learning objectives</a></li><li><a href="#motivation">Motivation</a></li><li><a href="#notation-for-this-lesson">Notation for this lesson</a></li><li><a href="#theory">Theory</a></li><li><a href="#worked-examples">Worked examples</a></li><li><a href="#common-misconceptions">Common misconceptions</a></li><li><a href="#key-takeaways">Key takeaways</a></li><li><a href="#exercises">Exercises</a></li><li><a href="#references">References</a></li></ol></details></nav>
+
+<section>
+  <div class="content-narrow esa-course-lesson">
+{% raw %}
+<h2 class="esa-lesson-anchor" data-number="1" id="learning-objectives"><span class="header-section-number">1</span> Learning objectives</h2>
+<p>By the end of this lesson you will be able to:</p>
+<ol type="1">
+<li>prove the decomposition <span class="math inline">\(\mathrm{SST} = \mathrm{SSR} + \mathrm{SSE}\)</span> and interpret it geometrically;</li>
+<li>define <span class="math inline">\(R^2\)</span>, prove that <span class="math inline">\(R^2 = r^2 = [\operatorname{corr}(y, \hat y)]^2\)</span> in simple regression, and interpret it correctly;</li>
+<li>use the residual standard error <span class="math inline">\(\hat\sigma\)</span> as a measure of fit in the units of <span class="math inline">\(y\)</span>;</li>
+<li>explain what <span class="math inline">\(R^2\)</span> does <strong>not</strong> measure, using Anscombe’s quartet and the effect of the range of <span class="math inline">\(x\)</span>;</li>
+<li>explain why <span class="math inline">\(R^2\)</span> values for different response scales cannot be compared directly.</li>
+</ol>
+<h2 class="esa-lesson-anchor" data-number="2" id="motivation"><span class="header-section-number">2</span> Motivation</h2>
+<p>The Auto MPG fit of mpg on weight has <span class="math inline">\(R^2 = 0.692\)</span>. Is that good? Is the straight line the right model? Would a different sample of cars give a similar value? <span class="math inline">\(R^2\)</span> is the most quoted number in applied regression and one of the most misread. This lesson derives it, gives it a precise meaning, and shows — with four famous data sets that share the same <span class="math inline">\(R^2\)</span> — why a number cannot replace a plot.</p>
+<h2 class="esa-lesson-anchor" data-number="3" id="notation-for-this-lesson"><span class="header-section-number">3</span> Notation for this lesson</h2>
+<div class="table-wrap"><table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\mathrm{SST} = \sum (y_i - \bar y)^2 = S_{yy}\)</span></td>
+<td>total sum of squares</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\mathrm{SSR} = \sum (\hat y_i - \bar y)^2\)</span></td>
+<td>regression sum of squares</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\mathrm{SSE} = \sum (y_i - \hat y_i)^2\)</span></td>
+<td>error (residual) sum of squares</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(R^2\)</span></td>
+<td>coefficient of determination</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\hat\sigma = \sqrt{\mathrm{SSE}/(n-2)}\)</span></td>
+<td>residual standard error</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(s_y = \sqrt{\mathrm{SST}/(n-1)}\)</span></td>
+<td>sample standard deviation of <span class="math inline">\(y\)</span></td>
+</tr>
+</tbody>
+</table></div>
+<p>All notation follows the course notation standard (D2: SST = SSR + SSE).</p>
+<h2 class="esa-lesson-anchor" data-number="4" id="theory"><span class="header-section-number">4</span> Theory</h2>
+<h3 data-number="4.1" id="the-analysis-of-variance-decomposition"><span class="header-section-number">4.1</span> The analysis-of-variance decomposition</h3>
+<p>For each observation, <span class="math display">\[
+\underbrace{y_i - \bar y}_{\text{total deviation}} = \underbrace{\hat y_i - \bar y}_{\text{explained by the line}} + \underbrace{y_i - \hat y_i}_{\text{residual}} .
+\]</span></p>
+<div class="concept-box esa-callout-important">
+<p class="esa-box-title">
+<strong>Theorem 1.6.1 (Decomposition of the total sum of squares)</strong>
+</p>
+<p>For the least-squares fit with an intercept, <span class="math display">\[
+\mathrm{SST} = \mathrm{SSR} + \mathrm{SSE}, \qquad \text{with} \quad \mathrm{SSR} = \hat\beta_1^2 S_{xx} = \frac{S_{xy}^2}{S_{xx}} .
+\]</span></p>
+</div>
+<details class="esa-derivation">
+<summary>
+Derivation
+</summary>
+<p>Square and sum the identity above: <span class="math inline">\(\mathrm{SST} = \mathrm{SSR} + \mathrm{SSE} + 2\sum (\hat y_i - \bar y)e_i\)</span>. The cross term is <span class="math inline">\(2\sum \hat y_i e_i - 2\bar y \sum e_i = 0\)</span> by Theorem 1.3.2 (a) and (c). Since <span class="math inline">\(\hat y_i - \bar y = \hat\beta_1(x_i - \bar x)\)</span>, <span class="math inline">\(\mathrm{SSR} = \hat\beta_1^2 S_{xx} = S_{xy}^2/S_{xx}\)</span>.</p>
+</details>
+<p><strong>Geometry.</strong> In <span class="math inline">\(\mathbb R^n\)</span>, the vector <span class="math inline">\(\mathbf y - \bar y\mathbf 1\)</span> is the sum of <span class="math inline">\(\hat{\mathbf y} - \bar y\mathbf 1\)</span> and <span class="math inline">\(\mathbf e\)</span>, and these two vectors are orthogonal (Lesson 1.3). The decomposition is Pythagoras’ theorem.</p>
+<p>The identity requires an <strong>intercept</strong>: without one, <span class="math inline">\(\sum e_i \neq 0\)</span> in general and the cross term need not vanish (Lesson 1.3, Exercise B2).</p>
+<h3 data-number="4.2" id="the-coefficient-of-determination"><span class="header-section-number">4.2</span> The coefficient of determination</h3>
+<div class="concept-box esa-callout-note">
+<p class="esa-box-title">
+<strong>Definition 1.6.1 (<span class="math inline">\(R^2\)</span>)</strong>
+</p>
+<p><span class="math display">\[
+R^2 = \frac{\mathrm{SSR}}{\mathrm{SST}} = 1 - \frac{\mathrm{SSE}}{\mathrm{SST}}, \qquad 0 \le R^2 \le 1 .
+\]</span> <span class="math inline">\(R^2\)</span> is the proportion of the total variation of <span class="math inline">\(y\)</span> about its mean that is accounted for by the least-squares line.</p>
+</div>
+<div class="concept-box esa-callout-important">
+<p class="esa-box-title">
+<strong>Theorem 1.6.2 (<span class="math inline">\(R^2\)</span> and correlation)</strong>
+</p>
+<p>In simple linear regression, <span class="math display">\[
+R^2 = r^2 = \bigl[\operatorname{corr}(y, \hat y)\bigr]^2 .
+\]</span></p>
+</div>
+<details class="esa-derivation">
+<summary>
+Derivation
+</summary>
+<p><span class="math inline">\(R^2 = \mathrm{SSR}/\mathrm{SST} = S_{xy}^2/(S_{xx}S_{yy}) = r^2\)</span> (equivalently <span class="math inline">\(1 - \mathrm{SSE}/S_{yy} = r^2\)</span> by Theorem 1.2.1). Because <span class="math inline">\(\hat y_i\)</span> is a linear function of <span class="math inline">\(x_i\)</span> with slope <span class="math inline">\(\hat\beta_1\)</span>, <span class="math inline">\(\operatorname{corr}(y, \hat y) = \operatorname{sign}(\hat\beta_1)\,r\)</span> (Theorem 1.2.2), and squaring removes the sign.</p>
+</details>
+<p>The second form, <span class="math inline">\([\operatorname{corr}(y, \hat y)]^2\)</span>, is the one that generalises to multiple regression (Module 2): <span class="math inline">\(R^2\)</span> measures how closely the fitted values track the observed responses.</p>
+<h3 data-number="4.3" id="the-residual-standard-error"><span class="header-section-number">4.3</span> The residual standard error</h3>
+<p><span class="math inline">\(R^2\)</span> is unit-free; <span class="math inline">\(\hat\sigma\)</span> is in the units of <span class="math inline">\(y\)</span>. They are linked by <span class="math display">\[
+\hat\sigma^2 = \frac{n-1}{n-2}\, s_y^2\,(1 - R^2),
+\tag{1.6.1}
+\]</span> so <span class="math inline">\(\hat\sigma\)</span> compares the typical scatter <strong>around the line</strong> with the scatter <span class="math inline">\(s_y\)</span> <strong>around the mean</strong>. For prediction, <span class="math inline">\(\hat\sigma\)</span> is often the more useful number: it says roughly how far observations fall from the line in the units that matter (Lesson 1.8).</p>
+<h3 data-number="4.4" id="what-r2-does-not-tell-us"><span class="header-section-number">4.4</span> What <span class="math inline">\(R^2\)</span> does not tell us</h3>
+<div class="example-box esa-callout-warning">
+<p class="esa-box-title">
+<strong>Limitations of <span class="math inline">\(R^2\)</span></strong>
+</p>
+<ol type="1">
+<li><strong>It does not show that the model is correct.</strong> A curved relationship can have a high <span class="math inline">\(R^2\)</span> for a straight line, and data from a correct straight-line model can have a low <span class="math inline">\(R^2\)</span> if <span class="math inline">\(\sigma\)</span> is large.</li>
+<li><strong>It depends on the range of <span class="math inline">\(x\)</span>.</strong> Under the linear model with fixed <span class="math inline">\(\sigma\)</span>, a wider spread of <span class="math inline">\(x\)</span> gives a larger <span class="math inline">\(R^2\)</span> for the same slope (Lesson 1.2, Exercise B3).</li>
+<li><strong>It is positive by chance.</strong> If <span class="math inline">\(\beta_1 = 0\)</span> and the errors are normal, <span class="math inline">\(R^2\)</span> has a <span class="math inline">\(\text{Beta}\bigl(\tfrac12, \tfrac{n-2}{2}\bigr)\)</span> distribution with mean <span class="math inline">\(1/(n-1)\)</span>: about 0.11 for <span class="math inline">\(n = 10\)</span> (Exercise C2).</li>
+<li><strong>It is not comparable across responses.</strong> <span class="math inline">\(R^2\)</span> for mpg and <span class="math inline">\(R^2\)</span> for <span class="math inline">\(\log(\text{mpg})\)</span> measure proportions of different variances.</li>
+<li><strong>It does not measure predictive accuracy for new data.</strong> That is a question for Module 4 (cross-validation).</li>
+<li><strong>It never decreases when predictors are added</strong> — the motivation for adjusted <span class="math inline">\(R^2\)</span> in Module 4.</li>
+</ol>
+</div>
+<h2 class="esa-lesson-anchor" data-number="5" id="worked-examples"><span class="header-section-number">5</span> Worked examples</h2>
+<h3 data-number="5.1" id="the-auto-mpg-fit"><span class="header-section-number">5.1</span> The Auto MPG fit</h3>
+<p>For mpg on weight (1000 lb), <span class="math inline">\(n = 398\)</span>:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th>Source</th>
+<th>Sum of squares</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Regression (SSR)</td>
+<td>16777.76</td>
+</tr>
+<tr class="even">
+<td>Error (SSE)</td>
+<td>7474.81</td>
+</tr>
+<tr class="odd">
+<td>Total (SST)</td>
+<td>24252.58</td>
+</tr>
+</tbody>
+</table></div>
+<p>So <span class="math inline">\(R^2 = 16777.76/24252.58 = 0.6918\)</span>, which equals <span class="math inline">\(r^2 = (-0.8317)^2\)</span>. The residual standard error is <span class="math inline">\(\hat\sigma = 4.34\)</span> mpg, compared with <span class="math inline">\(s_y = 7.82\)</span> mpg: the line reduces the typical deviation from about 7.8 mpg (around the mean) to about 4.3 mpg (around the line).</p>
+<div class="esa-code-tabs">
+<details class="esa-code">
+<summary>
+R code
+</summary>
+<pre class="r"><code>cols &lt;- c(&quot;mpg&quot;, &quot;cylinders&quot;, &quot;displacement&quot;, &quot;horsepower&quot;, &quot;weight&quot;,
+          &quot;acceleration&quot;, &quot;model_year&quot;, &quot;origin&quot;, &quot;car_name&quot;)
+auto &lt;- read.table(&quot;data/auto-mpg.data&quot;, col.names = cols, na.strings = &quot;?&quot;)
+x &lt;- auto$weight / 1000; y &lt;- auto$mpg
+fit &lt;- lm(y ~ x)
+
+SST &lt;- sum((y - mean(y))^2)
+SSE &lt;- sum(resid(fit)^2)
+SSR &lt;- sum((fitted(fit) - mean(y))^2)
+c(SST = SST, SSR = SSR, SSE = SSE, SSR_plus_SSE = SSR + SSE,
+  R2 = SSR / SST, r_squared = cor(x, y)^2, corr_y_yhat_sq = cor(y, fitted(fit))^2,
+  sigma_hat = sigma(fit), s_y = sd(y))
+anova(fit)                       # the same decomposition as an ANOVA table</code></pre>
+</details>
+<details class="esa-code" open>
+<summary>
+Python code
+</summary>
+<pre class="python"><code>import numpy as np
+import pandas as pd
+
+cols = [&quot;mpg&quot;, &quot;cylinders&quot;, &quot;displacement&quot;, &quot;horsepower&quot;, &quot;weight&quot;,
+        &quot;acceleration&quot;, &quot;model_year&quot;, &quot;origin&quot;, &quot;car_name&quot;]
+auto = pd.read_csv(&quot;data/auto-mpg.data&quot;, sep=r&quot;\s+&quot;, header=None,
+                   names=cols, na_values=&quot;?&quot;, quotechar=&#39;&quot;&#39;)
+x = auto[&quot;weight&quot;].to_numpy() / 1000
+y = auto[&quot;mpg&quot;].to_numpy()
+n = len(y)
+
+def ols(x, y):
+    Sxx = np.sum((x - x.mean())**2)
+    b1 = np.sum((x - x.mean()) * (y - y.mean())) / Sxx
+    return y.mean() - b1 * x.mean(), b1
+
+b0, b1 = ols(x, y)
+yhat = b0 + b1 * x
+SST = np.sum((y - y.mean())**2)
+SSE = np.sum((y - yhat)**2)
+SSR = np.sum((yhat - y.mean())**2)
+print(f&quot;SST = {SST:.4f}, SSR = {SSR:.4f}, SSE = {SSE:.4f}, SSR + SSE = {SSR + SSE:.4f}&quot;)
+print(f&quot;R2 = {SSR / SST:.6f}, r^2 = {np.corrcoef(x, y)[0, 1]**2:.6f}, &quot;
+      f&quot;corr(y, yhat)^2 = {np.corrcoef(y, yhat)[0, 1]**2:.6f}&quot;)
+print(f&quot;sigma_hat = {np.sqrt(SSE / (n - 2)):.4f}, s_y = {y.std(ddof=1):.4f}&quot;)</code></pre>
+<p class="esa-output-label">
+Output
+</p>
+<pre class="esa-output"><code>SST = 24252.5755, SSR = 16777.7615, SSE = 7474.8140, SSR + SSE = 24252.5755
+R2 = 0.691793, r^2 = 0.691793, corr(y, yhat)^2 = 0.691793
+sigma_hat = 4.3446, s_y = 7.8160</code></pre>
+</details>
+</div>
+<p>The ANOVA table printed by R is the starting point of the <span class="math inline">\(F\)</span>-test in Lesson 1.7.</p>
+<h3 data-number="5.2" id="anscombes-quartet"><span class="header-section-number">5.2</span> Anscombe’s quartet</h3>
+<p>Anscombe (1973) constructed four data sets of eleven points each with (to two or three decimals) the same means, variances, correlation, regression line and <span class="math inline">\(R^2\)</span> — and completely different structure.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th>Data set</th>
+<th><span class="math inline">\(\hat\beta_0\)</span></th>
+<th><span class="math inline">\(\hat\beta_1\)</span></th>
+<th><span class="math inline">\(R^2\)</span></th>
+<th><span class="math inline">\(\hat\sigma\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>I</td>
+<td>3.000</td>
+<td>0.500</td>
+<td>0.667</td>
+<td>1.24</td>
+</tr>
+<tr class="even">
+<td>II</td>
+<td>3.001</td>
+<td>0.500</td>
+<td>0.666</td>
+<td>1.24</td>
+</tr>
+<tr class="odd">
+<td>III</td>
+<td>3.002</td>
+<td>0.500</td>
+<td>0.666</td>
+<td>1.24</td>
+</tr>
+<tr class="even">
+<td>IV</td>
+<td>3.002</td>
+<td>0.500</td>
+<td>0.667</td>
+<td>1.24</td>
+</tr>
+</tbody>
+</table></div>
+<div class="esa-code-tabs">
+<details class="esa-code">
+<summary>
+R code
+</summary>
+<pre class="r"><code># &#39;anscombe&#39; is a data set built into R
+op &lt;- par(mfrow = c(2, 2), mar = c(4, 4, 1, 1))
+for (k in 1:4) {
+  xk &lt;- anscombe[[paste0(&quot;x&quot;, k)]]; yk &lt;- anscombe[[paste0(&quot;y&quot;, k)]]
+  fk &lt;- lm(yk ~ xk)
+  plot(xk, yk, pch = 19, xlim = c(3, 20), ylim = c(2, 14),
+       xlab = paste0(&quot;x&quot;, k), ylab = paste0(&quot;y&quot;, k))
+  abline(fk, lwd = 2)
+  print(round(c(set = k, b0 = coef(fk)[[1]], b1 = coef(fk)[[2]],
+                R2 = summary(fk)$r.squared, sigma = sigma(fk)), 4))
+}
+par(op)</code></pre>
+</details>
+<details class="esa-code" open>
+<summary>
+Python code
+</summary>
+<pre class="python"><code>import matplotlib.pyplot as plt
+
+x123 = np.array([10, 8, 13, 9, 11, 14, 6, 4, 12, 7, 5], dtype=float)
+x4   = np.array([8, 8, 8, 8, 8, 8, 8, 19, 8, 8, 8], dtype=float)
+ys = {
+    1: [8.04, 6.95, 7.58, 8.81, 8.33, 9.96, 7.24, 4.26, 10.84, 4.82, 5.68],
+    2: [9.14, 8.14, 8.74, 8.77, 9.26, 8.10, 6.13, 3.10, 9.13, 7.26, 4.74],
+    3: [7.46, 6.77, 12.74, 7.11, 7.81, 8.84, 6.08, 5.39, 8.15, 6.42, 5.73],
+    4: [6.58, 5.76, 7.71, 8.84, 8.47, 7.04, 5.25, 12.50, 5.56, 7.91, 6.89],
+}
+fig, axes = plt.subplots(2, 2, figsize=(7, 5.5), sharex=True, sharey=True)
+grid = np.array([3, 20])
+for k, ax in zip(ys, axes.ravel()):
+    xk = x4 if k == 4 else x123
+    yk = np.array(ys[k])
+    a0, a1 = ols(xk, yk)
+    ek = yk - a0 - a1 * xk
+    R2k = 1 - ek @ ek / np.sum((yk - yk.mean())**2)
+    print(f&quot;set {k}: b0 = {a0:.4f}, b1 = {a1:.4f}, R2 = {R2k:.4f}, sigma = {np.sqrt(ek @ ek / 9):.4f}&quot;)
+    ax.scatter(xk, yk, color=&quot;black&quot;, s=20)
+    ax.plot(grid, a0 + a1 * grid, linewidth=2)
+    ax.set_title(f&quot;Data set {k}&quot;)
+plt.tight_layout()
+plt.show()</code></pre>
+<p class="esa-output-label">
+Output
+</p>
+<pre class="esa-output"><code>set 1: b0 = 3.0001, b1 = 0.5001, R2 = 0.6665, sigma = 1.2366
+set 2: b0 = 3.0009, b1 = 0.5000, R2 = 0.6662, sigma = 1.2372
+set 3: b0 = 3.0025, b1 = 0.4997, R2 = 0.6663, sigma = 1.2363
+set 4: b0 = 3.0017, b1 = 0.4999, R2 = 0.6667, sigma = 1.2357</code></pre>
+<figure class="esa-figure">
+<img src="/images/courses/regression/lesson-1-6-fig1.png" alt="Anscombe's quartet: four data sets with the same least-squares line and the same R-squared." loading="lazy" width="900">
+<figcaption>
+Anscombe’s quartet: four data sets with the same least-squares line and the same R-squared.
+</figcaption>
+</figure>
+</details>
+</div>
+<ul>
+<li><strong>I</strong> — a reasonable straight-line relationship with scatter.</li>
+<li><strong>II</strong> — an exact curve; a straight line is the wrong model despite <span class="math inline">\(R^2 = 0.67\)</span>.</li>
+<li><strong>III</strong> — a perfect straight line except for one outlier, which pulls the fitted line.</li>
+<li><strong>IV</strong> — no information about the relationship except from a single high-leverage point; remove it and the slope is not estimable.</li>
+</ul>
+<p>The same summary statistics describe four different situations. <strong>Always plot the data and the residuals</strong> (Module 3).</p>
+<h3 data-number="5.3" id="the-range-of-x-matters"><span class="header-section-number">5.3</span> The range of <span class="math inline">\(x\)</span> matters</h3>
+<p>Restricting the Auto MPG data to cars weighing between 2000 and 3500 lb (246 cars) halves the standard deviation of weight (0.847 → 0.434 thousand lb) and lowers <span class="math inline">\(R^2\)</span> from 0.692 to 0.442, although <span class="math inline">\(\hat\sigma\)</span> changes little (4.34 → 4.76 mpg). The slope also changes, from <span class="math inline">\(-7.68\)</span> to <span class="math inline">\(-9.74\)</span>; under an exactly linear model it would not change systematically — here it does because the true mean function is curved and is steepest in the middle of the weight range (Lesson 1.1). This is Exercise C3.</p>
+<h3 data-number="5.4" id="different-responses-different-r2"><span class="header-section-number">5.4</span> Different responses, different <span class="math inline">\(R^2\)</span></h3>
+<p>The fits of Lesson 1.5 on weight gave <span class="math inline">\(R^2 = 0.692\)</span> for mpg, <span class="math inline">\(0.767\)</span> for <span class="math inline">\(\log(\text{mpg})\)</span> and <span class="math inline">\(0.784\)</span> for litres per 100 km. These numbers do <strong>not</strong> show which model is best: each is the proportion of a different total sum of squares. Comparing models for different response scales requires other tools (residual plots, back-transformed prediction errors; Modules 3–4).</p>
+<h2 class="esa-lesson-anchor" data-number="6" id="common-misconceptions"><span class="header-section-number">6</span> Common misconceptions</h2>
+<div class="example-box esa-callout-caution">
+<p class="esa-box-title">
+<strong>Misconceptions</strong>
+</p>
+<ol type="1">
+<li><strong>“<span class="math inline">\(R^2 = 0.69\)</span> means the model is 69% correct.”</strong> — <span class="math inline">\(R^2\)</span> is a proportion of variance accounted for by the fitted line, not a measure of correctness.</li>
+<li><strong>“A high <span class="math inline">\(R^2\)</span> means a straight line is appropriate.”</strong> — Anscombe II has <span class="math inline">\(R^2 = 0.67\)</span> and is an exact curve.</li>
+<li><strong>“A low <span class="math inline">\(R^2\)</span> means <span class="math inline">\(x\)</span> has no effect on <span class="math inline">\(y\)</span>.”</strong> — A precisely estimated, important slope can coexist with a low <span class="math inline">\(R^2\)</span> when <span class="math inline">\(\sigma\)</span> is large or the range of <span class="math inline">\(x\)</span> is narrow.</li>
+<li><strong>“The model with the higher <span class="math inline">\(R^2\)</span> is better.”</strong> — Not across different response scales, and not across models with different numbers of predictors (Module 4).</li>
+<li><strong>“<span class="math inline">\(R^2\)</span> is a property of the relationship.”</strong> — It is a property of the relationship <strong>and</strong> the design: the spread of <span class="math inline">\(x\)</span> in the sample.</li>
+</ol>
+</div>
+<h2 class="esa-lesson-anchor" data-number="7" id="key-takeaways"><span class="header-section-number">7</span> Key takeaways</h2>
+<ul>
+<li><span class="math inline">\(\mathrm{SST} = \mathrm{SSR} + \mathrm{SSE}\)</span> is Pythagoras’ theorem for the orthogonal vectors <span class="math inline">\(\hat{\mathbf y} - \bar y\mathbf 1\)</span> and <span class="math inline">\(\mathbf e\)</span>; it needs an intercept.</li>
+<li><span class="math inline">\(R^2 = \mathrm{SSR}/\mathrm{SST} = r^2 = [\operatorname{corr}(y, \hat y)]^2\)</span>.</li>
+<li><span class="math inline">\(\hat\sigma\)</span> reports the typical size of residuals in the units of <span class="math inline">\(y\)</span>; it is often more useful than <span class="math inline">\(R^2\)</span>.</li>
+<li><span class="math inline">\(R^2\)</span> depends on the range of <span class="math inline">\(x\)</span>, is positive by chance, and says nothing about whether the model is right.</li>
+<li>Always plot the data: Anscombe’s four data sets share every summary statistic.</li>
+</ul>
+<h2 class="esa-lesson-anchor" data-number="8" id="exercises"><span class="header-section-number">8</span> Exercises</h2>
+<h3 data-number="8.1" id="a.-conceptual"><span class="header-section-number">8.1</span> A. Conceptual</h3>
+<p><strong>A1</strong> (★). Two studies estimate the same slope of blood pressure on salt intake, with the same <span class="math inline">\(\hat\sigma\)</span>. Study A recruited people with a wide range of salt intakes and reports <span class="math inline">\(R^2 = 0.40\)</span>; Study B recruited only people with moderate intakes and reports <span class="math inline">\(R^2 = 0.08\)</span>. Do the studies contradict each other? Explain.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>No. With the same slope and error variance, <span class="math inline">\(R^2 = \hat\beta_1^2 S_{xx}/(\hat\beta_1^2 S_{xx} + \mathrm{SSE})\)</span> grows with the spread of <span class="math inline">\(x\)</span>. Study B’s narrow range of salt intake gives a small <span class="math inline">\(S_{xx}\)</span> and hence a small <span class="math inline">\(R^2\)</span>; the estimated relationship is the same.</p>
+</details>
+<p><strong>A2</strong> (★). Which of Anscombe’s four data sets would you be comfortable summarising by its regression line, and why not the others?</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>Only data set I. II is curved (wrong mean function); III has one outlier that shifts the line away from the other ten points, which lie exactly on a different line; IV has a slope determined entirely by one point, with no information about how <span class="math inline">\(y\)</span> varies with <span class="math inline">\(x\)</span> elsewhere.</p>
+</details>
+<h3 data-number="8.2" id="b.-mathematical"><span class="header-section-number">8.2</span> B. Mathematical</h3>
+<p><strong>B1</strong> (★★). Prove Theorem 1.6.1 and show that <span class="math inline">\(\mathrm{SSR} = \hat\beta_1 S_{xy}\)</span>.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>See the derivation after Theorem 1.6.1. Since <span class="math inline">\(\mathrm{SSR} = \hat\beta_1^2 S_{xx}\)</span> and <span class="math inline">\(\hat\beta_1 S_{xx} = S_{xy}\)</span>, <span class="math inline">\(\mathrm{SSR} = \hat\beta_1 S_{xy}\)</span>. Check with Auto MPG: <span class="math inline">\(\hat\beta_1 S_{xy} = (-7.676610)(-2185.569063) = 16777.76\)</span>.</p>
+</details>
+<p><strong>B2</strong> (★★). Prove (1.6.1). Deduce that adding a predictor that increases <span class="math inline">\(R^2\)</span> only slightly can increase <span class="math inline">\(\hat\sigma\)</span> in multiple regression, where the denominator becomes <span class="math inline">\(n - p - 1\)</span>.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p><span class="math inline">\(\hat\sigma^2 = \mathrm{SSE}/(n-2) = \mathrm{SST}(1 - R^2)/(n-2) = (n-1)s_y^2(1 - R^2)/(n-2)\)</span>. In multiple regression <span class="math inline">\(\hat\sigma^2 = (n-1)s_y^2(1 - R^2)/(n-p-1)\)</span>: adding a predictor decreases <span class="math inline">\(1 - R^2\)</span> but also decreases the denominator by one, so <span class="math inline">\(\hat\sigma^2\)</span> increases if the relative decrease in <span class="math inline">\(1 - R^2\)</span> is smaller than <span class="math inline">\(1/(n-p-1)\)</span>. This is the idea behind adjusted <span class="math inline">\(R^2\)</span> (Module 4).</p>
+</details>
+<p><strong>B3</strong> (★★★). Under <span class="math inline">\(H_0\!: \beta_1 = 0\)</span> with normal errors, it is known that <span class="math inline">\(R^2 \sim \text{Beta}\bigl(\tfrac12, \tfrac{n-2}{2}\bigr)\)</span>. Find <span class="math inline">\(E(R^2)\)</span> and explain why a “small” <span class="math inline">\(R^2\)</span> can still be statistically significant when <span class="math inline">\(n\)</span> is large.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>For <span class="math inline">\(\text{Beta}(a, b)\)</span> the mean is <span class="math inline">\(a/(a+b) = \tfrac12 / \tfrac{n-1}{2} = 1/(n-1)\)</span>. Under <span class="math inline">\(H_0\)</span>, <span class="math inline">\(R^2\)</span> concentrates near <span class="math inline">\(1/(n-1)\)</span>, which tends to 0 as <span class="math inline">\(n\)</span> grows. So for large <span class="math inline">\(n\)</span> even <span class="math inline">\(R^2 = 0.05\)</span> is far above what chance produces (e.g. <span class="math inline">\(n = 398\)</span>: <span class="math inline">\(E(R^2) = 0.0025\)</span>). Statistical significance and the size of <span class="math inline">\(R^2\)</span> answer different questions. The link between <span class="math inline">\(R^2\)</span> and the <span class="math inline">\(F\)</span>-test is made precise in Lesson 1.7.</p>
+</details>
+<h3 data-number="8.3" id="c.-computational"><span class="header-section-number">8.3</span> C. Computational</h3>
+<p><strong>C1</strong> (★). Fit the four Anscombe regressions in R (<code>anscombe</code> data) or Python, confirm the table above, and plot the four residual-versus-fitted plots. Describe what each residual plot reveals.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>The four fits agree to about three decimals: <span class="math inline">\(\hat\beta_0 \approx 3.00\)</span>, <span class="math inline">\(\hat\beta_1 \approx 0.500\)</span>, <span class="math inline">\(R^2 \approx 0.67\)</span>, <span class="math inline">\(\hat\sigma \approx 1.24\)</span>. Residual plots: I — random scatter; II — a clear inverted-U pattern (curvature); III — ten small residuals in a linear trend and one large residual (outlier); IV — ten residuals at a single fitted value and one point with residual exactly 0 (it determines the slope).</p>
+</details>
+<p><strong>C2</strong> (★★). <em><span class="math inline">\(R^2\)</span> by chance.</em> Simulate 10,000 data sets with <span class="math inline">\(x = 1, \dots, 10\)</span> and <span class="math inline">\(y\)</span> independent <span class="math inline">\(N(0, 1)\)</span> (seed 2026). Compute the mean of <span class="math inline">\(R^2\)</span> and the proportion of data sets with <span class="math inline">\(R^2 &gt; 0.3\)</span>. Compare with <span class="math inline">\(1/(n-1)\)</span> and with the Beta tail probability.</p>
+<details class="esa-solution">
+<summary>
+Solution (Python)
+</summary>
+<pre class="python"><code>import numpy as np
+from scipy import stats
+rng = np.random.default_rng(2026)
+n, R = 10, 10_000
+x = np.arange(1, n + 1, dtype=float)
+Y = rng.normal(0, 1, size=(R, n))
+r2 = np.array([np.corrcoef(x, yy)[0, 1]**2 for yy in Y])
+print(round(r2.mean(), 4), round((r2 &gt; 0.3).mean(), 4),
+      round(1 / (n - 1), 4), round(stats.beta.sf(0.3, 0.5, (n - 2) / 2), 4))</code></pre>
+<p>Output: mean 0.1117 (theory 0.1111); <span class="math inline">\(P(R^2 &gt; 0.3)\)</span> = 0.1004 (Beta tail 0.1012). With ten observations and <strong>no</strong> relationship, one data set in ten has <span class="math inline">\(R^2 &gt; 0.3\)</span>.</p>
+</details>
+<p><strong>C3</strong> (★★). Refit mpg on weight for cars weighing 2000–3500 lb only (lower limit included, upper excluded). Report <span class="math inline">\(n\)</span>, the standard deviation of weight, <span class="math inline">\(\hat\beta_1\)</span>, <span class="math inline">\(\hat\sigma\)</span> and <span class="math inline">\(R^2\)</span>, and explain the changes.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p><span class="math inline">\(n = 246\)</span>; SD of weight 0.434 (thousand lb) vs 0.847 for all cars; <span class="math inline">\(\hat\beta_1 = -9.739\)</span>; <span class="math inline">\(\hat\sigma = 4.755\)</span>; <span class="math inline">\(R^2 = 0.442\)</span> (vs 0.692). <span class="math inline">\(R^2\)</span> falls mainly because the spread of <span class="math inline">\(x\)</span> is smaller, even though <span class="math inline">\(\hat\sigma\)</span> is similar. The slope is steeper because the mean function is curved and steepest in this middle range; with a truly linear mean function, restricting the range would leave the slope’s expectation unchanged.</p>
+</details>
+<h2 class="esa-lesson-anchor" data-number="9" id="references"><span class="header-section-number">9</span> References</h2>
+<ul>
+<li>Anscombe, F. J. (1973). Graphs in statistical analysis. <em>The American Statistician</em>, 27(1), 17–21.</li>
+<li>Kutner, M. H., Nachtsheim, C. J., Neter, J., &amp; Li, W. (2005). <em>Applied Linear Statistical Models</em> (5th ed.). McGraw-Hill/Irwin. — Chapter 2, Inferences in Regression and Correlation Analysis (analysis of variance approach; descriptive measures of linear association).</li>
+<li>Montgomery, D. C., Peck, E. A., &amp; Vining, G. G. (2021). <em>Introduction to Linear Regression Analysis</em> (6th ed.). Wiley. — Chapter 2, Simple Linear Regression (analysis of variance; coefficient of determination).</li>
+<li>Weisberg, S. (2014). <em>Applied Linear Regression</em> (4th ed.). Wiley. — Chapter 2, Simple Linear Regression (the coefficient of determination).</li>
+<li>Quinlan, R. (1993). <em>Auto MPG</em> [Data set]. UCI Machine Learning Repository. https://doi.org/10.24432/C5859H</li>
+</ul>
+
+{% endraw %}
+    <div class="lesson-nav">
+      <a class="btn btn-outline" href="/courses/regression/module-1/interpreting-coefficients/">← Lesson 1.5: Interpreting the Coefficients</a>
+      <a class="btn" href="/courses/regression/module-1/">Module 1 lessons →</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .esa-course-lesson details{border:1px solid var(--border-strong,#d0d7de);border-radius:9px;padding:.4rem .9rem;margin:1rem 0}
+  .esa-course-lesson details>summary{cursor:pointer;font-weight:700}
+  .esa-course-lesson .esa-code-tabs{margin:1rem 0}
+  .esa-course-lesson .esa-code-tabs details{margin:.4rem 0}
+  .esa-course-lesson pre{max-width:100%}
+  .esa-course-lesson pre.esa-output{border-left:5px solid #0d9488}
+  .esa-course-lesson .esa-output-label{font-size:.85rem;font-weight:700;margin:.6rem 0 .2rem}
+  .esa-course-lesson .esa-figure{margin:1rem 0}
+  .esa-course-lesson .esa-figure img{max-width:100%;height:auto}
+  .esa-course-lesson .esa-figure figcaption{font-size:.9rem}
+  .esa-course-lesson mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+</style>
