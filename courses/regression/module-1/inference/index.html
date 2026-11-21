@@ -1,0 +1,529 @@
+---
+layout: default
+title: "Inference for the Regression Parameters — Regression Course, Lesson 1.7"
+description: "University-level lesson: t-tests and confidence intervals for the slope and intercept, the ANOVA F-test, F = t², the test of zero correlation, and what happens when assumptions fail, with R and Python."
+permalink: /courses/regression/module-1/inference/
+sidebar: false
+math: true
+learning_resource: true
+---
+
+<section class="hero hero-section">
+  <div class="hero-card">
+    <div class="badge-row">
+      <span class="badge">Course</span>
+      <span class="badge">Regression Analysis</span>
+      <span class="badge">Module 1 · Foundations</span>
+      <span class="badge">Lesson 1.7</span>
+    </div>
+    <h1>Lesson 1.7 — Inference for the Regression Parameters</h1>
+    <p class="lead">A slope estimate varies from sample to sample. This lesson derives its exact distribution under the normal model and builds intervals and tests — then checks them on data that break the assumptions.</p>
+    <p class="muted-mini">Level: Intermediate · Study time: 50 min + exercises · Prerequisites: Lessons 1.4 and 1.6 · Data: a simulated teaching data set and Auto MPG (UCI, CC BY 4.0)</p>
+    <div class="hero-actions">
+      <a class="btn btn-outline" href="/courses/regression/module-1/">Module 1 lessons</a>
+      <a class="btn btn-outline" href="/courses/regression/code/lesson-1-7.py">Python script</a>
+      <a class="btn btn-outline" href="/courses/regression/code/lesson-1-7.R">R script</a>
+    </div>
+  </div>
+</section>
+
+<nav class="esa-lesson-toc" aria-label="On this page"><details><summary>On this page</summary><ol><li><a href="#learning-objectives">Learning objectives</a></li><li><a href="#motivation">Motivation</a></li><li><a href="#notation-for-this-lesson">Notation for this lesson</a></li><li><a href="#theory">Theory</a></li><li><a href="#worked-example-1-data-that-satisfy-the-assumptions">Worked example 1: data that satisfy the assumptions</a></li><li><a href="#worked-example-2-auto-mpg">Worked example 2: Auto MPG</a></li><li><a href="#common-misconceptions">Common misconceptions</a></li><li><a href="#key-takeaways">Key takeaways</a></li><li><a href="#exercises">Exercises</a></li><li><a href="#references">References</a></li></ol></details></nav>
+
+<section>
+  <div class="content-narrow esa-course-lesson">
+{% raw %}
+<h2 class="esa-lesson-anchor" data-number="1" id="learning-objectives"><span class="header-section-number">1</span> Learning objectives</h2>
+<p>By the end of this lesson you will be able to:</p>
+<ol type="1">
+<li>derive the <span class="math inline">\(t\)</span>-distribution of the standardised slope and intercept under the normal error model;</li>
+<li>construct and interpret confidence intervals and hypothesis tests for <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>, including tests of non-zero values;</li>
+<li>construct a confidence interval for <span class="math inline">\(\sigma^2\)</span>;</li>
+<li>derive the ANOVA <span class="math inline">\(F\)</span>-test and prove <span class="math inline">\(F = t^2\)</span>; show that the test of <span class="math inline">\(\rho = 0\)</span> gives the same statistic;</li>
+<li>distinguish statistical from practical significance, and explain what happens to these procedures when the assumptions fail.</li>
+</ol>
+<h2 class="esa-lesson-anchor" data-number="2" id="motivation"><span class="header-section-number">2</span> Motivation</h2>
+<p>Lesson 1.4 showed that <span class="math inline">\(\hat\beta_1\)</span> varies from sample to sample with standard deviation <span class="math inline">\(\sigma/\sqrt{S_{xx}}\)</span>. To turn this into a statement about the unknown <span class="math inline">\(\beta_1\)</span> — an interval of plausible values, or a test of a hypothesis — we need the <strong>distribution</strong> of <span class="math inline">\(\hat\beta_1\)</span>, not only its mean and variance, and we must replace the unknown <span class="math inline">\(\sigma\)</span> by <span class="math inline">\(\hat\sigma\)</span>. This lesson does both, first on data that satisfy the assumptions by construction, then on the Auto MPG data, where they do not.</p>
+<h2 class="esa-lesson-anchor" data-number="3" id="notation-for-this-lesson"><span class="header-section-number">3</span> Notation for this lesson</h2>
+<div class="table-wrap"><table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\operatorname{se}(\hat\beta_j)\)</span></td>
+<td>estimated standard error (Lesson 1.4)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(t_{\nu}\)</span>, <span class="math inline">\(t_{\nu;\,q}\)</span></td>
+<td><span class="math inline">\(t\)</span>-distribution with <span class="math inline">\(\nu\)</span> d.f. and its <span class="math inline">\(q\)</span>-quantile</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\chi^2_\nu\)</span>, <span class="math inline">\(F_{\nu_1,\nu_2}\)</span></td>
+<td>chi-square and <span class="math inline">\(F\)</span>-distributions</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\mathrm{MS}_{\text{Reg}} = \mathrm{SSR}/1\)</span>, <span class="math inline">\(\mathrm{MS}_{\text{Res}} = \mathrm{SSE}/(n-2)\)</span></td>
+<td>mean squares</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\alpha\)</span></td>
+<td>significance level; <span class="math inline">\(1-\alpha\)</span> confidence level</td>
+</tr>
+</tbody>
+</table></div>
+<p>All notation follows the course notation standard.</p>
+<h2 class="esa-lesson-anchor" data-number="4" id="theory"><span class="header-section-number">4</span> Theory</h2>
+<p>Throughout, assumptions <strong>A1–A4</strong> hold: <span class="math inline">\(y_i = \beta_0 + \beta_1 x_i + \varepsilon_i\)</span> with <span class="math inline">\(\varepsilon_i\)</span> independent <span class="math inline">\(N(0, \sigma^2)\)</span>, and the <span class="math inline">\(x_i\)</span> fixed with <span class="math inline">\(S_{xx} &gt; 0\)</span>.</p>
+<h3 data-number="4.1" id="sampling-distributions"><span class="header-section-number">4.1</span> Sampling distributions</h3>
+<div class="concept-box esa-callout-important">
+<p class="esa-box-title">
+<strong>Theorem 1.7.1 (Sampling distributions) — uses A1–A4</strong>
+</p>
+<ol type="a">
+<li><span class="math inline">\(\hat\beta_1 \sim N\bigl(\beta_1, \sigma^2/S_{xx}\bigr)\)</span> and <span class="math inline">\(\hat\beta_0 \sim N\bigl(\beta_0, \sigma^2(1/n + \bar x^2/S_{xx})\bigr)\)</span>.</li>
+<li><span class="math inline">\(\mathrm{SSE}/\sigma^2 \sim \chi^2_{n-2}\)</span>.</li>
+<li><span class="math inline">\(\mathrm{SSE}\)</span> is independent of <span class="math inline">\((\hat\beta_0, \hat\beta_1)\)</span>.</li>
+<li>Consequently <span class="math display">\[
+T_1 = \frac{\hat\beta_1 - \beta_1}{\operatorname{se}(\hat\beta_1)} \sim t_{n-2}, \qquad
+T_0 = \frac{\hat\beta_0 - \beta_0}{\operatorname{se}(\hat\beta_0)} \sim t_{n-2}.
+\]</span></li>
+</ol>
+</div>
+<details class="esa-derivation">
+<summary>
+Derivation
+</summary>
+<ol type="a">
+<li><p>Lesson 1.4: linear combinations of independent normals, with the stated means and variances.</p></li>
+<li><p>Under normality <span class="math inline">\((\hat\beta_0, \hat\beta_1, e_1, \dots, e_n)\)</span> are jointly normal (all linear in <span class="math inline">\(\mathbf y\)</span>), so zero covariance implies independence. Using <span class="math inline">\(\operatorname{Cov}(y_i, \hat\beta_1) = \sigma^2 k_i\)</span>, <span class="math inline">\(\operatorname{Cov}(\bar y, \hat\beta_1) = 0\)</span> and <span class="math inline">\(e_i = y_i - \bar y - \hat\beta_1(x_i - \bar x)\)</span>: <span class="math display">\[
+\operatorname{Cov}(e_i, \hat\beta_1) = \sigma^2 k_i - 0 - (x_i - \bar x)\frac{\sigma^2}{S_{xx}} = 0, \qquad
+\operatorname{Cov}(e_i, \bar y) = \frac{\sigma^2}{n} - \frac{\sigma^2}{n} - (x_i - \bar x)\cdot 0 = 0 .
+\]</span> So every residual is independent of <span class="math inline">\((\bar y, \hat\beta_1)\)</span>, hence of <span class="math inline">\((\hat\beta_0, \hat\beta_1)\)</span>; and <span class="math inline">\(\mathrm{SSE} = \sum e_i^2\)</span> is a function of the residuals.</p></li>
+<li><p>is stated here; the proof uses the idempotent matrix <span class="math inline">\(\mathbf I - \mathbf H\)</span> of rank <span class="math inline">\(n-2\)</span> and is given in Module 2. It is consistent with Lesson 1.4: <span class="math inline">\(E(\mathrm{SSE}/\sigma^2) = n - 2\)</span>, the mean of <span class="math inline">\(\chi^2_{n-2}\)</span>.</p></li>
+<li><p><span class="math inline">\(T_1 = \dfrac{(\hat\beta_1 - \beta_1)/(\sigma/\sqrt{S_{xx}})}{\sqrt{(\mathrm{SSE}/\sigma^2)/(n-2)}}\)</span> is a standard normal divided by the square root of an independent <span class="math inline">\(\chi^2_{n-2}\)</span> over its degrees of freedom: the definition of <span class="math inline">\(t_{n-2}\)</span>. The same argument applies to <span class="math inline">\(T_0\)</span>.</p></li>
+</ol>
+</details>
+<h3 data-number="4.2" id="confidence-intervals"><span class="header-section-number">4.2</span> Confidence intervals</h3>
+<p>Inverting Theorem 1.7.1(d) and (b) gives exact <span class="math inline">\(100(1-\alpha)\%\)</span> intervals: <span class="math display">\[
+\hat\beta_1 \pm t_{n-2;\,1-\alpha/2}\,\operatorname{se}(\hat\beta_1), \qquad
+\hat\beta_0 \pm t_{n-2;\,1-\alpha/2}\,\operatorname{se}(\hat\beta_0), \qquad
+\left[\frac{\mathrm{SSE}}{\chi^2_{n-2;\,1-\alpha/2}},\ \frac{\mathrm{SSE}}{\chi^2_{n-2;\,\alpha/2}}\right] \text{ for } \sigma^2 .
+\]</span></p>
+<div class="example-box esa-callout-warning">
+<p class="esa-box-title">
+<strong>Interpreting a confidence interval</strong>
+</p>
+<p>The probability statement is about the <strong>procedure</strong>: in repeated samples, 95% of intervals constructed this way contain <span class="math inline">\(\beta_1\)</span>. A particular computed interval either contains <span class="math inline">\(\beta_1\)</span> or it does not. “There is a 95% probability that <span class="math inline">\(\beta_1\)</span> lies in <span class="math inline">\([-11.5, -7.1]\)</span>” is not a frequentist statement.</p>
+</div>
+<h3 data-number="4.3" id="hypothesis-tests"><span class="header-section-number">4.3</span> Hypothesis tests</h3>
+<p>To test <span class="math inline">\(H_0\!: \beta_1 = \beta_{10}\)</span> use <span class="math display">\[
+t = \frac{\hat\beta_1 - \beta_{10}}{\operatorname{se}(\hat\beta_1)} \ \overset{H_0}{\sim}\ t_{n-2},
+\]</span> with <span class="math inline">\(p\)</span>-value <span class="math inline">\(2P(t_{n-2} \ge |t|)\)</span> for the two-sided alternative, or <span class="math inline">\(P(t_{n-2} \ge t)\)</span> / <span class="math inline">\(P(t_{n-2} \le t)\)</span> for one-sided alternatives. The default <span class="math inline">\(\beta_{10} = 0\)</span> tests whether there is any linear association; other values test a specific claim (for example a slope predicted by theory or reported in an earlier study).</p>
+<p>A two-sided test at level <span class="math inline">\(\alpha\)</span> rejects <span class="math inline">\(H_0\!: \beta_1 = \beta_{10}\)</span> exactly when <span class="math inline">\(\beta_{10}\)</span> lies outside the <span class="math inline">\(100(1-\alpha)\%\)</span> confidence interval: <strong>the interval is the set of values not rejected</strong>.</p>
+<h3 data-number="4.4" id="the-anova-f-test"><span class="header-section-number">4.4</span> The ANOVA <span class="math inline">\(F\)</span>-test</h3>
+<div class="concept-box esa-callout-important">
+<p class="esa-box-title">
+<strong>Theorem 1.7.2 (<span class="math inline">\(F\)</span>-test and its equivalences) — uses A1–A4</strong>
+</p>
+<p>Under <span class="math inline">\(H_0\!: \beta_1 = 0\)</span>, <span class="math display">\[
+F = \frac{\mathrm{MS}_{\text{Reg}}}{\mathrm{MS}_{\text{Res}}} = \frac{\mathrm{SSR}/1}{\mathrm{SSE}/(n-2)} \sim F_{1,\,n-2},
+\]</span> and <span class="math display">\[
+F = t^2 = \frac{(n-2)\,R^2}{1 - R^2}, \qquad t = \frac{\hat\beta_1}{\operatorname{se}(\hat\beta_1)} = \frac{r\sqrt{n-2}}{\sqrt{1 - r^2}} .
+\]</span></p>
+</div>
+<details class="esa-derivation">
+<summary>
+Derivation
+</summary>
+<p>By Lesson 1.6, <span class="math inline">\(\mathrm{SSR} = \hat\beta_1^2 S_{xx}\)</span>, so <span class="math inline">\(F = \hat\beta_1^2 S_{xx}/\hat\sigma^2 = \bigl(\hat\beta_1/\operatorname{se}(\hat\beta_1)\bigr)^2 = t^2\)</span>. The square of a <span class="math inline">\(t_{n-2}\)</span> variable is <span class="math inline">\(F_{1,n-2}\)</span>. Next, <span class="math inline">\(\hat\sigma^2 = \mathrm{SSE}/(n-2) = S_{yy}(1 - r^2)/(n-2)\)</span> and <span class="math inline">\(\hat\beta_1\sqrt{S_{xx}} = S_{xy}/\sqrt{S_{xx}} = r\sqrt{S_{yy}}\)</span>, so <span class="math inline">\(t = \hat\beta_1\sqrt{S_{xx}}/\hat\sigma = r\sqrt{n-2}/\sqrt{1 - r^2}\)</span>. Squaring and using <span class="math inline">\(R^2 = r^2\)</span> gives <span class="math inline">\(F = (n-2)R^2/(1 - R^2)\)</span>.</p>
+</details>
+<p>The last form is the classical test of <span class="math inline">\(H_0\!: \rho = 0\)</span> for a bivariate normal sample (Lesson 1.2): the regression <span class="math inline">\(t\)</span>-test and the correlation test are the <strong>same test</strong>. In simple regression the <span class="math inline">\(F\)</span>-test adds nothing new; in multiple regression (Module 2) it tests several coefficients at once.</p>
+<h3 data-number="4.5" id="statistical-and-practical-significance"><span class="header-section-number">4.5</span> Statistical and practical significance</h3>
+<p>A small <span class="math inline">\(p\)</span>-value says the data are incompatible with <span class="math inline">\(\beta_1 = \beta_{10}\)</span> <strong>under the model</strong>. It does not say the effect is large, important or causal. With large <span class="math inline">\(n\)</span>, slopes of negligible practical size become “significant”; with small <span class="math inline">\(n\)</span>, important slopes may not. Report the estimate with its <strong>confidence interval</strong> and interpret its size in context.</p>
+<h3 data-number="4.6" id="when-the-assumptions-fail"><span class="header-section-number">4.6</span> When the assumptions fail</h3>
+<div class="table-wrap"><table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Assumption violated</th>
+<th>Consequence for these procedures</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A4 (normality), large <span class="math inline">\(n\)</span></td>
+<td><span class="math inline">\(t\)</span>-intervals and tests remain approximately valid (central limit theorem), provided A1–A3 hold.</td>
+</tr>
+<tr class="even">
+<td>A4, small <span class="math inline">\(n\)</span>, heavy tails or outliers</td>
+<td>Coverage and error rates can be poor.</td>
+</tr>
+<tr class="odd">
+<td>A2 (constant variance)</td>
+<td><span class="math inline">\(\operatorname{se}(\hat\beta_1)\)</span> is wrong; coverage can be too high <strong>or</strong> too low depending on the pattern (worked example).</td>
+</tr>
+<tr class="even">
+<td>A3 (independence)</td>
+<td>Usually standard errors too small, intervals too narrow (time series; Module 3).</td>
+</tr>
+<tr class="odd">
+<td>A1 (wrong mean function)</td>
+<td>The target <span class="math inline">\(\beta_1\)</span> is itself only an approximation; inference about it may not answer the scientific question.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 class="esa-lesson-anchor" data-number="5" id="worked-example-1-data-that-satisfy-the-assumptions"><span class="header-section-number">5</span> Worked example 1: data that satisfy the assumptions</h2>
+<p>To see the procedures work as intended, we use a <strong>simulated teaching data set</strong> of <span class="math inline">\(n = 25\)</span> points generated from <span class="math display">\[
+y_i = 46 - 7.7\,x_i + \varepsilon_i, \qquad \varepsilon_i \sim N(0, 4^2), \qquad x_i \sim \text{Uniform}(1.6, 5.1),
+\]</span> (seed 2026 in Python; values rounded to 3 and 2 decimals and listed in the code). Because we generated the data, we know the true values <span class="math inline">\(\beta_0 = 46\)</span>, <span class="math inline">\(\beta_1 = -7.7\)</span> and <span class="math inline">\(\sigma^2 = 16\)</span> — a check that real data never allow.</p>
+<div class="esa-code-tabs">
+<details class="esa-code">
+<summary>
+R code
+</summary>
+<pre class="r"><code>x &lt;- c(2.226, 3.84, 3.235, 2.897, 2.842, 4.367, 4.768, 2.221, 3.885, 2.644, 4.984, 4.819, 3.826,
+       4.235, 3.403, 4.491, 3.169, 2.786, 2.573, 2.392, 3.44, 3.108, 3.921, 1.645, 3.167)
+y &lt;- c(36.16, 13.58, 26.48, 18.77, 24.81, 7.7, 14.69, 32.24, 20.64, 22.1, 10.36, 6.81, 14.71,
+       15.42, 23.3, 12.24, 19.08, 21.25, 31.97, 29.96, 22.39, 30.8, 12.54, 43.57, 34.22)
+fit &lt;- lm(y ~ x)
+summary(fit)$coefficients            # estimates, se, t and p-values for H0: beta = 0
+confint(fit, level = 0.95)           # t-intervals for beta0 and beta1
+anova(fit)                           # F = t^2
+
+# Test H0: beta1 = -7.7 (the true value)
+b1 &lt;- coef(fit)[[&quot;x&quot;]]; se1 &lt;- coef(summary(fit))[&quot;x&quot;, &quot;Std. Error&quot;]
+t_stat &lt;- (b1 - (-7.7)) / se1
+c(t = t_stat, p = 2 * pt(-abs(t_stat), df = df.residual(fit)))
+
+# 95% interval for sigma^2
+SSE &lt;- deviance(fit); dfr &lt;- df.residual(fit)
+c(lower = SSE / qchisq(0.975, dfr), upper = SSE / qchisq(0.025, dfr))</code></pre>
+</details>
+<details class="esa-code" open>
+<summary>
+Python code
+</summary>
+<pre class="python"><code>import numpy as np
+from scipy import stats
+
+x = np.array([2.226, 3.84, 3.235, 2.897, 2.842, 4.367, 4.768, 2.221, 3.885, 2.644, 4.984, 4.819, 3.826,
+              4.235, 3.403, 4.491, 3.169, 2.786, 2.573, 2.392, 3.44, 3.108, 3.921, 1.645, 3.167])
+y = np.array([36.16, 13.58, 26.48, 18.77, 24.81, 7.7, 14.69, 32.24, 20.64, 22.1, 10.36, 6.81, 14.71,
+              15.42, 23.3, 12.24, 19.08, 21.25, 31.97, 29.96, 22.39, 30.8, 12.54, 43.57, 34.22])
+
+def slr_inference(x, y, beta10=0.0, level=0.95):
+    n = len(y)
+    Sxx = np.sum((x - x.mean())**2)
+    b1 = np.sum((x - x.mean()) * (y - y.mean())) / Sxx
+    b0 = y.mean() - b1 * x.mean()
+    e = y - b0 - b1 * x
+    SSE = e @ e; dfr = n - 2; s2 = SSE / dfr
+    se1 = np.sqrt(s2 / Sxx); se0 = np.sqrt(s2 * (1 / n + x.mean()**2 / Sxx))
+    q = stats.t.ppf(1 - (1 - level) / 2, dfr)
+    t1 = (b1 - beta10) / se1
+    SSR = np.sum((b0 + b1 * x - y.mean())**2)
+    return dict(b0=b0, se0=se0, ci0=(b0 - q * se0, b0 + q * se0),
+                b1=b1, se1=se1, ci1=(b1 - q * se1, b1 + q * se1),
+                t1=t1, p1=2 * stats.t.sf(abs(t1), dfr),
+                F=SSR / s2, pF=stats.f.sf(SSR / s2, 1, dfr), SSE=SSE, dfr=dfr,
+                ci_sigma2=(SSE / stats.chi2.ppf(1 - (1 - level) / 2, dfr),
+                           SSE / stats.chi2.ppf((1 - level) / 2, dfr)))
+
+res = slr_inference(x, y)
+print(f&quot;b0 = {res[&#39;b0&#39;]:.4f} (se {res[&#39;se0&#39;]:.4f}), 95% CI ({res[&#39;ci0&#39;][0]:.4f}, {res[&#39;ci0&#39;][1]:.4f})&quot;)
+print(f&quot;b1 = {res[&#39;b1&#39;]:.4f} (se {res[&#39;se1&#39;]:.4f}), 95% CI ({res[&#39;ci1&#39;][0]:.4f}, {res[&#39;ci1&#39;][1]:.4f})&quot;)
+print(f&quot;H0: beta1 = 0:  t = {res[&#39;t1&#39;]:.4f}, p = {res[&#39;p1&#39;]:.2e};  F = {res[&#39;F&#39;]:.4f} = t^2 = {res[&#39;t1&#39;]**2:.4f}&quot;)
+r7 = slr_inference(x, y, beta10=-7.7)
+print(f&quot;H0: beta1 = -7.7: t = {r7[&#39;t1&#39;]:.4f}, p = {r7[&#39;p1&#39;]:.4f}&quot;)
+print(f&quot;95% CI for sigma^2: ({res[&#39;ci_sigma2&#39;][0]:.4f}, {res[&#39;ci_sigma2&#39;][1]:.4f})&quot;)</code></pre>
+<p class="esa-output-label">
+Output
+</p>
+<pre class="esa-output"><code>b0 = 53.4051 (se 3.7555), 95% CI (45.6362, 61.1740)
+b1 = -9.2990 (se 1.0707), 95% CI (-11.5139, -7.0842)
+H0: beta1 = 0:  t = -8.6853, p = 1.02e-08;  F = 75.4337 = t^2 = 75.4337
+H0: beta1 = -7.7: t = -1.4935, p = 0.1489
+95% CI for sigma^2: (13.4203, 43.7167)</code></pre>
+</details>
+</div>
+<p><strong>Results.</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th></th>
+<th>Estimate</th>
+<th>SE</th>
+<th>95% CI</th>
+<th>True value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\beta_0\)</span></td>
+<td>53.405</td>
+<td>3.756</td>
+<td>(45.636, 61.174)</td>
+<td>46</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\beta_1\)</span></td>
+<td>−9.299</td>
+<td>1.071</td>
+<td>(−11.514, −7.084)</td>
+<td>−7.7</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\sigma^2\)</span></td>
+<td>22.217</td>
+<td>—</td>
+<td>(13.420, 43.717)</td>
+<td>16</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>The test of <span class="math inline">\(H_0\!: \beta_1 = 0\)</span> gives <span class="math inline">\(t = -8.685\)</span> (<span class="math inline">\(p \approx 10^{-8}\)</span>) and <span class="math inline">\(F = 75.43 = t^2\)</span>: overwhelming evidence of a linear association.</li>
+<li>The estimate <span class="math inline">\(-9.30\)</span> is 1.6 units from the true slope, yet the 95% interval covers <span class="math inline">\(-7.7\)</span>, and the test of <span class="math inline">\(H_0\!: \beta_1 = -7.7\)</span> does not reject it (<span class="math inline">\(t = -1.493\)</span>, <span class="math inline">\(p = 0.149\)</span>). One sample can be quite far from the truth; the interval accounts for this.</li>
+<li>All three intervals cover their true values. That happens in about 95% of samples for each interval — Exercise C2 checks this by simulation.</li>
+</ul>
+<h2 class="esa-lesson-anchor" data-number="6" id="worked-example-2-auto-mpg"><span class="header-section-number">6</span> Worked example 2: Auto MPG</h2>
+<p>For mpg on weight (1000 lb), <span class="math inline">\(n = 398\)</span>, <span class="math inline">\(t_{396;\,0.975} = 1.966\)</span>:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th></th>
+<th>Estimate</th>
+<th>SE</th>
+<th><span class="math inline">\(t\)</span></th>
+<th>95% CI</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\beta_0\)</span></td>
+<td>46.317</td>
+<td>0.795</td>
+<td>58.24</td>
+<td>(44.754, 47.881)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\beta_1\)</span></td>
+<td>−7.677</td>
+<td>0.257</td>
+<td>−29.81</td>
+<td>(−8.183, −7.170)</td>
+</tr>
+</tbody>
+</table></div>
+<p><span class="math inline">\(F = 888.85 = (-29.81)^2\)</span>, and the 95% interval for <span class="math inline">\(\sigma^2\)</span> is <span class="math inline">\((16.50, 21.81)\)</span>. A test of the claim “<span class="math inline">\(\beta_1 = -8\)</span>” gives <span class="math inline">\(t = 1.256\)</span>, <span class="math inline">\(p = 0.210\)</span>: the data are compatible with a slope of <span class="math inline">\(-8\)</span> mpg per 1000 lb.</p>
+<div class="esa-code-tabs">
+<details class="esa-code">
+<summary>
+R code
+</summary>
+<pre class="r"><code>cols &lt;- c(&quot;mpg&quot;, &quot;cylinders&quot;, &quot;displacement&quot;, &quot;horsepower&quot;, &quot;weight&quot;,
+          &quot;acceleration&quot;, &quot;model_year&quot;, &quot;origin&quot;, &quot;car_name&quot;)
+auto &lt;- read.table(&quot;data/auto-mpg.data&quot;, col.names = cols, na.strings = &quot;?&quot;)
+fit_auto &lt;- lm(mpg ~ I(weight / 1000), data = auto)
+summary(fit_auto)$coefficients
+confint(fit_auto)
+anova(fit_auto)
+b1 &lt;- coef(fit_auto)[[2]]; se1 &lt;- coef(summary(fit_auto))[2, 2]
+t8 &lt;- (b1 - (-8)) / se1
+c(t = t8, p = 2 * pt(-abs(t8), df.residual(fit_auto)))</code></pre>
+</details>
+<details class="esa-code" open>
+<summary>
+Python code
+</summary>
+<pre class="python"><code>import pandas as pd
+cols = [&quot;mpg&quot;, &quot;cylinders&quot;, &quot;displacement&quot;, &quot;horsepower&quot;, &quot;weight&quot;,
+        &quot;acceleration&quot;, &quot;model_year&quot;, &quot;origin&quot;, &quot;car_name&quot;]
+auto = pd.read_csv(&quot;data/auto-mpg.data&quot;, sep=r&quot;\s+&quot;, header=None,
+                   names=cols, na_values=&quot;?&quot;, quotechar=&#39;&quot;&#39;)
+xa = auto[&quot;weight&quot;].to_numpy() / 1000
+ya = auto[&quot;mpg&quot;].to_numpy()
+ra = slr_inference(xa, ya)
+print(f&quot;b0 = {ra[&#39;b0&#39;]:.4f} (se {ra[&#39;se0&#39;]:.4f}), 95% CI ({ra[&#39;ci0&#39;][0]:.4f}, {ra[&#39;ci0&#39;][1]:.4f})&quot;)
+print(f&quot;b1 = {ra[&#39;b1&#39;]:.4f} (se {ra[&#39;se1&#39;]:.4f}), t = {ra[&#39;t1&#39;]:.4f}, 95% CI ({ra[&#39;ci1&#39;][0]:.4f}, {ra[&#39;ci1&#39;][1]:.4f})&quot;)
+print(f&quot;F = {ra[&#39;F&#39;]:.2f}; 95% CI for sigma^2: ({ra[&#39;ci_sigma2&#39;][0]:.4f}, {ra[&#39;ci_sigma2&#39;][1]:.4f})&quot;)
+r8 = slr_inference(xa, ya, beta10=-8)
+print(f&quot;H0: beta1 = -8: t = {r8[&#39;t1&#39;]:.4f}, p = {r8[&#39;p1&#39;]:.4f}&quot;)</code></pre>
+<p class="esa-output-label">
+Output
+</p>
+<pre class="esa-output"><code>b0 = 46.3174 (se 0.7952), 95% CI (44.7539, 47.8808)
+b1 = -7.6766 (se 0.2575), t = -29.8136, 95% CI (-8.1828, -7.1704)
+F = 888.85; 95% CI for sigma^2: (16.4997, 21.8077)
+H0: beta1 = -8: t = 1.2559, p = 0.2099</code></pre>
+</details>
+</div>
+<div class="example-box esa-callout-warning">
+<p class="esa-box-title">
+<strong>Can we trust these intervals for Auto MPG?</strong>
+</p>
+<p>Lessons 1.1 and 1.4 showed that the error variance decreases with weight and that the mean function is curved. The intervals above therefore rest on assumptions the data visibly violate. How much does that matter? A simulation keeps the 398 observed weights and the straight-line mean but lets the error standard deviation change with weight (10,000 data sets, seed 2026):</p>
+<div class="table-wrap"><table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Error standard deviation</th>
+<th>Actual coverage of the “95%” interval for <span class="math inline">\(\beta_1\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>constant, <span class="math inline">\(\sigma = 4.34\)</span> (A2 holds)</td>
+<td>0.951</td>
+</tr>
+<tr class="even">
+<td>decreasing with weight, <span class="math inline">\(\max(9.5 - 1.5x, 1)\)</span> — like the real data</td>
+<td>0.968</td>
+</tr>
+<tr class="odd">
+<td>increasing with weight, <span class="math inline">\(0.5 + 1.2(x - 1.6)\)</span></td>
+<td>0.880</td>
+</tr>
+</tbody>
+</table></div>
+<p>With the pattern seen in the real data the usual interval happens to be conservative (too wide); with the opposite pattern it would cover the true slope only 88% of the time. The direction of the error cannot be known without examining the data — which is why Module 3 introduces diagnostics and standard errors that do not rely on A2.</p>
+</div>
+<h3 data-number="6.1" id="interpretation-in-context"><span class="header-section-number">6.1</span> Interpretation in context</h3>
+<blockquote>
+<p>Among the 398 cars, each additional 1000 lb is associated with a mean fuel economy lower by 7.7 mpg (95% CI 7.2 to 8.2 mpg lower), assuming a straight-line mean and constant error variance. Because the variance clearly decreases with weight, this interval should be treated as approximate; the association itself is unambiguous (<span class="math inline">\(t = -29.8\)</span>).</p>
+</blockquote>
+<h2 class="esa-lesson-anchor" data-number="7" id="common-misconceptions"><span class="header-section-number">7</span> Common misconceptions</h2>
+<div class="example-box esa-callout-caution">
+<p class="esa-box-title">
+<strong>Misconceptions</strong>
+</p>
+<ol type="1">
+<li><strong>“<span class="math inline">\(p &lt; 0.001\)</span>, so the effect is large.”</strong> — The <span class="math inline">\(p\)</span>-value measures incompatibility with <span class="math inline">\(H_0\)</span>, not size. Report the interval.</li>
+<li><strong>“<span class="math inline">\(p = 0.21\)</span> for <span class="math inline">\(H_0\!: \beta_1 = -8\)</span> proves that <span class="math inline">\(\beta_1 = -8\)</span>.”</strong> — Not rejecting <span class="math inline">\(H_0\)</span> means the data are compatible with it — and with every other value in the confidence interval.</li>
+<li><strong>“There is a 95% probability that <span class="math inline">\(\beta_1\)</span> is in this interval.”</strong> — The 95% refers to the long-run behaviour of the procedure.</li>
+<li><strong>“The <span class="math inline">\(t\)</span>-test requires <span class="math inline">\(y\)</span> to be normal.”</strong> — It requires normal <strong>errors</strong> (and only approximately, in large samples).</li>
+<li><strong>“If the assumptions fail, the intervals are always too narrow.”</strong> — They can be too narrow or too wide; the direction depends on the pattern of the violation.</li>
+</ol>
+</div>
+<h2 class="esa-lesson-anchor" data-number="8" id="key-takeaways"><span class="header-section-number">8</span> Key takeaways</h2>
+<ul>
+<li>Under A1–A4, <span class="math inline">\((\hat\beta_j - \beta_j)/\operatorname{se}(\hat\beta_j) \sim t_{n-2}\)</span> because <span class="math inline">\(\hat\beta_j\)</span> is normal and independent of <span class="math inline">\(\mathrm{SSE} \sim \sigma^2\chi^2_{n-2}\)</span>.</li>
+<li>Confidence intervals are <span class="math inline">\(\hat\beta_j \pm t_{n-2;\,1-\alpha/2}\operatorname{se}(\hat\beta_j)\)</span>; they are the sets of values a two-sided test does not reject.</li>
+<li>In simple regression, the <span class="math inline">\(F\)</span>-test, the <span class="math inline">\(t\)</span>-test of <span class="math inline">\(\beta_1 = 0\)</span> and the test of <span class="math inline">\(\rho = 0\)</span> coincide: <span class="math inline">\(F = t^2 = (n-2)R^2/(1-R^2)\)</span>.</li>
+<li>Report estimates with intervals and interpret their size; significance is not importance.</li>
+<li>Violations of A2 or A3 distort standard errors in either direction; check them (Module 3).</li>
+</ul>
+<h2 class="esa-lesson-anchor" data-number="9" id="exercises"><span class="header-section-number">9</span> Exercises</h2>
+<h3 data-number="9.1" id="a.-conceptual"><span class="header-section-number">9.1</span> A. Conceptual</h3>
+<p><strong>A1</strong> (★). A study with <span class="math inline">\(n = 20\,000\)</span> reports a slope of 0.002 kg per hour of television per week, <span class="math inline">\(p = 0.001\)</span>. Another with <span class="math inline">\(n = 30\)</span> reports 1.5 kg per hour, <span class="math inline">\(p = 0.08\)</span>. Which result is more important? What would you ask each author to report?</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>Importance depends on size and precision, not on <span class="math inline">\(p\)</span> alone. The first slope is precisely estimated but practically negligible; the second is large but imprecise, and its data are compatible with zero and with large effects. Ask both for the estimate with a confidence interval in meaningful units, and for the design (observational or experimental).</p>
+</details>
+<p><strong>A2</strong> (★). Explain why rejecting <span class="math inline">\(H_0\!: \beta_1 = 0\)</span> at the 5% level is equivalent to the 95% confidence interval for <span class="math inline">\(\beta_1\)</span> excluding 0.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>The test rejects iff <span class="math inline">\(|\hat\beta_1 - 0|/\operatorname{se}(\hat\beta_1) &gt; t_{n-2;0.975}\)</span>, i.e. iff <span class="math inline">\(0 \notin [\hat\beta_1 - t_{n-2;0.975}\operatorname{se},\ \hat\beta_1 + t_{n-2;0.975}\operatorname{se}]\)</span>.</p>
+</details>
+<h3 data-number="9.2" id="b.-mathematical"><span class="header-section-number">9.2</span> B. Mathematical</h3>
+<p><strong>B1</strong> (★★). Show that <span class="math inline">\(\operatorname{Cov}(e_i, \hat\beta_1) = 0\)</span> for every <span class="math inline">\(i\)</span>, and explain why, under normality, this implies independence of <span class="math inline">\(\mathrm{SSE}\)</span> and <span class="math inline">\(\hat\beta_1\)</span>.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>See the derivation of Theorem 1.7.1(c): <span class="math inline">\(\operatorname{Cov}(e_i, \hat\beta_1) = \operatorname{Cov}(y_i, \hat\beta_1) - \operatorname{Cov}(\bar y, \hat\beta_1) - (x_i - \bar x)\operatorname{Var}(\hat\beta_1) = \sigma^2 k_i - 0 - (x_i - \bar x)\sigma^2/S_{xx} = 0\)</span>. Under normality the vector <span class="math inline">\((e_1, \dots, e_n, \hat\beta_1)\)</span> is multivariate normal, so zero covariances imply independence of <span class="math inline">\(\hat\beta_1\)</span> and the whole residual vector, and hence of any function of the residuals, such as <span class="math inline">\(\mathrm{SSE}\)</span>.</p>
+</details>
+<p><strong>B2</strong> (★★). Prove <span class="math inline">\(F = (n-2)R^2/(1 - R^2)\)</span>. For Auto MPG (<span class="math inline">\(n = 398\)</span>, <span class="math inline">\(R^2 = 0.691793\)</span>), compute <span class="math inline">\(F\)</span> and compare with the ANOVA table.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p><span class="math inline">\(F = \mathrm{SSR}/(\mathrm{SSE}/(n-2)) = (n-2)(\mathrm{SSR}/\mathrm{SST})/(\mathrm{SSE}/\mathrm{SST}) = (n-2)R^2/(1-R^2)\)</span>. Numerically <span class="math inline">\(396 \times 0.691793/0.308207 = 888.85\)</span>, as in the ANOVA table.</p>
+</details>
+<p><strong>B3</strong> (★★★). Show that a <span class="math inline">\(100(1-\alpha)\%\)</span> confidence interval for <span class="math inline">\(\beta_1\)</span> has expected length <span class="math inline">\(2\,t_{n-2;1-\alpha/2}\,E(\hat\sigma)/\sqrt{S_{xx}}\)</span>. How does the length depend on <span class="math inline">\(n\)</span> and on the spread of <span class="math inline">\(x\)</span>? (You may use <span class="math inline">\(E(\hat\sigma) &lt; \sigma\)</span> without computing it exactly.)</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>The length is <span class="math inline">\(2t_{n-2;1-\alpha/2}\hat\sigma/\sqrt{S_{xx}}\)</span>; only <span class="math inline">\(\hat\sigma\)</span> is random, so the expected length is <span class="math inline">\(2t_{n-2;1-\alpha/2}E(\hat\sigma)/\sqrt{S_{xx}}\)</span>. As <span class="math inline">\(n\)</span> grows, <span class="math inline">\(t_{n-2;1-\alpha/2}\)</span> decreases towards <span class="math inline">\(z_{1-\alpha/2}\)</span> and <span class="math inline">\(S_{xx}\)</span> grows roughly in proportion to <span class="math inline">\(n\)</span> (for a fixed spread of <span class="math inline">\(x\)</span>), so the length shrinks like <span class="math inline">\(1/\sqrt n\)</span>. A larger spread of <span class="math inline">\(x\)</span> increases <span class="math inline">\(S_{xx}\)</span> and shortens the interval, as in Lesson 1.4.</p>
+</details>
+<h3 data-number="9.3" id="c.-computational"><span class="header-section-number">9.3</span> C. Computational</h3>
+<p><strong>C1</strong> (★). For the teaching data set, compute 90% and 99% confidence intervals for <span class="math inline">\(\beta_1\)</span>. Which of them contain the true value <span class="math inline">\(-7.7\)</span>?</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>With <span class="math inline">\(t_{23;0.95} = 1.7139\)</span> and <span class="math inline">\(t_{23;0.995} = 2.8073\)</span>: 90% CI <span class="math inline">\((-11.134, -7.464)\)</span>; 99% CI <span class="math inline">\((-12.305, -6.293)\)</span>. The 99% interval contains <span class="math inline">\(-7.7\)</span>; the 90% interval does not. This is consistent with <span class="math inline">\(p = 0.149\)</span> for <span class="math inline">\(H_0\!: \beta_1 = -7.7\)</span>: the hypothesis is rejected at the 15% level but not at 10%, 5% or 1%. (R: <code>confint(fit, level = 0.90)</code>.)</p>
+</details>
+<p><strong>C2</strong> (★★). <em>Coverage by simulation.</em> Fix the 25 <span class="math inline">\(x\)</span> values of a design drawn from Uniform(1.6, 5.1) and simulate 10,000 data sets from <span class="math inline">\(y = 46 - 7.7x + \varepsilon\)</span>, <span class="math inline">\(\varepsilon \sim N(0, 16)\)</span> (seed 2026). Estimate the coverage of the 95% interval for <span class="math inline">\(\beta_1\)</span>.</p>
+<details class="esa-solution">
+<summary>
+Solution (Python)
+</summary>
+<pre class="python"><code>import numpy as np
+from scipy import stats
+rng = np.random.default_rng(2026)
+n, R = 25, 10_000
+X = rng.uniform(1.6, 5.1, n)
+Sxx = np.sum((X - X.mean())**2); k = (X - X.mean()) / Sxx
+Y = 46 - 7.7 * X + rng.normal(0, 4, size=(R, n))
+b1 = Y @ k; b0 = Y.mean(axis=1) - b1 * X.mean()
+s2 = ((Y - b0[:, None] - b1[:, None] * X)**2).sum(axis=1) / (n - 2)
+covered = np.abs(b1 + 7.7) &lt;= stats.t.ppf(0.975, n - 2) * np.sqrt(s2 / Sxx)
+print(round(covered.mean(), 4))</code></pre>
+<p>Output: 0.947. The estimated coverage agrees with the nominal 95% to within simulation error (the standard error of a proportion near 0.95 from 10,000 replications is about 0.002).</p>
+</details>
+<p><strong>C3</strong> (★★). For the Auto MPG data, test <span class="math inline">\(H_0\!: \beta_1 = -8\)</span> against <span class="math inline">\(H_1\!: \beta_1 &gt; -8\)</span> (heavier cars lose <em>less</em> than 8 mpg per 1000 lb). Report the one-sided <span class="math inline">\(p\)</span>-value and state the conclusion in words.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p><span class="math inline">\(t = (-7.67661 + 8)/0.257487 = 1.256\)</span> with 396 d.f.; one-sided <span class="math inline">\(p = P(t_{396} \ge 1.256) = 0.105\)</span>. The data do not provide convincing evidence that the decrease is smaller than 8 mpg per 1000 lb (under the model assumptions, which Lesson 1.4 showed are only approximate here).</p>
+</details>
+<h2 class="esa-lesson-anchor" data-number="10" id="references"><span class="header-section-number">10</span> References</h2>
+<ul>
+<li>Kutner, M. H., Nachtsheim, C. J., Neter, J., &amp; Li, W. (2005). <em>Applied Linear Statistical Models</em> (5th ed.). McGraw-Hill/Irwin. — Chapter 2, Inferences in Regression and Correlation Analysis.</li>
+<li>Montgomery, D. C., Peck, E. A., &amp; Vining, G. G. (2021). <em>Introduction to Linear Regression Analysis</em> (6th ed.). Wiley. — Chapter 2, Simple Linear Regression (hypothesis testing; interval estimation).</li>
+<li>Seber, G. A. F., &amp; Lee, A. J. (2003). <em>Linear Regression Analysis</em> (2nd ed.). Wiley. — Chapter 3, Linear Regression: Estimation and Distribution Theory (distribution of SSE; independence).</li>
+<li>Wasserstein, R. L., &amp; Lazar, N. A. (2016). The ASA statement on p-values: Context, process, and purpose. <em>The American Statistician</em>, 70(2), 129–133.</li>
+<li>Quinlan, R. (1993). <em>Auto MPG</em> [Data set]. UCI Machine Learning Repository. https://doi.org/10.24432/C5859H</li>
+</ul>
+
+{% endraw %}
+    <div class="lesson-nav">
+      <a class="btn btn-outline" href="/courses/regression/module-1/goodness-of-fit/">← Lesson 1.6: Goodness of Fit</a>
+      <a class="btn" href="/courses/regression/module-1/confidence-and-prediction-intervals/">Next: Lesson 1.8 →</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .esa-course-lesson details{border:1px solid var(--border-strong,#d0d7de);border-radius:9px;padding:.4rem .9rem;margin:1rem 0}
+  .esa-course-lesson details>summary{cursor:pointer;font-weight:700}
+  .esa-course-lesson .esa-code-tabs{margin:1rem 0}
+  .esa-course-lesson .esa-code-tabs details{margin:.4rem 0}
+  .esa-course-lesson pre{max-width:100%}
+  .esa-course-lesson pre.esa-output{border-left:5px solid #0d9488}
+  .esa-course-lesson .esa-output-label{font-size:.85rem;font-weight:700;margin:.6rem 0 .2rem}
+  .esa-course-lesson .esa-figure{margin:1rem 0}
+  .esa-course-lesson .esa-figure img{max-width:100%;height:auto}
+  .esa-course-lesson .esa-figure figcaption{font-size:.9rem}
+  .esa-course-lesson mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+</style>

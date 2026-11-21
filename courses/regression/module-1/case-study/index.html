@@ -1,0 +1,490 @@
+---
+layout: default
+title: "Case Study: A Complete Simple Regression Analysis — Regression Course, Lesson 1.9"
+description: "University-level case study: a complete simple regression analysis of the Auto MPG data, from question to report, including a residual check and an honest statement of limitations, with R and Python."
+permalink: /courses/regression/module-1/case-study/
+sidebar: false
+math: true
+learning_resource: true
+---
+
+<section class="hero hero-section">
+  <div class="hero-card">
+    <div class="badge-row">
+      <span class="badge">Course</span>
+      <span class="badge">Regression Analysis</span>
+      <span class="badge">Module 1 · Foundations</span>
+      <span class="badge">Lesson 1.9</span>
+    </div>
+    <h1>Lesson 1.9 — Case Study: A Complete Simple Regression Analysis</h1>
+    <p class="lead">Everything in Module 1, in one analysis: question, data, exploration, fit, interpretation, inference, prediction, residual check and report.</p>
+    <p class="muted-mini">Level: Intermediate · Study time: 50 min + project exercise · Prerequisites: Lessons 1.1–1.8 · Data: Auto MPG (UCI, CC BY 4.0)</p>
+    <div class="hero-actions">
+      <a class="btn btn-outline" href="/courses/regression/module-1/">Module 1 lessons</a>
+      <a class="btn btn-outline" href="/courses/regression/code/lesson-1-9.py">Python script</a>
+      <a class="btn btn-outline" href="/courses/regression/code/lesson-1-9.R">R script</a>
+    </div>
+  </div>
+</section>
+
+<nav class="esa-lesson-toc" aria-label="On this page"><details><summary>On this page</summary><ol><li><a href="#learning-objectives">Learning objectives</a></li><li><a href="#the-question">The question</a></li><li><a href="#step-1-know-the-data">Step 1 — Know the data</a></li><li><a href="#step-2-explore-before-modelling">Step 2 — Explore before modelling</a></li><li><a href="#step-3-fit-the-model">Step 3 — Fit the model</a></li><li><a href="#step-4-interpret-the-coefficients">Step 4 — Interpret the coefficients</a></li><li><a href="#step-5-fit-and-inference">Step 5 — Fit and inference</a></li><li><a href="#step-6-prediction">Step 6 — Prediction</a></li><li><a href="#step-7-check-the-assumptions-a-first-look-at-the-residuals">Step 7 — Check the assumptions: a first look at the residuals</a></li><li><a href="#step-8-report">Step 8 — Report</a></li><li><a href="#step-9-what-module-1-cannot-do-and-where-the-course-goes-next">Step 9 — What Module 1 cannot do, and where the course goes next</a></li><li><a href="#common-misconceptions">Common misconceptions</a></li><li><a href="#key-takeaways">Key takeaways</a></li><li><a href="#exercises">Exercises</a></li><li><a href="#references">References</a></li></ol></details></nav>
+
+<section>
+  <div class="content-narrow esa-course-lesson">
+{% raw %}
+<h2 class="esa-lesson-anchor" data-number="1" id="learning-objectives"><span class="header-section-number">1</span> Learning objectives</h2>
+<p>By the end of this lesson you will be able to:</p>
+<ol type="1">
+<li>carry out a complete simple regression analysis, from question to report, using every tool of Module 1;</li>
+<li>connect each step to the assumptions it needs and check those assumptions with a first look at the residuals;</li>
+<li>write a short, honest report: estimates with intervals, interpretation in context, and limitations;</li>
+<li>recognise which problems a straight line on one predictor cannot solve, and which later modules address them.</li>
+</ol>
+<h2 class="esa-lesson-anchor" data-number="2" id="the-question"><span class="header-section-number">2</span> The question</h2>
+<blockquote>
+<p><strong>How is a car’s weight related to its fuel economy, and how well can fuel economy be predicted from weight alone?</strong></p>
+</blockquote>
+<p>The question has two parts. The first is <strong>descriptive</strong> (the size and direction of the association). The second is <strong>predictive</strong> (how precisely mpg can be predicted for a new car). Neither part is causal: the data are observational (Lesson 1.1), so the analysis will not claim what happens if weight is <em>changed</em>.</p>
+<h2 class="esa-lesson-anchor" data-number="3" id="step-1-know-the-data"><span class="header-section-number">3</span> Step 1 — Know the data</h2>
+<div class="table-wrap"><table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Item</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Source</td>
+<td>Quinlan (1993), UCI Machine Learning Repository, CC BY 4.0</td>
+</tr>
+<tr class="even">
+<td>Units of observation</td>
+<td>398 car models, model years 1970–1982</td>
+</tr>
+<tr class="odd">
+<td>Origin</td>
+<td>249 American, 70 European, 79 Japanese</td>
+</tr>
+<tr class="even">
+<td>Response</td>
+<td><code>mpg</code>: fuel economy, miles per gallon (9.0 to 46.6; mean 23.51, SD 7.82)</td>
+</tr>
+<tr class="odd">
+<td>Predictor</td>
+<td><code>weight</code>: lb (1613 to 5140; mean 2970, SD 847), used in thousands of lb</td>
+</tr>
+<tr class="even">
+<td>Missing values</td>
+<td>none in <code>mpg</code> or <code>weight</code> (six in <code>horsepower</code>, not used here)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Two features matter for interpretation: the cars are <strong>models</strong>, not a random sample of cars on the road, and the period covers the 1970s fuel crisis, when fuel economy improved quickly. Both limit how far the results generalise.</p>
+<h2 class="esa-lesson-anchor" data-number="4" id="step-2-explore-before-modelling"><span class="header-section-number">4</span> Step 2 — Explore before modelling</h2>
+<p>Lesson 1.1 estimated <span class="math inline">\(E(\text{mpg} \mid \text{weight})\)</span> without assumptions using band means: mpg falls from about 33 in the lightest band to about 12 in the heaviest, slightly curved, with a spread that shrinks for heavy cars. The correlation is <span class="math inline">\(r = -0.832\)</span> (Lesson 1.2). A straight line is a reasonable <strong>first</strong> model, with two warnings already on record: possible curvature (A1) and non-constant variance (A2).</p>
+<h2 class="esa-lesson-anchor" data-number="5" id="step-3-fit-the-model"><span class="header-section-number">5</span> Step 3 — Fit the model</h2>
+<p><span class="math display">\[
+\widehat{\text{mpg}} = 46.317 - 7.677 \times \text{weight (1000 lb)}, \qquad n = 398 .
+\]</span></p>
+<div class="esa-code-tabs">
+<details class="esa-code">
+<summary>
+R code
+</summary>
+<pre class="r"><code>cols &lt;- c(&quot;mpg&quot;, &quot;cylinders&quot;, &quot;displacement&quot;, &quot;horsepower&quot;, &quot;weight&quot;,
+          &quot;acceleration&quot;, &quot;model_year&quot;, &quot;origin&quot;, &quot;car_name&quot;)
+auto &lt;- read.table(&quot;data/auto-mpg.data&quot;, col.names = cols, na.strings = &quot;?&quot;)
+auto$w &lt;- auto$weight / 1000
+
+# Step 1: know the data
+summary(auto[, c(&quot;mpg&quot;, &quot;weight&quot;)])
+table(auto$origin)
+
+# Steps 3-5: fit, fit quality, inference
+fit &lt;- lm(mpg ~ w, data = auto)
+summary(fit)
+confint(fit)
+
+# Step 6: prediction for a 2800-lb car
+predict(fit, data.frame(w = 2.8), interval = &quot;confidence&quot;)
+predict(fit, data.frame(w = 2.8), interval = &quot;prediction&quot;)</code></pre>
+</details>
+<details class="esa-code" open>
+<summary>
+Python code
+</summary>
+<pre class="python"><code>import numpy as np
+import pandas as pd
+from scipy import stats
+
+cols = [&quot;mpg&quot;, &quot;cylinders&quot;, &quot;displacement&quot;, &quot;horsepower&quot;, &quot;weight&quot;,
+        &quot;acceleration&quot;, &quot;model_year&quot;, &quot;origin&quot;, &quot;car_name&quot;]
+auto = pd.read_csv(&quot;data/auto-mpg.data&quot;, sep=r&quot;\s+&quot;, header=None,
+                   names=cols, na_values=&quot;?&quot;, quotechar=&#39;&quot;&#39;)
+x = auto[&quot;weight&quot;].to_numpy() / 1000
+y = auto[&quot;mpg&quot;].to_numpy()
+n = len(y)
+
+# Step 1: know the data
+print(auto[[&quot;mpg&quot;, &quot;weight&quot;]].describe().round(2))
+print(auto[&quot;origin&quot;].value_counts().sort_index().to_dict())
+
+# Steps 3-5: fit, fit quality, inference
+Sxx = np.sum((x - x.mean())**2)
+b1 = np.sum((x - x.mean()) * (y - y.mean())) / Sxx
+b0 = y.mean() - b1 * x.mean()
+fitted = b0 + b1 * x
+e = y - fitted
+s = np.sqrt(e @ e / (n - 2))
+se1 = s / np.sqrt(Sxx)
+q = stats.t.ppf(0.975, n - 2)
+R2 = 1 - (e @ e) / np.sum((y - y.mean())**2)
+print(f&quot;b0 = {b0:.4f}, b1 = {b1:.4f} (se {se1:.4f}), 95% CI ({b1 - q * se1:.4f}, {b1 + q * se1:.4f})&quot;)
+print(f&quot;t = {b1 / se1:.2f}, R2 = {R2:.4f}, sigma_hat = {s:.4f}&quot;)
+
+# Step 6: prediction for a 2800-lb car
+x0 = 2.8
+h0 = 1 / n + (x0 - x.mean())**2 / Sxx
+y0 = b0 + b1 * x0
+print(f&quot;x0 = 2800 lb: fit {y0:.3f}, CI ({y0 - q * s * np.sqrt(h0):.3f}, {y0 + q * s * np.sqrt(h0):.3f}), &quot;
+      f&quot;PI ({y0 - q * s * np.sqrt(1 + h0):.3f}, {y0 + q * s * np.sqrt(1 + h0):.3f})&quot;)</code></pre>
+<p class="esa-output-label">
+Output
+</p>
+<pre class="esa-output"><code>          mpg   weight
+count  398.00   398.00
+mean    23.51  2970.42
+std      7.82   846.84
+min      9.00  1613.00
+25%     17.50  2223.75
+50%     23.00  2803.50
+75%     29.00  3608.00
+max     46.60  5140.00
+{1: 249, 2: 70, 3: 79}
+b0 = 46.3174, b1 = -7.6766 (se 0.2575), 95% CI (-8.1828, -7.1704)
+t = -29.81, R2 = 0.6918, sigma_hat = 4.3446
+x0 = 2800 lb: fit 24.823, CI (24.386, 25.260), PI (16.270, 33.375)</code></pre>
+</details>
+</div>
+<h2 class="esa-lesson-anchor" data-number="6" id="step-4-interpret-the-coefficients"><span class="header-section-number">6</span> Step 4 — Interpret the coefficients</h2>
+<ul>
+<li><strong>Slope</strong> (Lesson 1.5): among these car models, a difference of 1000 lb is associated with a mean fuel economy lower by 7.68 mpg.</li>
+<li><strong>Intercept</strong>: 46.3 mpg at weight 0 is an extrapolation far outside 1613–5140 lb and has no practical meaning. Centred at 3000 lb (Lesson 1.5), the intercept would be 23.29 mpg, the estimated mean for 3000-lb models.</li>
+</ul>
+<h2 class="esa-lesson-anchor" data-number="7" id="step-5-fit-and-inference"><span class="header-section-number">7</span> Step 5 — Fit and inference</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th>Quantity</th>
+<th>Value</th>
+<th>Lesson</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(R^2\)</span></td>
+<td>0.692</td>
+<td>1.6</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\hat\sigma\)</span></td>
+<td>4.34 mpg (vs <span class="math inline">\(s_y = 7.82\)</span>)</td>
+<td>1.6</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\operatorname{se}(\hat\beta_1)\)</span></td>
+<td>0.257</td>
+<td>1.4</td>
+</tr>
+<tr class="even">
+<td>95% CI for <span class="math inline">\(\beta_1\)</span></td>
+<td>(−8.18, −7.17)</td>
+<td>1.7</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(t\)</span> for <span class="math inline">\(H_0\!: \beta_1 = 0\)</span></td>
+<td>−29.81 (<span class="math inline">\(F = 888.85\)</span>)</td>
+<td>1.7</td>
+</tr>
+</tbody>
+</table></div>
+<p>The association is strong and precisely estimated — <strong>if</strong> the assumptions hold.</p>
+<h2 class="esa-lesson-anchor" data-number="8" id="step-6-prediction"><span class="header-section-number">8</span> Step 6 — Prediction</h2>
+<p>For a 2800-lb model:</p>
+<ul>
+<li>estimated <strong>mean</strong> fuel economy: 24.82 mpg, 95% CI (24.39, 25.26);</li>
+<li><strong>one new</strong> model: 95% PI (16.27, 33.38).</li>
+</ul>
+<p>The mean is pinned down to about ±0.4 mpg; a single car can be anywhere in a band about 17 mpg wide (Lesson 1.8).</p>
+<h2 class="esa-lesson-anchor" data-number="9" id="step-7-check-the-assumptions-a-first-look-at-the-residuals"><span class="header-section-number">9</span> Step 7 — Check the assumptions: a first look at the residuals</h2>
+<p>Every number in Steps 5–6 depends on A1 (straight-line mean) and A2 (constant variance), and the prediction interval also on A4. The <strong>residuals</strong> <span class="math inline">\(e_i = y_i - \hat y_i\)</span> are our window on the errors. If the model were right, residuals plotted against weight would scatter evenly around zero with constant spread.</p>
+<div class="esa-code-tabs">
+<details class="esa-code">
+<summary>
+R code
+</summary>
+<pre class="r"><code>e &lt;- resid(fit)
+six &lt;- cut(auto$w, quantile(auto$w, seq(0, 1, length.out = 7)), include.lowest = TRUE)
+round(rbind(mean_resid = tapply(e, six, mean), sd_resid = tapply(e, six, sd)), 2)
+
+op &lt;- par(mfrow = c(1, 2), mar = c(4, 4, 1, 1))
+plot(auto$w, auto$mpg, pch = 16, col = rgb(0, 0, 0, 0.3),
+     xlab = &quot;Weight (1000 lb)&quot;, ylab = &quot;Fuel economy (mpg)&quot;)
+abline(fit, lwd = 2)
+plot(auto$w, e, pch = 16, col = rgb(0, 0, 0, 0.3),
+     xlab = &quot;Weight (1000 lb)&quot;, ylab = &quot;Residual (mpg)&quot;)
+abline(h = 0, lty = 2)
+points(tapply(auto$w, six, mean), tapply(e, six, mean), pch = 19, cex = 1.6, type = &quot;b&quot;, lwd = 2)
+par(op)
+
+# The five largest residuals
+head(auto[order(-abs(e)), c(&quot;car_name&quot;, &quot;weight&quot;, &quot;mpg&quot;, &quot;model_year&quot;)], 5)</code></pre>
+</details>
+<details class="esa-code" open>
+<summary>
+Python code
+</summary>
+<pre class="python"><code>import matplotlib.pyplot as plt
+
+six = pd.qcut(x, 6)
+res = pd.DataFrame({&quot;w&quot;: x, &quot;e&quot;: e, &quot;six&quot;: six})
+by_six = res.groupby(&quot;six&quot;, observed=True).agg(w_mean=(&quot;w&quot;, &quot;mean&quot;), mean_resid=(&quot;e&quot;, &quot;mean&quot;),
+                                               sd_resid=(&quot;e&quot;, &quot;std&quot;))
+print(by_six.round(2))
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(9, 3.6))
+ax1.scatter(x, y, s=10, alpha=0.3, color=&quot;black&quot;)
+grid = np.linspace(x.min(), x.max(), 100)
+ax1.plot(grid, b0 + b1 * grid, linewidth=2)
+ax1.set_xlabel(&quot;Weight (1000 lb)&quot;); ax1.set_ylabel(&quot;Fuel economy (mpg)&quot;)
+ax2.scatter(x, e, s=10, alpha=0.3, color=&quot;black&quot;)
+ax2.axhline(0, linestyle=&quot;--&quot;, color=&quot;gray&quot;)
+ax2.plot(by_six[&quot;w_mean&quot;], by_six[&quot;mean_resid&quot;], marker=&quot;o&quot;, markersize=8, linewidth=2)
+ax2.set_xlabel(&quot;Weight (1000 lb)&quot;); ax2.set_ylabel(&quot;Residual (mpg)&quot;)
+plt.tight_layout()
+plt.show()
+
+top = np.argsort(-np.abs(e))[:5]
+print(auto.loc[top, [&quot;car_name&quot;, &quot;weight&quot;, &quot;mpg&quot;, &quot;model_year&quot;]].assign(residual=e[top].round(2)))</code></pre>
+<p class="esa-output-label">
+Output
+</p>
+<pre class="esa-output"><code>                w_mean  mean_resid  sd_resid
+six                                         
+(1.612, 2.124]    1.95        1.68      5.26
+(2.124, 2.395]    2.24        0.10      5.42
+(2.395, 2.803]    2.61       -0.74      4.11
+(2.803, 3.297]    3.04       -1.34      4.53
+(3.297, 3.952]    3.60       -1.00      2.85
+(3.952, 5.14]     4.38        1.24      1.96
+                              car_name  weight   mpg  model_year  residual
+322                          mazda glc  2110.0  46.6          80     16.48
+326                 vw dasher (diesel)  2335.0  43.4          80     15.01
+387  oldsmobile cutlass ciera (diesel)  3015.0  38.0          82     14.83
+394                          vw pickup  2130.0  44.0          82     14.03
+325               vw rabbit c (diesel)  2085.0  44.3          80     13.99</code></pre>
+<figure class="esa-figure">
+<img src="/images/courses/regression/lesson-1-9-fig1.png" alt="Left: data and least-squares line. Right: residuals against weight, with the mean residual in each sixth of the weight range (large points). The U-shape signals curvature; the narrowing spread signals non-constant variance." loading="lazy" width="900">
+<figcaption>
+Left: data and least-squares line. Right: residuals against weight, with the mean residual in each sixth of the weight range (large points). The U-shape signals curvature; the narrowing spread signals non-constant variance.
+</figcaption>
+</figure>
+</details>
+</div>
+<p><strong>What the residuals show.</strong></p>
+<div class="table-wrap"><table style="width:100%;">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Weight sixth (1000 lb)</th>
+<th>1.61–2.12</th>
+<th>2.12–2.40</th>
+<th>2.40–2.80</th>
+<th>2.80–3.30</th>
+<th>3.30–3.95</th>
+<th>3.95–5.14</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mean residual (mpg)</td>
+<td>+1.68</td>
+<td>+0.10</td>
+<td>−0.74</td>
+<td>−1.34</td>
+<td>−1.00</td>
+<td>+1.24</td>
+</tr>
+<tr class="even">
+<td>SD of residuals (mpg)</td>
+<td>5.26</td>
+<td>5.42</td>
+<td>4.11</td>
+<td>4.53</td>
+<td>2.85</td>
+<td>1.96</td>
+</tr>
+</tbody>
+</table></div>
+<ol type="1">
+<li><strong>Curvature (A1).</strong> The mean residual is positive at both ends and negative in the middle: a U-shape. The straight line underestimates mpg for the lightest and heaviest cars and overestimates it in between.</li>
+<li><strong>Non-constant variance (A2).</strong> The residual SD falls from more than 5 mpg for light cars to about 2 mpg for heavy cars. This is why the prediction intervals cover 90% of light cars and 99% of heavy ones (Lesson 1.8).</li>
+<li><strong>Unusual cars.</strong> The five largest residuals (+14 to +16.5 mpg) are all 1980–1982 models, and three are diesels (e.g. <em>vw dasher (diesel)</em>, 43.4 mpg at 2335 lb). Fuel type and model year affect mpg but are not in the model — an <strong>omitted-variable</strong> signal.</li>
+</ol>
+<h2 class="esa-lesson-anchor" data-number="10" id="step-8-report"><span class="header-section-number">10</span> Step 8 — Report</h2>
+<p>A report should state the model, the estimates with uncertainty, the interpretation, and the limitations, in that order.</p>
+<div class="concept-box esa-callout-note">
+<p class="esa-box-title">
+<strong>Example report</strong>
+</p>
+<p>We analysed fuel economy and weight for 398 car models from 1970–1982 (Auto MPG data). Fuel economy decreased with weight: in a simple linear regression, each additional 1000 lb was associated with a mean fuel economy 7.7 mpg lower (95% CI 7.2 to 8.2; <span class="math inline">\(R^2 = 0.69\)</span>, residual SD 4.3 mpg). For a 2800-lb model the estimated mean was 24.8 mpg (95% CI 24.4 to 25.3), while a 95% prediction interval for a single new model was 16.3 to 33.4 mpg.</p>
+<p>These results describe an association in observational data and should not be read as the effect of changing a car’s weight. Residual analysis showed that the relationship is curved and that variability decreases with weight; the reported standard errors and prediction intervals are therefore approximate, and the prediction intervals are too narrow for light cars and too wide for heavy ones. The largest deviations were 1980–1982 models, three of them diesels, suggesting that model year and fuel type, which the model ignores, also matter.</p>
+</div>
+<h2 class="esa-lesson-anchor" data-number="11" id="step-9-what-module-1-cannot-do-and-where-the-course-goes-next"><span class="header-section-number">11</span> Step 9 — What Module 1 cannot do, and where the course goes next</h2>
+<div class="table-wrap"><table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Problem found</th>
+<th>Tool</th>
+<th>Where</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Other variables (model year, origin, engine size) matter</td>
+<td>Multiple regression</td>
+<td>Module 2</td>
+</tr>
+<tr class="even">
+<td>Curvature</td>
+<td>Transformations, polynomial terms</td>
+<td>Modules 2–3</td>
+</tr>
+<tr class="odd">
+<td>Non-constant variance</td>
+<td>Diagnostics, transformations, weighted LS, robust SEs</td>
+<td>Module 3</td>
+</tr>
+<tr class="even">
+<td>Unusual and influential cars</td>
+<td>Leverage, influence measures</td>
+<td>Module 3</td>
+</tr>
+<tr class="odd">
+<td>Choosing among models; honest prediction error</td>
+<td>Information criteria, cross-validation</td>
+<td>Module 4</td>
+</tr>
+<tr class="even">
+<td>Strongly correlated predictors (weight, displacement, horsepower)</td>
+<td>Ridge, Liu, lasso</td>
+<td>Module 5</td>
+</tr>
+</tbody>
+</table></div>
+<p>A preview of the payoff: modelling <span class="math inline">\(\log(\text{mpg})\)</span> instead of mpg already makes the spread more even across weights (prediction-interval coverage 0.933, 0.931 and 0.970 by weight third instead of 0.896, 0.939 and 0.992; Lesson 1.8, Exercise C3).</p>
+<h2 class="esa-lesson-anchor" data-number="12" id="common-misconceptions"><span class="header-section-number">12</span> Common misconceptions</h2>
+<div class="example-box esa-callout-caution">
+<p class="esa-box-title">
+<strong>Misconceptions</strong>
+</p>
+<ol type="1">
+<li><strong>“A high <span class="math inline">\(R^2\)</span> and a huge <span class="math inline">\(t\)</span>-statistic mean the analysis is finished.”</strong> — Steps 5–6 rest on Step 7. Here the fit is strong but the model is visibly wrong in shape and variance.</li>
+<li><strong>“Residual checks are optional extras.”</strong> — They are the only evidence about A1–A4, on which every interval depends.</li>
+<li><strong>“Limitations weaken a report.”</strong> — They make it credible. Reviewers trust analyses that state what they cannot show.</li>
+<li><strong>“Since the line is imperfect, the analysis is useless.”</strong> — The direction and approximate size of the association are clear; the limitations tell us what to improve.</li>
+</ol>
+</div>
+<h2 class="esa-lesson-anchor" data-number="13" id="key-takeaways"><span class="header-section-number">13</span> Key takeaways</h2>
+<ul>
+<li>A complete analysis runs: question → data → exploration → fit → interpretation → inference → prediction → residual check → report.</li>
+<li>The residual check comes <strong>before</strong> trusting intervals and tests, not after.</li>
+<li>For Auto MPG, weight is strongly associated with fuel economy, but the relationship is curved, the variance is not constant, and other variables matter.</li>
+<li>A good report gives estimates with intervals, interprets them in context, and states its limitations plainly.</li>
+</ul>
+<h2 class="esa-lesson-anchor" data-number="14" id="exercises"><span class="header-section-number">14</span> Exercises</h2>
+<h3 data-number="14.1" id="a.-conceptual"><span class="header-section-number">14.1</span> A. Conceptual</h3>
+<p><strong>A1</strong> (★). Rewrite this sentence from a student report so that it is correct: “Our model proves that adding 1000 lb to a car reduces its fuel economy by exactly 7.68 mpg (p &lt; 0.001).”</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>“Among these car models, cars 1000 lb heavier had, on average, a fuel economy about 7.7 mpg lower (95% CI 7.2 to 8.2 mpg lower).” Removed: “proves”, “adding … reduces” (causal, about one car), “exactly” (ignores uncertainty); the <span class="math inline">\(p\)</span>-value adds little once the interval is given.</p>
+</details>
+<p><strong>A2</strong> (★★). The five largest residuals all belong to 1980–1982 models, three of them diesels. Explain why this suggests an omitted variable, and why simply deleting these five cars would be a poor response.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>The residuals are not random: they share characteristics (fuel type, model year) that are related to mpg and not in the model, so part of their effect is left in the errors (and, if those characteristics are correlated with weight, it biases the slope; Module 2). Deleting them hides the evidence instead of modelling it, makes the sample less representative, and the results would apply only to the remaining cars. Module 3 discusses when, if ever, removing observations is justified.</p>
+</details>
+<h3 data-number="14.2" id="b.-mathematical"><span class="header-section-number">14.2</span> B. Mathematical</h3>
+<p><strong>B1</strong> (★★). Show that the residuals always average zero overall (Lesson 1.3). Why, then, can the mean residual within a range of weights be far from zero, and what does a systematic pattern of such means indicate?</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p><span class="math inline">\(\sum e_i = 0\)</span> is the first normal equation, so the overall mean is zero by construction, and <span class="math inline">\(\sum x_i e_i = 0\)</span> forces the residuals to have no linear trend in <span class="math inline">\(x\)</span>. Nothing forces the mean to be zero within subsets of <span class="math inline">\(x\)</span>. If the true mean function is curved, the line fits the average linear trend, leaving positive residuals where the curve lies above the line and negative where below: a systematic (here U-shaped) pattern in the subset means indicates a misspecified mean function (A1 fails).</p>
+</details>
+<h3 data-number="14.3" id="c.-computational-project"><span class="header-section-number">14.3</span> C. Computational — project</h3>
+<p><strong>C1</strong> (★★★). <em>Your own case study.</em> Repeat Steps 1–9 for <strong>mpg on horsepower</strong> (392 cars with horsepower recorded). Report the estimates with 95% CIs, <span class="math inline">\(R^2\)</span> and <span class="math inline">\(\hat\sigma\)</span>; produce the residual plot with sixth-means; and write a report of at most 200 words with limitations.</p>
+<details class="esa-solution">
+<summary>
+Solution (key results)
+</summary>
+<p><span class="math inline">\(n = 392\)</span>; <span class="math inline">\(\hat\beta_0 = 39.936\)</span>, <span class="math inline">\(\hat\beta_1 = -0.1578\)</span> mpg per hp (se 0.00645; 95% CI −0.1705 to −0.1452); <span class="math inline">\(R^2 = 0.606\)</span>; <span class="math inline">\(\hat\sigma = 4.906\)</span> mpg. Mean residuals by horsepower sixth: +3.69, +0.47, −1.29, −3.01, −1.14, +2.51 — a stronger U-shape than for weight, so curvature is even more pronounced. A good report states that each additional 10 hp is associated with about 1.6 mpg lower mean fuel economy, that the relationship is clearly curved (a straight line misfits at both ends), that six cars were excluded for missing horsepower, and that the data are observational.</p>
+</details>
+<p><strong>C2</strong> (★★). Fit mpg on displacement (cubic inches). Compare <span class="math inline">\(R^2\)</span> and <span class="math inline">\(\hat\sigma\)</span> with the weight and horsepower models. Can you conclude which predictor is “the most important cause” of fuel economy? Why or why not?</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>Displacement: <span class="math inline">\(\hat\beta_1 = -0.0603\)</span> mpg per cubic inch, <span class="math inline">\(R^2 = 0.647\)</span>, <span class="math inline">\(\hat\sigma = 4.65\)</span> (<span class="math inline">\(n = 398\)</span>). Comparison: weight <span class="math inline">\(R^2 = 0.692\)</span>, <span class="math inline">\(\hat\sigma = 4.34\)</span> (<span class="math inline">\(n = 398\)</span>); horsepower <span class="math inline">\(R^2 = 0.606\)</span>, <span class="math inline">\(\hat\sigma = 4.91\)</span> (<span class="math inline">\(n = 392\)</span>, a slightly different sample). Weight gives the best single-predictor straight-line fit, but this does not establish which variable is the most important <em>cause</em>: the predictors are strongly correlated with each other (e.g. <span class="math inline">\(r = 0.933\)</span> between weight and displacement), the data are observational, and each simple regression mixes the predictor’s association with that of the others. Separating them requires multiple regression (Module 2) and, given the strong correlations, the methods of Module 5.</p>
+</details>
+<h2 class="esa-lesson-anchor" data-number="15" id="references"><span class="header-section-number">15</span> References</h2>
+<ul>
+<li>Kutner, M. H., Nachtsheim, C. J., Neter, J., &amp; Li, W. (2005). <em>Applied Linear Statistical Models</em> (5th ed.). McGraw-Hill/Irwin. — Chapters 1–3 (simple linear regression; diagnostics and remedial measures).</li>
+<li>Weisberg, S. (2014). <em>Applied Linear Regression</em> (4th ed.). Wiley. — Chapter 2, Simple Linear Regression (residuals).</li>
+<li>Montgomery, D. C., Peck, E. A., &amp; Vining, G. G. (2021). <em>Introduction to Linear Regression Analysis</em> (6th ed.). Wiley. — Chapter 2, Simple Linear Regression.</li>
+<li>Quinlan, R. (1993). <em>Auto MPG</em> [Data set]. UCI Machine Learning Repository. https://doi.org/10.24432/C5859H</li>
+</ul>
+
+{% endraw %}
+    <div class="lesson-nav">
+      <a class="btn btn-outline" href="/courses/regression/module-1/confidence-and-prediction-intervals/">← Lesson 1.8: Confidence and Prediction Intervals</a>
+      <a class="btn" href="/courses/regression/module-1/">Module 1 lessons →</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .esa-course-lesson details{border:1px solid var(--border-strong,#d0d7de);border-radius:9px;padding:.4rem .9rem;margin:1rem 0}
+  .esa-course-lesson details>summary{cursor:pointer;font-weight:700}
+  .esa-course-lesson .esa-code-tabs{margin:1rem 0}
+  .esa-course-lesson .esa-code-tabs details{margin:.4rem 0}
+  .esa-course-lesson pre{max-width:100%}
+  .esa-course-lesson pre.esa-output{border-left:5px solid #0d9488}
+  .esa-course-lesson .esa-output-label{font-size:.85rem;font-weight:700;margin:.6rem 0 .2rem}
+  .esa-course-lesson .esa-figure{margin:1rem 0}
+  .esa-course-lesson .esa-figure img{max-width:100%;height:auto}
+  .esa-course-lesson .esa-figure figcaption{font-size:.9rem}
+  .esa-course-lesson mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+</style>
