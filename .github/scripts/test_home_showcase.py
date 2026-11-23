@@ -23,7 +23,7 @@ def section():
 class Showcase(unittest.TestCase):
     def test_every_link_is_a_published_page(self):
         links=re.findall(r'href="(/[^"#?]*)"',section());pages=permalinks()
-        self.assertEqual(len(links),18)  # 3 + 3 actions, 9 regression lessons + 3 Code Lab exercises
+        self.assertEqual(len(links),21)  # 3 + 3 actions, 9 + 3 regression lessons + 3 Code Lab exercises
         for url in links:
             with self.subTest(url=url):self.assertIn(url,pages)
 
@@ -37,6 +37,11 @@ class Showcase(unittest.TestCase):
         modules=len(re.findall(r'Module \d+:',re.sub(r'<[^>]+>',' ',course).split("Course map",1)[1].split("Learning outcomes",1)[0]))
         self.assertIn("<strong>%d</strong><span>modules</span>"%modules,s)
         self.assertEqual(len(re.findall(r'href="/courses/regression/module-1/[a-z-]+/"><span>1\.\d</span>',s)),lessons.count("Available"))
+        module2=(ROOT/"courses/regression/module-2/index.md").read_text(encoding="utf-8")
+        lessons2=re.findall(r'Status:\s*(Available|In preparation)',module2)
+        self.assertEqual(len(lessons2),12)
+        self.assertIn("%d of %d available"%(lessons2.count("Available"),len(lessons2)),s)
+        self.assertEqual(len(re.findall(r'href="/courses/regression/module-2/[a-z-]+/"><span>2\.\d+</span>',s)),lessons2.count("Available"))
         beginner=(ROOT/"code-lab/beginner/index.md").read_text(encoding="utf-8")
         available=re.findall(r'Available · (\d+) exercises',beginner)
         self.assertEqual(sum(map(int,available)),len(re.findall(r'href="/code-lab/beginner/[a-z-]+/[a-z-]+/"><span>1\.\d</span>',s)))
@@ -51,7 +56,10 @@ class Showcase(unittest.TestCase):
                            ("courses/regression/module-1/goodness-of-fit","Goodness of Fit"),
                            ("courses/regression/module-1/inference","Inference for the Regression Parameters"),
                            ("courses/regression/module-1/confidence-and-prediction-intervals","Confidence Intervals for the Mean Response and Prediction Intervals"),
-                           ("courses/regression/module-1/case-study","Case Study")):
+                           ("courses/regression/module-1/case-study","Case Study"),
+                           ("courses/regression/module-2/from-one-to-many-predictors","From One Predictor to Many"),
+                           ("courses/regression/module-2/matrix-formulation","The Matrix Formulation"),
+                           ("courses/regression/module-2/least-squares-matrix-form","Least Squares in Matrix Form")):
             self.assertIn(title,(ROOT/path/"index.html").read_text(encoding="utf-8"));self.assertIn(title,s)
         self.assertIn("Regression Analysis: From Foundations to Mastery",(ROOT/"courses/regression/index.md").read_text(encoding="utf-8"))
 

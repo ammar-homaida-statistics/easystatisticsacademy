@@ -1,0 +1,587 @@
+---
+layout: default
+title: "Least Squares in Matrix Form — Regression Course, Lesson 2.3"
+description: "University-level lesson on least squares in matrix form: normal equations, uniqueness, projection and the hat matrix, leverage, residual properties, rank deficiency and QR computation, with R and Python."
+permalink: /courses/regression/module-2/least-squares-matrix-form/
+sidebar: false
+math: true
+learning_resource: true
+---
+
+<section class="hero hero-section">
+  <div class="hero-card">
+    <div class="badge-row">
+      <span class="badge">Course</span>
+      <span class="badge">Regression Analysis</span>
+      <span class="badge">Module 2 · Multiple Regression</span>
+      <span class="badge">Lesson 2.3</span>
+    </div>
+    <h1>Lesson 2.3 — Least Squares in Matrix Form</h1>
+    <p class="lead">The least-squares estimator for any number of predictors, its geometry as a projection, the hat matrix and leverage, and how software really computes it.</p>
+    <p class="muted-mini">Level: Intermediate · Study time: 50 min + exercises · Prerequisites: Lessons 2.1 and 2.2 · Data: Auto MPG (UCI, CC BY 4.0)</p>
+    <div class="hero-actions">
+      <a class="btn btn-outline" href="/courses/regression/module-2/">Module 2 lessons</a>
+      <a class="btn btn-outline" href="/courses/regression/code/lesson-2-3.py">Python script</a>
+      <a class="btn btn-outline" href="/courses/regression/code/lesson-2-3.R">R script</a>
+    </div>
+  </div>
+</section>
+
+<nav class="esa-lesson-toc" aria-label="On this page"><details><summary>On this page</summary><ol><li><a href="#learning-objectives">Learning objectives</a></li><li><a href="#motivation">Motivation</a></li><li><a href="#notation-for-this-lesson">Notation for this lesson</a></li><li><a href="#theory">Theory</a></li><li><a href="#worked-example">Worked example</a></li><li><a href="#common-misconceptions">Common misconceptions</a></li><li><a href="#key-takeaways">Key takeaways</a></li><li><a href="#exercises">Exercises</a></li><li><a href="#references">References</a></li></ol></details></nav>
+
+<section>
+  <div class="content-narrow esa-course-lesson">
+{% raw %}
+<h2 class="esa-lesson-anchor" data-number="1" id="learning-objectives"><span class="header-section-number">1</span> Learning objectives</h2>
+<p>By the end of this lesson you will be able to:</p>
+<ol type="1">
+<li>derive the normal equations <span class="math inline">\(\mathbf{X}^\top\mathbf{X}\hat{\boldsymbol\beta} = \mathbf{X}^\top\mathbf{y}\)</span> and prove that, under full rank, <span class="math inline">\(\hat{\boldsymbol\beta} = (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{y}\)</span> is the unique least-squares estimate;</li>
+<li>interpret least squares as the orthogonal projection of <span class="math inline">\(\mathbf{y}\)</span> onto the column space of <span class="math inline">\(\mathbf{X}\)</span>;</li>
+<li>state and prove the properties of the hat matrix <span class="math inline">\(\mathbf{H}\)</span> and of the residual vector, including <span class="math inline">\(\mathrm{SST} = \mathrm{SSR} + \mathrm{SSE}\)</span>;</li>
+<li>recover the simple-regression formulas of Module 1 as the case <span class="math inline">\(p = 1\)</span>;</li>
+<li>explain what happens when the full-rank condition fails, and why software computes <span class="math inline">\(\hat{\boldsymbol\beta}\)</span> with a QR decomposition rather than by inverting <span class="math inline">\(\mathbf{X}^\top\mathbf{X}\)</span>.</li>
+</ol>
+<h2 class="esa-lesson-anchor" data-number="2" id="motivation"><span class="header-section-number">2</span> Motivation</h2>
+<p>Lesson 2.1 fitted mpg on weight and model year and simply reported the estimates. Lesson 2.2 wrote the model as <span class="math inline">\(\mathbf{y} = \mathbf{X}\boldsymbol\beta + \boldsymbol\varepsilon\)</span>. This lesson connects the two: it derives the estimator for any number of predictors, shows that it has a simple geometric meaning, and introduces the <strong>hat matrix</strong>, which reappears in the distribution theory of Lesson 2.4 and in the diagnostics of Module 3. It also returns to the 4500-lb car of 1982 from Lesson 2.1 and measures how far it lies from the data.</p>
+<h2 class="esa-lesson-anchor" data-number="3" id="notation-for-this-lesson"><span class="header-section-number">3</span> Notation for this lesson</h2>
+<div class="table-wrap"><table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(S(\mathbf{b}) = (\mathbf{y} - \mathbf{X}\mathbf{b})^\top(\mathbf{y} - \mathbf{X}\mathbf{b})\)</span></td>
+<td>residual sum of squares at a candidate <span class="math inline">\(\mathbf{b}\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\hat{\boldsymbol\beta}\)</span>, <span class="math inline">\(\hat{\mathbf{y}} = \mathbf{X}\hat{\boldsymbol\beta}\)</span>, <span class="math inline">\(\mathbf{e} = \mathbf{y} - \hat{\mathbf{y}}\)</span></td>
+<td>least-squares estimate, fitted values, residuals</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\mathbf{H} = \mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\)</span></td>
+<td>hat (projection) matrix, <span class="math inline">\(n\times n\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(h_{ii}\)</span></td>
+<td><span class="math inline">\(i\)</span>-th diagonal element of <span class="math inline">\(\mathbf{H}\)</span>: the <strong>leverage</strong> of observation <span class="math inline">\(i\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\mathcal{C}(\mathbf{X})\)</span></td>
+<td>column space of <span class="math inline">\(\mathbf{X}\)</span>: all vectors <span class="math inline">\(\mathbf{X}\mathbf{b}\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\mathbf{X} = \mathbf{Q}\mathbf{R}\)</span></td>
+<td>QR decomposition: <span class="math inline">\(\mathbf{Q}\)</span> (<span class="math inline">\(n\times(p+1)\)</span>) with orthonormal columns, <span class="math inline">\(\mathbf{R}\)</span> upper triangular</td>
+</tr>
+</tbody>
+</table></div>
+<p>Bold lower-case letters are vectors, bold capitals are matrices (course notation standard).</p>
+<div class="concept-box esa-callout-note">
+<p class="esa-box-title">
+<strong>Assumptions used in this lesson</strong>
+</p>
+<p>The model is <span class="math inline">\(\mathbf{y} = \mathbf{X}\boldsymbol\beta + \boldsymbol\varepsilon\)</span> (<a href="/courses/regression/module-2/matrix-formulation/">Lesson 2.2</a>), with</p>
+<ul>
+<li><strong>A0 (Full rank).</strong> <span class="math inline">\(\mathbf{X}\)</span> is fixed with <span class="math inline">\(\operatorname{rank}(\mathbf{X}) = p + 1\)</span>.</li>
+<li><strong>A1 (Correct mean function).</strong> <span class="math inline">\(E(\boldsymbol\varepsilon) = \mathbf{0}\)</span>.</li>
+<li><strong>A2–A3 (Constant variance, uncorrelated errors).</strong> <span class="math inline">\(\operatorname{Cov}(\boldsymbol\varepsilon) = \sigma^2\mathbf{I}_n\)</span>.</li>
+<li><strong>A4 (Normality).</strong> <span class="math inline">\(\boldsymbol\varepsilon \sim N_n(\mathbf{0}, \sigma^2\mathbf{I}_n)\)</span>.</li>
+</ul>
+<p><strong>This lesson uses only A0.</strong> Least squares is a computation on the observed data; no assumption about the errors is needed to define or compute it. A1–A4 enter in Lesson 2.4. What each assumption means: <a href="/courses/regression/module-1/what-is-regression/#assumptions-and-what-they-are-used-for">Lesson 1.1, Assumptions</a>.</p>
+</div>
+<h2 class="esa-lesson-anchor" data-number="4" id="theory"><span class="header-section-number">4</span> Theory</h2>
+<h3 data-number="4.1" id="the-least-squares-problem"><span class="header-section-number">4.1</span> The least-squares problem</h3>
+<p>Least squares chooses <span class="math inline">\(\mathbf{b}\)</span> to minimise <span class="math display">\[
+S(\mathbf{b}) = (\mathbf{y} - \mathbf{X}\mathbf{b})^\top(\mathbf{y} - \mathbf{X}\mathbf{b}) = \mathbf{y}^\top\mathbf{y} - 2\mathbf{b}^\top\mathbf{X}^\top\mathbf{y} + \mathbf{b}^\top\mathbf{X}^\top\mathbf{X}\mathbf{b},
+\]</span> using <span class="math inline">\(\mathbf{y}^\top\mathbf{X}\mathbf{b} = \mathbf{b}^\top\mathbf{X}^\top\mathbf{y}\)</span> (a scalar equals its transpose). With the derivative rules of <a href="/courses/regression/module-2/matrix-formulation/">Lesson 2.2</a>, <span class="math display">\[
+\frac{\partial S}{\partial\mathbf{b}} = -2\mathbf{X}^\top\mathbf{y} + 2\mathbf{X}^\top\mathbf{X}\mathbf{b} = \mathbf{0}
+\quad\Longleftrightarrow\quad
+\mathbf{X}^\top\mathbf{X}\,\mathbf{b} = \mathbf{X}^\top\mathbf{y} \qquad \text{(normal equations)}.
+\]</span></p>
+<div class="concept-box esa-callout-important">
+<p class="esa-box-title">
+<strong>Theorem 2.3.1 (Least-squares estimator) — uses A0</strong>
+</p>
+<ol type="a">
+<li>The normal equations always have at least one solution, and every solution minimises <span class="math inline">\(S(\mathbf{b})\)</span>.</li>
+<li>The fitted vector <span class="math inline">\(\hat{\mathbf{y}} = \mathbf{X}\hat{\boldsymbol\beta}\)</span> is the same for every solution.</li>
+<li>Under A0 the solution is unique: <span class="math display">\[
+\hat{\boldsymbol\beta} = (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{y}.
+\]</span></li>
+</ol>
+</div>
+<details class="esa-derivation">
+<summary>
+Derivation
+</summary>
+<p><em>Existence.</em> <span class="math inline">\(\mathbf{X}^\top\mathbf{y}\)</span> lies in the column space of <span class="math inline">\(\mathbf{X}^\top\)</span>, which equals the column space of <span class="math inline">\(\mathbf{X}^\top\mathbf{X}\)</span> (both have the same rank, and <span class="math inline">\(\mathcal{C}(\mathbf{X}^\top\mathbf{X}) \subseteq \mathcal{C}(\mathbf{X}^\top)\)</span>). So the system is consistent.</p>
+<p><em>Minimisation (no calculus needed).</em> Let <span class="math inline">\(\hat{\boldsymbol\beta}\)</span> solve the normal equations. For any <span class="math inline">\(\mathbf{b}\)</span>, <span class="math inline">\(\mathbf{y} - \mathbf{X}\mathbf{b} = (\mathbf{y} - \mathbf{X}\hat{\boldsymbol\beta}) + \mathbf{X}(\hat{\boldsymbol\beta} - \mathbf{b})\)</span>. The cross term vanishes because <span class="math inline">\((\hat{\boldsymbol\beta} - \mathbf{b})^\top\mathbf{X}^\top(\mathbf{y} - \mathbf{X}\hat{\boldsymbol\beta}) = 0\)</span> by the normal equations. Hence <span class="math display">\[
+S(\mathbf{b}) = S(\hat{\boldsymbol\beta}) + \lVert\mathbf{X}(\hat{\boldsymbol\beta} - \mathbf{b})\rVert^2 \ \ge\ S(\hat{\boldsymbol\beta}).
+\]</span></p>
+<p><em>Uniqueness of <span class="math inline">\(\hat{\mathbf{y}}\)</span>.</em> If <span class="math inline">\(\hat{\boldsymbol\beta}_1\)</span> and <span class="math inline">\(\hat{\boldsymbol\beta}_2\)</span> both solve the normal equations, both attain the minimum, so the identity above gives <span class="math inline">\(\lVert\mathbf{X}(\hat{\boldsymbol\beta}_1 - \hat{\boldsymbol\beta}_2)\rVert^2 = 0\)</span>, i.e. <span class="math inline">\(\mathbf{X}\hat{\boldsymbol\beta}_1 = \mathbf{X}\hat{\boldsymbol\beta}_2\)</span>.</p>
+<p><em>Uniqueness of <span class="math inline">\(\hat{\boldsymbol\beta}\)</span>.</em> Under A0, <span class="math inline">\(\mathbf{X}^\top\mathbf{X}\)</span> is invertible (<a href="/courses/regression/module-2/matrix-formulation/">Lemma 2.2.1, Lesson 2.2</a>), so the normal equations have the single solution <span class="math inline">\((\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{y}\)</span>. Equivalently, <span class="math inline">\(\mathbf{X}(\hat{\boldsymbol\beta}_1 - \hat{\boldsymbol\beta}_2) = \mathbf{0}\)</span> forces <span class="math inline">\(\hat{\boldsymbol\beta}_1 = \hat{\boldsymbol\beta}_2\)</span> when the columns of <span class="math inline">\(\mathbf{X}\)</span> are linearly independent.</p>
+</details>
+<p>The second-derivative matrix is <span class="math inline">\(2\mathbf{X}^\top\mathbf{X}\)</span>, positive definite under A0, which is the calculus way of seeing that the stationary point is the unique minimum. The completing-the-square argument above is stronger: it gives the global minimum and the size of the penalty, <span class="math inline">\(\lVert\mathbf{X}(\hat{\boldsymbol\beta} - \mathbf{b})\rVert^2\)</span>, for any other <span class="math inline">\(\mathbf{b}\)</span>.</p>
+<h3 data-number="4.2" id="geometry-least-squares-is-a-projection"><span class="header-section-number">4.2</span> Geometry: least squares is a projection</h3>
+<p>Every possible fitted vector <span class="math inline">\(\mathbf{X}\mathbf{b}\)</span> lies in the column space <span class="math inline">\(\mathcal{C}(\mathbf{X})\)</span>, a <span class="math inline">\((p+1)\)</span>-dimensional subspace of <span class="math inline">\(\mathbb{R}^n\)</span>. Least squares picks the point of <span class="math inline">\(\mathcal{C}(\mathbf{X})\)</span> closest to <span class="math inline">\(\mathbf{y}\)</span>. The normal equations say <span class="math inline">\(\mathbf{X}^\top(\mathbf{y} - \hat{\mathbf{y}}) = \mathbf{0}\)</span>: the residual vector is <strong>orthogonal to every column of <span class="math inline">\(\mathbf{X}\)</span></strong>. So <span class="math inline">\(\hat{\mathbf{y}}\)</span> is the orthogonal projection of <span class="math inline">\(\mathbf{y}\)</span> onto <span class="math inline">\(\mathcal{C}(\mathbf{X})\)</span>, and <span class="math display">\[
+\hat{\mathbf{y}} = \mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{y} = \mathbf{H}\mathbf{y},
+\qquad
+\mathbf{e} = (\mathbf{I}_n - \mathbf{H})\mathbf{y}.
+\]</span> <span class="math inline">\(\mathbf{H}\)</span> “puts the hat on <span class="math inline">\(\mathbf{y}\)</span>”. Its diagonal element <span class="math inline">\(h_{ii} = \partial\hat y_i/\partial y_i\)</span> measures how strongly observation <span class="math inline">\(i\)</span> pulls the fit towards itself; it is called the <strong>leverage</strong>.</p>
+<div class="concept-box esa-callout-important">
+<p class="esa-box-title">
+<strong>Theorem 2.3.2 (Properties of the hat matrix) — uses A0</strong>
+</p>
+<ol type="a">
+<li><span class="math inline">\(\mathbf{H}\)</span> and <span class="math inline">\(\mathbf{I}_n - \mathbf{H}\)</span> are symmetric and idempotent, and <span class="math inline">\(\mathbf{H}(\mathbf{I}_n - \mathbf{H}) = \mathbf{0}\)</span>.</li>
+<li><span class="math inline">\(\mathbf{H}\mathbf{X} = \mathbf{X}\)</span> and <span class="math inline">\((\mathbf{I}_n - \mathbf{H})\mathbf{X} = \mathbf{0}\)</span>.</li>
+<li><span class="math inline">\(\operatorname{tr}(\mathbf{H}) = \operatorname{rank}(\mathbf{H}) = p + 1\)</span> and <span class="math inline">\(\operatorname{tr}(\mathbf{I}_n - \mathbf{H}) = n - p - 1\)</span>.</li>
+<li><span class="math inline">\(0 \le h_{ii} \le 1\)</span> for every <span class="math inline">\(i\)</span>, and <span class="math inline">\(\sum_i h_{ii} = p + 1\)</span>, so the average leverage is <span class="math inline">\((p+1)/n\)</span>.</li>
+</ol>
+</div>
+<details class="esa-derivation">
+<summary>
+Derivation
+</summary>
+<ol type="a">
+<li><span class="math inline">\(\mathbf{H}^\top = \mathbf{X}[(\mathbf{X}^\top\mathbf{X})^{-1}]^\top\mathbf{X}^\top = \mathbf{H}\)</span> because the inverse of a symmetric matrix is symmetric; <span class="math inline">\(\mathbf{H}^2 = \mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top = \mathbf{H}\)</span>. Then <span class="math inline">\((\mathbf{I} - \mathbf{H})^2 = \mathbf{I} - 2\mathbf{H} + \mathbf{H}^2 = \mathbf{I} - \mathbf{H}\)</span> and <span class="math inline">\(\mathbf{H}(\mathbf{I} - \mathbf{H}) = \mathbf{H} - \mathbf{H}^2 = \mathbf{0}\)</span>.</li>
+<li><span class="math inline">\(\mathbf{H}\mathbf{X} = \mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{X} = \mathbf{X}\)</span>.</li>
+<li>By the cyclic property of the trace, <span class="math inline">\(\operatorname{tr}(\mathbf{H}) = \operatorname{tr}\bigl((\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{X}\bigr) = \operatorname{tr}(\mathbf{I}_{p+1}) = p + 1\)</span>; for a symmetric idempotent matrix rank equals trace (<a href="/courses/regression/module-2/matrix-formulation/">Lesson 2.2</a>, Exercise B.3).</li>
+<li>By symmetry and idempotence, <span class="math inline">\(h_{ii} = (\mathbf{H}^2)_{ii} = \sum_j h_{ij}h_{ji} = \sum_j h_{ij}^2 = h_{ii}^2 + \sum_{j \ne i} h_{ij}^2 \ge h_{ii}^2\)</span>, so <span class="math inline">\(h_{ii}^2 \le h_{ii}\)</span>, i.e. <span class="math inline">\(0 \le h_{ii} \le 1\)</span>. The sum is the trace.</li>
+</ol>
+</details>
+<h3 data-number="4.3" id="residuals-and-the-decomposition-of-the-total-sum-of-squares"><span class="header-section-number">4.3</span> Residuals and the decomposition of the total sum of squares</h3>
+<div class="concept-box esa-callout-important">
+<p class="esa-box-title">
+<strong>Theorem 2.3.3 (Properties of the residuals) — uses A0</strong>
+</p>
+<ol type="a">
+<li><span class="math inline">\(\mathbf{X}^\top\mathbf{e} = \mathbf{0}\)</span> and <span class="math inline">\(\hat{\mathbf{y}}^\top\mathbf{e} = 0\)</span>.</li>
+<li>If the model contains an intercept (a column <span class="math inline">\(\mathbf{1}\)</span> in <span class="math inline">\(\mathbf{X}\)</span>), then <span class="math inline">\(\sum_i e_i = 0\)</span>, the mean of the fitted values is <span class="math inline">\(\bar y\)</span>, and <span class="math display">\[
+\underbrace{\sum_i (y_i - \bar y)^2}_{\mathrm{SST}} = \underbrace{\sum_i (\hat y_i - \bar y)^2}_{\mathrm{SSR}} + \underbrace{\sum_i e_i^2}_{\mathrm{SSE}} .
+\]</span></li>
+<li>If <span class="math inline">\(\mathbf{y} = \mathbf{X}\boldsymbol\beta + \boldsymbol\varepsilon\)</span>, then <span class="math inline">\(\mathbf{e} = (\mathbf{I}_n - \mathbf{H})\boldsymbol\varepsilon\)</span>, whatever the value of <span class="math inline">\(\boldsymbol\beta\)</span>.</li>
+</ol>
+</div>
+<details class="esa-derivation">
+<summary>
+Derivation
+</summary>
+<ol type="a">
+<li><span class="math inline">\(\mathbf{X}^\top\mathbf{e} = \mathbf{X}^\top(\mathbf{I} - \mathbf{H})\mathbf{y} = [(\mathbf{I} - \mathbf{H})\mathbf{X}]^\top\mathbf{y} = \mathbf{0}\)</span> by Theorem 2.3.2(b); then <span class="math inline">\(\hat{\mathbf{y}}^\top\mathbf{e} = \hat{\boldsymbol\beta}^\top\mathbf{X}^\top\mathbf{e} = 0\)</span>.</li>
+<li>The row of <span class="math inline">\(\mathbf{X}^\top\mathbf{e} = \mathbf{0}\)</span> that belongs to the column <span class="math inline">\(\mathbf{1}\)</span> reads <span class="math inline">\(\sum_i e_i = 0\)</span>; hence <span class="math inline">\(\sum_i\hat y_i = \sum_i y_i\)</span>. Write <span class="math inline">\(\mathbf{y} - \bar y\mathbf{1} = (\hat{\mathbf{y}} - \bar y\mathbf{1}) + \mathbf{e}\)</span>; the cross product is <span class="math inline">\((\hat{\mathbf{y}} - \bar y\mathbf{1})^\top\mathbf{e} = \hat{\mathbf{y}}^\top\mathbf{e} - \bar y\,\mathbf{1}^\top\mathbf{e} = 0\)</span>, so squared lengths add.</li>
+<li><span class="math inline">\(\mathbf{e} = (\mathbf{I} - \mathbf{H})(\mathbf{X}\boldsymbol\beta + \boldsymbol\varepsilon) = (\mathbf{I} - \mathbf{H})\boldsymbol\varepsilon\)</span> by Theorem 2.3.2(b).</li>
+</ol>
+</details>
+<p>Part (c) is the starting point of Lesson 2.4: combined with Theorem 2.2.2 of <a href="/courses/regression/module-2/matrix-formulation/">Lesson 2.2</a> it gives <span class="math inline">\(E(\mathrm{SSE}) = \sigma^2\operatorname{tr}(\mathbf{I} - \mathbf{H}) = (n - p - 1)\sigma^2\)</span>. Without an intercept, (b) fails in general: the residuals need not sum to zero, and <span class="math inline">\(R^2\)</span> computed as <span class="math inline">\(1 - \mathrm{SSE}/\mathrm{SST}\)</span> loses its usual meaning.</p>
+<h3 data-number="4.4" id="simple-regression-as-the-case-p-1"><span class="header-section-number">4.4</span> Simple regression as the case <span class="math inline">\(p = 1\)</span></h3>
+<p>With <span class="math inline">\(\mathbf{X} = [\mathbf{1}, \mathbf{x}]\)</span>, <span class="math display">\[
+\mathbf{X}^\top\mathbf{X} = \begin{pmatrix} n &amp; \sum x_i\\ \sum x_i &amp; \sum x_i^2 \end{pmatrix},
+\qquad
+(\mathbf{X}^\top\mathbf{X})^{-1} = \frac{1}{nS_{xx}}\begin{pmatrix} \sum x_i^2 &amp; -\sum x_i\\ -\sum x_i &amp; n \end{pmatrix},
+\]</span> since the determinant is <span class="math inline">\(n\sum x_i^2 - (\sum x_i)^2 = nS_{xx}\)</span>. Multiplying by <span class="math inline">\(\mathbf{X}^\top\mathbf{y} = (\sum y_i, \sum x_iy_i)^\top\)</span> returns <span class="math inline">\(\hat\beta_1 = S_{xy}/S_{xx}\)</span> and <span class="math inline">\(\hat\beta_0 = \bar y - \hat\beta_1\bar x\)</span>, the formulas of <a href="/courses/regression/module-1/ordinary-least-squares/">Lesson 1.3</a> (Exercise B.1). The full-rank condition A0 is <span class="math inline">\(S_{xx} &gt; 0\)</span>: the <span class="math inline">\(x_i\)</span> are not all equal.</p>
+<h3 data-number="4.5" id="when-the-full-rank-condition-fails"><span class="header-section-number">4.5</span> When the full-rank condition fails</h3>
+<p>If a column of <span class="math inline">\(\mathbf{X}\)</span> is a linear combination of the others, Theorem 2.3.1 still gives a unique fitted vector <span class="math inline">\(\hat{\mathbf{y}}\)</span>, residuals and SSE, but infinitely many coefficient vectors produce them. The coefficients of the dependent columns are not <strong>identifiable</strong> from the data. Software reacts differently: R’s <code>lm()</code> detects the dependence during its QR decomposition and reports <code>NA</code> for the redundant coefficient; NumPy’s <code>lstsq</code> returns the solution with the smallest Euclidean norm. Neither is “the” estimate; the remedy is to remove or re-define the redundant column (Lesson 2.9 for indicator variables).</p>
+<h3 data-number="4.6" id="computing-hatboldsymbolbeta-in-practice"><span class="header-section-number">4.6</span> Computing <span class="math inline">\(\hat{\boldsymbol\beta}\)</span> in practice</h3>
+<p>The formula <span class="math inline">\((\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{y}\)</span> is for derivations, not for computation. Forming <span class="math inline">\(\mathbf{X}^\top\mathbf{X}\)</span> squares the condition number: <span class="math inline">\(\kappa(\mathbf{X}^\top\mathbf{X}) = \kappa(\mathbf{X})^2\)</span> (2-norm condition numbers), so about twice as many significant digits can be lost. Statistical software uses the <strong>QR decomposition</strong> <span class="math inline">\(\mathbf{X} = \mathbf{Q}\mathbf{R}\)</span>, where <span class="math inline">\(\mathbf{Q}^\top\mathbf{Q} = \mathbf{I}_{p+1}\)</span> and <span class="math inline">\(\mathbf{R}\)</span> is upper triangular and, under A0, invertible. Substituting into the normal equations gives <span class="math inline">\(\mathbf{R}^\top\mathbf{R}\,\mathbf{b} = \mathbf{R}^\top\mathbf{Q}^\top\mathbf{y}\)</span>, i.e. <span class="math display">\[
+\mathbf{R}\,\hat{\boldsymbol\beta} = \mathbf{Q}^\top\mathbf{y}, \qquad \mathbf{H} = \mathbf{Q}\mathbf{Q}^\top, \qquad h_{ii} = \sum_k q_{ik}^2,
+\]</span> a triangular system solved by back-substitution, without ever forming <span class="math inline">\(\mathbf{X}^\top\mathbf{X}\)</span>.</p>
+<h2 class="esa-lesson-anchor" data-number="5" id="worked-example"><span class="header-section-number">5</span> Worked example</h2>
+<p>The running model is mpg on weight (1000 lb) and model year for all <span class="math inline">\(n = 398\)</span> cars, so <span class="math inline">\(p = 2\)</span>.</p>
+<h3 data-number="5.1" id="three-ways-to-compute-hatboldsymbolbeta"><span class="header-section-number">5.1</span> Three ways to compute <span class="math inline">\(\hat{\boldsymbol\beta}\)</span></h3>
+<p>Solving the normal equations, solving <span class="math inline">\(\mathbf{R}\hat{\boldsymbol\beta} = \mathbf{Q}^\top\mathbf{y}\)</span>, and calling <code>lm()</code> all give <span class="math inline">\(\hat{\boldsymbol\beta} = (-14.198, -6.664, 0.757)^\top\)</span>, the values of <a href="/courses/regression/module-2/from-one-to-many-predictors/">Lesson 2.1</a>. The first two differ by less than <span class="math inline">\(10^{-11}\)</span> here. The condition numbers are <span class="math inline">\(\kappa(\mathbf{X}) \approx 1756\)</span> and <span class="math inline">\(\kappa(\mathbf{X}^\top\mathbf{X}) \approx 3.08\times10^6 = 1756^2\)</span>: harmless for this model, but Exercise C.3 shows a design where the normal equations fail.</p>
+<div class="esa-code-tabs">
+<details class="esa-code">
+<summary>
+R code
+</summary>
+<pre class="r"><code>cols &lt;- c(&quot;mpg&quot;, &quot;cylinders&quot;, &quot;displacement&quot;, &quot;horsepower&quot;, &quot;weight&quot;,
+          &quot;acceleration&quot;, &quot;model_year&quot;, &quot;origin&quot;, &quot;car_name&quot;)
+auto &lt;- read.table(&quot;data/auto-mpg.data&quot;, col.names = cols, na.strings = &quot;?&quot;)
+auto$w &lt;- auto$weight / 1000
+X &lt;- model.matrix(~ w + model_year, data = auto)
+y &lt;- auto$mpg
+
+b_ne &lt;- solve(crossprod(X), crossprod(X, y))          # normal equations
+qx &lt;- qr(X)
+b_qr &lt;- qr.coef(qx, y)                                 # QR: solves R b = Q&#39;y
+fit &lt;- lm(mpg ~ w + model_year, data = auto)
+cbind(normal_eq = drop(b_ne), qr = b_qr, lm = coef(fit))
+max(abs(drop(b_ne) - b_qr))
+c(kappa_X = kappa(X, exact = TRUE), kappa_XtX = kappa(crossprod(X), exact = TRUE))</code></pre>
+</details>
+<details class="esa-code" open>
+<summary>
+Python code
+</summary>
+<pre class="python"><code>import numpy as np
+import pandas as pd
+
+cols = [&quot;mpg&quot;, &quot;cylinders&quot;, &quot;displacement&quot;, &quot;horsepower&quot;, &quot;weight&quot;,
+        &quot;acceleration&quot;, &quot;model_year&quot;, &quot;origin&quot;, &quot;car_name&quot;]
+auto = pd.read_csv(&quot;data/auto-mpg.data&quot;, sep=r&quot;\s+&quot;, header=None,
+                   names=cols, na_values=&quot;?&quot;, quotechar=&#39;&quot;&#39;)
+y = auto[&quot;mpg&quot;].to_numpy()
+w = auto[&quot;weight&quot;].to_numpy() / 1000
+yr = auto[&quot;model_year&quot;].to_numpy().astype(float)
+n = len(y)
+X = np.column_stack([np.ones(n), w, yr])
+
+b_ne = np.linalg.solve(X.T @ X, X.T @ y)              # normal equations
+Q, R = np.linalg.qr(X)                                 # reduced QR: Q is n x 3
+b_qr = np.linalg.solve(R, Q.T @ y)                     # R b = Q&#39;y (triangular)
+print(&quot;normal equations:&quot;, b_ne.round(6))
+print(&quot;QR:              &quot;, b_qr.round(6))
+print(&quot;max difference:  &quot;, f&quot;{np.abs(b_ne - b_qr).max():.1e}&quot;)
+print(f&quot;cond(X) = {np.linalg.cond(X):.1f}, cond(X&#39;X) = {np.linalg.cond(X.T @ X):.4g}&quot;)</code></pre>
+<p class="esa-output-label">
+Output
+</p>
+<pre class="esa-output"><code>normal equations: [-14.197982  -6.663882   0.756572]
+QR:               [-14.197982  -6.663882   0.756572]
+max difference:   8.1e-12
+cond(X) = 1755.9, cond(X&#39;X) = 3.083e+06</code></pre>
+</details>
+</div>
+<h3 data-number="5.2" id="the-hat-matrix-and-the-residuals"><span class="header-section-number">5.2</span> The hat matrix and the residuals</h3>
+<p>The numerical results confirm Theorems 2.3.2 and 2.3.3: <span class="math inline">\(\operatorname{tr}(\mathbf{H}) = 3\)</span>; <span class="math inline">\(\sum e_i\)</span> and every entry of <span class="math inline">\(\mathbf{X}^\top\mathbf{e}\)</span> are zero up to rounding (below <span class="math inline">\(2\times10^{-9}\)</span>); and <span class="math display">\[
+\mathrm{SST} = 24252.58 = \mathrm{SSR} + \mathrm{SSE} = 19592.74 + 4659.84, \qquad R^2 = 0.8079 .
+\]</span> The average leverage is <span class="math inline">\(3/398 = 0.00754\)</span>. The leverages range from <span class="math inline">\(0.00252\)</span> (a car close to the average weight and year; Exercise B.2 shows <span class="math inline">\(h_{ii} \ge 1/n = 0.00251\)</span>) to <span class="math inline">\(0.0199\)</span> for the Pontiac Safari station wagon, at 5140 lb the heaviest car in the data, from 1971.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th>Car</th>
+<th>Weight (lb)</th>
+<th>Model year</th>
+<th>Leverage <span class="math inline">\(h_{ii}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>pontiac safari (sw)</td>
+<td>5140</td>
+<td>1971</td>
+<td>0.0199</td>
+</tr>
+<tr class="even">
+<td>volkswagen 1131 deluxe sedan</td>
+<td>1835</td>
+<td>1970</td>
+<td>0.0186</td>
+</tr>
+<tr class="odd">
+<td>datsun 1200</td>
+<td>1613</td>
+<td>1971</td>
+<td>0.0185</td>
+</tr>
+<tr class="even">
+<td>dodge monaco (sw)</td>
+<td>4955</td>
+<td>1971</td>
+<td>0.0175</td>
+</tr>
+<tr class="odd">
+<td>chevrolet impala</td>
+<td>4997</td>
+<td>1973</td>
+<td>0.0170</td>
+</tr>
+</tbody>
+</table></div>
+<p>All five are early cars at an extreme of weight: far from the centre of the (weight, year) cloud.</p>
+<div class="esa-code-tabs">
+<details class="esa-code">
+<summary>
+R code
+</summary>
+<pre class="r"><code># Uses auto, X, y and fit from Section 5.1 (run that code first).
+h &lt;- hatvalues(fit)                                    # diag(H), computed via QR
+e &lt;- residuals(fit)
+c(trace_H = sum(h), sum_e = sum(e), max_abs_Xte = max(abs(crossprod(X, e))))
+SST &lt;- sum((y - mean(y))^2); SSE &lt;- sum(e^2); SSR &lt;- sum((fitted(fit) - mean(y))^2)
+c(SST = SST, SSR = SSR, SSE = SSE, R2 = SSR / SST)
+c(mean_h = mean(h), min_h = min(h), max_h = max(h))
+top &lt;- order(h, decreasing = TRUE)[1:5]
+data.frame(auto[top, c(&quot;car_name&quot;, &quot;weight&quot;, &quot;model_year&quot;)], h = round(h[top], 4))</code></pre>
+</details>
+<details class="esa-code" open>
+<summary>
+Python code
+</summary>
+<pre class="python"><code># Uses np, auto, X, y, Q and b_qr from Section 5.1 (run that code first).
+h = (Q**2).sum(axis=1)                                 # diag(H) = row sums of Q^2
+e = y - X @ b_qr
+print(f&quot;trace(H) = {h.sum():.6f}, sum(e) = {e.sum():.1e}, max|X&#39;e| = {np.abs(X.T @ e).max():.1e}&quot;)
+SST = np.sum((y - y.mean())**2); SSE = e @ e; SSR = np.sum((X @ b_qr - y.mean())**2)
+print(f&quot;SST = {SST:.2f}, SSR = {SSR:.2f}, SSE = {SSE:.2f}, R2 = {SSR / SST:.4f}&quot;)
+print(f&quot;mean h = {h.mean():.5f}, min h = {h.min():.5f}, max h = {h.max():.4f}&quot;)
+top = np.argsort(h)[::-1][:5]
+print(auto.loc[top, [&quot;car_name&quot;, &quot;weight&quot;, &quot;model_year&quot;]].assign(h=h[top].round(4)))</code></pre>
+<p class="esa-output-label">
+Output
+</p>
+<pre class="esa-output"><code>trace(H) = 3.000000, sum(e) = 2.4e-11, max|X&#39;e| = 1.8e-09
+SST = 24252.58, SSR = 19592.74, SSE = 4659.84, R2 = 0.8079
+mean h = 0.00754, min h = 0.00252, max h = 0.0199
+                         car_name  weight  model_year       h
+44            pontiac safari (sw)  5140.0          71  0.0199
+19   volkswagen 1131 deluxe sedan  1835.0          70  0.0186
+54                    datsun 1200  1613.0          71  0.0185
+42              dodge monaco (sw)  4955.0          71  0.0175
+103              chevrolet impala  4997.0          73  0.0170</code></pre>
+</details>
+</div>
+<h3 data-number="5.3" id="leverage-and-hidden-extrapolation"><span class="header-section-number">5.3</span> Leverage and hidden extrapolation</h3>
+<p>The leverage idea extends to a new point <span class="math inline">\(\mathbf{x}_0\)</span>: <span class="math inline">\(h_{00} = \mathbf{x}_0^\top(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{x}_0\)</span> measures how far <span class="math inline">\(\mathbf{x}_0\)</span> lies from the centre of the data, taking the correlation between the predictors into account (for <span class="math inline">\(p = 1\)</span> it is the <span class="math inline">\(h_0\)</span> of <a href="/courses/regression/module-1/confidence-and-prediction-intervals/">Lesson 1.8</a>). Lesson 2.1 found that a 4500-lb car from 1982 lies inside both separate ranges but in an empty part of the (weight, year) plane. Its leverage makes this precise:</p>
+<div class="table-wrap"><table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>New car</th>
+<th><span class="math inline">\(h_{00}\)</span></th>
+<th>Compared with the data</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>3000 lb, 1976</td>
+<td>0.0025</td>
+<td>near the minimum leverage: the centre of the data</td>
+</tr>
+<tr class="even">
+<td>2500 lb, 1982</td>
+<td>0.0091</td>
+<td>typical of the observed cars</td>
+</tr>
+<tr class="odd">
+<td>4500 lb, 1982</td>
+<td>0.0239</td>
+<td><strong>larger than every observed car</strong> (maximum 0.0199)</td>
+</tr>
+</tbody>
+</table></div>
+<p>A new point whose leverage exceeds the largest <span class="math inline">\(h_{ii}\)</span> in the data is outside the region the data cover: a practical check for hidden extrapolation in any number of dimensions.</p>
+<div class="esa-code-tabs">
+<details class="esa-code">
+<summary>
+R code
+</summary>
+<pre class="r"><code># Uses auto, X and h from Sections 5.1-5.2 (run that code first).
+XtX_inv &lt;- solve(crossprod(X))
+new &lt;- rbind(c(1, 3.0, 76), c(1, 2.5, 82), c(1, 4.5, 82))
+h00 &lt;- rowSums((new %*% XtX_inv) * new)
+round(h00, 4)
+plot(auto$weight, auto$model_year + 1900, cex = 0.4 + 60 * h, pch = 1,
+     xlab = &quot;Weight (lb)&quot;, ylab = &quot;Model year&quot;, xlim = c(1500, 5200), ylim = c(1969.5, 1983.8))
+points(new[, 2] * 1000, new[, 3] + 1900, pch = 4, cex = 2, lwd = 3, col = &quot;red&quot;)
+text(new[, 2] * 1000, new[, 3] + 1900, sprintf(&quot;h00 = %.4f&quot;, h00), pos = 3, col = &quot;red&quot;)</code></pre>
+</details>
+<details class="esa-code" open>
+<summary>
+Python code
+</summary>
+<pre class="python"><code># Uses np, auto, X and h from Sections 5.1-5.2 (run that code first).
+import matplotlib.pyplot as plt
+
+XtX_inv = np.linalg.inv(X.T @ X)
+new = np.array([[1, 3.0, 76], [1, 2.5, 82], [1, 4.5, 82]])
+h00 = np.einsum(&quot;ij,jk,ik-&gt;i&quot;, new, XtX_inv, new)
+print(&quot;h00:&quot;, h00.round(4), &quot; max h in data:&quot;, h.max().round(4))
+
+fig, ax = plt.subplots(figsize=(6.5, 4.2))
+ax.scatter(auto[&quot;weight&quot;], auto[&quot;model_year&quot;] + 1900, s=5 + 2500 * h,
+           facecolors=&quot;none&quot;, edgecolors=&quot;gray&quot;, linewidths=0.8)
+ax.scatter(new[:, 1] * 1000, new[:, 2] + 1900, marker=&quot;x&quot;, s=90, linewidths=3, color=&quot;red&quot;)
+for (_, wt, yy), hh in zip(new, h00):
+    ax.annotate(f&quot;h00 = {hh:.4f}&quot;, (wt * 1000, yy + 1900), textcoords=&quot;offset points&quot;,
+                xytext=(0, 8), ha=&quot;center&quot;, color=&quot;red&quot;)
+ax.set_ylim(1969.5, 1983.8)
+ax.set_xlabel(&quot;Weight (lb)&quot;); ax.set_ylabel(&quot;Model year&quot;)
+plt.tight_layout()
+plt.show()</code></pre>
+<p class="esa-output-label">
+Output
+</p>
+<pre class="esa-output"><code>h00: [0.0025 0.0091 0.0239]  max h in data: 0.0199</code></pre>
+<figure class="esa-figure">
+<img src="/images/courses/regression/lesson-2-3-fig1.png" alt="Model year against weight for the 398 cars, point size proportional to leverage. Crosses: three new cars, labelled with their leverage h00. The 4500-lb car from 1982 has higher leverage than any observed car." loading="lazy" width="900">
+<figcaption>
+Model year against weight for the 398 cars, point size proportional to leverage. Crosses: three new cars, labelled with their leverage h00. The 4500-lb car from 1982 has higher leverage than any observed car.
+</figcaption>
+</figure>
+</details>
+</div>
+<h3 data-number="5.4" id="when-the-full-rank-condition-fails-weight-in-pounds-and-kilograms"><span class="header-section-number">5.4</span> When the full-rank condition fails: weight in pounds and kilograms</h3>
+<p>Adding weight in kilograms to a model that already contains weight in pounds makes the third column <span class="math inline">\(0.45359237\)</span> times the second, so <span class="math inline">\(\operatorname{rank}(\mathbf{X}) = 2 &lt; 3\)</span>. The fitted values are identical (to <span class="math inline">\(10^{-13}\)</span>) to those of the model with weight in pounds alone, as Theorem 2.3.1(b) predicts. R’s <code>lm()</code> reports <code>NA</code> for the kilogram coefficient. NumPy’s <code>lstsq</code> returns the minimum-norm solution, which splits the slope between the two columns: <span class="math inline">\(-0.006367\)</span> per lb and <span class="math inline">\(-0.002888\)</span> per kg. Converted to pounds, <span class="math inline">\(-0.006367 + 0.45359237 \times (-0.002888) = -0.007677\)</span> mpg per lb, the slope of the one-predictor model; only this combination is identified.</p>
+<div class="esa-code-tabs">
+<details class="esa-code">
+<summary>
+R code
+</summary>
+<pre class="r"><code># Uses auto and y from Section 5.1 (run that code first).
+auto$weight_kg &lt;- auto$weight * 0.45359237
+fit_both &lt;- lm(mpg ~ weight + weight_kg, data = auto)
+coef(fit_both)                                         # NA for the aliased column
+fit_lb &lt;- lm(mpg ~ weight, data = auto)
+max(abs(fitted(fit_both) - fitted(fit_lb)))</code></pre>
+</details>
+<details class="esa-code" open>
+<summary>
+Python code
+</summary>
+<pre class="python"><code># Uses np, auto, y and n from Section 5.1 (run that code first).
+X_dep = np.column_stack([np.ones(n), auto[&quot;weight&quot;], auto[&quot;weight&quot;] * 0.45359237])
+b_mn, _, rank, _ = np.linalg.lstsq(X_dep, y, rcond=None)
+X_lb = np.column_stack([np.ones(n), auto[&quot;weight&quot;]])
+b_lb = np.linalg.lstsq(X_lb, y, rcond=None)[0]
+print(&quot;rank:&quot;, rank, &quot; minimum-norm solution:&quot;, b_mn)
+print(&quot;max |fitted difference|:&quot;, f&quot;{np.abs(X_dep @ b_mn - X_lb @ b_lb).max():.1e}&quot;)
+print(&quot;identified combination (per lb):&quot;, round(b_mn[1] + 0.45359237 * b_mn[2], 6),
+      &quot; one-predictor slope:&quot;, round(b_lb[1], 6))</code></pre>
+<p class="esa-output-label">
+Output
+</p>
+<pre class="esa-output"><code>rank: 2  minimum-norm solution: [ 4.63173644e+01 -6.36668904e-03 -2.88788153e-03]
+max |fitted difference|: 3.6e-14
+identified combination (per lb): -0.007677  one-predictor slope: -0.007677</code></pre>
+</details>
+</div>
+<h2 class="esa-lesson-anchor" data-number="6" id="common-misconceptions"><span class="header-section-number">6</span> Common misconceptions</h2>
+<div class="example-box esa-callout-caution">
+<p class="esa-box-title">
+<strong>Misconceptions</strong>
+</p>
+<ol type="1">
+<li><strong>“Least squares needs normally distributed errors.”</strong> — Computing <span class="math inline">\(\hat{\boldsymbol\beta}\)</span> needs only A0. The error assumptions matter for the <em>properties</em> of <span class="math inline">\(\hat{\boldsymbol\beta}\)</span> (Lesson 2.4).</li>
+<li><strong>“Software computes <span class="math inline">\((\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{y}\)</span>.”</strong> — Good software uses QR (or similar) decompositions, because forming <span class="math inline">\(\mathbf{X}^\top\mathbf{X}\)</span> squares the condition number.</li>
+<li><strong>“If <span class="math inline">\(\mathbf{X}\)</span> is rank deficient, the regression cannot be fitted.”</strong> — The fitted values and residuals are unique; only the coefficients of the dependent columns are not identified.</li>
+<li><strong>“The residuals always sum to zero.”</strong> — Only when the model contains an intercept (or, more generally, when <span class="math inline">\(\mathbf{1}\)</span> lies in <span class="math inline">\(\mathcal{C}(\mathbf{X})\)</span>).</li>
+<li><strong>“High leverage means a bad observation.”</strong> — Leverage depends only on <span class="math inline">\(\mathbf{X}\)</span>. It says an observation <em>can</em> strongly influence the fit; whether it does depends on its response (Module 3).</li>
+</ol>
+</div>
+<h2 class="esa-lesson-anchor" data-number="7" id="key-takeaways"><span class="header-section-number">7</span> Key takeaways</h2>
+<ul>
+<li>The normal equations <span class="math inline">\(\mathbf{X}^\top\mathbf{X}\hat{\boldsymbol\beta} = \mathbf{X}^\top\mathbf{y}\)</span> always have a solution; under full rank it is unique, <span class="math inline">\(\hat{\boldsymbol\beta} = (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{y}\)</span>.</li>
+<li>Least squares projects <span class="math inline">\(\mathbf{y}\)</span> orthogonally onto the column space of <span class="math inline">\(\mathbf{X}\)</span>: <span class="math inline">\(\hat{\mathbf{y}} = \mathbf{H}\mathbf{y}\)</span>, and the residuals are orthogonal to every column of <span class="math inline">\(\mathbf{X}\)</span>.</li>
+<li><span class="math inline">\(\mathbf{H}\)</span> is symmetric and idempotent with trace <span class="math inline">\(p + 1\)</span>; the leverages <span class="math inline">\(h_{ii}\)</span> lie in <span class="math inline">\([0, 1]\)</span> and average <span class="math inline">\((p+1)/n\)</span>.</li>
+<li>With an intercept, the residuals sum to zero and <span class="math inline">\(\mathrm{SST} = \mathrm{SSR} + \mathrm{SSE}\)</span>.</li>
+<li><span class="math inline">\(\mathbf{e} = (\mathbf{I} - \mathbf{H})\boldsymbol\varepsilon\)</span>: the residuals are a projection of the errors, not the errors themselves.</li>
+<li>A new point with leverage above the largest observed <span class="math inline">\(h_{ii}\)</span> signals hidden extrapolation.</li>
+</ul>
+<h2 class="esa-lesson-anchor" data-number="8" id="exercises"><span class="header-section-number">8</span> Exercises</h2>
+<h3 data-number="8.1" id="a.-conceptual"><span class="header-section-number">8.1</span> A. Conceptual</h3>
+<p><strong>A.1</strong> (★). Explain, using Theorem 2.3.3, why including an intercept guarantees that the residuals sum to zero. Give a reason why one might fit a model without an intercept, and say what is lost.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>The normal equations state <span class="math inline">\(\mathbf{X}^\top\mathbf{e} = \mathbf{0}\)</span>, one equation per column. If <span class="math inline">\(\mathbf{1}\)</span> is a column, its equation is <span class="math inline">\(\mathbf{1}^\top\mathbf{e} = \sum e_i = 0\)</span>. A no-intercept model is sometimes justified by theory (e.g. zero input must give zero output). Without the intercept, <span class="math inline">\(\sum e_i\)</span> need not be zero, the decomposition <span class="math inline">\(\mathrm{SST} = \mathrm{SSR} + \mathrm{SSE}\)</span> with <span class="math inline">\(\mathrm{SST}\)</span> about <span class="math inline">\(\bar y\)</span> fails, and the usual <span class="math inline">\(R^2\)</span> is no longer comparable with models that include an intercept; software then reports an “uncentred” <span class="math inline">\(R^2\)</span> instead.</p>
+</details>
+<p><strong>A.2</strong> (★). In the pounds-and-kilograms model of Section 5.4, which of the following are uniquely determined by the data: <span class="math inline">\(\hat{\boldsymbol\beta}\)</span>, <span class="math inline">\(\hat{\mathbf{y}}\)</span>, <span class="math inline">\(\mathbf{e}\)</span>, SSE, <span class="math inline">\(R^2\)</span>, <span class="math inline">\(\hat\beta_{\text{lb}} + 0.45359237\,\hat\beta_{\text{kg}}\)</span>?</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>All except <span class="math inline">\(\hat{\boldsymbol\beta}\)</span> itself. <span class="math inline">\(\hat{\mathbf{y}}\)</span> is unique (Theorem 2.3.1b), hence so are <span class="math inline">\(\mathbf{e}\)</span>, SSE and <span class="math inline">\(R^2\)</span>. The combination <span class="math inline">\(\hat\beta_{\text{lb}} + 0.45359237\,\hat\beta_{\text{kg}}\)</span> is the slope per pound of the fitted values, which is unique; the separate coefficients are not.</p>
+</details>
+<h3 data-number="8.2" id="b.-mathematical"><span class="header-section-number">8.2</span> B. Mathematical</h3>
+<p><strong>B.1</strong> (★★). For <span class="math inline">\(p = 1\)</span>, use <span class="math inline">\((\mathbf{X}^\top\mathbf{X})^{-1}\)</span> from Section 4.4 to derive <span class="math inline">\(\hat\beta_0\)</span> and <span class="math inline">\(\hat\beta_1\)</span>, and show that the leverage is <span class="math inline">\(h_{ii} = 1/n + (x_i - \bar x)^2/S_{xx}\)</span>.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p><span class="math inline">\(\hat\beta_1 = \bigl(-\sum x_i\sum y_i + n\sum x_iy_i\bigr)/(nS_{xx}) = \bigl(\sum x_iy_i - n\bar x\bar y\bigr)/S_{xx} = S_{xy}/S_{xx}\)</span>, and <span class="math inline">\(\hat\beta_0 = \bigl(\sum x_i^2\sum y_i - \sum x_i\sum x_iy_i\bigr)/(nS_{xx})\)</span>; substituting <span class="math inline">\(\sum x_i^2 = S_{xx} + n\bar x^2\)</span> and <span class="math inline">\(\sum x_iy_i = S_{xy} + n\bar x\bar y\)</span> gives <span class="math inline">\(\hat\beta_0 = \bar y - \hat\beta_1\bar x\)</span>. For the leverage, <span class="math inline">\(h_{ii} = (1, x_i)(\mathbf{X}^\top\mathbf{X})^{-1}(1, x_i)^\top = \bigl(\sum x_j^2 - 2x_i\sum x_j + nx_i^2\bigr)/(nS_{xx})\)</span>. The numerator is <span class="math inline">\(S_{xx} + n\bar x^2 - 2nx_i\bar x + nx_i^2 = S_{xx} + n(x_i - \bar x)^2\)</span>, so <span class="math inline">\(h_{ii} = 1/n + (x_i - \bar x)^2/S_{xx}\)</span>.</p>
+</details>
+<p><strong>B.2</strong> (★★). Suppose <span class="math inline">\(\mathbf{X}\)</span> contains the column <span class="math inline">\(\mathbf{1}\)</span>. Show that <span class="math inline">\(h_{ii} \ge 1/n\)</span> for every <span class="math inline">\(i\)</span>. <em>Hint:</em> show that <span class="math inline">\(\mathbf{H} - \tfrac1n\mathbf{J}_n\)</span> is symmetric and idempotent.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>Since <span class="math inline">\(\mathbf{1} \in \mathcal{C}(\mathbf{X})\)</span>, <span class="math inline">\(\mathbf{H}\mathbf{1} = \mathbf{1}\)</span> (Theorem 2.3.2b), so <span class="math inline">\(\mathbf{H}\mathbf{J} = \mathbf{H}\mathbf{1}\mathbf{1}^\top = \mathbf{J}\)</span> and, by symmetry, <span class="math inline">\(\mathbf{J}\mathbf{H} = \mathbf{J}\)</span>. With <span class="math inline">\(\mathbf{J}^2 = n\mathbf{J}\)</span>, <span class="math inline">\((\mathbf{H} - \tfrac1n\mathbf{J})^2 = \mathbf{H} - \tfrac2n\mathbf{J} + \tfrac1{n^2}n\mathbf{J} = \mathbf{H} - \tfrac1n\mathbf{J}\)</span>. A symmetric idempotent matrix has non-negative diagonal elements (same argument as Theorem 2.3.2d), so <span class="math inline">\(h_{ii} - 1/n \ge 0\)</span>. In the worked example, the smallest leverage, <span class="math inline">\(0.00252\)</span>, is just above <span class="math inline">\(1/398 = 0.00251\)</span>.</p>
+</details>
+<p><strong>B.3</strong> (★★). Let <span class="math inline">\(\tilde{\mathbf{X}} = \mathbf{X}\mathbf{A}\)</span> with <span class="math inline">\(\mathbf{A}\)</span> a non-singular <span class="math inline">\((p+1)\times(p+1)\)</span> matrix. Show that <span class="math inline">\(\tilde{\mathbf{H}} = \mathbf{H}\)</span>, so fitted values and residuals do not change, and that <span class="math inline">\(\tilde{\boldsymbol\beta} = \mathbf{A}^{-1}\hat{\boldsymbol\beta}\)</span>. Use this to explain the centred intercept of Lesson 2.1 (weight at 3000 lb, year at 1976): <span class="math inline">\(23.310 = -14.198 + 3(-6.664) + 76(0.757)\)</span>.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p><span class="math inline">\(\tilde{\mathbf{H}} = \mathbf{X}\mathbf{A}(\mathbf{A}^\top\mathbf{X}^\top\mathbf{X}\mathbf{A})^{-1}\mathbf{A}^\top\mathbf{X}^\top = \mathbf{X}\mathbf{A}\mathbf{A}^{-1}(\mathbf{X}^\top\mathbf{X})^{-1}(\mathbf{A}^\top)^{-1}\mathbf{A}^\top\mathbf{X}^\top = \mathbf{H}\)</span>. (Geometrically: <span class="math inline">\(\mathcal{C}(\mathbf{X}\mathbf{A}) = \mathcal{C}(\mathbf{X})\)</span>.) Then <span class="math inline">\(\tilde{\mathbf{X}}\tilde{\boldsymbol\beta} = \mathbf{X}\hat{\boldsymbol\beta}\)</span> with <span class="math inline">\(\tilde{\mathbf{X}} = \mathbf{X}\mathbf{A}\)</span> gives <span class="math inline">\(\tilde{\boldsymbol\beta} = \mathbf{A}^{-1}\hat{\boldsymbol\beta}\)</span> by uniqueness. Centring: the columns <span class="math inline">\((1, w - 3, \text{year} - 76)\)</span> equal <span class="math inline">\(\mathbf{X}\mathbf{A}\)</span> with <span class="math inline">\(\mathbf{A} = \begin{pmatrix}1 &amp; -3 &amp; -76\\ 0 &amp; 1 &amp; 0\\ 0 &amp; 0 &amp; 1\end{pmatrix}\)</span>, whose inverse has first row <span class="math inline">\((1, 3, 76)\)</span>. So the new intercept is <span class="math inline">\(\hat\beta_0 + 3\hat\beta_1 + 76\hat\beta_2 = -14.198 - 19.992 + 57.500 = 23.310\)</span>, and the slopes are unchanged.</p>
+</details>
+<h3 data-number="8.3" id="c.-computational"><span class="header-section-number">8.3</span> C. Computational</h3>
+<p><strong>C.1</strong> (★). For the 392 cars with horsepower recorded, fit mpg on weight (1000 lb) and horsepower (100 hp) by QR. Verify <span class="math inline">\(\mathbf{X}^\top\mathbf{e} = \mathbf{0}\)</span> and <span class="math inline">\(\operatorname{tr}(\mathbf{H}) = 3\)</span>, find the car with the largest leverage, and compute <span class="math inline">\(h_{00}\)</span> for a hypothetical 2000-lb car with 200 hp. Is a prediction for that car supported by the data?</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p><span class="math inline">\(\hat{\boldsymbol\beta} = (45.640, -5.794, -4.730)\)</span>; <span class="math inline">\(\max|\mathbf{X}^\top\mathbf{e}| \approx 3\times10^{-11}\)</span>; <span class="math inline">\(\operatorname{tr}(\mathbf{H}) = 3\)</span>. The largest leverage, <span class="math inline">\(0.0950\)</span>, belongs to the Buick Estate Wagon (3086 lb, 225 hp), an unusually powerful car for its weight. The hypothetical car has <span class="math inline">\(h_{00} = 0.128\)</span>, larger than every observed leverage: no car under 2500 lb in the data has more than 113 hp. The fitted value, 24.6 mpg, is a hidden extrapolation and is not supported by the data.</p>
+</details>
+<p><strong>C.2</strong> (★★). Verify Exercise B.3 numerically: fit the weight + year model with the original and with the centred columns, and check that the fitted values agree and that the centred coefficients equal <span class="math inline">\(\mathbf{A}^{-1}\hat{\boldsymbol\beta}\)</span>.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>The centred fit gives <span class="math inline">\((23.3099, -6.6639, 0.7566)\)</span>, equal to <span class="math inline">\(\mathbf{A}^{-1}\hat{\boldsymbol\beta}\)</span>, and the largest difference between the two sets of fitted values is about <span class="math inline">\(4\times10^{-14}\)</span>.</p>
+</details>
+<p><strong>C.3</strong> (★★★). <em>Normal equations versus QR.</em> Fit mpg on a polynomial in model year, using the raw powers <span class="math inline">\(1, t, t^2, \dots, t^d\)</span> of the recorded year <span class="math inline">\(t\)</span> (70–82), for <span class="math inline">\(d = 4\)</span> and <span class="math inline">\(d = 5\)</span>. Compute the coefficients (i) by solving the normal equations and (ii) by QR, and compare the SSE values. Which answer is wrong, and how can you tell without knowing the truth? (For a reference value, refit with the rescaled variable <span class="math inline">\(s = (t - 76)/6\)</span>.)</p>
+<details class="esa-solution">
+<summary>
+Solution (Python)
+</summary>
+<pre class="python"><code>import numpy as np, pandas as pd
+cols = [&quot;mpg&quot;, &quot;cylinders&quot;, &quot;displacement&quot;, &quot;horsepower&quot;, &quot;weight&quot;,
+        &quot;acceleration&quot;, &quot;model_year&quot;, &quot;origin&quot;, &quot;car_name&quot;]
+auto = pd.read_csv(&quot;data/auto-mpg.data&quot;, sep=r&quot;\s+&quot;, header=None,
+                   names=cols, na_values=&quot;?&quot;, quotechar=&#39;&quot;&#39;)
+y = auto[&quot;mpg&quot;].to_numpy(); t = auto[&quot;model_year&quot;].to_numpy().astype(float)
+for d in (4, 5):
+    P = np.column_stack([t**k for k in range(d + 1)])
+    b_ne = np.linalg.solve(P.T @ P, P.T @ y)
+    Q, R = np.linalg.qr(P); b_qr = np.linalg.solve(R, Q.T @ y)
+    S = np.column_stack([((t - 76) / 6)**k for k in range(d + 1)])
+    b_s = np.linalg.lstsq(S, y, rcond=None)[0]
+    sse = lambda M, b: np.sum((y - M @ b)**2)
+    print(d, f&quot;cond = {np.linalg.cond(P):.2g}&quot;, round(sse(P, b_ne), 3),
+          round(sse(P, b_qr), 3), round(sse(S, b_s), 3))</code></pre>
+<p>Output: for <span class="math inline">\(d = 4\)</span> (condition number <span class="math inline">\(9.3\times10^{12}\)</span>) all three SSE values agree, 15170.405. For <span class="math inline">\(d = 5\)</span> (condition number <span class="math inline">\(1.8\times10^{16}\)</span>) the normal equations give SSE <span class="math inline">\(= 15949.675\)</span> on our computer (the exact wrong value depends on the numerical library), while QR and the rescaled fit give <span class="math inline">\(15148.450\)</span>. The normal-equation answer is wrong, and this can be seen without a reference: the degree-5 model contains the degree-4 model, so its minimum SSE cannot exceed 15170.405. Squaring the condition number pushed it beyond double-precision accuracy (<span class="math inline">\(\approx 10^{16}\)</span>). Rescaling the predictor (here to <span class="math inline">\(s\)</span>) is the practical cure; orthogonal polynomials go further (Lesson 2.11). In R, try the same with <code>solve(crossprod(P), crossprod(P, y))</code> and with <code>qr.coef(qr(P), y)</code> and compare what happens.</p>
+</details>
+<h2 class="esa-lesson-anchor" data-number="9" id="references"><span class="header-section-number">9</span> References</h2>
+<ul>
+<li>Seber, G. A. F., &amp; Lee, A. J. (2003). <em>Linear Regression Analysis</em> (2nd ed.). Wiley. — Chapter 3, Linear Regression: Estimation and Distribution Theory (least squares, projection matrices); Chapter 11, Computational Algorithms for Fitting a Regression.</li>
+<li>Montgomery, D. C., Peck, E. A., &amp; Vining, G. G. (2021). <em>Introduction to Linear Regression Analysis</em> (6th ed.). Wiley. — Chapter 3, Multiple Linear Regression (least-squares estimation, the hat matrix, hidden extrapolation).</li>
+<li>Kutner, M. H., Nachtsheim, C. J., Neter, J., &amp; Li, W. (2005). <em>Applied Linear Statistical Models</em> (5th ed.). McGraw-Hill/Irwin. — Chapter 5, Matrix Approach to Simple Linear Regression Analysis, and Chapter 6, Multiple Regression I.</li>
+<li>Golub, G. H., &amp; Van Loan, C. F. (2013). <em>Matrix Computations</em> (4th ed.). Johns Hopkins University Press. — Chapter 5, Orthogonalization and Least Squares.</li>
+<li>Quinlan, R. (1993). <em>Auto MPG</em> [Data set]. UCI Machine Learning Repository. https://doi.org/10.24432/C5859H</li>
+</ul>
+
+{% endraw %}
+    <div class="lesson-nav">
+      <a class="btn btn-outline" href="/courses/regression/module-2/matrix-formulation/">← Lesson 2.2: The Matrix Formulation</a>
+      <a class="btn" href="/courses/regression/module-2/">Module 2 lessons →</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .esa-course-lesson details{border:1px solid var(--border-strong,#d0d7de);border-radius:9px;padding:.4rem .9rem;margin:1rem 0}
+  .esa-course-lesson details>summary{cursor:pointer;font-weight:700}
+  .esa-course-lesson .esa-code-tabs{margin:1rem 0}
+  .esa-course-lesson .esa-code-tabs details{margin:.4rem 0}
+  .esa-course-lesson pre{max-width:100%}
+  .esa-course-lesson pre.esa-output{border-left:5px solid #0d9488}
+  .esa-course-lesson .esa-output-label{font-size:.85rem;font-weight:700;margin:.6rem 0 .2rem}
+  .esa-course-lesson .esa-figure{margin:1rem 0}
+  .esa-course-lesson .esa-figure img{max-width:100%;height:auto}
+  .esa-course-lesson .esa-figure figcaption{font-size:.9rem}
+  .esa-course-lesson mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+</style>
