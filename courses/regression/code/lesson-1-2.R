@@ -21,12 +21,14 @@ coef(lm(y ~ x))                               # same slope as b1
 coef(lm(x ~ y))                               # same slope as g1
 cor(auto$weight * 0.45359237, auto$mpg)       # weight in kg: r unchanged
 
+# Uses x, y, b1 and g1 from Section 5.1 (run that code first).
 plot(x, y, pch = 16, col = rgb(0, 0, 0, 0.3),
      xlab = "Weight (1000 lb)", ylab = "Fuel economy (mpg)")
 abline(a = mean(y) - b1 * mean(x), b = b1, lwd = 2)
 abline(a = mean(y) - mean(x) / g1, b = 1 / g1, lwd = 2, lty = 2)
 points(mean(x), mean(y), pch = 4, cex = 2, lwd = 2)
 
+# Uses x, y and r from Section 5.1 (run that code first).
 zx <- (x - mean(x)) / sd(x); zy <- (y - mean(y)) / sd(y)
 heavy <- x >= quantile(x, 0.9)
 c(n = sum(heavy), mean_zx = mean(zx[heavy]),

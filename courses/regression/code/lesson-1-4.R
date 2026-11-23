@@ -23,6 +23,12 @@ c(SSE = SSE, sigma2_hat = sigma2_hat, sigma_hat = sqrt(sigma2_hat),
 summary(fit)$coefficients[, 1:2]   # lm() reports the same standard errors
 vcov(fit)                           # estimated covariance matrix
 
+# Self-contained: reads the 398 Auto MPG weights and needs nothing from earlier sections.
+cols <- c("mpg", "cylinders", "displacement", "horsepower", "weight",
+          "acceleration", "model_year", "origin", "car_name")
+auto <- read.table("data/auto-mpg.data", col.names = cols, na.strings = "?")
+x <- auto$weight / 1000; n <- length(x); Sxx <- sum((x - mean(x))^2)
+
 set.seed(2026)
 R <- 10000; beta0 <- 46.3; beta1 <- -7.7; sigma <- 4.34
 k <- (x - mean(x)) / Sxx

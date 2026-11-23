@@ -298,7 +298,8 @@ sum e = 1.27e-11, sum x*e = 3.74e-11, sum yhat*e = 2.93e-10</code></pre>
 <summary>
 R code
 </summary>
-<pre class="r"><code>plot(auto$weight_k, auto$mpg, pch = 16, col = rgb(0, 0, 0, 0.35),
+<pre class="r"><code># Uses auto and fit from Section 5.3 (run that code first).
+plot(auto$weight_k, auto$mpg, pch = 16, col = rgb(0, 0, 0, 0.35),
      xlab = &quot;Weight (1000 lb)&quot;, ylab = &quot;Fuel economy (mpg)&quot;)
 abline(fit, lwd = 2)
 points(mean(auto$weight_k), mean(auto$mpg), pch = 4, cex = 2, lwd = 2)</code></pre>
@@ -307,7 +308,8 @@ points(mean(auto$weight_k), mean(auto$mpg), pch = 4, cex = 2, lwd = 2)</code></p
 <summary>
 Python code
 </summary>
-<pre class="python"><code>import matplotlib.pyplot as plt
+<pre class="python"><code># Uses np, x, y, b0 and b1 from Section 5.3 (run that code first).
+import matplotlib.pyplot as plt
 grid = np.linspace(x.min(), x.max(), 100)
 fig, ax = plt.subplots(figsize=(6, 4))
 ax.scatter(x, y, s=12, alpha=0.35, color=&quot;black&quot;)

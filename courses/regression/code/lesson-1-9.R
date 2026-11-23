@@ -24,6 +24,7 @@ confint(fit)
 predict(fit, data.frame(w = 2.8), interval = "confidence")
 predict(fit, data.frame(w = 2.8), interval = "prediction")
 
+# Uses auto and fit from Section 5, Step 3 (run that code first).
 e <- resid(fit)
 six <- cut(auto$w, quantile(auto$w, seq(0, 1, length.out = 7)), include.lowest = TRUE)
 round(rbind(mean_resid = tapply(e, six, mean), sd_resid = tapply(e, six, sd)), 2)

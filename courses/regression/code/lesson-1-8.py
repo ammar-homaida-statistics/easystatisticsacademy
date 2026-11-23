@@ -37,6 +37,7 @@ for j, x0 in enumerate([3.0, 5.0]):
           f"95% PI ({r['pi'][0][j]:.4f}, {r['pi'][1][j]:.4f}), "
           f"true mean = {46 - 7.7 * x0:.2f}")
 
+# Uses np and slr_intervals from Section 5 (run that code first).
 import pandas as pd
 import matplotlib.pyplot as plt
 

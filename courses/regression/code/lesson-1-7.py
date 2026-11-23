@@ -41,6 +41,7 @@ r7 = slr_inference(x, y, beta10=-7.7)
 print(f"H0: beta1 = -7.7: t = {r7['t1']:.4f}, p = {r7['p1']:.4f}")
 print(f"95% CI for sigma^2: ({res['ci_sigma2'][0]:.4f}, {res['ci_sigma2'][1]:.4f})")
 
+# Uses slr_inference from Section 5 (run that code first).
 import pandas as pd
 cols = ["mpg", "cylinders", "displacement", "horsepower", "weight",
         "acceleration", "model_year", "origin", "car_name"]

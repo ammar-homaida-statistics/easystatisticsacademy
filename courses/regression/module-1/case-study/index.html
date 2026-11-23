@@ -228,7 +228,8 @@ x0 = 2800 lb: fit 24.823, CI (24.386, 25.260), PI (16.270, 33.375)</code></pre>
 <summary>
 R code
 </summary>
-<pre class="r"><code>e &lt;- resid(fit)
+<pre class="r"><code># Uses auto and fit from Section 5, Step 3 (run that code first).
+e &lt;- resid(fit)
 six &lt;- cut(auto$w, quantile(auto$w, seq(0, 1, length.out = 7)), include.lowest = TRUE)
 round(rbind(mean_resid = tapply(e, six, mean), sd_resid = tapply(e, six, sd)), 2)
 
@@ -249,7 +250,8 @@ head(auto[order(-abs(e)), c(&quot;car_name&quot;, &quot;weight&quot;, &quot;mpg&
 <summary>
 Python code
 </summary>
-<pre class="python"><code>import matplotlib.pyplot as plt
+<pre class="python"><code># Uses np, pd, auto, x, y, b0, b1 and e from Section 5, Step 3 (run that code first).
+import matplotlib.pyplot as plt
 
 six = pd.qcut(x, 6)
 res = pd.DataFrame({&quot;w&quot;: x, &quot;e&quot;: e, &quot;six&quot;: six})

@@ -24,6 +24,7 @@ band_stats = (auto.groupby("band", observed=True)["mpg"]
                   .agg(n="count", mean_mpg="mean", sd_mpg="std").round(2))
 print(band_stats)
 
+# Uses auto and band_stats from the code above (run it first).
 import matplotlib.pyplot as plt
 mid = auto.groupby("band", observed=True)["weight"].mean()
 fig, ax = plt.subplots(figsize=(6, 4))

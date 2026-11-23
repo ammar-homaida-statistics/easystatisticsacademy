@@ -285,7 +285,13 @@ y_i = 46.3 - 7.7\,x_i + \varepsilon_i, \qquad \varepsilon_i \sim N(0, 4.34^2) .
 <summary>
 R code
 </summary>
-<pre class="r"><code>set.seed(2026)
+<pre class="r"><code># Self-contained: reads the 398 Auto MPG weights and needs nothing from earlier sections.
+cols &lt;- c(&quot;mpg&quot;, &quot;cylinders&quot;, &quot;displacement&quot;, &quot;horsepower&quot;, &quot;weight&quot;,
+          &quot;acceleration&quot;, &quot;model_year&quot;, &quot;origin&quot;, &quot;car_name&quot;)
+auto &lt;- read.table(&quot;data/auto-mpg.data&quot;, col.names = cols, na.strings = &quot;?&quot;)
+x &lt;- auto$weight / 1000; n &lt;- length(x); Sxx &lt;- sum((x - mean(x))^2)
+
+set.seed(2026)
 R &lt;- 10000; beta0 &lt;- 46.3; beta1 &lt;- -7.7; sigma &lt;- 4.34
 k &lt;- (x - mean(x)) / Sxx
 sims &lt;- replicate(R, {
@@ -305,7 +311,16 @@ abline(v = beta1, lty = 2)</code></pre>
 <summary>
 Python code
 </summary>
-<pre class="python"><code>import matplotlib.pyplot as plt
+<pre class="python"><code># Self-contained: reads the 398 Auto MPG weights and needs nothing from earlier sections.
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+cols = [&quot;mpg&quot;, &quot;cylinders&quot;, &quot;displacement&quot;, &quot;horsepower&quot;, &quot;weight&quot;,
+        &quot;acceleration&quot;, &quot;model_year&quot;, &quot;origin&quot;, &quot;car_name&quot;]
+auto = pd.read_csv(&quot;data/auto-mpg.data&quot;, sep=r&quot;\s+&quot;, header=None,
+                   names=cols, na_values=&quot;?&quot;, quotechar=&#39;&quot;&#39;)
+x = auto[&quot;weight&quot;].to_numpy() / 1000; n = len(x); Sxx = np.sum((x - x.mean())**2)
 
 rng = np.random.default_rng(2026)
 R, beta0, beta1, sigma = 10_000, 46.3, -7.7, 4.34

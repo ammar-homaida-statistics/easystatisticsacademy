@@ -305,7 +305,8 @@ r with weight in kg: -0.831741</code></pre>
 <summary>
 R code
 </summary>
-<pre class="r"><code>plot(x, y, pch = 16, col = rgb(0, 0, 0, 0.3),
+<pre class="r"><code># Uses x, y, b1 and g1 from Section 5.1 (run that code first).
+plot(x, y, pch = 16, col = rgb(0, 0, 0, 0.3),
      xlab = &quot;Weight (1000 lb)&quot;, ylab = &quot;Fuel economy (mpg)&quot;)
 abline(a = mean(y) - b1 * mean(x), b = b1, lwd = 2)
 abline(a = mean(y) - mean(x) / g1, b = 1 / g1, lwd = 2, lty = 2)
@@ -315,7 +316,8 @@ points(mean(x), mean(y), pch = 4, cex = 2, lwd = 2)</code></pre>
 <summary>
 Python code
 </summary>
-<pre class="python"><code>import matplotlib.pyplot as plt
+<pre class="python"><code># Uses np, x, y, b1 and g1 from Section 5.1 (run that code first).
+import matplotlib.pyplot as plt
 grid = np.linspace(x.min(), x.max(), 100)
 fig, ax = plt.subplots(figsize=(6, 4))
 ax.scatter(x, y, s=12, alpha=0.3, color=&quot;black&quot;)
@@ -342,7 +344,8 @@ Fuel economy against weight with the least-squares line of y on x (solid) and of
 <summary>
 R code
 </summary>
-<pre class="r"><code>zx &lt;- (x - mean(x)) / sd(x); zy &lt;- (y - mean(y)) / sd(y)
+<pre class="r"><code># Uses x, y and r from Section 5.1 (run that code first).
+zx &lt;- (x - mean(x)) / sd(x); zy &lt;- (y - mean(y)) / sd(y)
 heavy &lt;- x &gt;= quantile(x, 0.9)
 c(n = sum(heavy), mean_zx = mean(zx[heavy]),
   linear_prediction = r * mean(zx[heavy]), mean_zy = mean(zy[heavy]))</code></pre>
@@ -351,7 +354,8 @@ c(n = sum(heavy), mean_zx = mean(zx[heavy]),
 <summary>
 Python code
 </summary>
-<pre class="python"><code>zx = (x - x.mean()) / sx
+<pre class="python"><code># Uses np, x, y, r, sx and sy from Section 5.1 (run that code first).
+zx = (x - x.mean()) / sx
 zy = (y - y.mean()) / sy
 heavy = x &gt;= np.quantile(x, 0.9)
 print(f&quot;n = {heavy.sum()}, mean z_x = {zx[heavy].mean():.3f}, &quot;

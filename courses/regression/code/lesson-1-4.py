@@ -30,7 +30,16 @@ print(f"Cov(b0, b1) estimate = {-x.mean() * s2 / Sxx:.4f}, "
       f"correlation = {-x.mean() / np.sqrt(Sxx / n + x.mean()**2):.4f}")
 print(f"ML estimate SSE/n = {SSE / n:.4f}")
 
+# Self-contained: reads the 398 Auto MPG weights and needs nothing from earlier sections.
+import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
+
+cols = ["mpg", "cylinders", "displacement", "horsepower", "weight",
+        "acceleration", "model_year", "origin", "car_name"]
+auto = pd.read_csv("data/auto-mpg.data", sep=r"\s+", header=None,
+                   names=cols, na_values="?", quotechar='"')
+x = auto["weight"].to_numpy() / 1000; n = len(x); Sxx = np.sum((x - x.mean())**2)
 
 rng = np.random.default_rng(2026)
 R, beta0, beta1, sigma = 10_000, 46.3, -7.7, 4.34

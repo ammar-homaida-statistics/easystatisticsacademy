@@ -21,6 +21,7 @@ band_stats <- do.call(data.frame, band_stats)
 names(band_stats) <- c("band", "n", "mean_mpg", "sd_mpg")
 print(band_stats, digits = 4)
 
+# Uses auto and band_stats from the code above (run it first).
 mid <- aggregate(weight ~ band, data = auto, FUN = mean)
 plot(auto$weight, auto$mpg, pch = 16, col = rgb(0, 0, 0, 0.3),
      xlab = "Weight (lb)", ylab = "Fuel economy (mpg)")

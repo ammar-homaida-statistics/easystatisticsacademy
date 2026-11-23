@@ -43,6 +43,7 @@ y0 = b0 + b1 * x0
 print(f"x0 = 2800 lb: fit {y0:.3f}, CI ({y0 - q * s * np.sqrt(h0):.3f}, {y0 + q * s * np.sqrt(h0):.3f}), "
       f"PI ({y0 - q * s * np.sqrt(1 + h0):.3f}, {y0 + q * s * np.sqrt(1 + h0):.3f})")
 
+# Uses np, pd, auto, x, y, b0, b1 and e from Section 5, Step 3 (run that code first).
 import matplotlib.pyplot as plt
 
 six = pd.qcut(x, 6)
