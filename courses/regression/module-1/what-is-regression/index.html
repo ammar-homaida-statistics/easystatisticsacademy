@@ -437,14 +437,14 @@ Fuel economy against weight (Auto MPG, n = 398). Large points: mean mpg within 5
 </ul>
 <h2 class="esa-lesson-anchor" data-number="8" id="exercises"><span class="header-section-number">8</span> Exercises</h2>
 <h3 data-number="8.1" id="a.-conceptual"><span class="header-section-number">8.1</span> A. Conceptual</h3>
-<p><strong>A1</strong> (★). Give one example of a functional relationship and one of a statistical relationship from your own field. For the statistical one, name two factors that make <span class="math inline">\(y\)</span> vary at a fixed <span class="math inline">\(x\)</span>.</p>
+<p><strong>A.1</strong> (★). Give one example of a functional relationship and one of a statistical relationship from your own field. For the statistical one, name two factors that make <span class="math inline">\(y\)</span> vary at a fixed <span class="math inline">\(x\)</span>.</p>
 <details class="esa-solution">
 <summary>
 Solution
 </summary>
 <p>Answers vary. Example: the area of a square as a function of its side length is functional. A patient’s systolic blood pressure as a function of age is statistical: diet, medication and genetics make blood pressure vary among patients of the same age.</p>
 </details>
-<p><strong>A2</strong> (★). Which of the following are linear regression models (in the sense of this lesson)? For any that are not, say whether a transformation makes them linear.</p>
+<p><strong>A.2</strong> (★). Which of the following are linear regression models (in the sense of this lesson)? For any that are not, say whether a transformation makes them linear.</p>
 <ol type="i">
 <li><span class="math inline">\(y = \beta_0 + \beta_1 x + \beta_2 x^2 + \varepsilon\)</span> (ii) <span class="math inline">\(y = \beta_0 + \beta_1 \log x + \varepsilon\)</span> (iii) <span class="math inline">\(y = \beta_0 e^{\beta_1 x}\,\delta\)</span> with a positive multiplicative error <span class="math inline">\(\delta\)</span> (iv) <span class="math inline">\(y = \beta_0 + e^{\beta_1 x} + \varepsilon\)</span> (v) <span class="math inline">\(y = \beta_0 / (1 + \beta_1 x) + \varepsilon\)</span></li>
 </ol>
@@ -456,7 +456,7 @@ Solution
 <li>Linear (in <span class="math inline">\(\beta_0, \beta_1, \beta_2\)</span>). (ii) Linear. (iii) Not linear as written, but taking logs gives <span class="math inline">\(\log y = \log\beta_0 + \beta_1 x + \log\delta\)</span>, a linear model for <span class="math inline">\(\log y\)</span> with intercept <span class="math inline">\(\log\beta_0\)</span>. (iv) Not linear in <span class="math inline">\(\beta_1\)</span>, and no transformation of <span class="math inline">\(y\)</span> makes it linear because the error is additive. (v) Not linear in <span class="math inline">\(\beta_1\)</span>; with an additive error it is a nonlinear regression model.</li>
 </ol>
 </details>
-<p><strong>A3</strong> (★★). A newspaper reports: “Analysis of 398 cars shows that every extra 1000 lb of weight costs about 7.7 mpg, so manufacturers can gain 7.7 mpg by removing 1000 lb.” Identify two problems with the conclusion.</p>
+<p><strong>A.3</strong> (★★). A newspaper reports: “Analysis of 398 cars shows that every extra 1000 lb of weight costs about 7.7 mpg, so manufacturers can gain 7.7 mpg by removing 1000 lb.” Identify two problems with the conclusion.</p>
 <details class="esa-solution">
 <summary>
 Solution
@@ -466,21 +466,21 @@ Solution
 </ol>
 </details>
 <h3 data-number="8.2" id="b.-mathematical"><span class="header-section-number">8.2</span> B. Mathematical</h3>
-<p><strong>B1</strong> (★). Under the simple linear regression model with A1–A3, find <span class="math inline">\(E(y_i)\)</span>, <span class="math inline">\(\operatorname{Var}(y_i)\)</span> and <span class="math inline">\(\operatorname{Cov}(y_i, y_j)\)</span> for <span class="math inline">\(i \ne j\)</span>. Are the <span class="math inline">\(y_i\)</span> identically distributed?</p>
+<p><strong>B.1</strong> (★). Under the simple linear regression model with A1–A3, find <span class="math inline">\(E(y_i)\)</span>, <span class="math inline">\(\operatorname{Var}(y_i)\)</span> and <span class="math inline">\(\operatorname{Cov}(y_i, y_j)\)</span> for <span class="math inline">\(i \ne j\)</span>. Are the <span class="math inline">\(y_i\)</span> identically distributed?</p>
 <details class="esa-solution">
 <summary>
 Solution
 </summary>
 <p>Since <span class="math inline">\(\beta_0 + \beta_1 x_i\)</span> is a constant: <span class="math inline">\(E(y_i) = \beta_0 + \beta_1 x_i\)</span>, <span class="math inline">\(\operatorname{Var}(y_i) = \operatorname{Var}(\varepsilon_i) = \sigma^2\)</span>, and <span class="math inline">\(\operatorname{Cov}(y_i, y_j) = \operatorname{Cov}(\varepsilon_i, \varepsilon_j) = 0\)</span>. The <span class="math inline">\(y_i\)</span> are not identically distributed unless <span class="math inline">\(\beta_1 = 0\)</span> or all <span class="math inline">\(x_i\)</span> are equal, because their means differ.</p>
 </details>
-<p><strong>B2</strong> (★★). Let <span class="math inline">\(y = m(x) + \varepsilon\)</span> with <span class="math inline">\(m(x) = E(y \mid x)\)</span> and <span class="math inline">\(E(y^2) &lt; \infty\)</span>. Show that <span class="math inline">\(E(\varepsilon) = 0\)</span> and that <span class="math inline">\(\operatorname{Cov}(\varepsilon, g(x)) = 0\)</span> for every function <span class="math inline">\(g\)</span> with <span class="math inline">\(E[g(x)^2] &lt; \infty\)</span>. Conclude that <span class="math inline">\(\varepsilon\)</span> is uncorrelated with <span class="math inline">\(x\)</span> (when <span class="math inline">\(E(x^2) &lt; \infty\)</span>).</p>
+<p><strong>B.2</strong> (★★). Let <span class="math inline">\(y = m(x) + \varepsilon\)</span> with <span class="math inline">\(m(x) = E(y \mid x)\)</span> and <span class="math inline">\(E(y^2) &lt; \infty\)</span>. Show that <span class="math inline">\(E(\varepsilon) = 0\)</span> and that <span class="math inline">\(\operatorname{Cov}(\varepsilon, g(x)) = 0\)</span> for every function <span class="math inline">\(g\)</span> with <span class="math inline">\(E[g(x)^2] &lt; \infty\)</span>. Conclude that <span class="math inline">\(\varepsilon\)</span> is uncorrelated with <span class="math inline">\(x\)</span> (when <span class="math inline">\(E(x^2) &lt; \infty\)</span>).</p>
 <details class="esa-solution">
 <summary>
 Solution
 </summary>
 <p><span class="math inline">\(E(\varepsilon \mid x) = E(y \mid x) - m(x) = 0\)</span>, so <span class="math inline">\(E(\varepsilon) = E[E(\varepsilon \mid x)] = 0\)</span>. Then <span class="math inline">\(\operatorname{Cov}(\varepsilon, g(x)) = E[\varepsilon\, g(x)] = E[g(x)\, E(\varepsilon \mid x)] = 0\)</span>. Taking <span class="math inline">\(g(x) = x\)</span> gives <span class="math inline">\(\operatorname{Cov}(\varepsilon, x) = 0\)</span>. Note the converse fails: zero correlation with <span class="math inline">\(x\)</span> does not imply <span class="math inline">\(E(\varepsilon \mid x) = 0\)</span>.</p>
 </details>
-<p><strong>B3</strong> (★★★). Prove Theorem 1.1.1 in detail, stating where <span class="math inline">\(E(y^2) &lt; \infty\)</span> and <span class="math inline">\(E[g(x)^2] &lt; \infty\)</span> are used.</p>
+<p><strong>B.3</strong> (★★★). Prove Theorem 1.1.1 in detail, stating where <span class="math inline">\(E(y^2) &lt; \infty\)</span> and <span class="math inline">\(E[g(x)^2] &lt; \infty\)</span> are used.</p>
 <details class="esa-solution">
 <summary>
 Solution
@@ -488,7 +488,7 @@ Solution
 <p>The moment conditions guarantee that all expectations below are finite: <span class="math inline">\(E[(y - g(x))^2] \le 2E(y^2) + 2E[g(x)^2] &lt; \infty\)</span>, and <span class="math inline">\(E[m(x)^2] \le E(y^2)\)</span> by Jensen’s inequality for conditional expectations, so <span class="math inline">\(m(x) - g(x)\)</span> has finite second moment and, by Cauchy–Schwarz, the cross term is finite. Then expand <span class="math inline">\(E[(y - g(x))^2] = E[(y - m(x))^2] + 2E[(y - m(x))(m(x) - g(x))] + E[(m(x) - g(x))^2]\)</span>. For the cross term, condition on <span class="math inline">\(x\)</span>: <span class="math inline">\(E[(y - m(x))(m(x) - g(x)) \mid x] = (m(x) - g(x))\,E(y - m(x) \mid x) = 0\)</span>, so its expectation is zero. The last term is <span class="math inline">\(\ge 0\)</span>, with equality iff <span class="math inline">\(m(x) = g(x)\)</span> almost surely.</p>
 </details>
 <h3 data-number="8.3" id="c.-computational"><span class="header-section-number">8.3</span> C. Computational</h3>
-<p><strong>C1</strong> (★). For the Auto MPG data, compute the number of cars and the mean mpg for each number of cylinders. Interpret the result as an estimate of <span class="math inline">\(E(\text{mpg} \mid \text{cylinders})\)</span>. Which estimates are unreliable, and why?</p>
+<p><strong>C.1</strong> (★). For the Auto MPG data, compute the number of cars and the mean mpg for each number of cylinders. Interpret the result as an estimate of <span class="math inline">\(E(\text{mpg} \mid \text{cylinders})\)</span>. Which estimates are unreliable, and why?</p>
 <details class="esa-solution">
 <summary>
 Solution
@@ -526,7 +526,7 @@ Solution
 </table></div>
 <p>Each mean estimates the conditional mean of mpg for cars with that number of cylinders, with no assumption about the form of the relationship. Mean mpg falls from 4 to 6 to 8 cylinders. The 3- and 5-cylinder means rest on only 4 and 3 cars and are unreliable; they should not be read as evidence that 3-cylinder cars are less economical than 4-cylinder cars.</p>
 </details>
-<p><strong>C2</strong> (★★). Simulate <span class="math inline">\(n = 200\)</span> observations from <span class="math inline">\(y_i = 46 - 7.7\,x_i + \varepsilon_i\)</span> with <span class="math inline">\(x_i \sim \text{Uniform}(1.6, 5.1)\)</span> (weight in 1000 lb) and <span class="math inline">\(\varepsilon_i \sim N(0, 4^2)\)</span>, using a fixed seed. Plot the data with the true regression line, and compute band means as in the worked example. How do the simulated band means and spreads differ from those of the real data?</p>
+<p><strong>C.2</strong> (★★). Simulate <span class="math inline">\(n = 200\)</span> observations from <span class="math inline">\(y_i = 46 - 7.7\,x_i + \varepsilon_i\)</span> with <span class="math inline">\(x_i \sim \text{Uniform}(1.6, 5.1)\)</span> (weight in 1000 lb) and <span class="math inline">\(\varepsilon_i \sim N(0, 4^2)\)</span>, using a fixed seed. Plot the data with the true regression line, and compute band means as in the worked example. How do the simulated band means and spreads differ from those of the real data?</p>
 <details class="esa-solution">
 <summary>
 Solution (Python)

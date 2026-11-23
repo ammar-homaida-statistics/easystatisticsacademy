@@ -87,6 +87,19 @@ learning_resource: true
 </tbody>
 </table></div>
 <p>All notation follows the course notation standard.</p>
+<div class="concept-box esa-callout-note">
+<p class="esa-box-title">
+<strong>Assumptions used in this lesson</strong>
+</p>
+<p>The simple linear regression model is <span class="math inline">\(y_i = \beta_0 + \beta_1 x_i + \varepsilon_i\)</span>, <span class="math inline">\(i = 1, \dots, n\)</span>, with the <span class="math inline">\(x_i\)</span> treated as fixed and</p>
+<ul>
+<li><strong>A1 (Correct mean function).</strong> <span class="math inline">\(E(\varepsilon_i) = 0\)</span> for all <span class="math inline">\(i\)</span>, i.e. <span class="math inline">\(E(y_i) = \beta_0 + \beta_1 x_i\)</span>.</li>
+<li><strong>A2 (Constant variance).</strong> <span class="math inline">\(\operatorname{Var}(\varepsilon_i) = \sigma^2\)</span> for all <span class="math inline">\(i\)</span>.</li>
+<li><strong>A3 (Uncorrelated errors).</strong> <span class="math inline">\(\operatorname{Cov}(\varepsilon_i, \varepsilon_j) = 0\)</span> for <span class="math inline">\(i \ne j\)</span>.</li>
+<li><strong>A4 (Normality).</strong> <span class="math inline">\(\varepsilon_i \sim N(0, \sigma^2)\)</span>; together with A1–A3 this makes the errors independent.</li>
+</ul>
+<p>Each result below states which of A1–A4 it uses. Why these assumptions, and what each one is needed for: <a href="/courses/regression/module-1/what-is-regression/#assumptions-and-what-they-are-used-for">Lesson 1.1, Assumptions</a>.</p>
+</div>
 <h2 class="esa-lesson-anchor" data-number="4" id="theory"><span class="header-section-number">4</span> Theory</h2>
 <h3 data-number="4.1" id="the-correlation-coefficient"><span class="header-section-number">4.1</span> The correlation coefficient</h3>
 <div class="concept-box esa-callout-note">
@@ -175,7 +188,7 @@ Derivation
 Derivation
 </summary>
 <ol type="a">
-<li>is Theorem 1.3.2(e) applied to each regression. (b) <span class="math inline">\(\hat\beta_1\hat\gamma_1 = S_{xy}^2/(S_{xx}S_{yy}) = r^2\)</span>. (c) In the <span class="math inline">\((x,y)\)</span> plane the <span class="math inline">\(x\)</span>-on-<span class="math inline">\(y\)</span> line has slope <span class="math inline">\(1/\hat\gamma_1\)</span> (when <span class="math inline">\(r \ne 0\)</span>). Both lines pass through the same point, so they coincide iff <span class="math inline">\(\hat\beta_1 = 1/\hat\gamma_1\)</span>, i.e. iff <span class="math inline">\(\hat\beta_1\hat\gamma_1 = r^2 = 1\)</span>. If <span class="math inline">\(0 &lt; r^2 &lt; 1\)</span>, then <span class="math inline">\(|\hat\beta_1| = r^2/|\hat\gamma_1| &lt; 1/|\hat\gamma_1|\)</span>. (If <span class="math inline">\(r = 0\)</span>, the <span class="math inline">\(y\)</span>-on-<span class="math inline">\(x\)</span> line is horizontal and the <span class="math inline">\(x\)</span>-on-<span class="math inline">\(y\)</span> line is vertical.)</li>
+<li>is part (e) of <a href="/courses/regression/module-1/ordinary-least-squares/">Theorem 1.3.2, Lesson 1.3</a> applied to each regression. (b) <span class="math inline">\(\hat\beta_1\hat\gamma_1 = S_{xy}^2/(S_{xx}S_{yy}) = r^2\)</span>. (c) In the <span class="math inline">\((x,y)\)</span> plane the <span class="math inline">\(x\)</span>-on-<span class="math inline">\(y\)</span> line has slope <span class="math inline">\(1/\hat\gamma_1\)</span> (when <span class="math inline">\(r \ne 0\)</span>). Both lines pass through the same point, so they coincide iff <span class="math inline">\(\hat\beta_1 = 1/\hat\gamma_1\)</span>, i.e. iff <span class="math inline">\(\hat\beta_1\hat\gamma_1 = r^2 = 1\)</span>. If <span class="math inline">\(0 &lt; r^2 &lt; 1\)</span>, then <span class="math inline">\(|\hat\beta_1| = r^2/|\hat\gamma_1| &lt; 1/|\hat\gamma_1|\)</span>. (If <span class="math inline">\(r = 0\)</span>, the <span class="math inline">\(y\)</span>-on-<span class="math inline">\(x\)</span> line is horizontal and the <span class="math inline">\(x\)</span>-on-<span class="math inline">\(y\)</span> line is vertical.)</li>
 </ol>
 </details>
 <p>The two lines answer different questions: “what is the mean <span class="math inline">\(y\)</span> for a given <span class="math inline">\(x\)</span>?” and “what is the mean <span class="math inline">\(x\)</span> for a given <span class="math inline">\(y\)</span>?”. Neither is the “true line”. Which one is appropriate depends on which variable is to be predicted.</p>
@@ -233,11 +246,11 @@ Derivation
 <p>Testing <span class="math inline">\(H_0\!: \rho = 0\)</span> in a bivariate normal sample and testing <span class="math inline">\(H_0\!: \beta_1 = 0\)</span> in the regression model give the <strong>same</strong> <span class="math inline">\(t\)</span>-statistic; Lesson 1.7 proves this.</p>
 <h3 data-number="4.6" id="limitations-of-r"><span class="header-section-number">4.6</span> Limitations of <span class="math inline">\(r\)</span></h3>
 <ul>
-<li><strong>Only linear association.</strong> <span class="math inline">\(r\)</span> can be zero when <span class="math inline">\(y\)</span> is a perfect function of <span class="math inline">\(x\)</span>: for <span class="math inline">\(x = -5, \dots, 5\)</span> and <span class="math inline">\(y = x^2\)</span>, <span class="math inline">\(r = 0\)</span> exactly (Exercise C3).</li>
+<li><strong>Only linear association.</strong> <span class="math inline">\(r\)</span> can be zero when <span class="math inline">\(y\)</span> is a perfect function of <span class="math inline">\(x\)</span>: for <span class="math inline">\(x = -5, \dots, 5\)</span> and <span class="math inline">\(y = x^2\)</span>, <span class="math inline">\(r = 0\)</span> exactly (Exercise C.3).</li>
 <li><strong>Sensitivity to outliers.</strong> A single unusual point can create or destroy a large correlation (Module 3).</li>
 <li><strong>Dependence on the range of <span class="math inline">\(x\)</span>.</strong> Under the linear model with <span class="math inline">\(\operatorname{Var}(\varepsilon) = \sigma^2\)</span> and <span class="math inline">\(x\)</span> random with variance <span class="math inline">\(\sigma_x^2\)</span>, independent of <span class="math inline">\(\varepsilon\)</span>, <span class="math display">\[
 \rho^2 = \frac{\beta_1^2\sigma_x^2}{\beta_1^2\sigma_x^2 + \sigma^2}.
-\]</span> Restricting the range of <span class="math inline">\(x\)</span> reduces <span class="math inline">\(\sigma_x^2\)</span> and hence <span class="math inline">\(\rho^2\)</span>, although the slope <span class="math inline">\(\beta_1\)</span> is unchanged (Exercise B3). A low correlation in a narrow sample does not mean a weak effect.</li>
+\]</span> Restricting the range of <span class="math inline">\(x\)</span> reduces <span class="math inline">\(\sigma_x^2\)</span> and hence <span class="math inline">\(\rho^2\)</span>, although the slope <span class="math inline">\(\beta_1\)</span> is unchanged (Exercise B.3). A low correlation in a narrow sample does not mean a weak effect.</li>
 <li><strong>Association, not causation.</strong> As for the slope (Lesson 1.1).</li>
 </ul>
 <h2 class="esa-lesson-anchor" data-number="5" id="worked-example-correlation-and-the-two-regression-lines-for-auto-mpg"><span class="header-section-number">5</span> Worked example: correlation and the two regression lines for Auto MPG</h2>
@@ -395,21 +408,21 @@ Output
 </ul>
 <h2 class="esa-lesson-anchor" data-number="8" id="exercises"><span class="header-section-number">8</span> Exercises</h2>
 <h3 data-number="8.1" id="a.-conceptual"><span class="header-section-number">8.1</span> A. Conceptual</h3>
-<p><strong>A1</strong> (★). A report states: “The correlation between study hours and exam score was 0.5, so study hours explain 50% of the variation in scores.” Correct the statement.</p>
+<p><strong>A.1</strong> (★). A report states: “The correlation between study hours and exam score was 0.5, so study hours explain 50% of the variation in scores.” Correct the statement.</p>
 <details class="esa-solution">
 <summary>
 Solution
 </summary>
 <p>The proportion of variation in scores accounted for by a straight-line regression on study hours is <span class="math inline">\(r^2 = 0.25\)</span>, i.e. 25%, not 50%. In addition, “explain” should not be read causally with observational data.</p>
 </details>
-<p><strong>A2</strong> (★). After a speed-camera programme, a city reports that the 20 junctions with the most accidents last year had 30% fewer accidents this year. Give a reason, other than the cameras, why accidents would fall at these junctions, and say how to check whether the cameras had an effect.</p>
+<p><strong>A.2</strong> (★). After a speed-camera programme, a city reports that the 20 junctions with the most accidents last year had 30% fewer accidents this year. Give a reason, other than the cameras, why accidents would fall at these junctions, and say how to check whether the cameras had an effect.</p>
 <details class="esa-solution">
 <summary>
 Solution
 </summary>
 <p>The junctions were selected because their accident counts were extreme. Counts vary from year to year, so extreme counts are partly due to chance and tend to be followed by values closer to the mean (regression toward the mean), even with no intervention. To estimate the camera effect, compare with similar high-accident junctions that did not receive cameras (a control group selected in the same way), ideally with cameras assigned at random.</p>
 </details>
-<p><strong>A3</strong> (★★). Explain why a doctor wishing to predict a patient’s weight from height and an engineer wishing to predict height from weight should not use the same fitted line, even with the same data.</p>
+<p><strong>A.3</strong> (★★). Explain why a doctor wishing to predict a patient’s weight from height and an engineer wishing to predict height from weight should not use the same fitted line, even with the same data.</p>
 <details class="esa-solution">
 <summary>
 Solution
@@ -417,21 +430,21 @@ Solution
 <p>Each wants the conditional mean of a different variable. The least-squares line of weight on height minimises errors in weight; the line of height on weight minimises errors in height. Unless <span class="math inline">\(|r| = 1\)</span>, the two lines differ (Theorem 1.2.4), and inverting one does not give the other.</p>
 </details>
 <h3 data-number="8.2" id="b.-mathematical"><span class="header-section-number">8.2</span> B. Mathematical</h3>
-<p><strong>B1</strong> (★★). Prove Theorem 1.2.2(b), and deduce that <span class="math inline">\(r\)</span> is unchanged when weight is converted from pounds to kilograms.</p>
+<p><strong>B.1</strong> (★★). Prove Theorem 1.2.2(b), and deduce that <span class="math inline">\(r\)</span> is unchanged when weight is converted from pounds to kilograms.</p>
 <details class="esa-solution">
 <summary>
 Solution
 </summary>
 <p>See the derivation after Theorem 1.2.2. Converting pounds to kilograms is <span class="math inline">\(x^* = 0.45359237\,x\)</span>, i.e. <span class="math inline">\(a = 0\)</span>, <span class="math inline">\(b = 0.45359237 &gt; 0\)</span>; with <span class="math inline">\(y\)</span> unchanged (<span class="math inline">\(c = 0\)</span>, <span class="math inline">\(d = 1\)</span>), <span class="math inline">\(\operatorname{sign}(bd) = +1\)</span> and <span class="math inline">\(r(x^*, y) = r(x, y)\)</span>. The Auto MPG computation confirms <span class="math inline">\(r = -0.831741\)</span> in both units.</p>
 </details>
-<p><strong>B2</strong> (★★). Show that, in standardised units, the least-squares line of <span class="math inline">\(z_x\)</span> on <span class="math inline">\(z_y\)</span> is <span class="math inline">\(\hat z_x = r z_y\)</span>. Hence show that both standardised regressions “shrink” toward 0, and explain why this means regression toward the mean works in both directions.</p>
+<p><strong>B.2</strong> (★★). Show that, in standardised units, the least-squares line of <span class="math inline">\(z_x\)</span> on <span class="math inline">\(z_y\)</span> is <span class="math inline">\(\hat z_x = r z_y\)</span>. Hence show that both standardised regressions “shrink” toward 0, and explain why this means regression toward the mean works in both directions.</p>
 <details class="esa-solution">
 <summary>
 Solution
 </summary>
 <p>By symmetry of Theorem 1.2.3(b) with the roles of <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> exchanged, and <span class="math inline">\(r(y, x) = r(x, y)\)</span>, the line is <span class="math inline">\(\hat z_x = r z_y\)</span>. For <span class="math inline">\(|r| &lt; 1\)</span>, <span class="math inline">\(|\hat z_x| &lt; |z_y|\)</span> and <span class="math inline">\(|\hat z_y| &lt; |z_x|\)</span>: whichever variable is used to select extreme units, the other variable is predicted to be closer to its mean. Regression toward the mean is therefore a consequence of imperfect correlation, not of time order or causation.</p>
 </details>
-<p><strong>B3</strong> (★★★). Suppose <span class="math inline">\(y = \beta_0 + \beta_1 x + \varepsilon\)</span> with <span class="math inline">\(x\)</span> random, <span class="math inline">\(\operatorname{Var}(x) = \sigma_x^2 &gt; 0\)</span>, <span class="math inline">\(\operatorname{Var}(\varepsilon) = \sigma^2\)</span>, and <span class="math inline">\(x\)</span> independent of <span class="math inline">\(\varepsilon\)</span>. Show that <span class="math display">\[
+<p><strong>B.3</strong> (★★★). Suppose <span class="math inline">\(y = \beta_0 + \beta_1 x + \varepsilon\)</span> with <span class="math inline">\(x\)</span> random, <span class="math inline">\(\operatorname{Var}(x) = \sigma_x^2 &gt; 0\)</span>, <span class="math inline">\(\operatorname{Var}(\varepsilon) = \sigma^2\)</span>, and <span class="math inline">\(x\)</span> independent of <span class="math inline">\(\varepsilon\)</span>. Show that <span class="math display">\[
 \rho^2 = \operatorname{Corr}(x, y)^2 = \frac{\beta_1^2\sigma_x^2}{\beta_1^2\sigma_x^2 + \sigma^2},
 \]</span> and explain what happens to <span class="math inline">\(\rho^2\)</span> and to <span class="math inline">\(\beta_1\)</span> if the population is restricted to a narrower range of <span class="math inline">\(x\)</span> (assume the linear model still holds there).</p>
 <details class="esa-solution">
@@ -441,7 +454,7 @@ Solution
 <p><span class="math inline">\(\operatorname{Cov}(x, y) = \operatorname{Cov}(x, \beta_1 x + \varepsilon) = \beta_1\sigma_x^2\)</span> and <span class="math inline">\(\operatorname{Var}(y) = \beta_1^2\sigma_x^2 + \sigma^2\)</span> (independence makes the cross term vanish). Hence <span class="math inline">\(\rho^2 = \beta_1^2\sigma_x^4 / [\sigma_x^2(\beta_1^2\sigma_x^2 + \sigma^2)] = \beta_1^2\sigma_x^2/(\beta_1^2\sigma_x^2 + \sigma^2)\)</span>. Restricting the range of <span class="math inline">\(x\)</span> reduces <span class="math inline">\(\sigma_x^2\)</span>; with <span class="math inline">\(\beta_1\)</span> and <span class="math inline">\(\sigma^2\)</span> unchanged, <span class="math inline">\(\rho^2\)</span> decreases (it is increasing in <span class="math inline">\(\sigma_x^2\)</span>). The slope <span class="math inline">\(\beta_1\)</span> — the change in <span class="math inline">\(E(y \mid x)\)</span> per unit of <span class="math inline">\(x\)</span> — is unaffected. Strictly, the conditional distribution of <span class="math inline">\(\varepsilon\)</span> given the restricted <span class="math inline">\(x\)</span> is unchanged because <span class="math inline">\(x\)</span> and <span class="math inline">\(\varepsilon\)</span> are independent.</p>
 </details>
 <h3 data-number="8.3" id="c.-computational"><span class="header-section-number">8.3</span> C. Computational</h3>
-<p><strong>C1</strong> (★). Using the 392 Auto MPG cars with complete data, compute the correlation of mpg with weight, displacement, horsepower, acceleration and model year. Which variable has the strongest linear association with mpg? Which associations are positive, and do they make sense?</p>
+<p><strong>C.1</strong> (★). Using the 392 Auto MPG cars with complete data, compute the correlation of mpg with weight, displacement, horsepower, acceleration and model year. Which variable has the strongest linear association with mpg? Which associations are positive, and do they make sense?</p>
 <details class="esa-solution">
 <summary>
 Solution
@@ -479,7 +492,7 @@ Solution
 </table></div>
 <p>Weight has the strongest linear association. Acceleration (seconds from 0 to 60 mph) is positive: cars that take longer to accelerate tend to have smaller engines and better economy. Model year is positive: fuel economy improved over 1970–1982. (With all 398 cars, <span class="math inline">\(r\)</span>(mpg, weight) is <span class="math inline">\(-0.8317\)</span>; the small difference reflects the six cars dropped for missing horsepower — always state the sample.)</p>
 </details>
-<p><strong>C2</strong> (★★). <em>Simulating regression toward the mean.</em> Generate <span class="math inline">\(n = 10\,000\)</span> true scores <span class="math inline">\(T \sim N(100, 15^2)\)</span> and two test scores <span class="math inline">\(t_1 = T + e_1\)</span>, <span class="math inline">\(t_2 = T + e_2\)</span> with independent errors <span class="math inline">\(e_1, e_2 \sim N(0, 10^2)\)</span>, using seed 2026. Select the top 10% on <span class="math inline">\(t_1\)</span>. Compare their mean <span class="math inline">\(t_1\)</span> and mean <span class="math inline">\(t_2\)</span>, and compare the mean <span class="math inline">\(t_2\)</span> with the prediction <span class="math inline">\(\bar t + r(\bar t_{1,\text{sel}} - \bar t)\)</span>. What is the theoretical correlation of <span class="math inline">\(t_1\)</span> and <span class="math inline">\(t_2\)</span>?</p>
+<p><strong>C.2</strong> (★★). <em>Simulating regression toward the mean.</em> Generate <span class="math inline">\(n = 10\,000\)</span> true scores <span class="math inline">\(T \sim N(100, 15^2)\)</span> and two test scores <span class="math inline">\(t_1 = T + e_1\)</span>, <span class="math inline">\(t_2 = T + e_2\)</span> with independent errors <span class="math inline">\(e_1, e_2 \sim N(0, 10^2)\)</span>, using seed 2026. Select the top 10% on <span class="math inline">\(t_1\)</span>. Compare their mean <span class="math inline">\(t_1\)</span> and mean <span class="math inline">\(t_2\)</span>, and compare the mean <span class="math inline">\(t_2\)</span> with the prediction <span class="math inline">\(\bar t + r(\bar t_{1,\text{sel}} - \bar t)\)</span>. What is the theoretical correlation of <span class="math inline">\(t_1\)</span> and <span class="math inline">\(t_2\)</span>?</p>
 <details class="esa-solution">
 <summary>
 Hint
@@ -502,7 +515,7 @@ print(round(r, 4), round(t1[sel].mean(), 2), round(t2[sel].mean(), 2))
 print(round(t1.mean() + r * (t1[sel].mean() - t1.mean()), 2))</code></pre>
 <p>Theory: <span class="math inline">\(\rho = 15^2/(15^2 + 10^2) = 225/325 = 0.6923\)</span>. With this seed, <span class="math inline">\(r = 0.6946\)</span>; the selected group has mean <span class="math inline">\(t_1 = 131.51\)</span> but mean <span class="math inline">\(t_2 = 121.79\)</span>, although nothing was done to them, close to the prediction <span class="math inline">\(100.00 + 0.6946 \times 31.51 \approx 121.9\)</span>. (The two tests have equal variances here, so the standardised prediction can be written in raw units. In R, <code>set.seed(2026)</code> gives different draws and slightly different numbers.)</p>
 </details>
-<p><strong>C3</strong> (★). Compute <span class="math inline">\(r\)</span> for <span class="math inline">\(x = -5, -4, \dots, 5\)</span> and <span class="math inline">\(y = x^2\)</span>. Plot the data. What does this show about <span class="math inline">\(r\)</span>?</p>
+<p><strong>C.3</strong> (★). Compute <span class="math inline">\(r\)</span> for <span class="math inline">\(x = -5, -4, \dots, 5\)</span> and <span class="math inline">\(y = x^2\)</span>. Plot the data. What does this show about <span class="math inline">\(r\)</span>?</p>
 <details class="esa-solution">
 <summary>
 Solution

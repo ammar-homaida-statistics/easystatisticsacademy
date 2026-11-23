@@ -45,6 +45,19 @@ learning_resource: true
 <p><strong>How is a car’s weight related to its fuel economy, and how well can fuel economy be predicted from weight alone?</strong></p>
 </blockquote>
 <p>The question has two parts. The first is <strong>descriptive</strong> (the size and direction of the association). The second is <strong>predictive</strong> (how precisely mpg can be predicted for a new car). Neither part is causal: the data are observational (Lesson 1.1), so the analysis will not claim what happens if weight is <em>changed</em>.</p>
+<div class="concept-box esa-callout-note">
+<p class="esa-box-title">
+<strong>Assumptions used in this lesson</strong>
+</p>
+<p>The simple linear regression model is <span class="math inline">\(y_i = \beta_0 + \beta_1 x_i + \varepsilon_i\)</span>, <span class="math inline">\(i = 1, \dots, n\)</span>, with the <span class="math inline">\(x_i\)</span> treated as fixed and</p>
+<ul>
+<li><strong>A1 (Correct mean function).</strong> <span class="math inline">\(E(\varepsilon_i) = 0\)</span> for all <span class="math inline">\(i\)</span>, i.e. <span class="math inline">\(E(y_i) = \beta_0 + \beta_1 x_i\)</span>.</li>
+<li><strong>A2 (Constant variance).</strong> <span class="math inline">\(\operatorname{Var}(\varepsilon_i) = \sigma^2\)</span> for all <span class="math inline">\(i\)</span>.</li>
+<li><strong>A3 (Uncorrelated errors).</strong> <span class="math inline">\(\operatorname{Cov}(\varepsilon_i, \varepsilon_j) = 0\)</span> for <span class="math inline">\(i \ne j\)</span>.</li>
+<li><strong>A4 (Normality).</strong> <span class="math inline">\(\varepsilon_i \sim N(0, \sigma^2)\)</span>; together with A1–A3 this makes the errors independent.</li>
+</ul>
+<p>Each result below states which of A1–A4 it uses. Why these assumptions, and what each one is needed for: <a href="/courses/regression/module-1/what-is-regression/#assumptions-and-what-they-are-used-for">Lesson 1.1, Assumptions</a>.</p>
+</div>
 <h2 class="esa-lesson-anchor" data-number="3" id="step-1-know-the-data"><span class="header-section-number">3</span> Step 1 — Know the data</h2>
 <div class="table-wrap"><table>
 <colgroup>
@@ -402,7 +415,7 @@ Left: data and least-squares line. Right: residuals against weight, with the mea
 </tr>
 </tbody>
 </table></div>
-<p>A preview of the payoff: modelling <span class="math inline">\(\log(\text{mpg})\)</span> instead of mpg already makes the spread more even across weights (prediction-interval coverage 0.933, 0.931 and 0.970 by weight third instead of 0.896, 0.939 and 0.992; Lesson 1.8, Exercise C3).</p>
+<p>A preview of the payoff: modelling <span class="math inline">\(\log(\text{mpg})\)</span> instead of mpg already makes the spread more even across weights (prediction-interval coverage 0.933, 0.931 and 0.970 by weight third instead of 0.896, 0.939 and 0.992; Lesson 1.8, Exercise C.3).</p>
 <h2 class="esa-lesson-anchor" data-number="12" id="common-misconceptions"><span class="header-section-number">12</span> Common misconceptions</h2>
 <div class="example-box esa-callout-caution">
 <p class="esa-box-title">
@@ -424,14 +437,14 @@ Left: data and least-squares line. Right: residuals against weight, with the mea
 </ul>
 <h2 class="esa-lesson-anchor" data-number="14" id="exercises"><span class="header-section-number">14</span> Exercises</h2>
 <h3 data-number="14.1" id="a.-conceptual"><span class="header-section-number">14.1</span> A. Conceptual</h3>
-<p><strong>A1</strong> (★). Rewrite this sentence from a student report so that it is correct: “Our model proves that adding 1000 lb to a car reduces its fuel economy by exactly 7.68 mpg (p &lt; 0.001).”</p>
+<p><strong>A.1</strong> (★). Rewrite this sentence from a student report so that it is correct: “Our model proves that adding 1000 lb to a car reduces its fuel economy by exactly 7.68 mpg (p &lt; 0.001).”</p>
 <details class="esa-solution">
 <summary>
 Solution
 </summary>
 <p>“Among these car models, cars 1000 lb heavier had, on average, a fuel economy about 7.7 mpg lower (95% CI 7.2 to 8.2 mpg lower).” Removed: “proves”, “adding … reduces” (causal, about one car), “exactly” (ignores uncertainty); the <span class="math inline">\(p\)</span>-value adds little once the interval is given.</p>
 </details>
-<p><strong>A2</strong> (★★). The five largest residuals all belong to 1980–1982 models, three of them diesels. Explain why this suggests an omitted variable, and why simply deleting these five cars would be a poor response.</p>
+<p><strong>A.2</strong> (★★). The five largest residuals all belong to 1980–1982 models, three of them diesels. Explain why this suggests an omitted variable, and why simply deleting these five cars would be a poor response.</p>
 <details class="esa-solution">
 <summary>
 Solution
@@ -439,7 +452,7 @@ Solution
 <p>The residuals are not random: they share characteristics (fuel type, model year) that are related to mpg and not in the model, so part of their effect is left in the errors (and, if those characteristics are correlated with weight, it biases the slope; Module 2). Deleting them hides the evidence instead of modelling it, makes the sample less representative, and the results would apply only to the remaining cars. Module 3 discusses when, if ever, removing observations is justified.</p>
 </details>
 <h3 data-number="14.2" id="b.-mathematical"><span class="header-section-number">14.2</span> B. Mathematical</h3>
-<p><strong>B1</strong> (★★). Show that the residuals always average zero overall (Lesson 1.3). Why, then, can the mean residual within a range of weights be far from zero, and what does a systematic pattern of such means indicate?</p>
+<p><strong>B.1</strong> (★★). Show that the residuals always average zero overall (Lesson 1.3). Why, then, can the mean residual within a range of weights be far from zero, and what does a systematic pattern of such means indicate?</p>
 <details class="esa-solution">
 <summary>
 Solution
@@ -447,14 +460,14 @@ Solution
 <p><span class="math inline">\(\sum e_i = 0\)</span> is the first normal equation, so the overall mean is zero by construction, and <span class="math inline">\(\sum x_i e_i = 0\)</span> forces the residuals to have no linear trend in <span class="math inline">\(x\)</span>. Nothing forces the mean to be zero within subsets of <span class="math inline">\(x\)</span>. If the true mean function is curved, the line fits the average linear trend, leaving positive residuals where the curve lies above the line and negative where below: a systematic (here U-shaped) pattern in the subset means indicates a misspecified mean function (A1 fails).</p>
 </details>
 <h3 data-number="14.3" id="c.-computational-project"><span class="header-section-number">14.3</span> C. Computational — project</h3>
-<p><strong>C1</strong> (★★★). <em>Your own case study.</em> Repeat Steps 1–9 for <strong>mpg on horsepower</strong> (392 cars with horsepower recorded). Report the estimates with 95% CIs, <span class="math inline">\(R^2\)</span> and <span class="math inline">\(\hat\sigma\)</span>; produce the residual plot with sixth-means; and write a report of at most 200 words with limitations.</p>
+<p><strong>C.1</strong> (★★★). <em>Your own case study.</em> Repeat Steps 1–9 for <strong>mpg on horsepower</strong> (392 cars with horsepower recorded). Report the estimates with 95% CIs, <span class="math inline">\(R^2\)</span> and <span class="math inline">\(\hat\sigma\)</span>; produce the residual plot with sixth-means; and write a report of at most 200 words with limitations.</p>
 <details class="esa-solution">
 <summary>
 Solution (key results)
 </summary>
 <p><span class="math inline">\(n = 392\)</span>; <span class="math inline">\(\hat\beta_0 = 39.936\)</span>, <span class="math inline">\(\hat\beta_1 = -0.1578\)</span> mpg per hp (se 0.00645; 95% CI −0.1705 to −0.1452); <span class="math inline">\(R^2 = 0.606\)</span>; <span class="math inline">\(\hat\sigma = 4.906\)</span> mpg. Mean residuals by horsepower sixth: +3.69, +0.47, −1.29, −3.01, −1.14, +2.51 — a stronger U-shape than for weight, so curvature is even more pronounced. A good report states that each additional 10 hp is associated with about 1.6 mpg lower mean fuel economy, that the relationship is clearly curved (a straight line misfits at both ends), that six cars were excluded for missing horsepower, and that the data are observational.</p>
 </details>
-<p><strong>C2</strong> (★★). Fit mpg on displacement (cubic inches). Compare <span class="math inline">\(R^2\)</span> and <span class="math inline">\(\hat\sigma\)</span> with the weight and horsepower models. Can you conclude which predictor is “the most important cause” of fuel economy? Why or why not?</p>
+<p><strong>C.2</strong> (★★). Fit mpg on displacement (cubic inches). Compare <span class="math inline">\(R^2\)</span> and <span class="math inline">\(\hat\sigma\)</span> with the weight and horsepower models. Can you conclude which predictor is “the most important cause” of fuel economy? Why or why not?</p>
 <details class="esa-solution">
 <summary>
 Solution

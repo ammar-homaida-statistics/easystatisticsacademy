@@ -79,6 +79,19 @@ learning_resource: true
 </tbody>
 </table></div>
 <p>Throughout, the <span class="math inline">\(x_i\)</span> are treated as fixed constants (or the analysis is conditional on them), and <span class="math inline">\(S_{xx} &gt; 0\)</span>. Assumptions A1–A4 are those of Lesson 1.1.</p>
+<div class="concept-box esa-callout-note">
+<p class="esa-box-title">
+<strong>Assumptions used in this lesson</strong>
+</p>
+<p>The simple linear regression model is <span class="math inline">\(y_i = \beta_0 + \beta_1 x_i + \varepsilon_i\)</span>, <span class="math inline">\(i = 1, \dots, n\)</span>, with the <span class="math inline">\(x_i\)</span> treated as fixed and</p>
+<ul>
+<li><strong>A1 (Correct mean function).</strong> <span class="math inline">\(E(\varepsilon_i) = 0\)</span> for all <span class="math inline">\(i\)</span>, i.e. <span class="math inline">\(E(y_i) = \beta_0 + \beta_1 x_i\)</span>.</li>
+<li><strong>A2 (Constant variance).</strong> <span class="math inline">\(\operatorname{Var}(\varepsilon_i) = \sigma^2\)</span> for all <span class="math inline">\(i\)</span>.</li>
+<li><strong>A3 (Uncorrelated errors).</strong> <span class="math inline">\(\operatorname{Cov}(\varepsilon_i, \varepsilon_j) = 0\)</span> for <span class="math inline">\(i \ne j\)</span>.</li>
+<li><strong>A4 (Normality).</strong> <span class="math inline">\(\varepsilon_i \sim N(0, \sigma^2)\)</span>; together with A1–A3 this makes the errors independent.</li>
+</ul>
+<p>Each result below states which of A1–A4 it uses. Why these assumptions, and what each one is needed for: <a href="/courses/regression/module-1/what-is-regression/#assumptions-and-what-they-are-used-for">Lesson 1.1, Assumptions</a>.</p>
+</div>
 <h2 class="esa-lesson-anchor" data-number="4" id="theory"><span class="header-section-number">4</span> Theory</h2>
 <h3 data-number="4.1" id="the-estimators-as-linear-combinations-of-the-responses"><span class="header-section-number">4.1</span> The estimators as linear combinations of the responses</h3>
 <p>From Lesson 1.3, <span class="math display">\[
@@ -135,7 +148,7 @@ Derivation
 <ul>
 <li><strong>Design.</strong> <span class="math inline">\(\operatorname{Var}(\hat\beta_1)\)</span> decreases as <span class="math inline">\(S_{xx}\)</span> increases: spreading the <span class="math inline">\(x\)</span> values out, or collecting more data, estimates the slope more precisely.</li>
 <li><strong>Centring.</strong> If <span class="math inline">\(\bar x = 0\)</span> the intercept and slope estimators are uncorrelated. When <span class="math inline">\(\bar x\)</span> is large relative to the spread of <span class="math inline">\(x\)</span>, they are strongly correlated (negatively if <span class="math inline">\(\bar x &gt; 0\)</span>).</li>
-<li><strong>Assumptions.</strong> These formulas need A2 and A3. If the error variance is not constant, <span class="math inline">\(\hat\beta_1\)</span> is still unbiased, but <span class="math inline">\(\sigma^2/S_{xx}\)</span> is no longer its variance (Exercise C3).</li>
+<li><strong>Assumptions.</strong> These formulas need A2 and A3. If the error variance is not constant, <span class="math inline">\(\hat\beta_1\)</span> is still unbiased, but <span class="math inline">\(\sigma^2/S_{xx}\)</span> is no longer its variance (Exercise C.3).</li>
 </ul>
 <h3 data-number="4.4" id="the-gaussmarkov-theorem"><span class="header-section-number">4.4</span> The Gauss–Markov theorem</h3>
 <p>Call <span class="math inline">\(\tilde\beta_1 = \sum c_i y_i\)</span> a <strong>linear unbiased estimator</strong> of <span class="math inline">\(\beta_1\)</span> if <span class="math inline">\(E(\tilde\beta_1) = \beta_1\)</span> for all values of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>.</p>
@@ -217,7 +230,7 @@ Derivation
 <p class="esa-box-title">
 <strong>A caution that matters for this data set</strong>
 </p>
-<p>These standard errors use Theorem 1.4.2, which assumes constant error variance (A2). Lesson 1.1 showed that the spread of mpg shrinks with weight, so these numbers should be treated as approximate. Exercise C3 shows by simulation how large the discrepancy can be; Module 3 gives standard errors that remain valid when A2 fails.</p>
+<p>These standard errors use Theorem 1.4.2, which assumes constant error variance (A2). Lesson 1.1 showed that the spread of mpg shrinks with weight, so these numbers should be treated as approximate. Exercise C.3 shows by simulation how large the discrepancy can be; Module 3 gives standard errors that remain valid when A2 fails.</p>
 </div>
 <div class="esa-code-tabs">
 <details class="esa-code">
@@ -383,7 +396,7 @@ Sampling distribution of the OLS slope: 10,000 simulated data sets with the 398 
 </ul>
 <h2 class="esa-lesson-anchor" data-number="8" id="exercises"><span class="header-section-number">8</span> Exercises</h2>
 <h3 data-number="8.1" id="a.-conceptual"><span class="header-section-number">8.1</span> A. Conceptual</h3>
-<p><strong>A1</strong> (★). Which of the assumptions A1–A4 are needed for each of: (a) <span class="math inline">\(E(\hat\beta_1) = \beta_1\)</span>; (b) <span class="math inline">\(\operatorname{Var}(\hat\beta_1) = \sigma^2/S_{xx}\)</span>; (c) <span class="math inline">\(\hat\beta_1\)</span> is BLUE; (d) <span class="math inline">\(\hat\beta_1\)</span> is exactly normal?</p>
+<p><strong>A.1</strong> (★). Which of the assumptions A1–A4 are needed for each of: (a) <span class="math inline">\(E(\hat\beta_1) = \beta_1\)</span>; (b) <span class="math inline">\(\operatorname{Var}(\hat\beta_1) = \sigma^2/S_{xx}\)</span>; (c) <span class="math inline">\(\hat\beta_1\)</span> is BLUE; (d) <span class="math inline">\(\hat\beta_1\)</span> is exactly normal?</p>
 <details class="esa-solution">
 <summary>
 Solution
@@ -392,7 +405,7 @@ Solution
 <li>A1. (b) A1–A3 (A1 only to make <span class="math inline">\(\beta_1\)</span> the target; the variance formula itself uses A2–A3). (c) A1–A3. (d) A4 together with the linear-combination representation (A1–A4); without normality, <span class="math inline">\(\hat\beta_1\)</span> is only approximately normal in large samples under regularity conditions.</li>
 </ol>
 </details>
-<p><strong>A2</strong> (★). An engineer can choose 20 settings of a dial <span class="math inline">\(x\)</span> between 0 and 10 to estimate the slope of a straight-line relationship. Assuming the model is known to be linear on <span class="math inline">\([0, 10]\)</span>, which design minimises <span class="math inline">\(\operatorname{Var}(\hat\beta_1)\)</span>? Why might a practitioner still not use it?</p>
+<p><strong>A.2</strong> (★). An engineer can choose 20 settings of a dial <span class="math inline">\(x\)</span> between 0 and 10 to estimate the slope of a straight-line relationship. Assuming the model is known to be linear on <span class="math inline">\([0, 10]\)</span>, which design minimises <span class="math inline">\(\operatorname{Var}(\hat\beta_1)\)</span>? Why might a practitioner still not use it?</p>
 <details class="esa-solution">
 <summary>
 Solution
@@ -400,7 +413,7 @@ Solution
 <p><span class="math inline">\(\operatorname{Var}(\hat\beta_1) = \sigma^2/S_{xx}\)</span> is minimised by maximising <span class="math inline">\(S_{xx}\)</span>: put 10 observations at <span class="math inline">\(x = 0\)</span> and 10 at <span class="math inline">\(x = 10\)</span>, giving <span class="math inline">\(S_{xx} = 20 \times 25 = 500\)</span>. However, with only two distinct <span class="math inline">\(x\)</span> values it is impossible to check whether the relationship is really linear; designs usually include some intermediate points to detect curvature.</p>
 </details>
 <h3 data-number="8.2" id="b.-mathematical"><span class="header-section-number">8.2</span> B. Mathematical</h3>
-<p><strong>B1</strong> (★★). Prove that <span class="math inline">\(\hat\beta_0\)</span> is BLUE for <span class="math inline">\(\beta_0\)</span>, adapting the proof of Theorem 1.4.3.</p>
+<p><strong>B.1</strong> (★★). Prove that <span class="math inline">\(\hat\beta_0\)</span> is BLUE for <span class="math inline">\(\beta_0\)</span>, adapting the proof of Theorem 1.4.3.</p>
 <details class="esa-solution">
 <summary>
 Hint
@@ -413,14 +426,14 @@ Solution
 </summary>
 <p><span class="math inline">\(\hat\beta_0 = \sum a_i y_i\)</span> with <span class="math inline">\(a_i = 1/n - \bar x k_i\)</span>; by (1.4.1), <span class="math inline">\(\sum a_i = 1\)</span> and <span class="math inline">\(\sum a_i x_i = \bar x - \bar x = 0\)</span>. For any linear unbiased <span class="math inline">\(\sum c_i y_i\)</span>, <span class="math inline">\(d_i = c_i - a_i\)</span> satisfies <span class="math inline">\(\sum d_i = 0\)</span> and <span class="math inline">\(\sum d_i x_i = 0\)</span>. Then <span class="math inline">\(\sum a_i d_i = \frac{1}{n}\sum d_i - \bar x \sum k_i d_i = 0 - \bar x \cdot 0 = 0\)</span> (as in the proof of Theorem 1.4.3, <span class="math inline">\(\sum k_i d_i = 0\)</span>). Hence <span class="math inline">\(\sigma^2\sum c_i^2 = \sigma^2\sum a_i^2 + \sigma^2\sum d_i^2 \ge \operatorname{Var}(\hat\beta_0)\)</span>, with equality iff <span class="math inline">\(d = 0\)</span>.</p>
 </details>
-<p><strong>B2</strong> (★★). Show that <span class="math inline">\(\operatorname{Var}(\hat y_0) = \sigma^2\bigl(\frac{1}{n} + \frac{(x_0 - \bar x)^2}{S_{xx}}\bigr)\)</span> for the fitted value <span class="math inline">\(\hat y_0 = \hat\beta_0 + \hat\beta_1 x_0\)</span> at a fixed <span class="math inline">\(x_0\)</span>. Where is it smallest? (This result is used in Lesson 1.8.)</p>
+<p><strong>B.2</strong> (★★). Show that <span class="math inline">\(\operatorname{Var}(\hat y_0) = \sigma^2\bigl(\frac{1}{n} + \frac{(x_0 - \bar x)^2}{S_{xx}}\bigr)\)</span> for the fitted value <span class="math inline">\(\hat y_0 = \hat\beta_0 + \hat\beta_1 x_0\)</span> at a fixed <span class="math inline">\(x_0\)</span>. Where is it smallest? (This result is used in Lesson 1.8.)</p>
 <details class="esa-solution">
 <summary>
 Solution
 </summary>
 <p><span class="math inline">\(\hat y_0 = \bar y + \hat\beta_1(x_0 - \bar x)\)</span>. Since <span class="math inline">\(\operatorname{Cov}(\bar y, \hat\beta_1) = 0\)</span>, <span class="math inline">\(\operatorname{Var}(\hat y_0) = \sigma^2/n + (x_0 - \bar x)^2\sigma^2/S_{xx}\)</span>. It is smallest, <span class="math inline">\(\sigma^2/n\)</span>, at <span class="math inline">\(x_0 = \bar x\)</span>, and grows quadratically with the distance from <span class="math inline">\(\bar x\)</span>.</p>
 </details>
-<p><strong>B3</strong> (★★). Show that the “endpoint” estimator <span class="math inline">\(\tilde\beta_1 = (y_{(n)} - y_{(1)})/(x_{(n)} - x_{(1)})\)</span>, where <span class="math inline">\((1)\)</span> and <span class="math inline">\((n)\)</span> index the observations with the smallest and largest <span class="math inline">\(x\)</span> (assumed unique), is linear and unbiased, and find its variance under A2–A3. For <span class="math inline">\(x = 1, 2, 3, 4, 5\)</span>, compare it with <span class="math inline">\(\operatorname{Var}(\hat\beta_1)\)</span>.</p>
+<p><strong>B.3</strong> (★★). Show that the “endpoint” estimator <span class="math inline">\(\tilde\beta_1 = (y_{(n)} - y_{(1)})/(x_{(n)} - x_{(1)})\)</span>, where <span class="math inline">\((1)\)</span> and <span class="math inline">\((n)\)</span> index the observations with the smallest and largest <span class="math inline">\(x\)</span> (assumed unique), is linear and unbiased, and find its variance under A2–A3. For <span class="math inline">\(x = 1, 2, 3, 4, 5\)</span>, compare it with <span class="math inline">\(\operatorname{Var}(\hat\beta_1)\)</span>.</p>
 <details class="esa-solution">
 <summary>
 Solution
@@ -428,14 +441,14 @@ Solution
 <p><span class="math inline">\(\tilde\beta_1 = \sum c_i y_i\)</span> with <span class="math inline">\(c = 1/(x_{(n)} - x_{(1)})\)</span> for the largest-<span class="math inline">\(x\)</span> observation, <span class="math inline">\(-c\)</span> for the smallest, and 0 otherwise: linear. <span class="math inline">\(E(\tilde\beta_1) = [\beta_1 (x_{(n)} - x_{(1)})]/(x_{(n)} - x_{(1)}) = \beta_1\)</span>: unbiased. <span class="math inline">\(\operatorname{Var}(\tilde\beta_1) = 2\sigma^2/(x_{(n)} - x_{(1)})^2\)</span>. For <span class="math inline">\(x = 1,\dots,5\)</span>: <span class="math inline">\(\operatorname{Var}(\tilde\beta_1) = 2\sigma^2/16 = 0.125\,\sigma^2\)</span> versus <span class="math inline">\(\operatorname{Var}(\hat\beta_1) = \sigma^2/S_{xx} = \sigma^2/10 = 0.1\,\sigma^2\)</span>, as Gauss–Markov requires. A simulation with <span class="math inline">\(\sigma = 2\)</span> and 10,000 replications (seed 2026, Python) gave variances 0.511 and 0.407, against the theoretical 0.500 and 0.400.</p>
 </details>
 <h3 data-number="8.3" id="c.-computational"><span class="header-section-number">8.3</span> C. Computational</h3>
-<p><strong>C1</strong> (★). Reproduce the standard errors of the worked example and check them against <code>summary(lm(...))</code> in R or by your own matrix computation in Python.</p>
+<p><strong>C.1</strong> (★). Reproduce the standard errors of the worked example and check them against <code>summary(lm(...))</code> in R or by your own matrix computation in Python.</p>
 <details class="esa-solution">
 <summary>
 Solution
 </summary>
 <p><span class="math inline">\(\operatorname{se}(\hat\beta_0) = 0.7952\)</span> and <span class="math inline">\(\operatorname{se}(\hat\beta_1) = 0.2575\)</span> (per 1000 lb). In R, <code>summary(lm(mpg ~ I(weight/1000), data = auto))</code> reports the same values in the “Std. Error” column.</p>
 </details>
-<p><strong>C2</strong> (★★). <em>Bias of the ML variance estimator.</em> With <span class="math inline">\(x = 1, \dots, 5\)</span>, <span class="math inline">\(y_i = 1 + 2x_i + \varepsilon_i\)</span> and <span class="math inline">\(\varepsilon_i \sim N(0, 2^2)\)</span>, simulate 10,000 data sets (seed 2026). Compare the average of <span class="math inline">\(\mathrm{SSE}/(n-2)\)</span> and of <span class="math inline">\(\mathrm{SSE}/n\)</span> with <span class="math inline">\(\sigma^2 = 4\)</span>.</p>
+<p><strong>C.2</strong> (★★). <em>Bias of the ML variance estimator.</em> With <span class="math inline">\(x = 1, \dots, 5\)</span>, <span class="math inline">\(y_i = 1 + 2x_i + \varepsilon_i\)</span> and <span class="math inline">\(\varepsilon_i \sim N(0, 2^2)\)</span>, simulate 10,000 data sets (seed 2026). Compare the average of <span class="math inline">\(\mathrm{SSE}/(n-2)\)</span> and of <span class="math inline">\(\mathrm{SSE}/n\)</span> with <span class="math inline">\(\sigma^2 = 4\)</span>.</p>
 <details class="esa-solution">
 <summary>
 Solution (Python)
@@ -450,7 +463,7 @@ SSE = ((Y - b0[:, None] - b1[:, None] * x)**2).sum(axis=1)
 print(round((SSE / (n - 2)).mean(), 4), round((SSE / n).mean(), 4))</code></pre>
 <p>Output: 3.9730 and 2.3838. Theory: <span class="math inline">\(E[\mathrm{SSE}/(n-2)] = 4\)</span> and <span class="math inline">\(E[\mathrm{SSE}/n] = (3/5)\times 4 = 2.4\)</span>. Dividing by <span class="math inline">\(n\)</span> underestimates <span class="math inline">\(\sigma^2\)</span> by 40% when <span class="math inline">\(n = 5\)</span>.</p>
 </details>
-<p><strong>C3</strong> (★★★). <em>When A2 fails.</em> Keep the 398 Auto MPG weights <span class="math inline">\(x\)</span> (in 1000 lb). Generate <span class="math inline">\(y_i = 46.3 - 7.7x_i + \varepsilon_i\)</span> with <span class="math inline">\(\varepsilon_i \sim N(0, \sigma_i^2)\)</span> and <span class="math inline">\(\sigma_i = \max(9.5 - 1.5x_i,\ 1)\)</span>, so that the spread decreases with weight as in the real data. Over 10,000 replications (seed 2026), compare (i) the mean of <span class="math inline">\(\hat\beta_1\)</span> with <span class="math inline">\(-7.7\)</span>, (ii) the standard deviation of <span class="math inline">\(\hat\beta_1\)</span> with its exact value <span class="math inline">\(\sqrt{\sum k_i^2\sigma_i^2}\)</span>, and (iii) the average usual standard error <span class="math inline">\(\hat\sigma/\sqrt{S_{xx}}\)</span>.</p>
+<p><strong>C.3</strong> (★★★). <em>When A2 fails.</em> Keep the 398 Auto MPG weights <span class="math inline">\(x\)</span> (in 1000 lb). Generate <span class="math inline">\(y_i = 46.3 - 7.7x_i + \varepsilon_i\)</span> with <span class="math inline">\(\varepsilon_i \sim N(0, \sigma_i^2)\)</span> and <span class="math inline">\(\sigma_i = \max(9.5 - 1.5x_i,\ 1)\)</span>, so that the spread decreases with weight as in the real data. Over 10,000 replications (seed 2026), compare (i) the mean of <span class="math inline">\(\hat\beta_1\)</span> with <span class="math inline">\(-7.7\)</span>, (ii) the standard deviation of <span class="math inline">\(\hat\beta_1\)</span> with its exact value <span class="math inline">\(\sqrt{\sum k_i^2\sigma_i^2}\)</span>, and (iii) the average usual standard error <span class="math inline">\(\hat\sigma/\sqrt{S_{xx}}\)</span>.</p>
 <details class="esa-solution">
 <summary>
 Solution (Python)
