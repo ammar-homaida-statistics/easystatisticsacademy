@@ -1,0 +1,541 @@
+---
+layout: default
+title: "The Matrix Formulation — Regression Course, Lesson 2.2"
+description: "University-level lesson on the matrix form of the linear model: design matrix, assumptions in matrix form, rank, trace, idempotent matrices, random vectors, quadratic forms and the multivariate normal distribution, with R and Python."
+permalink: /courses/regression/module-2/matrix-formulation/
+sidebar: false
+math: true
+learning_resource: true
+---
+
+<section class="hero hero-section">
+  <div class="hero-card">
+    <div class="badge-row">
+      <span class="badge">Course</span>
+      <span class="badge">Regression Analysis</span>
+      <span class="badge">Module 2 · Multiple Regression</span>
+      <span class="badge">Lesson 2.2</span>
+    </div>
+    <h1>Lesson 2.2 — The Matrix Formulation</h1>
+    <p class="lead">The model y = Xβ + ε and the matrix tools that make multiple regression manageable for any number of predictors.</p>
+    <p class="muted-mini">Level: Intermediate · Study time: 50 min + exercises · Prerequisites: Lesson 2.1; basic linear algebra · Data: Auto MPG (UCI, CC BY 4.0)</p>
+    <div class="hero-actions">
+      <a class="btn btn-outline" href="/courses/regression/module-2/">Module 2 lessons</a>
+      <a class="btn btn-outline" href="/courses/regression/code/lesson-2-2.py">Python script</a>
+      <a class="btn btn-outline" href="/courses/regression/code/lesson-2-2.R">R script</a>
+    </div>
+  </div>
+</section>
+
+<nav class="esa-lesson-toc" aria-label="On this page"><details><summary>On this page</summary><ol><li><a href="#learning-objectives">Learning objectives</a></li><li><a href="#motivation">Motivation</a></li><li><a href="#notation-for-this-lesson">Notation for this lesson</a></li><li><a href="#theory">Theory</a></li><li><a href="#worked-example">Worked example</a></li><li><a href="#common-misconceptions">Common misconceptions</a></li><li><a href="#key-takeaways">Key takeaways</a></li><li><a href="#exercises">Exercises</a></li><li><a href="#references">References</a></li></ol></details></nav>
+
+<section>
+  <div class="content-narrow esa-course-lesson">
+{% raw %}
+<h2 class="esa-lesson-anchor" data-number="1" id="learning-objectives"><span class="header-section-number">1</span> Learning objectives</h2>
+<p>By the end of this lesson you will be able to:</p>
+<ol type="1">
+<li>write the multiple regression model as <span class="math inline">\(\mathbf{y} = \mathbf{X}\boldsymbol\beta + \boldsymbol\varepsilon\)</span> and build the design matrix for a given model;</li>
+<li>state the model assumptions in matrix form, including the full-rank condition;</li>
+<li>use the matrix tools needed in Module 2: rank, trace, symmetric, idempotent and positive definite matrices, and derivatives of linear and quadratic forms;</li>
+<li>compute means and covariance matrices of linear transformations of random vectors, and the expectation of a quadratic form;</li>
+<li>state the definition and the linear-transformation property of the multivariate normal distribution.</li>
+</ol>
+<h2 class="esa-lesson-anchor" data-number="2" id="motivation"><span class="header-section-number">2</span> Motivation</h2>
+<p>With <span class="math inline">\(p\)</span> predictors, the scalar formulas of Module 1 become unmanageable: Exercise B.2 of Lesson 2.1 needed a page of algebra for <strong>two</strong> predictors. In matrix notation the model, the estimator and its properties take the same form for any <span class="math inline">\(p\)</span>, and every result of Module 1 reappears as a special case. This lesson collects the notation and the tools; Lesson 2.3 uses them to derive the least-squares estimator, and Lesson 2.4 to derive its distribution.</p>
+<h2 class="esa-lesson-anchor" data-number="3" id="notation-for-this-lesson"><span class="header-section-number">3</span> Notation for this lesson</h2>
+<div class="table-wrap"><table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\mathbf{y}\)</span> (<span class="math inline">\(n\times1\)</span>)</td>
+<td>response vector</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\mathbf{X}\)</span> (<span class="math inline">\(n\times(p+1)\)</span>)</td>
+<td>design matrix; first column <span class="math inline">\(\mathbf{1}\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\boldsymbol\beta\)</span> (<span class="math inline">\((p+1)\times1\)</span>), <span class="math inline">\(\boldsymbol\varepsilon\)</span> (<span class="math inline">\(n\times1\)</span>)</td>
+<td>coefficient vector, error vector</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\mathbf{x}_i^\top\)</span></td>
+<td><span class="math inline">\(i\)</span>-th row of <span class="math inline">\(\mathbf{X}\)</span>: <span class="math inline">\((1, x_{i1}, \dots, x_{ip})\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\mathbf{I}_n\)</span>, <span class="math inline">\(\mathbf{1}_n\)</span>, <span class="math inline">\(\mathbf{J}_n = \mathbf{1}_n\mathbf{1}_n^\top\)</span></td>
+<td>identity, vector of ones, matrix of ones</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\operatorname{tr}(\mathbf{A})\)</span>, <span class="math inline">\(\operatorname{rank}(\mathbf{A})\)</span></td>
+<td>trace, rank</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(E(\mathbf{y}) = \boldsymbol\mu\)</span>, <span class="math inline">\(\operatorname{Cov}(\mathbf{y}) = \boldsymbol\Sigma\)</span></td>
+<td>mean vector, covariance matrix</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(N_n(\boldsymbol\mu, \boldsymbol\Sigma)\)</span></td>
+<td><span class="math inline">\(n\)</span>-variate normal distribution</td>
+</tr>
+</tbody>
+</table></div>
+<p>Bold lower-case letters are column vectors, bold capitals are matrices, and <span class="math inline">\(^\top\)</span> denotes the transpose (course notation standard).</p>
+<h2 class="esa-lesson-anchor" data-number="4" id="theory"><span class="header-section-number">4</span> Theory</h2>
+<h3 data-number="4.1" id="the-model-in-matrix-form"><span class="header-section-number">4.1</span> The model in matrix form</h3>
+<p>Stacking the <span class="math inline">\(n\)</span> equations <span class="math inline">\(y_i = \beta_0 + \beta_1x_{i1} + \dots + \beta_px_{ip} + \varepsilon_i\)</span> gives <span class="math display">\[
+\underbrace{\begin{pmatrix} y_1\\ y_2\\ \vdots\\ y_n \end{pmatrix}}_{\mathbf{y}}
+=
+\underbrace{\begin{pmatrix}
+1 &amp; x_{11} &amp; \cdots &amp; x_{1p}\\
+1 &amp; x_{21} &amp; \cdots &amp; x_{2p}\\
+\vdots &amp; \vdots &amp; &amp; \vdots\\
+1 &amp; x_{n1} &amp; \cdots &amp; x_{np}
+\end{pmatrix}}_{\mathbf{X}}
+\underbrace{\begin{pmatrix} \beta_0\\ \beta_1\\ \vdots\\ \beta_p \end{pmatrix}}_{\boldsymbol\beta}
++
+\underbrace{\begin{pmatrix} \varepsilon_1\\ \varepsilon_2\\ \vdots\\ \varepsilon_n \end{pmatrix}}_{\boldsymbol\varepsilon},
+\qquad
+\mathbf{y} = \mathbf{X}\boldsymbol\beta + \boldsymbol\varepsilon .
+\]</span> Each column of <span class="math inline">\(\mathbf{X}\)</span> is one regressor (the constant, then <span class="math inline">\(x_1,\dots,x_p\)</span>); each row is one unit. Simple regression is the case <span class="math inline">\(p = 1\)</span>, with <span class="math inline">\(\mathbf{X} = [\mathbf{1}, \mathbf{x}]\)</span>.</p>
+<div class="concept-box esa-callout-important">
+<p class="esa-box-title">
+<strong>Assumptions in matrix form</strong>
+</p>
+<ul>
+<li><strong>A0 (full rank).</strong> <span class="math inline">\(\mathbf{X}\)</span> is fixed (non-random) with <span class="math inline">\(\operatorname{rank}(\mathbf{X}) = p + 1\)</span>; this requires <span class="math inline">\(n \ge p + 1\)</span>.</li>
+<li><strong>A1 (correct mean).</strong> <span class="math inline">\(E(\boldsymbol\varepsilon) = \mathbf{0}\)</span>, i.e. <span class="math inline">\(E(\mathbf{y}) = \mathbf{X}\boldsymbol\beta\)</span>.</li>
+<li><strong>A2–A3 (constant variance, uncorrelated errors).</strong> <span class="math inline">\(\operatorname{Cov}(\boldsymbol\varepsilon) = \sigma^2\mathbf{I}_n\)</span>.</li>
+<li><strong>A4 (normality, for exact inference).</strong> <span class="math inline">\(\boldsymbol\varepsilon \sim N_n(\mathbf{0}, \sigma^2\mathbf{I}_n)\)</span>, equivalently <span class="math inline">\(\mathbf{y} \sim N_n(\mathbf{X}\boldsymbol\beta, \sigma^2\mathbf{I}_n)\)</span>.</li>
+</ul>
+</div>
+<p>A2–A3 are one statement: the diagonal entries of <span class="math inline">\(\sigma^2\mathbf{I}_n\)</span> say <span class="math inline">\(\operatorname{Var}(\varepsilon_i) = \sigma^2\)</span>, the off-diagonal zeros say <span class="math inline">\(\operatorname{Cov}(\varepsilon_i, \varepsilon_k) = 0\)</span>. A0 is new: it fails when one column of <span class="math inline">\(\mathbf{X}\)</span> is a linear combination of the others (Lesson 2.1, Exercise B.2), and then the coefficients cannot be separated.</p>
+<h3 data-number="4.2" id="matrix-toolkit"><span class="header-section-number">4.2</span> Matrix toolkit</h3>
+<p>The following facts are used throughout Module 2. Proofs that are standard linear algebra are omitted; see Seber and Lee (2003, Appendix A) or Searle (1982).</p>
+<p><strong>Transpose and inverse.</strong> <span class="math inline">\((\mathbf{AB})^\top = \mathbf{B}^\top\mathbf{A}^\top\)</span>; <span class="math inline">\((\mathbf{AB})^{-1} = \mathbf{B}^{-1}\mathbf{A}^{-1}\)</span> for square invertible matrices; <span class="math inline">\((\mathbf{A}^{-1})^\top = (\mathbf{A}^\top)^{-1}\)</span>, so the inverse of a symmetric matrix is symmetric.</p>
+<p><strong>Rank.</strong> <span class="math inline">\(\operatorname{rank}(\mathbf{A})\)</span> is the number of linearly independent columns (equivalently rows). <span class="math inline">\(\operatorname{rank}(\mathbf{A}^\top\mathbf{A}) = \operatorname{rank}(\mathbf{A})\)</span>.</p>
+<p><strong>Trace.</strong> <span class="math inline">\(\operatorname{tr}(\mathbf{A}) = \sum_i a_{ii}\)</span> for square <span class="math inline">\(\mathbf{A}\)</span>. It is linear, and <strong>cyclic</strong>: <span class="math inline">\(\operatorname{tr}(\mathbf{AB}) = \operatorname{tr}(\mathbf{BA})\)</span> whenever both products are defined. It equals the sum of the eigenvalues. A scalar equals its own trace, which is the key trick in Theorem 2.2.2.</p>
+<p><strong>Symmetric matrices</strong> (<span class="math inline">\(\mathbf{A} = \mathbf{A}^\top\)</span>) have real eigenvalues and an orthogonal eigendecomposition <span class="math inline">\(\mathbf{A} = \mathbf{Q}\boldsymbol\Lambda\mathbf{Q}^\top\)</span>, <span class="math inline">\(\mathbf{Q}^\top\mathbf{Q} = \mathbf{I}\)</span>.</p>
+<p><strong>Idempotent matrices</strong> (<span class="math inline">\(\mathbf{A}^2 = \mathbf{A}\)</span>). If <span class="math inline">\(\mathbf{A}\)</span> is symmetric and idempotent, its eigenvalues are 0 or 1 and <span class="math inline">\(\operatorname{rank}(\mathbf{A}) = \operatorname{tr}(\mathbf{A})\)</span> (Exercise B.3). Example: the <strong>centring matrix</strong> <span class="math inline">\(\mathbf{C} = \mathbf{I}_n - \tfrac1n\mathbf{J}_n\)</span>, for which <span class="math inline">\(\mathbf{C}\mathbf{y} = \mathbf{y} - \bar y\mathbf{1}\)</span> and <span class="math inline">\(\mathbf{y}^\top\mathbf{C}\mathbf{y} = S_{yy}\)</span>.</p>
+<p><strong>Positive (semi)definite matrices.</strong> A symmetric <span class="math inline">\(\mathbf{A}\)</span> is positive semidefinite if <span class="math inline">\(\mathbf{a}^\top\mathbf{A}\mathbf{a} \ge 0\)</span> for all <span class="math inline">\(\mathbf{a}\)</span>, and positive definite if <span class="math inline">\(\mathbf{a}^\top\mathbf{A}\mathbf{a} &gt; 0\)</span> for all <span class="math inline">\(\mathbf{a} \ne \mathbf{0}\)</span>. A positive definite matrix has positive eigenvalues and is invertible.</p>
+<div class="concept-box esa-callout-important">
+<p class="esa-box-title">
+<strong>Lemma 2.2.1 (<span class="math inline">\(\mathbf{X}^\top\mathbf{X}\)</span>)</strong>
+</p>
+<p><span class="math inline">\(\mathbf{X}^\top\mathbf{X}\)</span> is symmetric and positive semidefinite. It is positive definite, and hence invertible, if and only if <span class="math inline">\(\operatorname{rank}(\mathbf{X}) = p + 1\)</span> (assumption A0).</p>
+</div>
+<details class="esa-derivation">
+<summary>
+Derivation
+</summary>
+<p>Symmetry: <span class="math inline">\((\mathbf{X}^\top\mathbf{X})^\top = \mathbf{X}^\top\mathbf{X}\)</span>. For any <span class="math inline">\(\mathbf{a}\)</span>, <span class="math inline">\(\mathbf{a}^\top\mathbf{X}^\top\mathbf{X}\mathbf{a} = (\mathbf{X}\mathbf{a})^\top(\mathbf{X}\mathbf{a}) = \lVert\mathbf{X}\mathbf{a}\rVert^2 \ge 0\)</span>, with equality iff <span class="math inline">\(\mathbf{X}\mathbf{a} = \mathbf{0}\)</span>. A non-zero <span class="math inline">\(\mathbf{a}\)</span> with <span class="math inline">\(\mathbf{X}\mathbf{a} = \mathbf{0}\)</span> exists iff the columns of <span class="math inline">\(\mathbf{X}\)</span> are linearly dependent, i.e. iff <span class="math inline">\(\operatorname{rank}(\mathbf{X}) &lt; p + 1\)</span>.</p>
+</details>
+<p><strong>Derivatives of linear and quadratic forms.</strong> For a vector variable <span class="math inline">\(\mathbf{b}\)</span>, define <span class="math inline">\(\partial f/\partial\mathbf{b}\)</span> as the column vector of partial derivatives. Then <span class="math display">\[
+\frac{\partial\,(\mathbf{a}^\top\mathbf{b})}{\partial\mathbf{b}} = \mathbf{a},
+\qquad
+\frac{\partial\,(\mathbf{b}^\top\mathbf{A}\mathbf{b})}{\partial\mathbf{b}} = (\mathbf{A} + \mathbf{A}^\top)\mathbf{b} = 2\mathbf{A}\mathbf{b}\ \text{ if } \mathbf{A} \text{ is symmetric.}
+\]</span> Both follow by writing the forms as sums and differentiating with respect to one coordinate <span class="math inline">\(b_k\)</span> (Exercise B.1).</p>
+<h3 data-number="4.3" id="random-vectors"><span class="header-section-number">4.3</span> Random vectors</h3>
+<p>For a random vector <span class="math inline">\(\mathbf{y} = (y_1,\dots,y_n)^\top\)</span>, the <strong>mean vector</strong> is <span class="math inline">\(\boldsymbol\mu = E(\mathbf{y})\)</span> with entries <span class="math inline">\(E(y_i)\)</span>, and the <strong>covariance matrix</strong> is <span class="math display">\[
+\boldsymbol\Sigma = \operatorname{Cov}(\mathbf{y}) = E\bigl[(\mathbf{y} - \boldsymbol\mu)(\mathbf{y} - \boldsymbol\mu)^\top\bigr],
+\qquad \Sigma_{ik} = \operatorname{Cov}(y_i, y_k).
+\]</span> <span class="math inline">\(\boldsymbol\Sigma\)</span> is symmetric and positive semidefinite, because <span class="math inline">\(\mathbf{a}^\top\boldsymbol\Sigma\mathbf{a} = \operatorname{Var}(\mathbf{a}^\top\mathbf{y}) \ge 0\)</span>.</p>
+<div class="concept-box esa-callout-important">
+<p class="esa-box-title">
+<strong>Theorem 2.2.1 (Linear transformations)</strong>
+</p>
+<p>For a fixed <span class="math inline">\(m\times n\)</span> matrix <span class="math inline">\(\mathbf{A}\)</span> and fixed <span class="math inline">\(m\times1\)</span> vector <span class="math inline">\(\mathbf{c}\)</span>, <span class="math display">\[
+E(\mathbf{A}\mathbf{y} + \mathbf{c}) = \mathbf{A}\boldsymbol\mu + \mathbf{c},
+\qquad
+\operatorname{Cov}(\mathbf{A}\mathbf{y} + \mathbf{c}) = \mathbf{A}\boldsymbol\Sigma\mathbf{A}^\top .
+\]</span> More generally, <span class="math inline">\(\operatorname{Cov}(\mathbf{A}\mathbf{y}, \mathbf{B}\mathbf{y}) = \mathbf{A}\boldsymbol\Sigma\mathbf{B}^\top\)</span>.</p>
+</div>
+<details class="esa-derivation">
+<summary>
+Derivation
+</summary>
+<p>The mean result is linearity of expectation applied to each entry <span class="math inline">\(\sum_k a_{ik}y_k + c_i\)</span>. For the covariance, <span class="math inline">\(\mathbf{A}\mathbf{y} + \mathbf{c} - (\mathbf{A}\boldsymbol\mu + \mathbf{c}) = \mathbf{A}(\mathbf{y} - \boldsymbol\mu)\)</span>, so <span class="math inline">\(\operatorname{Cov}(\mathbf{A}\mathbf{y} + \mathbf{c}) = E[\mathbf{A}(\mathbf{y}-\boldsymbol\mu)(\mathbf{y}-\boldsymbol\mu)^\top\mathbf{A}^\top] = \mathbf{A}\,E[(\mathbf{y}-\boldsymbol\mu)(\mathbf{y}-\boldsymbol\mu)^\top]\,\mathbf{A}^\top = \mathbf{A}\boldsymbol\Sigma\mathbf{A}^\top\)</span>, since <span class="math inline">\(\mathbf{A}\)</span> is fixed. The cross-covariance follows in the same way from <span class="math inline">\(E[\mathbf{A}(\mathbf{y}-\boldsymbol\mu)(\mathbf{y}-\boldsymbol\mu)^\top\mathbf{B}^\top]\)</span>.</p>
+</details>
+<p>For example, if <span class="math inline">\(\operatorname{Cov}(\mathbf{y}) = \sigma^2\mathbf{I}_n\)</span> and <span class="math inline">\(\mathbf{a} = \tfrac1n\mathbf{1}\)</span>, then <span class="math inline">\(\operatorname{Var}(\bar y) = \sigma^2\mathbf{a}^\top\mathbf{a} = \sigma^2/n\)</span>. In Lesson 2.4 the same rule, with <span class="math inline">\(\mathbf{A} = (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\)</span>, gives <span class="math inline">\(\operatorname{Cov}(\hat{\boldsymbol\beta})\)</span> in one line.</p>
+<div class="concept-box esa-callout-important">
+<p class="esa-box-title">
+<strong>Theorem 2.2.2 (Expectation of a quadratic form)</strong>
+</p>
+<p>For a fixed symmetric <span class="math inline">\(n\times n\)</span> matrix <span class="math inline">\(\mathbf{A}\)</span> and any random vector <span class="math inline">\(\mathbf{y}\)</span> with mean <span class="math inline">\(\boldsymbol\mu\)</span> and covariance <span class="math inline">\(\boldsymbol\Sigma\)</span>, <span class="math display">\[
+E(\mathbf{y}^\top\mathbf{A}\mathbf{y}) = \operatorname{tr}(\mathbf{A}\boldsymbol\Sigma) + \boldsymbol\mu^\top\mathbf{A}\boldsymbol\mu .
+\]</span> No normality is needed.</p>
+</div>
+<details class="esa-derivation">
+<summary>
+Derivation
+</summary>
+<p>Write <span class="math inline">\(\mathbf{y} = \boldsymbol\mu + \mathbf{z}\)</span> with <span class="math inline">\(E(\mathbf{z}) = \mathbf{0}\)</span>, <span class="math inline">\(E(\mathbf{z}\mathbf{z}^\top) = \boldsymbol\Sigma\)</span>. Then <span class="math inline">\(\mathbf{y}^\top\mathbf{A}\mathbf{y} = \boldsymbol\mu^\top\mathbf{A}\boldsymbol\mu + 2\boldsymbol\mu^\top\mathbf{A}\mathbf{z} + \mathbf{z}^\top\mathbf{A}\mathbf{z}\)</span>, and the middle term has expectation 0. The last term is a scalar, so it equals its trace: <span class="math inline">\(E(\mathbf{z}^\top\mathbf{A}\mathbf{z}) = E[\operatorname{tr}(\mathbf{z}^\top\mathbf{A}\mathbf{z})] = E[\operatorname{tr}(\mathbf{A}\mathbf{z}\mathbf{z}^\top)] = \operatorname{tr}(\mathbf{A}\,E(\mathbf{z}\mathbf{z}^\top)) = \operatorname{tr}(\mathbf{A}\boldsymbol\Sigma)\)</span>, using the cyclic property and the linearity of trace and expectation.</p>
+</details>
+<p><strong>Example.</strong> With <span class="math inline">\(\mathbf{A} = \mathbf{C}\)</span> (centring) and <span class="math inline">\(\boldsymbol\Sigma = \sigma^2\mathbf{I}_n\)</span>: <span class="math inline">\(E(S_{yy}) = \sigma^2\operatorname{tr}(\mathbf{C}) + \boldsymbol\mu^\top\mathbf{C}\boldsymbol\mu = (n-1)\sigma^2 + \sum_i(\mu_i - \bar\mu)^2\)</span>. If all means are equal the second term vanishes and <span class="math inline">\(S_{yy}/(n-1)\)</span> is unbiased for <span class="math inline">\(\sigma^2\)</span>; if the means differ, it is not. In regression the means differ (<span class="math inline">\(\mu_i = \mathbf{x}_i^\top\boldsymbol\beta\)</span>), which is why <span class="math inline">\(\hat\sigma^2\)</span> uses the residuals instead, and Lesson 2.4 shows <span class="math inline">\(E(\mathrm{SSE}) = (n-p-1)\sigma^2\)</span> with the same theorem.</p>
+<h3 data-number="4.4" id="the-multivariate-normal-distribution"><span class="header-section-number">4.4</span> The multivariate normal distribution</h3>
+<div class="concept-box esa-callout-important">
+<p class="esa-box-title">
+<strong>Definition</strong>
+</p>
+<p><span class="math inline">\(\mathbf{y}\)</span> has an <span class="math inline">\(n\)</span>-variate normal distribution, <span class="math inline">\(\mathbf{y} \sim N_n(\boldsymbol\mu, \boldsymbol\Sigma)\)</span>, if every linear combination <span class="math inline">\(\mathbf{a}^\top\mathbf{y}\)</span> has a (univariate) normal distribution; then <span class="math inline">\(E(\mathbf{y}) = \boldsymbol\mu\)</span> and <span class="math inline">\(\operatorname{Cov}(\mathbf{y}) = \boldsymbol\Sigma\)</span>. If <span class="math inline">\(\boldsymbol\Sigma\)</span> is positive definite, <span class="math inline">\(\mathbf{y}\)</span> has density <span class="math display">\[
+f(\mathbf{y}) = (2\pi)^{-n/2}\,|\boldsymbol\Sigma|^{-1/2}\exp\!\Bigl\{-\tfrac12(\mathbf{y}-\boldsymbol\mu)^\top\boldsymbol\Sigma^{-1}(\mathbf{y}-\boldsymbol\mu)\Bigr\}.
+\]</span></p>
+</div>
+<div class="concept-box esa-callout-important">
+<p class="esa-box-title">
+<strong>Theorem 2.2.3 (Properties of the multivariate normal)</strong>
+</p>
+<p>Let <span class="math inline">\(\mathbf{y} \sim N_n(\boldsymbol\mu, \boldsymbol\Sigma)\)</span>.</p>
+<ol type="a">
+<li>For fixed <span class="math inline">\(\mathbf{A}\)</span> (<span class="math inline">\(m\times n\)</span>) and <span class="math inline">\(\mathbf{c}\)</span>: <span class="math inline">\(\mathbf{A}\mathbf{y} + \mathbf{c} \sim N_m(\mathbf{A}\boldsymbol\mu + \mathbf{c}, \mathbf{A}\boldsymbol\Sigma\mathbf{A}^\top)\)</span>.</li>
+<li>Every sub-vector of <span class="math inline">\(\mathbf{y}\)</span> is multivariate normal (take <span class="math inline">\(\mathbf{A}\)</span> to select its entries).</li>
+<li>If <span class="math inline">\(\mathbf{y}\)</span> is partitioned into sub-vectors <span class="math inline">\(\mathbf{y}_1, \mathbf{y}_2\)</span>, then <span class="math inline">\(\mathbf{y}_1\)</span> and <span class="math inline">\(\mathbf{y}_2\)</span> are <strong>independent if and only if</strong> <span class="math inline">\(\operatorname{Cov}(\mathbf{y}_1, \mathbf{y}_2) = \mathbf{0}\)</span>. Consequently, <span class="math inline">\(\mathbf{A}\mathbf{y}\)</span> and <span class="math inline">\(\mathbf{B}\mathbf{y}\)</span> are independent iff <span class="math inline">\(\mathbf{A}\boldsymbol\Sigma\mathbf{B}^\top = \mathbf{0}\)</span>.</li>
+</ol>
+</div>
+<details class="esa-derivation">
+<summary>
+Derivation
+</summary>
+<ol type="a">
+<li>Any linear combination of <span class="math inline">\(\mathbf{A}\mathbf{y} + \mathbf{c}\)</span> is <span class="math inline">\(\mathbf{b}^\top\mathbf{A}\mathbf{y} + \mathbf{b}^\top\mathbf{c} = (\mathbf{A}^\top\mathbf{b})^\top\mathbf{y} + \text{const}\)</span>, a linear combination of <span class="math inline">\(\mathbf{y}\)</span> plus a constant, hence normal; the mean and covariance come from Theorem 2.2.1. (b) is (a) with a selection matrix.</li>
+<li>For positive definite <span class="math inline">\(\boldsymbol\Sigma\)</span>: if the cross-covariance is zero, <span class="math inline">\(\boldsymbol\Sigma\)</span> is block diagonal, so <span class="math inline">\(\boldsymbol\Sigma^{-1}\)</span> is block diagonal, <span class="math inline">\(|\boldsymbol\Sigma| = |\boldsymbol\Sigma_{11}||\boldsymbol\Sigma_{22}|\)</span>, and the quadratic form in the exponent splits into a term in <span class="math inline">\(\mathbf{y}_1\)</span> plus a term in <span class="math inline">\(\mathbf{y}_2\)</span>; the density factorises. The converse holds for any distribution with finite variances. (The singular case follows via characteristic functions; see Seber and Lee, 2003, Chapter 2.) For the last statement, apply the result to the jointly normal vector <span class="math inline">\(\bigl(\begin{smallmatrix}\mathbf{A}\\ \mathbf{B}\end{smallmatrix}\bigr)\mathbf{y}\)</span>, whose cross-covariance block is <span class="math inline">\(\mathbf{A}\boldsymbol\Sigma\mathbf{B}^\top\)</span>.</li>
+</ol>
+</details>
+<p>Part (c) is special to the normal distribution: in general, uncorrelated random variables need not be independent. It is the tool that will show <span class="math inline">\(\hat{\boldsymbol\beta}\)</span> and SSE are independent in Lesson 2.4, completing the argument deferred in Module 1.</p>
+<h2 class="esa-lesson-anchor" data-number="5" id="worked-example"><span class="header-section-number">5</span> Worked example</h2>
+<h3 data-number="5.1" id="the-design-matrix-for-mpg-on-weight-and-model-year"><span class="header-section-number">5.1</span> The design matrix for mpg on weight and model year</h3>
+<p>For the model of Lesson 2.1, <span class="math inline">\(p = 2\)</span>, <span class="math inline">\(n = 398\)</span>, and the first rows of <span class="math inline">\(\mathbf{X}\)</span> (weight in 1000 lb, model year as recorded) are</p>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th>Car</th>
+<th><span class="math inline">\(y_i\)</span> (mpg)</th>
+<th>Constant</th>
+<th>Weight</th>
+<th>Model year</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>chevrolet chevelle malibu</td>
+<td>18</td>
+<td>1</td>
+<td>3.504</td>
+<td>70</td>
+</tr>
+<tr class="even">
+<td>buick skylark 320</td>
+<td>15</td>
+<td>1</td>
+<td>3.693</td>
+<td>70</td>
+</tr>
+<tr class="odd">
+<td>plymouth satellite</td>
+<td>18</td>
+<td>1</td>
+<td>3.436</td>
+<td>70</td>
+</tr>
+</tbody>
+</table></div>
+<p>The entries of <span class="math inline">\(\mathbf{X}^\top\mathbf{X}\)</span> and <span class="math inline">\(\mathbf{X}^\top\mathbf{y}\)</span> are sums of squares and cross-products of the columns: <span class="math display">\[
+\mathbf{X}^\top\mathbf{X} =
+\begin{pmatrix}
+n &amp; \sum x_{i1} &amp; \sum x_{i2}\\
+\sum x_{i1} &amp; \sum x_{i1}^2 &amp; \sum x_{i1}x_{i2}\\
+\sum x_{i2} &amp; \sum x_{i1}x_{i2} &amp; \sum x_{i2}^2
+\end{pmatrix}
+=
+\begin{pmatrix}
+398 &amp; 1182.229 &amp; 30252\\
+1182.229 &amp; 3796.427 &amp; 89480.187\\
+30252 &amp; 89480.187 &amp; 2304884
+\end{pmatrix},
+\qquad
+\mathbf{X}^\top\mathbf{y} =
+\begin{pmatrix} 9358.8\\ 25614.041\\ 718009.1 \end{pmatrix}.
+\]</span> <span class="math inline">\(\operatorname{rank}(\mathbf{X}) = 3\)</span>, and the eigenvalues of <span class="math inline">\(\mathbf{X}^\top\mathbf{X}\)</span> are <span class="math inline">\(0.749\)</span>, <span class="math inline">\(322.3\)</span> and <span class="math inline">\(2{,}308{,}755\)</span>: all positive, so <span class="math inline">\(\mathbf{X}^\top\mathbf{X}\)</span> is positive definite (Lemma 2.2.1). Solving the linear system <span class="math inline">\(\mathbf{X}^\top\mathbf{X}\,\mathbf{b} = \mathbf{X}^\top\mathbf{y}\)</span> reproduces the estimates of Lesson 2.1, <span class="math inline">\((-14.198, -6.664, 0.757)\)</span>; Lesson 2.3 shows why this system defines the least-squares estimator.</p>
+<p><strong>A numerical warning.</strong> The ratio of the largest to the smallest eigenvalue (the <em>condition number</em> of <span class="math inline">\(\mathbf{X}^\top\mathbf{X}\)</span>) is about <span class="math inline">\(3.1\times10^6\)</span>. The cause is not a statistical problem but the scale of the columns: model year values around 76 are nearly proportional to the constant column. After centring (weight at 3000 lb, year at 1976) the condition number is <span class="math inline">\(21.3\)</span>, while the fitted values and slopes are unchanged. Software therefore never inverts <span class="math inline">\(\mathbf{X}^\top\mathbf{X}\)</span> directly; it uses QR or Cholesky decompositions (Lesson 2.3). Module 5 returns to ill-conditioning that <strong>does</strong> have a statistical cause.</p>
+<div class="esa-code-tabs">
+<details class="esa-code">
+<summary>
+R code
+</summary>
+<pre class="r"><code>cols &lt;- c(&quot;mpg&quot;, &quot;cylinders&quot;, &quot;displacement&quot;, &quot;horsepower&quot;, &quot;weight&quot;,
+          &quot;acceleration&quot;, &quot;model_year&quot;, &quot;origin&quot;, &quot;car_name&quot;)
+auto &lt;- read.table(&quot;data/auto-mpg.data&quot;, col.names = cols, na.strings = &quot;?&quot;)
+auto$w &lt;- auto$weight / 1000
+
+X &lt;- model.matrix(~ w + model_year, data = auto)   # the design matrix
+y &lt;- auto$mpg
+head(X, 3)
+XtX &lt;- crossprod(X)                                # t(X) %*% X
+Xty &lt;- crossprod(X, y)
+XtX; Xty
+qr(X)$rank
+ev &lt;- eigen(XtX, symmetric = TRUE)$values
+ev; max(ev) / min(ev)                              # condition number
+solve(XtX, Xty)                                    # same estimates as Lesson 2.1
+
+Xc &lt;- model.matrix(~ I(w - 3) + I(model_year - 76), data = auto)
+evc &lt;- eigen(crossprod(Xc), symmetric = TRUE)$values
+max(evc) / min(evc)</code></pre>
+</details>
+<details class="esa-code" open>
+<summary>
+Python code
+</summary>
+<pre class="python"><code>import numpy as np
+import pandas as pd
+
+cols = [&quot;mpg&quot;, &quot;cylinders&quot;, &quot;displacement&quot;, &quot;horsepower&quot;, &quot;weight&quot;,
+        &quot;acceleration&quot;, &quot;model_year&quot;, &quot;origin&quot;, &quot;car_name&quot;]
+auto = pd.read_csv(&quot;data/auto-mpg.data&quot;, sep=r&quot;\s+&quot;, header=None,
+                   names=cols, na_values=&quot;?&quot;, quotechar=&#39;&quot;&#39;)
+y = auto[&quot;mpg&quot;].to_numpy()
+w = auto[&quot;weight&quot;].to_numpy() / 1000
+yr = auto[&quot;model_year&quot;].to_numpy().astype(float)
+
+X = np.column_stack([np.ones(len(y)), w, yr])       # the design matrix
+print(X[:3])
+XtX, Xty = X.T @ X, X.T @ y
+print(XtX.round(3)); print(Xty.round(3))
+print(&quot;rank:&quot;, np.linalg.matrix_rank(X))
+ev = np.linalg.eigvalsh(XtX)                        # ascending order
+print(&quot;eigenvalues:&quot;, ev.round(3), &quot; condition number:&quot;, f&quot;{ev[-1] / ev[0]:.4g}&quot;)
+print(&quot;solution:&quot;, np.linalg.solve(XtX, Xty).round(4))
+
+Xc = np.column_stack([np.ones(len(y)), w - 3, yr - 76])
+evc = np.linalg.eigvalsh(Xc.T @ Xc)
+print(&quot;condition number after centring:&quot;, round(evc[-1] / evc[0], 2))</code></pre>
+<p class="esa-output-label">
+Output
+</p>
+<pre class="esa-output"><code>[[ 1.     3.504 70.   ]
+ [ 1.     3.693 70.   ]
+ [ 1.     3.436 70.   ]]
+[[3.9800000e+02 1.1822290e+03 3.0252000e+04]
+ [1.1822290e+03 3.7964270e+03 8.9480187e+04]
+ [3.0252000e+04 8.9480187e+04 2.3048840e+06]]
+[  9358.8    25614.041 718009.1  ]
+rank: 3
+eigenvalues: [7.49000000e-01 3.22323000e+02 2.30875535e+06]  condition number: 3.083e+06
+solution: [-14.198   -6.6639   0.7566]
+condition number after centring: 21.31</code></pre>
+</details>
+</div>
+<h3 data-number="5.2" id="when-the-full-rank-condition-fails"><span class="header-section-number">5.2</span> When the full-rank condition fails</h3>
+<p>Two design matrices that violate A0:</p>
+<ul>
+<li><strong>The same variable in two units.</strong> Columns (constant, weight in lb, weight in kg): the kg column is <span class="math inline">\(0.45359237\times\)</span> the lb column, so <span class="math inline">\(\operatorname{rank}(\mathbf{X}) = 2 &lt; 3\)</span>.</li>
+<li><strong>The dummy-variable trap.</strong> Columns (constant, American, European, Japanese) with indicators for all three origins: the three indicators sum to the constant column, so <span class="math inline">\(\operatorname{rank}(\mathbf{X}) = 3 &lt; 4\)</span> and <span class="math inline">\(\mathbf{X}^\top\mathbf{X}\)</span> has a zero eigenvalue. Lesson 2.9 resolves this by dropping one indicator.</li>
+</ul>
+<div class="esa-code-tabs">
+<details class="esa-code">
+<summary>
+R code
+</summary>
+<pre class="r"><code># Uses auto from Section 5.1 (run that code first).
+X_units &lt;- cbind(1, auto$weight, auto$weight * 0.45359237)
+qr(X_units)$rank
+X_trap &lt;- cbind(1, sapply(1:3, function(k) as.numeric(auto$origin == k)))
+qr(X_trap)$rank
+round(eigen(crossprod(X_trap), symmetric = TRUE)$values, 6)</code></pre>
+</details>
+<details class="esa-code" open>
+<summary>
+Python code
+</summary>
+<pre class="python"><code># Uses np, y and auto from Section 5.1 (run that code first).
+X_units = np.column_stack([np.ones(len(y)), auto[&quot;weight&quot;], auto[&quot;weight&quot;] * 0.45359237])
+print(&quot;rank with lb and kg:&quot;, np.linalg.matrix_rank(X_units))
+X_trap = np.column_stack([np.ones(len(y))] + [(auto[&quot;origin&quot;] == k).astype(float) for k in (1, 2, 3)])
+print(&quot;rank with all three origin indicators:&quot;, np.linalg.matrix_rank(X_trap))
+print(&quot;eigenvalues:&quot;, np.linalg.eigvalsh(X_trap.T @ X_trap).round(6))</code></pre>
+<p class="esa-output-label">
+Output
+</p>
+<pre class="esa-output"><code>rank with lb and kg: 2
+rank with all three origin indicators: 3
+eigenvalues: [ -0.        73.904771 124.766717 597.328512]</code></pre>
+</details>
+</div>
+<h3 data-number="5.3" id="checking-theorems-2.2.1-and-2.2.2-by-simulation"><span class="header-section-number">5.3</span> Checking Theorems 2.2.1 and 2.2.2 by simulation</h3>
+<p>Let <span class="math inline">\(n = 5\)</span>, <span class="math inline">\(\boldsymbol\mu = (1,2,3,4,5)^\top\)</span> and <span class="math inline">\(\mathbf{y} \sim N_5(\boldsymbol\mu, 4\mathbf{I}_5)\)</span>. Theorem 2.2.2 with the centring matrix predicts <span class="math display">\[
+E(S_{yy}) = (n-1)\sigma^2 + \sum_i(\mu_i - \bar\mu)^2 = 4 \times 4 + 10 = 26,
+\]</span> so <span class="math inline">\(S_{yy}/(n-1)\)</span> has mean <span class="math inline">\(6.5\)</span>, not <span class="math inline">\(\sigma^2 = 4\)</span>, because the means differ. With <span class="math inline">\(\mathbf{A}\)</span> forming the averages of the first two and the last three entries, Theorem 2.2.1 predicts <span class="math inline">\(E(\mathbf{A}\mathbf{y}) = (1.5, 4)^\top\)</span> and <span class="math inline">\(\operatorname{Cov}(\mathbf{A}\mathbf{y}) = 4\mathbf{A}\mathbf{A}^\top = \operatorname{diag}(2, 1.333)\)</span>. In 100,000 simulated vectors (Python, seed 2026) the average of <span class="math inline">\(S_{yy}\)</span> is <span class="math inline">\(25.91\)</span> (Monte Carlo standard error <span class="math inline">\(0.05\)</span>, so within two standard errors of 26), the mean of <span class="math inline">\(\mathbf{A}\mathbf{y}\)</span> is <span class="math inline">\((1.508, 3.995)\)</span>, and its sample covariance matrix has diagonal <span class="math inline">\((1.999, 1.332)\)</span> and off-diagonal <span class="math inline">\(-0.007\)</span>. R uses a different random-number generator, so its simulated values differ slightly.</p>
+<div class="esa-code-tabs">
+<details class="esa-code">
+<summary>
+R code
+</summary>
+<pre class="r"><code># Self-contained: needs nothing from earlier sections.
+set.seed(2026)
+n &lt;- 5; mu &lt;- 1:5; sigma &lt;- 2; R &lt;- 1e5
+C &lt;- diag(n) - matrix(1, n, n) / n
+Y &lt;- matrix(rnorm(R * n, sd = sigma), R, n) + matrix(mu, R, n, byrow = TRUE)
+q &lt;- rowSums((Y %*% C) * Y)                         # y&#39; C y for every row
+c(sim_mean = mean(q), mc_se = sd(q) / sqrt(R),
+  theory = (n - 1) * sigma^2 + drop(t(mu) %*% C %*% mu))
+
+A &lt;- rbind(c(1, 1, 0, 0, 0) / 2, c(0, 0, 1, 1, 1) / 3)
+Z &lt;- Y %*% t(A)
+colMeans(Z); drop(A %*% mu)
+cov(Z); sigma^2 * A %*% t(A)</code></pre>
+</details>
+<details class="esa-code" open>
+<summary>
+Python code
+</summary>
+<pre class="python"><code># Self-contained: needs nothing from earlier sections.
+import numpy as np
+
+rng = np.random.default_rng(2026)
+n, mu, sigma, R = 5, np.arange(1.0, 6.0), 2.0, 100_000
+C = np.eye(n) - np.ones((n, n)) / n
+Y = mu + sigma * rng.standard_normal((R, n))
+q = np.einsum(&quot;ij,jk,ik-&gt;i&quot;, Y, C, Y)               # y&#39; C y for every row
+print(f&quot;simulated mean {q.mean():.3f} (MC se {q.std() / np.sqrt(R):.3f}); &quot;
+      f&quot;theory {(n - 1) * sigma**2 + mu @ C @ mu:.1f}&quot;)
+
+A = np.array([[1, 1, 0, 0, 0], [0, 0, 1, 1, 1]]) / np.array([[2], [3]])
+Z = Y @ A.T
+print(&quot;mean of Ay:&quot;, Z.mean(axis=0).round(3), &quot; theory:&quot;, A @ mu)
+print(&quot;cov of Ay:\n&quot;, np.cov(Z.T).round(3), &quot;\ntheory:\n&quot;, (sigma**2 * A @ A.T).round(3))</code></pre>
+<p class="esa-output-label">
+Output
+</p>
+<pre class="esa-output"><code>simulated mean 25.913 (MC se 0.054); theory 26.0
+mean of Ay: [1.508 3.995]  theory: [1.5 4. ]
+cov of Ay:
+ [[ 1.999 -0.007]
+ [-0.007  1.332]] 
+theory:
+ [[2.    0.   ]
+ [0.    1.333]]</code></pre>
+</details>
+</div>
+<h2 class="esa-lesson-anchor" data-number="6" id="common-misconceptions"><span class="header-section-number">6</span> Common misconceptions</h2>
+<div class="example-box esa-callout-caution">
+<p class="esa-box-title">
+<strong>Misconceptions</strong>
+</p>
+<ol type="1">
+<li><strong>“<span class="math inline">\(\operatorname{Cov}(\boldsymbol\varepsilon) = \sigma^2\mathbf{I}\)</span> means the errors are independent.”</strong> — It means uncorrelated with equal variances. Independence follows only with normality (Theorem 2.2.3c).</li>
+<li><strong>“Uncorrelated random variables are independent.”</strong> — Only for jointly normal variables. (<span class="math inline">\(Z\)</span> and <span class="math inline">\(Z^2 - 1\)</span> with <span class="math inline">\(Z \sim N(0,1)\)</span> are uncorrelated but dependent.)</li>
+<li><strong>“<span class="math inline">\(\mathbf{X}^\top\mathbf{X}\)</span> is invertible whenever <span class="math inline">\(n &gt; p + 1\)</span>.”</strong> — Enough observations are necessary, not sufficient: the columns must also be linearly independent.</li>
+<li><strong>“<span class="math inline">\((\mathbf{AB})^\top = \mathbf{A}^\top\mathbf{B}^\top\)</span>.”</strong> — The order reverses: <span class="math inline">\((\mathbf{AB})^\top = \mathbf{B}^\top\mathbf{A}^\top\)</span>.</li>
+<li><strong>“A huge condition number of <span class="math inline">\(\mathbf{X}^\top\mathbf{X}\)</span> always means collinearity.”</strong> — It can be caused by the scale or location of the columns; centring and scaling remove that part (worked example).</li>
+</ol>
+</div>
+<h2 class="esa-lesson-anchor" data-number="7" id="key-takeaways"><span class="header-section-number">7</span> Key takeaways</h2>
+<ul>
+<li>The model is <span class="math inline">\(\mathbf{y} = \mathbf{X}\boldsymbol\beta + \boldsymbol\varepsilon\)</span> with <span class="math inline">\(E(\boldsymbol\varepsilon) = \mathbf{0}\)</span>, <span class="math inline">\(\operatorname{Cov}(\boldsymbol\varepsilon) = \sigma^2\mathbf{I}_n\)</span>, and <span class="math inline">\(\operatorname{rank}(\mathbf{X}) = p + 1\)</span>.</li>
+<li><span class="math inline">\(\mathbf{X}^\top\mathbf{X}\)</span> is positive definite exactly when <span class="math inline">\(\mathbf{X}\)</span> has full column rank.</li>
+<li><span class="math inline">\(E(\mathbf{A}\mathbf{y} + \mathbf{c}) = \mathbf{A}\boldsymbol\mu + \mathbf{c}\)</span> and <span class="math inline">\(\operatorname{Cov}(\mathbf{A}\mathbf{y} + \mathbf{c}) = \mathbf{A}\boldsymbol\Sigma\mathbf{A}^\top\)</span>.</li>
+<li><span class="math inline">\(E(\mathbf{y}^\top\mathbf{A}\mathbf{y}) = \operatorname{tr}(\mathbf{A}\boldsymbol\Sigma) + \boldsymbol\mu^\top\mathbf{A}\boldsymbol\mu\)</span>, without normality.</li>
+<li>Linear transformations of multivariate normal vectors are normal, and for jointly normal vectors zero covariance means independence.</li>
+</ul>
+<h2 class="esa-lesson-anchor" data-number="8" id="exercises"><span class="header-section-number">8</span> Exercises</h2>
+<h3 data-number="8.1" id="a.-conceptual"><span class="header-section-number">8.1</span> A. Conceptual</h3>
+<p><strong>A.1</strong> (★). Write the design matrix (first three rows and its dimensions) for the Auto MPG model of mpg on weight (1000 lb), weight squared and horsepower (100 hp), fitted to the 392 cars with horsepower recorded. Is this a <em>linear</em> model?</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p><span class="math inline">\(\mathbf{X}\)</span> is <span class="math inline">\(392\times4\)</span> with rows <span class="math inline">\((1, x_{i1}, x_{i1}^2, x_{i2})\)</span>; e.g. the first car (3504 lb, 130 hp) gives <span class="math inline">\((1, 3.504, 12.278, 1.30)\)</span>. The model is linear in the coefficients, so it is a linear model, although <span class="math inline">\(E(y)\)</span> is a quadratic function of weight.</p>
+</details>
+<p><strong>A.2</strong> (★). Decide whether each design has full column rank, and explain: (a) constant, weight in lb, weight in 1000 lb; (b) constant, weight, horsepower, with <span class="math inline">\(n = 3\)</span> observations; (c) constant and indicators for European and Japanese origin.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<ol type="a">
+<li>No: the third column is the second divided by 1000. (b) Possibly: with <span class="math inline">\(n = 3\)</span> and <span class="math inline">\(p + 1 = 3\)</span> columns, full rank is possible if the three rows are linearly independent, but then the fit is exact, SSE = 0 and <span class="math inline">\(n - p - 1 = 0\)</span> degrees of freedom are left for estimating <span class="math inline">\(\sigma^2\)</span>. (c) Yes, as long as each origin occurs: American cars are the reference group (Lesson 2.9).</li>
+</ol>
+</details>
+<h3 data-number="8.2" id="b.-mathematical"><span class="header-section-number">8.2</span> B. Mathematical</h3>
+<p><strong>B.1</strong> (★★). Prove <span class="math inline">\(\partial(\mathbf{b}^\top\mathbf{A}\mathbf{b})/\partial\mathbf{b} = (\mathbf{A} + \mathbf{A}^\top)\mathbf{b}\)</span>.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p><span class="math inline">\(\mathbf{b}^\top\mathbf{A}\mathbf{b} = \sum_i\sum_j b_i a_{ij} b_j\)</span>. Differentiating with respect to <span class="math inline">\(b_k\)</span>, the terms with <span class="math inline">\(i = k\)</span> give <span class="math inline">\(\sum_j a_{kj}b_j\)</span> and those with <span class="math inline">\(j = k\)</span> give <span class="math inline">\(\sum_i b_i a_{ik}\)</span>. Hence the <span class="math inline">\(k\)</span>-th partial derivative is <span class="math inline">\((\mathbf{A}\mathbf{b})_k + (\mathbf{A}^\top\mathbf{b})_k\)</span>, and the gradient is <span class="math inline">\((\mathbf{A} + \mathbf{A}^\top)\mathbf{b}\)</span>, equal to <span class="math inline">\(2\mathbf{A}\mathbf{b}\)</span> if <span class="math inline">\(\mathbf{A}\)</span> is symmetric.</p>
+</details>
+<p><strong>B.2</strong> (★★). Show that the centring matrix <span class="math inline">\(\mathbf{C} = \mathbf{I}_n - \tfrac1n\mathbf{J}_n\)</span> is symmetric and idempotent, that <span class="math inline">\(\operatorname{tr}(\mathbf{C}) = n - 1\)</span>, and that <span class="math inline">\(\mathbf{y}^\top\mathbf{C}\mathbf{y} = \sum_i(y_i - \bar y)^2\)</span>.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>Symmetry is clear. <span class="math inline">\(\mathbf{J}_n^2 = \mathbf{1}(\mathbf{1}^\top\mathbf{1})\mathbf{1}^\top = n\mathbf{J}_n\)</span>, so <span class="math inline">\(\mathbf{C}^2 = \mathbf{I} - \tfrac2n\mathbf{J} + \tfrac1{n^2}n\mathbf{J} = \mathbf{C}\)</span>. <span class="math inline">\(\operatorname{tr}(\mathbf{C}) = n - \tfrac1n\cdot n = n - 1\)</span>. Finally, <span class="math inline">\(\mathbf{C}\mathbf{y} = \mathbf{y} - \bar y\mathbf{1}\)</span>, and <span class="math inline">\(\mathbf{y}^\top\mathbf{C}\mathbf{y} = \mathbf{y}^\top\mathbf{C}^\top\mathbf{C}\mathbf{y} = \lVert\mathbf{C}\mathbf{y}\rVert^2 = \sum_i(y_i - \bar y)^2\)</span>.</p>
+</details>
+<p><strong>B.3</strong> (★★). Let <span class="math inline">\(\mathbf{A}\)</span> be symmetric and idempotent. Show that its eigenvalues are 0 or 1, and that <span class="math inline">\(\operatorname{rank}(\mathbf{A}) = \operatorname{tr}(\mathbf{A})\)</span>.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>If <span class="math inline">\(\mathbf{A}\mathbf{v} = \lambda\mathbf{v}\)</span> with <span class="math inline">\(\mathbf{v} \ne \mathbf{0}\)</span>, then <span class="math inline">\(\lambda\mathbf{v} = \mathbf{A}\mathbf{v} = \mathbf{A}^2\mathbf{v} = \lambda^2\mathbf{v}\)</span>, so <span class="math inline">\(\lambda^2 = \lambda\)</span> and <span class="math inline">\(\lambda \in \{0, 1\}\)</span>. Write <span class="math inline">\(\mathbf{A} = \mathbf{Q}\boldsymbol\Lambda\mathbf{Q}^\top\)</span> with orthogonal <span class="math inline">\(\mathbf{Q}\)</span>: <span class="math inline">\(\operatorname{rank}(\mathbf{A}) = \operatorname{rank}(\boldsymbol\Lambda)\)</span> = number of eigenvalues equal to 1 = <span class="math inline">\(\sum_i\lambda_i = \operatorname{tr}(\mathbf{A})\)</span>.</p>
+</details>
+<p><strong>B.4</strong> (★★). Let <span class="math inline">\(\mathbf{y} \sim N_n(\mu\mathbf{1}, \sigma^2\mathbf{I}_n)\)</span>. Using Theorem 2.2.3(c), show that <span class="math inline">\(\bar y\)</span> and the vector of deviations <span class="math inline">\(\mathbf{C}\mathbf{y}\)</span> are independent. Why does this imply that <span class="math inline">\(\bar y\)</span> and the sample variance <span class="math inline">\(s^2\)</span> are independent?</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p><span class="math inline">\(\bar y = \mathbf{a}^\top\mathbf{y}\)</span> with <span class="math inline">\(\mathbf{a} = \tfrac1n\mathbf{1}\)</span>, and <span class="math inline">\(\operatorname{Cov}(\mathbf{a}^\top\mathbf{y}, \mathbf{C}\mathbf{y}) = \sigma^2\mathbf{a}^\top\mathbf{C}^\top = \tfrac{\sigma^2}{n}(\mathbf{C}\mathbf{1})^\top = \mathbf{0}^\top\)</span>, since <span class="math inline">\(\mathbf{C}\mathbf{1} = \mathbf{0}\)</span>. Both are linear transformations of the same normal vector, so they are jointly normal and hence independent. <span class="math inline">\(s^2 = (\mathbf{C}\mathbf{y})^\top(\mathbf{C}\mathbf{y})/(n-1)\)</span> is a function of <span class="math inline">\(\mathbf{C}\mathbf{y}\)</span> alone, so it is independent of <span class="math inline">\(\bar y\)</span>. Lesson 2.4 uses the same argument with <span class="math inline">\(\mathbf{I} - \mathbf{H}\)</span> in place of <span class="math inline">\(\mathbf{C}\)</span>.</p>
+</details>
+<h3 data-number="8.3" id="c.-computational"><span class="header-section-number">8.3</span> C. Computational</h3>
+<p><strong>C.1</strong> (★). For the 392 cars with horsepower recorded, build <span class="math inline">\(\mathbf{X}\)</span> for mpg on weight (1000 lb) and horsepower (100 hp), and compute <span class="math inline">\(\mathbf{X}^\top\mathbf{X}\)</span>, its eigenvalues and its condition number. Solve <span class="math inline">\(\mathbf{X}^\top\mathbf{X}\mathbf{b} = \mathbf{X}^\top\mathbf{y}\)</span> and compare with Lesson 2.1, Exercise C.2.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p><span class="math inline">\(\mathbf{X}^\top\mathbf{X} = \begin{pmatrix} 392 &amp; 1167.213 &amp; 409.52\\ 1167.213 &amp; 3757.575 &amp; 1329.899\\ 409.52 &amp; 1329.899 &amp; 485.752 \end{pmatrix}\)</span>, eigenvalues <span class="math inline">\(12.06\)</span>, <span class="math inline">\(29.20\)</span> and <span class="math inline">\(4594.1\)</span>, condition number <span class="math inline">\(380.9\)</span>. The solution is <span class="math inline">\((45.640, -5.794, -4.730)\)</span>, the same as in Lesson 2.1, Exercise C.2. The condition number is larger than for the centred weight + year design (21.3); part of it is due to the uncentred columns, part to the correlation <span class="math inline">\(r = 0.865\)</span> between weight and horsepower (compare by centring both columns).</p>
+</details>
+<p><strong>C.2</strong> (★★). Repeat the simulation of the worked example with all means equal, <span class="math inline">\(\boldsymbol\mu = 3\cdot\mathbf{1}_5\)</span>. What does Theorem 2.2.2 predict for <span class="math inline">\(E(S_{yy})\)</span>, and what do you observe?</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>With equal means, <span class="math inline">\(\boldsymbol\mu^\top\mathbf{C}\boldsymbol\mu = 0\)</span>, so <span class="math inline">\(E(S_{yy}) = (n-1)\sigma^2 = 16\)</span> and <span class="math inline">\(s^2 = S_{yy}/4\)</span> is unbiased for <span class="math inline">\(\sigma^2 = 4\)</span>. With seed 2026 in Python: average <span class="math inline">\(S_{yy} = 16.02\)</span> (MC se 0.04), average <span class="math inline">\(s^2 = 4.005\)</span>.</p>
+</details>
+<h2 class="esa-lesson-anchor" data-number="9" id="references"><span class="header-section-number">9</span> References</h2>
+<ul>
+<li>Seber, G. A. F., &amp; Lee, A. J. (2003). <em>Linear Regression Analysis</em> (2nd ed.). Wiley. — Chapter 1 (vectors of random variables), Chapter 2 (multivariate normal distribution), Appendix A (matrix theory).</li>
+<li>Searle, S. R. (1982). <em>Matrix Algebra Useful for Statistics</em>. Wiley.</li>
+<li>Montgomery, D. C., Peck, E. A., &amp; Vining, G. G. (2021). <em>Introduction to Linear Regression Analysis</em> (6th ed.). Wiley. — Chapter 3, Multiple Linear Regression (matrix formulation).</li>
+<li>Kutner, M. H., Nachtsheim, C. J., Neter, J., &amp; Li, W. (2005). <em>Applied Linear Statistical Models</em> (5th ed.). McGraw-Hill/Irwin. — Chapter 5, Matrix Approach to Simple Linear Regression Analysis.</li>
+<li>Quinlan, R. (1993). <em>Auto MPG</em> [Data set]. UCI Machine Learning Repository. https://doi.org/10.24432/C5859H</li>
+</ul>
+
+{% endraw %}
+    <div class="lesson-nav">
+      <a class="btn btn-outline" href="/courses/regression/module-2/from-one-to-many-predictors/">← Lesson 2.1: From One Predictor to Many</a>
+      <a class="btn" href="/courses/regression/module-2/least-squares-matrix-form/">Next: Lesson 2.3 →</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .esa-course-lesson details{border:1px solid var(--border-strong,#d0d7de);border-radius:9px;padding:.4rem .9rem;margin:1rem 0}
+  .esa-course-lesson details>summary{cursor:pointer;font-weight:700}
+  .esa-course-lesson .esa-code-tabs{margin:1rem 0}
+  .esa-course-lesson .esa-code-tabs details{margin:.4rem 0}
+  .esa-course-lesson pre{max-width:100%}
+  .esa-course-lesson pre.esa-output{border-left:5px solid #0d9488}
+  .esa-course-lesson .esa-output-label{font-size:.85rem;font-weight:700;margin:.6rem 0 .2rem}
+  .esa-course-lesson .esa-figure{margin:1rem 0}
+  .esa-course-lesson .esa-figure img{max-width:100%;height:auto}
+  .esa-course-lesson .esa-figure figcaption{font-size:.9rem}
+  .esa-course-lesson mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+</style>

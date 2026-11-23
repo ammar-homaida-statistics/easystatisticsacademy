@@ -86,7 +86,8 @@ paths_styles: true
     <div class="card">
       <h3>Module 2: Multiple Regression</h3>
       <p>The matrix formulation, properties of the OLS estimator, hypothesis tests, ANOVA, and categorical predictors.</p>
-      <p class="muted-mini">Status: In preparation</p>
+      <p class="muted-mini">Status: In progress · 3 of 12 lessons available</p>
+      <a class="card-foot" href="/courses/regression/module-2/">Open Module 2 →</a>
     </div>
 
     <div class="card">
