@@ -109,9 +109,11 @@ sidebar: false
     </p>
 
     
+    <div class="esa-lv-math" dir="ltr" tabindex="0" role="region" aria-label="Definition of variance">
     \[
     \operatorname{Var}(X)=E[(X-E[X])^2]
     \]
+    </div>
 
 
     <h2>Homoscedasticity</h2>
