@@ -381,7 +381,8 @@ band
 <summary>
 R code
 </summary>
-<pre class="r"><code>mid &lt;- aggregate(weight ~ band, data = auto, FUN = mean)
+<pre class="r"><code># Uses auto and band_stats from the code above (run it first).
+mid &lt;- aggregate(weight ~ band, data = auto, FUN = mean)
 plot(auto$weight, auto$mpg, pch = 16, col = rgb(0, 0, 0, 0.3),
      xlab = &quot;Weight (lb)&quot;, ylab = &quot;Fuel economy (mpg)&quot;)
 points(mid$weight, band_stats$mean_mpg, pch = 19, cex = 1.8, type = &quot;b&quot;, lwd = 2)</code></pre>
@@ -390,7 +391,8 @@ points(mid$weight, band_stats$mean_mpg, pch = 19, cex = 1.8, type = &quot;b&quot
 <summary>
 Python code
 </summary>
-<pre class="python"><code>import matplotlib.pyplot as plt
+<pre class="python"><code># Uses auto and band_stats from the code above (run it first).
+import matplotlib.pyplot as plt
 mid = auto.groupby(&quot;band&quot;, observed=True)[&quot;weight&quot;].mean()
 fig, ax = plt.subplots(figsize=(6, 4))
 ax.scatter(auto[&quot;weight&quot;], auto[&quot;mpg&quot;], s=12, alpha=0.3, color=&quot;black&quot;)

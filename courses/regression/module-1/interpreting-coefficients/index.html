@@ -290,7 +290,8 @@ centred_3000lb  23.287534  -7.676610  0.217910  0.257487 -29.813599  0.691793</c
 <summary>
 R code
 </summary>
-<pre class="r"><code>fit &lt;- lm(mpg ~ I(weight / 1000), data = auto)
+<pre class="r"><code># Uses auto from Section 5.1 (run that code first).
+fit &lt;- lm(mpg ~ I(weight / 1000), data = auto)
 predict(fit, newdata = data.frame(weight = c(1000, 6000)))   # extrapolation
 range(auto$weight)
 
@@ -306,7 +307,8 @@ c(b_log = b_log, pct_per_1000lb = 100 * (exp(b_log) - 1),
 <summary>
 Python code
 </summary>
-<pre class="python"><code>x = w / 1000
+<pre class="python"><code># Uses np, w, y and summarise_fit from Section 5.1 (run that code first).
+x = w / 1000
 f = summarise_fit(x, y)
 for x0 in (1.0, 6.0):
     print(f&quot;prediction at {x0 * 1000:.0f} lb: {f[&#39;b0&#39;] + f[&#39;b1&#39;] * x0:.2f} mpg&quot;)

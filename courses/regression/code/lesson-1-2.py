@@ -26,6 +26,7 @@ print(f"b1 = {b1:.6f}, g1 = {g1:.6f}, b1*g1 = {b1*g1:.6f}, r^2 = {r**2:.6f}")
 print("Line of x on y, drawn in the (x, y) plane, has slope", round(1 / g1, 4))
 print("r with weight in kg:", round(np.corrcoef(auto["weight"] * 0.45359237, y)[0, 1], 6))
 
+# Uses np, x, y, b1 and g1 from Section 5.1 (run that code first).
 import matplotlib.pyplot as plt
 grid = np.linspace(x.min(), x.max(), 100)
 fig, ax = plt.subplots(figsize=(6, 4))
@@ -39,6 +40,7 @@ ax.set_ylabel("Fuel economy (mpg)")
 ax.legend()
 plt.show()
 
+# Uses np, x, y, r, sx and sy from Section 5.1 (run that code first).
 zx = (x - x.mean()) / sx
 zy = (y - y.mean()) / sy
 heavy = x >= np.quantile(x, 0.9)

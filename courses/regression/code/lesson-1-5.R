@@ -23,6 +23,7 @@ versions <- list(
   centred_3000lb   = (auto$weight - 3000) / 1000)
 round(t(sapply(versions, summarise_fit, y = auto$mpg)), 6)
 
+# Uses auto from Section 5.1 (run that code first).
 fit <- lm(mpg ~ I(weight / 1000), data = auto)
 predict(fit, newdata = data.frame(weight = c(1000, 6000)))   # extrapolation
 range(auto$weight)

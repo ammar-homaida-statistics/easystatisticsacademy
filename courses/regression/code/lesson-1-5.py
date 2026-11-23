@@ -38,6 +38,7 @@ versions = {
 table = pd.DataFrame({k: summarise_fit(v, y) for k, v in versions.items()}).T
 print(table.round(6))
 
+# Uses np, w, y and summarise_fit from Section 5.1 (run that code first).
 x = w / 1000
 f = summarise_fit(x, y)
 for x0 in (1.0, 6.0):

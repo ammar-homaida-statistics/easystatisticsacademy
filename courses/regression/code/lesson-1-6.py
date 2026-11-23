@@ -33,6 +33,7 @@ print(f"R2 = {SSR / SST:.6f}, r^2 = {np.corrcoef(x, y)[0, 1]**2:.6f}, "
       f"corr(y, yhat)^2 = {np.corrcoef(y, yhat)[0, 1]**2:.6f}")
 print(f"sigma_hat = {np.sqrt(SSE / (n - 2)):.4f}, s_y = {y.std(ddof=1):.4f}")
 
+# Uses np and ols from Section 5.1 (run that code first).
 import matplotlib.pyplot as plt
 
 x123 = np.array([10, 8, 13, 9, 11, 14, 6, 4, 12, 7, 5], dtype=float)

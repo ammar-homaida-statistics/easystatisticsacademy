@@ -27,6 +27,7 @@ coef(fit)
 e <- resid(fit)
 c(sum_e = sum(e), sum_xe = sum(x * e), sum_yhat_e = sum(fitted(fit) * e))
 
+# Uses auto and fit from Section 5.3 (run that code first).
 plot(auto$weight_k, auto$mpg, pch = 16, col = rgb(0, 0, 0, 0.35),
      xlab = "Weight (1000 lb)", ylab = "Fuel economy (mpg)")
 abline(fit, lwd = 2)

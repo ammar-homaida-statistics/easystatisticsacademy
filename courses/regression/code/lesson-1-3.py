@@ -34,6 +34,7 @@ yhat = X @ coef
 e = y - yhat
 print(f"sum e = {e.sum():.2e}, sum x*e = {(x*e).sum():.2e}, sum yhat*e = {(yhat*e).sum():.2e}")
 
+# Uses np, x, y, b0 and b1 from Section 5.3 (run that code first).
 import matplotlib.pyplot as plt
 grid = np.linspace(x.min(), x.max(), 100)
 fig, ax = plt.subplots(figsize=(6, 4))

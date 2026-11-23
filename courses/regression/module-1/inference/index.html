@@ -346,7 +346,8 @@ c(t = t8, p = 2 * pt(-abs(t8), df.residual(fit_auto)))</code></pre>
 <summary>
 Python code
 </summary>
-<pre class="python"><code>import pandas as pd
+<pre class="python"><code># Uses slr_inference from Section 5 (run that code first).
+import pandas as pd
 cols = [&quot;mpg&quot;, &quot;cylinders&quot;, &quot;displacement&quot;, &quot;horsepower&quot;, &quot;weight&quot;,
         &quot;acceleration&quot;, &quot;model_year&quot;, &quot;origin&quot;, &quot;car_name&quot;]
 auto = pd.read_csv(&quot;data/auto-mpg.data&quot;, sep=r&quot;\s+&quot;, header=None,
