@@ -35,7 +35,7 @@ sidebar: false
       <span class="badge">Variance Assumptions</span>
     </div>
 
-    <h1>Heteroscedasticity and Variance Issues</h1>
+    <h1>Hetero<wbr>scedasticity and Variance Issues</h1>
     {% include lab-noscript.html %}
 
     <p class="lead">
