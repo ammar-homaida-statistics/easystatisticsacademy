@@ -97,6 +97,19 @@ y_i = \beta_0 + \beta_1 x_i + \varepsilon_i, \qquad i = 1,\dots,n,
 </tbody>
 </table></div>
 <p>All notation follows the course notation standard.</p>
+<div class="concept-box esa-callout-note">
+<p class="esa-box-title">
+<strong>Assumptions used in this lesson</strong>
+</p>
+<p>The simple linear regression model is <span class="math inline">\(y_i = \beta_0 + \beta_1 x_i + \varepsilon_i\)</span>, <span class="math inline">\(i = 1, \dots, n\)</span>, with the <span class="math inline">\(x_i\)</span> treated as fixed and</p>
+<ul>
+<li><strong>A1 (Correct mean function).</strong> <span class="math inline">\(E(\varepsilon_i) = 0\)</span> for all <span class="math inline">\(i\)</span>, i.e. <span class="math inline">\(E(y_i) = \beta_0 + \beta_1 x_i\)</span>.</li>
+<li><strong>A2 (Constant variance).</strong> <span class="math inline">\(\operatorname{Var}(\varepsilon_i) = \sigma^2\)</span> for all <span class="math inline">\(i\)</span>.</li>
+<li><strong>A3 (Uncorrelated errors).</strong> <span class="math inline">\(\operatorname{Cov}(\varepsilon_i, \varepsilon_j) = 0\)</span> for <span class="math inline">\(i \ne j\)</span>.</li>
+<li><strong>A4 (Normality).</strong> <span class="math inline">\(\varepsilon_i \sim N(0, \sigma^2)\)</span>; together with A1–A3 this makes the errors independent.</li>
+</ul>
+<p>Each result below states which of A1–A4 it uses. Why these assumptions, and what each one is needed for: <a href="/courses/regression/module-1/what-is-regression/#assumptions-and-what-they-are-used-for">Lesson 1.1, Assumptions</a>.</p>
+</div>
 <h2 class="esa-lesson-anchor" data-number="4" id="theory"><span class="header-section-number">4</span> Theory</h2>
 <h3 data-number="4.1" id="the-least-squares-criterion"><span class="header-section-number">4.1</span> The least-squares criterion</h3>
 <div class="concept-box esa-callout-note">
@@ -192,7 +205,7 @@ Derivation
 <p class="esa-box-title">
 <strong>These are identities, not evidence of a good fit</strong>
 </p>
-<p>Properties (a)–(e) hold for <strong>every</strong> data set, whatever its shape — including data for which a straight line is a poor description. In particular, <span class="math inline">\(\sum e_i = 0\)</span> says nothing about how well the line fits. Property (a) also depends on the intercept: in regression through the origin it generally fails (Exercise B2).</p>
+<p>Properties (a)–(e) hold for <strong>every</strong> data set, whatever its shape — including data for which a straight line is a poor description. In particular, <span class="math inline">\(\sum e_i = 0\)</span> says nothing about how well the line fits. Property (a) also depends on the intercept: in regression through the origin it generally fails (Exercise B.2).</p>
 </div>
 <h3 data-number="4.5" id="interpretation"><span class="header-section-number">4.5</span> Interpretation</h3>
 <ul>
@@ -364,7 +377,7 @@ Fuel economy against weight with the least-squares line (Auto MPG, n = 398). The
 </ul>
 <h2 class="esa-lesson-anchor" data-number="8" id="exercises"><span class="header-section-number">8</span> Exercises</h2>
 <h3 data-number="8.1" id="a.-conceptual"><span class="header-section-number">8.1</span> A. Conceptual</h3>
-<p><strong>A1</strong> (★). A classmate says: “Our residuals sum to exactly zero, so the model has no bias.” Explain what is wrong with this statement.</p>
+<p><strong>A.1</strong> (★). A classmate says: “Our residuals sum to exactly zero, so the model has no bias.” Explain what is wrong with this statement.</p>
 <details class="esa-solution">
 <summary>
 Hint
@@ -377,7 +390,7 @@ Solution
 </summary>
 <p><span class="math inline">\(\sum e_i = 0\)</span> is the first normal equation evaluated at the OLS estimates (Theorem 1.3.2(a)). It holds for every OLS fit with an intercept, whatever the data, so it carries no information about bias or fit. For instance, fitting a straight line to points on a parabola still gives residuals summing to zero, although the residuals are systematically positive at the ends and negative in the middle. Bias concerns <span class="math inline">\(E(\hat\beta)\)</span> under a model and is studied in Lesson 1.4.</p>
 </details>
-<p><strong>A2</strong> (★). Why does OLS minimise <em>vertical</em> rather than perpendicular distances? Give a situation in which minimising perpendicular distances would be more appropriate.</p>
+<p><strong>A.2</strong> (★). Why does OLS minimise <em>vertical</em> rather than perpendicular distances? Give a situation in which minimising perpendicular distances would be more appropriate.</p>
 <details class="esa-solution">
 <summary>
 Solution
@@ -385,19 +398,19 @@ Solution
 <p>The aim of regression is to predict or explain <span class="math inline">\(y\)</span> given <span class="math inline">\(x\)</span>; the <span class="math inline">\(x\)</span> values are treated as fixed (or conditioned on) and the errors are in <span class="math inline">\(y\)</span>. Vertical distances are the prediction errors for <span class="math inline">\(y\)</span>. Perpendicular (orthogonal) distances treat <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> symmetrically and are more appropriate when both variables are measured with error and neither is to be predicted from the other — for example, comparing two measurement instruments, where errors-in-variables methods such as orthogonal (Deming) regression are used.</p>
 </details>
 <h3 data-number="8.2" id="b.-mathematical"><span class="header-section-number">8.2</span> B. Mathematical</h3>
-<p><strong>B1</strong> (★★). Show that if every <span class="math inline">\(x_i\)</span> is replaced by <span class="math inline">\(x_i^* = x_i - c\)</span> for a constant <span class="math inline">\(c\)</span>, the OLS slope is unchanged and the intercept becomes <span class="math inline">\(\hat\beta_0^* = \hat\beta_0 + \hat\beta_1 c\)</span>. What is the intercept when <span class="math inline">\(c = \bar x\)</span>?</p>
+<p><strong>B.1</strong> (★★). Show that if every <span class="math inline">\(x_i\)</span> is replaced by <span class="math inline">\(x_i^* = x_i - c\)</span> for a constant <span class="math inline">\(c\)</span>, the OLS slope is unchanged and the intercept becomes <span class="math inline">\(\hat\beta_0^* = \hat\beta_0 + \hat\beta_1 c\)</span>. What is the intercept when <span class="math inline">\(c = \bar x\)</span>?</p>
 <details class="esa-solution">
 <summary>
 Solution
 </summary>
 <p><span class="math inline">\(x_i^* - \bar x^* = x_i - \bar x\)</span>, so <span class="math inline">\(S_{x^*x^*} = S_{xx}\)</span> and <span class="math inline">\(S_{x^*y} = S_{xy}\)</span>; hence <span class="math inline">\(\hat\beta_1^* = \hat\beta_1\)</span>. Then <span class="math inline">\(\hat\beta_0^* = \bar y - \hat\beta_1(\bar x - c) = \hat\beta_0 + \hat\beta_1 c\)</span>. With <span class="math inline">\(c = \bar x\)</span>, <span class="math inline">\(\hat\beta_0^* = \bar y\)</span>: after centring, the intercept is the mean response. For the Auto MPG fit, centring weight gives intercept <span class="math inline">\(23.514573\)</span>.</p>
 </details>
-<p><strong>B2</strong> (★★). <em>Regression through the origin.</em> For the model <span class="math inline">\(y_i = \beta x_i + \varepsilon_i\)</span>, derive the OLS estimator <span class="math inline">\(\hat\beta\)</span>. Show that <span class="math inline">\(\sum x_i e_i = 0\)</span> but that <span class="math inline">\(\sum e_i\)</span> need not be zero.</p>
+<p><strong>B.2</strong> (★★). <em>Regression through the origin.</em> For the model <span class="math inline">\(y_i = \beta x_i + \varepsilon_i\)</span>, derive the OLS estimator <span class="math inline">\(\hat\beta\)</span>. Show that <span class="math inline">\(\sum x_i e_i = 0\)</span> but that <span class="math inline">\(\sum e_i\)</span> need not be zero.</p>
 <details class="esa-solution">
 <summary>
 Hint
 </summary>
-<p>There is only one normal equation. For the counterexample, use the data in C1.</p>
+<p>There is only one normal equation. For the counterexample, use the data in Exercise C.1.</p>
 </details>
 <details class="esa-solution">
 <summary>
@@ -405,7 +418,7 @@ Solution
 </summary>
 <p><span class="math inline">\(S(b) = \sum (y_i - b x_i)^2\)</span>, <span class="math inline">\(S&#39;(b) = -2\sum x_i(y_i - b x_i) = 0\)</span> gives <span class="math inline">\(\hat\beta = \sum x_i y_i / \sum x_i^2\)</span> (provided not all <span class="math inline">\(x_i = 0\)</span>); <span class="math inline">\(S&#39;&#39;(b) = 2\sum x_i^2 &gt; 0\)</span>, so this is the minimum. The single normal equation is <span class="math inline">\(\sum x_i e_i = 0\)</span>; there is no equation forcing <span class="math inline">\(\sum e_i = 0\)</span>. With the C1 data, <span class="math inline">\(\sum x_i y_i = 93\)</span> and <span class="math inline">\(\sum x_i^2 = 55\)</span>, so <span class="math inline">\(\hat\beta = 93/55 = 1.690909\)</span> and <span class="math inline">\(\sum e_i = 27 - 1.690909 \times 15 = 1.636364 \neq 0\)</span>.</p>
 </details>
-<p><strong>B3</strong> (★★★). Prove that for any <span class="math inline">\((b_0, b_1)\)</span>, <span class="math display">\[
+<p><strong>B.3</strong> (★★★). Prove that for any <span class="math inline">\((b_0, b_1)\)</span>, <span class="math display">\[
 S(b_0, b_1) = \mathrm{SSE} + n\bigl[(\hat\beta_0 - b_0) + (\hat\beta_1 - b_1)\bar x\bigr]^2 + (\hat\beta_1 - b_1)^2 S_{xx},
 \]</span> and use it to explain why the OLS line is unique if and only if <span class="math inline">\(S_{xx} &gt; 0\)</span>.</p>
 <details class="esa-solution">
@@ -416,7 +429,7 @@ Solution
 <p>If <span class="math inline">\(S_{xx} &gt; 0\)</span>, the extra terms vanish only when <span class="math inline">\(c = 0\)</span> and <span class="math inline">\(a = 0\)</span>, so the minimiser is unique. If <span class="math inline">\(S_{xx} = 0\)</span> (all <span class="math inline">\(x_i\)</span> equal to <span class="math inline">\(\bar x\)</span>), the last term is always zero and every <span class="math inline">\((b_0, b_1)\)</span> with <span class="math inline">\(b_0 + b_1\bar x = \hat\beta_0 + \hat\beta_1\bar x = \bar y\)</span> attains the minimum: infinitely many lines through <span class="math inline">\((\bar x, \bar y)\)</span> fit equally well, so the slope is not identifiable.</p>
 </details>
 <h3 data-number="8.3" id="c.-computational"><span class="header-section-number">8.3</span> C. Computational</h3>
-<p><strong>C1</strong> (★). For the illustrative data below, compute <span class="math inline">\(\hat\beta_0\)</span> and <span class="math inline">\(\hat\beta_1\)</span> by hand, list the fitted values and residuals, and verify Theorem 1.3.2 (a) and (b).</p>
+<p><strong>C.1</strong> (★). For the illustrative data below, compute <span class="math inline">\(\hat\beta_0\)</span> and <span class="math inline">\(\hat\beta_1\)</span> by hand, list the fitted values and residuals, and verify Theorem 1.3.2 (a) and (b).</p>
 <div class="table-wrap"><table>
 <thead>
 <tr class="header">
@@ -445,14 +458,14 @@ Solution
 </summary>
 <p><span class="math inline">\(\bar x = 3\)</span>, <span class="math inline">\(\bar y = 5.4\)</span>, <span class="math inline">\(S_{xx} = 10\)</span>, <span class="math inline">\(S_{xy} = 12\)</span>, so <span class="math inline">\(\hat\beta_1 = 1.2\)</span> and <span class="math inline">\(\hat\beta_0 = 5.4 - 1.2 \times 3 = 1.8\)</span>. Fitted values: <span class="math inline">\(3.0, 4.2, 5.4, 6.6, 7.8\)</span>. Residuals: <span class="math inline">\(0, 0.8, -1.4, 0.4, 0.2\)</span>. <span class="math inline">\(\sum e_i = 0\)</span> and <span class="math inline">\(\sum x_i e_i = 0 + 1.6 - 4.2 + 1.6 + 1.0 = 0\)</span>. <span class="math inline">\(\mathrm{SSE} = 2.8\)</span>.</p>
 </details>
-<p><strong>C2</strong> (★★). Using the Auto MPG data, fit the OLS line of mpg on horsepower (use the 392 cars with horsepower recorded). Report <span class="math inline">\(\hat\beta_0\)</span> and <span class="math inline">\(\hat\beta_1\)</span>, interpret the slope, and verify Theorem 1.3.2 numerically.</p>
+<p><strong>C.2</strong> (★★). Using the Auto MPG data, fit the OLS line of mpg on horsepower (use the 392 cars with horsepower recorded). Report <span class="math inline">\(\hat\beta_0\)</span> and <span class="math inline">\(\hat\beta_1\)</span>, interpret the slope, and verify Theorem 1.3.2 numerically.</p>
 <details class="esa-solution">
 <summary>
 Solution
 </summary>
 <p>With <span class="math inline">\(n = 392\)</span>: <span class="math inline">\(\hat\beta_0 = 39.9359\)</span> and <span class="math inline">\(\hat\beta_1 = -0.157845\)</span> mpg per horsepower; each additional 10 horsepower is associated with about 1.6 mpg lower fuel economy, on average. In R: <code>lm(mpg ~ horsepower, data = auto)</code> (rows with missing horsepower are dropped automatically). In Python, drop missing rows first, e.g. <code>auto.dropna(subset=["horsepower"])</code>. The sums <span class="math inline">\(\sum e_i\)</span> and <span class="math inline">\(\sum x_i e_i\)</span> are zero up to floating-point error. Note that the sample differs from the weight analysis (<span class="math inline">\(n = 392\)</span> vs <span class="math inline">\(398\)</span>); state this when comparing the two fits.</p>
 </details>
-<p><strong>C3</strong> (★★). Write a function <code>ols_slr(x, y)</code> in R or Python that returns <span class="math inline">\(\hat\beta_0\)</span>, <span class="math inline">\(\hat\beta_1\)</span>, the fitted values and the residuals, and that stops with an informative error if <span class="math inline">\(S_{xx} = 0\)</span>. Test it on C1 and on a vector <span class="math inline">\(x\)</span> whose entries are all equal.</p>
+<p><strong>C.3</strong> (★★). Write a function <code>ols_slr(x, y)</code> in R or Python that returns <span class="math inline">\(\hat\beta_0\)</span>, <span class="math inline">\(\hat\beta_1\)</span>, the fitted values and the residuals, and that stops with an informative error if <span class="math inline">\(S_{xx} = 0\)</span>. Test it on C1 and on a vector <span class="math inline">\(x\)</span> whose entries are all equal.</p>
 <details class="esa-solution">
 <summary>
 Solution (Python)

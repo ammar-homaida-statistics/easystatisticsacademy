@@ -84,6 +84,19 @@ learning_resource: true
 </tbody>
 </table></div>
 <p>All notation follows the course notation standard.</p>
+<div class="concept-box esa-callout-note">
+<p class="esa-box-title">
+<strong>Assumptions used in this lesson</strong>
+</p>
+<p>The simple linear regression model is <span class="math inline">\(y_i = \beta_0 + \beta_1 x_i + \varepsilon_i\)</span>, <span class="math inline">\(i = 1, \dots, n\)</span>, with the <span class="math inline">\(x_i\)</span> treated as fixed and</p>
+<ul>
+<li><strong>A1 (Correct mean function).</strong> <span class="math inline">\(E(\varepsilon_i) = 0\)</span> for all <span class="math inline">\(i\)</span>, i.e. <span class="math inline">\(E(y_i) = \beta_0 + \beta_1 x_i\)</span>.</li>
+<li><strong>A2 (Constant variance).</strong> <span class="math inline">\(\operatorname{Var}(\varepsilon_i) = \sigma^2\)</span> for all <span class="math inline">\(i\)</span>.</li>
+<li><strong>A3 (Uncorrelated errors).</strong> <span class="math inline">\(\operatorname{Cov}(\varepsilon_i, \varepsilon_j) = 0\)</span> for <span class="math inline">\(i \ne j\)</span>.</li>
+<li><strong>A4 (Normality).</strong> <span class="math inline">\(\varepsilon_i \sim N(0, \sigma^2)\)</span>; together with A1–A3 this makes the errors independent.</li>
+</ul>
+<p>Each result below states which of A1–A4 it uses. Why these assumptions, and what each one is needed for: <a href="/courses/regression/module-1/what-is-regression/#assumptions-and-what-they-are-used-for">Lesson 1.1, Assumptions</a>.</p>
+</div>
 <h2 class="esa-lesson-anchor" data-number="4" id="theory"><span class="header-section-number">4</span> Theory</h2>
 <p>Throughout, assumptions A1–A4 hold, and the new error <span class="math inline">\(\varepsilon_0 \sim N(0, \sigma^2)\)</span> is independent of <span class="math inline">\(\varepsilon_1, \dots, \varepsilon_n\)</span>.</p>
 <h3 data-number="4.1" id="estimating-the-mean-response"><span class="header-section-number">4.1</span> Estimating the mean response</h3>
@@ -101,7 +114,7 @@ learning_resource: true
 <summary>
 Derivation
 </summary>
-<p><span class="math inline">\(\hat y_0 = \bar y + \hat\beta_1(x_0 - \bar x)\)</span>, so <span class="math inline">\(E(\hat y_0) = \beta_0 + \beta_1\bar x + \beta_1(x_0 - \bar x) = \mu_0\)</span>. Because <span class="math inline">\(\operatorname{Cov}(\bar y, \hat\beta_1) = 0\)</span> (Lesson 1.4), <span class="math inline">\(\operatorname{Var}(\hat y_0) = \sigma^2/n + (x_0 - \bar x)^2\sigma^2/S_{xx} = \sigma^2 h_0\)</span>. Under A4, <span class="math inline">\(\hat y_0\)</span> is normal and is a function of <span class="math inline">\((\hat\beta_0, \hat\beta_1)\)</span>, hence independent of <span class="math inline">\(\mathrm{SSE}\)</span> (Theorem 1.7.1). The pivot is therefore a standard normal over an independent <span class="math inline">\(\sqrt{\chi^2_{n-2}/(n-2)}\)</span>: <span class="math inline">\(t_{n-2}\)</span>.</p>
+<p><span class="math inline">\(\hat y_0 = \bar y + \hat\beta_1(x_0 - \bar x)\)</span>, so <span class="math inline">\(E(\hat y_0) = \beta_0 + \beta_1\bar x + \beta_1(x_0 - \bar x) = \mu_0\)</span>. Because <span class="math inline">\(\operatorname{Cov}(\bar y, \hat\beta_1) = 0\)</span> (Lesson 1.4), <span class="math inline">\(\operatorname{Var}(\hat y_0) = \sigma^2/n + (x_0 - \bar x)^2\sigma^2/S_{xx} = \sigma^2 h_0\)</span>. Under A4, <span class="math inline">\(\hat y_0\)</span> is normal and is a function of <span class="math inline">\((\hat\beta_0, \hat\beta_1)\)</span>, hence independent of <span class="math inline">\(\mathrm{SSE}\)</span> (<a href="/courses/regression/module-1/inference/">Theorem 1.7.1, Lesson 1.7</a>). The pivot is therefore a standard normal over an independent <span class="math inline">\(\sqrt{\chi^2_{n-2}/(n-2)}\)</span>: <span class="math inline">\(t_{n-2}\)</span>.</p>
 </details>
 <h3 data-number="4.2" id="predicting-a-new-observation"><span class="header-section-number">4.2</span> Predicting a new observation</h3>
 <div class="concept-box esa-callout-important">
@@ -132,7 +145,7 @@ Derivation
 \hat y(x) \ \pm\ \sqrt{2F_{2,\,n-2;\,1-\alpha}}\ \hat\sigma\sqrt{h(x)} \qquad \text{for all } x
 \]</span> contains the entire true regression line with probability <span class="math inline">\(1-\alpha\)</span>. It has the same shape as the pointwise confidence band, but uses a larger multiplier (for <span class="math inline">\(n = 398\)</span> and 95%: 2.457 instead of 1.966). For a small number <span class="math inline">\(k\)</span> of pre-specified points, a Bonferroni correction (<span class="math inline">\(t_{n-2;\,1-\alpha/(2k)}\)</span>) is often narrower.</p>
 <h3 data-number="4.5" id="the-role-of-normality"><span class="header-section-number">4.5</span> The role of normality</h3>
-<p>The confidence interval for <span class="math inline">\(\mu_0\)</span> relies on the distribution of <span class="math inline">\(\hat y_0\)</span>, an <strong>average</strong> of the <span class="math inline">\(y_i\)</span>: by the central limit theorem it is approximately normal in large samples whatever the error distribution. The prediction interval relies on the distribution of the <strong>single</strong> new error <span class="math inline">\(\varepsilon_0\)</span>, and no averaging helps. If the errors are skewed, a symmetric prediction interval will miss mostly on one side, however large <span class="math inline">\(n\)</span> is (Exercise C2).</p>
+<p>The confidence interval for <span class="math inline">\(\mu_0\)</span> relies on the distribution of <span class="math inline">\(\hat y_0\)</span>, an <strong>average</strong> of the <span class="math inline">\(y_i\)</span>: by the central limit theorem it is approximately normal in large samples whatever the error distribution. The prediction interval relies on the distribution of the <strong>single</strong> new error <span class="math inline">\(\varepsilon_0\)</span>, and no averaging helps. If the errors are skewed, a symmetric prediction interval will miss mostly on one side, however large <span class="math inline">\(n\)</span> is (Exercise C.2).</p>
 <h2 class="esa-lesson-anchor" data-number="5" id="worked-example-1-the-teaching-data-set"><span class="header-section-number">5</span> Worked example 1: the teaching data set</h2>
 <p>We use the teaching data of Lesson 1.7 (<span class="math inline">\(n = 25\)</span>; true model <span class="math inline">\(y = 46 - 7.7x + \varepsilon\)</span>, <span class="math inline">\(\sigma = 4\)</span>), at <span class="math inline">\(x_0 = 3.0\)</span> and <span class="math inline">\(x_0 = 5.0\)</span>.</p>
 <div class="esa-code-tabs">
@@ -262,7 +275,7 @@ x0 = 5.0: fit = 6.9100, 95% CI (2.8561, 10.9639), 95% PI (-3.6497, 17.4697), tru
 </tr>
 </tbody>
 </table></div>
-<p>With normal errors both intervals achieve their nominal coverage, missing equally often on each side. With skewed errors of the same variance, the prediction interval never misses below and misses above 6% of the time: a symmetric interval is the wrong shape for a skewed distribution. (Exercise C2.)</p>
+<p>With normal errors both intervals achieve their nominal coverage, missing equally often on each side. With skewed errors of the same variance, the prediction interval never misses below and misses above 6% of the time: a symmetric interval is the wrong shape for a skewed distribution. (Exercise C.2.)</p>
 <h2 class="esa-lesson-anchor" data-number="6" id="worked-example-2-auto-mpg"><span class="header-section-number">6</span> Worked example 2: Auto MPG</h2>
 <p>For mpg on weight (1000 lb), <span class="math inline">\(n = 398\)</span>, <span class="math inline">\(\hat\sigma = 4.345\)</span>, <span class="math inline">\(\bar x = 2.970\)</span>:</p>
 <div class="table-wrap"><table>
@@ -426,7 +439,7 @@ Auto MPG: least-squares line with pointwise 95% confidence band for the mean (da
 </ul>
 <h2 class="esa-lesson-anchor" data-number="9" id="exercises"><span class="header-section-number">9</span> Exercises</h2>
 <h3 data-number="9.1" id="a.-conceptual"><span class="header-section-number">9.1</span> A. Conceptual</h3>
-<p><strong>A1</strong> (★). For each question, say whether a confidence interval for the mean or a prediction interval is needed: (a) the average fuel economy of a manufacturer’s 3000-lb models; (b) the fuel economy of the specific 3000-lb car a customer is about to buy; (c) a regulator’s estimate of the expected fuel economy of 3500-lb cars.</p>
+<p><strong>A.1</strong> (★). For each question, say whether a confidence interval for the mean or a prediction interval is needed: (a) the average fuel economy of a manufacturer’s 3000-lb models; (b) the fuel economy of the specific 3000-lb car a customer is about to buy; (c) a regulator’s estimate of the expected fuel economy of 3500-lb cars.</p>
 <details class="esa-solution">
 <summary>
 Solution
@@ -435,7 +448,7 @@ Solution
 <li>Confidence interval for the mean (an average over many cars). (b) Prediction interval (one new car). (c) Confidence interval for the mean (expected value).</li>
 </ol>
 </details>
-<p><strong>A2</strong> (★). Explain in one or two sentences why a prediction interval can never be narrower than about <span class="math inline">\(\pm 1.96\,\sigma\)</span> (for 95%), however much data is collected.</p>
+<p><strong>A.2</strong> (★). Explain in one or two sentences why a prediction interval can never be narrower than about <span class="math inline">\(\pm 1.96\,\sigma\)</span> (for 95%), however much data is collected.</p>
 <details class="esa-solution">
 <summary>
 Solution
@@ -443,21 +456,21 @@ Solution
 <p>Even if the line were known exactly, the new observation still deviates from it by its own error <span class="math inline">\(\varepsilon_0\)</span>, which has standard deviation <span class="math inline">\(\sigma\)</span>. Data reduce uncertainty about the line (<span class="math inline">\(h_0 \to 0\)</span>), not the variability of individual observations.</p>
 </details>
 <h3 data-number="9.2" id="b.-mathematical"><span class="header-section-number">9.2</span> B. Mathematical</h3>
-<p><strong>B1</strong> (★★). Prove that <span class="math inline">\(\operatorname{Var}(y_0 - \hat y_0) = \sigma^2(1 + h_0)\)</span>, stating exactly where independence of <span class="math inline">\(\varepsilon_0\)</span> from the sample is used.</p>
+<p><strong>B.1</strong> (★★). Prove that <span class="math inline">\(\operatorname{Var}(y_0 - \hat y_0) = \sigma^2(1 + h_0)\)</span>, stating exactly where independence of <span class="math inline">\(\varepsilon_0\)</span> from the sample is used.</p>
 <details class="esa-solution">
 <summary>
 Solution
 </summary>
 <p><span class="math inline">\(y_0 - \hat y_0 = \varepsilon_0 + (\mu_0 - \hat y_0)\)</span>. <span class="math inline">\(\operatorname{Var}(\varepsilon_0) = \sigma^2\)</span>; <span class="math inline">\(\operatorname{Var}(\hat y_0) = \sigma^2 h_0\)</span> (Theorem 1.8.1). The covariance <span class="math inline">\(\operatorname{Cov}(\varepsilon_0, \hat y_0)\)</span> is zero because <span class="math inline">\(\hat y_0\)</span> is a linear function of <span class="math inline">\(y_1, \dots, y_n\)</span> and <span class="math inline">\(\varepsilon_0\)</span> is uncorrelated with <span class="math inline">\(\varepsilon_1, \dots, \varepsilon_n\)</span> — the only place independence (uncorrelatedness) of the new error is used. Summing gives <span class="math inline">\(\sigma^2(1 + h_0)\)</span>.</p>
 </details>
-<p><strong>B2</strong> (★★). Show that the ratio of the widths of the prediction and confidence intervals at the same <span class="math inline">\(x_0\)</span> is <span class="math inline">\(\sqrt{(1 + h_0)/h_0}\)</span>, and evaluate it for Auto MPG at 3000 lb (<span class="math inline">\(h_0 = 0.002515\)</span>).</p>
+<p><strong>B.2</strong> (★★). Show that the ratio of the widths of the prediction and confidence intervals at the same <span class="math inline">\(x_0\)</span> is <span class="math inline">\(\sqrt{(1 + h_0)/h_0}\)</span>, and evaluate it for Auto MPG at 3000 lb (<span class="math inline">\(h_0 = 0.002515\)</span>).</p>
 <details class="esa-solution">
 <summary>
 Solution
 </summary>
 <p>Both widths are <span class="math inline">\(2t_{n-2;1-\alpha/2}\hat\sigma\)</span> times <span class="math inline">\(\sqrt{1+h_0}\)</span> and <span class="math inline">\(\sqrt{h_0}\)</span> respectively; the ratio is <span class="math inline">\(\sqrt{(1+h_0)/h_0}\)</span>. For <span class="math inline">\(h_0 = 1/398 + (3 - 2.970425)^2/284.705 = 0.002515\)</span>: ratio <span class="math inline">\(= \sqrt{1.002515/0.002515} = 19.96\)</span>. The PI at 3000 lb (width 17.10) is about 20 times wider than the CI (width 0.86).</p>
 </details>
-<p><strong>B3</strong> (★★). For <span class="math inline">\(n = 25\)</span> and <span class="math inline">\(n = 398\)</span>, compare the Working–Hotelling multiplier <span class="math inline">\(\sqrt{2F_{2,n-2;0.95}}\)</span> with the pointwise multiplier <span class="math inline">\(t_{n-2;0.975}\)</span>. By what percentage is the simultaneous band wider?</p>
+<p><strong>B.3</strong> (★★). For <span class="math inline">\(n = 25\)</span> and <span class="math inline">\(n = 398\)</span>, compare the Working–Hotelling multiplier <span class="math inline">\(\sqrt{2F_{2,n-2;0.95}}\)</span> with the pointwise multiplier <span class="math inline">\(t_{n-2;0.975}\)</span>. By what percentage is the simultaneous band wider?</p>
 <details class="esa-solution">
 <summary>
 Solution
@@ -465,14 +478,14 @@ Solution
 <p><span class="math inline">\(n = 25\)</span>: <span class="math inline">\(\sqrt{2F_{2,23;0.95}} = 2.616\)</span> vs <span class="math inline">\(t_{23;0.975} = 2.069\)</span>, about 26% wider. <span class="math inline">\(n = 398\)</span>: <span class="math inline">\(2.457\)</span> vs <span class="math inline">\(1.966\)</span>, about 25% wider. (R: <code>sqrt(2 * qf(0.95, 2, n - 2))</code> and <code>qt(0.975, n - 2)</code>.)</p>
 </details>
 <h3 data-number="9.3" id="c.-computational"><span class="header-section-number">9.3</span> C. Computational</h3>
-<p><strong>C1</strong> (★). Using the Auto MPG fit, compute the 95% CI for the mean and the 95% PI at 2500 lb and at 5000 lb. Which of them involves extrapolation? (Observed weights: 1613–5140 lb.)</p>
+<p><strong>C.1</strong> (★). Using the Auto MPG fit, compute the 95% CI for the mean and the 95% PI at 2500 lb and at 5000 lb. Which of them involves extrapolation? (Observed weights: 1613–5140 lb.)</p>
 <details class="esa-solution">
 <summary>
 Solution
 </summary>
 <p>At 2500 lb: fit 27.126, CI (26.636, 27.616), PI (18.570, 35.681). At 5000 lb: fit 7.934, CI (6.821, 9.047), PI (−0.679, 16.548). Neither is an extrapolation (both inside 1613–5140), but 5000 lb is at the edge: few cars are that heavy, the CI is wide, the PI’s lower limit is negative, and Lesson 1.1 showed the true mean flattens there, so the straight line probably underestimates mpg for very heavy cars.</p>
 </details>
-<p><strong>C2</strong> (★★). <em>Normality matters for prediction.</em> With the 25 design points of the teaching data, simulate 20,000 data sets and new observations at <span class="math inline">\(x_0 = 3.0\)</span> with (i) normal errors, <span class="math inline">\(\sigma = 4\)</span>, and (ii) errors <span class="math inline">\(4(E - 1)\)</span>, <span class="math inline">\(E \sim \text{Exp}(1)\)</span> (seed 2026). For the 95% PI, record how often <span class="math inline">\(y_0\)</span> falls below and above the interval.</p>
+<p><strong>C.2</strong> (★★). <em>Normality matters for prediction.</em> With the 25 design points of the teaching data, simulate 20,000 data sets and new observations at <span class="math inline">\(x_0 = 3.0\)</span> with (i) normal errors, <span class="math inline">\(\sigma = 4\)</span>, and (ii) errors <span class="math inline">\(4(E - 1)\)</span>, <span class="math inline">\(E \sim \text{Exp}(1)\)</span> (seed 2026). For the 95% PI, record how often <span class="math inline">\(y_0\)</span> falls below and above the interval.</p>
 <details class="esa-solution">
 <summary>
 Solution (Python)
@@ -496,7 +509,7 @@ for name, gen in [(&quot;normal&quot;, lambda s: rng.normal(0, 4, s)),
     print(name, round((y0 &lt; fit - half).mean(), 4), round((y0 &gt; fit + half).mean(), 4))</code></pre>
 <p>Output: normal 0.0252 below, 0.0276 above; skewed 0.0000 below, 0.0598 above. With skewed errors the interval is too long on the left and too short on the right. Remedies include transforming <span class="math inline">\(y\)</span> or using quantile-based prediction methods.</p>
 </details>
-<p><strong>C3</strong> (★★). Reproduce the in-sample coverage table for Auto MPG (all cars and by weight third). Then repeat it for the model <span class="math inline">\(\log(\text{mpg})\)</span> on weight, back-transforming the interval limits with <span class="math inline">\(\exp(\cdot)\)</span>. Does the log scale fix the problem?</p>
+<p><strong>C.3</strong> (★★). Reproduce the in-sample coverage table for Auto MPG (all cars and by weight third). Then repeat it for the model <span class="math inline">\(\log(\text{mpg})\)</span> on weight, back-transforming the interval limits with <span class="math inline">\(\exp(\cdot)\)</span>. Does the log scale fix the problem?</p>
 <details class="esa-solution">
 <summary>
 Hint
