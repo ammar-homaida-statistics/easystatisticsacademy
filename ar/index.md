@@ -19,6 +19,9 @@ lang: ar
 <p><a href="/ar/inference/power-sample-size/what-is-statistical-power/">ما القوة الإحصائية؟ — مع مثال محسوب لاختبار z</a></p>
 <p><a href="/ar/inference/hypothesis-testing/significance-level-alpha/">مستوى الدلالة (α) — قاعدة القرار وصلتها بفترات الثقة</a></p>
 <p><a href="/ar/inference/power-sample-size/effect-size-and-practical-importance/">حجم الأثر والأهمية العملية — مع مثال محسوب لكوهين d</a></p>
+<p><a href="/ar/inference/assumptions-robustness/robust-alternatives-nonparametric/">البدائل الحصينة والطرق اللامعلمية — درس عربي ومختبرا مان–ويتني/ويلكوكسون وكروسكال–واليس</a></p>
+<p><a href="/ar/inference/hypothesis-testing/test-statistic-standardization/">إحصائية الاختبار والمعايرة — درس عربي</a></p>
+<p><a href="/ar/inference/hypothesis-testing/one-sided-vs-two-sided/">الاختبارات أحادية الطرف وثنائية الطرف — درس عربي</a></p>
 <p><a href="/ar/inference/classical-tests/mcnemar-test/">اختبار ماكنمار للنسب المزدوجة — درس عربي ومختبر تفاعلي</a></p>
 <p><a href="/ar/inference/classical-tests/chi-square-homogeneity-test/">اختبار كاي تربيع للتجانس — درس عربي ومختبر تفاعلي مع البواقي المعدّلة</a></p>
 <p><a href="/ar/inference/classical-tests/chi-square-independence-test/">اختبار كاي تربيع للاستقلال — درس عربي ومختبر تفاعلي لجدول 2 × 2</a></p>

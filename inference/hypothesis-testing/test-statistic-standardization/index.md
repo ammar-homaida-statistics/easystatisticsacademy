@@ -4,6 +4,8 @@ title: Test Statistic and Standardization
 description: Learn what a test statistic is, why standardization is essential in hypothesis testing, and how observed results are converted into evidence.
 permalink: /inference/hypothesis-testing/test-statistic-standardization/
 sidebar: false
+learning_resource: true
+translation_pair: test-statistic-standardization
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -36,7 +38,9 @@ sidebar: false
       <span class="badge">Inference</span>
       <span class="badge">Block 3</span>
       <span class="badge">Hypothesis Testing</span>
-      <span class="badge">Core Mechanics</span>
+      <span class="badge">Core Mech
+    <p><a href="/ar/inference/hypothesis-testing/test-statistic-standardization/" lang="ar" dir="rtl" hreflang="ar">النسخة العربية: إحصائية الاختبار والمعايرة</a></p>
+anics</span>
     </div>
 
     <h1>Test Statistic and Standardization</h1>
@@ -170,11 +174,11 @@ sidebar: false
 
     <ul class="bullets">
 
-      <li>Observed = estimate from the sample</li>
+      <li>Estimate = value computed from the sample</li>
 
-      <li>Expected = value predicted by the null hypothesis</li>
+      <li>Null value = value specified by the null hypothesis</li>
 
-      <li>SE = standard error</li>
+      <li>Standard error = standard deviation of the estimate’s sampling distribution</li>
 
     </ul>
 
@@ -223,7 +227,7 @@ sidebar: false
 
       <li>μ₀ = null-hypothesis value</li>
 
-      <li>SE = standard error</li>
+      <li>σ/√n = standard error of the sample mean when σ is known</li>
 
     </ul>
 
