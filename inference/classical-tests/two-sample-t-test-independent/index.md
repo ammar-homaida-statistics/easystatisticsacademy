@@ -349,7 +349,7 @@ Do not use these fields for matched or before/after pairs; use the <a href="/inf
 <svg id="esa-w-pool-plot" viewBox="0 0 610 130" role="img" aria-label="Welch and pooled confidence intervals" style="display:block;max-width:100%;width:100%;height:auto"></svg>
 <p id="esa-w-pool-warning" role="status" aria-live="polite"></p>
 </div>
-<p class="muted-mini">Pooled variance: \(s_p^2=[(n_1-1)s_1^2+(n_2-1)s_2^2]/(n_1+n_2-2)\). Pooled standard error: \(s_p\\sqrt{1/n_1+1/n_2}\). The displayed confidence intervals are two-sided regardless of the alternative hypothesis chosen. A descriptive sample-variance ratio is not a formal pretest for choosing between the methods.</p>
+<p class="muted-mini">Pooled variance: \(s_p^2=\frac{(n_1-1)s_1^2+(n_2-1)s_2^2}{n_1+n_2-2}\). Pooled standard error: \(s_p\sqrt{1/n_1+1/n_2}\). The displayed confidence intervals are two-sided regardless of the alternative hypothesis chosen. A descriptive sample-variance ratio is not a formal pretest for choosing between the methods.</p>
 <noscript><p>Enable JavaScript to compare the two intervals using the example data.</p></noscript>
 </section>
 

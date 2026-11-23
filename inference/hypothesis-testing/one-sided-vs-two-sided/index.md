@@ -4,6 +4,8 @@ title: One-Sided vs Two-Sided Tests
 description: Learn the difference between one-sided and two-sided hypothesis tests, when each should be used, and how they affect statistical conclusions.
 permalink: /inference/hypothesis-testing/one-sided-vs-two-sided/
 sidebar: false
+learning_resource: true
+translation_pair: one-sided-vs-two-sided
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -36,7 +38,9 @@ sidebar: false
       <span class="badge">Inference</span>
       <span class="badge">Block 3</span>
       <span class="badge">Hypothesis Testing</span>
-      <span class="badge">Test Design</span>
+      <span class="badge">Test Des
+    <p><a href="/ar/inference/hypothesis-testing/one-sided-vs-two-sided/" lang="ar" dir="rtl" hreflang="ar">النسخة العربية: الاختبارات أحادية الطرف وثنائية الطرف</a></p>
+ign</span>
     </div>
 
     <h1>One-Sided vs Two-Sided Tests</h1>

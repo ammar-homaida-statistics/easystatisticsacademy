@@ -13,7 +13,7 @@ translation_pair: p-value-meaning
 <h1>معنى القيمة الاحتمالية (p-value)</h1>
 {% include lab-noscript.html %}
 <p class="lead">تلخّص القيمة الاحتمالية مدى غرابة نتيجة اختبار محدد لو كان النموذج الصفري صحيحًا؛ ويتطلب تفسيرها معرفة اتجاه الاختبار وافتراضاته.</p>
-<p><a href="/inference/hypothesis-testing/p-value-meaning/" lang="en" dir="ltr">English version</a> · <a href="/inference/hypothesis-testing/test-statistic-standardization/" hreflang="en">الدرس السابق: إحصائية الاختبار والتوحيد القياسي</a> <span class="muted-mini">(بالإنجليزية)</span></p>
+<p><a href="/inference/hypothesis-testing/p-value-meaning/" lang="en" dir="ltr">English version</a> · <a href="/ar/inference/hypothesis-testing/test-statistic-standardization/">الدرس السابق: إحصائية الاختبار والتوحيد القياسي</a> <span class="muted-mini">(بالإنجليزية)</span></p>
 </div></section>
 <section><div class="content-narrow">
 <section class="concept-box" id="esa-pvalue-explorer" data-locale="ar" aria-labelledby="esa-p-title" style="min-width:0;overflow-wrap:anywhere">
@@ -120,7 +120,7 @@ p_{\text{right-tailed}}=P_{H_0}(X\ge90)=\sum_{k=90}^{100}\binom{100}{k}(0.5)^{10
 <li>تقدّم القيم الاحتمالية الدليل، ويقدّم مستوى الدلالة قاعدة القرار.</li>
 </ul></div>
 <div class="lesson-nav">
-<a class="btn btn-outline" href="/inference/hypothesis-testing/test-statistic-standardization/" hreflang="en">→ السابق: إحصائية الاختبار (بالإنجليزية)</a>
+<a class="btn btn-outline" href="/ar/inference/hypothesis-testing/test-statistic-standardization/">→ السابق: إحصائية الاختبار والمعايرة</a>
 <a class="btn" href="/ar/inference/hypothesis-testing/significance-level-alpha/">التالي: مستوى الدلالة α ←</a>
 </div>
 </div></section>

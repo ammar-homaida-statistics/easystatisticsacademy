@@ -4,6 +4,8 @@ title: Robust Alternatives and Nonparametric Methods
 description: Learn how robust and nonparametric methods provide alternatives when classical assumptions are questionable or violated.
 permalink: /inference/assumptions-robustness/robust-alternatives-nonparametric/
 sidebar: false
+learning_resource: true
+translation_pair: robust-alternatives
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -37,6 +39,8 @@ sidebar: false
 
     <h1>Robust Alternatives and Nonparametric Methods</h1>
       {% include lab-noscript.html %}
+
+    <p><a href="/ar/inference/assumptions-robustness/robust-alternatives-nonparametric/" lang="ar" dir="rtl" hreflang="ar">النسخة العربية: البدائل الحصينة والطرق اللامعلمية</a></p>
 
     <p class="lead">
       Classical statistical procedures often work remarkably well, but they rely on assumptions that may not always hold in practice.

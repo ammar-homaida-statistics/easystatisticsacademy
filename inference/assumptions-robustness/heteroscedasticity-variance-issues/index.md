@@ -35,7 +35,8 @@ sidebar: false
       <span class="badge">Variance Assumptions</span>
     </div>
 
-    <h1>Heteroscedasticity and Variance Issues</h1>
+    <h1>Hetero<wbr>scedasticity and Variance Issues</h1>
+    {% include lab-noscript.html %}
 
     <p class="lead">
       Many statistical methods assume that variability remains reasonably constant across observations, groups, or predictor values.
@@ -108,9 +109,11 @@ sidebar: false
     </p>
 
     
+    <div class="esa-lv-math" dir="ltr" tabindex="0" role="region" aria-label="Definition of variance">
     \[
     \operatorname{Var}(X)=E[(X-E[X])^2]
     \]
+    </div>
 
 
     <h2>Homoscedasticity</h2>
@@ -379,6 +382,49 @@ sidebar: false
     <p>
       These tests can provide evidence regarding variance assumptions.
     </p>
+
+    <!-- Batch #100: Levene and Brown–Forsythe laboratory -->
+    <section class="concept-box" id="esa-lv-lab" aria-labelledby="esa-lv-heading">
+      <h3 id="esa-lv-heading">Interactive equal-variance test: Levene and Brown–Forsythe</h3>
+      <p>Both tests run a one-way ANOVA on the absolute deviations \(z_{ij}=|x_{ij}-c_i|\) from each group's centre \(c_i\): the <strong>mean</strong> for Levene's original test, the <strong>median</strong> for the Brown–Forsythe version, which is far less sensitive to outliers and skewness.</p>
+      <div class="esa-lv-math" dir="ltr" tabindex="0" role="region" aria-label="Levene statistic">
+      \[
+      W=\frac{N-k}{k-1}\cdot\frac{\sum_{i}n_i(\bar z_{i\cdot}-\bar z_{\cdot\cdot})^2}{\sum_{i}\sum_{j}(z_{ij}-\bar z_{i\cdot})^2},\qquad
+      p=P\left(F_{k-1,\,N-k}\ge W\right).
+      \]
+      </div>
+      <label for="esa-lv-center">Centre</label>
+      <select id="esa-lv-center"><option value="median" selected>Median (Brown–Forsythe, robust)</option><option value="mean">Mean (Levene's original)</option></select>
+      <label for="esa-lv-input">Groups (one per line, 2–6 groups)</label>
+      <textarea id="esa-lv-input" dir="ltr" rows="4" spellcheck="false" aria-invalid="false" aria-describedby="esa-lv-error">12.1, 13.4, 11.8, 12.9, 13.1, 12.4
+10.2, 14.8, 9.5, 15.6, 11.9, 13.7
+12.5, 12.8, 13.0, 12.2, 12.6, 12.9</textarea>
+      <div class="esa-lv-controls"><button class="btn btn-outline" type="button" id="esa-lv-example">Unequal spreads</button><button class="btn btn-outline" type="button" id="esa-lv-equal">Similar spreads</button><button class="btn btn-outline" type="button" id="esa-lv-outlier">One outlier</button></div>
+      <p id="esa-lv-error" role="alert" hidden></p>
+      <section id="esa-lv-results" aria-label="Equal-variance test results" role="status" aria-live="polite" aria-atomic="true">
+        <div class="table-wrap"><table><caption>Equal-variance test</caption><tbody>
+          <tr><th scope="row">W statistic</th><td><output id="esa-lv-w" dir="ltr">16.2618</output></td></tr>
+          <tr><th scope="row">Degrees of freedom</th><td><output id="esa-lv-df" dir="ltr">2, 15</output></td></tr>
+          <tr><th scope="row">p-value</th><td><output id="esa-lv-p" dir="ltr">0.000175</output></td></tr>
+          <tr><th scope="row">Sample SDs</th><td><output id="esa-lv-sds" dir="ltr">—</output></td></tr>
+          <tr><th scope="row">Largest / smallest sample variance</th><td><output id="esa-lv-ratio" dir="ltr">—</output></td></tr>
+        </tbody></table></div>
+        <p id="esa-lv-decision"></p>
+      </section>
+      <p class="muted-mini">Try "One outlier": a single extreme value makes the mean-centred test significant (W ≈ 4.690, p ≈ 0.031), while the median-centred test is not (W ≈ 0.816, p ≈ 0.465). Using a variance test to decide whether to run Welch's or the pooled test changes the overall error rates; many statisticians therefore use Welch's methods by default rather than pre-testing. Results match SciPy's <code>levene</code> with <code>center="mean"</code> or <code>"median"</code>.</p>
+    </section>
+    <style>
+    #esa-lv-lab,#esa-lv-lab *{box-sizing:border-box}
+    #esa-lv-lab{max-width:100%;min-width:0;overflow-wrap:anywhere}
+    #esa-lv-lab label{display:block;font-weight:650;margin:10px 0 5px}
+    #esa-lv-lab :is(textarea,select){display:block;width:100%;min-width:0;font:inherit;padding:8px;border:1px solid #777;border-radius:6px}
+    #esa-lv-lab .esa-lv-controls{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+    #esa-lv-lab .table-wrap,.esa-lv-math{max-width:100%;overflow-x:auto}
+    .esa-lv-math{direction:ltr}
+    #esa-lv-lab [hidden]{display:none!important}
+    #esa-lv-lab :is(textarea,select,button):focus-visible,.esa-lv-math:focus-visible{outline:2px solid #0f766e;outline-offset:3px}
+    </style>
+    <script defer src="/js/levene-lab.js"></script>
 
     <h2>Limitations of Formal Tests</h2>
 

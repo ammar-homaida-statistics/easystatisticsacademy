@@ -170,3 +170,12 @@
 - id: effect-size
   en: /inference/power-sample-size/effect-size-and-practical-importance/
   ar: /ar/inference/power-sample-size/effect-size-and-practical-importance/
+- id: robust-alternatives
+  en: /inference/assumptions-robustness/robust-alternatives-nonparametric/
+  ar: /ar/inference/assumptions-robustness/robust-alternatives-nonparametric/
+- id: test-statistic-standardization
+  en: /inference/hypothesis-testing/test-statistic-standardization/
+  ar: /ar/inference/hypothesis-testing/test-statistic-standardization/
+- id: one-sided-vs-two-sided
+  en: /inference/hypothesis-testing/one-sided-vs-two-sided/
+  ar: /ar/inference/hypothesis-testing/one-sided-vs-two-sided/
