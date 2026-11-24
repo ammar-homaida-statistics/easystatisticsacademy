@@ -39,7 +39,7 @@ sidebar: false
       <span class="badge">Interpretation</span>
     </div>
 
-    <h1>Common Mistakes and Interpretation</h1>
+    <h1>Common Mistakes and Interpre<wbr>tation</h1>
 
     <p class="lead">
       Confidence intervals are among the most useful tools in statistics, but they are also among the most frequently misunderstood.

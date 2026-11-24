@@ -40,6 +40,7 @@ sidebar: false
     </div>
 
     <h1>Confidence Intervals and Tests</h1>
+    {% include lab-noscript.html %}
 
     <p class="lead">
       Confidence intervals and hypothesis tests are often taught as separate statistical tools.
@@ -471,6 +472,56 @@ sidebar: false
       Since zero is included,
       the corresponding test fails to reject the null hypothesis.
     </p>
+
+    <!-- Batch #101: confidence interval and test duality laboratory -->
+    <section class="concept-box" id="esa-cid-lab" aria-labelledby="esa-cid-heading">
+      <h3 id="esa-cid-heading">Interactive lab: the interval and the test give the same answer</h3>
+      <p>For one mean with standard error \(\mathrm{SE}=s/\sqrt n\) (or \(\sigma/\sqrt n\) for the z version), the test of \(H_0:\mu=\mu_0\) rejects exactly when \(\mu_0\) falls outside the matching interval:</p>
+      <div class="esa-cid-math" dir="ltr" tabindex="0" role="region" aria-label="Duality between the two-sided interval and the two-sided test">
+      \[
+      \left|\frac{\bar x-\mu_0}{\mathrm{SE}}\right|>c_{1-\alpha/2}
+      \iff
+      \mu_0\notin\left[\bar x-c_{1-\alpha/2}\,\mathrm{SE},\ \bar x+c_{1-\alpha/2}\,\mathrm{SE}\right].
+      \]
+      </div>
+      <p>A one-sided test matches a one-sided bound: the right-tailed test (\(H_a:\mu&gt;\mu_0\)) pairs with the lower bound \(\bar x-c_{1-\alpha}\,\mathrm{SE}\), and the left-tailed test with the upper bound \(\bar x+c_{1-\alpha}\,\mathrm{SE}\).</p>
+      <div class="esa-cid-grid">
+        <label for="esa-cid-method">Reference distribution<select id="esa-cid-method"><option value="t" selected>t (σ unknown, uses s)</option><option value="z">z (σ known)</option></select></label>
+        <label for="esa-cid-side">Alternative<select id="esa-cid-side"><option value="two-sided" selected>Two-sided (μ ≠ μ₀) ↔ two-sided interval</option><option value="greater">Right-tailed (μ &gt; μ₀) ↔ lower bound</option><option value="less">Left-tailed (μ &lt; μ₀) ↔ upper bound</option></select></label>
+        <label for="esa-cid-mean">Sample mean x̄<input id="esa-cid-mean" type="number" step="any" inputmode="decimal" value="104.2" aria-describedby="esa-cid-error"></label>
+        <label for="esa-cid-sd">SD (s, or σ for z)<input id="esa-cid-sd" type="number" step="any" min="0" inputmode="decimal" value="8.5" aria-describedby="esa-cid-error"></label>
+        <label for="esa-cid-n">Sample size n<input id="esa-cid-n" type="number" step="1" min="2" inputmode="numeric" value="25" aria-describedby="esa-cid-error"></label>
+        <label for="esa-cid-mu0">Null value μ₀<input id="esa-cid-mu0" type="number" step="any" inputmode="decimal" value="100" aria-describedby="esa-cid-error"></label>
+        <label for="esa-cid-alpha">Significance level α<input id="esa-cid-alpha" type="number" step="any" min="0.001" max="0.5" inputmode="decimal" value="0.05" aria-describedby="esa-cid-error"></label>
+      </div>
+      <div class="esa-cid-controls"><button class="btn btn-outline" type="button" id="esa-cid-example">μ₀ outside</button><button class="btn btn-outline" type="button" id="esa-cid-inside-ex">μ₀ inside</button><button class="btn btn-outline" type="button" id="esa-cid-boundary">Put μ₀ on the boundary</button></div>
+      <p id="esa-cid-error" role="alert" hidden></p>
+      <section id="esa-cid-results" aria-label="Interval and test results" role="status" aria-live="polite" aria-atomic="true">
+        <div class="table-wrap"><table><caption>Interval and test for the same data</caption><tbody>
+          <tr><th scope="row">Critical value</th><td><output id="esa-cid-crit" dir="ltr">t(24) = 2.0639</output></td></tr>
+          <tr><th scope="row">Confidence interval or bound</th><td><output id="esa-cid-ci" dir="ltr">95%: [100.6914, 107.7086]</output></td></tr>
+          <tr><th scope="row">Is μ₀ inside?</th><td><output id="esa-cid-inside">No — μ₀ is outside the interval</output></td></tr>
+          <tr><th scope="row">Test statistic</th><td><output id="esa-cid-stat" dir="ltr">t = 2.4706</output></td></tr>
+          <tr><th scope="row">p-value</th><td><output id="esa-cid-p" dir="ltr">0.020981</output></td></tr>
+          <tr><th scope="row">Decision</th><td><output id="esa-cid-decision">Reject H₀ at α = 0.05 (p &lt; α)</output></td></tr>
+        </tbody></table></div>
+        <p id="esa-cid-agree">Interval and test agree.</p>
+      </section>
+      <p class="muted-mini">With the boundary button, μ₀ sits exactly on an endpoint, so the test statistic equals the critical value and p = α. This lab treats the interval as closed and rejects only when p &lt; α, matching the table below; some texts use p ≤ α with an open interval. The two conventions differ only on this boundary, which has probability zero for continuous data. The z version assumes σ is known; the t version assumes approximately normal data or a large enough n.</p>
+    </section>
+    <style>
+    #esa-cid-lab,#esa-cid-lab *{box-sizing:border-box}
+    #esa-cid-lab{max-width:100%;min-width:0;overflow-wrap:anywhere}
+    #esa-cid-lab label{display:block;font-weight:650;margin:6px 0}
+    #esa-cid-lab :is(input,select){display:block;width:100%;min-width:0;font:inherit;padding:8px;margin-top:4px;border:1px solid #777;border-radius:6px}
+    #esa-cid-lab .esa-cid-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:4px 10px}
+    #esa-cid-lab .esa-cid-controls{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+    #esa-cid-lab .table-wrap,.esa-cid-math{max-width:100%;overflow-x:auto}
+    .esa-cid-math{direction:ltr}
+    #esa-cid-lab [hidden]{display:none!important}
+    #esa-cid-lab :is(input,select,button):focus-visible,.esa-cid-math:focus-visible{outline:2px solid #0f766e;outline-offset:3px}
+    </style>
+    <script defer src="/js/ci-test-duality-lab.js"></script>
 
     <h2>The Relationship to p-Values</h2>
 

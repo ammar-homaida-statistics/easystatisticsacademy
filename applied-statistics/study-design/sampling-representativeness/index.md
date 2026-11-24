@@ -35,7 +35,7 @@ sidebar: false
       <span class="badge">Sampling</span>
     </div>
 
-    <h1>Sampling and Representativeness</h1>
+    <h1>Sampling and Representa<wbr>tiveness</h1>
 
     <p class="lead">
       Researchers are usually interested in understanding entire populations, but collecting data from every individual is often impossible.

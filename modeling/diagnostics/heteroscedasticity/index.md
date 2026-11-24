@@ -39,7 +39,7 @@ sidebar: false
       <span class="badge">Heteroscedasticity</span>
     </div>
 
-    <h1>Diagnosing Heteroscedasticity</h1>
+    <h1>Diagnosing Hetero<wbr>scedasticity</h1>
 
     <p class="lead">
       A key regression assumption is that residual variability remains approximately constant across the range of predictions.

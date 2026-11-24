@@ -4,6 +4,8 @@ title: Power and Effect Size
 description: Learn what statistical power means, how it relates to Type II errors, and why effect size is crucial for detecting meaningful differences.
 permalink: /inference/hypothesis-testing/power-and-effect-size/
 sidebar: false
+learning_resource: true
+translation_pair: power-and-effect-size
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -40,6 +42,8 @@ sidebar: false
     </div>
 
     <h1>Power and Effect Size</h1>
+
+    <p><a href="/ar/inference/hypothesis-testing/power-and-effect-size/" lang="ar" dir="rtl" hreflang="ar">النسخة العربية: قوة الاختبار وحجم الأثر</a></p>
 
     <p class="lead">
       A good hypothesis test should detect real effects when they exist.

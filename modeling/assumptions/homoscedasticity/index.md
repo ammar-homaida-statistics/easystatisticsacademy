@@ -39,7 +39,7 @@ sidebar: false
       <span class="badge">Homoscedasticity</span>
     </div>
 
-    <h1>Homoscedasticity</h1>
+    <h1>Homo<wbr>scedasticity</h1>
 
     <p class="lead">
       Regression assumes that residual variability remains roughly constant across the range of predictor values.

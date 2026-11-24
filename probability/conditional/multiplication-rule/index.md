@@ -42,7 +42,7 @@ math: true
       <span class="badge">Core Rule</span>
     </div>
 
-    <h1>Multiplication Rule</h1>
+    <h1>Multipli<wbr>cation Rule</h1>
 {% include lab-noscript.html %}
     <p><a href="/ar/probability/conditional/multiplication-rule/" lang="ar" dir="rtl">اقرأ الدرس بالعربية</a></p>
 

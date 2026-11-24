@@ -22,6 +22,9 @@ lang: ar
 <p><a href="/ar/inference/assumptions-robustness/robust-alternatives-nonparametric/">البدائل الحصينة والطرق اللامعلمية — درس عربي ومختبرا مان–ويتني/ويلكوكسون وكروسكال–واليس</a></p>
 <p><a href="/ar/inference/hypothesis-testing/test-statistic-standardization/">إحصائية الاختبار والمعايرة — درس عربي</a></p>
 <p><a href="/ar/inference/hypothesis-testing/one-sided-vs-two-sided/">الاختبارات أحادية الطرف وثنائية الطرف — درس عربي</a></p>
+<p><a href="/ar/inference/hypothesis-testing/null-and-alternative/">الفرضية الصفرية والفرضية البديلة — درس عربي</a></p>
+<p><a href="/ar/inference/hypothesis-testing/power-and-effect-size/">قوة الاختبار وحجم الأثر — درس عربي مع جدول القوة وحجم العيّنة</a></p>
+<p><a href="/ar/inference/assumptions-robustness/outliers-and-influence/">القيم المتطرفة والمشاهدات المؤثرة — درس عربي</a></p>
 <p><a href="/ar/inference/classical-tests/mcnemar-test/">اختبار ماكنمار للنسب المزدوجة — درس عربي ومختبر تفاعلي</a></p>
 <p><a href="/ar/inference/classical-tests/chi-square-homogeneity-test/">اختبار كاي تربيع للتجانس — درس عربي ومختبر تفاعلي مع البواقي المعدّلة</a></p>
 <p><a href="/ar/inference/classical-tests/chi-square-independence-test/">اختبار كاي تربيع للاستقلال — درس عربي ومختبر تفاعلي لجدول 2 × 2</a></p>

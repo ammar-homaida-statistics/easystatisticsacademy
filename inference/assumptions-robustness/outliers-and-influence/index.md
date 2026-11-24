@@ -4,6 +4,8 @@ title: Outliers and Influence
 description: Learn what outliers are, how influential observations affect statistical analyses, and how to evaluate their impact responsibly.
 permalink: /inference/assumptions-robustness/outliers-and-influence/
 sidebar: false
+learning_resource: true
+translation_pair: outliers-and-influence
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -36,6 +38,8 @@ sidebar: false
     </div>
 
     <h1>Outliers and Influence</h1>
+
+    <p><a href="/ar/inference/assumptions-robustness/outliers-and-influence/" lang="ar" dir="rtl" hreflang="ar">النسخة العربية: القيم المتطرفة والمشاهدات المؤثرة</a></p>
 
     <p class="lead">
       A small number of unusual observations can sometimes have a surprisingly large impact on statistical conclusions.

@@ -41,7 +41,7 @@ sidebar: false
         <span class="badge">Z-scores</span>
       </div>
 
-      <h1>Block 6 — Distribution Shape &amp; Standardization</h1>
+      <h1>Block 6 — Distribution Shape &amp; Standard<wbr>ization</h1>
 
       <p class="lead">
         Center and spread are not enough.

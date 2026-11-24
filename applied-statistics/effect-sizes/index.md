@@ -40,7 +40,7 @@ sidebar: false
         <span class="badge">Interpretation</span>
       </div>
 
-      <h1>Block 4 — Effect Sizes & Interpretation</h1>
+      <h1>Block 4 — Effect Sizes & Interpre<wbr>tation</h1>
 
       <p class="lead">
         Statistical significance does not necessarily imply importance.

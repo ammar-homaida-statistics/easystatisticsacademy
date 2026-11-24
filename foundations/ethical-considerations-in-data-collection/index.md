@@ -17,7 +17,7 @@ lesson_order: 24
 
 <section class="hero hero-lesson">
   <div class="hero-card">
-    <h1>Ethical Considerations in Data Collection</h1>
+    <h1>Ethical Consider<wbr>ations in Data Collection</h1>
 
     <div style="background:#fff3cd; border:1px solid #ffeeba; padding:12px 14px; margin:14px 0; border-radius:8px;">
       <strong>🚧 Under Construction</strong> — Real-world cases (privacy breaches, biased systems, misuse of data) will be added.

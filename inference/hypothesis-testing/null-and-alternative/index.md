@@ -4,6 +4,8 @@ title: Null and Alternative Hypotheses
 description: Learn how null and alternative hypotheses are formulated and why they form the foundation of statistical hypothesis testing.
 permalink: /inference/hypothesis-testing/null-and-alternative/
 sidebar: false
+learning_resource: true
+translation_pair: null-and-alternative
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -40,6 +42,8 @@ sidebar: false
     </div>
 
     <h1>Null and Alternative Hypotheses</h1>
+
+    <p><a href="/ar/inference/hypothesis-testing/null-and-alternative/" lang="ar" dir="rtl" hreflang="ar">النسخة العربية: الفرضية الصفرية والفرضية البديلة</a></p>
 
     <p class="lead">
       Every hypothesis test begins with two competing statements about a population.
