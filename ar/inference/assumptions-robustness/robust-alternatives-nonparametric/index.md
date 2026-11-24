@@ -228,7 +228,7 @@ translation_pair: robust-alternatives
 </div>
 
 <div class="lesson-nav">
-<a class="btn btn-outline" href="/inference/assumptions-robustness/outliers-and-influence/" hreflang="en" lang="en" dir="ltr">← Previous: Outliers and Influence (English)</a>
+<a class="btn btn-outline" href="/ar/inference/assumptions-robustness/outliers-and-influence/">→ السابق: القيم المتطرفة والمشاهدات المؤثرة</a>
 <a class="btn" href="/ar/inference/assumptions-robustness/bootstrap-as-robust-tool/">التالي: بوتستراب أداة حصينة ←</a>
 </div>
 </div></section>

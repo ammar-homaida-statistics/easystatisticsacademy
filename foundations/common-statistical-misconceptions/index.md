@@ -17,7 +17,7 @@ lesson_order: 32
 
 <section class="hero hero-lesson">
   <div class="hero-card">
-    <h1>Common Statistical Misconceptions</h1>
+    <h1>Common Statistical Mis<wbr>conceptions</h1>
 
     <div style="background:#fff3cd; border:1px solid #ffeeba; padding:12px 14px; margin:14px 0; border-radius:8px;">
       <strong>🚧 Under Construction</strong> — Additional real-world examples will be added.

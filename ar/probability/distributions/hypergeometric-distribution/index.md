@@ -11,7 +11,7 @@ math: true
 ---
 <section class="hero hero-section"><div class="hero-card">
 <div class="badge-row"><span class="badge">الاحتمالات</span><span class="badge">التوزيعات المتقطعة</span><span class="badge">المعاينة دون إرجاع</span></div>
-<h1>التوزيع فوق الهندسي (Hypergeometric Distribution)</h1>
+<h1>التوزيع فوق الهندسي (Hyper<wbr>geometric Distribution)</h1>
 {% include lab-noscript.html %}
 <p><a href="/probability/distributions/hypergeometric-distribution/" lang="en" dir="ltr">English — Hypergeometric Distribution</a></p>
 <p class="lead">ماذا يحدث لاحتمال النجاح إذا سحبنا عناصر من مجتمع محدود ولم نُعد العناصر المسحوبة؟ يصف التوزيع فوق الهندسي عدد النجاحات في عينة عشوائية منتظمة تُسحب دون إرجاع.</p>

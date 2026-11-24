@@ -113,7 +113,7 @@ translation_pair: test-statistic-standardization
 </div>
 
 <div class="lesson-nav">
-<a class="btn btn-outline" href="/inference/hypothesis-testing/null-and-alternative/" hreflang="en" lang="en" dir="ltr">← Previous: Null and Alternative Hypotheses (English)</a>
+<a class="btn btn-outline" href="/ar/inference/hypothesis-testing/null-and-alternative/">→ السابق: الفرضية الصفرية والفرضية البديلة</a>
 <a class="btn" href="/ar/inference/hypothesis-testing/p-value-meaning/">التالي: معنى القيمة الاحتمالية ←</a>
 </div>
 </div></section>

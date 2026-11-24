@@ -39,7 +39,7 @@ sidebar: false
       <span class="badge">Multicollinearity</span>
     </div>
 
-    <h1>Multicollinearity</h1>
+    <h1>Multi<wbr>collinearity</h1>
 {% include lab-noscript.html %}
 
     <p class="lead">

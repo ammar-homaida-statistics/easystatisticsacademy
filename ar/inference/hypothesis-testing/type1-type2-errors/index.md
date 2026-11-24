@@ -23,7 +23,7 @@ math: true
 {% include lab-noscript.html %}
  <p><a href="/inference/hypothesis-testing/type1-type2-errors/" lang="en" dir="ltr">English — Type I and Type II Errors</a></p>
  <p class="lead">يُبنى القرار الإحصائي على عينة محدودة، ولذلك قد نرفض فرضية عدم صحيحة أو نفشل في رفض فرضية عدم خاطئة. يساعد فهم هذين الخطأين على تصميم الدراسات وتفسير الأدلة بدقة.</p>
- <div class="hero-actions"><a class="btn btn-outline" href="/ar/">الدروس العربية</a><a class="btn" href="/ar/inference/hypothesis-testing/significance-level-alpha/">السابق: مستوى الدلالة (α)</a><a class="btn btn-outline" href="/inference/hypothesis-testing/power-and-effect-size/" lang="en" dir="ltr">Next: Power and Effect Size (English)</a></div>
+ <div class="hero-actions"><a class="btn btn-outline" href="/ar/">الدروس العربية</a><a class="btn" href="/ar/inference/hypothesis-testing/significance-level-alpha/">السابق: مستوى الدلالة (α)</a><a class="btn btn-outline" href="/ar/inference/hypothesis-testing/power-and-effect-size/">التالي: قوة الاختبار وحجم الأثر</a></div>
 </div></section>
 <section><div class="content-narrow">
 <h2>لماذا لا يمكن تفادي الأخطاء بالكامل؟</h2>
@@ -122,7 +122,7 @@ math: true
 <h2>الصورة العامة</h2>
 <p>يقودنا فهم أخطاء النوع الأول والثاني إلى تقييم جودة القرارات بدلاً من النظر إلى النتيجة الإحصائية بوصفها حقيقة يقينية، كما يساعد على اختيار حجم العينة ومستوى المعنوية بما يلائم أهمية الأخطاء في الدراسة.</p>
 <h2>الدرس التالي</h2>
-<p>لفهم كيفية التخطيط لاحتمال اكتشاف أثر حقيقي، تابع درس <a href="/inference/hypothesis-testing/power-and-effect-size/" lang="en" dir="ltr">Power and Effect Size</a> بالإنجليزية.</p>
+<p>لفهم كيفية التخطيط لاحتمال اكتشاف أثر حقيقي، تابع درس <a href="/ar/inference/hypothesis-testing/power-and-effect-size/">قوة الاختبار وحجم الأثر</a>.</p>
 <div class="summary-box"><h2>خلاصة الدرس</h2><ul class="bullets">
 <li>خطأ النوع الأول: رفض فرضية عدم صحيحة.</li>
 <li>خطأ النوع الثاني: عدم رفض فرضية عدم خاطئة.</li>

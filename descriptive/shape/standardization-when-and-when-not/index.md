@@ -39,7 +39,7 @@ sidebar: false
       <span class="badge">Standardization</span>
     </div>
 
-    <h1>Standardization: When and When Not</h1>
+    <h1>Standard<wbr>ization: When and When Not</h1>
 
     <p class="lead">
       Z-scores allow observations to be compared on a common scale.

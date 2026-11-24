@@ -42,7 +42,7 @@ math: true
       <span class="badge">Sampling</span>
     </div>
 
-    <h1>Hypergeometric Distribution</h1>
+    <h1>Hyper<wbr>geometric Distribution</h1>
 {% include lab-noscript.html %}
 <p><a lang="ar" dir="rtl" href="/ar/probability/distributions/hypergeometric-distribution/">اقرأ هذا الدرس بالعربية</a></p>
 

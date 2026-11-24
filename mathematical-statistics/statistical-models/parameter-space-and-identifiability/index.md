@@ -57,7 +57,7 @@ sidebar: false
         <span class="badge">Identifiability</span>
       </div>
 
-      <h1>2. Parameter Space and Identifiability</h1>
+      <h1>2. Parameter Space and Identifi<wbr>ability</h1>
 
       <p class="lead">
         A statistical model must allow us to uniquely recover the parameter

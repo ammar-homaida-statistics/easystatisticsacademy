@@ -95,6 +95,8 @@ jobs:
         run: python -m unittest discover -s .github/scripts -p 'test_batch99_math.py' -v
       - name: Verify Batch #100 Levene/Brown–Forsythe vs SciPy, Arabic pairs and numbers, inline-formula guard
         run: python -m unittest discover -s .github/scripts -p 'test_batch100_math.py' -v
+      - name: Verify Batch #101 CI–test duality vs SciPy, Arabic power/outlier numbers and pairs, heading guard
+        run: python -m unittest discover -s .github/scripts -p 'test_batch101_math.py' -v
       - name: Verify homepage Courses and Code Lab showcase links, counts and markup
         run: python -m unittest discover -s .github/scripts -p 'test_home_showcase.py' -v
       - name: Inventory mathematical placeholders and reject new damage
@@ -162,6 +164,8 @@ jobs:
         run: python .github/scripts/test_batch99_browser.py --site _site
       - name: Check Batch #100 Arabic rank labs, Levene lab, new Arabic lessons and fixed inline formulas at 320/375 px
         run: python .github/scripts/test_batch100_browser.py --site _site
+      - name: Check Batch #101 duality lab, new Arabic lessons and long headings at 320/375 px
+        run: python .github/scripts/test_batch101_browser.py --site _site
       - name: Check homepage Courses and Code Lab tabs, keyboard, no-JS fallback and widths
         run: python .github/scripts/test_home_showcase_browser.py --site _site
       - name: Check generated search, CSS assets, and browser behavior

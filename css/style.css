@@ -1436,3 +1436,6 @@ main .esa-lesson-anchor{scroll-margin-top: 120px}
     padding:2px 0;
   }
 }
+
+/* Batch #101: safety net so a long heading word can never widen a phone screen. */
+h1,h2,h3{overflow-wrap:break-word}

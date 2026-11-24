@@ -179,3 +179,12 @@
 - id: one-sided-vs-two-sided
   en: /inference/hypothesis-testing/one-sided-vs-two-sided/
   ar: /ar/inference/hypothesis-testing/one-sided-vs-two-sided/
+- id: null-and-alternative
+  en: /inference/hypothesis-testing/null-and-alternative/
+  ar: /ar/inference/hypothesis-testing/null-and-alternative/
+- id: power-and-effect-size
+  en: /inference/hypothesis-testing/power-and-effect-size/
+  ar: /ar/inference/hypothesis-testing/power-and-effect-size/
+- id: outliers-and-influence
+  en: /inference/assumptions-robustness/outliers-and-influence/
+  ar: /ar/inference/assumptions-robustness/outliers-and-influence/

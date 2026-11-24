@@ -35,7 +35,7 @@ sidebar: false
       <span class="badge">Reproducibility</span>
     </div>
 
-    <h1>Reproducibility and Analysis Checklist</h1>
+    <h1>Reproduc<wbr>ibility and Analysis Checklist</h1>
 
     <p class="lead">
       Statistical conclusions are only as trustworthy as the process used to produce them.

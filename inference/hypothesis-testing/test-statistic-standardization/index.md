@@ -43,7 +43,7 @@ translation_pair: test-statistic-standardization
 anics</span>
     </div>
 
-    <h1>Test Statistic and Standardization</h1>
+    <h1>Test Statistic and Standard<wbr>ization</h1>
 
     <p class="lead">
       Once hypotheses are defined, we need a way to measure how far the observed data depart from the null hypothesis.

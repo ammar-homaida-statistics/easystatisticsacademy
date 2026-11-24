@@ -42,7 +42,7 @@ sidebar: false
         <span class="badge">Communication</span>
       </div>
 
-      <h1>Block 6 — Interpretation & Reporting</h1>
+      <h1>Block 6 — Interpre<wbr>tation & Reporting</h1>
 
       <p class="lead">
         Correct statistical analysis requires correct interpretation.

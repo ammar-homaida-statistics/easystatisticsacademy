@@ -134,7 +134,7 @@ p_{\mathrm{two}}&=2\min\{\Phi(z_{\mathrm{obs}}),1-\Phi(z_{\mathrm{obs}})\}=2[1-\
 </div>
 
 <div class="lesson-nav">
-<a class="btn btn-outline" href="/inference/hypothesis-testing/power-and-effect-size/" hreflang="en" lang="en" dir="ltr">← Previous: Power and Effect Size (English)</a>
+<a class="btn btn-outline" href="/ar/inference/hypothesis-testing/power-and-effect-size/">→ السابق: قوة الاختبار وحجم الأثر</a>
 <a class="btn" href="/inference/hypothesis-testing/ci-and-test-connection/" hreflang="en" lang="en" dir="ltr">Next: Confidence Intervals and Tests (English) →</a>
 </div>
 </div></section>
