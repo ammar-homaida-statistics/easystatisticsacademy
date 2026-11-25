@@ -120,7 +120,7 @@ translation_pair: null-and-alternative
 </div>
 
 <div class="lesson-nav">
-<a class="btn btn-outline" href="/inference/hypothesis-testing/what-is-a-hypothesis-test/" hreflang="en" lang="en" dir="ltr">← Previous: What Is a Hypothesis Test? (English)</a>
+<a class="btn btn-outline" href="/ar/inference/hypothesis-testing/what-is-a-hypothesis-test/">→ السابق: ما اختبار الفرضية؟</a>
 <a class="btn" href="/ar/inference/hypothesis-testing/test-statistic-standardization/">التالي: إحصائية الاختبار والمعايرة ←</a>
 </div>
 </div></section>
