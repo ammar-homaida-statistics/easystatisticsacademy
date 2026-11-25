@@ -188,3 +188,15 @@
 - id: outliers-and-influence
   en: /inference/assumptions-robustness/outliers-and-influence/
   ar: /ar/inference/assumptions-robustness/outliers-and-influence/
+- id: what-is-a-hypothesis-test
+  en: /inference/hypothesis-testing/what-is-a-hypothesis-test/
+  ar: /ar/inference/hypothesis-testing/what-is-a-hypothesis-test/
+- id: ci-and-test-connection
+  en: /inference/hypothesis-testing/ci-and-test-connection/
+  ar: /ar/inference/hypothesis-testing/ci-and-test-connection/
+- id: heteroscedasticity-variance-issues
+  en: /inference/assumptions-robustness/heteroscedasticity-variance-issues/
+  ar: /ar/inference/assumptions-robustness/heteroscedasticity-variance-issues/
+- id: critical-values-z-and-t
+  en: /inference/confidence-intervals/critical-values-z-and-t/
+  ar: /ar/inference/confidence-intervals/critical-values-z-and-t/

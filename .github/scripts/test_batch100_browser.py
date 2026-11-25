@@ -131,7 +131,7 @@ class Browser100(unittest.TestCase):
 
     def test_new_arabic_lessons(self):
         for route,nav in ((TS,"/ar/inference/hypothesis-testing/p-value-meaning/"),
-                          (SIDES,"/inference/hypothesis-testing/ci-and-test-connection/"),
+                          (SIDES,"/ar/inference/hypothesis-testing/ci-and-test-connection/"),
                           (ROB,"/ar/inference/assumptions-robustness/bootstrap-as-robust-tool/")):
             for width in (320,375):
                 with self.subTest(route=route,width=width):

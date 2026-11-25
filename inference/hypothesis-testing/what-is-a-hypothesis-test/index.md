@@ -4,6 +4,8 @@ title: What Is a Hypothesis Test?
 description: Learn the purpose of hypothesis testing, why it differs from estimation, and how statisticians use data to evaluate claims about populations.
 permalink: /inference/hypothesis-testing/what-is-a-hypothesis-test/
 sidebar: false
+learning_resource: true
+translation_pair: what-is-a-hypothesis-test
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -40,6 +42,8 @@ sidebar: false
     </div>
 
     <h1>What Is a Hypothesis Test?</h1>
+
+    <p><a href="/ar/inference/hypothesis-testing/what-is-a-hypothesis-test/" lang="ar" dir="rtl" hreflang="ar">النسخة العربية: ما اختبار الفرضية؟</a></p>
 
     <p class="lead">
       Confidence intervals focus on estimation. Hypothesis tests focus on evidence.

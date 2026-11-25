@@ -4,6 +4,8 @@ title: Critical Values — z and t
 description: Learn what critical values are, where z and t critical values come from, and how they determine the width of confidence intervals.
 permalink: /inference/confidence-intervals/critical-values-z-and-t/
 sidebar: false
+learning_resource: true
+translation_pair: critical-values-z-and-t
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -40,6 +42,8 @@ sidebar: false
     </div>
 
     <h1>Critical Values — z and t</h1>
+
+    <p><a href="/ar/inference/confidence-intervals/critical-values-z-and-t/" lang="ar" dir="rtl" hreflang="ar">النسخة العربية: القيم الحرجة لتوزيعي z وt</a></p>
 
     <p class="lead">
       Every confidence interval needs a margin of error.

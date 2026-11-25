@@ -4,6 +4,8 @@ title: Heteroscedasticity and Variance Issues
 description: Learn what heteroscedasticity means, why equal variance assumptions matter, and how changing variability can affect statistical inference.
 permalink: /inference/assumptions-robustness/heteroscedasticity-variance-issues/
 sidebar: false
+learning_resource: true
+translation_pair: heteroscedasticity-variance-issues
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -36,6 +38,8 @@ sidebar: false
     </div>
 
     <h1>Hetero<wbr>scedasticity and Variance Issues</h1>
+
+    <p><a href="/ar/inference/assumptions-robustness/heteroscedasticity-variance-issues/" lang="ar" dir="rtl" hreflang="ar">النسخة العربية: عدم تجانس التباين ومشكلات التباين</a></p>
     {% include lab-noscript.html %}
 
     <p class="lead">

@@ -82,6 +82,15 @@ const $=id=>document.getElementById(id);
 const ids=["method","side","mean","sd","n","mu0","alpha"];
 const fmt=(x,d=4)=>x===Infinity?"∞":x===-Infinity?"−∞":(Math.abs(x)<5e-5&&x!==0?x.toExponential(3):x.toFixed(d)).replace("-","−");
 const fmtP=p=>p<1e-6?p.toExponential(3):p.toFixed(6);
+const AR=root.dataset.locale==="ar";
+const T=AR?{err:"أدخل متوسطًا وقيمة عدم منتهيين، وانحرافًا معياريًا أكبر من 0، وحجم عيّنة صحيحًا من 2 إلى 1,000,000، وقيمة α بين 0.001 و0.5.",
+ inside:"نعم — μ₀ داخل الفترة",outside:"لا — μ₀ خارج الفترة",
+ reject:a=>"نرفض H₀ عند α = "+a+" (p < α)",keep:a=>"لا نرفض H₀ عند α = "+a+" (p ≥ α)",
+ agree:"الفترة والاختبار متفقان.",disagree:"الفترة والاختبار غير متفقين — راجع المدخلات."}
+:{err:"Enter a finite mean and null value, an SD greater than 0, a whole-number n from 2 to 1,000,000, and α between 0.001 and 0.5.",
+ inside:"Yes — μ₀ is inside the interval",outside:"No — μ₀ is outside the interval",
+ reject:a=>"Reject H₀ at α = "+a+" (p < α)",keep:a=>"Do not reject H₀ at α = "+a+" (p ≥ α)",
+ agree:"Interval and test agree.",disagree:"Interval and test disagree — check the inputs."};
 function read(){
  return {method:$("esa-cid-method").value,side:$("esa-cid-side").value,mean:Number($("esa-cid-mean").value),
   sd:Number($("esa-cid-sd").value),n:Number($("esa-cid-n").value),mu0:Number($("esa-cid-mu0").value),alpha:Number($("esa-cid-alpha").value)};
@@ -92,7 +101,7 @@ function update(){
  const err=$("esa-cid-error"),res=$("esa-cid-results");
  ids.slice(2).forEach(i=>$("esa-cid-"+i).setAttribute("aria-invalid",r?"false":"true"));
  if(!r){err.hidden=false;res.hidden=true;
-  err.textContent="Enter a finite mean and null value, an SD greater than 0, a whole-number n from 2 to 1,000,000, and α between 0.001 and 0.5.";return;}
+  err.textContent=T.err;return;}
  err.hidden=true;err.textContent="";res.hidden=false;
  const a=read().alpha,lvl=(100*(1-a)).toFixed(a*100%1===0?0:1);
  const symbol=r.method==="z"?"z":"t";
@@ -100,10 +109,10 @@ function update(){
  $("esa-cid-ci").textContent=lvl+"%: ["+fmt(r.lower)+", "+fmt(r.upper)+"]";
  $("esa-cid-stat").textContent=symbol+" = "+fmt(r.stat);
  $("esa-cid-p").textContent=fmtP(r.p);
- $("esa-cid-inside").textContent=r.inside?"Yes — μ₀ is inside the interval":"No — μ₀ is outside the interval";
- $("esa-cid-decision").textContent=r.reject?"Reject H₀ at α = "+a+" (p < α)":"Do not reject H₀ at α = "+a+" (p ≥ α)";
+ $("esa-cid-inside").textContent=r.inside?T.inside:T.outside;
+ $("esa-cid-decision").textContent=r.reject?T.reject(a):T.keep(a);
  const pAgrees=r.reject?r.p<a:r.p>=a-1e-9*a;
- $("esa-cid-agree").textContent=pAgrees?"Interval and test agree.":"Interval and test disagree — check the inputs.";
+ $("esa-cid-agree").textContent=pAgrees?T.agree:T.disagree;
 }
 function set(v){for(const k in v)$("esa-cid-"+k).value=v[k];update();}
 ids.forEach(i=>$("esa-cid-"+i).addEventListener(i==="method"||i==="side"?"change":"input",update));

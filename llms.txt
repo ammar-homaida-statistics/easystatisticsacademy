@@ -1,0 +1,37 @@
+---
+layout: null
+permalink: /llms.txt
+---
+{%- assign pages_sorted = site.pages | sort: "url" -%}
+# Easy Statistics Academy
+
+> Free bilingual (English–Arabic) statistics learning platform by Ammar Homaida, PhD in Statistics. Lessons cover descriptive statistics, probability, statistical inference (confidence intervals, hypothesis testing, classical tests, assumptions and robustness, power), modelling and mathematical statistics, with interactive labs whose numerical results are verified against SciPy and closed-form references.
+
+- Website: {{ site.url }}/
+- Arabic lessons index: {{ site.url }}/ar/
+- Sitemap: {{ site.url }}/sitemap.xml
+
+## English lessons
+{% assign current = "" -%}
+{%- for p in pages_sorted -%}
+{%- assign last = p.url | slice: -1, 1 -%}
+{%- assign parts = p.url | split: "/" -%}
+{%- assign top = parts[1] -%}
+{%- if last == "/" and p.layout == "default" and p.robots_noindex != true and p.title and p.url != "/" and top != "ar" and top != "courses" and top != "code-lab" %}
+{%- if top != current %}
+
+### {{ top | replace: "-", " " | capitalize }}
+{%- assign current = top -%}
+{%- endif %}
+- [{{ p.title | strip_html | strip_newlines | strip }}]({{ site.url }}{{ p.url }}){% if p.description %}: {{ p.description | strip_html | strip_newlines | strip }}{% endif %}
+{%- endif -%}
+{%- endfor %}
+
+## الدروس العربية (Arabic lessons)
+{% for p in pages_sorted -%}
+{%- assign last = p.url | slice: -1, 1 -%}
+{%- assign parts = p.url | split: "/" -%}
+{%- if last == "/" and p.layout == "default" and p.robots_noindex != true and p.title and parts[1] == "ar" and parts[2] != "courses" and parts[2] != "code-lab" %}
+- [{{ p.title | strip_html | strip_newlines | strip }}]({{ site.url }}{{ p.url }}){% if p.description %}: {{ p.description | strip_html | strip_newlines | strip }}{% endif %}
+{%- endif -%}
+{%- endfor %}

@@ -4,6 +4,8 @@ title: Confidence Intervals and Tests
 description: Learn the deep connection between confidence intervals and hypothesis tests and how they often lead to the same statistical conclusions.
 permalink: /inference/hypothesis-testing/ci-and-test-connection/
 sidebar: false
+learning_resource: true
+translation_pair: ci-and-test-connection
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -40,6 +42,8 @@ sidebar: false
     </div>
 
     <h1>Confidence Intervals and Tests</h1>
+
+    <p><a href="/ar/inference/hypothesis-testing/ci-and-test-connection/" lang="ar" dir="rtl" hreflang="ar">النسخة العربية: فترات الثقة واختبارات الفرضيات</a></p>
     {% include lab-noscript.html %}
 
     <p class="lead">

@@ -121,7 +121,7 @@ translation_pair: outliers-and-influence
 </div>
 
 <div class="lesson-nav">
-<a class="btn btn-outline" href="/inference/assumptions-robustness/heteroscedasticity-variance-issues/" hreflang="en" lang="en" dir="ltr">← Previous: Heteroscedasticity and Variance Issues (English)</a>
+<a class="btn btn-outline" href="/ar/inference/assumptions-robustness/heteroscedasticity-variance-issues/">→ السابق: عدم تجانس التباين ومشكلات التباين</a>
 <a class="btn" href="/ar/inference/assumptions-robustness/robust-alternatives-nonparametric/">التالي: البدائل الحصينة والطرق اللامعلمية ←</a>
 </div>
 </div></section>
