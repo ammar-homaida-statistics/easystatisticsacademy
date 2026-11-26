@@ -1,0 +1,608 @@
+---
+layout: default
+title: "Inference for Coefficients and Linear Combinations — Regression Course, Lesson 2.6"
+description: "University-level lesson on inference in multiple regression: t-tests and intervals for coefficients and linear combinations, mean-response and prediction intervals, joint confidence regions, Bonferroni and Scheffé, with R and Python."
+permalink: /courses/regression/module-2/inference-coefficients/
+sidebar: false
+math: true
+learning_resource: true
+---
+
+<section class="hero hero-section">
+  <div class="hero-card">
+    <div class="badge-row">
+      <span class="badge">Course</span>
+      <span class="badge">Regression Analysis</span>
+      <span class="badge">Module 2 · Multiple Regression</span>
+      <span class="badge">Lesson 2.6</span>
+    </div>
+    <h1>Lesson 2.6 — Inference for Coefficients and Linear Combinations</h1>
+    <p class="lead">Tests and intervals for coefficients and their combinations, intervals for the mean and for a new observation, and what changes when several statements are made at once.</p>
+    <p class="muted-mini">Level: Intermediate · Study time: 50 min + exercises · Prerequisites: Lessons 2.4 and 2.5 · Data: Auto MPG (UCI, CC BY 4.0) and simulation</p>
+    <div class="hero-actions">
+      <a class="btn btn-outline" href="/courses/regression/module-2/">Module 2 lessons</a>
+      <a class="btn btn-outline" href="/courses/regression/code/lesson-2-6.py">Python script</a>
+      <a class="btn btn-outline" href="/courses/regression/code/lesson-2-6.R">R script</a>
+    </div>
+  </div>
+</section>
+
+<nav class="esa-lesson-toc" aria-label="On this page"><details><summary>On this page</summary><ol><li><a href="#learning-objectives">Learning objectives</a></li><li><a href="#motivation">Motivation</a></li><li><a href="#notation-for-this-lesson">Notation for this lesson</a></li><li><a href="#theory">Theory</a></li><li><a href="#worked-example">Worked example</a></li><li><a href="#common-misconceptions">Common misconceptions</a></li><li><a href="#key-takeaways">Key takeaways</a></li><li><a href="#exercises">Exercises</a></li><li><a href="#references">References</a></li></ol></details></nav>
+
+<section>
+  <div class="content-narrow esa-course-lesson">
+{% raw %}
+<h2 class="esa-lesson-anchor" data-number="1" id="learning-objectives"><span class="header-section-number">1</span> Learning objectives</h2>
+<p>By the end of this lesson you will be able to:</p>
+<ol type="1">
+<li>construct and interpret <span class="math inline">\(t\)</span>-tests and confidence intervals for a single coefficient <span class="math inline">\(\beta_j\)</span> and for any linear combination <span class="math inline">\(\mathbf{a}^\top\boldsymbol\beta\)</span>;</li>
+<li>compute a confidence interval for the mean response and a prediction interval for a new observation at <span class="math inline">\(\mathbf{x}_0\)</span>, and explain why the second is wider;</li>
+<li>derive the <span class="math inline">\(F\)</span>-based joint confidence region for several linear combinations and draw it for two coefficients;</li>
+<li>explain why separate 95% intervals do not give 95% joint coverage, and use Bonferroni and Scheffé intervals;</li>
+<li>recognise when a combination of parameter values is ruled out jointly although each value is plausible on its own.</li>
+</ol>
+<h2 class="esa-lesson-anchor" data-number="2" id="motivation"><span class="header-section-number">2</span> Motivation</h2>
+<p><a href="/courses/regression/module-2/interpreting-coefficients-multiple/">Lesson 2.5</a> found that, given weight and model year, horsepower has a slope of <span class="math inline">\(-0.50\)</span> with a standard error of <span class="math inline">\(0.94\)</span>. Is that slope distinguishable from zero? What fuel economy should we expect from a particular car, and how far might one car be from that expectation? And when we report intervals for several coefficients at once, what is the chance that <strong>all</strong> of them are right? These questions use the distribution theory of <a href="/courses/regression/module-2/ols-estimator-properties/">Lesson 2.4</a>; this lesson turns it into procedures. They generalise <a href="/courses/regression/module-1/inference/">Lesson 1.7</a> and <a href="/courses/regression/module-1/confidence-and-prediction-intervals/">Lesson 1.8</a> to any number of predictors.</p>
+<h2 class="esa-lesson-anchor" data-number="3" id="notation-for-this-lesson"><span class="header-section-number">3</span> Notation for this lesson</h2>
+<div class="table-wrap"><table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(m = n - p - 1\)</span></td>
+<td>residual degrees of freedom</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(t_{m;\,q}\)</span>, <span class="math inline">\(F_{q_1,q_2;\,q}\)</span></td>
+<td><span class="math inline">\(q\)</span>-quantiles of the <span class="math inline">\(t_m\)</span> and <span class="math inline">\(F_{q_1,q_2}\)</span> distributions</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(c_{jj}\)</span></td>
+<td><span class="math inline">\(j\)</span>-th diagonal element of <span class="math inline">\((\mathbf{X}^\top\mathbf{X})^{-1}\)</span>; <span class="math inline">\(\operatorname{se}(\hat\beta_j) = \hat\sigma\sqrt{c_{jj}}\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\mathbf{x}_0\)</span>, <span class="math inline">\(h_{00} = \mathbf{x}_0^\top(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{x}_0\)</span></td>
+<td>a new predictor vector (with leading 1) and its leverage</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\mu_0 = \mathbf{x}_0^\top\boldsymbol\beta\)</span>, <span class="math inline">\(y_0\)</span></td>
+<td>mean response at <span class="math inline">\(\mathbf{x}_0\)</span>, and a new observation there</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\mathbf{L}\)</span> (<span class="math inline">\(q\times(p+1)\)</span>, rank <span class="math inline">\(q\)</span>)</td>
+<td>matrix of <span class="math inline">\(q\)</span> linear combinations <span class="math inline">\(\mathbf{L}\boldsymbol\beta\)</span></td>
+</tr>
+</tbody>
+</table></div>
+<div class="concept-box esa-callout-note">
+<p class="esa-box-title">
+<strong>Assumptions used in this lesson</strong>
+</p>
+<p>The model is <span class="math inline">\(\mathbf{y} = \mathbf{X}\boldsymbol\beta + \boldsymbol\varepsilon\)</span> (<a href="/courses/regression/module-2/matrix-formulation/">Lesson 2.2</a>), with</p>
+<ul>
+<li><strong>A0 (Full rank).</strong> <span class="math inline">\(\mathbf{X}\)</span> is fixed with <span class="math inline">\(\operatorname{rank}(\mathbf{X}) = p + 1\)</span>.</li>
+<li><strong>A1 (Correct mean function).</strong> <span class="math inline">\(E(\boldsymbol\varepsilon) = \mathbf{0}\)</span>.</li>
+<li><strong>A2–A3 (Constant variance, uncorrelated errors).</strong> <span class="math inline">\(\operatorname{Cov}(\boldsymbol\varepsilon) = \sigma^2\mathbf{I}_n\)</span>.</li>
+<li><strong>A4 (Normality).</strong> <span class="math inline">\(\boldsymbol\varepsilon \sim N_n(\mathbf{0}, \sigma^2\mathbf{I}_n)\)</span>.</li>
+</ul>
+<p><strong>All exact results in this lesson use A0–A4.</strong> For large <span class="math inline">\(n\)</span>, the intervals for coefficients and mean responses remain approximately valid without A4 (<a href="/courses/regression/module-2/ols-estimator-properties/">Lesson 2.4</a>, Section 5.3); prediction intervals do not, because they depend on the distribution of a single new error. What each assumption means: <a href="/courses/regression/module-1/what-is-regression/#assumptions-and-what-they-are-used-for">Lesson 1.1, Assumptions</a>.</p>
+</div>
+<h2 class="esa-lesson-anchor" data-number="4" id="theory"><span class="header-section-number">4</span> Theory</h2>
+<h3 data-number="4.1" id="one-coefficient-or-one-linear-combination"><span class="header-section-number">4.1</span> One coefficient or one linear combination</h3>
+<div class="concept-box esa-callout-important">
+<p class="esa-box-title">
+<strong>Theorem 2.6.1 (<span class="math inline">\(t\)</span>-procedures) — uses A0–A4</strong>
+</p>
+<p>For a fixed <span class="math inline">\(\mathbf{a} \ne \mathbf{0}\)</span>, a <span class="math inline">\(100(1-\alpha)\%\)</span> confidence interval for <span class="math inline">\(\mathbf{a}^\top\boldsymbol\beta\)</span> is <span class="math display">\[
+\mathbf{a}^\top\hat{\boldsymbol\beta} \pm t_{m;\,1-\alpha/2}\;\hat\sigma\sqrt{\mathbf{a}^\top(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{a}},
+\]</span> and the test of <span class="math inline">\(H_0\colon \mathbf{a}^\top\boldsymbol\beta = c\)</span> rejects at level <span class="math inline">\(\alpha\)</span> when <span class="math inline">\(|T| &gt; t_{m;\,1-\alpha/2}\)</span>, with <span class="math inline">\(T = (\mathbf{a}^\top\hat{\boldsymbol\beta} - c)/\bigl(\hat\sigma\sqrt{\mathbf{a}^\top(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{a}}\bigr)\)</span>. With <span class="math inline">\(\mathbf{a}\)</span> the <span class="math inline">\(j\)</span>-th unit vector: <span class="math inline">\(\hat\beta_j \pm t_{m;\,1-\alpha/2}\operatorname{se}(\hat\beta_j)\)</span>.</p>
+</div>
+<p>The proof is one line: under <span class="math inline">\(H_0\)</span>, <span class="math inline">\(T \sim t_m\)</span> by <a href="/courses/regression/module-2/ols-estimator-properties/">Theorem 2.4.5(d), Lesson 2.4</a>, and the interval is the set of <span class="math inline">\(c\)</span> not rejected.</p>
+<p>What does <span class="math inline">\(H_0\colon\beta_j = 0\)</span> test? By the Frisch–Waugh–Lovell theorem of Lesson 2.5, it asks whether <span class="math inline">\(x_j\)</span> is linearly related to <span class="math inline">\(y\)</span> <strong>after removing the other predictors from both</strong>: whether <span class="math inline">\(x_j\)</span> adds anything to a model that already contains them. A non-significant <span class="math inline">\(\beta_j\)</span> does not mean <span class="math inline">\(x_j\)</span> is unrelated to <span class="math inline">\(y\)</span>, and its answer changes when the set of other predictors changes.</p>
+<h3 data-number="4.2" id="mean-response-and-prediction"><span class="header-section-number">4.2</span> Mean response and prediction</h3>
+<div class="concept-box esa-callout-important">
+<p class="esa-box-title">
+<strong>Theorem 2.6.2 (Intervals at a new point) — uses A0–A4</strong>
+</p>
+<p>Let <span class="math inline">\(\hat y_0 = \mathbf{x}_0^\top\hat{\boldsymbol\beta}\)</span>. (a) A <span class="math inline">\(100(1-\alpha)\%\)</span> confidence interval for the mean response <span class="math inline">\(\mu_0 = \mathbf{x}_0^\top\boldsymbol\beta\)</span> is <span class="math inline">\(\hat y_0 \pm t_{m;\,1-\alpha/2}\,\hat\sigma\sqrt{h_{00}}\)</span>. (b) If a new observation <span class="math inline">\(y_0 = \mu_0 + \varepsilon_0\)</span> has <span class="math inline">\(\varepsilon_0 \sim N(0, \sigma^2)\)</span> independent of <span class="math inline">\(\boldsymbol\varepsilon\)</span>, a <span class="math inline">\(100(1-\alpha)\%\)</span> prediction interval for <span class="math inline">\(y_0\)</span> is <span class="math inline">\(\hat y_0 \pm t_{m;\,1-\alpha/2}\,\hat\sigma\sqrt{1 + h_{00}}\)</span>.</p>
+</div>
+<details class="esa-derivation">
+<summary>
+Derivation
+</summary>
+<ol type="a">
+<li>is Theorem 2.6.1 with <span class="math inline">\(\mathbf{a} = \mathbf{x}_0\)</span>. (b) The prediction error <span class="math inline">\(y_0 - \hat y_0 = \varepsilon_0 - \mathbf{x}_0^\top(\hat{\boldsymbol\beta} - \boldsymbol\beta)\)</span> is normal with mean 0 and variance <span class="math inline">\(\sigma^2 + \sigma^2h_{00}\)</span>, the two parts being independent. It depends on <span class="math inline">\(\boldsymbol\varepsilon\)</span> only through <span class="math inline">\(\hat{\boldsymbol\beta}\)</span>, and <span class="math inline">\(\varepsilon_0\)</span> is independent of <span class="math inline">\(\boldsymbol\varepsilon\)</span>, so it is independent of SSE (Theorem 2.4.5c). Hence <span class="math inline">\((y_0 - \hat y_0)/(\hat\sigma\sqrt{1 + h_{00}}) \sim t_m\)</span>.</li>
+</ol>
+</details>
+<p>The two intervals answer different questions. The confidence interval is for the <strong>average</strong> fuel economy of all cars with predictor values <span class="math inline">\(\mathbf{x}_0\)</span>; its width shrinks to zero as <span class="math inline">\(n \to \infty\)</span>. The prediction interval is for <strong>one</strong> car; its width never falls below about <span class="math inline">\(2t\sigma\)</span>, because a single car varies around the average by <span class="math inline">\(\sigma\)</span>. Both widen with the leverage <span class="math inline">\(h_{00}\)</span>: far from the data, even the average is poorly known. For <span class="math inline">\(p = 1\)</span>, <span class="math inline">\(h_{00} = 1/n + (x_0 - \bar x)^2/S_{xx}\)</span> and Theorem 2.6.2 combines Theorems 1.8.1 and 1.8.2 of <a href="/courses/regression/module-1/confidence-and-prediction-intervals/">Lesson 1.8</a>.</p>
+<h3 data-number="4.3" id="several-linear-combinations-at-once"><span class="header-section-number">4.3</span> Several linear combinations at once</h3>
+<div class="concept-box esa-callout-important">
+<p class="esa-box-title">
+<strong>Theorem 2.6.3 (Joint confidence region) — uses A0–A4</strong>
+</p>
+<p>Let <span class="math inline">\(\mathbf{L}\)</span> be a fixed <span class="math inline">\(q\times(p+1)\)</span> matrix of rank <span class="math inline">\(q\)</span> and <span class="math inline">\(\mathbf{W} = \mathbf{L}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{L}^\top\)</span>. Then <span class="math display">\[
+F = \frac{(\mathbf{L}\hat{\boldsymbol\beta} - \mathbf{L}\boldsymbol\beta)^\top\mathbf{W}^{-1}(\mathbf{L}\hat{\boldsymbol\beta} - \mathbf{L}\boldsymbol\beta)}{q\,\hat\sigma^2} \sim F_{q,\,m},
+\]</span> and <span class="math inline">\(\{\boldsymbol\theta\in\mathbb{R}^q : (\mathbf{L}\hat{\boldsymbol\beta} - \boldsymbol\theta)^\top\mathbf{W}^{-1}(\mathbf{L}\hat{\boldsymbol\beta} - \boldsymbol\theta) \le q\,\hat\sigma^2F_{q,m;\,1-\alpha}\}\)</span> is a <span class="math inline">\(100(1-\alpha)\%\)</span> confidence region for <span class="math inline">\(\mathbf{L}\boldsymbol\beta\)</span>: an ellipsoid centred at <span class="math inline">\(\mathbf{L}\hat{\boldsymbol\beta}\)</span>.</p>
+</div>
+<details class="esa-derivation">
+<summary>
+Derivation
+</summary>
+<p><span class="math inline">\(\mathbf{Z} = \mathbf{L}\hat{\boldsymbol\beta} - \mathbf{L}\boldsymbol\beta \sim N_q(\mathbf{0}, \sigma^2\mathbf{W})\)</span>, and <span class="math inline">\(\mathbf{W}\)</span> is positive definite because <span class="math inline">\(\mathbf{L}\)</span> has full row rank. Let <span class="math inline">\(\mathbf{W}^{-1/2}\)</span> be the symmetric inverse square root. Then <span class="math inline">\(\mathbf{W}^{-1/2}\mathbf{Z}/\sigma \sim N_q(\mathbf{0}, \mathbf{I}_q)\)</span>, so <span class="math inline">\(\mathbf{Z}^\top\mathbf{W}^{-1}\mathbf{Z}/\sigma^2\)</span>, the sum of squares of its entries, is <span class="math inline">\(\chi^2_q\)</span>. It is a function of <span class="math inline">\(\hat{\boldsymbol\beta}\)</span>, hence independent of <span class="math inline">\(\mathrm{SSE}/\sigma^2 \sim \chi^2_m\)</span> (Theorem 2.4.5b–c). The ratio of the two, each divided by its degrees of freedom, is <span class="math inline">\(F_{q,m}\)</span>; the <span class="math inline">\(\sigma^2\)</span> cancels and leaves the statistic above. The region is the set of <span class="math inline">\(\boldsymbol\theta\)</span> for which <span class="math inline">\(F \le F_{q,m;\,1-\alpha}\)</span>.</p>
+</details>
+<p>For <span class="math inline">\(q = 1\)</span>, <span class="math inline">\(F = T^2\)</span> and the region is the <span class="math inline">\(t\)</span>-interval. For <span class="math inline">\(q = 2\)</span> the region is an ellipse whose shape is set by <span class="math inline">\(\mathbf{W}\)</span>: if the two estimates are strongly correlated, the ellipse is long and thin and tilted, and the rectangle formed by the two separate intervals describes it badly. Lesson 2.7 uses the same statistic, with <span class="math inline">\(\boldsymbol\theta\)</span> fixed by a hypothesis, as the general <span class="math inline">\(F\)</span>-test.</p>
+<h3 data-number="4.4" id="simultaneous-intervals-bonferroni-and-scheffé"><span class="header-section-number">4.4</span> Simultaneous intervals: Bonferroni and Scheffé</h3>
+<p>If each of <span class="math inline">\(q\)</span> separate intervals has coverage <span class="math inline">\(1 - \alpha\)</span>, the probability that <strong>all</strong> of them cover is generally less than <span class="math inline">\(1 - \alpha\)</span>. Two standard remedies keep the convenient interval form:</p>
+<ul>
+<li><strong>Bonferroni:</strong> use <span class="math inline">\(t_{m;\,1-\alpha/(2q)}\)</span> in place of <span class="math inline">\(t_{m;\,1-\alpha/2}\)</span> for each of the <span class="math inline">\(q\)</span> intervals. By Boole’s inequality, <span class="math inline">\(P(\text{some interval misses}) \le q\cdot\alpha/q = \alpha\)</span>, so the joint coverage is at least <span class="math inline">\(1 - \alpha\)</span>, whatever the correlations (Exercise B.3).</li>
+<li><strong>Scheffé:</strong> use the multiplier <span class="math inline">\(\sqrt{q\,F_{q,m;\,1-\alpha}}\)</span>. The resulting intervals for <strong>all</strong> linear combinations <span class="math inline">\(\boldsymbol\theta^\top\mathbf{L}\boldsymbol\beta\)</span> hold simultaneously with probability exactly <span class="math inline">\(1 - \alpha\)</span>, because they are the projections of the ellipsoid of Theorem 2.6.3. The Working–Hotelling band of Lesson 1.8 is the case <span class="math inline">\(p = 1\)</span>, <span class="math inline">\(q = 2\)</span>.</li>
+</ul>
+<p>Bonferroni is better for a few pre-specified intervals; Scheffé is better when many combinations, possibly chosen after looking at the data, are of interest.</p>
+<h2 class="esa-lesson-anchor" data-number="5" id="worked-example"><span class="header-section-number">5</span> Worked example</h2>
+<p>We continue with the 392 cars and the model mpg ~ weight (1000 lb) + model year + horsepower (100 hp) of Lesson 2.5: <span class="math inline">\(m = 388\)</span>, <span class="math inline">\(\hat\sigma = 3.430\)</span>, <span class="math inline">\(t_{388;\,0.975} = 1.966\)</span>.</p>
+<h3 data-number="5.1" id="tests-and-intervals-for-single-coefficients"><span class="header-section-number">5.1</span> Tests and intervals for single coefficients</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th>Coefficient</th>
+<th>Estimate</th>
+<th>se</th>
+<th><span class="math inline">\(t\)</span></th>
+<th><span class="math inline">\(p\)</span>-value</th>
+<th>95% CI</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Intercept</td>
+<td>−13.719</td>
+<td>4.182</td>
+<td>−3.28</td>
+<td>0.0011</td>
+<td>(−21.94, −5.50)</td>
+</tr>
+<tr class="even">
+<td>Weight</td>
+<td>−6.448</td>
+<td>0.409</td>
+<td>−15.77</td>
+<td><span class="math inline">\(&lt;10^{-40}\)</span></td>
+<td>(−7.252, −5.644)</td>
+</tr>
+<tr class="odd">
+<td>Model year</td>
+<td>0.749</td>
+<td>0.052</td>
+<td>14.37</td>
+<td><span class="math inline">\(&lt;10^{-37}\)</span></td>
+<td>(0.646, 0.851)</td>
+</tr>
+<tr class="even">
+<td>Horsepower</td>
+<td>−0.500</td>
+<td>0.944</td>
+<td>−0.53</td>
+<td>0.597</td>
+<td>(−2.356, 1.356)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Among cars of the same weight and model year, the data are consistent with no association between horsepower and fuel economy, but also with differences of up to about 2.4 mpg lower or 1.4 mpg higher per 100 hp: the interval is wide, not tight around zero. The test says nothing about horsepower on its own, which is strongly related to mpg (Lesson 2.5).</p>
+<div class="esa-code-tabs">
+<details class="esa-code">
+<summary>
+R code
+</summary>
+<pre class="r"><code>cols &lt;- c(&quot;mpg&quot;, &quot;cylinders&quot;, &quot;displacement&quot;, &quot;horsepower&quot;, &quot;weight&quot;,
+          &quot;acceleration&quot;, &quot;model_year&quot;, &quot;origin&quot;, &quot;car_name&quot;)
+auto &lt;- na.omit(read.table(&quot;data/auto-mpg.data&quot;, col.names = cols, na.strings = &quot;?&quot;))
+auto$w &lt;- auto$weight / 1000; auto$hp &lt;- auto$horsepower / 100
+fit &lt;- lm(mpg ~ w + model_year + hp, data = auto)
+m &lt;- df.residual(fit); c(df = m, sigma_hat = sigma(fit), t_crit = qt(0.975, m))
+cbind(summary(fit)$coefficients, confint(fit))</code></pre>
+</details>
+<details class="esa-code" open>
+<summary>
+Python code
+</summary>
+<pre class="python"><code>import numpy as np
+import pandas as pd
+from scipy import stats
+
+cols = [&quot;mpg&quot;, &quot;cylinders&quot;, &quot;displacement&quot;, &quot;horsepower&quot;, &quot;weight&quot;,
+        &quot;acceleration&quot;, &quot;model_year&quot;, &quot;origin&quot;, &quot;car_name&quot;]
+auto = pd.read_csv(&quot;data/auto-mpg.data&quot;, sep=r&quot;\s+&quot;, header=None,
+                   names=cols, na_values=&quot;?&quot;, quotechar=&#39;&quot;&#39;).dropna().reset_index(drop=True)
+y = auto[&quot;mpg&quot;].to_numpy()
+X = np.column_stack([np.ones(len(y)), auto[&quot;weight&quot;] / 1000, auto[&quot;model_year&quot;],
+                     auto[&quot;horsepower&quot;] / 100])
+n, k = X.shape; m = n - k
+XtX_inv = np.linalg.inv(X.T @ X)
+b = XtX_inv @ X.T @ y
+e = y - X @ b
+s = np.sqrt(e @ e / m)
+se = s * np.sqrt(np.diag(XtX_inv))
+q = stats.t.ppf(0.975, m)
+t = b / se
+print(f&quot;df = {m}, sigma_hat = {s:.4f}, t_crit = {q:.4f}&quot;)
+print(pd.DataFrame({&quot;estimate&quot;: b, &quot;se&quot;: se, &quot;t&quot;: t, &quot;p&quot;: 2 * stats.t.sf(np.abs(t), m),
+                    &quot;lower&quot;: b - q * se, &quot;upper&quot;: b + q * se},
+                   index=[&quot;intercept&quot;, &quot;weight&quot;, &quot;year&quot;, &quot;horsepower&quot;]).round(4).to_string())</code></pre>
+<p class="esa-output-label">
+Output
+</p>
+<pre class="esa-output"><code>df = 388, sigma_hat = 3.4303, t_crit = 1.9661
+            estimate      se        t       p    lower   upper
+intercept   -13.7194  4.1818  -3.2808  0.0011 -21.9411 -5.4976
+weight       -6.4477  0.4089 -15.7675  0.0000  -7.2517 -5.6438
+year          0.7487  0.0521  14.3650  0.0000   0.6462  0.8512
+horsepower   -0.5000  0.9439  -0.5297  0.5966  -2.3558  1.3558</code></pre>
+</details>
+</div>
+<h3 data-number="5.2" id="mean-response-and-prediction-for-three-cars"><span class="header-section-number">5.2</span> Mean response and prediction for three cars</h3>
+<div class="table-wrap"><table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Car</th>
+<th><span class="math inline">\(h_{00}\)</span></th>
+<th><span class="math inline">\(\hat y_0\)</span></th>
+<th>95% CI for the mean</th>
+<th>95% prediction interval</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>3000 lb, 1976, 100 hp</td>
+<td>0.0028</td>
+<td>23.34</td>
+<td>(22.99, 23.69)</td>
+<td>(16.59, 30.09)</td>
+</tr>
+<tr class="even">
+<td>2200 lb, 1980, 70 hp</td>
+<td>0.0066</td>
+<td>31.64</td>
+<td>(31.10, 32.19)</td>
+<td>(24.88, 38.41)</td>
+</tr>
+<tr class="odd">
+<td>2000 lb, 1982, 200 hp</td>
+<td>0.1631</td>
+<td>33.78</td>
+<td>(31.06, 36.50)</td>
+<td>(26.51, 41.05)</td>
+</tr>
+</tbody>
+</table></div>
+<p>For typical cars the mean is estimated to within about <span class="math inline">\(\pm0.35\)</span> mpg, but a single car can be about <span class="math inline">\(\pm6.8\)</span> mpg from it. The third car is hypothetical: no light car in the data has anywhere near 200 hp, and its leverage <span class="math inline">\(0.163\)</span> exceeds the largest observed leverage (<span class="math inline">\(0.095\)</span>). Its confidence interval is almost eight times wider than for the first car, and even that width assumes the linear model holds far outside the data: a hidden extrapolation (<a href="/courses/regression/module-2/least-squares-matrix-form/">Lesson 2.3</a>).</p>
+<div class="esa-code-tabs">
+<details class="esa-code">
+<summary>
+R code
+</summary>
+<pre class="r"><code># Uses auto and fit from Section 5.1 (run that code first).
+new &lt;- data.frame(w = c(3.0, 2.2, 2.0), model_year = c(76, 80, 82), hp = c(1.0, 0.7, 2.0))
+X0 &lt;- model.matrix(~ w + model_year + hp, data = new)
+h00 &lt;- rowSums((X0 %*% solve(crossprod(model.matrix(fit)))) * X0)
+cbind(h00 = round(h00, 4),
+      predict(fit, new, interval = &quot;confidence&quot;),
+      predict(fit, new, interval = &quot;prediction&quot;)[, -1])
+max(hatvalues(fit))</code></pre>
+</details>
+<details class="esa-code" open>
+<summary>
+Python code
+</summary>
+<pre class="python"><code># Uses np, X, XtX_inv, b, s, q and pd from Section 5.1 (run that code first).
+X0 = np.array([[1, 3.0, 76, 1.0], [1, 2.2, 80, 0.7], [1, 2.0, 82, 2.0]])
+fit0 = X0 @ b
+h00 = np.einsum(&quot;ij,jk,ik-&gt;i&quot;, X0, XtX_inv, X0)
+print(pd.DataFrame({&quot;h00&quot;: h00, &quot;fit&quot;: fit0,
+                    &quot;ci_lower&quot;: fit0 - q * s * np.sqrt(h00), &quot;ci_upper&quot;: fit0 + q * s * np.sqrt(h00),
+                    &quot;pi_lower&quot;: fit0 - q * s * np.sqrt(1 + h00), &quot;pi_upper&quot;: fit0 + q * s * np.sqrt(1 + h00)},
+                   index=[&quot;3000 lb, 1976, 100 hp&quot;, &quot;2200 lb, 1980, 70 hp&quot;,
+                          &quot;2000 lb, 1982, 200 hp&quot;]).round(4).to_string())
+print(&quot;largest observed leverage:&quot;, np.einsum(&quot;ij,jk,ik-&gt;i&quot;, X, XtX_inv, X).max().round(4))</code></pre>
+<p class="esa-output-label">
+Output
+</p>
+<pre class="esa-output"><code>                          h00     fit  ci_lower  ci_upper  pi_lower  pi_upper
+3000 lb, 1976, 100 hp  0.0028  23.339   22.9845   23.6935   16.5853   30.0927
+2200 lb, 1980, 70 hp   0.0066  31.642   31.0961   32.1879   24.8756   38.4084
+2000 lb, 1982, 200 hp  0.1631  33.779   31.0552   36.5029   26.5054   41.0526
+largest observed leverage: 0.0951</code></pre>
+</details>
+</div>
+<h3 data-number="5.3" id="a-joint-confidence-region-for-two-slopes"><span class="header-section-number">5.3</span> A joint confidence region for two slopes</h3>
+<p>The estimates of the weight and horsepower slopes have correlation <span class="math inline">\(-0.851\)</span> (Lesson 2.4: strongly correlated predictors give strongly correlated estimates). With <span class="math inline">\(q = 2\)</span>, <span class="math inline">\(F_{2,388;\,0.95} = 3.019\)</span> and Theorem 2.6.3 gives a long, thin, tilted ellipse.</p>
+<ul>
+<li>The point <span class="math inline">\((\beta_{\text{weight}}, \beta_{\text{hp}}) = (-5.7, 1.3)\)</span> lies <strong>inside both</strong> separate 95% intervals, yet its <span class="math inline">\(F\)</span>-value is <span class="math inline">\(23.4\)</span>: it is far outside the joint region. Each value is plausible alone; the combination is not, because the data say that a less negative weight slope must go with a more negative horsepower slope.</li>
+<li>The point <span class="math inline">\((-7.4, 1.6)\)</span> lies <strong>outside both</strong> separate intervals, but its <span class="math inline">\(F\)</span>-value is <span class="math inline">\(2.82 &lt; 3.019\)</span>: it is inside the joint region.</li>
+</ul>
+<p>The Bonferroni intervals for the two slopes (<span class="math inline">\(t_{388;\,0.9875} = 2.250\)</span>) are <span class="math inline">\((-7.368, -5.528)\)</span> for weight and <span class="math inline">\((-2.624, 1.624)\)</span> for horsepower: slightly wider than the separate intervals, and still a rectangle.</p>
+<div class="esa-code-tabs">
+<details class="esa-code">
+<summary>
+R code
+</summary>
+<pre class="r"><code># Uses auto and fit from Section 5.1 (run that code first).
+b &lt;- coef(fit); V &lt;- vcov(fit); m &lt;- df.residual(fit)
+idx &lt;- c(&quot;w&quot;, &quot;hp&quot;); bS &lt;- b[idx]; VS &lt;- V[idx, idx]
+cov2cor(VS)
+Fq &lt;- qf(0.95, 2, m)
+Fstat &lt;- function(theta) drop(t(bS - theta) %*% solve(VS) %*% (bS - theta)) / 2
+c(F_A = Fstat(c(-5.7, 1.3)), F_B = Fstat(c(-7.4, 1.6)), F_crit = Fq)
+
+ang &lt;- seq(0, 2 * pi, length.out = 400)
+ell &lt;- t(bS + t(chol(VS)) %*% rbind(cos(ang), sin(ang)) * sqrt(2 * Fq))
+ci &lt;- confint(fit)[idx, ]
+bonf &lt;- cbind(bS - qt(1 - 0.05 / 4, m) * sqrt(diag(VS)), bS + qt(1 - 0.05 / 4, m) * sqrt(diag(VS)))
+plot(ell, type = &quot;l&quot;, lwd = 2, xlab = &quot;weight slope (mpg per 1000 lb)&quot;,
+     ylab = &quot;horsepower slope (mpg per 100 hp)&quot;, xlim = c(-7.8, -5.2), ylim = c(-3.2, 2.2))
+rect(ci[1, 1], ci[2, 1], ci[1, 2], ci[2, 2], lty = 2)
+rect(bonf[1, 1], bonf[2, 1], bonf[1, 2], bonf[2, 2], lty = 3)
+points(bS[1], bS[2], pch = 19)
+points(c(-5.7, -7.4), c(1.3, 1.6), pch = 4, cex = 1.5, lwd = 2, col = &quot;red&quot;)
+text(c(-5.7, -7.4), c(1.3, 1.6), c(&quot;A&quot;, &quot;B&quot;), pos = 3, col = &quot;red&quot;)</code></pre>
+</details>
+<details class="esa-code" open>
+<summary>
+Python code
+</summary>
+<pre class="python"><code># Uses np, stats, b, se, s, XtX_inv, m and q from Section 5.1 (run that code first).
+import matplotlib.pyplot as plt
+from matplotlib.patches import Rectangle
+
+idx = [1, 3]                                            # weight, horsepower
+bS = b[idx]; VS = s**2 * XtX_inv[np.ix_(idx, idx)]
+print(&quot;correlation of the two estimates:&quot;, round(VS[0, 1] / np.sqrt(VS[0, 0] * VS[1, 1]), 4))
+Fq = stats.f.ppf(0.95, 2, m)
+Fstat = lambda th: (bS - th) @ np.linalg.solve(VS, bS - th) / 2
+print(f&quot;F(A) = {Fstat(np.array([-5.7, 1.3])):.2f}, F(B) = {Fstat(np.array([-7.4, 1.6])):.2f}, &quot;
+      f&quot;F_crit = {Fq:.3f}&quot;)
+
+ang = np.linspace(0, 2 * np.pi, 400)
+ell = bS[:, None] + np.linalg.cholesky(VS) @ np.vstack([np.cos(ang), np.sin(ang)]) * np.sqrt(2 * Fq)
+qb = stats.t.ppf(1 - 0.05 / 4, m)
+print(&quot;Bonferroni intervals:&quot;, np.c_[bS - qb * se[idx], bS + qb * se[idx]].round(4))
+fig, ax = plt.subplots(figsize=(6, 4.2))
+ax.plot(ell[0], ell[1], linewidth=2, color=&quot;black&quot;)
+for mult, style in ((q, &quot;--&quot;), (qb, &quot;:&quot;)):
+    lo = bS - mult * se[idx]
+    ax.add_patch(Rectangle(lo, *(2 * mult * se[idx]), fill=False, linestyle=style))
+ax.plot(*bS, &quot;ko&quot;)
+for (x0, y0), lab in (((-5.7, 1.3), &quot;A&quot;), ((-7.4, 1.6), &quot;B&quot;)):
+    ax.plot(x0, y0, &quot;x&quot;, color=&quot;red&quot;, markersize=9, markeredgewidth=2)
+    ax.annotate(lab, (x0, y0), textcoords=&quot;offset points&quot;, xytext=(0, 7), ha=&quot;center&quot;, color=&quot;red&quot;)
+ax.set_xlim(-7.8, -5.2); ax.set_ylim(-3.2, 2.2)
+ax.set_xlabel(&quot;weight slope (mpg per 1000 lb)&quot;); ax.set_ylabel(&quot;horsepower slope (mpg per 100 hp)&quot;)
+plt.tight_layout()
+plt.show()</code></pre>
+<p class="esa-output-label">
+Output
+</p>
+<pre class="esa-output"><code>correlation of the two estimates: -0.851
+F(A) = 23.41, F(B) = 2.82, F_crit = 3.019
+Bonferroni intervals: [[-7.3679 -5.5276]
+ [-2.6239  1.6239]]</code></pre>
+<figure class="esa-figure">
+<img src="/images/courses/regression/lesson-2-6-fig1.png" alt="Weight and horsepower slopes: 95% joint confidence ellipse (solid), rectangle of the two separate 95% intervals (dashed) and Bonferroni rectangle (dotted). Point A (−5.7, 1.3) is inside both separate intervals but outside the ellipse; point B (−7.4, 1.6) is outside both but inside the ellipse." loading="lazy" width="900">
+<figcaption>
+Weight and horsepower slopes: 95% joint confidence ellipse (solid), rectangle of the two separate 95% intervals (dashed) and Bonferroni rectangle (dotted). Point A (−5.7, 1.3) is inside both separate intervals but outside the ellipse; point B (−7.4, 1.6) is outside both but inside the ellipse.
+</figcaption>
+</figure>
+</details>
+</div>
+<h3 data-number="5.4" id="simulation-individual-bonferroni-and-joint-coverage"><span class="header-section-number">5.4</span> Simulation: individual, Bonferroni and joint coverage</h3>
+<p>Keep the 392 predictor rows, set <span class="math inline">\(\boldsymbol\beta = (-13.7, -6.45, 0.749, -0.50)^\top\)</span> and <span class="math inline">\(\sigma = 3.43\)</span>, and simulate 10,000 data sets. Results (Python, seed 2026):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th>Procedure for (weight, horsepower)</th>
+<th>Covers both slopes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Two separate 95% <span class="math inline">\(t\)</span>-intervals</td>
+<td>0.927</td>
+</tr>
+<tr class="even">
+<td>Two Bonferroni intervals (<span class="math inline">\(\alpha/2\)</span> each)</td>
+<td>0.962</td>
+</tr>
+<tr class="odd">
+<td>95% joint ellipse (Theorem 2.6.3)</td>
+<td>0.949</td>
+</tr>
+</tbody>
+</table></div>
+<p>Each separate interval covers its own slope about 95% of the time (0.952 and 0.950), but both together only 92.7%. Bonferroni guarantees at least 95% and here gives 96.2%: conservative. The ellipse has the exact coverage. With <span class="math inline">\(q\)</span> independent intervals the joint coverage would be <span class="math inline">\(0.95^q\)</span>; correlation between the estimates changes it, here upwards from <span class="math inline">\(0.9025\)</span>.</p>
+<div class="esa-code-tabs">
+<details class="esa-code">
+<summary>
+R code
+</summary>
+<pre class="r"><code># Self-contained: reads the 392 predictor rows and needs nothing from earlier sections.
+cols &lt;- c(&quot;mpg&quot;, &quot;cylinders&quot;, &quot;displacement&quot;, &quot;horsepower&quot;, &quot;weight&quot;,
+          &quot;acceleration&quot;, &quot;model_year&quot;, &quot;origin&quot;, &quot;car_name&quot;)
+auto &lt;- na.omit(read.table(&quot;data/auto-mpg.data&quot;, col.names = cols, na.strings = &quot;?&quot;))
+X &lt;- cbind(1, auto$weight / 1000, auto$model_year, auto$horsepower / 100)
+n &lt;- nrow(X); m &lt;- n - ncol(X)
+beta &lt;- c(-13.7, -6.45, 0.749, -0.50); sigma &lt;- 3.43; R &lt;- 10000
+XtX_inv &lt;- solve(crossprod(X)); A &lt;- XtX_inv %*% t(X)
+set.seed(2026)
+Y &lt;- matrix(drop(X %*% beta), R, n, byrow = TRUE) + matrix(rnorm(R * n, 0, sigma), R, n)
+B &lt;- Y %*% t(A); s2 &lt;- rowSums((Y - B %*% t(X))^2) / m
+idx &lt;- c(2, 4); W_inv &lt;- solve(XtX_inv[idx, idx])
+D &lt;- sweep(B[, idx], 2, beta[idx])                     # estimation errors
+se1 &lt;- sqrt(s2 * XtX_inv[2, 2]); se2 &lt;- sqrt(s2 * XtX_inv[4, 4])
+qi &lt;- qt(0.975, m); qb &lt;- qt(1 - 0.05 / 4, m); Fq &lt;- qf(0.95, 2, m)
+c1 &lt;- abs(D[, 1]) &lt;= qi * se1; c2 &lt;- abs(D[, 2]) &lt;= qi * se2
+Fs &lt;- rowSums((D %*% W_inv) * D) / (2 * s2)
+c(weight_alone = mean(c1), hp_alone = mean(c2), both_separate = mean(c1 &amp; c2),
+  both_bonferroni = mean(abs(D[, 1]) &lt;= qb * se1 &amp; abs(D[, 2]) &lt;= qb * se2),
+  ellipse = mean(Fs &lt;= Fq))</code></pre>
+</details>
+<details class="esa-code" open>
+<summary>
+Python code
+</summary>
+<pre class="python"><code># Self-contained: reads the 392 predictor rows and needs nothing from earlier sections.
+import numpy as np
+import pandas as pd
+from scipy import stats
+
+cols = [&quot;mpg&quot;, &quot;cylinders&quot;, &quot;displacement&quot;, &quot;horsepower&quot;, &quot;weight&quot;,
+        &quot;acceleration&quot;, &quot;model_year&quot;, &quot;origin&quot;, &quot;car_name&quot;]
+auto = pd.read_csv(&quot;data/auto-mpg.data&quot;, sep=r&quot;\s+&quot;, header=None,
+                   names=cols, na_values=&quot;?&quot;, quotechar=&#39;&quot;&#39;).dropna()
+X = np.column_stack([np.ones(len(auto)), auto[&quot;weight&quot;] / 1000, auto[&quot;model_year&quot;],
+                     auto[&quot;horsepower&quot;] / 100])
+n, k = X.shape; m = n - k
+beta, sigma, R = np.array([-13.7, -6.45, 0.749, -0.50]), 3.43, 10_000
+XtX_inv = np.linalg.inv(X.T @ X); A = XtX_inv @ X.T
+rng = np.random.default_rng(2026)
+Y = X @ beta + sigma * rng.standard_normal((R, n))
+B = Y @ A.T; s2 = ((Y - B @ X.T)**2).sum(axis=1) / m
+idx = [1, 3]; W_inv = np.linalg.inv(XtX_inv[np.ix_(idx, idx)])
+D = B[:, idx] - beta[idx]                                # estimation errors
+se1, se2 = np.sqrt(s2 * XtX_inv[1, 1]), np.sqrt(s2 * XtX_inv[3, 3])
+qi, qb, Fq = stats.t.ppf(0.975, m), stats.t.ppf(1 - 0.05 / 4, m), stats.f.ppf(0.95, 2, m)
+c1, c2 = np.abs(D[:, 0]) &lt;= qi * se1, np.abs(D[:, 1]) &lt;= qi * se2
+Fs = np.einsum(&quot;ij,jk,ik-&gt;i&quot;, D, W_inv, D) / (2 * s2)
+print({&quot;weight_alone&quot;: c1.mean(), &quot;hp_alone&quot;: c2.mean(), &quot;both_separate&quot;: (c1 &amp; c2).mean(),
+       &quot;both_bonferroni&quot;: ((np.abs(D[:, 0]) &lt;= qb * se1) &amp; (np.abs(D[:, 1]) &lt;= qb * se2)).mean(),
+       &quot;ellipse&quot;: (Fs &lt;= Fq).mean()})</code></pre>
+<p class="esa-output-label">
+Output
+</p>
+<pre class="esa-output"><code>{&#39;weight_alone&#39;: np.float64(0.9523), &#39;hp_alone&#39;: np.float64(0.9504), &#39;both_separate&#39;: np.float64(0.9269), &#39;both_bonferroni&#39;: np.float64(0.9619), &#39;ellipse&#39;: np.float64(0.9492)}</code></pre>
+</details>
+</div>
+<h2 class="esa-lesson-anchor" data-number="6" id="common-misconceptions"><span class="header-section-number">6</span> Common misconceptions</h2>
+<div class="example-box esa-callout-caution">
+<p class="esa-box-title">
+<strong>Misconceptions</strong>
+</p>
+<ol type="1">
+<li><strong>“<span class="math inline">\(p = 0.60\)</span> for horsepower shows it does not affect fuel economy.”</strong> — It shows that, given weight and model year, the data cannot distinguish its slope from zero; the interval <span class="math inline">\((-2.4, 1.4)\)</span> also contains sizeable effects.</li>
+<li><strong>“If each of two values lies in its 95% interval, the pair is plausible.”</strong> — Not when the estimates are correlated: point A is ruled out jointly (Section 5.3).</li>
+<li><strong>“A 95% prediction interval contains 95% of future observations at every <span class="math inline">\(\mathbf{x}_0\)</span>.”</strong> — Only under the model, including constant variance and normal errors; for Auto MPG, Lesson 1.8 found coverage that varies with weight.</li>
+<li><strong>“Ten 95% intervals are jointly 95%.”</strong> — Their joint coverage can be as low as 50%; use Bonferroni or Scheffé when joint statements are made.</li>
+<li><strong>“A narrow confidence interval for the mean means accurate predictions.”</strong> — The mean can be known precisely while individual cars still vary by <span class="math inline">\(\pm2\sigma\)</span>.</li>
+</ol>
+</div>
+<h2 class="esa-lesson-anchor" data-number="7" id="key-takeaways"><span class="header-section-number">7</span> Key takeaways</h2>
+<ul>
+<li><span class="math inline">\(\mathbf{a}^\top\hat{\boldsymbol\beta} \pm t_{m;\,1-\alpha/2}\hat\sigma\sqrt{\mathbf{a}^\top(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{a}}\)</span> covers any single linear combination, including a coefficient ($ = $ unit vector) and a mean response (<span class="math inline">\(\mathbf{a} = \mathbf{x}_0\)</span>).</li>
+<li>Prediction intervals add <span class="math inline">\(1\)</span> under the square root: <span class="math inline">\(\hat\sigma\sqrt{1 + h_{00}}\)</span>.</li>
+<li>A test of <span class="math inline">\(\beta_j = 0\)</span> asks whether <span class="math inline">\(x_j\)</span> adds to the other predictors, not whether it matters on its own.</li>
+<li>Joint statements about <span class="math inline">\(q\)</span> combinations use the <span class="math inline">\(F_{q,m}\)</span> ellipsoid; separate intervals have lower joint coverage, and their rectangle misdescribes correlated estimates.</li>
+<li>Bonferroni (<span class="math inline">\(\alpha/q\)</span> per interval) is simple and conservative; Scheffé covers all combinations at once.</li>
+</ul>
+<h2 class="esa-lesson-anchor" data-number="8" id="exercises"><span class="header-section-number">8</span> Exercises</h2>
+<h3 data-number="8.1" id="a.-conceptual"><span class="header-section-number">8.1</span> A. Conceptual</h3>
+<p><strong>A.1</strong> (★). The horsepower slope has <span class="math inline">\(p = 0.597\)</span> in the three-predictor model but <span class="math inline">\(p &lt; 10^{-100}\)</span> in a simple regression of mpg on horsepower. Explain both results in one or two sentences each, using Lesson 2.5.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>Alone, horsepower stands in for weight and age as well, which are strongly related to fuel economy; its slope (<span class="math inline">\(-15.8\)</span> per 100 hp) captures all of that. Given weight and model year, the remaining (partial) association is small and is estimated from the little independent variation horsepower has left (<span class="math inline">\(R_j^2 = 0.77\)</span>, VIF 4.4), so it is both small and imprecise.</p>
+</details>
+<p><strong>A.2</strong> (★★). Explain in words why point A <span class="math inline">\((-5.7, 1.3)\)</span> in Section 5.3 is ruled out jointly although each coordinate is inside its own 95% interval. What feature of the data causes this?</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>The two estimates are strongly negatively correlated (<span class="math inline">\(-0.85\)</span>), because weight and horsepower are strongly positively correlated: the data pin down a combination of the two slopes much better than each slope separately. Point A takes the weight slope near its upper limit <strong>and</strong> the horsepower slope near its upper limit; the data allow one of these only if the other moves the opposite way. Point A is therefore far from the ellipse along its short axis.</p>
+</details>
+<h3 data-number="8.2" id="b.-mathematical"><span class="header-section-number">8.2</span> B. Mathematical</h3>
+<p><strong>B.1</strong> (★★). Show that the prediction interval of Theorem 2.6.2(b) is at least <span class="math inline">\(\sqrt{1 + 1/n}\)</span> times as wide as an interval that knew <span class="math inline">\(\boldsymbol\beta\)</span> (and used <span class="math inline">\(\hat\sigma\)</span>), and that <span class="math inline">\(h_{00} \ge 1/n\)</span> when the model has an intercept. <em>Hint:</em> write <span class="math inline">\(\mathbf{x}_0\)</span> in centred form.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>With known <span class="math inline">\(\boldsymbol\beta\)</span> the interval would be <span class="math inline">\(\mu_0 \pm t\hat\sigma\)</span>; the prediction interval has <span class="math inline">\(\hat\sigma\sqrt{1 + h_{00}}\)</span>, so the ratio of widths is <span class="math inline">\(\sqrt{1 + h_{00}}\)</span>. With an intercept, reparametrise with centred predictors (Lesson 2.3, Exercise B.3; this does not change <span class="math inline">\(h_{00}\)</span>). Then <span class="math inline">\(\mathbf{X}^\top\mathbf{X}\)</span> is block diagonal with first entry <span class="math inline">\(n\)</span>, so <span class="math inline">\(h_{00} = 1/n + (\mathbf{x}_0^* - \bar{\mathbf{x}})^\top\mathbf{S}^{-1}(\mathbf{x}_0^* - \bar{\mathbf{x}}) \ge 1/n\)</span>, where <span class="math inline">\(\mathbf{x}_0^*\)</span> holds the predictor values, <span class="math inline">\(\bar{\mathbf{x}}\)</span> their means and <span class="math inline">\(\mathbf{S}\)</span> the centred cross-product matrix (positive definite).</p>
+</details>
+<p><strong>B.2</strong> (★★). Show that for <span class="math inline">\(q = 1\)</span> the region of Theorem 2.6.3 reduces to the interval of Theorem 2.6.1. <em>Hint:</em> <span class="math inline">\(F_{1,m;\,1-\alpha} = t_{m;\,1-\alpha/2}^2\)</span>.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>With <span class="math inline">\(\mathbf{L} = \mathbf{a}^\top\)</span>, <span class="math inline">\(\mathbf{W} = \mathbf{a}^\top(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{a}\)</span> is a scalar and the region is <span class="math inline">\((\mathbf{a}^\top\hat{\boldsymbol\beta} - \theta)^2 \le \hat\sigma^2\mathbf{W}F_{1,m;\,1-\alpha}\)</span>. Since an <span class="math inline">\(F_{1,m}\)</span> variable is the square of a <span class="math inline">\(t_m\)</span> variable and the <span class="math inline">\(t\)</span> distribution is symmetric, <span class="math inline">\(F_{1,m;\,1-\alpha} = t_{m;\,1-\alpha/2}^2\)</span>. Taking square roots gives <span class="math inline">\(|\mathbf{a}^\top\hat{\boldsymbol\beta} - \theta| \le t_{m;\,1-\alpha/2}\hat\sigma\sqrt{\mathbf{W}}\)</span>.</p>
+</details>
+<p><strong>B.3</strong> (★★). Prove that <span class="math inline">\(q\)</span> Bonferroni intervals, each with coverage <span class="math inline">\(1 - \alpha/q\)</span>, cover simultaneously with probability at least <span class="math inline">\(1 - \alpha\)</span>. When is the bound nearly attained?</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>Let <span class="math inline">\(A_k\)</span> be the event that interval <span class="math inline">\(k\)</span> misses. Then <span class="math inline">\(P(\text{all cover}) = 1 - P(\cup_k A_k) \ge 1 - \sum_k P(A_k) = 1 - q\cdot\alpha/q = 1 - \alpha\)</span> (Boole’s inequality). The bound is nearly attained when the miss events rarely overlap, which happens for independent estimates with small <span class="math inline">\(\alpha\)</span> (then <span class="math inline">\(P(\cup A_k) = 1 - (1 - \alpha/q)^q \approx \alpha\)</span>); with strongly correlated estimates the misses overlap and Bonferroni is more conservative.</p>
+</details>
+<h3 data-number="8.3" id="c.-computational"><span class="header-section-number">8.3</span> C. Computational</h3>
+<p><strong>C.1</strong> (★). For a car of 2200 lb from 1980 with 70 hp, report the 95% confidence interval for the mean and the 95% prediction interval, and explain the difference in width.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p><span class="math inline">\(\hat y_0 = 31.64\)</span>, <span class="math inline">\(h_{00} = 0.0066\)</span>. Mean: <span class="math inline">\((31.10, 32.19)\)</span>; prediction: <span class="math inline">\((24.88, 38.41)\)</span>. The prediction interval is about <span class="math inline">\(\sqrt{1 + h_{00}}/\sqrt{h_{00}} \approx 12\)</span> times wider, because it adds the variation of one car around the mean (<span class="math inline">\(\hat\sigma = 3.43\)</span>) to the uncertainty of the estimated mean.</p>
+</details>
+<p><strong>C.2</strong> (★). Compute Bonferroni 95% intervals for all three slopes (<span class="math inline">\(q = 3\)</span>) and compare them with the separate intervals.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p><span class="math inline">\(t_{388;\,1 - 0.05/6} = 2.404\)</span> (against <span class="math inline">\(1.966\)</span>). Weight <span class="math inline">\((-7.431, -5.465)\)</span>; model year <span class="math inline">\((0.623, 0.874)\)</span>; horsepower <span class="math inline">\((-2.770, 1.770)\)</span>. Each is about 22% wider (<span class="math inline">\(2.404/1.966 = 1.22\)</span>); in exchange the three statements hold jointly with probability at least 95%.</p>
+</details>
+<p><strong>C.3</strong> (★★). Test <span class="math inline">\(H_0\colon(\beta_{\text{weight}}, \beta_{\text{hp}}) = (-6.0, 1.2)\)</span> with Theorem 2.6.3. Then check whether each value lies in its separate 95% interval. Reconcile the two answers.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p><span class="math inline">\(F = 14.14\)</span> on <span class="math inline">\((2, 388)\)</span> df, <span class="math inline">\(p = 1.2\times10^{-6}\)</span>: rejected. Yet <span class="math inline">\(-6.0 \in (-7.252, -5.644)\)</span> and <span class="math inline">\(1.2 \in (-2.356, 1.356)\)</span>. As for point A, the pair combines a weight slope above its estimate with a horsepower slope above its estimate, the direction the negatively correlated estimates make implausible. Separate intervals answer separate questions; the joint test answers the joint one.</p>
+</details>
+<h2 class="esa-lesson-anchor" data-number="9" id="references"><span class="header-section-number">9</span> References</h2>
+<ul>
+<li>Seber, G. A. F., &amp; Lee, A. J. (2003). <em>Linear Regression Analysis</em> (2nd ed.). Wiley. — Chapter 5, Confidence Intervals and Regions (Bonferroni, Scheffé, confidence ellipsoids, prediction intervals).</li>
+<li>Montgomery, D. C., Peck, E. A., &amp; Vining, G. G. (2021). <em>Introduction to Linear Regression Analysis</em> (6th ed.). Wiley. — Chapter 3, Multiple Linear Regression (tests on individual coefficients, confidence intervals, simultaneous confidence intervals, prediction of new observations).</li>
+<li>Kutner, M. H., Nachtsheim, C. J., Neter, J., &amp; Li, W. (2005). <em>Applied Linear Statistical Models</em> (5th ed.). McGraw-Hill/Irwin. — Chapter 4, Simultaneous Inferences and Other Topics in Regression Analysis, and Chapter 6, Multiple Regression I.</li>
+<li>Scheffé, H. (1959). <em>The Analysis of Variance</em>. Wiley.</li>
+<li>Quinlan, R. (1993). <em>Auto MPG</em> [Data set]. UCI Machine Learning Repository. https://doi.org/10.24432/C5859H</li>
+</ul>
+
+{% endraw %}
+    <div class="lesson-nav">
+      <a class="btn btn-outline" href="/courses/regression/module-2/interpreting-coefficients-multiple/">← Lesson 2.5: Interpreting Coefficients in Multiple Regression</a>
+      <a class="btn" href="/courses/regression/module-2/">Module 2 lessons →</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .esa-course-lesson details{border:1px solid var(--border-strong,#d0d7de);border-radius:9px;padding:.4rem .9rem;margin:1rem 0}
+  .esa-course-lesson details>summary{cursor:pointer;font-weight:700}
+  .esa-course-lesson .esa-code-tabs{margin:1rem 0}
+  .esa-course-lesson .esa-code-tabs details{margin:.4rem 0}
+  .esa-course-lesson pre{max-width:100%}
+  .esa-course-lesson pre.esa-output{border-left:5px solid #0d9488}
+  .esa-course-lesson .esa-output-label{font-size:.85rem;font-weight:700;margin:.6rem 0 .2rem}
+  .esa-course-lesson .esa-figure{margin:1rem 0}
+  .esa-course-lesson .esa-figure img{max-width:100%;height:auto}
+  .esa-course-lesson .esa-figure figcaption{font-size:.9rem}
+  .esa-course-lesson mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+</style>

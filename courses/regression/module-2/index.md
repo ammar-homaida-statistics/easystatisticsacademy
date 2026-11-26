@@ -52,22 +52,25 @@ paths_styles: true
       <a class="card-foot" href="/courses/regression/module-2/least-squares-matrix-form/">Open lesson →</a>
     </div>
 
-    <div class="card card-muted">
+    <div class="card">
       <h3>2.4 Properties of the OLS Estimator</h3>
       <p>Unbiasedness, covariance matrix, Gauss–Markov, estimation of σ², and full distribution theory under normality.</p>
-      <p class="muted-mini">Status: In preparation</p>
+      <p class="muted-mini">Status: Available</p>
+      <a class="card-foot" href="/courses/regression/module-2/ols-estimator-properties/">Open lesson →</a>
     </div>
 
-    <div class="card card-muted">
+    <div class="card">
       <h3>2.5 Interpreting Coefficients in Multiple Regression</h3>
       <p>The Frisch–Waugh–Lovell theorem, added-variable plots, omitted-variable bias, and variance inflation.</p>
-      <p class="muted-mini">Status: In preparation</p>
+      <p class="muted-mini">Status: Available</p>
+      <a class="card-foot" href="/courses/regression/module-2/interpreting-coefficients-multiple/">Open lesson →</a>
     </div>
 
-    <div class="card card-muted">
+    <div class="card">
       <h3>2.6 Inference for Coefficients and Linear Combinations</h3>
       <p>t-procedures, intervals for the mean and prediction, joint confidence regions, Bonferroni and Scheffé.</p>
-      <p class="muted-mini">Status: In preparation</p>
+      <p class="muted-mini">Status: Available</p>
+      <a class="card-foot" href="/courses/regression/module-2/inference-coefficients/">Open lesson →</a>
     </div>
 
     <div class="card card-muted">

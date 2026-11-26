@@ -1,0 +1,643 @@
+---
+layout: default
+title: "Properties of the OLS Estimator — Regression Course, Lesson 2.4"
+description: "University-level lesson on the OLS estimator in matrix form: unbiasedness, covariance matrix, the Gauss–Markov theorem, unbiased estimation of σ², and full distribution theory under normal errors, with simulations in R and Python."
+permalink: /courses/regression/module-2/ols-estimator-properties/
+sidebar: false
+math: true
+learning_resource: true
+---
+
+<section class="hero hero-section">
+  <div class="hero-card">
+    <div class="badge-row">
+      <span class="badge">Course</span>
+      <span class="badge">Regression Analysis</span>
+      <span class="badge">Module 2 · Multiple Regression</span>
+      <span class="badge">Lesson 2.4</span>
+    </div>
+    <h1>Lesson 2.4 — Properties of the OLS Estimator</h1>
+    <p class="lead">Unbiasedness, the covariance matrix, Gauss–Markov, and the full distribution theory behind every t-test, with each result tied to the assumptions it needs.</p>
+    <p class="muted-mini">Level: Intermediate–Advanced · Study time: 50 min + exercises · Prerequisites: Lessons 2.2 and 2.3 · Data: Auto MPG (UCI, CC BY 4.0) and simulation</p>
+    <div class="hero-actions">
+      <a class="btn btn-outline" href="/courses/regression/module-2/">Module 2 lessons</a>
+      <a class="btn btn-outline" href="/courses/regression/code/lesson-2-4.py">Python script</a>
+      <a class="btn btn-outline" href="/courses/regression/code/lesson-2-4.R">R script</a>
+    </div>
+  </div>
+</section>
+
+<nav class="esa-lesson-toc" aria-label="On this page"><details><summary>On this page</summary><ol><li><a href="#learning-objectives">Learning objectives</a></li><li><a href="#motivation">Motivation</a></li><li><a href="#notation-for-this-lesson">Notation for this lesson</a></li><li><a href="#theory">Theory</a></li><li><a href="#worked-example">Worked example</a></li><li><a href="#common-misconceptions">Common misconceptions</a></li><li><a href="#key-takeaways">Key takeaways</a></li><li><a href="#exercises">Exercises</a></li><li><a href="#references">References</a></li></ol></details></nav>
+
+<section>
+  <div class="content-narrow esa-course-lesson">
+{% raw %}
+<h2 class="esa-lesson-anchor" data-number="1" id="learning-objectives"><span class="header-section-number">1</span> Learning objectives</h2>
+<p>By the end of this lesson you will be able to:</p>
+<ol type="1">
+<li>prove that <span class="math inline">\(\hat{\boldsymbol\beta}\)</span> is unbiased and derive <span class="math inline">\(\operatorname{Cov}(\hat{\boldsymbol\beta}) = \sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}\)</span>, naming the assumptions each result uses;</li>
+<li>state and prove the Gauss–Markov theorem in matrix form;</li>
+<li>prove that <span class="math inline">\(\hat\sigma^2 = \mathrm{SSE}/(n - p - 1)\)</span> is unbiased, using the trace;</li>
+<li>prove, under normal errors, that <span class="math inline">\(\hat{\boldsymbol\beta}\)</span> is multivariate normal, <span class="math inline">\(\mathrm{SSE}/\sigma^2 \sim \chi^2_{n-p-1}\)</span>, and <span class="math inline">\(\hat{\boldsymbol\beta}\)</span> and SSE are independent, and deduce the <span class="math inline">\(t\)</span>-distribution used for inference;</li>
+<li>compute and interpret the estimated covariance matrix of <span class="math inline">\(\hat{\boldsymbol\beta}\)</span> and standard errors of linear combinations <span class="math inline">\(\mathbf{a}^\top\hat{\boldsymbol\beta}\)</span>.</li>
+</ol>
+<h2 class="esa-lesson-anchor" data-number="2" id="motivation"><span class="header-section-number">2</span> Motivation</h2>
+<p><a href="/courses/regression/module-1/ols-properties/">Lesson 1.4</a> derived the properties of the slope and intercept with scalar algebra, and <a href="/courses/regression/module-1/inference/">Lesson 1.7</a> used the fact that SSE is independent of the estimates without proving it for every case. With the tools of <a href="/courses/regression/module-2/matrix-formulation/">Lesson 2.2</a> and the hat matrix of <a href="/courses/regression/module-2/least-squares-matrix-form/">Lesson 2.3</a>, all of these results take a few lines each, for any number of predictors, and the missing proof can be completed. This lesson is the theoretical core of Module 2: every test and interval in Lessons 2.6–2.8 rests on it.</p>
+<h2 class="esa-lesson-anchor" data-number="3" id="notation-for-this-lesson"><span class="header-section-number">3</span> Notation for this lesson</h2>
+<div class="table-wrap"><table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\mathbf{A} = (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\)</span></td>
+<td>the matrix with <span class="math inline">\(\hat{\boldsymbol\beta} = \mathbf{A}\mathbf{y}\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\mathbf{M} = \mathbf{I}_n - \mathbf{H}\)</span></td>
+<td>residual-maker matrix: <span class="math inline">\(\mathbf{e} = \mathbf{M}\mathbf{y} = \mathbf{M}\boldsymbol\varepsilon\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\hat\sigma^2 = \mathrm{MS_{Res}} = \mathrm{SSE}/(n-p-1)\)</span></td>
+<td>unbiased estimator of <span class="math inline">\(\sigma^2\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\widehat{\operatorname{Cov}}(\hat{\boldsymbol\beta}) = \hat\sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}\)</span></td>
+<td>estimated covariance matrix</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\operatorname{se}(\hat\beta_j) = \hat\sigma\sqrt{c_{jj}}\)</span></td>
+<td>standard error; <span class="math inline">\(c_{jj}\)</span> is the <span class="math inline">\(j\)</span>-th diagonal element of <span class="math inline">\((\mathbf{X}^\top\mathbf{X})^{-1}\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\mathbf{B} \succeq \mathbf{0}\)</span></td>
+<td><span class="math inline">\(\mathbf{B}\)</span> is positive semidefinite</td>
+</tr>
+</tbody>
+</table></div>
+<p>Indices run <span class="math inline">\(j = 0, 1, \dots, p\)</span>, matching <span class="math inline">\(\boldsymbol\beta = (\beta_0, \dots, \beta_p)^\top\)</span>.</p>
+<div class="concept-box esa-callout-note">
+<p class="esa-box-title">
+<strong>Assumptions used in this lesson</strong>
+</p>
+<p>The model is <span class="math inline">\(\mathbf{y} = \mathbf{X}\boldsymbol\beta + \boldsymbol\varepsilon\)</span> (<a href="/courses/regression/module-2/matrix-formulation/">Lesson 2.2</a>), with</p>
+<ul>
+<li><strong>A0 (Full rank).</strong> <span class="math inline">\(\mathbf{X}\)</span> is fixed with <span class="math inline">\(\operatorname{rank}(\mathbf{X}) = p + 1\)</span>.</li>
+<li><strong>A1 (Correct mean function).</strong> <span class="math inline">\(E(\boldsymbol\varepsilon) = \mathbf{0}\)</span>.</li>
+<li><strong>A2–A3 (Constant variance, uncorrelated errors).</strong> <span class="math inline">\(\operatorname{Cov}(\boldsymbol\varepsilon) = \sigma^2\mathbf{I}_n\)</span>.</li>
+<li><strong>A4 (Normality).</strong> <span class="math inline">\(\boldsymbol\varepsilon \sim N_n(\mathbf{0}, \sigma^2\mathbf{I}_n)\)</span>.</li>
+</ul>
+<p>Each theorem below names the assumptions it uses. What each assumption means: <a href="/courses/regression/module-1/what-is-regression/#assumptions-and-what-they-are-used-for">Lesson 1.1, Assumptions</a>.</p>
+</div>
+<h2 class="esa-lesson-anchor" data-number="4" id="theory"><span class="header-section-number">4</span> Theory</h2>
+<h3 data-number="4.1" id="the-estimator-as-a-linear-function-of-the-errors"><span class="header-section-number">4.1</span> The estimator as a linear function of the errors</h3>
+<p>Under A0, <span class="math inline">\(\hat{\boldsymbol\beta} = \mathbf{A}\mathbf{y}\)</span> with <span class="math inline">\(\mathbf{A} = (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\)</span>, and <span class="math inline">\(\mathbf{A}\mathbf{X} = \mathbf{I}_{p+1}\)</span>. Substituting <span class="math inline">\(\mathbf{y} = \mathbf{X}\boldsymbol\beta + \boldsymbol\varepsilon\)</span>: <span class="math display">\[
+\hat{\boldsymbol\beta} = \boldsymbol\beta + \mathbf{A}\boldsymbol\varepsilon,
+\qquad
+\mathbf{e} = \mathbf{M}\boldsymbol\varepsilon
+\quad (\text{Theorem 2.3.3c, Lesson 2.3}).
+\]</span> Every property below follows from these two linear representations and the rules for random vectors in <a href="/courses/regression/module-2/matrix-formulation/">Lesson 2.2</a> (Theorems 2.2.1–2.2.3).</p>
+<h3 data-number="4.2" id="mean-and-covariance"><span class="header-section-number">4.2</span> Mean and covariance</h3>
+<div class="concept-box esa-callout-important">
+<p class="esa-box-title">
+<strong>Theorem 2.4.1 (Unbiasedness) — uses A0, A1</strong>
+</p>
+<p><span class="math inline">\(E(\hat{\boldsymbol\beta}) = \boldsymbol\beta\)</span>, and <span class="math inline">\(E(\mathbf{a}^\top\hat{\boldsymbol\beta}) = \mathbf{a}^\top\boldsymbol\beta\)</span> for every fixed <span class="math inline">\(\mathbf{a}\)</span>.</p>
+</div>
+<details class="esa-derivation">
+<summary>
+Derivation
+</summary>
+<p><span class="math inline">\(E(\hat{\boldsymbol\beta}) = \boldsymbol\beta + \mathbf{A}E(\boldsymbol\varepsilon) = \boldsymbol\beta\)</span> by A1; the second statement is linearity of expectation.</p>
+</details>
+<div class="concept-box esa-callout-important">
+<p class="esa-box-title">
+<strong>Theorem 2.4.2 (Covariance matrices) — uses A0–A3</strong>
+</p>
+<ol type="a">
+<li><span class="math inline">\(\operatorname{Cov}(\hat{\boldsymbol\beta}) = \sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}\)</span>; in particular <span class="math inline">\(\operatorname{Var}(\hat\beta_j) = \sigma^2c_{jj}\)</span> and <span class="math inline">\(\operatorname{Var}(\mathbf{a}^\top\hat{\boldsymbol\beta}) = \sigma^2\mathbf{a}^\top(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{a}\)</span>.</li>
+<li><span class="math inline">\(\operatorname{Cov}(\hat{\mathbf{y}}) = \sigma^2\mathbf{H}\)</span> and <span class="math inline">\(\operatorname{Cov}(\mathbf{e}) = \sigma^2(\mathbf{I}_n - \mathbf{H})\)</span>; so <span class="math inline">\(\operatorname{Var}(e_i) = \sigma^2(1 - h_{ii})\)</span>.</li>
+<li><span class="math inline">\(\operatorname{Cov}(\hat{\boldsymbol\beta}, \mathbf{e}) = \mathbf{0}\)</span>.</li>
+</ol>
+</div>
+<details class="esa-derivation">
+<summary>
+Derivation
+</summary>
+<ol type="a">
+<li>By Theorem 2.2.1, <span class="math inline">\(\operatorname{Cov}(\mathbf{A}\boldsymbol\varepsilon) = \mathbf{A}(\sigma^2\mathbf{I})\mathbf{A}^\top = \sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1} = \sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}\)</span>.</li>
+<li><span class="math inline">\(\hat{\mathbf{y}} = \mathbf{H}\mathbf{y}\)</span> and <span class="math inline">\(\mathbf{e} = \mathbf{M}\boldsymbol\varepsilon\)</span>, with <span class="math inline">\(\mathbf{H}\)</span> and <span class="math inline">\(\mathbf{M}\)</span> symmetric and idempotent: <span class="math inline">\(\sigma^2\mathbf{H}\mathbf{H}^\top = \sigma^2\mathbf{H}\)</span> and <span class="math inline">\(\sigma^2\mathbf{M}\mathbf{M}^\top = \sigma^2\mathbf{M}\)</span>.</li>
+<li><span class="math inline">\(\operatorname{Cov}(\mathbf{A}\boldsymbol\varepsilon, \mathbf{M}\boldsymbol\varepsilon) = \sigma^2\mathbf{A}\mathbf{M}^\top = \sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top(\mathbf{I} - \mathbf{H}) = \mathbf{0}\)</span>, because <span class="math inline">\(\mathbf{X}^\top(\mathbf{I} - \mathbf{H}) = [(\mathbf{I} - \mathbf{H})\mathbf{X}]^\top = \mathbf{0}\)</span>.</li>
+</ol>
+</details>
+<p>Part (b) has a practical consequence: even when the errors have constant variance, the <strong>residuals do not</strong>. Observations with high leverage have residuals with smaller variance, because the fit is pulled towards them. Module 3 corrects for this with standardised and studentised residuals. For <span class="math inline">\(p = 1\)</span>, part (a) reproduces <a href="/courses/regression/module-1/ols-properties/">Theorem 1.4.2, Lesson 1.4</a> via <span class="math inline">\((\mathbf{X}^\top\mathbf{X})^{-1}\)</span> from <a href="/courses/regression/module-2/least-squares-matrix-form/">Lesson 2.3</a>.</p>
+<h3 data-number="4.3" id="the-gaussmarkov-theorem"><span class="header-section-number">4.3</span> The Gauss–Markov theorem</h3>
+<div class="concept-box esa-callout-important">
+<p class="esa-box-title">
+<strong>Theorem 2.4.3 (Gauss–Markov) — uses A0–A3</strong>
+</p>
+<p>Let <span class="math inline">\(\tilde{\boldsymbol\beta} = \mathbf{C}\mathbf{y}\)</span> be any linear estimator that is unbiased for <span class="math inline">\(\boldsymbol\beta\)</span> for every value of <span class="math inline">\(\boldsymbol\beta\)</span>. Then <span class="math display">\[
+\operatorname{Cov}(\tilde{\boldsymbol\beta}) - \operatorname{Cov}(\hat{\boldsymbol\beta}) \succeq \mathbf{0}.
+\]</span> Consequently, for every fixed <span class="math inline">\(\mathbf{a}\)</span>, <span class="math inline">\(\operatorname{Var}(\mathbf{a}^\top\tilde{\boldsymbol\beta}) \ge \operatorname{Var}(\mathbf{a}^\top\hat{\boldsymbol\beta})\)</span>: <span class="math inline">\(\mathbf{a}^\top\hat{\boldsymbol\beta}\)</span> is the <strong>best linear unbiased estimator (BLUE)</strong> of <span class="math inline">\(\mathbf{a}^\top\boldsymbol\beta\)</span>.</p>
+</div>
+<details class="esa-derivation">
+<summary>
+Derivation
+</summary>
+<p>Write <span class="math inline">\(\mathbf{C} = \mathbf{A} + \mathbf{D}\)</span>. Unbiasedness for every <span class="math inline">\(\boldsymbol\beta\)</span> requires <span class="math inline">\(E(\mathbf{C}\mathbf{y}) = \mathbf{C}\mathbf{X}\boldsymbol\beta = \boldsymbol\beta\)</span> for all <span class="math inline">\(\boldsymbol\beta\)</span>, i.e. <span class="math inline">\(\mathbf{C}\mathbf{X} = \mathbf{I}\)</span>. Since <span class="math inline">\(\mathbf{A}\mathbf{X} = \mathbf{I}\)</span>, this means <span class="math inline">\(\mathbf{D}\mathbf{X} = \mathbf{0}\)</span>. Then <span class="math display">\[
+\operatorname{Cov}(\tilde{\boldsymbol\beta}) = \sigma^2(\mathbf{A} + \mathbf{D})(\mathbf{A} + \mathbf{D})^\top
+= \sigma^2\bigl(\mathbf{A}\mathbf{A}^\top + \mathbf{A}\mathbf{D}^\top + \mathbf{D}\mathbf{A}^\top + \mathbf{D}\mathbf{D}^\top\bigr).
+\]</span> Here <span class="math inline">\(\mathbf{A}\mathbf{A}^\top = (\mathbf{X}^\top\mathbf{X})^{-1}\)</span> and <span class="math inline">\(\mathbf{D}\mathbf{A}^\top = \mathbf{D}\mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1} = \mathbf{0}\)</span> (and its transpose <span class="math inline">\(\mathbf{A}\mathbf{D}^\top = \mathbf{0}\)</span>). Hence <span class="math inline">\(\operatorname{Cov}(\tilde{\boldsymbol\beta}) - \operatorname{Cov}(\hat{\boldsymbol\beta}) = \sigma^2\mathbf{D}\mathbf{D}^\top\)</span>, which is positive semidefinite since <span class="math inline">\(\mathbf{a}^\top\mathbf{D}\mathbf{D}^\top\mathbf{a} = \lVert\mathbf{D}^\top\mathbf{a}\rVert^2 \ge 0\)</span>. Applying this with <span class="math inline">\(\mathbf{a}\)</span> gives the scalar statement. Equality for all <span class="math inline">\(\mathbf{a}\)</span> holds only if <span class="math inline">\(\mathbf{D} = \mathbf{0}\)</span>.</p>
+</details>
+<p>Two limits of the theorem matter later. It compares only <strong>linear unbiased</strong> estimators: a biased estimator, such as ridge regression in Module 5, can have smaller mean squared error. And it needs A2–A3: with unequal variances or correlated errors, generalised least squares is better (Module 3).</p>
+<h3 data-number="4.4" id="estimating-sigma2"><span class="header-section-number">4.4</span> Estimating <span class="math inline">\(\sigma^2\)</span></h3>
+<div class="concept-box esa-callout-important">
+<p class="esa-box-title">
+<strong>Theorem 2.4.4 (Unbiased estimator of <span class="math inline">\(\sigma^2\)</span>) — uses A0–A3</strong>
+</p>
+<p><span class="math inline">\(E(\mathrm{SSE}) = (n - p - 1)\sigma^2\)</span>, so <span class="math inline">\(\hat\sigma^2 = \mathrm{SSE}/(n - p - 1)\)</span> is unbiased for <span class="math inline">\(\sigma^2\)</span>.</p>
+</div>
+<details class="esa-derivation">
+<summary>
+Derivation
+</summary>
+<p><span class="math inline">\(\mathrm{SSE} = \mathbf{e}^\top\mathbf{e} = \boldsymbol\varepsilon^\top\mathbf{M}^\top\mathbf{M}\boldsymbol\varepsilon = \boldsymbol\varepsilon^\top\mathbf{M}\boldsymbol\varepsilon\)</span>. By <a href="/courses/regression/module-2/matrix-formulation/">Theorem 2.2.2, Lesson 2.2</a> with mean <span class="math inline">\(\mathbf{0}\)</span> and covariance <span class="math inline">\(\sigma^2\mathbf{I}\)</span>, <span class="math inline">\(E(\boldsymbol\varepsilon^\top\mathbf{M}\boldsymbol\varepsilon) = \operatorname{tr}(\mathbf{M}\sigma^2\mathbf{I}) = \sigma^2\operatorname{tr}(\mathbf{I} - \mathbf{H}) = \sigma^2(n - p - 1)\)</span> (Theorem 2.3.2c). No normality is used.</p>
+</details>
+<p>The divisor <span class="math inline">\(n - p - 1\)</span> is the residual degrees of freedom: the residual vector lives in the <span class="math inline">\((n - p - 1)\)</span>-dimensional orthogonal complement of <span class="math inline">\(\mathcal{C}(\mathbf{X})\)</span>. For <span class="math inline">\(p = 1\)</span> it is the <span class="math inline">\(n - 2\)</span> of <a href="/courses/regression/module-1/ols-properties/">Lesson 1.4</a>.</p>
+<h3 data-number="4.5" id="distribution-theory-under-normal-errors"><span class="header-section-number">4.5</span> Distribution theory under normal errors</h3>
+<div class="concept-box esa-callout-important">
+<p class="esa-box-title">
+<strong>Theorem 2.4.5 (Sampling distributions) — uses A0–A4</strong>
+</p>
+<ol type="a">
+<li><span class="math inline">\(\hat{\boldsymbol\beta} \sim N_{p+1}\bigl(\boldsymbol\beta, \sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}\bigr)\)</span>.</li>
+<li><span class="math inline">\(\mathrm{SSE}/\sigma^2 \sim \chi^2_{n-p-1}\)</span>.</li>
+<li><span class="math inline">\(\hat{\boldsymbol\beta}\)</span> and SSE are independent.</li>
+<li>For every fixed <span class="math inline">\(\mathbf{a} \ne \mathbf{0}\)</span>, <span class="math display">\[
+T = \frac{\mathbf{a}^\top\hat{\boldsymbol\beta} - \mathbf{a}^\top\boldsymbol\beta}{\hat\sigma\sqrt{\mathbf{a}^\top(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{a}}} \sim t_{n-p-1};
+\qquad \text{in particular}\quad \frac{\hat\beta_j - \beta_j}{\operatorname{se}(\hat\beta_j)} \sim t_{n-p-1}.
+\]</span></li>
+</ol>
+</div>
+<details class="esa-derivation">
+<summary>
+Derivation
+</summary>
+<ol type="a">
+<li><p><span class="math inline">\(\hat{\boldsymbol\beta} = \boldsymbol\beta + \mathbf{A}\boldsymbol\varepsilon\)</span> is a linear transformation of a normal vector; Theorem 2.2.3(a) of <a href="/courses/regression/module-2/matrix-formulation/">Lesson 2.2</a> and Theorem 2.4.2(a) give the result.</p></li>
+<li><p><span class="math inline">\(\mathbf{M}\)</span> is symmetric and idempotent with rank <span class="math inline">\(m = n - p - 1\)</span>, so its eigenvalues are <span class="math inline">\(m\)</span> ones and <span class="math inline">\(p + 1\)</span> zeros, and <span class="math inline">\(\mathbf{M} = \mathbf{P}\mathbf{P}^\top\)</span> where <span class="math inline">\(\mathbf{P}\)</span> (<span class="math inline">\(n\times m\)</span>) holds the orthonormal eigenvectors for eigenvalue 1, so <span class="math inline">\(\mathbf{P}^\top\mathbf{P} = \mathbf{I}_m\)</span>. Then <span class="math inline">\(\mathrm{SSE} = \boldsymbol\varepsilon^\top\mathbf{P}\mathbf{P}^\top\boldsymbol\varepsilon = \lVert\mathbf{z}\rVert^2\)</span> with <span class="math inline">\(\mathbf{z} = \mathbf{P}^\top\boldsymbol\varepsilon \sim N_m(\mathbf{0}, \sigma^2\mathbf{P}^\top\mathbf{P}) = N_m(\mathbf{0}, \sigma^2\mathbf{I}_m)\)</span>. The <span class="math inline">\(m\)</span> entries of <span class="math inline">\(\mathbf{z}/\sigma\)</span> are independent <span class="math inline">\(N(0,1)\)</span>, so <span class="math inline">\(\mathrm{SSE}/\sigma^2 = \sum_{k=1}^m (z_k/\sigma)^2 \sim \chi^2_m\)</span>.</p></li>
+<li><p><span class="math inline">\(\hat{\boldsymbol\beta} - \boldsymbol\beta = \mathbf{A}\boldsymbol\varepsilon\)</span> and <span class="math inline">\(\mathbf{e} = \mathbf{M}\boldsymbol\varepsilon\)</span> are linear transformations of the same normal vector, hence jointly normal, with cross-covariance <span class="math inline">\(\sigma^2\mathbf{A}\mathbf{M} = \mathbf{0}\)</span> (Theorem 2.4.2c). By Theorem 2.2.3(c) they are independent. <span class="math inline">\(\mathrm{SSE} = \mathbf{e}^\top\mathbf{e}\)</span> is a function of <span class="math inline">\(\mathbf{e}\)</span> alone, so it is independent of <span class="math inline">\(\hat{\boldsymbol\beta}\)</span>.</p></li>
+<li><p><span class="math inline">\(Z = (\mathbf{a}^\top\hat{\boldsymbol\beta} - \mathbf{a}^\top\boldsymbol\beta)/\bigl(\sigma\sqrt{\mathbf{a}^\top(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{a}}\bigr) \sim N(0, 1)\)</span> by (a), and it is independent of <span class="math inline">\(W = \mathrm{SSE}/\sigma^2 \sim \chi^2_m\)</span> by (b)–(c). Then <span class="math inline">\(T = Z/\sqrt{W/m}\)</span>, because <span class="math inline">\(\hat\sigma/\sigma = \sqrt{W/m}\)</span>; by definition <span class="math inline">\(T \sim t_m\)</span>.</p></li>
+</ol>
+</details>
+<div class="concept-box esa-callout-note">
+<p class="esa-box-title">
+<strong>Completing Module 1</strong>
+</p>
+<p>For <span class="math inline">\(p = 1\)</span>, Theorem 2.4.5 is <a href="/courses/regression/module-1/inference/">Theorem 1.7.1, Lesson 1.7</a>, now with a complete proof of the <span class="math inline">\(\chi^2\)</span> distribution and of the independence of SSE and the estimates. The same argument works for any <span class="math inline">\(p\)</span>, which is why the inference of Lessons 2.6–2.8 needs no new distribution theory.</p>
+</div>
+<p><strong>Which parts need normality?</strong> Parts (a)–(d) do, exactly. But the means and covariances (Theorems 2.4.1–2.4.4) do not, and for large <span class="math inline">\(n\)</span> the central limit theorem makes <span class="math inline">\(\hat{\boldsymbol\beta}\)</span> approximately normal under A1–A3 with mild conditions on <span class="math inline">\(\mathbf{X}\)</span>, so the <span class="math inline">\(t\)</span>-intervals remain approximately valid. Part (b) is different: the <strong>variance</strong> of SSE depends on the tails of the error distribution. For independent errors with variance <span class="math inline">\(\sigma^2\)</span> and kurtosis <span class="math inline">\(\kappa = E(\varepsilon_i^4)/\sigma^4\)</span>, <span class="math display">\[
+\operatorname{Var}(\mathrm{SSE}/\sigma^2) = 2(n - p - 1) + (\kappa - 3)\sum_{i=1}^n (1 - h_{ii})^2
+\]</span> (a standard result on quadratic forms; Seber and Lee, 2003, Chapter 1), which equals the <span class="math inline">\(\chi^2\)</span> variance <span class="math inline">\(2(n-p-1)\)</span> only when <span class="math inline">\(\kappa = 3\)</span>. Intervals for <span class="math inline">\(\sigma^2\)</span> are therefore <strong>not</strong> robust to non-normality, even for large <span class="math inline">\(n\)</span>. The simulation in Section 5.3 shows both effects.</p>
+<h3 data-number="4.6" id="maximum-likelihood"><span class="header-section-number">4.6</span> Maximum likelihood</h3>
+<p>Under A4 the log-likelihood is <span class="math inline">\(\ell(\boldsymbol\beta, \sigma^2) = -\tfrac n2\log(2\pi\sigma^2) - S(\boldsymbol\beta)/(2\sigma^2)\)</span>. For any <span class="math inline">\(\sigma^2\)</span> it is maximised over <span class="math inline">\(\boldsymbol\beta\)</span> by minimising <span class="math inline">\(S(\boldsymbol\beta)\)</span>, so the ML estimator of <span class="math inline">\(\boldsymbol\beta\)</span> is <span class="math inline">\(\hat{\boldsymbol\beta}\)</span>. Maximising over <span class="math inline">\(\sigma^2\)</span> then gives <span class="math inline">\(\tilde\sigma^2 = \mathrm{SSE}/n\)</span>, which is biased: <span class="math inline">\(E(\tilde\sigma^2) = (n - p - 1)\sigma^2/n\)</span> (Exercise B.3). The bias matters when <span class="math inline">\(p\)</span> is not small relative to <span class="math inline">\(n\)</span>.</p>
+<h2 class="esa-lesson-anchor" data-number="5" id="worked-example"><span class="header-section-number">5</span> Worked example</h2>
+<p>The model is mpg on weight (1000 lb) and model year for all <span class="math inline">\(n = 398\)</span> cars (<span class="math inline">\(p = 2\)</span>, residual df <span class="math inline">\(= 395\)</span>).</p>
+<h3 data-number="5.1" id="the-estimated-covariance-matrix"><span class="header-section-number">5.1</span> The estimated covariance matrix</h3>
+<p><span class="math inline">\(\mathrm{SSE} = 4659.84\)</span>, so <span class="math inline">\(\hat\sigma^2 = 4659.84/395 = 11.797\)</span> and <span class="math inline">\(\hat\sigma = 3.435\)</span>. The estimated covariance matrix <span class="math inline">\(\hat\sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}\)</span> is</p>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th></th>
+<th>Intercept</th>
+<th>Weight</th>
+<th>Model year</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Intercept</td>
+<td>15.7425</td>
+<td>−0.37992</td>
+<td>−0.191874</td>
+</tr>
+<tr class="even">
+<td>Weight</td>
+<td>−0.37992</td>
+<td>0.045734</td>
+<td>0.003211</td>
+</tr>
+<tr class="odd">
+<td>Model year</td>
+<td>−0.191874</td>
+<td>0.003211</td>
+<td>0.002399</td>
+</tr>
+</tbody>
+</table></div>
+<p>Its square-rooted diagonal gives the standard errors reported in <a href="/courses/regression/module-2/from-one-to-many-predictors/">Lesson 2.1</a>: <span class="math inline">\(3.968\)</span>, <span class="math inline">\(0.2139\)</span> and <span class="math inline">\(0.04898\)</span>. The off-diagonal elements are used just as much. The estimated correlation between <span class="math inline">\(\hat\beta_{\text{weight}}\)</span> and <span class="math inline">\(\hat\beta_{\text{year}}\)</span> is <span class="math inline">\(+0.307\)</span>, exactly the negative of the correlation between weight and model year (<span class="math inline">\(-0.307\)</span>; Exercise B.2 proves this for <span class="math inline">\(p = 2\)</span>). The intercept estimate is correlated <span class="math inline">\(-0.987\)</span> with the year slope, because model year is recorded far from zero (70–82): the intercept is an extrapolation to the year 1900, tied to the slope.</p>
+<h3 data-number="5.2" id="standard-errors-of-linear-combinations"><span class="header-section-number">5.2</span> Standard errors of linear combinations</h3>
+<p>Two quantities a reader of Lesson 2.1 might ask about:</p>
+<ul>
+<li><strong>Mean fuel economy of 3000-lb cars from 1976</strong>, <span class="math inline">\(\mathbf{a} = (1, 3, 76)^\top\)</span>: estimate <span class="math inline">\(\mathbf{a}^\top\hat{\boldsymbol\beta} = 23.310\)</span>, standard error <span class="math inline">\(\hat\sigma\sqrt{\mathbf{a}^\top(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{a}} = 0.172\)</span>. This is exactly the centred intercept and its standard error from Lesson 2.1: centring only changes which linear combination the software calls “intercept”. It is also <span class="math inline">\(\hat\sigma\sqrt{h_{00}}\)</span> with <span class="math inline">\(h_{00} = 0.0025\)</span> from <a href="/courses/regression/module-2/least-squares-matrix-form/">Lesson 2.3</a>.</li>
+<li><strong>Ten model years of progress at fixed weight</strong>, <span class="math inline">\(\mathbf{a} = (0, 0, 10)^\top\)</span>: estimate <span class="math inline">\(7.57\)</span> mpg, standard error <span class="math inline">\(0.490\)</span>; with <span class="math inline">\(t_{395;\,0.975} = 1.966\)</span>, a 95% confidence interval is <span class="math inline">\((6.60, 8.53)\)</span> mpg.</li>
+</ul>
+<p>Neither needs a new fit: one covariance matrix answers every question about linear combinations.</p>
+<div class="esa-code-tabs">
+<details class="esa-code">
+<summary>
+R code
+</summary>
+<pre class="r"><code>cols &lt;- c(&quot;mpg&quot;, &quot;cylinders&quot;, &quot;displacement&quot;, &quot;horsepower&quot;, &quot;weight&quot;,
+          &quot;acceleration&quot;, &quot;model_year&quot;, &quot;origin&quot;, &quot;car_name&quot;)
+auto &lt;- read.table(&quot;data/auto-mpg.data&quot;, col.names = cols, na.strings = &quot;?&quot;)
+auto$w &lt;- auto$weight / 1000
+fit &lt;- lm(mpg ~ w + model_year, data = auto)
+X &lt;- model.matrix(fit)
+n &lt;- nrow(X); df_res &lt;- df.residual(fit)               # 395
+SSE &lt;- sum(residuals(fit)^2); s2 &lt;- SSE / df_res
+c(SSE = SSE, sigma2_hat = s2, sigma_hat = sqrt(s2))
+V &lt;- s2 * solve(crossprod(X))                          # same as vcov(fit)
+V; max(abs(V - vcov(fit)))
+sqrt(diag(V))                                          # standard errors
+cov2cor(V)                                             # correlations of the estimates
+cor(auto$w, auto$model_year)
+
+lin_comb &lt;- function(a, level = 0.95) {
+  est &lt;- sum(a * coef(fit)); se &lt;- sqrt(drop(t(a) %*% V %*% a))
+  q &lt;- qt(1 - (1 - level) / 2, df_res)
+  c(estimate = est, se = se, lower = est - q * se, upper = est + q * se)
+}
+rbind(mean_3000lb_1976 = lin_comb(c(1, 3, 76)),
+      ten_years = lin_comb(c(0, 0, 10)))</code></pre>
+</details>
+<details class="esa-code" open>
+<summary>
+Python code
+</summary>
+<pre class="python"><code>import numpy as np
+import pandas as pd
+from scipy import stats
+
+cols = [&quot;mpg&quot;, &quot;cylinders&quot;, &quot;displacement&quot;, &quot;horsepower&quot;, &quot;weight&quot;,
+        &quot;acceleration&quot;, &quot;model_year&quot;, &quot;origin&quot;, &quot;car_name&quot;]
+auto = pd.read_csv(&quot;data/auto-mpg.data&quot;, sep=r&quot;\s+&quot;, header=None,
+                   names=cols, na_values=&quot;?&quot;, quotechar=&#39;&quot;&#39;)
+y = auto[&quot;mpg&quot;].to_numpy()
+X = np.column_stack([np.ones(len(y)), auto[&quot;weight&quot;] / 1000, auto[&quot;model_year&quot;]])
+n, k = X.shape; df_res = n - k                          # 395
+XtX_inv = np.linalg.inv(X.T @ X)
+b = XtX_inv @ X.T @ y
+e = y - X @ b
+SSE = e @ e; s2 = SSE / df_res
+print(f&quot;SSE = {SSE:.2f}, sigma2_hat = {s2:.4f}, sigma_hat = {np.sqrt(s2):.4f}&quot;)
+V = s2 * XtX_inv
+print(&quot;estimated Cov(beta_hat):\n&quot;, V.round(6))
+se = np.sqrt(np.diag(V)); print(&quot;standard errors:&quot;, se.round(5))
+print(&quot;correlations of the estimates:\n&quot;, (V / np.outer(se, se)).round(4))
+print(&quot;corr(weight, year):&quot;, round(np.corrcoef(X[:, 1], X[:, 2])[0, 1], 4))
+
+def lin_comb(a, level=0.95):
+    a = np.asarray(a, dtype=float)
+    est = a @ b; s = np.sqrt(a @ V @ a); q = stats.t.ppf(1 - (1 - level) / 2, df_res)
+    return np.round([est, s, est - q * s, est + q * s], 4)
+print(&quot;mean at 3000 lb, 1976 (est, se, lower, upper):&quot;, lin_comb([1, 3, 76]))
+print(&quot;ten model years at fixed weight:             &quot;, lin_comb([0, 0, 10]))</code></pre>
+<p class="esa-output-label">
+Output
+</p>
+<pre class="esa-output"><code>SSE = 4659.84, sigma2_hat = 11.7971, sigma_hat = 3.4347
+estimated Cov(beta_hat):
+ [[ 1.5742482e+01 -3.7992000e-01 -1.9187400e-01]
+ [-3.7992000e-01  4.5734000e-02  3.2110000e-03]
+ [-1.9187400e-01  3.2110000e-03  2.3990000e-03]]
+standard errors: [3.96768 0.21386 0.04898]
+correlations of the estimates:
+ [[ 1.     -0.4477 -0.9874]
+ [-0.4477  1.      0.3066]
+ [-0.9874  0.3066  1.    ]]
+corr(weight, year): -0.3066
+mean at 3000 lb, 1976 (est, se, lower, upper): [23.3099  0.1723 22.9712 23.6486]
+ten model years at fixed weight:              [7.5657 0.4898 6.6028 8.5286]</code></pre>
+</details>
+</div>
+<h3 data-number="5.3" id="simulation-which-properties-need-normality"><span class="header-section-number">5.3</span> Simulation: which properties need normality?</h3>
+<p>Keep the 398 observed (weight, year) pairs fixed, set <span class="math inline">\(\boldsymbol\beta = (-14.2, -6.66, 0.757)^\top\)</span> and <span class="math inline">\(\sigma = 3.43\)</span>, and generate 10,000 data sets twice: with normal errors, and with skewed errors (a centred exponential distribution scaled to the same <span class="math inline">\(\sigma\)</span>, kurtosis <span class="math inline">\(\kappa = 9\)</span>). Results (Python, seed 2026):</p>
+<div class="table-wrap"><table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Quantity</th>
+<th>Normal errors</th>
+<th>Skewed errors</th>
+<th>Theory</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mean of <span class="math inline">\(\hat\beta_{\text{weight}}\)</span></td>
+<td>−6.662</td>
+<td>−6.660</td>
+<td>−6.66 (Thm 2.4.1)</td>
+</tr>
+<tr class="even">
+<td>SD of <span class="math inline">\(\hat\beta_{\text{weight}}\)</span></td>
+<td>0.2135</td>
+<td>0.2155</td>
+<td>0.2136 (Thm 2.4.2)</td>
+</tr>
+<tr class="odd">
+<td>Mean of <span class="math inline">\(\hat\sigma^2\)</span></td>
+<td>11.766</td>
+<td>11.761</td>
+<td>11.765 (Thm 2.4.4)</td>
+</tr>
+<tr class="even">
+<td>Mean of <span class="math inline">\(\mathrm{SSE}/\sigma^2\)</span></td>
+<td>395.0</td>
+<td>394.9</td>
+<td>395</td>
+</tr>
+<tr class="odd">
+<td>Variance of <span class="math inline">\(\mathrm{SSE}/\sigma^2\)</span></td>
+<td>781.7</td>
+<td>3144.4</td>
+<td>790 if normal; 3142.2 if <span class="math inline">\(\kappa = 9\)</span></td>
+</tr>
+<tr class="even">
+<td>Correlation of <span class="math inline">\(\hat\beta_{\text{weight}}\)</span> and SSE</td>
+<td>−0.001</td>
+<td>0.014</td>
+<td>0 if normal (Thm 2.4.5c)</td>
+</tr>
+<tr class="odd">
+<td>Coverage of 95% <span class="math inline">\(t\)</span>-interval for <span class="math inline">\(\beta_{\text{weight}}\)</span></td>
+<td>0.950</td>
+<td>0.947</td>
+<td>0.95 (Thm 2.4.5d)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Unbiasedness, the covariance formula and the unbiasedness of <span class="math inline">\(\hat\sigma^2\)</span> hold under both error distributions, as the theory says they need no normality. With <span class="math inline">\(n = 398\)</span> the <span class="math inline">\(t\)</span>-interval for the slope also keeps its coverage under skewed errors. But the variance of SSE is four times the <span class="math inline">\(\chi^2_{395}\)</span> value, as predicted by the kurtosis formula: a <span class="math inline">\(\chi^2\)</span>-based interval for <span class="math inline">\(\sigma^2\)</span> would be far too narrow. R uses a different random-number generator, so its simulated values differ slightly while agreeing with theory.</p>
+<div class="esa-code-tabs">
+<details class="esa-code">
+<summary>
+R code
+</summary>
+<pre class="r"><code># Self-contained: reads the 398 (weight, year) pairs and needs nothing from earlier sections.
+cols &lt;- c(&quot;mpg&quot;, &quot;cylinders&quot;, &quot;displacement&quot;, &quot;horsepower&quot;, &quot;weight&quot;,
+          &quot;acceleration&quot;, &quot;model_year&quot;, &quot;origin&quot;, &quot;car_name&quot;)
+auto &lt;- read.table(&quot;data/auto-mpg.data&quot;, col.names = cols, na.strings = &quot;?&quot;)
+X &lt;- cbind(1, auto$weight / 1000, auto$model_year)
+n &lt;- nrow(X); m &lt;- n - ncol(X)
+XtX_inv &lt;- solve(crossprod(X)); A &lt;- XtX_inv %*% t(X)
+beta &lt;- c(-14.2, -6.66, 0.757); sigma &lt;- 3.43; R &lt;- 10000
+set.seed(2026)
+
+simulate &lt;- function(E) {                               # E: R x n matrix of errors
+  Y &lt;- matrix(drop(X %*% beta), R, n, byrow = TRUE) + E
+  B &lt;- Y %*% t(A)                                       # R x 3 estimates
+  S &lt;- rowSums((Y - B %*% t(X))^2)                      # SSE
+  q &lt;- qt(0.975, m); se_w &lt;- sqrt(S / m * XtX_inv[2, 2])
+  list(B = B, S = S,
+       summary = c(mean_bw = mean(B[, 2]), sd_bw = sd(B[, 2]), mean_s2 = mean(S / m),
+                   mean_Q = mean(S / sigma^2), var_Q = var(S / sigma^2),
+                   cor_bw_SSE = cor(B[, 2], S),
+                   coverage = mean(abs(B[, 2] - beta[2]) &lt;= q * se_w)))
+}
+norm &lt;- simulate(matrix(rnorm(R * n, 0, sigma), R, n))
+skew &lt;- simulate(matrix(sigma * (rexp(R * n) - 1), R, n))
+h &lt;- rowSums((X %*% XtX_inv) * X)
+round(cbind(normal = norm$summary, skewed = skew$summary,
+            theory = c(beta[2], sigma * sqrt(XtX_inv[2, 2]), sigma^2, m, 2 * m, 0, 0.95)), 4)
+c(var_Q_theory_kappa9 = 2 * m + 6 * sum((1 - h)^2))
+
+op &lt;- par(mfrow = c(1, 2))
+hist(norm$S / sigma^2, breaks = 50, freq = FALSE, main = &quot;Normal errors&quot;, xlab = &quot;SSE / sigma^2&quot;,
+     xlim = c(200, 600), ylim = c(0, 0.015))   # same scale in both panels
+curve(dchisq(x, m), add = TRUE, lwd = 2)
+hist(skew$S / sigma^2, breaks = 50, freq = FALSE, main = &quot;Skewed errors&quot;, xlab = &quot;SSE / sigma^2&quot;,
+     xlim = c(200, 600), ylim = c(0, 0.015))   # same scale in both panels
+curve(dchisq(x, m), add = TRUE, lwd = 2)
+par(op)</code></pre>
+</details>
+<details class="esa-code" open>
+<summary>
+Python code
+</summary>
+<pre class="python"><code># Self-contained: reads the 398 (weight, year) pairs and needs nothing from earlier sections.
+import numpy as np
+import pandas as pd
+from scipy import stats
+import matplotlib.pyplot as plt
+
+cols = [&quot;mpg&quot;, &quot;cylinders&quot;, &quot;displacement&quot;, &quot;horsepower&quot;, &quot;weight&quot;,
+        &quot;acceleration&quot;, &quot;model_year&quot;, &quot;origin&quot;, &quot;car_name&quot;]
+auto = pd.read_csv(&quot;data/auto-mpg.data&quot;, sep=r&quot;\s+&quot;, header=None,
+                   names=cols, na_values=&quot;?&quot;, quotechar=&#39;&quot;&#39;)
+X = np.column_stack([np.ones(len(auto)), auto[&quot;weight&quot;] / 1000, auto[&quot;model_year&quot;]])
+n, k = X.shape; m = n - k
+XtX_inv = np.linalg.inv(X.T @ X); A = XtX_inv @ X.T
+beta, sigma, R = np.array([-14.2, -6.66, 0.757]), 3.43, 10_000
+rng = np.random.default_rng(2026)
+
+def simulate(E):                                        # E: R x n matrix of errors
+    Y = X @ beta + E
+    B = Y @ A.T                                         # R x 3 estimates
+    S = ((Y - B @ X.T)**2).sum(axis=1)                  # SSE
+    q = stats.t.ppf(0.975, m); se_w = np.sqrt(S / m * XtX_inv[1, 1])
+    summary = dict(mean_bw=B[:, 1].mean(), sd_bw=B[:, 1].std(ddof=1), mean_s2=(S / m).mean(),
+                   mean_Q=(S / sigma**2).mean(), var_Q=(S / sigma**2).var(ddof=1),
+                   cor_bw_SSE=np.corrcoef(B[:, 1], S)[0, 1],
+                   coverage=np.mean(np.abs(B[:, 1] - beta[1]) &lt;= q * se_w))
+    return S, summary
+
+S_norm, norm = simulate(sigma * rng.standard_normal((R, n)))
+S_skew, skew = simulate(sigma * (rng.exponential(1.0, (R, n)) - 1.0))
+h = np.einsum(&quot;ij,jk,ik-&gt;i&quot;, X, XtX_inv, X)
+theory = dict(mean_bw=beta[1], sd_bw=sigma * np.sqrt(XtX_inv[1, 1]), mean_s2=sigma**2,
+              mean_Q=m, var_Q=2 * m, cor_bw_SSE=0.0, coverage=0.95)
+print(pd.DataFrame({&quot;normal&quot;: norm, &quot;skewed&quot;: skew, &quot;theory&quot;: theory}).round(4))
+print(&quot;Var(SSE/sigma^2) predicted for kappa = 9:&quot;, round(2 * m + 6 * np.sum((1 - h)**2), 1))
+
+grid = np.linspace(200, 600, 400)
+fig, axes = plt.subplots(1, 2, figsize=(8, 3.4), sharey=True)
+for ax, S, title in zip(axes, (S_norm, S_skew), (&quot;Normal errors&quot;, &quot;Skewed errors&quot;)):
+    ax.hist(S / sigma**2, bins=50, density=True, color=&quot;lightgray&quot;, edgecolor=&quot;white&quot;)
+    ax.plot(grid, stats.chi2.pdf(grid, m), linewidth=2)
+    ax.set_title(title); ax.set_xlabel(&quot;SSE / sigma^2&quot;); ax.set_xlim(200, 600)
+axes[0].set_ylabel(&quot;Density&quot;)
+plt.tight_layout()
+plt.show()</code></pre>
+<p class="esa-output-label">
+Output
+</p>
+<pre class="esa-output"><code>              normal     skewed    theory
+mean_bw      -6.6624    -6.6596   -6.6600
+sd_bw         0.2135     0.2155    0.2136
+mean_s2      11.7656    11.7613   11.7649
+mean_Q      395.0234   394.8799  395.0000
+var_Q       781.7082  3144.3588  790.0000
+cor_bw_SSE   -0.0007     0.0141    0.0000
+coverage      0.9501     0.9473    0.9500
+Var(SSE/sigma^2) predicted for kappa = 9: 3142.2</code></pre>
+<figure class="esa-figure">
+<img src="/images/courses/regression/lesson-2-4-fig1.png" alt="SSE/σ² in 10,000 simulated data sets with the Auto MPG design. Left: normal errors, with the χ² density on 395 df. Right: skewed errors with the same variance: the mean is still 395, but the spread is about twice as wide." loading="lazy" width="900">
+<figcaption>
+SSE/σ² in 10,000 simulated data sets with the Auto MPG design. Left: normal errors, with the χ² density on 395 df. Right: skewed errors with the same variance: the mean is still 395, but the spread is about twice as wide.
+</figcaption>
+</figure>
+</details>
+</div>
+<h2 class="esa-lesson-anchor" data-number="6" id="common-misconceptions"><span class="header-section-number">6</span> Common misconceptions</h2>
+<div class="example-box esa-callout-caution">
+<p class="esa-box-title">
+<strong>Misconceptions</strong>
+</p>
+<ol type="1">
+<li><strong>“OLS is unbiased only if the errors are normal.”</strong> — Unbiasedness needs A0 and A1 only (Theorem 2.4.1).</li>
+<li><strong>“Gauss–Markov says OLS is the best estimator.”</strong> — Best among <em>linear unbiased</em> estimators, under A0–A3. Biased estimators (Module 5) can have smaller mean squared error.</li>
+<li><strong>“The residuals have the same variance as the errors.”</strong> — <span class="math inline">\(\operatorname{Var}(e_i) = \sigma^2(1 - h_{ii})\)</span>: smaller, and unequal across observations.</li>
+<li><strong>“With a large sample, every normal-theory procedure is robust.”</strong> — Intervals for coefficients become approximately valid; intervals and tests for <span class="math inline">\(\sigma^2\)</span> do not, because the variance of SSE depends on the kurtosis.</li>
+<li><strong>“The coefficient estimates are independent if the standard errors are reported separately.”</strong> — The estimates are correlated through <span class="math inline">\((\mathbf{X}^\top\mathbf{X})^{-1}\)</span>; standard errors of sums or differences need the covariances.</li>
+</ol>
+</div>
+<h2 class="esa-lesson-anchor" data-number="7" id="key-takeaways"><span class="header-section-number">7</span> Key takeaways</h2>
+<ul>
+<li><span class="math inline">\(\hat{\boldsymbol\beta} = \boldsymbol\beta + (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\boldsymbol\varepsilon\)</span> and <span class="math inline">\(\mathbf{e} = (\mathbf{I} - \mathbf{H})\boldsymbol\varepsilon\)</span> drive every result.</li>
+<li>A0–A1: unbiased. A0–A3: <span class="math inline">\(\operatorname{Cov}(\hat{\boldsymbol\beta}) = \sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}\)</span>, Gauss–Markov, and <span class="math inline">\(E(\mathrm{SSE}) = (n - p - 1)\sigma^2\)</span>.</li>
+<li>A0–A4: <span class="math inline">\(\hat{\boldsymbol\beta}\)</span> is normal, <span class="math inline">\(\mathrm{SSE}/\sigma^2 \sim \chi^2_{n-p-1}\)</span>, the two are independent, and <span class="math inline">\(t\)</span>-statistics have <span class="math inline">\(n - p - 1\)</span> degrees of freedom.</li>
+<li>The estimated covariance matrix gives standard errors for any linear combination <span class="math inline">\(\mathbf{a}^\top\hat{\boldsymbol\beta}\)</span>.</li>
+<li>Coefficient inference is approximately robust to non-normality in large samples; inference about <span class="math inline">\(\sigma^2\)</span> is not.</li>
+</ul>
+<h2 class="esa-lesson-anchor" data-number="8" id="exercises"><span class="header-section-number">8</span> Exercises</h2>
+<h3 data-number="8.1" id="a.-conceptual"><span class="header-section-number">8.1</span> A. Conceptual</h3>
+<p><strong>A.1</strong> (★). Which of A0–A4 are needed for each statement? (a) <span class="math inline">\(E(\hat{\boldsymbol\beta}) = \boldsymbol\beta\)</span>; (b) <span class="math inline">\(\operatorname{Cov}(\hat{\boldsymbol\beta}) = \sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}\)</span>; (c) <span class="math inline">\(\mathbf{a}^\top\hat{\boldsymbol\beta}\)</span> is BLUE; (d) <span class="math inline">\(E(\hat\sigma^2) = \sigma^2\)</span>; (e) <span class="math inline">\(\hat{\boldsymbol\beta}\)</span> and SSE are independent; (f) <span class="math inline">\(\hat{\boldsymbol\beta}\)</span> can be computed.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<ol type="a">
+<li>A0, A1. (b) A0–A3. (c) A0–A3. (d) A0–A3. (e) A0–A4 (uncorrelatedness, <span class="math inline">\(\operatorname{Cov}(\hat{\boldsymbol\beta}, \mathbf{e}) = \mathbf{0}\)</span>, needs only A0–A3; independence needs joint normality). (f) A0 only.</li>
+</ol>
+</details>
+<p><strong>A.2</strong> (★). A report gives <span class="math inline">\(\hat\beta_{\text{weight}} = -6.664\)</span> (se 0.214) and <span class="math inline">\(\hat\beta_{\text{year}} = 0.757\)</span> (se 0.049) and computes the standard error of <span class="math inline">\(\hat\beta_{\text{weight}} + \hat\beta_{\text{year}}\)</span> as <span class="math inline">\(\sqrt{0.214^2 + 0.049^2}\)</span>. What is wrong, and what is the correct value?</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>The formula ignores the covariance. Correctly, <span class="math inline">\(\operatorname{Var} = 0.045734 + 0.002399 + 2(0.003211) = 0.054555\)</span>, so se <span class="math inline">\(= 0.2336\)</span>, against <span class="math inline">\(0.2194\)</span> from the incorrect formula. (Whether this sum is a meaningful quantity is a separate question: it adds effects measured in different units.)</p>
+</details>
+<h3 data-number="8.2" id="b.-mathematical"><span class="header-section-number">8.2</span> B. Mathematical</h3>
+<p><strong>B.1</strong> (★★). Show that <span class="math inline">\(\operatorname{Var}(e_i) = \sigma^2(1 - h_{ii})\)</span> and <span class="math inline">\(\operatorname{Cov}(e_i, e_k) = -\sigma^2h_{ik}\)</span> for <span class="math inline">\(i \ne k\)</span>. Explain why the residuals are correlated even when the errors are not.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>Read the entries of <span class="math inline">\(\operatorname{Cov}(\mathbf{e}) = \sigma^2(\mathbf{I} - \mathbf{H})\)</span> (Theorem 2.4.2b). The residuals are correlated because they satisfy <span class="math inline">\(p + 1\)</span> linear constraints, <span class="math inline">\(\mathbf{X}^\top\mathbf{e} = \mathbf{0}\)</span>: they live in an <span class="math inline">\((n - p - 1)\)</span>-dimensional subspace, so they cannot vary independently in all <span class="math inline">\(n\)</span> directions.</p>
+</details>
+<p><strong>B.2</strong> (★★). Let <span class="math inline">\(p = 2\)</span> with an intercept. Show that the correlation between <span class="math inline">\(\hat\beta_1\)</span> and <span class="math inline">\(\hat\beta_2\)</span> is <span class="math inline">\(-r_{12}\)</span>, where <span class="math inline">\(r_{12}\)</span> is the sample correlation of <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span>. <em>Hint:</em> the slope block of <span class="math inline">\((\mathbf{X}^\top\mathbf{X})^{-1}\)</span> is the inverse of the centred cross-product matrix <span class="math inline">\(\begin{pmatrix} S_{11} &amp; S_{12}\\ S_{12} &amp; S_{22}\end{pmatrix}\)</span>.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>Inverting the <span class="math inline">\(2\times2\)</span> matrix gives the slope block <span class="math inline">\(\frac{1}{S_{11}S_{22} - S_{12}^2}\begin{pmatrix} S_{22} &amp; -S_{12}\\ -S_{12} &amp; S_{11}\end{pmatrix}\)</span>. Multiplying by <span class="math inline">\(\sigma^2\)</span> gives the covariance matrix of <span class="math inline">\((\hat\beta_1, \hat\beta_2)\)</span>; the correlation is <span class="math inline">\(-S_{12}/\sqrt{S_{11}S_{22}} = -r_{12}\)</span>. (The hint follows from inverting <span class="math inline">\(\mathbf{X}^\top\mathbf{X}\)</span> in partitioned form, or from Exercise B.3 of Lesson 2.3 with mean-centred columns, which leaves the slopes and their covariance unchanged and makes the intercept uncorrelated with them.) In the worked example, <span class="math inline">\(r_{12} = -0.307\)</span> and the estimated correlation of the slopes is <span class="math inline">\(+0.307\)</span>.</p>
+</details>
+<p><strong>B.3</strong> (★★). Under A0–A4, show that the ML estimator of <span class="math inline">\(\sigma^2\)</span> is <span class="math inline">\(\tilde\sigma^2 = \mathrm{SSE}/n\)</span> and that its bias is <span class="math inline">\(-(p+1)\sigma^2/n\)</span>. For the worked example, compute <span class="math inline">\(\tilde\sigma^2\)</span> and compare it with <span class="math inline">\(\hat\sigma^2\)</span>.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>At <span class="math inline">\(\boldsymbol\beta = \hat{\boldsymbol\beta}\)</span>, <span class="math inline">\(\partial\ell/\partial\sigma^2 = -n/(2\sigma^2) + \mathrm{SSE}/(2\sigma^4) = 0\)</span> gives <span class="math inline">\(\tilde\sigma^2 = \mathrm{SSE}/n\)</span>, and the second derivative there is negative. <span class="math inline">\(E(\tilde\sigma^2) = (n - p - 1)\sigma^2/n\)</span>, so the bias is <span class="math inline">\(-(p+1)\sigma^2/n\)</span>. Here <span class="math inline">\(\tilde\sigma^2 = 4659.84/398 = 11.708\)</span> against <span class="math inline">\(\hat\sigma^2 = 11.797\)</span>; with <span class="math inline">\(p + 1 = 3\)</span> and <span class="math inline">\(n = 398\)</span> the difference is under 1%.</p>
+</details>
+<p><strong>B.4</strong> (★★★). Ridge regression (Module 5) uses <span class="math inline">\(\tilde{\boldsymbol\beta}_k = (\mathbf{X}^\top\mathbf{X} + k\mathbf{I})^{-1}\mathbf{X}^\top\mathbf{y}\)</span> with <span class="math inline">\(k &gt; 0\)</span>. Show that it is linear in <span class="math inline">\(\mathbf{y}\)</span> but biased, so Theorem 2.4.3 says nothing about it. Compute its bias.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>It is <span class="math inline">\(\mathbf{C}\mathbf{y}\)</span> with <span class="math inline">\(\mathbf{C} = (\mathbf{X}^\top\mathbf{X} + k\mathbf{I})^{-1}\mathbf{X}^\top\)</span>. Then <span class="math inline">\(\mathbf{C}\mathbf{X} = (\mathbf{X}^\top\mathbf{X} + k\mathbf{I})^{-1}\mathbf{X}^\top\mathbf{X} \ne \mathbf{I}\)</span> for <span class="math inline">\(k &gt; 0\)</span>, so <span class="math inline">\(E(\tilde{\boldsymbol\beta}_k) = \mathbf{C}\mathbf{X}\boldsymbol\beta \ne \boldsymbol\beta\)</span> in general. Using <span class="math inline">\(\mathbf{C}\mathbf{X} = \mathbf{I} - k(\mathbf{X}^\top\mathbf{X} + k\mathbf{I})^{-1}\)</span>, the bias is <span class="math inline">\(-k(\mathbf{X}^\top\mathbf{X} + k\mathbf{I})^{-1}\boldsymbol\beta\)</span>. Gauss–Markov compares only unbiased linear estimators, so it does not rule out that ridge has smaller mean squared error; Module 5 shows when it does.</p>
+</details>
+<h3 data-number="8.3" id="c.-computational"><span class="header-section-number">8.3</span> C. Computational</h3>
+<p><strong>C.1</strong> (★). For the 392 cars with horsepower recorded, fit mpg on weight (1000 lb) and horsepower (100 hp). Compute <span class="math inline">\(\hat\sigma^2\)</span>, the standard errors and the correlation between the two slope estimates. Relate the correlation to Exercise B.2.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p><span class="math inline">\(\hat\sigma^2 = 17.979\)</span>; standard errors <span class="math inline">\(0.793\)</span> (intercept), <span class="math inline">\(0.502\)</span> (weight), <span class="math inline">\(1.109\)</span> (horsepower). The slope estimates have correlation <span class="math inline">\(-0.865\)</span>, the negative of <span class="math inline">\(r(\text{weight}, \text{horsepower}) = 0.865\)</span>. Strongly correlated predictors produce strongly (negatively) correlated slope estimates: data with a heavier car usually also have a more powerful one, so the data cannot easily separate the two effects. This is the mechanism behind the large standard errors studied in Module 5.</p>
+</details>
+<p><strong>C.2</strong> (★★). Refit the weight + year model with both predictors centred at their <strong>means</strong> (2.970 thousand lb, 1976.01). Compare the correlation matrix of the estimates with that of the uncentred fit. Which correlations change, and why?</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>Uncentred: corr(intercept, weight slope) <span class="math inline">\(= -0.448\)</span>, corr(intercept, year slope) <span class="math inline">\(= -0.987\)</span>, corr(weight slope, year slope) <span class="math inline">\(= 0.307\)</span>. Mean-centred: the intercept becomes <span class="math inline">\(23.515\)</span> (se <span class="math inline">\(0.172\)</span>) and is <strong>uncorrelated</strong> with both slopes; the correlation of the slopes stays <span class="math inline">\(0.307\)</span> and their standard errors are unchanged. Centring at the means makes the intercept column orthogonal to the other columns, so <span class="math inline">\(\mathbf{X}^\top\mathbf{X}\)</span> becomes block diagonal; the slopes and their covariance are unaffected (Lesson 2.3, Exercise B.3).</p>
+</details>
+<p><strong>C.3</strong> (★★★). Repeat the simulation of Section 5.3 with <strong>uniform</strong> errors on <span class="math inline">\((-\sqrt3\,\sigma, \sqrt3\,\sigma)\)</span>, which have standard deviation <span class="math inline">\(\sigma = 3.43\)</span> and kurtosis <span class="math inline">\(\kappa = 1.8\)</span> (lighter tails than the normal). Before simulating, use the kurtosis formula of Section 4.5 to predict the variance of <span class="math inline">\(\mathrm{SSE}/\sigma^2\)</span>; then check the prediction with 50,000 data sets, and check the coverage of the 95% <span class="math inline">\(t\)</span>-interval for <span class="math inline">\(\beta_{\text{weight}}\)</span>.</p>
+<details class="esa-solution">
+<summary>
+Solution (Python)
+</summary>
+<pre class="python"><code>import numpy as np, pandas as pd
+from scipy import stats
+cols = [&quot;mpg&quot;, &quot;cylinders&quot;, &quot;displacement&quot;, &quot;horsepower&quot;, &quot;weight&quot;,
+        &quot;acceleration&quot;, &quot;model_year&quot;, &quot;origin&quot;, &quot;car_name&quot;]
+auto = pd.read_csv(&quot;data/auto-mpg.data&quot;, sep=r&quot;\s+&quot;, header=None,
+                   names=cols, na_values=&quot;?&quot;, quotechar=&#39;&quot;&#39;)
+X = np.column_stack([np.ones(len(auto)), auto[&quot;weight&quot;] / 1000, auto[&quot;model_year&quot;]])
+n, k = X.shape; m = n - k
+XtX_inv = np.linalg.inv(X.T @ X); A = XtX_inv @ X.T
+h = np.einsum(&quot;ij,jk,ik-&gt;i&quot;, X, XtX_inv, X)
+beta, sigma, R = np.array([-14.2, -6.66, 0.757]), 3.43, 50_000
+print(&quot;predicted Var(SSE/sigma^2):&quot;, round(2 * m + (1.8 - 3) * np.sum((1 - h)**2), 1))
+rng = np.random.default_rng(2026)
+E = rng.uniform(-np.sqrt(3) * sigma, np.sqrt(3) * sigma, (R, n))   # sd sigma, kappa = 1.8
+Y = X @ beta + E; B = Y @ A.T; S = ((Y - B @ X.T)**2).sum(axis=1)
+se_w = np.sqrt(S / m * XtX_inv[1, 1]); q = stats.t.ppf(0.975, m)
+print(&quot;mean SSE/sigma^2:&quot;, round((S / sigma**2).mean(), 1), &quot; var:&quot;, round((S / sigma**2).var(ddof=1), 1))
+print(&quot;coverage:&quot;, np.mean(np.abs(B[:, 1] - beta[1]) &lt;= q * se_w))
+Qs = S / sigma**2; v = Qs.var(ddof=1)
+print(&quot;Monte Carlo se of the variance:&quot;, round(np.sqrt(np.mean((Qs - Qs.mean())**4) - v**2) / np.sqrt(R), 1))</code></pre>
+<p>Prediction: <span class="math inline">\(2(395) + (1.8 - 3)(392.03) = 319.6\)</span>, well <strong>below</strong> the <span class="math inline">\(\chi^2_{395}\)</span> value of 790. Simulation (seed 2026): mean of <span class="math inline">\(\mathrm{SSE}/\sigma^2\)</span> = 395.0, variance 323.5 with Monte Carlo standard error 2.0, so within two standard errors of the prediction; coverage of the <span class="math inline">\(t\)</span>-interval 0.951. With light-tailed errors a <span class="math inline">\(\chi^2\)</span>-based interval for <span class="math inline">\(\sigma^2\)</span> is too <strong>wide</strong> (conservative); with heavy-tailed errors it is too narrow. Either way it is wrong, while the interval for the slope is fine.</p>
+</details>
+<h2 class="esa-lesson-anchor" data-number="9" id="references"><span class="header-section-number">9</span> References</h2>
+<ul>
+<li>Seber, G. A. F., &amp; Lee, A. J. (2003). <em>Linear Regression Analysis</em> (2nd ed.). Wiley. — Chapter 1 (moments of quadratic forms), Chapter 2 (multivariate normal; distribution of quadratic forms), Chapter 3 (properties of least-squares estimates; Gauss–Markov; distribution theory).</li>
+<li>Montgomery, D. C., Peck, E. A., &amp; Vining, G. G. (2021). <em>Introduction to Linear Regression Analysis</em> (6th ed.). Wiley. — Chapter 3, Multiple Linear Regression (properties of the least-squares estimators; estimation of σ²).</li>
+<li>Kutner, M. H., Nachtsheim, C. J., Neter, J., &amp; Li, W. (2005). <em>Applied Linear Statistical Models</em> (5th ed.). McGraw-Hill/Irwin. — Chapter 6, Multiple Regression I.</li>
+<li>Rao, C. R. (1973). <em>Linear Statistical Inference and Its Applications</em> (2nd ed.). Wiley. — Chapter 4, The Theory of Least Squares and Analysis of Variance.</li>
+<li>Quinlan, R. (1993). <em>Auto MPG</em> [Data set]. UCI Machine Learning Repository. https://doi.org/10.24432/C5859H</li>
+</ul>
+
+{% endraw %}
+    <div class="lesson-nav">
+      <a class="btn btn-outline" href="/courses/regression/module-2/least-squares-matrix-form/">← Lesson 2.3: Least Squares in Matrix Form</a>
+      <a class="btn" href="/courses/regression/module-2/interpreting-coefficients-multiple/">Next: Lesson 2.5 →</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .esa-course-lesson details{border:1px solid var(--border-strong,#d0d7de);border-radius:9px;padding:.4rem .9rem;margin:1rem 0}
+  .esa-course-lesson details>summary{cursor:pointer;font-weight:700}
+  .esa-course-lesson .esa-code-tabs{margin:1rem 0}
+  .esa-course-lesson .esa-code-tabs details{margin:.4rem 0}
+  .esa-course-lesson pre{max-width:100%}
+  .esa-course-lesson pre.esa-output{border-left:5px solid #0d9488}
+  .esa-course-lesson .esa-output-label{font-size:.85rem;font-weight:700;margin:.6rem 0 .2rem}
+  .esa-course-lesson .esa-figure{margin:1rem 0}
+  .esa-course-lesson .esa-figure img{max-width:100%;height:auto}
+  .esa-course-lesson .esa-figure figcaption{font-size:.9rem}
+  .esa-course-lesson mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+</style>
