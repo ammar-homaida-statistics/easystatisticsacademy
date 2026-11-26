@@ -1,0 +1,591 @@
+---
+layout: default
+title: "Interpreting Coefficients in Multiple Regression — Regression Course, Lesson 2.5"
+description: "University-level lesson on interpreting multiple regression coefficients: the Frisch–Waugh–Lovell theorem, added-variable plots, omitted-variable bias and variance inflation factors, with R and Python."
+permalink: /courses/regression/module-2/interpreting-coefficients-multiple/
+sidebar: false
+math: true
+learning_resource: true
+---
+
+<section class="hero hero-section">
+  <div class="hero-card">
+    <div class="badge-row">
+      <span class="badge">Course</span>
+      <span class="badge">Regression Analysis</span>
+      <span class="badge">Module 2 · Multiple Regression</span>
+      <span class="badge">Lesson 2.5</span>
+    </div>
+    <h1>Lesson 2.5 — Interpreting Coefficients in Multiple Regression</h1>
+    <p class="lead">What a partial coefficient really measures: Frisch–Waugh–Lovell, added-variable plots, omitted-variable bias, and why correlated predictors inflate variances.</p>
+    <p class="muted-mini">Level: Intermediate–Advanced · Study time: 50 min + exercises · Prerequisites: Lessons 2.1–2.4 · Data: Auto MPG (UCI, CC BY 4.0) and simulation</p>
+    <div class="hero-actions">
+      <a class="btn btn-outline" href="/courses/regression/module-2/">Module 2 lessons</a>
+      <a class="btn btn-outline" href="/courses/regression/code/lesson-2-5.py">Python script</a>
+      <a class="btn btn-outline" href="/courses/regression/code/lesson-2-5.R">R script</a>
+    </div>
+  </div>
+</section>
+
+<nav class="esa-lesson-toc" aria-label="On this page"><details><summary>On this page</summary><ol><li><a href="#learning-objectives">Learning objectives</a></li><li><a href="#motivation">Motivation</a></li><li><a href="#notation-for-this-lesson">Notation for this lesson</a></li><li><a href="#theory">Theory</a></li><li><a href="#worked-example">Worked example</a></li><li><a href="#common-misconceptions">Common misconceptions</a></li><li><a href="#key-takeaways">Key takeaways</a></li><li><a href="#exercises">Exercises</a></li><li><a href="#references">References</a></li></ol></details></nav>
+
+<section>
+  <div class="content-narrow esa-course-lesson">
+{% raw %}
+<h2 class="esa-lesson-anchor" data-number="1" id="learning-objectives"><span class="header-section-number">1</span> Learning objectives</h2>
+<p>By the end of this lesson you will be able to:</p>
+<ol type="1">
+<li>state and prove the Frisch–Waugh–Lovell theorem, and use it to explain what a partial coefficient measures;</li>
+<li>draw and read an added-variable plot;</li>
+<li>derive the omitted-variable bias formula, both as an exact sample identity and in expectation, and predict the direction of the bias;</li>
+<li>prove <span class="math inline">\(\operatorname{Var}(\hat\beta_j) = \sigma^2/[(1 - R_j^2)S_{jj}]\)</span> and interpret the variance inflation factor;</li>
+<li>explain the trade-off between omitting a relevant predictor (bias) and including a correlated one (variance).</li>
+</ol>
+<h2 class="esa-lesson-anchor" data-number="2" id="motivation"><span class="header-section-number">2</span> Motivation</h2>
+<p><a href="/courses/regression/module-2/from-one-to-many-predictors/">Lesson 2.1</a> said that <span class="math inline">\(\beta_j\)</span> compares units “with the same values of the other predictors”, and showed with two predictors that a slope changes when a correlated predictor is added. This lesson makes both statements precise for any number of predictors. The Auto MPG data give a sharp example: in a model with weight and horsepower, horsepower has a slope of <span class="math inline">\(-4.73\)</span> mpg per 100 hp; add model year, and the slope becomes <span class="math inline">\(-0.50\)</span> with a standard error of <span class="math inline">\(0.94\)</span>. Which number describes horsepower? The tools of this lesson answer that question.</p>
+<h2 class="esa-lesson-anchor" data-number="3" id="notation-for-this-lesson"><span class="header-section-number">3</span> Notation for this lesson</h2>
+<div class="table-wrap"><table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\mathbf{X} = [\mathbf{X}_1, \mathbf{X}_2]\)</span></td>
+<td>partition of the columns into two groups (<span class="math inline">\(\mathbf{X}_1\)</span> contains the intercept)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\mathbf{H}_1\)</span>, <span class="math inline">\(\mathbf{M}_1 = \mathbf{I} - \mathbf{H}_1\)</span></td>
+<td>hat and residual-maker matrices of <span class="math inline">\(\mathbf{X}_1\)</span> alone</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\mathbf{x}_j\)</span>, <span class="math inline">\(\mathbf{X}_{-j}\)</span></td>
+<td>column <span class="math inline">\(j\)</span> of <span class="math inline">\(\mathbf{X}\)</span>, and <span class="math inline">\(\mathbf{X}\)</span> without that column</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(R_j^2\)</span></td>
+<td><span class="math inline">\(R^2\)</span> from regressing <span class="math inline">\(\mathbf{x}_j\)</span> on the other predictors (with intercept)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\mathrm{VIF}_j = 1/(1 - R_j^2)\)</span></td>
+<td>variance inflation factor of predictor <span class="math inline">\(j\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\tilde{\boldsymbol\beta}_1\)</span></td>
+<td>estimate from the <strong>short</strong> model that omits <span class="math inline">\(\mathbf{X}_2\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\hat{\boldsymbol\Delta} = (\mathbf{X}_1^\top\mathbf{X}_1)^{-1}\mathbf{X}_1^\top\mathbf{X}_2\)</span></td>
+<td>coefficients from regressing each omitted column on <span class="math inline">\(\mathbf{X}_1\)</span></td>
+</tr>
+</tbody>
+</table></div>
+<div class="concept-box esa-callout-note">
+<p class="esa-box-title">
+<strong>Assumptions used in this lesson</strong>
+</p>
+<p>The model is <span class="math inline">\(\mathbf{y} = \mathbf{X}\boldsymbol\beta + \boldsymbol\varepsilon\)</span> (<a href="/courses/regression/module-2/matrix-formulation/">Lesson 2.2</a>), with</p>
+<ul>
+<li><strong>A0 (Full rank).</strong> <span class="math inline">\(\mathbf{X}\)</span> is fixed with <span class="math inline">\(\operatorname{rank}(\mathbf{X}) = p + 1\)</span>.</li>
+<li><strong>A1 (Correct mean function).</strong> <span class="math inline">\(E(\boldsymbol\varepsilon) = \mathbf{0}\)</span>.</li>
+<li><strong>A2–A3 (Constant variance, uncorrelated errors).</strong> <span class="math inline">\(\operatorname{Cov}(\boldsymbol\varepsilon) = \sigma^2\mathbf{I}_n\)</span>.</li>
+<li><strong>A4 (Normality).</strong> <span class="math inline">\(\boldsymbol\varepsilon \sim N_n(\mathbf{0}, \sigma^2\mathbf{I}_n)\)</span>.</li>
+</ul>
+<p>The algebraic results (Theorem 2.5.1 and Theorem 2.5.2a) need only A0; each other result names what it uses. What each assumption means: <a href="/courses/regression/module-1/what-is-regression/#assumptions-and-what-they-are-used-for">Lesson 1.1, Assumptions</a>.</p>
+</div>
+<h2 class="esa-lesson-anchor" data-number="4" id="theory"><span class="header-section-number">4</span> Theory</h2>
+<h3 data-number="4.1" id="the-frischwaughlovell-theorem"><span class="header-section-number">4.1</span> The Frisch–Waugh–Lovell theorem</h3>
+<div class="concept-box esa-callout-important">
+<p class="esa-box-title">
+<strong>Theorem 2.5.1 (Frisch–Waugh–Lovell) — uses A0</strong>
+</p>
+<p>Partition <span class="math inline">\(\mathbf{X} = [\mathbf{X}_1, \mathbf{X}_2]\)</span> and <span class="math inline">\(\hat{\boldsymbol\beta} = (\hat{\boldsymbol\beta}_1^\top, \hat{\boldsymbol\beta}_2^\top)^\top\)</span> accordingly. Then <span class="math display">\[
+\hat{\boldsymbol\beta}_2 = \bigl[(\mathbf{M}_1\mathbf{X}_2)^\top(\mathbf{M}_1\mathbf{X}_2)\bigr]^{-1}(\mathbf{M}_1\mathbf{X}_2)^\top(\mathbf{M}_1\mathbf{y}),
+\]</span> the least-squares coefficients from regressing the residuals <span class="math inline">\(\mathbf{M}_1\mathbf{y}\)</span> on the residuals <span class="math inline">\(\mathbf{M}_1\mathbf{X}_2\)</span>. Moreover, the residuals of that regression equal the residuals <span class="math inline">\(\mathbf{e}\)</span> of the full model.</p>
+</div>
+<details class="esa-derivation">
+<summary>
+Derivation
+</summary>
+<p>The normal equations of the full model are <span class="math inline">\(\mathbf{X}_1^\top\mathbf{X}_1\hat{\boldsymbol\beta}_1 + \mathbf{X}_1^\top\mathbf{X}_2\hat{\boldsymbol\beta}_2 = \mathbf{X}_1^\top\mathbf{y}\)</span> and <span class="math inline">\(\mathbf{X}_2^\top\mathbf{X}_1\hat{\boldsymbol\beta}_1 + \mathbf{X}_2^\top\mathbf{X}_2\hat{\boldsymbol\beta}_2 = \mathbf{X}_2^\top\mathbf{y}\)</span>. The first gives <span class="math inline">\(\mathbf{X}_1\hat{\boldsymbol\beta}_1 = \mathbf{H}_1(\mathbf{y} - \mathbf{X}_2\hat{\boldsymbol\beta}_2)\)</span>. Substituting in the second, <span class="math inline">\(\mathbf{X}_2^\top(\mathbf{I} - \mathbf{H}_1)\mathbf{X}_2\hat{\boldsymbol\beta}_2 = \mathbf{X}_2^\top(\mathbf{I} - \mathbf{H}_1)\mathbf{y}\)</span>, i.e. <span class="math inline">\(\mathbf{X}_2^\top\mathbf{M}_1\mathbf{X}_2\,\hat{\boldsymbol\beta}_2 = \mathbf{X}_2^\top\mathbf{M}_1\mathbf{y}\)</span>. Because <span class="math inline">\(\mathbf{M}_1\)</span> is symmetric and idempotent, <span class="math inline">\(\mathbf{X}_2^\top\mathbf{M}_1\mathbf{X}_2 = (\mathbf{M}_1\mathbf{X}_2)^\top(\mathbf{M}_1\mathbf{X}_2)\)</span> and <span class="math inline">\(\mathbf{X}_2^\top\mathbf{M}_1\mathbf{y} = (\mathbf{M}_1\mathbf{X}_2)^\top(\mathbf{M}_1\mathbf{y})\)</span>. This matrix is invertible under A0: if <span class="math inline">\(\mathbf{M}_1\mathbf{X}_2\mathbf{c} = \mathbf{0}\)</span>, then <span class="math inline">\(\mathbf{X}_2\mathbf{c} \in \mathcal{C}(\mathbf{X}_1)\)</span>, which full rank allows only for <span class="math inline">\(\mathbf{c} = \mathbf{0}\)</span>.</p>
+<p>For the residuals: <span class="math inline">\(\mathbf{e} = \mathbf{y} - \mathbf{X}_1\hat{\boldsymbol\beta}_1 - \mathbf{X}_2\hat{\boldsymbol\beta}_2 = (\mathbf{I} - \mathbf{H}_1)(\mathbf{y} - \mathbf{X}_2\hat{\boldsymbol\beta}_2) = \mathbf{M}_1\mathbf{y} - \mathbf{M}_1\mathbf{X}_2\hat{\boldsymbol\beta}_2\)</span>.</p>
+</details>
+<p>With <span class="math inline">\(\mathbf{X}_2 = \mathbf{x}_j\)</span>, a single column, the theorem says:</p>
+<blockquote>
+<p><span class="math inline">\(\hat\beta_j\)</span> is the simple-regression slope of <strong>the part of <span class="math inline">\(y\)</span> not explained by the other predictors</strong> on <strong>the part of <span class="math inline">\(x_j\)</span> not explained by the other predictors</strong>.</p>
+</blockquote>
+<p>This is the exact meaning of “holding the others fixed”: the other predictors are removed, linearly, from both <span class="math inline">\(y\)</span> and <span class="math inline">\(x_j\)</span>, and only the remaining variation in <span class="math inline">\(x_j\)</span> is used. If <span class="math inline">\(x_j\)</span> is almost a linear function of the others, little of its variation remains, and <span class="math inline">\(\hat\beta_j\)</span> is estimated from little information (Section 4.4).</p>
+<h3 data-number="4.2" id="added-variable-plots"><span class="header-section-number">4.2</span> Added-variable plots</h3>
+<p>The <strong>added-variable plot</strong> (also called partial regression plot) for predictor <span class="math inline">\(j\)</span> plots <span class="math inline">\(\mathbf{M}_{-j}\mathbf{y}\)</span> against <span class="math inline">\(\mathbf{M}_{-j}\mathbf{x}_j\)</span>, the residuals from regressing <span class="math inline">\(y\)</span> and <span class="math inline">\(x_j\)</span> on all other predictors. By Theorem 2.5.1:</p>
+<ul>
+<li>the least-squares line through the plot has slope exactly <span class="math inline">\(\hat\beta_j\)</span> and passes through the origin;</li>
+<li>the vertical deviations from that line are exactly the residuals of the full model;</li>
+<li>the horizontal spread shows how much independent variation in <span class="math inline">\(x_j\)</span> the data contain.</li>
+</ul>
+<p>An added-variable plot therefore shows a multiple-regression coefficient as a scatterplot, and it reveals observations that drive that coefficient, which a plot of <span class="math inline">\(y\)</span> against <span class="math inline">\(x_j\)</span> cannot do. Module 3 uses these plots for diagnostics.</p>
+<h3 data-number="4.3" id="omitted-variable-bias"><span class="header-section-number">4.3</span> Omitted-variable bias</h3>
+<p>Suppose the full model <span class="math inline">\(\mathbf{y} = \mathbf{X}_1\boldsymbol\beta_1 + \mathbf{X}_2\boldsymbol\beta_2 + \boldsymbol\varepsilon\)</span> holds, but we fit the <strong>short</strong> model with <span class="math inline">\(\mathbf{X}_1\)</span> only: <span class="math inline">\(\tilde{\boldsymbol\beta}_1 = (\mathbf{X}_1^\top\mathbf{X}_1)^{-1}\mathbf{X}_1^\top\mathbf{y}\)</span>.</p>
+<div class="concept-box esa-callout-important">
+<p class="esa-box-title">
+<strong>Theorem 2.5.2 (Omitted variables)</strong>
+</p>
+<ol type="a">
+<li><em>Exact sample identity</em> (uses A0): <span class="math inline">\(\tilde{\boldsymbol\beta}_1 = \hat{\boldsymbol\beta}_1 + \hat{\boldsymbol\Delta}\hat{\boldsymbol\beta}_2\)</span>, where <span class="math inline">\((\hat{\boldsymbol\beta}_1, \hat{\boldsymbol\beta}_2)\)</span> are the full-model estimates.</li>
+<li><em>Bias</em> (uses A0, A1 for the full model): <span class="math inline">\(E(\tilde{\boldsymbol\beta}_1) = \boldsymbol\beta_1 + \hat{\boldsymbol\Delta}\boldsymbol\beta_2\)</span>. The short-model estimator is unbiased for <span class="math inline">\(\boldsymbol\beta_1\)</span> if <span class="math inline">\(\boldsymbol\beta_2 = \mathbf{0}\)</span> or <span class="math inline">\(\mathbf{X}_1^\top\mathbf{X}_2 = \mathbf{0}\)</span>.</li>
+<li><em>Precision</em> (uses A0–A3): <span class="math inline">\(\operatorname{Cov}(\hat{\boldsymbol\beta}_1) - \operatorname{Cov}(\tilde{\boldsymbol\beta}_1) \succeq \mathbf{0}\)</span>: the short model’s estimator is never less precise.</li>
+</ol>
+</div>
+<details class="esa-derivation">
+<summary>
+Derivation
+</summary>
+<ol type="a">
+<li>Write <span class="math inline">\(\mathbf{y} = \mathbf{X}_1\hat{\boldsymbol\beta}_1 + \mathbf{X}_2\hat{\boldsymbol\beta}_2 + \mathbf{e}\)</span> and apply <span class="math inline">\((\mathbf{X}_1^\top\mathbf{X}_1)^{-1}\mathbf{X}_1^\top\)</span>; the last term vanishes because <span class="math inline">\(\mathbf{X}_1^\top\mathbf{e} = \mathbf{0}\)</span> (Theorem 2.3.3, <a href="/courses/regression/module-2/least-squares-matrix-form/">Lesson 2.3</a>). For two predictors this is Theorem 2.1.1 of <a href="/courses/regression/module-2/from-one-to-many-predictors/">Lesson 2.1</a>.</li>
+<li>Apply the same matrix to <span class="math inline">\(\mathbf{y} = \mathbf{X}_1\boldsymbol\beta_1 + \mathbf{X}_2\boldsymbol\beta_2 + \boldsymbol\varepsilon\)</span> and take expectations.</li>
+<li><span class="math inline">\(\operatorname{Cov}(\tilde{\boldsymbol\beta}_1) = \sigma^2(\mathbf{X}_1^\top\mathbf{X}_1)^{-1}\)</span>. By Theorem 2.5.1 with the roles of the two blocks exchanged, <span class="math inline">\(\hat{\boldsymbol\beta}_1 = (\mathbf{X}_1^\top\mathbf{M}_2\mathbf{X}_1)^{-1}\mathbf{X}_1^\top\mathbf{M}_2\mathbf{y}\)</span>, so <span class="math inline">\(\operatorname{Cov}(\hat{\boldsymbol\beta}_1) = \sigma^2(\mathbf{X}_1^\top\mathbf{M}_2\mathbf{X}_1)^{-1}\)</span>. Since <span class="math inline">\(\mathbf{X}_1^\top\mathbf{X}_1 - \mathbf{X}_1^\top\mathbf{M}_2\mathbf{X}_1 = \mathbf{X}_1^\top\mathbf{H}_2\mathbf{X}_1 \succeq \mathbf{0}\)</span>, and <span class="math inline">\(\mathbf{A} \succeq \mathbf{B} \succ \mathbf{0}\)</span> implies <span class="math inline">\(\mathbf{B}^{-1} \succeq \mathbf{A}^{-1}\)</span>, the result follows.</li>
+</ol>
+</details>
+<p>With one omitted predictor <span class="math inline">\(x_k\)</span> and coefficient <span class="math inline">\(\beta_k\)</span>, the bias in <span class="math inline">\(\tilde\beta_j\)</span> is <span class="math inline">\(\hat\delta_j\beta_k\)</span>, where <span class="math inline">\(\hat\delta_j\)</span> is the coefficient of <span class="math inline">\(x_j\)</span> when <span class="math inline">\(x_k\)</span> is regressed on the included predictors. Its <strong>sign</strong> is the sign of <span class="math inline">\(\hat\delta_j\beta_k\)</span>: if the omitted predictor raises <span class="math inline">\(y\)</span> (<span class="math inline">\(\beta_k &gt; 0\)</span>) and is positively related to <span class="math inline">\(x_j\)</span> given the others (<span class="math inline">\(\hat\delta_j &gt; 0\)</span>), the short model overstates <span class="math inline">\(\beta_j\)</span>; and so on.</p>
+<p>Parts (b) and (c) together are a <strong>bias–variance trade-off</strong>: leaving out a relevant, correlated predictor biases the estimates but makes them less variable. Lesson 2.11 and Module 4 return to it. Note also what (b) does <strong>not</strong> say: adding every available variable does not make a coefficient causal. A variable that is itself affected by <span class="math inline">\(x_j\)</span> (a mediator), or a common effect of <span class="math inline">\(x_j\)</span> and <span class="math inline">\(y\)</span>, changes the meaning of <span class="math inline">\(\beta_j\)</span> when included. Which variables belong in the model is a question about the subject matter, not only about the data.</p>
+<h3 data-number="4.4" id="precision-and-the-variance-inflation-factor"><span class="header-section-number">4.4</span> Precision and the variance inflation factor</h3>
+<div class="concept-box esa-callout-important">
+<p class="esa-box-title">
+<strong>Theorem 2.5.3 (Variance of a single coefficient) — uses A0–A3</strong>
+</p>
+<p>For a predictor <span class="math inline">\(x_j\)</span> (<span class="math inline">\(j \ge 1\)</span>) in a model with an intercept, <span class="math display">\[
+\operatorname{Var}(\hat\beta_j) = \frac{\sigma^2}{\mathbf{x}_j^\top\mathbf{M}_{-j}\mathbf{x}_j} = \frac{\sigma^2}{(1 - R_j^2)\,S_{jj}} = \mathrm{VIF}_j\cdot\frac{\sigma^2}{S_{jj}},
+\]</span> where <span class="math inline">\(S_{jj} = \sum_i(x_{ij} - \bar x_j)^2\)</span>.</p>
+</div>
+<details class="esa-derivation">
+<summary>
+Derivation
+</summary>
+<p>By Theorem 2.5.1 with <span class="math inline">\(\mathbf{X}_2 = \mathbf{x}_j\)</span>, <span class="math inline">\(\hat\beta_j = \mathbf{r}_j^\top\mathbf{y}/(\mathbf{r}_j^\top\mathbf{r}_j)\)</span> with <span class="math inline">\(\mathbf{r}_j = \mathbf{M}_{-j}\mathbf{x}_j\)</span> (using <span class="math inline">\(\mathbf{r}_j^\top\mathbf{M}_{-j}\mathbf{y} = \mathbf{r}_j^\top\mathbf{y}\)</span>). Hence <span class="math inline">\(\operatorname{Var}(\hat\beta_j) = \sigma^2\mathbf{r}_j^\top\mathbf{r}_j/(\mathbf{r}_j^\top\mathbf{r}_j)^2 = \sigma^2/(\mathbf{r}_j^\top\mathbf{r}_j)\)</span>. Now <span class="math inline">\(\mathbf{r}_j^\top\mathbf{r}_j\)</span> is the residual sum of squares from regressing <span class="math inline">\(x_j\)</span> on the others (with intercept), which equals <span class="math inline">\((1 - R_j^2)\)</span> times its total sum of squares <span class="math inline">\(S_{jj}\)</span>.</p>
+</details>
+<p>The factor <span class="math inline">\(\sigma^2/S_{jj}\)</span> is the variance the slope would have in a simple regression on <span class="math inline">\(x_j\)</span> (with the same <span class="math inline">\(\sigma^2\)</span>). The VIF says how many times larger the variance is because <span class="math inline">\(x_j\)</span> is correlated with the other predictors. <span class="math inline">\(\mathrm{VIF}_j = 1\)</span> when <span class="math inline">\(x_j\)</span> is uncorrelated with them; <span class="math inline">\(\mathrm{VIF}_j \to \infty\)</span> as <span class="math inline">\(R_j^2 \to 1\)</span>. Module 5 studies large VIFs (multicollinearity) and the estimators designed for them.</p>
+<h2 class="esa-lesson-anchor" data-number="5" id="worked-example"><span class="header-section-number">5</span> Worked example</h2>
+<p>We use the 392 cars with horsepower recorded and three predictors: weight (1000 lb), model year, horsepower (100 hp). Origin is added in Lesson 2.9.</p>
+<h3 data-number="5.1" id="three-predictors"><span class="header-section-number">5.1</span> Three predictors</h3>
+<div class="table-wrap"><table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Predictor</th>
+<th>Simple-regression slope</th>
+<th>Slope in the full model (se)</th>
+<th>VIF</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Weight (per 1000 lb)</td>
+<td>−7.647</td>
+<td>−6.448 (0.409)</td>
+<td>4.01</td>
+</tr>
+<tr class="even">
+<td>Model year (per year)</td>
+<td>1.230</td>
+<td>0.749 (0.052)</td>
+<td>1.22</td>
+</tr>
+<tr class="odd">
+<td>Horsepower (per 100 hp)</td>
+<td>−15.784</td>
+<td>−0.500 (0.944)</td>
+<td>4.39</td>
+</tr>
+</tbody>
+</table></div>
+<p><span class="math inline">\(R^2 = 0.808\)</span>, <span class="math inline">\(\hat\sigma = 3.430\)</span>. Weight and horsepower are strongly correlated (<span class="math inline">\(r = 0.865\)</span>); both are moderately correlated with model year (<span class="math inline">\(-0.309\)</span> and <span class="math inline">\(-0.416\)</span>). Among cars of the same weight and model year, horsepower shows almost no association with fuel economy: the slope is <span class="math inline">\(-0.50\)</span> with a standard error almost twice as large. The large simple-regression slope of horsepower mostly reflects that powerful cars are heavy and old.</p>
+<h3 data-number="5.2" id="frischwaughlovell-and-added-variable-plots"><span class="header-section-number">5.2</span> Frisch–Waugh–Lovell and added-variable plots</h3>
+<p>Regressing mpg on (intercept, year, horsepower) and weight on (intercept, year, horsepower), and then the first residuals on the second, gives the slope <span class="math inline">\(-6.4477\)</span>, identical to the full-model coefficient; the residuals agree with the full-model residuals to within <span class="math inline">\(10^{-11}\)</span>. The added-variable plots show both coefficients as scatterplots.</p>
+<div class="esa-code-tabs">
+<details class="esa-code">
+<summary>
+R code
+</summary>
+<pre class="r"><code>cols &lt;- c(&quot;mpg&quot;, &quot;cylinders&quot;, &quot;displacement&quot;, &quot;horsepower&quot;, &quot;weight&quot;,
+          &quot;acceleration&quot;, &quot;model_year&quot;, &quot;origin&quot;, &quot;car_name&quot;)
+auto &lt;- read.table(&quot;data/auto-mpg.data&quot;, col.names = cols, na.strings = &quot;?&quot;)
+auto &lt;- na.omit(auto)                                   # 392 cars with horsepower
+auto$w &lt;- auto$weight / 1000; auto$hp &lt;- auto$horsepower / 100
+fit &lt;- lm(mpg ~ w + model_year + hp, data = auto)
+summary(fit)$coefficients
+
+# Frisch-Waugh-Lovell for weight
+ry &lt;- residuals(lm(mpg ~ model_year + hp, data = auto))
+rw &lt;- residuals(lm(w ~ model_year + hp, data = auto))
+c(fwl_slope = sum(rw * ry) / sum(rw^2), full_coef = unname(coef(fit)[&quot;w&quot;]))
+max(abs((ry - coef(fit)[&quot;w&quot;] * rw) - residuals(fit)))
+
+rh  &lt;- residuals(lm(hp ~ w + model_year, data = auto))
+ryh &lt;- residuals(lm(mpg ~ w + model_year, data = auto))
+op &lt;- par(mfrow = c(1, 2))
+plot(rw, ry, pch = 16, col = rgb(0, 0, 0, 0.35),
+     xlab = &quot;weight | others&quot;, ylab = &quot;mpg | others&quot;, main = &quot;Weight&quot;)
+abline(0, coef(fit)[&quot;w&quot;], lwd = 2)
+plot(rh, ryh, pch = 16, col = rgb(0, 0, 0, 0.35),
+     xlab = &quot;horsepower | others&quot;, ylab = &quot;mpg | others&quot;, main = &quot;Horsepower&quot;)
+abline(0, coef(fit)[&quot;hp&quot;], lwd = 2)
+par(op)</code></pre>
+</details>
+<details class="esa-code" open>
+<summary>
+Python code
+</summary>
+<pre class="python"><code>import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+cols = [&quot;mpg&quot;, &quot;cylinders&quot;, &quot;displacement&quot;, &quot;horsepower&quot;, &quot;weight&quot;,
+        &quot;acceleration&quot;, &quot;model_year&quot;, &quot;origin&quot;, &quot;car_name&quot;]
+auto = pd.read_csv(&quot;data/auto-mpg.data&quot;, sep=r&quot;\s+&quot;, header=None,
+                   names=cols, na_values=&quot;?&quot;, quotechar=&#39;&quot;&#39;).dropna().reset_index(drop=True)
+y = auto[&quot;mpg&quot;].to_numpy()
+w = auto[&quot;weight&quot;].to_numpy() / 1000
+yr = auto[&quot;model_year&quot;].to_numpy().astype(float)
+hp = auto[&quot;horsepower&quot;].to_numpy() / 100
+n = len(y)
+
+def ls(v, *xs):
+    &quot;&quot;&quot;Least squares of v on an intercept and xs: returns (coefficients, residuals).&quot;&quot;&quot;
+    X = np.column_stack([np.ones(len(v)), *xs])
+    b = np.linalg.lstsq(X, v, rcond=None)[0]
+    return b, v - X @ b
+
+b, e = ls(y, w, yr, hp)
+print(&quot;full model:&quot;, b.round(4))
+_, ry = ls(y, yr, hp); _, rw = ls(w, yr, hp)              # Frisch-Waugh-Lovell for weight
+print(&quot;FWL slope:&quot;, round((rw @ ry) / (rw @ rw), 4), &quot; full coefficient:&quot;, round(b[1], 4))
+print(&quot;max |residual difference|:&quot;, f&quot;{np.abs((ry - b[1] * rw) - e).max():.1e}&quot;)
+
+_, ryh = ls(y, w, yr); _, rh = ls(hp, w, yr)
+fig, axes = plt.subplots(1, 2, figsize=(8, 3.6))
+for ax, rx, ryy, slope, title, lab in ((axes[0], rw, ry, b[1], &quot;Weight&quot;, &quot;weight | others&quot;),
+                                       (axes[1], rh, ryh, b[3], &quot;Horsepower&quot;, &quot;horsepower | others&quot;)):
+    ax.scatter(rx, ryy, s=10, alpha=0.35, color=&quot;black&quot;)
+    g = np.linspace(rx.min(), rx.max(), 2)
+    ax.plot(g, slope * g, linewidth=2)
+    ax.set_title(title); ax.set_xlabel(lab); ax.set_ylabel(&quot;mpg | others&quot;)
+plt.tight_layout()
+plt.show()</code></pre>
+<p class="esa-output-label">
+Output
+</p>
+<pre class="esa-output"><code>full model: [-13.7194  -6.4477   0.7487  -0.5   ]
+FWL slope: -6.4477  full coefficient: -6.4477
+max |residual difference|: 5.2e-13</code></pre>
+<figure class="esa-figure">
+<img src="/images/courses/regression/lesson-2-5-fig1.png" alt="Added-variable plots for the model mpg ~ weight + model year + horsepower (392 cars). Left: weight, slope −6.45. Right: horsepower, slope −0.50. Each line is the least-squares line through the origin; its slope is the full-model coefficient." loading="lazy" width="900">
+<figcaption>
+Added-variable plots for the model mpg ~ weight + model year + horsepower (392 cars). Left: weight, slope −6.45. Right: horsepower, slope −0.50. Each line is the least-squares line through the origin; its slope is the full-model coefficient.
+</figcaption>
+</figure>
+</details>
+</div>
+<p>The weight plot shows a clear negative slope. The horsepower plot is nearly flat, and its horizontal spread is narrow: once weight and model year are known, horsepower varies little (its <span class="math inline">\(R_j^2 = 0.772\)</span>), so the data contain little information about its separate role.</p>
+<h3 data-number="5.3" id="omitting-model-year"><span class="header-section-number">5.3</span> Omitting model year</h3>
+<p>Dropping model year (the short model mpg ~ weight + horsepower of <a href="/courses/regression/module-2/from-one-to-many-predictors/">Lesson 2.1</a>, Exercise C.2) changes the horsepower slope from <span class="math inline">\(-0.500\)</span> to <span class="math inline">\(-4.730\)</span> and the weight slope from <span class="math inline">\(-6.448\)</span> to <span class="math inline">\(-5.794\)</span>. Regressing model year on (intercept, weight, horsepower) gives <span class="math inline">\(\hat{\boldsymbol\Delta} = (79.283, 0.873, -5.650)\)</span>: given weight, more powerful cars are older, by 5.65 years per 100 hp. Theorem 2.5.2(a) reproduces the short-model coefficients exactly: <span class="math display">\[
+-0.500 + (-5.650)(0.749) = -4.730, \qquad -6.448 + (0.873)(0.749) = -5.794 .
+\]</span> The short model attributes to horsepower the fuel-economy progress of the later model years, in which cars of a given weight had less power.</p>
+<h3 data-number="5.4" id="precision-the-variance-inflation-factors"><span class="header-section-number">5.4</span> Precision: the variance inflation factors</h3>
+<p>Theorem 2.5.3 reproduces each standard error from <span class="math inline">\(\hat\sigma\)</span>, <span class="math inline">\(S_{jj}\)</span> and <span class="math inline">\(R_j^2\)</span>. For weight, <span class="math inline">\(\hat\sigma/\sqrt{(1 - 0.7506)\times282.10} = 0.4089\)</span>, the value in the table. In the weight + year model of Lesson 2.1 the weight slope had standard error <span class="math inline">\(0.215\)</span> (392 cars: <span class="math inline">\(0.2146\)</span>); adding horsepower nearly doubles it, because the VIF of weight rises from <span class="math inline">\(1.11\)</span> to <span class="math inline">\(4.01\)</span> and <span class="math inline">\(\sqrt{4.01/1.11} \approx 1.9\)</span>.</p>
+<div class="esa-code-tabs">
+<details class="esa-code">
+<summary>
+R code
+</summary>
+<pre class="r"><code># Uses auto and fit from Section 5.2 (run that code first).
+short &lt;- lm(mpg ~ w + hp, data = auto)
+Delta &lt;- coef(lm(model_year ~ w + hp, data = auto))
+b &lt;- coef(fit)
+rbind(short_model = coef(short),
+      identity = b[c(&quot;(Intercept)&quot;, &quot;w&quot;, &quot;hp&quot;)] + Delta * b[&quot;model_year&quot;])
+
+vif &lt;- sapply(c(&quot;w&quot;, &quot;model_year&quot;, &quot;hp&quot;), function(v) {
+  others &lt;- setdiff(c(&quot;w&quot;, &quot;model_year&quot;, &quot;hp&quot;), v)
+  Rj2 &lt;- summary(lm(reformulate(others, v), data = auto))$r.squared
+  1 / (1 - Rj2)
+})
+Sjj &lt;- sapply(auto[c(&quot;w&quot;, &quot;model_year&quot;, &quot;hp&quot;)], function(x) sum((x - mean(x))^2))
+cbind(VIF = vif, se_formula = sigma(fit) * sqrt(vif / Sjj),
+      se_lm = summary(fit)$coefficients[-1, 2])</code></pre>
+</details>
+<details class="esa-code" open>
+<summary>
+Python code
+</summary>
+<pre class="python"><code># Uses np, y, w, yr, hp, n, ls, b and e from Section 5.2 (run that code first).
+b_short, _ = ls(y, w, hp)
+Delta, _ = ls(yr, w, hp)
+print(&quot;short model:     &quot;, b_short.round(4))
+print(&quot;identity:        &quot;, (b[[0, 1, 3]] + Delta * b[2]).round(4))
+print(&quot;Delta:           &quot;, Delta.round(4))
+
+X = np.column_stack([np.ones(n), w, yr, hp])
+sigma_hat = np.sqrt(e @ e / (n - 4))
+se_lm = sigma_hat * np.sqrt(np.diag(np.linalg.inv(X.T @ X)))
+preds = {&quot;weight&quot;: w, &quot;year&quot;: yr, &quot;horsepower&quot;: hp}
+for j, (name, xj) in enumerate(preds.items(), start=1):
+    others = [v for k, v in preds.items() if k != name]
+    _, r = ls(xj, *others)
+    Rj2 = 1 - (r @ r) / np.sum((xj - xj.mean())**2)
+    Sjj = np.sum((xj - xj.mean())**2)
+    print(f&quot;{name:10s} VIF = {1 / (1 - Rj2):.3f}  se formula = {sigma_hat / np.sqrt((1 - Rj2) * Sjj):.4f}&quot;
+          f&quot;  se = {se_lm[j]:.4f}&quot;)</code></pre>
+<p class="esa-output-label">
+Output
+</p>
+<pre class="esa-output"><code>short model:      [45.6402 -5.7942 -4.7303]
+identity:         [45.6402 -5.7942 -4.7303]
+Delta:            [79.283   0.873  -5.6502]
+weight     VIF = 4.009  se formula = 0.4089  se = 0.4089
+year       VIF = 1.225  se formula = 0.0521  se = 0.0521
+horsepower VIF = 4.386  se formula = 0.9439  se = 0.9439</code></pre>
+</details>
+</div>
+<h3 data-number="5.5" id="simulation-bias-against-variance"><span class="header-section-number">5.5</span> Simulation: bias against variance</h3>
+<p>Keep the 392 observed predictor values, set the full-model coefficients to <span class="math inline">\(\boldsymbol\beta = (-13.7, -6.45, 0.749, -0.50)^\top\)</span> and <span class="math inline">\(\sigma = 3.43\)</span>, and simulate 10,000 data sets. Fit the full model and the short model without model year each time. Theorem 2.5.2(b) predicts the short-model means <span class="math inline">\(-6.45 + 0.873 \times 0.749 = -5.796\)</span> for weight and <span class="math inline">\(-0.50 + (-5.650)(0.749) = -4.732\)</span> for horsepower. Results (Python, seed 2026):</p>
+<div class="table-wrap"><table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Coefficient</th>
+<th>Full model: mean (SD)</th>
+<th>Short model: mean (SD)</th>
+<th>Root mean squared error, full / short</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Weight (<span class="math inline">\(\beta = -6.45\)</span>)</td>
+<td>−6.448 (0.407)</td>
+<td>−5.794 (0.405)</td>
+<td>0.41 / 0.77</td>
+</tr>
+<tr class="even">
+<td>Horsepower (<span class="math inline">\(\beta = -0.50\)</span>)</td>
+<td>−0.506 (0.942)</td>
+<td>−4.738 (0.895)</td>
+<td>0.94 / 4.33</td>
+</tr>
+</tbody>
+</table></div>
+<p>The full model is unbiased; the short model’s estimates are centred where Theorem 2.5.2(b) predicts. The short model is slightly less variable, as part (c) guarantees, but here its bias dominates and its mean squared error is much larger. Omitting a variable reduces variance only enough to matter when the omitted coefficient or the correlation is small.</p>
+<div class="esa-code-tabs">
+<details class="esa-code">
+<summary>
+R code
+</summary>
+<pre class="r"><code># Self-contained: reads the 392 predictor rows and needs nothing from earlier sections.
+cols &lt;- c(&quot;mpg&quot;, &quot;cylinders&quot;, &quot;displacement&quot;, &quot;horsepower&quot;, &quot;weight&quot;,
+          &quot;acceleration&quot;, &quot;model_year&quot;, &quot;origin&quot;, &quot;car_name&quot;)
+auto &lt;- na.omit(read.table(&quot;data/auto-mpg.data&quot;, col.names = cols, na.strings = &quot;?&quot;))
+X  &lt;- cbind(1, auto$weight / 1000, auto$model_year, auto$horsepower / 100)
+X1 &lt;- X[, c(1, 2, 4)]                                   # short model: no model year
+n &lt;- nrow(X); beta &lt;- c(-13.7, -6.45, 0.749, -0.50); sigma &lt;- 3.43; R &lt;- 10000
+A_full  &lt;- solve(crossprod(X), t(X))
+A_short &lt;- solve(crossprod(X1), t(X1))
+Delta &lt;- drop(A_short %*% X[, 3])
+set.seed(2026)
+Y &lt;- matrix(drop(X %*% beta), R, n, byrow = TRUE) + matrix(rnorm(R * n, 0, sigma), R, n)
+B_full &lt;- Y %*% t(A_full); B_short &lt;- Y %*% t(A_short)
+rmse &lt;- function(est, truth) sqrt(mean((est - truth)^2))
+data.frame(
+  coef = c(&quot;weight&quot;, &quot;horsepower&quot;),
+  truth = beta[c(2, 4)],
+  predicted_short = beta[c(2, 4)] + Delta[2:3] * beta[3],
+  full_mean = colMeans(B_full[, c(2, 4)]), full_sd = apply(B_full[, c(2, 4)], 2, sd),
+  short_mean = colMeans(B_short[, 2:3]), short_sd = apply(B_short[, 2:3], 2, sd),
+  rmse_full = c(rmse(B_full[, 2], beta[2]), rmse(B_full[, 4], beta[4])),
+  rmse_short = c(rmse(B_short[, 2], beta[2]), rmse(B_short[, 3], beta[4])))</code></pre>
+</details>
+<details class="esa-code" open>
+<summary>
+Python code
+</summary>
+<pre class="python"><code># Self-contained: reads the 392 predictor rows and needs nothing from earlier sections.
+import numpy as np
+import pandas as pd
+
+cols = [&quot;mpg&quot;, &quot;cylinders&quot;, &quot;displacement&quot;, &quot;horsepower&quot;, &quot;weight&quot;,
+        &quot;acceleration&quot;, &quot;model_year&quot;, &quot;origin&quot;, &quot;car_name&quot;]
+auto = pd.read_csv(&quot;data/auto-mpg.data&quot;, sep=r&quot;\s+&quot;, header=None,
+                   names=cols, na_values=&quot;?&quot;, quotechar=&#39;&quot;&#39;).dropna()
+X = np.column_stack([np.ones(len(auto)), auto[&quot;weight&quot;] / 1000, auto[&quot;model_year&quot;],
+                     auto[&quot;horsepower&quot;] / 100])
+X1 = X[:, [0, 1, 3]]                                    # short model: no model year
+n = len(X); beta = np.array([-13.7, -6.45, 0.749, -0.50]); sigma, R = 3.43, 10_000
+A_full = np.linalg.solve(X.T @ X, X.T)
+A_short = np.linalg.solve(X1.T @ X1, X1.T)
+Delta = A_short @ X[:, 2]
+rng = np.random.default_rng(2026)
+Y = X @ beta + sigma * rng.standard_normal((R, n))
+B_full, B_short = Y @ A_full.T, Y @ A_short.T
+rmse = lambda est, truth: np.sqrt(np.mean((est - truth)**2))
+print(pd.DataFrame({
+    &quot;truth&quot;: beta[[1, 3]],
+    &quot;predicted_short&quot;: beta[[1, 3]] + Delta[1:] * beta[2],
+    &quot;full_mean&quot;: B_full[:, [1, 3]].mean(axis=0), &quot;full_sd&quot;: B_full[:, [1, 3]].std(axis=0, ddof=1),
+    &quot;short_mean&quot;: B_short[:, 1:].mean(axis=0), &quot;short_sd&quot;: B_short[:, 1:].std(axis=0, ddof=1),
+    &quot;rmse_full&quot;: [rmse(B_full[:, 1], beta[1]), rmse(B_full[:, 3], beta[3])],
+    &quot;rmse_short&quot;: [rmse(B_short[:, 1], beta[1]), rmse(B_short[:, 2], beta[3])]},
+    index=[&quot;weight&quot;, &quot;horsepower&quot;]).round(4).to_string())</code></pre>
+<p class="esa-output-label">
+Output
+</p>
+<pre class="esa-output"><code>            truth  predicted_short  full_mean  full_sd  short_mean  short_sd  rmse_full  rmse_short
+weight      -6.45          -5.7962    -6.4475   0.4070     -5.7937    0.4046     0.4069      0.7710
+horsepower  -0.50          -4.7320    -0.5060   0.9417     -4.7377    0.8949     0.9416      4.3312</code></pre>
+</details>
+</div>
+<h2 class="esa-lesson-anchor" data-number="6" id="common-misconceptions"><span class="header-section-number">6</span> Common misconceptions</h2>
+<div class="example-box esa-callout-caution">
+<p class="esa-box-title">
+<strong>Misconceptions</strong>
+</p>
+<ol type="1">
+<li><strong>“A non-significant coefficient means the variable is unrelated to <span class="math inline">\(y\)</span>.”</strong> — Horsepower is strongly related to mpg on its own; its coefficient is small <em>given</em> weight and model year, and imprecise because of a VIF of 4.4.</li>
+<li><strong>“A plot of <span class="math inline">\(y\)</span> against <span class="math inline">\(x_j\)</span> shows the coefficient of <span class="math inline">\(x_j\)</span>.”</strong> — It shows the marginal relationship. The added-variable plot shows the partial one.</li>
+<li><strong>“Including more variables always reduces bias.”</strong> — Only for variables that confound the relationship. Including a mediator or a consequence of <span class="math inline">\(y\)</span> changes the meaning of the coefficient.</li>
+<li><strong>“Omitting a variable always biases the other coefficients.”</strong> — Not if it is uncorrelated with the included predictors (in the sample) or has coefficient zero.</li>
+<li><strong>“A high VIF means the model is wrong.”</strong> — It means the separate effects are hard to estimate from these data. Predictions within the data region can still be precise.</li>
+</ol>
+</div>
+<h2 class="esa-lesson-anchor" data-number="7" id="key-takeaways"><span class="header-section-number">7</span> Key takeaways</h2>
+<ul>
+<li>Frisch–Waugh–Lovell: <span class="math inline">\(\hat\beta_j\)</span> is the slope of <span class="math inline">\(y\)</span>-residuals on <span class="math inline">\(x_j\)</span>-residuals after removing the other predictors from both.</li>
+<li>The added-variable plot displays that regression; its slope is <span class="math inline">\(\hat\beta_j\)</span> and its residuals are the model residuals.</li>
+<li>Omitting <span class="math inline">\(\mathbf{X}_2\)</span> changes the coefficients by exactly <span class="math inline">\(\hat{\boldsymbol\Delta}\hat{\boldsymbol\beta}_2\)</span>; in expectation the bias is <span class="math inline">\(\hat{\boldsymbol\Delta}\boldsymbol\beta_2\)</span>.</li>
+<li><span class="math inline">\(\operatorname{Var}(\hat\beta_j) = \mathrm{VIF}_j\,\sigma^2/S_{jj}\)</span>: correlation with the other predictors inflates the variance.</li>
+<li>Choosing predictors trades bias against variance, and the subject matter decides which variables should be held fixed.</li>
+</ul>
+<h2 class="esa-lesson-anchor" data-number="8" id="exercises"><span class="header-section-number">8</span> Exercises</h2>
+<h3 data-number="8.1" id="a.-conceptual"><span class="header-section-number">8.1</span> A. Conceptual</h3>
+<p><strong>A.1</strong> (★). In the horsepower added-variable plot of Section 5.2, what do the horizontal axis values measure? Why is the horizontal spread much narrower than the spread of horsepower itself?</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>They are the residuals from regressing horsepower on weight and model year: how much more (or less) powerful a car is than expected for its weight and year. Since weight and year explain <span class="math inline">\(R_j^2 = 77\%\)</span> of the variation in horsepower, the residuals have only <span class="math inline">\(23\%\)</span> of its variance, i.e. less than half its standard deviation (<span class="math inline">\(\sqrt{0.228} = 0.48\)</span>).</p>
+</details>
+<p><strong>A.2</strong> (★★). A researcher regresses blood pressure on salt intake and wonders whether to add body weight, which is associated with both. Using Theorem 2.5.2, describe what will happen to the salt coefficient if (a) body weight affects blood pressure and is positively correlated with salt intake given the other predictors; (b) body weight is unrelated to salt intake. What subject-matter question should decide whether to include it?</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<ol type="a">
+<li>Without body weight, the salt coefficient absorbs <span class="math inline">\(\hat\delta\beta_{\text{weight}} &gt; 0\)</span>; adding body weight lowers it. (b) It stays the same (and its standard error may fall, since <span class="math inline">\(\hat\sigma\)</span> falls). The deciding question is causal: if salt intake affects body weight (weight is a mediator), adjusting for weight removes part of the effect of salt and estimates only the “direct” part; if weight is a common cause of both, it should be included.</li>
+</ol>
+</details>
+<h3 data-number="8.2" id="b.-mathematical"><span class="header-section-number">8.2</span> B. Mathematical</h3>
+<p><strong>B.1</strong> (★★). Use Theorem 2.5.1 to show that, when <span class="math inline">\(\mathbf{X}_1 = \mathbf{1}\)</span> (intercept only), <span class="math inline">\(\hat{\boldsymbol\beta}_2\)</span> equals the slope vector obtained by regressing the centred <span class="math inline">\(y\)</span> on the centred predictors without an intercept.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>With <span class="math inline">\(\mathbf{X}_1 = \mathbf{1}\)</span>, <span class="math inline">\(\mathbf{H}_1 = \tfrac1n\mathbf{J}\)</span> and <span class="math inline">\(\mathbf{M}_1 = \mathbf{C}\)</span>, the centring matrix of <a href="/courses/regression/module-2/matrix-formulation/">Lesson 2.2</a>. So <span class="math inline">\(\mathbf{M}_1\mathbf{y}\)</span> and <span class="math inline">\(\mathbf{M}_1\mathbf{X}_2\)</span> are the centred response and predictors, and Theorem 2.5.1 gives <span class="math inline">\(\hat{\boldsymbol\beta}_2 = (\mathbf{X}_2^\top\mathbf{C}\mathbf{X}_2)^{-1}\mathbf{X}_2^\top\mathbf{C}\mathbf{y}\)</span>, the no-intercept regression of centred <span class="math inline">\(y\)</span> on centred predictors. <span class="math inline">\(\mathbf{X}_2^\top\mathbf{C}\mathbf{X}_2\)</span> is the matrix of centred cross-products used in Lesson 2.4, Exercise B.2.</p>
+</details>
+<p><strong>B.2</strong> (★★). Show that <span class="math inline">\(\mathbf{x}_j^\top\mathbf{M}_{-j}\mathbf{x}_j = (1 - R_j^2)S_{jj}\)</span> when <span class="math inline">\(\mathbf{X}_{-j}\)</span> contains the intercept, and deduce that <span class="math inline">\(\mathrm{VIF}_j \ge 1\)</span>.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p><span class="math inline">\(\mathbf{M}_{-j}\mathbf{x}_j\)</span> is the residual vector from regressing <span class="math inline">\(x_j\)</span> on <span class="math inline">\(\mathbf{X}_{-j}\)</span>; its squared length is that regression’s SSE. With an intercept, <span class="math inline">\(\mathrm{SSE} = (1 - R_j^2)\,\mathrm{SST} = (1 - R_j^2)S_{jj}\)</span> (Theorem 2.3.3b). Since <span class="math inline">\(0 \le R_j^2 &lt; 1\)</span> under A0, <span class="math inline">\(\mathrm{VIF}_j = 1/(1 - R_j^2) \ge 1\)</span>, with equality iff <span class="math inline">\(x_j\)</span> is uncorrelated with every other predictor’s linear combination, i.e. <span class="math inline">\(R_j^2 = 0\)</span>.</p>
+</details>
+<p><strong>B.3</strong> (★★). In the model <span class="math inline">\(y = \beta_0 + \beta_1x_1 + \beta_2x_2 + \varepsilon\)</span>, express <span class="math inline">\(\mathrm{VIF}_1\)</span> in terms of the sample correlation <span class="math inline">\(r_{12}\)</span>, and show that <span class="math inline">\(\operatorname{Var}(\hat\beta_1) = \sigma^2/[(1 - r_{12}^2)S_{11}]\)</span>. For the weight + year model of Lesson 2.1, compute the VIF.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>With one other predictor, <span class="math inline">\(R_1^2 = r_{12}^2\)</span>, so <span class="math inline">\(\mathrm{VIF}_1 = 1/(1 - r_{12}^2)\)</span> and the variance follows from Theorem 2.5.3. For weight and model year (398 cars), <span class="math inline">\(r = -0.3066\)</span>, so <span class="math inline">\(\mathrm{VIF} = 1/(1 - 0.0940) = 1.104\)</span>; with the 392 cars, <span class="math inline">\(r = -0.309\)</span> and <span class="math inline">\(\mathrm{VIF} = 1.11\)</span>, the value used in Section 5.4.</p>
+</details>
+<h3 data-number="8.3" id="c.-computational"><span class="header-section-number">8.3</span> C. Computational</h3>
+<p><strong>C.1</strong> (★). Draw the added-variable plot for model year in the three-predictor model and check that the slope through the origin is <span class="math inline">\(0.749\)</span>. Compare its horizontal spread with that of the weight and horsepower plots, and relate the comparison to the VIFs.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>The slope is <span class="math inline">\(0.7487\)</span>. Model year has the smallest VIF (1.22): weight and horsepower explain only <span class="math inline">\(18\%\)</span> of its variation, so its added-variable plot keeps most of the original spread (residual SD about <span class="math inline">\(0.90\)</span> of the SD of model year), and its coefficient is estimated precisely (se <span class="math inline">\(0.052\)</span>).</p>
+</details>
+<p><strong>C.2</strong> (★★). Add displacement (100 cubic inches) and cylinders to the three-predictor model. Compute all five VIFs and compare the standard error of the weight coefficient with Section 5.1.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>VIFs: weight 8.23, model year 1.24, horsepower 5.63, displacement 19.4, cylinders 10.6. The weight coefficient becomes <span class="math inline">\(-6.525\)</span> with standard error <span class="math inline">\(0.587\)</span> (against <span class="math inline">\(0.409\)</span> with three predictors), while <span class="math inline">\(R^2\)</span> barely changes. Displacement and cylinders carry almost no information beyond weight and horsepower. This is the multicollinearity problem of Module 5, which is why the running example keeps these two variables out until then.</p>
+</details>
+<p><strong>C.3</strong> (★★). Repeat the simulation of Section 5.5, but replace model year by a variable with the same mean and standard deviation that is <strong>uncorrelated</strong> with weight and horsepower in the sample (for example, the residuals of model year on weight and horsepower, shifted and rescaled). Predict and then verify the bias of the short model.</p>
+<details class="esa-solution">
+<summary>
+Solution
+</summary>
+<p>If the new variable <span class="math inline">\(z\)</span> is orthogonal to the slope columns of <span class="math inline">\(\mathbf{X}_1\)</span> (the residuals of model year on <span class="math inline">\(\mathbf{X}_1\)</span> are; shifting by a constant only affects the intercept), then <span class="math inline">\(\hat{\boldsymbol\Delta}\)</span> has zero slope entries and Theorem 2.5.2 predicts <strong>no bias</strong> in the weight and horsepower slopes. In fact part (a) says more: the short-model slopes are then <em>identical</em> to the full-model slopes in every data set, so they also have the same variance (part (c) holds with equality). Only the intercept is shifted, by <span class="math inline">\(\hat\Delta_0\beta_z\)</span>.</p>
+<pre class="python"><code>import numpy as np, pandas as pd
+cols = [&quot;mpg&quot;, &quot;cylinders&quot;, &quot;displacement&quot;, &quot;horsepower&quot;, &quot;weight&quot;,
+        &quot;acceleration&quot;, &quot;model_year&quot;, &quot;origin&quot;, &quot;car_name&quot;]
+auto = pd.read_csv(&quot;data/auto-mpg.data&quot;, sep=r&quot;\s+&quot;, header=None,
+                   names=cols, na_values=&quot;?&quot;, quotechar=&#39;&quot;&#39;).dropna()
+X1 = np.column_stack([np.ones(len(auto)), auto[&quot;weight&quot;] / 1000, auto[&quot;horsepower&quot;] / 100])
+yr = auto[&quot;model_year&quot;].to_numpy().astype(float)
+r = yr - X1 @ np.linalg.lstsq(X1, yr, rcond=None)[0]          # orthogonal to X1
+z = yr.mean() + yr.std() * r / r.std()                        # same mean and SD as model year
+X = np.column_stack([X1[:, 0], X1[:, 1], z, X1[:, 2]])
+n = len(X); beta = np.array([-13.7, -6.45, 0.749, -0.50]); sigma, R = 3.43, 10_000
+A_full = np.linalg.solve(X.T @ X, X.T); A_short = np.linalg.solve(X1.T @ X1, X1.T)
+print(&quot;Delta (slopes should be 0):&quot;, (A_short @ z).round(6))
+rng = np.random.default_rng(2026)
+Y = X @ beta + sigma * rng.standard_normal((R, n))
+Bf, Bs = Y @ A_full.T, Y @ A_short.T
+print(&quot;full  slopes mean:&quot;, Bf[:, [1, 3]].mean(axis=0).round(4), &quot; sd:&quot;, Bf[:, [1, 3]].std(axis=0, ddof=1).round(4))
+print(&quot;short slopes mean:&quot;, Bs[:, 1:].mean(axis=0).round(4), &quot; sd:&quot;, Bs[:, 1:].std(axis=0, ddof=1).round(4))</code></pre>
+<p>Output: <span class="math inline">\(\hat{\boldsymbol\Delta} = (75.98, 0, 0)\)</span>; full and short slopes both average <span class="math inline">\((-6.4475, -0.5057)\)</span> with standard deviations <span class="math inline">\((0.4046, 0.8949)\)</span>, identical in every replication. Compare Section 5.5, where the omitted variable was correlated with the predictors.</p>
+</details>
+<h2 class="esa-lesson-anchor" data-number="9" id="references"><span class="header-section-number">9</span> References</h2>
+<ul>
+<li>Frisch, R., &amp; Waugh, F. V. (1933). Partial time regressions as compared with individual trends. <em>Econometrica</em>, 1(4), 387–401.</li>
+<li>Lovell, M. C. (1963). Seasonal adjustment of economic time series and multiple regression analysis. <em>Journal of the American Statistical Association</em>, 58(304), 993–1010.</li>
+<li>Weisberg, S. (2014). <em>Applied Linear Regression</em> (4th ed.). Wiley. — Chapter 3, Multiple Regression (added-variable plots); Chapter 4, Interpretation of Main Effects.</li>
+<li>Montgomery, D. C., Peck, E. A., &amp; Vining, G. G. (2021). <em>Introduction to Linear Regression Analysis</em> (6th ed.). Wiley. — Chapter 3 (multiple regression) and Chapter 9, Multicollinearity (variance inflation factors).</li>
+<li>Seber, G. A. F., &amp; Lee, A. J. (2003). <em>Linear Regression Analysis</em> (2nd ed.). Wiley. — Chapter 3 (least squares with partitioned designs) and Chapter 9, Departures from Underlying Assumptions (underfitting and overfitting).</li>
+<li>Quinlan, R. (1993). <em>Auto MPG</em> [Data set]. UCI Machine Learning Repository. https://doi.org/10.24432/C5859H</li>
+</ul>
+
+{% endraw %}
+    <div class="lesson-nav">
+      <a class="btn btn-outline" href="/courses/regression/module-2/ols-estimator-properties/">← Lesson 2.4: Properties of the OLS Estimator</a>
+      <a class="btn" href="/courses/regression/module-2/inference-coefficients/">Next: Lesson 2.6 →</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .esa-course-lesson details{border:1px solid var(--border-strong,#d0d7de);border-radius:9px;padding:.4rem .9rem;margin:1rem 0}
+  .esa-course-lesson details>summary{cursor:pointer;font-weight:700}
+  .esa-course-lesson .esa-code-tabs{margin:1rem 0}
+  .esa-course-lesson .esa-code-tabs details{margin:.4rem 0}
+  .esa-course-lesson pre{max-width:100%}
+  .esa-course-lesson pre.esa-output{border-left:5px solid #0d9488}
+  .esa-course-lesson .esa-output-label{font-size:.85rem;font-weight:700;margin:.6rem 0 .2rem}
+  .esa-course-lesson .esa-figure{margin:1rem 0}
+  .esa-course-lesson .esa-figure img{max-width:100%;height:auto}
+  .esa-course-lesson .esa-figure figcaption{font-size:.9rem}
+  .esa-course-lesson mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+</style>
