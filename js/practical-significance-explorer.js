@@ -16,19 +16,21 @@ function compute(n,mean,sd,mu0,threshold){
 window.esaPracticalMath={compute};
 const root=document.getElementById("esa-practical-significance-lab");if(!root)return;
 const get=id=>root.querySelector("#esa-ps-"+id);
+const AR=root.dataset.locale==="ar";
+const T=AR?{"err": "أدخل حجم عيّنة صحيحًا (من 2 إلى 1,000,000)، ومتوسطات منتهية، وانحرافًا معياريًا موجبًا، وعتبة عملية غير سالبة، ضمن الحدود المعروضة.", "s1": "دالّ إحصائيًا عند 5% (بشرط تحقق الافتراضات).", "s0": "غير دالّ إحصائيًا عند 5%؛ وهذا لا يثبت غياب الأثر.", "p1": "الفرق المطلق المرصود يبلغ العتبة العملية المختارة.", "p0": "الفرق المطلق المرصود أقل من العتبة العملية المختارة.", "i": "هذه المقارنة الوصفية بالعتبة ليست اختبار تكافؤ أو اختبار حدّ أدنى للأثر. قيّم فترة الثقة وسياق الدراسة: الفترة التي تتجاوز ± العتبة العملية تترك الأهمية العملية غير مؤكدة. ومعامل كوهين d حجم أثر وصفي معياري تعتمد أهميته على السياق.", "leg": "فترة ثقة 95% للفرق؛ الخطان البرتقاليان = ± العتبة العملية"}:{"err": "Enter valid sample size (2–1,000,000), finite means, positive sample SD and a nonnegative practical threshold, all within the displayed bounds.", "s1": "Statistically significant at 5% (conditional on assumptions).", "s0": "Not statistically significant at 5%; this does not establish no effect.", "p1": "Observed absolute difference meets the chosen practical threshold.", "p0": "Observed absolute difference is below the chosen practical threshold.", "i": "This descriptive threshold comparison is NOT a formal equivalence or minimum-effect test. Evaluate the confidence interval and study context: an interval that crosses ± the practical threshold leaves practical importance uncertain. Cohen's d is a standardized descriptive effect size; its importance is context-dependent.", "leg": "95% CI for mean difference; dashed orange = ± practical threshold"};
 const keys=["n","mean","sd","mu0","threshold"],inputs=keys.map(get);
 function update(){
  const vals=inputs.map(el=>el.value.trim()===""?NaN:Number(el.value));
  const r=compute(...vals),out=get("results"),error=get("error"),graph=get("graph");
  for(const el of inputs)el.setAttribute("aria-invalid",r?"false":"true");
- if(!r){error.hidden=false;error.textContent="Enter valid sample size (2–1,000,000), finite means, positive sample SD and a nonnegative practical threshold, all within the displayed bounds.";out.hidden=true;graph.hidden=true;graph.replaceChildren();return;}
+ if(!r){error.hidden=false;error.textContent=T.err;out.hidden=true;graph.hidden=true;graph.replaceChildren();return;}
  error.hidden=true;error.textContent="";out.hidden=false;graph.hidden=false;
  for(const [name,num] of Object.entries({t:r.t,df:r.df,p:r.pvalue,d:r.d,effect:r.difference,low:r.lower,high:r.upper})){
   get(name).textContent=name==="df"?String(num):Number(num).toFixed(6);
  }
- get("statistical").textContent=r.statistical?"Statistically significant at 5% (conditional on assumptions).":"Not statistically significant at 5%; this does not establish no effect.";
- get("practical").textContent=r.practical?"Observed absolute difference meets the chosen practical threshold.":"Observed absolute difference is below the chosen practical threshold.";
- get("interpret").textContent="This descriptive threshold comparison is NOT a formal equivalence or minimum-effect test. Evaluate the confidence interval and study context: an interval that crosses ± the practical threshold leaves practical importance uncertain. Cohen's d is a standardized descriptive effect size; its importance is context-dependent.";
+ get("statistical").textContent=r.statistical?T.s1:T.s0;
+ get("practical").textContent=r.practical?T.p1:T.p0;
+ get("interpret").textContent=T.i;
  const svgNS="http://www.w3.org/2000/svg";graph.replaceChildren();
  const pad=Math.max(.15,Math.abs(r.difference)*.25,r.threshold*.25);
  const xmin=Math.min(r.lower,-r.threshold,0)-pad,xmax=Math.max(r.upper,r.threshold,0)+pad;
@@ -39,7 +41,7 @@ function update(){
  el("line",{x1:x(r.lower),x2:x(r.upper),y1:57,y2:57,stroke:"#0f766e","stroke-width":5});
  for(const v of [r.lower,r.upper])el("circle",{cx:x(v),cy:57,r:4,fill:"#0f766e"});
  el("circle",{cx:x(r.difference),cy:57,r:6,fill:"#2563eb"});
- el("text",{x:9,y:118,"font-size":10,fill:"currentColor"},"95% CI for mean difference; dashed orange = ± practical threshold");
+ el("text",{x:9,y:118,"font-size":10,fill:"currentColor"},T.leg);
  graph.setAttribute("aria-label","95% Student t interval for mean difference "+r.lower.toFixed(3)+" to "+r.upper.toFixed(3)+"; observed difference "+r.difference.toFixed(3)+"; practical threshold plus or minus "+r.threshold.toFixed(3)+".");
 }
 inputs.forEach(el=>{el.addEventListener("input",update);el.addEventListener("change",update);});

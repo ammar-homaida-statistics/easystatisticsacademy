@@ -4,6 +4,8 @@ title: Interval Blueprint — Estimate ± Margin of Error
 description: Learn the common symmetric estimate-plus-or-minus-margin-of-error confidence interval blueprint, its assumptions and limitations.
 permalink: /inference/confidence-intervals/interval-blueprint-estimate-plus-minus/
 sidebar: false
+learning_resource: true
+translation_pair: interval-blueprint-estimate-plus-minus
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -40,6 +42,8 @@ sidebar: false
     </div>
 
     <h1>Interval Blueprint — Estimate ± Margin of Error</h1>
+
+    <p><a href="/ar/inference/confidence-intervals/interval-blueprint-estimate-plus-minus/" lang="ar" dir="rtl" hreflang="ar">النسخة العربية: مخطط فترة الثقة</a></p>
 
     <p class="lead">
       Confidence interval formulas may appear different across statistical methods.

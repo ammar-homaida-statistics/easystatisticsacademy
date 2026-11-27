@@ -154,6 +154,6 @@ translation_pair: ci-and-test-connection
 
 <div class="lesson-nav">
 <a class="btn btn-outline" href="/ar/inference/hypothesis-testing/one-sided-vs-two-sided/">→ السابق: الاختبارات أحادية الطرف وثنائية الطرف</a>
-<a class="btn" href="/inference/hypothesis-testing/practical-significance/" hreflang="en" lang="en" dir="ltr">Next: Practical Significance (English) →</a>
+<a class="btn" href="/ar/inference/hypothesis-testing/practical-significance/">التالي: الأهمية العملية ←</a>
 </div>
 </div></section>

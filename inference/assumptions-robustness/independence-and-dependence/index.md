@@ -4,6 +4,8 @@ title: Independence and Dependence
 description: Learn why independence is one of the most important assumptions in statistics, how dependence arises, and how violations can affect inference.
 permalink: /inference/assumptions-robustness/independence-and-dependence/
 sidebar: false
+learning_resource: true
+translation_pair: independence-and-dependence
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -36,6 +38,9 @@ sidebar: false
     </div>
 
     <h1>Independence and Dependence</h1>
+
+    <p><a href="/ar/inference/assumptions-robustness/independence-and-dependence/" lang="ar" dir="rtl" hreflang="ar">النسخة العربية: الاستقلال والاعتماد</a></p>
+{% include lab-noscript.html %}
 
     <p class="lead">
       Independence is one of the most important assumptions in statistical inference.
@@ -277,6 +282,50 @@ sidebar: false
     <p>
       Negative autocorrelation means nearby observations tend to move in opposite directions.
     </p>
+<!-- Batch #103: AR(1) dependence laboratory -->
+<section class="concept-box" id="esa-ar1-lab" aria-labelledby="esa-ar1-heading">
+  <h3 id="esa-ar1-heading">Interactive lab: how dependence breaks the standard error</h3>
+  <p>Suppose observations follow a stationary AR(1) process, in which the correlation between observations k steps apart is \(\rho^k\). The sample mean then has variance</p>
+  <div class="esa-ar1-math" dir="ltr" tabindex="0" role="region" aria-label="Variance of the sample mean under AR(1) dependence">
+  \[
+  \operatorname{Var}(\bar X)=\frac{\sigma^2}{n}\Bigl[1+2\sum_{k=1}^{n-1}\Bigl(1-\frac kn\Bigr)\rho^k\Bigr]=\frac{\sigma^2}{n}\,\mathrm{VIF},
+  \qquad n_{\mathrm{eff}}=\frac{n}{\mathrm{VIF}}.
+  \]
+  </div>
+  <p>A z test that wrongly uses \(\sigma/\sqrt n\) has, for Gaussian data, a true type I error rate of \(2\,\Phi\bigl(-z_{1-\alpha/2}/\sqrt{\mathrm{VIF}}\bigr)\).</p>
+  <div class="esa-ar1-grid">
+    <label for="esa-ar1-n">Sample size n<input id="esa-ar1-n" type="number" min="2" max="100000" step="1" inputmode="numeric" value="100" aria-describedby="esa-ar1-error"></label>
+    <label for="esa-ar1-rho">Lag-1 correlation ρ<input id="esa-ar1-rho" type="number" min="-0.95" max="0.95" step="0.05" inputmode="decimal" value="0.5" aria-describedby="esa-ar1-error"></label>
+    <label for="esa-ar1-alpha">Nominal α<input id="esa-ar1-alpha" type="number" min="0.001" max="0.5" step="any" inputmode="decimal" value="0.05" aria-describedby="esa-ar1-error"></label>
+  </div>
+  <div class="esa-ar1-controls"><button class="btn btn-outline" type="button" id="esa-ar1-pos">Positive correlation (ρ = 0.5)</button><button class="btn btn-outline" type="button" id="esa-ar1-neg">Negative correlation (ρ = −0.5)</button><button class="btn btn-outline" type="button" id="esa-ar1-ind">Independent (ρ = 0)</button></div>
+  <p id="esa-ar1-error" role="alert" hidden></p>
+  <section id="esa-ar1-results" aria-label="Effect of dependence" role="status" aria-live="polite" aria-atomic="true">
+    <div class="table-wrap"><table><caption>What ignoring the dependence does</caption><tbody>
+      <tr><th scope="row">Variance inflation factor (VIF)</th><td><output id="esa-ar1-vif" dir="ltr">2.9600</output></td></tr>
+      <tr><th scope="row">Effective sample size n/VIF</th><td><output id="esa-ar1-neff" dir="ltr">33.8</output></td></tr>
+      <tr><th scope="row">True SE ÷ naive SE</th><td><output id="esa-ar1-ratio" dir="ltr">1.7205</output></td></tr>
+      <tr><th scope="row">Real type I error of the naive z test</th><td><output id="esa-ar1-typeI" dir="ltr">0.254617</output></td></tr>
+      <tr><th scope="row">Real coverage of the naive interval</th><td><output id="esa-ar1-coverage" dir="ltr">0.745383</output></td></tr>
+    </tbody></table></div>
+    <p id="esa-ar1-note"></p>
+  </section>
+  <p class="muted-mini">With n = 100 and ρ = 0.5, the 100 observations carry about as much information about the mean as 34 independent ones, and a nominal 5% test rejects a true null about 25% of the time. A seeded simulation of 20,000 AR(1) series gave 25.7%, in line with the formula. The lab assumes stationary Gaussian AR(1) errors and a known σ; real data may have other dependence structures, such as clusters or long memory.</p>
+</section>
+<style>
+#esa-ar1-lab,#esa-ar1-lab *{box-sizing:border-box}
+#esa-ar1-lab{max-width:100%;min-width:0;overflow-wrap:anywhere}
+#esa-ar1-lab label{display:block;font-weight:650;margin:6px 0}
+#esa-ar1-lab input{display:block;width:100%;min-width:0;font:inherit;padding:8px;margin-top:4px;border:1px solid #777;border-radius:6px}
+#esa-ar1-lab .esa-ar1-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr));gap:4px 10px}
+#esa-ar1-lab .esa-ar1-controls{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+#esa-ar1-lab .table-wrap,.esa-ar1-math{max-width:100%;overflow-x:auto}
+.esa-ar1-math{direction:ltr}
+#esa-ar1-lab [hidden]{display:none!important}
+#esa-ar1-lab :is(input,button):focus-visible,.esa-ar1-math:focus-visible{outline:2px solid #0f766e;outline-offset:3px}
+</style>
+<script defer src="/js/ar1-dependence-lab.js"></script>
+
 
     <h2>Clustered Data</h2>
 

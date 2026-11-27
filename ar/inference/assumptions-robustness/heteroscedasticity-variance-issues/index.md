@@ -142,7 +142,7 @@ translation_pair: heteroscedasticity-variance-issues
 </div>
 
 <div class="lesson-nav">
-<a class="btn btn-outline" href="/inference/assumptions-robustness/independence-and-dependence/" hreflang="en" lang="en" dir="ltr">← Previous: Independence and Dependence (English)</a>
+<a class="btn btn-outline" href="/ar/inference/assumptions-robustness/independence-and-dependence/">→ السابق: الاستقلال والاعتماد</a>
 <a class="btn" href="/ar/inference/assumptions-robustness/outliers-and-influence/">التالي: القيم المتطرفة والمشاهدات المؤثرة ←</a>
 </div>
 </div></section>
