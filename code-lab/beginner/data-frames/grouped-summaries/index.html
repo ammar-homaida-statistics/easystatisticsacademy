@@ -1,0 +1,208 @@
+---
+layout: default
+title: "Grouped Summaries: Where Did the Missing Group Go? — Code Lab, Exercise 3.2"
+description: "Beginner R and pandas exercise: table(), tapply() and groupby() drop observations with a missing group label by default; count and summarise every group, including the missing one."
+permalink: /code-lab/beginner/data-frames/grouped-summaries/
+sidebar: false
+learning_resource: true
+---
+{% include code-lab-styles.html %}
+
+<section class="hero hero-section">
+  <div class="hero-card">
+    <div class="badge-row">
+      <span class="badge">Code Lab</span>
+      <span class="badge">Beginner</span>
+      <span class="badge">Group 3 · Data frames</span>
+      <span class="badge">Exercise 3.2</span>
+    </div>
+    <h1>Exercise 3.2 — Grouped Summaries: Where Did the Missing Group Go?</h1>
+    <p class="lead">A count or mean per group is the first table of almost every report. By default, R and pandas both leave out the observations whose group is missing, so the groups no longer add up to the sample.</p>
+    <p class="muted-mini">Difficulty: <span class="clab-stars" aria-label="1 of 3">★☆☆</span> · Time: 20 min · Prerequisites: Exercise 3.1</p>
+    <ul class="clab-chips" aria-label="Languages and skills">
+      <li class="clab-chip-r">R</li>
+      <li class="clab-chip-py">Python · pandas</li>
+      <li>grouped summaries</li>
+      <li>groupby</li>
+      <li>tapply</li>
+    </ul>
+    <div class="hero-actions">
+      <a class="btn btn-outline" href="/code-lab/beginner/">Beginner exercises</a>
+    </div>
+  </div>
+</section>
+
+<nav class="esa-lesson-toc" aria-label="On this page"><details><summary>On this page</summary><ol>
+  <li><a href="#goal">Goal</a></li>
+  <li><a href="#predict">Predict first</a></li>
+  <li><a href="#idea">The idea</a></li>
+  <li><a href="#task">Your task</a></li>
+  <li><a href="#hints">Hints</a></li>
+  <li><a href="#solution">Solution</a></li>
+  <li><a href="#check">Check yourself</a></li>
+  <li><a href="#why">Why it matters</a></li>
+  <li><a href="#further">Going further</a></li>
+  <li><a href="#references">References</a></li>
+</ol></details></nav>
+
+<section>
+<div class="content-narrow clab">
+{% raw %}
+
+<h2 id="goal">1 Goal</h2>
+<p>By the end of this exercise you will be able to:</p>
+<ol>
+  <li>compute counts and means per group in R and pandas;</li>
+  <li>predict what happens to observations with a missing group label;</li>
+  <li>check that the group sizes add up to the sample size.</li>
+</ol>
+
+<h2 id="predict">2 Predict first</h2>
+<div class="clab-box clab-box--predict">
+  <p class="clab-box-title">Before running anything: what does each line return?</p>
+  <div class="clab-tabs" data-label="Language">
+    <div class="clab-panel" data-lang="r" data-title="R">
+      <p class="clab-panel-label">R</p>
+<pre class="r"><code>group &lt;- c("A", "B", "A", NA, "B", "A")
+score &lt;- c(10, 20, 30, 40, 50, 60)
+table(group)
+tapply(score, group, mean)</code></pre>
+    </div>
+    <div class="clab-panel" data-lang="py" data-title="Python">
+      <p class="clab-panel-label">Python</p>
+<pre class="python"><code>import pandas as pd
+df = pd.DataFrame({"group": ["A", "B", "A", None, "B", "A"],
+                   "score": [10, 20, 30, 40, 50, 60]})
+print(df["group"].value_counts().to_dict())
+print(df.groupby("group")["score"].mean().round(5).to_dict())</code></pre>
+    </div>
+  </div>
+  <details class="clab-answer">
+    <summary>Show the answer</summary>
+    <p><strong>R</strong>: the counts add up to 5, not 6, and the observation with a missing group (score 40) is in no group:</p>
+<pre class="clab-output"><code>group
+A B 
+3 2 
+       A        B 
+33.33333 35.00000 </code></pre>
+    <p><strong>pandas</strong> does the same:</p>
+<pre class="clab-output"><code>{'A': 3, 'B': 2}
+{'A': 33.33333, 'B': 35.0}</code></pre>
+  </details>
+</div>
+
+<h2 id="idea">3 The idea</h2>
+<p>Grouping functions use the distinct non-missing labels as groups. An observation whose label is missing belongs to none of them and is dropped, with no message in either language.</p>
+<p>To keep it: in R, <code>table(group, useNA = "ifany")</code> and <code>tapply(score, addNA(group), mean)</code>; in pandas, <code>value_counts(dropna=False)</code> and <code>groupby(..., dropna=False)</code>. The simplest check is that the group sizes add up to the number of observations.</p>
+
+<h2 id="task">4 Your task</h2>
+<div class="clab-box clab-box--task">
+  <p class="clab-box-title">A complete summary table</p>
+  <p>Produce the count and the mean score for every group, including a row for the missing group, and confirm that the counts add up to 6.</p>
+  <div class="clab-tabs" data-label="Language">
+    <div class="clab-panel" data-lang="r" data-title="R">
+      <p class="clab-panel-label">R — starter code</p>
+<pre class="r"><code>group &lt;- c("A", "B", "A", NA, "B", "A")
+score &lt;- c(10, 20, 30, 40, 50, 60)
+
+# Your code: ...</code></pre>
+    </div>
+    <div class="clab-panel" data-lang="py" data-title="Python">
+      <p class="clab-panel-label">Python — starter code</p>
+<pre class="python"><code>import pandas as pd
+df = pd.DataFrame({"group": ["A", "B", "A", None, "B", "A"],
+                   "score": [10, 20, 30, 40, 50, 60]})
+
+# Your code: ...</code></pre>
+    </div>
+  </div>
+</div>
+
+<h2 id="hints">5 Hints</h2>
+<details class="clab-hint">
+  <summary>Hint 1</summary>
+  <p>R: look at the <code>useNA</code> argument of <code>table()</code>, and at <code>addNA()</code>, which turns <code>NA</code> into a level of a factor.</p>
+</details>
+<details class="clab-hint">
+  <summary>Hint 2</summary>
+  <p>pandas: both <code>value_counts()</code> and <code>groupby()</code> have a <code>dropna</code> argument.</p>
+</details>
+
+<h2 id="solution">6 Solution</h2>
+<details class="clab-solution">
+  <summary>Show the solution</summary>
+  <div class="clab-tabs" data-label="Language">
+    <div class="clab-panel" data-lang="r" data-title="R">
+      <p class="clab-panel-label">R</p>
+<pre class="r"><code>group &lt;- c("A", "B", "A", NA, "B", "A")
+score &lt;- c(10, 20, 30, 40, 50, 60)
+
+counts &lt;- table(group, useNA = "ifany")
+counts
+tapply(score, addNA(group), mean)
+sum(counts)</code></pre>
+<p class="clab-output-label">Output</p>
+<pre class="clab-output"><code>group
+   A    B &lt;NA&gt; 
+   3    2    1 
+       A        B     &lt;NA&gt; 
+33.33333 35.00000 40.00000 
+[1] 6</code></pre>
+    </div>
+    <div class="clab-panel" data-lang="py" data-title="Python">
+      <p class="clab-panel-label">Python</p>
+<pre class="python"><code>import pandas as pd
+df = pd.DataFrame({"group": ["A", "B", "A", None, "B", "A"],
+                   "score": [10, 20, 30, 40, 50, 60]})
+
+res = df.groupby("group", dropna=False)["score"].agg(["count", "mean"]).round(5)
+print(res)
+print(res["count"].sum())</code></pre>
+<p class="clab-output-label">Output</p>
+<pre class="clab-output"><code>       count      mean
+group                 
+A          3  33.33333
+B          2  35.00000
+NaN        1  40.00000
+6</code></pre>
+    </div>
+  </div>
+</details>
+
+<h2 id="check">7 Check yourself</h2>
+<div class="clab-box clab-box--check">
+  <p class="clab-box-title">Your answer is correct if</p>
+  <ul>
+    <li>the table has three rows: A (3, mean 33.33), B (2, mean 35) and missing (1, mean 40);</li>
+    <li>the counts add up to 6, the number of observations.</li>
+  </ul>
+</div>
+
+<h2 id="why">8 Why it matters</h2>
+<div class="clab-box clab-box--ai">
+  <p class="clab-box-title">A table that does not add up</p>
+  <p>If a report shows group sizes that add up to fewer than the sample, a reader cannot tell whether observations were lost by design or by accident. Showing the missing group, or stating in a footnote how many observations had no group, keeps the table honest. Missing labels may also differ systematically from the rest; here the missing group has the highest mean.</p>
+</div>
+
+<h2 id="further">9 Going further</h2>
+<ul>
+  <li><strong>R:</strong> compute the same table with <code>aggregate(score ~ group, FUN = mean)</code>. What happens to the missing group? (Look at the <code>na.action</code> argument.)</li>
+  <li><strong>Python:</strong> add a missing <em>score</em> to group A. Does <code>count</code> still equal the group size? Compare with <code>size</code>.</li>
+  <li><strong>Both:</strong> add a column with each group's percentage of the whole sample, and check that the percentages add up to 100.</li>
+</ul>
+
+<h2 id="references">10 References</h2>
+<ul>
+  <li>R documentation: <code>?table</code> (argument <code>useNA</code>) and <code>?addNA</code>.</li>
+  <li>pandas documentation. <em>Group by: split-apply-combine</em> (section on NA group keys). https://pandas.pydata.org/docs/user_guide/groupby.html</li>
+</ul>
+
+{% endraw %}
+  <div class="lesson-nav">
+    <a class="btn btn-outline" href="/code-lab/beginner/data-frames/filtering-rows-with-missing-values/">← Exercise 3.1: Filtering rows</a>
+    <a class="btn" href="/code-lab/beginner/data-frames/joining-tables/">Exercise 3.3: Joining tables →</a>
+  </div>
+</div>
+</section>
+
+<script src="/js/code-lab.js" defer></script>

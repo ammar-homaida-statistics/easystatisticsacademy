@@ -1,0 +1,212 @@
+---
+layout: default
+title: "Joining Tables Without Losing or Duplicating Rows — Code Lab, Exercise 3.3"
+description: "Beginner R and pandas exercise: merge() keeps only matching rows by default and repeats rows for duplicate keys; summarise first, join with all.x / how='left', and check the totals."
+permalink: /code-lab/beginner/data-frames/joining-tables/
+sidebar: false
+learning_resource: true
+---
+{% include code-lab-styles.html %}
+
+<section class="hero hero-section">
+  <div class="hero-card">
+    <div class="badge-row">
+      <span class="badge">Code Lab</span>
+      <span class="badge">Beginner</span>
+      <span class="badge">Group 3 · Data frames</span>
+      <span class="badge">Exercise 3.3</span>
+    </div>
+    <h1>Exercise 3.3 — Joining Tables Without Losing or Duplicating Rows</h1>
+    <p class="lead">Joining two tables by an ID looks routine. By default, rows without a match vanish and rows with several matches are repeated, and nothing on screen warns you.</p>
+    <p class="muted-mini">Difficulty: <span class="clab-stars" aria-label="1 of 3">★☆☆</span> · Time: 20 min · Prerequisites: Exercises 3.1 and 3.2</p>
+    <ul class="clab-chips" aria-label="Languages and skills">
+      <li class="clab-chip-r">R</li>
+      <li class="clab-chip-py">Python · pandas</li>
+      <li>merge</li>
+      <li>joins</li>
+      <li>data integrity</li>
+    </ul>
+    <div class="hero-actions">
+      <a class="btn btn-outline" href="/code-lab/beginner/">Beginner exercises</a>
+    </div>
+  </div>
+</section>
+
+<nav class="esa-lesson-toc" aria-label="On this page"><details><summary>On this page</summary><ol>
+  <li><a href="#goal">Goal</a></li>
+  <li><a href="#predict">Predict first</a></li>
+  <li><a href="#idea">The idea</a></li>
+  <li><a href="#task">Your task</a></li>
+  <li><a href="#hints">Hints</a></li>
+  <li><a href="#solution">Solution</a></li>
+  <li><a href="#check">Check yourself</a></li>
+  <li><a href="#why">Why it matters</a></li>
+  <li><a href="#further">Going further</a></li>
+  <li><a href="#references">References</a></li>
+</ol></details></nav>
+
+<section>
+<div class="content-narrow clab">
+{% raw %}
+
+<h2 id="goal">1 Goal</h2>
+<p>By the end of this exercise you will be able to:</p>
+<ol>
+  <li>predict the number of rows returned by a join;</li>
+  <li>choose between inner and left joins;</li>
+  <li>check a join by comparing row counts and totals before and after.</li>
+</ol>
+
+<h2 id="predict">2 Predict first</h2>
+<div class="clab-box clab-box--predict">
+  <p class="clab-box-title">Before running anything: what does each line return?</p>
+  <div class="clab-tabs" data-label="Language">
+    <div class="clab-panel" data-lang="r" data-title="R">
+      <p class="clab-panel-label">R</p>
+<pre class="r"><code>patients &lt;- data.frame(id = c(1, 2, 3, 4), age = c(34, 52, 17, 41))
+visits   &lt;- data.frame(id = c(1, 1, 2, 5), cost = c(100, 150, 80, 60))
+merge(patients, visits)</code></pre>
+    </div>
+    <div class="clab-panel" data-lang="py" data-title="Python">
+      <p class="clab-panel-label">Python</p>
+<pre class="python"><code>import pandas as pd
+patients = pd.DataFrame({"id": [1, 2, 3, 4], "age": [34, 52, 17, 41]})
+visits   = pd.DataFrame({"id": [1, 1, 2, 5], "cost": [100, 150, 80, 60]})
+print(pd.merge(patients, visits))</code></pre>
+    </div>
+  </div>
+  <details class="clab-answer">
+    <summary>Show the answer</summary>
+    <p>Both languages return the same three rows. Patients 3 and 4 (no visits) and the visit for id 5 (no patient record) have disappeared, and patient 1 now appears twice:</p>
+<pre class="clab-output"><code>  id age cost
+1  1  34  100
+2  1  34  150
+3  2  52   80</code></pre>
+    <p>(pandas numbers the rows from 0.)</p>
+  </details>
+</div>
+
+<h2 id="idea">3 The idea</h2>
+<p>The default join in <code>merge()</code> (R) and <code>pd.merge()</code> (pandas) is an <strong>inner join</strong>: only IDs present in <em>both</em> tables are kept. A <strong>left join</strong> (<code>all.x = TRUE</code> in R, <code>how="left"</code> in pandas) keeps every row of the first table and fills missing values where there is no match.</p>
+<p>When an ID appears several times in one table, each match produces a row, so patient-level variables are repeated. If you want one row per patient, summarise the visits per patient <em>first</em>, then join.</p>
+
+<h2 id="task">4 Your task</h2>
+<div class="clab-box clab-box--task">
+  <p class="clab-box-title">Total cost for every patient</p>
+  <p>Build a table with one row per patient (all 4 patients) and their total visit cost, using 0 for patients with no visits. Then compare the total of your table with the total of all visits, and identify any visit that belongs to no known patient.</p>
+  <div class="clab-tabs" data-label="Language">
+    <div class="clab-panel" data-lang="r" data-title="R">
+      <p class="clab-panel-label">R — starter code</p>
+<pre class="r"><code>patients &lt;- data.frame(id = c(1, 2, 3, 4), age = c(34, 52, 17, 41))
+visits   &lt;- data.frame(id = c(1, 1, 2, 5), cost = c(100, 150, 80, 60))
+
+# Your code: ...</code></pre>
+    </div>
+    <div class="clab-panel" data-lang="py" data-title="Python">
+      <p class="clab-panel-label">Python — starter code</p>
+<pre class="python"><code>import pandas as pd
+patients = pd.DataFrame({"id": [1, 2, 3, 4], "age": [34, 52, 17, 41]})
+visits   = pd.DataFrame({"id": [1, 1, 2, 5], "cost": [100, 150, 80, 60]})
+
+# Your code: ...</code></pre>
+    </div>
+  </div>
+</div>
+
+<h2 id="hints">5 Hints</h2>
+<details class="clab-hint">
+  <summary>Hint 1</summary>
+  <p>Step 1: total cost per id in <code>visits</code> (<code>aggregate()</code> in R, <code>groupby().sum()</code> in pandas). Step 2: left-join the totals onto <code>patients</code>.</p>
+</details>
+<details class="clab-hint">
+  <summary>Hint 2</summary>
+  <p>After the join, missing costs are <code>NA</code>/<code>NaN</code>; replace them with 0. Then compare <code>sum()</code> of your cost column with <code>sum(visits$cost)</code>.</p>
+</details>
+
+<h2 id="solution">6 Solution</h2>
+<details class="clab-solution">
+  <summary>Show the solution</summary>
+  <div class="clab-tabs" data-label="Language">
+    <div class="clab-panel" data-lang="r" data-title="R">
+      <p class="clab-panel-label">R</p>
+<pre class="r"><code>patients &lt;- data.frame(id = c(1, 2, 3, 4), age = c(34, 52, 17, 41))
+visits   &lt;- data.frame(id = c(1, 1, 2, 5), cost = c(100, 150, 80, 60))
+
+tot &lt;- aggregate(cost ~ id, data = visits, FUN = sum)
+res &lt;- merge(patients, tot, by = "id", all.x = TRUE)
+res$cost[is.na(res$cost)] &lt;- 0
+res
+c(sum(res$cost), sum(visits$cost))
+setdiff(visits$id, patients$id)</code></pre>
+<p class="clab-output-label">Output</p>
+<pre class="clab-output"><code>  id age cost
+1  1  34  250
+2  2  52   80
+3  3  17    0
+4  4  41    0
+[1] 330 390
+[1] 5</code></pre>
+    </div>
+    <div class="clab-panel" data-lang="py" data-title="Python">
+      <p class="clab-panel-label">Python</p>
+<pre class="python"><code>import pandas as pd
+patients = pd.DataFrame({"id": [1, 2, 3, 4], "age": [34, 52, 17, 41]})
+visits   = pd.DataFrame({"id": [1, 1, 2, 5], "cost": [100, 150, 80, 60]})
+
+tot = visits.groupby("id", as_index=False)["cost"].sum()
+res = patients.merge(tot, on="id", how="left")
+res["cost"] = res["cost"].fillna(0).astype(int)
+print(res)
+print(res["cost"].sum(), visits["cost"].sum())
+print(sorted(set(visits["id"]) - set(patients["id"])))</code></pre>
+<p class="clab-output-label">Output</p>
+<pre class="clab-output"><code>   id  age  cost
+0   1   34   250
+1   2   52    80
+2   3   17     0
+3   4   41     0
+330 390
+[5]</code></pre>
+    </div>
+  </div>
+  <p>The totals differ by 60: the visit for id 5 has no patient record. That is not something to fix silently; it is a data-quality finding to report or investigate.</p>
+</details>
+
+<h2 id="check">7 Check yourself</h2>
+<div class="clab-box clab-box--check">
+  <p class="clab-box-title">Your answer is correct if</p>
+  <ul>
+    <li>your table has exactly 4 rows, one per patient, with costs 250, 80, 0 and 0;</li>
+    <li>its total is 330, against 390 for all visits; the 60 difference is the visit for id 5.</li>
+  </ul>
+</div>
+
+<h2 id="why">8 Why it matters</h2>
+<div class="clab-box clab-box--ai">
+  <p class="clab-box-title">Joins change your sample size</p>
+  <p>An inner join can silently drop the people with no records (often exactly the ones you need to count), and duplicate keys can multiply rows and inflate sums and means. Two checks catch almost every join problem: compare the number of rows before and after, and compare a total (such as cost) before and after.</p>
+</div>
+
+<h2 id="further">9 Going further</h2>
+<ul>
+  <li><strong>R:</strong> run <code>merge(patients, visits, all = TRUE)</code> (a full join). How many rows, and where are the <code>NA</code>s?</li>
+  <li><strong>Python:</strong> add <code>validate="one_to_one"</code> to <code>pd.merge(patients, visits)</code>. What happens, and why is this a useful safety check?</li>
+  <li><strong>Both:</strong> compute each patient's number of visits and mean cost per visit in the same table.</li>
+</ul>
+
+<h2 id="references">10 References</h2>
+<ul>
+  <li>R documentation: <code>?merge</code> (arguments <code>all</code>, <code>all.x</code>, <code>all.y</code>).</li>
+  <li>pandas documentation. <em>Merge, join, concatenate and compare</em>. https://pandas.pydata.org/docs/user_guide/merging.html</li>
+  <li>Wickham, H., Çetinkaya-Rundel, M., &amp; Grolemund, G. (2023). <em>R for Data Science</em> (2nd ed.), Chapter 19: Joins. https://r4ds.hadley.nz/joins.html</li>
+</ul>
+
+{% endraw %}
+  <div class="lesson-nav">
+    <a class="btn btn-outline" href="/code-lab/beginner/data-frames/grouped-summaries/">← Exercise 3.2: Grouped summaries</a>
+    <a class="btn" href="/code-lab/beginner/">Beginner exercises →</a>
+  </div>
+</div>
+</section>
+
+<script src="/js/code-lab.js" defer></script>
