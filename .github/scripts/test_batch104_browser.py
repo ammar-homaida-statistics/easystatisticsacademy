@@ -117,7 +117,7 @@ class Browser104(unittest.TestCase):
         for route,nav in ((TCI,"/ar/inference/confidence-intervals/ci-for-mean-sigma-known-z/"),
                           (NORM,"/ar/inference/assumptions-robustness/independence-and-dependence/"),
                           (PREC,"/inference/confidence-intervals/common-mistakes-and-interpretation/"),
-                          ("/ar"+PROP,"/inference/confidence-intervals/ci-for-difference-of-means-independent/")):
+                          ("/ar"+PROP,"/ar/inference/confidence-intervals/ci-for-difference-of-means-independent/")):
             for width in (320,375):
                 with self.subTest(route=route,width=width):
                     self.page.set_viewport_size({"width":width,"height":820})
