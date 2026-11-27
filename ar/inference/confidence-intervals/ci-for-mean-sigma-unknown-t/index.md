@@ -118,6 +118,6 @@ translation_pair: ci-for-mean-sigma-unknown-t
 
 <div class="lesson-nav">
 <a class="btn btn-outline" href="/ar/inference/confidence-intervals/ci-for-mean-sigma-known-z/">→ السابق: فترة z للمتوسط</a>
-<a class="btn" href="/inference/confidence-intervals/conditions-normality-clt-independence/" hreflang="en" lang="en" dir="ltr">Next: Conditions — Normality, CLT, Independence (English) →</a>
+<a class="btn" href="/ar/inference/confidence-intervals/conditions-normality-clt-independence/">التالي: الشروط ←</a>
 </div>
 </div></section>

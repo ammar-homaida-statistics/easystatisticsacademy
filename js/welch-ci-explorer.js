@@ -83,13 +83,15 @@ function welch(m1,s1,n1,m2,s2,n2,confidence){
 window.esaWelchMath={welch,tQuantile};
 const root=document.getElementById('esa-welch-explorer');if(!root)return;
 const get=id=>root.querySelector('#'+id),ids=['m1','s1','n1','m2','s2','n2','confidence'];
+const AR=root.dataset.locale==='ar';
+const T=AR?{title:'فترة ويلش للثقة للفرق «المجموعة 1 − المجموعة 2»',aria:(d,l,u)=>'الفرق المقدَّر '+d+'؛ فترة الثقة من '+l+' إلى '+u+'؛ الخط المتقطع يمثّل الصفر.'}:{title:'Welch confidence interval for group one minus group two',aria:(d,l,u)=>'Estimated difference '+d+'; confidence interval '+l+' to '+u+'; dashed line denotes zero.'};
 function render(){let vals=ids.map(id=>Number(get('esa-welch-'+id).value));const out=welch(...vals),error=get('esa-welch-error'),results=get('esa-welch-results'),svg=get('esa-welch-chart');
  error.hidden=Boolean(out);results.hidden=!out;svg.hidden=!out;if(!out)return;
  for(const key of ['diff','se','df','critical','margin','lower','upper'])get('esa-welch-'+key).textContent=out[key].toFixed(4);
  const low=Math.min(out.lower,0),high=Math.max(out.upper,0),padding=Math.max(out.margin*.4,1),min=low-padding,max=high+padding,x=v=>30+(v-min)/(max-min)*560;
  const NS='http://www.w3.org/2000/svg',node=(tag,attrs,txt)=>{const e=document.createElementNS(NS,tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,String(v)));if(txt!==undefined)e.textContent=txt;return e;};
- svg.replaceChildren(node('title',{},'Welch confidence interval for group one minus group two'),node('line',{x1:30,y1:60,x2:590,y2:60,stroke:'currentColor'}),node('line',{x1:x(0),y1:15,x2:x(0),y2:105,stroke:'currentColor','stroke-dasharray':'4 4'}),node('line',{x1:x(out.lower),y1:50,x2:x(out.upper),y2:50,stroke:'#2563eb','stroke-width':6}),node('circle',{cx:x(out.diff),cy:50,r:6,fill:'#0f766e'}),node('text',{x:30,y:115,fill:'currentColor','font-size':12},out.lower.toFixed(2)),node('text',{x:590,y:115,'text-anchor':'end',fill:'currentColor','font-size':12},out.upper.toFixed(2)));
- svg.setAttribute('aria-label', 'Estimated difference '+out.diff.toFixed(4)+'; confidence interval '+out.lower.toFixed(4)+' to '+out.upper.toFixed(4)+'; dashed line denotes zero.');
+ svg.replaceChildren(node('title',{},T.title),node('line',{x1:30,y1:60,x2:590,y2:60,stroke:'currentColor'}),node('line',{x1:x(0),y1:15,x2:x(0),y2:105,stroke:'currentColor','stroke-dasharray':'4 4'}),node('line',{x1:x(out.lower),y1:50,x2:x(out.upper),y2:50,stroke:'#2563eb','stroke-width':6}),node('circle',{cx:x(out.diff),cy:50,r:6,fill:'#0f766e'}),node('text',{x:30,y:115,fill:'currentColor','font-size':12},out.lower.toFixed(2)),node('text',{x:590,y:115,'text-anchor':'end',fill:'currentColor','font-size':12},out.upper.toFixed(2)));
+ svg.setAttribute('aria-label',T.aria(out.diff.toFixed(4),out.lower.toFixed(4),out.upper.toFixed(4)));
 }
 ids.forEach(id=>get('esa-welch-'+id).addEventListener('input',render));render();
 })();

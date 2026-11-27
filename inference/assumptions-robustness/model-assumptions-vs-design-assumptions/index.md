@@ -4,6 +4,8 @@ title: Model Assumptions vs Design Assumptions
 description: Learn the difference between model assumptions and design assumptions, and why both influence the validity of statistical conclusions.
 permalink: /inference/assumptions-robustness/model-assumptions-vs-design-assumptions/
 sidebar: false
+learning_resource: true
+translation_pair: model-assumptions-vs-design-assumptions
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -36,6 +38,8 @@ sidebar: false
     </div>
 
     <h1>Model Assumptions vs Design Assumptions</h1>
+
+    <p><a href="/ar/inference/assumptions-robustness/model-assumptions-vs-design-assumptions/" lang="ar" dir="rtl" hreflang="ar">النسخة العربية: افتراضات النموذج مقابل افتراضات التصميم</a></p>
 
     <p class="lead">
       Not all assumptions in statistics come from the same place.

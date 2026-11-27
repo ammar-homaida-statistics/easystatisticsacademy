@@ -37,6 +37,10 @@ lang: ar
 <p><a href="/ar/inference/assumptions-robustness/checking-normality-what-and-why/">فحص الطبيعية: ماذا ولماذا؟ — درس عربي</a></p>
 <p><a href="/ar/inference/confidence-intervals/width-and-precision-what-controls/">عرض فترة الثقة ودقتها — درس عربي ومختبر تخطيط حجم العيّنة</a></p>
 <p><a href="/ar/inference/confidence-intervals/ci-for-proportion/">فترة الثقة للنسبة — درس عربي ومختبرا والد/ويلسون والتغطية الدقيقة</a></p>
+<p><a href="/ar/inference/confidence-intervals/conditions-normality-clt-independence/">شروط فترات الثقة — درس عربي ومختبر محاكاة مبرهنة النهاية المركزية</a></p>
+<p><a href="/ar/inference/confidence-intervals/ci-for-difference-of-proportions/">فترة الثقة للفرق بين نسبتين — درس عربي ومختبر والد/نيوكومب</a></p>
+<p><a href="/ar/inference/confidence-intervals/ci-for-difference-of-means-independent/">فترة الثقة للفرق بين متوسطين — درس عربي ومختبر ويلش</a></p>
+<p><a href="/ar/inference/assumptions-robustness/model-assumptions-vs-design-assumptions/">افتراضات النموذج مقابل افتراضات التصميم — درس عربي</a></p>
 <p><a href="/ar/inference/classical-tests/mcnemar-test/">اختبار ماكنمار للنسب المزدوجة — درس عربي ومختبر تفاعلي</a></p>
 <p><a href="/ar/inference/classical-tests/chi-square-homogeneity-test/">اختبار كاي تربيع للتجانس — درس عربي ومختبر تفاعلي مع البواقي المعدّلة</a></p>
 <p><a href="/ar/inference/classical-tests/chi-square-independence-test/">اختبار كاي تربيع للاستقلال — درس عربي ومختبر تفاعلي لجدول 2 × 2</a></p>

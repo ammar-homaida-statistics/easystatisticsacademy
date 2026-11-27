@@ -224,3 +224,15 @@
 - id: ci-for-proportion
   en: /inference/confidence-intervals/ci-for-proportion/
   ar: /ar/inference/confidence-intervals/ci-for-proportion/
+- id: conditions-normality-clt-independence
+  en: /inference/confidence-intervals/conditions-normality-clt-independence/
+  ar: /ar/inference/confidence-intervals/conditions-normality-clt-independence/
+- id: ci-for-difference-of-proportions
+  en: /inference/confidence-intervals/ci-for-difference-of-proportions/
+  ar: /ar/inference/confidence-intervals/ci-for-difference-of-proportions/
+- id: ci-for-difference-of-means-independent
+  en: /inference/confidence-intervals/ci-for-difference-of-means-independent/
+  ar: /ar/inference/confidence-intervals/ci-for-difference-of-means-independent/
+- id: model-assumptions-vs-design-assumptions
+  en: /inference/assumptions-robustness/model-assumptions-vs-design-assumptions/
+  ar: /ar/inference/assumptions-robustness/model-assumptions-vs-design-assumptions/

@@ -175,7 +175,7 @@ translation_pair: ci-for-proportion
 </div>
 
 <div class="lesson-nav">
-<a class="btn btn-outline" href="/inference/confidence-intervals/conditions-normality-clt-independence/" hreflang="en" lang="en" dir="ltr">← Previous: Conditions — Normality, CLT, Independence (English)</a>
-<a class="btn" href="/inference/confidence-intervals/ci-for-difference-of-means-independent/" hreflang="en" lang="en" dir="ltr">Next: CI for Difference of Means (English) →</a>
+<a class="btn btn-outline" href="/ar/inference/confidence-intervals/conditions-normality-clt-independence/">→ السابق: الشروط</a>
+<a class="btn" href="/ar/inference/confidence-intervals/ci-for-difference-of-means-independent/">التالي: الفرق بين متوسطين ←</a>
 </div>
 </div></section>

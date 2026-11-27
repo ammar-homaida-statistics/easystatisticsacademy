@@ -4,6 +4,8 @@ title: Confidence Interval for Difference of Proportions
 description: Learn how to construct and interpret confidence intervals for the difference between two population proportions.
 permalink: /inference/confidence-intervals/ci-for-difference-of-proportions/
 sidebar: false
+learning_resource: true
+translation_pair: ci-for-difference-of-proportions
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -40,6 +42,8 @@ sidebar: false
     </div>
 
     <h1>Confidence Interval for Difference of Proportions</h1>
+
+    <p><a href="/ar/inference/confidence-intervals/ci-for-difference-of-proportions/" lang="ar" dir="rtl" hreflang="ar">النسخة العربية: فترة الثقة للفرق بين نسبتين</a></p>
 
     <p class="lead">
       Many important statistical questions compare percentages between two groups.

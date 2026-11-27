@@ -4,6 +4,8 @@ title: Conditions — Normality, CLT, and Independence
 description: Learn the assumptions required for confidence intervals and how normality, the Central Limit Theorem, and independence support valid inference.
 permalink: /inference/confidence-intervals/conditions-normality-clt-independence/
 sidebar: false
+learning_resource: true
+translation_pair: conditions-normality-clt-independence
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -40,6 +42,9 @@ sidebar: false
     </div>
 
     <h1>Conditions — Normality, CLT, and Independence</h1>
+
+    <p><a href="/ar/inference/confidence-intervals/conditions-normality-clt-independence/" lang="ar" dir="rtl" hreflang="ar">النسخة العربية: الشروط — الطبيعية ومبرهنة النهاية المركزية والاستقلال</a></p>
+{% include lab-noscript.html %}
 
     <p class="lead">
       Confidence interval formulas are only as trustworthy as the assumptions behind them.
@@ -325,6 +330,43 @@ sidebar: false
       </table>
 
     </div>
+<!-- Batch #105: CLT and t-interval coverage laboratory -->
+<section class="concept-box" id="esa-clt-lab" aria-labelledby="esa-clt-heading">
+  <h3 id="esa-clt-heading">Interactive lab: does the CLT rescue the t interval?</h3>
+  <p>The lab draws 20,000 samples of size n from the chosen population, builds the usual interval \(\bar x\pm t_{n-1,\,1-\alpha/2}\,s/\sqrt n\) from each, and counts how often it contains the true mean μ. It also reports how often the whole interval misses on each side, and shows a histogram of the 20,000 sample means.</p>
+  <div class="esa-clt-grid">
+    <label for="esa-clt-pop">Population<select id="esa-clt-pop"><option value="normal">Normal (symmetric)</option><option value="uniform">Uniform (symmetric, light tails)</option><option value="exponential" selected>Exponential (right-skewed)</option><option value="lognormal">Lognormal (strongly right-skewed)</option></select></label>
+    <label for="esa-clt-n">Sample size n<input id="esa-clt-n" type="number" min="2" max="200" step="1" inputmode="numeric" value="10" aria-describedby="esa-clt-error"></label>
+    <label for="esa-clt-level">Nominal confidence<select id="esa-clt-level"><option value="90">90%</option><option value="95" selected>95%</option><option value="99">99%</option></select></label>
+  </div>
+  <div class="esa-clt-controls"><button class="btn btn-outline" type="button" id="esa-clt-exp10">Exponential, n = 10</button><button class="btn btn-outline" type="button" id="esa-clt-exp100">Exponential, n = 100</button><button class="btn btn-outline" type="button" id="esa-clt-norm10">Normal, n = 10</button></div>
+  <p id="esa-clt-error" role="alert" hidden></p>
+  <section id="esa-clt-results" aria-label="Simulated coverage" role="status" aria-live="polite" aria-atomic="true">
+    <div class="table-wrap"><table><caption>20,000 simulated samples (fixed seed)</caption><tbody>
+      <tr><th scope="row">Actual coverage</th><td><output id="esa-clt-coverage" dir="ltr">0.8995</output></td></tr>
+      <tr><th scope="row">Monte Carlo standard error</th><td><output id="esa-clt-mcse" dir="ltr">0.0021</output></td></tr>
+      <tr><th scope="row">Interval entirely below μ</th><td><output id="esa-clt-below" dir="ltr">0.0959</output></td></tr>
+      <tr><th scope="row">Interval entirely above μ</th><td><output id="esa-clt-above" dir="ltr">0.0046</output></td></tr>
+      <tr><th scope="row">t critical value</th><td><output id="esa-clt-crit" dir="ltr">2.2622</output></td></tr>
+    </tbody></table></div>
+    <p id="esa-clt-note"></p>
+    <svg id="esa-clt-chart" viewBox="0 0 460 170" role="img" aria-label="Histogram of sample means" style="display:block;width:100%;height:auto;max-width:560px;direction:ltr"></svg>
+  </section>
+  <p class="muted-mini">For normal data the t interval is exact, so the simulated coverage is 95% up to Monte Carlo error. For exponential data with n = 10 the "95%" interval covers only about 90%, and almost all misses are on one side: when a skewed sample happens to have a small mean, it also tends to have a small SD, so the interval is too short exactly when it is too low. By n = 100 coverage is about 94%, close to but still below 95%. The fixed seed makes every result reproducible; independent simulations of 200,000 samples agree within Monte Carlo error.</p>
+</section>
+<style>
+#esa-clt-lab,#esa-clt-lab *{box-sizing:border-box}
+#esa-clt-lab{max-width:100%;min-width:0;overflow-wrap:anywhere}
+#esa-clt-lab label{display:block;font-weight:650;margin:6px 0}
+#esa-clt-lab :is(input,select){display:block;width:100%;min-width:0;font:inherit;padding:8px;margin-top:4px;border:1px solid #777;border-radius:6px}
+#esa-clt-lab .esa-clt-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr));gap:4px 10px}
+#esa-clt-lab .esa-clt-controls{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+#esa-clt-lab .table-wrap{max-width:100%;overflow-x:auto}
+#esa-clt-lab [hidden]{display:none!important}
+#esa-clt-lab :is(input,select,button):focus-visible{outline:2px solid #0f766e;outline-offset:3px}
+</style>
+<script defer src="/js/clt-coverage-lab.js"></script>
+
 
     <h2>Is n = 30 a Magic Number?</h2>
 

@@ -4,6 +4,8 @@ title: Confidence Interval for Difference of Means (Independent Samples)
 description: Learn how to construct and interpret confidence intervals for the difference between two independent population means.
 permalink: /inference/confidence-intervals/ci-for-difference-of-means-independent/
 sidebar: false
+learning_resource: true
+translation_pair: ci-for-difference-of-means-independent
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -40,6 +42,8 @@ sidebar: false
     </div>
 
     <h1>Confidence Interval for Difference of Means (Independent Samples)</h1>
+
+    <p><a href="/ar/inference/confidence-intervals/ci-for-difference-of-means-independent/" lang="ar" dir="rtl" hreflang="ar">النسخة العربية: فترة الثقة للفرق بين متوسطين</a></p>
 {% include lab-noscript.html %}
 
     <p class="lead">

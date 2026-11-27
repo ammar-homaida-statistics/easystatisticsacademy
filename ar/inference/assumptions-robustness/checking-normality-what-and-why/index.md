@@ -105,7 +105,7 @@ translation_pair: checking-normality-what-and-why
 </div>
 
 <div class="lesson-nav">
-<a class="btn btn-outline" href="/inference/assumptions-robustness/model-assumptions-vs-design-assumptions/" hreflang="en" lang="en" dir="ltr">← Previous: Model vs Design Assumptions (English)</a>
+<a class="btn btn-outline" href="/ar/inference/assumptions-robustness/model-assumptions-vs-design-assumptions/">→ السابق: افتراضات النموذج والتصميم</a>
 <a class="btn" href="/ar/inference/assumptions-robustness/independence-and-dependence/">التالي: الاستقلال والاعتماد ←</a>
 </div>
 </div></section>
