@@ -1,0 +1,195 @@
+---
+layout: default
+title: "Histogram Bins: Same Data, Different Shapes — Code Lab, Exercise 5.1"
+description: "Beginner R and Python exercise: hist() and matplotlib choose different bins by default, and R closes bins on the right while NumPy closes them on the left. Get identical counts."
+permalink: /code-lab/beginner/first-plots/histogram-bins/
+sidebar: false
+learning_resource: true
+---
+{% include code-lab-styles.html %}
+
+<section class="hero hero-section">
+  <div class="hero-card">
+    <div class="badge-row">
+      <span class="badge">Code Lab</span>
+      <span class="badge">Beginner</span>
+      <span class="badge">Group 5 · First plots</span>
+      <span class="badge">Exercise 5.1</span>
+    </div>
+    <h1>Exercise 5.1 — Histogram Bins: Same Data, Different Shapes</h1>
+    <p class="lead">A histogram looks like a picture of the data, but its shape depends on choices the software makes for you: how many bins, where they start, and which bin gets a value that sits exactly on an edge.</p>
+    <p class="muted-mini">Difficulty: <span class="clab-stars" aria-label="1 of 3">★☆☆</span> · Time: 20 min · Prerequisites: Group 4</p>
+    <ul class="clab-chips" aria-label="Languages and skills">
+      <li class="clab-chip-r">R</li>
+      <li class="clab-chip-py">Python · NumPy · pandas · matplotlib</li>
+      <li>histograms</li>
+      <li>bins</li>
+      <li>matplotlib</li>
+    </ul>
+    <div class="hero-actions">
+      <a class="btn btn-outline" href="/code-lab/beginner/">Beginner exercises</a>
+    </div>
+  </div>
+</section>
+
+<nav class="esa-lesson-toc" aria-label="On this page"><details><summary>On this page</summary><ol>
+  <li><a href="#goal">Goal</a></li>
+  <li><a href="#predict">Predict first</a></li>
+  <li><a href="#idea">The idea</a></li>
+  <li><a href="#task">Your task</a></li>
+  <li><a href="#hints">Hints</a></li>
+  <li><a href="#solution">Solution</a></li>
+  <li><a href="#check">Check yourself</a></li>
+  <li><a href="#why">Why it matters</a></li>
+  <li><a href="#further">Going further</a></li>
+  <li><a href="#references">References</a></li>
+</ol></details></nav>
+
+<section>
+<div class="content-narrow clab">
+{% raw %}
+
+<h2 id="goal">1 Goal</h2>
+<p>By the end of this exercise you will be able to:</p>
+<ol>
+  <li>read the counts behind a histogram instead of only looking at its shape;</li>
+  <li>explain R's and NumPy's default bins and edge rules;</li>
+  <li>make R and Python produce exactly the same histogram.</li>
+</ol>
+
+<h2 id="predict">2 Predict first</h2>
+<div class="clab-box clab-box--predict">
+  <p class="clab-box-title">Before running anything: what does each line return?</p>
+  <div class="clab-tabs" data-label="Language">
+    <div class="clab-panel" data-lang="r" data-title="R">
+      <p class="clab-panel-label">R</p>
+<pre class="r"><code>x &lt;- c(1, 2, 2, 3, 3, 3, 4, 4, 5, 9)
+h &lt;- hist(x, plot = FALSE)
+h$breaks
+h$counts</code></pre>
+    </div>
+    <div class="clab-panel" data-lang="py" data-title="Python">
+      <p class="clab-panel-label">Python</p>
+<pre class="python"><code>import numpy as np
+x = np.array([1, 2, 2, 3, 3, 3, 4, 4, 5, 9])
+counts, edges = np.histogram(x)     # what plt.hist(x) uses
+print(counts)
+print(edges)</code></pre>
+    </div>
+  </div>
+  <details class="clab-answer">
+    <summary>Show the answer</summary>
+    <p><strong>R</strong> chooses about 5 bins (Sturges' rule) with "pretty" edges:</p>
+<pre class="clab-output"><code>[1]  0  2  4  6  8 10
+[1] 3 5 1 0 1</code></pre>
+    <p><strong>NumPy</strong> and <code>plt.hist()</code> use 10 equal bins from the minimum to the maximum:</p>
+<pre class="clab-output"><code>[1 2 3 2 0 1 0 0 0 1]
+[1.  1.8 2.6 3.4 4.2 5.  5.8 6.6 7.4 8.2 9. ]</code></pre>
+    <p>Two different pictures of the same ten numbers.</p>
+  </details>
+</div>
+
+<h2 id="idea">3 The idea</h2>
+<p>Three choices define a histogram. <strong>Number of bins:</strong> R's <code>hist()</code> uses Sturges' rule (⌈log₂ n + 1⌉ = 5 here) and rounds the edges with <code>pretty()</code>; NumPy and matplotlib use 10 bins by default. <strong>Edges:</strong> R chooses round numbers; NumPy splits the range from min to max equally. <strong>Edge rule:</strong> R's bins are closed on the <em>right</em>, (0, 2], so the value 2 goes into the first bin; NumPy's are closed on the <em>left</em>, [2, 4), so 2 goes into the second.</p>
+<p>With few observations, or with rounded data (ages, scores, Likert items), many values sit exactly on edges, and the edge rule can change the shape you see.</p>
+
+<h2 id="task">4 Your task</h2>
+<div class="clab-box clab-box--task">
+  <p class="clab-box-title">One histogram in both languages</p>
+  <p>Use the edges 0, 2, 4, 6, 8, 10 in both languages. First compare the counts with each language's default edge rule, then make R give exactly the same counts as NumPy.</p>
+  <div class="clab-tabs" data-label="Language">
+    <div class="clab-panel" data-lang="r" data-title="R">
+      <p class="clab-panel-label">R — starter code</p>
+<pre class="r"><code>x &lt;- c(1, 2, 2, 3, 3, 3, 4, 4, 5, 9)
+
+# Your code: hist(x, breaks = ..., plot = FALSE)$counts</code></pre>
+    </div>
+    <div class="clab-panel" data-lang="py" data-title="Python">
+      <p class="clab-panel-label">Python — starter code</p>
+<pre class="python"><code>import numpy as np
+x = np.array([1, 2, 2, 3, 3, 3, 4, 4, 5, 9])
+
+# Your code: np.histogram(x, bins=...)</code></pre>
+    </div>
+  </div>
+</div>
+
+<h2 id="hints">5 Hints</h2>
+<details class="clab-hint">
+  <summary>Hint 1</summary>
+  <p>Both functions accept the edges directly: <code>breaks = seq(0, 10, by = 2)</code> in R, <code>bins=[0, 2, 4, 6, 8, 10]</code> in NumPy.</p>
+</details>
+<details class="clab-hint">
+  <summary>Hint 2</summary>
+  <p>R's <code>hist()</code> has an argument <code>right</code>. Which value makes the bins left-closed, like NumPy's?</p>
+</details>
+
+<h2 id="solution">6 Solution</h2>
+<details class="clab-solution">
+  <summary>Show the solution</summary>
+  <div class="clab-tabs" data-label="Language">
+    <div class="clab-panel" data-lang="r" data-title="R">
+      <p class="clab-panel-label">R</p>
+<pre class="r"><code>x &lt;- c(1, 2, 2, 3, 3, 3, 4, 4, 5, 9)
+b &lt;- seq(0, 10, by = 2)
+
+hist(x, breaks = b, plot = FALSE)$counts                 # (0,2], (2,4], ...
+hist(x, breaks = b, right = FALSE, plot = FALSE)$counts  # [0,2), [2,4), ...
+hist(x, breaks = b, right = FALSE)                       # draw it</code></pre>
+<p class="clab-output-label">Output</p>
+<pre class="clab-output"><code>[1] 3 5 1 0 1
+[1] 1 5 3 0 1</code></pre>
+    </div>
+    <div class="clab-panel" data-lang="py" data-title="Python">
+      <p class="clab-panel-label">Python</p>
+<pre class="python"><code>import numpy as np
+x = np.array([1, 2, 2, 3, 3, 3, 4, 4, 5, 9])
+
+print(np.histogram(x, bins=[0, 2, 4, 6, 8, 10])[0])   # [0,2), [2,4), ..., [8,10]
+# import matplotlib.pyplot as plt
+# plt.hist(x, bins=[0, 2, 4, 6, 8, 10]); plt.show()</code></pre>
+<p class="clab-output-label">Output</p>
+<pre class="clab-output"><code>[1 5 3 0 1]</code></pre>
+    </div>
+  </div>
+  <p>With the same edges, the default rules still disagree: R puts the two 2s and the two 4s in the lower bin, NumPy in the upper one. <code>right = FALSE</code> makes R match NumPy.</p>
+</details>
+
+<h2 id="check">7 Check yourself</h2>
+<div class="clab-box clab-box--check">
+  <p class="clab-box-title">Your answer is correct if</p>
+  <ul>
+    <li>both languages give the counts <code>1 5 3 0 1</code> with edges 0, 2, …, 10;</li>
+    <li>you can explain why R's default gives <code>3 5 1 0 1</code> instead.</li>
+  </ul>
+</div>
+
+<h2 id="why">8 Why it matters</h2>
+<div class="clab-box clab-box--ai">
+  <p class="clab-box-title">The bins are part of the result</p>
+  <p>Changing the bins can make a distribution look skewed, bimodal or flat. When a histogram supports a claim ("the scores are right-skewed"), set the edges yourself, state them in the caption, and check that the conclusion does not depend on them.</p>
+</div>
+
+<h2 id="further">9 Going further</h2>
+<ul>
+  <li><strong>R:</strong> try <code>breaks = "Scott"</code> and <code>breaks = "FD"</code>. How many bins does each give for these data?</li>
+  <li><strong>Python:</strong> try <code>np.histogram(x, bins="sturges")</code>. Does it reproduce R's default edges? Why not exactly?</li>
+  <li><strong>Both:</strong> draw the histogram with 2, 5 and 10 bins. Which one would you publish?</li>
+</ul>
+
+<h2 id="references">10 References</h2>
+<ul>
+  <li>R documentation: <code>?hist</code> (arguments <code>breaks</code>, <code>right</code>) and <code>?nclass.Sturges</code>.</li>
+  <li>NumPy documentation. <em>numpy.histogram</em>. https://numpy.org/doc/stable/reference/generated/numpy.histogram.html</li>
+  <li>Sturges, H. A. (1926). The choice of a class interval. <em>Journal of the American Statistical Association</em>, 21(153), 65–66.</li>
+</ul>
+
+{% endraw %}
+  <div class="lesson-nav">
+    <a class="btn btn-outline" href="/code-lab/beginner/describing-data/rounding-for-reports/">← Exercise 4.3: Rounding for reports</a>
+    <a class="btn" href="/code-lab/beginner/first-plots/boxplot-outliers/">Exercise 5.2: Boxplot outliers →</a>
+  </div>
+</div>
+</section>
+
+<script src="/js/code-lab.js" defer></script>

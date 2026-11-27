@@ -79,10 +79,16 @@ paths_styles: true
       <a class="card-foot" href="/code-lab/beginner/describing-data/standard-deviation-divisor/">Start the group →</a>
     </div>
 
-    <div class="card card-muted">
+    <div class="card">
       <h3>5. First plots</h3>
-      <p>Histograms, boxplots and scatterplots in base R, ggplot2 and matplotlib.</p>
-      <p class="muted-mini">Status: Planned</p>
+      <p>Histograms, boxplots and bar charts in R and matplotlib, and the default choices that change what you see.</p>
+      <ul class="bullets">
+        <li><a href="/code-lab/beginner/first-plots/histogram-bins/">5.1 Histogram bins</a></li>
+        <li><a href="/code-lab/beginner/first-plots/boxplot-outliers/">5.2 Boxplot outliers</a></li>
+        <li><a href="/code-lab/beginner/first-plots/bar-chart-order/">5.3 Bar chart order</a></li>
+      </ul>
+      <p class="muted-mini">Status: Available · 3 exercises</p>
+      <a class="card-foot" href="/code-lab/beginner/first-plots/histogram-bins/">Start the group →</a>
     </div>
 
     <div class="card card-muted">
