@@ -128,7 +128,7 @@ translation_pair: critical-values-z-and-t
 </div>
 
 <div class="lesson-nav">
-<a class="btn btn-outline" href="/inference/confidence-intervals/interval-blueprint-estimate-plus-minus/" hreflang="en" lang="en" dir="ltr">← Previous: Interval Blueprint (English)</a>
-<a class="btn" href="/inference/confidence-intervals/ci-for-mean-sigma-known-z/" hreflang="en" lang="en" dir="ltr">Next: CI for Mean (σ Known) (English) →</a>
+<a class="btn btn-outline" href="/ar/inference/confidence-intervals/interval-blueprint-estimate-plus-minus/">→ السابق: مخطط فترة الثقة</a>
+<a class="btn" href="/ar/inference/confidence-intervals/ci-for-mean-sigma-known-z/">التالي: فترة z للمتوسط ←</a>
 </div>
 </div></section>

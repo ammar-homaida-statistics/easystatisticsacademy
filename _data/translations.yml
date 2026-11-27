@@ -200,3 +200,15 @@
 - id: critical-values-z-and-t
   en: /inference/confidence-intervals/critical-values-z-and-t/
   ar: /ar/inference/confidence-intervals/critical-values-z-and-t/
+- id: practical-significance
+  en: /inference/hypothesis-testing/practical-significance/
+  ar: /ar/inference/hypothesis-testing/practical-significance/
+- id: interval-blueprint-estimate-plus-minus
+  en: /inference/confidence-intervals/interval-blueprint-estimate-plus-minus/
+  ar: /ar/inference/confidence-intervals/interval-blueprint-estimate-plus-minus/
+- id: ci-for-mean-sigma-known-z
+  en: /inference/confidence-intervals/ci-for-mean-sigma-known-z/
+  ar: /ar/inference/confidence-intervals/ci-for-mean-sigma-known-z/
+- id: independence-and-dependence
+  en: /inference/assumptions-robustness/independence-and-dependence/
+  ar: /ar/inference/assumptions-robustness/independence-and-dependence/

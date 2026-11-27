@@ -4,6 +4,8 @@ title: Practical Significance
 description: Learn why statistical significance does not necessarily imply real-world importance and how practical significance complements hypothesis testing.
 permalink: /inference/hypothesis-testing/practical-significance/
 sidebar: false
+learning_resource: true
+translation_pair: practical-significance
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -40,6 +42,8 @@ sidebar: false
     </div>
 
     <h1>Practical Significance</h1>
+
+    <p><a href="/ar/inference/hypothesis-testing/practical-significance/" lang="ar" dir="rtl" hreflang="ar">النسخة العربية: الأهمية العملية</a></p>
 {% include lab-noscript.html %}
 
     <p class="lead">

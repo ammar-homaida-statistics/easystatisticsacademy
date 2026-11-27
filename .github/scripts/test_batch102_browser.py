@@ -111,7 +111,7 @@ class Browser102(unittest.TestCase):
         for route,nav in ((WHAT,"/ar/inference/hypothesis-testing/null-and-alternative/"),
                           (CID,"/ar/inference/hypothesis-testing/one-sided-vs-two-sided/"),
                           (HET,"/ar/inference/assumptions-robustness/outliers-and-influence/"),
-                          (CRIT,"/inference/confidence-intervals/ci-for-mean-sigma-known-z/")):
+                          (CRIT,"/ar/inference/confidence-intervals/ci-for-mean-sigma-known-z/")):
             for width in (320,375):
                 with self.subTest(route=route,width=width):
                     self.page.set_viewport_size({"width":width,"height":820})

@@ -29,6 +29,10 @@ lang: ar
 <p><a href="/ar/inference/hypothesis-testing/ci-and-test-connection/">فترات الثقة واختبارات الفرضيات — درس عربي ومختبر تفاعلي</a></p>
 <p><a href="/ar/inference/assumptions-robustness/heteroscedasticity-variance-issues/">عدم تجانس التباين — درس عربي ومختبر ليفين وبراون–فورسايث</a></p>
 <p><a href="/ar/inference/confidence-intervals/critical-values-z-and-t/">القيم الحرجة لتوزيعي z وt — درس عربي مع جدول مدقَّق</a></p>
+<p><a href="/ar/inference/hypothesis-testing/practical-significance/">الأهمية العملية — درس عربي ومختبر تفاعلي</a></p>
+<p><a href="/ar/inference/confidence-intervals/interval-blueprint-estimate-plus-minus/">مخطط فترة الثقة: التقدير ± هامش الخطأ — درس عربي</a></p>
+<p><a href="/ar/inference/confidence-intervals/ci-for-mean-sigma-known-z/">فترة الثقة للمتوسط عندما يكون σ معلومًا — درس عربي</a></p>
+<p><a href="/ar/inference/assumptions-robustness/independence-and-dependence/">الاستقلال والاعتماد — درس عربي ومختبر AR(1)</a></p>
 <p><a href="/ar/inference/classical-tests/mcnemar-test/">اختبار ماكنمار للنسب المزدوجة — درس عربي ومختبر تفاعلي</a></p>
 <p><a href="/ar/inference/classical-tests/chi-square-homogeneity-test/">اختبار كاي تربيع للتجانس — درس عربي ومختبر تفاعلي مع البواقي المعدّلة</a></p>
 <p><a href="/ar/inference/classical-tests/chi-square-independence-test/">اختبار كاي تربيع للاستقلال — درس عربي ومختبر تفاعلي لجدول 2 × 2</a></p>
