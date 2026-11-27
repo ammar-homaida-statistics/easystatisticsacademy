@@ -1,0 +1,218 @@
+---
+layout: default
+title: "Filtering Rows When Some Values Are Missing — Code Lab, Exercise 3.1"
+description: "Beginner R and pandas exercise: df[df$age > 30, ] adds rows of NA when age is missing; pandas drops them silently. Filter safely and report what was excluded."
+permalink: /code-lab/beginner/data-frames/filtering-rows-with-missing-values/
+sidebar: false
+learning_resource: true
+---
+{% include code-lab-styles.html %}
+
+<section class="hero hero-section">
+  <div class="hero-card">
+    <div class="badge-row">
+      <span class="badge">Code Lab</span>
+      <span class="badge">Beginner</span>
+      <span class="badge">Group 3 · Data frames</span>
+      <span class="badge">Exercise 3.1</span>
+    </div>
+    <h1>Exercise 3.1 — Filtering Rows When Some Values Are Missing</h1>
+    <p class="lead">Selecting the rows that meet a condition is the most common data-frame operation. When the variable has missing values, R and pandas each do something you might not expect.</p>
+    <p class="muted-mini">Difficulty: <span class="clab-stars" aria-label="1 of 3">★☆☆</span> · Time: 20 min · Prerequisites: Groups 1 and 2</p>
+    <ul class="clab-chips" aria-label="Languages and skills">
+      <li class="clab-chip-r">R</li>
+      <li class="clab-chip-py">Python · pandas</li>
+      <li>data frames</li>
+      <li>filtering</li>
+      <li>missing values</li>
+    </ul>
+    <div class="hero-actions">
+      <a class="btn btn-outline" href="/code-lab/beginner/">Beginner exercises</a>
+    </div>
+  </div>
+</section>
+
+<nav class="esa-lesson-toc" aria-label="On this page"><details><summary>On this page</summary><ol>
+  <li><a href="#goal">Goal</a></li>
+  <li><a href="#predict">Predict first</a></li>
+  <li><a href="#idea">The idea</a></li>
+  <li><a href="#task">Your task</a></li>
+  <li><a href="#hints">Hints</a></li>
+  <li><a href="#solution">Solution</a></li>
+  <li><a href="#check">Check yourself</a></li>
+  <li><a href="#why">Why it matters</a></li>
+  <li><a href="#further">Going further</a></li>
+  <li><a href="#references">References</a></li>
+</ol></details></nav>
+
+<section>
+<div class="content-narrow clab">
+{% raw %}
+
+<h2 id="goal">1 Goal</h2>
+<p>By the end of this exercise you will be able to:</p>
+<ol>
+  <li>predict what row filtering does with missing values in R and pandas;</li>
+  <li>filter rows safely in both languages;</li>
+  <li>report how many rows were excluded because the value was missing.</li>
+</ol>
+
+<h2 id="predict">2 Predict first</h2>
+<div class="clab-box clab-box--predict">
+  <p class="clab-box-title">Before running anything: what does each line return?</p>
+  <div class="clab-tabs" data-label="Language">
+    <div class="clab-panel" data-lang="r" data-title="R">
+      <p class="clab-panel-label">R</p>
+<pre class="r"><code>df &lt;- data.frame(id  = 1:5,
+                 age = c(34, NA, 52, 17, 41),
+                 sex = c("F", "M", "F", "M", "F"))
+df[df$age &gt; 30, ]</code></pre>
+    </div>
+    <div class="clab-panel" data-lang="py" data-title="Python">
+      <p class="clab-panel-label">Python</p>
+<pre class="python"><code>import numpy as np
+import pandas as pd
+df = pd.DataFrame({"id":  [1, 2, 3, 4, 5],
+                   "age": [34, np.nan, 52, 17, 41],
+                   "sex": ["F", "M", "F", "M", "F"]})
+print(len(df[df["age"] &gt; 30]))</code></pre>
+    </div>
+  </div>
+  <details class="clab-answer">
+    <summary>Show the answer</summary>
+    <p><strong>R</strong> returns four rows. The comparison <code>NA &gt; 30</code> is <code>NA</code>, and indexing by <code>NA</code> creates a row in which every value is missing:</p>
+<pre class="clab-output"><code>   id age  sex
+1   1  34    F
+NA NA  NA &lt;NA&gt;
+3   3  52    F
+5   5  41    F</code></pre>
+    <p><strong>pandas</strong> returns three rows. <code>NaN &gt; 30</code> is <code>False</code>, so the person with a missing age is dropped without any message:</p>
+<pre class="clab-output"><code>3</code></pre>
+  </details>
+</div>
+
+<h2 id="idea">3 The idea</h2>
+<p>A logical condition on a column with missing values has three possible results in R: <code>TRUE</code>, <code>FALSE</code> and <code>NA</code>. Square-bracket indexing keeps the <code>TRUE</code> rows <em>and</em> creates an empty row for every <code>NA</code>, so counts and means computed afterwards are wrong.</p>
+<p>Safe ways to filter in R are <code>df[which(df$age &gt; 30), ]</code> (<code>which()</code> keeps only the <code>TRUE</code> positions), <code>subset(df, age &gt; 30)</code>, or <code>dplyr::filter()</code>. pandas already treats missing as "not selected". In both cases the person with a missing age is excluded, and that exclusion should be counted and reported.</p>
+
+<h2 id="task">4 Your task</h2>
+<div class="clab-box clab-box--task">
+  <p class="clab-box-title">People over 30</p>
+  <p>Select the people older than 30. Report (a) how many there are, (b) their mean age, and (c) how many people were excluded because their age is missing.</p>
+  <div class="clab-tabs" data-label="Language">
+    <div class="clab-panel" data-lang="r" data-title="R">
+      <p class="clab-panel-label">R — starter code</p>
+<pre class="r"><code>df &lt;- data.frame(id  = 1:5,
+                 age = c(34, NA, 52, 17, 41),
+                 sex = c("F", "M", "F", "M", "F"))
+
+# Your code: over &lt;- ...</code></pre>
+    </div>
+    <div class="clab-panel" data-lang="py" data-title="Python">
+      <p class="clab-panel-label">Python — starter code</p>
+<pre class="python"><code>import numpy as np
+import pandas as pd
+df = pd.DataFrame({"id":  [1, 2, 3, 4, 5],
+                   "age": [34, np.nan, 52, 17, 41],
+                   "sex": ["F", "M", "F", "M", "F"]})
+
+# Your code: over = ...</code></pre>
+    </div>
+  </div>
+</div>
+
+<h2 id="hints">5 Hints</h2>
+<details class="clab-hint">
+  <summary>Hint 1</summary>
+  <p>In R, compare <code>df$age &gt; 30</code> with <code>which(df$age &gt; 30)</code>. Which one contains <code>NA</code>?</p>
+</details>
+<details class="clab-hint">
+  <summary>Hint 2</summary>
+  <p>The number of people excluded because of missing age is <code>sum(is.na(df$age))</code> in R and <code>df["age"].isna().sum()</code> in pandas.</p>
+</details>
+
+<h2 id="solution">6 Solution</h2>
+<details class="clab-solution">
+  <summary>Show the solution</summary>
+  <div class="clab-tabs" data-label="Language">
+    <div class="clab-panel" data-lang="r" data-title="R">
+      <p class="clab-panel-label">R</p>
+<pre class="r"><code>df &lt;- data.frame(id  = 1:5,
+                 age = c(34, NA, 52, 17, 41),
+                 sex = c("F", "M", "F", "M", "F"))
+
+over &lt;- df[which(df$age &gt; 30), ]   # or subset(df, age &gt; 30)
+over
+nrow(over)                          # (a)
+mean(over$age)                      # (b)
+sum(is.na(df$age))                  # (c)</code></pre>
+<p class="clab-output-label">Output</p>
+<pre class="clab-output"><code>  id age sex
+1  1  34   F
+3  3  52   F
+5  5  41   F
+[1] 3
+[1] 42.33333
+[1] 1</code></pre>
+    </div>
+    <div class="clab-panel" data-lang="py" data-title="Python">
+      <p class="clab-panel-label">Python</p>
+<pre class="python"><code>import numpy as np
+import pandas as pd
+df = pd.DataFrame({"id":  [1, 2, 3, 4, 5],
+                   "age": [34, np.nan, 52, 17, 41],
+                   "sex": ["F", "M", "F", "M", "F"]})
+
+over = df[df["age"] &gt; 30]
+print(over)
+print(len(over), round(over["age"].mean(), 5))   # (a) and (b)
+print(df["age"].isna().sum())                     # (c)</code></pre>
+<p class="clab-output-label">Output</p>
+<pre class="clab-output"><code>   id   age sex
+0   1  34.0   F
+2   3  52.0   F
+4   5  41.0   F
+3 42.33333
+1</code></pre>
+    </div>
+  </div>
+  <p>With the unsafe R line, <code>nrow()</code> returns 4 and <code>mean()</code> returns <code>NA</code>: both are wrong.</p>
+</details>
+
+<h2 id="check">7 Check yourself</h2>
+<div class="clab-box clab-box--check">
+  <p class="clab-box-title">Your answer is correct if</p>
+  <ul>
+    <li>3 people are older than 30, with mean age 42.33 ((34 + 52 + 41) / 3);</li>
+    <li>1 person was excluded because the age is missing, and your result contains no row of <code>NA</code>s.</li>
+  </ul>
+</div>
+
+<h2 id="why">8 Why it matters</h2>
+<div class="clab-box clab-box--ai">
+  <p class="clab-box-title">The excluded person is part of your sample</p>
+  <p>A row of <code>NA</code>s inflates counts, and a silently dropped row shrinks them. Either way the denominator of every percentage built on the filter changes. A careful report says: 3 of the 4 people with a known age are over 30; age is missing for 1 person.</p>
+</div>
+
+<h2 id="further">9 Going further</h2>
+<ul>
+  <li><strong>R:</strong> compare <code>subset(df, age &gt; 30)</code> with <code>dplyr::filter(df, age &gt; 30)</code>. Do they agree?</li>
+  <li><strong>Python:</strong> select the people whose age is <em>not</em> over 30 with <code>df[~(df["age"] &gt; 30)]</code>. Where does the missing age end up now, and why?</li>
+  <li><strong>Both:</strong> select women over 30 by combining two conditions (recall Exercise 2.3).</li>
+</ul>
+
+<h2 id="references">10 References</h2>
+<ul>
+  <li>R Core Team. <em>An Introduction to R</em>, Section 2.7 (index vectors). https://cran.r-project.org/manuals.html</li>
+  <li>pandas documentation. <em>Indexing and selecting data: boolean indexing</em>. https://pandas.pydata.org/docs/user_guide/indexing.html</li>
+</ul>
+
+{% endraw %}
+  <div class="lesson-nav">
+    <a class="btn btn-outline" href="/code-lab/beginner/data-types/logical-values/">← Exercise 2.3: Logical values</a>
+    <a class="btn" href="/code-lab/beginner/data-frames/grouped-summaries/">Exercise 3.2: Grouped summaries →</a>
+  </div>
+</div>
+</section>
+
+<script src="/js/code-lab.js" defer></script>

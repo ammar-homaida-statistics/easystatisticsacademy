@@ -55,10 +55,16 @@ paths_styles: true
       <a class="card-foot" href="/code-lab/beginner/data-types/factors-and-categories/">Start the group →</a>
     </div>
 
-    <div class="card card-muted">
+    <div class="card">
       <h3>3. Data frames</h3>
-      <p>Reading data, selecting, filtering, creating variables, grouped summaries.</p>
-      <p class="muted-mini">Status: Planned</p>
+      <p>Filtering rows, grouped summaries and joining tables, without losing or duplicating observations.</p>
+      <ul class="bullets">
+        <li><a href="/code-lab/beginner/data-frames/filtering-rows-with-missing-values/">3.1 Filtering rows with missing values</a></li>
+        <li><a href="/code-lab/beginner/data-frames/grouped-summaries/">3.2 Grouped summaries</a></li>
+        <li><a href="/code-lab/beginner/data-frames/joining-tables/">3.3 Joining tables</a></li>
+      </ul>
+      <p class="muted-mini">Status: Available · 3 exercises</p>
+      <a class="card-foot" href="/code-lab/beginner/data-frames/filtering-rows-with-missing-values/">Start the group →</a>
     </div>
 
     <div class="card card-muted">
