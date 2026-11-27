@@ -1,0 +1,189 @@
+---
+layout: default
+title: "Rounding Numbers for Reports — Code Lab, Exercise 4.3"
+description: "Beginner R and Python exercise: round(2.5) is 2 in R and Python (round half to even), and round(2.675, 2) is 2.67 because of binary storage. Round deliberately and know the rule."
+permalink: /code-lab/beginner/describing-data/rounding-for-reports/
+sidebar: false
+learning_resource: true
+---
+{% include code-lab-styles.html %}
+
+<section class="hero hero-section">
+  <div class="hero-card">
+    <div class="badge-row">
+      <span class="badge">Code Lab</span>
+      <span class="badge">Beginner</span>
+      <span class="badge">Group 4 · Describing data</span>
+      <span class="badge">Exercise 4.3</span>
+    </div>
+    <h1>Exercise 4.3 — Rounding Numbers for Reports</h1>
+    <p class="lead">Rounding looks like the simplest step of a report. Yet R and Python round 2.5 down to 2, Excel rounds it up to 3, and 2.675 rounds to 2.67 everywhere a computer stores it in binary.</p>
+    <p class="muted-mini">Difficulty: <span class="clab-stars" aria-label="1 of 3">★☆☆</span> · Time: 20 min · Prerequisites: Exercise 1.3</p>
+    <ul class="clab-chips" aria-label="Languages and skills">
+      <li class="clab-chip-r">R</li>
+      <li class="clab-chip-py">Python · pandas</li>
+      <li>rounding</li>
+      <li>floating point</li>
+      <li>reporting</li>
+    </ul>
+    <div class="hero-actions">
+      <a class="btn btn-outline" href="/code-lab/beginner/">Beginner exercises</a>
+    </div>
+  </div>
+</section>
+
+<nav class="esa-lesson-toc" aria-label="On this page"><details><summary>On this page</summary><ol>
+  <li><a href="#goal">Goal</a></li>
+  <li><a href="#predict">Predict first</a></li>
+  <li><a href="#idea">The idea</a></li>
+  <li><a href="#task">Your task</a></li>
+  <li><a href="#hints">Hints</a></li>
+  <li><a href="#solution">Solution</a></li>
+  <li><a href="#check">Check yourself</a></li>
+  <li><a href="#why">Why it matters</a></li>
+  <li><a href="#further">Going further</a></li>
+  <li><a href="#references">References</a></li>
+</ol></details></nav>
+
+<section>
+<div class="content-narrow clab">
+{% raw %}
+
+<h2 id="goal">1 Goal</h2>
+<p>By the end of this exercise you will be able to:</p>
+<ol>
+  <li>predict how R and Python round values ending in 5;</li>
+  <li>explain why some values seem to round the wrong way;</li>
+  <li>round half away from zero when a rule requires it, and know its limits.</li>
+</ol>
+
+<h2 id="predict">2 Predict first</h2>
+<div class="clab-box clab-box--predict">
+  <p class="clab-box-title">Before running anything: what does each line return?</p>
+  <div class="clab-tabs" data-label="Language">
+    <div class="clab-panel" data-lang="r" data-title="R">
+      <p class="clab-panel-label">R</p>
+<pre class="r"><code>round(c(0.5, 1.5, 2.5, 3.5))
+round(2.675, 2)</code></pre>
+    </div>
+    <div class="clab-panel" data-lang="py" data-title="Python">
+      <p class="clab-panel-label">Python</p>
+<pre class="python"><code>print(round(2.5), round(3.5))
+print(round(2.675, 2))</code></pre>
+    </div>
+  </div>
+  <details class="clab-answer">
+    <summary>Show the answer</summary>
+    <p>Both languages round a value exactly halfway to the nearest <em>even</em> digit, so 0.5 → 0 and 2.5 → 2:</p>
+<pre class="clab-output"><code>[1] 0 2 2 4
+[1] 2.67</code></pre>
+<pre class="clab-output"><code>2 4
+2.67</code></pre>
+    <p>And 2.675 becomes 2.67, not 2.68, in both.</p>
+  </details>
+</div>
+
+<h2 id="idea">3 The idea</h2>
+<p><strong>Round half to even</strong> ("banker's rounding", the IEEE 754 default) rounds an exact tie to the even neighbour. Over many values, half the ties go up and half go down, so sums and means are not pushed upwards. Excel, SPSS's <code>RND</code> and most school textbooks instead round <strong>half away from zero</strong> (2.5 → 3).</p>
+<p>A second effect has nothing to do with the rule: 2.675 cannot be stored exactly in binary (Exercise 1.3). The stored value is 2.67499999999999982…, which is <em>below</em> the tie, so every method rounds it to 2.67. Only decimal arithmetic on the text "2.675" gives 2.68.</p>
+
+<h2 id="task">4 Your task</h2>
+<div class="clab-box clab-box--task">
+  <p class="clab-box-title">Round half away from zero</p>
+  <p>Write a rounding function that rounds halves away from zero, so that 0.5, 1.5, 2.5, 3.5 become 1, 2, 3, 4. Then apply it to 2.675 with 2 decimals and explain the result.</p>
+  <div class="clab-tabs" data-label="Language">
+    <div class="clab-panel" data-lang="r" data-title="R">
+      <p class="clab-panel-label">R — starter code</p>
+<pre class="r"><code># Your code: round_half_up &lt;- function(x, digits = 0) { ... }</code></pre>
+    </div>
+    <div class="clab-panel" data-lang="py" data-title="Python">
+      <p class="clab-panel-label">Python — starter code</p>
+<pre class="python"><code># Your code: def round_half_up(x, digits=0): ...</code></pre>
+    </div>
+  </div>
+</div>
+
+<h2 id="hints">5 Hints</h2>
+<details class="clab-hint">
+  <summary>Hint 1</summary>
+  <p>Shift the decimal point, add 0.5 to the absolute value, take <code>floor()</code>, shift back, and restore the sign.</p>
+</details>
+<details class="clab-hint">
+  <summary>Hint 2</summary>
+  <p>Python's <code>decimal</code> module has a rounding mode <code>ROUND_HALF_UP</code>; create the <code>Decimal</code> from a <em>string</em>, not from a float.</p>
+</details>
+
+<h2 id="solution">6 Solution</h2>
+<details class="clab-solution">
+  <summary>Show the solution</summary>
+  <div class="clab-tabs" data-label="Language">
+    <div class="clab-panel" data-lang="r" data-title="R">
+      <p class="clab-panel-label">R</p>
+<pre class="r"><code>round_half_up &lt;- function(x, digits = 0) {
+  m &lt;- 10^digits
+  sign(x) * floor(abs(x) * m + 0.5) / m
+}
+round_half_up(c(0.5, 1.5, 2.5, 3.5))
+round_half_up(2.675, 2)              # still 2.67: stored as 2.67499...</code></pre>
+<p class="clab-output-label">Output</p>
+<pre class="clab-output"><code>[1] 1 2 3 4
+[1] 2.67</code></pre>
+    </div>
+    <div class="clab-panel" data-lang="py" data-title="Python">
+      <p class="clab-panel-label">Python</p>
+<pre class="python"><code>from decimal import Decimal, ROUND_HALF_UP
+
+def round_half_up(x, digits=0):
+    q = Decimal(1).scaleb(-digits)            # 1, 0.1, 0.01, ...
+    return float(Decimal(str(x)).quantize(q, rounding=ROUND_HALF_UP))
+
+print([round_half_up(v) for v in [0.5, 1.5, 2.5, 3.5]])
+print(Decimal(2.675))                         # what is really stored
+print(round_half_up(2.675, 2))                # decimal text "2.675"</code></pre>
+<p class="clab-output-label">Output</p>
+<pre class="clab-output"><code>[1.0, 2.0, 3.0, 4.0]
+2.67499999999999982236431605997495353221893310546875
+2.68</code></pre>
+    </div>
+  </div>
+  <p>The R function works on the stored binary value, so 2.675 still gives 2.67. The Python version converts the number to its shortest decimal text first (<code>str(2.675)</code> is <code>"2.675"</code>), so it gives 2.68. Neither is wrong; they round different numbers.</p>
+</details>
+
+<h2 id="check">7 Check yourself</h2>
+<div class="clab-box clab-box--check">
+  <p class="clab-box-title">Your answer is correct if</p>
+  <ul>
+    <li>0.5, 1.5, 2.5, 3.5 become 1, 2, 3, 4 with your function;</li>
+    <li>you can explain why 2.675 gives 2.67 with binary values and 2.68 with decimal text.</li>
+  </ul>
+</div>
+
+<h2 id="why">8 Why it matters</h2>
+<div class="clab-box clab-box--ai">
+  <p class="clab-box-title">Round once, at the end</p>
+  <p>Rounding rules matter when tables must match another program exactly, or when rounded values are added up (rounded percentages that sum to 99 or 101). The safer habit is to keep full precision through every calculation and round only the numbers you display, using one stated rule.</p>
+</div>
+
+<h2 id="further">9 Going further</h2>
+<ul>
+  <li><strong>Both:</strong> round the percentages 33.335, 33.335 and 33.33 to two decimals and add them. Do they sum to 100?</li>
+  <li><strong>R:</strong> compare <code>round(-2.5)</code> with <code>round_half_up(-2.5)</code>.</li>
+  <li><strong>Python:</strong> compare <code>np.round(2.5)</code> with <code>round(2.5)</code>. Do NumPy and plain Python follow the same rule?</li>
+</ul>
+
+<h2 id="references">10 References</h2>
+<ul>
+  <li>R documentation: <code>?round</code> (section on rounding to even and representation error).</li>
+  <li>Python documentation. <em>Built-in functions: round()</em> and <em>decimal</em> module. https://docs.python.org/3/library/decimal.html</li>
+  <li>IEEE Standard for Floating-Point Arithmetic, IEEE 754-2019 (roundTiesToEven).</li>
+</ul>
+
+{% endraw %}
+  <div class="lesson-nav">
+    <a class="btn btn-outline" href="/code-lab/beginner/describing-data/quantiles-and-quartiles/">← Exercise 4.2: Quantiles and quartiles</a>
+    <a class="btn" href="/code-lab/beginner/">Beginner exercises →</a>
+  </div>
+</div>
+</section>
+
+<script src="/js/code-lab.js" defer></script>

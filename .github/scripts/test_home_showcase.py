@@ -23,7 +23,7 @@ def section():
 class Showcase(unittest.TestCase):
     def test_every_link_is_a_published_page(self):
         links=re.findall(r'href="(/[^"#?]*)"',section());pages=permalinks()
-        self.assertEqual(len(links),30)  # 3 + 3 actions, 9 + 6 regression lessons + 9 Code Lab exercises
+        self.assertEqual(len(links),33)  # 3 + 3 actions, 9 + 6 regression lessons + 12 Code Lab exercises
         for url in links:
             with self.subTest(url=url):self.assertIn(url,pages)
 

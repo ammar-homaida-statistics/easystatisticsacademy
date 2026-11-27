@@ -67,10 +67,16 @@ paths_styles: true
       <a class="card-foot" href="/code-lab/beginner/data-frames/filtering-rows-with-missing-values/">Start the group →</a>
     </div>
 
-    <div class="card card-muted">
+    <div class="card">
       <h3>4. Describing data</h3>
-      <p>Means, medians, standard deviations and quantiles, and why software can disagree.</p>
-      <p class="muted-mini">Status: Planned</p>
+      <p>Standard deviations, quantiles and rounding, and why software can disagree.</p>
+      <ul class="bullets">
+        <li><a href="/code-lab/beginner/describing-data/standard-deviation-divisor/">4.1 Standard deviation: n or n − 1</a></li>
+        <li><a href="/code-lab/beginner/describing-data/quantiles-and-quartiles/">4.2 Quantiles and quartiles</a></li>
+        <li><a href="/code-lab/beginner/describing-data/rounding-for-reports/">4.3 Rounding for reports</a></li>
+      </ul>
+      <p class="muted-mini">Status: Available · 3 exercises</p>
+      <a class="card-foot" href="/code-lab/beginner/describing-data/standard-deviation-divisor/">Start the group →</a>
     </div>
 
     <div class="card card-muted">
