@@ -101,6 +101,8 @@ jobs:
         run: python -m unittest discover -s .github/scripts -p 'test_batch102_math.py' -v
       - name: Verify Batch #103 AR(1) dependence lab vs covariance sums and simulation, Arabic numbers and pairs
         run: python -m unittest discover -s .github/scripts -p 'test_batch103_math.py' -v
+      - name: Verify Batch #104 exact proportion coverage vs SciPy, Arabic t/proportion numbers and pairs
+        run: python -m unittest discover -s .github/scripts -p 'test_batch104_math.py' -v
       - name: Verify homepage Courses and Code Lab showcase links, counts and markup
         run: python -m unittest discover -s .github/scripts -p 'test_home_showcase.py' -v
       - name: Inventory mathematical placeholders and reject new damage
@@ -174,6 +176,8 @@ jobs:
         run: python .github/scripts/test_batch102_browser.py --site _site
       - name: Check Batch #103 AR(1) lab, Arabic practical-significance explorer and new Arabic lessons at 320/375 px
         run: python .github/scripts/test_batch103_browser.py --site _site
+      - name: Check Batch #104 coverage lab, Arabic proportion and precision explorers, new Arabic lessons at 320/375 px
+        run: python .github/scripts/test_batch104_browser.py --site _site
       - name: Check homepage Courses and Code Lab tabs, keyboard, no-JS fallback and widths
         run: python .github/scripts/test_home_showcase_browser.py --site _site
       - name: Check generated search, CSS assets, and browser behavior

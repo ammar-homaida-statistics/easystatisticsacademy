@@ -4,6 +4,8 @@ title: Width and Precision — What Controls Them?
 description: Learn why some confidence intervals are narrow, others are wide, and what factors determine statistical precision.
 permalink: /inference/confidence-intervals/width-and-precision-what-controls/
 sidebar: false
+learning_resource: true
+translation_pair: width-and-precision-what-controls
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -40,6 +42,8 @@ sidebar: false
     </div>
 
     <h1>Width and Precision — What Controls Them?</h1>
+
+    <p><a href="/ar/inference/confidence-intervals/width-and-precision-what-controls/" lang="ar" dir="rtl" hreflang="ar">النسخة العربية: عرض الفترة ودقتها</a></p>
 {% include lab-noscript.html %}
 
     <p class="lead">

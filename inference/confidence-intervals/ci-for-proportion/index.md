@@ -4,6 +4,8 @@ title: Confidence Interval for a Proportion
 description: Learn how to construct and interpret confidence intervals for population proportions using sample proportions and normal approximations.
 permalink: /inference/confidence-intervals/ci-for-proportion/
 sidebar: false
+learning_resource: true
+translation_pair: ci-for-proportion
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -40,6 +42,8 @@ sidebar: false
     </div>
 
     <h1>Confidence Interval for a Proportion</h1>
+
+    <p><a href="/ar/inference/confidence-intervals/ci-for-proportion/" lang="ar" dir="rtl" hreflang="ar">النسخة العربية: فترة الثقة للنسبة</a></p>
 
     <p class="lead">
       Many real-world questions involve proportions rather than means.
@@ -188,6 +192,50 @@ p\in[0,1]
     </style>
     <script defer src="/js/newcombe-two-proportion.js"></script>
     <script defer src="/js/wald-wilson-one-proportion.js"></script>
+
+    <!-- Batch #104: exact coverage of proportion intervals -->
+    <section class="concept-box" id="esa-pcov-lab" aria-labelledby="esa-pcov-heading">
+    <h2 id="esa-pcov-heading">Interactive lab: exact coverage of proportion intervals</h2>
+    <p>"95% confidence" describes how often the <em>procedure</em> captures the true p. For a binomial count this can be computed exactly, with no simulation, by summing the probabilities of all outcomes whose interval contains p:</p>
+    <div class="esa-pcov-math" dir="ltr" tabindex="0" role="region" aria-label="Exact coverage formula">
+    \[
+    C(p)=\sum_{x=0}^{n}\binom{n}{x}p^{x}(1-p)^{n-x}\,\mathbf 1\{L(x)\le p\le U(x)\}.
+    \]
+    </div>
+    <p>The lab compares the Wald interval, the Wilson score interval, and the Clopper–Pearson "exact" interval, whose limits are beta quantiles: \(L(x)=B_{\alpha/2}(x,\,n-x+1)\) and \(U(x)=B_{1-\alpha/2}(x+1,\,n-x)\).</p>
+    <div class="esa-pcov-grid">
+      <label for="esa-pcov-n">Sample size n<input id="esa-pcov-n" type="number" min="1" max="1000" step="1" inputmode="numeric" value="30" aria-describedby="esa-pcov-error"></label>
+      <label for="esa-pcov-p">True proportion p<input id="esa-pcov-p" type="number" min="0.001" max="0.999" step="0.01" inputmode="decimal" value="0.1" aria-describedby="esa-pcov-error"></label>
+      <label for="esa-pcov-level">Nominal confidence<select id="esa-pcov-level"><option value="90">90%</option><option value="95" selected>95%</option><option value="99">99%</option></select></label>
+    </div>
+    <div class="esa-pcov-controls"><button class="btn btn-outline" type="button" id="esa-pcov-small">n = 30, p = 0.1</button><button class="btn btn-outline" type="button" id="esa-pcov-half">n = 100, p = 0.5</button><button class="btn btn-outline" type="button" id="esa-pcov-rare">n = 20, p = 0.05</button></div>
+    <p id="esa-pcov-error" role="alert" hidden></p>
+    <section id="esa-pcov-results" aria-label="Exact coverage results" role="status" aria-live="polite" aria-atomic="true">
+      <div class="table-wrap"><table><caption>Exact coverage at the chosen n and p</caption>
+        <thead><tr><th scope="col">Interval</th><th scope="col">Coverage</th><th scope="col">Compared with nominal</th></tr></thead><tbody>
+        <tr><th scope="row">Wald</th><td><output id="esa-pcov-wald" dir="ltr">0.8085</output></td><td><output id="esa-pcov-wald-flag">below the nominal level</output></td></tr>
+        <tr><th scope="row">Wilson</th><td><output id="esa-pcov-wilson" dir="ltr">0.9742</output></td><td><output id="esa-pcov-wilson-flag">at or above the nominal level</output></td></tr>
+        <tr><th scope="row">Clopper–Pearson</th><td><output id="esa-pcov-cp" dir="ltr">0.9922</output></td><td><output id="esa-pcov-cp-flag">at or above the nominal level</output></td></tr>
+      </tbody></table></div>
+      <svg id="esa-pcov-chart" viewBox="0 0 460 200" role="img" aria-label="Exact coverage curves" style="display:block;width:100%;height:auto;max-width:560px;direction:ltr"></svg>
+      <p class="muted-mini">Red = Wald, green = Wilson, blue = Clopper–Pearson; the dashed line is the nominal level and the faint vertical line marks the chosen p.</p>
+    </section>
+    <p class="muted-mini">The curves are saw-toothed because n is discrete: coverage jumps as p crosses interval endpoints. With n = 30 and p = 0.1, a nominal 95% Wald interval actually covers only about 81% of the time. Wilson stays close to 95% on average but can dip below it at particular p. Clopper–Pearson never falls below the nominal level, at the price of wider intervals. Values match <code>scipy.stats.binom</code> and <code>scipy.stats.beta</code> to within 10⁻¹². For n near 1,000 the first update can take about a second.</p>
+    </section>
+    <style>
+    #esa-pcov-lab,#esa-pcov-lab *{box-sizing:border-box}
+    #esa-pcov-lab{max-width:100%;min-width:0;overflow-wrap:anywhere}
+    #esa-pcov-lab label{display:block;font-weight:650;margin:6px 0}
+    #esa-pcov-lab :is(input,select){display:block;width:100%;min-width:0;font:inherit;padding:8px;margin-top:4px;border:1px solid #777;border-radius:6px}
+    #esa-pcov-lab .esa-pcov-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr));gap:4px 10px}
+    #esa-pcov-lab .esa-pcov-controls{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+    #esa-pcov-lab .table-wrap,.esa-pcov-math{max-width:100%;overflow-x:auto}
+    .esa-pcov-math{direction:ltr}
+    #esa-pcov-lab [hidden]{display:none!important}
+    #esa-pcov-lab :is(input,select,button):focus-visible,.esa-pcov-math:focus-visible{outline:2px solid #0f766e;outline-offset:3px}
+    </style>
+    <script defer src="/js/proportion-coverage-lab.js"></script>
+
 
 <h2>The Confidence Interval Blueprint Still Applies</h2>
 

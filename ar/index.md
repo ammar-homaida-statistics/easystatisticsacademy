@@ -33,6 +33,10 @@ lang: ar
 <p><a href="/ar/inference/confidence-intervals/interval-blueprint-estimate-plus-minus/">مخطط فترة الثقة: التقدير ± هامش الخطأ — درس عربي</a></p>
 <p><a href="/ar/inference/confidence-intervals/ci-for-mean-sigma-known-z/">فترة الثقة للمتوسط عندما يكون σ معلومًا — درس عربي</a></p>
 <p><a href="/ar/inference/assumptions-robustness/independence-and-dependence/">الاستقلال والاعتماد — درس عربي ومختبر AR(1)</a></p>
+<p><a href="/ar/inference/confidence-intervals/ci-for-mean-sigma-unknown-t/">فترة الثقة للمتوسط عندما يكون σ مجهولًا — درس عربي</a></p>
+<p><a href="/ar/inference/assumptions-robustness/checking-normality-what-and-why/">فحص الطبيعية: ماذا ولماذا؟ — درس عربي</a></p>
+<p><a href="/ar/inference/confidence-intervals/width-and-precision-what-controls/">عرض فترة الثقة ودقتها — درس عربي ومختبر تخطيط حجم العيّنة</a></p>
+<p><a href="/ar/inference/confidence-intervals/ci-for-proportion/">فترة الثقة للنسبة — درس عربي ومختبرا والد/ويلسون والتغطية الدقيقة</a></p>
 <p><a href="/ar/inference/classical-tests/mcnemar-test/">اختبار ماكنمار للنسب المزدوجة — درس عربي ومختبر تفاعلي</a></p>
 <p><a href="/ar/inference/classical-tests/chi-square-homogeneity-test/">اختبار كاي تربيع للتجانس — درس عربي ومختبر تفاعلي مع البواقي المعدّلة</a></p>
 <p><a href="/ar/inference/classical-tests/chi-square-independence-test/">اختبار كاي تربيع للاستقلال — درس عربي ومختبر تفاعلي لجدول 2 × 2</a></p>

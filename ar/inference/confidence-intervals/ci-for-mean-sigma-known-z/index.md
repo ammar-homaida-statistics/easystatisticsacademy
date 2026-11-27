@@ -124,6 +124,6 @@ translation_pair: ci-for-mean-sigma-known-z
 
 <div class="lesson-nav">
 <a class="btn btn-outline" href="/ar/inference/confidence-intervals/critical-values-z-and-t/">→ السابق: القيم الحرجة لتوزيعي z وt</a>
-<a class="btn" href="/inference/confidence-intervals/ci-for-mean-sigma-unknown-t/" hreflang="en" lang="en" dir="ltr">Next: CI for Mean (σ Unknown) (English) →</a>
+<a class="btn" href="/ar/inference/confidence-intervals/ci-for-mean-sigma-unknown-t/">التالي: فترة t للمتوسط ←</a>
 </div>
 </div></section>

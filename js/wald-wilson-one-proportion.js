@@ -12,6 +12,8 @@ function calculate(x,n,level){
 }
 window.esaWaldWilsonMath={calculate};
 const root=document.getElementById("esa-single-proportion-lab");if(!root)return;
+const AR=root.dataset.locale==="ar";
+const T=AR?{"err": "أدخل عدد نجاحات صحيحًا بين الصفر وحجم عيّنة موجب لا يتجاوز 10,000,000.", "small": "عدد النجاحات أو الإخفاقات صغير: قد تكون تغطية فترة والد ضعيفة، خصوصًا قرب 0 أو 1. وفترة ويلسون أفضل غالبًا، لكن لا تضمن أيٌّ منهما التغطية الاسمية تمامًا.", "big": "حتى مع عشرة نجاحات وعشرة إخفاقات على الأقل، لا تُضمن التغطية الاسمية لأي من الطريقتين."}:{"err": "Enter integer successes between zero and a positive sample size no larger than 10,000,000.", "small": "Small success or failure counts: the Wald interval can have poor coverage, especially near 0 or 1. Wilson often behaves better; neither guarantees exact nominal coverage.", "big": "Even with at least ten successes and failures, nominal coverage is not guaranteed for either method."};
 const field=id=>root.querySelector("#esa-sp-"+id);
 const x=field("x"),n=field("n"),level=field("level"),err=field("error"),results=field("results"),chart=field("chart");
 const svgNS="http://www.w3.org/2000/svg";
@@ -26,15 +28,15 @@ function render(){
  const r=calculate(vals[0],vals[1],Number(level.value));
  for(const f of [x,n])f.setAttribute("aria-invalid",r?"false":"true");
  if(!r){
-  err.hidden=false;err.textContent="Enter integer successes between zero and a positive sample size no larger than 10,000,000.";
+  err.hidden=false;err.textContent=T.err;
   results.hidden=true;chart.hidden=true;chart.replaceChildren();return;
  }
  err.hidden=true;err.textContent="";results.hidden=false;chart.hidden=false;
  for(const [id,v] of Object.entries({estimate:r.p,waldlo:r.wald[0],waldhi:r.wald[1],wilsonlo:r.wilson[0],wilsonhi:r.wilson[1]}))field(id).textContent=(100*v).toFixed(4);
  field("confidence").textContent=String(r.level);
  field("warning").textContent=vals[0]<10||vals[1]-vals[0]<10?
-  "Small success or failure counts: the Wald interval can have poor coverage, especially near 0 or 1. Wilson often behaves better; neither guarantees exact nominal coverage.":
-  "Even with at least ten successes and failures, nominal coverage is not guaranteed for either method.";
+  T.small:
+  T.big;
  chart.replaceChildren();
  const min=Math.min(0,r.wald[0],r.wilson[0]),max=Math.max(1,r.wald[1],r.wilson[1]);
  const pad=Math.max(.05,.05*(max-min)),lo=min-pad,hi=max+pad;
@@ -43,7 +45,7 @@ function render(){
  add("line",{x1:sx(1),y1:13,x2:sx(1),y2:105,stroke:"currentColor","stroke-dasharray":"4 4"});
  for(const [i,interval] of [r.wald,r.wilson].entries()){
   const y=35+i*48,stroke=i?"#0f766e":"#2563eb";
-  add("text",{x:5,y:y+4,fill:"currentColor","font-size":12},i?"Wilson":"Wald");
+  add("text",{x:5,y:y+4,fill:"currentColor","font-size":12},i?T.wilsonName:T.waldName);
   add("line",{x1:sx(interval[0]),x2:sx(interval[1]),y1:y,y2:y,stroke,"stroke-width":4});
   for(const bound of interval)add("circle",{cx:sx(bound),cy:y,r:4,fill:stroke});
  }
