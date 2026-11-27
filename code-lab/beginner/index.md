@@ -43,10 +43,16 @@ paths_styles: true
       <a class="card-foot" href="/code-lab/beginner/vectors-and-arrays/recycling-and-broadcasting/">Start the group →</a>
     </div>
 
-    <div class="card card-muted">
+    <div class="card">
       <h3>2. Data types</h3>
       <p>Numbers, text, logical values, and factors versus categoricals.</p>
-      <p class="muted-mini">Status: Planned</p>
+      <ul class="bullets">
+        <li><a href="/code-lab/beginner/data-types/factors-and-categories/">2.1 Factors and categories</a></li>
+        <li><a href="/code-lab/beginner/data-types/text-to-numbers/">2.2 Text that should be numbers</a></li>
+        <li><a href="/code-lab/beginner/data-types/logical-values/">2.3 Logical values</a></li>
+      </ul>
+      <p class="muted-mini">Status: Available · 3 exercises</p>
+      <a class="card-foot" href="/code-lab/beginner/data-types/factors-and-categories/">Start the group →</a>
     </div>
 
     <div class="card card-muted">

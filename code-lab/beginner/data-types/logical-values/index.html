@@ -1,0 +1,192 @@
+---
+layout: default
+title: "Logical Values: Counting, Proportions and Combined Conditions — Code Lab, Exercise 2.3"
+description: "Beginner R and Python exercise: TRUE counts as 1, so sum() counts and mean() gives proportions; combine conditions with & (not && or and) in R and pandas."
+permalink: /code-lab/beginner/data-types/logical-values/
+sidebar: false
+learning_resource: true
+---
+{% include code-lab-styles.html %}
+
+<section class="hero hero-section">
+  <div class="hero-card">
+    <div class="badge-row">
+      <span class="badge">Code Lab</span>
+      <span class="badge">Beginner</span>
+      <span class="badge">Group 2 · Data types</span>
+      <span class="badge">Exercise 2.3</span>
+    </div>
+    <h1>Exercise 2.3 — Logical Values: Counting, Proportions and Combined Conditions</h1>
+    <p class="lead">TRUE and FALSE are numbers in disguise. That makes counting and proportions one line of code, and it also explains a common error when two conditions are combined.</p>
+    <p class="muted-mini">Difficulty: <span class="clab-stars" aria-label="1 of 3">★☆☆</span> · Time: 20 min · Prerequisites: Group 1</p>
+    <ul class="clab-chips" aria-label="Languages and skills">
+      <li class="clab-chip-r">R</li>
+      <li class="clab-chip-py">Python · pandas</li>
+      <li>logical values</li>
+      <li>filtering</li>
+      <li>proportions</li>
+    </ul>
+    <div class="hero-actions">
+      <a class="btn btn-outline" href="/code-lab/beginner/">Beginner exercises</a>
+    </div>
+  </div>
+</section>
+
+<nav class="esa-lesson-toc" aria-label="On this page"><details><summary>On this page</summary><ol>
+  <li><a href="#goal">Goal</a></li>
+  <li><a href="#predict">Predict first</a></li>
+  <li><a href="#idea">The idea</a></li>
+  <li><a href="#task">Your task</a></li>
+  <li><a href="#hints">Hints</a></li>
+  <li><a href="#solution">Solution</a></li>
+  <li><a href="#check">Check yourself</a></li>
+  <li><a href="#why">Why it matters</a></li>
+  <li><a href="#further">Going further</a></li>
+  <li><a href="#references">References</a></li>
+</ol></details></nav>
+
+<section>
+<div class="content-narrow clab">
+{% raw %}
+
+<h2 id="goal">1 Goal</h2>
+<p>By the end of this exercise you will be able to:</p>
+<ol>
+  <li>count and compute proportions with logical vectors;</li>
+  <li>combine conditions element by element with <code>&amp;</code> and <code>|</code>;</li>
+  <li>recognise the errors caused by <code>&amp;&amp;</code> in R and <code>and</code> in pandas.</li>
+</ol>
+
+<h2 id="predict">2 Predict first</h2>
+<div class="clab-box clab-box--predict">
+  <p class="clab-box-title">Before running anything: what does each line return?</p>
+  <div class="clab-tabs" data-label="Language">
+    <div class="clab-panel" data-lang="r" data-title="R">
+      <p class="clab-panel-label">R</p>
+<pre class="r"><code>age &lt;- c(34, 17, 52, 41, 15, 63)
+sum(age &gt;= 18)
+mean(age &gt;= 18)</code></pre>
+    </div>
+    <div class="clab-panel" data-lang="py" data-title="Python">
+      <p class="clab-panel-label">Python</p>
+<pre class="python"><code>import pandas as pd
+age = pd.Series([34, 17, 52, 41, 15, 63])
+print((age &gt;= 18).sum())
+print((age &gt;= 18).mean())</code></pre>
+    </div>
+  </div>
+  <details class="clab-answer">
+    <summary>Show the answer</summary>
+    <p>A comparison gives one TRUE/FALSE per value. TRUE counts as 1 and FALSE as 0, so <code>sum()</code> counts the adults and <code>mean()</code> gives their proportion (4 of 6):</p>
+<pre class="clab-output"><code>[1] 4
+[1] 0.6666667</code></pre>
+    <p>pandas prints the same values: <code>4</code> and <code>0.6666666666666666</code>.</p>
+  </details>
+</div>
+
+<h2 id="idea">3 The idea</h2>
+<p>A condition applied to a vector returns a <strong>logical vector</strong> of the same length. Because TRUE = 1 and FALSE = 0 in arithmetic, <code>sum(condition)</code> is a count and <code>mean(condition)</code> is a proportion.</p>
+<p>To combine conditions element by element, use <code>&amp;</code> (and) and <code>|</code> (or) in both R and pandas, with parentheses around each condition in pandas. R's <code>&amp;&amp;</code> and <code>||</code> are for a <em>single</em> TRUE/FALSE, such as in <code>if ()</code>; since R 4.3 they give an error for longer vectors. Python's <code>and</code> and <code>or</code> likewise cannot be applied to a pandas Series.</p>
+
+<h2 id="task">4 Your task</h2>
+<div class="clab-box clab-box--task">
+  <p class="clab-box-title">Working-age adults</p>
+  <p>From the ages above, select the people aged 18 to 59 (inclusive of 18, below 60), list their ages, and compute what proportion of the whole group they are. First try <code>&amp;&amp;</code> in R and <code>and</code> in Python.</p>
+  <div class="clab-tabs" data-label="Language">
+    <div class="clab-panel" data-lang="r" data-title="R">
+      <p class="clab-panel-label">R — starter code</p>
+<pre class="r"><code>age &lt;- c(34, 17, 52, 41, 15, 63)
+
+age[age &gt;= 18 &amp;&amp; age &lt; 60]     # try this first
+# Your code: ...</code></pre>
+    </div>
+    <div class="clab-panel" data-lang="py" data-title="Python">
+      <p class="clab-panel-label">Python — starter code</p>
+<pre class="python"><code>import pandas as pd
+age = pd.Series([34, 17, 52, 41, 15, 63])
+
+age[(age &gt;= 18) and (age &lt; 60)]   # try this first
+# Your code: ...</code></pre>
+    </div>
+  </div>
+</div>
+
+<h2 id="hints">5 Hints</h2>
+<details class="clab-hint">
+  <summary>Hint 1</summary>
+  <p>Both errors say the same thing: the operator expected one TRUE/FALSE and received six.</p>
+</details>
+<details class="clab-hint">
+  <summary>Hint 2</summary>
+  <p>Use the element-wise operator <code>&amp;</code>. In pandas, keep the parentheses around each condition.</p>
+</details>
+
+<h2 id="solution">6 Solution</h2>
+<details class="clab-solution">
+  <summary>Show the solution</summary>
+  <div class="clab-tabs" data-label="Language">
+    <div class="clab-panel" data-lang="r" data-title="R">
+      <p class="clab-panel-label">R</p>
+<pre class="r"><code>age &lt;- c(34, 17, 52, 41, 15, 63)
+
+working &lt;- age &gt;= 18 &amp; age &lt; 60
+age[working]
+mean(working)</code></pre>
+<p class="clab-output-label">Output</p>
+<pre class="clab-output"><code>[1] 34 52 41
+[1] 0.5</code></pre>
+    </div>
+    <div class="clab-panel" data-lang="py" data-title="Python">
+      <p class="clab-panel-label">Python</p>
+<pre class="python"><code>import pandas as pd
+age = pd.Series([34, 17, 52, 41, 15, 63])
+
+working = (age &gt;= 18) &amp; (age &lt; 60)
+print(age[working].tolist())
+print(working.mean())</code></pre>
+<p class="clab-output-label">Output</p>
+<pre class="clab-output"><code>[34, 52, 41]
+0.5</code></pre>
+    </div>
+  </div>
+  <p>The first attempts fail. In R (4.3 or later): <code>Error in age &gt;= 18 &amp;&amp; age &lt; 60 : 'length = 6' in coercion to 'logical(1)'</code>. In pandas: <code>ValueError: The truth value of a Series is ambiguous.</code></p>
+</details>
+
+<h2 id="check">7 Check yourself</h2>
+<div class="clab-box clab-box--check">
+  <p class="clab-box-title">Your answer is correct if</p>
+  <ul>
+    <li>the selected ages are 34, 52 and 41;</li>
+    <li>the proportion is 0.5 (3 of 6 people).</li>
+  </ul>
+</div>
+
+<h2 id="why">8 Why it matters</h2>
+<div class="clab-box clab-box--ai">
+  <p class="clab-box-title">Old code that now fails, and old code that never worked</p>
+  <p>Before R 4.3, <code>&amp;&amp;</code> on a vector silently used only the first element, so older scripts (and AI suggestions trained on them) could select the wrong rows without any error. If you meet <code>&amp;&amp;</code> or <code>and</code> applied to a whole column, read it as a bug.</p>
+</div>
+
+<h2 id="further">9 Going further</h2>
+<ul>
+  <li><strong>Both:</strong> add a missing age (<code>NA</code> / <code>None</code>) and recompute the proportion. How do R and pandas treat it differently? (Recall Exercise 1.2.)</li>
+  <li><strong>R:</strong> compare <code>which(age &lt; 18)</code> with <code>age &lt; 18</code>. When is each one useful?</li>
+  <li><strong>Python:</strong> rewrite the selection with <code>age.between(18, 59)</code> and check the result is identical.</li>
+</ul>
+
+<h2 id="references">10 References</h2>
+<ul>
+  <li>R Core Team. <em>R Language Definition</em>, Section 3.1.4 (logical operators). https://cran.r-project.org/manuals.html</li>
+  <li>R 4.3.0 NEWS: calling <code>&amp;&amp;</code> or <code>||</code> with arguments of length greater than one now gives an error. https://cran.r-project.org/doc/manuals/r-release/NEWS.html</li>
+  <li>pandas documentation. <em>Boolean indexing</em>. https://pandas.pydata.org/docs/user_guide/indexing.html</li>
+</ul>
+
+{% endraw %}
+  <div class="lesson-nav">
+    <a class="btn btn-outline" href="/code-lab/beginner/data-types/text-to-numbers/">← Exercise 2.2: Text that should be numbers</a>
+    <a class="btn" href="/code-lab/beginner/">Beginner exercises →</a>
+  </div>
+</div>
+</section>
+
+<script src="/js/code-lab.js" defer></script>
