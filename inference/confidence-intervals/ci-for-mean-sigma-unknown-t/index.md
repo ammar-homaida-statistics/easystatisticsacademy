@@ -4,6 +4,8 @@ title: Confidence Interval for a Mean (σ Unknown) — t Interval
 description: Learn how to construct and interpret a confidence interval for a population mean when the population standard deviation is unknown.
 permalink: /inference/confidence-intervals/ci-for-mean-sigma-unknown-t/
 sidebar: false
+learning_resource: true
+translation_pair: ci-for-mean-sigma-unknown-t
 ---
 
 <!-- SAVE LESSON PROGRESS -->
@@ -40,6 +42,8 @@ sidebar: false
     </div>
 
     <h1>Confidence Interval for a Mean (σ Unknown) — t Interval</h1>
+
+    <p><a href="/ar/inference/confidence-intervals/ci-for-mean-sigma-unknown-t/" lang="ar" dir="rtl" hreflang="ar">النسخة العربية: فترة t للمتوسط</a></p>
 
     <p class="lead">
       In real statistical work, the population standard deviation is almost never known.

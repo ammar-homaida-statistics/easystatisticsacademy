@@ -212,3 +212,15 @@
 - id: independence-and-dependence
   en: /inference/assumptions-robustness/independence-and-dependence/
   ar: /ar/inference/assumptions-robustness/independence-and-dependence/
+- id: ci-for-mean-sigma-unknown-t
+  en: /inference/confidence-intervals/ci-for-mean-sigma-unknown-t/
+  ar: /ar/inference/confidence-intervals/ci-for-mean-sigma-unknown-t/
+- id: checking-normality-what-and-why
+  en: /inference/assumptions-robustness/checking-normality-what-and-why/
+  ar: /ar/inference/assumptions-robustness/checking-normality-what-and-why/
+- id: width-and-precision-what-controls
+  en: /inference/confidence-intervals/width-and-precision-what-controls/
+  ar: /ar/inference/confidence-intervals/width-and-precision-what-controls/
+- id: ci-for-proportion
+  en: /inference/confidence-intervals/ci-for-proportion/
+  ar: /ar/inference/confidence-intervals/ci-for-proportion/

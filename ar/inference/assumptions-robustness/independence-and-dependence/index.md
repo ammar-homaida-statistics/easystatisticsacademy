@@ -145,7 +145,7 @@ translation_pair: independence-and-dependence
 </div>
 
 <div class="lesson-nav">
-<a class="btn btn-outline" href="/inference/assumptions-robustness/checking-normality-what-and-why/" hreflang="en" lang="en" dir="ltr">← Previous: Checking Normality (English)</a>
+<a class="btn btn-outline" href="/ar/inference/assumptions-robustness/checking-normality-what-and-why/">→ السابق: فحص الطبيعية</a>
 <a class="btn" href="/ar/inference/assumptions-robustness/heteroscedasticity-variance-issues/">التالي: عدم تجانس التباين ←</a>
 </div>
 </div></section>

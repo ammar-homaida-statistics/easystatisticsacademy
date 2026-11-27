@@ -27,6 +27,8 @@ window.esaNewcombeMath={wilson,compare};
 const root=document.getElementById("esa-two-proportion-ci-calculator");
 if(!root)return;
 const get=id=>root.querySelector("#esa-prop-"+id);
+const AR=root.dataset.locale==="ar";
+const T=AR?{"err": "أدخل أعداد نجاحات صحيحة وأحجام عيّنات موجبة للمجموعتين لمقارنة الفترات.", "inc": "فترة نيوكومب تتضمن الصفر؛ فهذه الفترة لا تستبعد تساوي نسبتي المجتمعين.", "exc": "فترة نيوكومب تستبعد الصفر؛ ويبقى التفسير مشروطًا بافتراضات المعاينة."}:{"err": "Enter valid integer successes and positive sample sizes for both groups to compare intervals.", "inc": "Newcombe interval includes zero; equal population proportions are not excluded by this interval.", "exc": "Newcombe interval excludes zero; interpretation still requires the sampling assumptions."};
 const inputKeys=["x1","n1","x2","n2"];
 const fields=inputKeys.map(get),level=get("level");
 function update(){
@@ -36,14 +38,14 @@ function update(){
  display.hidden=!result;
  error.hidden=!!result;
  fields.forEach(el=>el.setAttribute("aria-invalid",result?"false":"true"));
- if(!result){error.textContent="Enter valid integer successes and positive sample sizes for both groups to compare intervals.";get("compare-chart").replaceChildren();return;}
+ if(!result){error.textContent=T.err;get("compare-chart").replaceChildren();return;}
  error.textContent="";
  get("newcombe-lower").textContent=(result.newcombe[0]*100).toFixed(4);
  get("newcombe-upper").textContent=(result.newcombe[1]*100).toFixed(4);
  get("newcombe-level").textContent=String(result.level);
  get("newcombe-zero").textContent=result.newcombe[0]<=0&&result.newcombe[1]>=0?
-  "Newcombe interval includes zero; equal population proportions are not excluded by this interval.":
-  "Newcombe interval excludes zero; interpretation still requires the sampling assumptions.";
+  T.inc:
+  T.exc;
  const chart=get("compare-chart"),ns="http://www.w3.org/2000/svg";
  chart.replaceChildren();
  const pad=.015,min=Math.min(0,result.wald[0],result.newcombe[0])-pad,max=Math.max(0,result.wald[1],result.newcombe[1])+pad;

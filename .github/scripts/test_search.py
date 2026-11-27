@@ -3189,10 +3189,10 @@ class SearchTests(unittest.TestCase):
                 self.assertIsInstance(saved["ts"], (int, float))
 
     def test_restored_proportion_wald_math_and_numerical_examples(self):
-        """Inspect all 29 expressions and independently recompute both Wald CIs."""
+        """Inspect all 30 expressions and independently recompute both Wald CIs."""
         from math import sqrt
         cases = (
-            ("/inference/confidence-intervals/ci-for-proportion/", 15,
+            ("/inference/confidence-intervals/ci-for-proportion/", 16,
              (r"\hat p=\frac{x}{n}",
               r"\widehat{\operatorname{SE}}(\hat p)=\sqrt{\frac{\hat p(1-\hat p)}{n}}",
               r"\hat p\ \pm\ z_{1-\alpha/2}",

@@ -3,6 +3,8 @@
 "use strict";
 const root=document.getElementById("esa-precision-lab");if(!root)return;
 const $=id=>root.querySelector("#esa-pr-"+id),NS="http://www.w3.org/2000/svg";
+const AR=root.dataset.locale==="ar";
+const T=AR?{"title": "مقارنة عرض الفترة عند n وعند أربعة أضعاف n", "desc": "مع ثبات σ المعلوم ومستوى الثقة، يؤدي تضعيف حجم العيّنة أربع مرات إلى تنصيف عرض الفترة.", "err": "استخدم حجم عيّنة صحيحًا من 1 إلى 1,000,000,000، وσ معلومًا أكبر من 0، ومستوى ثقة 90% أو 95% أو 99%، وهامش خطأ مستهدفًا أكبر من 0. ويجب أن تكون نتيجة التخطيط عددًا صحيحًا آمنًا.", "explain": "مع ثبات مستوى الثقة وσ المعلوم، يؤدي ضرب n في أربعة إلى تنصيف عرض الفترة. ويفترض حجم العيّنة المخطط مشاهدات مستقلة وتوزيع معاينة طبيعيًا (تامًا للمشاهدات الطبيعية، أو تقريبيًا في ظل شروط مناسبة لمبرهنة النهاية المركزية).", "width": "العرض = "}:{"title": "Compare interval widths at n and four times n", "desc": "With fixed known sigma and confidence level, quadrupling sample size halves interval width.", "err": "Use an integer sample size 1–1,000,000,000; known σ>0; confidence 90%, 95%, or 99%; and target margin of error >0. Planning results must fit a safe integer.", "explain": "At fixed confidence and known σ, multiplying n by four halves the interval width. The planning n assumes independent observations and a normal sampling distribution (exact for normally distributed observations or approximate under suitable CLT conditions).", "width": "Width = "};
 const critical={90:1.6448536269514722,95:1.959963984540054,99:2.5758293035489004};
 function compute(n,sigma,confidence,target){
  if(!Number.isSafeInteger(n)||n<1||n>1e9||
@@ -35,15 +37,15 @@ function mk(tag,attrs={},label){
 function chart(o){
  const svg=$("chart"),max=475;
  const values=[o.width,o.width4],captions=["n="+o.n,"n="+(4*o.n)];
- const kids=[mk("title",{},"Compare interval widths at n and four times n"),
-   mk("desc",{},"With fixed known sigma and confidence level, quadrupling sample size halves interval width.")];
+ const kids=[mk("title",{},T.title),
+   mk("desc",{},T.desc)];
  values.forEach((v,i)=>{
   const y=38+i*82;
   kids.push(mk("text",{x:15,y:y-9,fill:"currentColor","font-size":14},captions[i]),
     mk("rect",{x:15,y,width:max*(v/values[0]),height:26,rx:4,
       fill:i===0?"#2563eb":"#0f766e"}),
     mk("text",{x:15,y:y+49,fill:"currentColor","font-size":13},
-      "Width = "+v.toFixed(6)));
+      T.width+v.toFixed(6)));
  });
  svg.replaceChildren(...kids);
  svg.setAttribute("aria-label",captions.map((x,i)=>x+": width "+values[i].toFixed(6)).join("; "));
@@ -55,7 +57,7 @@ function render(){
  const target=raw[3]===""?NaN:Number(raw[3]);
  const o=compute(n,sigma,Number(raw[2]),target);
  if(!o){$("results").hidden=true;$("error").hidden=false;
-  $("error").textContent="Use an integer sample size 1–1,000,000,000; known σ>0; confidence 90%, 95%, or 99%; and target margin of error >0. Planning results must fit a safe integer.";
+  $("error").textContent=T.err;
   return;
  }
  $("error").hidden=true;$("error").textContent="";$("results").hidden=false;
@@ -66,7 +68,7 @@ function render(){
  }
  $("needed").textContent=o.required.toLocaleString("en-US");
  $("explain").textContent=
-  "At fixed confidence and known σ, multiplying n by four halves the interval width. The planning n assumes independent observations and a normal sampling distribution (exact for normally distributed observations or approximate under suitable CLT conditions).";
+  T.explain;
  chart(o);
 }
 for(const id of ["n","sigma","level","target"]){
