@@ -1,0 +1,190 @@
+---
+layout: default
+title: "Bar Chart Order: Alphabetical, by Frequency, or Meaningful? — Code Lab, Exercise 5.3"
+description: "Beginner R and Python exercise: table() orders categories alphabetically, value_counts() by frequency; set a meaningful order (Low, Medium, High) for tables and bar charts."
+permalink: /code-lab/beginner/first-plots/bar-chart-order/
+sidebar: false
+learning_resource: true
+---
+{% include code-lab-styles.html %}
+
+<section class="hero hero-section">
+  <div class="hero-card">
+    <div class="badge-row">
+      <span class="badge">Code Lab</span>
+      <span class="badge">Beginner</span>
+      <span class="badge">Group 5 · First plots</span>
+      <span class="badge">Exercise 5.3</span>
+    </div>
+    <h1>Exercise 5.3 — Bar Chart Order: Alphabetical, by Frequency, or Meaningful?</h1>
+    <p class="lead">A bar chart of Low, Medium and High should read in that order. R puts the bars in alphabetical order, pandas in order of frequency, and neither is what a reader expects.</p>
+    <p class="muted-mini">Difficulty: <span class="clab-stars" aria-label="1 of 3">★☆☆</span> · Time: 20 min · Prerequisites: Exercise 2.1</p>
+    <ul class="clab-chips" aria-label="Languages and skills">
+      <li class="clab-chip-r">R</li>
+      <li class="clab-chip-py">Python · NumPy · pandas · matplotlib</li>
+      <li>bar charts</li>
+      <li>categorical data</li>
+      <li>factor levels</li>
+    </ul>
+    <div class="hero-actions">
+      <a class="btn btn-outline" href="/code-lab/beginner/">Beginner exercises</a>
+    </div>
+  </div>
+</section>
+
+<nav class="esa-lesson-toc" aria-label="On this page"><details><summary>On this page</summary><ol>
+  <li><a href="#goal">Goal</a></li>
+  <li><a href="#predict">Predict first</a></li>
+  <li><a href="#idea">The idea</a></li>
+  <li><a href="#task">Your task</a></li>
+  <li><a href="#hints">Hints</a></li>
+  <li><a href="#solution">Solution</a></li>
+  <li><a href="#check">Check yourself</a></li>
+  <li><a href="#why">Why it matters</a></li>
+  <li><a href="#further">Going further</a></li>
+  <li><a href="#references">References</a></li>
+</ol></details></nav>
+
+<section>
+<div class="content-narrow clab">
+{% raw %}
+
+<h2 id="goal">1 Goal</h2>
+<p>By the end of this exercise you will be able to:</p>
+<ol>
+  <li>predict the order of categories in R and pandas frequency tables;</li>
+  <li>set a meaningful order for ordinal categories;</li>
+  <li>produce the same table and bar chart in both languages.</li>
+</ol>
+
+<h2 id="predict">2 Predict first</h2>
+<div class="clab-box clab-box--predict">
+  <p class="clab-box-title">Before running anything: what does each line return?</p>
+  <div class="clab-tabs" data-label="Language">
+    <div class="clab-panel" data-lang="r" data-title="R">
+      <p class="clab-panel-label">R</p>
+<pre class="r"><code>x &lt;- c("Medium", "High", "Low", "Medium", "Medium", "Low")
+table(x)</code></pre>
+    </div>
+    <div class="clab-panel" data-lang="py" data-title="Python">
+      <p class="clab-panel-label">Python</p>
+<pre class="python"><code>import pandas as pd
+x = pd.Series(["Medium", "High", "Low", "Medium", "Medium", "Low"])
+print(x.value_counts().to_dict())</code></pre>
+    </div>
+  </div>
+  <details class="clab-answer">
+    <summary>Show the answer</summary>
+    <p><strong>R</strong> sorts the categories alphabetically:</p>
+<pre class="clab-output"><code>x
+  High    Low Medium 
+     1      2      3 </code></pre>
+    <p><strong>pandas</strong> sorts them by frequency:</p>
+<pre class="clab-output"><code>{'Medium': 3, 'Low': 2, 'High': 1}</code></pre>
+    <p><code>barplot(table(x))</code> and <code>x.value_counts().plot.bar()</code> draw the bars in these same orders.</p>
+  </details>
+</div>
+
+<h2 id="idea">3 The idea</h2>
+<p>In R, <code>table()</code> uses the levels of a factor, and a character vector is turned into a factor with <strong>alphabetical</strong> levels. pandas' <code>value_counts()</code> sorts by <strong>count</strong>, largest first. Both are reasonable defaults for nominal categories (such as cities), but for <strong>ordinal</strong> categories (Low &lt; Medium &lt; High, or Likert scales) the natural order carries meaning.</p>
+<p>Set the order once, where the data are defined: <code>factor(x, levels = c("Low", "Medium", "High"))</code> in R, and <code>pd.Categorical(x, categories=[...], ordered=True)</code> or <code>.reindex([...])</code> in pandas. Tables and plots then follow it.</p>
+
+<h2 id="task">4 Your task</h2>
+<div class="clab-box clab-box--task">
+  <p class="clab-box-title">Low, Medium, High</p>
+  <p>Produce a frequency table in the order Low, Medium, High in both languages, then draw the bar chart in that order.</p>
+  <div class="clab-tabs" data-label="Language">
+    <div class="clab-panel" data-lang="r" data-title="R">
+      <p class="clab-panel-label">R — starter code</p>
+<pre class="r"><code>x &lt;- c("Medium", "High", "Low", "Medium", "Medium", "Low")
+
+# Your code: ...</code></pre>
+    </div>
+    <div class="clab-panel" data-lang="py" data-title="Python">
+      <p class="clab-panel-label">Python — starter code</p>
+<pre class="python"><code>import pandas as pd
+x = pd.Series(["Medium", "High", "Low", "Medium", "Medium", "Low"])
+
+# Your code: ...</code></pre>
+    </div>
+  </div>
+</div>
+
+<h2 id="hints">5 Hints</h2>
+<details class="clab-hint">
+  <summary>Hint 1</summary>
+  <p>R: <code>factor()</code> has a <code>levels</code> argument; <code>table()</code> and <code>barplot()</code> follow it.</p>
+</details>
+<details class="clab-hint">
+  <summary>Hint 2</summary>
+  <p>pandas: <code>.reindex(["Low", "Medium", "High"])</code> puts the counts in a given order; a categorical with <code>ordered=True</code> keeps that order everywhere.</p>
+</details>
+
+<h2 id="solution">6 Solution</h2>
+<details class="clab-solution">
+  <summary>Show the solution</summary>
+  <div class="clab-tabs" data-label="Language">
+    <div class="clab-panel" data-lang="r" data-title="R">
+      <p class="clab-panel-label">R</p>
+<pre class="r"><code>x &lt;- c("Medium", "High", "Low", "Medium", "Medium", "Low")
+
+x_f &lt;- factor(x, levels = c("Low", "Medium", "High"))
+table(x_f)
+barplot(table(x_f))</code></pre>
+<p class="clab-output-label">Output</p>
+<pre class="clab-output"><code>x_f
+   Low Medium   High 
+     2      3      1 </code></pre>
+    </div>
+    <div class="clab-panel" data-lang="py" data-title="Python">
+      <p class="clab-panel-label">Python</p>
+<pre class="python"><code>import pandas as pd
+x = pd.Series(["Medium", "High", "Low", "Medium", "Medium", "Low"])
+
+counts = x.value_counts().reindex(["Low", "Medium", "High"])
+print(counts.to_dict())
+# counts.plot.bar()   # bars in the same order</code></pre>
+<p class="clab-output-label">Output</p>
+<pre class="clab-output"><code>{'Low': 2, 'Medium': 3, 'High': 1}</code></pre>
+    </div>
+  </div>
+  <p>If a category has no observations, <code>table()</code> on a factor still shows it with a count of 0, and <code>.reindex()</code> shows it as missing (use <code>fill_value=0</code>). Empty categories are information too.</p>
+</details>
+
+<h2 id="check">7 Check yourself</h2>
+<div class="clab-box clab-box--check">
+  <p class="clab-box-title">Your answer is correct if</p>
+  <ul>
+    <li>both tables read Low 2, Medium 3, High 1, in that order;</li>
+    <li>the bar chart shows the bars in the same order.</li>
+  </ul>
+</div>
+
+<h2 id="why">8 Why it matters</h2>
+<div class="clab-box clab-box--ai">
+  <p class="clab-box-title">Order is part of the message</p>
+  <p>Ordinal categories shown in alphabetical order (High, Low, Medium) force the reader to reorder them mentally, and trends across levels become hard to see. Frequency order can be right for nominal categories, but it should be a choice, not an accident of the software.</p>
+</div>
+
+<h2 id="further">9 Going further</h2>
+<ul>
+  <li><strong>R:</strong> with <code>ggplot2</code>, draw <code>ggplot(data.frame(x = x_f), aes(x)) + geom_bar()</code>. Does it keep the level order?</li>
+  <li><strong>Python:</strong> make <code>x</code> an ordered categorical and check that <code>x.value_counts(sort=False)</code> follows the category order.</li>
+  <li><strong>Both:</strong> add the level "Very high" with no observations, and make it appear with count 0.</li>
+</ul>
+
+<h2 id="references">10 References</h2>
+<ul>
+  <li>R documentation: <code>?factor</code> (argument <code>levels</code>) and <code>?barplot</code>.</li>
+  <li>pandas documentation. <em>Categorical data</em> (ordering and sorting). https://pandas.pydata.org/docs/user_guide/categorical.html</li>
+</ul>
+
+{% endraw %}
+  <div class="lesson-nav">
+    <a class="btn btn-outline" href="/code-lab/beginner/first-plots/boxplot-outliers/">← Exercise 5.2: Boxplot outliers</a>
+    <a class="btn" href="/code-lab/beginner/">Beginner exercises →</a>
+  </div>
+</div>
+</section>
+
+<script src="/js/code-lab.js" defer></script>
