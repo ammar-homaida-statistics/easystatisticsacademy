@@ -1,0 +1,199 @@
+---
+layout: default
+title: "Text That Should Be Numbers: Cleaning a Column Safely — Code Lab, Exercise 2.2"
+description: "Beginner R and Python exercise: one text value turns a whole numeric column into text; convert it with as.numeric() and pd.to_numeric() and count what was lost."
+permalink: /code-lab/beginner/data-types/text-to-numbers/
+sidebar: false
+learning_resource: true
+---
+{% include code-lab-styles.html %}
+
+<section class="hero hero-section">
+  <div class="hero-card">
+    <div class="badge-row">
+      <span class="badge">Code Lab</span>
+      <span class="badge">Beginner</span>
+      <span class="badge">Group 2 · Data types</span>
+      <span class="badge">Exercise 2.2</span>
+    </div>
+    <h1>Exercise 2.2 — Text That Should Be Numbers: Cleaning a Column Safely</h1>
+    <p class="lead">One entry such as "n/a" is enough to turn a whole column of numbers into text. Converting it back is easy; knowing how many values you lost is the part that matters.</p>
+    <p class="muted-mini">Difficulty: <span class="clab-stars" aria-label="1 of 3">★☆☆</span> · Time: 20 min · Prerequisites: Exercises 1.2 and 2.1</p>
+    <ul class="clab-chips" aria-label="Languages and skills">
+      <li class="clab-chip-r">R</li>
+      <li class="clab-chip-py">Python · pandas</li>
+      <li>type coercion</li>
+      <li>data cleaning</li>
+      <li>NA</li>
+    </ul>
+    <div class="hero-actions">
+      <a class="btn btn-outline" href="/code-lab/beginner/">Beginner exercises</a>
+    </div>
+  </div>
+</section>
+
+<nav class="esa-lesson-toc" aria-label="On this page"><details><summary>On this page</summary><ol>
+  <li><a href="#goal">Goal</a></li>
+  <li><a href="#predict">Predict first</a></li>
+  <li><a href="#idea">The idea</a></li>
+  <li><a href="#task">Your task</a></li>
+  <li><a href="#hints">Hints</a></li>
+  <li><a href="#solution">Solution</a></li>
+  <li><a href="#check">Check yourself</a></li>
+  <li><a href="#why">Why it matters</a></li>
+  <li><a href="#further">Going further</a></li>
+  <li><a href="#references">References</a></li>
+</ol></details></nav>
+
+<section>
+<div class="content-narrow clab">
+{% raw %}
+
+<h2 id="goal">1 Goal</h2>
+<p>By the end of this exercise you will be able to:</p>
+<ol>
+  <li>explain why one text value changes the type of a whole column;</li>
+  <li>convert a text column to numbers in R and pandas;</li>
+  <li>count and report the values that could not be converted.</li>
+</ol>
+
+<h2 id="predict">2 Predict first</h2>
+<div class="clab-box clab-box--predict">
+  <p class="clab-box-title">Before running anything: what does each line return?</p>
+  <div class="clab-tabs" data-label="Language">
+    <div class="clab-panel" data-lang="r" data-title="R">
+      <p class="clab-panel-label">R</p>
+<pre class="r"><code>x &lt;- c("12", "15", "n/a", "9", "14")
+class(x)
+mean(x)</code></pre>
+    </div>
+    <div class="clab-panel" data-lang="py" data-title="Python">
+      <p class="clab-panel-label">Python</p>
+<pre class="python"><code>import pandas as pd
+s = pd.Series(["12", "15", "n/a", "9", "14"])
+print(s.mean())</code></pre>
+    </div>
+  </div>
+  <details class="clab-answer">
+    <summary>Show the answer</summary>
+    <p><strong>R</strong> stores the column as text and refuses to average it:</p>
+<pre class="clab-output"><code>[1] "character"
+[1] NA
+Warning message:
+In mean.default(x) : argument is not numeric or logical: returning NA</code></pre>
+    <p><strong>pandas</strong> raises an error (the exact message depends on the pandas version):</p>
+<pre class="clab-output"><code>TypeError: Cannot perform reduction 'mean' with string dtype</code></pre>
+  </details>
+</div>
+
+<h2 id="idea">3 The idea</h2>
+<p>A vector in R and a column in pandas hold <em>one</em> type. When values of different types are combined, they are converted to the most general type: logical → integer → number → text. A single "n/a", "–" or "3,5" therefore turns the whole column into text.</p>
+<p>Converting back is done with <code>as.numeric()</code> in R and <code>pd.to_numeric(..., errors="coerce")</code> in pandas. Entries that are not numbers become missing values. R warns ("NAs introduced by coercion"); pandas with <code>errors="coerce"</code> does not. Either way, <strong>count</strong> the new missing values.</p>
+
+<h2 id="task">4 Your task</h2>
+<div class="clab-box clab-box--task">
+  <p class="clab-box-title">Convert and account for every value</p>
+  <p>Convert the column to numbers, then report (a) how many values could not be converted and (b) the mean of the remaining values with the number of values it uses.</p>
+  <div class="clab-tabs" data-label="Language">
+    <div class="clab-panel" data-lang="r" data-title="R">
+      <p class="clab-panel-label">R — starter code</p>
+<pre class="r"><code>x &lt;- c("12", "15", "n/a", "9", "14")
+
+# Your code: x_num &lt;- ...</code></pre>
+    </div>
+    <div class="clab-panel" data-lang="py" data-title="Python">
+      <p class="clab-panel-label">Python — starter code</p>
+<pre class="python"><code>import pandas as pd
+s = pd.Series(["12", "15", "n/a", "9", "14"])
+
+# Your code: x_num = ...</code></pre>
+    </div>
+  </div>
+</div>
+
+<h2 id="hints">5 Hints</h2>
+<details class="clab-hint">
+  <summary>Hint 1</summary>
+  <p>Compare the number of missing values <em>before</em> and <em>after</em> conversion. The difference is what the conversion created.</p>
+</details>
+<details class="clab-hint">
+  <summary>Hint 2</summary>
+  <p>pandas: without <code>errors="coerce"</code>, <code>pd.to_numeric()</code> stops at the first value it cannot read. Try both.</p>
+</details>
+
+<h2 id="solution">6 Solution</h2>
+<details class="clab-solution">
+  <summary>Show the solution</summary>
+  <div class="clab-tabs" data-label="Language">
+    <div class="clab-panel" data-lang="r" data-title="R">
+      <p class="clab-panel-label">R</p>
+<pre class="r"><code>x &lt;- c("12", "15", "n/a", "9", "14")
+
+x_num &lt;- as.numeric(x)          # warning: NAs introduced by coercion
+x_num
+sum(is.na(x_num)) - sum(is.na(x))   # (a) values lost
+mean(x_num, na.rm = TRUE)            # (b) mean
+sum(!is.na(x_num))                   #     n used</code></pre>
+<p class="clab-output-label">Output</p>
+<pre class="clab-output"><code>Warning message:
+NAs introduced by coercion 
+[1] 12 15 NA  9 14
+[1] 1
+[1] 12.5
+[1] 4</code></pre>
+    </div>
+    <div class="clab-panel" data-lang="py" data-title="Python">
+      <p class="clab-panel-label">Python</p>
+<pre class="python"><code>import pandas as pd
+s = pd.Series(["12", "15", "n/a", "9", "14"])
+
+x_num = pd.to_numeric(s, errors="coerce")
+print(x_num.tolist())
+print(x_num.isna().sum() - s.isna().sum())   # (a) values lost
+print(x_num.mean(), x_num.count())           # (b) mean and n used</code></pre>
+<p class="clab-output-label">Output</p>
+<pre class="clab-output"><code>[12.0, 15.0, nan, 9.0, 14.0]
+1
+12.5 4</code></pre>
+    </div>
+  </div>
+  <p>Better still, prevent the problem when reading the file: <code>read.csv(..., na.strings = c("", "NA", "n/a"))</code> in R or <code>pd.read_csv(..., na_values=["n/a"])</code> in pandas.</p>
+</details>
+
+<h2 id="check">7 Check yourself</h2>
+<div class="clab-box clab-box--check">
+  <p class="clab-box-title">Your answer is correct if</p>
+  <ul>
+    <li>exactly 1 value (the "n/a") could not be converted;</li>
+    <li>the mean of the remaining values is 12.5, based on 4 values.</li>
+  </ul>
+</div>
+
+<h2 id="why">8 Why it matters</h2>
+<div class="clab-box clab-box--ai">
+  <p class="clab-box-title">Silent data loss</p>
+  <p>If "3,5" (a decimal comma) appears in a column, <code>errors="coerce"</code> turns it into a missing value without a word, and the analysis continues on fewer observations. Every conversion should be followed by one line that counts what was lost, and that count belongs in your report.</p>
+</div>
+
+<h2 id="further">9 Going further</h2>
+<ul>
+  <li><strong>Both:</strong> add the value <code>"3,5"</code> to the column. How many values are lost now? Fix it by replacing the comma with a point before converting (<code>sub()</code> in R, <code>.str.replace()</code> in pandas).</li>
+  <li><strong>R:</strong> what does <code>c(1, TRUE, "a")</code> return, and why?</li>
+  <li><strong>Python:</strong> try <code>pd.to_numeric(s)</code> without <code>errors=</code>. Which is safer while you are still exploring the data?</li>
+</ul>
+
+<h2 id="references">10 References</h2>
+<ul>
+  <li>R Core Team. <em>An Introduction to R</em>, Section 3.2 (changing the mode of an object). https://cran.r-project.org/manuals.html</li>
+  <li>pandas documentation. <em>pandas.to_numeric</em>. https://pandas.pydata.org/docs/reference/api/pandas.to_numeric.html</li>
+</ul>
+
+{% endraw %}
+  <div class="lesson-nav">
+    <a class="btn btn-outline" href="/code-lab/beginner/data-types/factors-and-categories/">← Exercise 2.1: Factors and categories</a>
+    <a class="btn" href="/code-lab/beginner/data-types/logical-values/">Exercise 2.3: Logical values →</a>
+  </div>
+</div>
+</section>
+
+<script src="/js/code-lab.js" defer></script>

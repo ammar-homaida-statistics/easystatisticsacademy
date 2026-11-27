@@ -23,7 +23,7 @@ def section():
 class Showcase(unittest.TestCase):
     def test_every_link_is_a_published_page(self):
         links=re.findall(r'href="(/[^"#?]*)"',section());pages=permalinks()
-        self.assertEqual(len(links),24)  # 3 + 3 actions, 9 + 6 regression lessons + 3 Code Lab exercises
+        self.assertEqual(len(links),27)  # 3 + 3 actions, 9 + 6 regression lessons + 6 Code Lab exercises
         for url in links:
             with self.subTest(url=url):self.assertIn(url,pages)
 
@@ -44,7 +44,7 @@ class Showcase(unittest.TestCase):
         self.assertEqual(len(re.findall(r'href="/courses/regression/module-2/[a-z-]+/"><span>2\.\d+</span>',s)),lessons2.count("Available"))
         beginner=(ROOT/"code-lab/beginner/index.md").read_text(encoding="utf-8")
         available=re.findall(r'Available · (\d+) exercises',beginner)
-        self.assertEqual(sum(map(int,available)),len(re.findall(r'href="/code-lab/beginner/[a-z-]+/[a-z-]+/"><span>1\.\d</span>',s)))
+        self.assertEqual(sum(map(int,available)),len(re.findall(r'href="/code-lab/beginner/[a-z-]+/[a-z-]+/"><span>\d\.\d</span>',s)))
 
     def test_titles_follow_the_published_pages(self):
         s=section()

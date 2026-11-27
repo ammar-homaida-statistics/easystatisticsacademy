@@ -1,0 +1,199 @@
+---
+layout: default
+title: "Factors and Categories: When Numbers Are Stored as Labels — Code Lab, Exercise 2.1"
+description: "Beginner R and Python exercise: why as.numeric() on a factor returns category codes, not the original numbers, and how to convert safely in R and pandas."
+permalink: /code-lab/beginner/data-types/factors-and-categories/
+sidebar: false
+learning_resource: true
+---
+{% include code-lab-styles.html %}
+
+<section class="hero hero-section">
+  <div class="hero-card">
+    <div class="badge-row">
+      <span class="badge">Code Lab</span>
+      <span class="badge">Beginner</span>
+      <span class="badge">Group 2 · Data types</span>
+      <span class="badge">Exercise 2.1</span>
+    </div>
+    <h1>Exercise 2.1 — Factors and Categories: When Numbers Are Stored as Labels</h1>
+    <p class="lead">A column of numbers read as categories looks fine on screen. Convert it the obvious way and you get the category codes instead of the values, with no warning.</p>
+    <p class="muted-mini">Difficulty: <span class="clab-stars" aria-label="1 of 3">★☆☆</span> · Time: 20 min · Prerequisites: Group 1</p>
+    <ul class="clab-chips" aria-label="Languages and skills">
+      <li class="clab-chip-r">R</li>
+      <li class="clab-chip-py">Python · pandas</li>
+      <li>factors</li>
+      <li>categoricals</li>
+      <li>type conversion</li>
+    </ul>
+    <div class="hero-actions">
+      <a class="btn btn-outline" href="/code-lab/beginner/">Beginner exercises</a>
+    </div>
+  </div>
+</section>
+
+<nav class="esa-lesson-toc" aria-label="On this page"><details><summary>On this page</summary><ol>
+  <li><a href="#goal">Goal</a></li>
+  <li><a href="#predict">Predict first</a></li>
+  <li><a href="#idea">The idea</a></li>
+  <li><a href="#task">Your task</a></li>
+  <li><a href="#hints">Hints</a></li>
+  <li><a href="#solution">Solution</a></li>
+  <li><a href="#check">Check yourself</a></li>
+  <li><a href="#why">Why it matters</a></li>
+  <li><a href="#further">Going further</a></li>
+  <li><a href="#references">References</a></li>
+</ol></details></nav>
+
+<section>
+<div class="content-narrow clab">
+{% raw %}
+
+<h2 id="goal">1 Goal</h2>
+<p>By the end of this exercise you will be able to:</p>
+<ol>
+  <li>explain how R stores a factor and how pandas stores a categorical;</li>
+  <li>predict what converting a factor to numbers returns;</li>
+  <li>recover the original numbers safely in both languages.</li>
+</ol>
+
+<h2 id="predict">2 Predict first</h2>
+<div class="clab-box clab-box--predict">
+  <p class="clab-box-title">Before running anything: what does each line return?</p>
+  <div class="clab-tabs" data-label="Language">
+    <div class="clab-panel" data-lang="r" data-title="R">
+      <p class="clab-panel-label">R</p>
+<pre class="r"><code>f &lt;- factor(c("10", "5", "20"))
+levels(f)
+as.numeric(f)</code></pre>
+    </div>
+    <div class="clab-panel" data-lang="py" data-title="Python">
+      <p class="clab-panel-label">Python</p>
+<pre class="python"><code>import pandas as pd
+c = pd.Categorical(["10", "5", "20"])
+print(list(c.categories))
+print(c.codes)</code></pre>
+    </div>
+  </div>
+  <details class="clab-answer">
+    <summary>Show the answer</summary>
+    <p><strong>R</strong> sorts the levels as text ("10" &lt; "20" &lt; "5"), and <code>as.numeric()</code> returns each value's position among the levels:</p>
+<pre class="clab-output"><code>[1] "10" "20" "5" 
+[1] 1 3 2</code></pre>
+    <p><strong>pandas</strong> does the same, but counts from 0:</p>
+<pre class="clab-output"><code>['10', '20', '5']
+[0 2 1]</code></pre>
+    <p>Neither result is 10, 5, 20.</p>
+  </details>
+</div>
+
+<h2 id="idea">3 The idea</h2>
+<p>A <strong>factor</strong> (R) or <strong>categorical</strong> (pandas) stores two things: a list of distinct labels (the <em>levels</em> or <em>categories</em>) and, for each observation, an integer code pointing into that list. This saves memory and is right for groups such as "male/female" or "treatment A/B".</p>
+<p>The trap appears when numbers are stored as labels, for example after reading a file in which a numeric column contained a text value. Converting the factor to numbers then returns the integer codes. The labels are sorted as text, so the codes do not even follow the numeric order.</p>
+
+<h2 id="task">4 Your task</h2>
+<div class="clab-box clab-box--task">
+  <p class="clab-box-title">Recover the original doses</p>
+  <p>A dose column has been read as a factor (R) or categorical (pandas). Convert it back to the numeric doses 10, 5, 20 and compute their mean, which must be 11.6667 (35 / 3).</p>
+  <div class="clab-tabs" data-label="Language">
+    <div class="clab-panel" data-lang="r" data-title="R">
+      <p class="clab-panel-label">R — starter code</p>
+<pre class="r"><code>dose &lt;- factor(c("10", "5", "20"))
+
+# Your code: dose_num &lt;- ...
+# mean(dose_num)</code></pre>
+    </div>
+    <div class="clab-panel" data-lang="py" data-title="Python">
+      <p class="clab-panel-label">Python — starter code</p>
+<pre class="python"><code>import pandas as pd
+dose = pd.Series(["10", "5", "20"], dtype="category")
+
+# Your code: dose_num = ...
+# print(dose_num.mean())</code></pre>
+    </div>
+  </div>
+</div>
+
+<h2 id="hints">5 Hints</h2>
+<details class="clab-hint">
+  <summary>Hint 1</summary>
+  <p>Convert the labels, not the codes. In R, what does <code>as.character(dose)</code> return?</p>
+</details>
+<details class="clab-hint">
+  <summary>Hint 2</summary>
+  <p>pandas: <code>dose.astype(str)</code> gives the labels; <code>pd.to_numeric()</code> turns them into numbers.</p>
+</details>
+
+<h2 id="solution">6 Solution</h2>
+<details class="clab-solution">
+  <summary>Show the solution</summary>
+  <div class="clab-tabs" data-label="Language">
+    <div class="clab-panel" data-lang="r" data-title="R">
+      <p class="clab-panel-label">R</p>
+<pre class="r"><code>dose &lt;- factor(c("10", "5", "20"))
+
+as.numeric(dose)                    # wrong: codes
+dose_num &lt;- as.numeric(as.character(dose))
+dose_num
+mean(dose_num)</code></pre>
+<p class="clab-output-label">Output</p>
+<pre class="clab-output"><code>[1] 1 3 2
+[1] 10  5 20
+[1] 11.66667</code></pre>
+    </div>
+    <div class="clab-panel" data-lang="py" data-title="Python">
+      <p class="clab-panel-label">Python</p>
+<pre class="python"><code>import pandas as pd
+dose = pd.Series(["10", "5", "20"], dtype="category")
+
+print(dose.cat.codes.tolist())      # wrong: codes
+dose_num = pd.to_numeric(dose.astype(str))
+print(dose_num.tolist())
+print(round(dose_num.mean(), 5))</code></pre>
+<p class="clab-output-label">Output</p>
+<pre class="clab-output"><code>[0, 2, 1]
+[10, 5, 20]
+11.66667</code></pre>
+    </div>
+  </div>
+  <p>An equivalent, slightly faster R idiom is <code>as.numeric(levels(dose))[dose]</code>: convert each level once, then index by the codes.</p>
+</details>
+
+<h2 id="check">7 Check yourself</h2>
+<div class="clab-box clab-box--check">
+  <p class="clab-box-title">Your answer is correct if</p>
+  <ul>
+    <li>your numeric vector is <code>10, 5, 20</code> in the original order;</li>
+    <li>its mean is 11.6667. A mean of 2 (R codes) or 1 (pandas codes) means you converted the codes.</li>
+  </ul>
+</div>
+
+<h2 id="why">8 Why it matters</h2>
+<div class="clab-box clab-box--ai">
+  <p class="clab-box-title">A model fitted to the wrong numbers</p>
+  <p>If a numeric variable is silently a factor, <code>lm()</code> treats it as a set of groups, and a manual <code>as.numeric()</code> gives arbitrary codes. Both produce results that look reasonable and are wrong. After reading any data file, check the type of each column (<code>str(df)</code> in R, <code>df.dtypes</code> in pandas) before analysing it.</p>
+</div>
+
+<h2 id="further">9 Going further</h2>
+<ul>
+  <li><strong>R:</strong> make <code>factor(c("low", "high", "medium"))</code> and give it the natural order with the <code>levels =</code> argument. What does <code>as.numeric()</code> return now?</li>
+  <li><strong>Python:</strong> look up <code>pd.Categorical(..., ordered=True)</code> and compare two ordered categories with <code>&lt;</code>.</li>
+  <li><strong>Both:</strong> since R 4.0, <code>read.csv()</code> no longer turns text into factors by default (<code>stringsAsFactors = FALSE</code>). Find out why the default was changed.</li>
+</ul>
+
+<h2 id="references">10 References</h2>
+<ul>
+  <li>R Core Team. <em>An Introduction to R</em>, Chapter 4 (ordered and unordered factors). https://cran.r-project.org/manuals.html</li>
+  <li>R FAQ 7.10: How do I convert factors to numeric? https://cran.r-project.org/doc/FAQ/R-FAQ.html</li>
+  <li>pandas documentation. <em>Categorical data</em>. https://pandas.pydata.org/docs/user_guide/categorical.html</li>
+</ul>
+
+{% endraw %}
+  <div class="lesson-nav">
+    <a class="btn btn-outline" href="/code-lab/beginner/vectors-and-arrays/comparing-decimals/">← Exercise 1.3: Comparing decimal numbers</a>
+    <a class="btn" href="/code-lab/beginner/data-types/text-to-numbers/">Exercise 2.2: Text that should be numbers →</a>
+  </div>
+</div>
+</section>
+
+<script src="/js/code-lab.js" defer></script>
